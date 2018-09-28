@@ -3,19 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-framework</artifactId>
+        <artifactId>final-context</artifactId>
         <groupId>cn.com.likly.finalframework</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-context</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>final-context-exception</module>
-        <module>final-context-entity</module>
-        <module>final-context-result</module>
-    </modules>
+    <artifactId>final-context-entity</artifactId>
 
 
 </project>

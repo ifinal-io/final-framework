@@ -5,9 +5,13 @@
 
     <groupId>cn.com.likly.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${final.version}</version>
     <modules>
         <module>final-context</module>
+        <module>final-json</module>
+        <module>final-mybatis</module>
+        <module>final-test</module>
+        <module>final-spring</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -22,6 +26,7 @@
     </parent>
 
     <properties>
+        <final.version>0.0.1-SNAPSHOT</final.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -63,6 +68,21 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.com.likly.finalframework</groupId>
+                <artifactId>final-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.likly.finalframework</groupId>
+                <artifactId>final-context-exception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
