@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2018-09-27 22:13
  * @since 1.0
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "cn.com.likly")
 public class FinalTestApplication {
     public static void main(String[] args) {
         SpringApplication.run(FinalTestApplication.class, args);

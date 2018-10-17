@@ -1,0 +1,35 @@
+package cn.com.likly.finalframework.data.annotation.enums;
+
+/**
+ * @author likly
+ * @version 1.0
+ * @date 2018-09-27 18:07
+ * @since 1.0
+ */
+public enum CommandType {
+    INSERT_ARRAY,
+    INSERT_COLLECTION,
+
+    UPDATE_ENTITIES_ARRAY,
+    UPDATE_ENTITIES_COLLECTION,
+    UPDATE_ID_ARRAY,
+    UPDATE_ID_COLLECTION,
+    UPDATE_QUERY,
+
+    DELETE_ID_ARRAY,
+    DELETE_ID_COLLECTION,
+    DELETE_ENTITIES_ARRAY,
+    DELETE_ENTITIES_COLLECTION,
+    DELETE_QUERY,
+
+    SELECT_ID_ARRAY,
+    SELECT_ID_COLLECTION,
+    SELECT_QUERY,
+    SELECT_ONE_ID,
+    SELECT_ONE_QUERY,
+    SELECT_COUNT,
+    SELECT_COUNT_QUERY,
+    SELECT_IS_EXISTS_ID,
+    SELECT_IS_EXISTS_QUERY,
+
+}

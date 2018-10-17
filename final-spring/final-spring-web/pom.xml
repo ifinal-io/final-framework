@@ -11,5 +11,20 @@
 
     <artifactId>final-spring-web</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-spring-aop</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-data</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

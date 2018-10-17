@@ -15,6 +15,7 @@
         <module>final-spring-aop</module>
         <module>final-spring-web</module>
         <module>final-spring-expression</module>
+        <module>final-spring-web-api</module>
     </modules>
 
 

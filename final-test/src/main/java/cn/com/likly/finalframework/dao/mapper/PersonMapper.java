@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.dao.mapper;
 
-import cn.com.likly.finalframework.entity.Person;
+import cn.com.likly.finalframework.data.entity.Person;
 import cn.com.likly.finalframework.mybatis.mapper.AbsMapper;
 import org.apache.ibatis.annotations.Mapper;
 

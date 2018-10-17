@@ -1,8 +1,9 @@
 package cn.com.likly.finalframework.api.controller;
 
 import cn.com.likly.finalframework.dao.mapper.PersonMapper;
-import cn.com.likly.finalframework.entity.Person;
-import cn.com.likly.finalframework.mybatis.criteria.Criteria;
+import cn.com.likly.finalframework.data.domain.Criteria;
+import cn.com.likly.finalframework.data.domain.Query;
+import cn.com.likly.finalframework.data.entity.Person;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,9 +28,12 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public Object get(@PathVariable Long id) {
-        return personMapper.select(Criteria.builder()
-                .and("id").in(id)
-                .build()
+        final Query query = new Query();
+        query.where(
+                Criteria.where("id").is(1)
+        );
+        return personMapper.select(
+                query
         );
     }
 
