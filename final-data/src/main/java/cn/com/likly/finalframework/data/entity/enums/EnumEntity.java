@@ -1,5 +1,7 @@
 package cn.com.likly.finalframework.data.entity.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * @author likly
  * @version 1.0
@@ -7,5 +9,6 @@ package cn.com.likly.finalframework.data.entity.enums;
  * @since 1.0
  */
 public interface EnumEntity<T> {
+    @JsonValue
     T getCode();
 }
