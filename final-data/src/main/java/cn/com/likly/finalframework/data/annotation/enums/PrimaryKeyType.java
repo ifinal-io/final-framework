@@ -9,6 +9,6 @@ package cn.com.likly.finalframework.data.annotation.enums;
 public enum PrimaryKeyType {
     AUTO_INC,
     UUID,
-    UUIDMD5,
+    UUID_MD5,
     OTHER
 }

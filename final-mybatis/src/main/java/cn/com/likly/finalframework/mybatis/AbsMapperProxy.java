@@ -54,7 +54,7 @@ public class AbsMapperProxy<ID extends Serializable, T extends Entity<ID>, MAPPE
                         return defaultMapper.insert(command.value(), holder, (T[]) args[0]);
                     case UUID:
                         return defaultMapper.insertUuid(command.value(), holder, (T[]) args[0]);
-                    case UUIDMD5:
+                    case UUID_MD5:
                         return defaultMapper.insertMd5(command.value(), holder, (T[]) args[0]);
                     case OTHER:
                         return defaultMapper.insertOther(command.value(), holder, (T[]) args[0]);
@@ -66,7 +66,7 @@ public class AbsMapperProxy<ID extends Serializable, T extends Entity<ID>, MAPPE
                         return defaultMapper.insert(command.value(), holder, (List<T>) args[0]);
                     case UUID:
                         return defaultMapper.insertUuid(command.value(), holder, (List<T>) args[0]);
-                    case UUIDMD5:
+                    case UUID_MD5:
                         return defaultMapper.insertMd5(command.value(), holder, (List<T>) args[0]);
                     case OTHER:
                         return defaultMapper.insertOther(command.value(), holder, (List<T>) args[0]);

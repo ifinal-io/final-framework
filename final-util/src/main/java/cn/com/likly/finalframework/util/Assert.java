@@ -38,6 +38,10 @@ public interface Assert {
         return bool != null && !bool;
     }
 
+    static void isFalse(Boolean bool, String message, Object... args) {
+        if (isFalse(bool)) throw new IllegalArgumentException(String.format(message, args));
+    }
+
     /**
      * Check whether the given {@code obj} is null.
      * @param obj the candidate Object.
@@ -58,6 +62,10 @@ public interface Assert {
         return obj != null;
     }
 
+    static void nonNull(Object obj, String message, Object... args) {
+        if (nonNull(obj)) throw new NullPointerException(String.format(message, args));
+    }
+
     /**
      * Check whether the given {@code obj} is empty.
      * If the given {@code obj} instanceof {@link String}, checked by {@link String#isEmpty()}.
@@ -76,7 +84,7 @@ public interface Assert {
 
     static void isEmpty(Object obj, String message, Object... args) {
         if (isEmpty(obj)) {
-            throw new NullPointerException(String.format(message, args));
+            throw new IllegalArgumentException(String.format(message, args));
         }
     }
 
@@ -96,6 +104,10 @@ public interface Assert {
         return true;
     }
 
+    static void nonEmpty(Object obj, String message, Object... args) {
+        if (nonEmpty(obj)) throw new IllegalArgumentException(String.format(message, args));
+    }
+
     /**
      * Check whether the given {@code text} is blank.
      * @param text the candidate String.
@@ -103,6 +115,7 @@ public interface Assert {
     static boolean isBlank(String text) {
         return text == null || text.trim().isEmpty();
     }
+
 
     /**
      * Check whether the given {@code text} is not blank.

@@ -114,11 +114,6 @@ public class BaseEntityHolder<T, P extends PropertyHolder<P>> extends BasicPersi
 
 
     @Override
-    public String getTable() {
-        return table;
-    }
-
-    @Override
     public Stream<P> stream() {
         return properties.stream();
     }
