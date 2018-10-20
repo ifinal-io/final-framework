@@ -5,7 +5,7 @@
 
     <groupId>cn.com.likly.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>${final.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>final-data</module>
         <module>final-mybatis</module>
@@ -13,6 +13,7 @@
         <module>final-spring</module>
         <module>final-validation</module>
         <module>final-util</module>
+        <module>final-processor</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -59,9 +60,7 @@
                 <artifactId>final-validation</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
         </dependencies>
-
     </dependencyManagement>
 
     <build>

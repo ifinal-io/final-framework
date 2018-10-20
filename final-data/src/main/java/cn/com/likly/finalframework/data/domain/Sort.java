@@ -16,40 +16,40 @@ import java.util.stream.Collectors;
  * @date 2018-10-15 22:06
  * @since 1.0
  */
-public class Sort implements Iterable<Order>, Serializable {
-    private List<Order> orders;
+public class Sort<T> implements Iterable<Order<T>>, Serializable {
+    private List<Order<T>> orders;
 
-    private Sort(List<Order> orders) {
+    private Sort(List<Order<T>> orders) {
         this.orders = orders;
     }
 
-    public static Sort by(Order... orders) {
+    public static <T> Sort<T> by(Order<T>... orders) {
         return by(Arrays.asList(orders));
     }
 
-    public static Sort by(List<Order> orders) {
+    public static <T> Sort<T> by(List<Order<T>> orders) {
         Assert.isEmpty(orders, "orders is null or empty");
-        return new Sort(orders);
+        return new Sort<T>(orders);
     }
 
-    public static Sort asc(String... property) {
+    public static <T> Sort<T> asc(T... property) {
         return of(Direction.ASC, property);
     }
 
-    public static Sort desc(String... property) {
+    public static <T> Sort<T> desc(T... property) {
         return of(Direction.DESC, property);
     }
 
-    private static Sort of(Direction direction, String... properties) {
+    private static <T> Sort<T> of(Direction direction, T... properties) {
         Assert.isEmpty(properties, "properties must be not empty!");
-        return new Sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
+        return new Sort<T>(Arrays.stream(properties).map(it -> new Order<>(it, direction)).collect(Collectors.toList()));
     }
 
-    public Sort and(Sort sort) {
-        Assert.isNull(sort, "Sort must not be null!");
-        ArrayList<Order> these = new ArrayList<>(this.orders);
+    public Sort<T> and(Sort<T> sort) {
+        Assert.isNull(sort, "Sort<T> must not be null!");
+        ArrayList<Order<T>> these = new ArrayList<>(this.orders);
 
-        for (Order order : sort) {
+        for (Order<T> order : sort) {
             these.add(order);
         }
 
@@ -57,7 +57,7 @@ public class Sort implements Iterable<Order>, Serializable {
     }
 
     @Override
-    public Iterator<Order> iterator() {
+    public Iterator<Order<T>> iterator() {
         return orders.iterator();
     }
 }

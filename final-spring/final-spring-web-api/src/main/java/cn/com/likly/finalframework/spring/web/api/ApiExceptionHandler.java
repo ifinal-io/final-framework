@@ -3,6 +3,7 @@ package cn.com.likly.finalframework.spring.web.api;
 import cn.com.likly.finalframework.data.exception.IException;
 import cn.com.likly.finalframework.data.result.R;
 import cn.com.likly.finalframework.data.result.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import javax.validation.ConstraintViolationException;
  * @date 2018-09-29 15:49
  * @since 1.0
  */
+@Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
@@ -33,6 +35,7 @@ public class ApiExceptionHandler {
             return R.failure(HttpStatus.BAD_REQUEST.value(), message.substring(message.indexOf(":") + 1).trim());
         }
 
+        logger.error("UnCatchException", e);
         return R.failure(-1, "UnCatchException:" + e.getMessage());
     }
 }

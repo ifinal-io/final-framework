@@ -4,13 +4,14 @@ import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.lang.NonNull;
 
+
 /**
  * @author likly
  * @version 1.0
  * @date 2018-10-17 10:52
  * @since 1.0
  */
-public interface PropertyHolder<P extends PersistentProperty<P>> extends PersistentProperty<P> {
+public interface PropertyHolder extends PersistentProperty<PropertyHolder> {
 
     @NonNull
     String getTable();
@@ -27,5 +28,9 @@ public interface PropertyHolder<P extends PersistentProperty<P>> extends Persist
     boolean insertable();
 
     boolean updatable();
+
+    Object get(Object target);
+
+    void set(Object target, Object value);
 
 }

@@ -26,7 +26,7 @@ public interface Repository<ID extends Serializable, T extends Entity<ID>> {
     @Command(CommandType.INSERT_COLLECTION)
     int insert(Collection<T> entities);
 
-    /*=========================================== UPDATE ===========================================*/
+    /*=========================================== SET ===========================================*/
 
     @Command(CommandType.UPDATE_ENTITIES_ARRAY)
     int update(T... entities);

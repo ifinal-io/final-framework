@@ -1,7 +1,6 @@
 package cn.com.likly.finalframework.mybatis.factory;
 
 import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.ResultMap;
@@ -26,22 +25,22 @@ public class DefaultResultMapFactory implements ResultMapFactory {
     private TypeHandlerRegistry typeHandlerRegistry;
 
     @Override
-    public ResultMap create(EntityHolder<?, ? extends PropertyHolder> holder, Configuration configuration) {
+    public ResultMap create(EntityHolder<?> holder, Configuration configuration) {
 
         return new ResultMap.Builder(
                 configuration,
                 holder.getIdProperty().getColumn(),
                 holder.getType(),
                 holder.stream()
-                        .filter(PropertyHolder::isTransient)
+                        .filter(it -> !it.isTransient())
                         .map(
                                 propertyHolder -> new ResultMapping.Builder(
                                         configuration,
                                         propertyHolder.getName(),
                                         propertyHolder.getColumn(),
-                                        ((PropertyHolder) propertyHolder).isCollectionLike() ?
+                                        (propertyHolder).isCollectionLike() ?
                                                 typeHandlerRegistry.getTypeHandler(propertyHolder.getComponentType(), propertyHolder.getType(), propertyHolder.getPersistentType())
-                                                : typeHandlerRegistry.getTypeHandler(((PropertyHolder) propertyHolder).getType(), null, ((PropertyHolder) propertyHolder).getPersistentType())
+                                                : typeHandlerRegistry.getTypeHandler(propertyHolder.getType(), null, propertyHolder.getPersistentType())
                                 ).build()
                         ).collect(Collectors.toList())
         ).build();

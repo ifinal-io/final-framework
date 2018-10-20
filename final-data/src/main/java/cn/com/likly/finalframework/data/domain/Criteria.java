@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -17,27 +18,24 @@ import java.util.*;
  * @since 1.0
  */
 @Getter
-public class Criteria implements CriteriaFunction<Criteria>, Iterable<Criteria>, Serializable {
+@SuppressWarnings("unused")
+public class Criteria<T> implements CriteriaFunction<Criteria<T>>, Iterable<Criteria<T>>, Serializable {
     private static final long serialVersionUID = -7000622805428762640L;
 
-    private String property;
+    private T property;
     private AndOr andOr = AndOr.AND;
     private CriteriaOperation operation;
     private Object value;
     private Object min;
     private Object max;
-    private List<Criteria> criteriaChain;
+    private List<Criteria<T>> criteriaChain;
 
-    public Criteria() {
-        this.criteriaChain = new LinkedList<>();
-    }
-
-    public Criteria(String property) {
+    private Criteria(T property) {
         this.property = property;
         criteriaChain = new LinkedList<>();
     }
 
-    private Criteria(String property, AndOr andOr, CriteriaOperation operation, Object value, Object min, Object max) {
+    private Criteria(T property, AndOr andOr, CriteriaOperation operation, Object value, Object min, Object max) {
         this.property = property;
         this.andOr = andOr;
         this.operation = operation;
@@ -46,242 +44,157 @@ public class Criteria implements CriteriaFunction<Criteria>, Iterable<Criteria>,
         this.max = max;
     }
 
-    private Criteria(AndOr andOr, Criteria... criteria) {
+    @SafeVarargs
+    private Criteria(AndOr andOr, Criteria<T>... criteria) {
         this.andOr = andOr;
         this.criteriaChain = Arrays.asList(criteria);
     }
 
-    private Criteria(AndOr andOr, List<Criteria> criteriaChain) {
+    private Criteria(AndOr andOr, List<Criteria<T>> criteriaChain) {
         this.andOr = andOr;
         this.criteriaChain = criteriaChain;
     }
 
 
-    public static Criteria where(String key) {
-        return new Criteria(key);
+    public static <T> Criteria<T> where(T key) {
+        return new Criteria<>(key);
     }
 
-    public static Criteria of(AndOr andOr, Criteria... criteria) {
+    public static <T> Criteria<T> of(Criteria<T>... criteria) {
+        return of(Arrays.asList(criteria));
+    }
+
+    public static <T> Criteria<T> of(Collection<Criteria<T>> criteria) {
+        return of(AndOr.AND, new ArrayList<>(criteria));
+    }
+
+    public static <T> Criteria<T> of(AndOr andOr, Criteria<T>... criteria) {
         return of(andOr, Arrays.asList(criteria));
     }
 
-    public static Criteria of(AndOr andOr, Collection<Criteria> criteria) {
+    public static <T> Criteria<T> of(AndOr andOr, Collection<Criteria<T>> criteria) {
         criteria.forEach(it -> it.andOr = andOr);
-        return new Criteria(andOr, new ArrayList<>(criteria));
+        return new Criteria<>(andOr, new ArrayList<>(criteria));
     }
 
-    public static void main(String[] args) {
-        Criteria criteria = Criteria.where("id").is(1)
-                .and(Criteria.of(AndOr.OR, Criteria.where("age").is(13), Criteria.where("sex").is(1)));
-        System.out.println(criteria);
-    }
-
-    public Criteria and(String key) {
+    public Criteria<T> and(T key) {
         this.property = key;
         return this;
     }
 
-    public Criteria and(Criteria... criteria) {
+    public Criteria<T> and(Criteria<T>... criteria) {
         return and(Arrays.asList(criteria));
     }
 
-    public Criteria and(Collection<Criteria> criteria) {
+    public Criteria<T> and(Collection<Criteria<T>> criteria) {
         criteria.forEach(it -> it.andOr = AndOr.AND);
-        criteriaChain.add(new Criteria(AndOr.AND, new ArrayList<>(criteria)));
+        criteriaChain.add(new Criteria<>(AndOr.AND, new ArrayList<>(criteria)));
         return this;
     }
 
-    public Criteria or(Criteria... criteria) {
+    public Criteria<T> or(Criteria<T>... criteria) {
         return or(Arrays.asList(criteria));
     }
 
-    public Criteria or(Collection<Criteria> criteria) {
+    public Criteria<T> or(Collection<Criteria<T>> criteria) {
         criteria.forEach(it -> it.andOr = AndOr.OR);
-        criteriaChain.add(new Criteria(AndOr.OR, new ArrayList<>(criteria)));
+        criteriaChain.add(new Criteria<>(AndOr.OR, new ArrayList<>(criteria)));
         return this;
     }
 
     @Override
-    public Criteria is(Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.EQUAL, value, null, null));
+    public Criteria<T> is(Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.EQUAL, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria ne(Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.NOT_EQUAL, value, null, null));
+    public Criteria<T> ne(Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.NOT_EQUAL, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria gt(@NotNull Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.GREATER_THAN, value, null, null));
+    public Criteria<T> gt(@NotNull Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.GREATER_THAN, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria gte(@NotNull Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.GREATER_EQUAL_THAN, value, null, null));
+    public Criteria<T> gte(@NotNull Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.GREATER_EQUAL_THAN, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria lt(@NotNull Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.LESS_THAN, value, null, null));
+    public Criteria<T> lt(@NotNull Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.LESS_THAN, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria lte(@NotNull Object value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.LESS_EQUAL_THAN, value, null, null));
+    public Criteria<T> lte(@NotNull Object value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.LESS_EQUAL_THAN, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria in(@NotEmpty Object... values) {
+    public Criteria<T> in(@NotEmpty Object... values) {
         return in(Arrays.asList(values));
     }
 
     @Override
-    public Criteria in(@NotEmpty Collection<?> values) {
+    public Criteria<T> in(@NotEmpty Collection<?> values) {
         Set<?> set = new HashSet<>(values);
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.IN, set, null, null));
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.IN, set, null, null));
         return this;
     }
 
     @Override
-    public Criteria nin(@NotEmpty Object... values) {
+    public Criteria<T> nin(@NotEmpty Object... values) {
         return nin(Arrays.asList(values));
     }
 
     @Override
-    public Criteria nin(@NotEmpty Collection<?> values) {
+    public Criteria<T> nin(@NotEmpty Collection<?> values) {
         Set<?> set = new HashSet<>(values);
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.NOT_IN, set, null, null));
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.NOT_IN, set, null, null));
         return this;
     }
 
     @Override
-    public Criteria like(@NotBlank String value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.LIKE, value, null, null));
+    public Criteria<T> like(@NotBlank String value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.LIKE, value, null, null));
         return this;
     }
 
     @Override
-    public Criteria nlike(@NotBlank String value) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.NOT_LIKE, value, null, null));
+    public Criteria<T> nlike(@NotBlank String value) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.NOT_LIKE, value, null, null));
         return this;
     }
 
     @Override
-    public <E extends Comparable> Criteria between(@NotNull E min, @NotNull E max) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.BETWEEN, null, min, max));
+    public <E extends Comparable> Criteria<T> between(@NotNull E min, @NotNull E max) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.BETWEEN, null, min, max));
         return this;
     }
 
     @Override
-    public <E extends Comparable> Criteria notBetween(@NotNull E min, @NotNull E max) {
-        this.criteriaChain.add(new Criteria(property, andOr, CriteriaOperation.NOT_BETWEEN, null, min, max));
+    public <E extends Comparable> Criteria<T> notBetween(@NotNull E min, @NotNull E max) {
+        this.criteriaChain.add(new Criteria<>(property, andOr, CriteriaOperation.NOT_BETWEEN, null, min, max));
         return this;
     }
 
     @Override
-    public String toString() {
-
-        if (isLeaf()) {
-            switch (operation) {
-                case EQUAL:
-                    return value instanceof String ? String.format("%s == '%s'", property, value) : String.format("%s == %s", property, value.toString());
-                case NOT_EQUAL:
-                    return value instanceof String ? String.format("%s != '%s'", property, value) : String.format("%s != %s", property, value.toString());
-                case GREATER_THAN:
-                    return value instanceof String ? String.format("%s > '%s'", property, value) : String.format("%s > %s", property, value.toString());
-                case GREATER_EQUAL_THAN:
-                    return value instanceof String ? String.format("%s >= '%s'", property, value) : String.format("%s >= %s", property, value.toString());
-                case LESS_THAN:
-                    return value instanceof String ? String.format("%s < '%s'", property, value) : String.format("%s < %s", property, value.toString());
-                case LESS_EQUAL_THAN:
-                    return value instanceof String ? String.format("%s <= '%s'", property, value) : String.format("%s <= %s", property, value.toString());
-                case IN:
-                    return String.format("%s IN %s", property, buildInString((Collection<?>) value));
-                case NOT_IN:
-                    return String.format("%s NOT IN %s", property, buildInString((Collection<?>) value));
-                case LIKE:
-                    return String.format("%s LIKE '%%%s%%'", property, value.toString());
-                case NOT_LIKE:
-                    return String.format("%s NOT LIKE '%%%s%%'", property, value.toString());
-                case NULL:
-                    return String.format("%s IS NULL", property);
-                case NOT_NULL:
-                    return String.format("%s IS NOT NULL", property);
-                case BETWEEN:
-                    return value instanceof String ? String.format("%s BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
-                case NOT_BETWEEN:
-                    return value instanceof String ? String.format("%s NOT BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
-                default:
-                    return "";
-            }
-        } else {
-            return join();
-        }
-
-    }
-
-    private String buildInString(Collection<?> collection) {
-        final StringBuilder sb = new StringBuilder();
-
-        sb.append("(");
-        int i = 0;
-        for (Object item : collection) {
-            if (i++ != 0) {
-                sb.append(",");
-            }
-
-            sb.append(item instanceof String ? String.format("'%s'", item) : item);
-        }
-        sb.append(")");
-
-
-        return sb.toString();
-    }
-
-    private String join() {
-
-        final StringBuilder sb = new StringBuilder();
-
-
-        for (int i = 0; i < criteriaChain.size(); i++) {
-            Criteria criteria = criteriaChain.get(i);
-
-            if (i != 0) {
-                sb.append(" ").append(criteria.andOr.name()).append(" ");
-            }
-
-            if (criteria.getCount() > 1) {
-                sb.append("(");
-            }
-
-            sb.append(criteriaChain.get(i).toString());
-
-            if (criteria.getCount() > 1) {
-                sb.append(")");
-            }
-        }
-
-
-        return sb.toString();
-    }
-
-    private boolean isLeaf() {
-        return criteriaChain == null || criteriaChain.isEmpty();
-    }
-
-    private int getCount() {
-        return criteriaChain == null ? 0 : criteriaChain.size();
-    }
-
-    @Override
-    public Iterator<Criteria> iterator() {
+    public Iterator<Criteria<T>> iterator() {
         return criteriaChain.iterator();
+    }
+
+    public Stream<Criteria<T>> stream() {
+
+        if (criteriaChain.isEmpty()) return Stream.of(this);
+
+        return criteriaChain.stream();
     }
 }

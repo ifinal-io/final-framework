@@ -16,9 +16,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -28,8 +26,9 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @Slf4j
-public class BaseEntityHolder<T, P extends PropertyHolder<P>> extends BasicPersistentEntity<T, P> implements EntityHolder<T, P> {
-    private final List<P> properties = new ArrayList<>();
+public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder> implements EntityHolder<T> {
+    private final List<PropertyHolder> properties = new ArrayList<>();
+    private final Map<String, PropertyHolder> propertyCache = new HashMap<>();
     @Getter
     private String table;
     @Getter
@@ -76,7 +75,7 @@ public class BaseEntityHolder<T, P extends PropertyHolder<P>> extends BasicPersi
 
             Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(it -> !it.getName().equals("class"))
-                    .map(it -> (P) new BasePropertyHolder<>(
+                    .map(it -> new BasePropertyHolder<>(
                                     Property.of(getTypeInformation(), getField(it.getName(), entityClass), it),
                                     this,
                                     SimpleTypeHolder.DEFAULT
@@ -85,6 +84,7 @@ public class BaseEntityHolder<T, P extends PropertyHolder<P>> extends BasicPersi
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);
+                        propertyCache.put(it.getColumn(), it);
 
                         if (it.isIdProperty()) {
                             if (it.isAnnotationPresent(PrimaryKey.class)) {
@@ -114,7 +114,13 @@ public class BaseEntityHolder<T, P extends PropertyHolder<P>> extends BasicPersi
 
 
     @Override
-    public Stream<P> stream() {
+    public PropertyHolder getPropertyByColumn(String column) {
+        Assert.isNull(column, "column must not be null!");
+        return propertyCache.get(column);
+    }
+
+    @Override
+    public Stream<PropertyHolder> stream() {
         return properties.stream();
     }
 }

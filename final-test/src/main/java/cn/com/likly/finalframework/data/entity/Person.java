@@ -1,8 +1,9 @@
 package cn.com.likly.finalframework.data.entity;
 
-import cn.com.likly.finalframework.data.annotation.PrimaryKey;
+import cn.com.likly.finalframework.data.annotation.Entity;
 import cn.com.likly.finalframework.data.entity.enums.YN;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Person implements Entity<Long> {
-    @PrimaryKey
-    private Long id;
+@Entity
+@EqualsAndHashCode(callSuper = true)
+public class Person extends Domain {
     private List<String> stringList;
     private List<Integer> intList;
     private YN yn = YN.YES;

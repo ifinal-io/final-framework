@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -18,28 +19,28 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Getter
-public class Query implements Serializable {
+public class Query<T> implements Serializable {
     private Integer page;
     private Integer size;
-    private List<Criteria> criteria;
+    private List<Criteria<T>> criteria;
     private Sort sort;
     private Integer limit;
 
-    public Query page(int page) {
+    public Query<T> page(int page) {
         this.page = page;
         return this;
     }
 
-    public Query size(int size) {
+    public Query<T> size(int size) {
         this.size = size;
         return this;
     }
 
-    public Query where(@NonNull Criteria... criteria) {
+    public Query<T> where(@NonNull Criteria<T>... criteria) {
         return where(Arrays.asList(criteria));
     }
 
-    public Query where(@NonNull Collection<Criteria> criteria) {
+    public Query<T> where(@NonNull Collection<Criteria<T>> criteria) {
         if (this.criteria == null) {
             this.criteria = new ArrayList<>();
         }
@@ -47,30 +48,34 @@ public class Query implements Serializable {
         return this;
     }
 
-    public Query sort(@NonNull Order... orders) {
+    public Query<T> sort(@NonNull Order<T>... orders) {
         return sort(Arrays.asList(orders));
     }
 
-    public Query sort(@NonNull Collection<Order> orders) {
+    public Query<T> sort(@NonNull Collection<Order<T>> orders) {
         sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
         return this;
     }
 
-    public Query sort(@NonNull Direction direction, @NonNull String... properties) {
-        return sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
+    public Query<T> sort(@NonNull Direction direction, @NonNull T... properties) {
+        return sort(Arrays.stream(properties).map(it -> new Order<>(it, direction)).collect(Collectors.toList()));
     }
 
-    public Query asc(@NonNull String... properties) {
+    public Query<T> asc(@NonNull T... properties) {
         return sort(Direction.ASC, properties);
     }
 
-    public Query desc(@NonNull String... properties) {
+    public Query<T> desc(@NonNull T... properties) {
         return sort(Direction.DESC, properties);
     }
 
-    public Query limit(int limit) {
+    public Query<T> limit(int limit) {
         this.limit = limit;
         return this;
+    }
+
+    public Stream<Criteria<T>> stream() {
+        return criteria.stream();
     }
 
 }

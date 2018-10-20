@@ -1,5 +1,7 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
+import cn.com.likly.finalframework.data.domain.Query;
+import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.entity.Entity;
 import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
 import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
@@ -13,8 +15,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author likly
@@ -24,32 +24,64 @@ import java.util.stream.IntStream;
  */
 
 @Component
+@SuppressWarnings({"unchecked", "unused"})
 public class MapperProvider<ID extends Serializable, T extends Entity<ID>> implements ApplicationContextAware {
 
     private static TypeHandlerRegistry typeHandlerRegistry;
 
 
     public String insert(Map<String, Object> args) {
-        EntityHolder<T, ? extends PropertyHolder> holder = (EntityHolder<T, ? extends PropertyHolder>) args.get("holder");
+        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
         Collection<T> list = args.containsKey("array") ? Arrays.asList((T[]) args.get("array"))
                 : (Collection<T>) args.get("list");
 
-        final StringBuilder sb = new StringBuilder();
+        return new DefaultInsertProvider<T>(typeHandlerRegistry)
+                .INSERT_INTO(holder)
+                .INSERT_VALUES(list)
+                .provide();
+    }
 
-        sb.append("INSERT INTO ")
-                .append(getTable(holder))
-                .append(getInsertColumns(holder))
-                .append(" VALUES")
-                .append(getInsertValues(holder, list, args.containsKey("array") ? "array" : "list"));
+    public String update(Map<String, Object> args) {
+        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        T entity = args.containsKey("entity") ? (T) args.get("entity") : holder.getInstance();
+        Update<PropertyHolder> update = (Update<PropertyHolder>) args.get("update");
+        Query<PropertyHolder> query = (Query<PropertyHolder>) args.get("query");
 
-
-        return sb.toString();
+        return new DefaultUpdateProvider<T>(typeHandlerRegistry)
+                .UPDATE(holder)
+                .ENTITY(entity)
+                .SET(update)
+                .QUERY(query)
+                .provide();
 
 
     }
 
-    protected String getTable(EntityHolder<T, ? extends PropertyHolder> holder) {
-        return holder.getTable();
+    public String delete(Map<String, Object> args) {
+        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Query<PropertyHolder> query = (Query<PropertyHolder>) args.get("query");
+        return new DefaultDeleteProvider<T>(typeHandlerRegistry)
+                .DELETE(holder)
+                .QUERY(query)
+                .provide();
+    }
+
+    public String select(Map<String, Object> args) {
+        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Query<PropertyHolder> query = (Query<PropertyHolder>) args.get("query");
+        return new DefaultSelectProvider<T>(typeHandlerRegistry)
+                .SELECT(holder)
+                .QUERY(query)
+                .provide();
+    }
+
+    public String selectCount(Map<String, Object> args) {
+        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Query<PropertyHolder> query = (Query<PropertyHolder>) args.get("query");
+        return new DefaultSelectProvider<T>(typeHandlerRegistry)
+                .SELECT_COUNT(holder)
+                .QUERY(query)
+                .provide();
     }
 
     @Override
@@ -57,29 +89,5 @@ public class MapperProvider<ID extends Serializable, T extends Entity<ID>> imple
         typeHandlerRegistry = applicationContext.getBean(TypeHandlerRegistry.class);
     }
 
-    protected String getInsertColumns(EntityHolder<T, ? extends PropertyHolder> holder) {
-        return holder.stream().filter(it -> !it.isTransient())
-                .filter(PropertyHolder::insertable)
-                .map(PropertyHolder::getColumn)
-                .collect(Collectors.joining(",", "(", ")"));
-    }
-
-    protected String getInsertValues(EntityHolder<T, ? extends PropertyHolder> holder, Collection<T> entities, String prefix) {
-        return IntStream.range(0, entities.size())
-                .mapToObj(index -> holder.stream().filter(it -> !it.isTransient())
-                        .filter(PropertyHolder::insertable)
-                        .map(it -> String.format("#{%s[%d].%s,typeHandler=%s}",
-                                prefix,
-                                index,
-                                it.getColumn(),
-                                (it.isCollectionLike() ?
-                                        typeHandlerRegistry.getTypeHandler(it.getComponentType(), it.getType(), it.getPersistentType())
-                                        : typeHandlerRegistry.getTypeHandler(it.getType(), null, it.getPersistentType())
-                                ).getClass().getName())
-                        ).collect(Collectors.joining(",", "(", ")")))
-                .collect(Collectors.joining(","));
-
-
-    }
 
 }

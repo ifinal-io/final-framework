@@ -7,7 +7,6 @@ import cn.com.likly.finalframework.util.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
-import org.springframework.data.mapping.PersistentEntity;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
@@ -21,7 +20,7 @@ import org.springframework.data.mapping.model.SimpleTypeHolder;
  */
 @Slf4j
 @Getter
-public class BasePropertyHolder<P extends PropertyHolder<P>> extends AnnotationBasedPersistentProperty<P> implements PropertyHolder<P> {
+public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<PropertyHolder> implements PropertyHolder {
 
     private String table;
     private String column;
@@ -38,7 +37,7 @@ public class BasePropertyHolder<P extends PropertyHolder<P>> extends AnnotationB
      * @param owner            must not be {@literal null}.
      * @param simpleTypeHolder
      */
-    public BasePropertyHolder(Property property, PersistentEntity<?, P> owner, SimpleTypeHolder simpleTypeHolder) {
+    public BasePropertyHolder(Property property, EntityHolder<T> owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
         logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
         init();
@@ -92,9 +91,15 @@ public class BasePropertyHolder<P extends PropertyHolder<P>> extends AnnotationB
             }
 
 
+            if (Assert.isEmpty(this.table)) {
+                this.table = ((EntityHolder) getOwner()).getTable();
+            }
+
             if (Assert.isEmpty(this.column)) {
                 this.column = getName();
             }
+
+
         }
 
 
@@ -122,7 +127,25 @@ public class BasePropertyHolder<P extends PropertyHolder<P>> extends AnnotationB
     }
 
     @Override
-    protected Association<P> createAssociation() {
+    public Object get(Object target) {
+        try {
+            return getRequiredGetter().invoke(target);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void set(Object target, Object value) {
+        try {
+            getRequiredSetter().invoke(target, value);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected Association<PropertyHolder> createAssociation() {
         return null;
     }
 

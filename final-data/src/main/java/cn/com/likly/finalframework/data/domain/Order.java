@@ -18,31 +18,31 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Data
-public class Order implements Serializable {
+public class Order<T> implements Serializable {
 
     private static final long serialVersionUID = 7926595035488476307L;
-    private final String property;
+    private final T property;
     private final Direction direction;
 
-    public Order(String property, Direction direction) {
+    public Order(T property, Direction direction) {
         this.property = property;
         this.direction = direction;
     }
 
-    public static List<Order> asc(String... property) {
+    public static <T> List<Order<T>> asc(T... property) {
         return of(Direction.ASC, property);
     }
 
-    public static List<Order> desc(String... property) {
+    public static <T> List<Order<T>> desc(T... property) {
         return of(Direction.DESC, property);
     }
 
-    private static List<Order> of(Direction direction, String... property) {
+    private static <T> List<Order<T>> of(Direction direction, T... property) {
         if (Assert.isEmpty(property)) {
             throw new IllegalArgumentException("property is null or empty.");
         }
 
-        return Arrays.stream(property).map(it -> new Order(it, direction)).collect(Collectors.toList());
+        return Arrays.stream(property).map(it -> new Order<T>(it, direction)).collect(Collectors.toList());
     }
 
 

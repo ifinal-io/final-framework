@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NonNull;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -18,52 +16,66 @@ import java.util.Set;
  * @since 1.0
  */
 @Data
-public class Update {
+@SuppressWarnings("unused")
+public class Update<T> implements Iterable<Update.UpdateSet<T>> {
 
-    private Set<String> keysToUpdate = new HashSet<>();
-    private Map<String, UpdateSet> modifierOps = new LinkedHashMap<>();
+    private Set<T> keysToUpdate = new HashSet<>();
+    private Map<T, UpdateSet<T>> modifierOps = new LinkedHashMap<>();
 
-    public static Update update(String key, Object value) {
-        return new Update().set(key, value);
+    public static <T> Update<T> update(T key, Object value) {
+        return new Update<T>().set(key, value);
     }
 
 
-    public Update set(@NonNull String property, Object value) {
+    public Update<T> set(@NonNull T property, Object value) {
         addToSet(property, SetOperation.EQUAL, value);
         return this;
     }
 
-    public Update inc(@NonNull String property) {
+    public Update<T> inc(@NonNull T property) {
         addToSet(property, SetOperation.INC, 1);
         return this;
     }
 
-    public Update incy(@NonNull String property, Number value) {
+    public Update<T> incy(@NonNull T property, Number value) {
         addToSet(property, SetOperation.EQUAL, value);
         return this;
     }
 
-    public Update dec(@NonNull String property) {
+    public Update<T> dec(@NonNull T property) {
         addToSet(property, SetOperation.DEC, 1);
         return this;
     }
 
-    public Update decy(@NonNull String property, Number value) {
+    public Update<T> decy(@NonNull T property, Number value) {
         addToSet(property, SetOperation.DECY, value);
         return this;
     }
 
-    public void addToSet(String property, SetOperation operation, Object value) {
+    private void addToSet(T property, SetOperation operation, Object value) {
         this.keysToUpdate.add(property);
-        this.modifierOps.put(property, new UpdateSet(property, operation, value));
+        this.modifierOps.put(property, new UpdateSet<>(property, operation, value));
+    }
+
+    public Stream<UpdateSet<T>> stream() {
+        return modifierOps.values().stream();
+    }
+
+    @Override
+    public Iterator<UpdateSet<T>> iterator() {
+        return modifierOps.values().iterator();
     }
 
 
     @Data
     @AllArgsConstructor
-    public static class UpdateSet implements Serializable {
-        private final String property;
+    public static class UpdateSet<T> implements Serializable {
+        private final T property;
         private final SetOperation operation;
         private final Object value;
+
+        public boolean isNull() {
+            return value == null;
+        }
     }
 }
