@@ -19,8 +19,8 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
 
     private EntityHolder<T> holder;
     private T entity;
-    private Update<PropertyHolder> update;
-    private Query<PropertyHolder> query;
+    private Update update;
+    private Query query;
 
 
     public DefaultUpdateProvider(TypeHandlerRegistry typeHandlerRegistry) {
@@ -34,7 +34,7 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
     }
 
     @Override
-    public UpdateProvider<T> SET(Update<PropertyHolder> update) {
+    public UpdateProvider<T> SET(Update update) {
         this.update = update;
         return this;
     }
@@ -46,7 +46,7 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
     }
 
     @Override
-    public UpdateProvider<T> QUERY(Query<PropertyHolder> query) {
+    public UpdateProvider<T> QUERY(Query query) {
         this.query = query;
         return this;
     }

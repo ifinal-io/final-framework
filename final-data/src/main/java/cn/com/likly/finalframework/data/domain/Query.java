@@ -1,6 +1,7 @@
 package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.domain.enums.Direction;
+import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -19,28 +20,28 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @Getter
-public class Query<T> implements Serializable {
+public class Query implements Serializable {
     private Integer page;
     private Integer size;
-    private List<Criteria<T>> criteria;
+    private List<Criteria> criteria;
     private Sort sort;
     private Integer limit;
 
-    public Query<T> page(int page) {
+    public Query page(int page) {
         this.page = page;
         return this;
     }
 
-    public Query<T> size(int size) {
+    public Query size(int size) {
         this.size = size;
         return this;
     }
 
-    public Query<T> where(@NonNull Criteria<T>... criteria) {
+    public Query where(@NonNull Criteria... criteria) {
         return where(Arrays.asList(criteria));
     }
 
-    public Query<T> where(@NonNull Collection<Criteria<T>> criteria) {
+    public Query where(@NonNull Collection<Criteria> criteria) {
         if (this.criteria == null) {
             this.criteria = new ArrayList<>();
         }
@@ -48,33 +49,33 @@ public class Query<T> implements Serializable {
         return this;
     }
 
-    public Query<T> sort(@NonNull Order<T>... orders) {
+    public Query sort(@NonNull Order... orders) {
         return sort(Arrays.asList(orders));
     }
 
-    public Query<T> sort(@NonNull Collection<Order<T>> orders) {
+    public Query sort(@NonNull Collection<Order> orders) {
         sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
         return this;
     }
 
-    public Query<T> sort(@NonNull Direction direction, @NonNull T... properties) {
-        return sort(Arrays.stream(properties).map(it -> new Order<>(it, direction)).collect(Collectors.toList()));
+    public Query sort(@NonNull Direction direction, @NonNull PropertyHolder... properties) {
+        return sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
     }
 
-    public Query<T> asc(@NonNull T... properties) {
+    public Query asc(@NonNull PropertyHolder... properties) {
         return sort(Direction.ASC, properties);
     }
 
-    public Query<T> desc(@NonNull T... properties) {
+    public Query desc(@NonNull PropertyHolder... properties) {
         return sort(Direction.DESC, properties);
     }
 
-    public Query<T> limit(int limit) {
+    public Query limit(int limit) {
         this.limit = limit;
         return this;
     }
 
-    public Stream<Criteria<T>> stream() {
+    public Stream<Criteria> stream() {
         return criteria.stream();
     }
 

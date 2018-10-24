@@ -1,6 +1,8 @@
 package cn.com.likly.finalframework.data.mapping.holder;
 
 import cn.com.likly.finalframework.data.annotation.Column;
+import cn.com.likly.finalframework.data.annotation.CreatedTime;
+import cn.com.likly.finalframework.data.annotation.LastModifiedTime;
 import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import cn.com.likly.finalframework.util.Assert;
@@ -52,27 +54,11 @@ public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<Pro
         try {
 
             if (isAnnotationPresent(Column.class)) {
-                Column column = findAnnotation(Column.class);
-                if (column != null) {
-                    this.unique = column.unique();
-                    this.nullable = column.nullable();
-                    this.insertable = column.insertable();
-                    this.updatable = column.updatable();
-                    this.table = column.table();
-                    this.column = column.name();
-                }
-
-            }
-            if (isAnnotationPresent(javax.persistence.Column.class)) {
-                javax.persistence.Column column = findAnnotation(javax.persistence.Column.class);
-                if (column != null) {
-                    this.unique = column.unique();
-                    this.nullable = column.nullable();
-                    this.insertable = column.insertable();
-                    this.updatable = column.updatable();
-                    this.table = column.table();
-                    this.column = column.name();
-                }
+                initColumn(findAnnotation(Column.class));
+            } else if (isAnnotationPresent(CreatedTime.class)) {
+                initCreatedTime(findAnnotation(CreatedTime.class));
+            } else if (isAnnotationPresent(LastModifiedTime.class)) {
+                initLastModifiedTime(findAnnotation(LastModifiedTime.class));
             }
 
 
@@ -105,6 +91,36 @@ public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<Pro
 
     }
 
+    @SuppressWarnings("all")
+    private void initColumn(Column column) {
+        this.unique = column.unique();
+        this.nullable = column.nullable();
+        this.insertable = column.insertable();
+        this.updatable = column.updatable();
+        this.table = column.table();
+        this.column = column.name();
+    }
+
+
+    @SuppressWarnings("all")
+    private void initCreatedTime(CreatedTime createdTime) {
+        this.unique = createdTime.unique();
+        this.nullable = createdTime.nullable();
+        this.insertable = createdTime.insertable();
+        this.updatable = createdTime.updatable();
+        this.table = createdTime.table();
+        this.column = createdTime.name();
+    }
+
+    @SuppressWarnings("all")
+    private void initLastModifiedTime(LastModifiedTime lastModifiedTime) {
+        this.unique = lastModifiedTime.unique();
+        this.nullable = lastModifiedTime.nullable();
+        this.insertable = lastModifiedTime.insertable();
+        this.updatable = lastModifiedTime.updatable();
+        this.table = lastModifiedTime.table();
+        this.column = lastModifiedTime.name();
+    }
 
     @Override
     public boolean unique() {

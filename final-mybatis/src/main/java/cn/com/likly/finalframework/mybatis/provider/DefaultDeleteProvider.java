@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultDeleteProvider<T> extends AbsProvider<T> implements DeleteProvider<T> {
 
     private EntityHolder<T> entity;
-    private Query<PropertyHolder> query;
+    private Query query;
 
 
     public DefaultDeleteProvider(TypeHandlerRegistry typeHandlerRegistry) {
@@ -31,7 +31,7 @@ public class DefaultDeleteProvider<T> extends AbsProvider<T> implements DeletePr
     }
 
     @Override
-    public DeleteProvider<T> QUERY(Query<PropertyHolder> query) {
+    public DeleteProvider<T> QUERY(Query query) {
         this.query = query;
         return this;
     }

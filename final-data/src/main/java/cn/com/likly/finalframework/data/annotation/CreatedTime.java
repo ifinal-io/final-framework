@@ -1,6 +1,5 @@
 package cn.com.likly.finalframework.data.annotation;
 
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.lang.annotation.*;
@@ -17,9 +16,15 @@ import java.lang.annotation.*;
 @Documented
 @CreatedDate
 public @interface CreatedTime {
-    @AliasFor("column")
-    String value() default "";
+    String table() default "";
 
-    @AliasFor("value")
-    String column() default "";
+    String name() default "";
+
+    boolean unique() default false;
+
+    boolean nullable() default false;
+
+    boolean insertable() default false;
+
+    boolean updatable() default false;
 }

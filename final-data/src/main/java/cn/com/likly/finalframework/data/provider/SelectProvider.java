@@ -2,7 +2,6 @@ package cn.com.likly.finalframework.data.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
 import lombok.NonNull;
 
 /**
@@ -17,5 +16,5 @@ public interface SelectProvider<T> extends Provider<String> {
 
     SelectProvider<T> SELECT_COUNT(@NonNull EntityHolder<T> holder);
 
-    SelectProvider<T> QUERY(Query<PropertyHolder> query);
+    SelectProvider<T> QUERY(Query query);
 }

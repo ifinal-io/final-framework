@@ -23,7 +23,7 @@ public class DefaultSelectProvider<T> extends AbsProvider<T> implements SelectPr
 
     private SelectType selectType;
     private EntityHolder<T> holder;
-    private Query<PropertyHolder> query;
+    private Query query;
 
     public DefaultSelectProvider(@NonNull TypeHandlerRegistry typeHandlerRegistry) {
         super(typeHandlerRegistry);
@@ -49,7 +49,7 @@ public class DefaultSelectProvider<T> extends AbsProvider<T> implements SelectPr
     }
 
     @Override
-    public SelectProvider<T> QUERY(Query<PropertyHolder> query) {
+    public SelectProvider<T> QUERY(Query query) {
         this.query = query;
         return this;
     }

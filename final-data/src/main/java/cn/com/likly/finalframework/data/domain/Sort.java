@@ -1,6 +1,7 @@
 package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.domain.enums.Direction;
+import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
 import cn.com.likly.finalframework.util.Assert;
 
 import java.io.Serializable;
@@ -16,40 +17,40 @@ import java.util.stream.Collectors;
  * @date 2018-10-15 22:06
  * @since 1.0
  */
-public class Sort<T> implements Iterable<Order<T>>, Serializable {
-    private List<Order<T>> orders;
+public class Sort implements Iterable<Order>, Serializable {
+    private List<Order> orders;
 
-    private Sort(List<Order<T>> orders) {
+    private Sort(List<Order> orders) {
         this.orders = orders;
     }
 
-    public static <T> Sort<T> by(Order<T>... orders) {
+    public static Sort by(Order... orders) {
         return by(Arrays.asList(orders));
     }
 
-    public static <T> Sort<T> by(List<Order<T>> orders) {
+    public static Sort by(List<Order> orders) {
         Assert.isEmpty(orders, "orders is null or empty");
-        return new Sort<T>(orders);
+        return new Sort(orders);
     }
 
-    public static <T> Sort<T> asc(T... property) {
+    public static Sort asc(PropertyHolder... property) {
         return of(Direction.ASC, property);
     }
 
-    public static <T> Sort<T> desc(T... property) {
+    public static Sort desc(PropertyHolder... property) {
         return of(Direction.DESC, property);
     }
 
-    private static <T> Sort<T> of(Direction direction, T... properties) {
+    private static Sort of(Direction direction, PropertyHolder... properties) {
         Assert.isEmpty(properties, "properties must be not empty!");
-        return new Sort<T>(Arrays.stream(properties).map(it -> new Order<>(it, direction)).collect(Collectors.toList()));
+        return new Sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
     }
 
-    public Sort<T> and(Sort<T> sort) {
-        Assert.isNull(sort, "Sort<T> must not be null!");
-        ArrayList<Order<T>> these = new ArrayList<>(this.orders);
+    public Sort and(Sort sort) {
+        Assert.isNull(sort, "Sort must not be null!");
+        ArrayList<Order> these = new ArrayList<>(this.orders);
 
-        for (Order<T> order : sort) {
+        for (Order order : sort) {
             these.add(order);
         }
 
@@ -57,7 +58,7 @@ public class Sort<T> implements Iterable<Order<T>>, Serializable {
     }
 
     @Override
-    public Iterator<Order<T>> iterator() {
+    public Iterator<Order> iterator() {
         return orders.iterator();
     }
 }

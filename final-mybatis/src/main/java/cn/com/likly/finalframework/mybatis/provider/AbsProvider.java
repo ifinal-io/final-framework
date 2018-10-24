@@ -43,7 +43,7 @@ public abstract class AbsProvider<T> implements Provider<String> {
         return "";
     }
 
-    String getQuery(Query<PropertyHolder> query) {
+    String getQuery(Query query) {
         if (query == null) return "";
 
         final StringBuilder sb = new StringBuilder();
@@ -55,9 +55,9 @@ public abstract class AbsProvider<T> implements Provider<String> {
     }
 
 
-    private String getCriteria(Criteria<PropertyHolder> criteria) {
+    private String getCriteria(Criteria criteria) {
         if (Assert.isEmpty(criteria.getCriteriaChain())) {
-            final PropertyHolder propertyHolder = getPropertyHolder(criteria.getProperty().getName());
+            final PropertyHolder propertyHolder = criteria.getProperty();
             final String property = getFormatProperty(propertyHolder);
             final Object value = criteria.getValue();
             final Object min = criteria.getMin();
@@ -124,7 +124,7 @@ public abstract class AbsProvider<T> implements Provider<String> {
         return sb.toString();
     }
 
-    private String join(List<Criteria<PropertyHolder>> criteriaChain) {
+    private String join(List<Criteria> criteriaChain) {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < criteriaChain.size(); i++) {
             Criteria criteria = criteriaChain.get(i);

@@ -14,16 +14,28 @@
     <dependencies>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
-            <artifactId>final-spring-web-api</artifactId>
+            <artifactId>final-spring</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
-            <artifactId>final-processor</artifactId>
+            <artifactId>final-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-coding</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -3,7 +3,6 @@ package cn.com.likly.finalframework.data.provider;
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
 import lombok.NonNull;
 
 /**
@@ -16,9 +15,9 @@ public interface UpdateProvider<T> extends Provider<String> {
 
     UpdateProvider<T> UPDATE(@NonNull EntityHolder<T> holder);
 
-    UpdateProvider<T> SET(Update<PropertyHolder> update);
+    UpdateProvider<T> SET(Update update);
 
     UpdateProvider<T> ENTITY(T entity);
 
-    UpdateProvider<T> QUERY(Query<PropertyHolder> query);
+    UpdateProvider<T> QUERY(Query query);
 }

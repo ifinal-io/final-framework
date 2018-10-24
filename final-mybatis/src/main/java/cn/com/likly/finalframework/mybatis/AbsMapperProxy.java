@@ -94,11 +94,11 @@ public class AbsMapperProxy<ID extends Serializable, T extends Entity<ID>, MAPPE
             case DELETE_ID_ARRAY:
                 return defaultMapper.delete(holder, (ID[]) args[0]);
             case DELETE_ID_COLLECTION:
-                return defaultMapper.delete(holder, (List<ID>) args[0]);
+                return defaultMapper.delete(holder, (Collection<ID>) args[0]);
             case DELETE_ENTITIES_ARRAY:
                 return defaultMapper.delete(holder, (T[]) args[0]);
             case DELETE_ENTITIES_COLLECTION:
-                return defaultMapper.delete(holder, (Collection<T>) args[0]);
+                return defaultMapper.delete(holder, (List<T>) args[0]);
             case DELETE_QUERY:
                 return defaultMapper.delete(holder, (Query) args[0]);
             /*=========================================== SELECT ===========================================*/

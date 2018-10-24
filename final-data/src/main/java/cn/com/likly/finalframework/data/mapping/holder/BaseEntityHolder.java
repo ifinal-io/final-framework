@@ -54,8 +54,6 @@ public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder
 
             if (isAnnotationPresent(Table.class)) {
                 this.table = findAnnotation(Table.class).value();
-            } else if (isAnnotationPresent(javax.persistence.Table.class)) {
-                this.table = findAnnotation(javax.persistence.Table.class).name();
             }
 
         } finally {
