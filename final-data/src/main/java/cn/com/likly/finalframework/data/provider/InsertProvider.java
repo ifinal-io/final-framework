@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.data.provider;
 
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import lombok.NonNull;
 
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public interface InsertProvider<T> extends Provider<String> {
 
-    InsertProvider<T> INSERT_INTO(@NonNull EntityHolder<T> entity);
+    InsertProvider<T> INSERT_INTO(@NonNull Entity<T> entity);
 
     default InsertProvider<T> INSERT_VALUES(@NonNull T... entities) {
         return INSERT_VALUES(Arrays.asList(entities));

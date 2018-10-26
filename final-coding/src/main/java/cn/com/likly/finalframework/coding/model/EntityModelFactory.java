@@ -29,8 +29,8 @@ public class EntityModelFactory {
         final String className = entityElement.asType().toString();
         final String entityPackage = className.substring(0, className.lastIndexOf("."));
         final String entityName = className.substring(className.lastIndexOf(".") + 1);
-        final String holderPackage = entityPackage.replace(".entity", ".holder");
-        final String holderName = entityName + "Holder";
+        final String qentityPackage = entityPackage.replace(".entity", ".query");
+        final String qentityName = "Q" + entityName;
         final String mapperPackage = entityPackage.replace(".entity", ".mapper");
         final String mapperName = entityName + "Mapper";
         final String repositoryPackage = entityPackage.replace(".entity", ".repository");
@@ -41,8 +41,8 @@ public class EntityModelFactory {
         EntityModel model = new EntityModel();
         model.setEntityPackage(entityPackage);
         model.setEntityName(entityName);
-        model.setHolderPackage(holderPackage);
-        model.setHolderName(holderName);
+        model.setQentityPackage(qentityPackage);
+        model.setQentityName(qentityName);
         model.setMapperPackage(mapperPackage);
         model.setMapperName(mapperName);
         model.setRepositoryPackage(repositoryPackage);

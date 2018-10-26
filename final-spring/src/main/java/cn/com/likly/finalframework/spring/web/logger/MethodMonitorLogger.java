@@ -1,8 +1,8 @@
 package cn.com.likly.finalframework.spring.web.logger;
 
 import cn.com.likly.finalframework.data.json.Json;
-import cn.com.likly.finalframework.spring.aop.MethodMonitorAspect;
-import cn.com.likly.finalframework.spring.aop.MethodPoint;
+import cn.com.likly.finalframework.spring.monitor.MethodMonitorAspect;
+import cn.com.likly.finalframework.spring.monitor.MethodPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -1,16 +1,17 @@
-package cn.com.likly.finalframework.data.mapping.holder;
+package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.annotation.Column;
 import cn.com.likly.finalframework.data.annotation.CreatedTime;
 import cn.com.likly.finalframework.data.annotation.LastModifiedTime;
 import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
+import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.util.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
-import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 
 
@@ -22,7 +23,7 @@ import org.springframework.data.mapping.model.SimpleTypeHolder;
  */
 @Slf4j
 @Getter
-public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<PropertyHolder> implements PropertyHolder {
+public class BaseProperty extends AnnotationBasedPersistentProperty<Property> implements QProperty {
 
     private String table;
     private String column;
@@ -39,7 +40,7 @@ public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<Pro
      * @param owner            must not be {@literal null}.
      * @param simpleTypeHolder
      */
-    public BasePropertyHolder(Property property, EntityHolder<T> owner, SimpleTypeHolder simpleTypeHolder) {
+    public BaseProperty(org.springframework.data.mapping.model.Property property, Entity owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
         logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
         init();
@@ -78,7 +79,7 @@ public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<Pro
 
 
             if (Assert.isEmpty(this.table)) {
-                this.table = ((EntityHolder) getOwner()).getTable();
+                this.table = ((Entity) getOwner()).getTable();
             }
 
             if (Assert.isEmpty(this.column)) {
@@ -161,7 +162,7 @@ public class BasePropertyHolder<T> extends AnnotationBasedPersistentProperty<Pro
     }
 
     @Override
-    protected Association<PropertyHolder> createAssociation() {
+    protected Association<Property> createAssociation() {
         return null;
     }
 

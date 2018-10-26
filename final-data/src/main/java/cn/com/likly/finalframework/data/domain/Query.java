@@ -1,7 +1,8 @@
 package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.domain.enums.Direction;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.util.Streable;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -19,12 +20,15 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-@Getter
-public class Query implements Serializable {
+public class Query implements Streable<Criteria>, Serializable {
+    @Getter
     private Integer page;
+    @Getter
     private Integer size;
-    private List<Criteria> criteria;
+    private List<Criteria> criteria = new ArrayList<>();
+    @Getter
     private Sort sort;
+    @Getter
     private Integer limit;
 
     public Query page(int page) {
@@ -42,9 +46,6 @@ public class Query implements Serializable {
     }
 
     public Query where(@NonNull Collection<Criteria> criteria) {
-        if (this.criteria == null) {
-            this.criteria = new ArrayList<>();
-        }
         this.criteria.addAll(criteria);
         return this;
     }
@@ -53,20 +54,29 @@ public class Query implements Serializable {
         return sort(Arrays.asList(orders));
     }
 
+    public Query sort(Sort sort) {
+        if (this.sort == null) {
+            this.sort = sort;
+        } else {
+            this.sort.and(sort);
+        }
+        return this;
+    }
+
     public Query sort(@NonNull Collection<Order> orders) {
         sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
         return this;
     }
 
-    public Query sort(@NonNull Direction direction, @NonNull PropertyHolder... properties) {
+    public Query sort(@NonNull Direction direction, @NonNull Property... properties) {
         return sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
     }
 
-    public Query asc(@NonNull PropertyHolder... properties) {
+    public Query asc(@NonNull Property... properties) {
         return sort(Direction.ASC, properties);
     }
 
-    public Query desc(@NonNull PropertyHolder... properties) {
+    public Query desc(@NonNull Property... properties) {
         return sort(Direction.DESC, properties);
     }
 
@@ -75,6 +85,7 @@ public class Query implements Serializable {
         return this;
     }
 
+    @Override
     public Stream<Criteria> stream() {
         return criteria.stream();
     }

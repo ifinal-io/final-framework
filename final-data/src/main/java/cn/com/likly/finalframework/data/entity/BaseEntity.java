@@ -16,7 +16,7 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
-public class BaseEntity implements Entity<Long> {
+public class BaseEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
 

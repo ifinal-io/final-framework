@@ -7,6 +7,7 @@ package cn.com.likly.finalframework.data.domain.enums;
  * @since 1.0
  */
 public enum SetOperation {
+
     EQUAL,
     INC,
     INCY,

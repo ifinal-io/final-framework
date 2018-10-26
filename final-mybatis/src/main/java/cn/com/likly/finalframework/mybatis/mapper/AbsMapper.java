@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.mybatis.mapper;
 
-import cn.com.likly.finalframework.data.entity.Entity;
+import cn.com.likly.finalframework.data.entity.IEntity;
 import cn.com.likly.finalframework.data.repository.Repository;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public interface AbsMapper<ID extends Serializable, T extends Entity<ID>> extends Repository<ID, T> {
+public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> extends Repository<ID, T> {
 
 
 }

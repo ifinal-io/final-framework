@@ -2,8 +2,7 @@ package cn.com.likly.finalframework.mybatis.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.provider.UpdateProvider;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdateProvider<T> {
 
-    private EntityHolder<T> holder;
+    private Entity<T> holder;
     private T entity;
     private Update update;
     private Query query;
@@ -28,7 +27,7 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
     }
 
     @Override
-    public UpdateProvider<T> UPDATE(EntityHolder<T> holder) {
+    public UpdateProvider<T> UPDATE(Entity<T> holder) {
         this.holder = holder;
         return this;
     }
@@ -51,10 +50,6 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
         return this;
     }
 
-    @Override
-    protected PropertyHolder getPropertyHolder(String property) {
-        return holder.getRequiredPersistentProperty(property);
-    }
 
     private String getUpdateSet() {
         if (update == null) {

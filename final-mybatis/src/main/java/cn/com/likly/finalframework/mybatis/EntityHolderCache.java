@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.mybatis;
 
-import cn.com.likly.finalframework.data.entity.Entity;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.entity.IEntity;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +20,19 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 @Component
 public class EntityHolderCache {
-    private final Map<Class<?>, EntityHolder> cache = new LinkedHashMap<>();
+    private final Map<Class<?>, Entity> cache = new LinkedHashMap<>();
 
-    <ID extends Serializable, T extends Entity<ID>, MAPPER extends AbsMapper<ID, T>> EntityHolder get(Class<MAPPER> mapperClass) {
+    <ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> Entity get(Class<MAPPER> mapperClass) {
         if (cache.containsKey(mapperClass)) {
             return cache.get(mapperClass);
         }
 
-        EntityHolder holder = EntityHolder.from(getEntityClass(mapperClass));
+        Entity holder = Entity.from(getEntityClass(mapperClass));
         cache.put(mapperClass, holder);
         return holder;
     }
 
-    private <ID extends Serializable, T extends Entity<ID>, MAPPER extends AbsMapper<ID, T>> Class<T> getEntityClass(Class<MAPPER> mapperClass) {
+    private <ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> Class<T> getEntityClass(Class<MAPPER> mapperClass) {
 
         for (Type genericInterface : mapperClass.getGenericInterfaces()) {
             if (genericInterface instanceof ParameterizedType && ((ParameterizedType) genericInterface).getRawType().equals(AbsMapper.class)) {

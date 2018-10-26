@@ -1,13 +1,14 @@
-package cn.com.likly.finalframework.data.mapping.holder;
+package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.annotation.Table;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
+import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.util.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.model.BasicPersistentEntity;
-import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.data.util.TypeInformation;
@@ -16,7 +17,9 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -26,19 +29,18 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @Slf4j
-public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder> implements EntityHolder<T> {
-    private final List<PropertyHolder> properties = new ArrayList<>();
-    private final Map<String, PropertyHolder> propertyCache = new HashMap<>();
+public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
+    private final List<Property> properties = new ArrayList<>();
     @Getter
     private String table;
     @Getter
     private PrimaryKeyType primaryKeyType = PrimaryKeyType.AUTO_INC;
 
-    private BaseEntityHolder(TypeInformation<T> information) {
+    private BaseEntity(TypeInformation<T> information) {
         super(information);
     }
 
-    public BaseEntityHolder(Class<T> entityClass) {
+    public BaseEntity(Class<T> entityClass) {
         this(ClassTypeInformation.from(entityClass));
         init();
     }
@@ -73,8 +75,8 @@ public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder
 
             Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(it -> !it.getName().equals("class"))
-                    .map(it -> new BasePropertyHolder<>(
-                                    Property.of(getTypeInformation(), getField(it.getName(), entityClass), it),
+                    .map(it -> new BaseProperty(
+                            org.springframework.data.mapping.model.Property.of(getTypeInformation(), getField(it.getName(), entityClass), it),
                                     this,
                                     SimpleTypeHolder.DEFAULT
                             )
@@ -82,7 +84,6 @@ public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);
-                        propertyCache.put(it.getColumn(), it);
 
                         if (it.isIdProperty()) {
                             if (it.isAnnotationPresent(PrimaryKey.class)) {
@@ -112,13 +113,7 @@ public class BaseEntityHolder<T> extends BasicPersistentEntity<T, PropertyHolder
 
 
     @Override
-    public PropertyHolder getPropertyByColumn(String column) {
-        Assert.isNull(column, "column must not be null!");
-        return propertyCache.get(column);
-    }
-
-    @Override
-    public Stream<PropertyHolder> stream() {
+    public Stream<Property> stream() {
         return properties.stream();
     }
 }

@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.data.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import lombok.NonNull;
 
 /**
@@ -12,9 +12,9 @@ import lombok.NonNull;
  */
 public interface SelectProvider<T> extends Provider<String> {
 
-    SelectProvider<T> SELECT(@NonNull EntityHolder<T> holder);
+    SelectProvider<T> SELECT(@NonNull Entity<T> holder);
 
-    SelectProvider<T> SELECT_COUNT(@NonNull EntityHolder<T> holder);
+    SelectProvider<T> SELECT_COUNT(@NonNull Entity<T> holder);
 
     SelectProvider<T> QUERY(Query query);
 }

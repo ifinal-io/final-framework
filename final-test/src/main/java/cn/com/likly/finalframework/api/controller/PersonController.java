@@ -6,8 +6,9 @@ import cn.com.likly.finalframework.data.mapper.PersonMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
-//import cn.com.likly.finalframework.data.entity.PersonEntityHolder;
+import static cn.com.likly.finalframework.data.query.QPerson.person;
 
 
 /**
@@ -24,27 +25,31 @@ public class PersonController {
 
     @PostMapping()
     public Person create(@RequestBody Person person) {
-//        personMapper.insert(person);
+        personMapper.insert(person);
         return person;
+    }
+
+    @GetMapping("/list")
+    public List<Person> list() {
+        final Query query = new Query();
+        query.sort(person.id.desc());
+        return personMapper.select(query);
     }
 
     @GetMapping("/{id}")
     public Object get(@PathVariable Long id) {
         final Query query = new Query();
         query.page(1).size(1);
-//        query.where(
-//                Criteria.where(PersonEntityHolder.id).is(id)
-//        );
-//        return personMapper.select(
-//                query
-//        );
-        return null;
+        query.where(person.id.is(id));
+        return personMapper.select(
+                query
+        );
     }
 
-//    @GetMapping("/count")
-//    public long count() {
-//        return personMapper.selectCount();
-//    }
+    @GetMapping("/count")
+    public long count() {
+        return personMapper.selectCount();
+    }
 
     @RequestMapping("/index")
     public String index() {

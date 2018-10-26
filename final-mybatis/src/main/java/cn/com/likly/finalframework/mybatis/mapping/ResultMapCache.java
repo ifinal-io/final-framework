@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.mybatis.mapping;
 
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.factory.ResultMapFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.ResultMap;
@@ -21,12 +21,12 @@ import java.util.Map;
 @Slf4j
 public class ResultMapCache {
 
-    private final Map<EntityHolder, ResultMap> cache = new LinkedHashMap<>();
+    private final Map<Entity, ResultMap> cache = new LinkedHashMap<>();
 
     @Resource
     private ResultMapFactory resultMapFactory;
 
-    public ResultMap get(EntityHolder holder, Configuration configuration) {
+    public ResultMap get(Entity holder, Configuration configuration) {
 
         if (cache.containsKey(holder)) {
             return cache.get(holder);

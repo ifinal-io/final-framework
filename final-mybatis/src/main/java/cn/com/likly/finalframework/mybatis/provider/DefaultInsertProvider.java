@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.data.provider.InsertProvider;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.NonNull;
@@ -20,20 +20,16 @@ import java.util.stream.IntStream;
 @Slf4j
 public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertProvider<T> {
 
-    private EntityHolder<T> entity;
+    private Entity<T> entity;
     private Collection<T> entities;
 
     public DefaultInsertProvider(TypeHandlerRegistry typeHandlerRegistry) {
         super(typeHandlerRegistry);
     }
 
-    @Override
-    protected PropertyHolder getPropertyHolder(String property) {
-        return entity.getPersistentProperty(property);
-    }
 
     @Override
-    public InsertProvider<T> INSERT_INTO(@NonNull EntityHolder<T> entity) {
+    public InsertProvider<T> INSERT_INTO(@NonNull Entity<T> entity) {
         this.entity = entity;
         return this;
     }
@@ -45,16 +41,16 @@ public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertPr
         return this;
     }
 
-    private String getInsertColumns(EntityHolder<T> entity) {
+    private String getInsertColumns(Entity<T> entity) {
         return entity.stream().filter(it -> !it.isTransient() || !it.insertable())
-                .map(PropertyHolder::getColumn)
+                .map(Property::getColumn)
                 .collect(Collectors.joining(",", "(", ")"));
     }
 
-    private String getInsertValues(EntityHolder<T> entity, Collection<T> entities) {
+    private String getInsertValues(Entity<T> entity, Collection<T> entities) {
         return IntStream.range(0, entities.size())
                 .mapToObj(index -> entity.stream().filter(it -> !it.isTransient())
-                        .filter(PropertyHolder::insertable)
+                        .filter(Property::insertable)
                         // #{list[${index}].${property},javaType={},typeHandler={}}
                         .map(it -> String.format("#{list[%d].%s %s}",
                                 index,

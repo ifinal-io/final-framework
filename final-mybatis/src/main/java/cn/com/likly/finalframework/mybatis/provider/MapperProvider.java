@@ -2,8 +2,8 @@ package cn.com.likly.finalframework.mybatis.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
-import cn.com.likly.finalframework.data.entity.Entity;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.entity.IEntity;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -24,13 +24,13 @@ import java.util.Map;
 
 @Component
 @SuppressWarnings({"unchecked", "unused"})
-public class MapperProvider<ID extends Serializable, T extends Entity<ID>> implements ApplicationContextAware {
+public class MapperProvider<ID extends Serializable, T extends IEntity> implements ApplicationContextAware {
 
     private static TypeHandlerRegistry typeHandlerRegistry;
 
 
     public String insert(Map<String, Object> args) {
-        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Entity<T> holder = (Entity<T>) args.get("holder");
         Collection<T> list = args.containsKey("array") ? Arrays.asList((T[]) args.get("array"))
                 : (Collection<T>) args.get("list");
 
@@ -41,7 +41,7 @@ public class MapperProvider<ID extends Serializable, T extends Entity<ID>> imple
     }
 
     public String update(Map<String, Object> args) {
-        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Entity<T> holder = (Entity<T>) args.get("holder");
         T entity = args.containsKey("entity") ? (T) args.get("entity") : holder.getInstance();
         Update update = (Update) args.get("update");
         Query query = (Query) args.get("query");
@@ -57,7 +57,7 @@ public class MapperProvider<ID extends Serializable, T extends Entity<ID>> imple
     }
 
     public String delete(Map<String, Object> args) {
-        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
         return new DefaultDeleteProvider<T>(typeHandlerRegistry)
                 .DELETE(holder)
@@ -66,7 +66,7 @@ public class MapperProvider<ID extends Serializable, T extends Entity<ID>> imple
     }
 
     public String select(Map<String, Object> args) {
-        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
         return new DefaultSelectProvider<T>(typeHandlerRegistry)
                 .SELECT(holder)
@@ -75,7 +75,7 @@ public class MapperProvider<ID extends Serializable, T extends Entity<ID>> imple
     }
 
     public String selectCount(Map<String, Object> args) {
-        EntityHolder<T> holder = (EntityHolder<T>) args.get("holder");
+        Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
         return new DefaultSelectProvider<T>(typeHandlerRegistry)
                 .SELECT_COUNT(holder)

@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
-public class Domain implements Entity<Long> {
+public class Domain implements IEntity<Long> {
     @PrimaryKey
     private Long id;
 }

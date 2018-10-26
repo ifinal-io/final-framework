@@ -3,8 +3,8 @@ package cn.com.likly.finalframework.mybatis;
 import cn.com.likly.finalframework.data.annotation.Command;
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
-import cn.com.likly.finalframework.data.entity.Entity;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.entity.IEntity;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.mapper.AbsMapper;
 import cn.com.likly.finalframework.mybatis.mapper.DefaultMapper;
 import com.github.pagehelper.PageHelper;
@@ -23,13 +23,13 @@ import java.util.List;
  * @date 2018-09-27 20:39
  * @since 1.0
  */
-public class AbsMapperProxy<ID extends Serializable, T extends Entity<ID>, MAPPER extends AbsMapper<ID, T>> implements InvocationHandler {
+public class AbsMapperProxy<ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> implements InvocationHandler {
     private final DefaultMapper<ID, T> defaultMapper;
     private final Object target;
-    private final EntityHolder<T> holder;
+    private final Entity<T> holder;
     private final Object proxy;
 
-    public AbsMapperProxy(DefaultMapper<ID, T> defaultMapper, Object target, EntityHolder<T> holder) {
+    public AbsMapperProxy(DefaultMapper<ID, T> defaultMapper, Object target, Entity<T> holder) {
         this.defaultMapper = defaultMapper;
         this.target = target;
         this.holder = holder;

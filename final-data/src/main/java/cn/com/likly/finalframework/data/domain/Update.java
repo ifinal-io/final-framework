@@ -1,63 +1,80 @@
 package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.domain.enums.SetOperation;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.util.Assert;
+import cn.com.likly.finalframework.util.Streable;
 import lombok.NonNull;
 
-import java.io.Serializable;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2018-10-15 21:36
+ * @date 2018-10-25 10:38
  * @since 1.0
  */
-@Data
 @SuppressWarnings("unused")
-public class Update implements Iterable<Update.UpdateSet> {
+public class Update implements Streable<UpdateSet>, Iterable<UpdateSet> {
 
-    private Set<PropertyHolder> keysToUpdate = new HashSet<>();
-    private Map<PropertyHolder, UpdateSet> modifierOps = new LinkedHashMap<>();
+    private final Set<Property> keysToUpdate;
+    private final Map<Property, UpdateSet> modifierOps;
 
-    public static Update update(PropertyHolder key, Object value) {
-        return new Update().set(key, value);
+    public Update() {
+        this.keysToUpdate = new LinkedHashSet<>();
+        this.modifierOps = new LinkedHashMap<>();
+    }
+
+    private Update(Collection<UpdateSet> updateSets) {
+        Assert.isEmpty(updateSets, "updateSets must be not null and empty!");
+
+        this.modifierOps = updateSets.stream().collect(Collectors.toMap(UpdateSet::getProperty, Function.identity()));
+        this.keysToUpdate = modifierOps.keySet();
+    }
+
+    public static Update update(UpdateSet... updateSets) {
+        return new Update(Arrays.asList(updateSets));
+    }
+
+    public static Update update(Collection<UpdateSet> updateSets) {
+        return new Update(updateSets);
     }
 
 
-    public Update set(@NonNull PropertyHolder property, Object value) {
-        addToSet(property, SetOperation.EQUAL, value);
+    public Update set(@NonNull Property property, @NonNull Object value) {
+        keysToUpdate.add(property);
+        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
     }
 
-    public Update inc(@NonNull PropertyHolder property) {
-        addToSet(property, SetOperation.INC, 1);
+    public Update inc(@NonNull Property property) {
+        keysToUpdate.add(property);
+        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, 1));
         return this;
     }
 
-    public Update incy(@NonNull PropertyHolder property, Number value) {
-        addToSet(property, SetOperation.EQUAL, value);
+    public Update incy(@NonNull Property property, @NonNull Number value) {
+        keysToUpdate.add(property);
+        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
     }
 
-    public Update dec(@NonNull PropertyHolder property) {
-        addToSet(property, SetOperation.DEC, 1);
+    public Update dec(@NonNull Property property) {
+        keysToUpdate.add(property);
+        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, 1));
         return this;
     }
 
-    public Update decy(@NonNull PropertyHolder property, Number value) {
-        addToSet(property, SetOperation.DECY, value);
+    public Update decy(@NonNull Property property, @NonNull Number value) {
+        keysToUpdate.add(property);
+        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
     }
 
-    private void addToSet(PropertyHolder property, SetOperation operation, Object value) {
-        this.keysToUpdate.add(property);
-        this.modifierOps.put(property, new UpdateSet(property, operation, value));
-    }
-
+    @Override
     public Stream<UpdateSet> stream() {
         return modifierOps.values().stream();
     }
@@ -68,15 +85,4 @@ public class Update implements Iterable<Update.UpdateSet> {
     }
 
 
-    @Data
-    @AllArgsConstructor
-    public static class UpdateSet implements Serializable {
-        private final PropertyHolder property;
-        private final SetOperation operation;
-        private final Object value;
-
-        public boolean isNull() {
-            return value == null;
-        }
-    }
 }

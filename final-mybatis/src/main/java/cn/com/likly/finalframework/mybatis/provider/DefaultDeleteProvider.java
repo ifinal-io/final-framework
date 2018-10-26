@@ -1,8 +1,7 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.provider.DeleteProvider;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DefaultDeleteProvider<T> extends AbsProvider<T> implements DeleteProvider<T> {
 
-    private EntityHolder<T> entity;
+    private Entity<T> entity;
     private Query query;
 
 
@@ -25,7 +24,7 @@ public class DefaultDeleteProvider<T> extends AbsProvider<T> implements DeletePr
     }
 
     @Override
-    public DeleteProvider<T> DELETE(EntityHolder<T> entity) {
+    public DeleteProvider<T> DELETE(Entity<T> entity) {
         this.entity = entity;
         return this;
     }
@@ -34,11 +33,6 @@ public class DefaultDeleteProvider<T> extends AbsProvider<T> implements DeletePr
     public DeleteProvider<T> QUERY(Query query) {
         this.query = query;
         return this;
-    }
-
-    @Override
-    protected PropertyHolder getPropertyHolder(String property) {
-        return entity.getRequiredPersistentProperty(property);
     }
 
     @Override

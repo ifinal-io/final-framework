@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date 2018-09-26 21:06
  * @since 1.0
  */
-public interface Entity<ID extends Serializable> extends Serializable {
+public interface IEntity<ID extends Serializable> extends Serializable {
 
     ID getId();
 

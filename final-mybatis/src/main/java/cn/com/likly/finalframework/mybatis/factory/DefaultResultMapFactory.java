@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.mybatis.factory;
 
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.ResultMap;
@@ -25,7 +25,7 @@ public class DefaultResultMapFactory implements ResultMapFactory {
     private TypeHandlerRegistry typeHandlerRegistry;
 
     @Override
-    public ResultMap create(EntityHolder<?> holder, Configuration configuration) {
+    public ResultMap create(Entity<?> holder, Configuration configuration) {
 
         return new ResultMap.Builder(
                 configuration,

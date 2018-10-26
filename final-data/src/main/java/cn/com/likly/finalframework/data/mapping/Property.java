@@ -1,8 +1,9 @@
-package cn.com.likly.finalframework.data.mapping.holder;
+package cn.com.likly.finalframework.data.mapping;
 
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import org.springframework.data.mapping.PersistentProperty;
-import org.springframework.lang.NonNull;
+
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -11,14 +12,15 @@ import org.springframework.lang.NonNull;
  * @date 2018-10-17 10:52
  * @since 1.0
  */
-public interface PropertyHolder extends PersistentProperty<PropertyHolder> {
+public interface Property extends PersistentProperty<Property> {
 
-    @NonNull
+    @NotNull
     String getTable();
 
-    @NonNull
+    @NotNull
     String getColumn();
 
+    @NotNull
     PersistentType getPersistentType();
 
     boolean unique();
@@ -29,8 +31,7 @@ public interface PropertyHolder extends PersistentProperty<PropertyHolder> {
 
     boolean updatable();
 
-    Object get(Object target);
+    Object get(@NotNull Object target);
 
-    void set(Object target, Object value);
-
+    void set(@NotNull Object target, Object value);
 }

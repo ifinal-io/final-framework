@@ -1,47 +1,47 @@
 package cn.com.likly.finalframework.data.domain;
 
 import cn.com.likly.finalframework.data.domain.enums.Direction;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.util.Assert;
+import cn.com.likly.finalframework.util.Streable;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2018-10-15 22:06
+ * @date 2018-10-25 11:20
  * @since 1.0
  */
-public class Sort implements Iterable<Order>, Serializable {
-    private List<Order> orders;
+public class Sort implements Streable<Order>, Iterable<Order> {
 
-    private Sort(List<Order> orders) {
-        this.orders = orders;
+    private final Set<Property> propertiesToSort;
+    private final List<Order> orders;
+
+    private Sort(Collection<Order> orders) {
+        this.orders = new ArrayList<>(orders);
+        this.propertiesToSort = orders.stream().map(Order::getProperty).collect(Collectors.toSet());
     }
 
     public static Sort by(Order... orders) {
         return by(Arrays.asList(orders));
     }
 
-    public static Sort by(List<Order> orders) {
-        Assert.isEmpty(orders, "orders is null or empty");
+    public static Sort by(Collection<Order> orders) {
         return new Sort(orders);
     }
 
-    public static Sort asc(PropertyHolder... property) {
+    public static Sort asc(Property... property) {
         return of(Direction.ASC, property);
     }
 
-    public static Sort desc(PropertyHolder... property) {
+    public static Sort desc(Property... property) {
         return of(Direction.DESC, property);
     }
 
-    private static Sort of(Direction direction, PropertyHolder... properties) {
+    private static Sort of(Direction direction, Property... properties) {
         Assert.isEmpty(properties, "properties must be not empty!");
         return new Sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
     }
@@ -55,6 +55,12 @@ public class Sort implements Iterable<Order>, Serializable {
         }
 
         return Sort.by(these);
+    }
+
+
+    @Override
+    public Stream<Order> stream() {
+        return orders.stream();
     }
 
     @Override

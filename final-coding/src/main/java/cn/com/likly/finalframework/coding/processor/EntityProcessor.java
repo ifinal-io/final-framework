@@ -59,10 +59,10 @@ public class EntityProcessor extends AbstractProcessor {
     private void generateEntityHolder(EntityModel entity) {
         try {
             Filer filer = processingEnv.getFiler();
-            logger.info("begin generate Entity: {}", entity.getEntityName());
+            logger.info("begin generate IEntity: {}", entity.getEntityName());
 
-            JavaFileObject holder = filer.createSourceFile(entity.getHolderPackage() + "." + entity.getHolderName());
-            Coder.coding("entity/holder.ftl", entity, holder.openWriter());
+            JavaFileObject holder = filer.createSourceFile(entity.getQentityPackage() + "." + entity.getQentityName());
+            Coder.coding("entity/qentity.ftl", entity, holder.openWriter());
 
             if (entity.isMapperEntity()) {
                 JavaFileObject mapper = filer.createSourceFile(entity.getMapperPackage() + "." + entity.getMapperName());
@@ -71,7 +71,7 @@ public class EntityProcessor extends AbstractProcessor {
 
 
         } catch (Exception e) {
-            logger.error("Create EntityHolder Exception:", e);
+            logger.error("Create IEntity Exception:", e);
             throw new RuntimeException(e);
         }
 

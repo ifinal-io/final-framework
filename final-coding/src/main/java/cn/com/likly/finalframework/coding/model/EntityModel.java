@@ -13,8 +13,9 @@ import java.util.stream.Collectors;
 public class EntityModel {
     private String entityPackage;
     private String entityName;
-    private String holderPackage;
-    private String holderName;
+    private String instanceName;
+    private String qentityPackage;
+    private String qentityName;
     private String mapperPackage;
     private String mapperName;
     private String repositoryName;
@@ -38,22 +39,27 @@ public class EntityModel {
 
     public void setEntityName(String entityName) {
         this.entityName = entityName;
+        this.instanceName = entityName.substring(0, 1).toLowerCase() + entityName.substring(1);
     }
 
-    public String getHolderPackage() {
-        return holderPackage;
+    public String getInstanceName() {
+        return instanceName;
     }
 
-    public void setHolderPackage(String holderPackage) {
-        this.holderPackage = holderPackage;
+    public String getQentityPackage() {
+        return qentityPackage;
     }
 
-    public String getHolderName() {
-        return holderName;
+    public void setQentityPackage(String qentityPackage) {
+        this.qentityPackage = qentityPackage;
     }
 
-    public void setHolderName(String holderName) {
-        this.holderName = holderName;
+    public String getQentityName() {
+        return qentityName;
+    }
+
+    public void setQentityName(String qentityName) {
+        this.qentityName = qentityName;
     }
 
     public String getMapperPackage() {

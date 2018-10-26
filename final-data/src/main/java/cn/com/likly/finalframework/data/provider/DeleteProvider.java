@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.data.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 
 /**
  * @author likly
@@ -11,7 +11,7 @@ import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
  */
 public interface DeleteProvider<T> extends Provider<String> {
 
-    DeleteProvider<T> DELETE(EntityHolder<T> entity);
+    DeleteProvider<T> DELETE(Entity<T> entity);
 
     DeleteProvider<T> QUERY(Query query);
 

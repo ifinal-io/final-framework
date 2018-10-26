@@ -1,8 +1,8 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
 import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.data.provider.SelectProvider;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.NonNull;
@@ -22,27 +22,23 @@ import java.util.stream.Collectors;
 public class DefaultSelectProvider<T> extends AbsProvider<T> implements SelectProvider<T> {
 
     private SelectType selectType;
-    private EntityHolder<T> holder;
+    private Entity<T> holder;
     private Query query;
 
     public DefaultSelectProvider(@NonNull TypeHandlerRegistry typeHandlerRegistry) {
         super(typeHandlerRegistry);
     }
 
-    @Override
-    protected PropertyHolder getPropertyHolder(String property) {
-        return holder.getRequiredPersistentProperty(property);
-    }
 
     @Override
-    public SelectProvider<T> SELECT(@NonNull EntityHolder<T> holder) {
+    public SelectProvider<T> SELECT(@NonNull Entity<T> holder) {
         this.holder = holder;
         this.selectType = SelectType.SELECT;
         return this;
     }
 
     @Override
-    public SelectProvider<T> SELECT_COUNT(EntityHolder<T> holder) {
+    public SelectProvider<T> SELECT_COUNT(Entity<T> holder) {
         this.holder = holder;
         this.selectType = SelectType.SELECT_COUNT;
         return this;
@@ -54,13 +50,13 @@ public class DefaultSelectProvider<T> extends AbsProvider<T> implements SelectPr
         return this;
     }
 
-    private String getSelectColumns(EntityHolder<T> entity) {
+    private String getSelectColumns(Entity<T> entity) {
         return entity.stream().filter(it -> !it.isTransient())
                 .map(this::getSelectColumn)
                 .collect(Collectors.joining(","));
     }
 
-    private String getSelectColumn(PropertyHolder property) {
+    private String getSelectColumn(Property property) {
         if (property.getName().equals(property.getColumn())) {
             return property.getName();
         } else {

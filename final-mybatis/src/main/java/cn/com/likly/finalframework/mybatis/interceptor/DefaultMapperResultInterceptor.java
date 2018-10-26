@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.mybatis.interceptor;
 
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.mybatis.mapping.ResultMapCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
@@ -70,7 +70,7 @@ public class DefaultMapperResultInterceptor implements Interceptor {
             configurationField.setAccessible(true);
             Configuration configuration = (Configuration) configurationField.get(resultMap);
 
-            EntityHolder holder = (EntityHolder) paramMap.get("holder");
+            Entity holder = (Entity) paramMap.get("holder");
 
             ResultMap finalResultMap = resultMapCache.get(holder, configuration);
             finalResultMaps.set(0, finalResultMap);

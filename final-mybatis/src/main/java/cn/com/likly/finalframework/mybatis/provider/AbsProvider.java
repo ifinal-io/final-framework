@@ -1,17 +1,20 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
 import cn.com.likly.finalframework.data.domain.Criteria;
+import cn.com.likly.finalframework.data.domain.CriteriaSet;
 import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.mapping.holder.EntityHolder;
-import cn.com.likly.finalframework.data.mapping.holder.PropertyHolder;
+import cn.com.likly.finalframework.data.domain.Sort;
+import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.data.provider.Provider;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
-import cn.com.likly.finalframework.util.Assert;
 import lombok.NonNull;
 import org.apache.ibatis.type.TypeHandler;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -27,11 +30,11 @@ public abstract class AbsProvider<T> implements Provider<String> {
         this.typeHandlerRegistry = typeHandlerRegistry;
     }
 
-    String getTable(@NonNull EntityHolder<T> entity) {
+    String getTable(@NonNull Entity<T> entity) {
         return entity.getTable();
     }
 
-    String getJavaTypeAndTypeHandler(PropertyHolder property) {
+    String getJavaTypeAndTypeHandler(Property property) {
 
         final Class javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
         final Class collectionType = property.isCollectionLike() ? property.getType() : null;
@@ -47,64 +50,31 @@ public abstract class AbsProvider<T> implements Provider<String> {
         if (query == null) return "";
 
         final StringBuilder sb = new StringBuilder();
-        if (Assert.nonEmpty(query.getCriteria())) {
-            sb.append(" WHERE ").append(getCriteria(Criteria.of(query.getCriteria())));
+        if (query.stream().count() > 0) {
+            sb.append(" WHERE ").append(joinCriteria(query.stream()));
+        }
+
+        if (query.getSort() != null) {
+            sb.append(" ORDER BY ").append(getSort(query.getSort()));
+        }
+
+        if (query.getLimit() != null) {
+            sb.append(" LIMIT ").append(query.getLimit());
         }
 
         return sb.toString();
     }
 
-
-    private String getCriteria(Criteria criteria) {
-        if (Assert.isEmpty(criteria.getCriteriaChain())) {
-            final PropertyHolder propertyHolder = criteria.getProperty();
-            final String property = getFormatProperty(propertyHolder);
-            final Object value = criteria.getValue();
-            final Object min = criteria.getMin();
-            final Object max = criteria.getMax();
-            switch (criteria.getOperation()) {
-                case EQUAL:
-                    return value instanceof String ? String.format("%s = '%s'", property, value) : String.format("%s = %s", property, value.toString());
-                case NOT_EQUAL:
-                    return value instanceof String ? String.format("%s != '%s'", property, value) : String.format("%s != %s", property, value.toString());
-                case GREATER_THAN:
-                    return value instanceof String ? String.format("%s > '%s'", property, value) : String.format("%s > %s", property, value.toString());
-                case GREATER_EQUAL_THAN:
-                    return value instanceof String ? String.format("%s >= '%s'", property, value) : String.format("%s >= %s", property, value.toString());
-                case LESS_THAN:
-                    return value instanceof String ? String.format("%s < '%s'", property, value) : String.format("%s < %s", property, value.toString());
-                case LESS_EQUAL_THAN:
-                    return value instanceof String ? String.format("%s <= '%s'", property, value) : String.format("%s <= %s", property, value.toString());
-                case IN:
-                    return String.format("%s IN %s", property, buildInString((Collection<?>) value));
-                case NOT_IN:
-                    return String.format("%s NOT IN %s", property, buildInString((Collection<?>) value));
-                case LIKE:
-                    return String.format("%s LIKE '%%%s%%'", property, value.toString());
-                case NOT_LIKE:
-                    return String.format("%s NOT LIKE '%%%s%%'", property, value.toString());
-                case NULL:
-                    return String.format("%s IS NULL", property);
-                case NOT_NULL:
-                    return String.format("%s IS NOT NULL", property);
-                case BETWEEN:
-                    return value instanceof String ? String.format("%s BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
-                case NOT_BETWEEN:
-                    return value instanceof String ? String.format("%s NOT BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
-                default:
-                    return "";
-            }
-        } else {
-            return join(criteria.getCriteriaChain());
-        }
-
+    private String getSort(Sort sort) {
+        return sort.stream()
+                .map(it -> String.format("%s %s", getFormatProperty(it.getProperty()), it.getDirection().name()))
+                .collect(Collectors.joining(","));
     }
 
-    private String getFormatProperty(PropertyHolder property) {
+
+    private String getFormatProperty(Property property) {
         return String.format("%s.%s", property.getTable(), property.getColumn());
     }
-
-    protected abstract PropertyHolder getPropertyHolder(String property);
 
     private String buildInString(Collection<?> collection) {
         final StringBuilder sb = new StringBuilder();
@@ -115,7 +85,6 @@ public abstract class AbsProvider<T> implements Provider<String> {
             if (i++ != 0) {
                 sb.append(",");
             }
-
             sb.append(item instanceof String ? String.format("'%s'", item) : item);
         }
         sb.append(")");
@@ -124,26 +93,84 @@ public abstract class AbsProvider<T> implements Provider<String> {
         return sb.toString();
     }
 
-    private String join(List<Criteria> criteriaChain) {
+    private String joinCriteria(Stream<Criteria> criteria) {
+        return criteria.map(it -> it.isChain() ? joinCriteria(it.stream()) : joinCriteriaSet(it.setStream().collect(Collectors.toList())))
+                .collect(Collectors.joining(" AND "));
+    }
+
+    private String joinCriteriaSet(List<CriteriaSet> criteriaSets) {
         final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < criteriaChain.size(); i++) {
-            Criteria criteria = criteriaChain.get(i);
+        for (int i = 0; i < criteriaSets.size(); i++) {
+            CriteriaSet criteria = criteriaSets.get(i);
 
             if (i != 0) {
                 sb.append(" ").append(criteria.getAndOr().name()).append(" ");
             }
 
-            if (Assert.nonEmpty(criteria.getCriteriaChain()) && criteria.getCriteriaChain().size() > 1) {
+            if (criteriaSets.size() > 1) {
                 sb.append("(");
             }
 
-            sb.append(getCriteria(criteriaChain.get(i)));
+            sb.append(getCriteriaSet(criteriaSets.get(i)));
 
-            if (Assert.nonEmpty(criteria.getCriteriaChain()) && criteria.getCriteriaChain().size() > 1) {
+            if (criteriaSets.size() > 1) {
                 sb.append(")");
             }
         }
         return sb.toString();
+    }
+
+    private String getCriteriaSet(CriteriaSet criteriaSet) {
+        final Property propertyHolder = criteriaSet.getProperty();
+        final String property = getFormatProperty(propertyHolder);
+        final Object value = criteriaSet.getValue();
+        final Object min = criteriaSet.getMin();
+        final Object max = criteriaSet.getMax();
+        switch (criteriaSet.getOperation()) {
+            case EQUAL:
+                return value instanceof String ? String.format("%s = '%s'", property, value) : String.format("%s = %s", property, value.toString());
+            case NOT_EQUAL:
+                return value instanceof String ? String.format("%s != '%s'", property, value) : String.format("%s != %s", property, value.toString());
+            case GREATER_THAN:
+                return value instanceof String ? String.format("%s > '%s'", property, value) : String.format("%s > %s", property, value.toString());
+            case GREATER_EQUAL_THAN:
+                return value instanceof String ? String.format("%s >= '%s'", property, value) : String.format("%s >= %s", property, value.toString());
+            case LESS_THAN:
+                return value instanceof String ? String.format("%s < '%s'", property, value) : String.format("%s < %s", property, value.toString());
+            case LESS_EQUAL_THAN:
+                return value instanceof String ? String.format("%s <= '%s'", property, value) : String.format("%s <= %s", property, value.toString());
+            case IN:
+                return String.format("%s IN %s", property, buildInString((Collection<?>) value));
+            case NOT_IN:
+                return String.format("%s NOT IN %s", property, buildInString((Collection<?>) value));
+            case START_WITH:
+                return String.format("%s LIKE '%s%%'", property, value.toString());
+            case NOT_START_WITH:
+                return String.format("%s NOT LIKE '%s%%'", property, value.toString());
+            case END_WITH:
+                return String.format("%s LIKE '%%%s'", property, value.toString());
+            case NOT_END_WITH:
+                return String.format("%s NOT LIKE '%%%s'", property, value.toString());
+            case CONTAINS:
+                return String.format("%s LIKE '%%%s%%'", property, value.toString());
+            case NOT_CONTAINS:
+                return String.format("%s NOT LIKE '%%%s%%'", property, value.toString());
+            case LIKE:
+                return String.format("%s LIKE '%s'", property, value.toString());
+            case NOT_LIKE:
+                return String.format("%s NOT LIKE '%s'", property, value.toString());
+            case NULL:
+                return String.format("%s IS NULL", property);
+            case NOT_NULL:
+                return String.format("%s IS NOT NULL", property);
+            case BETWEEN:
+                return value instanceof String ? String.format("%s BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
+            case NOT_BETWEEN:
+                return value instanceof String ? String.format("%s NOT BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
+            default:
+                return "";
+        }
+
     }
 
 
