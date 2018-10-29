@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -21,7 +23,6 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Result<?> handlerException(Exception e) {
@@ -31,8 +32,11 @@ public class ApiExceptionHandler {
             /*
              * 验证异常
              */
-            final String message = e.getMessage();
-            return R.failure(HttpStatus.BAD_REQUEST.value(), message.substring(message.indexOf(":") + 1).trim());
+            return R.failure(HttpStatus.BAD_REQUEST.value(), ((ConstraintViolationException) e)
+                    .getConstraintViolations()
+                    .stream()
+                    .map(ConstraintViolation::getMessage)
+                    .collect(Collectors.joining(",")));
         }
 
         logger.error("UnCatchException", e);

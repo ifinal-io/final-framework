@@ -50,7 +50,7 @@ public interface RepositoryTemplate<ID extends Serializable, T extends IEntity<I
     /*=========================================================== UPDATE ===========================================================*/
 
     default int update(Entity<T> holder, T entity) {
-        return update(holder, entity, new Query().where(Criteria.where(holder.getIdProperty()).is(entity.getId())));
+        return update(holder, entity, new Query().where(Criteria.where(holder.getIdProperty()).eq(entity.getId())));
     }
 
     default int update(Entity<T> holder, T entity, Query query) {
@@ -106,7 +106,7 @@ public interface RepositoryTemplate<ID extends Serializable, T extends IEntity<I
     List<T> select(Entity<T> holder, Query query);
 
     default T selectOne(Entity<T> holder, ID id) {
-        return selectOne(holder, new Query().where((Criteria) Criteria.where(holder.getRequiredIdProperty()).is(id)));
+        return selectOne(holder, new Query().where((Criteria) Criteria.where(holder.getRequiredIdProperty()).eq(id)));
     }
 
     T selectOne(Entity<T> holder, Query query);

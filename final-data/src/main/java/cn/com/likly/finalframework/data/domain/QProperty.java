@@ -16,13 +16,13 @@ import java.util.Date;
  */
 public interface QProperty extends Property, Criteriable<Criteria>, Sortable<Sort> {
     @Override
-    default Criteria is(@NotNull Object value) {
-        return Criteria.where(this).is(value);
+    default Criteria eq(@NotNull Object value) {
+        return Criteria.where(this).eq(value);
     }
 
     @Override
-    default Criteria ne(@NotNull Object value) {
-        return Criteria.where(this).ne(value);
+    default Criteria neq(@NotNull Object value) {
+        return Criteria.where(this).neq(value);
     }
 
     @Override

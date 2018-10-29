@@ -11,6 +11,8 @@ import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.NonNull;
 import org.apache.ibatis.type.TypeHandler;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ import java.util.stream.Stream;
 public abstract class AbsProvider<T> implements Provider<String> {
 
     private final TypeHandlerRegistry typeHandlerRegistry;
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:dd");
 
     public AbsProvider(TypeHandlerRegistry typeHandlerRegistry) {
         this.typeHandlerRegistry = typeHandlerRegistry;
@@ -167,6 +170,20 @@ public abstract class AbsProvider<T> implements Provider<String> {
                 return value instanceof String ? String.format("%s BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
             case NOT_BETWEEN:
                 return value instanceof String ? String.format("%s NOT BETWEEN '%s' AND '%s'", property, min, max) : String.format("%s BETWEEN %s AND %s", property, min, max);
+
+            case BEFORE:
+                return String.format("%s < '%s'", property, dateFormat.format(value));
+            case AFTER:
+                return String.format("%s > '%s'", property, dateFormat.format(value));
+            case DATE_BEFORE:
+                return String.format("DATE(%s) < '%s'", property, dateFormat.format(value));
+            case DATE_AFTER:
+                return String.format("DATE(%s) > '%s'", property, dateFormat.format(value));
+            case DATE_BETWEEN:
+                return String.format("DATE(%s) BETWEEN '%s' AND '%s'", property, dateFormat.format(min), dateFormat.format(max));
+            case NOT_DATE_BETWEEN:
+                return String.format("DATE(%s) NOT BETWEEN '%s' AND '%s'", property, dateFormat.format(min), dateFormat.format(max));
+
             default:
                 return "";
         }

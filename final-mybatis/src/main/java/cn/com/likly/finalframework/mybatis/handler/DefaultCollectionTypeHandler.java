@@ -14,7 +14,7 @@ public abstract class DefaultCollectionTypeHandler<E, T extends Collection<E>> e
     public DefaultCollectionTypeHandler(Class<E> type) {
         super(type);
 //        if (!JavaType.isPrimary(type)) {
-//            throw new IllegalArgumentException("the target type is not support " + type.getName());
+        //            throw new IllegalArgumentException("the target type eq not support " + type.getName());
 //        }
     }
 
@@ -53,7 +53,7 @@ public abstract class DefaultCollectionTypeHandler<E, T extends Collection<E>> e
             } else if (JavaType.isBoolean(type)) {
                 result.add(Boolean.parseBoolean(item));
             } else {
-                throw new IllegalArgumentException("the target type is not support " + type.getName());
+                throw new IllegalArgumentException("the target type eq not support " + type.getName());
             }
         }
 

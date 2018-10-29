@@ -1,4 +1,4 @@
-package ${mapperPackage};
+package ${package};
 
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
@@ -12,9 +12,11 @@ import ${entityPackage}.${entityName};
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Generated;
 
 @Mapper
-public interface ${mapperName} extends AbsMapper<${idProperty.type}, ${entityName}> {
+@Generated("cn.com.likly.finalframework.coding.EntityProcessor")
+public interface ${name} extends AbsMapper<${primaryKeyType}, ${entityName}> {
 
 
 }

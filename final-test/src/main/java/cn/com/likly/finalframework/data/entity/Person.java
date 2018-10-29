@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author likly
@@ -23,5 +24,7 @@ public class Person extends Domain {
 
     private List<String> stringList;
     private List<Integer> intList;
+    private Map<String, Integer> maps;
     private YN yn = YN.YES;
+    //    private String test;
 }

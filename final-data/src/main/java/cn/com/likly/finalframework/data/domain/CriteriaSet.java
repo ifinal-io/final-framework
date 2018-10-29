@@ -48,14 +48,14 @@ public class CriteriaSet implements Criteriable<Criteria> {
     }
 
     @Override
-    public Criteria is(@NotNull Object value) {
+    public Criteria eq(@NotNull Object value) {
         this.operation = CriteriaOperation.EQUAL;
         this.value = value;
         return criteria == null ? new Criteria(this) : criteria.addCriteriaSet(this);
     }
 
     @Override
-    public Criteria ne(@NotNull Object value) {
+    public Criteria neq(@NotNull Object value) {
         this.operation = CriteriaOperation.NOT_EQUAL;
         this.value = value;
         return criteria == null ? new Criteria(this) : criteria.addCriteriaSet(this);
