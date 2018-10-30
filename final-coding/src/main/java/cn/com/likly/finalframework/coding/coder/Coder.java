@@ -1,6 +1,7 @@
 package cn.com.likly.finalframework.coding.coder;
 
 import cn.com.likly.finalframework.coding.annotation.Template;
+import cn.com.likly.finalframework.util.Assert;
 
 import java.io.Writer;
 
@@ -22,6 +23,10 @@ public interface Coder {
     void coding(String template, Object model, Writer writer);
 
     default void coding(Object model, Writer writer) {
+        Assert.isNull(model, "the model must not ne null!");
+        Assert.isNull(writer, "the writer must not be null!");
+
+
         Template template = model.getClass().getAnnotation(Template.class);
         if (template == null) {
             throw new NullPointerException("the model must one Template annotation , model=" + model
