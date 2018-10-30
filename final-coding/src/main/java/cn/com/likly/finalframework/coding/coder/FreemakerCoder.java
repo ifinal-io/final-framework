@@ -31,7 +31,7 @@ public class FreemakerCoder implements Coder {
     }
 
     @Override
-    public void process(String template, Object model, Writer writer) {
+    public void coding(String template, Object model, Writer writer) {
         try {
             getTemplate(template).process(model, writer);
             writer.flush();

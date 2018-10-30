@@ -67,7 +67,7 @@ public class EntityProcessor extends AbstractProcessor {
                     final String entityName = it.getSimpleName();
                     QEntity qEntity = new QEntity(packageName.replace(".entity", ".query"), "Q" + entityName, it);
                     try {
-                        coder.process(qEntity, filer
+                        coder.coding(qEntity, filer
                                 .createSourceFile(qEntity.getPackage() + "." + qEntity.getName())
                                 .openWriter());
                         if (it.hasAnnotation(MapperEntity.class)) {
@@ -77,7 +77,7 @@ public class EntityProcessor extends AbstractProcessor {
                             Mapper mapper = new Mapper(packageName.replace(".entity", ".dao.mapper"), entityName + "Mapper", primaryKeyType
                                     .startsWith("java.lang.") ? primaryKeyType.substring(primaryKeyType.lastIndexOf(".") + 1) : primaryKeyType, it
                                     .getPackage(), it.getSimpleName());
-                            coder.process(mapper, filer
+                            coder.coding(mapper, filer
                                     .createSourceFile(mapper.getPackage() + "." + mapper.getName())
                                     .openWriter());
                         }
