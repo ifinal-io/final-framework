@@ -10,13 +10,15 @@ import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 /**
+ * The handler is to handle the exception throw by framework of {@link javax.validation.Validator}
  * @author likly
  * @version 1.0
  * @date 2018-10-31 13:25
  * @since 1.0
+ * @see ConstraintViolationException
  */
 @RestExceptionHandler
-public class ViolationResultException implements ResultExceptionHandler<ConstraintViolationException> {
+public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
     @Override
     public boolean isSupported(Throwable t) {
         return t instanceof ConstraintViolationException;

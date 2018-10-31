@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestControllerAdvice
-public class ApiExceptionHandler implements ApplicationContextAware {
+public class DefaultRestExceptionHandler implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
     private List<ExceptionHandlerBean> exceptionHandlerBeans;

@@ -4,6 +4,7 @@ import cn.com.likly.finalframework.data.exception.IException;
 import cn.com.likly.finalframework.data.result.R;
 import cn.com.likly.finalframework.data.result.Result;
 import cn.com.likly.finalframework.spring.annotation.RestExceptionHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.core.annotation.Order;
  * @date 2018-10-31 11:40
  * @since 1.0
  */
+@Slf4j
 @Order
 @RestExceptionHandler
 public class DefaultResultExceptionHandler implements ResultExceptionHandler<Throwable> {
@@ -26,7 +28,7 @@ public class DefaultResultExceptionHandler implements ResultExceptionHandler<Thr
         if (throwable instanceof IException) {
             return R.failure(((IException) throwable).getCode(), throwable.getMessage());
         }
-
+        logger.error("UnCatchException:", throwable);
 
         return R.failure(500, throwable.getMessage());
     }
