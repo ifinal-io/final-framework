@@ -19,7 +19,6 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streable<Prope
         return new BaseEntity<>(entityClass);
     }
 
-
     String getTable();
 
     PrimaryKeyType getPrimaryKeyType();

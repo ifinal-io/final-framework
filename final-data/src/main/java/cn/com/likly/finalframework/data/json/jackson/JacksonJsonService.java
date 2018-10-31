@@ -28,7 +28,7 @@ public class JacksonJsonService implements JsonService {
 
     @PostConstruct
     private void init() {
-        JsonRegistry.getInstance().setJsonService(this);
+        JsonRegistry.getInstance().registerJsonService(this);
     }
 
     @Override

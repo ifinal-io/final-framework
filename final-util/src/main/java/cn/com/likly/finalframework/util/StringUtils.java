@@ -10,6 +10,7 @@ import java.util.Collection;
  * @date 2018-10-15 13:35
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public interface StringUtils {
 
 

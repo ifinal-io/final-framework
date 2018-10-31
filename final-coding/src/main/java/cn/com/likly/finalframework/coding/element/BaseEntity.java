@@ -34,7 +34,6 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
         this.types = processEnv.getTypeUtils();
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
-        System.out.println(packageName);
         this.name = typeElement.getQualifiedName().toString();
         this.simpleName = typeElement.getSimpleName().toString();
         this.type = types.erasure(typeElement.asType()).toString();
