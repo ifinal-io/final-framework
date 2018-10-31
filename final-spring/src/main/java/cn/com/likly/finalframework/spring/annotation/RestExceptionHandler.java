@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExceptionHandler {
-    
+public @interface RestExceptionHandler {
+
 }
