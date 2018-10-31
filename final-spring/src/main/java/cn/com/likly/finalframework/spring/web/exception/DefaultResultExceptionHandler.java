@@ -19,7 +19,7 @@ import org.springframework.core.annotation.Order;
 public class DefaultResultExceptionHandler implements ResultExceptionHandler<Throwable> {
 
     @Override
-    public boolean isSupported(Throwable t) {
+    public boolean supports(Throwable t) {
         return true;
     }
 

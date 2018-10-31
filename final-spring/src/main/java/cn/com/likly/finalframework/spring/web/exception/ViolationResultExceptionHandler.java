@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestExceptionHandler
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
     @Override
-    public boolean isSupported(Throwable t) {
+    public boolean supports(Throwable t) {
         return t instanceof ConstraintViolationException;
     }
 

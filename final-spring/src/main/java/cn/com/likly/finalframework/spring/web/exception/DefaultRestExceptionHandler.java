@@ -49,7 +49,7 @@ public class DefaultRestExceptionHandler implements ApplicationContextAware {
     @ResponseBody
     public Object handlerException(Exception e) throws Throwable {
         for (ExceptionHandlerBean item : exceptionHandlerBeans) {
-            if (item.isSupported(e)) {
+            if (item.supports(e)) {
                 return item.handle(e);
             }
         }

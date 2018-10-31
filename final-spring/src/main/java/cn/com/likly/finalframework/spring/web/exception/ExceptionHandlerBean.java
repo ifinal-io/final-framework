@@ -22,8 +22,8 @@ public class ExceptionHandlerBean implements ExceptionHandler<Throwable, Object>
     }
 
     @Override
-    public boolean isSupported(Throwable t) {
-        return exceptionHandler.isSupported(t);
+    public boolean supports(Throwable t) {
+        return exceptionHandler.supports(t);
     }
 
     @Override

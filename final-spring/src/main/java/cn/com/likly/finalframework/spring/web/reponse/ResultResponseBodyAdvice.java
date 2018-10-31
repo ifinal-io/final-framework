@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * Wrap the return result of {@link org.springframework.web.method.HandlerMethod} which annotated by {@link ResponseBody} or {@link RestController}.
  * @author likly
  * @version 1.0
  * @date 2018-09-29 09:45
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @RestControllerAdvice
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         return methodParameter.hasMethodAnnotation(ResponseBody.class) ||
@@ -39,12 +41,17 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         return result;
     }
 
+    /**
+     * build {@link Result} of body
+     *
+     * @param body result return by handler method or exception handler
+     */
     @SuppressWarnings("unchecked")
-    private Result<?> buildResult(Object object) {
-        if (object == null) return R.success();
+    private Result<?> buildResult(Object body) {
+        if (body == null) return R.success();
 
-        if (object instanceof Page) {
-            final PageInfo pageInfo = ((Page) object).toPageInfo();
+        if (body instanceof Page) {
+            final PageInfo pageInfo = ((Page) body).toPageInfo();
             cn.com.likly.finalframework.data.result.Page pageResult = new cn.com.likly.finalframework.data.result.Page(
                     pageInfo.getPageNum(),
                     pageInfo.getPageSize(),
@@ -56,11 +63,11 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             );
 
             return R.success(pageResult);
-        } else if (object instanceof Result) {
-            return (Result<?>) object;
+        } else if (body instanceof Result) {
+            return (Result<?>) body;
         }
 
-        return R.success(object);
+        return R.success(body);
 
     }
 

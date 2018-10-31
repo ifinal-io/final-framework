@@ -14,7 +14,7 @@ import cn.com.likly.finalframework.spring.annotation.RestExceptionHandler;
 @RestExceptionHandler
 public class JsonResultExceptionHandler implements ResultExceptionHandler<JsonException> {
     @Override
-    public boolean isSupported(Throwable t) {
+    public boolean supports(Throwable t) {
         return t instanceof JsonException;
     }
 
