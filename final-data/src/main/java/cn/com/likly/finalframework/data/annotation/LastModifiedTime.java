@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @since 1.0
  */
 @Index(Integer.MAX_VALUE - 100)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @LastModifiedDate
@@ -22,9 +22,9 @@ public @interface LastModifiedTime {
 
     boolean unique() default false;
 
-    boolean nullable() default false;
+    boolean nonnull() default false;
 
     boolean insertable() default false;
 
-    boolean updatable() default false;
+    boolean updatable() default true;
 }

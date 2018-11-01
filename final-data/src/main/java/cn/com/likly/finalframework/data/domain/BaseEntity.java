@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.data.domain;
 
+import cn.com.likly.finalframework.data.annotation.NonColumn;
 import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.annotation.Table;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
@@ -73,14 +74,17 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
             BeanInfo beanInfo = Introspector.getBeanInfo(entityClass);
 
 
-            Arrays.stream(beanInfo.getPropertyDescriptors())
-                    .filter(it -> !it.getName().equals("class"))
-                    .map(it -> new BaseProperty(
-                            org.springframework.data.mapping.model.Property.of(getTypeInformation(), getField(it.getName(), entityClass), it),
-                                    this,
-                                    SimpleTypeHolder.DEFAULT
-                            )
-                    )
+            Arrays
+                    .stream(beanInfo.getPropertyDescriptors())
+                    .filter(it -> !it.getName().equals("class") && it
+                            .getReadMethod()
+                            .getAnnotation(NonColumn.class) == null)
+                    .map(it -> new BaseProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(),
+                                                                                                   getField(it.getName(),
+                                                                                                            entityClass),
+                                                                                                   it),
+                                                this,
+                                                SimpleTypeHolder.DEFAULT))
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);
@@ -103,7 +107,8 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     }
 
     private Field getField(String name, Class target) {
-        if (target == Object.class) return null;
+        if (target == Object.class)
+            throw new NullPointerException(String.format("cannot find field of %s in entity %s", name, target));
         try {
             return target.getDeclaredField(name);
         } catch (NoSuchFieldException e) {

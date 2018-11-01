@@ -29,14 +29,15 @@ public class AbsMapperProxy<ID extends Serializable, T extends IEntity<ID>, MAPP
     private final Entity<T> holder;
     private final Object proxy;
 
-    public AbsMapperProxy(DefaultMapper<ID, T> defaultMapper, Object target, Entity<T> holder) {
+    AbsMapperProxy(DefaultMapper<ID, T> defaultMapper, Object target, Entity<T> holder) {
         this.defaultMapper = defaultMapper;
         this.target = target;
         this.holder = holder;
         this.proxy = Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
 
-    public MAPPER getMapper() {
+    @SuppressWarnings("unchecked")
+    MAPPER getMapper() {
         return (MAPPER) proxy;
     }
 

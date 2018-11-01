@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * @date 2018-10-15 15:14
  * @since 1.0
  */
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @org.springframework.data.annotation.Id

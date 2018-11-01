@@ -54,19 +54,18 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
     private String getUpdateSet() {
         if (update == null) {
             return holder.stream()
-                    .filter(it -> !it.isTransient() || it.updatable() || (!it.nullable() && it.get(entity) != null))
-                    // ${column} = #{entity.${property}}
-                    .map(it -> String.format("%s = #{entity.%s %s}",
+                         .filter(it -> !it.isTransient() && it.updatable() && (it.nonnull() && it.get(entity) != null))
+                         // ${column} = #{entity.${property}}
+                         .map(it -> String.format("%s = #{entity.%s %s}",
                             it.getColumn(),
                             it.getName(),
                             getJavaTypeAndTypeHandler(it))
                     )
-                    .collect(Collectors.joining(","));
+                         .collect(Collectors.joining(","));
         } else {
             return update.stream()
                     .filter(it -> !it.getProperty().isTransient()
-                            && it.getProperty().updatable()
-                            && (!it.getProperty().nullable() && !it.isNull()))
+                            && it.getProperty().updatable() && (it.getProperty().nonnull() && !it.isNull()))
                     .map(it -> {
                         it.getProperty().set(entity, it.getValue());
 

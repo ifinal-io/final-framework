@@ -31,18 +31,18 @@ public class MapperProvider<ID extends Serializable, T extends IEntity> implemen
 
     public String insert(Map<String, Object> args) {
         Entity<T> holder = (Entity<T>) args.get("holder");
-        Collection<T> list = args.containsKey("array") ? Arrays.asList((T[]) args.get("array"))
-                : (Collection<T>) args.get("list");
+        Collection<T> list = args.containsKey("array") ? Arrays.asList((T[]) args.get("array")) : (Collection<T>) args.get(
+                "list");
 
-        return new DefaultInsertProvider<T>(typeHandlerRegistry)
-                .INSERT_INTO(holder)
-                .INSERT_VALUES(list)
-                .provide();
+        return new DefaultInsertProvider<T>(typeHandlerRegistry).INSERT_INTO(holder).INSERT_VALUES(list).provide();
     }
 
     public String update(Map<String, Object> args) {
         Entity<T> holder = (Entity<T>) args.get("holder");
         T entity = args.containsKey("entity") ? (T) args.get("entity") : holder.getInstance();
+        if (entity == null) {
+            entity = holder.getInstance();
+        }
         Update update = (Update) args.get("update");
         Query query = (Query) args.get("query");
 
@@ -59,28 +59,19 @@ public class MapperProvider<ID extends Serializable, T extends IEntity> implemen
     public String delete(Map<String, Object> args) {
         Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
-        return new DefaultDeleteProvider<T>(typeHandlerRegistry)
-                .DELETE(holder)
-                .QUERY(query)
-                .provide();
+        return new DefaultDeleteProvider<T>(typeHandlerRegistry).DELETE(holder).QUERY(query).provide();
     }
 
     public String select(Map<String, Object> args) {
         Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
-        return new DefaultSelectProvider<T>(typeHandlerRegistry)
-                .SELECT(holder)
-                .QUERY(query)
-                .provide();
+        return new DefaultSelectProvider<T>(typeHandlerRegistry).SELECT(holder).QUERY(query).provide();
     }
 
     public String selectCount(Map<String, Object> args) {
         Entity<T> holder = (Entity<T>) args.get("holder");
         Query query = (Query) args.get("query");
-        return new DefaultSelectProvider<T>(typeHandlerRegistry)
-                .SELECT_COUNT(holder)
-                .QUERY(query)
-                .provide();
+        return new DefaultSelectProvider<T>(typeHandlerRegistry).SELECT_COUNT(holder).QUERY(query).provide();
     }
 
     @Override

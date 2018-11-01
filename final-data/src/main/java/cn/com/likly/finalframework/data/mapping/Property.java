@@ -25,7 +25,7 @@ public interface Property extends PersistentProperty<Property> {
 
     boolean unique();
 
-    boolean nullable();
+    boolean nonnull();
 
     boolean insertable();
 

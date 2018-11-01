@@ -42,19 +42,26 @@ public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertPr
     }
 
     private String getInsertColumns(Entity<T> entity) {
-        return entity.stream().filter(it -> !it.isTransient() && it.insertable())
+        return entity
+                .stream()
+                .filter(it -> !it.isTransient() && it.insertable())
                 .map(Property::getColumn)
                 .collect(Collectors.joining(",", "(", ")"));
     }
 
     private String getInsertValues(Entity<T> entity, Collection<T> entities) {
-        return IntStream.range(0, entities.size()).mapToObj(index -> entity
-                .stream()
-                .filter(it -> !it.isTransient())
-                .filter(Property::insertable)
-                // #{list[${index}].${property},javaType={},typeHandler={}}
-                .map(it -> String.format("#{list[%d].%s %s}", index, it.getColumn(), getJavaTypeAndTypeHandler(it)))
-                .collect(Collectors.joining(",", "(", ")")))
+        return IntStream
+                .range(0, entities.size())
+                .mapToObj(index -> entity
+                        .stream()
+                        .filter(it -> !it.isTransient())
+                        .filter(Property::insertable)
+                        // #{list[${index}].${property},javaType={},typeHandler={}}
+                        .map(it -> String.format("#{list[%d].%s %s}",
+                                                 index,
+                                                 it.getColumn(),
+                                                 getJavaTypeAndTypeHandler(it)))
+                        .collect(Collectors.joining(",", "(", ")")))
                 .collect(Collectors.joining(","));
     }
 
@@ -63,10 +70,10 @@ public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertPr
 
         final StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ")
-                .append(getTable(entity))
-                .append(getInsertColumns(entity))
-                .append(" VALUES ")
-                .append(getInsertValues(entity, entities));
+          .append(getTable(entity))
+          .append(getInsertColumns(entity))
+          .append(" VALUES ")
+          .append(getInsertValues(entity, entities));
 
         final String sql = sb.toString();
         logger.info("==> {}", sql);

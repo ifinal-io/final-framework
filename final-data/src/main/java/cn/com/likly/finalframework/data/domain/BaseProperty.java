@@ -29,7 +29,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     private String column;
     private PersistentType persistentType = PersistentType.AUTO;
     private boolean unique = false;
-    private boolean nullable = true;
+    private boolean nonnull = true;
     private boolean insertable = true;
     private boolean updatable = true;
 
@@ -68,7 +68,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
             if (isIdProperty()) {
                 unique = true;
-                nullable = false;
+                nonnull = false;
                 updatable = false;
 
                 if (isAnnotationPresent(PrimaryKey.class)) {
@@ -95,7 +95,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @SuppressWarnings("all")
     private void initColumn(Column column) {
         this.unique = column.unique();
-        this.nullable = column.nullable();
+        this.nonnull = column.nonnull();
         this.insertable = column.insertable();
         this.updatable = column.updatable();
         this.table = column.table();
@@ -106,7 +106,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @SuppressWarnings("all")
     private void initCreatedTime(CreatedTime createdTime) {
         this.unique = createdTime.unique();
-        this.nullable = createdTime.nullable();
+        this.nonnull = createdTime.nonnull();
         this.insertable = createdTime.insertable();
         this.updatable = createdTime.updatable();
         this.table = createdTime.table();
@@ -116,7 +116,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @SuppressWarnings("all")
     private void initLastModifiedTime(LastModifiedTime lastModifiedTime) {
         this.unique = lastModifiedTime.unique();
-        this.nullable = lastModifiedTime.nullable();
+        this.nonnull = lastModifiedTime.nonnull();
         this.insertable = lastModifiedTime.insertable();
         this.updatable = lastModifiedTime.updatable();
         this.table = lastModifiedTime.table();
@@ -129,8 +129,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     }
 
     @Override
-    public boolean nullable() {
-        return nullable;
+    public boolean nonnull() {
+        return nonnull;
     }
 
     @Override
