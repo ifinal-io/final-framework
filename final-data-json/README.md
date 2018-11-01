@@ -20,30 +20,41 @@ A simple and powerful json api framework.
 
 ```java
 @Test
-public void convertObjectToJson(){
-    Object object = ...;
-    String json = Json.toJson(object);
+public void testToJson() {
+    final JsonBean bean = new JsonBean();
+    bean.setName("xiaoMing");
+    bean.setAge(20);
+    logger.info("bean={}", bean);
+    final String json = Json.toJson(bean);
+    logger.info(json);//{"name":"xiaoMing","age":20}
 }
 ```
 
 * Parse Json to Object
 
 ```java
-@Test
-public void parseJsonToObject(){
-    String json = "{\"name\":\"xiaoming\",\"age\":20}";
-    Person person = Json.parse(json,Person.class );
+public void testParseObject() {
+    final JsonBean bean = new JsonBean();
+    bean.setName("xiaoMing");
+    bean.setAge(20);
+    logger.info("bean={}", bean);
+    final String json = Json.toJson(bean);
+    logger.info(json);
+    final JsonBean result = Json.parse(json, JsonBean.class);
+    logger.info("result={}", result);//result=JsonBean(name=xiaoMing, age=20)
 }
 ```
 
 * Parse Json to Collection
 ```java
 @Test
-public void parseJsonToCollection(){
-    String json = "[1,2,3]";
+public void testParseCollection() {
+    final String json = Json.toJson(Arrays.asList(1, 2, 3, 2, 1));
     //parse to list
-    List<Interger> list = Json.parse(json,List.class,Interger.class);
-    // parse to set
-    Set<Interger> set = Json.parse(json,Set.class,Set.class); 
+    List<Integer> list = Json.parse(json, List.class, int.class);
+    logger.info("list={}", list);// list=[1,2,3,2,1]
+    //parse to set
+    Set<Integer> set = Json.parse(json, Set.class, int.class);
+    logger.info("set={}", set);// set=[1,2,3]
 }
 ```
