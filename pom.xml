@@ -10,11 +10,12 @@
         <module>final-context</module>
         <module>final-util</module>
         <module>final-data</module>
-        <module>final-mybatis</module>
-        <module>final-spring</module>
+        <module>final-data-json</module>
+        <module>final-data-mybatis</module>
+        <module>final-data-redis</module>
         <module>final-coding</module>
+        <module>final-spring</module>
         <module>final-test</module>
-        <module>final-cache</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -63,6 +64,11 @@
             <dependency>
                 <groupId>cn.com.likly.finalframework</groupId>
                 <artifactId>final-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.likly.finalframework</groupId>
+                <artifactId>final-data-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
