@@ -5,6 +5,7 @@ import cn.com.likly.finalframework.data.json.JsonRegistry;
 import cn.com.likly.finalframework.data.json.JsonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ import java.util.Collection;
 public class JacksonJsonService implements JsonService {
 
     @Resource
+    @Setter
     private ObjectMapper objectMapper;
 
     @PostConstruct
