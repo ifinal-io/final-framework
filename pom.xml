@@ -19,7 +19,7 @@
     <packaging>pom</packaging>
 
     <name>final-framework</name>
-    <description>Demo project for Spring Boot</description>
+    <description>final framework for a simple restful api server</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
