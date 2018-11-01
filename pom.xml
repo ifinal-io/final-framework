@@ -7,12 +7,14 @@
     <artifactId>final-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
+        <module>final-context</module>
         <module>final-util</module>
         <module>final-data</module>
         <module>final-mybatis</module>
         <module>final-spring</module>
         <module>final-coding</module>
         <module>final-test</module>
+        <module>final-cache</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -71,6 +73,11 @@
                 <groupId>cn.com.likly.finalframework</groupId>
                 <artifactId>final-spring</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-redis</artifactId>
+                <version>1.4.7.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
