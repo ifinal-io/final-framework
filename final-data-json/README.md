@@ -58,3 +58,25 @@ public void testParseCollection() {
     logger.info("set={}", set);// set=[1,2,3]
 }
 ```
+
+## Json Core
+
+**Json Util**
+
+* `Json.toJson(Object)`：把数据序列化为`json`串。
+* `Json.parse(String,Class)`：把`json`串反序列化为`JavaBean`对象。
+* `Json.parse(String,Type)`：把`json`串反序列化为`Type`所代表的`JavaBean`对象。
+* `Json.parse(String,TypeReference)`：把`json`串反序列化为`TypeReference`所表示的`JavaBean`对象。
+* `Json.parse(String,Class<? extend Collection>,Class)`：把`json`串反序列化为`List`或`Set`等`Collection`的子类。
+
+**Json Lib**
+
+* [`jackson`](src/main/java/cn/com/likly/finalframework/data/json/jackson/JacksonJsonService.java):
+* `fastjson`(未实现):
+* [`gson`](src/main/java/cn/com/likly/finalframework/data/json/gson/GsonJsonService.java):
+
+**Custom Json Lib**
+
+1. Implement [`JsonService`](src/main/java/cn/com/likly/finalframework/data/json/JsonService.java) Interface
+2. Register `JsonService` to [`JsonRegistry`](src/main/java/cn/com/likly/finalframework/data/json/JsonRegistry.java)
+
