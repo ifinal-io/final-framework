@@ -20,7 +20,7 @@
 * `fastjson`(未实现):
 * [`gson`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/gson/GsonJsonService.java):
 
-**Custom Json Lib **
+**Custom Json Lib**
 
 1. Implement [`JsonService`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/JsonService.java) Interface
 2. Register `JsonService` to [`JsonRegistry`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/JsonRegistry.java)
