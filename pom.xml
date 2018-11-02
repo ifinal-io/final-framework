@@ -7,7 +7,6 @@
     <artifactId>final-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>final-context</module>
         <module>final-util</module>
         <module>final-data</module>
         <module>final-data-json</module>
