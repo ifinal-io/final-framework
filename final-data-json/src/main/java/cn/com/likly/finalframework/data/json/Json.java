@@ -2,6 +2,7 @@ package cn.com.likly.finalframework.data.json;
 
 import lombok.NonNull;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 
 /**
@@ -18,25 +19,41 @@ import java.util.Collection;
  * @see JsonRegistry
  * @since 1.0
  */
+@SuppressWarnings("all")
 public interface Json {
 
     static String toJson(Object object) {
         try {
             return JsonRegistry.getInstance().getJsonService().toJson(object);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (e instanceof JsonException) {
-                throw e;
+                throw (JsonException) e;
             }
             throw new JsonException(e);
         }
     }
 
-    static <T> T parse(@NonNull String json, @NonNull Class<T> elementClass) {
+    static <T> T parse(@NonNull String json, @NonNull Class<T> classOfT) {
         try {
-            return JsonRegistry.getInstance().getJsonService().parse(json, elementClass);
-        } catch (Exception e) {
+            return JsonRegistry.getInstance().getJsonService().parse(json, classOfT);
+        } catch (Throwable e) {
             if (e instanceof JsonException) {
-                throw e;
+                throw (JsonException) e;
+            }
+            throw new JsonException(e);
+        }
+    }
+
+    static <T> T parse(@NonNull String json, @NonNull TypeReference<T> typeOfT) {
+        return parse(json, typeOfT.getType());
+    }
+
+    static <T> T parse(@NonNull String json, @NonNull Type typeOfT) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().parse(json, typeOfT);
+        } catch (Throwable e) {
+            if (e instanceof JsonException) {
+                throw (JsonException) e;
             }
             throw new JsonException(e);
         }
@@ -45,9 +62,9 @@ public interface Json {
     static <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) {
         try {
             return JsonRegistry.getInstance().getJsonService().parse(json, collectionClass, elementClass);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (e instanceof JsonException) {
-                throw e;
+                throw (JsonException) e;
             }
             throw new JsonException(e);
         }

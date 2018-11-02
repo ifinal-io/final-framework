@@ -3,7 +3,6 @@ package cn.com.likly.finalframework.data.json.jackson;
 import cn.com.likly.finalframework.data.json.JsonException;
 import cn.com.likly.finalframework.data.json.JsonRegistry;
 import cn.com.likly.finalframework.data.json.JsonService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Collection;
 
 /**
@@ -30,34 +30,34 @@ public class JacksonJsonService implements JsonService {
 
     @PostConstruct
     private void init() {
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
+        }
         JsonRegistry.getInstance().registerJsonService(this);
     }
 
     @Override
-    public String toJson(Object object) {
-        try {
+    public String toJson(Object object) throws Throwable {
             return objectMapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new JsonException(e);
-        }
     }
 
     @Override
-    public <T> T parse(String json, Class<T> elementClass) {
+    public <T> T parse(String json, Class<T> classOfT) {
         try {
-            return objectMapper.readValue(json, elementClass);
+            return objectMapper.readValue(json, classOfT);
         } catch (IOException e) {
             throw new JsonException(e);
         }
     }
 
     @Override
-    public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) {
-        try {
+    public <T> T parse(String json, Type typeOfT) throws Throwable {
+        return objectMapper.readValue(json, objectMapper.getTypeFactory().constructType(typeOfT));
+    }
+
+    @Override
+    public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
             return objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass));
-        } catch (IOException e) {
-            throw new JsonException(e);
-        }
     }
 
 }

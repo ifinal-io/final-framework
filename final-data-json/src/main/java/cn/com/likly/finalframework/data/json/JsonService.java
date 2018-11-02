@@ -2,6 +2,7 @@ package cn.com.likly.finalframework.data.json;
 
 import lombok.NonNull;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 
 /**
@@ -12,9 +13,11 @@ import java.util.Collection;
  */
 public interface JsonService {
 
-    String toJson(Object object);
+    String toJson(Object object) throws Throwable;
 
-    <T> T parse(@NonNull String json, @NonNull Class<T> elementClass);
+    <T> T parse(@NonNull String json, @NonNull Class<T> classOfT) throws Throwable;
 
-    <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass);
+    <T> T parse(@NonNull String json, @NonNull Type typeOfT) throws Throwable;
+
+    <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) throws Throwable;
 }

@@ -1,10 +1,10 @@
-package cn.com.likly.finalframework.data.json.jackson;
+package cn.com.likly.finalframework.data.json.gson;
 
 import cn.com.likly.finalframework.data.json.Json;
 import cn.com.likly.finalframework.data.json.JsonBean;
 import cn.com.likly.finalframework.data.json.JsonRegistry;
 import cn.com.likly.finalframework.data.json.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,30 +16,25 @@ import java.util.Set;
 /**
  * @author likly
  * @version 1.0
- * @date 2018-11-01 22:52
+ * @date 2018-11-02 11:36
  * @since 1.0
  */
-
 @Slf4j
 @SuppressWarnings("all")
-public class JacksonJsonServiceTest {
-
+public class GsonJsonServiceTest {
     @Before
     public void setUp() {
-        JacksonJsonService jsonService = new JacksonJsonService();
-        jsonService.setObjectMapper(new ObjectMapper());
+        GsonJsonService jsonService = new GsonJsonService();
+        jsonService.setGson(new Gson());
         JsonRegistry.getInstance().registerJsonService(jsonService);
 
     }
 
     @Test
     public void testToJson() {
-        final JsonBean bean = new JsonBean();
-        bean.setName("xiaoMing");
-        bean.setAge(20);
-        logger.info("bean={}", bean);
-        final String json = Json.toJson(bean);
-        logger.info(json);
+        final JsonBean bean = new JsonBean().setName("Jack").setAge(20);
+
+        logger.info("bean={}", Json.toJson(bean));
 
     }
 
@@ -54,7 +49,6 @@ public class JacksonJsonServiceTest {
         final JsonBean result = Json.parse(json, JsonBean.class);
         logger.info("result={}", result);
     }
-
 
     @Test
     public void testParseType() {
@@ -71,13 +65,27 @@ public class JacksonJsonServiceTest {
 
     @Test
     public void testParseCollection() {
+
+
         final String json = Json.toJson(Arrays.asList(1, 2, 3, 2, 1));
         //parse to list
-        List<Integer> list = Json.parse(json, List.class, int.class);
+        List<Integer> list = Json.parse(json, List.class, Integer.class);
         logger.info("list={}", list);
         //parse to set
         Set<Integer> set = Json.parse(json, Set.class, int.class);
         logger.info("set={}", set);
+
+        final String beanArray = Json.toJson(Arrays.asList(
+                new JsonBean().setName("jack").setAge(11),
+                new JsonBean().setName("jack").setAge(11),
+                new JsonBean().setName("jack").setAge(11)
+        ));
+
+        List<JsonBean> beanList = Json.parse(beanArray, List.class, JsonBean.class);
+        logger.info("beanList={}", beanList);
+
+
     }
+
 
 }
