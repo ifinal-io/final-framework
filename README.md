@@ -6,17 +6,28 @@
 
 提供统一的`Json`操作`API`，并支持多种`Json`库，如`jackson`、`fastjson`、`gson`。
 
-**Json API**
+**[Json API](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/Json.java)**
 
 * `Json.toJson(Object)`：把数据序列化为`json`串。
 * `Json.parse(String,Class)`：把`json`串反序列化为`JavaBean`对象。
+* `Json.parse(String,Type)`：把`json`串反序列化为`Type`所代表的`JavaBean`对象。
+* `Json.parse(String,TypeReference)`：把`json`串反序列化为`TypeReference`所表示的`JavaBean`对象。
 * `Json.parse(String,Class<? extend Collection>,Class)`：把`json`串反序列化为`List`或`Set`等`Collection`的子类。
 
 **Json Lib**
 
-* `jackson`:
+* [`jackson`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/jackson/JacksonJsonService.java):
 * `fastjson`(未实现):
-* `gson`（未实现）:
+* [`gson`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/gson/GsonJsonService.java):
+
+**Custom Json Lib **
+
+1. Implement [`JsonService`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/JsonService.java) Interface
+2. Register `JsonService` to [`JsonRegistry`](final-data-json/src/main/java/cn/com/likly/finalframework/data/json/JsonRegistry.java)
+
+**More**
+
+[`See Json Module`](final-data-json/README.md)
 
 ### Mybatis
 
