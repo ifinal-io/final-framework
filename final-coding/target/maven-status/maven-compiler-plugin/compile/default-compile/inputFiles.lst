@@ -1,0 +1,14 @@
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/model/QEntity.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/BaseProperty.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/EntityFactory.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/annotation/Template.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/coder/FreemakerCoder.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/Entity.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/BaseEntity.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/model/MapperDataSource.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/processor/EntityProcessor.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/MutableEntity.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/coder/Coder.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/model/Mapper.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/processor/MapperDataSourceProcessor.java
+/Users/likly/Workspaces/Likly/final-framework/final-coding/src/main/java/cn/com/likly/finalframework/coding/element/Property.java

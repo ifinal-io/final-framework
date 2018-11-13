@@ -26,6 +26,10 @@
             <artifactId>final-data</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-data-json</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>5.1.2</version>

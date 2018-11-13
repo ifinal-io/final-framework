@@ -1,0 +1,7 @@
+cn/com/likly/finalframework/data/json/TypeReference.class
+cn/com/likly/finalframework/data/json/jackson/JacksonJsonService.class
+cn/com/likly/finalframework/data/json/gson/GsonJsonService.class
+cn/com/likly/finalframework/data/json/JsonException.class
+cn/com/likly/finalframework/data/json/JsonService.class
+cn/com/likly/finalframework/data/json/Json.class
+cn/com/likly/finalframework/data/json/JsonRegistry.class

@@ -1,0 +1,15 @@
+cn/com/likly/finalframework/coding/element/EntityFactory.class
+cn/com/likly/finalframework/coding/element/BaseProperty.class
+cn/com/likly/finalframework/coding/element/MutableEntity.class
+cn/com/likly/finalframework/coding/element/Property.class
+cn/com/likly/finalframework/coding/model/Mapper.class
+cn/com/likly/finalframework/coding/model/QEntity.class
+cn/com/likly/finalframework/coding/model/MapperDataSource.class
+cn/com/likly/finalframework/coding/processor/EntityProcessor.class
+cn/com/likly/finalframework/coding/processor/MapperDataSourceProcessor.class
+cn/com/likly/finalframework/coding/coder/FreemakerCoder.class
+cn/com/likly/finalframework/coding/coder/Coder.class
+META-INF/services/javax.annotation.processing.Processor
+cn/com/likly/finalframework/coding/element/Entity.class
+cn/com/likly/finalframework/coding/element/BaseEntity.class
+cn/com/likly/finalframework/coding/annotation/Template.class

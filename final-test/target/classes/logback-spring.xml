@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+    <!--
+
+        %clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint}     时间
+        %clr(${LOG_LEVEL_PATTERN:-%5p})                                         日志级别
+        %X{application}                                                         应用名
+        %X{host}                                                                主机
+        %X{port}                                                                端口
+        %clr(${PID:- }){magenta}                                                进程
+        %clr([%15.15t]){faint}                                                  线程
+        %clr(%-40.40logger{39}){cyan}                                           logger
+        %clr(:){faint}
+        [ %clr(%-36.36X{trace}){cyan} ]                                         trace
+        %clr(║){faint}
+        %m%n                                                                    message
+        ${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}                                  exception
+    -->
+
+
+    <!-- defaults -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} [ %clr(%-36.36X{trace}){cyan} ] %clr(║){faint}  %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="FILE_LOG_PATTERN"
+              value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : [%X{trace}] ║ %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="API_LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/api.log</file>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/api.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <logger name="cn.com.likly.framework.api" level="INFO" additivity="false">
+        <appender-ref ref="API_LOGGER"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <appender name="MAIL_LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/mail.log</file>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/mail.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <logger name="cn.com.likly.framework.mail" level="INFO" additivity="false">
+        <appender-ref ref="MAIL_LOGGER"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!--所有的日志都要输出到控制台-->
+    <logger name="ROOT" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+</configuration>

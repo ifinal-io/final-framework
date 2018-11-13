@@ -1,0 +1,8 @@
+cn/com/likly/finalframework/data/dao/mapper/PersonMapper.class
+cn/com/likly/finalframework/data/query/QPerson.class
+cn/com/likly/finalframework/api/controller/PersonController.class
+cn/com/likly/finalframework/data/entity/Domain.class
+cn/com/likly/finalframework/datasource/UserDataSource.class
+cn/com/likly/finalframework/data/entity/Person.class
+cn/com/likly/FinalTestApplication.class
+cn/com/likly/finalframework/datasource/UserDataSourceConfig.class
