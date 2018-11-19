@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
-            <artifactId>final-mybatis</artifactId>
+            <artifactId>final-data-mybatis</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
