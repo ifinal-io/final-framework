@@ -12,6 +12,7 @@ import java.util.Collection;
  * <li>序列化 {@link #toJson(Object)} 实现将任何对象序列化为Json字符串。</li>
  * <li>反序列化 {@link #parse(String, Class)}和{@link #parse(String, Class, Class)}分别实现将Json字符串反序列化为{@link java.lang.Object}和{@link java.util.Collection<java.lang.Object>}</li>
  * </ul>
+ *
  * @author likly
  * @version 1.0
  * @date 2018-09-26 21:29

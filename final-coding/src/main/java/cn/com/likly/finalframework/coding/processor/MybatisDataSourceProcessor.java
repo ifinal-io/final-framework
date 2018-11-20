@@ -2,7 +2,8 @@ package cn.com.likly.finalframework.coding.processor;
 
 import cn.com.likly.finalframework.coding.coder.Coder;
 import cn.com.likly.finalframework.coding.coder.FreemakerCoder;
-import cn.com.likly.finalframework.data.mybatis.annotation.MapperDataSource;
+import cn.com.likly.finalframework.coding.model.mybatis.MybatisDataSource;
+import cn.com.likly.finalframework.data.mybatis.annotation.DataSource;
 import com.google.auto.service.AutoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,9 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @AutoService(Processor.class)
-public class MapperDataSourceProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(MapperDataSourceProcessor.class);
+@SuppressWarnings("unused")
+public class MybatisDataSourceProcessor extends AbstractProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(MybatisDataSourceProcessor.class);
     private final Coder coder = new FreemakerCoder();
     private Filer filer;
     private Elements elements;
@@ -32,7 +34,7 @@ public class MapperDataSourceProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(MapperDataSource.class.getName());
+        types.add(DataSource.class.getName());
         return types;
     }
 
@@ -50,7 +52,7 @@ public class MapperDataSourceProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        generateEntityFiles(roundEnv.getElementsAnnotatedWith(MapperDataSource.class));
+        generateEntityFiles(roundEnv.getElementsAnnotatedWith(DataSource.class));
         return true;
     }
 
@@ -58,7 +60,7 @@ public class MapperDataSourceProcessor extends AbstractProcessor {
         elements
                 .stream()
                 .map(it -> {
-                    MapperDataSource mapperDataSource = it.getAnnotation(MapperDataSource.class);
+                    DataSource dataSource = it.getAnnotation(DataSource.class);
 
                     final String packageName = this.elements.getPackageOf(it).getQualifiedName().toString();
                     final String className = it.getSimpleName().toString();
@@ -68,12 +70,12 @@ public class MapperDataSourceProcessor extends AbstractProcessor {
                         name = name.substring(0,name.indexOf("DataSource"));
                     }
 
-                    return new cn.com.likly.finalframework.coding.model.MapperDataSource(
+                    return new MybatisDataSource(
                                     packageName,
                                     className + "Config",
-                                    mapperDataSource.basePackages(),
-                                    mapperDataSource.mapperLocations(),
-                                    mapperDataSource.prefix(),
+                            dataSource.basePackages(),
+                            dataSource.mapperLocations(),
+                            dataSource.prefix(),
                                     name + "DataSource",
                                     name + "SqlSessionFactory",
                                     name + "SqlSessionTemplate"

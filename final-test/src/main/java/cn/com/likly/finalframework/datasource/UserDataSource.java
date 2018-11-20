@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.datasource;
 
-import cn.com.likly.finalframework.data.mybatis.annotation.MapperDataSource;
+import cn.com.likly.finalframework.data.mybatis.annotation.DataSource;
 
 /**
  * @author likly
@@ -8,7 +8,7 @@ import cn.com.likly.finalframework.data.mybatis.annotation.MapperDataSource;
  * @date 2018-11-08 10:49
  * @since 1.0
  */
-@MapperDataSource(prefix = "cn.com.likly.user.datasource",
+@DataSource(prefix = "cn.com.likly.user.datasource",
                   mapperLocations = "classpath*:cn/com/likly/user/*.xml",
                   basePackages = {"cn.com.likly.user.mapper", "cn.com.likly.user.ext.mapper"})
 public interface UserDataSource {

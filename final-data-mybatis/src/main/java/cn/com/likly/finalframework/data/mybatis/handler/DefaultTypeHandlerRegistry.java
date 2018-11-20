@@ -19,13 +19,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2018-09-27 13:14
  * @since 1.0
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 @Component
 public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, ApplicationContextAware {
 
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> collectionTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionTypeHandlerMap = new ConcurrentHashMap<>();
-    private static final Map<Class<?>, TypeHandler<?>> jsonTypeHandlerMap = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionBlobTypeHandlerMap = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, TypeHandler<?>> jsonObjectTypeHandlerMap = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, TypeHandler<?>> jsonObjectBlobTypeHandlerMap = new ConcurrentHashMap<>();
 
     private ApplicationContext applicationContext;
 
@@ -81,12 +83,25 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
         switch (jdbcType) {
             case JSON:
                 if (collectionType == null) {
-                    jsonTypeHandlerMap.put(javaType, typeHandler);
+                    jsonObjectTypeHandlerMap.put(javaType, typeHandler);
                 } else {
                     Map<Class<?>, TypeHandler<?>> typeHandlerMap = jsonCollectionTypeHandlerMap.get(collectionType);
                     if (typeHandlerMap == null) {
                         typeHandlerMap = new ConcurrentHashMap<>();
                         jsonCollectionTypeHandlerMap.put(collectionType, typeHandlerMap);
+                    }
+
+                    typeHandlerMap.put(javaType, typeHandler);
+                }
+                break;
+            case BLOB:
+                if (collectionType == null) {
+                    jsonObjectBlobTypeHandlerMap.put(javaType, typeHandler);
+                } else {
+                    Map<Class<?>, TypeHandler<?>> typeHandlerMap = jsonCollectionBlobTypeHandlerMap.get(collectionType);
+                    if (typeHandlerMap == null) {
+                        typeHandlerMap = new ConcurrentHashMap<>();
+                        jsonCollectionBlobTypeHandlerMap.put(collectionType, typeHandlerMap);
                     }
 
                     typeHandlerMap.put(javaType, typeHandler);
@@ -110,6 +125,8 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
         switch (jdbcType) {
             case JSON:
                 return collectionType == null ? getJsonObjectTypeHandler(javaType) : getJsonCollectionTypeHandler(javaType, collectionType);
+            case BLOB:
+                return collectionType == null ? getJsonObjectBlobTypeHandler(javaType) : getJsonCollectionBlobTypeHandler(javaType, collectionType);
             case AUTO:
                 return collectionType == null ? getTypeHandler(javaType) : getCollectionTypeHandler(javaType, collectionType);
         }
@@ -162,11 +179,51 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
 
     private <E> TypeHandler<E> getJsonObjectTypeHandler(@NonNull Class<E> javaType) {
 
-        TypeHandler<?> typeHandler = jsonTypeHandlerMap.get(javaType);
+        TypeHandler<?> typeHandler = jsonObjectTypeHandlerMap.get(javaType);
 
         if (typeHandler == null) {
             typeHandler = new JsonObjectTypeHandler<>(javaType);
-            jsonTypeHandlerMap.put(javaType, typeHandler);
+            jsonObjectTypeHandlerMap.put(javaType, typeHandler);
+        }
+
+        return (TypeHandler<E>) typeHandler;
+    }
+
+    private <E, T extends Collection<E>> TypeHandler<T> getJsonCollectionBlobTypeHandler(@NonNull Class<E> javaType, @NonNull Class<T> collectionType) {
+
+        Map<Class<?>, TypeHandler<?>> typeHandlerMap = jsonCollectionBlobTypeHandlerMap.get(collectionType);
+        if (typeHandlerMap == null) {
+            typeHandlerMap = new ConcurrentHashMap<>();
+            jsonCollectionBlobTypeHandlerMap.put(collectionType, typeHandlerMap);
+        }
+
+        TypeHandler<?> typeHandler = typeHandlerMap.get(javaType);
+
+        if (typeHandler == null) {
+            if (List.class.isAssignableFrom(collectionType)) {
+                typeHandler = new JsonListTypeHandler<>(javaType);
+            }
+
+            if (Set.class.isAssignableFrom(collectionType)) {
+                typeHandler = new JsonSetTypeHandler<>(javaType);
+            }
+
+            if (typeHandler != null) {
+                typeHandlerMap.put(javaType, typeHandler);
+            }
+
+        }
+
+        return (TypeHandler<T>) typeHandler;
+    }
+
+    private <E> TypeHandler<E> getJsonObjectBlobTypeHandler(@NonNull Class<E> javaType) {
+
+        TypeHandler<?> typeHandler = jsonObjectBlobTypeHandlerMap.get(javaType);
+
+        if (typeHandler == null) {
+            typeHandler = new JsonObjectTypeHandler<>(javaType);
+            jsonObjectBlobTypeHandlerMap.put(javaType, typeHandler);
         }
 
         return (TypeHandler<E>) typeHandler;

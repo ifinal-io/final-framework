@@ -23,7 +23,6 @@ public abstract class JavaType {
     private static final Set<Class<?>> primarySets = new HashSet<>();
 
     static {
-
         primarySets.addAll(byteSets);
         primarySets.addAll(charSets);
         primarySets.addAll(shortSets);

@@ -1,4 +1,4 @@
-package cn.com.likly.finalframework.coding.model;
+package cn.com.likly.finalframework.coding.model.mybatis;
 
 import cn.com.likly.finalframework.coding.annotation.Template;
 
@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Template("mybatis/datasource.ftl")
-public class MapperDataSource implements Serializable {
+@SuppressWarnings("unused")
+public class MybatisDataSource implements Serializable {
     private String packageName;
     private String name;
     private String[] basePackages;
@@ -23,14 +24,14 @@ public class MapperDataSource implements Serializable {
     private String sqlSessionFactory;
     private String sqlSessionTemplate;
 
-    public MapperDataSource(String packageName,
-                            String name,
-                            String[] basePackages,
-                            String mapperLocations,
-                            String prefix,
-                            String dataSource,
-                            String sqlSessionFactory,
-                            String sqlSessionTemplate) {
+    public MybatisDataSource(String packageName,
+                             String name,
+                             String[] basePackages,
+                             String mapperLocations,
+                             String prefix,
+                             String dataSource,
+                             String sqlSessionFactory,
+                             String sqlSessionTemplate) {
         this.packageName = packageName;
         this.name = name;
         this.basePackages = basePackages;

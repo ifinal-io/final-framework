@@ -9,4 +9,5 @@ package cn.com.likly.finalframework.data.annotation.enums;
 public enum PersistentType {
     AUTO,
     JSON,
+    BLOB
 }

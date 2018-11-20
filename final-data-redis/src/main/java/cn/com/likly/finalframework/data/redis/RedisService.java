@@ -12,5 +12,4 @@ public interface RedisService {
 
     boolean set(@NonNull String key,@NonNull Object value);
 
-
 }
