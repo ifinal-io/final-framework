@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.spring.util;
 
-import cn.com.likly.finalframework.util.Assert;
+import cn.com.likly.finalframework.core.Assert;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 

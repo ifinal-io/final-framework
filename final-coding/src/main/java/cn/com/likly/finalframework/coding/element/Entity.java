@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.coding.element;
 
-import cn.com.likly.finalframework.util.Streable;
+import cn.com.likly.finalframework.core.Streable;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;

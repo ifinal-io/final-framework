@@ -26,7 +26,7 @@ public class BaseEntity implements IEntity<Long> {
     private Date createdTime;
     @LastModifiedTime
     private Date lastModifiedTime;
-    @Column
+    @Column(insertable = false)
     private YN yn = YN.YES;
 }
 

@@ -1,13 +1,10 @@
 package cn.com.likly.finalframework.data.domain;
 
-import cn.com.likly.finalframework.data.annotation.Column;
-import cn.com.likly.finalframework.data.annotation.CreatedTime;
-import cn.com.likly.finalframework.data.annotation.LastModifiedTime;
-import cn.com.likly.finalframework.data.annotation.PrimaryKey;
+import cn.com.likly.finalframework.core.Assert;
+import cn.com.likly.finalframework.data.annotation.*;
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
-import cn.com.likly.finalframework.util.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
@@ -40,7 +37,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
      * @param owner            must not be {@literal null}.
      * @param simpleTypeHolder
      */
-    public BaseProperty(org.springframework.data.mapping.model.Property property, Entity owner, SimpleTypeHolder simpleTypeHolder) {
+    public BaseProperty(org.springframework.data.mapping.model.Property property, cn.com.likly.finalframework.data.mapping.Entity owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
         logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
         init();
@@ -56,6 +53,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
             if (isAnnotationPresent(Column.class)) {
                 initColumn(findAnnotation(Column.class));
+            } else if (isAnnotationPresent(JsonColumn.class)) {
+                initJsonColumn(findAnnotation(JsonColumn.class));
             } else if (isAnnotationPresent(CreatedTime.class)) {
                 initCreatedTime(findAnnotation(CreatedTime.class));
             } else if (isAnnotationPresent(LastModifiedTime.class)) {
@@ -94,6 +93,18 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     @SuppressWarnings("all")
     private void initColumn(Column column) {
+        this.persistentType = column.persitentType();
+        this.unique = column.unique();
+        this.nonnull = column.nonnull();
+        this.insertable = column.insertable();
+        this.updatable = column.updatable();
+        this.table = column.table();
+        this.column = column.name();
+    }
+
+    @SuppressWarnings("all")
+    private void initJsonColumn(JsonColumn column) {
+        this.persistentType = column.persitentType();
         this.unique = column.unique();
         this.nonnull = column.nonnull();
         this.insertable = column.insertable();

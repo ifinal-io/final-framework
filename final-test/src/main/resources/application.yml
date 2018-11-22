@@ -1,15 +1,19 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/finalmybatis?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false
     username: root
-    password: root
+    password: Aa000000
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 20000
   mail:
     host: smtp.exmail.qq.com
     username: noreply@likly.com.cn
     password: Qq0000
   jackson:
     default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm:ss
+  #    date-format: yyyy-MM-dd HH:mm:ss
   aop:
     proxy-target-class: true
   transaction:

@@ -7,14 +7,16 @@
     <artifactId>final-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
+        <module>final-core</module>
         <module>final-util</module>
         <module>final-data</module>
-        <module>final-data-json</module>
-        <module>final-data-mybatis</module>
-        <module>final-data-redis</module>
+        <module>final-json</module>
+        <module>final-cache</module>
+        <module>final-mybatis</module>
         <module>final-coding</module>
         <module>final-spring</module>
         <module>final-test</module>
+        <module>final-redis</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -51,6 +53,11 @@
 
         <dependencies>
             <dependency>
+                <groupId>cn.com.likly.finalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
@@ -67,7 +74,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.com.likly.finalframework</groupId>
-                <artifactId>final-data-json</artifactId>
+                <artifactId>final-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -78,7 +85,12 @@
             <dependency>
                 <groupId>cn.com.likly.finalframework</groupId>
                 <artifactId>final-spring</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.com.likly.finalframework</groupId>
+                <artifactId>final-cache</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -94,6 +106,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <compilerArgument>-parameters</compilerArgument>
                     <source>8</source>
                     <target>8</target>
                 </configuration>

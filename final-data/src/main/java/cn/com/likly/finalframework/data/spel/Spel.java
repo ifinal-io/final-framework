@@ -8,8 +8,22 @@ package cn.com.likly.finalframework.data.spel;
  */
 public interface Spel {
 
+
     static Object getValue(String el, Object context) {
+
         return null;
+    }
+
+    static String getString(String el, Object context) {
+        return SpelParser.getString(el, context);
+    }
+
+    static boolean getBoolean(String el, Object context) {
+        return SpelParser.getBoolean(el, context);
+    }
+
+    static long getLong(String el, Object context) {
+        return SpelParser.getLong(el, context);
     }
 
 

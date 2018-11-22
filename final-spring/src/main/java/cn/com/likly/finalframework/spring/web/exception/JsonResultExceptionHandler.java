@@ -1,8 +1,8 @@
 package cn.com.likly.finalframework.spring.web.exception;
 
-import cn.com.likly.finalframework.data.json.JsonException;
 import cn.com.likly.finalframework.data.result.R;
 import cn.com.likly.finalframework.data.result.Result;
+import cn.com.likly.finalframework.json.JsonException;
 import cn.com.likly.finalframework.spring.annotation.RestExceptionHandler;
 
 /**

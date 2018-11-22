@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.data.annotation;
 
+import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import org.springframework.data.annotation.Persistent;
 
 import java.lang.annotation.*;
@@ -19,6 +20,8 @@ public @interface Column {
     String table() default "";
 
     String name() default "";
+
+    PersistentType persitentType() default PersistentType.AUTO;
 
     boolean unique() default false;
 

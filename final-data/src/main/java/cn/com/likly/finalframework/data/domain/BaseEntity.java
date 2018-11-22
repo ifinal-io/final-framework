@@ -1,12 +1,12 @@
 package cn.com.likly.finalframework.data.domain;
 
+import cn.com.likly.finalframework.core.Assert;
 import cn.com.likly.finalframework.data.annotation.NonColumn;
 import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.annotation.Table;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
-import cn.com.likly.finalframework.util.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.model.BasicPersistentEntity;

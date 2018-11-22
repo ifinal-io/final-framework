@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
-            <artifactId>final-data-json</artifactId>
+            <artifactId>final-json</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
