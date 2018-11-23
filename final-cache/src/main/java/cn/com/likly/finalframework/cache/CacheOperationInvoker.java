@@ -6,6 +6,7 @@ package cn.com.likly.finalframework.cache;
  * @date 2018-11-22 17:45:10
  * @since 1.0
  */
+@FunctionalInterface
 public interface CacheOperationInvoker {
 
     Object invoke() throws Throwable;

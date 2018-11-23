@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Cacheable {
+public @interface CacheSet {
     String key();
 
     String field() default "";

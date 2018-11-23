@@ -1,12 +1,13 @@
 package cn.com.likly.finalframework.redis.impl;
 
+import cn.com.likly.finalframework.redis.RedisRegistry;
 import cn.com.likly.finalframework.redis.RedisService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -14,31 +15,48 @@ import java.lang.reflect.Type;
  * @date 2018-11-22 14:04:43
  * @since 1.0
  */
-@Service
 @SuppressWarnings("unchecked")
-@ConditionalOnMissingBean(RedisService.class)
+@Configuration
+//@ConditionalOnMissingBean(RedisService.class)
 public class DefaultRedisService implements RedisService {
 
     @Resource
     private RedisTemplate redisTemplate;
 
-    @Override
-    public void set(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+    @PostConstruct
+    public void init() {
+        RedisRegistry.getInstance().setRedisService(this);
     }
 
     @Override
-    public <T> T get(String key, Class<T> cacheType) {
-        return (T) redisTemplate.opsForValue().get(key);
+    public void set(Object key, Object value) {
+        redisTemplate.opsForValue().set(key.toString(), value);
     }
 
     @Override
-    public <T> T get(String key, Type cacheType) {
-        return (T) redisTemplate.opsForValue().get(key);
+    public void set(Object key, Object value, long ttl, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key.toString(), value, ttl, timeUnit);
     }
 
     @Override
-    public void hset(String key, String field, Object value) {
-        redisTemplate.opsForHash().put(key, field, value);
+    public <T> T get(Object key) {
+        return (T) redisTemplate.opsForValue().get(key.toString());
     }
+
+    @Override
+    public void hset(Object key, Object field, Object value) {
+        redisTemplate.opsForHash().put(key.toString(), field.toString(), value);
+    }
+
+    @Override
+    public <T> T hget(Object key, Object field) {
+        return (T) redisTemplate.opsForHash().get(key.toString(), field.toString());
+    }
+
+    @Override
+    public Boolean expire(Object key, long ttl, TimeUnit timeUnit) {
+        return redisTemplate.expire(key.toString(), ttl, timeUnit);
+    }
+
+
 }

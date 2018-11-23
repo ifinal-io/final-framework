@@ -4,6 +4,7 @@ import cn.com.likly.finalframework.data.annotation.JsonColumn;
 import cn.com.likly.finalframework.data.annotation.MapperEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @MapperEntity
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Person extends BaseEntity {
     private static final long serialVersionUID = -8785625823175210092L;
 

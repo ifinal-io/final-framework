@@ -1,5 +1,7 @@
 package cn.com.likly.finalframework.cache;
 
+import java.lang.reflect.Method;
+
 /**
  * @author likly
  * @version 1.0
@@ -7,5 +9,7 @@ package cn.com.likly.finalframework.cache;
  * @since 1.0
  */
 public interface CacheExecutor {
+
+    Object execute(CacheOperationInvoker invoker, Object target, Method method, Object args);
 
 }

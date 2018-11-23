@@ -40,8 +40,8 @@ public class DefaultMapperResultInterceptor implements Interceptor {
 
 
     private static final Set<String> MSID = new HashSet<>(Arrays.asList(
-            "DefaultMapper.selectOne",
-            "DefaultMapper.select"
+            "cn.com.likly.finalframework.mybatis.mapper.DefaultMapper.selectOne",
+            "cn.com.likly.finalframework.mybatis.mapper.DefaultMapper.select"
     ));
 
     @Resource

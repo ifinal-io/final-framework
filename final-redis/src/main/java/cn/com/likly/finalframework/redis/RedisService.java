@@ -1,6 +1,6 @@
 package cn.com.likly.finalframework.redis;
 
-import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -9,11 +9,16 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 public interface RedisService {
-    void set(String key, Object value);
+    void set(Object key, Object value);
 
-    <T> T get(String key, Class<T> cacheType);
+    void set(Object key, Object value, long ttl, TimeUnit timeUnit);
 
-    <T> T get(String key, Type cacheType);
+    <T> T get(Object key);
 
-    void hset(String key, String field, Object value);
+    void hset(Object key, Object field, Object value);
+
+    <T> T hget(Object key, Object field);
+
+    Boolean expire(Object key, long ttl, TimeUnit timeUnit);
+
 }

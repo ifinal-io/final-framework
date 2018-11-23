@@ -1,6 +1,9 @@
 package cn.com.likly.finalframework.cache;
 
+import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
+
+import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -10,15 +13,15 @@ import org.springframework.expression.EvaluationContext;
  */
 public interface CacheOperationExpressionEvaluator {
 
-    Object key(String keyExpression, EvaluationContext context);
+    EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result);
 
-    Object field(String fieldExpression, EvaluationContext context);
+    Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
-    boolean condition(String conditionExpression, EvaluationContext context);
+    Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
-    long expired(String expiredExpression, EvaluationContext context);
+    boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
-    long ttl(String ttlExpression, EvaluationContext context);
+    long expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
     void clear();
 

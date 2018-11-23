@@ -2,6 +2,8 @@ package cn.com.likly.finalframework.redis;
 
 import lombok.NonNull;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author likly
  * @version 1.0
@@ -10,13 +12,29 @@ import lombok.NonNull;
  */
 public interface Redis {
 
-    static void set(@NonNull String key, Object value) {
+    static void set(@NonNull Object key, Object value) {
         RedisRegistry.getInstance().getRedisService().set(key, value);
     }
 
-    static void hset(@NonNull String key, @NonNull String field, Object value) {
+
+    static void set(@NonNull Object key, Object value, long ttl, TimeUnit timeUnit) {
+        RedisRegistry.getInstance().getRedisService().set(key, value, ttl, timeUnit);
+    }
+
+    static <T> T get(@NonNull Object key) {
+        return RedisRegistry.getInstance().getRedisService().get(key);
+    }
+
+    static void hset(@NonNull Object key, @NonNull Object field, Object value) {
         RedisRegistry.getInstance().getRedisService().hset(key, field, value);
     }
 
+    static <T> T hget(@NonNull Object key, @NonNull Object field) {
+        return RedisRegistry.getInstance().getRedisService().hget(key, field);
+    }
+
+    static Boolean expire(@NonNull Object key, long ttl, TimeUnit timeUnit) {
+        return RedisRegistry.getInstance().getRedisService().expire(key, ttl, timeUnit);
+    }
 
 }
