@@ -15,7 +15,7 @@ public class CacheSetOperation implements CacheOperation<CacheSet> {
     private final String key;
     private final String field;
     private final String condition;
-    private final String expried;
+    private final String exprie;
     private final long ttl;
     private final TimeUnit timeUnit;
 
@@ -23,7 +23,7 @@ public class CacheSetOperation implements CacheOperation<CacheSet> {
         this.key = cacheSet.key();
         this.field = cacheSet.field();
         this.condition = cacheSet.condition();
-        this.expried = cacheSet.expired();
+        this.exprie = cacheSet.expire();
         this.ttl = cacheSet.ttl();
         this.timeUnit = cacheSet.timeunit();
     }
@@ -44,8 +44,8 @@ public class CacheSetOperation implements CacheOperation<CacheSet> {
     }
 
     @Override
-    public String expired() {
-        return expried;
+    public String expire() {
+        return exprie;
     }
 
     @Override

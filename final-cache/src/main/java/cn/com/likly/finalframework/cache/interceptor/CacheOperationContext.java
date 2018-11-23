@@ -110,10 +110,10 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
-    public Object generateExpired(Object result) {
-        if (StringUtils.hasText(this.metadata.getOperation().expired())) {
+    public Object generateExpire(Object result) {
+        if (StringUtils.hasText(this.metadata.getOperation().expire())) {
             EvaluationContext evaluationContext = createEvaluationContext(result);
-            return evaluator.key(this.metadata.getOperation().expired(), this.metadata.getMethodKey(), evaluationContext);
+            return evaluator.key(this.metadata.getOperation().expire(), this.metadata.getMethodKey(), evaluationContext);
         }
         return null;
     }

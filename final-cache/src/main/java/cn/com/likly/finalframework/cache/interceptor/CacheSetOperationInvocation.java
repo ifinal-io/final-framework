@@ -43,13 +43,13 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
             if (context.isConditionPassing(result)) {
                 Long ttl;
                 TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-                Object expired = context.generateExpired(result);
+                Object expired = context.generateExpire(result);
 
                 if (expired != null) {
                     if (expired instanceof Date) {
                         ttl = ((Date) expired).getTime() - System.currentTimeMillis();
                     } else {
-                        throw new IllegalArgumentException("unSupport expired type: " + expired.getClass());
+                        throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
                     }
                 } else {
                     ttl = context.operation().ttl();

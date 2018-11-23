@@ -16,7 +16,7 @@ public interface CacheOperation<A extends Annotation> {
 
     String condition();
 
-    String expired();
+    String expire();
 
     long ttl();
 

@@ -19,7 +19,7 @@ public @interface CacheSet {
 
     String condition() default "";
 
-    String expired() default "";
+    String expire() default "";
 
     long ttl() default -1L;
 

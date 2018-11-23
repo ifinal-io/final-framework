@@ -28,5 +28,5 @@ public interface CacheOperationInvocationContext<O extends CacheOperation> {
 
     boolean isConditionPassing(Object result);
 
-    Object generateExpired(Object result);
+    Object generateExpire(Object result);
 }
