@@ -15,10 +15,14 @@ public interface RedisService {
 
     <T> T get(Object key);
 
+    long del(Object... keys);
+
     void hset(Object key, Object field, Object value);
 
     <T> T hget(Object key, Object field);
 
-    Boolean expire(Object key, long ttl, TimeUnit timeUnit);
+    boolean expire(Object key, long ttl, TimeUnit timeUnit);
+
+    long hdel(Object key, Object... fields);
 
 }

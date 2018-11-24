@@ -38,7 +38,7 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
         }
 
         result = invoker.invoke();
-        logger.info(" get from query: key={},field={},result={}", key, field, result);
+        logger.info("get from query: key={},field={},result={}", key, field, result);
         if (result != null) {
             if (context.isConditionPassing(result)) {
                 Long ttl;

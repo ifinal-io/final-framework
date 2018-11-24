@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.api.controller;
 
+import cn.com.likly.finalframework.cache.annotation.CacheDel;
 import cn.com.likly.finalframework.cache.annotation.CacheSet;
 import cn.com.likly.finalframework.data.dao.mapper.PersonMapper;
 import cn.com.likly.finalframework.data.domain.Query;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static cn.com.likly.finalframework.data.query.QPerson.Person;
 
@@ -39,9 +39,15 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    @CacheSet(key = "'person'", field = "#id", condition = "#id != 2", ttl = 20, timeunit = TimeUnit.SECONDS)
+    @CacheSet(key = "#id")
     public Person get(@PathVariable Long id) {
         return personMapper.selectOne(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @CacheDel(key = "#id", condition = "#result")
+    public boolean delete(@PathVariable Long id) {
+        return personMapper.delete(id) == 1;
     }
 
     @GetMapping("/count")

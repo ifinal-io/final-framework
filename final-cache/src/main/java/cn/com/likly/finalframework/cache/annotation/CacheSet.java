@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @date 2018-10-31 18:21
  * @since 1.0
+ * @see cn.com.likly.finalframework.cache.Cache#set(Object, Object, long, TimeUnit)
+ * @see cn.com.likly.finalframework.cache.Cache#hset(Object, Object, Object, long, TimeUnit)
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

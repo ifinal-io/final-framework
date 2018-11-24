@@ -7,7 +7,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -17,7 +19,6 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unchecked")
 @Configuration
-//@ConditionalOnMissingBean(RedisService.class)
 public class DefaultRedisService implements RedisService {
 
     @Resource
@@ -44,6 +45,12 @@ public class DefaultRedisService implements RedisService {
     }
 
     @Override
+    public long del(Object... keys) {
+        Long result = redisTemplate.delete(Arrays.stream(keys).map(Object::toString).collect(Collectors.toSet()));
+        return result == null ? 0 : result;
+    }
+
+    @Override
     public void hset(Object key, Object field, Object value) {
         redisTemplate.opsForHash().put(key.toString(), field.toString(), value);
     }
@@ -54,9 +61,16 @@ public class DefaultRedisService implements RedisService {
     }
 
     @Override
-    public Boolean expire(Object key, long ttl, TimeUnit timeUnit) {
-        return redisTemplate.expire(key.toString(), ttl, timeUnit);
+    public boolean expire(Object key, long ttl, TimeUnit timeUnit) {
+        return Boolean.TRUE.equals(redisTemplate.expire(key.toString(), ttl, timeUnit));
     }
+
+    @Override
+    public long hdel(Object key, Object... fields) {
+        return redisTemplate.opsForHash().delete(Arrays.stream(fields).map(Object::toString).toArray());
+    }
+
+
 
 
 }

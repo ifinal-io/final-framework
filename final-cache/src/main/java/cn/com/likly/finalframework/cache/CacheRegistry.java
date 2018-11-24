@@ -1,9 +1,8 @@
 package cn.com.likly.finalframework.cache;
 
+import cn.com.likly.finalframework.cache.annotation.CacheDel;
 import cn.com.likly.finalframework.cache.annotation.CacheSet;
-import cn.com.likly.finalframework.cache.interceptor.CacheSetAnnotationParser;
-import cn.com.likly.finalframework.cache.interceptor.CacheSetOperation;
-import cn.com.likly.finalframework.cache.interceptor.CacheSetOperationInvocation;
+import cn.com.likly.finalframework.cache.interceptor.*;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -28,6 +27,9 @@ public final class CacheRegistry {
     {
         registerCacheAnnotationParser(CacheSet.class, new CacheSetAnnotationParser());
         registerCacheOperationInvocation(CacheSetOperation.class, new CacheSetOperationInvocation());
+
+        registerCacheAnnotationParser(CacheDel.class, new CacheDelAnnotationParser());
+        registerCacheOperationInvocation(CacheDelOperation.class, new CacheDelOperationInvocation());
     }
 
     private CacheRegistry() {

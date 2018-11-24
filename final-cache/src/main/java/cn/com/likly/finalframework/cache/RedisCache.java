@@ -35,6 +35,11 @@ public class RedisCache implements Cache {
     }
 
     @Override
+    public boolean del(Object key) {
+        return Redis.del(key) == 1;
+    }
+
+    @Override
     public void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit) {
         Redis.hset(key, field, value);
         if (ttl > 0) {
@@ -45,6 +50,11 @@ public class RedisCache implements Cache {
     @Override
     public <T> T hget(Object key, Object field) {
         return Redis.hget(key, field);
+    }
+
+    @Override
+    public boolean hdel(Object key, Object field) {
+        return Redis.hdel(key, field) == 0;
     }
 
 
