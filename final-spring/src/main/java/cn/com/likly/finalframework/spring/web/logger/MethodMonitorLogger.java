@@ -2,6 +2,7 @@ package cn.com.likly.finalframework.spring.web.logger;
 
 import cn.com.likly.finalframework.json.Json;
 import cn.com.likly.finalframework.spring.monitor.MethodMonitorAspect;
+import cn.com.likly.finalframework.spring.monitor.MethodMonitorListener;
 import cn.com.likly.finalframework.spring.monitor.MethodPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Component
-public class MethodMonitorLogger implements MethodMonitorAspect.MethodMonitorListener {
+public class MethodMonitorLogger implements MethodMonitorListener {
 
     @Resource
     private MethodMonitorAspect methodMonitorAspect;
@@ -28,7 +29,7 @@ public class MethodMonitorLogger implements MethodMonitorAspect.MethodMonitorLis
     }
 
     @Override
-    public void onFinish(MethodPoint point, Object result, Exception exception, Long duration) {
+    public void onFinish(MethodPoint point, Object result, Exception exception, long duration) {
         if (exception == null) {
             logger.debug("method={},name={},tag={},args={},duration={},result={}",
                     point.getMethod().getName(), point.getName(), point.getTag(),

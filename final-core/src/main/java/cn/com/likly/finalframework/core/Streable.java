@@ -8,6 +8,7 @@ import java.util.stream.Stream;
  * @date 2018-10-25 10:31
  * @since 1.0
  */
+@FunctionalInterface
 public interface Streable<T> {
     Stream<T> stream();
 }

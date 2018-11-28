@@ -40,7 +40,7 @@ public class MethodMonitorAspect {
     @Around(value = "@annotation(monitor)")
     public Object methodMonitor(ProceedingJoinPoint point, MethodMonitor monitor) throws Throwable {
 
-        final Long start = System.currentTimeMillis();
+        final long start = System.currentTimeMillis();
         Exception exception = null;
         Object result = null;
         final MethodPoint methodPoint = buildMethodPoint(point, monitor);
@@ -51,7 +51,7 @@ public class MethodMonitorAspect {
             exception = e;
             throw e;
         } finally {
-            final Long duration = System.currentTimeMillis() - start;
+            final long duration = System.currentTimeMillis() - start;
 
             for (MethodMonitorListener listener : methodMonitorListeners) {
 
@@ -83,22 +83,6 @@ public class MethodMonitorAspect {
         final String tag = monitor.tag();
 
         return new MethodPoint(target, method, argMap, name, tag);
-
-    }
-
-
-    public interface MethodMonitorListener {
-        default void onStart(MethodPoint point) {
-        }
-
-        default void onReturn(MethodPoint point, Object result, Long duration) {
-        }
-
-        default void onException(MethodPoint point, Exception exception, Long duration) {
-        }
-
-        default void onFinish(MethodPoint point, Object result, Exception exception, Long duration) {
-        }
 
     }
 
