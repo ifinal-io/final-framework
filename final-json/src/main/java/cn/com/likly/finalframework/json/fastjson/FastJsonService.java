@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author likly
@@ -15,12 +18,6 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public class FastJsonService implements JsonService {
-    public static void main(String[] args) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(null, 123);
-        System.out.println(JSON.toJSONString(map, SerializerFeature.WriteNonStringKeyAsString));
-    }
-
     @Override
     public String toJson(Object object) throws Throwable {
         return JSON.toJSONString(object, SerializerFeature.WriteNonStringKeyAsString);
@@ -38,7 +35,6 @@ public class FastJsonService implements JsonService {
 
     @Override
     public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
-
         if (List.class.isAssignableFrom(collectionClass)) {
             return (T) JSON.parseArray(json, elementClass);
         } else if (Set.class.isAssignableFrom(collectionClass)) {

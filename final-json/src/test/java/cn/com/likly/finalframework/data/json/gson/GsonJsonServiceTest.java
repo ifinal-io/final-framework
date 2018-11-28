@@ -28,15 +28,12 @@ public class GsonJsonServiceTest {
         GsonJsonService jsonService = new GsonJsonService();
         jsonService.setGson(new Gson());
         JsonRegistry.getInstance().registerJsonService(jsonService);
-
     }
 
     @Test
     public void testToJson() {
         final JsonBean bean = new JsonBean().setName("Jack").setAge(20);
-
         logger.info("bean={}", Json.toJson(bean));
-
     }
 
     @Test

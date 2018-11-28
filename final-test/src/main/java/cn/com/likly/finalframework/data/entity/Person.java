@@ -21,6 +21,8 @@ import java.util.List;
 public class Person extends BaseEntity {
     private static final long serialVersionUID = -8785625823175210092L;
 
+    private String name;
+    private Integer age;
     @JsonColumn
     private List<String> stringList;
     @JsonColumn
