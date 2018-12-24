@@ -3,6 +3,7 @@ package cn.com.likly.finalframework.data.domain;
 import cn.com.likly.finalframework.core.Assert;
 import cn.com.likly.finalframework.data.annotation.*;
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
+import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     /**
      * Creates a new {@link AnnotationBasedPersistentProperty}.
+     *
      * @param property         must not be {@literal null}.
      * @param owner            must not be {@literal null}.
      * @param simpleTypeHolder
@@ -64,14 +66,15 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
         } finally {
 
-
             if (isIdProperty()) {
                 unique = true;
-                nonnull = false;
+                nonnull = true;
                 updatable = false;
 
                 if (isAnnotationPresent(PrimaryKey.class)) {
-                    this.column = findAnnotation(PrimaryKey.class).name();
+                    PrimaryKey primaryKey = findAnnotation(PrimaryKey.class);
+                    this.column = primaryKey.name();
+                    this.insertable = primaryKey.type() != PrimaryKeyType.AUTO_INC;
                 }
 
             }
@@ -93,7 +96,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     @SuppressWarnings("all")
     private void initColumn(Column column) {
-        this.persistentType = column.persitentType();
+        this.persistentType = column.persistentType();
         this.unique = column.unique();
         this.nonnull = column.nonnull();
         this.insertable = column.insertable();

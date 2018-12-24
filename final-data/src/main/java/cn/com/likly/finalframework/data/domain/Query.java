@@ -3,6 +3,7 @@ package cn.com.likly.finalframework.data.domain;
 import cn.com.likly.finalframework.core.Streable;
 import cn.com.likly.finalframework.data.domain.enums.Direction;
 import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.data.provider.QuerySqlBuilder;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -89,5 +90,10 @@ public class Query implements Streable<Criteria>, Serializable {
     public Stream<Criteria> stream() {
         return criteria.stream();
     }
+
+    public String getSql() {
+        return new QuerySqlBuilder(this).provide();
+    }
+
 
 }

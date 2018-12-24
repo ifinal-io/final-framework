@@ -1,6 +1,8 @@
 package cn.com.likly.finalframework.coding.coder;
 
 import freemarker.template.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -11,11 +13,11 @@ import java.io.Writer;
  * @date 2018-10-29 13:20
  * @since 1.0
  */
-public class FreemakerCoder implements Coder {
-
+public class FreeMakerCoder implements Coder {
+    private static final Logger logger = LoggerFactory.getLogger(FreeMakerCoder.class);
     private final Configuration configuration;
 
-    public FreemakerCoder() {
+    public FreeMakerCoder() {
         this.configuration = new Configuration();
         this.configuration.setClassForTemplateLoading(this.getClass(), "/template/");
         this.configuration.setDefaultEncoding("UTF-8");
@@ -26,7 +28,8 @@ public class FreemakerCoder implements Coder {
         try {
             return configuration.getTemplate(name);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e);
+            logger.error("Find the template error by name: {}", name, e);
+            throw new RuntimeException("Find the template error by name:" + name);
         }
     }
 
@@ -37,7 +40,8 @@ public class FreemakerCoder implements Coder {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("Coding template error:template={}", template);
+            throw new RuntimeException("\"Coding template error:template=" + template);
         }
     }
 }

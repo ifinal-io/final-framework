@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.Configuration;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * @date 2018-09-27 21:06
  * @since 1.0
+ * @see SqlSessionTemplate
  */
 @Component
 @Aspect
@@ -30,7 +30,7 @@ public class SqlSessionTemplateGetMapperAspect {
     private EntityHolderCache entityHolderCache = new EntityHolderCache();
 
     @SuppressWarnings("unchecked")
-    @Around(CUT_POINT)
+//    @Around(CUT_POINT)
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
         Class mapperClass = (Class) point.getArgs()[0];
         logger.info("==> create mapper:{}", mapperClass.getName());
@@ -48,7 +48,7 @@ public class SqlSessionTemplateGetMapperAspect {
     public void afterReturning(Configuration configuration) {
         if (!configuration.getMapperRegistry().hasMapper(DefaultMapper.class)) {
             configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumEntityTypeHandler.class);
-            configuration.getMapperRegistry().addMapper(DefaultMapper.class);
+//            configuration.getMapperRegistry().addMapper(DefaultMapper.class);
         }
     }
 

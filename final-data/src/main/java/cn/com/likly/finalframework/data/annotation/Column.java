@@ -21,7 +21,7 @@ public @interface Column {
 
     String name() default "";
 
-    PersistentType persitentType() default PersistentType.AUTO;
+    PersistentType persistentType() default PersistentType.AUTO;
 
     boolean unique() default false;
 

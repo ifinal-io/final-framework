@@ -19,7 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @SuppressWarnings("all")
-@Mapper
+//@Mapper
 public interface DefaultMapper<ID extends Serializable, T extends IEntity<ID>> extends RepositoryTemplate<ID, T> {
 
     /*=========================================================== INSERT ===========================================================*/
@@ -72,7 +72,7 @@ public interface DefaultMapper<ID extends Serializable, T extends IEntity<ID>> e
     T selectOne(@Param("holder") Entity<T> holder, @Param("query") Query query);
 
     @Override
-    @SelectProvider(type = MapperProvider.class, method = "selectCount")
+//    @SelectProvider(type = MapperProvider.class, method = "selectCount")
     long selectCount(@Param("holder") Entity<T> holder, @Param("query") Query query);
 
 }

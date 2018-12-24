@@ -4,6 +4,7 @@ import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
 import org.springframework.data.mapping.PersistentProperty;
 
 import javax.validation.constraints.NotNull;
+import java.lang.annotation.Annotation;
 
 
 /**
@@ -23,6 +24,10 @@ public interface Property extends PersistentProperty<Property> {
     @NotNull
     PersistentType getPersistentType();
 
+    default boolean isEnum() {
+        return getType().isEnum();
+    }
+
     boolean unique();
 
     boolean nonnull();
@@ -34,4 +39,8 @@ public interface Property extends PersistentProperty<Property> {
     Object get(@NotNull Object target);
 
     void set(@NotNull Object target, Object value);
+
+    default <A extends Annotation> boolean hasAnnotation(Class<A> ann) {
+        return findAnnotation(ann) != null;
+    }
 }

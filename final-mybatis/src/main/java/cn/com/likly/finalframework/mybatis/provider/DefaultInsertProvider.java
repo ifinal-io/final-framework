@@ -58,9 +58,9 @@ public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertPr
                         .filter(Property::insertable)
                         // #{list[${index}].${property},javaType={},typeHandler={}}
                         .map(it -> String.format("#{list[%d].%s %s}",
-                                                 index,
-                                                 it.getColumn(),
-                                                 getJavaTypeAndTypeHandler(it)))
+                                index,
+                                it.getColumn(),
+                                getJavaTypeAndTypeHandler(it)))
                         .collect(Collectors.joining(",", "(", ")")))
                 .collect(Collectors.joining(","));
     }
@@ -70,10 +70,10 @@ public class DefaultInsertProvider<T> extends AbsProvider<T> implements InsertPr
 
         final StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ")
-          .append(getTable(entity))
-          .append(getInsertColumns(entity))
-          .append(" VALUES ")
-          .append(getInsertValues(entity, entities));
+                .append(getTable(entity))
+                .append(getInsertColumns(entity))
+                .append(" VALUES ")
+                .append(getInsertValues(entity, entities));
 
         final String sql = sb.toString();
         logger.info("==> {}", sql);

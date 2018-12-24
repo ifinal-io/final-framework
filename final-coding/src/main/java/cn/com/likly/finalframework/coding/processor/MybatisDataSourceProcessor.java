@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.coding.processor;
 
 import cn.com.likly.finalframework.coding.coder.Coder;
-import cn.com.likly.finalframework.coding.coder.FreemakerCoder;
+import cn.com.likly.finalframework.coding.coder.FreeMakerCoder;
 import cn.com.likly.finalframework.coding.model.mybatis.MybatisDataSource;
 import cn.com.likly.finalframework.mybatis.annotation.DataSource;
 import com.google.auto.service.AutoService;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class MybatisDataSourceProcessor extends AbstractProcessor {
     private static final Logger logger = LoggerFactory.getLogger(MybatisDataSourceProcessor.class);
-    private final Coder coder = new FreemakerCoder();
+    private final Coder coder = new FreeMakerCoder();
     private Filer filer;
     private Elements elements;
 

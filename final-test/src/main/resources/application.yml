@@ -33,7 +33,7 @@ logging:
       com:
         likly:
           finalframework:
-            mybatis:
+            dao:
               mapper: debug
 server:
   port: 8080

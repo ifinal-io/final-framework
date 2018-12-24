@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
+import cn.com.likly.finalframework.data.annotation.MultiColumn;
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
@@ -9,6 +10,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
@@ -52,15 +54,23 @@ public class DefaultSelectProvider<T> extends AbsProvider<T> implements SelectPr
 
     private String getSelectColumns(Entity<T> entity) {
         return entity.stream().filter(it -> !it.isTransient())
-                .map(this::getSelectColumn)
+                .map(it -> getSelectColumn(it, null))
                 .collect(Collectors.joining(","));
     }
 
-    private String getSelectColumn(Property property) {
-        if (property.getName().equals(property.getColumn())) {
-            return property.getName();
+    private String getSelectColumn(Property property, String prefix) {
+        MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
+        if (multiColumn == null) {
+            if (property.getName().equals(property.getColumn())) {
+                return prefix == null ? property.getName() : prefix + property.getName();
+            } else {
+                return String.format("%s AS %s%s", property.getColumn(), prefix == null ? "" : prefix, property.getName());
+            }
         } else {
-            return String.format("%s AS %s", property.getColumn(), property.getName());
+            Entity entity = Entity.from(property.getType());
+            return Arrays.stream(multiColumn.properties())
+                    .map(it -> getSelectColumn((Property) entity.getRequiredPersistentProperty(it), property.getName()))
+                    .collect(Collectors.joining(","));
         }
     }
 

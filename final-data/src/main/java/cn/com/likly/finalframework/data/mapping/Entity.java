@@ -3,7 +3,6 @@ package cn.com.likly.finalframework.data.mapping;
 import cn.com.likly.finalframework.core.Assert;
 import cn.com.likly.finalframework.core.Streable;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
-import cn.com.likly.finalframework.data.domain.BaseEntity;
 import org.springframework.data.mapping.PersistentEntity;
 
 /**
@@ -16,7 +15,7 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streable<Prope
 
     static <T> Entity<T> from(Class<T> entityClass) {
         Assert.isNull(entityClass, "entityClass must not be null!");
-        return new BaseEntity<>(entityClass);
+        return EntityCache.getInstance().get(entityClass);
     }
 
     String getTable();
@@ -30,5 +29,6 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streable<Prope
             throw new IllegalStateException(String.format("the entity of %s must have no args constructor!", getType().getName()));
         }
     }
+
 
 }

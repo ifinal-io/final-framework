@@ -7,7 +7,7 @@ import cn.com.likly.finalframework.data.annotation.PrimaryKey;
 import cn.com.likly.finalframework.data.entity.enums.YN;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author likly
@@ -16,18 +16,22 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
-public class BaseEntity implements IEntity<Long> {
+public abstract class AbsEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
 
     @PrimaryKey
     private Long id;
+    @Column(insertable = true, updatable = false)
+    private Long creator;
     @CreatedTime
-    private Date createdTime;
-    @LastModifiedTime
-    private Date lastModifiedTime;
+    private LocalDateTime createdTime;
     @Column(insertable = false)
-    private YN yn = YN.YES;
+    private Long lastModifier;
+    @LastModifiedTime
+    private LocalDateTime lastModifiedTime;
+    @Column(insertable = false)
+    private YN yn;
 }
 
     

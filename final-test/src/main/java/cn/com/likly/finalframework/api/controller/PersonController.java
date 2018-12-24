@@ -1,18 +1,14 @@
 package cn.com.likly.finalframework.api.controller;
 
-import cn.com.likly.finalframework.cache.annotation.CacheDel;
-import cn.com.likly.finalframework.cache.annotation.CacheSet;
-import cn.com.likly.finalframework.data.dao.mapper.PersonMapper;
-import cn.com.likly.finalframework.data.domain.Criteria;
+import cn.com.likly.finalframework.dao.mapper.PersonMapper;
+import cn.com.likly.finalframework.data.domain.QProperty;
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.entity.Person;
+import cn.com.likly.finalframework.data.mapping.Entity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static cn.com.likly.finalframework.data.query.QPerson.Person;
 
 
 /**
@@ -27,44 +23,26 @@ public class PersonController {
     @Resource
     private PersonMapper personMapper;
 
-    @PostMapping()
-    public Person create(@RequestBody Person person) {
+    @PostConstruct
+    public void init() {
+
+        Entity<Person> entity = Entity.from(Person.class);
+        QProperty id = (QProperty) entity.getRequiredPersistentProperty("id");
+        Query query = new Query().where(id.gt(3));
+
+        System.out.println(personMapper.selectCount(query));
+    }
+
+    @PostMapping
+    public Person insert(@RequestBody Person person) {
         personMapper.insert(person);
         return person;
     }
 
-    @GetMapping("/list")
-    public List<Person> list(Person person) {
-        final Query query = new Query();
-        query.where(
-                Criteria.where(Person.name).eq(person.getName())
-                        .and(Person.age).gt(person.getAge())
-        );
-        query.sort(Person.id.desc());
-        query.page(1).size(20);
-        return personMapper.select(query);
+    @PostMapping("/{id}")
+    public int update(@PathVariable("id") Long id, @RequestBody Person person) {
+        person.setId(id);
+        return personMapper.update(person);
     }
 
-    @GetMapping("/{id}")
-    @CacheSet(key = "#id", condition = "#id == 2", ttl = 1, timeunit = TimeUnit.MINUTES)
-    public Person get(@PathVariable Long id) {
-        return personMapper.selectOne(id);
-    }
-
-    @DeleteMapping("/{id}")
-    @CacheDel(key = "#id", condition = "#result")
-    public boolean delete(@PathVariable Long id) {
-        return personMapper.delete(id) == 1;
-    }
-
-    @GetMapping("/count")
-    public long count() {
-        return personMapper.selectCount();
-    }
-
-
-    @RequestMapping("/index")
-    public String index() {
-        return "{}";
-    }
 }

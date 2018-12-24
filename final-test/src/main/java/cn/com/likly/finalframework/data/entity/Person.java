@@ -1,7 +1,8 @@
 package cn.com.likly.finalframework.data.entity;
 
+import cn.com.likly.finalframework.data.annotation.Entity;
 import cn.com.likly.finalframework.data.annotation.JsonColumn;
-import cn.com.likly.finalframework.data.annotation.MapperEntity;
+import cn.com.likly.finalframework.data.annotation.MultiColumn;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -15,10 +16,10 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-@MapperEntity
+@Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends BaseEntity {
+public class Person extends AbsEntity {
     private static final long serialVersionUID = -8785625823175210092L;
 
     private String name;
@@ -27,4 +28,7 @@ public class Person extends BaseEntity {
     private List<String> stringList;
     @JsonColumn
     private List<Integer> intList;
+    //    @NonColumn
+    @MultiColumn(properties = {"name", "age"})
+    private Person multi;
 }

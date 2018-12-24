@@ -20,8 +20,8 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class Update implements Streable<UpdateSet>, Iterable<UpdateSet> {
 
-    private final Set<Property> keysToUpdate;
-    private final Map<Property, UpdateSet> modifierOps;
+    private final Set<String> keysToUpdate;
+    private final Map<String, UpdateSet> modifierOps;
 
     public Update() {
         this.keysToUpdate = new LinkedHashSet<>();
@@ -30,8 +30,7 @@ public class Update implements Streable<UpdateSet>, Iterable<UpdateSet> {
 
     private Update(Collection<UpdateSet> updateSets) {
         Assert.isEmpty(updateSets, "updateSets must be not null and empty!");
-
-        this.modifierOps = updateSets.stream().collect(Collectors.toMap(UpdateSet::getProperty, Function.identity()));
+        this.modifierOps = updateSets.stream().collect(Collectors.toMap(it -> it.getProperty().getName(), Function.identity()));
         this.keysToUpdate = modifierOps.keySet();
     }
 
@@ -45,33 +44,45 @@ public class Update implements Streable<UpdateSet>, Iterable<UpdateSet> {
 
 
     public Update set(@NonNull Property property, @NonNull Object value) {
-        keysToUpdate.add(property);
-        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
+        keysToUpdate.add(property.getName());
+        modifierOps.put(property.getName(), new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
     }
 
     public Update inc(@NonNull Property property) {
-        keysToUpdate.add(property);
-        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, 1));
+        keysToUpdate.add(property.getName());
+        modifierOps.put(property.getName(), new UpdateSet(property, SetOperation.EQUAL, 1));
         return this;
     }
 
     public Update incy(@NonNull Property property, @NonNull Number value) {
-        keysToUpdate.add(property);
-        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
+        keysToUpdate.add(property.getName());
+        modifierOps.put(property.getName(), new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
     }
 
     public Update dec(@NonNull Property property) {
-        keysToUpdate.add(property);
-        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, 1));
+        keysToUpdate.add(property.getName());
+        modifierOps.put(property.getName(), new UpdateSet(property, SetOperation.EQUAL, 1));
         return this;
     }
 
     public Update decy(@NonNull Property property, @NonNull Number value) {
-        keysToUpdate.add(property);
-        modifierOps.put(property, new UpdateSet(property, SetOperation.EQUAL, value));
+        keysToUpdate.add(property.getName());
+        modifierOps.put(property.getName(), new UpdateSet(property, SetOperation.EQUAL, value));
         return this;
+    }
+
+    public boolean contains(String property) {
+        return modifierOps.containsKey(property);
+    }
+
+    public UpdateSet getUpdateSet(String property) {
+        return modifierOps.get(property);
+    }
+
+    public Collection<UpdateSet> getUpdateSets() {
+        return modifierOps.values();
     }
 
     @Override

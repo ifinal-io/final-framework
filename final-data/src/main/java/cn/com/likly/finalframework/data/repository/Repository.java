@@ -1,14 +1,16 @@
 package cn.com.likly.finalframework.data.repository;
 
-import cn.com.likly.finalframework.data.annotation.Command;
-import cn.com.likly.finalframework.data.annotation.enums.CommandType;
 import cn.com.likly.finalframework.data.domain.Query;
 import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.entity.IEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -20,75 +22,119 @@ import java.util.List;
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== INSERT ===========================================*/
-    @Command(CommandType.INSERT_ARRAY)
-    int insert(T... entities);
+    default int insert(T... entities) {
+        return insert(Arrays.asList(entities));
+    }
 
-    @Command(CommandType.INSERT_COLLECTION)
-    int insert(Collection<T> entities);
+    default int insert(@Param("list") Collection<T> entities) {
+        return insert(entities, null);
+    }
+
+    default int insert(@Param("list") Collection<T> entities, @Param("query") Query query) {
+        return insert(null, entities, query);
+    }
+
+    int insert(@Param("tableName") String tableName, @Param("list") Collection<T> entities, @Param("query") Query query);
 
     /*=========================================== SET ===========================================*/
 
-    @Command(CommandType.UPDATE_ENTITIES_ARRAY)
-    int update(T... entities);
+    default int update(T entity) {
+        return update(null, entity, null, Collections.singletonList(entity.getId()), null);
+    }
 
-    @Command(CommandType.UPDATE_ENTITIES_COLLECTION)
-    int update(Collection<T> entities);
+    default int update(T... entities) {
+        return update(Arrays.asList(entities));
+    }
 
-    @Command(CommandType.UPDATE_ID_ARRAY)
-    int update(Update update, ID... ids);
+    default int update(Collection<T> entities) {
+        return entities.stream()
+                .mapToInt(this::update)
+                .sum();
+    }
 
-    @Command(CommandType.UPDATE_ID_COLLECTION)
-    int update(Update update, Collection<ID> ids);
+    default int update(Update update, ID... ids) {
+        return update(update, Arrays.asList(ids));
+    }
 
-    @Command(CommandType.UPDATE_QUERY)
-    int update(Update update, Query query);
+    default int update(Update update, Collection<ID> ids) {
+        return update(null, null, update, ids, null);
+    }
+
+    default int update(Update update, Query query) {
+        return update(null, null, update, null, query);
+    }
+
+    int update(@Param("tableName") String tableName, @Param("entity") T entity, @Param("update") Update update,
+               @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== DELETE ===========================================*/
 
-    @Command(CommandType.DELETE_ENTITIES_ARRAY)
-    int delete(T... entities);
+    default int delete(T... entities) {
+        return delete(Arrays.asList(entities));
+    }
 
-    @Command(CommandType.DELETE_ENTITIES_COLLECTION)
-    int delete(List<T> entities);
+    default int delete(List<T> entities) {
+        return delete(entities.stream().map(IEntity::getId).collect(Collectors.toList()));
+    }
 
-    @Command(CommandType.DELETE_ID_ARRAY)
-    int delete(ID... ids);
+    default int delete(ID... ids) {
+        return delete(Arrays.asList(ids));
+    }
 
-    @Command(CommandType.DELETE_ID_COLLECTION)
-    int delete(Collection<ID> ids);
+    default int delete(Collection<ID> ids) {
+        return delete(null, ids, null);
+    }
 
-    @Command(CommandType.DELETE_QUERY)
-    int delete(Query query);
+    default int delete(Query query) {
+        return delete(null, null, query);
+    }
+
+    int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== SELECT ===========================================*/
 
 
-    @Command(CommandType.SELECT_ID_ARRAY)
-    List<T> select(ID... ids);
+    default List<T> select(ID... ids) {
+        return select(Arrays.asList(ids));
+    }
 
-    @Command(CommandType.SELECT_ID_COLLECTION)
-    List<T> select(Collection<ID> ids);
+    default List<T> select(Collection<ID> ids) {
+        return select(null, ids, null);
+    }
 
-    @Command(CommandType.SELECT_QUERY)
-    List<T> select(Query query);
+    default List<T> select(Query query) {
+        return select(null, null, query);
+    }
 
-    @Command(CommandType.SELECT_ONE_ID)
-    T selectOne(ID id);
+    List<T> select(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
-    @Command(CommandType.SELECT_ONE_QUERY)
-    T selectOne(Query query);
+    default T selectOne(ID id) {
+        return selectOne(null, id, null);
+    }
 
-    @Command(CommandType.SELECT_COUNT_QUERY)
-    long selectCount(Query query);
+    default T selectOne(Query query) {
+        return selectOne(null, null, query.limit(1));
+    }
 
-    @Command(CommandType.SELECT_COUNT)
-    long selectCount();
+    T selectOne(@Param("tableName") String tableName, @Param("id") ID id, @Param("query") Query query);
 
-    @Command(CommandType.SELECT_IS_EXISTS_ID)
-    boolean isExists(ID id);
+    default long selectCount() {
+        return selectCount(null);
+    }
 
-    @Command(CommandType.SELECT_IS_EXISTS_QUERY)
-    boolean isExists(Query query);
+    default long selectCount(@Param("query") Query query) {
+        return selectCount(null, query);
+    }
+
+    long selectCount(@Param("tableName") String tableName, @Param("query") Query query);
+
+    default boolean isExists(@Param("id") ID id) {
+        return selectOne(id) != null;
+    }
+
+    default boolean isExists(@Param("query") Query query) {
+        return selectCount(query) > 0;
+    }
 
 
 }

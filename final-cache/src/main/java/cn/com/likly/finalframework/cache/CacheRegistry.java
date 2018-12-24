@@ -3,6 +3,7 @@ package cn.com.likly.finalframework.cache;
 import cn.com.likly.finalframework.cache.annotation.CacheDel;
 import cn.com.likly.finalframework.cache.annotation.CacheSet;
 import cn.com.likly.finalframework.cache.interceptor.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2018-11-23 22:28:00
  * @since 1.0
  */
+@Slf4j
 @SuppressWarnings("unchecked")
 public final class CacheRegistry {
 

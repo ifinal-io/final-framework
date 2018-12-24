@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,11 @@ public class DefaultRedisService implements RedisService {
     }
 
     @Override
+    public Map<Object, Object> hgetAll(Object key) {
+        return null;
+    }
+
+    @Override
     public boolean expire(Object key, long ttl, TimeUnit timeUnit) {
         return Boolean.TRUE.equals(redisTemplate.expire(key.toString(), ttl, timeUnit));
     }
@@ -69,8 +75,6 @@ public class DefaultRedisService implements RedisService {
     public long hdel(Object key, Object... fields) {
         return redisTemplate.opsForHash().delete(Arrays.stream(fields).map(Object::toString).toArray());
     }
-
-
 
 
 }

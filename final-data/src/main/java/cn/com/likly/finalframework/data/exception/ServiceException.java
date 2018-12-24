@@ -1,5 +1,7 @@
 package cn.com.likly.finalframework.data.exception;
 
+import cn.com.likly.finalframework.core.Assert;
+
 /**
  * @author likly
  * @version 1.0
@@ -11,6 +13,7 @@ public class ServiceException extends RuntimeException implements IException {
 
     public ServiceException(Integer code, String message) {
         super(message);
+        Assert.nonNull(code, "code is null");
         this.code = code;
     }
 

@@ -20,7 +20,7 @@ import java.util.Map;
 public class EntityHolderCache {
     private final Map<Class<?>, Entity> cache = new LinkedHashMap<>();
 
-    <ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> Entity get(Class<MAPPER> mapperClass) {
+    public <ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> Entity get(Class<MAPPER> mapperClass) {
         if (cache.containsKey(mapperClass)) {
             return cache.get(mapperClass);
         }

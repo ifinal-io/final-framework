@@ -17,6 +17,8 @@
         <module>final-spring</module>
         <module>final-test</module>
         <module>final-redis</module>
+        <module>final-auth</module>
+        <module>final-logging</module>
     </modules>
     <packaging>pom</packaging>
 

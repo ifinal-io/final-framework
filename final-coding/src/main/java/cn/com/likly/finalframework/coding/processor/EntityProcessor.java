@@ -1,7 +1,7 @@
 package cn.com.likly.finalframework.coding.processor;
 
 import cn.com.likly.finalframework.coding.coder.Coder;
-import cn.com.likly.finalframework.coding.coder.FreemakerCoder;
+import cn.com.likly.finalframework.coding.coder.FreeMakerCoder;
 import cn.com.likly.finalframework.coding.element.EntityFactory;
 import cn.com.likly.finalframework.coding.model.Mapper;
 import cn.com.likly.finalframework.coding.model.QEntity;
@@ -17,7 +17,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
 @AutoService(Processor.class)
 public class EntityProcessor extends AbstractProcessor {
     private static final Logger logger = LoggerFactory.getLogger(EntityProcessor.class);
-    private final Coder coder = new FreemakerCoder();
+    private final Coder coder = new FreeMakerCoder();
     private Filer filer;
 
     @Override
@@ -61,7 +60,7 @@ public class EntityProcessor extends AbstractProcessor {
         elements
                 .stream()
                 .map(it -> EntityFactory.create(processingEnv, (TypeElement) it))
-                .collect(Collectors.toList())
+//                .collect(Collectors.toList())
                 .forEach(it -> {
                     final String packageName = it.getPackage();
                     final String entityName = it.getSimpleName();
@@ -71,9 +70,7 @@ public class EntityProcessor extends AbstractProcessor {
                                 .createSourceFile(qEntity.getPackage() + "." + qEntity.getName())
                                 .openWriter());
                         if (it.hasAnnotation(MapperEntity.class)) {
-
                             final String primaryKeyType = it.getRequiredIdProperty().getType();
-
                             Mapper mapper = new Mapper(packageName.replace(".entity", ".dao.mapper"), entityName + "Mapper", primaryKeyType
                                     .startsWith("java.lang.") ? primaryKeyType.substring(primaryKeyType.lastIndexOf(".") + 1) : primaryKeyType, it
                                     .getPackage(), it.getSimpleName());

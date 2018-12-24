@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CacheDelOperationInvocation implements CacheOperationInvocation<CacheDelOperation> {
     @Override
-    @SuppressWarnings("all")
     public Object invoke(CacheOperationInvocationContext<CacheDelOperation> context, CacheOperationInvoker invoker) throws Throwable {
         Cache cache = CacheRegistry.getInstance().getCache(context.operation());
 

@@ -17,6 +17,11 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
             <artifactId>final-core</artifactId>
         </dependency>

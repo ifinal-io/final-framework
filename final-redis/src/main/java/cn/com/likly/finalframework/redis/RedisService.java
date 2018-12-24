@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.redis;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,6 +21,8 @@ public interface RedisService {
     void hset(Object key, Object field, Object value);
 
     <T> T hget(Object key, Object field);
+
+    Map<Object, Object> hgetAll(Object key);
 
     boolean expire(Object key, long ttl, TimeUnit timeUnit);
 

@@ -5,7 +5,10 @@ import cn.com.likly.finalframework.data.domain.enums.AndOr;
 import cn.com.likly.finalframework.data.mapping.Property;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -24,7 +27,8 @@ public class Criteria implements Streable<Criteria>, Iterable<Criteria> {
 
     Criteria(CriteriaSet criteriaSet) {
         this.criteriaChain = null;
-        this.criteriaSets = Arrays.asList(criteriaSet);
+        this.criteriaSets = new ArrayList<>();
+        this.criteriaSets.add(criteriaSet);
         this.chain = false;
     }
 

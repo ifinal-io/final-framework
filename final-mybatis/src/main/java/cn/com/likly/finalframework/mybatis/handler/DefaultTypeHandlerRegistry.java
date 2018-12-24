@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,7 +27,6 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionBlobTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectBlobTypeHandlerMap = new ConcurrentHashMap<>();
-
     private ApplicationContext applicationContext;
 
     @Override
@@ -36,9 +34,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
         this.applicationContext = applicationContext;
     }
 
-    @PostConstruct
-    private void init() {
-
+    {
         register(short.class, List.class, PersistentType.AUTO, new DefaultListTypeHandler<>(short.class));
         register(Short.class, List.class, PersistentType.AUTO, new DefaultListTypeHandler<>(Short.class));
 
@@ -74,7 +70,9 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
 
     @Override
     public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
-        applicationContext.getBeansOfType(SqlSessionFactory.class).values().forEach(it -> it.getConfiguration().getTypeHandlerRegistry().setDefaultEnumTypeHandler(typeHandler));
+        if (applicationContext != null) {
+            applicationContext.getBeansOfType(SqlSessionFactory.class).values().forEach(it -> it.getConfiguration().getTypeHandlerRegistry().setDefaultEnumTypeHandler(typeHandler));
+        }
     }
 
 
@@ -121,7 +119,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
 
     @Override
     public TypeHandler getTypeHandler(Class javaType, Class collectionType, PersistentType jdbcType) {
-
+//        if(javaType.isEnum()) return null;
         switch (jdbcType) {
             case JSON:
                 return collectionType == null ? getJsonObjectTypeHandler(javaType) : getJsonCollectionTypeHandler(javaType, collectionType);
@@ -135,6 +133,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
     }
 
     private TypeHandler getTypeHandler(Class javaType) {
+        if (applicationContext == null) return null;
         List<SqlSessionFactory> collect = new ArrayList<>(applicationContext.getBeansOfType(SqlSessionFactory.class).values());
         return collect.get(0).getConfiguration().getTypeHandlerRegistry().getTypeHandler(javaType);
     }
