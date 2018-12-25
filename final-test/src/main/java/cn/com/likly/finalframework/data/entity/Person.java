@@ -21,7 +21,6 @@ import java.util.List;
 @ToString(callSuper = true)
 public class Person extends AbsEntity {
     private static final long serialVersionUID = -8785625823175210092L;
-
     private String name;
     private Integer age;
     @JsonColumn
@@ -29,6 +28,7 @@ public class Person extends AbsEntity {
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @MultiColumn(properties = {"name", "age"})
-    private Person multi;
+    @MultiColumn(properties = {"id", "name", "age"})
+    private Person creator;
+
 }

@@ -31,13 +31,11 @@ public class EntityHolderCache {
     }
 
     private <ID extends Serializable, T extends IEntity<ID>, MAPPER extends AbsMapper<ID, T>> Class<T> getEntityClass(Class<MAPPER> mapperClass) {
-
         for (Type genericInterface : mapperClass.getGenericInterfaces()) {
             if (genericInterface instanceof ParameterizedType && ((ParameterizedType) genericInterface).getRawType().equals(AbsMapper.class)) {
                 return (Class<T>) ((ParameterizedType) genericInterface).getActualTypeArguments()[1];
             }
         }
-
         throw new IllegalArgumentException("");
     }
 

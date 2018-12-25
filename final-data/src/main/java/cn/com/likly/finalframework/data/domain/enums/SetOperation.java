@@ -10,7 +10,7 @@ public enum SetOperation {
 
     EQUAL,
     INC,
-    INCY,
+    INCR,
     DEC,
-    DECY
+    DECR
 }

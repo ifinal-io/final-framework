@@ -93,7 +93,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SELECT ===========================================*/
 
-
     default List<T> select(ID... ids) {
         return select(Arrays.asList(ids));
     }

@@ -27,4 +27,15 @@ public class UpdateSet {
         return null == value;
     }
 
+    public Property getProperty() {
+        return property;
+    }
+
+    public SetOperation getOperation() {
+        return operation;
+    }
+
+    public Object getValue() {
+        return value;
+    }
 }

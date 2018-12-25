@@ -5,6 +5,8 @@ import cn.com.likly.finalframework.coding.annotation.Template;
 import java.io.Serializable;
 
 /**
+ * <mapper namespace="${mapper}">
+ * </mapper>
  * @author likly
  * @version 1.0
  * @date 2018-12-23 23:01:47

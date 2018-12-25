@@ -20,10 +20,13 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
+ * Generate mapper.xml file of the mapper which annotated by {@link Mapper}.
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-19 15:14
  * @since 1.0
+ * @see MapperXml
  */
 @AutoService(Processor.class)
 @SuppressWarnings("unused")

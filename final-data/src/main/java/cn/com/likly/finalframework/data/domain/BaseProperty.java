@@ -61,6 +61,13 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 initCreatedTime(findAnnotation(CreatedTime.class));
             } else if (isAnnotationPresent(LastModifiedTime.class)) {
                 initLastModifiedTime(findAnnotation(LastModifiedTime.class));
+            } else if (isAnnotationPresent(MultiColumn.class)) {
+                initMultiColumn(findAnnotation(MultiColumn.class));
+            } else {
+                insertable = true;
+                updatable = true;
+                unique = false;
+                nonnull = false;
             }
 
 
@@ -136,6 +143,15 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.table = lastModifiedTime.table();
         this.column = lastModifiedTime.name();
     }
+
+    private void initMultiColumn(MultiColumn multiColumn) {
+        this.unique = multiColumn.unique();
+        this.nonnull = multiColumn.nonnull();
+        this.insertable = multiColumn.insertable();
+        this.updatable = multiColumn.updatable();
+        this.column = multiColumn.name();
+    }
+
 
     @Override
     public boolean unique() {

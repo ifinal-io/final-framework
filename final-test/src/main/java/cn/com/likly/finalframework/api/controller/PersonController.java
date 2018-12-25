@@ -3,8 +3,10 @@ package cn.com.likly.finalframework.api.controller;
 import cn.com.likly.finalframework.dao.mapper.PersonMapper;
 import cn.com.likly.finalframework.data.domain.QProperty;
 import cn.com.likly.finalframework.data.domain.Query;
+import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.entity.Person;
 import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.query.QPerson;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -42,7 +44,14 @@ public class PersonController {
     @PostMapping("/{id}")
     public int update(@PathVariable("id") Long id, @RequestBody Person person) {
         person.setId(id);
-        return personMapper.update(person);
+//        return personMapper.update(person);
+        Update update = Update.update().set(QPerson.creator, person);
+        return personMapper.update(update, id);
+    }
+
+    @GetMapping("/{id}")
+    public Person get(@PathVariable("id") Long id) {
+        return personMapper.selectOne(id);
     }
 
 }

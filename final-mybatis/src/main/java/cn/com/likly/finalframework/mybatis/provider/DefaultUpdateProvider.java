@@ -79,7 +79,7 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
                                 return String.format("%s = %s + 1",
                                         it.getProperty().getColumn(),
                                         it.getProperty().getColumn());
-                            case INCY:
+                            case INCR:
                                 return String.format("%s = %s + #{entity.%s %s}",
                                         it.getProperty().getColumn(),
                                         it.getProperty().getColumn(),
@@ -87,7 +87,7 @@ public class DefaultUpdateProvider<T> extends AbsProvider<T> implements UpdatePr
                                         getJavaTypeAndTypeHandler(it.getProperty()));
                             case DEC:
                                 return String.format("%s = %s - 1", it.getProperty().getColumn(), it.getProperty().getColumn());
-                            case DECY:
+                            case DECR:
                                 return String.format("%s = %s - #{entity.%s %s}",
                                         it.getProperty().getColumn(),
                                         it.getProperty().getColumn(),

@@ -4,6 +4,7 @@ import cn.com.likly.finalframework.data.annotation.MultiColumn;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.data.repository.Repository;
 import cn.com.likly.finalframework.mybatis.EntityHolderCache;
 import cn.com.likly.finalframework.mybatis.handler.DefaultTypeHandlerRegistry;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
@@ -20,9 +21,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -32,12 +32,18 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class XMLMapperBuilderAgent {
-
+    private static final Set<Class> numberClasses = new HashSet<>(Arrays.asList(
+            byte.class, short.class,
+            int.class, long.class,
+            float.class, double.class
+    ));
     private static final TypeHandlerRegistry typeHandlerRegistry = new DefaultTypeHandlerRegistry();
     private static final EntityHolderCache cache = new EntityHolderCache();
-    private static final String SQL_TABLE = "sql_table";
-    private static final String SQL_UPDATE = "sql_update";
-    private static final String SQL_SELECT = "sql_select";
+    private static final String SQL_TABLE = "sql-table";
+    private static final String SQL_UPDATE = "sql-update";
+    private static final String SQL_INSERT_COLUMNS = "sql-insert-columns";
+    private static final String SQL_INSERT_VALUES = "sql-insert-values";
+    private static final String SQL_SELECT = "sql-select";
 
     private final XNode context;
     private final Document document;
@@ -60,8 +66,10 @@ public class XMLMapperBuilderAgent {
         }
         try {
             Class mapperClass = Class.forName(namespace);
-            Entity entity = cache.get(mapperClass);
-            final XMLMapperBuilderAgent agent = new XMLMapperBuilderAgent(context, entity);
+            if (Repository.class.isAssignableFrom(mapperClass)) {
+                Entity entity = cache.get(mapperClass);
+                final XMLMapperBuilderAgent agent = new XMLMapperBuilderAgent(context, entity);
+            }
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Mapper cannot be found:mapper=" + namespace);
@@ -90,7 +98,9 @@ public class XMLMapperBuilderAgent {
         //sql fragment
         //sql-table
         appendSqlTableFragment();
-        appendSqlUpdateFragment();
+        appendInsertColumnsSqlFragment();
+        appendInsertValuesSqlFragment();
+        appendUpdateSqlFragment();
         appendSqlSelectFragment();
 
         String result = null;
@@ -107,6 +117,7 @@ public class XMLMapperBuilderAgent {
                 // text
                 t.setOutputProperty(
                         "{http://xml.apache.org/xslt}indent-amount", "4");
+                document.setXmlStandalone(true);
                 t.transform(new DOMSource(document.getDocumentElement()),
                         strResult);
             } catch (Exception e) {
@@ -139,17 +150,20 @@ public class XMLMapperBuilderAgent {
         resultMap.setAttribute("id", type.getSimpleName() + "Map");
         resultMap.setAttribute("type", type.getCanonicalName());
 
-        entity.stream().filter(it -> !it.isTransient() && !it.hasAnnotation(MultiColumn.class))
-                .map(this::buildResultElement)
-                .forEach(resultMap::appendChild);
-        entity.stream().filter(it -> !it.isTransient() && it.hasAnnotation(MultiColumn.class))
-                .map(this::buildAssociationElement)
-                .forEach(resultMap::appendChild);
+        entity.stream().filter(it -> !it.isTransient())
+                .forEach(property -> {
+                    if (property.hasAnnotation(MultiColumn.class)) {
+                        resultMap.appendChild(buildAssociationElement(property));
+                    } else {
+                        resultMap.appendChild(buildResultElement(property, null));
+                    }
+                });
         context.getNode().appendChild(resultMap);
     }
 
     //    ******************************************************************************************************************
 
+    @SuppressWarnings("all")
     private Element buildAssociationElement(Property property) {
         final Class javaType = getPropertyJavaType(property);
         final Element association = document.createElement("association");
@@ -157,21 +171,25 @@ public class XMLMapperBuilderAgent {
         association.setAttribute("javaType", javaType.getCanonicalName());
         MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
         Entity<Property> multiEntity = Entity.from(javaType);
-        Arrays.stream(multiColumn.properties())
-                .map(multiEntity::getRequiredPersistentProperty)
-                .map(this::buildResultElement)
+//        Arrays.stream(multiColumn.properties())
+//                .map(multiEntity::getRequiredPersistentProperty)
+        multiEntity.stream().filter(it -> !it.isTransient() && !it.hasAnnotation(MultiColumn.class))
+                .map(it -> buildResultElement(it, property.getColumn()))
                 .forEach(association::appendChild);
         return association;
     }
 
-    private Element buildResultElement(Property property) {
+    @SuppressWarnings("all")
+    private Element buildResultElement(Property property, String prefix) {
         final Class javaType = getPropertyJavaType(property);
         final Class collectionType = property.isCollectionLike() ? property.getType() : null;
         TypeHandler typeHandler = typeHandlerRegistry.getTypeHandler(javaType, collectionType, property.getPersistentType());
         final String name = property.isIdProperty() ? "id" : "result";
         final Element result = document.createElement(name);
+        final String column = prefix == null ? property.getColumn()
+                : property.isIdProperty() ? prefix : prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
         result.setAttribute("property", property.getName());
-        result.setAttribute("column", property.getColumn());
+        result.setAttribute("column", column);
         if (javaType != null) {
             result.setAttribute("javaType", javaType.getCanonicalName());
         }
@@ -203,13 +221,13 @@ public class XMLMapperBuilderAgent {
         final Element whenTableNameNotNull = document.createElement("when");
         whenTableNameNotNull.setAttribute("test", "tableName != null");
         //                  ${tableName}
-        whenTableNameNotNull.appendChild(textNote("${tableName}"));
+        whenTableNameNotNull.appendChild(textNode("${tableName}"));
         //              </when>
         choose.appendChild(whenTableNameNotNull);
         //              <otherwise>
         final Element otherwise = document.createElement("otherwise");
         //                  tableName
-        otherwise.appendChild(textNote(entity.getTable()));
+        otherwise.appendChild(textNode(entity.getTable()));
         //              </otherwise>
         choose.appendChild(otherwise);
         //      </choose>
@@ -219,7 +237,134 @@ public class XMLMapperBuilderAgent {
     }
 
     @SuppressWarnings("all")
-    private void appendSqlUpdateFragment() {
+    private void appendInsertColumnsSqlFragment() {
+        /*
+         * <sql id="insert-columns">
+         *      (column1,column2,multiColumn1,multiColumn2)
+         * </sql>
+         */
+        final Element sql = document.createElement("sql");
+        sql.setAttribute("id", SQL_INSERT_COLUMNS);
+        // (column1,column2,multiColumn1,multiColumn2)
+        final List<String> columns = new ArrayList<>();
+        entity.stream().filter(Property::insertable)
+                .forEach(property -> {
+                    if (property.hasAnnotation(MultiColumn.class)) {
+                        final Class multiType = getPropertyJavaType(property);
+                        final Entity<Property> multiEntity = Entity.from(multiType);
+                        Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
+                                .map(multiEntity::getRequiredPersistentProperty)
+                                .map(multiProperty ->
+                                        multiProperty.isIdProperty() ? property.getColumn() :
+                                                property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1)
+                                )
+
+                                .forEach(columns::add);
+                    } else {
+                        columns.add(property.getColumn());
+                    }
+                });
+        sql.appendChild(textNode(columns.stream().collect(Collectors.joining(",", "(", ")"))));
+        context.getNode().appendChild(sql);
+    }
+
+    private void appendInsertValuesSqlFragment() {
+        /**
+         * <sql id="sql-insert-values">
+         *      <foreach collection="list" index="index" item="entity" separator=",">
+         *          (
+         *              #{list[${index}].property,javaType=%s,typeHandler=%s},
+         *              ...
+         *              <choose>
+         *                  <when test="list[index].multi != null">
+         *                      #{list[${index}].multi.property,javaType=%s,typeHandler=%s},
+         *                      #{list[${index}].multi.property,javaType=%s,typeHandler=%s},
+         *                  </when>
+         *                  <otherwise>
+         *                      null,null
+         *                  </otherwise>
+         *              </choose>
+         *          )
+         *          </foreach>
+         *      </foreach>
+         * </sql>
+         */
+        final Element sql = document.createElement("sql");
+        sql.setAttribute("id", SQL_INSERT_VALUES);
+        Element foreach = document.createElement("foreach");
+        foreach.setAttribute("collection", "list");
+        foreach.setAttribute("index", "index");
+        foreach.setAttribute("item", "item");
+        foreach.setAttribute("separator", ",");
+        foreach.appendChild(textNode("("));
+        AtomicBoolean first = new AtomicBoolean(true);
+        entity.stream().filter(Property::insertable)
+                .forEach(property -> {
+                    if (property.hasAnnotation(MultiColumn.class)) {
+
+                        MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
+                        final Class multiType = getPropertyJavaType(property);
+                        final Entity<Property> multiEntity = Entity.from(multiType);
+
+                        final Element choose = document.createElement("choose");
+                        final Element when = document.createElement("when");
+                        final String whenTest = String.format("list[index].%s != null", property.getName());
+                        when.setAttribute("test", whenTest);
+                        final String insertMultiValues = Arrays.stream(multiColumn.properties())
+                                .map(multiEntity::getRequiredPersistentProperty)
+                                .map(multiProperty -> {
+                                    final Class javaType = getPropertyJavaType(multiProperty);
+                                    final TypeHandler typeHandler = getPropertyTypeHandler(multiProperty);
+                                    //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
+                                    StringBuilder builder = new StringBuilder();
+                                    builder.append("#{list[${index}].").append(property.getName()).append(".").append(multiProperty.getName());
+                                    if (typeHandler != null) {
+                                        builder.append(",javaType=").append(javaType.getCanonicalName());
+                                        builder.append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
+                                    }
+                                    builder.append("}");
+                                    return builder.toString();
+                                })
+                                .collect(Collectors.joining(",\n"));
+                        when.appendChild(textNode(first.get() ? insertMultiValues : "," + insertMultiValues));
+                        choose.appendChild(when);
+                        final Element otherwise = document.createElement("otherwise");
+                        final List<String> nullValues = new ArrayList<>();
+                        for (int i = 0; i < multiColumn.properties().length; i++) {
+                            nullValues.add("null");
+                        }
+                        final String otherWiseText = first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
+                        otherwise.appendChild(textNode(otherWiseText));
+                        choose.appendChild(otherwise);
+                        first.set(false);
+                        foreach.appendChild(choose);
+                    } else {
+                        //#{list[${index}].property,javaType=%s,typeHandler=%s}
+                        final Class javaType = getPropertyJavaType(property);
+                        final TypeHandler typeHandler = getPropertyTypeHandler(property);
+                        StringBuilder builder = new StringBuilder();
+
+                        if (!first.get()) {
+                            builder.append(",");
+                        }
+
+                        builder.append("#{list[${index}].").append(property.getName());
+                        if (typeHandler != null) {
+                            builder.append(",javaType=").append(javaType.getCanonicalName());
+                            builder.append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
+                        }
+                        builder.append("}\n");
+                        first.set(false);
+                        foreach.appendChild(textNode(builder.toString()));
+                    }
+                });
+        foreach.appendChild(textNode(")"));
+        sql.appendChild(foreach);
+        context.getNode().appendChild(sql);
+    }
+
+    @SuppressWarnings("all")
+    private void appendUpdateSqlFragment() {
         /*
          *      <sql id="sql-update">
          *         <set>
@@ -290,7 +435,7 @@ public class XMLMapperBuilderAgent {
                                     final Element ifPropertyNotNull = document.createElement("if");
                                     final String ifTest = String.format("entity.%s != null and entity.%s.%s != null", property.getName(), property.getName(), multiProperty.getName());
                                     ifPropertyNotNull.setAttribute("test", ifTest);
-                                    final String multiColumn = property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
+                                    final String multiColumn = multiProperty.isIdProperty() ? property.getName() : property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final StringBuilder builder = new StringBuilder();
                                     builder.append(multiColumn)
                                             .append(" = ")
@@ -301,7 +446,7 @@ public class XMLMapperBuilderAgent {
                                                 .append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
                                     }
                                     builder.append("},");
-                                    ifPropertyNotNull.appendChild(textNote(builder.toString()));
+                                    ifPropertyNotNull.appendChild(textNode(builder.toString()));
                                     return ifPropertyNotNull;
                                 }).forEach(whenEntityNotNull::appendChild);
                     } else {
@@ -327,7 +472,7 @@ public class XMLMapperBuilderAgent {
                         final Element ifPropertyNotNull = document.createElement("if");
                         final String ifTest = String.format("entity.%s != null", property.getName());
                         ifPropertyNotNull.setAttribute("test", ifTest);
-                        ifPropertyNotNull.appendChild(textNote(builder.toString()));
+                        ifPropertyNotNull.appendChild(textNode(builder.toString()));
                         whenEntityNotNull.appendChild(ifPropertyNotNull);
                     }
 
@@ -342,8 +487,8 @@ public class XMLMapperBuilderAgent {
 
 
                     /*
-                     * <if test="update.contains('property') and update.getUpdateSet('property').value.property != null">
-                     *      column = #{update.getUpdateSet('property').value.property,javaType=,typeHandler=}
+                     * <if test="update.contains('property') and update['property'].value.property != null">
+                     *      column = #{update[property].value.property,javaType=,typeHandler=}
                      * </if>
                      */
                     if (property.hasAnnotation(MultiColumn.class)) {
@@ -358,23 +503,23 @@ public class XMLMapperBuilderAgent {
                                     final TypeHandler typeHandler = getPropertyTypeHandler(multiProperty);
 
                                     final Element ifUpdateContains = document.createElement("if");
-                                    final String ifTest = String.format("update.contains('%s') and update.getUpdateSet('%s').value.%s != null",
+                                    final String ifTest = String.format("update['%s'] != null and update['%s'].value.%s != null",
                                             property.getName(), property.getName(), multiProperty.getName());
                                     ifUpdateContains.setAttribute("test", ifTest);
-                                    final String multiColumn = property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
+                                    final String multiColumn = multiProperty.isIdProperty() ? property.getColumn()
+                                            : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final StringBuilder builder = new StringBuilder();
                                     builder.append(multiColumn)
                                             .append(" = ")
                                             .append("#{")
-                                            .append("update.getUpdateSet('")
-                                            .append(property.getName()).append(".").append(multiProperty.getName())
-                                            .append("')");
+                                            .append("update[")
+                                            .append(property.getName()).append("].value.").append(multiProperty.getName());
                                     if (!multiProperty.isEnum() && typeHandler != null) {
                                         builder.append(",javaType=").append(javaType.getCanonicalName())
                                                 .append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
                                     }
                                     builder.append("},");
-                                    ifUpdateContains.appendChild(textNote(builder.toString()));
+                                    ifUpdateContains.appendChild(textNode(builder.toString()));
                                     return ifUpdateContains;
                                 }).forEach(whenUpdateNotNull::appendChild);
 
@@ -382,7 +527,7 @@ public class XMLMapperBuilderAgent {
                         final Class javaType = getPropertyJavaType(property);
                         final TypeHandler typeHandler = getPropertyTypeHandler(property);
                         final Element ifUpdateContains = document.createElement("if");
-                        ifUpdateContains.setAttribute("test", "update.contains('" + property.getName() + "')");
+                        ifUpdateContains.setAttribute("test", "update['" + property.getName() + "'] != null");
 
                         final Element updateSetChoose = document.createElement("choose");
 
@@ -390,59 +535,62 @@ public class XMLMapperBuilderAgent {
                         //       column = #{update.getUpdateSet('property').value,javaType=,typeHandler=}
                         // </when>
                         final Element whenSetOperationEqual = document.createElement("when");
-                        whenSetOperationEqual.setAttribute("test", "update.getUpdateSet('" + property.getName() + "').operation.name() == 'EQUAL'");
+                        whenSetOperationEqual.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'EQUAL'");
                         final StringBuilder builder = new StringBuilder();
                         builder.append(property.getColumn())
                                 .append(" = ")
                                 .append("#{")
-                                .append("update.getUpdateSet('")
+                                .append("update[")
                                 .append(property.getName())
-                                .append("')");
+                                .append("].value");
                         if (typeHandler != null) {
                             builder.append(",javaType=").append(javaType.getCanonicalName())
                                     .append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
                         }
                         builder.append("},");
-                        whenSetOperationEqual.appendChild(textNote(builder.toString()));
-
+                        whenSetOperationEqual.appendChild(textNode(builder.toString()));
                         updateSetChoose.appendChild(whenSetOperationEqual);
-
-                        // <when test="update.getUpdateSet('property').operation.name() == 'INC'">
-                        //       column = column + 1
-                        // </when>
-                        final Element whenSetOperationInc = document.createElement("when");
-                        whenSetOperationInc.setAttribute("test", "update.getUpdateSet('" + property.getName() + "').operation.name() == 'INC'");
-                        final String whenSetOperationIncText = String.format("%s = %s + 1,", property.getColumn(), property.getColumn());
-                        whenSetOperationInc.appendChild(textNote(whenSetOperationIncText));
-                        updateSetChoose.appendChild(whenSetOperationInc);
-
-                        // <when test="update.getUpdateSet('property').operation.name() == 'INCR'">
-                        //       column = column + #{update.getUpdateSet('property').value}
-                        // </when>
-                        final Element whenSetOperationIncr = document.createElement("when");
-                        whenSetOperationIncr.setAttribute("test", "update.getUpdateSet('" + property.getName() + "').operation.name() == 'INCR'");
-                        final String whenSetOperationIncrText = String.format("%s = %s + #{update.getUpdateSet('%s').value},", property.getColumn(), property.getColumn(), property.getName());
-                        whenSetOperationIncr.appendChild(textNote(whenSetOperationIncrText));
-                        updateSetChoose.appendChild(whenSetOperationInc);
-
-                        // <when test="update.getUpdateSet('property').operation.name() == 'DEC'">
-                        //       column = column - 1
-                        // </when>
-                        final Element whenSetOperationDec = document.createElement("when");
-                        whenSetOperationDec.setAttribute("test", "update.getUpdateSet('" + property.getName() + "').operation.name() == 'DEC'");
-                        final String whenSetOperationDecText = String.format("%s = %s - 1,", property.getColumn(), property.getColumn());
-                        whenSetOperationDec.appendChild(textNote(whenSetOperationDecText));
-                        updateSetChoose.appendChild(whenSetOperationDec);
-
-                        // <when test="update.getUpdateSet('property').operation.name() == 'DECR'">
-                        //       column = column - #{update.getUpdateSet('property').value}
-                        // </when>
-                        final Element whenSetOperationDecr = document.createElement("when");
-                        whenSetOperationDecr.setAttribute("test", "update.getUpdateSet('" + property.getName() + "').operation.name() == 'DECR'");
-                        final String whenSetOperationDecrText = String.format("%s = %s - #{update.getUpdateSet('%s').value},", property.getColumn(), property.getColumn(), property.getName());
-                        whenSetOperationDecr.appendChild(textNote(whenSetOperationDecrText));
-                        updateSetChoose.appendChild(whenSetOperationDecr);
                         ifUpdateContains.appendChild(updateSetChoose);
+
+                        if (isNumbers(property)) {
+
+                            // <when test="update.getUpdateSet('property').operation.name() == 'INC'">
+                            //       column = column + 1
+                            // </when>
+                            final Element whenSetOperationInc = document.createElement("when");
+                            whenSetOperationInc.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'INC'");
+                            final String whenSetOperationIncText = String.format("%s = %s + 1,", property.getColumn(), property.getColumn());
+                            whenSetOperationInc.appendChild(textNode(whenSetOperationIncText));
+                            updateSetChoose.appendChild(whenSetOperationInc);
+
+                            // <when test="update.getUpdateSet('property').operation.name() == 'INCR'">
+                            //       column = column + #{update.getUpdateSet('property').value}
+                            // </when>
+                            final Element whenSetOperationIncr = document.createElement("when");
+                            whenSetOperationIncr.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'INCR'");
+                            final String whenSetOperationIncrText = String.format("%s = %s + #{update[%s].value},", property.getColumn(), property.getColumn(), property.getName());
+                            whenSetOperationIncr.appendChild(textNode(whenSetOperationIncrText));
+                            updateSetChoose.appendChild(whenSetOperationIncr);
+
+                            // <when test="update.getUpdateSet('property').operation.name() == 'DEC'">
+                            //       column = column - 1
+                            // </when>
+                            final Element whenSetOperationDec = document.createElement("when");
+                            whenSetOperationDec.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'DEC'");
+                            final String whenSetOperationDecText = String.format("%s = %s - 1,", property.getColumn(), property.getColumn());
+                            whenSetOperationDec.appendChild(textNode(whenSetOperationDecText));
+                            updateSetChoose.appendChild(whenSetOperationDec);
+
+                            // <when test="update.getUpdateSet('property').operation.name() == 'DECR'">
+                            //       column = column - #{update.getUpdateSet('property').value}
+                            // </when>
+                            final Element whenSetOperationDecr = document.createElement("when");
+                            whenSetOperationDecr.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'DECR'");
+                            final String whenSetOperationDecrText = String.format("%s = %s - #{update[%s].value},", property.getColumn(), property.getColumn(), property.getName());
+                            whenSetOperationDecr.appendChild(textNode(whenSetOperationDecrText));
+                            updateSetChoose.appendChild(whenSetOperationDecr);
+                            ifUpdateContains.appendChild(updateSetChoose);
+                        }
                         whenUpdateNotNull.appendChild(ifUpdateContains);
                     }
                 });
@@ -464,7 +612,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", SQL_SELECT);
-        sql.appendChild(textNote("SELECT " + buildSelectColumns() + " FROM"));
+        sql.appendChild(textNode("SELECT " + buildSelectColumns() + " FROM"));
         context.getNode().appendChild(sql);
     }
 
@@ -476,7 +624,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element whenIdNotNull = document.createElement("when");
         whenIdNotNull.setAttribute("test", "id != null");
-        whenIdNotNull.appendChild(textNote(entity.getRequiredIdProperty().getColumn() + " = #{id}"));
+        whenIdNotNull.appendChild(textNode(entity.getRequiredIdProperty().getColumn() + " = #{id}"));
         return whenIdNotNull;
     }
 
@@ -491,14 +639,14 @@ public class XMLMapperBuilderAgent {
          */
         final Element whenIdsNotNull = document.createElement("when");
         whenIdsNotNull.setAttribute("test", "ids != null");
-        whenIdsNotNull.appendChild(textNote(entity.getRequiredIdProperty().getColumn() + " IN"));
+        whenIdsNotNull.appendChild(textNode(entity.getRequiredIdProperty().getColumn() + " IN"));
         final Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "ids");
         foreach.setAttribute("item", "id");
         foreach.setAttribute("open", "(");
         foreach.setAttribute("separator", ",");
         foreach.setAttribute("close", ")");
-        foreach.appendChild(textNote("#{id}"));
+        foreach.appendChild(textNode("#{id}"));
         whenIdsNotNull.appendChild(foreach);
         return whenIdsNotNull;
     }
@@ -514,7 +662,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element whenQueryNotNull = document.createElement("when");
         whenQueryNotNull.setAttribute("test", "query != null");
-        whenQueryNotNull.appendChild(textNote("#{query.sql}"));
+        whenQueryNotNull.appendChild(textNode("#{query.sql}"));
         return whenQueryNotNull;
     }
 
@@ -571,110 +719,21 @@ public class XMLMapperBuilderAgent {
 
         /*
          *  INSERT INTO
+         *  <include refid="sql-insert-columns"/>
          *  <include refid="sql-table"/>
+         *  <include refid="sql-insert-values"/>
          *  (columns)
          *  VALUES
          *  (),()
          *  <include refid="where"/>
          */
 
-        insert.appendChild(textNote("INSERT INTO"));
+        insert.appendChild(textNode("INSERT INTO"));
         insert.appendChild(includeElement(SQL_TABLE));
-        insert.appendChild(textNote("("));
-        // (column1,column2,multiColumn1,multiColumn2)
-        String insertColumns = entity.stream().filter(it -> it.insertable() && !it.hasAnnotation(MultiColumn.class))
-                .map(Property::getColumn)
-                .collect(Collectors.joining(","));
-        String mutilColumns = entity.stream().filter(it -> it.insertable() && it.hasAnnotation(MultiColumn.class))
-                .map(it -> {
-                    MultiColumn multiColumn = it.findAnnotation(MultiColumn.class);
-                    if (multiColumn == null) throw new RuntimeException("");
-                    Class multiEntityType = getPropertyJavaType(it);
-                    Entity<Property> multiEntity = Entity.from(multiEntityType);
-                    return Arrays.stream(multiColumn.properties())
-                            .map(multiEntity::getRequiredPersistentProperty)
-                            .map(property -> it.getName() + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1))
-                            .collect(Collectors.joining(","));
-                }).collect(Collectors.joining(","));
+        insert.appendChild(includeElement(SQL_INSERT_COLUMNS));
+        insert.appendChild(textNode("VALUES"));
+        insert.appendChild(includeElement(SQL_INSERT_VALUES));
 
-        insert.appendChild(textNote(mutilColumns != null && mutilColumns.length() > 0 ? insertColumns + "," + mutilColumns : insertColumns));
-        insert.appendChild(textNote(") VALUES "));
-
-        /*
-         * <foreach collection="list" index="index" item="entity" separator=",">
-         *     (#{list[${index}].property,javaType=%s,typeHandler=%s},...
-         *     <if test="multi != null">
-         *         ,#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
-         *     </if>
-         *     )
-         *     </foreach>
-         * </foreach>
-         */
-
-        Element foreach = document.createElement("foreach");
-        foreach.setAttribute("collection", "list");
-        foreach.setAttribute("index", "index");
-        foreach.setAttribute("item", "item");
-        foreach.setAttribute("separator", ",");
-        foreach.appendChild(textNote("("));
-        String insertValues = entity.stream().filter(it -> it.insertable() && !it.hasAnnotation(MultiColumn.class))
-                //#{list[${index}].property,javaType=%s,typeHandler=%s}
-                .map(it -> {
-                    final Class javaType = getPropertyJavaType(it);
-                    final TypeHandler typeHandler = getPropertyTypeHandler(it);
-
-                    StringBuilder builder = new StringBuilder();
-                    builder.append("#{list[${index}].").append(it.getName());
-                    if (typeHandler != null) {
-                        builder.append(",javaType=").append(javaType.getCanonicalName());
-                        builder.append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
-                    }
-                    builder.append("}");
-                    return builder.toString();
-
-                })
-                .collect(Collectors.joining(","));
-        foreach.appendChild(textNote(insertValues));
-
-        entity.stream().filter(it -> it.insertable() && it.hasAnnotation(MultiColumn.class))
-                .map(it -> {
-                    MultiColumn multiColumn = it.findAnnotation(MultiColumn.class);
-                    if (multiColumn == null) throw new RuntimeException("");
-
-                    final Element choose = document.createElement("choose");
-                    final Element when = document.createElement("when");
-                    when.setAttribute("test", "list[index]." + it.getName() + " != null");
-                    Class multiEntityType = getPropertyJavaType(it);
-                    Entity<Property> multiEntity = Entity.from(multiEntityType);
-                    String insertMultiValues = Arrays.stream(multiColumn.properties())
-                            .map(multiEntity::getRequiredPersistentProperty)
-                            .map(property -> {
-                                final Class javaType = getPropertyJavaType(property);
-                                final TypeHandler typeHandler = getPropertyTypeHandler(property);
-                                //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
-                                StringBuilder builder = new StringBuilder();
-                                builder.append("#{list[${index}].").append(it.getName()).append(".").append(property.getName());
-                                if (typeHandler != null) {
-                                    builder.append(",javaType=").append(javaType.getCanonicalName());
-                                    builder.append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
-                                }
-                                builder.append("}");
-                                return builder.toString();
-                            })
-                            .collect(Collectors.joining(","));
-                    when.appendChild(textNote("," + insertMultiValues));
-                    choose.appendChild(when);
-                    final Element otherwise = document.createElement("otherwise");
-                    final List<String> nullValues = new ArrayList<>();
-                    for (int i = 0; i < multiColumn.properties().length; i++) {
-                        nullValues.add("null");
-                    }
-                    otherwise.appendChild(textNote("," + nullValues.stream().collect(Collectors.joining(","))));
-                    choose.appendChild(otherwise);
-                    return choose;
-                }).forEach(foreach::appendChild);
-        foreach.appendChild(textNote(")"));
-        insert.appendChild(foreach);
         insert.appendChild(whereElement(whenQueryNotNull()));
         context.getNode().appendChild(insert);
     }
@@ -702,7 +761,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element update = document.createElement("update");
         update.setAttribute("id", "update");
-        update.appendChild(textNote("UPDATE"));
+        update.appendChild(textNode("UPDATE"));
         update.appendChild(includeElement(SQL_TABLE));
         update.appendChild(includeElement(SQL_UPDATE));
         update.appendChild(whereElement(whenIdsNotNull(), whenQueryNotNull()));
@@ -731,7 +790,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element delete = document.createElement("delete");
         delete.setAttribute("id", "delete");
-        delete.appendChild(textNote("DELETE FROM"));
+        delete.appendChild(textNode("DELETE FROM"));
         delete.appendChild(includeElement(SQL_TABLE));
         delete.appendChild(whereElement(whenIdsNotNull(), whenQueryNotNull()));
         context.getNode().appendChild(delete);
@@ -774,7 +833,9 @@ public class XMLMapperBuilderAgent {
                                 .properties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .forEach(multiProperty -> {
-                                    final String multiColumn = property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
+                                    final String multiColumn =
+                                            multiProperty.isIdProperty() ? property.getColumn() :
+                                                    property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     columns.add(multiColumn);
                                 });
                     } else {
@@ -804,14 +865,22 @@ public class XMLMapperBuilderAgent {
         context.getNode().appendChild(selectCount);
     }
 
+    @SuppressWarnings("all")
     private Element includeElement(String refid) {
         final Element includeWhere = document.createElement("include");
         includeWhere.setAttribute("refid", refid);
         return includeWhere;
     }
 
-    private Text textNote(String text) {
+    private Text textNode(String text) {
         return document.createTextNode(text);
+    }
+
+    private boolean isNumbers(Property property) {
+
+        if (property.isEnum() || property.isCollectionLike()) return false;
+
+        return Number.class.isAssignableFrom(property.getType()) || numberClasses.contains(property.getType());
     }
 
 

@@ -16,9 +16,16 @@ import java.lang.annotation.*;
 @Persistent
 public @interface MultiColumn {
 
-    String table() default "";
+    String name() default "";
 
     String[] properties();
 
+    boolean unique() default false;
+
+    boolean nonnull() default false;
+
+    boolean insertable() default true;
+
+    boolean updatable() default true;
 
 }
