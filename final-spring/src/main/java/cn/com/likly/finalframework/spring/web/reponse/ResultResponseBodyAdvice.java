@@ -82,16 +82,15 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         if (body instanceof Page) {
             final PageInfo pageInfo = ((Page) body).toPageInfo();
-            cn.com.likly.finalframework.data.result.Page pageResult = new cn.com.likly.finalframework.data.result.Page(
-                    pageInfo.getPageNum(),
-                    pageInfo.getPageSize(),
-                    pageInfo.getPages(),
-                    pageInfo.getTotal(),
-                    pageInfo.getList(),
-                    pageInfo.isIsFirstPage(),
-                    pageInfo.isIsLastPage()
-            );
-
+            cn.com.likly.finalframework.data.result.Page pageResult = cn.com.likly.finalframework.data.result.Page.builder()
+                    .page(pageInfo.getPageNum())
+                    .size(pageInfo.getPageSize())
+                    .pages(pageInfo.getPages())
+                    .total(pageInfo.getTotal())
+                    .result(pageInfo.getList())
+                    .firstPage(pageInfo.isIsFirstPage())
+                    .lastPage(pageInfo.isIsLastPage())
+                    .build();
             return R.success(pageResult);
         } else if (body instanceof Result) {
             return (Result<?>) body;

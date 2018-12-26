@@ -1,10 +1,7 @@
 package cn.com.likly;
 
-import cn.com.likly.finalframework.mybatis.agent.MybatisAgent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationStartingEvent;
-import org.springframework.context.ApplicationListener;
 
 /**
  * @author likly
@@ -14,17 +11,7 @@ import org.springframework.context.ApplicationListener;
  */
 @SpringBootApplication()
 public class FinalTestApplication {
-    public static void main(String[] args) throws Exception {
-//        MybatisAgent.agent();
-        SpringApplication application = new SpringApplication(FinalTestApplication.class);
-        application.addListeners(new ApplicationListener<ApplicationStartingEvent>() {
-            @Override
-            public void onApplicationEvent(ApplicationStartingEvent event) {
-                System.out.println(event.getClass().getCanonicalName());
-                MybatisAgent.agent();
-            }
-        });
-        application.run(args);
-//        ConfigurableApplicationContext context = SpringApplication.run(application, args);
+    public static void main(String[] args) {
+        SpringApplication.run(FinalTestApplication.class, args);
     }
 }

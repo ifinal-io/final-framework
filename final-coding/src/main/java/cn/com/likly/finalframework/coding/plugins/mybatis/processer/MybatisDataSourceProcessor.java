@@ -1,9 +1,8 @@
-package cn.com.likly.finalframework.coding.processor;
+package cn.com.likly.finalframework.coding.plugins.mybatis.processer;
 
 import cn.com.likly.finalframework.coding.coder.Coder;
 import cn.com.likly.finalframework.coding.coder.FreeMakerCoder;
-import cn.com.likly.finalframework.coding.model.mybatis.MybatisDataSource;
-import cn.com.likly.finalframework.mybatis.annotation.DataSource;
+import cn.com.likly.finalframework.coding.plugins.mybatis.DataSource;
 import com.google.auto.service.AutoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

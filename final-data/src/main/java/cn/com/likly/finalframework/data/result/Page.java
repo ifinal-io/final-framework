@@ -1,8 +1,6 @@
 package cn.com.likly.finalframework.data.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,15 +12,78 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Page<T> implements Serializable {
 
-    private Integer page;
-    private Integer size;
-    private Integer pages;
-    private Long total;
-    private List<T> result;
-    private Boolean firstPage;
-    private Boolean lastPage;
+    private final Integer page;
+    private final Integer size;
+    private final Integer pages;
+    private final Long total;
+    private final List<T> result;
+    private final Boolean firstPage;
+    private final Boolean lastPage;
+
+    private Page(Builder<T> builder) {
+        this.page = builder.page;
+        this.size = builder.size;
+        this.pages = builder.pages;
+        this.total = builder.total;
+        this.result = builder.result;
+        this.firstPage = builder.firstPage;
+        this.lastPage = builder.lastPage;
+    }
+
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    public static class Builder<T> implements cn.com.likly.finalframework.core.Builder<Page<T>> {
+        private Integer page;
+        private Integer size;
+        private Integer pages;
+        private Long total;
+        private List<T> result;
+        private Boolean firstPage;
+        private Boolean lastPage;
+
+        public Builder<T> page(int page) {
+            this.page = page;
+            return this;
+        }
+
+        public Builder<T> size(int size) {
+            this.size = size;
+            return this;
+        }
+
+        public Builder<T> pages(int pages) {
+            this.pages = pages;
+            return this;
+        }
+
+        public Builder<T> total(long total) {
+            this.total = total;
+            return this;
+        }
+
+
+        public Builder<T> result(List<T> result) {
+            this.result = result;
+            return this;
+        }
+
+        public Builder<T> firstPage(boolean firstPage) {
+            this.firstPage = firstPage;
+            return this;
+        }
+
+        public Builder<T> lastPage(boolean lastPage) {
+            this.lastPage = lastPage;
+            return this;
+        }
+
+        @Override
+        public Page<T> build() {
+            return new Page<T>(this);
+        }
+    }
 }

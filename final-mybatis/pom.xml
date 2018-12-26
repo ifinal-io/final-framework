@@ -37,6 +37,10 @@
             <artifactId>final-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-coding</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>2.9.7</version>

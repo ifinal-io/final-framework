@@ -1,0 +1,23 @@
+<#if autoConfigurations?exists>
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    <#list autoConfigurations as item>
+        <#if (item_has_next)>
+${item},\
+        <#else >
+${item}
+        </#if>
+    </#list>
+</#if>
+
+<#if applicationListeners?exists>
+# ApplicationListeners
+org.springframework.context.ApplicationListener=\
+    <#list applicationListeners as item>
+        <#if (item_has_next)>
+${item},\
+        <#else >
+${item}
+        </#if>
+    </#list>
+</#if>

@@ -1,6 +1,7 @@
 package cn.com.likly.finalframework.mybatis.handler;
 
 import cn.com.likly.finalframework.data.annotation.enums.PersistentType;
+import cn.com.likly.finalframework.data.entity.enums.EnumEntity;
 import lombok.NonNull;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
@@ -26,6 +27,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionBlobTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectTypeHandlerMap = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends EnumEntity>, TypeHandler<? extends EnumEntity>> enumTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectBlobTypeHandlerMap = new ConcurrentHashMap<>();
     private ApplicationContext applicationContext;
 
@@ -119,7 +121,6 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
 
     @Override
     public TypeHandler getTypeHandler(Class javaType, Class collectionType, PersistentType jdbcType) {
-//        if(javaType.isEnum()) return null;
         switch (jdbcType) {
             case JSON:
                 return collectionType == null ? getJsonObjectTypeHandler(javaType) : getJsonCollectionTypeHandler(javaType, collectionType);
@@ -133,6 +134,11 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
     }
 
     private TypeHandler getTypeHandler(Class javaType) {
+
+        if (EnumEntity.class.isAssignableFrom(javaType)) {
+            return getEnumTypeHandler(javaType);
+        }
+
         if (applicationContext == null) return null;
         List<SqlSessionFactory> collect = new ArrayList<>(applicationContext.getBeansOfType(SqlSessionFactory.class).values());
         return collect.get(0).getConfiguration().getTypeHandlerRegistry().getTypeHandler(javaType);
@@ -226,5 +232,12 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
         }
 
         return (TypeHandler<E>) typeHandler;
+    }
+
+    private <E extends EnumEntity> TypeHandler<E> getEnumTypeHandler(Class<E> enumType) {
+        if (!enumTypeHandlerMap.containsKey(enumType)) {
+            enumTypeHandlerMap.put(enumType, new EnumEntityTypeHandler<>(enumType));
+        }
+        return (TypeHandler<E>) enumTypeHandlerMap.get(enumType);
     }
 }

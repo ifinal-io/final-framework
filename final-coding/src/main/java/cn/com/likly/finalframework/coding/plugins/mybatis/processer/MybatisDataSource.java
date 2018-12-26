@@ -1,4 +1,4 @@
-package cn.com.likly.finalframework.coding.model.mybatis;
+package cn.com.likly.finalframework.coding.plugins.mybatis.processer;
 
 import cn.com.likly.finalframework.coding.annotation.Template;
 

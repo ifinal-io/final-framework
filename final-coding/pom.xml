@@ -32,11 +32,6 @@
             <artifactId>final-data</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>cn.com.likly.finalframework</groupId>
-            <artifactId>final-mybatis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <!--<build>-->

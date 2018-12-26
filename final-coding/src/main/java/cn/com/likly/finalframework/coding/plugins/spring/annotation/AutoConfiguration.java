@@ -1,4 +1,4 @@
-package cn.com.likly.finalframework.mybatis.annotation;
+package cn.com.likly.finalframework.coding.plugins.spring.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +8,10 @@ import java.lang.annotation.Target;
 /**
  * @author likly
  * @version 1.0
- * @date 2018-11-08 10:11
+ * @date 2018-12-25 22:17:39
  * @since 1.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface DataSource {
-    String prefix();
-    String[] basePackages();
-    String mapperLocations();
+public @interface AutoConfiguration {
 }
