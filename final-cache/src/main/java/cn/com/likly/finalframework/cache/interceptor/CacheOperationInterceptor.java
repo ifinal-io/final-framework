@@ -5,7 +5,6 @@ import cn.com.likly.finalframework.cache.annotation.CacheSet;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @since 1.0
  */
 @Aspect
-@Component
 @SuppressWarnings("unchecked")
 public class CacheOperationInterceptor {
 

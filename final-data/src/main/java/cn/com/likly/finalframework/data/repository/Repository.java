@@ -1,8 +1,8 @@
 package cn.com.likly.finalframework.data.repository;
 
-import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.entity.IEntity;
+import cn.com.likly.finalframework.data.query.Query;
+import cn.com.likly.finalframework.data.query.Update;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;

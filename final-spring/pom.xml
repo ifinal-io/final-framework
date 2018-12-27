@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-coding</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
             <artifactId>final-data</artifactId>
         </dependency>
         <dependency>

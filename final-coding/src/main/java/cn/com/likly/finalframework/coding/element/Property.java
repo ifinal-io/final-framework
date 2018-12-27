@@ -1,5 +1,6 @@
 package cn.com.likly.finalframework.coding.element;
 
+import javax.lang.model.element.Element;
 import java.lang.annotation.Annotation;
 
 /**
@@ -9,6 +10,8 @@ import java.lang.annotation.Annotation;
  * @since 1.0
  */
 public interface Property<T extends Entity, P extends Property<T, P>> {
+
+    Element getElement();
 
     String getName();
 

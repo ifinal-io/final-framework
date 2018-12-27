@@ -1,19 +1,14 @@
 package cn.com.likly.finalframework.spring.monitor;
 
-import cn.com.likly.finalframework.spring.annotation.MethodMonitor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author likly
@@ -22,20 +17,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @since 1.0
  */
 @Aspect
-@Component
 @Slf4j
 public class MethodMonitorAspect {
-
-    private final List<MethodMonitorListener> methodMonitorListeners = new CopyOnWriteArrayList<>();
-
-    public void registerMethodMonitorListener(@NonNull MethodMonitorListener listener) {
-        this.methodMonitorListeners.add(listener);
-    }
-
-    public void unRegisterMethodMonitorListener(@NonNull MethodMonitorListener listener) {
-        this.methodMonitorListeners.remove(listener);
-    }
-
 
     @Around(value = "@annotation(monitor)")
     public Object methodMonitor(ProceedingJoinPoint point, MethodMonitor monitor) throws Throwable {
@@ -45,25 +28,23 @@ public class MethodMonitorAspect {
         Object result = null;
         final MethodPoint methodPoint = buildMethodPoint(point, monitor);
         try {
-            methodMonitorListeners.forEach(it -> it.onStart(methodPoint));
+            MethodMonitorRegistry.getInstance().stream().forEach(it -> it.onStart(methodPoint));
             return result = point.proceed();
         } catch (Exception e) {
             exception = e;
             throw e;
         } finally {
             final long duration = System.currentTimeMillis() - start;
-
-            for (MethodMonitorListener listener : methodMonitorListeners) {
-
-                if (exception != null) {
-                    listener.onException(methodPoint, exception, duration);
+            Exception finalException = exception;
+            Object finalResult = result;
+            MethodMonitorRegistry.getInstance().stream().forEach(listener -> {
+                if (finalException != null) {
+                    listener.onException(methodPoint, finalException, duration);
                 } else {
-                    listener.onReturn(methodPoint, result, duration);
+                    listener.onReturn(methodPoint, finalResult, duration);
                 }
-
-                listener.onFinish(methodPoint, result, exception, duration);
-            }
-
+                listener.onFinish(methodPoint, finalResult, finalException, duration);
+            });
         }
     }
 

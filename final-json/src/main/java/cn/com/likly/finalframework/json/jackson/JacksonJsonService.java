@@ -6,7 +6,6 @@ import cn.com.likly.finalframework.json.JsonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -20,7 +19,6 @@ import java.util.Collection;
  * @date 2018-09-26 21:39
  * @since 1.0
  */
-@Service
 @ConditionalOnClass(ObjectMapper.class)
 public class JacksonJsonService implements JsonService {
 

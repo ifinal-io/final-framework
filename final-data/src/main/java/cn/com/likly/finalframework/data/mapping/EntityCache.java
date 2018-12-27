@@ -1,7 +1,5 @@
 package cn.com.likly.finalframework.data.mapping;
 
-import cn.com.likly.finalframework.data.domain.BaseEntity;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

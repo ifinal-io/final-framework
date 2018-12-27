@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>cn.com.likly.finalframework</groupId>
+            <artifactId>final-coding</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.likly.finalframework</groupId>
             <artifactId>final-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

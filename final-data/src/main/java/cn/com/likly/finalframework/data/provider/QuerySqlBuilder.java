@@ -1,10 +1,6 @@
 package cn.com.likly.finalframework.data.provider;
 
-import cn.com.likly.finalframework.data.domain.Criteria;
-import cn.com.likly.finalframework.data.domain.CriteriaSet;
-import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.domain.Sort;
-import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.data.query.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -57,7 +53,7 @@ public class QuerySqlBuilder implements SqlProvider<Query> {
     }
 
 
-    private String getFormatProperty(Property property) {
+    private String getFormatProperty(QProperty property) {
         return String.format("%s.%s", property.getTable(), property.getColumn());
     }
 
@@ -106,7 +102,7 @@ public class QuerySqlBuilder implements SqlProvider<Query> {
     }
 
     private String getCriteriaSet(CriteriaSet criteriaSet) {
-        final Property propertyHolder = criteriaSet.getProperty();
+        final QProperty propertyHolder = criteriaSet.getProperty();
         final String property = getFormatProperty(propertyHolder);
         final Object value = criteriaSet.getValue();
         final Object min = criteriaSet.getMin();

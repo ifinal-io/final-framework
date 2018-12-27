@@ -1,12 +1,8 @@
 package cn.com.likly.finalframework.mybatis.provider;
 
-import cn.com.likly.finalframework.data.domain.Criteria;
-import cn.com.likly.finalframework.data.domain.CriteriaSet;
-import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.domain.Sort;
 import cn.com.likly.finalframework.data.mapping.Entity;
-import cn.com.likly.finalframework.data.mapping.Property;
 import cn.com.likly.finalframework.data.provider.Provider;
+import cn.com.likly.finalframework.data.query.*;
 import cn.com.likly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import lombok.NonNull;
 import org.apache.ibatis.type.TypeHandler;
@@ -37,7 +33,7 @@ public abstract class AbsProvider<T> implements Provider<String> {
         return entity.getTable();
     }
 
-    String getJavaTypeAndTypeHandler(Property property) {
+    String getJavaTypeAndTypeHandler(QProperty property) {
 
         final Class javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
         final Class collectionType = property.isCollectionLike() ? property.getType() : null;
@@ -75,7 +71,7 @@ public abstract class AbsProvider<T> implements Provider<String> {
     }
 
 
-    private String getFormatProperty(Property property) {
+    private String getFormatProperty(QProperty property) {
         return String.format("%s.%s", property.getTable(), property.getColumn());
     }
 
@@ -124,7 +120,7 @@ public abstract class AbsProvider<T> implements Provider<String> {
     }
 
     private String getCriteriaSet(CriteriaSet criteriaSet) {
-        final Property propertyHolder = criteriaSet.getProperty();
+        final QProperty propertyHolder = criteriaSet.getProperty();
         final String property = getFormatProperty(propertyHolder);
         final Object value = criteriaSet.getValue();
         final Object min = criteriaSet.getMin();

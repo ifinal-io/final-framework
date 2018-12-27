@@ -1,8 +1,8 @@
 package cn.com.likly.finalframework.data.provider;
 
-import cn.com.likly.finalframework.data.domain.Query;
-import cn.com.likly.finalframework.data.domain.Update;
 import cn.com.likly.finalframework.data.mapping.Entity;
+import cn.com.likly.finalframework.data.query.Query;
+import cn.com.likly.finalframework.data.query.Update;
 import lombok.NonNull;
 
 /**

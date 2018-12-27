@@ -4,6 +4,7 @@ import cn.com.likly.finalframework.data.annotation.MultiColumn;
 import cn.com.likly.finalframework.data.annotation.enums.PrimaryKeyType;
 import cn.com.likly.finalframework.data.mapping.Entity;
 import cn.com.likly.finalframework.data.mapping.Property;
+import cn.com.likly.finalframework.data.query.enums.UpdateOperation;
 import cn.com.likly.finalframework.data.repository.Repository;
 import cn.com.likly.finalframework.mybatis.EntityHolderCache;
 import cn.com.likly.finalframework.mybatis.handler.DefaultTypeHandlerRegistry;
@@ -13,6 +14,7 @@ import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.type.TypeHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 import javax.xml.transform.OutputKeys;
@@ -485,7 +487,6 @@ public class XMLMapperBuilderAgent {
         entity.stream().filter(Property::updatable)
                 .forEach(property -> {
 
-
                     /*
                      * <if test="update.contains('property') and update['property'].value.property != null">
                      *      column = #{update[property].value.property,javaType=,typeHandler=}
@@ -498,28 +499,43 @@ public class XMLMapperBuilderAgent {
                                 .properties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
-
                                     final Class javaType = getPropertyJavaType(multiProperty);
                                     final TypeHandler typeHandler = getPropertyTypeHandler(multiProperty);
 
                                     final Element ifUpdateContains = document.createElement("if");
-                                    final String ifTest = String.format("update['%s'] != null and update['%s'].value.%s != null",
-                                            property.getName(), property.getName(), multiProperty.getName());
-                                    ifUpdateContains.setAttribute("test", ifTest);
                                     final String multiColumn = multiProperty.isIdProperty() ? property.getColumn()
                                             : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
-                                    final StringBuilder builder = new StringBuilder();
-                                    builder.append(multiColumn)
-                                            .append(" = ")
-                                            .append("#{")
-                                            .append("update[")
-                                            .append(property.getName()).append("].value.").append(multiProperty.getName());
-                                    if (!multiProperty.isEnum() && typeHandler != null) {
-                                        builder.append(",javaType=").append(javaType.getCanonicalName())
-                                                .append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
-                                    }
-                                    builder.append("},");
-                                    ifUpdateContains.appendChild(textNode(builder.toString()));
+                                    final String updatePath = multiColumn;
+                                    final String ifTest = String.format("update['%s'] != null", updatePath);
+                                    ifUpdateContains.setAttribute("test", ifTest);
+
+                                    List<Element> whenElements = Arrays.stream(UpdateOperation.values())
+                                            .map(operation -> {
+                                                final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
+                                                String updateSql = null;
+                                                switch (operation) {
+                                                    case EQUAL:
+                                                        updateSql = typeHandler == null ?
+                                                                String.format("%s = #{update[%s].value},", multiColumn, updatePath)
+                                                                : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
+                                                                multiColumn, updatePath, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
+                                                        break;
+                                                    case INC:
+                                                        updateSql = String.format("%s = %s + 1,", multiColumn, multiColumn);
+                                                        break;
+                                                    case INCR:
+                                                        updateSql = String.format("%s = %s + #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                                        break;
+                                                    case DEC:
+                                                        updateSql = String.format("%s = %s - 1,", multiColumn, multiColumn);
+                                                        break;
+                                                    case DECR:
+                                                        updateSql = String.format("%s = %s - #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                                        break;
+                                                }
+                                                return whenElement(whenTest, textNode(updateSql));
+                                            }).collect(Collectors.toList());
+                                    ifUpdateContains.appendChild(chooseElement(whenElements));
                                     return ifUpdateContains;
                                 }).forEach(whenUpdateNotNull::appendChild);
 
@@ -527,70 +543,41 @@ public class XMLMapperBuilderAgent {
                         final Class javaType = getPropertyJavaType(property);
                         final TypeHandler typeHandler = getPropertyTypeHandler(property);
                         final Element ifUpdateContains = document.createElement("if");
-                        ifUpdateContains.setAttribute("test", "update['" + property.getName() + "'] != null");
+                        final String updatePath = property.getName();
+                        final String ifTest = String.format("update['%s'] != null", updatePath);
+                        ifUpdateContains.setAttribute("test", ifTest);
 
-                        final Element updateSetChoose = document.createElement("choose");
+                        ifUpdateContains.setAttribute("test", ifTest);
+                        final String multiColumn = property.getColumn();
 
-                        // <when test="update.getUpdateSet('property').operation.name() == 'EQUAL'">
-                        //       column = #{update.getUpdateSet('property').value,javaType=,typeHandler=}
-                        // </when>
-                        final Element whenSetOperationEqual = document.createElement("when");
-                        whenSetOperationEqual.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'EQUAL'");
-                        final StringBuilder builder = new StringBuilder();
-                        builder.append(property.getColumn())
-                                .append(" = ")
-                                .append("#{")
-                                .append("update[")
-                                .append(property.getName())
-                                .append("].value");
-                        if (typeHandler != null) {
-                            builder.append(",javaType=").append(javaType.getCanonicalName())
-                                    .append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
-                        }
-                        builder.append("},");
-                        whenSetOperationEqual.appendChild(textNode(builder.toString()));
-                        updateSetChoose.appendChild(whenSetOperationEqual);
-                        ifUpdateContains.appendChild(updateSetChoose);
+                        List<Element> whenElements = Arrays.stream(UpdateOperation.values())
+                                .map(operation -> {
+                                    final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
+                                    String updateSql = null;
+                                    switch (operation) {
+                                        case EQUAL:
+                                            updateSql = typeHandler == null ?
+                                                    String.format("%s = #{update[%s].value},", multiColumn, updatePath)
+                                                    : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
+                                                    multiColumn, updatePath, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
+                                            break;
+                                        case INC:
+                                            updateSql = String.format("%s = %s + 1,", multiColumn, multiColumn);
+                                            break;
+                                        case INCR:
+                                            updateSql = String.format("%s = %s + #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                            break;
+                                        case DEC:
+                                            updateSql = String.format("%s = %s - 1,", multiColumn, multiColumn);
+                                            break;
+                                        case DECR:
+                                            updateSql = String.format("%s = %s - #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                            break;
+                                    }
+                                    return whenElement(whenTest, textNode(updateSql));
+                                }).collect(Collectors.toList());
+                        ifUpdateContains.appendChild(chooseElement(whenElements));
 
-                        if (isNumbers(property)) {
-
-                            // <when test="update.getUpdateSet('property').operation.name() == 'INC'">
-                            //       column = column + 1
-                            // </when>
-                            final Element whenSetOperationInc = document.createElement("when");
-                            whenSetOperationInc.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'INC'");
-                            final String whenSetOperationIncText = String.format("%s = %s + 1,", property.getColumn(), property.getColumn());
-                            whenSetOperationInc.appendChild(textNode(whenSetOperationIncText));
-                            updateSetChoose.appendChild(whenSetOperationInc);
-
-                            // <when test="update.getUpdateSet('property').operation.name() == 'INCR'">
-                            //       column = column + #{update.getUpdateSet('property').value}
-                            // </when>
-                            final Element whenSetOperationIncr = document.createElement("when");
-                            whenSetOperationIncr.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'INCR'");
-                            final String whenSetOperationIncrText = String.format("%s = %s + #{update[%s].value},", property.getColumn(), property.getColumn(), property.getName());
-                            whenSetOperationIncr.appendChild(textNode(whenSetOperationIncrText));
-                            updateSetChoose.appendChild(whenSetOperationIncr);
-
-                            // <when test="update.getUpdateSet('property').operation.name() == 'DEC'">
-                            //       column = column - 1
-                            // </when>
-                            final Element whenSetOperationDec = document.createElement("when");
-                            whenSetOperationDec.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'DEC'");
-                            final String whenSetOperationDecText = String.format("%s = %s - 1,", property.getColumn(), property.getColumn());
-                            whenSetOperationDec.appendChild(textNode(whenSetOperationDecText));
-                            updateSetChoose.appendChild(whenSetOperationDec);
-
-                            // <when test="update.getUpdateSet('property').operation.name() == 'DECR'">
-                            //       column = column - #{update.getUpdateSet('property').value}
-                            // </when>
-                            final Element whenSetOperationDecr = document.createElement("when");
-                            whenSetOperationDecr.setAttribute("test", "update['" + property.getName() + "'].operation.name() == 'DECR'");
-                            final String whenSetOperationDecrText = String.format("%s = %s - #{update[%s].value},", property.getColumn(), property.getColumn(), property.getName());
-                            whenSetOperationDecr.appendChild(textNode(whenSetOperationDecrText));
-                            updateSetChoose.appendChild(whenSetOperationDecr);
-                            ifUpdateContains.appendChild(updateSetChoose);
-                        }
                         whenUpdateNotNull.appendChild(ifUpdateContains);
                     }
                 });
@@ -874,6 +861,19 @@ public class XMLMapperBuilderAgent {
 
     private Text textNode(String text) {
         return document.createTextNode(text);
+    }
+
+    private Element chooseElement(Collection<Element> whenAndOtherWises) {
+        final Element choose = document.createElement("choose");
+        whenAndOtherWises.forEach(choose::appendChild);
+        return choose;
+    }
+
+    private Element whenElement(String test, Node child) {
+        final Element when = document.createElement("when");
+        when.setAttribute("test", test);
+        when.appendChild(child);
+        return when;
     }
 
     private boolean isNumbers(Property property) {

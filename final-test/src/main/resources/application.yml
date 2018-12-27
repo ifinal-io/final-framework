@@ -33,7 +33,8 @@ logging:
       com:
         likly:
           finalframework:
-            dao:
-              mapper: debug
+            test:
+              dao:
+                mapper: debug
 server:
   port: 8080

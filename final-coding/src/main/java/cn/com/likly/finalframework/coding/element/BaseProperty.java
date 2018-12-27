@@ -69,6 +69,11 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     }
 
     @Override
+    public Element getElement() {
+        return element;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

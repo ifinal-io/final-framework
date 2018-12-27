@@ -20,7 +20,7 @@ public class CacheOperationAspect<A extends Annotation, O extends CacheOperation
     @SuppressWarnings("unchecked")
     public Object doAspect(ProceedingJoinPoint point, A ann, Class<A> annClass) throws Throwable {
         final CacheOperationInvoker invoker = point::proceed;
-        CacheAnnotationParser<A, O> cacheAnnotationParser = (CacheAnnotationParser<A, O>) CacheRegistry.getInstance().getCacheAnnotationParser(annClass);
+        CacheAnnotationParser<A, O> cacheAnnotationParser = CacheRegistry.getInstance().getCacheAnnotationParser(annClass);
         O operation = cacheAnnotationParser.parseCacheAnnotation(ann);
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
         CacheOperationContext<O> context = getCacheOperationContext(operation, methodSignature.getMethod(), point.getArgs(), point.getTarget());

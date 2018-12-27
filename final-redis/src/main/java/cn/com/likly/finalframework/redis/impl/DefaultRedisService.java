@@ -2,7 +2,6 @@ package cn.com.likly.finalframework.redis.impl;
 
 import cn.com.likly.finalframework.redis.RedisRegistry;
 import cn.com.likly.finalframework.redis.RedisService;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-@Configuration
 public class DefaultRedisService implements RedisService {
 
     @Resource

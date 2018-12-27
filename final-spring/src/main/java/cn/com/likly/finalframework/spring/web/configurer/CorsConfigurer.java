@@ -1,6 +1,5 @@
 package cn.com.likly.finalframework.spring.web.configurer;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2018-09-29 16:29
  * @since 1.0
  */
-@Configuration
 public class CorsConfigurer implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {

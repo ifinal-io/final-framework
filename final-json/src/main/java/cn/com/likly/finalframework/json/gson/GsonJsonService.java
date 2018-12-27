@@ -9,7 +9,6 @@ import com.google.gson.JsonParser;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -22,7 +21,6 @@ import java.util.*;
  * @date 2018-11-02 11:22
  * @since 1.0
  */
-@Service
 @Slf4j
 @ConditionalOnMissingBean(JsonService.class)
 public class GsonJsonService implements JsonService {
