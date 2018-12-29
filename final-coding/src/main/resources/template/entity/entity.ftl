@@ -1,9 +1,9 @@
 package ${package};
 
 import ${entity.package}.${entity.simpleName};
-import cn.com.likly.finalframework.data.mapping.Entity;
-import cn.com.likly.finalframework.data.query.QEntity;
-import cn.com.likly.finalframework.data.query.QProperty;
+import Entity;
+import QEntity;
+import QProperty;
 
 import javax.annotation.Generated;
 

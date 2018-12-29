@@ -71,12 +71,12 @@ public void testParseCollection() {
 
 **Json Lib**
 
-* [`jackson`](src/main/java/cn/com/likly/finalframework/json/jackson/JacksonJsonService.java):
+* [`jackson`](src/main/java/com/ilikly/finalframework/json/jackson/JacksonJsonService.java):
 * `fastjson`(未实现):
-* [`gson`](src/main/java/cn/com/likly/finalframework/json/gson/GsonJsonService.java):
+* [`gson`](src/main/java/com/ilikly/finalframework/json/gson/GsonJsonService.java):
 
 **Custom Json Lib**
 
-1. Implement [`JsonService`](src/main/java/cn/com/likly/finalframework/json/JsonService.java) Interface
-2. Register `JsonService` to [`JsonRegistry`](src/main/java/cn/com/likly/finalframework/json/JsonRegistry.java)
+1. Implement [`JsonService`](src/main/java/com/ilikly/finalframework/json/JsonService.java) Interface
+2. Register `JsonService` to [`JsonRegistry`](src/main/java/com/ilikly/finalframework/json/JsonRegistry.java)
 
