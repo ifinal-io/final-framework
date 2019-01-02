@@ -22,12 +22,8 @@ public abstract class AbsEntity implements IEntity<Long> {
 
     @PrimaryKey
     private Long id;
-    //    @Column(insertable = true, updatable = false)
-//    private Long creator;
     @CreatedTime
     private LocalDateTime createdTime;
-    //    @Column(insertable = false)
-//    private Long lastModifier;
     @LastModifiedTime
     private LocalDateTime lastModifiedTime;
     @Column(insertable = false)

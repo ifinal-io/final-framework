@@ -34,7 +34,7 @@ public class GsonJsonService implements JsonService {
         if (gson == null) {
             gson = new Gson();
         }
-        JsonRegistry.getInstance().registerJsonService(this);
+        JsonRegistry.getInstance().register(this);
     }
 
     @Override

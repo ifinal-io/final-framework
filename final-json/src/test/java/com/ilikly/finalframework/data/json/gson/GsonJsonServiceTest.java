@@ -27,7 +27,7 @@ public class GsonJsonServiceTest {
     public void setUp() {
         GsonJsonService jsonService = new GsonJsonService();
         jsonService.setGson(new Gson());
-        JsonRegistry.getInstance().registerJsonService(jsonService);
+        JsonRegistry.getInstance().register(jsonService);
     }
 
     @Test

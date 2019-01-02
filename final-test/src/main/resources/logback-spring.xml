@@ -40,7 +40,7 @@
     <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
     <!--</encoder>-->
     <!--</appender>-->
-    <!--<logger name="cn.com.likly.framework.api" level="INFO" additivity="false">-->
+    <!--<logger name="com.ilikly.framework.api" level="INFO" additivity="false">-->
     <!--<appender-ref ref="API_LOGGER"/>-->
     <!--<appender-ref ref="CONSOLE"/>-->
     <!--</logger>-->
@@ -56,7 +56,7 @@
     <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
     <!--</encoder>-->
     <!--</appender>-->
-    <!--<logger name="cn.com.likly.framework.mail" level="INFO" additivity="false">-->
+    <!--<logger name="com.ilikly.framework.mail" level="INFO" additivity="false">-->
     <!--<appender-ref ref="MAIL_LOGGER"/>-->
     <!--<appender-ref ref="CONSOLE"/>-->
     <!--</logger>-->

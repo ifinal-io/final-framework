@@ -8,7 +8,7 @@ A simple and powerful json api framework.
 
 ```xml
 <dependency>
-    <groupId>cn.com.likly.finalframework</groupId>
+    <groupId>com.ilikly.finalframework</groupId>
     <artifactId>final-data-json</artifactId>
     <version>${project.version}</version>
 </dependency>

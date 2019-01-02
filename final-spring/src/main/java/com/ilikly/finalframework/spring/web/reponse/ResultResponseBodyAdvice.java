@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * Wrap the return result of {@link org.springframework.web.method.HandlerMethod} which annotated by {@link ResponseBody} or {@link RestController}.
  *
@@ -30,14 +27,6 @@ import java.util.Map;
  */
 @RestControllerAdvice
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
-
-    private static final Map<Integer, HttpStatus> HTTP_STATUS_MAP = new LinkedHashMap<>();
-
-    static {
-        HTTP_STATUS_MAP.put(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST);
-        HTTP_STATUS_MAP.put(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN);
-        HTTP_STATUS_MAP.put(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED);
-    }
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -63,11 +52,12 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     /**
-     * set {@link ServerHttpResponse#setStatusCode(HttpStatus)}  when the {@link Result#status} is a special http status
+     * set {@link ServerHttpResponse#setStatusCode(HttpStatus)}  when the {@link Result#getStatus()} is a special http status
      */
     private void setHttpResponseStatus(ServerHttpResponse response, Result result) {
-        if (HTTP_STATUS_MAP.containsKey(result.getStatus())) {
-            response.setStatusCode(HTTP_STATUS_MAP.get(result.getStatus()));
+        HttpStatus httpStatus = HttpStatus.resolve(result.getStatus());
+        if (httpStatus != null) {
+            response.setStatusCode(httpStatus);
         }
     }
 

@@ -42,7 +42,7 @@ public class JacksonJsonService implements JsonService {
         if (objectMapper == null) {
             objectMapper = new ObjectMapper();
         }
-        JsonRegistry.getInstance().registerJsonService(this);
+        JsonRegistry.getInstance().register(this);
     }
 
     @Override

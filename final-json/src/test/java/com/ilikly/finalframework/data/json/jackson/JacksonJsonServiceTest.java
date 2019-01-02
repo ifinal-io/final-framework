@@ -29,7 +29,7 @@ public class JacksonJsonServiceTest {
     public void setUp() {
         JacksonJsonService jsonService = new JacksonJsonService();
         jsonService.setObjectMapper(new ObjectMapper());
-        JsonRegistry.getInstance().registerJsonService(jsonService);
+        JsonRegistry.getInstance().register(jsonService);
 
     }
 

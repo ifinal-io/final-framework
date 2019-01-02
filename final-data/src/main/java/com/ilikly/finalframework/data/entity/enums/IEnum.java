@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @date 2018-09-26 21:07
  * @since 1.0
  */
-public interface EnumEntity<T> {
+public interface IEnum<T> {
     @JsonValue
     T getCode();
 }

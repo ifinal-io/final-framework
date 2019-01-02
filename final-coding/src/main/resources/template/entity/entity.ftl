@@ -1,13 +1,13 @@
 package ${package};
 
 import ${entity.package}.${entity.simpleName};
-import Entity;
-import QEntity;
-import QProperty;
+import com.ilikly.finalframework.data.mapping.Entity;
+import com.ilikly.finalframework.data.query.QEntity;
+import com.ilikly.finalframework.data.query.QProperty;
 
 import javax.annotation.Generated;
 
-@Generated("cn.com.likly.finalframework.coding.EntityProcessor")
+@Generated("com.ilikly.finalframework.coding.EntityProcessor")
 public final class ${name}{
 
     private ${name}(){}

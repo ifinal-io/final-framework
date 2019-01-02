@@ -26,7 +26,7 @@ public class JsonRegistry {
         return jsonService;
     }
 
-    public void registerJsonService(JsonService jsonService) {
+    public void register(JsonService jsonService) {
         this.jsonService = jsonService;
     }
 }

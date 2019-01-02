@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.mybatis.handler;
 
-import com.ilikly.finalframework.data.entity.enums.EnumEntity;
+import com.ilikly.finalframework.data.entity.enums.IEnum;
 import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @date 2018-09-26 23:25
  * @since 1.0
  */
-public class EnumEntityTypeHandler<E extends EnumEntity<?>> extends BaseTypeHandler<E> {
+public class EnumEntityTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     private final Class<E> type;
 
     public EnumEntityTypeHandler(@NonNull Class<E> type) {

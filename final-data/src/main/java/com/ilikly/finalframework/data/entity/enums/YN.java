@@ -6,7 +6,7 @@ package com.ilikly.finalframework.data.entity.enums;
  * @date 2018-09-27 22:32
  * @since 1.0
  */
-public enum YN implements EnumEntity<Integer> {
+public enum YN implements IEnum<Integer> {
     YES(1),
     NO(0);
     private final Integer code;

@@ -6,6 +6,7 @@ import com.ilikly.finalframework.data.result.Result;
 import com.ilikly.finalframework.spring.handler.exception.annotation.RestExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author likly
@@ -29,7 +30,6 @@ public class DefaultResultExceptionHandler implements ResultExceptionHandler<Thr
             return R.failure(((IException) throwable).getCode(), throwable.getMessage());
         }
         logger.error("UnCatchException:", throwable);
-
-        return R.failure(500, throwable.getMessage());
+        return R.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), throwable.getMessage());
     }
 }

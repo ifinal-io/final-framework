@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.mybatis.handler;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
-import com.ilikly.finalframework.data.entity.enums.EnumEntity;
+import com.ilikly.finalframework.data.entity.enums.IEnum;
 import lombok.NonNull;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
@@ -27,7 +27,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<? extends Collection>, Map<Class<?>, TypeHandler<?>>> jsonCollectionBlobTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectTypeHandlerMap = new ConcurrentHashMap<>();
-    private static final Map<Class<? extends EnumEntity>, TypeHandler<? extends EnumEntity>> enumTypeHandlerMap = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends IEnum>, TypeHandler<? extends IEnum>> enumTypeHandlerMap = new ConcurrentHashMap<>();
     private static final Map<Class<?>, TypeHandler<?>> jsonObjectBlobTypeHandlerMap = new ConcurrentHashMap<>();
     private ApplicationContext applicationContext;
 
@@ -135,7 +135,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
 
     private TypeHandler getTypeHandler(Class javaType) {
 
-        if (EnumEntity.class.isAssignableFrom(javaType)) {
+        if (IEnum.class.isAssignableFrom(javaType)) {
             return getEnumTypeHandler(javaType);
         }
 
@@ -234,7 +234,7 @@ public class DefaultTypeHandlerRegistry implements TypeHandlerRegistry, Applicat
         return (TypeHandler<E>) typeHandler;
     }
 
-    private <E extends EnumEntity> TypeHandler<E> getEnumTypeHandler(Class<E> enumType) {
+    private <E extends IEnum> TypeHandler<E> getEnumTypeHandler(Class<E> enumType) {
         if (!enumTypeHandlerMap.containsKey(enumType)) {
             enumTypeHandlerMap.put(enumType, new EnumEntityTypeHandler<>(enumType));
         }
