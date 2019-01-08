@@ -18,7 +18,7 @@ public class JsonAutoConfiguration {
 
     @Bean("jsonService")
     @ConditionalOnMissingBean(JsonService.class)
-    public JacksonJsonService jacksonJsonService() {
+    public JsonService jacksonJsonService() {
         return new JacksonJsonService();
     }
 
