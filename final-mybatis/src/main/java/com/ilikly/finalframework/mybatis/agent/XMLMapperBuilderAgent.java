@@ -12,6 +12,8 @@ import com.ilikly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.type.TypeHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,12 +35,15 @@ import java.util.stream.Collectors;
  * @date 2018-12-21 23:40:31
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public class XMLMapperBuilderAgent {
+    private static final Logger logger = LoggerFactory.getLogger(XMLMapperBuilderAgent.class);
     private static final Set<Class> numberClasses = new HashSet<>(Arrays.asList(
             byte.class, short.class,
             int.class, long.class,
             float.class, double.class
     ));
+    private static final boolean logMapper = false;
     private static final TypeHandlerRegistry typeHandlerRegistry = new DefaultTypeHandlerRegistry();
     private static final EntityHolderCache cache = new EntityHolderCache();
     private static final String SQL_TABLE = "sql-table";
@@ -105,35 +110,37 @@ public class XMLMapperBuilderAgent {
         appendUpdateSqlFragment();
         appendSqlSelectFragment();
 
-        String result = null;
+        if (logMapper) {
+            String result = null;
 
-        if (document != null) {
-            StringWriter strWtr = new StringWriter();
-            StreamResult strResult = new StreamResult(strWtr);
-            TransformerFactory tfac = TransformerFactory.newInstance();
-            try {
-                javax.xml.transform.Transformer t = tfac.newTransformer();
-                t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-                t.setOutputProperty(OutputKeys.INDENT, "yes");
-                t.setOutputProperty(OutputKeys.METHOD, "xml"); // xml, html,
-                // text
-                t.setOutputProperty(
-                        "{http://xml.apache.org/xslt}indent-amount", "4");
-                document.setXmlStandalone(true);
-                t.transform(new DOMSource(document.getDocumentElement()),
-                        strResult);
-            } catch (Exception e) {
-                System.err.println("XML.toString(Document): " + e);
+            if (document != null) {
+                StringWriter strWtr = new StringWriter();
+                StreamResult strResult = new StreamResult(strWtr);
+                TransformerFactory tfac = TransformerFactory.newInstance();
+                try {
+                    javax.xml.transform.Transformer t = tfac.newTransformer();
+                    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                    t.setOutputProperty(OutputKeys.INDENT, "yes");
+                    t.setOutputProperty(OutputKeys.METHOD, "xml"); // xml, html,
+                    // text
+                    t.setOutputProperty(
+                            "{http://xml.apache.org/xslt}indent-amount", "4");
+                    document.setXmlStandalone(true);
+                    t.transform(new DOMSource(document.getDocumentElement()),
+                            strResult);
+                } catch (Exception e) {
+                    System.err.println("XML.toString(Document): " + e);
+                }
+                result = strResult.getWriter().toString();
+                try {
+                    strWtr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            result = strResult.getWriter().toString();
-            try {
-                strWtr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            logger.info(result);
         }
 
-        System.out.println(result);
     }
 
     /*

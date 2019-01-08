@@ -4,7 +4,7 @@ import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEve
 import com.ilikly.finalframework.mybatis.agent.MybatisAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationStartingEvent;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -15,17 +15,13 @@ import org.springframework.context.ApplicationListener;
  */
 @SuppressWarnings("unused")
 @ApplicationEventListener
-public class FinalMybatisSpringApplicationStartingListener implements ApplicationListener<ApplicationStartingEvent> {
+public class FinalMybatisSpringApplicationStartingListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisSpringApplicationStartingListener.class);
 
-    public FinalMybatisSpringApplicationStartingListener() {
-        System.out.println(getClass());
-    }
-
     @Override
-    public void onApplicationEvent(ApplicationStartingEvent event) {
-        logger.info("do mybatis agent on application starting event");
-        MybatisAgent.agent();
-        logger.info("done mybatis agent on application starting event");
+    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        logger.info("do mybatis agent on application environment prepared event");
+        MybatisAgent.getInstance().agent();
+        logger.info("done mybatis agent on application environment prepared event");
     }
 }

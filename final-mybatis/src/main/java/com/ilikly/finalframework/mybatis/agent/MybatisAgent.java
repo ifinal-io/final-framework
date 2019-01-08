@@ -4,6 +4,8 @@ import org.apache.ibatis.javassist.ClassPool;
 import org.apache.ibatis.javassist.CtClass;
 import org.apache.ibatis.javassist.CtMethod;
 import org.apache.ibatis.javassist.CtNewMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
@@ -11,11 +13,21 @@ import org.apache.ibatis.javassist.CtNewMethod;
  * @date 2018-12-23 21:31:56
  * @since 1.0
  */
-public class MybatisAgent {
-    private static boolean initFlag = false;
+public final class MybatisAgent {
+    private static final Logger logger = LoggerFactory.getLogger(MybatisAgent.class);
+    private static final MybatisAgent instance = new MybatisAgent();
+    private boolean initFlag = false;
 
-    public synchronized static void agent() {
-        if (initFlag) return;
+    public static MybatisAgent getInstance() {
+        return instance;
+    }
+
+    public synchronized void agent() {
+        if (initFlag) {
+            logger.info("mybatis agent had done!");
+            return;
+        }
+        logger.info("starting mybatis agent !!!");
         initFlag = true;
         try {
             ClassPool pool = new ClassPool();
@@ -31,22 +43,29 @@ public class MybatisAgent {
             CtMethod newMethod = CtNewMethod.copy(method, "parse", XMLMapperBuilder, null);
             // 注入的代码
             StringBuffer body = new StringBuffer();
-
-            body.append("{\nlong start = System.currentTimeMillis();\n");
+            /**
+             * public void parse(){
+             *     if(!configuration.isResourceLoaded(resource)){
+             *          com.ilikly.finalframework.mybatis.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode("/mapper"));
+             *     }
+             *     parse$agent();
+             * }
+             */
+            body.append("{\n");
             body.append("if (!configuration.isResourceLoaded(resource)) {")
                     .append("com.ilikly.finalframework.mybatis.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode(\"/mapper\"));")
                     .append("}");
             // 调用原有代码，类似于method();($$)表示所有的参数
             body.append("parse$agent($$);\n");
-            body.append("System.out.println(\" take \" +\n (System.currentTimeMillis()-start) + " + "\" ms.\");\n");
 
             body.append("}");
             newMethod.setBody(body.toString());
             // 增加新方法
             XMLMapperBuilder.addMethod(newMethod);
             Class aClass = XMLMapperBuilder.toClass();
+            logger.info("done mybatis agent!!!");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("doing mybatis agent error", e);
         }
     }
 }
