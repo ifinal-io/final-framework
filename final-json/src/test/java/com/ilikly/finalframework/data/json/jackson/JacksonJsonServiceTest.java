@@ -36,7 +36,7 @@ public class JacksonJsonServiceTest {
     @Test
     public void testToJson() {
         final JsonBean bean = new JsonBean();
-        bean.setName("xiaoMing");
+//        bean.setName("xiaoMing");
         bean.setAge(20);
         logger.info("bean={}", bean);
         final String json = Json.toJson(bean);

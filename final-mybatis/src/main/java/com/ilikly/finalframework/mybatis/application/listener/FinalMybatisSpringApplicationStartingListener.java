@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.mybatis.application.listener;
 
+import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.mybatis.agent.MybatisAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ import org.springframework.context.ApplicationListener;
  * @since 1.0
  */
 @SuppressWarnings("unused")
-@com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationListener
+@ApplicationEventListener
 public class FinalMybatisSpringApplicationStartingListener implements ApplicationListener<ApplicationStartingEvent> {
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisSpringApplicationStartingListener.class);
 

@@ -4,7 +4,7 @@ import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;
 import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
 import com.ilikly.finalframework.coding.plugins.mybatis.processer.MapperXml;
-import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationListener;
+import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(ApplicationListener.class.getName());
+        types.add(ApplicationEventListener.class.getName());
         types.add(AutoConfiguration.class.getName());
         return types;
     }
@@ -60,7 +60,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         if (roundEnv.processingOver()) {
             generateEntityFiles(processorElements);
         } else {
-            processorElements.addAll(roundEnv.getElementsAnnotatedWith(ApplicationListener.class));
+            processorElements.addAll(roundEnv.getElementsAnnotatedWith(ApplicationEventListener.class));
             processorElements.addAll(roundEnv.getElementsAnnotatedWith(AutoConfiguration.class));
         }
         return true;
@@ -94,7 +94,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                         builder.addAutoConfiguration(element.getQualifiedName().toString());
                     }
 
-                    if (element.getAnnotation(ApplicationListener.class) != null) {
+                    if (element.getAnnotation(ApplicationEventListener.class) != null) {
                         builder.addApplicationListener(element.getQualifiedName().toString());
                     }
                 });

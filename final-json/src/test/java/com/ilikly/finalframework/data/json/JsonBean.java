@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.json;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class JsonBean {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
     private Integer age;
 }

@@ -12,7 +12,11 @@ import org.apache.ibatis.javassist.CtNewMethod;
  * @since 1.0
  */
 public class MybatisAgent {
-    public static void agent() {
+    private static boolean initFlag = false;
+
+    public synchronized static void agent() {
+        if (initFlag) return;
+        initFlag = true;
         try {
             ClassPool pool = new ClassPool();
             pool.appendSystemPath();
@@ -30,7 +34,7 @@ public class MybatisAgent {
 
             body.append("{\nlong start = System.currentTimeMillis();\n");
             body.append("if (!configuration.isResourceLoaded(resource)) {")
-                    .append("XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode(\"/mapper\"));")
+                    .append("com.ilikly.finalframework.mybatis.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode(\"/mapper\"));")
                     .append("}");
             // 调用原有代码，类似于method();($$)表示所有的参数
             body.append("parse$agent($$);\n");

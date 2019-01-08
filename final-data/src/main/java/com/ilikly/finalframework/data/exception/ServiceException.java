@@ -13,7 +13,7 @@ public class ServiceException extends RuntimeException implements IException {
 
     public ServiceException(Integer code, String message) {
         super(message);
-        Assert.nonNull(code, "code is null");
+        Assert.isNull(code, "code is null");
         this.code = code;
     }
 

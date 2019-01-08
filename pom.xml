@@ -5,7 +5,7 @@
 
     <groupId>com.ilikly.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${final.release.version}</version>
     <modules>
         <module>final-core</module>
         <module>final-util</module>
@@ -28,13 +28,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
-        <final.version>0.0.1-SNAPSHOT</final.version>
-        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <final.release.version>0.0.1-SNAPSHOT</final.release.version>
+        <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
+        <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <mybatis.version>3.4.6</mybatis.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -81,6 +83,11 @@
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -104,7 +111,13 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -119,8 +132,33 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
+
+    <!--发布 -->
+    <distributionManagement>
+        <!--多点仓库-->
+        <repository>
+            <id>dmall.com</id>
+            <url>http://nexus.dmall.com:8081/nexus/content/repositories/3rd</url>
+        </repository>
+        <snapshotRepository>
+            <id>dmall.com</id>
+            <url>http://nexus.dmall.com:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
 
 
 </project>

@@ -3,8 +3,6 @@ package com.ilikly.finalframework.data.query;
 import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -107,7 +105,6 @@ class UpdateImpl implements Update, Map<String, UpdateSet> {
         return modifierOps.get(key);
     }
 
-    @Nullable
     @Override
     public UpdateSet put(String key, UpdateSet value) {
         return modifierOps.put(key, value);
@@ -119,7 +116,7 @@ class UpdateImpl implements Update, Map<String, UpdateSet> {
     }
 
     @Override
-    public void putAll(@NotNull Map<? extends String, ? extends UpdateSet> m) {
+    public void putAll(Map<? extends String, ? extends UpdateSet> m) {
         modifierOps.putAll(m);
     }
 
@@ -128,19 +125,16 @@ class UpdateImpl implements Update, Map<String, UpdateSet> {
         modifierOps.clear();
     }
 
-    @NotNull
     @Override
     public Set<String> keySet() {
         return modifierOps.keySet();
     }
 
-    @NotNull
     @Override
     public Collection<UpdateSet> values() {
         return modifierOps.values();
     }
 
-    @NotNull
     @Override
     public Set<Entry<String, UpdateSet>> entrySet() {
         return modifierOps.entrySet();

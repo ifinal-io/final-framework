@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
  * @since 1.0
  */
 @AutoConfiguration
+@SuppressWarnings("unused")
 public class CacheInterceptorAutoConfiguration {
     @Bean
     public CacheOperationInterceptor cacheOperationInterceptor() {

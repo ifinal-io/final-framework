@@ -649,7 +649,7 @@ public class XMLMapperBuilderAgent {
          */
         final Element whenQueryNotNull = document.createElement("when");
         whenQueryNotNull.setAttribute("test", "query != null");
-        whenQueryNotNull.appendChild(textNode("#{query.sql}"));
+        whenQueryNotNull.appendChild(textNode("${query.sql}"));
         return whenQueryNotNull;
     }
 

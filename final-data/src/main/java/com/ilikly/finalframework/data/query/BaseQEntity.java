@@ -4,7 +4,6 @@ import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.entity.IEntity;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -75,7 +74,6 @@ public class BaseQEntity<ID extends Serializable, T extends IEntity<ID>> impleme
         return properties.stream();
     }
 
-    @NotNull
     @Override
     public Iterator<QProperty> iterator() {
         return properties.iterator();
