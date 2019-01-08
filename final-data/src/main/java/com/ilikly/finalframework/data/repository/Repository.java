@@ -26,8 +26,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return insert(Arrays.asList(entities));
     }
 
+    default int insert(String tableName, T... entities) {
+        return insert(tableName, Arrays.asList(entities));
+    }
+
     default int insert(@Param("list") Collection<T> entities) {
         return insert(entities, null);
+    }
+
+    default int insert(String tableName, Collection<T> entities) {
+        return insert(tableName, entities, null);
     }
 
     default int insert(@Param("list") Collection<T> entities, @Param("query") Query query) {
@@ -39,16 +47,30 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     /*=========================================== SET ===========================================*/
 
     default int update(T entity) {
-        return update(null, entity, null, Collections.singletonList(entity.getId()), null);
+        return update(null, entity);
+    }
+
+    default int update(String tableName, T entity) {
+        return update(tableName, entity, null, Collections.singletonList(entity.getId()), null);
     }
 
     default int update(T... entities) {
         return update(Arrays.asList(entities));
     }
 
+    default int update(String tableName, T... entities) {
+        return update(tableName, Arrays.asList(entities));
+    }
+
     default int update(Collection<T> entities) {
         return entities.stream()
                 .mapToInt(this::update)
+                .sum();
+    }
+
+    default int update(String tableName, Collection<T> entities) {
+        return entities.stream()
+                .mapToInt(it -> update(tableName, it))
                 .sum();
     }
 
@@ -73,7 +95,15 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return delete(Arrays.asList(entities));
     }
 
+    default int delete(String tableName, T... entities) {
+        return delete(tableName, Arrays.asList(entities));
+    }
+
     default int delete(List<T> entities) {
+        return delete(entities.stream().map(IEntity::getId).collect(Collectors.toList()));
+    }
+
+    default int delete(String tableName, List<T> entities) {
         return delete(entities.stream().map(IEntity::getId).collect(Collectors.toList()));
     }
 
@@ -81,12 +111,24 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return delete(Arrays.asList(ids));
     }
 
+    default int delete(String tableName, ID... ids) {
+        return delete(tableName, Arrays.asList(ids));
+    }
+
     default int delete(Collection<ID> ids) {
-        return delete(null, ids, null);
+        return delete(null, ids);
+    }
+
+    default int delete(String tableName, Collection<ID> ids) {
+        return delete(tableName, ids, null);
     }
 
     default int delete(Query query) {
         return delete(null, null, query);
+    }
+
+    default int delete(String tableName, Query query) {
+        return delete(tableName, null, query);
     }
 
     int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
@@ -97,16 +139,33 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return select((Query) null);
     }
 
+    default List<T> select(String tableName) {
+        return select(tableName, (Query) null);
+    }
+
     default List<T> select(ID... ids) {
         return select(Arrays.asList(ids));
     }
 
+    default List<T> select(String tableName, ID... ids) {
+        return select(tableName, Arrays.asList(ids));
+    }
+
+
     default List<T> select(Collection<ID> ids) {
-        return select(null, ids, null);
+        return select(null, ids);
+    }
+
+    default List<T> select(String tableName, Collection<ID> ids) {
+        return select(tableName, ids, null);
     }
 
     default List<T> select(Query query) {
-        return select(null, null, query);
+        return select(null, query);
+    }
+
+    default List<T> select(String tableName, Query query) {
+        return select(tableName, null, query);
     }
 
     List<T> select(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
@@ -115,14 +174,26 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectOne(null, id, null);
     }
 
+    default T selectOne(String tableName, ID id) {
+        return selectOne(tableName, id, null);
+    }
+
     default T selectOne(Query query) {
         return selectOne(null, null, query.limit(1));
+    }
+
+    default T selectOne(String tableName, Query query) {
+        return selectOne(tableName, null, query.limit(1));
     }
 
     T selectOne(@Param("tableName") String tableName, @Param("id") ID id, @Param("query") Query query);
 
     default long selectCount() {
-        return selectCount(null);
+        return selectCount((Query) null);
+    }
+
+    default long selectCount(String tableName) {
+        return selectCount(tableName, null);
     }
 
     default long selectCount(@Param("query") Query query) {

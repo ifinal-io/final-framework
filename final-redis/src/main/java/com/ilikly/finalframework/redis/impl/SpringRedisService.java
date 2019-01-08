@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class DefaultRedisService implements RedisService {
+public class SpringRedisService implements RedisService {
 
     @Resource
     private RedisTemplate redisTemplate;

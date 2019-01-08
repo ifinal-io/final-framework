@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -21,10 +20,14 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 public class Query implements Streable<Criteria>, Serializable {
+
+    private static final int DEFAULT_PAGE = 1;
+    private static final int DEFAULT_SIZE = 20;
+
     @Getter
-    private Integer page;
+    private Integer page = DEFAULT_PAGE;
     @Getter
-    private Integer size;
+    private Integer size = DEFAULT_SIZE;
     private List<Criteria> criteria = new ArrayList<>();
     @Getter
     private Sort sort;
@@ -69,7 +72,7 @@ public class Query implements Streable<Criteria>, Serializable {
     }
 
     public Query sort(@NonNull Direction direction, @NonNull QProperty... properties) {
-        return sort(Arrays.stream(properties).map(it -> new Order(it, direction)).collect(Collectors.toList()));
+        return sort(Sort.sort(direction, properties));
     }
 
     public Query asc(@NonNull QProperty... properties) {

@@ -2,7 +2,8 @@
 
 ## Modules
 
-* [`final-data`](final-data/README.md):
+* [`final-core`](final-core/README.md)：提供了能用的`interface`，如转换器`Converter`、过滤器`Filter`等。
+* [`final-data`](final-data/README.md)：数据对象模型化，为简化数据的CURD做基础。
 * [`final-json`](final-json/README.md)：定义统一的`Json`操作[`API`](final-json/src/main/java/cn/com/likly/finalframework/json/JsonService.java)，支持多种`Json`库，如`jackson`、`fastjson`、`gson`,可自定义`Json`库。
 * [`final-redis`](final-redis/README.md)：定义统一的`Redis`操作`API`，支持注解声明式缓存，默认基于`spring-boot-starter-data-redis`实现，可定义义实现。
 * [`final-mybatis`](final-mybatis/README.md)：操作`mysql`的`mybatis`实现，支持多数据源，

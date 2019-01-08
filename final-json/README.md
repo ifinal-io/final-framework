@@ -1,4 +1,4 @@
-# final data json
+# Final Json
 
 A simple and powerful json api framework.
 
@@ -9,7 +9,7 @@ A simple and powerful json api framework.
 ```xml
 <dependency>
     <groupId>com.ilikly.finalframework</groupId>
-    <artifactId>final-data-json</artifactId>
+    <artifactId>final-json</artifactId>
     <version>${project.version}</version>
 </dependency>
 ```
@@ -71,8 +71,8 @@ public void testParseCollection() {
 
 **Json Lib**
 
-* [`jackson`](src/main/java/com/ilikly/finalframework/json/jackson/JacksonJsonService.java):
-* `fastjson`(未实现):
+* [`jackson`](src/main/java/com/ilikly/finalframework/json/jackson/JacksonJsonService.java): 默认的JsonService实现
+* [`fastjson`](src/main/java/com/ilikly/finalframework/json/fastjson/FastJsonService.java):
 * [`gson`](src/main/java/com/ilikly/finalframework/json/gson/GsonJsonService.java):
 
 **Custom Json Lib**

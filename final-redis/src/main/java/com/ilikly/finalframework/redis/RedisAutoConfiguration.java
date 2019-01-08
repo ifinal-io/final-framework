@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
 import com.ilikly.finalframework.json.jackson.JavaTimeModule;
-import com.ilikly.finalframework.redis.impl.DefaultRedisService;
+import com.ilikly.finalframework.redis.impl.SpringRedisService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -44,6 +44,6 @@ public class RedisAutoConfiguration {
 
     @Bean
     public RedisService redisService() {
-        return new DefaultRedisService();
+        return new SpringRedisService();
     }
 }

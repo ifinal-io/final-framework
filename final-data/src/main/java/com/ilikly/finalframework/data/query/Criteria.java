@@ -23,7 +23,6 @@ public class Criteria implements Streable<Criteria>, Iterable<Criteria> {
     @Getter
     private final boolean chain;
 
-
     Criteria(CriteriaSet criteriaSet) {
         this.criteriaChain = null;
         this.criteriaSets = new ArrayList<>();

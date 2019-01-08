@@ -1,7 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.query.enums.Direction;
-import lombok.Getter;
 
 /**
  * @author likly
@@ -9,18 +8,22 @@ import lombok.Getter;
  * @date 2018-10-25 11:15
  * @since 1.0
  */
-@Getter
-public class Order {
-    private final QProperty property;
-    private final Direction direction;
-
-    public Order(QProperty property, Direction direction) {
-        this.property = property;
-        this.direction = direction;
+public interface Order {
+    static Order order(QProperty property, Direction direction) {
+        return new OrderImpl(property, direction);
     }
 
-    @Override
-    public String toString() {
-        return property.getColumn() + " " + direction.name();
+    static Order asc(QProperty property) {
+        return order(property, Direction.ASC);
     }
+
+    static Order desc(QProperty property) {
+        return order(property, Direction.DESC);
+    }
+
+    QProperty getProperty();
+
+    Direction getDirection();
+
+
 }
