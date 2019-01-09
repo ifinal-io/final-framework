@@ -4,6 +4,7 @@ import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import com.ilikly.finalframework.data.repository.Repository;
 import com.ilikly.finalframework.mybatis.EntityHolderCache;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2018-12-21 23:40:31
  * @since 1.0
+ * @see org.apache.ibatis.builder.xml.XMLMapperBuilder
  */
 @SuppressWarnings("unused")
 public class XMLMapperBuilderAgent {
@@ -43,7 +45,7 @@ public class XMLMapperBuilderAgent {
             int.class, long.class,
             float.class, double.class
     ));
-    private static final boolean logMapper = false;
+    private static final boolean logMapper = true;
     private static final TypeHandlerRegistry typeHandlerRegistry = new DefaultTypeHandlerRegistry();
     private static final EntityHolderCache cache = new EntityHolderCache();
     private static final String SQL_TABLE = "sql-table";
@@ -198,7 +200,7 @@ public class XMLMapperBuilderAgent {
         final String column = prefix == null ? property.getColumn()
                 : property.isIdProperty() ? prefix : prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
         result.setAttribute("property", property.getName());
-        result.setAttribute("column", column);
+        result.setAttribute("column", NameConverterRegister.getInstance().getColumnNameConverter().map(column));
         if (javaType != null) {
             result.setAttribute("javaType", javaType.getCanonicalName());
         }
@@ -267,7 +269,7 @@ public class XMLMapperBuilderAgent {
                                         multiProperty.isIdProperty() ? property.getColumn() :
                                                 property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1)
                                 )
-
+                                .map(multiColumn -> NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn))
                                 .forEach(columns::add);
                     } else {
                         columns.add(property.getColumn());
@@ -446,7 +448,7 @@ public class XMLMapperBuilderAgent {
                                     ifPropertyNotNull.setAttribute("test", ifTest);
                                     final String multiColumn = multiProperty.isIdProperty() ? property.getName() : property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final StringBuilder builder = new StringBuilder();
-                                    builder.append(multiColumn)
+                                    builder.append(NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn))
                                             .append(" = ")
                                             .append("#{entity.")
                                             .append(property.getName()).append(".").append(multiProperty.getName());
@@ -513,6 +515,7 @@ public class XMLMapperBuilderAgent {
                                     final String multiColumn = multiProperty.isIdProperty() ? property.getColumn()
                                             : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final String updatePath = multiColumn;
+                                    final String updateColumn = NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn);
                                     final String ifTest = String.format("update['%s'] != null", updatePath);
                                     ifUpdateContains.setAttribute("test", ifTest);
 
@@ -523,21 +526,21 @@ public class XMLMapperBuilderAgent {
                                                 switch (operation) {
                                                     case EQUAL:
                                                         updateSql = typeHandler == null ?
-                                                                String.format("%s = #{update[%s].value},", multiColumn, updatePath)
+                                                                String.format("%s = #{update[%s].value},", updateColumn, updatePath)
                                                                 : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
-                                                                multiColumn, updatePath, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
+                                                                updateColumn, updatePath, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
                                                         break;
                                                     case INC:
-                                                        updateSql = String.format("%s = %s + 1,", multiColumn, multiColumn);
+                                                        updateSql = String.format("%s = %s + 1,", updateColumn, updateColumn);
                                                         break;
                                                     case INCR:
-                                                        updateSql = String.format("%s = %s + #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                                        updateSql = String.format("%s = %s + #{update[%s].value},", updateColumn, updateColumn, updatePath);
                                                         break;
                                                     case DEC:
-                                                        updateSql = String.format("%s = %s - 1,", multiColumn, multiColumn);
+                                                        updateSql = String.format("%s = %s - 1,", updateColumn, updateColumn);
                                                         break;
                                                     case DECR:
-                                                        updateSql = String.format("%s = %s - #{update[%s].value},", multiColumn, multiColumn, updatePath);
+                                                        updateSql = String.format("%s = %s - #{update[%s].value},", updateColumn, updateColumn, updatePath);
                                                         break;
                                                 }
                                                 return whenElement(whenTest, textNode(updateSql));
@@ -830,7 +833,7 @@ public class XMLMapperBuilderAgent {
                                     final String multiColumn =
                                             multiProperty.isIdProperty() ? property.getColumn() :
                                                     property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
-                                    columns.add(multiColumn);
+                                    columns.add(NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn));
                                 });
                     } else {
                         columns.add(property.getColumn());

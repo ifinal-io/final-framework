@@ -1,16 +1,10 @@
 package com.ilikly.finalframework.json.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.ilikly.finalframework.json.JsonException;
-import com.ilikly.finalframework.json.JsonRegistry;
 import com.ilikly.finalframework.json.JsonService;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -21,28 +15,18 @@ import java.util.Collection;
  * @date 2018-09-26 21:39
  * @since 1.0
  */
-@ConditionalOnClass(ObjectMapper.class)
 public class JacksonJsonService implements JsonService {
 
-    @Resource
     @Setter
     private ObjectMapper objectMapper;
 
-    @PostConstruct
-    public void initObjectMapper() {
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.registerModule(new SimpleModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+    public JacksonJsonService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+
     }
 
-
-    @PostConstruct
-    private void init() {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-        JsonRegistry.getInstance().register(this);
+    public JacksonJsonService() {
+        this(new ObjectMapper());
     }
 
     @Override

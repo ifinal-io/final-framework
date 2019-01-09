@@ -36,9 +36,21 @@ public interface Property extends PersistentProperty<Property> {
 
     boolean updatable();
 
-    Object get(@NotNull Object target);
+    default Object get(@NotNull Object target) {
+        try {
+            return getRequiredGetter().invoke(target);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
-    void set(@NotNull Object target, Object value);
+    default void set(@NotNull Object target, Object value) {
+        try {
+            getRequiredSetter().invoke(target, value);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
     default <A extends Annotation> boolean hasAnnotation(Class<A> ann) {
         return findAnnotation(ann) != null;

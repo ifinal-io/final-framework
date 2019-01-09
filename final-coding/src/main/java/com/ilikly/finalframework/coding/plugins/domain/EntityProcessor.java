@@ -33,7 +33,7 @@ public class EntityProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(Entity.class.getName());
+        types.add("com.ilikly.finalframework.data.annotation.Entity");
         return types;
     }
 

@@ -4,6 +4,7 @@ import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
@@ -84,19 +85,14 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
             }
 
-
             if (Assert.isEmpty(this.table)) {
                 this.table = ((Entity) getOwner()).getTable();
             }
 
             if (Assert.isEmpty(this.column)) {
-                this.column = getName();
+                column = NameConverterRegister.getInstance().getColumnNameConverter().map(getName());
             }
-
-
         }
-
-
     }
 
     @SuppressWarnings("all")
@@ -169,24 +165,6 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @Override
     public boolean updatable() {
         return updatable;
-    }
-
-    @Override
-    public Object get(Object target) {
-        try {
-            return getRequiredGetter().invoke(target);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void set(Object target, Object value) {
-        try {
-            getRequiredSetter().invoke(target, value);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override

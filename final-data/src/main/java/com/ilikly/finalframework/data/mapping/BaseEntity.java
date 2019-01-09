@@ -5,6 +5,7 @@ import com.ilikly.finalframework.data.annotation.NonColumn;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
 import com.ilikly.finalframework.data.annotation.Table;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.model.BasicPersistentEntity;
@@ -52,17 +53,14 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     private void initTable() {
         final Class entityClass = getType();
         try {
-
             if (isAnnotationPresent(Table.class)) {
                 this.table = findAnnotation(Table.class).value();
             }
-
         } finally {
             if (Assert.isEmpty(table)) {
-                this.table = entityClass.getSimpleName();
+                this.table = NameConverterRegister.getInstance().getTableNameConverter().map(entityClass.getSimpleName());
             }
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -78,11 +76,11 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
                             .getReadMethod()
                             .getAnnotation(NonColumn.class) == null)
                     .map(it -> new BaseProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(),
-                                                                                                   getField(it.getName(),
-                                                                                                            entityClass),
-                                                                                                   it),
-                                                this,
-                                                SimpleTypeHolder.DEFAULT))
+                            getField(it.getName(),
+                                    entityClass),
+                            it),
+                            this,
+                            SimpleTypeHolder.DEFAULT))
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);

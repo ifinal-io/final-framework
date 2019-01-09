@@ -4,14 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.ilikly.finalframework.json.JsonRegistry;
 import com.ilikly.finalframework.json.JsonService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -22,19 +18,17 @@ import java.util.*;
  * @since 1.0
  */
 @Slf4j
-@ConditionalOnMissingBean(JsonService.class)
 public class GsonJsonService implements JsonService {
 
-    @Resource
     @Setter
     private Gson gson;
 
-    @PostConstruct
-    public void init() {
-        if (gson == null) {
-            gson = new Gson();
-        }
-        JsonRegistry.getInstance().register(this);
+    public GsonJsonService(Gson gson) {
+        this.gson = gson;
+    }
+
+    public GsonJsonService() {
+        this(new Gson());
     }
 
     @Override
