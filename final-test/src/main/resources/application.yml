@@ -47,3 +47,7 @@ final:
       table-converter: com.ilikly.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter
   json:
     json-service: com.ilikly.finalframework.json.jackson.JacksonJsonService
+  redis:
+    serializer:
+      key-serializer: com.ilikly.finalframework.redis.serializer.Object2StringRedisSerializer
+      value-serializer: org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer

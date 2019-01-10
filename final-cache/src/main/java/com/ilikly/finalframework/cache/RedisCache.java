@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2018-11-23 23:56:03
  * @since 1.0
  */
+@SuppressWarnings("unchecked")
 public class RedisCache implements Cache {
 
     @PostConstruct
@@ -21,38 +22,38 @@ public class RedisCache implements Cache {
     @Override
     public void set(Object key, Object value, long ttl, TimeUnit timeUnit) {
         if (ttl > 0) {
-            Redis.set(key, value, ttl, timeUnit);
+            Redis.value().set(key, value, ttl, timeUnit);
         } else {
-            Redis.set(key, value);
+            Redis.value().set(key, value);
         }
     }
 
     @Override
     public <T> T get(Object key) {
-        return Redis.get(key);
+        return (T) Redis.value().get(key);
     }
 
     @Override
-    public boolean del(Object key) {
-        return Redis.del(key) == 1;
+    public Boolean del(Object key) {
+        return Redis.key().delete(key);
     }
 
     @Override
     public void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit) {
-        Redis.hset(key, field, value);
+        Redis.hash().put(key, field, value);
         if (ttl > 0) {
-            Redis.expire(key, ttl, timeUnit);
+            Redis.key().expire(key, ttl, timeUnit);
         }
     }
 
     @Override
     public <T> T hget(Object key, Object field) {
-        return Redis.hget(key, field);
+        return (T) Redis.hash().get(key, field);
     }
 
     @Override
-    public boolean hdel(Object key, Object field) {
-        return Redis.hdel(key, field) == 0;
+    public Long hdel(Object key, Object... field) {
+        return Redis.hash().delete(key, field);
     }
 
 

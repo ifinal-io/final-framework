@@ -14,12 +14,12 @@ public interface Cache {
 
     <T> T get(Object key);
 
-    boolean del(Object key);
+    Boolean del(Object key);
 
     void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit);
 
     <T> T hget(Object key, Object field);
 
-    boolean hdel(Object key, Object field);
+    Long hdel(Object key, Object... field);
 
 }

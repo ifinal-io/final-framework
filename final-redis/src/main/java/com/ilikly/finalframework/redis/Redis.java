@@ -1,8 +1,6 @@
 package com.ilikly.finalframework.redis;
 
-import lombok.NonNull;
-
-import java.util.concurrent.TimeUnit;
+import org.springframework.data.redis.core.*;
 
 /**
  * @author likly
@@ -12,37 +10,28 @@ import java.util.concurrent.TimeUnit;
  */
 public interface Redis {
 
-    static void set(@NonNull Object key, Object value) {
-        RedisRegistry.getInstance().getRedisService().set(key, value);
+    static RedisOperations key() {
+        return RedisRegistry.getInstance().key();
     }
 
-    static void set(@NonNull Object key, Object value, long ttl, TimeUnit timeUnit) {
-        RedisRegistry.getInstance().getRedisService().set(key, value, ttl, timeUnit);
+    static ValueOperations value() {
+        return RedisRegistry.getInstance().value();
     }
 
-    static <T> T get(@NonNull Object key) {
-        return RedisRegistry.getInstance().getRedisService().get(key);
+    static HashOperations hash() {
+        return RedisRegistry.getInstance().hash();
     }
 
-    static long del(Object... keys) {
-        return RedisRegistry.getInstance().getRedisService().del(keys);
+    static ListOperations list() {
+        return RedisRegistry.getInstance().list();
     }
 
-    static void hset(@NonNull Object key, @NonNull Object field, Object value) {
-        RedisRegistry.getInstance().getRedisService().hset(key, field, value);
+    static SetOperations set() {
+        return RedisRegistry.getInstance().set();
     }
 
-    static <T> T hget(@NonNull Object key, @NonNull Object field) {
-        return RedisRegistry.getInstance().getRedisService().hget(key, field);
-    }
-
-
-    static long hdel(@NonNull Object key, @NonNull Object... fields) {
-        return RedisRegistry.getInstance().getRedisService().hdel(key, fields);
-    }
-
-    static boolean expire(@NonNull Object key, long ttl, TimeUnit timeUnit) {
-        return RedisRegistry.getInstance().getRedisService().expire(key, ttl, timeUnit);
+    static ZSetOperations zset() {
+        return RedisRegistry.getInstance().zset();
     }
 
 }

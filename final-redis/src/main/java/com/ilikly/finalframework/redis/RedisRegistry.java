@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.redis;
 
 
-import com.ilikly.finalframework.core.Assert;
+import org.springframework.data.redis.core.*;
 
 /**
  * @author likly
@@ -11,7 +11,7 @@ import com.ilikly.finalframework.core.Assert;
  */
 public final class RedisRegistry {
     private static final RedisRegistry instance = new RedisRegistry();
-    private RedisService redisService;
+    private RedisTemplate redisTemplate;
 
     private RedisRegistry() {
     }
@@ -20,12 +20,33 @@ public final class RedisRegistry {
         return instance;
     }
 
-    public RedisService getRedisService() {
-        Assert.isNull(redisService, "redis service had not been registered.");
-        return redisService;
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
-    public void setRedisService(RedisService redisService) {
-        this.redisService = redisService;
+    public RedisOperations key() {
+        return redisTemplate;
     }
+
+    public ValueOperations value() {
+        return redisTemplate.opsForValue();
+    }
+
+    public HashOperations hash() {
+        return redisTemplate.opsForHash();
+    }
+
+    public ListOperations list() {
+        return redisTemplate.opsForList();
+    }
+
+    public SetOperations set() {
+        return redisTemplate.opsForSet();
+    }
+
+    public ZSetOperations zset() {
+        return redisTemplate.opsForZSet();
+    }
+
+
 }

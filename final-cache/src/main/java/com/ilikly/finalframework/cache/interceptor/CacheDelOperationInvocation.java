@@ -30,10 +30,8 @@ public class CacheDelOperationInvocation implements CacheOperationInvocation<Cac
         Object result = invoker.invoke();
 
         if (context.isConditionPassing(result)) {
-            boolean flag = field == null ? cache.del(key) : cache.hdel(key, field);
-            if (flag) {
-                logger.info("delete form cache: key={},field={},result={}", key, field, result);
-            }
+            Object flag = field == null ? cache.del(key) : cache.hdel(key, field);
+            logger.info("delete form cache: key={},field={},result={},flag={}", key, field, result, flag);
         } else {
             logger.info("cache del condition is not passing,key={},field={},result={},condition={}", key, field, result, context.operation().condition());
 
