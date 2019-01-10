@@ -5,7 +5,8 @@
 
     <groupId>com.ilikly.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>${final.release.version}</version>
+    <!--<version>${final.release.version}</version>-->
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>final-core</module>
         <module>final-util</module>
