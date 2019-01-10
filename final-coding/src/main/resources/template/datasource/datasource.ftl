@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -24,12 +25,19 @@ public class ${name} {
         return DataSourceBuilder.create().build();
     }
 
+@Bean
+public DataSourceTransactionManager ${transactionManager}(@Qualifier("${dataSource}") DataSource dataSource) {
+return new DataSourceTransactionManager(dataSource);
+}
+
     @Bean
     public SqlSessionFactory ${sqlSessionFactory}(@Qualifier("${dataSource}") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
+bean.setDataSource(${dataSource}());
+<#if mapperLocations??  && mapperLocations != "">
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources("${mapperLocations}"));
+</#if>
         return bean.getObject();
     }
 

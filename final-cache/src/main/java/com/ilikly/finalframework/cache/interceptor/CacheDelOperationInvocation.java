@@ -1,7 +1,8 @@
 package com.ilikly.finalframework.cache.interceptor;
 
 import com.ilikly.finalframework.cache.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
@@ -9,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
-@Slf4j
 public class CacheDelOperationInvocation implements CacheOperationInvocation<CacheDelOperation> {
     @Override
     public Object invoke(CacheOperationInvocationContext<CacheDelOperation> context, CacheOperationInvoker invoker) throws Throwable {
+        Logger logger = LoggerFactory.getLogger(context.target().getClass());
         Cache cache = CacheRegistry.getInstance().getCache(context.operation());
 
         if (cache == null) {

@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.plugins.mybatis;
+package com.ilikly.finalframework.coding.plugins.datasource;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,7 +14,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
 public @interface DataSource {
+    String name() default "";
+
     String prefix();
+
     String[] basePackages();
-    String mapperLocations();
+
+    String[] mapperLocations() default {};
 }

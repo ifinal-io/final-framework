@@ -1,7 +1,8 @@
 package com.ilikly.finalframework.cache.interceptor;
 
 import com.ilikly.finalframework.cache.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -12,10 +13,10 @@ import java.util.concurrent.TimeUnit;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
-@Slf4j
 public class CacheSetOperationInvocation implements CacheOperationInvocation<CacheSetOperation> {
     @Override
     public Object invoke(CacheOperationInvocationContext<CacheSetOperation> context, CacheOperationInvoker invoker) throws Throwable {
+        Logger logger = LoggerFactory.getLogger(context.target().getClass());
         Cache cache = CacheRegistry.getInstance().getCache(context.operation());
 
         if (cache == null) {

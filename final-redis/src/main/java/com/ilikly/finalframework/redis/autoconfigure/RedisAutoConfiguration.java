@@ -36,16 +36,10 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
 
     @PostConstruct
     public void init() {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-//        objectMapper.registerModule(new SimpleModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         redisTemplate.setKeySerializer(applicationContext.getBean(redisProperties.getKeySerializer()));
         redisTemplate.setValueSerializer(applicationContext.getBean(redisProperties.getValueSerializer()));
         redisTemplate.setHashKeySerializer(applicationContext.getBean(redisProperties.getHashKeySerializer()));
         redisTemplate.setHashValueSerializer(applicationContext.getBean(redisProperties.getHashValueSerializer()));
-
         RedisRegistry.getInstance().setRedisTemplate(redisTemplate);
     }
 
@@ -60,7 +54,12 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer(ObjectMapper objectMapper) {
+    public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+//        objectMapper.registerModule(new SimpleModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         return new GenericJackson2JsonRedisSerializer(objectMapper);
     }
 }

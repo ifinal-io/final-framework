@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.plugins.mybatis.processer;
+package com.ilikly.finalframework.coding.plugins.mybatis;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;

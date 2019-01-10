@@ -24,10 +24,10 @@ public final class MybatisAgent {
 
     public synchronized void agent() {
         if (initFlag) {
-            logger.info("mybatis agent had done!");
+            logger.info("datasource agent had done!");
             return;
         }
-        logger.info("starting mybatis agent !!!");
+        logger.info("starting datasource agent !!!");
         initFlag = true;
         try {
             ClassPool pool = new ClassPool();
@@ -46,7 +46,7 @@ public final class MybatisAgent {
             /**
              * public void parse(){
              *     if(!configuration.isResourceLoaded(resource)){
-             *          com.ilikly.finalframework.mybatis.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode("/mapper"));
+             *          com.ilikly.finalframework.datasource.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode("/mapper"));
              *     }
              *     parse$agent();
              * }
@@ -63,9 +63,9 @@ public final class MybatisAgent {
             // 增加新方法
             XMLMapperBuilder.addMethod(newMethod);
             Class aClass = XMLMapperBuilder.toClass();
-            logger.info("done mybatis agent!!!");
+            logger.info("done datasource agent!!!");
         } catch (Exception e) {
-            logger.error("doing mybatis agent error", e);
+            logger.error("doing datasource agent error", e);
         }
     }
 }

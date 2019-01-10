@@ -43,8 +43,8 @@ server:
 final:
   data:
     name-converter:
-      column-converter: com.ilikly.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter
-      table-converter: com.ilikly.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter
+      column-converter: com.ilikly.finalframework.data.mapping.converter.SimpleNameConverter
+      table-converter: com.ilikly.finalframework.data.mapping.converter.SimpleNameConverter
   json:
     json-service: com.ilikly.finalframework.json.jackson.JacksonJsonService
   redis:

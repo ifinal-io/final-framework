@@ -1,9 +1,10 @@
-package com.ilikly.finalframework.coding.plugins.mybatis.processer;
+package com.ilikly.finalframework.coding.plugins.datasource.processer;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;
 import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
-import com.ilikly.finalframework.coding.plugins.mybatis.DataSource;
+import com.ilikly.finalframework.coding.plugins.datasource.DataSource;
+import com.ilikly.finalframework.core.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,8 @@ import java.util.stream.Collectors;
  */
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
-public class MybatisDataSourceProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(MybatisDataSourceProcessor.class);
+public class DataSourceProcessor extends AbstractProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(DataSourceProcessor.class);
     private final Coder coder = new FreeMakerCoder();
     private Filer filer;
     private Elements elements;
@@ -63,28 +64,31 @@ public class MybatisDataSourceProcessor extends AbstractProcessor {
 
                     final String packageName = this.elements.getPackageOf(it).getQualifiedName().toString();
                     final String className = it.getSimpleName().toString();
-                    String name = className.substring(0,1).toLowerCase() + className.substring(1);
+                    String name = Assert.isEmpty(dataSource.name()) ? className.substring(0, 1).toLowerCase() + className.substring(1)
+                            : dataSource.name();
 
-                    if(name.endsWith("DataSource")){
-                        name = name.substring(0,name.indexOf("DataSource"));
+                    if (name.endsWith("DataSource")) {
+                        name = name.substring(0, name.indexOf("DataSource"));
                     }
 
-                    return new MybatisDataSource(
-                                    packageName,
-                                    className + "Config",
-                            dataSource.basePackages(),
-                            dataSource.mapperLocations(),
-                            dataSource.prefix(),
-                                    name + "DataSource",
-                                    name + "SqlSessionFactory",
-                                    name + "SqlSessionTemplate"
-                            );
+                    return DataSourceModel.builder()
+                            .packageName(packageName)
+                            .name(className + "Config")
+                            .basePackages(dataSource.basePackages())
+                            .mapperLocations(dataSource.mapperLocations())
+                            .prefix(dataSource.prefix())
+                            .dataSource(name + "DataSource")
+                            .transactionManager(name + "TransactionManager")
+                            .sqlSessionFactory(name + "SqlSessionFactory")
+                            .sqlSessionTemplate(name + "SqlSessionTemplate")
+                            .build();
+
                 })
                 .collect(Collectors.toList())
                 .forEach(it -> {
                     try {
                         coder.coding(it, filer
-                                .createSourceFile(it.getPackage() + "." +it.getName())
+                                .createSourceFile(it.getPackage() + "." + it.getName())
                                 .openWriter());
                     } catch (Exception e) {
                         e.printStackTrace();

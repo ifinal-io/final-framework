@@ -33,6 +33,8 @@ public class NameConverterConfigurerApplicationListener implements ApplicationLi
             NameConverterRegister.getInstance().setColumnConverter(columnConverter);
         }
 
+//        MybatisAgent.getInstance().agent();
+
 
     }
 

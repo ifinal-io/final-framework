@@ -20,8 +20,8 @@ public class FinalMybatisSpringApplicationStartingListener implements Applicatio
 
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
-        logger.info("do mybatis agent on application starting event");
+        logger.info("do datasource agent on application starting event");
         MybatisAgent.getInstance().agent();
-        logger.info("done mybatis agent on application starting event");
+        logger.info("done datasource agent on application starting event");
     }
 }

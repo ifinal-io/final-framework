@@ -3,7 +3,7 @@ package com.ilikly.finalframework.coding.plugins.spring;
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;
 import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
-import com.ilikly.finalframework.coding.plugins.mybatis.processer.MapperXml;
+import com.ilikly.finalframework.coding.plugins.mybatis.MapperXml;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
 import org.slf4j.Logger;
