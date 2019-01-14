@@ -12,6 +12,6 @@ import com.ilikly.finalframework.cache.annotation.CacheSet;
 public class CacheSetAnnotationParser implements CacheAnnotationParser<CacheSet, CacheSetOperation> {
     @Override
     public CacheSetOperation parseCacheAnnotation(CacheSet ann) {
-        return new CacheSetOperation(ann);
+        return CacheSetOperation.from(ann);
     }
 }

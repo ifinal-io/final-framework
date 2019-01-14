@@ -57,7 +57,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    @CacheSet(key = "#id", ttl = 1, timeunit = TimeUnit.MINUTES)
+    @CacheSet(keyPattern = "person:%s:", keys = "#id", ttl = 1, timeunit = TimeUnit.MINUTES)
     public Person get(@PathVariable("id") Long id) {
         return personMapper.selectOne(id);
     }

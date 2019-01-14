@@ -10,15 +10,20 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public interface CacheOperation<A extends Annotation> {
-    String key();
 
-    String field();
+    String keyPattern();
+
+    String[] keys();
+
+    String fieldPattern();
+
+    String[] fields();
 
     String condition();
 
     String expire();
 
-    long ttl();
+    Long ttl();
 
     TimeUnit timeUnit();
 }

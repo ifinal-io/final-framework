@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.cache.interceptor;
 
-import com.ilikly.finalframework.cache.CacheOperation;
 import com.ilikly.finalframework.cache.annotation.CacheDel;
 
 import java.util.concurrent.TimeUnit;
@@ -11,30 +10,20 @@ import java.util.concurrent.TimeUnit;
  * @date 2018-11-22 16:35:59
  * @since 1.0
  */
-public class CacheDelOperation implements CacheOperation<CacheDel> {
-    private final String key;
-    private final String field;
-    private final String condition;
+public class CacheDelOperation extends AbsCacheOperation<CacheDel> {
 
-    public CacheDelOperation(CacheDel cacheDel) {
-        this.key = cacheDel.key();
-        this.field = cacheDel.field();
-        this.condition = cacheDel.condition();
+    private CacheDelOperation(Builder builder) {
+        super(builder);
     }
 
-    @Override
-    public String key() {
-        return key;
-    }
-
-    @Override
-    public String field() {
-        return field;
-    }
-
-    @Override
-    public String condition() {
-        return condition;
+    public static CacheDelOperation from(CacheDel cacheDel) {
+        return new Builder()
+                .keyFormat(cacheDel.keyFormat())
+                .keys(cacheDel.keys())
+                .fieldFormat(cacheDel.fieldFormat())
+                .fields(cacheDel.fields())
+                .condition(cacheDel.condition())
+                .build();
     }
 
     @Override
@@ -43,12 +32,19 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
     }
 
     @Override
-    public long ttl() {
+    public Long ttl() {
         throw new UnsupportedOperationException("cache del operation no support ttl");
     }
 
     @Override
     public TimeUnit timeUnit() {
         throw new UnsupportedOperationException("cache del operation no support timeUnit");
+    }
+
+    private static class Builder extends AbsCacheOperation.Builder<CacheDelOperation> {
+        @Override
+        public CacheDelOperation build() {
+            return new CacheDelOperation(this);
+        }
     }
 }

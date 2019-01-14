@@ -12,6 +12,6 @@ import com.ilikly.finalframework.cache.annotation.CacheDel;
 public class CacheDelAnnotationParser implements CacheAnnotationParser<CacheDel, CacheDelOperation> {
     @Override
     public CacheDelOperation parseCacheAnnotation(CacheDel ann) {
-        return new CacheDelOperation(ann);
+        return CacheDelOperation.from(ann);
     }
 }

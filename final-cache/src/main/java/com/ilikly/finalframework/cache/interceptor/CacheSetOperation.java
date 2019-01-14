@@ -1,9 +1,6 @@
 package com.ilikly.finalframework.cache.interceptor;
 
-import com.ilikly.finalframework.cache.CacheOperation;
 import com.ilikly.finalframework.cache.annotation.CacheSet;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -11,50 +8,30 @@ import java.util.concurrent.TimeUnit;
  * @date 2018-11-22 16:35:59
  * @since 1.0
  */
-public class CacheSetOperation implements CacheOperation<CacheSet> {
-    private final String key;
-    private final String field;
-    private final String condition;
-    private final String exprie;
-    private final long ttl;
-    private final TimeUnit timeUnit;
+public class CacheSetOperation extends AbsCacheOperation<CacheSet> {
 
-    public CacheSetOperation(CacheSet cacheSet) {
-        this.key = cacheSet.key();
-        this.field = cacheSet.field();
-        this.condition = cacheSet.condition();
-        this.exprie = cacheSet.expire();
-        this.ttl = cacheSet.ttl();
-        this.timeUnit = cacheSet.timeunit();
+    private CacheSetOperation(Builder builder) {
+        super(builder);
     }
 
-    @Override
-    public String key() {
-        return key;
+    public static CacheSetOperation from(CacheSet cacheSet) {
+        return new Builder()
+                .keyFormat(cacheSet.keyPattern())
+                .keys(cacheSet.keys())
+                .fieldFormat(cacheSet.fieldPattern())
+                .fields(cacheSet.fields())
+                .condition(cacheSet.condition())
+                .exprie(cacheSet.expire())
+                .ttl(cacheSet.ttl())
+                .timeUnit(cacheSet.timeunit())
+                .build();
     }
 
-    @Override
-    public String field() {
-        return field;
-    }
+    private static class Builder extends AbsCacheOperation.Builder<CacheSetOperation> {
 
-    @Override
-    public String condition() {
-        return condition;
-    }
-
-    @Override
-    public String expire() {
-        return exprie;
-    }
-
-    @Override
-    public long ttl() {
-        return ttl;
-    }
-
-    @Override
-    public TimeUnit timeUnit() {
-        return timeUnit;
+        @Override
+        public CacheSetOperation build() {
+            return new CacheSetOperation(this);
+        }
     }
 }

@@ -27,19 +27,19 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
         Object key = context.generateKey(null);
 
         if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
+            throw new IllegalArgumentException("the cache operation generate null keys, operation=" + context.operation());
         }
         Object field = context.generateField(null);
 
         Object result = field == null ? cache.get(key) : cache.hget(key, field);
 
         if (result != null) {
-            logger.info("get from cache: key={},field={},result={}", key, field, result);
+            logger.info("get from cache: keys={},fields={},result={}", key, field, result);
             return result;
         }
 
         result = invoker.invoke();
-        logger.info("get from query: key={},field={},result={}", key, field, result);
+        logger.info("get from query: keys={},fields={},result={}", key, field, result);
         if (result != null) {
             if (context.isConditionPassing(result)) {
                 Long ttl;
@@ -62,9 +62,9 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
                 } else {
                     cache.hset(key, field, result, ttl, timeUnit);
                 }
-                logger.info("set to cache: key={},field={},result={},ttl={},timeUnit={}", key, field, result, ttl, timeUnit);
+                logger.info("set to cache: keys={},fields={},result={},ttl={},timeUnit={}", key, field, result, ttl, timeUnit);
             } else {
-                logger.info("cache set condition is not passing,key={},field={},result={},condition={}", key, field, result, context.operation().condition());
+                logger.info("cache set condition is not passing,keys={},fields={},result={},condition={}", key, field, result, context.operation().condition());
             }
         }
 
