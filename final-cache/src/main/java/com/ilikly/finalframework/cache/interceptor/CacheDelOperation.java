@@ -18,9 +18,9 @@ public class CacheDelOperation extends AbsCacheOperation<CacheDel> {
 
     public static CacheDelOperation from(CacheDel cacheDel) {
         return new Builder()
-                .keyFormat(cacheDel.keyFormat())
+                .keyFormat(cacheDel.keyPattern())
                 .keys(cacheDel.keys())
-                .fieldFormat(cacheDel.fieldFormat())
+                .fieldFormat(cacheDel.fieldPattern())
                 .fields(cacheDel.fields())
                 .condition(cacheDel.condition())
                 .build();

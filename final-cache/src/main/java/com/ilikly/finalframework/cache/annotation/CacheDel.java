@@ -17,11 +17,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface CacheDel {
 
-    String keyFormat() default "";
+    String keyPattern() default "";
 
     String[] keys();
 
-    String fieldFormat() default "";
+    String fieldPattern() default "";
 
     String[] fields() default {};
 
