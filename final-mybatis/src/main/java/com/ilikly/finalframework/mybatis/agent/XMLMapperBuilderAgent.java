@@ -45,7 +45,7 @@ public class XMLMapperBuilderAgent {
             int.class, long.class,
             float.class, double.class
     ));
-    private static final Set<String> SQLKEYS = new HashSet<>(Arrays.asList(
+    private static final Set<String> SQL_KEYS = new HashSet<>(Arrays.asList(
             "key".toUpperCase()
     ));
     private static final boolean logMapper = true;
@@ -890,7 +890,7 @@ public class XMLMapperBuilderAgent {
     }
 
     private String formatColumn(String column) {
-        return SQLKEYS.contains(column.toUpperCase()) ? String.format("`%s`", column) : column;
+        return SQL_KEYS.contains(column.toUpperCase()) ? String.format("`%s`", column) : column;
     }
 
     private boolean isNumbers(Property property) {
