@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@MapperScan(basePackages = {${basePackages}}, sqlSessionFactoryRef = "${sqlSessionTemplate}")
+@MapperScan(basePackages = {${basePackages}}, sqlSessionTemplateRef = "${sqlSessionTemplate}", sqlSessionFactoryRef = "${sqlSessionFactory}")
 public class ${name} {
     @Bean
     @ConfigurationProperties(prefix = "${prefix}")
@@ -26,12 +26,12 @@ public class ${name} {
     }
 
 @Bean
-public DataSourceTransactionManager ${transactionManager}(@Qualifier("${dataSource}") DataSource dataSource) {
-return new DataSourceTransactionManager(dataSource);
+public DataSourceTransactionManager ${transactionManager}() {
+return new DataSourceTransactionManager(${dataSource}());
 }
 
     @Bean
-    public SqlSessionFactory ${sqlSessionFactory}(@Qualifier("${dataSource}") DataSource dataSource) throws Exception {
+public SqlSessionFactory ${sqlSessionFactory}() throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 bean.setDataSource(${dataSource}());
 <#if mapperLocations??  && mapperLocations != "">
@@ -42,8 +42,8 @@ bean.setDataSource(${dataSource}());
     }
 
     @Bean
-    public SqlSessionTemplate ${sqlSessionTemplate}(@Qualifier("${sqlSessionFactory}") SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
+public SqlSessionTemplate ${sqlSessionTemplate}() throws Exception {
+return new SqlSessionTemplate(${sqlSessionFactory}());
     }
 
 }

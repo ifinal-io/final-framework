@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.mybatis.model;
 
+import org.apache.ibatis.mapping.StatementType;
+
 import java.io.Serializable;
 
 /**
@@ -9,4 +11,9 @@ import java.io.Serializable;
  * @since 1.0
  */
 public class SelectKey implements Serializable {
+    private Class resultType;
+    private StatementType statementType;
+    private String keyProperty;
+    private String keyColumn;
+    private Boolean before;
 }

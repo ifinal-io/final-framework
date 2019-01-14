@@ -34,8 +34,8 @@ import java.util.stream.Collectors;
  * @author likly
  * @version 1.0
  * @date 2018-12-21 23:40:31
- * @since 1.0
  * @see org.apache.ibatis.builder.xml.XMLMapperBuilder
+ * @since 1.0
  */
 @SuppressWarnings("unused")
 public class XMLMapperBuilderAgent {
@@ -44,6 +44,9 @@ public class XMLMapperBuilderAgent {
             byte.class, short.class,
             int.class, long.class,
             float.class, double.class
+    ));
+    private static final Set<String> SQLKEYS = new HashSet<>(Arrays.asList(
+            "key".toUpperCase()
     ));
     private static final boolean logMapper = true;
     private static final TypeHandlerRegistry typeHandlerRegistry = new DefaultTypeHandlerRegistry();
@@ -272,7 +275,7 @@ public class XMLMapperBuilderAgent {
                                 .map(multiColumn -> NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn))
                                 .forEach(columns::add);
                     } else {
-                        columns.add(property.getColumn());
+                        columns.add(formatColumn(property.getColumn()));
                     }
                 });
         sql.appendChild(textNode(columns.stream().collect(Collectors.joining(",", "(", ")"))));
@@ -469,7 +472,7 @@ public class XMLMapperBuilderAgent {
                         final Class javaType = getPropertyJavaType(property);
                         final TypeHandler typeHandler = getPropertyTypeHandler(property);
                         final StringBuilder builder = new StringBuilder();
-                        builder.append(property.getColumn())
+                        builder.append(formatColumn(property.getColumn()))
                                 .append(" = ")
                                 .append("#{entity.")
                                 .append(property.getName());
@@ -836,7 +839,7 @@ public class XMLMapperBuilderAgent {
                                     columns.add(NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn));
                                 });
                     } else {
-                        columns.add(property.getColumn());
+                        columns.add(formatColumn(property.getColumn()));
                     }
                 });
         return String.join(",", columns);
@@ -884,6 +887,10 @@ public class XMLMapperBuilderAgent {
         when.setAttribute("test", test);
         when.appendChild(child);
         return when;
+    }
+
+    private String formatColumn(String column) {
+        return SQLKEYS.contains(column.toUpperCase()) ? String.format("`%s`", column) : column;
     }
 
     private boolean isNumbers(Property property) {
