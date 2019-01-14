@@ -21,7 +21,7 @@ public class CacheSetOperation extends AbsCacheOperation<CacheSet> {
                 .fieldFormat(cacheSet.fieldPattern())
                 .fields(cacheSet.fields())
                 .condition(cacheSet.condition())
-                .exprie(cacheSet.expire())
+                .expire(cacheSet.expire())
                 .ttl(cacheSet.ttl())
                 .timeUnit(cacheSet.timeunit())
                 .build();

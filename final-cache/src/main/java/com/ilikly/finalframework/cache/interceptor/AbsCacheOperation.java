@@ -18,7 +18,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     private final String fieldPattern;
     private final String[] fields;
     private final String condition;
-    private final String exprie;
+    private final String expire;
     private final Long ttl;
     private final TimeUnit timeUnit;
 
@@ -28,7 +28,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         this.fieldPattern = Assert.isEmpty(builder.fieldFormat) ? null : builder.fieldFormat;
         this.fields = Assert.isEmpty(builder.fields) ? null : builder.fields;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.exprie = Assert.isEmpty(builder.exprie) ? null : builder.exprie;
+        this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
     }
@@ -60,7 +60,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
 
     @Override
     public String expire() {
-        return this.exprie;
+        return this.expire;
     }
 
     @Override
@@ -79,7 +79,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         private String fieldFormat;
         private String[] fields;
         private String condition;
-        private String exprie;
+        private String expire;
         private Long ttl;
         private TimeUnit timeUnit;
 
@@ -108,8 +108,8 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
             return this;
         }
 
-        public Builder<O> exprie(String exprie) {
-            this.exprie = exprie;
+        public Builder<O> expire(String expire) {
+            this.expire = expire;
             return this;
         }
 
