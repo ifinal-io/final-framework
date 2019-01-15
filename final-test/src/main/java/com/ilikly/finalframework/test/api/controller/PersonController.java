@@ -46,6 +46,11 @@ public class PersonController {
         System.out.println(personMapper.selectCount(query));
     }
 
+    @GetMapping("/count")
+    public int count() {
+        return personMapper.select(new Query()).size();
+    }
+
     @PostMapping("/{id}")
     @MethodMonitor
     public int update(@PathVariable("id") Long id, @RequestBody Person person) {

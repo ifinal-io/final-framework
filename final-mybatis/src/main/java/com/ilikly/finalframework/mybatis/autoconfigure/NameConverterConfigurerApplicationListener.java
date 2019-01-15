@@ -2,7 +2,7 @@ package com.ilikly.finalframework.mybatis.autoconfigure;
 
 import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.data.mapping.converter.NameConverter;
-import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -25,12 +25,12 @@ public class NameConverterConfigurerApplicationListener implements ApplicationLi
 
         final NameConverter tableConverter = initNameConverter(tableConverterClassName);
         if (tableConverter != null) {
-            NameConverterRegister.getInstance().setTableConverter(tableConverter);
+            NameConverterRegistry.getInstance().setTableConverter(tableConverter);
         }
 
         final NameConverter columnConverter = initNameConverter(columnConverterClassName);
         if (columnConverter != null) {
-            NameConverterRegister.getInstance().setColumnConverter(columnConverter);
+            NameConverterRegistry.getInstance().setColumnConverter(columnConverter);
         }
 
 //        MybatisAgent.getInstance().agent();

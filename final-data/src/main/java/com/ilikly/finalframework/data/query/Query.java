@@ -21,13 +21,10 @@ import java.util.stream.Stream;
  */
 public class Query implements Streable<Criteria>, Serializable {
 
-    private static final int DEFAULT_PAGE = 1;
-    private static final int DEFAULT_SIZE = 20;
-
     @Getter
-    private Integer page = DEFAULT_PAGE;
+    private Integer page;
     @Getter
-    private Integer size = DEFAULT_SIZE;
+    private Integer size;
     private List<Criteria> criteria = new ArrayList<>();
     @Getter
     private Sort sort;

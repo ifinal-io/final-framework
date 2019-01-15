@@ -5,7 +5,7 @@ import com.ilikly.finalframework.data.annotation.NonColumn;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
 import com.ilikly.finalframework.data.annotation.Table;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
-import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.model.BasicPersistentEntity;
@@ -58,7 +58,7 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
             }
         } finally {
             if (Assert.isEmpty(table)) {
-                this.table = NameConverterRegister.getInstance().getTableNameConverter().map(entityClass.getSimpleName());
+                this.table = NameConverterRegistry.getInstance().getTableNameConverter().map(entityClass.getSimpleName());
             }
         }
     }

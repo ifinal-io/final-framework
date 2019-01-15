@@ -7,12 +7,6 @@ package com.ilikly.finalframework.data.mapping.converter;
  * @since 1.0
  */
 public class CameHump2UnderlineNameConverter implements NameConverter {
-    public static void main(String[] args) {
-        NameConverter converter = new CameHump2UnderlineNameConverter();
-
-        System.out.println(((CameHump2UnderlineNameConverter) converter).map("myTCP"));
-    }
-
     @Override
     public String map(String name) {
         StringBuilder sb = new StringBuilder(name);

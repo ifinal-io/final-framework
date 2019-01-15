@@ -4,7 +4,7 @@ import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
-import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
@@ -90,7 +90,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
             }
 
             if (Assert.isEmpty(this.column)) {
-                column = NameConverterRegister.getInstance().getColumnNameConverter().map(getName());
+                column = NameConverterRegistry.getInstance().getColumnNameConverter().map(getName());
             }
         }
     }

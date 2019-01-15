@@ -21,6 +21,7 @@ public class ServiceException extends RuntimeException implements IException {
         this(exception.getCode(), exception.getMessage());
     }
 
+
     @Override
     public Integer getCode() {
         return this.code;

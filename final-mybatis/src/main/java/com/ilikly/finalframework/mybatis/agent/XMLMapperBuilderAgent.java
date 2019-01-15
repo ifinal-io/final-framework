@@ -4,7 +4,7 @@ import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
-import com.ilikly.finalframework.data.mapping.converter.NameConverterRegister;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import com.ilikly.finalframework.data.repository.Repository;
 import com.ilikly.finalframework.mybatis.EntityHolderCache;
@@ -203,7 +203,7 @@ public class XMLMapperBuilderAgent {
         final String column = prefix == null ? property.getColumn()
                 : property.isIdProperty() ? prefix : prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
         result.setAttribute("property", property.getName());
-        result.setAttribute("column", NameConverterRegister.getInstance().getColumnNameConverter().map(column));
+        result.setAttribute("column", NameConverterRegistry.getInstance().getColumnNameConverter().map(column));
         if (javaType != null) {
             result.setAttribute("javaType", javaType.getCanonicalName());
         }
@@ -272,7 +272,7 @@ public class XMLMapperBuilderAgent {
                                         multiProperty.isIdProperty() ? property.getColumn() :
                                                 property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1)
                                 )
-                                .map(multiColumn -> NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn))
+                                .map(multiColumn -> NameConverterRegistry.getInstance().getColumnNameConverter().map(multiColumn))
                                 .forEach(columns::add);
                     } else {
                         columns.add(formatColumn(property.getColumn()));
@@ -451,7 +451,7 @@ public class XMLMapperBuilderAgent {
                                     ifPropertyNotNull.setAttribute("test", ifTest);
                                     final String multiColumn = multiProperty.isIdProperty() ? property.getName() : property.getName() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final StringBuilder builder = new StringBuilder();
-                                    builder.append(NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn))
+                                    builder.append(NameConverterRegistry.getInstance().getColumnNameConverter().map(multiColumn))
                                             .append(" = ")
                                             .append("#{entity.")
                                             .append(property.getName()).append(".").append(multiProperty.getName());
@@ -518,7 +518,7 @@ public class XMLMapperBuilderAgent {
                                     final String multiColumn = multiProperty.isIdProperty() ? property.getColumn()
                                             : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final String updatePath = multiColumn;
-                                    final String updateColumn = NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn);
+                                    final String updateColumn = NameConverterRegistry.getInstance().getColumnNameConverter().map(multiColumn);
                                     final String ifTest = String.format("update['%s'] != null", updatePath);
                                     ifUpdateContains.setAttribute("test", ifTest);
 
@@ -836,7 +836,7 @@ public class XMLMapperBuilderAgent {
                                     final String multiColumn =
                                             multiProperty.isIdProperty() ? property.getColumn() :
                                                     property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
-                                    columns.add(NameConverterRegister.getInstance().getColumnNameConverter().map(multiColumn));
+                                    columns.add(NameConverterRegistry.getInstance().getColumnNameConverter().map(multiColumn));
                                 });
                     } else {
                         columns.add(formatColumn(property.getColumn()));

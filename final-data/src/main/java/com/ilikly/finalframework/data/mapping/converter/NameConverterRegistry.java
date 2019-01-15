@@ -6,18 +6,18 @@ package com.ilikly.finalframework.data.mapping.converter;
  * @date 2019-01-09 17:52:29
  * @since 1.0
  */
-public class NameConverterRegister {
-    private static NameConverterRegister instance = new NameConverterRegister();
+public class NameConverterRegistry {
+    private static NameConverterRegistry instance = new NameConverterRegistry();
 
     private final NameConverter defaultNameConverter = new SimpleNameConverter();
 
     private NameConverter tableNameConverter = defaultNameConverter;
     private NameConverter columnNameConverter = defaultNameConverter;
 
-    private NameConverterRegister() {
+    private NameConverterRegistry() {
     }
 
-    public static NameConverterRegister getInstance() {
+    public static NameConverterRegistry getInstance() {
         return instance;
     }
 
