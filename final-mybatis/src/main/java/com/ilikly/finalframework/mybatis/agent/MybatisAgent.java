@@ -66,6 +66,7 @@ public final class MybatisAgent {
             logger.info("done datasource agent!!!");
         } catch (Exception e) {
             logger.error("doing datasource agent error", e);
+            throw new IllegalStateException(e);
         }
     }
 }

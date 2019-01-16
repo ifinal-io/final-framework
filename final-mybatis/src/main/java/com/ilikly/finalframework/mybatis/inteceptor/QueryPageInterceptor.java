@@ -39,7 +39,7 @@ public class QueryPageInterceptor implements Interceptor {
             Object[] args = invocation.getArgs();
             MappedStatement ms = (MappedStatement) args[0];
             Object parameter = args[1];
-            if (!ms.getId().endsWith(".selectCount") && parameter != null) {
+            if (!ms.getId().endsWith(".selectCount") && !ms.getId().endsWith("selectOne") && parameter != null) {
                 if (parameter instanceof Map) {
                     Map map = (Map) parameter;
                     for (Object item : map.values()) {

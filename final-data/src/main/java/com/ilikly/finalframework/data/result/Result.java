@@ -35,4 +35,8 @@ public final class Result<T> implements Serializable {
         this.message = message;
     }
 
+    public boolean success() {
+        return status == null || status == 0;
+    }
+
 }
