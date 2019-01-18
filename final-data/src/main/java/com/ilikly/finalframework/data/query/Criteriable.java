@@ -32,11 +32,11 @@ public interface Criteriable<T> {
 
     T in(@NotEmpty Object... values);
 
-    T in(@NotEmpty Collection<?> values);
+    T in(@NotEmpty Collection<Object> values);
 
     T nin(@NotEmpty Object... values);
 
-    T nin(@NotEmpty Collection<?> values);
+    T nin(@NotEmpty Collection<Object> values);
 
     //    like operation
 

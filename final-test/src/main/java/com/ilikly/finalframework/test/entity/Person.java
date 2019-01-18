@@ -3,11 +3,13 @@ package com.ilikly.finalframework.test.entity;
 import com.ilikly.finalframework.data.annotation.Entity;
 import com.ilikly.finalframework.data.annotation.JsonColumn;
 import com.ilikly.finalframework.data.annotation.MultiColumn;
+import com.ilikly.finalframework.data.annotation.NonColumn;
 import com.ilikly.finalframework.data.entity.AbsEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,5 +33,8 @@ public class Person extends AbsEntity {
     //    @NonColumn
     @MultiColumn(properties = {"id", "name", "age"})
     private Person creator;
+    @NonColumn
+    private Date date = new Date();
+
 
 }

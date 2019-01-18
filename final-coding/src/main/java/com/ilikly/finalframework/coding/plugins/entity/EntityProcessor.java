@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.plugins.domain;
+package com.ilikly.finalframework.coding.plugins.entity;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;
@@ -7,6 +7,7 @@ import com.ilikly.finalframework.coding.element.EntityFactory;
 import com.ilikly.finalframework.coding.element.Property;
 import com.ilikly.finalframework.data.annotation.Entity;
 import com.ilikly.finalframework.data.annotation.MultiColumn;
+import com.ilikly.finalframework.data.annotation.NonColumn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +67,7 @@ public class EntityProcessor extends AbstractProcessor {
                     builder.packageName(packageName)
                             .name("Q" + entityName);
                     it.stream()
+                            .filter(property -> !property.hasAnnotation(NonColumn.class))
                             .forEach(property -> {
                                 if (property.hasAnnotation(MultiColumn.class)) {
                                     TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());

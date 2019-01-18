@@ -15,7 +15,7 @@ spring:
     password: Qq0000
   jackson:
     default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm:ss
+  #    date-format: yyyy-MM-dd HH:mm:ss
   aop:
     proxy-target-class: true
   transaction:
@@ -31,13 +31,7 @@ pagehelper:
   params: pageNum=page;size=size
 logging:
   level:
-    cn:
-      com:
-        likly:
-          finalframework:
-            test:
-              dao:
-                mapper: debug
+    com.ilikly.finalframework.test: debug
 server:
   port:
 final:

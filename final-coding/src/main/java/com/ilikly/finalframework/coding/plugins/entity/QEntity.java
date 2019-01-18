@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.plugins.domain;
+package com.ilikly.finalframework.coding.plugins.entity;
 
 import com.ilikly.finalframework.coding.annotation.Template;
 import com.ilikly.finalframework.coding.element.Entity;

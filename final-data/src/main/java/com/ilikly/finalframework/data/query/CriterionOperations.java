@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.data.query.enums;
+package com.ilikly.finalframework.data.query;
 
 /**
  * @author likly
@@ -6,7 +6,7 @@ package com.ilikly.finalframework.data.query.enums;
  * @date 2018-10-12 16:37
  * @since 1.0
  */
-public enum CriteriaOperation {
+public enum CriterionOperations {
     EQUAL, NOT_EQUAL,
     GREATER_THAN, GREATER_EQUAL_THAN,
     LESS_THAN, LESS_EQUAL_THAN,

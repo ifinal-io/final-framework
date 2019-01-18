@@ -2,12 +2,9 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.core.Streable;
 import com.ilikly.finalframework.data.query.enums.AndOr;
-import lombok.Getter;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -16,63 +13,29 @@ import java.util.stream.Stream;
  * @date 2018-10-25 11:34
  * @since 1.0
  */
-public class Criteria implements Streable<Criteria>, Iterable<Criteria> {
+public interface Criteria extends Streable<Criteria>, Iterable<Criteria> {
 
-    private final List<Criteria> criteriaChain;
-    private final List<CriteriaSet> criteriaSets;
-    @Getter
-    private final boolean chain;
-
-    Criteria(CriteriaSet criteriaSet) {
-        this.criteriaChain = null;
-        this.criteriaSets = new ArrayList<>();
-        this.criteriaSets.add(criteriaSet);
-        this.chain = false;
+    static Criteria where(Criterion... criterion) {
+        return where(Arrays.asList(criterion));
     }
 
-    public Criteria() {
-        this(new ArrayList<>());
+    static Criteria where(Collection<Criterion> criterion) {
+        return CriteriaImpl.where(criterion);
     }
 
-    Criteria(Collection<Criteria> criteria) {
-        this.criteriaChain = new ArrayList<>(criteria);
-        this.criteriaSets = null;
-        this.chain = true;
-    }
 
-    public static Criteriable<Criteria> where(QProperty property) {
-        return CriteriaSet.where(property);
-    }
+    AndOr andOr();
 
-    public Criteriable<Criteria> and(QProperty property) {
-        return new CriteriaSet(this, property, AndOr.AND);
-    }
+    boolean chain();
 
-    public Criteriable<Criteria> or(QProperty property) {
-        return new CriteriaSet(this, property, AndOr.OR);
-    }
+    Stream<Criterion> criterionStream();
 
-    Criteria addCriteriaSet(CriteriaSet criteriaSet) {
-        if (chain) {
-            this.criteriaChain.add(new Criteria(criteriaSet));
-        } else {
-            this.criteriaSets.add(criteriaSet);
-        }
-        return this;
-    }
+    Criteria and(Criteria... criteria);
 
-    @Override
-    public Stream<Criteria> stream() {
-        return criteriaChain.stream();
-    }
+    Criteria or(Criteria... criteria);
 
-    @Override
-    public Iterator<Criteria> iterator() {
-        return criteriaChain.iterator();
-    }
+    interface Builder extends com.ilikly.finalframework.core.Builder<Criteria> {
 
-    public Stream<CriteriaSet> setStream() {
-        return criteriaSets.stream();
     }
 
 

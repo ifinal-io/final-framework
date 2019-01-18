@@ -2,7 +2,6 @@ package com.ilikly.finalframework.json.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
 import com.ilikly.finalframework.json.JsonRegistry;
 import com.ilikly.finalframework.json.JsonService;
@@ -36,8 +35,9 @@ public class JsonAutoConfiguration {
     @PostConstruct
     public void initObjectMapper() {
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.registerModule(new SimpleModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+//        objectMapper.registerModule(new SimpleModule());
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @PostConstruct

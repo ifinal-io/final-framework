@@ -10,6 +10,7 @@ import lombok.Getter;
  */
 public enum CommonServiceException implements IException {
     BAD_REQUEST(400, "Bad Request"),
+    FORBIDDEN(403, "Forbidden"),
     NOT_FOUND(404, "Not Found");
     @Getter
     private final Integer code;

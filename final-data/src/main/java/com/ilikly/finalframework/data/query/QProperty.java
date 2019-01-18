@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -70,162 +71,306 @@ public interface QProperty<T> extends Criteriable<Criteria>, Sortable<Sort> {
 
     @Override
     default Criteria eq(@NotNull Object value) {
-        return Criteria.where(this).eq(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.EQUAL.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria neq(@NotNull Object value) {
-        return Criteria.where(this).neq(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_EQUAL.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria gt(@NotNull Comparable value) {
-        return Criteria.where(this).gt(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.GREATER_THAN.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria gte(@NotNull Comparable value) {
-        return Criteria.where(this).gte(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.GREATER_EQUAL_THAN.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria lt(@NotNull Comparable value) {
-        return Criteria.where(this).lt(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.LESS_THAN.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria lte(@NotNull Comparable value) {
-        return Criteria.where(this).lte(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.LESS_EQUAL_THAN.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria in(@NotEmpty Object... values) {
-        return Criteria.where(this).in(values);
+        return in(Arrays.asList(values));
     }
 
     @Override
-    default Criteria in(@NotEmpty Collection<?> values) {
-        return Criteria.where(this).in(values);
+    default Criteria in(@NotEmpty Collection<Object> values) {
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.IN.name())
+                        .value(values)
+                        .build()
+        );
     }
 
     @Override
     default Criteria nin(@NotEmpty Object... values) {
-        return Criteria.where(this).nin(values);
+        return nin(Arrays.asList(values));
     }
 
     @Override
-    default Criteria nin(@NotEmpty Collection<?> values) {
-        return Criteria.where(this).nin(values);
+    default Criteria nin(@NotEmpty Collection<Object> values) {
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_IN.name())
+                        .value(values)
+                        .build()
+        );
     }
 
     @Override
     default Criteria startWith(@NotEmpty String value) {
-        return Criteria.where(this).startWith(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.START_WITH.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria notStartWith(@NotEmpty String value) {
-        return Criteria.where(this).notStartWith(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_START_WITH.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria endWith(@NotEmpty String value) {
-        return Criteria.where(this).endWith(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.END_WITH.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria notEndWith(@NotEmpty String value) {
-        return Criteria.where(this).notEndWith(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_END_WITH.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria contains(@NotEmpty String value) {
-        return Criteria.where(this).contains(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.CONTAINS.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria notContains(@NotEmpty String value) {
-        return Criteria.where(this).notContains(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_CONTAINS.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria like(@NotBlank String value) {
-        return Criteria.where(this).like(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.LIKE.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria notLike(@NotBlank String value) {
-        return Criteria.where(this).notLike(value);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_LIKE.name())
+                        .value(value)
+                        .build()
+        );
     }
 
     @Override
     default Criteria before(@NotNull Date date) {
-        return Criteria.where(this).before(date);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.BEFORE.name())
+                        .value(date)
+                        .build()
+        );
     }
 
     @Override
     default Criteria before(@NotNull long date) {
-        return Criteria.where(this).before(date);
+        return before(new Date(date));
     }
 
     @Override
     default Criteria after(@NotNull Date date) {
-        return Criteria.where(this).after(date);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.AFTER.name())
+                        .value(date)
+                        .build()
+        );
     }
 
     @Override
     default Criteria after(@NotNull long date) {
-        return Criteria.where(this).after(date);
+        return after(new Date(date));
     }
 
     @Override
     default Criteria dateBefore(@NotNull Date date) {
-        return Criteria.where(this).dateBefore(date);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.DATE_BEFORE.name())
+                        .value(date)
+                        .build()
+        );
     }
 
     @Override
     default Criteria dateBefore(@NotNull long date) {
-        return Criteria.where(this).dateBefore(date);
+        return dateBefore(new Date(date));
     }
 
     @Override
     default Criteria dateAfter(@NotNull Date date) {
-        return Criteria.where(this).dateAfter(date);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.DATE_AFTER.name())
+                        .value(date)
+                        .build()
+        );
     }
 
     @Override
     default Criteria dateAfter(@NotNull long date) {
-        return Criteria.where(this).dateAfter(date);
+        return dateAfter(new Date(date));
     }
 
     @Override
     default <E extends Comparable> Criteria between(@NotNull E min, @NotNull E max) {
-        return Criteria.where(this).between(min, max);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.BETWEEN.name())
+                        .minAndMax(min, max)
+                        .build()
+        );
     }
 
     @Override
     default <E extends Comparable> Criteria notBetween(@NotNull E min, @NotNull E max) {
-        return Criteria.where(this).notBetween(min, max);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_BETWEEN.name())
+                        .minAndMax(min, max)
+                        .build()
+        );
     }
 
     @Override
     default Criteria dateBetween(@NotNull Date min, @NotNull Date max) {
-        return Criteria.where(this).dateBetween(min, max);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.DATE_BETWEEN.name())
+                        .minAndMax(min, max)
+                        .build()
+        );
     }
 
     @Override
     default Criteria notDateBetween(@NotNull Date min, @NotNull Date max) {
-        return Criteria.where(this).dateBetween(min, max);
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_DATE_BETWEEN.name())
+                        .minAndMax(min, max)
+                        .build()
+        );
     }
 
     @Override
     default Criteria dateBetween(@NotNull long min, @NotNull long max) {
-        return Criteria.where(this).notDateBetween(min, max);
+        return dateBetween(new Date(min), new Date(max));
     }
 
     @Override
     default Criteria notDateBetween(@NotNull long min, @NotNull long max) {
-        return Criteria.where(this).notDateBetween(min, max);
+        return notDateBetween(new Date(min), new Date(max));
     }
 
     @Override

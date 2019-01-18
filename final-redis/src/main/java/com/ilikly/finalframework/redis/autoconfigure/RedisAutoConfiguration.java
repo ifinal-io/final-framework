@@ -57,8 +57,9 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
     public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
 //        objectMapper.registerModule(new SimpleModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         return new GenericJackson2JsonRedisSerializer(objectMapper);
     }

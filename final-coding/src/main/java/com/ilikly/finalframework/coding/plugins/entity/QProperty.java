@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.plugins.domain;
+package com.ilikly.finalframework.coding.plugins.entity;
 
 import java.io.Serializable;
 
