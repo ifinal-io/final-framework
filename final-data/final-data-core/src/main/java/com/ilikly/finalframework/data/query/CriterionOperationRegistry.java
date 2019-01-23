@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
+import com.ilikly.finalframework.data.entity.enums.IEnum;
 import com.ilikly.finalframework.data.query.operation.*;
 
 import java.util.Arrays;
@@ -27,6 +28,7 @@ public class CriterionOperationRegistry {
     private final Map<String, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
 
     {
+
         primaryClass.forEach(clazz -> registerCriterionOperation(clazz, EqualCriterionOperation.INSTANCE));
         primaryClass.forEach(clazz -> registerCriterionOperation(clazz, NotEqualCriterionOperation.INSTANCE));
         primaryClass.forEach(clazz -> registerCriterionOperation(clazz, GreaterThanCriterionOperation.INSTANCE));
@@ -65,6 +67,7 @@ public class CriterionOperationRegistry {
         nameTypeOperationCache.put(type, criterionOperation);
     }
 
+
     @SuppressWarnings("unchecked")
     public <T> CriterionOperation<T> getCriterionOperation(String operationName, Class<T> type) {
         try {
@@ -79,11 +82,20 @@ public class CriterionOperationRegistry {
         } catch (Exception e) {
             //ignore
         }
+        Class clazz = type;
+
+        if (type.isEnum()) {
+            if (IEnum.class.isAssignableFrom(type)) {
+                IEnum ienum = (IEnum) type.getEnumConstants()[0];
+                clazz = ienum.getCode().getClass();
+            }
+        }
+
 
         Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(operationName);
-        CriterionOperation criterionOperation = nameTypeOperationCache.get(type);
+        CriterionOperation criterionOperation = nameTypeOperationCache.get(clazz);
         if (criterionOperation == null) {
-            throw new IllegalArgumentException(String.format("not found criterion operation of name = =%s and type = %s", operationName, type.getCanonicalName()));
+            throw new IllegalArgumentException(String.format("not found criterion operation of name =%s and type = %s", operationName, type.getCanonicalName()));
         }
         return criterionOperation;
     }

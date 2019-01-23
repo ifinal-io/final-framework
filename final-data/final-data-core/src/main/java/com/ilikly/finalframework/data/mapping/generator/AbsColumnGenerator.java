@@ -26,17 +26,17 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
     }
 
     protected String getColumn(String prefix, Property property) {
-        return Assert.isEmpty(prefix) ? property.getColumn() : property.isIdProperty() ? prefix :
+        String column = Assert.isEmpty(prefix) ? property.getColumn() : property.isIdProperty() ? prefix :
                 prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
+        return NameConverterRegistry.getInstance().getTableNameConverter().map(column);
     }
 
     @Override
     public String generateReadColumn(String table, String prefix, Property property) {
-        final String column = NameConverterRegistry.getInstance().getTableNameConverter().map(getColumn(prefix, property));
-
+        final String column = getColumn(prefix, property);
         if (property.hasAnnotation(FunctionColumn.class)) {
             FunctionColumn functionColumn = property.getRequiredAnnotation(FunctionColumn.class);
-            return String.format(functionColumn.reader(), formatColumn(column));
+            return String.format(functionColumn.reader(), formatColumn(column)) + " AS " + getColumn(prefix, property);
         } else {
             return formatColumn(column);
 
@@ -46,8 +46,7 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
 
     @Override
     public String generateWriteColumn(String table, String prefix, Property property) {
-        final String column = NameConverterRegistry.getInstance().getTableNameConverter().map(getColumn(prefix, property));
-        return formatColumn(column);
+        return formatColumn(getColumn(prefix, property));
     }
 
 }
