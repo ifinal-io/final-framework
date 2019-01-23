@@ -75,8 +75,11 @@ public class EntityProcessor extends AbstractProcessor {
                                     com.ilikly.finalframework.coding.element.Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
                                     MultiColumn multiColumn = (MultiColumn) property.getAnnotation(MultiColumn.class);
                                     Arrays.stream(multiColumn.properties())
+                                            .peek(name -> logger.info("----{}",name))
                                             .map(multiEntity::getProperty)
                                             .map(multiProperty -> {
+                                                logger.info("---------{}",multiProperty);
+                                                logger.info("property:{},multiProperty:{}",property.getName(),multiProperty.getName());
                                                 final String path = property.getName() + "." + multiProperty.getName();
                                                 final String name = multiProperty.isIdProperty() ?
                                                         property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);

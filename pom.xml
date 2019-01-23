@@ -62,16 +62,60 @@
     <dependencyManagement>
 
         <dependencies>
+            <!-- final-core -->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- final-data -->
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-data-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-data-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-data-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-data-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--final-mybatis-->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-mybatis-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-mybatis-agent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-mybatis-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-mybatis-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-util</artifactId>

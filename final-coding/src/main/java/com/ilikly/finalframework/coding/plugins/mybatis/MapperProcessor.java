@@ -61,7 +61,6 @@ public class MapperProcessor extends AbstractProcessor {
         } else {
             mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
         }
-
         return true;
     }
 

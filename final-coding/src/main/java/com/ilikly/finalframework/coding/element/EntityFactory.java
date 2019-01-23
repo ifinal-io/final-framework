@@ -1,9 +1,12 @@
 package com.ilikly.finalframework.coding.element;
 
+import com.ilikly.finalframework.data.annotation.Column;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
@@ -28,11 +31,21 @@ public interface EntityFactory {
             typeElement
                     .getEnclosedElements()
                     .stream()
-                    .filter(it -> it.getKind().isField() && !it
-                            .getModifiers()
-                            .contains(Modifier.STATIC) && !"serialVersionUID".equalsIgnoreCase(it
-                            .getSimpleName()
-                            .toString()))
+                    .filter(it -> (
+                                    it.getKind().isField() && !it
+                                            .getModifiers()
+                                            .contains(Modifier.STATIC) && !"serialVersionUID".equalsIgnoreCase(it
+                                            .getSimpleName()
+                                            .toString()
+                                    )
+                                            ||
+                                            (
+                                                    it.getKind() == ElementKind.METHOD && it.getAnnotation(Column.class) != null && !it.getModifiers().contains(Modifier.STATIC)
+                                            )
+
+                            )
+
+                    )
                     .map(it -> new BaseProperty(result, processEnv, it))
                     .peek(it -> {
                         logger.info("name={},rawType={},type={},,isCollection={},componentType={},isMap={},keyType={},valueType={}", it
@@ -41,10 +54,12 @@ public interface EntityFactory {
                     })
                     .forEach(result::addProperty);
             TypeMirror superclass = typeElement.getSuperclass();
-            if (superclass.getKind() == TypeKind.NONE) {
-                typeElement = null;
-            } else {
-                typeElement = (TypeElement) ((DeclaredType) superclass).asElement();
+            if (superclass != null) {
+                if (superclass.getKind() == TypeKind.NONE) {
+                    typeElement = null;
+                } else {
+                    typeElement = (TypeElement) ((DeclaredType) superclass).asElement();
+                }
             }
         }
 

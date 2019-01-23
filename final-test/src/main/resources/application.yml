@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false
@@ -33,11 +32,13 @@ logging:
   level:
     com.ilikly.finalframework.test: debug
 server:
-  port:
+  port: 8080
 final:
   data:
     name-converter:
       column-converter: com.ilikly.finalframework.data.mapping.converter.SimpleNameConverter
       table-converter: com.ilikly.finalframework.data.mapping.converter.SimpleNameConverter
+    column-generator:
+      default-column-generator: com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator
   json:
     json-service: com.ilikly.finalframework.json.jackson.JacksonJsonService

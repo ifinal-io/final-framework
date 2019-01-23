@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation;
  * @date 2018-10-26 20:05
  * @since 1.0
  */
-public interface Property<T extends Entity, P extends Property<T, P>> {
+public interface Property<T, P extends Property<T, P>> {
 
     Element getElement();
 

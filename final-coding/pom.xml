@@ -29,8 +29,11 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>final-data-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
         </dependency>
     </dependencies>
 

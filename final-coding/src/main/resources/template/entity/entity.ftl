@@ -1,9 +1,8 @@
 package ${package};
 
 import ${entity.package}.${entity.simpleName};
-import com.ilikly.finalframework.data.mapping.Entity;
-import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.QProperty;
+import com.ilikly.finalframework.data.query.QEntity;
 
 import javax.annotation.Generated;
 

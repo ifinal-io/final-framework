@@ -42,6 +42,7 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
 
     @Override
     public void addProperty(P property) {
+
         if (property.isIdProperty()) {
             if (idProperty != null) {
                 throw new IllegalArgumentException("the entity must only have only one id property!,entity=" + getType());

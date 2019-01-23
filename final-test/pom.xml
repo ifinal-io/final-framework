@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-mybatis</artifactId>
+            <artifactId>final-mybatis-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

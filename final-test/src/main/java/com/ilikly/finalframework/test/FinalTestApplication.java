@@ -1,7 +1,6 @@
 package com.ilikly.finalframework.test;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.0
  */
 @SpringBootApplication()
-@EnableAutoConfiguration
 public class FinalTestApplication {
     public static void main(String[] args) {
         SpringApplication.run(FinalTestApplication.class, args);

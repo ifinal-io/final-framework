@@ -26,8 +26,8 @@ public interface Coder {
         Assert.isNull(model, "the model must not ne null!");
         Assert.isNull(writer, "the writer must not be null!");
 
-
         Template template = model.getClass().getAnnotation(Template.class);
+
         if (template == null) {
             throw new NullPointerException("the model must one Template annotation , model=" + model
                     .getClass()

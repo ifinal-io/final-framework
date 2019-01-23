@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-data</artifactId>
+            <artifactId>final-data-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
