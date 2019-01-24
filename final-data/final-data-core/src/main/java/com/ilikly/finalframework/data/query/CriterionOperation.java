@@ -10,17 +10,6 @@ public interface CriterionOperation<T> {
 
     String name();
 
-    default String format(Criterion<T> criterion) {
-        if (criterion.value() != null) {
-            return format(criterion.property(), criterion.value());
-        } else {
-            return format(criterion.property(), criterion.min(), criterion.max());
-        }
-    }
-
-    String format(QProperty property, T value);
-
-    String format(QProperty property, T min, T max);
-
+    String format(Criterion<T> criterion);
 
 }

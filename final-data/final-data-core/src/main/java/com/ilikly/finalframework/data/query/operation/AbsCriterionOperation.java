@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query.operation;
 
+import com.ilikly.finalframework.data.query.Criterion;
 import com.ilikly.finalframework.data.query.CriterionOperation;
 import com.ilikly.finalframework.data.query.QProperty;
 
@@ -27,11 +28,18 @@ public abstract class AbsCriterionOperation<T> implements CriterionOperation<T> 
 
 
     @Override
+    public String format(Criterion<T> criterion) {
+        if (criterion.value() != null) {
+            return format(criterion.property(), criterion.value());
+        } else {
+            return format(criterion.property(), criterion.min(), criterion.max());
+        }
+    }
+
     public String format(QProperty property, T value) {
         throw new IllegalArgumentException(String.format("property of %s is not support %s operation", getPropertyColumn(property), name()));
     }
 
-    @Override
     public String format(QProperty property, T min, T max) {
         throw new IllegalArgumentException(String.format("property of %s is not support %s operation", getPropertyColumn(property), name()));
     }
