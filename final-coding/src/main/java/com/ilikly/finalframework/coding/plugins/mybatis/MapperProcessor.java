@@ -25,8 +25,8 @@ import java.util.Set;
  * @author likly
  * @version 1.0
  * @date 2018-10-19 15:14
- * @since 1.0
  * @see MapperXml
+ * @since 1.0
  */
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
@@ -68,23 +68,26 @@ public class MapperProcessor extends AbstractProcessor {
         elements.stream()
                 .map(it -> ((TypeElement) it).getQualifiedName().toString())
                 .filter(it -> {
+                    final String resourceFile = it.replace(".", "/") + ".xml";
                     try {
-                        final String resourceFile = it.replace(".", "/") + ".xml";
                         // would like to be able to print the full path
                         // before we attempt to get the resource in case the behavior
                         // of filer.getResource does change to match the spec, but there's
                         // no good way to resolve CLASS_OUTPUT without first getting a resource.
-                        FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
-                                resourceFile);
+                        FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
+
+                        logger.info("========Resource file is already exist. {}", resourceFile);
                         info("Looking for existing resource file at " + existingFile.toUri());
-                        return true;
+                        return false;
                     } catch (IOException e) {
+//                        logger.error("Resource file found exception.{}",resourceFile,e);
                         // According to the javadoc, Filer.getResource throws an exception
                         // if the file doesn't already exist.  In practice this doesn't
                         // appear to be the case.  Filer.getResource will happily return a
                         // FileObject that refers to a non-existent file but will throw
                         // IOException if you try to open an input stream for it.
                         info("Resource file did not already exist.");
+                        logger.info("========Resource file did not already exist. {}", resourceFile);
                         return true;
                     }
                 })
