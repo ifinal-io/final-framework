@@ -259,7 +259,7 @@ public class XMLMapperBuilderAgent {
         sql.setAttribute("id", SQL_INSERT_COLUMNS);
         // (column1,column2,multiColumn1,multiColumn2)
         final List<String> columns = new ArrayList<>();
-        entity.stream().filter(Property::insertable)
+        entity.stream().filter(it -> !it.isTransient() && it.insertable())
                 .forEach(property -> {
                     if (property.hasAnnotation(MultiColumn.class)) {
                         final Class multiType = Utils.getPropertyJavaType(property);
@@ -314,7 +314,7 @@ public class XMLMapperBuilderAgent {
         foreach.setAttribute("separator", ",");
         foreach.appendChild(textNode("("));
         AtomicBoolean first = new AtomicBoolean(true);
-        entity.stream().filter(Property::insertable)
+        entity.stream().filter(it -> !it.isTransient() && it.insertable())
                 .forEach(property -> {
                     if (property.hasAnnotation(MultiColumn.class)) {
 
@@ -423,7 +423,7 @@ public class XMLMapperBuilderAgent {
         //        <when test="entity != null">
         final Element whenEntityNotNull = document.createElement("when");
         whenEntityNotNull.setAttribute("test", "entity != null");
-        entity.stream().filter(Property::updatable)
+        entity.stream().filter(it -> !it.isTransient() && it.updatable())
                 .forEach(property -> {
                     if (property.hasAnnotation(MultiColumn.class)) {
                         /**

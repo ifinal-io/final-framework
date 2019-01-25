@@ -70,8 +70,7 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
             BeanInfo beanInfo = Introspector.getBeanInfo(entityClass);
 
 
-            Arrays
-                    .stream(beanInfo.getPropertyDescriptors())
+            Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(it -> !it.getName().equals("class"))
                     .map(it -> buildProperty(entityClass,it))
                     .forEach(it -> {
