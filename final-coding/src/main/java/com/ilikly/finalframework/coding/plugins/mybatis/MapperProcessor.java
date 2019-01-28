@@ -4,17 +4,27 @@ import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.coder.Coder;
 import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.parsing.XNode;
+import org.apache.ibatis.parsing.XPathParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -32,9 +42,12 @@ import java.util.Set;
 @SuppressWarnings("unused")
 public class MapperProcessor extends AbstractProcessor {
     private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
+    private static final String ABSMAPPER = "com.ilikly.finalframework.mybatis.mapper.AbsMapper";
     private final Coder coder = new FreeMakerCoder();
     private final Set<Element> mapperElements = new HashSet<>();
     private Filer filer;
+    private Elements elementsUtils;
+    private Types types;
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
@@ -52,6 +65,8 @@ public class MapperProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         filer = processingEnv.getFiler();
+        elementsUtils = processingEnv.getElementUtils();
+        types = processingEnv.getTypeUtils();
     }
 
     @Override
@@ -66,6 +81,31 @@ public class MapperProcessor extends AbstractProcessor {
 
     private void generateEntityFiles(Set<? extends Element> elements) {
         elements.stream()
+//                .peek(it -> {
+//                    logger.info("mapper:{}",((Element) it).toString());
+//                    List<? extends TypeMirror> interfaces = ((TypeElement) it).getInterfaces();
+//                    DeclaredType absMapper = (DeclaredType) interfaces.get(0);
+//                    TypeMirror typeMirror = absMapper.getTypeArguments().get(1);
+//
+//                    try {
+//                        Class<?> clazz = Class.forName(typeMirror.toString());
+//                        logger.info("find mapper entity class:{}",clazz);
+//                    } catch (ClassNotFoundException e) {
+//                        logger.error("",e);
+//                    }
+//
+//                    logger.info("entity:{}", typeMirror.toString());
+//                    TypeElement typeElement = (TypeElement) ((DeclaredType) interfaces.get(0)).asElement();
+//                    TypeParameterElement parameterElement = typeElement.getTypeParameters().get(1);
+//                    logger.info("typeElement:{}",parameterElement.toString());
+//                })
+//                .filter(mapper-> types.isAssignable(types.erasure(mapper.asType()),
+//                        elementsUtils.getTypeElement(ABSMAPPER).asType()))
+                .filter(mapper -> {
+                    boolean assignable = types.isAssignable(types.erasure(mapper.asType()), elementsUtils.getTypeElement(ABSMAPPER).asType());
+                    logger.info("-----------------------result:{}", assignable);
+                    return true;
+                })
                 .map(it -> ((TypeElement) it).getQualifiedName().toString())
                 .filter(it -> {
                     final String resourceFile = it.replace(".", "/") + ".xml";
@@ -93,14 +133,56 @@ public class MapperProcessor extends AbstractProcessor {
                 })
                 .forEach(it -> {
                     try {
+//                        buildMapper(new XPathParser(getMapperTemplate(it)));
                         final String resourceFile = it.replace(".", "/") + ".xml";
                         FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
                         coder.coding(new MapperXml(it), fileObject.openWriter());
                         info("Create mapper.xml of mapper:" + it);
                     } catch (Exception e) {
+                        logger.error("Create mapper.xml error of mapper:{}", it, e);
                         error("Create mapper.xml error of mapper:" + it + "," + e.getMessage());
                     }
                 });
+    }
+
+    private String getMapperTemplate(String mapper) {
+        return String.format("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n" +
+                "<mapper namespace=\"%s\">\n" +
+                "</mapper>", mapper);
+    }
+
+    private void buildMapper(XPathParser xPathParser) throws IOException {
+//        XPathParser xPathParser = new XPathParser(mapperObject.openInputStream());
+        XNode mapperNode = xPathParser.evalNode("/mapper");
+        Document document = mapperNode.getNode().getOwnerDocument();
+
+        String result = null;
+
+        StringWriter strWtr = new StringWriter();
+        StreamResult strResult = new StreamResult(strWtr);
+        TransformerFactory tfac = TransformerFactory.newInstance();
+        try {
+            javax.xml.transform.Transformer t = tfac.newTransformer();
+            t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            t.setOutputProperty(OutputKeys.INDENT, "yes");
+            t.setOutputProperty(OutputKeys.METHOD, "xml"); // xml, html,
+            // text
+            t.setOutputProperty(
+                    "{http://xml.apache.org/xslt}indent-amount", "4");
+            document.setXmlStandalone(true);
+            t.transform(new DOMSource(document.getDocumentElement()),
+                    strResult);
+        } catch (Exception e) {
+            System.err.println("XML.toString(Document): " + e);
+        }
+        result = strResult.getWriter().toString();
+        try {
+            strWtr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logger.info(result);
     }
 
 
