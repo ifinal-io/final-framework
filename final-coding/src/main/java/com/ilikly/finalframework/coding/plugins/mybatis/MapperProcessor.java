@@ -6,8 +6,6 @@ import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import javax.annotation.processing.*;
@@ -41,7 +39,7 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class MapperProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
+    //    private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
     private static final String ABSMAPPER = "com.ilikly.finalframework.mybatis.mapper.AbsMapper";
     private final Coder coder = new FreeMakerCoder();
     private final Set<Element> mapperElements = new HashSet<>();
@@ -103,7 +101,7 @@ public class MapperProcessor extends AbstractProcessor {
 //                        elementsUtils.getTypeElement(ABSMAPPER).asType()))
                 .filter(mapper -> {
                     boolean assignable = types.isAssignable(types.erasure(mapper.asType()), elementsUtils.getTypeElement(ABSMAPPER).asType());
-                    logger.info("-----------------------result:{}", assignable);
+//                    logger.info("-----------------------result:{}", assignable);
                     return true;
                 })
                 .map(it -> ((TypeElement) it).getQualifiedName().toString())
@@ -116,7 +114,7 @@ public class MapperProcessor extends AbstractProcessor {
                         // no good way to resolve CLASS_OUTPUT without first getting a resource.
                         FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
 
-                        logger.info("========Resource file is already exist. {}", resourceFile);
+//                        logger.info("========Resource file is already exist. {}", resourceFile);
                         info("Looking for existing resource file at " + existingFile.toUri());
                         return false;
                     } catch (IOException e) {
@@ -127,7 +125,7 @@ public class MapperProcessor extends AbstractProcessor {
                         // FileObject that refers to a non-existent file but will throw
                         // IOException if you try to open an input stream for it.
                         info("Resource file did not already exist.");
-                        logger.info("========Resource file did not already exist. {}", resourceFile);
+//                        logger.info("========Resource file did not already exist. {}", resourceFile);
                         return true;
                     }
                 })
@@ -139,7 +137,7 @@ public class MapperProcessor extends AbstractProcessor {
                         coder.coding(new MapperXml(it), fileObject.openWriter());
                         info("Create mapper.xml of mapper:" + it);
                     } catch (Exception e) {
-                        logger.error("Create mapper.xml error of mapper:{}", it, e);
+//                        logger.error("Create mapper.xml error of mapper:{}", it, e);
                         error("Create mapper.xml error of mapper:" + it + "," + e.getMessage());
                     }
                 });
@@ -182,7 +180,7 @@ public class MapperProcessor extends AbstractProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info(result);
+//        logger.info(result);
     }
 
 

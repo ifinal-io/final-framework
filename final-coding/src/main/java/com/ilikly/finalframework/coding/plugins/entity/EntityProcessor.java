@@ -8,8 +8,6 @@ import com.ilikly.finalframework.coding.element.Property;
 import com.ilikly.finalframework.data.annotation.Entity;
 import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.NonColumn;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -27,7 +25,6 @@ import java.util.Set;
  */
 @AutoService(Processor.class)
 public class EntityProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(EntityProcessor.class);
     private final Coder coder = new FreeMakerCoder();
     private Filer filer;
 
@@ -59,7 +56,6 @@ public class EntityProcessor extends AbstractProcessor {
         elements
                 .stream()
                 .map(it -> EntityFactory.create(processingEnv, (TypeElement) it))
-//                .collect(Collectors.toList())
                 .forEach(it -> {
                     final String packageName = it.getPackage();
                     final String entityName = it.getSimpleName();
@@ -71,15 +67,11 @@ public class EntityProcessor extends AbstractProcessor {
                             .forEach(property -> {
                                 if (property.hasAnnotation(MultiColumn.class)) {
                                     TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());
-//                                    logger.info("=====================================", multiElement.getQualifiedName().toString());
                                     com.ilikly.finalframework.coding.element.Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
                                     MultiColumn multiColumn = (MultiColumn) property.getAnnotation(MultiColumn.class);
                                     Arrays.stream(multiColumn.properties())
-                                            .peek(name -> logger.info("----{}",name))
                                             .map(multiEntity::getProperty)
                                             .map(multiProperty -> {
-//                                                logger.info("---------{}",multiProperty);
-//                                                logger.info("property:{},multiProperty:{}",property.getName(),multiProperty.getName());
                                                 final String path = property.getName() + "." + multiProperty.getName();
                                                 final String name = multiProperty.isIdProperty() ?
                                                         property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);

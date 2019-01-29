@@ -1,8 +1,6 @@
 package com.ilikly.finalframework.coding.coder;
 
 import freemarker.template.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -14,7 +12,7 @@ import java.io.Writer;
  * @since 1.0
  */
 public class FreeMakerCoder implements Coder {
-    private static final Logger logger = LoggerFactory.getLogger(FreeMakerCoder.class);
+    //    private static final Logger logger = LoggerFactory.getLogger(FreeMakerCoder.class);
     private final Configuration configuration;
 
     public FreeMakerCoder() {
@@ -28,7 +26,7 @@ public class FreeMakerCoder implements Coder {
         try {
             return configuration.getTemplate(name);
         } catch (IOException e) {
-            logger.error("Find the template error by name: {}", name, e);
+//            logger.error("Find the template error by name: {}", name, e);
             throw new RuntimeException("Find the template error by name:" + name);
         }
     }
@@ -40,7 +38,7 @@ public class FreeMakerCoder implements Coder {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            logger.error("Coding template error:template={}", template);
+//            logger.error("Coding template error:template={}", template);
             throw new RuntimeException("\"Coding template error:template=" + template);
         }
     }

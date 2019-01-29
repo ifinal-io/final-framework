@@ -5,8 +5,6 @@ import com.ilikly.finalframework.coding.coder.Coder;
 import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
 import com.ilikly.finalframework.coding.plugins.datasource.DataSource;
 import com.ilikly.finalframework.core.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class DataSourceProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(DataSourceProcessor.class);
     private final Coder coder = new FreeMakerCoder();
     private Filer filer;
     private Elements elements;
@@ -34,7 +31,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(DataSource.class.getName());
+        types.add("com.ilikly.finalframework.coding.plugins.datasource.DataSource");
         return types;
     }
 

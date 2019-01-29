@@ -6,8 +6,6 @@ import com.ilikly.finalframework.coding.coder.FreeMakerCoder;
 import com.ilikly.finalframework.coding.plugins.mybatis.MapperXml;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -31,7 +29,7 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class SpringFactoryProcessor extends AbstractProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(SpringFactoryProcessor.class);
+    //    private static final Logger logger = LoggerFactory.getLogger(SpringFactoryProcessor.class);
     private final Coder coder = new FreeMakerCoder();
     private final Set<Element> processorElements = new HashSet<>();
     private Filer filer;
@@ -100,13 +98,13 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 });
 
         SpringFactories springFactories = builder.build();
-        logger.info("Create spring.factories: {}", springFactories);
+//        logger.info("Create spring.factories: {}", springFactories);
         try {
             FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
             coder.coding(springFactories, fileObject.openWriter());
             info("Create spring.factories :" + springFactories);
         } catch (Exception e) {
-            logger.error("Create spring.factories error :", e);
+//            logger.error("Create spring.factories error :", e);
             error("Create spring.factories error :" + springFactories + ",\n" + e.getMessage());
         }
 
