@@ -444,7 +444,7 @@ public class XMLMapperBuilderAgent {
                                     final Element ifPropertyNotNull = document.createElement("if");
                                     final String ifTest = String.format("entity.%s != null and entity.%s.%s != null", property.getName(), property.getName(), multiProperty.getName());
                                     ifPropertyNotNull.setAttribute("test", ifTest);
-                                    ifPropertyNotNull.appendChild(textNode(String.format("%s = %s",column,value)));
+                                    ifPropertyNotNull.appendChild(textNode(String.format("%s = %s,", column, value)));
                                     return ifPropertyNotNull;
                                 }).forEach(whenEntityNotNull::appendChild);
                     } else {
@@ -461,7 +461,7 @@ public class XMLMapperBuilderAgent {
                         final Element ifPropertyNotNull = document.createElement("if");
                         final String ifTest = String.format("entity.%s != null", property.getName());
                         ifPropertyNotNull.setAttribute("test", ifTest);
-                        ifPropertyNotNull.appendChild(textNode(String.format("%s = %s",column,value)));
+                        ifPropertyNotNull.appendChild(textNode(String.format("%s = %s,", column, value)));
                         whenEntityNotNull.appendChild(ifPropertyNotNull);
                     }
 
