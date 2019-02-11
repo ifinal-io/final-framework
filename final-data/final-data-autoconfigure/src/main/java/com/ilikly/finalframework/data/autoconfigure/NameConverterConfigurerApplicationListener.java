@@ -1,8 +1,8 @@
 package com.ilikly.finalframework.data.autoconfigure;
 
-import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.data.mapping.converter.NameConverter;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
+import com.ilikly.finalframework.spring.coding.ApplicationEventListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;

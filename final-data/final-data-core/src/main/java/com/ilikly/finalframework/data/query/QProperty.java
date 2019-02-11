@@ -168,6 +168,26 @@ public interface QProperty<T> extends Criteriable<Criteria>, Sortable<Sort> {
     }
 
     @Override
+    default Criteria isNull() {
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NULL.name())
+                        .build()
+        );
+    }
+
+    @Override
+    default Criteria nonNull() {
+        return Criteria.where(
+                Criterion.builder()
+                        .property(this)
+                        .operation(CriterionOperations.NOT_NULL.name())
+                        .build()
+        );
+    }
+
+    @Override
     default Criteria startWith(@NotEmpty String value) {
         return Criteria.where(
                 Criterion.builder()

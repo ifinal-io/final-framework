@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-coding</artifactId>
+            <artifactId>final-spring-coding</artifactId>
         </dependency>
     </dependencies>
 

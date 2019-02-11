@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public class QuerySqlBuilder implements SqlProvider<Query> {
 
-    private final CriterionOperationRegistry criterionOperationRegistry = new CriterionOperationRegistry();
+    private final CriterionOperationRegistry criterionOperationRegistry = CriterionOperationRegistry.getInstance();
     private final Query query;
 
     public QuerySqlBuilder(Query query) {

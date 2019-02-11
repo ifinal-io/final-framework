@@ -1,8 +1,8 @@
 package com.ilikly.finalframework.mybatis.autoconfigure;
 
-import com.ilikly.finalframework.coding.plugins.spring.annotation.AutoConfiguration;
 import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.mybatis.inteceptor.QueryPageInterceptor;
+import com.ilikly.finalframework.spring.coding.AutoConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -7,4 +7,5 @@ package com.ilikly.finalframework.coding.bean;
  * @since 1.0
  */
 public interface PropertyDescriptor {
+
 }

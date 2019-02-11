@@ -38,6 +38,10 @@ public interface Criteriable<T> {
 
     T nin(@NotEmpty Collection<Object> values);
 
+    T isNull();
+
+    T nonNull();
+
     //    like operation
 
     T startWith(@NotEmpty String value);

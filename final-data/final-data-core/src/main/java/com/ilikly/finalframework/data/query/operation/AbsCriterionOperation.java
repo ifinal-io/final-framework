@@ -29,10 +29,10 @@ public abstract class AbsCriterionOperation<T> implements CriterionOperation<T> 
 
     @Override
     public String format(Criterion<T> criterion) {
-        if (criterion.value() != null) {
-            return format(criterion.property(), criterion.value());
-        } else {
+        if(criterion.min() != null || criterion.max() != null){
             return format(criterion.property(), criterion.min(), criterion.max());
+        } else {
+            return format(criterion.property(), criterion.value());
         }
     }
 

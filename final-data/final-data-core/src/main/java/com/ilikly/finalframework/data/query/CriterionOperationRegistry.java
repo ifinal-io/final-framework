@@ -25,6 +25,15 @@ public class CriterionOperationRegistry {
             float.class, Float.class, double.class, Double.class,
             String.class
     );
+
+    private static final CriterionOperationRegistry INSTANCE = new CriterionOperationRegistry();
+
+    public static CriterionOperationRegistry getInstance(){
+        return INSTANCE;
+    }
+
+    private CriterionOperationRegistry(){}
+
     private final Map<String, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
 
     {

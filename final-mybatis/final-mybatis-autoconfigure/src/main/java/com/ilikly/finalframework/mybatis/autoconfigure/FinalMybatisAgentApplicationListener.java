@@ -1,11 +1,11 @@
 package com.ilikly.finalframework.mybatis.autoconfigure;
 
-import com.ilikly.finalframework.coding.plugins.spring.annotation.ApplicationEventListener;
 import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
 import com.ilikly.finalframework.mybatis.agent.MybatisAgent;
 import com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator;
 import com.ilikly.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
+import com.ilikly.finalframework.spring.coding.ApplicationEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartingEvent;

@@ -10,32 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>final-redis</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-    </dependencies>
-
+    <packaging>pom</packaging>
+    <modules>
+        <module>final-redis-core</module>
+        <module>final-redis-spring-boot-starter</module>
+        <module>final-redis-autoconfigure</module>
+    </modules>
 
 </project>

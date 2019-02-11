@@ -16,5 +16,6 @@
         <module>final-data-core</module>
         <module>final-data-autoconfigure</module>
         <module>final-data-spring-boot-starter</module>
+        <module>final-data-coding</module>
     </modules>
 </project>
