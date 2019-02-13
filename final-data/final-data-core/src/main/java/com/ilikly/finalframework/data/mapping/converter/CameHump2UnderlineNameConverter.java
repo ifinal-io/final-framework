@@ -8,7 +8,7 @@ package com.ilikly.finalframework.data.mapping.converter;
  */
 public class CameHump2UnderlineNameConverter implements NameConverter {
     @Override
-    public String map(String name) {
+    public String convert(String name) {
         StringBuilder sb = new StringBuilder(name);
         int temp = 0;//定位
         for (int i = 1; i < name.length(); i++) {

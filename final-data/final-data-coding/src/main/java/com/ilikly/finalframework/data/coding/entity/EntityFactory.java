@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.element;
+package com.ilikly.finalframework.data.coding.entity;
 
 import com.ilikly.finalframework.data.annotation.Column;
 import org.slf4j.Logger;

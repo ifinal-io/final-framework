@@ -33,6 +33,7 @@
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-data-annotation</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

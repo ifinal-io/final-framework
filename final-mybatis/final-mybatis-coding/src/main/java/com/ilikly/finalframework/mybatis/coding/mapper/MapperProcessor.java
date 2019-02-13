@@ -2,8 +2,14 @@ package com.ilikly.finalframework.mybatis.coding.mapper;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.Coder;
-import com.ilikly.finalframework.coding.FreeMakerCoder;
+import com.ilikly.finalframework.data.mapping.Dialect;
+import com.ilikly.finalframework.data.mapping.Entity;
+import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
+import com.ilikly.finalframework.mybatis.builder.DefaultXMLMapperBuilder;
+import com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator;
+import com.ilikly.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
 import com.ilikly.finalframework.mybatis.mapper.AbsMapper;
+import com.ilikly.finalframework.test.entity.Person;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
@@ -24,6 +30,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -66,46 +73,49 @@ public class MapperProcessor extends AbstractProcessor {
         filer = processingEnv.getFiler();
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
+        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(BaseColumnGenerator.INSTANCE);
+        ColumnGeneratorRegistry.getInstance().registerColumnModule(Dialect.DEFAULT, new DefaultColumnGeneratorModule());
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) {
-            generateEntityFiles(mapperElements);
+            generateMapperFiles(mapperElements);
         } else {
             mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
         }
         return true;
     }
 
-    private void generateEntityFiles(Set<? extends Element> elements) {
+    private void generateMapperFiles(Set<? extends Element> elements) {
         elements.stream()
-//                .peek(it -> {
-//                    logger.info("mapper:{}",((Element) it).toString());
-//                    List<? extends TypeMirror> interfaces = ((TypeElement) it).getInterfaces();
-//                    DeclaredType absMapper = (DeclaredType) interfaces.get(0);
-//                    TypeMirror typeMirror = absMapper.getTypeArguments().get(1);
-//
-//                    try {
-//                        Class<?> clazz = Class.forName(typeMirror.toString());
-//                        logger.info("find mapper entity class:{}",clazz);
-//                    } catch (ClassNotFoundException e) {
-//                        logger.error("",e);
-//                    }
-//
-//                    logger.info("entity:{}", typeMirror.toString());
-//                    TypeElement typeElement = (TypeElement) ((DeclaredType) interfaces.get(0)).asElement();
-//                    TypeParameterElement parameterElement = typeElement.getTypeParameters().get(1);
-//                    logger.info("typeElement:{}",parameterElement.toString());
-//                })
-//                .filter(mapper-> types.isAssignable(types.erasure(mapper.asType()),
-//                        elementsUtils.getTypeElement(ABS_MAPPER).asType()))
-                .filter(mapper -> {
-                    boolean assignable = types.isAssignable(types.erasure(mapper.asType()), elementsUtils.getTypeElement(ABS_MAPPER).asType());
-//                    logger.info("-----------------------result:{}", assignable);
-                    return true;
-                })
                 .map(it -> ((TypeElement) it).getQualifiedName().toString())
+//                .forEach(it -> {
+//                    final String resourceFile = it.replace(".", "/") + ".xml";
+//                    try {
+//                        // would like to be able to print the full path
+//                        // before we attempt to get the resource in case the behavior
+//                        // of filer.getResource does change to match the spec, but there's
+//                        // no good way to resolve CLASS_OUTPUT without first getting a resource.
+//                        FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
+//
+////                        logger.info("========Resource file is already exist. {}", resourceFile);
+//                        info("Looking for existing resource file at " + existingFile.toUri());
+//                        generateMapper(new XPathParser(existingFile.openInputStream()));
+//                    } catch (IOException e) {
+////                        logger.error("Resource file found exception.{}",resourceFile,e);
+//                        // According to the javadoc, Filer.getResource throws an exception
+//                        // if the file doesn't already exist.  In practice this doesn't
+//                        // appear to be the case.  Filer.getResource will happily return a
+//                        // FileObject that refers to a non-existent file but will throw
+//                        // IOException if you try to open an input stream for it.
+//                        info("Resource file did not already exist.");
+////                        logger.info("========Resource file did not already exist. {}", resourceFile);
+//
+//                        generateMapper(new XPathParser(getMapperTemplate(it)));
+//                    }
+//                });
+//
                 .filter(it -> {
                     final String resourceFile = it.replace(".", "/") + ".xml";
                     try {
@@ -145,17 +155,42 @@ public class MapperProcessor extends AbstractProcessor {
     }
 
     private String getMapperTemplate(String mapper) {
-        return String.format("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-                "<!DOCTYPE mapper PUBLIC \"-//mapper.org//DTD Mapper 3.0//EN\" \"http://mapper.org/dtd/mapper-3-mapper.dtd\" >\n" +
+        System.out.println("========================================================");
+        String format = String.format("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n" +
                 "<mapper namespace=\"%s\">\n" +
                 "</mapper>", mapper);
+        System.out.println(format);
+        return format;
     }
 
-    private void buildMapper(XPathParser xPathParser) throws IOException {
-//        XPathParser xPathParser = new XPathParser(mapperObject.openInputStream());
+    private void generateMapper(XPathParser xPathParser) {
         XNode mapperNode = xPathParser.evalNode("/mapper");
-        Document document = mapperNode.getNode().getOwnerDocument();
+        String mapper = mapperNode.getStringAttribute("namespace");
+        String mapperContent = buildMapper(xPathParser);
+        int mapperIndex = mapperContent.indexOf("<mapper");
+        mapperContent = mapperContent.substring(mapperIndex);
+        System.out.println(":::::::" + mapperContent);
+        final String resourceFile = mapper.replace(".", "/") + ".xml";
+        try {
+            FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
+            Writer writer = fileObject.openWriter();
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+            writer.write("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n");
+            writer.write(mapperContent);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            error("Create mapper.xml error of mapper:" + mapper + "," + e.getMessage());
+        }
+    }
 
+    private String buildMapper(XPathParser xPathParser) {
+        XNode mapperNode = xPathParser.evalNode("/mapper");
+        Entity<Person> entity = Entity.from(Person.class);
+        new DefaultXMLMapperBuilder(Dialect.DEFAULT, mapperNode, entity);
+//        return mapperNode.toString();
+        Document document = mapperNode.getNode().getOwnerDocument();
         String result = null;
 
         StringWriter strWtr = new StringWriter();
@@ -169,7 +204,7 @@ public class MapperProcessor extends AbstractProcessor {
             // text
             t.setOutputProperty(
                     "{http://xml.apache.org/xslt}indent-amount", "4");
-            document.setXmlStandalone(true);
+            document.setXmlStandalone(false);
             t.transform(new DOMSource(document.getDocumentElement()),
                     strResult);
         } catch (Exception e) {
@@ -182,6 +217,7 @@ public class MapperProcessor extends AbstractProcessor {
             e.printStackTrace();
         }
 //        logger.info(result);
+        return result;
     }
 
 

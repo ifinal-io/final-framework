@@ -3,6 +3,7 @@ package com.ilikly.finalframework.mybatis.handler;
 import lombok.NonNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public abstract class JavaType {
     private static final Set<Class<?>> intSets = new HashSet<>(Arrays.asList(int.class, Integer.class));
     private static final Set<Class<?>> longSets = new HashSet<>(Arrays.asList(long.class, Long.class));
     private static final Set<Class<?>> booleanSets = new HashSet<>(Arrays.asList(boolean.class, Boolean.class));
-    private static final Set<Class<?>> stringSets = new HashSet<>(Arrays.asList(String.class));
+    private static final Set<Class<?>> stringSets = new HashSet<>(Collections.singletonList(String.class));
     private static final Set<Class<?>> primarySets = new HashSet<>();
 
     static {

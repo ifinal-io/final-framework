@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.query.enums.AndOr;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2018-10-25 11:34
  * @since 1.0
  */
-public interface Criteria extends Streable<Criteria>, Iterable<Criteria> {
+public interface Criteria extends Streamable<Criteria>, Iterable<Criteria> {
 
     static Criteria where(Criterion... criterion) {
         return where(Arrays.asList(criterion));

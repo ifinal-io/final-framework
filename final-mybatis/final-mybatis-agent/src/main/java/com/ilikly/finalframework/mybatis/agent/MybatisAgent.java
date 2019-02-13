@@ -34,7 +34,7 @@ public final class MybatisAgent {
             pool.appendSystemPath();
 
             // 定义类
-            CtClass XMLMapperBuilder = pool.get("org.apache.ibatis.builder.xml.XMLMapperBuilder");
+            CtClass XMLMapperBuilder = pool.get("org.apache.ibatis.builder.xml.DefaultXMLMapperBuilder");
             // 需要修改的方法
             CtMethod method = XMLMapperBuilder.getDeclaredMethod("parse");
             // 修改原有的方法
@@ -53,7 +53,7 @@ public final class MybatisAgent {
              */
             body.append("{\n");
             body.append("if (!configuration.isResourceLoaded(resource)) {")
-                    .append("com.ilikly.finalframework.mapper.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode(\"/mapper\"));")
+                    .append("com.ilikly.finalframework.mybatis.agent.XMLMapperBuilderAgent.configurationDefaultElement(parser.evalNode(\"/mapper\"));")
                     .append("}");
             // 调用原有代码，类似于method();($$)表示所有的参数
             body.append("parse$agent($$);\n");

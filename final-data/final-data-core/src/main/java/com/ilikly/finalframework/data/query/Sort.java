@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.query.enums.Direction;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.Collection;
  * @date 2018-10-25 11:20
  * @since 1.0
  */
-public interface Sort extends Streable<Order>, Iterable<Order> {
+public interface Sort extends Streamable<Order>, Iterable<Order> {
 
     static Sort sort(Direction direction, QProperty... properties) {
         return SortImpl.sort(direction, properties);

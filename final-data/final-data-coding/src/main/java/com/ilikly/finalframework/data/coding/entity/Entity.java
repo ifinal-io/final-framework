@@ -1,6 +1,6 @@
-package com.ilikly.finalframework.coding.element;
+package com.ilikly.finalframework.data.coding.entity;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2018-10-29 09:55
  * @since 1.0
  */
-public interface Entity<P extends Property> extends Streable<P>, Iterable<P> {
+public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
 
     /**
      * return the package of entity

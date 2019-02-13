@@ -2,9 +2,6 @@ package com.ilikly.finalframework.data.coding.entity;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.Coder;
-import com.ilikly.finalframework.coding.element.Entity;
-import com.ilikly.finalframework.coding.element.EntityFactory;
-import com.ilikly.finalframework.coding.element.Property;
 import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.NonColumn;
 

@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import lombok.NonNull;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("unused")
-public interface Update extends Streable<UpdateSet>, Iterable<UpdateSet> {
+public interface Update extends Streamable<UpdateSet>, Iterable<UpdateSet> {
 
     static Update update() {
         return UpdateImpl.update();

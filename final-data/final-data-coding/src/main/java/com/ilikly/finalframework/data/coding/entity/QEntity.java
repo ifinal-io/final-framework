@@ -1,8 +1,6 @@
 package com.ilikly.finalframework.data.coding.entity;
 
 import com.ilikly.finalframework.coding.annotation.Template;
-import com.ilikly.finalframework.coding.element.Entity;
-import com.ilikly.finalframework.coding.element.Property;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -31,7 +31,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add("com.ilikly.finalframework.coding.plugins.datasource.DataSource");
+        types.add(DataSource.class.getName());
         return types;
     }
 

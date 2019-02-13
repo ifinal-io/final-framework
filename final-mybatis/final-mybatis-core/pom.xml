@@ -68,6 +68,10 @@
             <version>9.4-1205-jdbc4</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-data-coding</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

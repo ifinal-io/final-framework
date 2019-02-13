@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.coding.element;
+package com.ilikly.finalframework.data.coding.entity;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;

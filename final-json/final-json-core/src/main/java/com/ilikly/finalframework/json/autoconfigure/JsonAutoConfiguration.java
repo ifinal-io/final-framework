@@ -36,8 +36,6 @@ public class JsonAutoConfiguration {
     public void initObjectMapper() {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-//        objectMapper.registerModule(new SimpleModule());
-//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @PostConstruct

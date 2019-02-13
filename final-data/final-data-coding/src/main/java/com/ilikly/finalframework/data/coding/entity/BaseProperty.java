@@ -1,6 +1,5 @@
-package com.ilikly.finalframework.coding.element;
+package com.ilikly.finalframework.data.coding.entity;
 
-import com.ilikly.finalframework.data.annotation.Column;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -14,7 +13,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * @author likly

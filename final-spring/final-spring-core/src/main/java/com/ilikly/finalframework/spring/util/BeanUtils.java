@@ -18,7 +18,7 @@ public interface BeanUtils {
      *
      * @param applicationContext spring application context
      * @param annotationType     the specified annotation
-     * @param <T>                the target bean type
+     * @param <T>                the target beans type
      */
     @SuppressWarnings("unchecked")
     static <T> List<T> findBeansByAnnotation(ApplicationContext applicationContext, Class<? extends Annotation> annotationType) {

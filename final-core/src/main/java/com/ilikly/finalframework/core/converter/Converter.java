@@ -11,5 +11,5 @@ public interface Converter<SOURCE, TARGET> {
     /**
      * converter the {@link SOURCE} to the {@link TARGET}
      */
-    TARGET map(SOURCE source);
+    TARGET convert(SOURCE source);
 }

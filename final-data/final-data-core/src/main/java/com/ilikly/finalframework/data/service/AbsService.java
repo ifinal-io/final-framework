@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * @date 2019-01-24 11:14:03
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> {
 
     /*=========================================== INSERT ===========================================*/
@@ -46,14 +47,22 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return getRepository().insert(tableName, entities, query);
     }
 
-    /*=========================================== SET ===========================================*/
+    /*=========================================== UPDATE ===========================================*/
 
     default int update(T entity) {
         return update(null, entity);
     }
 
+    default int update(T entity, boolean selective) {
+        return update(null, entity, selective);
+    }
+
     default int update(String tableName, T entity) {
         return update(tableName, entity, null, Collections.singletonList(entity.getId()), null);
+    }
+
+    default int update(String tableName, T entity, boolean selective) {
+        return update(tableName, entity, null, selective, Collections.singletonList(entity.getId()), null);
     }
 
     default int update(T... entities) {
@@ -70,9 +79,21 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
                 .sum();
     }
 
+    default int update(Collection<T> entities, boolean selective) {
+        return entities.stream()
+                .mapToInt(it -> update(it, selective))
+                .sum();
+    }
+
     default int update(String tableName, Collection<T> entities) {
         return entities.stream()
                 .mapToInt(it -> update(tableName, it))
+                .sum();
+    }
+
+    default int update(String tableName, Collection<T> entities, boolean selective) {
+        return entities.stream()
+                .mapToInt(it -> update(tableName, it, selective))
                 .sum();
     }
 
@@ -90,7 +111,12 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
 
     default int update(String tableName, T entity, Update update,
                        Collection<ID> ids, Query query) {
-        return getRepository().update(tableName, entity, update, ids, query);
+        return update(tableName, entity, update, true, ids, query);
+    }
+
+    default int update(String tableName, T entity, Update update,
+                       boolean selective, Collection<ID> ids, Query query) {
+        return getRepository().update(tableName, entity, update, selective, ids, query);
     }
 
     /*=========================================== DELETE ===========================================*/

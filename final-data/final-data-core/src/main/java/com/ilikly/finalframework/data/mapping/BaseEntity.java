@@ -58,7 +58,7 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
             }
         } finally {
             if (Assert.isEmpty(table)) {
-                this.table = NameConverterRegistry.getInstance().getTableNameConverter().map(entityClass.getSimpleName());
+                this.table = NameConverterRegistry.getInstance().getTableNameConverter().convert(entityClass.getSimpleName());
             }
         }
     }

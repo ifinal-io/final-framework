@@ -9,6 +9,6 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @FunctionalInterface
-public interface Streable<T> {
+public interface Streamable<T> {
     Stream<T> stream();
 }

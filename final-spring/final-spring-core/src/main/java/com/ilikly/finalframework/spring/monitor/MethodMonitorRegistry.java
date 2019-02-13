@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.spring.monitor;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import lombok.NonNull;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2018-12-26 13:26:33
  * @since 1.0
  */
-public final class MethodMonitorRegistry implements Streable<MethodMonitorListener> {
+public final class MethodMonitorRegistry implements Streamable<MethodMonitorListener> {
     private static final MethodMonitorRegistry INSTANCE = new MethodMonitorRegistry();
     private final List<MethodMonitorListener> methodMonitorListeners = new CopyOnWriteArrayList<>();
 

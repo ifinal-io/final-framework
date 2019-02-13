@@ -8,7 +8,7 @@ package com.ilikly.finalframework.data.mapping.converter;
  */
 public class SimpleNameConverter implements NameConverter {
     @Override
-    public String map(String name) {
+    public String convert(String name) {
         return name;
     }
 }

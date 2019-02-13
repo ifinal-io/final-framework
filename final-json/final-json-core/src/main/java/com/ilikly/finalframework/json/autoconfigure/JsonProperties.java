@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(JsonProperties.JSON_PROPERTIES)
 public class JsonProperties {
-    public static final String JSON_PROPERTIES = "final.json";
+    static final String JSON_PROPERTIES = "final.json";
 
     private Class<? extends JsonService> jsonService = JacksonJsonService.class;
 

@@ -86,7 +86,6 @@ public class CriterionOperationRegistry {
                     return NullCriterionOperation.INSTANCE;
                 case NOT_NULL:
                     return NotNullCriterionOperation.INSTANCE;
-
             }
         } catch (Exception e) {
             //ignore
@@ -99,7 +98,6 @@ public class CriterionOperationRegistry {
                 clazz = ienum.getCode().getClass();
             }
         }
-
 
         Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(operationName);
         CriterionOperation criterionOperation = nameTypeOperationCache.get(clazz);
