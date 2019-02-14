@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.cache;
 
+import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.json.Json;
 import com.ilikly.finalframework.redis.Redis;
 
 import javax.annotation.PostConstruct;
@@ -23,15 +25,16 @@ public class RedisCache implements Cache {
     @Override
     public void set(Object key, Object value, long ttl, TimeUnit timeUnit) {
         if (ttl > 0) {
-            Redis.value().set(key, value, ttl, timeUnit);
+            Redis.value().set(key, Json.toJson(value), ttl, timeUnit);
         } else {
-            Redis.value().set(key, value);
+            Redis.value().set(key, Json.toJson(value));
         }
     }
 
     @Override
-    public <T> T get(Object key) {
-        return (T) Redis.value().get(key);
+    public <T> T get(Object key, Type type) {
+        final String value = (String) Redis.value().get(key);
+        return Assert.isEmpty(value) ? null : Json.parse(value,type);
     }
 
 
@@ -49,8 +52,9 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public <T> T hget(Object key, Object field) {
-        return (T) Redis.hash().get(key, field);
+    public <T> T hget(Object key, Object field,Type type) {
+        final String value = (String) Redis.hash().get(key,field);
+        return Assert.isEmpty(value) ? null : Json.parse(value,type);
     }
 
     @Override

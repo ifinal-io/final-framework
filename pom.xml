@@ -11,10 +11,10 @@
         <module>final-core</module>
         <module>final-util</module>
         <module>final-data</module>
+        <module>final-coding</module>
         <module>final-json</module>
         <module>final-cache</module>
         <module>final-mybatis</module>
-        <module>final-coding</module>
         <module>final-spring</module>
         <module>final-redis</module>
         <module>final-auth</module>
@@ -77,6 +77,11 @@
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-json-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

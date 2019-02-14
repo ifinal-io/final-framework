@@ -16,6 +16,10 @@
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-json-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-json-autoconfigure</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -14,6 +14,7 @@
     <modules>
         <module>final-json-core</module>
         <module>final-json-spring-boot-starter</module>
+        <module>final-json-autoconfigure</module>
     </modules>
 
 

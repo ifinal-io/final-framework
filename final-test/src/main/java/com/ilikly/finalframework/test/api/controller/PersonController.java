@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.test.api.controller;
 
+import com.ilikly.finalframework.cache.annotation.CacheSet;
 import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.Query;
 import com.ilikly.finalframework.data.query.Update;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -62,7 +64,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-//    @CacheSet(keyPattern = "person:%s:", keys = "#id", ttl = 1, timeunit = TimeUnit.MINUTES)
+    @CacheSet(keyPattern = "person:%s:", keys = "#id", ttl = 1, timeunit = TimeUnit.MINUTES)
     public Object get(@PathVariable("id") Long id) {
         Query query = new Query().where(
                 QPerson.id.eq(id).or(

@@ -4,6 +4,7 @@ import com.ilikly.finalframework.cache.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -31,9 +32,8 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
             throw new IllegalArgumentException("the cache operation generate null keys, operation=" + context.operation());
         }
         Object field = context.generateField(null);
-
-
-        Object result = field == null ? cache.get(key) : cache.hget(key, field);
+        final Type genericReturnType = context.method().getGenericReturnType();
+        Object result = field == null ? cache.get(key,genericReturnType) : cache.hget(key, field,genericReturnType);
 
         if (result != null) {
             logger.info("get from cache: keys={},fields={},result={}", key, field, result);

@@ -3,23 +3,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-spring</artifactId>
+        <artifactId>final-json</artifactId>
         <groupId>com.ilikly.finalframework</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-spring-aop</artifactId>
-
-
+    <artifactId>final-json-autoconfigure</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-json-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-json-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>

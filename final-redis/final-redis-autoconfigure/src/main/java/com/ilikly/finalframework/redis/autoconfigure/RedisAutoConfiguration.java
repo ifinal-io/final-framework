@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.ilikly.finalframework.json.jackson.JavaTimeModule;
 import com.ilikly.finalframework.redis.RedisRegistry;
+import com.ilikly.finalframework.redis.serializer.Object2JsonRedisSerializer;
 import com.ilikly.finalframework.redis.serializer.Object2StringRedisSerializer;
 import com.ilikly.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.BeansException;
@@ -51,6 +52,11 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
     @Bean
     public Object2StringRedisSerializer object2StringRedisSerializer() {
         return Object2StringRedisSerializer.UTF_8;
+    }
+
+    @Bean
+    public Object2JsonRedisSerializer object2JsonRedisSerializer() {
+        return Object2JsonRedisSerializer.UTF_8;
     }
 
     @Bean

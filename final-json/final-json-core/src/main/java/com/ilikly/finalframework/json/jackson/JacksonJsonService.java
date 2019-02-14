@@ -22,7 +22,6 @@ public class JacksonJsonService implements JsonService {
 
     public JacksonJsonService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-
     }
 
     public JacksonJsonService() {

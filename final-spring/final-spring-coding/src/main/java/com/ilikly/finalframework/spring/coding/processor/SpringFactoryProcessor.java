@@ -27,7 +27,6 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class SpringFactoryProcessor extends AbstractProcessor {
-    //    private static final Logger logger = LoggerFactory.getLogger(SpringFactoryProcessor.class);
     private final Coder coder = new FreeMakerCoder();
     private final Set<Element> processorElements = new HashSet<>();
     private Filer filer;

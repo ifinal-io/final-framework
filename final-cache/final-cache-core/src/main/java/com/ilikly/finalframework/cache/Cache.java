@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.cache;
 
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,13 +13,13 @@ public interface Cache {
 
     void set(Object key, Object value, long ttl, TimeUnit timeUnit);
 
-    <T> T get(Object key);
+    <T> T get(Object key, Type type);
 
     Boolean del(Object key);
 
     void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit);
 
-    <T> T hget(Object key, Object field);
+    <T> T hget(Object key, Object field,Type type);
 
     Long hdel(Object key, Object... field);
 

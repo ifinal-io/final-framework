@@ -25,6 +25,11 @@ public interface Json {
 
     static String toJson(Object object) {
         try {
+
+            if(object instanceof String){
+                return (String) object;
+            }
+
             return JsonRegistry.getInstance().getJsonService().toJson(object);
         } catch (Throwable e) {
             if (e instanceof JsonException) {
