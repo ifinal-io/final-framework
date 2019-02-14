@@ -21,6 +21,7 @@ public class InCriterionOperation<E> extends AbsCriterionOperation<Collection<E>
 
     @Override
     public String format(QProperty property, Collection<E> value) {
-        return String.format("%s IN %s", property, buildInString(value));
+        final String column = getPropertyColumn(property);
+        return String.format("%s IN %s", column, buildInString(value));
     }
 }

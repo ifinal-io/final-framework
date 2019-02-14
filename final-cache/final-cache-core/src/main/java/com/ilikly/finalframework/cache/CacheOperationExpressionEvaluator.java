@@ -21,7 +21,7 @@ public interface CacheOperationExpressionEvaluator {
 
     boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
-    long expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context);
+    Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
     void clear();
 

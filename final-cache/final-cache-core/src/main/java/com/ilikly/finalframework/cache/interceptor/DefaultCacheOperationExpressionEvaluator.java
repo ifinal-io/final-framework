@@ -73,14 +73,8 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
     }
 
     @Override
-    public long expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
-        Object value = getExpression(this.expiredCache, methodKey, expiredExpression).getValue(context);
-        if (value instanceof Number) {
-            return ((Number) value).longValue();
-        } else if (value instanceof Date) {
-            return ((Date) value).getTime();
-        }
-        throw new IllegalArgumentException("");
+    public Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
+        return getExpression(this.expiredCache, methodKey, expiredExpression).getValue(context);
     }
 
     @Override

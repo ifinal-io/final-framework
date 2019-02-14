@@ -42,3 +42,5 @@ final:
       default-column-generator: com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator
   json:
     json-service: com.ilikly.finalframework.json.jackson.JacksonJsonService
+  response:
+    sync-status: false

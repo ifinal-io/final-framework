@@ -7,8 +7,12 @@ package com.ilikly.finalframework.data.query;
  * @since 1.0
  */
 public class PageQuery implements IQuery{
-    private Integer page;
-    private Integer size;
+
+    private static final Integer DEFAULT_PAGE = 1;
+    private static final Integer DEFAULT_SIZE = 20;
+
+    private Integer page = DEFAULT_PAGE;
+    private Integer size = DEFAULT_SIZE;
 
     public Integer getPage() {
         return page;

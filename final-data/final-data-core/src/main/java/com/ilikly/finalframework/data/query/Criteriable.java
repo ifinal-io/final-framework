@@ -12,6 +12,7 @@ import java.util.Date;
  * @date 2018-10-12 16:47
  * @since 1.0
  */
+@SuppressWarnings("all")
 public interface Criteriable<T> {
 
     //    Comparable operation

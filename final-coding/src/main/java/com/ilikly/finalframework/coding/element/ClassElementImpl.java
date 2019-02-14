@@ -48,8 +48,4 @@ public class ClassElementImpl implements ClassElement {
         return null;
     }
 
-    @Override
-    public String getSimpleName() {
-        return typeElement.getSimpleName().toString();
-    }
 }

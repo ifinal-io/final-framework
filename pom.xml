@@ -16,10 +16,10 @@
         <module>final-mybatis</module>
         <module>final-coding</module>
         <module>final-spring</module>
-        <module>final-test</module>
         <module>final-redis</module>
         <module>final-auth</module>
         <module>final-logging</module>
+        <module>final-test</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -193,6 +193,16 @@
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-spring-aop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ilikly.finalframework</groupId>
+                <artifactId>final-spring-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

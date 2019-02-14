@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CacheSetOperationInvocation implements CacheOperationInvocation<CacheSetOperation> {
     @Override
+    @SuppressWarnings("all")
     public Object invoke(CacheOperationInvocationContext<CacheSetOperation> context, CacheOperationInvoker invoker) throws Throwable {
         Logger logger = LoggerFactory.getLogger(context.target().getClass());
         Cache cache = CacheRegistry.getInstance().getCache(context.operation());
@@ -30,6 +31,7 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
             throw new IllegalArgumentException("the cache operation generate null keys, operation=" + context.operation());
         }
         Object field = context.generateField(null);
+
 
         Object result = field == null ? cache.get(key) : cache.hget(key, field);
 

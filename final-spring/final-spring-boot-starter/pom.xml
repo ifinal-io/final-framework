@@ -15,7 +15,14 @@
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-spring-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-spring-web</artifactId>
         </dependency>
     </dependencies>
 

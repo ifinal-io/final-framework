@@ -43,8 +43,8 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        elements = processingEnv.getElementUtils();
-        filer = processingEnv.getFiler();
+        this.filer = processingEnv.getFiler();
+        this.elements = processingEnv.getElementUtils();
     }
 
     @Override

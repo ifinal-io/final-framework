@@ -15,7 +15,6 @@
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-mybatis-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

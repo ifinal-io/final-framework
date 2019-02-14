@@ -34,7 +34,7 @@ public final class MybatisAgent {
             pool.appendSystemPath();
 
             // 定义类
-            CtClass XMLMapperBuilder = pool.get("org.apache.ibatis.builder.xml.DefaultXMLMapperBuilder");
+            CtClass XMLMapperBuilder = pool.get("org.apache.ibatis.builder.xml.XMLMapperBuilder");
             // 需要修改的方法
             CtMethod method = XMLMapperBuilder.getDeclaredMethod("parse");
             // 修改原有的方法

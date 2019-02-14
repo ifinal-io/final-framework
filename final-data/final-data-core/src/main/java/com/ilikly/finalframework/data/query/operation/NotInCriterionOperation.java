@@ -21,6 +21,7 @@ public class NotInCriterionOperation<E> extends AbsCriterionOperation<Collection
 
     @Override
     public String format(QProperty property, Collection<E> value) {
-        return String.format("%s Not IN %s", property, buildInString(value));
+        final String column = getPropertyColumn(property);
+        return String.format("%s Not IN %s", column, buildInString(value));
     }
 }

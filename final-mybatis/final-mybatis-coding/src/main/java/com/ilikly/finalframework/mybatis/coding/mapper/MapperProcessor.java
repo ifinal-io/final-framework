@@ -164,63 +164,6 @@ public class MapperProcessor extends AbstractProcessor {
         return format;
     }
 
-    private void generateMapper(XPathParser xPathParser) {
-        XNode mapperNode = xPathParser.evalNode("/mapper");
-        String mapper = mapperNode.getStringAttribute("namespace");
-        String mapperContent = buildMapper(xPathParser);
-        int mapperIndex = mapperContent.indexOf("<mapper");
-        mapperContent = mapperContent.substring(mapperIndex);
-        System.out.println(":::::::" + mapperContent);
-        final String resourceFile = mapper.replace(".", "/") + ".xml";
-        try {
-            FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
-            Writer writer = fileObject.openWriter();
-            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-            writer.write("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n");
-            writer.write(mapperContent);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            error("Create mapper.xml error of mapper:" + mapper + "," + e.getMessage());
-        }
-    }
-
-    private String buildMapper(XPathParser xPathParser) {
-        XNode mapperNode = xPathParser.evalNode("/mapper");
-        Entity<Person> entity = Entity.from(Person.class);
-        new DefaultXMLMapperBuilder(Dialect.DEFAULT, mapperNode, entity);
-//        return mapperNode.toString();
-        Document document = mapperNode.getNode().getOwnerDocument();
-        String result = null;
-
-        StringWriter strWtr = new StringWriter();
-        StreamResult strResult = new StreamResult(strWtr);
-        TransformerFactory tfac = TransformerFactory.newInstance();
-        try {
-            javax.xml.transform.Transformer t = tfac.newTransformer();
-            t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            t.setOutputProperty(OutputKeys.INDENT, "yes");
-            t.setOutputProperty(OutputKeys.METHOD, "xml"); // xml, html,
-            // text
-            t.setOutputProperty(
-                    "{http://xml.apache.org/xslt}indent-amount", "4");
-            document.setXmlStandalone(false);
-            t.transform(new DOMSource(document.getDocumentElement()),
-                    strResult);
-        } catch (Exception e) {
-            System.err.println("XML.toString(Document): " + e);
-        }
-        result = strResult.getWriter().toString();
-        try {
-            strWtr.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        logger.info(result);
-        return result;
-    }
-
-
     private void info(String msg) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
     }

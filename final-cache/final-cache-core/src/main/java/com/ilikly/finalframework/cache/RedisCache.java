@@ -3,6 +3,7 @@ package com.ilikly.finalframework.cache;
 import com.ilikly.finalframework.redis.Redis;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,6 +33,7 @@ public class RedisCache implements Cache {
     public <T> T get(Object key) {
         return (T) Redis.value().get(key);
     }
+
 
     @Override
     public Boolean del(Object key) {
