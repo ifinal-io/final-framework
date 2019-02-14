@@ -6,7 +6,12 @@ import com.ilikly.finalframework.data.result.R;
 import com.ilikly.finalframework.data.result.Result;
 import com.ilikly.finalframework.json.Json;
 import com.ilikly.finalframework.spring.web.autoconfigure.ResponseBodyAdviceProperties;
+import lombok.Setter;
 import org.slf4j.MDC;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,9 +32,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @since 1.0
  */
 @RestControllerAdvice
-public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object>, ApplicationContextAware, InitializingBean {
 
     private final ResponseBodyAdviceProperties responseBodyAdviceProperties;
+    private ApplicationContext applicationContext;
+    @Setter
+    private ResponseInterceptor responseInterceptor;
 
     public ResultResponseBodyAdvice(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
         this.responseBodyAdviceProperties = responseBodyAdviceProperties;
@@ -58,13 +66,11 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         Result<?> result = buildResult(object);
         result.setTrace(trace);
         setHttpResponseStatus(serverHttpResponse, result);
-
+        Object value = responseInterceptor == null ? result : responseInterceptor.intercept(result);
         if (object instanceof String) {
-            return Json.toJson(result);
+            return Json.toJson(value);
         }
-
-
-        return result;
+        return value;
     }
 
     /**
@@ -109,4 +115,13 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.responseInterceptor = applicationContext.getBean(responseBodyAdviceProperties.getInterceptor());
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

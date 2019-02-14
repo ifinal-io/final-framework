@@ -1,5 +1,9 @@
 package com.ilikly.finalframework.spring.web.autoconfigure;
 
+import com.ilikly.finalframework.spring.web.reponse.DefaultResponseInterceptor;
+import com.ilikly.finalframework.spring.web.reponse.ResponseInterceptor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -9,18 +13,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0
  */
 @ConfigurationProperties(prefix = ResponseBodyAdviceProperties.RESPONSE_PROPERTIES)
+@Setter
+@Getter
 public class ResponseBodyAdviceProperties {
     static final String RESPONSE_PROPERTIES = "final.response";
     /**
      * 是否同步业务状态到Response中
      */
     private boolean syncStatus = true;
+    private Class<? extends ResponseInterceptor> interceptor = DefaultResponseInterceptor.class;
 
-    public boolean isSyncStatus() {
-        return syncStatus;
-    }
 
-    public void setSyncStatus(boolean syncStatus) {
-        this.syncStatus = syncStatus;
-    }
 }

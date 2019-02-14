@@ -1,7 +1,8 @@
-package com.ilikly.finalframework.spring.web.reponse;
+package com.ilikly.finalframework.spring.web.autoconfigure;
 
 import com.ilikly.finalframework.spring.coding.AutoConfiguration;
-import com.ilikly.finalframework.spring.web.autoconfigure.ResponseBodyAdviceProperties;
+import com.ilikly.finalframework.spring.web.reponse.DefaultResponseInterceptor;
+import com.ilikly.finalframework.spring.web.reponse.ResultResponseBodyAdvice;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(ResponseBodyAdviceProperties.class)
 public class ResultResponseBodyAdviceAutoConfiguration {
     private final ResponseBodyAdviceProperties responseBodyAdviceProperties;
-
     public ResultResponseBodyAdviceAutoConfiguration(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
         this.responseBodyAdviceProperties = responseBodyAdviceProperties;
     }
@@ -24,4 +24,10 @@ public class ResultResponseBodyAdviceAutoConfiguration {
     public ResultResponseBodyAdvice resultResponseBodyAdvice() {
         return new ResultResponseBodyAdvice(responseBodyAdviceProperties);
     }
+
+    @Bean
+    public DefaultResponseInterceptor defaultResponseInterceptor() {
+        return new DefaultResponseInterceptor();
+    }
+
 }
