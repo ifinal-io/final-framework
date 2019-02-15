@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class DateFormattersTest {
 
-    private DateFormatters dateFormatters = new DateFormatters();
+    private DateFormatters dateFormatters = DateFormatters.DEFAULT;
 
     @Test
     @SuppressWarnings("all")
