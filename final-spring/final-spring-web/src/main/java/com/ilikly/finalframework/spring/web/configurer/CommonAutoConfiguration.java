@@ -21,8 +21,8 @@ public class CommonAutoConfiguration {
     }
 
     @Bean
-    public SpringConfigResource springConfigResource() {
-        return new SpringConfigResource();
+    public SpringResourceConfigurer springConfigResource() {
+        return new SpringResourceConfigurer();
     }
 
     @Bean

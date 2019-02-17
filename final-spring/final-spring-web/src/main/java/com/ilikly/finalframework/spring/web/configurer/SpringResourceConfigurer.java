@@ -9,5 +9,5 @@ import org.springframework.context.annotation.ImportResource;
  * @since 1.0
  */
 @ImportResource({"classpath*:spring-config-*.xml", "classpath*:config/spring-config-*.xml", "classpath*:spring/spring-config-*.xml"})
-public class SpringConfigResource {
+public class SpringResourceConfigurer {
 }
