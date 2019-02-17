@@ -27,6 +27,10 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-json-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-spring-coding</artifactId>
         </dependency>
     </dependencies>

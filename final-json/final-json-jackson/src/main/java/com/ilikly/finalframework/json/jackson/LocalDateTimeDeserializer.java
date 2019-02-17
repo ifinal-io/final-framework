@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.core.formatter.LocalDateTimeFormatters;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -18,21 +19,22 @@ import java.time.ZoneId;
  * @since 1.0
  */
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-    private DateTimeFormatters dateTimeFormatters = new DateTimeFormatters();
+    private LocalDateTimeFormatters dateTimeFormatters = LocalDateTimeFormatters.DEFAULT;
 
     @Override
     public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         String value = p.getValueAsString();
         if (Assert.isEmpty(value)) return null;
-
-        LocalDateTime localDateTime = dateTimeFormatters.parse(value);
-        if (localDateTime != null) return localDateTime;
         if (!p.isNaN()) {
             long timestamp = p.getValueAsLong();
             Instant instant = Instant.ofEpochMilli(timestamp);
             ZoneId zone = ZoneId.systemDefault();
             return LocalDateTime.ofInstant(instant, zone);
         }
+
+        LocalDateTime localDateTime = dateTimeFormatters.parse(value);
+        if (localDateTime != null) return localDateTime;
+
         return null;
 
     }

@@ -2,14 +2,13 @@ package com.ilikly.finalframework.json.jackson;
 
 import com.ilikly.finalframework.json.Json;
 import com.ilikly.finalframework.json.JsonRegistry;
-import com.ilikly.finalframework.json.JsonService;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author likly

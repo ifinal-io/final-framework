@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.data.entity.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * @author likly
  * @version 1.0
@@ -11,9 +13,19 @@ public enum YN implements IEnum<Integer> {
     NO(0);
     private final Integer code;
 
+
+    @JsonCreator
+    public static YN valueOf(int value) {
+        for (YN yn : values()) {
+            if (yn.code.equals(value)) return yn;
+        }
+        return null;
+    }
+
     YN(Integer code) {
         this.code = code;
     }
+
 
     @Override
     public Integer getCode() {

@@ -13,8 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>final-json-core</module>
-        <module>final-json-spring-boot-starter</module>
+        <module>final-json-jackson</module>
         <module>final-json-autoconfigure</module>
+        <module>final-json-spring-boot-starter</module>
     </modules>
 
 
