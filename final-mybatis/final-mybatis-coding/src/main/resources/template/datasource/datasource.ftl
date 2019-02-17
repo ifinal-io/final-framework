@@ -7,6 +7,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -24,19 +25,19 @@ public class ${name} {
 
     @Bean
     @ConfigurationProperties(prefix = "${prefix}")
-    public DataSource ${dataSource}() {
-        return DataSourceBuilder.create().build();
+public DataSource ${dataSource}(DataSourceProperties properties) {
+return properties.initializeDataSourceBuilder().build();
     }
 
     @Bean
-    public DataSourceTransactionManager ${transactionManager}() {
-        return new DataSourceTransactionManager(${dataSource}());
+public DataSourceTransactionManager ${transactionManager}(@Qualifier("${dataSource}") DataSource dataSource) {
+return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
-    public SqlSessionFactory ${sqlSessionFactory}() throws Exception {
+public SqlSessionFactory ${sqlSessionFactory}(@Qualifier("${dataSource}") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(${dataSource}());
+bean.setDataSource(dataSource);
         <#if mapperLocations??  && mapperLocations != "">
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources("${mapperLocations}"));
@@ -45,8 +46,8 @@ public class ${name} {
     }
 
     @Bean
-    public SqlSessionTemplate ${sqlSessionTemplate}() throws Exception {
-        return new SqlSessionTemplate(${sqlSessionFactory}());
+public SqlSessionTemplate ${sqlSessionTemplate}(@Qualifier("${sqlSessionFactory}") SqlSessionFactory sqlSessionFactory) throws Exception {
+return new SqlSessionTemplate(sqlSessionFactory);
     }
 
 }

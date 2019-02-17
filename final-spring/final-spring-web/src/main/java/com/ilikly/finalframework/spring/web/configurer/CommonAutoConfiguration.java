@@ -2,7 +2,6 @@ package com.ilikly.finalframework.spring.web.configurer;
 
 import com.ilikly.finalframework.spring.coding.AutoConfiguration;
 import com.ilikly.finalframework.spring.web.converter.String2DateConverter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
