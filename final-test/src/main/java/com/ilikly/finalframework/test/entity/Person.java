@@ -36,6 +36,4 @@ public class Person extends AbsEntity {
     @NonColumn
     private Date date = new Date();
 
-
-
 }

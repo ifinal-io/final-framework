@@ -19,4 +19,5 @@ public class SpringWebMvcConfigurer implements WebMvcConfigurer {
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(0,new RequestJsonParamHandlerMethodArgumentResolver());
     }
+
 }
