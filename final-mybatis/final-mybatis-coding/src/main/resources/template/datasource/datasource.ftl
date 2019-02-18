@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -18,14 +19,21 @@ import javax.sql.DataSource;
 
 
 @Configuration
+@EnableAutoConfiguration
 @MapperScan(basePackages = {${basePackages}}, sqlSessionTemplateRef = "${sqlSessionTemplate}", sqlSessionFactoryRef = "${sqlSessionFactory}")
 public class ${name} {
 
     public static final String TRANSACTION_MANAGER = "${transactionManager}";
 
+@Bean
+@Qualifier("${dataSource}Properties")
+@ConfigurationProperties(prefix = "${prefix}")
+public DataSourceProperties ${dataSource}Properties(){
+return new DataSourceProperties();
+}
+
     @Bean
-    @ConfigurationProperties(prefix = "${prefix}")
-public DataSource ${dataSource}(DataSourceProperties properties) {
+public DataSource ${dataSource}(@Qualifier("${dataSource}Properties") DataSourceProperties properties) {
 return properties.initializeDataSourceBuilder().build();
     }
 
