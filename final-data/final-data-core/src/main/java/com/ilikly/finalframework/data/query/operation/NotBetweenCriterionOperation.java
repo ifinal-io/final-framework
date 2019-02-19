@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query.operation;
 
+import com.ilikly.finalframework.data.query.BetweenCriterionOperation;
 import com.ilikly.finalframework.data.query.CriterionOperations;
 import com.ilikly.finalframework.data.query.QProperty;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * @date 2019-01-18 14:38:23
  * @since 1.0
  */
-public class NotBetweenCriterionOperation<T extends Comparable<T>> extends AbsCriterionOperation<T> implements com.ilikly.finalframework.data.query.BetweenCriterionOperation<T> {
+public class NotBetweenCriterionOperation<T extends Comparable<T>> extends AbsCriterionOperation<T> implements BetweenCriterionOperation<T> {
     public static final ContainsCriterionOperation INSTANCE = new ContainsCriterionOperation();
 
     @Override
