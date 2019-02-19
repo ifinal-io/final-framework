@@ -6,22 +6,20 @@ package com.ilikly.finalframework.data.query;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class CriterionImpl<T> implements Criterion<T> {
+public class BetweenCriterionImpl<T extends Comparable<T>> implements BetweenCriterion<T> {
     private final QProperty property;
     private final String operation;
-    private final T value;
     private final T min;
     private final T max;
 
-    private CriterionImpl(BuilderImpl<T> builder) {
+    private BetweenCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
         this.operation = builder.operation;
-        this.value = builder.value;
         this.min = builder.min;
         this.max = builder.max;
     }
 
-    public static <T> Builder<T> builder() {
+    public static <T extends Comparable<T>> Builder<T> builder() {
         return new BuilderImpl<>();
     }
 
@@ -36,11 +34,6 @@ public class CriterionImpl<T> implements Criterion<T> {
     }
 
     @Override
-    public T value() {
-        return value;
-    }
-
-    @Override
     public T min() {
         return min;
     }
@@ -50,12 +43,14 @@ public class CriterionImpl<T> implements Criterion<T> {
         return max;
     }
 
-    public static class BuilderImpl<T> implements Builder<T> {
+    private static class BuilderImpl<T extends Comparable<T>> implements BetweenCriterion.Builder<T> {
         private QProperty property;
         private String operation;
-        private T value;
         private T min;
         private T max;
+
+        private BuilderImpl() {
+        }
 
         @Override
         public Builder<T> property(QProperty property) {
@@ -69,22 +64,18 @@ public class CriterionImpl<T> implements Criterion<T> {
             return this;
         }
 
-        @Override
-        public Builder<T> value(T value) {
-            this.value = value;
-            return this;
-        }
 
         @Override
-        public Builder<T> minAndMax(T min, T max) {
+        public Builder<T> between(T min, T max) {
             this.min = min;
             this.max = max;
             return this;
         }
 
+
         @Override
         public Criterion build() {
-            return new CriterionImpl<>(this);
+            return new BetweenCriterionImpl<>(this);
         }
     }
 }

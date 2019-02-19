@@ -79,9 +79,9 @@ public interface Criteriable<T> {
 
     T dateAfter(@NotNull long date);
 
-    <E extends Comparable> T between(@NotNull E min, @NotNull E max);
+    <E extends Comparable<E>> T between(@NotNull E min, @NotNull E max);
 
-    <E extends Comparable> T notBetween(@NotNull E min, @NotNull E max);
+    <E extends Comparable<E>> T notBetween(@NotNull E min, @NotNull E max);
 
     T dateBetween(@NotNull Date min, @NotNull Date max);
 

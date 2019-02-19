@@ -8,28 +8,16 @@ package com.ilikly.finalframework.data.query;
  * @see CriterionOperation
  */
 public interface Criterion<T> {
-    static <T> Builder<T> builder() {
-        return CriterionImpl.builder();
-    }
 
     QProperty property();
 
     String operation();
 
-    T value();
-
-    T min();
-
-    T max();
 
     interface Builder<T> extends com.ilikly.finalframework.core.Builder<Criterion> {
         Builder<T> property(QProperty property);
 
         Builder<T> operation(String operation);
-
-        Builder<T> value(T value);
-
-        Builder<T> minAndMax(T min, T max);
 
     }
 

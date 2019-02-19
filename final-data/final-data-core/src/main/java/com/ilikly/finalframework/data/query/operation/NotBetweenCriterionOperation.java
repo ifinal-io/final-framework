@@ -11,7 +11,7 @@ import java.util.Date;
  * @date 2019-01-18 14:38:23
  * @since 1.0
  */
-public class NotBetweenCriterionOperation<T extends Comparable> extends AbsCriterionOperation<T> {
+public class NotBetweenCriterionOperation<T extends Comparable<T>> extends AbsCriterionOperation<T> implements com.ilikly.finalframework.data.query.BetweenCriterionOperation<T> {
     public static final ContainsCriterionOperation INSTANCE = new ContainsCriterionOperation();
 
     @Override
@@ -20,7 +20,7 @@ public class NotBetweenCriterionOperation<T extends Comparable> extends AbsCrite
     }
 
     @Override
-    public String format(QProperty property, T min, T max) {
+    public String format(QProperty property, String operation, T min, T max) {
         final String column = getPropertyColumn(property);
         if (min instanceof String) {
             return String.format("%s NOT BETWEEN '%s' AND '%s'", column, min, max);

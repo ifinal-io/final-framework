@@ -2,6 +2,7 @@ package com.ilikly.finalframework.data.query.operation;
 
 import com.ilikly.finalframework.data.query.CriterionOperations;
 import com.ilikly.finalframework.data.query.QProperty;
+import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * @date 2019-01-18 13:49:33
  * @since 1.0
  */
-public class NotEqualCriterionOperation<T> extends AbsCriterionOperation<T> {
+public class NotEqualCriterionOperation<T> extends AbsCriterionOperation<T> implements SingleCriterionOperation<T> {
     public static final NotEqualCriterionOperation INSTANCE = new NotEqualCriterionOperation();
 
     @Override
@@ -20,7 +21,7 @@ public class NotEqualCriterionOperation<T> extends AbsCriterionOperation<T> {
     }
 
     @Override
-    public String format(QProperty property, T value) {
+    public String format(QProperty property, String operation, T value) {
         final String column = getPropertyColumn(property);
 
         if (value instanceof String) {

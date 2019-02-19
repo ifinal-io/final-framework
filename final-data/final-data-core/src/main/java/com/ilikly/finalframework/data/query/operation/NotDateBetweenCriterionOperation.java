@@ -11,7 +11,7 @@ import java.util.Date;
  * @date 2019-01-18 14:38:23
  * @since 1.0
  */
-public class NotDateBetweenCriterionOperation extends AbsCriterionOperation<Date> {
+public class NotDateBetweenCriterionOperation extends AbsCriterionOperation<Date> implements com.ilikly.finalframework.data.query.BetweenCriterionOperation<Date> {
     public static final NotDateBetweenCriterionOperation INSTANCE = new NotDateBetweenCriterionOperation();
 
     @Override
@@ -20,7 +20,7 @@ public class NotDateBetweenCriterionOperation extends AbsCriterionOperation<Date
     }
 
     @Override
-    public String format(QProperty property, Date min, Date max) {
+    public String format(QProperty property, String operation, Date min, Date max) {
         final String column = getPropertyColumn(property);
         return String.format("DATE(%s) BETWEEN '%s' AND '%s'", column, format(min), format(max));
     }

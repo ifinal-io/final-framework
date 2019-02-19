@@ -6,10 +6,10 @@ package com.ilikly.finalframework.data.query;
  * @date 2019-01-18 13:34:21
  * @since 1.0
  */
-public interface CriterionOperation<T> {
+public interface CriterionOperation<T, C extends Criterion<T>> {
 
     String name();
 
-    String format(Criterion<T> criterion);
+    String format(C criterion);
 
 }

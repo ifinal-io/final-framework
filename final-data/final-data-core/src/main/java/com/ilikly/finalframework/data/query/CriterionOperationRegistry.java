@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.entity.enums.IEnum;
+import com.ilikly.finalframework.data.query.operation.BetweenCriterionOperation;
 import com.ilikly.finalframework.data.query.operation.*;
 
 import java.util.Arrays;
@@ -66,6 +67,8 @@ public class CriterionOperationRegistry {
         registerCriterionOperation(Date.class, LessThanCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, LessEqualThanCriterionOperation.INSTANCE);
 
+        registerCriterionOperation(Date.class, BeforeCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, AfterCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateBeforeCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateAfterCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, BetweenCriterionOperation.INSTANCE);
@@ -80,14 +83,14 @@ public class CriterionOperationRegistry {
         new CriterionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperation(Class<T> type, CriterionOperation<T> criterionOperation) {
+    public <T> void registerCriterionOperation(Class<T> type, CriterionOperation<T, ? extends Criterion> criterionOperation) {
         Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(criterionOperation.name());
         nameTypeOperationCache.put(type, criterionOperation);
     }
 
 
     @SuppressWarnings("unchecked")
-    public <T> CriterionOperation<T> getCriterionOperation(String operationName, Class<T> type) {
+    public <T> CriterionOperation<T, ? extends Criterion> getCriterionOperation(String operationName, Class<T> type) {
         try {
             CriterionOperations operations = CriterionOperations.valueOf(operationName);
             switch (operations) {
