@@ -6,7 +6,7 @@ package com.ilikly.finalframework.data.query;
  * @date 2019-02-12 12:41:24
  * @since 1.0
  */
-public class PageQuery implements IQuery{
+public class PageQuery implements IQuery, Pageable {
 
     private static final Integer DEFAULT_PAGE = 1;
     private static final Integer DEFAULT_SIZE = 20;
@@ -14,6 +14,7 @@ public class PageQuery implements IQuery{
     private Integer page = DEFAULT_PAGE;
     private Integer size = DEFAULT_SIZE;
 
+    @Override
     public Integer getPage() {
         return page;
     }
@@ -22,6 +23,7 @@ public class PageQuery implements IQuery{
         this.page = page;
     }
 
+    @Override
     public Integer getSize() {
         return size;
     }

@@ -59,8 +59,17 @@ public class CriterionOperationRegistry {
         registerCriterionOperation(String.class, LikeCriterionOperation.INSTANCE);
         registerCriterionOperation(String.class, NotLikeCriterionOperation.INSTANCE);
 
+        registerCriterionOperation(Date.class, EqualCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, NotEqualCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, GreaterThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, GreaterEqualThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, LessThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, LessEqualThanCriterionOperation.INSTANCE);
+
         registerCriterionOperation(Date.class, DateBeforeCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateAfterCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, BetweenCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, NotBetweenCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateBetweenCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, NotDateBetweenCriterionOperation.INSTANCE);
 

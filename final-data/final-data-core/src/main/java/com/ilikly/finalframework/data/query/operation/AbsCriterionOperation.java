@@ -68,7 +68,6 @@ public abstract class AbsCriterionOperation<T> implements CriterionOperation<T> 
 
         return sb.toString();
     }
-
     protected String format(Date date) {
         return dateFormat.format(date);
     }

@@ -3,6 +3,8 @@ package com.ilikly.finalframework.data.query.operation;
 import com.ilikly.finalframework.data.query.CriterionOperations;
 import com.ilikly.finalframework.data.query.QProperty;
 
+import java.util.Date;
+
 /**
  * @author likly
  * @version 1.0
@@ -21,7 +23,15 @@ public class EqualCriterionOperation<T> extends AbsCriterionOperation<T> {
     @Override
     public String format(QProperty property, T value) {
         final String column = getPropertyColumn(property);
-        return value instanceof String ? String.format("%s = '%s'", column, value) : String.format("%s = %s", column, value.toString());
+
+        if (value instanceof String) {
+            return String.format("%s = '%s'", column, value);
+        } else if (value instanceof Date) {
+            return String.format("%s = '%s'", column, format((Date) value));
+        } else {
+            return String.format("%s = %s", column, value.toString());
+        }
+
     }
 
 }

@@ -3,6 +3,8 @@ package com.ilikly.finalframework.data.query.operation;
 import com.ilikly.finalframework.data.query.CriterionOperations;
 import com.ilikly.finalframework.data.query.QProperty;
 
+import java.util.Date;
+
 /**
  * @author likly
  * @version 1.0
@@ -20,6 +22,12 @@ public class NotBetweenCriterionOperation<T extends Comparable> extends AbsCrite
     @Override
     public String format(QProperty property, T min, T max) {
         final String column = getPropertyColumn(property);
-        return min instanceof String ? String.format("%s NOT BETWEEN '%s' AND '%s'", column, min, max) : String.format("%s NOT BETWEEN %s AND %s", column, min, max);
+        if (min instanceof String) {
+            return String.format("%s NOT BETWEEN '%s' AND '%s'", column, min, max);
+        } else if (min instanceof Date) {
+            return String.format("%s NOT BETWEEN '%s' AND '%s'", column, format((Date) min), format((Date) max));
+        } else {
+            return String.format("%s NOT BETWEEN %s AND %s", column, min, max);
+        }
     }
 }

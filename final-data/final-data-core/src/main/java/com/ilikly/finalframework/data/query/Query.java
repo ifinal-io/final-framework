@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<Criteria>, Serializable {
+public class Query implements Streamable<Criteria>, Serializable, Pageable {
 
     @Getter
     private Integer page;

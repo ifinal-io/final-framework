@@ -1,7 +1,8 @@
 package com.ilikly.finalframework.mybatis.inteceptor;
 
 import com.github.pagehelper.PageHelper;
-import com.ilikly.finalframework.data.query.Query;
+import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.data.query.Pageable;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -39,16 +40,18 @@ public class QueryPageInterceptor implements Interceptor {
             Object[] args = invocation.getArgs();
             MappedStatement ms = (MappedStatement) args[0];
             Object parameter = args[1];
-            if (!ms.getId().endsWith(".selectCount") && !ms.getId().endsWith("selectOne") && parameter != null) {
+            if (!ms.getId().endsWith("selectCount") && !ms.getId().endsWith("selectOne") && parameter != null) {
                 if (parameter instanceof Map) {
                     Map map = (Map) parameter;
                     for (Object item : map.values()) {
-                        if (item instanceof Query) {
-                            startPage((Query) item);
+                        if (item instanceof Pageable) {
+                            startPage((Pageable) item);
+                            return invocation.proceed();
                         }
                     }
-                } else if (parameter instanceof Query) {
-                    startPage((Query) parameter);
+                } else if (parameter instanceof Pageable) {
+                    startPage((Pageable) parameter);
+                    return invocation.proceed();
                 }
             }
             return invocation.proceed();
@@ -59,10 +62,15 @@ public class QueryPageInterceptor implements Interceptor {
 
     }
 
-    private void startPage(Query query) {
-        logger.info("startPage:page={},size={}", query.getPage(), query.getSize());
-        if (query.getPage() != null && query.getSize() != null) {
-            PageHelper.startPage(query.getPage(), query.getSize());
+    private void startPage(Pageable pageable) {
+        if (Assert.isNull(pageable)) return;
+        startPage(pageable.getPage(), pageable.getSize());
+    }
+
+    private void startPage(Integer page, Integer size) {
+        logger.info("startPage:page={},size={}", page, size);
+        if (page != null && size != null) {
+            PageHelper.startPage(page, size);
         }
     }
 
