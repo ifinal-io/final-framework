@@ -12,8 +12,8 @@ public interface CollectionCriterionOperation<T> extends CriterionOperation<Coll
 
     @Override
     default String format(CollectionCriterion<T> criterion) {
-        return format(criterion.property(), criterion.operation(), criterion.value());
+        return format(criterion.property(), criterion.operator(), criterion.value());
     }
 
-    String format(QProperty property, String operation, Collection<T> value);
+    String format(QProperty property, CriterionOperator operator, Collection<T> value);
 }

@@ -11,13 +11,13 @@ public interface Criterion<T> {
 
     QProperty property();
 
-    String operation();
+    CriterionOperator operator();
 
 
     interface Builder<T> extends com.ilikly.finalframework.core.Builder<Criterion> {
         Builder<T> property(QProperty property);
 
-        Builder<T> operation(String operation);
+        Builder<T> operator(CriterionOperator operation);
 
     }
 

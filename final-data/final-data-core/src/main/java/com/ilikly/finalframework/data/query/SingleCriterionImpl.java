@@ -8,12 +8,12 @@ package com.ilikly.finalframework.data.query;
  */
 public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     private final QProperty property;
-    private final String operation;
+    private final CriterionOperator operator;
     private final T value;
 
     private SingleCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
-        this.operation = builder.operation;
+        this.operator = builder.operator;
         this.value = builder.value;
     }
 
@@ -27,8 +27,8 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     }
 
     @Override
-    public String operation() {
-        return operation;
+    public CriterionOperator operator() {
+        return operator;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
 
     private static class BuilderImpl<T> implements SingleCriterion.Builder<T> {
         private QProperty property;
-        private String operation;
+        private CriterionOperator operator;
         private T value;
 
         private BuilderImpl() {
@@ -51,8 +51,8 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
         }
 
         @Override
-        public Builder<T> operation(String operation) {
-            this.operation = operation;
+        public Builder<T> operator(CriterionOperator operator) {
+            this.operator = operator;
             return this;
         }
 

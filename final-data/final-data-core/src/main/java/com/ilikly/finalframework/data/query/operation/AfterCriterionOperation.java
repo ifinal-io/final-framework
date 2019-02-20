@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
@@ -16,12 +17,12 @@ public class AfterCriterionOperation extends AbsCriterionOperation<Date> impleme
     public static final AfterCriterionOperation INSTANCE = new AfterCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.AFTER.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.AFTER;
     }
 
     @Override
-    public String format(QProperty property, String operation, Date value) {
+    public String format(QProperty property, CriterionOperator operator, Date value) {
         final String column = getPropertyColumn(property);
         return String.format("%s > '%s'", column, format(value));
     }

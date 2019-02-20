@@ -1,7 +1,8 @@
 package com.ilikly.finalframework.data.query.operation;
 
 import com.ilikly.finalframework.data.query.CollectionCriterionOperation;
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 
 import java.util.Collection;
@@ -16,12 +17,12 @@ public class InCriterionOperation<E> extends AbsCollectionCriterionOperation<E> 
     public static final InCriterionOperation INSTANCE = new InCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.IN.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.IN;
     }
 
     @Override
-    public String format(QProperty property, String operation, Collection<E> value) {
+    public String format(QProperty property, CriterionOperator operator, Collection<E> value) {
         final String column = getPropertyColumn(property);
         return String.format("%s IN %s", column, buildInString(value));
     }

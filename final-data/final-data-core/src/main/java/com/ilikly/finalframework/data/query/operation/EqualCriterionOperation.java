@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
@@ -17,12 +18,12 @@ public class EqualCriterionOperation<T> extends AbsCriterionOperation<T> impleme
     public static final EqualCriterionOperation INSTANCE = new EqualCriterionOperation<>();
 
     @Override
-    public String name() {
-        return CriterionOperations.EQUAL.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.EQUAL;
     }
 
     @Override
-    public String format(QProperty property, String operation, T value) {
+    public String format(QProperty property, CriterionOperator operator, T value) {
         final String column = getPropertyColumn(property);
 
         if (value instanceof String) {

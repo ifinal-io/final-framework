@@ -10,12 +10,12 @@ import java.util.Collection;
  */
 public class CollectionCriterionImpl<T> implements CollectionCriterion<T> {
     private final QProperty property;
-    private final String operation;
+    private final CriterionOperator operator;
     private final Collection<T> value;
 
     private CollectionCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
-        this.operation = builder.operation;
+        this.operator = builder.operator;
         this.value = builder.value;
     }
 
@@ -29,8 +29,8 @@ public class CollectionCriterionImpl<T> implements CollectionCriterion<T> {
     }
 
     @Override
-    public String operation() {
-        return operation;
+    public CriterionOperator operator() {
+        return operator;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CollectionCriterionImpl<T> implements CollectionCriterion<T> {
 
     private static class BuilderImpl<T> implements CollectionCriterion.Builder<T> {
         private QProperty property;
-        private String operation;
+        private CriterionOperator operator;
         private Collection<T> value;
 
         private BuilderImpl() {
@@ -53,8 +53,8 @@ public class CollectionCriterionImpl<T> implements CollectionCriterion<T> {
         }
 
         @Override
-        public Builder<T> operation(String operation) {
-            this.operation = operation;
+        public Builder<T> operator(CriterionOperator operator) {
+            this.operator = operator;
             return this;
         }
 

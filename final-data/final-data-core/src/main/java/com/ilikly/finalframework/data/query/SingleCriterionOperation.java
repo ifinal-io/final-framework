@@ -10,8 +10,8 @@ public interface SingleCriterionOperation<T> extends CriterionOperation<T, Singl
 
     @Override
     default String format(SingleCriterion<T> criterion) {
-        return format(criterion.property(), criterion.operation(), criterion.value());
+        return format(criterion.property(), criterion.operator(), criterion.value());
     }
 
-    String format(QProperty property, String operation, T value);
+    String format(QProperty property, CriterionOperator operator, T value);
 }

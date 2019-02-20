@@ -8,7 +8,7 @@ package com.ilikly.finalframework.data.query;
  */
 public interface CriterionOperation<T, C extends Criterion<T>> {
 
-    String name();
+    CriterionOperator operator();
 
     String format(C criterion);
 

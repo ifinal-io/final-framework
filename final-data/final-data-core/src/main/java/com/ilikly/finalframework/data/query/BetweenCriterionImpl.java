@@ -8,13 +8,13 @@ package com.ilikly.finalframework.data.query;
  */
 public class BetweenCriterionImpl<T extends Comparable<T>> implements BetweenCriterion<T> {
     private final QProperty property;
-    private final String operation;
+    private final CriterionOperator operator;
     private final T min;
     private final T max;
 
     private BetweenCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
-        this.operation = builder.operation;
+        this.operator = builder.operator;
         this.min = builder.min;
         this.max = builder.max;
     }
@@ -29,8 +29,8 @@ public class BetweenCriterionImpl<T extends Comparable<T>> implements BetweenCri
     }
 
     @Override
-    public String operation() {
-        return operation;
+    public CriterionOperator operator() {
+        return operator;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BetweenCriterionImpl<T extends Comparable<T>> implements BetweenCri
 
     private static class BuilderImpl<T extends Comparable<T>> implements BetweenCriterion.Builder<T> {
         private QProperty property;
-        private String operation;
+        private CriterionOperator operator;
         private T min;
         private T max;
 
@@ -59,8 +59,8 @@ public class BetweenCriterionImpl<T extends Comparable<T>> implements BetweenCri
         }
 
         @Override
-        public Builder<T> operation(String operation) {
-            this.operation = operation;
+        public Builder<T> operator(CriterionOperator operator) {
+            this.operator = operator;
             return this;
         }
 

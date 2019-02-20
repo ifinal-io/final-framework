@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
@@ -14,12 +15,12 @@ public class ContainsCriterionOperation<T> extends AbsCriterionOperation<T> impl
     public static final ContainsCriterionOperation<String> INSTANCE = new ContainsCriterionOperation<>();
 
     @Override
-    public String name() {
-        return CriterionOperations.CONTAINS.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.CONTAINS;
     }
 
     @Override
-    public String format(QProperty property, String operation, T value) {
+    public String format(QProperty property, CriterionOperator operator, T value) {
         final String column = getPropertyColumn(property);
         return String.format("%s LIKE '%%%s%%'", column, value.toString());
     }

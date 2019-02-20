@@ -22,7 +22,7 @@ public interface BetweenCriterion<T extends Comparable<T>> extends Criterion<T> 
         Builder<T> property(QProperty property);
 
         @Override
-        Builder<T> operation(String operation);
+        Builder<T> operator(CriterionOperator operator);
 
         Builder<T> between(T min, T max);
     }

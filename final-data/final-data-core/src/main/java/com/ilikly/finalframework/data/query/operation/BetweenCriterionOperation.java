@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 
 import java.util.Date;
@@ -15,12 +16,12 @@ public class BetweenCriterionOperation<T extends Comparable<T>> extends AbsCrite
     public static final BetweenCriterionOperation INSTANCE = new BetweenCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.BETWEEN.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.BETWEEN;
     }
 
     @Override
-    public String format(QProperty property, String operation, T min, T max) {
+    public String format(QProperty property, CriterionOperator operator, T min, T max) {
         final String column = getPropertyColumn(property);
         if (min instanceof String) {
             return String.format("%s BETWEEN '%s' AND '%s'", column, min, max);

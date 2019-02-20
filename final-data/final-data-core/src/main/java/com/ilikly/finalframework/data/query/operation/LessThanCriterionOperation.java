@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
@@ -16,12 +17,12 @@ public class LessThanCriterionOperation<T> extends AbsCriterionOperation<T> impl
     public static final LessThanCriterionOperation INSTANCE = new LessThanCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.LESS_THAN.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.LESS_THAN;
     }
 
     @Override
-    public String format(QProperty property, String operation, T value) {
+    public String format(QProperty property, CriterionOperator operator, T value) {
         final String column = getPropertyColumn(property);
         if (value instanceof String) {
             return String.format("%s < '%s'", column, value);

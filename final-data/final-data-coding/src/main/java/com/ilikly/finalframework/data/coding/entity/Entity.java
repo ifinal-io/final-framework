@@ -50,6 +50,17 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
 
     P getProperty(String name);
 
+    default P getRequiredProperty(String name) {
+
+        P property = getProperty(name);
+
+        if (property != null) {
+            return property;
+        }
+
+        throw new IllegalStateException(String.format("Required property of %s not found for %s!", name, getType()));
+    }
+
     P getIdProperty();
 
     default P getRequiredIdProperty() {

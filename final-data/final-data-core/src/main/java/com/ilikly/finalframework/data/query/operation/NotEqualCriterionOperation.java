@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
@@ -16,12 +17,12 @@ public class NotEqualCriterionOperation<T> extends AbsCriterionOperation<T> impl
     public static final NotEqualCriterionOperation INSTANCE = new NotEqualCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.NOT_EQUAL.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.NOT_EQUAL;
     }
 
     @Override
-    public String format(QProperty property, String operation, T value) {
+    public String format(QProperty property, CriterionOperator operator, T value) {
         final String column = getPropertyColumn(property);
 
         if (value instanceof String) {

@@ -88,7 +88,7 @@ public class QuerySqlBuilder implements SqlProvider<Query> {
                 criteriaSets.stream()
                         .map(criterion -> {
                             final Class javaType = getPropertyJavaType(criterion.property());
-                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.operation(), javaType);
+                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.operator(), javaType);
                             return criterionOperation.format(criterion);
                         })
                         .collect(Collectors.joining(String.format(" %s ", andOr.name())))

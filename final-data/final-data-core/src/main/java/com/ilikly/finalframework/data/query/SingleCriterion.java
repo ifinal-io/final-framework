@@ -20,7 +20,7 @@ public interface SingleCriterion<T> extends Criterion<T> {
         Builder<T> property(QProperty property);
 
         @Override
-        Builder<T> operation(String operation);
+        Builder<T> operator(CriterionOperator operation);
 
 
         Builder<T> value(T value);

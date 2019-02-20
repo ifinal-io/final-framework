@@ -66,7 +66,7 @@ public class EntityProcessor extends AbstractProcessor {
                                     Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
                                     MultiColumn multiColumn = (MultiColumn) property.getAnnotation(MultiColumn.class);
                                     Arrays.stream(multiColumn.properties())
-                                            .map(multiEntity::getProperty)
+                                            .map(multiEntity::getRequiredProperty)
                                             .map(multiProperty -> {
                                                 final String path = property.getName() + "." + multiProperty.getName();
                                                 final String name = multiProperty.isIdProperty() ?

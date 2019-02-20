@@ -21,8 +21,7 @@ public interface CollectionCriterion<T> extends SingleCriterion<Collection<T>> {
         @Override
         Builder<T> property(QProperty property);
 
-        @Override
-        Builder<T> operation(String operation);
+        Builder<T> operator(CriterionOperator operator);
 
         @Override
         Builder<T> value(Collection<T> value);

@@ -31,6 +31,7 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable {
     @Getter
     private Integer limit;
 
+
     public Query page(int page) {
         this.page = page;
         return this;

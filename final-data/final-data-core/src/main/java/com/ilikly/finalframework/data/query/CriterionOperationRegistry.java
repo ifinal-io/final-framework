@@ -35,7 +35,7 @@ public class CriterionOperationRegistry {
 
     private CriterionOperationRegistry(){}
 
-    private final Map<String, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
+    private final Map<CriterionOperator, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
 
     {
 
@@ -84,24 +84,17 @@ public class CriterionOperationRegistry {
     }
 
     public <T> void registerCriterionOperation(Class<T> type, CriterionOperation<T, ? extends Criterion> criterionOperation) {
-        Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(criterionOperation.name());
+        Map<Class, CriterionOperation> nameTypeOperationCache = getOperatorOperationCache(criterionOperation.operator());
         nameTypeOperationCache.put(type, criterionOperation);
     }
 
 
     @SuppressWarnings("unchecked")
-    public <T> CriterionOperation<T, ? extends Criterion> getCriterionOperation(String operationName, Class<T> type) {
-        try {
-            CriterionOperations operations = CriterionOperations.valueOf(operationName);
-            switch (operations) {
-                case NULL:
-                    return NullCriterionOperation.INSTANCE;
-                case NOT_NULL:
-                    return NotNullCriterionOperation.INSTANCE;
-            }
-        } catch (Exception e) {
-            //ignore
-        }
+    public <T> CriterionOperation<T, ? extends Criterion> getCriterionOperation(CriterionOperator operator, Class<T> type) {
+
+        if (operator.equals(CriterionOperators.NULL)) return NullCriterionOperation.INSTANCE;
+        if (operator.equals(CriterionOperators.NOT_NULL)) return NotNullCriterionOperation.INSTANCE;
+
         Class clazz = type;
 
         if (type.isEnum()) {
@@ -111,21 +104,21 @@ public class CriterionOperationRegistry {
             }
         }
 
-        Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(operationName);
+        Map<Class, CriterionOperation> nameTypeOperationCache = getOperatorOperationCache(operator);
         CriterionOperation criterionOperation = nameTypeOperationCache.get(clazz);
         if (criterionOperation == null) {
-            throw new IllegalArgumentException(String.format("not found criterion operation of name =%s and type = %s", operationName, type.getCanonicalName()));
+            throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator.name(), type.getCanonicalName()));
         }
         return criterionOperation;
     }
 
-    private Map<Class, CriterionOperation> getNameTypeOperationCache(String name) {
+    private Map<Class, CriterionOperation> getOperatorOperationCache(CriterionOperator operator) {
 
 
-        if (!cache.containsKey(name)) {
-            cache.put(name, new ConcurrentHashMap<>(64));
+        if (!cache.containsKey(operator)) {
+            cache.put(operator, new ConcurrentHashMap<>(64));
         }
-        return cache.get(name);
+        return cache.get(operator);
     }
 
 }
