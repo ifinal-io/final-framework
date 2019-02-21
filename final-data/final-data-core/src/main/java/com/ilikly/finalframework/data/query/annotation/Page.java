@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)
-@CriterionAnnotation("EQUAL")
-public @interface Equal {
+public @interface Page {
     String value() default "";
 }
