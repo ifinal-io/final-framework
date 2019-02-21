@@ -17,7 +17,7 @@ public abstract class AbsAppender extends AppenderBase<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent eventObject) {
-        LoggingEvent loggingEvent = converter.map(eventObject);
+        LoggingEvent loggingEvent = converter.convert(eventObject);
         append(loggingEvent);
     }
 

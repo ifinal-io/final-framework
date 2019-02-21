@@ -1,7 +1,9 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
+import com.ilikly.finalframework.data.query.SingleCriterionOperation;
 
 /**
  * @author likly
@@ -9,16 +11,16 @@ import com.ilikly.finalframework.data.query.QProperty;
  * @date 2019-01-18 13:38:04
  * @since 1.0
  */
-public class EndWithCriterionOperation<T> extends AbsCriterionOperation<T> {
-    public static final EndWithCriterionOperation INSTANCE = new EndWithCriterionOperation();
+public class EndWithCriterionOperation<T> extends AbsCriterionOperation<T> implements SingleCriterionOperation<T> {
+    public static final EndWithCriterionOperation<String> INSTANCE = new EndWithCriterionOperation<>();
 
     @Override
-    public String name() {
-        return CriterionOperations.END_WITH.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.END_WITH;
     }
 
     @Override
-    public String format(QProperty property, T value) {
+    public String format(QProperty property, CriterionOperator operator, T value) {
         final String column = getPropertyColumn(property);
         return String.format("%s LIKE '%%%s'", column, value.toString());
     }

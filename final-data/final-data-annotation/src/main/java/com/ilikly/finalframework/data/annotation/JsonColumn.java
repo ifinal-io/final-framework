@@ -22,7 +22,7 @@ public @interface JsonColumn {
 
     String name() default "";
 
-    PersistentType persitentType() default PersistentType.JSON;
+    PersistentType persistentType() default PersistentType.JSON;
 
     boolean unique() default false;
 

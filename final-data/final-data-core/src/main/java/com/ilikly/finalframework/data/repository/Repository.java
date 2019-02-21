@@ -44,14 +44,22 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     int insert(@Param("tableName") String tableName, @Param("list") Collection<T> entities, @Param("query") Query query);
 
-    /*=========================================== SET ===========================================*/
+    /*=========================================== UPDATE ===========================================*/
 
     default int update(T entity) {
         return update(null, entity);
     }
 
+    default int update(T entity, boolean selective) {
+        return update(null, entity, selective);
+    }
+
     default int update(String tableName, T entity) {
         return update(tableName, entity, null, Collections.singletonList(entity.getId()), null);
+    }
+
+    default int update(String tableName, T entity, boolean selective) {
+        return update(tableName, entity, null, selective, Collections.singletonList(entity.getId()), null);
     }
 
     default int update(T... entities) {
@@ -68,9 +76,21 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
                 .sum();
     }
 
+    default int update(Collection<T> entities, boolean selective) {
+        return entities.stream()
+                .mapToInt(it -> update(it, selective))
+                .sum();
+    }
+
     default int update(String tableName, Collection<T> entities) {
         return entities.stream()
                 .mapToInt(it -> update(tableName, it))
+                .sum();
+    }
+
+    default int update(String tableName, Collection<T> entities, boolean selective) {
+        return entities.stream()
+                .mapToInt(it -> update(tableName, it, selective))
                 .sum();
     }
 
@@ -86,8 +106,12 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(null, null, update, null, query);
     }
 
+    default int update(String tableName, T entity, Update update, Collection<ID> ids, Query query) {
+        return update(tableName, entity, update, true, ids, query);
+    }
+
     int update(@Param("tableName") String tableName, @Param("entity") T entity, @Param("update") Update update,
-               @Param("ids") Collection<ID> ids, @Param("query") Query query);
+               @Param("selective") boolean selective, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== DELETE ===========================================*/
 

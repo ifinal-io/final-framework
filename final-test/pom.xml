@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-spring</artifactId>
+            <artifactId>final-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -24,22 +24,16 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-redis</artifactId>
+            <artifactId>final-redis-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-cache</artifactId>
+            <artifactId>final-cache-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-coding</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>

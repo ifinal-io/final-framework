@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.provider.QuerySqlBuilder;
 import com.ilikly.finalframework.data.query.enums.Direction;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streable<Criteria>, Serializable {
+public class Query implements Streamable<Criteria>, Serializable, Pageable {
 
     @Getter
     private Integer page;
@@ -30,6 +30,7 @@ public class Query implements Streable<Criteria>, Serializable {
     private Sort sort;
     @Getter
     private Integer limit;
+
 
     public Query page(int page) {
         this.page = page;

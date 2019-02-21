@@ -4,6 +4,7 @@ import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGenerator;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
+import com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator;
 import com.ilikly.finalframework.mybatis.handler.TypeHandlerRegistry;
 import org.apache.ibatis.type.TypeHandler;
 
@@ -15,7 +16,6 @@ import org.apache.ibatis.type.TypeHandler;
  */
 @SuppressWarnings("all")
 public interface Utils {
-
     static Class getPropertyJavaType(Property property) {
         return property.isCollectionLike() ? property.getComponentType() : property.getType();
     }
@@ -33,7 +33,8 @@ public interface Utils {
     static ColumnGenerator getPropertyColumnGenerator(Dialect dialect,Property property) {
         final Class javaType = getPropertyJavaType(property);
         final Class collectionType = getPropertyCollectionType(property);
-        return ColumnGeneratorRegistry.getInstance().getColumnGenerator(dialect, javaType, collectionType);
+        ColumnGenerator columnGenerator = ColumnGeneratorRegistry.getInstance().getColumnGenerator(dialect, javaType, collectionType);
+        return columnGenerator == null ? BaseColumnGenerator.INSTANCE : columnGenerator;
     }
 
 }

@@ -16,6 +16,10 @@
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-data-autoconfigure</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-data-coding</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

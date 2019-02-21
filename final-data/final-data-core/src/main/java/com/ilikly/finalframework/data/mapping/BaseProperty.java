@@ -93,7 +93,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
             }
 
             if (Assert.isEmpty(this.column)) {
-                column = NameConverterRegistry.getInstance().getColumnNameConverter().map(getName());
+                column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(getName());
             }
         }
     }
@@ -113,7 +113,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     @SuppressWarnings("all")
     private void initJsonColumn(JsonColumn column) {
-        this.persistentType = column.persitentType();
+        this.persistentType = column.persistentType();
         this.unique = column.unique();
         this.nonnull = column.nonnull();
         this.insertable = column.insertable();

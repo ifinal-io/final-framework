@@ -38,7 +38,7 @@ public class ILoggingEvent2LoggingEventConverter implements Converter<ILoggingEv
     }
 
     @Override
-    public LoggingEvent map(ILoggingEvent event) {
+    public LoggingEvent convert(ILoggingEvent event) {
         final LoggingEvent result = new LoggingEvent();
         result.setHost(host);
         result.setPid(pid);

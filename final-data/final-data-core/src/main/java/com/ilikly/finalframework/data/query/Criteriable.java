@@ -12,9 +12,10 @@ import java.util.Date;
  * @date 2018-10-12 16:47
  * @since 1.0
  */
+@SuppressWarnings("all")
 public interface Criteriable<T> {
 
-    //    Comparable operation
+    //    Comparable operator
 
     T eq(@NotNull Object value);
 
@@ -28,7 +29,7 @@ public interface Criteriable<T> {
 
     T lte(@NotNull Comparable value);
 
-    //    in operation
+    //    in operator
 
     T in(@NotEmpty Object... values);
 
@@ -38,7 +39,11 @@ public interface Criteriable<T> {
 
     T nin(@NotEmpty Collection<Object> values);
 
-    //    like operation
+    T isNull();
+
+    T nonNull();
+
+    //    like operator
 
     T startWith(@NotEmpty String value);
 
@@ -56,7 +61,7 @@ public interface Criteriable<T> {
 
     T notLike(@NotBlank String value);
 
-    // date operation
+    // date operator
 
     T before(@NotNull Date date);
 
@@ -74,9 +79,9 @@ public interface Criteriable<T> {
 
     T dateAfter(@NotNull long date);
 
-    <E extends Comparable> T between(@NotNull E min, @NotNull E max);
+    <E extends Comparable<E>> T between(@NotNull E min, @NotNull E max);
 
-    <E extends Comparable> T notBetween(@NotNull E min, @NotNull E max);
+    <E extends Comparable<E>> T notBetween(@NotNull E min, @NotNull E max);
 
     T dateBetween(@NotNull Date min, @NotNull Date max);
 

@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.entity.enums.IEnum;
+import com.ilikly.finalframework.data.query.operation.BetweenCriterionOperation;
 import com.ilikly.finalframework.data.query.operation.*;
 
 import java.util.Arrays;
@@ -25,7 +26,16 @@ public class CriterionOperationRegistry {
             float.class, Float.class, double.class, Double.class,
             String.class
     );
-    private final Map<String, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
+
+    private static final CriterionOperationRegistry INSTANCE = new CriterionOperationRegistry();
+
+    public static CriterionOperationRegistry getInstance(){
+        return INSTANCE;
+    }
+
+    private CriterionOperationRegistry(){}
+
+    private final Map<CriterionOperator, Map<Class, CriterionOperation>> cache = new ConcurrentHashMap<>(32);
 
     {
 
@@ -50,8 +60,19 @@ public class CriterionOperationRegistry {
         registerCriterionOperation(String.class, LikeCriterionOperation.INSTANCE);
         registerCriterionOperation(String.class, NotLikeCriterionOperation.INSTANCE);
 
+        registerCriterionOperation(Date.class, EqualCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, NotEqualCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, GreaterThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, GreaterEqualThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, LessThanCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, LessEqualThanCriterionOperation.INSTANCE);
+
+        registerCriterionOperation(Date.class, BeforeCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, AfterCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateBeforeCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateAfterCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, BetweenCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, NotBetweenCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateBetweenCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, NotDateBetweenCriterionOperation.INSTANCE);
 
@@ -62,26 +83,18 @@ public class CriterionOperationRegistry {
         new CriterionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperation(Class<T> type, CriterionOperation<T> criterionOperation) {
-        Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(criterionOperation.name());
+    public <T> void registerCriterionOperation(Class<T> type, CriterionOperation<T, ? extends Criterion> criterionOperation) {
+        Map<Class, CriterionOperation> nameTypeOperationCache = getOperatorOperationCache(criterionOperation.operator());
         nameTypeOperationCache.put(type, criterionOperation);
     }
 
 
     @SuppressWarnings("unchecked")
-    public <T> CriterionOperation<T> getCriterionOperation(String operationName, Class<T> type) {
-        try {
-            CriterionOperations operations = CriterionOperations.valueOf(operationName);
-            switch (operations) {
-                case NULL:
-                    return NullCriterionOperation.INSTANCE;
-                case NOT_NULL:
-                    return NotNullCriterionOperation.INSTANCE;
+    public <T> CriterionOperation<T, ? extends Criterion> getCriterionOperation(CriterionOperator operator, Class<T> type) {
 
-            }
-        } catch (Exception e) {
-            //ignore
-        }
+        if (operator.equals(CriterionOperators.NULL)) return NullCriterionOperation.INSTANCE;
+        if (operator.equals(CriterionOperators.NOT_NULL)) return NotNullCriterionOperation.INSTANCE;
+
         Class clazz = type;
 
         if (type.isEnum()) {
@@ -91,22 +104,21 @@ public class CriterionOperationRegistry {
             }
         }
 
-
-        Map<Class, CriterionOperation> nameTypeOperationCache = getNameTypeOperationCache(operationName);
+        Map<Class, CriterionOperation> nameTypeOperationCache = getOperatorOperationCache(operator);
         CriterionOperation criterionOperation = nameTypeOperationCache.get(clazz);
         if (criterionOperation == null) {
-            throw new IllegalArgumentException(String.format("not found criterion operation of name =%s and type = %s", operationName, type.getCanonicalName()));
+            throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator.name(), type.getCanonicalName()));
         }
         return criterionOperation;
     }
 
-    private Map<Class, CriterionOperation> getNameTypeOperationCache(String name) {
+    private Map<Class, CriterionOperation> getOperatorOperationCache(CriterionOperator operator) {
 
 
-        if (!cache.containsKey(name)) {
-            cache.put(name, new ConcurrentHashMap<>(64));
+        if (!cache.containsKey(operator)) {
+            cache.put(operator, new ConcurrentHashMap<>(64));
         }
-        return cache.get(name);
+        return cache.get(operator);
     }
 
 }

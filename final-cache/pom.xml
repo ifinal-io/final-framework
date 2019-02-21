@@ -10,25 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>final-cache</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>final-cache-core</module>
+        <module>final-cache-spring-boot-starter</module>
+    </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-coding</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
-            <artifactId>final-json</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 </project>

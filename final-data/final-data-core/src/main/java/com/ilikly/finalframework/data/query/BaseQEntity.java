@@ -27,7 +27,7 @@ public class BaseQEntity<ID extends Serializable, T > implements QEntity<ID, T> 
                 .forEach(property -> {
                     if (property.hasAnnotation(MultiColumn.class)) {
                         final Class multiType = property.getType();
-                        final Entity<Property> multiEntity = Entity.from(multiType);
+                        final Entity<?> multiEntity = Entity.from(multiType);
                         Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .forEach(multiProperty -> {

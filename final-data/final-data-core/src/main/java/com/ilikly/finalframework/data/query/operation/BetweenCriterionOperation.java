@@ -1,7 +1,10 @@
 package com.ilikly.finalframework.data.query.operation;
 
-import com.ilikly.finalframework.data.query.CriterionOperations;
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.CriterionOperators;
 import com.ilikly.finalframework.data.query.QProperty;
+
+import java.util.Date;
 
 /**
  * @author likly
@@ -9,17 +12,23 @@ import com.ilikly.finalframework.data.query.QProperty;
  * @date 2019-01-18 14:38:23
  * @since 1.0
  */
-public class BetweenCriterionOperation<T extends Comparable> extends AbsCriterionOperation<T> {
+public class BetweenCriterionOperation<T extends Comparable<T>> extends AbsCriterionOperation<T> implements com.ilikly.finalframework.data.query.BetweenCriterionOperation<T> {
     public static final BetweenCriterionOperation INSTANCE = new BetweenCriterionOperation();
 
     @Override
-    public String name() {
-        return CriterionOperations.BETWEEN.name();
+    public CriterionOperator operator() {
+        return CriterionOperators.BETWEEN;
     }
 
     @Override
-    public String format(QProperty property, T min, T max) {
+    public String format(QProperty property, CriterionOperator operator, T min, T max) {
         final String column = getPropertyColumn(property);
-        return min instanceof String ? String.format("%s BETWEEN '%s' AND '%s'", column, min, max) : String.format("%s BETWEEN %s AND %s", column, min, max);
+        if (min instanceof String) {
+            return String.format("%s BETWEEN '%s' AND '%s'", column, min, max);
+        } else if (min instanceof Date) {
+            return String.format("%s BETWEEN '%s' AND '%s'", column, format((Date) min), format((Date) max));
+        } else {
+            return String.format("%s BETWEEN %s AND %s", column, min, max);
+        }
     }
 }

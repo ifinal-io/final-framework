@@ -1,6 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.core.Streable;
+import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.mapping.Entity;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2018-12-26 19:53:09
  * @since 1.0
  */
-public interface QEntity<ID extends Serializable, T> extends Streable<QProperty>, Iterable<QProperty> {
+public interface QEntity<ID extends Serializable, T> extends Streamable<QProperty>, Iterable<QProperty> {
 
     static <ID extends Serializable, T> QEntity<ID, T> from(Class<T> entity) {
         return new BaseQEntity<>(Entity.from(entity));

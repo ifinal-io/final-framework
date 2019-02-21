@@ -12,5 +12,5 @@ public interface Converter2<S1, S2, TARGET> {
     /**
      * convert to {@link TARGET} with {@link S1} and {@link S2}
      */
-    TARGET map(S1 s1, S2 s2);
+    TARGET convert(S1 s1, S2 s2);
 }

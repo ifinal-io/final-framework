@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Persistent;
 import java.lang.annotation.*;
 
 /**
- * mark the target is a function column.
+ * Mark the target is a function column.
  * @author likly
  * @version 1.0
  * @date 2019-01-23 13:07:44

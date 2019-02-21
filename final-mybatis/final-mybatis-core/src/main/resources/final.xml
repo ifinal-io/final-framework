@@ -1,0 +1,11 @@
+<final>
+    <data>
+        <name-converter>
+            <table-converter class="com.ilikly.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
+            <column-converter class="com.ilikly.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
+        </name-converter>
+        <column-generator>
+            <default class="com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator"/>
+        </column-generator>
+    </data>
+</final>

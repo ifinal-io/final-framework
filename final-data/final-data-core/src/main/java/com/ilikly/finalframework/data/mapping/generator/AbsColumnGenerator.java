@@ -28,7 +28,7 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
     protected String getColumn(String prefix, Property property) {
         String column = Assert.isEmpty(prefix) ? property.getColumn() : property.isIdProperty() ? prefix :
                 prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
-        return NameConverterRegistry.getInstance().getTableNameConverter().map(column);
+        return NameConverterRegistry.getInstance().getTableNameConverter().convert(column);
     }
 
     @Override
@@ -39,7 +39,6 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
             return String.format(functionColumn.reader(), formatColumn(column)) + " AS " + getColumn(prefix, property);
         } else {
             return formatColumn(column);
-
         }
 
     }
