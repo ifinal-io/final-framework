@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity {
+public class Person extends AbsEntity<Date> {
     private static final long serialVersionUID = -8785625823175210092L;
     private String name;
     private Integer age;
@@ -31,7 +31,7 @@ public class Person extends AbsEntity {
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @MultiColumn(properties = {"id", "name", "age"})
+    @MultiColumn(shortId = false, properties = {"id", "name", "age"})
     private Person creator;
     @NonColumn
     private Date date = new Date();

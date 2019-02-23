@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.mybatis.model;
+package com.ilikly.finalframework.mybatis.xml.element;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
@@ -11,7 +11,11 @@ import java.io.Serializable;
  * @date 2018-12-22 00:36:34
  * @since 1.0
  */
-public class Result implements Serializable {
+public class Result implements Element, Serializable {
+
+    private static final String ID = "id";
+    private static final String RESULT = "result";
+
     private final String property;
     private final String column;
     private final Class javaType;
@@ -77,6 +81,16 @@ public class Result implements Serializable {
         }
         builder.append(">");
         return builder.toString();
+    }
+
+    @Override
+    public String name() {
+        return isIdResult() ? ID : RESULT;
+    }
+
+    @Override
+    public final ElementType type() {
+        return isIdResult() ? ElementType.ID_RESULT : ElementType.RESULT;
     }
 
     public static class Builder implements com.ilikly.finalframework.core.Builder<Result> {

@@ -9,6 +9,9 @@ import com.ilikly.finalframework.test.dao.mapper.PersonMapper;
 import com.ilikly.finalframework.test.entity.Person;
 import com.ilikly.finalframework.test.entity.QPerson;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -23,9 +26,13 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @Slf4j
+@Service
 @RestController
 @RequestMapping("/person")
 public class PersonController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
+
     @Resource
     private PersonMapper personMapper;
 
@@ -59,8 +66,13 @@ public class PersonController {
         person.setId(id);
 //        return personMapper.update(person);
         Update update = Update.update().set(QPerson.name, person.getName())
-                .set(QPerson.creator, person.getCreator().getId());
+                .set(QPerson.creatorId, person.getCreator().getId());
         return personMapper.update(update, id);
+    }
+
+    @GetMapping("/index")
+    public void index() {
+
     }
 
     @GetMapping("/{id}")

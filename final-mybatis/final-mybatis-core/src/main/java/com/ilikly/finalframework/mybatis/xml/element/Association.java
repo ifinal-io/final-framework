@@ -1,13 +1,19 @@
-package com.ilikly.finalframework.mybatis.model;
+package com.ilikly.finalframework.mybatis.xml.element;
 
+import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.core.Streamable;
+import lombok.Getter;
 import org.apache.ibatis.mapping.FetchType;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -32,7 +38,9 @@ import java.util.List;
  * fetchType (lazy|eager) #IMPLIED
  * >
  */
-public class Association implements Serializable {
+@Getter
+public class Association implements Element, Streamable<Element>, Iterable<Element>, Serializable {
+    private static final String NAME = "association";
     private final String property;
     private final String column;
     private final Class javaType;
@@ -46,6 +54,7 @@ public class Association implements Serializable {
     private final FetchType fetchType;
     private final Result idResult;
     private final List<Result> results;
+    private final List<Element> elements;
 
     private Association(Builder builder) {
         this.property = builder.property;
@@ -60,16 +69,69 @@ public class Association implements Serializable {
         this.autoMapping = builder.autoMapping;
         this.fetchType = builder.fetchType;
         this.idResult = builder.idResult;
-        this.results = builder.results.isEmpty() ? null : Collections.unmodifiableList(builder.results);
+        this.results = builder.results.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.results);
+        this.elements = builder.elements.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.elements);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<association");
+
+        if (Assert.nonEmpty(property)) {
+            builder.append(" property=\"").append(property).append("\"");
+        }
+
+        if (Assert.nonNull(javaType)) {
+            builder.append(" javaType=\"").append(javaType.getCanonicalName()).append("\"");
+        }
+
+        if (Assert.nonNull(typeHandler)) {
+            builder.append(" typeHandler=\"").append(typeHandler.getClass().getCanonicalName()).append("\"");
+        }
+
+        if (Assert.nonEmpty(select)) {
+            builder.append(" select=\"").append(select).append("\"");
+        }
+
+        if (Assert.nonEmpty(column)) {
+            builder.append(" column=\"").append(column).append("\"");
+        }
+
+        builder.append("></association>");
+        return builder.toString();
     }
 
     public static Builder builder(String property) {
         return new Builder(property);
     }
 
+    @Override
+    public String name() {
+        return NAME;
+    }
+
+    @Override
+    public ElementType type() {
+        return ElementType.ASSOCIATION;
+    }
+
+    @Override
+    public Stream<Element> stream() {
+        return elements.stream();
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Element> iterator() {
+        return elements.iterator();
+    }
+
     public static class Builder implements com.ilikly.finalframework.core.Builder<Association> {
         private final String property;
         private final List<Result> results = new ArrayList<>();
+        private final List<Element> elements = new ArrayList<>();
+
         private String column;
         private Class javaType;
         private JdbcType jdbcType;
@@ -98,6 +160,7 @@ public class Association implements Serializable {
 
         public Builder addResult(Result result) {
             this.results.add(result);
+            this.elements.add(result);
             if (result.isIdResult()) {
                 this.idResult = result;
             }

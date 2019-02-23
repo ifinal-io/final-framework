@@ -6,7 +6,6 @@ import com.ilikly.finalframework.test.dao.mapper.LoggingEventMapper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
@@ -16,7 +15,7 @@ import javax.annotation.PostConstruct;
  * @date 2019-01-16 21:57:36
  * @since 1.0
  */
-@Configuration
+//@Configuration
 public class LoggerAppender extends AbsAppender implements ApplicationContextAware {
 
     private static LoggingEventMapper loggingEventMapper;

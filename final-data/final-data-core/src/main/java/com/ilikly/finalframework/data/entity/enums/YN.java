@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * @author likly
@@ -28,6 +29,7 @@ public enum YN implements IEnum<Integer> {
 
 
     @Override
+    @JsonValue
     public Integer getCode() {
         return code;
     }

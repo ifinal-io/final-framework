@@ -2,7 +2,6 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.mapping.Entity;
-import com.ilikly.finalframework.data.mapping.Property;
 
 import java.io.Serializable;
 import java.util.*;
@@ -28,13 +27,14 @@ public class BaseQEntity<ID extends Serializable, T > implements QEntity<ID, T> 
                     if (property.hasAnnotation(MultiColumn.class)) {
                         final Class multiType = property.getType();
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
+                        final MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
+                        Arrays.stream(multiColumn.properties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .forEach(multiProperty -> {
                                     final String path = property.getName() + "." + multiProperty.getName();
                                     final String name = multiProperty.isIdProperty() ? property.getName()
                                             : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
-                                    final String column = multiProperty.isIdProperty() ? property.getColumn()
+                                    final String column = multiProperty.isIdProperty() && multiColumn.shortId() ? property.getColumn()
                                             : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final QProperty multiQProperty = new BaseQProperty(multiProperty, property.getTable(), path, name, column);
                                     addProperty(multiQProperty);

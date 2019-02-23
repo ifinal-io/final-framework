@@ -191,7 +191,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     @Override
     protected Association<Property> createAssociation() {
-        return null;
+        return new Association<>(this, null);
     }
 
 }

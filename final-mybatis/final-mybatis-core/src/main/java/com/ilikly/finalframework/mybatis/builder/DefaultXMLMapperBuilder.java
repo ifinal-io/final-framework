@@ -9,6 +9,7 @@ import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGenerator;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import com.ilikly.finalframework.mybatis.Utils;
+import com.ilikly.finalframework.mybatis.xml.element.ResultMapFactory;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.type.TypeHandler;
 import org.slf4j.Logger;
@@ -46,6 +47,8 @@ public class DefaultXMLMapperBuilder {
     private static final String SQL_INSERT_COLUMNS = "sql-insert-columns";
     private static final String SQL_INSERT_VALUES = "sql-insert-values";
     private static final String SQL_SELECT = "sql-select";
+
+    private static final ResultMapFactory resultMapFactory = new ResultMapFactory();
 
     private final XNode context;
     private final Document document;
@@ -115,6 +118,7 @@ public class DefaultXMLMapperBuilder {
 
     }
 
+
     /*
      * <resultMap id="****Map" type="">
      *     <id property="" column="" javaType="" jdbcType="" typeHandler=""/>
@@ -127,19 +131,25 @@ public class DefaultXMLMapperBuilder {
      * </resultMap>
      */
     private void appendResultMapElement() {
-        final Element resultMap = document.createElement("resultMap");
-        resultMap.setAttribute("id", type.getSimpleName() + "Map");
-        resultMap.setAttribute("type", type.getCanonicalName());
+        context.getNode().appendChild(new ResultMapMapperBuilder(resultMapFactory.create(type)).build(document));
 
-        entity.stream().filter(it -> !it.isTransient())
-                .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
-                        resultMap.appendChild(buildAssociationElement(property));
-                    } else {
-                        resultMap.appendChild(buildResultElement(property, null));
-                    }
-                });
-        context.getNode().appendChild(resultMap);
+//        context.getNode().appendChild(buildResultMapElement(resultMapFactory.create(type)));
+//
+//
+//
+//        final Element resultMap = document.createElement("resultMap");
+//        resultMap.setAttribute("id", type.getSimpleName() + "Map");
+//        resultMap.setAttribute("type", type.getCanonicalName());
+//
+//        entity.stream().filter(it -> !it.isTransient())
+//                .forEach(property -> {
+//                    if (property.hasAnnotation(MultiColumn.class)) {
+//                        resultMap.appendChild(buildAssociationElement(property));
+//                    } else {
+//                        resultMap.appendChild(buildResultElement(property, null));
+//                    }
+//                });
+//        context.getNode().appendChild(resultMap);
     }
 
     //    ******************************************************************************************************************
@@ -159,6 +169,7 @@ public class DefaultXMLMapperBuilder {
                 .forEach(association::appendChild);
         return association;
     }
+
 
     @SuppressWarnings("all")
     private Element buildResultElement(Property property, String prefix) {
@@ -607,6 +618,7 @@ public class DefaultXMLMapperBuilder {
         sql.appendChild(textNode("SELECT " + buildSelectColumns() + " FROM"));
         context.getNode().appendChild(sql);
     }
+
     private Element whenIdNotNull() {
         /*
          * <when test="id != null">

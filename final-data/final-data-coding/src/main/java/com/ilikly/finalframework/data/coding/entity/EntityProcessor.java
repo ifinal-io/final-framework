@@ -70,7 +70,9 @@ public class EntityProcessor extends AbstractProcessor {
                                             .map(multiProperty -> {
                                                 final String path = property.getName() + "." + multiProperty.getName();
                                                 final String name = multiProperty.isIdProperty() ?
-                                                        property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
+                                                        multiColumn.shortId() ?
+                                                                property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1)
+                                                        : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
                                                 return QProperty.builder(path, name)
                                                         .type(multiProperty.getType())
                                                         .rawType(multiProperty.getRawType())

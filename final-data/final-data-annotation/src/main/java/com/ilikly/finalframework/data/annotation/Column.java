@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.annotation;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
 import java.lang.annotation.*;
@@ -17,8 +18,12 @@ import java.lang.annotation.*;
 @Persistent
 public @interface Column {
 
+    @AliasFor("name")
+    String value() default "";
+
     String table() default "";
 
+    @AliasFor("value")
     String name() default "";
 
     PersistentType persistentType() default PersistentType.AUTO;

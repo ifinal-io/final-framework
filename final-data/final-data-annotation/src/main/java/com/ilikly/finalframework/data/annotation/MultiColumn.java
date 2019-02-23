@@ -1,6 +1,8 @@
 package com.ilikly.finalframework.data.annotation;
 
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
+import org.springframework.data.annotation.Reference;
 
 import java.lang.annotation.*;
 
@@ -14,9 +16,16 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Persistent
+@Reference
 public @interface MultiColumn {
 
+    @AliasFor("name")
+    String value() default "";
+
+    @AliasFor("value")
     String name() default "";
+
+    boolean shortId() default true;
 
     String[] properties();
 
@@ -29,7 +38,5 @@ public @interface MultiColumn {
     boolean updatable() default true;
 
     boolean selectable() default true;
-
-
 
 }

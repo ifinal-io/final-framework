@@ -1,9 +1,16 @@
-package com.ilikly.finalframework.mybatis.model;
+package com.ilikly.finalframework.mybatis.xml.element;
+
+import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.core.Streamable;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -11,45 +18,71 @@ import java.util.List;
  * @date 2018-12-22 00:45:11
  * @since 1.0
  */
-public class ResultMap implements Serializable {
+@Getter
+public class ResultMap implements Element, Streamable<Element>, Iterable<Element>, Serializable {
+
+    private static final String NAME = "resultMap";
+
     private final String id;
     private final Class type;
     private final Boolean autoMapping;
     private final Result idResult;
     private final List<Result> results;
     private final List<Association> associations;
+    private final List<Element> elements;
 
     private ResultMap(Builder builder) {
         this.id = builder.id;
         this.type = builder.type;
         this.autoMapping = builder.autoMapping;
         this.idResult = builder.idResult;
-        this.results = builder.results.isEmpty() ? null : Collections.unmodifiableList(builder.results);
-        this.associations = builder.associations.isEmpty() ? null : Collections.unmodifiableList(builder.associations);
+        this.results = builder.results.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.results);
+        this.associations = builder.associations.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.associations);
+        this.elements = builder.elements.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.elements);
     }
 
     public static Builder builder(String id, Class type) {
         return new Builder(id, type);
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<resultMap");
+
+        if (Assert.nonEmpty(id)) {
+            builder.append(" id=\"").append(id).append("\"");
+        }
+
+        if (Assert.nonEmpty(type)) {
+            builder.append(" type=\"").append(type.getCanonicalName()).append("\"");
+        }
+
+        builder.append("></resultMap>");
+
+
+        return builder.toString();
     }
 
-    public Class getType() {
-        return type;
+    @Override
+    public String name() {
+        return NAME;
     }
 
-    public Boolean getAutoMapping() {
-        return autoMapping;
+    @Override
+    public final ElementType type() {
+        return ElementType.RESULT_MAP;
     }
 
-    public Result getIdResult() {
-        return idResult;
+    @Override
+    public Stream<Element> stream() {
+        return elements.stream();
     }
 
-    public List<Result> getResults() {
-        return results;
+    @NotNull
+    @Override
+    public Iterator<Element> iterator() {
+        return elements.iterator();
     }
 
     public static class Builder implements com.ilikly.finalframework.core.Builder<ResultMap> {
@@ -57,6 +90,7 @@ public class ResultMap implements Serializable {
         private final Class type;
         private final List<Result> results = new ArrayList<>();
         private final List<Association> associations = new ArrayList<>();
+        private final List<Element> elements = new ArrayList<>();
         private Boolean autoMapping;
         private Result idResult;
 
@@ -67,6 +101,7 @@ public class ResultMap implements Serializable {
 
         public Builder addResult(Result result) {
             this.results.add(result);
+            this.elements.add(result);
             if (result.isIdResult()) {
                 idResult = result;
             }
@@ -75,6 +110,7 @@ public class ResultMap implements Serializable {
 
         public Builder addAssociation(Association association) {
             this.associations.add(association);
+            this.elements.add(association);
             return this;
         }
 

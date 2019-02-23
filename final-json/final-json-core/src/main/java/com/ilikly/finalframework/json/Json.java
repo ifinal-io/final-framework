@@ -23,6 +23,12 @@ import java.util.Collection;
 @SuppressWarnings("all")
 public interface Json {
 
+    /**
+     * 将对象转化为 json 串
+     *
+     * @param object
+     * @return
+     */
     static String toJson(Object object) {
         try {
 

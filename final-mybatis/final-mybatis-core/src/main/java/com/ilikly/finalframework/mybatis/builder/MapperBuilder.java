@@ -1,5 +1,8 @@
 package com.ilikly.finalframework.mybatis.builder;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * @author likly
  * @version 1.0
@@ -7,4 +10,7 @@ package com.ilikly.finalframework.mybatis.builder;
  * @since 1.0
  */
 public interface MapperBuilder {
+
+    Element build(Document document);
+
 }

@@ -1,4 +1,4 @@
-package com.ilikly.finalframework.mybatis.model;
+package com.ilikly.finalframework.mybatis.xml.element;
 
 import java.io.Serializable;
 

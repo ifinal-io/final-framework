@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.annotation;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
 import java.lang.annotation.*;
@@ -20,6 +21,10 @@ public @interface JsonColumn {
 
     String table() default "";
 
+    @AliasFor("name")
+    String value() default "";
+
+    @AliasFor("value")
     String name() default "";
 
     PersistentType persistentType() default PersistentType.JSON;

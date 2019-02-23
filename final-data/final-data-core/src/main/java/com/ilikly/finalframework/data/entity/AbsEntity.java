@@ -7,8 +7,6 @@ import com.ilikly.finalframework.data.annotation.PrimaryKey;
 import com.ilikly.finalframework.data.entity.enums.YN;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * @author likly
  * @version 1.0
@@ -16,16 +14,16 @@ import java.time.LocalDateTime;
  * @since 1.0
  */
 @Data
-public abstract class AbsEntity implements IEntity<Long> {
+public abstract class AbsEntity<DATE> implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
 
     @PrimaryKey
     private Long id;
     @CreatedTime
-    private LocalDateTime createdTime;
+    private DATE createdTime;
     @LastModifiedTime
-    private LocalDateTime lastModifiedTime;
+    private DATE lastModifiedTime;
     @Column(insertable = false)
     private YN yn;
 }

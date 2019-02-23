@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.annotation;
 
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -15,8 +16,14 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Index(Integer.MIN_VALUE)
 @org.springframework.data.annotation.Id
 public @interface PrimaryKey {
+
+    @AliasFor("name")
+    String value() default "";
+
+    @AliasFor("value")
     String name() default "";
 
     PrimaryKeyType type() default PrimaryKeyType.AUTO_INC;

@@ -68,8 +68,6 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
         try {
             final Class entityClass = getType();
             BeanInfo beanInfo = Introspector.getBeanInfo(entityClass);
-
-
             Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(it -> !it.getName().equals("class"))
                     .map(it -> buildProperty(entityClass,it))

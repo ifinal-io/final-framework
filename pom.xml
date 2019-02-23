@@ -5,8 +5,8 @@
 
     <groupId>com.ilikly.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <!--<version>${final.release.version}</version>-->
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1.RELEASE</version>
+    <!--<version>0.0.1-SNAPSHOT</version>-->
     <modules>
         <module>final-core</module>
         <module>final-util</module>
@@ -34,7 +34,6 @@
     </parent>
 
     <properties>
-        <final.release.version>0.0.1-SNAPSHOT</final.release.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -67,96 +66,96 @@
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <!-- final-json -->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json-jackson</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json-autoconfigure</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-json-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <!-- final-redis -->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-redis</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-redis-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-redis-autoconfigure</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-redis-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <!-- final-cache -->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-cache</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-cache-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-cache-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <!-- final-data -->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data-annotation</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data-autoconfigure</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data-coding</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <!--final-mybatis-->
             <dependency>
@@ -167,81 +166,81 @@
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis-agent</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis-autoconfigure</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis-coding</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
 
             <!--final-spring-->
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-coding</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-core</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-aop</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-web</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-util</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-data</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-mybatis</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-coding</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1.RELEASE</version>
             </dependency>
 
             <dependency>

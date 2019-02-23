@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.annotation;
 
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.lang.annotation.*;
@@ -18,6 +19,10 @@ import java.lang.annotation.*;
 public @interface CreatedTime {
     String table() default "";
 
+    @AliasFor("name")
+    String value() default "";
+
+    @AliasFor("value")
     String name() default "";
 
     boolean unique() default false;
