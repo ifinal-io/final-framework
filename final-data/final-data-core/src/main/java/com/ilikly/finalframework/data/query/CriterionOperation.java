@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
+import com.ilikly.finalframework.data.query.criterion.CriterionOperator;
+
 /**
  * @author likly
  * @version 1.0

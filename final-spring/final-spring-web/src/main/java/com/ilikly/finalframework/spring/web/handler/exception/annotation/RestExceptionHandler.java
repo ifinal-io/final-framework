@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 被该注解所标记的元素，将会被注册到 {@link Rest}
  * @author likly
  * @version 1.0
  * @date 2018-09-28 15:15

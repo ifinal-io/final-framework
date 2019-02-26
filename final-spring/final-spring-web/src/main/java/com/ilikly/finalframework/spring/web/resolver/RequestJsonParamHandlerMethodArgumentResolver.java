@@ -34,11 +34,13 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         }
         final String parameterName = getParameterName(requestJsonParam, parameter);
         String value = webRequest.getParameter(parameterName);
-        if (Assert.isEmpty(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
-            value = requestJsonParam.defaultValue();
-        }
+
         if (Assert.isEmpty(value) && requestJsonParam.required()) {
             throw new BadRequestException("parameter %s is required", parameterName);
+        }
+
+        if (Assert.isEmpty(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+            value = requestJsonParam.defaultValue();
         }
 
         if(Assert.isEmpty(value)) return null;
@@ -47,6 +49,9 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         return Json.parse(value, parameterType);
     }
 
+    /**
+     * 获取指定的参数名，如果{@link RequestJsonParam#value()}未指定，则使用{@link MethodParameter#getParameterName()}。
+     */
     private String getParameterName(RequestJsonParam requestJsonParam, MethodParameter parameter) {
         return Assert.isEmpty(requestJsonParam.value()) ? parameter.getParameterName() : requestJsonParam.value().trim();
     }

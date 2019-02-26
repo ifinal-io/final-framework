@@ -1,8 +1,9 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.entity.enums.IEnum;
-import com.ilikly.finalframework.data.query.operation.BetweenCriterionOperation;
-import com.ilikly.finalframework.data.query.operation.*;
+import com.ilikly.finalframework.data.query.criterion.CriterionOperator;
+import com.ilikly.finalframework.data.query.criterion.CriterionOperators;
+import com.ilikly.finalframework.data.query.criterion.operation.*;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -69,6 +70,8 @@ public class CriterionOperationRegistry {
 
         registerCriterionOperation(Date.class, BeforeCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, AfterCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, DateEqualCriterionOperation.INSTANCE);
+        registerCriterionOperation(Date.class, NotDateEqualCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateBeforeCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, DateAfterCriterionOperation.INSTANCE);
         registerCriterionOperation(Date.class, BetweenCriterionOperation.INSTANCE);

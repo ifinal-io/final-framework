@@ -8,11 +8,12 @@ import com.ilikly.finalframework.core.Assert;
  * @date 2018-10-12 13:17
  * @since 1.0
  */
+@SuppressWarnings({"unused"})
 public class ServiceException extends RuntimeException implements IException {
     private final Integer code;
 
-    public ServiceException(Integer code, String message) {
-        super(message);
+    public ServiceException(Integer code, String message, Object... args) {
+        super(String.format(message, args));
         Assert.isNull(code, "code is null");
         this.code = code;
     }
