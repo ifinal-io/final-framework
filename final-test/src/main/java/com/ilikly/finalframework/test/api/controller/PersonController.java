@@ -5,6 +5,7 @@ import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.Query;
 import com.ilikly.finalframework.data.query.Update;
 import com.ilikly.finalframework.spring.aop.monitor.MethodMonitor;
+import com.ilikly.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import com.ilikly.finalframework.test.dao.mapper.PersonMapper;
 import com.ilikly.finalframework.test.entity.Person;
 import com.ilikly.finalframework.test.entity.QPerson;
@@ -41,6 +42,11 @@ public class PersonController {
         System.out.println(entity);
         QEntity<Long, Person> person = QPerson.Person;
         System.out.println(person);
+    }
+
+    @PostMapping("/param")
+    public Object param(@RequestJsonParam Person param) {
+        return param;
     }
 
     @PostMapping
