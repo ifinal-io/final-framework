@@ -11,10 +11,6 @@
 
     <artifactId>final-data-core</artifactId>
 
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
@@ -34,5 +30,21 @@
             <artifactId>final-data-annotation</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
 
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion;
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0
@@ -8,5 +10,6 @@ package com.ilikly.finalframework.data.query.criterion;
  * @see CriterionOperators
  */
 public interface CriterionOperator {
+    @NonNull
     String name();
 }

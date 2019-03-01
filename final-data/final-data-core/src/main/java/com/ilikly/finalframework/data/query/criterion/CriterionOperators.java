@@ -1,5 +1,8 @@
 package com.ilikly.finalframework.data.query.criterion;
 
+import com.ilikly.finalframework.core.Assert;
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0
@@ -40,12 +43,33 @@ public class CriterionOperators implements CriterionOperator {
 
     private final String name;
 
-    public CriterionOperators(String name) {
+    public CriterionOperators(@NonNull String name) {
+        Assert.isEmpty(name, "name is empty");
         this.name = name;
     }
 
     @Override
+    @NonNull
     public String name() {
         return this.name;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CriterionOperator) {
+            return name.equals(((CriterionOperator) obj).name());
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

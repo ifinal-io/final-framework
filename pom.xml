@@ -20,6 +20,7 @@
         <module>final-auth</module>
         <module>final-logging</module>
         <module>final-test</module>
+        <module>final-dubbo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -282,6 +283,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -306,6 +316,5 @@
             <url>https://repo.spring.io/milestone</url>
         </repository>
     </repositories>
-
 
 </project>

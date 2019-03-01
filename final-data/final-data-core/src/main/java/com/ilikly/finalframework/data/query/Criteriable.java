@@ -71,6 +71,14 @@ public interface Criteriable<T> {
 
     T after(@NotNull long date);
 
+    T dateEqual(@NotNull Date date);
+
+    T notDateEqual(@NotNull Date date);
+
+    T dateEqual(@NotNull long date);
+
+    T notDateEqual(@NotNull long date);
+
     T dateBefore(@NotNull Date date);
 
     T dateBefore(@NotNull long date);
