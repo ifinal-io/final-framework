@@ -3,7 +3,6 @@ package com.ilikly.finalframework.redis.autoconfigure;
 import com.ilikly.finalframework.redis.serializer.Object2JsonRedisSerializer;
 import com.ilikly.finalframework.redis.serializer.Object2StringRedisSerializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 @ConfigurationProperties(prefix = RedisProperties.REDIS_PROPERTIES_PREFIX)
 public class RedisProperties {
-    public static final String REDIS_PROPERTIES_PREFIX = "final.redis.serializer";
+    static final String REDIS_PROPERTIES_PREFIX = "final.redis.serializer";
     private Class<? extends RedisSerializer> keySerializer = Object2StringRedisSerializer.class;
     private Class<? extends RedisSerializer> valueSerializer = Object2JsonRedisSerializer.class;
     private Class<? extends RedisSerializer> hashKeySerializer = Object2StringRedisSerializer.class;

@@ -3,18 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-framework</artifactId>
+        <artifactId>final-cache</artifactId>
         <groupId>com.ilikly.finalframework</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-cache</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>final-cache-annotation</module>
-        <module>final-cache-core</module>
-        <module>final-cache-spring-boot-starter</module>
-    </modules>
+    <artifactId>final-cache-annotation</artifactId>
+
 
 </project>

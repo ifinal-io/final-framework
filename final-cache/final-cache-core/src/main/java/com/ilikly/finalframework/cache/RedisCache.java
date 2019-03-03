@@ -23,18 +23,18 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void set(Object key, Object value, long ttl, TimeUnit timeUnit) {
+    public void set(Object key, Object value, long ttl, TimeUnit timeUnit, Class<?> view) {
         if (ttl > 0) {
-            Redis.value().set(key, Json.toJson(value), ttl, timeUnit);
+            Redis.value().set(key, view == null ? Json.toJson(value) : Json.toJson(value, view), ttl, timeUnit);
         } else {
-            Redis.value().set(key, Json.toJson(value));
+            Redis.value().set(key, view == null ? Json.toJson(value) : Json.toJson(value, view));
         }
     }
 
     @Override
-    public <T> T get(Object key, Type type) {
+    public <T> T get(Object key, Type type, Class<?> view) {
         final String value = (String) Redis.value().get(key);
-        return Assert.isEmpty(value) ? null : Json.parse(value,type);
+        return Assert.isEmpty(value) ? null : view == null ? Json.parse(value, type) : Json.parse(value, type, view);
     }
 
 
@@ -44,17 +44,18 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit) {
-        Redis.hash().put(key, field, value);
+    public void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit, Class<?> view) {
+        String json = view == null ? Json.toJson(value) : Json.toJson(value, view);
+        Redis.hash().put(key, field, json);
         if (ttl > 0) {
             Redis.key().expire(key, ttl, timeUnit);
         }
     }
 
     @Override
-    public <T> T hget(Object key, Object field,Type type) {
-        final String value = (String) Redis.hash().get(key,field);
-        return Assert.isEmpty(value) ? null : Json.parse(value,type);
+    public <T> T hget(Object key, Object field, Type type, Class<?> view) {
+        final String value = (String) Redis.hash().get(key, field);
+        return Assert.isEmpty(value) ? null : view == null ? Json.parse(value, type) : Json.parse(value, type, view);
     }
 
     @Override

@@ -21,20 +21,22 @@ public class CacheDelOperationInvocation implements CacheOperationInvocation<Cac
             return invoker.invoke();
         }
 
-        Object key = context.generateKey(null);
+        Object result = invoker.invoke();
+
+        Object key = context.generateKey(result);
 
         if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null keys, operation=" + context.operation());
+            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
         }
-        Object field = context.generateField(null);
+        Object field = context.generateField(result);
 
-        Object result = invoker.invoke();
+
 
         if (context.isConditionPassing(result)) {
             Object flag = field == null ? cache.del(key) : cache.hdel(key, field);
-            logger.info("delete form cache: keys={},fields={},result={},flag={}", key, field, result, flag);
+            logger.info("==> delete form cache: key={},field={},result={},flag={}", key, field, result, flag);
         } else {
-            logger.info("cache del condition is not passing,keys={},fields={},result={},condition={}", key, field, result, context.operation().condition());
+            logger.info("==> cache del condition is not passing,key={},field={},result={},condition={}", key, field, result, context.operation().condition());
 
         }
 

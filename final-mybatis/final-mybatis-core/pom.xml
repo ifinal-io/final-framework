@@ -49,11 +49,6 @@
             <artifactId>final-coding</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.7</version>
-        </dependency>
-        <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-json-spring-boot-starter</artifactId>
         </dependency>

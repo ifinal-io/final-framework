@@ -16,10 +16,9 @@ public class CacheSetOperation extends AbsCacheOperation<CacheSet> {
 
     public static CacheSetOperation from(CacheSet cacheSet) {
         return new Builder()
-                .keyFormat(cacheSet.keyPattern())
-                .keys(cacheSet.keys())
-                .fieldFormat(cacheSet.fieldPattern())
-                .fields(cacheSet.fields())
+                .key(cacheSet.key())
+                .field(cacheSet.field())
+                .delimiter(cacheSet.delimiter())
                 .condition(cacheSet.condition())
                 .expire(cacheSet.expire())
                 .ttl(cacheSet.ttl())

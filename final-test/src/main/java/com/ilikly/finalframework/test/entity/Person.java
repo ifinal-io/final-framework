@@ -1,10 +1,12 @@
 package com.ilikly.finalframework.test.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ilikly.finalframework.data.annotation.Entity;
 import com.ilikly.finalframework.data.annotation.JsonColumn;
 import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.NonColumn;
 import com.ilikly.finalframework.data.entity.AbsEntity;
+import com.ilikly.finalframework.data.result.Result;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,9 +24,11 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity<Date> {
+public class Person extends AbsEntity<Date> implements Result.View {
     private static final long serialVersionUID = -8785625823175210092L;
+    @JsonView(Person.class)
     private String name;
+    @JsonView(Person.class)
     private Integer age;
     @JsonColumn
     private List<String> stringList;

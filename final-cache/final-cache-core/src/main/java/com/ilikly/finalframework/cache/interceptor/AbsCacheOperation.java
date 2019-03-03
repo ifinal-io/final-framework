@@ -13,44 +13,38 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public abstract class AbsCacheOperation<A extends Annotation> implements CacheOperation<A> {
-    private final String keyPattern;
-    private final String[] keys;
-    private final String fieldPattern;
-    private final String[] fields;
+    private final String[] key;
+    private final String[] field;
+    private final String delimiter;
     private final String condition;
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeUnit;
 
     protected AbsCacheOperation(Builder builder) {
-        this.keyPattern = Assert.isEmpty(builder.keyFormat) ? null : builder.keyFormat;
-        this.keys = Assert.isEmpty(builder.keys) ? null : builder.keys;
-        this.fieldPattern = Assert.isEmpty(builder.fieldFormat) ? null : builder.fieldFormat;
-        this.fields = Assert.isEmpty(builder.fields) ? null : builder.fields;
+        this.key = Assert.isEmpty(builder.key) ? null : builder.key;
+        this.field = Assert.isEmpty(builder.field) ? null : builder.field;
+        this.delimiter = Assert.isEmpty(builder.delimiter) ? ":" : builder.delimiter;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
     }
 
+
     @Override
-    public String keyPattern() {
-        return keyPattern;
+    public String[] key() {
+        return key;
     }
 
     @Override
-    public String[] keys() {
-        return keys;
+    public String[] field() {
+        return field;
     }
 
     @Override
-    public String fieldPattern() {
-        return fieldPattern;
-    }
-
-    @Override
-    public String[] fields() {
-        return fields;
+    public String delimiter() {
+        return delimiter;
     }
 
     @Override
@@ -74,32 +68,26 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     }
 
     protected abstract static class Builder<O extends AbsCacheOperation> implements com.ilikly.finalframework.core.Builder<O> {
-        private String keyFormat;
-        private String[] keys;
-        private String fieldFormat;
-        private String[] fields;
+        private String[] key;
+        private String delimiter;
+        private String[] field;
         private String condition;
         private String expire;
         private Long ttl;
         private TimeUnit timeUnit;
 
-        public Builder<O> keyFormat(String format) {
-            this.keyFormat = format;
+        public Builder<O> key(String[] key) {
+            this.key = key;
             return this;
         }
 
-        public Builder<O> keys(String[] keys) {
-            this.keys = keys;
+        public Builder<O> field(String[] field) {
+            this.field = field;
             return this;
         }
 
-        public Builder<O> fieldFormat(String format) {
-            this.fieldFormat = format;
-            return this;
-        }
-
-        public Builder<O> fields(String[] fields) {
-            this.fields = fields;
+        public Builder<O> delimiter(String delimiter) {
+            this.delimiter = delimiter;
             return this;
         }
 
@@ -122,7 +110,6 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
             this.timeUnit = timeUnit;
             return this;
         }
-
 
     }
 

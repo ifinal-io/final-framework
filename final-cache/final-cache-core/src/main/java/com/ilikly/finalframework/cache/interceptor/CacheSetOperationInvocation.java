@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.cache.interceptor;
 
 import com.ilikly.finalframework.cache.*;
+import com.ilikly.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,19 +30,19 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
         Object key = context.generateKey(null);
 
         if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null keys, operation=" + context.operation());
+            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
         }
         Object field = context.generateField(null);
         final Type genericReturnType = context.method().getGenericReturnType();
-        Object result = field == null ? cache.get(key,genericReturnType) : cache.hget(key, field,genericReturnType);
-
+        logger.info("==> try to get from cache: key={},field={},view={}", key, field, context.view());
+        Object result = field == null ? cache.get(key, genericReturnType, context.view()) : cache.hget(key, field, genericReturnType, context.view());
+        logger.info("<== result: {}", Json.toJson(result));
         if (result != null) {
-            logger.info("get from cache: keys={},fields={},result={}", key, field, result);
             return result;
         }
-
+        logger.info("==> try to get frm query: key={},field={}", key, field);
         result = invoker.invoke();
-        logger.info("get from query: keys={},fields={},result={}", key, field, result);
+        logger.info("<== result: {}", Json.toJson(result));
         if (result != null) {
             if (context.isConditionPassing(result)) {
                 Long ttl;
@@ -60,13 +61,13 @@ public class CacheSetOperationInvocation implements CacheOperationInvocation<Cac
                 }
 
                 if (field == null) {
-                    cache.set(key, result, ttl, timeUnit);
+                    cache.set(key, result, ttl, timeUnit, context.view());
                 } else {
-                    cache.hset(key, field, result, ttl, timeUnit);
+                    cache.hset(key, field, result, ttl, timeUnit, context.view());
                 }
-                logger.info("set to cache: keys={},fields={},result={},ttl={},timeUnit={}", key, field, result, ttl, timeUnit);
+                logger.info("==> put to cache: key={},field={},result={},ttl={},timeUnit={}", key, field, Json.toJson(result), ttl, timeUnit);
             } else {
-                logger.info("cache set condition is not passing,keys={},fields={},result={},condition={}", key, field, result, context.operation().condition());
+                logger.info("cache set condition is not passing,key={},field={},result={},condition={}", key, field, Json.toJson(result), context.operation().condition());
             }
         }
 

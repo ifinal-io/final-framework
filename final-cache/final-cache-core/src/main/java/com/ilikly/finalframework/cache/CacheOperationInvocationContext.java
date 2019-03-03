@@ -18,6 +18,8 @@ public interface CacheOperationInvocationContext<O extends CacheOperation> {
 
     Object[] args();
 
+    Class<?> view();
+
     Class<?> returnType();
 
     Type genericReturnType();

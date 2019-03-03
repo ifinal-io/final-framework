@@ -1,5 +1,8 @@
 package com.ilikly.finalframework.cache;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.util.concurrent.TimeUnit;
 
@@ -10,20 +13,24 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public interface CacheOperation<A extends Annotation> {
+    @NonNull
+    String[] key();
 
-    String keyPattern();
+    @Nullable
+    String[] field();
 
-    String[] keys();
+    @NonNull
+    String delimiter();
 
-    String fieldPattern();
-
-    String[] fields();
-
+    @Nullable
     String condition();
 
+    @Nullable
     String expire();
 
+    @Nullable
     Long ttl();
 
+    @NonNull
     TimeUnit timeUnit();
 }

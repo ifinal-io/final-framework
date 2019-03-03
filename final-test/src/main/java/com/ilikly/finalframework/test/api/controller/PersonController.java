@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.test.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ilikly.finalframework.cache.annotation.CacheSet;
 import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.Query;
@@ -82,14 +83,15 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    @CacheSet(keyPattern = "person:%s:", keys = "#id", ttl = 1, timeunit = TimeUnit.MINUTES)
+    @JsonView(Person.class)
+    @CacheSet(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
     public Object get(@PathVariable("id") Long id) {
-        Query query = new Query().where(
-                QPerson.id.eq(id).or(
-                        QPerson.age.between(25, 30)
-                                .and(QPerson.name.contains("test"))
-                ));
-        return personMapper.select(query);
+        return findById(id);
     }
 
+    @JsonView(Person.class)
+    @CacheSet(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    public Object findById(Long id) {
+        return personMapper.selectOne(id);
+    }
 }

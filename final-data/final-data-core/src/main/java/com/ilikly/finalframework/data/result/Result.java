@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.result;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,11 +16,19 @@ public final class Result<T> implements Serializable {
 
     private static final long serialVersionUID = -5373427854167752891L;
 
+    @JsonView(View.class)
     private Integer status;
+    @JsonView(View.class)
     private String message;
+    @JsonView(View.class)
     private T data;
+    @JsonView(View.class)
     private String trace;
+    @JsonView(View.class)
     private Long timestamp = System.currentTimeMillis();
+
+    public interface View {
+    }
 
     public Result() {
     }

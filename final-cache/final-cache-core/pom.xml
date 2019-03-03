@@ -19,6 +19,10 @@
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
+            <artifactId>final-cache-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-spring-coding</artifactId>
         </dependency>
         <dependency>

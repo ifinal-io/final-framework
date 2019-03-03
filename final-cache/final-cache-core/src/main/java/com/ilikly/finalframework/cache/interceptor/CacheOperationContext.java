@@ -1,9 +1,11 @@
 package com.ilikly.finalframework.cache.interceptor;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ilikly.finalframework.cache.CacheOperation;
 import com.ilikly.finalframework.cache.CacheOperationExpressionEvaluator;
 import com.ilikly.finalframework.cache.CacheOperationInvocationContext;
 import com.ilikly.finalframework.core.Assert;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
@@ -12,7 +14,6 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * A {@link CacheOperationInvocationContext} context for a {@link CacheOperation}
@@ -27,6 +28,7 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     private final CacheOperationExpressionEvaluator evaluator;
     private final CacheOperationMetadata<O> metadata;
     private final Object target;
+    private final Class<?> view;
     private final Object[] args;
     private Boolean conditionPassing;
 
@@ -34,6 +36,7 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
         this.evaluator = evaluator;
         this.metadata = metadata;
         this.target = target;
+        this.view = extractView(metadata.getMethod());
         this.args = extractArgs(metadata.getMethod(), args);
     }
 
@@ -58,6 +61,11 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
+    public Class<?> view() {
+        return view;
+    }
+
+    @Override
     public Class<?> returnType() {
         return this.metadata.getReturnType();
     }
@@ -79,41 +87,41 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
         return combinedArgs;
     }
 
+    private Class<?> extractView(Method method) {
+        final JsonView jsonView = AnnotationUtils.findAnnotation(method, JsonView.class);
+        if (jsonView == null) return null;
+        Class<?>[] classes = jsonView.value();
+        if (classes.length != 1) {
+            throw new IllegalArgumentException(
+                    "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass().getCanonicalName() + "#" + method.getName());
+        }
+        return classes[0];
+    }
+
 
     @Override
     public Object generateKey(Object result) {
 
-        String[] keys = this.metadata.getOperation().keys();
+        String[] keys = this.metadata.getOperation().key();
         EvaluationContext evaluationContext = createEvaluationContext(result);
-        Object[] keyValues = Arrays.stream(keys).map(key -> evaluator.key(key, this.metadata.getMethodKey(), evaluationContext)).toArray();
+        String[] keyValues = Arrays.stream(keys).map(key -> evaluator.key(key, this.metadata.getMethodKey(), evaluationContext))
+                .map(Object::toString)
+                .toArray(String[]::new);
 
-        final String key = Assert.isEmpty(this.metadata.getOperation().keyPattern())
-                ? Arrays.stream(keyValues).map(Object::toString).collect(Collectors.joining(":"))
-                : String.format(this.metadata.getOperation().keyPattern(), keyValues);
-
-//        if (StringUtils.hasText(this.metadata.getOperation().key())) {
-//            return evaluator.key(this.metadata.getOperation().key(), this.metadata.getMethodKey(), evaluationContext);
-//        }
-        return key;
+        return String.join(this.metadata.getOperation().delimiter(), keyValues);
     }
 
     @Override
     public Object generateField(Object result) {
 
-        final String[] fields = this.metadata.getOperation().fields();
+        final String[] fields = this.metadata.getOperation().field();
         if (Assert.isEmpty(fields)) return null;
         EvaluationContext evaluationContext = createEvaluationContext(result);
-        Object[] fieldValues = Arrays.stream(fields).map(field -> evaluator.field(field, this.metadata.getMethodKey(), evaluationContext)).toArray();
+        String[] fieldValues = Arrays.stream(fields).map(field -> evaluator.field(field, this.metadata.getMethodKey(), evaluationContext))
+                .map(Object::toString)
+                .toArray(String[]::new);
 
-        final String field = Assert.isEmpty(this.metadata.getOperation().fieldPattern())
-                ? Arrays.stream(fieldValues).map(Object::toString).collect(Collectors.joining(":"))
-                : String.format(this.metadata.getOperation().fieldPattern(), fieldValues);
-
-//        if (StringUtils.hasText(this.metadata.getOperation().field())) {
-//            EvaluationContext evaluationContext = createEvaluationContext(result);
-//            return evaluator.key(this.metadata.getOperation().field(), this.metadata.getMethodKey(), evaluationContext);
-//        }
-        return field;
+        return String.join(this.metadata.getOperation().delimiter(), fieldValues);
     }
 
     @Override

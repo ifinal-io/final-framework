@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.spring.web.handler.exception;
 
+import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.exception.IException;
 import com.ilikly.finalframework.data.result.R;
 import com.ilikly.finalframework.data.result.Result;
@@ -30,6 +31,6 @@ public class DefaultResultExceptionHandler implements ResultExceptionHandler<Thr
             return R.failure(((IException) throwable).getCode(), throwable.getMessage());
         }
         logger.error("UnCatchException:", throwable);
-        return R.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), throwable.getMessage());
+        return R.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), Assert.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
     }
 }
