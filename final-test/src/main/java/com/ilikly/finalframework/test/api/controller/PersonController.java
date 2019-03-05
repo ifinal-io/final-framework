@@ -85,14 +85,14 @@ public class PersonController {
 
     @GetMapping("/{id}")
     @JsonView(Person.class)
-    @Cacheable(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
-    @CachePut(key = {"'personhash'", "#id"}, field = "'name'", result = "#result.name")
+    @Cacheable(key = {"person", "{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    @CachePut(key = {"personhash", "{#id}"}, field = "name", result = "#result.name")
     public Object get(@PathVariable("id") Long id) {
         return findById(id);
     }
 
     @JsonView(Person.class)
-    @Cacheable(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    @Cacheable(key = {"'person'", "{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
     public Person findById(Long id) {
         return personMapper.selectOne(id);
     }

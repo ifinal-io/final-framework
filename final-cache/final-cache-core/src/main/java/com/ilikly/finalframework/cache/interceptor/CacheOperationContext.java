@@ -24,6 +24,9 @@ import java.util.Arrays;
  */
 public class CacheOperationContext implements CacheOperationInvocationContext {
 
+    private static final String EXPRESSION_PREFIX = "{";
+    private static final String EXPRESSION_SUFFIX = "}";
+
     private final CacheOperationExpressionEvaluator evaluator;
     private final CacheOperationMetadata metadata;
     private final Object target;
@@ -108,22 +111,38 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Object generateKey(EvaluationContext result) {
-
         String[] keys = this.metadata.getOperation().key();
-        String[] keyValues = Arrays.stream(keys).map(key -> evaluator.key(key, this.metadata.getMethodKey(), result))
+        String[] keyValues = Arrays.stream(keys)
+                .map(key -> {
+                    if (key.startsWith(EXPRESSION_PREFIX) && key.endsWith(EXPRESSION_SUFFIX)) {
+                        return evaluator.key(key.substring(EXPRESSION_PREFIX.length(), key.length() - EXPRESSION_SUFFIX.length()), this.metadata.getMethodKey(), result);
+                    } else {
+                        return key;
+                    }
+                })
                 .map(Object::toString)
                 .toArray(String[]::new);
 
         return String.join(this.metadata.getOperation().delimiter(), keyValues);
     }
 
+
     @Override
+    @SuppressWarnings("all")
     public Object generateField(EvaluationContext result) {
 
         final String[] fields = this.metadata.getOperation().field();
         if (Assert.isEmpty(fields)) return null;
-        String[] fieldValues = Arrays.stream(fields).map(field -> evaluator.field(field, this.metadata.getMethodKey(), result))
+        String[] fieldValues = Arrays.stream(fields)
+                .map(field -> {
+                    if (field.startsWith(EXPRESSION_PREFIX) && field.endsWith(EXPRESSION_SUFFIX)) {
+                        return evaluator.field(field.substring(EXPRESSION_PREFIX.length(), field.length() - EXPRESSION_SUFFIX.length()), this.metadata.getMethodKey(), result);
+                    } else {
+                        return field;
+                    }
+                })
                 .map(Object::toString)
                 .toArray(String[]::new);
 
