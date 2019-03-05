@@ -7,7 +7,6 @@ import com.ilikly.finalframework.cache.CacheOperationInvocationContext;
 import com.ilikly.finalframework.core.Assert;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.expression.EvaluationContext;
-import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -23,16 +22,16 @@ import java.util.Arrays;
  * @date 2018-11-23 16:08:08
  * @since 1.0
  */
-public class CacheOperationContext<O extends CacheOperation> implements CacheOperationInvocationContext {
+public class CacheOperationContext implements CacheOperationInvocationContext {
 
     private final CacheOperationExpressionEvaluator evaluator;
-    private final CacheOperationMetadata<O> metadata;
+    private final CacheOperationMetadata metadata;
     private final Object target;
     private final Class<?> view;
     private final Object[] args;
     private Boolean conditionPassing;
 
-    public CacheOperationContext(CacheOperationExpressionEvaluator evaluator, CacheOperationMetadata<O> metadata, Object target, Object[] args) {
+    public CacheOperationContext(CacheOperationExpressionEvaluator evaluator, CacheOperationMetadata metadata, Object target, Object[] args) {
         this.evaluator = evaluator;
         this.metadata = metadata;
         this.target = target;
@@ -41,8 +40,12 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
-    public O operation() {
+    public CacheOperation operation() {
         return this.metadata.getOperation();
+    }
+
+    public CacheOperationMetadata metadata() {
+        return metadata;
     }
 
     @Override
@@ -100,11 +103,10 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
 
 
     @Override
-    public Object generateKey(Object result) {
+    public Object generateKey(EvaluationContext result) {
 
         String[] keys = this.metadata.getOperation().key();
-        EvaluationContext evaluationContext = createEvaluationContext(result);
-        String[] keyValues = Arrays.stream(keys).map(key -> evaluator.key(key, this.metadata.getMethodKey(), evaluationContext))
+        String[] keyValues = Arrays.stream(keys).map(key -> evaluator.key(key, this.metadata.getMethodKey(), result))
                 .map(Object::toString)
                 .toArray(String[]::new);
 
@@ -112,12 +114,11 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
-    public Object generateField(Object result) {
+    public Object generateField(EvaluationContext result) {
 
         final String[] fields = this.metadata.getOperation().field();
         if (Assert.isEmpty(fields)) return null;
-        EvaluationContext evaluationContext = createEvaluationContext(result);
-        String[] fieldValues = Arrays.stream(fields).map(field -> evaluator.field(field, this.metadata.getMethodKey(), evaluationContext))
+        String[] fieldValues = Arrays.stream(fields).map(field -> evaluator.field(field, this.metadata.getMethodKey(), result))
                 .map(Object::toString)
                 .toArray(String[]::new);
 
@@ -125,12 +126,19 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
-    public boolean isConditionPassing(Object result) {
+    public Object generateResult(EvaluationContext result) {
+        if (StringUtils.hasText(this.metadata.getOperation().result())) {
+            return evaluator.result(this.metadata.getOperation().result(), this.metadata.getMethodKey(), result);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isConditionPassing(EvaluationContext result) {
         if (this.conditionPassing == null) {
             if (StringUtils.hasText(this.metadata.getOperation().condition())) {
-                EvaluationContext evaluationContext = createEvaluationContext(result);
                 this.conditionPassing = evaluator.condition(this.metadata.getOperation().condition(),
-                        this.metadata.getMethodKey(), evaluationContext);
+                        this.metadata.getMethodKey(), result);
             } else {
                 this.conditionPassing = true;
             }
@@ -139,17 +147,12 @@ public class CacheOperationContext<O extends CacheOperation> implements CacheOpe
     }
 
     @Override
-    public Object generateExpire(Object result) {
+    public Object generateExpire(EvaluationContext result) {
         if (StringUtils.hasText(this.metadata.getOperation().expire())) {
-            EvaluationContext evaluationContext = createEvaluationContext(result);
-            return evaluator.expired(this.metadata.getOperation().expire(), this.metadata.getMethodKey(), evaluationContext);
+            return evaluator.expired(this.metadata.getOperation().expire(), this.metadata.getMethodKey(), result);
         }
         return null;
     }
 
-    private EvaluationContext createEvaluationContext(@Nullable Object result) {
-        return evaluator.createEvaluationContext(this.metadata.getMethod(), this.args,
-                this.target, this.metadata.getTargetClass(), this.metadata.getTargetMethod(), result);
-    }
 
 }

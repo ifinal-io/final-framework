@@ -19,11 +19,12 @@ public interface CacheOperationExpressionEvaluator {
 
     Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
+    Object result(String result, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
+
     boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
     Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context);
 
     void clear();
-
 
 }

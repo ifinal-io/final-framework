@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.MediaType;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,6 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        response.addHeader("content-type", MediaType.APPLICATION_JSON_UTF8_VALUE);
         String trace = request.getHeader(TRACE);
         if (trace == null) {
             trace = UUID.randomUUID().toString();

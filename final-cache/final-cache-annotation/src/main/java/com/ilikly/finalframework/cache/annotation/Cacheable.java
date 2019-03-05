@@ -1,6 +1,8 @@
 package com.ilikly.finalframework.cache.annotation;
 
+
 import java.lang.annotation.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -12,7 +14,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface CacheDel {
+public @interface Cacheable {
 
     String[] key();
 
@@ -22,6 +24,9 @@ public @interface CacheDel {
 
     String condition() default "";
 
-    boolean beforeInvocation() default false;
+    String expire() default "";
 
+    long ttl() default -1L;
+
+    TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 }

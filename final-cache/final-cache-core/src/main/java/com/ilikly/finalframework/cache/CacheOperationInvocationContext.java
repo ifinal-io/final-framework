@@ -1,5 +1,7 @@
 package com.ilikly.finalframework.cache;
 
+import org.springframework.expression.EvaluationContext;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
@@ -9,8 +11,8 @@ import java.lang.reflect.Type;
  * @date 2018-11-23 15:46:07
  * @since 1.0
  */
-public interface CacheOperationInvocationContext<O extends CacheOperation> {
-    O operation();
+public interface CacheOperationInvocationContext {
+    CacheOperation operation();
 
     Object target();
 
@@ -24,11 +26,13 @@ public interface CacheOperationInvocationContext<O extends CacheOperation> {
 
     Type genericReturnType();
 
-    Object generateKey(Object result);
+    Object generateKey(EvaluationContext result);
 
-    Object generateField(Object result);
+    Object generateField(EvaluationContext result);
 
-    boolean isConditionPassing(Object result);
+    Object generateResult(EvaluationContext result);
 
-    Object generateExpire(Object result);
+    boolean isConditionPassing(EvaluationContext result);
+
+    Object generateExpire(EvaluationContext result);
 }

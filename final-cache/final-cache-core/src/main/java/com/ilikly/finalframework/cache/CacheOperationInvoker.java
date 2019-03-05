@@ -9,6 +9,6 @@ package com.ilikly.finalframework.cache;
 @FunctionalInterface
 public interface CacheOperationInvoker {
 
-    Object invoke() throws Throwable;
+    Object invoke() throws CacheException;
 
 }

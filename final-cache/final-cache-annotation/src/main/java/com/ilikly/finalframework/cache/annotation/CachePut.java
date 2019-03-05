@@ -14,11 +14,13 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface CacheSet {
+public @interface CachePut {
 
     String[] key();
 
     String[] field() default {};
+
+    String result() default "#result";
 
     String delimiter() default ":";
 

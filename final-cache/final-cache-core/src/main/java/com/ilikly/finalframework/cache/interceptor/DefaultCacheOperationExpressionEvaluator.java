@@ -7,7 +7,6 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 
 import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,6 +35,7 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
 
     private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> fieldCache = new ConcurrentHashMap<>(64);
+    private final Map<ExpressionKey, Expression> resultCache = new ConcurrentHashMap<>(64);
 
     private final Map<ExpressionKey, Expression> conditionCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> expiredCache = new ConcurrentHashMap<>(64);
@@ -64,6 +64,11 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
     @Override
     public Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
         return getExpression(this.fieldCache, methodKey, fieldExpression).getValue(context);
+    }
+
+    @Override
+    public Object result(String resultExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
+        return getExpression(this.resultCache, methodKey, resultExpression).getValue(context);
     }
 
     @Override

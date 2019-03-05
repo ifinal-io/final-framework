@@ -23,7 +23,7 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void set(Object key, Object value, long ttl, TimeUnit timeUnit, Class<?> view) {
+    public void set(Object key, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
         if (ttl > 0) {
             Redis.value().set(key, view == null ? Json.toJson(value) : Json.toJson(value, view), ttl, timeUnit);
         } else {
@@ -44,7 +44,7 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void hset(Object key, Object field, Object value, long ttl, TimeUnit timeUnit, Class<?> view) {
+    public void hset(Object key, Object field, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
         String json = view == null ? Json.toJson(value) : Json.toJson(value, view);
         Redis.hash().put(key, field, json);
         if (ttl > 0) {

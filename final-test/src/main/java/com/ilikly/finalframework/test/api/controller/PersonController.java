@@ -1,7 +1,8 @@
 package com.ilikly.finalframework.test.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ilikly.finalframework.cache.annotation.CacheSet;
+import com.ilikly.finalframework.cache.annotation.CachePut;
+import com.ilikly.finalframework.cache.annotation.Cacheable;
 import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.Query;
 import com.ilikly.finalframework.data.query.Update;
@@ -84,14 +85,15 @@ public class PersonController {
 
     @GetMapping("/{id}")
     @JsonView(Person.class)
-    @CacheSet(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    @Cacheable(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    @CachePut(key = {"'personhash'", "#id"}, field = "'name'", result = "#result.name")
     public Object get(@PathVariable("id") Long id) {
         return findById(id);
     }
 
     @JsonView(Person.class)
-    @CacheSet(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
-    public Object findById(Long id) {
+    @Cacheable(key = {"'person'", "#id"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    public Person findById(Long id) {
         return personMapper.selectOne(id);
     }
 }

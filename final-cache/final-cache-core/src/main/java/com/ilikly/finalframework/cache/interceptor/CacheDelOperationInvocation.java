@@ -1,8 +1,11 @@
 package com.ilikly.finalframework.cache.interceptor;
 
-import com.ilikly.finalframework.cache.*;
+import com.ilikly.finalframework.cache.Cache;
+import com.ilikly.finalframework.cache.CacheOperationInvocation;
+import com.ilikly.finalframework.cache.CacheOperationInvocationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.expression.EvaluationContext;
 
 /**
  * @author likly
@@ -10,37 +13,29 @@ import org.slf4j.LoggerFactory;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
-public class CacheDelOperationInvocation implements CacheOperationInvocation<CacheDelOperation> {
+public class CacheDelOperationInvocation implements CacheOperationInvocation<Void> {
+
     @Override
-    public Object invoke(CacheOperationInvocationContext<CacheDelOperation> context, CacheOperationInvoker invoker) throws Throwable {
-        Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-
-        if (cache == null) {
-            logger.warn("cannot find cache for cache operation : {} ", context.operation());
-            return invoker.invoke();
+    public Void invoke(Cache cache, CacheOperationInvocationContext context, Object result, EvaluationContext evaluationContext) {
+        final Logger logger = LoggerFactory.getLogger(context.target().getClass());
+        if (context.isConditionPassing(evaluationContext)) {
+            final Object key = context.generateKey(evaluationContext);
+            if (key == null) {
+                throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
+            }
+            final Object field = context.generateField(evaluationContext);
+            if (field == null) {
+                logger.info("==> cache del: key={}");
+                Object flag = cache.del(key);
+                logger.info("<== result: {}", flag);
+            } else {
+                logger.info("==> cache hdel: key={},field={}", key, field);
+                Object flag = cache.hdel(key);
+                logger.info("<== result: {}", flag);
+            }
         }
-
-        Object result = invoker.invoke();
-
-        Object key = context.generateKey(result);
-
-        if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
-        }
-        Object field = context.generateField(result);
-
-
-
-        if (context.isConditionPassing(result)) {
-            Object flag = field == null ? cache.del(key) : cache.hdel(key, field);
-            logger.info("==> delete form cache: key={},field={},result={},flag={}", key, field, result, flag);
-        } else {
-            logger.info("==> cache del condition is not passing,key={},field={},result={},condition={}", key, field, result, context.operation().condition());
-
-        }
-
-        return result;
+        return null;
 
     }
+
 }

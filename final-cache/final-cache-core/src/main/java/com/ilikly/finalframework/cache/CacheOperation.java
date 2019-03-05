@@ -19,6 +19,9 @@ public interface CacheOperation<A extends Annotation> {
     @Nullable
     String[] field();
 
+    @Nullable
+    String result();
+
     @NonNull
     String delimiter();
 
@@ -33,4 +36,22 @@ public interface CacheOperation<A extends Annotation> {
 
     @NonNull
     TimeUnit timeUnit();
+
+    interface Builder<O extends CacheOperation, B extends Builder> extends com.ilikly.finalframework.core.Builder<O> {
+        B key(@NonNull String[] key);
+
+        B field(@Nullable String[] field);
+
+        B result(@Nullable String result);
+
+        B delimiter(@NonNull String delimiter);
+
+        B condition(@Nullable String condition);
+
+        B expire(@Nullable String expire);
+
+        B ttl(@Nullable Long ttl);
+
+        B timeUnit(@NonNull TimeUnit timeUnit);
+    }
 }
