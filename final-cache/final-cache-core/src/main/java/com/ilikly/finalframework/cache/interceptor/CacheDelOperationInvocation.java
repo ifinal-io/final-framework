@@ -16,8 +16,9 @@ import org.springframework.expression.EvaluationContext;
 public class CacheDelOperationInvocation implements CacheOperationInvocation<Void> {
 
     @Override
-    public Void invoke(Cache cache, CacheOperationInvocationContext context, Object result, EvaluationContext evaluationContext) {
+    public Void invoke(Cache cache, CacheOperationInvocationContext context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
+        final EvaluationContext evaluationContext = context.createEvaluationContext(result);
         if (context.isConditionPassing(evaluationContext)) {
             final Object key = context.generateKey(evaluationContext);
             if (key == null) {

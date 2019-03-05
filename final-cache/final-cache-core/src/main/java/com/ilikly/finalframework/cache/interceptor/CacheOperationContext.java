@@ -101,6 +101,11 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
         return classes[0];
     }
 
+    @Override
+    public EvaluationContext createEvaluationContext(Object result) {
+        return evaluator.createEvaluationContext(this.metadata().getMethod(), this.args(),
+                this.target(), this.metadata().getTargetClass(), this.metadata().getTargetMethod(), result);
+    }
 
     @Override
     public Object generateKey(EvaluationContext result) {

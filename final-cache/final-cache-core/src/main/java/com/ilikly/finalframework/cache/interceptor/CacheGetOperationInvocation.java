@@ -19,8 +19,9 @@ import java.lang.reflect.Type;
 public class CacheGetOperationInvocation implements CacheOperationInvocation<Object> {
 
     @Override
-    public Object invoke(Cache cache, CacheOperationInvocationContext context, Object result, EvaluationContext evaluationContext) {
+    public Object invoke(Cache cache, CacheOperationInvocationContext context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
+        final EvaluationContext evaluationContext = context.createEvaluationContext(result);
         final Object key = context.generateKey(evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());

@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.expression.EvaluationContext;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -30,7 +29,7 @@ public abstract class CacheAspectSupport {
     private static final CacheGetOperationInvocation cacheGetOperationInvocation = new CacheGetOperationInvocation();
     private final CacheOperationExpressionEvaluator evaluator = new DefaultCacheOperationExpressionEvaluator();
     private static final CacheDelOperationInvocation cacheDelOperationInvocation = new CacheDelOperationInvocation();
-    private static final CacheableOperationInvocation CACHEABLE_OPERATION_INVOCATION = new CacheableOperationInvocation();
+    private static final CacheableOperationInvocation CACHE_OPERATION_INVOCATION = new CacheableOperationInvocation();
     private final Map<CacheOperationCacheKey, CacheOperationMetadata> metadataCache = new ConcurrentHashMap<>(1024);
     private boolean initialized = true;
     @Setter
@@ -73,50 +72,49 @@ public abstract class CacheAspectSupport {
     }
 
     private Object execute(CacheOperationInvoker invoker, Method method, CacheOperationContexts contexts) {
-        final CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
-        final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
-        final Object cacheValue = cacheGetOperationInvocation.invoke(cache, context, null, evaluationContext);
-        if (cacheValue != null) return cacheValue;
 
-        processCacheDel(contexts.get(CacheDelOperation.class), true, null, evaluationContext);
+        if (Assert.nonEmpty(contexts.get(CacheableOperation.class))) {
+            final CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
+            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
+            final Object cacheValue = cacheGetOperationInvocation.invoke(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
+            if (cacheValue != null) return cacheValue;
+        }
+
+        processCacheDel(contexts.get(CacheDelOperation.class), true, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
 
         final Object returnValue = invoker.invoke();
 
-        final EvaluationContext returnEvaluationContext = createEvaluationContext(context, returnValue);
-        processCacheSet(contexts.get(CacheableOperation.class), returnValue, returnEvaluationContext);
-        processCacheSet(contexts.get(CachePutOperation.class), returnValue, returnEvaluationContext);
-        processCacheDel(contexts.get(CacheDelOperation.class), false, returnValue, returnEvaluationContext);
+        processCacheSet(contexts.get(CacheableOperation.class), returnValue);
+        processCacheSet(contexts.get(CachePutOperation.class), returnValue);
+        processCacheDel(contexts.get(CacheDelOperation.class), false, returnValue);
         return returnValue;
 
     }
 
-    private void processCacheSet(Collection<CacheOperationContext> contexts, Object returnValue, @NonNull EvaluationContext evaluationContext) {
+    private void processCacheSet(Collection<CacheOperationContext> contexts, Object returnValue) {
         for (CacheOperationContext context : contexts) {
-            if (context.isConditionPassing(evaluationContext)) {
-                performCacheSet(context, context.operation(), returnValue, evaluationContext);
-            }
+            performCacheSet(context, context.operation(), returnValue);
         }
     }
 
-    private void performCacheSet(CacheOperationContext context, CacheOperation operation, Object returnValue, @NonNull EvaluationContext evaluationContext) {
+    private void performCacheSet(CacheOperationContext context, CacheOperation operation, Object returnValue) {
         final Cache cache = CacheRegistry.getInstance().getCache(operation);
-        CACHEABLE_OPERATION_INVOCATION.invoke(cache, context, returnValue, evaluationContext);
+        CACHE_OPERATION_INVOCATION.invoke(cache, context, returnValue);
     }
 
 
-    private void processCacheDel(Collection<CacheOperationContext> contexts, boolean beforeInvocation, @Nullable Object result, @NonNull EvaluationContext evaluationContext) {
+    private void processCacheDel(Collection<CacheOperationContext> contexts, boolean beforeInvocation, @Nullable Object result) {
         for (CacheOperationContext context : contexts) {
             final CacheDelOperation operation = (CacheDelOperation) context.operation();
-            if (beforeInvocation == operation.isBeforeInvocation() && context.isConditionPassing(evaluationContext)) {
-                performCacheDel(context, operation, result, evaluationContext);
+            if (beforeInvocation == operation.isBeforeInvocation()) {
+                performCacheDel(context, operation, result);
             }
         }
     }
 
-    private void performCacheDel(CacheOperationContext context, CacheDelOperation operation, Object result, @NonNull EvaluationContext evaluationContext) {
+    private void performCacheDel(CacheOperationContext context, CacheDelOperation operation, Object result) {
         final Cache cache = CacheRegistry.getInstance().getCache(operation);
-        cacheDelOperationInvocation.invoke(cache, context, result, evaluationContext);
+        cacheDelOperationInvocation.invoke(cache, context, result);
     }
 
     private EvaluationContext createEvaluationContext(CacheOperationContext context, @Nullable Object result) {

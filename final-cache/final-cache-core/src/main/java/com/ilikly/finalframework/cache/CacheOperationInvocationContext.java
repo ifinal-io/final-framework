@@ -26,6 +26,8 @@ public interface CacheOperationInvocationContext {
 
     Type genericReturnType();
 
+    EvaluationContext createEvaluationContext(Object result);
+
     Object generateKey(EvaluationContext result);
 
     Object generateField(EvaluationContext result);

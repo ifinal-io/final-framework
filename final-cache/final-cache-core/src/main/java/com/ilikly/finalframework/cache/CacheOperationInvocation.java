@@ -1,7 +1,5 @@
 package com.ilikly.finalframework.cache;
 
-import org.springframework.expression.EvaluationContext;
-
 /**
  * @author likly
  * @version 1.0
@@ -9,5 +7,5 @@ import org.springframework.expression.EvaluationContext;
  * @since 1.0
  */
 public interface CacheOperationInvocation<T> {
-    T invoke(Cache cache, CacheOperationInvocationContext context, Object result, EvaluationContext evaluationContext);
+    T invoke(Cache cache, CacheOperationInvocationContext context, Object result);
 }

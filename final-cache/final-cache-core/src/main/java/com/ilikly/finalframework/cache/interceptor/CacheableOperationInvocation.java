@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheableOperationInvocation implements CacheOperationInvocation<Void> {
 
     @Override
-    public Void invoke(Cache cache, CacheOperationInvocationContext context, Object result, EvaluationContext evaluationContext) {
+    public Void invoke(Cache cache, CacheOperationInvocationContext context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-
+        final EvaluationContext evaluationContext = context.createEvaluationContext(result);
         if (!context.isConditionPassing(evaluationContext)) {
             return null;
         }
