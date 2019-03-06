@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
  * @date 2019-03-06 14:59:55
  * @since 1.0
  */
-public class CriteriaSqlBuilder implements SqlBuilder<Collection<Criteria>> {
+public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
     private static final CriterionOperationRegistry criterionOperationRegistry = CriterionOperationRegistry.getInstance();
-    private final Collection<Criteria> criteria;
+    private final Criteria criteria;
 
-    public CriteriaSqlBuilder(Collection<Criteria> criteria) {
+    public CriteriaSqlBuilder(Criteria criteria) {
         this.criteria = criteria;
     }
 
@@ -27,7 +27,11 @@ public class CriteriaSqlBuilder implements SqlBuilder<Collection<Criteria>> {
 
     @Override
     public String build() {
-        return joinCriteria(criteria, AndOr.AND);
+        if (criteria.chain()) {
+            return joinCriteria(criteria.stream().collect(Collectors.toList()), AndOr.AND);
+        } else {
+            return joinCriteriaSet(criteria.criterionStream().collect(Collectors.toList()), AndOr.AND);
+        }
     }
 
     private String joinCriteria(Collection<Criteria> criteria, AndOr andOr) {

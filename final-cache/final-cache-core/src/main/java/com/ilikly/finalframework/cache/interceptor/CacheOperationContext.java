@@ -7,6 +7,7 @@ import com.ilikly.finalframework.cache.CacheOperationInvocationContext;
 import com.ilikly.finalframework.core.Assert;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +23,7 @@ import java.util.Arrays;
  * @date 2018-11-23 16:08:08
  * @since 1.0
  */
+@SuppressWarnings("all")
 public class CacheOperationContext implements CacheOperationInvocationContext {
 
     private static final String EXPRESSION_PREFIX = "{";
@@ -111,13 +113,12 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     }
 
     @Override
-    @SuppressWarnings("all")
     public Object generateKey(EvaluationContext result) {
         String[] keys = this.metadata.getOperation().key();
         String[] keyValues = Arrays.stream(keys)
                 .map(key -> {
-                    if (key.startsWith(EXPRESSION_PREFIX) && key.endsWith(EXPRESSION_SUFFIX)) {
-                        return evaluator.key(key.substring(EXPRESSION_PREFIX.length(), key.length() - EXPRESSION_SUFFIX.length()), this.metadata.getMethodKey(), result);
+                    if (isExpression(key)) {
+                        return evaluator.key(getExpression(key), this.metadata.getMethodKey(), result);
                     } else {
                         return key;
                     }
@@ -130,15 +131,14 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
 
 
     @Override
-    @SuppressWarnings("all")
     public Object generateField(EvaluationContext result) {
 
         final String[] fields = this.metadata.getOperation().field();
         if (Assert.isEmpty(fields)) return null;
         String[] fieldValues = Arrays.stream(fields)
                 .map(field -> {
-                    if (field.startsWith(EXPRESSION_PREFIX) && field.endsWith(EXPRESSION_SUFFIX)) {
-                        return evaluator.field(field.substring(EXPRESSION_PREFIX.length(), field.length() - EXPRESSION_SUFFIX.length()), this.metadata.getMethodKey(), result);
+                    if (isExpression(field)) {
+                        return evaluator.field(getExpression(field), this.metadata.getMethodKey(), result);
                     } else {
                         return field;
                     }
@@ -151,8 +151,9 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
 
     @Override
     public Object generateResult(EvaluationContext result) {
-        if (StringUtils.hasText(this.metadata.getOperation().result())) {
-            return evaluator.result(this.metadata.getOperation().result(), this.metadata.getMethodKey(), result);
+        final String expression = this.metadata.getOperation().result();
+        if (expression != null && isExpression(expression)) {
+            return evaluator.result(getExpression(expression), this.metadata.getMethodKey(), result);
         }
         return null;
     }
@@ -160,9 +161,9 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     @Override
     public boolean isConditionPassing(EvaluationContext result) {
         if (this.conditionPassing == null) {
-            if (StringUtils.hasText(this.metadata.getOperation().condition())) {
-                this.conditionPassing = evaluator.condition(this.metadata.getOperation().condition(),
-                        this.metadata.getMethodKey(), result);
+            final String expression = this.metadata.getOperation().condition();
+            if (expression != null && isExpression(expression)) {
+                this.conditionPassing = evaluator.condition(getExpression(expression), this.metadata.getMethodKey(), result);
             } else {
                 this.conditionPassing = true;
             }
@@ -172,10 +173,19 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
 
     @Override
     public Object generateExpire(EvaluationContext result) {
-        if (StringUtils.hasText(this.metadata.getOperation().expire())) {
-            return evaluator.expired(this.metadata.getOperation().expire(), this.metadata.getMethodKey(), result);
+        final String expression = this.metadata.getOperation().expire();
+        if (expression != null && isExpression(expression)) {
+            return evaluator.expired(getExpression(expression), this.metadata.getMethodKey(), result);
         }
         return null;
+    }
+
+    private boolean isExpression(String expression) {
+        return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
+    }
+
+    private String getExpression(@NonNull String expression) {
+        return expression.substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
 
 

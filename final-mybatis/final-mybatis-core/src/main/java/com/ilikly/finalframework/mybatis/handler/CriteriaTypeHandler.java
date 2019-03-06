@@ -10,7 +10,6 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -18,27 +17,27 @@ import java.util.Collection;
  * @date 2019-03-06 15:04:17
  * @since 1.0
  */
-public class CriteriaTypeHandler extends BaseTypeHandler<Collection<Criteria>> {
+public class CriteriaTypeHandler extends BaseTypeHandler<Criteria> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, Collection<Criteria> parameter, JdbcType jdbcType) throws SQLException {
-        if (parameter == null || parameter.isEmpty()) return;
+    public void setNonNullParameter(PreparedStatement ps, int i, Criteria parameter, JdbcType jdbcType) throws SQLException {
+        if (parameter == null) return;
         final String sql = new CriteriaSqlBuilder(parameter).build();
         ps.setString(i, sql);
     }
 
     @Override
-    public Collection<Criteria> getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public Criteria getNullableResult(ResultSet rs, String columnName) throws SQLException {
         throw new UnsupportedOperationException(getClass().getName());
     }
 
     @Override
-    public Collection<Criteria> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public Criteria getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         throw new UnsupportedOperationException(getClass().getName());
     }
 
     @Override
-    public Collection<Criteria> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public Criteria getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         throw new UnsupportedOperationException(getClass().getName());
     }
 }

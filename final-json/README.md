@@ -10,7 +10,7 @@ A simple and powerful json api framework.
 <dependency>
     <groupId>com.ilikly.finalframework</groupId>
     <artifactId>final-json</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 </dependency>
 ```
 

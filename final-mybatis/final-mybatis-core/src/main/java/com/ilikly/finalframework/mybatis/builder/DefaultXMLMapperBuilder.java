@@ -7,11 +7,9 @@ import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGenerator;
-import com.ilikly.finalframework.data.query.Criteria;
 import com.ilikly.finalframework.data.query.Sort;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import com.ilikly.finalframework.mybatis.Utils;
-import com.ilikly.finalframework.mybatis.handler.CriteriaTypeHandler;
 import com.ilikly.finalframework.mybatis.handler.SortTypeHandler;
 import com.ilikly.finalframework.mybatis.xml.element.ResultMapFactory;
 import org.apache.ibatis.parsing.XNode;
@@ -712,8 +710,8 @@ public class DefaultXMLMapperBuilder {
          */
         final Element whenQueryNotNull = document.createElement("when");
         whenQueryNotNull.setAttribute("test", "query != null and query.criteria != null");
-        final String text = String.format("#{query.criteria, javaType=%s, typeHandler=%s}", Criteria.class.getCanonicalName(), CriteriaTypeHandler.class.getCanonicalName());
-        whenQueryNotNull.appendChild(textNode(text));
+//        final String text = String.format("#{query.criteria, javaType=%s, typeHandler=%s}", Criteria.class.getCanonicalName(), CriteriaTypeHandler.class.getCanonicalName());
+        whenQueryNotNull.appendChild(textNode("${query.criteria.sql}"));
         return whenQueryNotNull;
     }
 
@@ -924,8 +922,8 @@ public class DefaultXMLMapperBuilder {
         // <include refid="sql-table"/>
         selectCount.appendChild(includeElement(SQL_TABLE));
         selectCount.appendChild(whereElement(whenQueryNotNull()));
-        selectCount.appendChild(includeElement(SQL_ORDER));
-        selectCount.appendChild(includeElement(SQL_LIMIT));
+//        selectCount.appendChild(includeElement(SQL_ORDER));
+//        selectCount.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(selectCount);
     }
 

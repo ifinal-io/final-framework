@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
+import com.ilikly.finalframework.data.query.builder.CriteriaSqlBuilder;
 import com.ilikly.finalframework.data.query.enums.AndOr;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2019-01-18 16:03:52
  * @since 1.0
  */
-public class CriteriaImpl implements Criteria {
+public class CriteriaImpl implements Criteria, Sql<Criteria> {
     private final AndOr andOr;
     private final List<Criteria> criteriaChain;
     private final List<Criterion> criterion;
@@ -23,6 +24,9 @@ public class CriteriaImpl implements Criteria {
         this.criterion = builder.criterion;
     }
 
+    static Criteria from(Collection<Criteria> criteria) {
+        return new CriteriaImpl.BuilderImpl(AndOr.AND, Collections.emptyList(), criteria).build();
+    }
     static Criteria where(Collection<Criterion> criterion) {
         return new CriteriaImpl.BuilderImpl(AndOr.AND, criterion, Collections.emptyList()).build();
     }
@@ -69,6 +73,12 @@ public class CriteriaImpl implements Criteria {
     public Iterator<Criteria> iterator() {
         return criteriaChain.iterator();
     }
+
+    @Override
+    public String getSql() {
+        return new CriteriaSqlBuilder(this).build();
+    }
+
 
     private static class BuilderImpl implements Builder {
         private final AndOr andOr;
