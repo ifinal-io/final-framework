@@ -7,8 +7,12 @@ import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGenerator;
+import com.ilikly.finalframework.data.query.Criteria;
+import com.ilikly.finalframework.data.query.Sort;
 import com.ilikly.finalframework.data.query.enums.UpdateOperation;
 import com.ilikly.finalframework.mybatis.Utils;
+import com.ilikly.finalframework.mybatis.handler.CriteriaTypeHandler;
+import com.ilikly.finalframework.mybatis.handler.SortTypeHandler;
 import com.ilikly.finalframework.mybatis.xml.element.ResultMapFactory;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.type.TypeHandler;
@@ -47,6 +51,8 @@ public class DefaultXMLMapperBuilder {
     private static final String SQL_INSERT_COLUMNS = "sql-insert-columns";
     private static final String SQL_INSERT_VALUES = "sql-insert-values";
     private static final String SQL_SELECT = "sql-select";
+    private static final String SQL_ORDER = "sql-order";
+    private static final String SQL_LIMIT = "sql-limit";
 
     private static final ResultMapFactory resultMapFactory = new ResultMapFactory();
 
@@ -84,6 +90,8 @@ public class DefaultXMLMapperBuilder {
         appendInsertValuesSqlFragment();
         appendUpdateSqlFragment();
         appendSqlSelectFragment();
+        appendSqlOrderFragment();
+        appendSqlLimitFragment();
 
         if (logMapper) {
             String result = null;
@@ -619,6 +627,45 @@ public class DefaultXMLMapperBuilder {
         context.getNode().appendChild(sql);
     }
 
+    private void appendSqlOrderFragment() {
+        /**
+         * <sql id="sql-order">
+         *     <if test="query != null and query.sort != null">
+         *         #{query.sort,javatype={},typeHandler={}}
+         *     </if>
+         * </sql>
+         */
+        final Element sql = document.createElement("sql");
+        sql.setAttribute("id", SQL_ORDER);
+
+        final Element ifQueryNotNullAndQuerySortNotNull = document.createElement("if");
+        ifQueryNotNullAndQuerySortNotNull.setAttribute("test", "query != null and query.sort != null");
+        final String sort = String.format(" ORDER BY #{query.sort, javaType=%s,typeHandler=%s}",
+                Sort.class.getCanonicalName(), SortTypeHandler.class.getCanonicalName());
+        ifQueryNotNullAndQuerySortNotNull.appendChild(textNode(sort));
+        sql.appendChild(ifQueryNotNullAndQuerySortNotNull);
+
+        context.getNode().appendChild(sql);
+    }
+
+    private void appendSqlLimitFragment() {
+        /**
+         * <sql id="sql-limit">
+         *     <if test="query != null and query.limit != null">
+         *          LIMIT #{query.limit}
+         *     </if>
+         * </sql>
+         */
+
+        final Element sql = document.createElement("sql");
+        sql.setAttribute("id", SQL_LIMIT);
+        final Element ifQueryNotNullAndQueryLimitNotNull = document.createElement("if");
+        ifQueryNotNullAndQueryLimitNotNull.setAttribute("test", "query != null and query.limit != null");
+        ifQueryNotNullAndQueryLimitNotNull.appendChild(textNode(" LIMIT #{query.limit}"));
+        sql.appendChild(ifQueryNotNullAndQueryLimitNotNull);
+        context.getNode().appendChild(sql);
+    }
+
     private Element whenIdNotNull() {
         /*
          * <when test="id != null">
@@ -664,10 +711,12 @@ public class DefaultXMLMapperBuilder {
          * </when>
          */
         final Element whenQueryNotNull = document.createElement("when");
-        whenQueryNotNull.setAttribute("test", "query != null");
-        whenQueryNotNull.appendChild(textNode("${query.sql}"));
+        whenQueryNotNull.setAttribute("test", "query != null and query.criteria != null");
+        final String text = String.format("#{query.criteria, javaType=%s, typeHandler=%s}", Criteria.class.getCanonicalName(), CriteriaTypeHandler.class.getCanonicalName());
+        whenQueryNotNull.appendChild(textNode(text));
         return whenQueryNotNull;
     }
+
 
     /*
      *
@@ -736,8 +785,9 @@ public class DefaultXMLMapperBuilder {
         insert.appendChild(includeElement(SQL_INSERT_COLUMNS));
         insert.appendChild(textNode("\n\t\tVALUES\n"));
         insert.appendChild(includeElement(SQL_INSERT_VALUES));
-
         insert.appendChild(whereElement(whenQueryNotNull()));
+        insert.appendChild(includeElement(SQL_ORDER));
+        insert.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(insert);
     }
 
@@ -768,6 +818,8 @@ public class DefaultXMLMapperBuilder {
         update.appendChild(includeElement(SQL_TABLE));
         update.appendChild(includeElement(SQL_UPDATE));
         update.appendChild(whereElement(whenIdsNotNull(), whenQueryNotNull()));
+        update.appendChild(includeElement(SQL_ORDER));
+        update.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(update);
     }
 
@@ -796,6 +848,8 @@ public class DefaultXMLMapperBuilder {
         delete.appendChild(textNode("\n\t\tDELETE FROM\n"));
         delete.appendChild(includeElement(SQL_TABLE));
         delete.appendChild(whereElement(whenIdsNotNull(), whenQueryNotNull()));
+        delete.appendChild(includeElement(SQL_ORDER));
+        delete.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(delete);
     }
 
@@ -809,6 +863,8 @@ public class DefaultXMLMapperBuilder {
         select.appendChild(includeElement(SQL_SELECT));
         select.appendChild(includeElement(SQL_TABLE));
         select.appendChild(whereElement(whenIdsNotNull(), whenQueryNotNull()));
+        select.appendChild(includeElement(SQL_ORDER));
+        select.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(select);
     }
 
@@ -822,6 +878,8 @@ public class DefaultXMLMapperBuilder {
         select.appendChild(includeElement(SQL_SELECT));
         select.appendChild(includeElement(SQL_TABLE));
         select.appendChild(whereElement(whenIdNotNull(), whenQueryNotNull()));
+        select.appendChild(includeElement(SQL_ORDER));
+        select.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(select);
     }
 
@@ -866,6 +924,8 @@ public class DefaultXMLMapperBuilder {
         // <include refid="sql-table"/>
         selectCount.appendChild(includeElement(SQL_TABLE));
         selectCount.appendChild(whereElement(whenQueryNotNull()));
+        selectCount.appendChild(includeElement(SQL_ORDER));
+        selectCount.appendChild(includeElement(SQL_LIMIT));
         context.getNode().appendChild(selectCount);
     }
 

@@ -13,6 +13,9 @@ import java.lang.reflect.Method;
  * @author likly
  * @version 1.0
  * @date 2019-03-05 11:09:41
+ * @see com.ilikly.finalframework.cache.annotation.Cacheable
+ * @see com.ilikly.finalframework.cache.annotation.CachePut
+ * @see com.ilikly.finalframework.cache.annotation.CacheDel
  * @since 1.0
  */
 public class CacheInterceptor extends CacheAspectSupport implements MethodInterceptor, Serializable {
@@ -24,7 +27,7 @@ public class CacheInterceptor extends CacheAspectSupport implements MethodInterc
             try {
                 return invocation.proceed();
             } catch (Throwable ex) {
-                return new CacheException(ex);
+                throw new CacheException(ex);
             }
         };
         return execute(invoker, invocation.getThis(), method, invocation.getArguments());

@@ -25,6 +25,7 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable {
     private Integer page;
     @Getter
     private Integer size;
+    @Getter
     private List<Criteria> criteria = new ArrayList<>();
     @Getter
     private Sort sort;

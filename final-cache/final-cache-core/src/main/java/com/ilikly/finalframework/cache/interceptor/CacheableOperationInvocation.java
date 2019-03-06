@@ -17,7 +17,9 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @date 2018-11-23 21:15:34
  * @since 1.0
+ * @see com.ilikly.finalframework.cache.annotation.Cacheable
  */
+@SuppressWarnings("all")
 public class CacheableOperationInvocation implements CacheOperationInvocation<Void> {
 
     @Override

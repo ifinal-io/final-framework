@@ -15,10 +15,13 @@ import java.lang.reflect.Type;
  * @version 1.0
  * @date 2018-11-23 21:15:34
  * @since 1.0
+ * @see com.ilikly.finalframework.cache.annotation.Cacheable
+ * @see CacheableOperation
  */
 public class CacheGetOperationInvocation implements CacheOperationInvocation<Object> {
 
     @Override
+    @SuppressWarnings("all")
     public Object invoke(Cache cache, CacheOperationInvocationContext context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = context.createEvaluationContext(result);
@@ -30,10 +33,10 @@ public class CacheGetOperationInvocation implements CacheOperationInvocation<Obj
         final Type genericReturnType = context.method().getGenericReturnType();
         Object cacheValue;
         if (field == null) {
-            logger.info("==> cache get: key={},view={}", key, context.view().getCanonicalName());
+            logger.info("==> cache get: key={}", key);
             cacheValue = cache.get(key, genericReturnType, context.view());
         } else {
-            logger.info("==> cache hget: key={},field={}", key, field, context.view().getCanonicalName());
+            logger.info("==> cache hget: key={},field={}", key, field);
             cacheValue = cache.hget(key, field, genericReturnType, context.view());
         }
         logger.info("<== result: {}", Json.toJson(cacheValue));
