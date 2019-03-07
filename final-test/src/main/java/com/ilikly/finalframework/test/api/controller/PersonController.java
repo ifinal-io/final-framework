@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.test.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.ilikly.finalframework.cache.annotation.CacheLock;
 import com.ilikly.finalframework.cache.annotation.CachePut;
 import com.ilikly.finalframework.cache.annotation.Cacheable;
 import com.ilikly.finalframework.data.query.QEntity;
@@ -85,9 +86,16 @@ public class PersonController {
 
     @GetMapping("/{id}")
     @JsonView(Person.class)
+    @CacheLock(key = {"person", "{#id}"}, retry = 5, ttl = 30, timeunit = TimeUnit.SECONDS)
     @Cacheable(key = {"person", "{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
-    @CachePut(key = {"personhash", "{#id}"}, field = "name", result = "#result.name")
+    @CachePut(key = {"personhash", "{#id}"}, field = "name", value = "#value.name")
     public Object get(@PathVariable("id") Long id) {
+
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return findById(id);
     }
 

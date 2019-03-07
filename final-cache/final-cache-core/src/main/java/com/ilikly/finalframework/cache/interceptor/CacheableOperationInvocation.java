@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
  * @author likly
  * @version 1.0
  * @date 2018-11-23 21:15:34
- * @since 1.0
  * @see com.ilikly.finalframework.cache.annotation.Cacheable
+ * @since 1.0
  */
 @SuppressWarnings("all")
 public class CacheableOperationInvocation implements CacheOperationInvocation<Void> {
@@ -35,8 +35,8 @@ public class CacheableOperationInvocation implements CacheOperationInvocation<Vo
 
         Object cacheValue = result;
 
-        if (Assert.nonEmpty(context.operation().result())) {
-            cacheValue = context.generateResult(evaluationContext);
+        if (Assert.nonEmpty(context.operation().value())) {
+            cacheValue = context.generateValue(evaluationContext);
         }
 
         Long ttl;
@@ -54,15 +54,9 @@ public class CacheableOperationInvocation implements CacheOperationInvocation<Vo
             timeUnit = context.operation().timeUnit();
         }
 
-        if (field == null) {
-            logger.info("==> cache set: key={},ttl={},timeUnit={}", key, ttl, timeUnit);
-            logger.info("==> cache value: {}", Json.toJson(cacheValue));
-            cache.set(key, cacheValue, ttl, timeUnit, context.view());
-        } else {
-            logger.info("==> cache set: key={},field={},value={},ttl={},timeUnit={}", key, field, cacheValue, ttl, timeUnit);
-            logger.info("==> cache value: {}", Json.toJson(cacheValue));
-            cache.hset(key, field, cacheValue, ttl, timeUnit, context.view());
-        }
+        logger.info("==> cache set: key={},field={},ttl={},timeUnit={}", key, field, ttl, timeUnit);
+        logger.info("==> cache value: {}", Json.toJson(cacheValue));
+        cache.set(key, field, cacheValue, ttl, timeUnit, context.view());
 
         return null;
 

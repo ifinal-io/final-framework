@@ -19,23 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEvaluator implements CacheOperationExpressionEvaluator {
 
     /**
-     * Indicate that there is no result variable.
+     * Indicate that there is no value variable.
      */
     public static final Object NO_RESULT = new Object();
 
     /**
-     * Indicate that the result variable cannot be used at all.
+     * Indicate that the value variable cannot be used at all.
      */
     public static final Object RESULT_UNAVAILABLE = new Object();
 
     /**
-     * The name of the variable holding the result object.
+     * The name of the variable holding the value object.
      */
-    public static final String RESULT_VARIABLE = "result";
+    public static final String RESULT_VARIABLE = "value";
 
     private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> fieldCache = new ConcurrentHashMap<>(64);
-    private final Map<ExpressionKey, Expression> resultCache = new ConcurrentHashMap<>(64);
+    private final Map<ExpressionKey, Expression> valueCache = new ConcurrentHashMap<>(64);
 
     private final Map<ExpressionKey, Expression> conditionCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> expiredCache = new ConcurrentHashMap<>(64);
@@ -67,8 +67,8 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
     }
 
     @Override
-    public Object result(String resultExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
-        return getExpression(this.resultCache, methodKey, resultExpression).getValue(context);
+    public Object value(String valueExpression, AnnotatedElementKey methodKey, EvaluationContext context) {
+        return getExpression(this.valueCache, methodKey, valueExpression).getValue(context);
     }
 
     @Override

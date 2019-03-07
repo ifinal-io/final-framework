@@ -18,7 +18,7 @@ public class CachePutOperation extends AbsCacheOperation<CachePut> {
         return new Builder()
                 .key(cachePut.key())
                 .field(cachePut.field())
-                .result(cachePut.result())
+                .value(cachePut.value())
                 .delimiter(cachePut.delimiter())
                 .condition(cachePut.condition())
                 .expire(cachePut.expire())

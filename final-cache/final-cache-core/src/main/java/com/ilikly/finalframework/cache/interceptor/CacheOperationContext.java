@@ -118,7 +118,7 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
         String[] keyValues = Arrays.stream(keys)
                 .map(key -> {
                     if (isExpression(key)) {
-                        return evaluator.key(getExpression(key), this.metadata.getMethodKey(), result);
+                        return evaluator.key(generateExpression(key), this.metadata.getMethodKey(), result);
                     } else {
                         return key;
                     }
@@ -138,7 +138,7 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
         String[] fieldValues = Arrays.stream(fields)
                 .map(field -> {
                     if (isExpression(field)) {
-                        return evaluator.field(getExpression(field), this.metadata.getMethodKey(), result);
+                        return evaluator.field(generateExpression(field), this.metadata.getMethodKey(), result);
                     } else {
                         return field;
                     }
@@ -150,10 +150,10 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     }
 
     @Override
-    public Object generateResult(EvaluationContext result) {
-        final String expression = this.metadata.getOperation().result();
+    public Object generateValue(EvaluationContext result) {
+        final String expression = this.metadata.getOperation().value();
         if (expression != null && isExpression(expression)) {
-            return evaluator.result(getExpression(expression), this.metadata.getMethodKey(), result);
+            return evaluator.value(generateExpression(expression), this.metadata.getMethodKey(), result);
         }
         return null;
     }
@@ -163,7 +163,7 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
         if (this.conditionPassing == null) {
             final String expression = this.metadata.getOperation().condition();
             if (expression != null && isExpression(expression)) {
-                this.conditionPassing = evaluator.condition(getExpression(expression), this.metadata.getMethodKey(), result);
+                this.conditionPassing = evaluator.condition(generateExpression(expression), this.metadata.getMethodKey(), result);
             } else {
                 this.conditionPassing = true;
             }
@@ -175,16 +175,18 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     public Object generateExpire(EvaluationContext result) {
         final String expression = this.metadata.getOperation().expire();
         if (expression != null && isExpression(expression)) {
-            return evaluator.expired(getExpression(expression), this.metadata.getMethodKey(), result);
+            return evaluator.expired(generateExpression(expression), this.metadata.getMethodKey(), result);
         }
         return null;
     }
 
-    private boolean isExpression(String expression) {
+    @Override
+    public boolean isExpression(String expression) {
         return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
     }
 
-    private String getExpression(@NonNull String expression) {
+    @Override
+    public String generateExpression(@NonNull String expression) {
         return expression.substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
 

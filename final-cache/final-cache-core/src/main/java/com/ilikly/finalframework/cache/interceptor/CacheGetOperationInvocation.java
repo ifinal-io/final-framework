@@ -14,9 +14,9 @@ import java.lang.reflect.Type;
  * @author likly
  * @version 1.0
  * @date 2018-11-23 21:15:34
- * @since 1.0
  * @see com.ilikly.finalframework.cache.annotation.Cacheable
  * @see CacheableOperation
+ * @since 1.0
  */
 public class CacheGetOperationInvocation implements CacheOperationInvocation<Object> {
 
@@ -32,14 +32,9 @@ public class CacheGetOperationInvocation implements CacheOperationInvocation<Obj
         final Object field = context.generateField(evaluationContext);
         final Type genericReturnType = context.method().getGenericReturnType();
         Object cacheValue;
-        if (field == null) {
-            logger.info("==> cache get: key={}", key);
-            cacheValue = cache.get(key, genericReturnType, context.view());
-        } else {
-            logger.info("==> cache hget: key={},field={}", key, field);
-            cacheValue = cache.hget(key, field, genericReturnType, context.view());
-        }
-        logger.info("<== result: {}", Json.toJson(cacheValue));
+        logger.info("==> cache get: key={},field={}", key, field);
+        cacheValue = cache.get(key, field, genericReturnType, context.view());
+        logger.info("<== value: {}", Json.toJson(cacheValue));
         return cacheValue;
 
     }

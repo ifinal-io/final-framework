@@ -21,6 +21,8 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeUnit;
+    private final Integer retry;
+    private final Long sleep;
 
     protected AbsCacheOperation(Builder builder) {
         this.key = Assert.isEmpty(builder.key) ? null : builder.key;
@@ -31,6 +33,8 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
+        this.retry = Assert.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
+        this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
     }
 
 
@@ -45,7 +49,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     }
 
     @Override
-    public String result() {
+    public String value() {
         return result;
     }
 
@@ -74,6 +78,16 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         return this.timeUnit;
     }
 
+    @Override
+    public Integer retry() {
+        return this.retry;
+    }
+
+    @Override
+    public Long sleep() {
+        return this.sleep;
+    }
+
     protected abstract static class Builder<O extends AbsCacheOperation> implements CacheOperation.Builder<O, Builder> {
         private String[] key;
         private String delimiter;
@@ -83,6 +97,8 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         private String expire;
         private Long ttl;
         private TimeUnit timeUnit;
+        private Integer retry;
+        private Long sleep;
 
         @Override
         public Builder<O> key(String[] key) {
@@ -97,7 +113,7 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         }
 
         @Override
-        public Builder<O> result(String result) {
+        public Builder<O> value(String result) {
             this.result = result;
             return this;
         }
@@ -132,6 +148,17 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
             return this;
         }
 
+        @Override
+        public Builder<O> retry(Integer retry) {
+            this.retry = retry;
+            return this;
+        }
+
+        @Override
+        public Builder<O> sleep(Long sleep) {
+            this.sleep = sleep;
+            return this;
+        }
     }
 
 }

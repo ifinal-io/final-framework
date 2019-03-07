@@ -1,5 +1,8 @@
 package com.ilikly.finalframework.cache;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
@@ -11,16 +14,14 @@ import java.util.concurrent.TimeUnit;
  */
 public interface Cache {
 
-    void set(Object key, Object value, Long ttl, TimeUnit timeUnit, Class<?> view);
+    boolean lock(Object key, Object value, Long ttl, TimeUnit timeUnit);
 
-    <T> T get(Object key, Type type, Class<?> view);
+    boolean unlock(Object key, Object value);
 
-    Boolean del(Object key);
+    void set(@NonNull Object key, @Nullable Object field, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit, @Nullable Class<?> view);
 
-    void hset(Object key, Object field, Object value, Long ttl, TimeUnit timeUnit, Class<?> view);
+    <T> T get(@NonNull Object key, @Nullable Object field, @NonNull Type type, @Nullable Class<?> view);
 
-    <T> T hget(Object key, Object field, Type type, Class<?> view);
-
-    Long hdel(Object key, Object... field);
+    Boolean del(@NonNull Object key, @Nullable Object field);
 
 }

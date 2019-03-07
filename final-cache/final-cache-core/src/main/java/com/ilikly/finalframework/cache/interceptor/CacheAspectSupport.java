@@ -26,10 +26,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public abstract class CacheAspectSupport {
-    private static final CacheGetOperationInvocation cacheGetOperationInvocation = new CacheGetOperationInvocation();
     private final CacheOperationExpressionEvaluator evaluator = new DefaultCacheOperationExpressionEvaluator();
+    private static final CacheLockOperationInvocation cacheLockOperationInvocation = new CacheLockOperationInvocation();
+    private static final CacheableOperationInvocation cacheableOperationInvocation = new CacheableOperationInvocation();
+    private static final CacheGetOperationInvocation cacheGetOperationInvocation = new CacheGetOperationInvocation();
     private static final CacheDelOperationInvocation cacheDelOperationInvocation = new CacheDelOperationInvocation();
-    private static final CacheableOperationInvocation CACHE_OPERATION_INVOCATION = new CacheableOperationInvocation();
     private final Map<CacheOperationCacheKey, CacheOperationMetadata> metadataCache = new ConcurrentHashMap<>(1024);
     private boolean initialized = true;
     @Setter
@@ -73,21 +74,39 @@ public abstract class CacheAspectSupport {
 
     private Object execute(CacheOperationInvoker invoker, Method method, CacheOperationContexts contexts) {
 
-        if (Assert.nonEmpty(contexts.get(CacheableOperation.class))) {
-            final CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
-            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            final Object cacheValue = cacheGetOperationInvocation.invoke(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
-            if (cacheValue != null) return cacheValue;
+        CacheLockContext cacheLockContext = null;
+        try {
+
+            if (Assert.nonEmpty(contexts.get(CacheLockOperation.class))) {
+                final CacheOperationContext context = contexts.get(CacheLockOperation.class).iterator().next();
+                final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
+                cacheLockContext = cacheLockOperationInvocation.invoke(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
+                if (!cacheLockContext.isLock()) return null;
+            }
+
+
+            if (Assert.nonEmpty(contexts.get(CacheableOperation.class))) {
+                final CacheOperationContext context = contexts.get(CacheableOperation.class).iterator().next();
+                final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
+                final Object cacheValue = cacheGetOperationInvocation.invoke(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
+                if (cacheValue != null) return cacheValue;
+            }
+
+            processCacheDel(contexts.get(CacheDelOperation.class), true, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
+
+            final Object returnValue = invoker.invoke();
+
+            processCacheSet(contexts.get(CacheableOperation.class), returnValue);
+            processCacheSet(contexts.get(CachePutOperation.class), returnValue);
+            processCacheDel(contexts.get(CacheDelOperation.class), false, returnValue);
+            return returnValue;
+        } finally {
+            if (cacheLockContext != null && cacheLockContext.isLock()) {
+                logger.info("==> try to unlock: key={},value={}", cacheLockContext.getKey(), cacheLockContext.getValue());
+                final boolean unlock = cacheLockContext.unlock();
+                logger.info("<== result: {}", unlock);
+            }
         }
-
-        processCacheDel(contexts.get(CacheDelOperation.class), true, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
-
-        final Object returnValue = invoker.invoke();
-
-        processCacheSet(contexts.get(CacheableOperation.class), returnValue);
-        processCacheSet(contexts.get(CachePutOperation.class), returnValue);
-        processCacheDel(contexts.get(CacheDelOperation.class), false, returnValue);
-        return returnValue;
 
     }
 
@@ -99,7 +118,7 @@ public abstract class CacheAspectSupport {
 
     private void performCacheSet(CacheOperationContext context, CacheOperation operation, Object returnValue) {
         final Cache cache = CacheRegistry.getInstance().getCache(operation);
-        CACHE_OPERATION_INVOCATION.invoke(cache, context, returnValue);
+        cacheableOperationInvocation.invoke(cache, context, returnValue);
     }
 
 

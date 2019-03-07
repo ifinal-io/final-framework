@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.cache;
 
-import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.json.Json;
 import com.ilikly.finalframework.redis.Redis;
 
@@ -17,51 +16,51 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unchecked")
 public class RedisCache implements Cache {
 
+    private static final Long ONE = 1L;
+
     @PostConstruct
     public void init() {
         CacheRegistry.getInstance().registerCache(null, this);
     }
 
     @Override
-    public void set(Object key, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
-        if (ttl > 0) {
-            Redis.value().set(key, view == null ? Json.toJson(value) : Json.toJson(value, view), ttl, timeUnit);
+    public boolean lock(Object key, Object value, Long ttl, TimeUnit timeUnit) {
+        return Redis.lock(key, value, ttl, timeUnit);
+    }
+
+    @Override
+    public boolean unlock(Object key, Object value) {
+        return Redis.unlock(key, value);
+    }
+
+    @Override
+    public void set(Object key, Object field, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
+        final Object cacheValue = view == null ? Json.toJson(value) : Json.toJson(value, view);
+        if (field == null) {
+            if (ttl != null && ttl > 0) {
+                Redis.value().set(key, cacheValue, ttl, timeUnit);
+            } else {
+                Redis.value().set(key, cacheValue);
+            }
         } else {
-            Redis.value().set(key, view == null ? Json.toJson(value) : Json.toJson(value, view));
+            Redis.hash().put(key, field, cacheValue);
+            if (ttl != null && ttl > 0) {
+                Redis.key().expire(key, ttl, timeUnit);
+            }
         }
     }
 
     @Override
-    public <T> T get(Object key, Type type, Class<?> view) {
-        final String value = (String) Redis.value().get(key);
-        return Assert.isEmpty(value) ? null : view == null ? Json.parse(value, type) : Json.parse(value, type, view);
-    }
-
-
-    @Override
-    public Boolean del(Object key) {
-        return Redis.key().delete(key);
+    public <T> T get(Object key, Object field, Type type, Class<?> view) {
+        final Object cacheValue = field == null ? Redis.value().get(key) : Redis.hash().get(key, field);
+        if (cacheValue == null) return null;
+        final String json = cacheValue.toString();
+        return view == null ? Json.parse(json, type) : Json.parse(json, type, view);
     }
 
     @Override
-    public void hset(Object key, Object field, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
-        String json = view == null ? Json.toJson(value) : Json.toJson(value, view);
-        Redis.hash().put(key, field, json);
-        if (ttl > 0) {
-            Redis.key().expire(key, ttl, timeUnit);
-        }
+    public Boolean del(Object key, Object field) {
+        return field == null ? Boolean.TRUE.equals(Redis.key().delete(key)) : ONE.equals(Redis.hash().delete(key, field));
     }
-
-    @Override
-    public <T> T hget(Object key, Object field, Type type, Class<?> view) {
-        final String value = (String) Redis.hash().get(key, field);
-        return Assert.isEmpty(value) ? null : view == null ? Json.parse(value, type) : Json.parse(value, type, view);
-    }
-
-    @Override
-    public Long hdel(Object key, Object... field) {
-        return Redis.hash().delete(key, field);
-    }
-
 
 }

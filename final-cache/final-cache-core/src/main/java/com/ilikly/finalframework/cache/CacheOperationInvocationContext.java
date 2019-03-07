@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.cache;
 
 import org.springframework.expression.EvaluationContext;
+import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -32,9 +33,13 @@ public interface CacheOperationInvocationContext {
 
     Object generateField(EvaluationContext result);
 
-    Object generateResult(EvaluationContext result);
+    Object generateValue(EvaluationContext result);
 
     boolean isConditionPassing(EvaluationContext result);
 
     Object generateExpire(EvaluationContext result);
+
+    boolean isExpression(String expression);
+
+    String generateExpression(@NonNull String expression);
 }

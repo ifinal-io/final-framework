@@ -25,15 +25,9 @@ public class CacheDelOperationInvocation implements CacheOperationInvocation<Voi
                 throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
             }
             final Object field = context.generateField(evaluationContext);
-            if (field == null) {
-                logger.info("==> cache del: key={}");
-                Object flag = cache.del(key);
-                logger.info("<== result: {}", flag);
-            } else {
-                logger.info("==> cache hdel: key={},field={}", key, field);
-                Object flag = cache.hdel(key);
-                logger.info("<== result: {}", flag);
-            }
+            logger.info("==> cache del: key={},field={}", key, field);
+            Boolean flag = cache.del(key, field);
+            logger.info("<== value: {}", flag);
         }
         return null;
 

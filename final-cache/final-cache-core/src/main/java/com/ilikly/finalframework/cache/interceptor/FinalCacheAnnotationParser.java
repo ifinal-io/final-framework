@@ -4,6 +4,7 @@ package com.ilikly.finalframework.cache.interceptor;
 import com.ilikly.finalframework.cache.CacheAnnotationParser;
 import com.ilikly.finalframework.cache.CacheOperation;
 import com.ilikly.finalframework.cache.annotation.CacheDel;
+import com.ilikly.finalframework.cache.annotation.CacheLock;
 import com.ilikly.finalframework.cache.annotation.CachePut;
 import com.ilikly.finalframework.cache.annotation.Cacheable;
 import com.ilikly.finalframework.core.Assert;
@@ -32,6 +33,7 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
     private static final Set<Class<? extends Annotation>> CACHE_OPERATION_ANNOTATIONS = new LinkedHashSet<>(8);
 
     static {
+        CACHE_OPERATION_ANNOTATIONS.add(CacheLock.class);
         CACHE_OPERATION_ANNOTATIONS.add(Cacheable.class);
         CACHE_OPERATION_ANNOTATIONS.add(CacheDel.class);
         CACHE_OPERATION_ANNOTATIONS.add(CachePut.class);
@@ -67,8 +69,11 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
         if (Assert.isEmpty(anns)) return null;
 
         final Collection<CacheOperation> ops = new ArrayList<>(1);
+        anns.stream().filter(ann -> ann instanceof CacheLock).forEach(
+                ann -> ops.add(parseCacheLockAnnotation(ae, (CacheLock) ann))
+        );
         anns.stream().filter(ann -> ann instanceof Cacheable).forEach(
-                ann -> ops.add(parseCacheSetAnnotation(ae, (Cacheable) ann))
+                ann -> ops.add(parseCacheableAnnotation(ae, (Cacheable) ann))
         );
         anns.stream().filter(ann -> ann instanceof CacheDel).forEach(
                 ann -> ops.add(parseCacheDelAnnotation(ae, (CacheDel) ann))
@@ -81,11 +86,15 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
 
     }
 
+    private CacheLockOperation parseCacheLockAnnotation(AnnotatedElement ae, CacheLock cacheable) {
+        return CacheLockOperation.from(cacheable);
+    }
+
     private CacheDelOperation parseCacheDelAnnotation(AnnotatedElement ae, CacheDel cacheDel) {
         return CacheDelOperation.from(cacheDel);
     }
 
-    private CacheableOperation parseCacheSetAnnotation(AnnotatedElement ae, Cacheable cacheable) {
+    private CacheableOperation parseCacheableAnnotation(AnnotatedElement ae, Cacheable cacheable) {
         return CacheableOperation.from(cacheable);
     }
 

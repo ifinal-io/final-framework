@@ -20,7 +20,7 @@ public @interface CachePut {
 
     String[] field() default {};
 
-    String result() default "";
+    String value() default "";
 
     String delimiter() default ":";
 
