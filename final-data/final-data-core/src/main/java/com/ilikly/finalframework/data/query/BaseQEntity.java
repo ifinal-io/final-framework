@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.data.annotation.MultiColumn;
+import com.ilikly.finalframework.data.annotation.ReferenceColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Entity;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class BaseQEntity<ID extends Serializable, T > implements QEntity<ID, T> {
+public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final Entity<T> entity;
     private final List<QProperty> properties = new ArrayList<>();
     private final Map<String, QProperty> propertiesCache = new HashMap<>();
@@ -24,17 +25,17 @@ public class BaseQEntity<ID extends Serializable, T > implements QEntity<ID, T> 
         this.entity = entity;
         entity.stream().filter(it -> !it.isTransient())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.hasAnnotation(ReferenceColumn.class)) {
                         final Class multiType = property.getType();
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        final MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
+                        final ReferenceColumn multiColumn = property.findAnnotation(ReferenceColumn.class);
                         Arrays.stream(multiColumn.properties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .forEach(multiProperty -> {
                                     final String path = property.getName() + "." + multiProperty.getName();
                                     final String name = multiProperty.isIdProperty() ? property.getName()
                                             : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
-                                    final String column = multiProperty.isIdProperty() && multiColumn.shortId() ? property.getColumn()
+                                    final String column = multiProperty.isIdProperty() && multiColumn.mode() == ReferenceMode.SIMPLE ? property.getColumn()
                                             : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     final QProperty multiQProperty = new BaseQProperty(multiProperty, property.getTable(), path, name, column);
                                     addProperty(multiQProperty);

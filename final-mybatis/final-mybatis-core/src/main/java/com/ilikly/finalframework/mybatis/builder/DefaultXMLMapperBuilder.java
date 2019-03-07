@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.mybatis.builder;
 
-import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
 import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Entity;
@@ -166,11 +165,8 @@ public class DefaultXMLMapperBuilder {
         final Element association = document.createElement("association");
         association.setAttribute("property", property.getName());
         association.setAttribute("javaType", javaType.getCanonicalName());
-        MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
         Entity<?> multiEntity = Entity.from(javaType);
-//        Arrays.stream(multiColumn.properties())
-//                .convert(multiEntity::getRequiredPersistentProperty)
-        multiEntity.stream().filter(it -> !it.isTransient() && !it.hasAnnotation(MultiColumn.class))
+        multiEntity.stream().filter(it -> !it.isTransient() && !it.isReference())
                 .map(it -> buildResultElement(it, property.getColumn()))
                 .forEach(association::appendChild);
         return association;
@@ -247,10 +243,11 @@ public class DefaultXMLMapperBuilder {
         final List<String> columns = new ArrayList<>();
         entity.stream().filter(it -> !it.isTransient() && it.insertable())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<Property> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
+
+                        Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final String table = property.getTable();
@@ -302,9 +299,8 @@ public class DefaultXMLMapperBuilder {
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream().filter(it -> !it.isTransient() && it.insertable())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
 
-                        MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
 
@@ -312,7 +308,7 @@ public class DefaultXMLMapperBuilder {
                         final Element when = document.createElement("when");
                         final String whenTest = String.format("list[index].%s != null", property.getName());
                         when.setAttribute("test", whenTest);
-                        final String insertMultiValues = Arrays.stream(multiColumn.properties())
+                        final String insertMultiValues = Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class javaType = Utils.getPropertyJavaType(multiProperty);
@@ -327,7 +323,7 @@ public class DefaultXMLMapperBuilder {
                         choose.appendChild(when);
                         final Element otherwise = document.createElement("otherwise");
                         final List<String> nullValues = new ArrayList<>();
-                        for (int i = 0; i < multiColumn.properties().length; i++) {
+                        for (int i = 0; i < property.referenceProperties().length; i++) {
                             nullValues.add("null");
                         }
                         final String otherWiseText = first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
@@ -417,7 +413,7 @@ public class DefaultXMLMapperBuilder {
         whenEntityNotNullAndSelective.setAttribute("test", "entity != null and selective == true");
         entity.stream().filter(it -> !it.isTransient() && it.updatable())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
                         /**
                          * <if test="entity.property != null and entity.property.property != null">
                          *     column = #{entity.property.property,javaType=,typeHandler},
@@ -425,7 +421,7 @@ public class DefaultXMLMapperBuilder {
                          */
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
+                        Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
 
@@ -466,7 +462,7 @@ public class DefaultXMLMapperBuilder {
         whenEntityNotNull.setAttribute("test", "entity != null");
         entity.stream().filter(it -> !it.isTransient() && it.updatable())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
                         /**
                          * <if test="entity.property != null">
                          *     column = #{entity.property.property,javaType=,typeHandler},
@@ -474,7 +470,7 @@ public class DefaultXMLMapperBuilder {
                          */
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class).properties())
+                        Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
 
@@ -513,11 +509,10 @@ public class DefaultXMLMapperBuilder {
                      *      column = #{update[property].value.property,javaType=,typeHandler=}
                      * </if>
                      */
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class)
-                                .properties())
+                        Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class javaType = Utils.getPropertyJavaType(multiProperty);
@@ -885,11 +880,10 @@ public class DefaultXMLMapperBuilder {
         final List<String> columns = new ArrayList<>();
         entity.stream().filter(it -> !it.isTransient() && it.selectable())
                 .forEach(property -> {
-                    if (property.hasAnnotation(MultiColumn.class)) {
+                    if (property.isReference()) {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.findAnnotation(MultiColumn.class)
-                                .properties())
+                        Arrays.stream(property.referenceProperties())
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .filter(Property::selectable)
                                 .forEach(multiProperty -> {
@@ -950,6 +944,5 @@ public class DefaultXMLMapperBuilder {
         when.appendChild(child);
         return when;
     }
-
 
 }

@@ -4,6 +4,7 @@ import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     private boolean updatable = true;
     private boolean selectable = true;
     private boolean placeholder = true;
+    private ReferenceMode referenceMode;
+    private String[] referenceProperties;
 
     /**
      * Creates a new {@link AnnotationBasedPersistentProperty}.
@@ -52,7 +55,6 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @SuppressWarnings("all")
     private void initColumn() {
         try {
-
             if (isAnnotationPresent(Column.class)) {
                 initColumn(findAnnotation(Column.class));
             } else if (isAnnotationPresent(JsonColumn.class)) {
@@ -61,6 +63,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 initCreatedTime(findAnnotation(CreatedTime.class));
             } else if (isAnnotationPresent(LastModifiedTime.class)) {
                 initLastModifiedTime(findAnnotation(LastModifiedTime.class));
+            } else if (isAnnotationPresent(ReferenceColumn.class)) {
+                initReferenceColumn(findAnnotation(ReferenceColumn.class));
             } else if (isAnnotationPresent(MultiColumn.class)) {
                 initMultiColumn(findAnnotation(MultiColumn.class));
             } else {
@@ -71,8 +75,6 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 nonnull = false;
                 placeholder = true;
             }
-
-
         } finally {
 
             if (isIdProperty()) {
@@ -149,12 +151,26 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.placeholder = lastModifiedTime.placeholder();
     }
 
+    private void initReferenceColumn(ReferenceColumn referenceColumn) {
+        this.unique = referenceColumn.unique();
+        this.nonnull = referenceColumn.nonnull();
+        this.insertable = referenceColumn.insertable();
+        this.updatable = referenceColumn.updatable();
+        this.selectable = referenceColumn.selectable();
+        this.column = referenceColumn.name();
+        this.referenceMode = referenceColumn.mode();
+        this.referenceProperties = referenceColumn.properties();
+    }
+
     private void initMultiColumn(MultiColumn multiColumn) {
         this.unique = multiColumn.unique();
         this.nonnull = multiColumn.nonnull();
         this.insertable = multiColumn.insertable();
         this.updatable = multiColumn.updatable();
+        this.selectable = multiColumn.selectable();
         this.column = multiColumn.name();
+        this.referenceMode = multiColumn.mode();
+        this.referenceProperties = multiColumn.properties();
     }
 
 
@@ -187,6 +203,21 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @Override
     public boolean placeholder() {
         return placeholder;
+    }
+
+    @Override
+    public boolean isReference() {
+        return isAssociation();
+    }
+
+    @Override
+    public ReferenceMode referenceMode() {
+        return this.referenceMode;
+    }
+
+    @Override
+    public String[] referenceProperties() {
+        return this.referenceProperties;
     }
 
     @Override

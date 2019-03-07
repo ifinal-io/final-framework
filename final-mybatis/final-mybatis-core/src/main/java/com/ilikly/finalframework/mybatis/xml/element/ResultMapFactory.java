@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.mybatis.xml.element;
 
 import com.ilikly.finalframework.core.Factory;
-import com.ilikly.finalframework.data.annotation.MultiColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -27,20 +27,19 @@ public class ResultMapFactory implements Factory {
         final ResultMap.Builder builder = ResultMap.builder(clazz.getSimpleName() + SUFFIX, clazz);
         entity.stream().filter(it -> !it.isTransient())
                 .forEach(property -> {
-                    if (property.isAssociation()) {
+                    if (property.isReference()) {
                         final Class<?> javaType = Utils.getPropertyJavaType(property);
-                        final MultiColumn multiColumn = property.findAnnotation(MultiColumn.class);
                         final Entity<?> multiEntity = Entity.from(javaType);
                         final Association.Builder assocation = Association.builder(property.getName())
                                 .javaType(javaType);
 
-                        Arrays.stream(multiColumn.properties())
+                        Arrays.stream(property.referenceProperties())
                                 .map(String::trim)
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class multiPropertyJavaType = Utils.getPropertyJavaType(multiProperty);
                                     final TypeHandler typeHandler = Utils.getPropertyTypeHandler(Dialect.DEFAULT, multiProperty);
-                                    final String column = property.isIdProperty() && multiColumn.shortId() ?
+                                    final String column = property.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
                                             property.getColumn() : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
                                     return Result.builder(multiProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(column))
                                             .javaType(multiPropertyJavaType)

@@ -2,8 +2,8 @@ package com.ilikly.finalframework.data.coding.entity;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.Coder;
-import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.NonColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -61,16 +61,15 @@ public class EntityProcessor extends AbstractProcessor {
                     it.stream()
                             .filter(property -> !property.hasAnnotation(NonColumn.class))
                             .forEach(property -> {
-                                if (property.hasAnnotation(MultiColumn.class)) {
+                                if (property.isReference()) {
                                     TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());
                                     Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
-                                    MultiColumn multiColumn = (MultiColumn) property.getAnnotation(MultiColumn.class);
-                                    Arrays.stream(multiColumn.properties())
+                                    Arrays.stream(property.referenceProperties())
                                             .map(multiEntity::getRequiredProperty)
                                             .map(multiProperty -> {
                                                 final String path = property.getName() + "." + multiProperty.getName();
                                                 final String name = multiProperty.isIdProperty() ?
-                                                        multiColumn.shortId() ?
+                                                        property.referenceMode() == ReferenceMode.SIMPLE ?
                                                                 property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1)
                                                         : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
                                                 return QProperty.builder(path, name)

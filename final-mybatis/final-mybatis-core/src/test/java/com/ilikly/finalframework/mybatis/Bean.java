@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.mybatis;
 
-import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
+import com.ilikly.finalframework.data.annotation.ReferenceColumn;
 import com.ilikly.finalframework.data.annotation.Table;
 import lombok.Data;
 
@@ -19,6 +19,6 @@ public class Bean {
     private String firstName;
     private String lastName;
     private Integer age;
-    @MultiColumn(properties = {"id", "age"})
+    @ReferenceColumn(properties = {"id", "age"})
     private Bean bean;
 }

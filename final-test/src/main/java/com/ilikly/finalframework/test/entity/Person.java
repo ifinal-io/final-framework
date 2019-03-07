@@ -3,8 +3,9 @@ package com.ilikly.finalframework.test.entity;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ilikly.finalframework.data.annotation.Entity;
 import com.ilikly.finalframework.data.annotation.JsonColumn;
-import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.NonColumn;
+import com.ilikly.finalframework.data.annotation.ReferenceColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.entity.AbsEntity;
 import com.ilikly.finalframework.data.result.Result;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class Person extends AbsEntity<Date> implements Result.View {
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @MultiColumn(shortId = false, properties = {"id", "name", "age"})
+    @ReferenceColumn(mode = ReferenceMode.CANONICAL, properties = {"id", "name", "age"})
     private Person creator;
     @NonColumn
     private Date date = new Date();

@@ -18,34 +18,26 @@ import java.lang.annotation.*;
 @Documented
 @Persistent
 @Reference
-@Deprecated
-public @interface MultiColumn {
+public @interface ReferenceColumn {
 
-    @AliasFor(value = "name")
+    @AliasFor("name")
     String value() default "";
 
-    @AliasFor(value = "value")
+    @AliasFor("value")
     String name() default "";
 
-    //    @AliasFor(value = "properties", annotation = ReferenceColumn.class)
-    String[] properties();
-
-    //    @AliasFor(value = "mode", annotation = ReferenceColumn.class)
     ReferenceMode mode() default ReferenceMode.SIMPLE;
 
-    //    @AliasFor(value = "unique", annotation = ReferenceColumn.class)
+    String[] properties();
+
     boolean unique() default false;
 
-    //    @AliasFor(value = "nonnull", annotation = ReferenceColumn.class)
     boolean nonnull() default false;
 
-    //    @AliasFor(value = "insertable", annotation = ReferenceColumn.class)
     boolean insertable() default true;
 
-    //    @AliasFor(value = "updatable", annotation = ReferenceColumn.class)
     boolean updatable() default true;
 
-    //    @AliasFor(value = "selectable", annotation = ReferenceColumn.class)
     boolean selectable() default true;
 
 }

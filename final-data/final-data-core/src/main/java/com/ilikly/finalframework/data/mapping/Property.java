@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.mapping;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.mapping.PersistentProperty;
 
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,12 @@ public interface Property extends PersistentProperty<Property> {
     boolean selectable();
 
     boolean placeholder();
+
+    boolean isReference();
+
+    ReferenceMode referenceMode();
+
+    String[] referenceProperties();
 
     default Object get(@NotNull Object target) {
         try {
