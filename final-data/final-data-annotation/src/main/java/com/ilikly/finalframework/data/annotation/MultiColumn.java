@@ -30,6 +30,8 @@ public @interface MultiColumn {
     //    @AliasFor(value = "properties", annotation = ReferenceColumn.class)
     String[] properties();
 
+    String delimiter() default ":";
+
     //    @AliasFor(value = "mode", annotation = ReferenceColumn.class)
     ReferenceMode mode() default ReferenceMode.SIMPLE;
 

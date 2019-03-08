@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.data.mapping.generator;
 
-import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.FunctionColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 
@@ -25,18 +25,29 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
         return SQL_KEYS.contains(column.toUpperCase()) ? String.format("`%s`", column) : column;
     }
 
-    protected String getColumn(String prefix, Property property) {
-        String column = Assert.isEmpty(prefix) ? property.getColumn() : property.isIdProperty() ? prefix :
-                prefix + property.getColumn().substring(0, 1).toUpperCase() + property.getColumn().substring(1);
+    protected String getColumn(Property referenceProperty, Property property) {
+
+        String column;
+
+        if (referenceProperty == null) {
+            column = property.getColumn();
+        } else {
+            final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
+                    referenceProperty.referenceColumn(property.getName()) : property.getColumn();
+
+            column = property.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+                    referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+        }
+
         return NameConverterRegistry.getInstance().getTableNameConverter().convert(column);
     }
 
     @Override
-    public String generateReadColumn(String table, String prefix, Property property) {
-        final String column = getColumn(prefix, property);
+    public String generateReadColumn(String table, Property referenceProperty, Property property) {
+        final String column = getColumn(referenceProperty, property);
         if (property.hasAnnotation(FunctionColumn.class)) {
             FunctionColumn functionColumn = property.getRequiredAnnotation(FunctionColumn.class);
-            return String.format(functionColumn.reader(), formatColumn(column)) + " AS " + getColumn(prefix, property);
+            return String.format(functionColumn.reader(), formatColumn(column)) + " AS " + column;
         } else {
             return formatColumn(column);
         }
@@ -44,8 +55,8 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
     }
 
     @Override
-    public String generateWriteColumn(String table, String prefix, Property property) {
-        return formatColumn(getColumn(prefix, property));
+    public String generateWriteColumn(String table, Property referenceProperty, Property property) {
+        return formatColumn(getColumn(referenceProperty, property));
     }
 
 }

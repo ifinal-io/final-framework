@@ -3,9 +3,11 @@ package com.ilikly.finalframework.data.mapping;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.mapping.PersistentProperty;
+import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
+import java.util.List;
 
 
 /**
@@ -45,7 +47,9 @@ public interface Property extends PersistentProperty<Property> {
 
     ReferenceMode referenceMode();
 
-    String[] referenceProperties();
+    List<String> referenceProperties();
+
+    String referenceColumn(@NonNull String property);
 
     default Object get(@NotNull Object target) {
         try {

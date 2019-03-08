@@ -30,6 +30,8 @@ public @interface ReferenceColumn {
 
     String[] properties();
 
+    String delimiter() default ":";
+
     boolean unique() default false;
 
     boolean nonnull() default false;

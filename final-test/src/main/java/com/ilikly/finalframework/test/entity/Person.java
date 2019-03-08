@@ -36,7 +36,7 @@ public class Person extends AbsEntity<Date> implements Result.View {
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @ReferenceColumn(mode = ReferenceMode.CANONICAL, properties = {"id", "name", "age"})
+    @ReferenceColumn(mode = ReferenceMode.CANONICAL, properties = {"id", "name:myname", "age"})
     private Person creator;
     @NonColumn
     private Date date = new Date();

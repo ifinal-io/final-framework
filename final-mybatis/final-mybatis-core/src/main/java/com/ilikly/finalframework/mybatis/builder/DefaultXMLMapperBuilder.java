@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.mybatis.builder;
 
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.Property;
@@ -247,7 +248,7 @@ public class DefaultXMLMapperBuilder {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<Property> multiEntity = Entity.from(multiType);
 
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final String table = property.getTable();
@@ -255,7 +256,7 @@ public class DefaultXMLMapperBuilder {
 //                                            property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
 //                                    final String column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(multiColumn);
                                     final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(dialect, multiProperty);
-                                    return columnGenerator.generateWriteColumn(table, property.getColumn(), multiProperty);
+                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
                                 })
                                 .forEach(columns::add);
                     } else {
@@ -308,7 +309,7 @@ public class DefaultXMLMapperBuilder {
                         final Element when = document.createElement("when");
                         final String whenTest = String.format("list[index].%s != null", property.getName());
                         when.setAttribute("test", whenTest);
-                        final String insertMultiValues = Arrays.stream(property.referenceProperties())
+                        final String insertMultiValues = property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class javaType = Utils.getPropertyJavaType(multiProperty);
@@ -316,14 +317,14 @@ public class DefaultXMLMapperBuilder {
                                     //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
                                     final String value = property.placeholder() ? "list[${index}]" : "item";
                                     ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(dialect, multiProperty);
-                                    return columnGenerator.generateWriteValue(property.getName(), multiProperty, value);
+                                    return columnGenerator.generateWriteValue(property, multiProperty, value);
                                 })
                                 .collect(Collectors.joining(",\n"));
                         when.appendChild(textNode(first.get() ? insertMultiValues : "," + insertMultiValues));
                         choose.appendChild(when);
                         final Element otherwise = document.createElement("otherwise");
                         final List<String> nullValues = new ArrayList<>();
-                        for (int i = 0; i < property.referenceProperties().length; i++) {
+                        for (int i = 0; i < property.referenceProperties().size(); i++) {
                             nullValues.add("null");
                         }
                         final String otherWiseText = first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
@@ -421,13 +422,13 @@ public class DefaultXMLMapperBuilder {
                          */
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
 
                                     ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(dialect, multiProperty);
-                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property.getColumn(), multiProperty);
-                                    final String value = columnGenerator.generateWriteValue(property.getName(), multiProperty, "entity");
+                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property, multiProperty);
+                                    final String value = columnGenerator.generateWriteValue(property, multiProperty, "entity");
 
                                     final Element ifPropertyNotNull = document.createElement("if");
                                     final String ifTest = String.format("entity.%s != null and entity.%s.%s != null", property.getName(), property.getName(), multiProperty.getName());
@@ -470,13 +471,13 @@ public class DefaultXMLMapperBuilder {
                          */
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
 
                                     ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(dialect, multiProperty);
-                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property.getColumn(), multiProperty);
-                                    final String value = columnGenerator.generateWriteValue(property.getName(), multiProperty, "entity");
+                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property, multiProperty);
+                                    final String value = columnGenerator.generateWriteValue(property, multiProperty, "entity");
 
                                     final Element ifPropertyNotNull = document.createElement("if");
                                     final String ifTest = String.format("entity.%s != null", property.getName());
@@ -512,15 +513,20 @@ public class DefaultXMLMapperBuilder {
                     if (property.isReference()) {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class javaType = Utils.getPropertyJavaType(multiProperty);
                                     final TypeHandler typeHandler = Utils.getPropertyTypeHandler(dialect, multiProperty);
 
                                     final Element ifUpdateContains = document.createElement("if");
-                                    final String multiColumn = multiProperty.isIdProperty() ? property.getColumn()
-                                            : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
+
+                                    final String referenceColumn = property.referenceColumn(multiProperty.getName()) != null
+                                            ? property.referenceColumn(multiProperty.getName())
+                                            : multiProperty.getColumn();
+
+                                    final String multiColumn = multiProperty.isIdProperty() && multiProperty.referenceMode() == ReferenceMode.SIMPLE ? property.getColumn()
+                                            : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
                                     final String updatePath = multiColumn;
                                     final String updateColumn = NameConverterRegistry.getInstance().getColumnNameConverter().convert(multiColumn);
                                     final String ifTest = String.format("update['%s'] != null", updatePath);
@@ -883,12 +889,12 @@ public class DefaultXMLMapperBuilder {
                     if (property.isReference()) {
                         final Class multiType = Utils.getPropertyJavaType(property);
                         final Entity<?> multiEntity = Entity.from(multiType);
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .filter(Property::selectable)
                                 .forEach(multiProperty -> {
                                     ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(dialect, property);
-                                    columns.add(columnGenerator.generateReadColumn(property.getTable(), property.getColumn(), multiProperty));
+                                    columns.add(columnGenerator.generateReadColumn(property.getTable(), property, multiProperty));
                                 });
                     } else {
 

@@ -7,6 +7,7 @@ import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.generator.AbsColumnGenerator;
 import com.ilikly.finalframework.mybatis.Utils;
 import org.apache.ibatis.type.TypeHandler;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -28,26 +29,26 @@ public class BaseColumnGenerator extends AbsColumnGenerator {
     }
 
     @Override
-    public String generateWriteValue(String prefix, Property property, String value) {
+    public String generateWriteValue(@Nullable Property referenceProperty, Property property, String value) {
         if (property.hasAnnotation(FunctionColumn.class)) {
             FunctionColumn functionColumn = property.getRequiredAnnotation(FunctionColumn.class);
             String writer = functionColumn.writer();
-            return String.format(writer, formatValue(prefix, property, value));
+            return String.format(writer, formatValue(referenceProperty, property, value));
         } else {
-            return formatValue(prefix, property, value);
+            return formatValue(referenceProperty, property, value);
         }
 
     }
 
-    protected String formatValue(String prefix, Property property, String value) {
+    protected String formatValue(@Nullable Property referenceProperty, Property property, String value) {
         final Class javaType = Utils.getPropertyJavaType(property);
         final TypeHandler typeHandler = Utils.getPropertyTypeHandler(dialect, property);
         final StringBuilder builder = new StringBuilder();
 
         builder.append(property.placeholder() ? "#{" : "${").append(value);
 
-        if (Assert.nonEmpty(prefix)) {
-            builder.append(".").append(prefix);
+        if (Assert.nonNull(referenceProperty)) {
+            builder.append(".").append(referenceProperty.getName());
         }
         builder.append(".").append(property.getName());
 

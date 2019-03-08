@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.data.annotation.ReferenceColumn;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Entity;
 
@@ -25,19 +24,23 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
         this.entity = entity;
         entity.stream().filter(it -> !it.isTransient())
                 .forEach(property -> {
-                    if (property.hasAnnotation(ReferenceColumn.class)) {
+                    if (property.isReference()) {
                         final Class multiType = property.getType();
-                        final Entity<?> multiEntity = Entity.from(multiType);
-                        final ReferenceColumn multiColumn = property.findAnnotation(ReferenceColumn.class);
-                        Arrays.stream(multiColumn.properties())
-                                .map(multiEntity::getRequiredPersistentProperty)
-                                .forEach(multiProperty -> {
-                                    final String path = property.getName() + "." + multiProperty.getName();
-                                    final String name = multiProperty.isIdProperty() ? property.getName()
-                                            : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
-                                    final String column = multiProperty.isIdProperty() && multiColumn.mode() == ReferenceMode.SIMPLE ? property.getColumn()
-                                            : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
-                                    final QProperty multiQProperty = new BaseQProperty(multiProperty, property.getTable(), path, name, column);
+                        final Entity<?> referenceEntity = Entity.from(multiType);
+                        property.referenceProperties().stream()
+                                .map(referenceEntity::getRequiredPersistentProperty)
+                                .forEach(referenceProperty -> {
+                                    final String path = property.getName() + "." + referenceProperty.getName();
+                                    final String name = referenceProperty.isIdProperty() ? property.getName()
+                                            : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty.getName().substring(1);
+
+                                    final String referenceColumn = property.referenceColumn(property.getName()) != null ?
+                                            property.referenceColumn(property.getName()) : referenceProperty.getColumn();
+
+                                    final String column = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+                                            property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+
+                                    final QProperty multiQProperty = new BaseQProperty(referenceProperty, property.getTable(), path, name, column);
                                     addProperty(multiQProperty);
                                 });
 

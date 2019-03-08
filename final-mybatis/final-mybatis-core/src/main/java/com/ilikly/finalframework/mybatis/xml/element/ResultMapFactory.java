@@ -9,8 +9,6 @@ import com.ilikly.finalframework.mybatis.Utils;
 import org.apache.ibatis.type.TypeHandler;
 import org.springframework.lang.NonNull;
 
-import java.util.Arrays;
-
 /**
  * @author likly
  * @version 1.0
@@ -33,7 +31,7 @@ public class ResultMapFactory implements Factory {
                         final Association.Builder assocation = Association.builder(property.getName())
                                 .javaType(javaType);
 
-                        Arrays.stream(property.referenceProperties())
+                        property.referenceProperties().stream()
                                 .map(String::trim)
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {

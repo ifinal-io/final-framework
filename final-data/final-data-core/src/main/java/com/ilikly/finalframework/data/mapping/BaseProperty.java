@@ -12,6 +12,11 @@ import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * @author likly
@@ -33,7 +38,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     private boolean selectable = true;
     private boolean placeholder = true;
     private ReferenceMode referenceMode;
-    private String[] referenceProperties;
+    private List<String> referenceProperties;
+    private Map<String, String> referenceColumns;
 
     /**
      * Creates a new {@link AnnotationBasedPersistentProperty}.
@@ -151,6 +157,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.placeholder = lastModifiedTime.placeholder();
     }
 
+    @SuppressWarnings("all")
     private void initReferenceColumn(ReferenceColumn referenceColumn) {
         this.unique = referenceColumn.unique();
         this.nonnull = referenceColumn.nonnull();
@@ -158,10 +165,10 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.updatable = referenceColumn.updatable();
         this.selectable = referenceColumn.selectable();
         this.column = referenceColumn.name();
-        this.referenceMode = referenceColumn.mode();
-        this.referenceProperties = referenceColumn.properties();
+        initReference(referenceColumn.mode(), referenceColumn.properties(), referenceColumn.delimiter());
     }
 
+    @SuppressWarnings("all")
     private void initMultiColumn(MultiColumn multiColumn) {
         this.unique = multiColumn.unique();
         this.nonnull = multiColumn.nonnull();
@@ -169,8 +176,25 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.updatable = multiColumn.updatable();
         this.selectable = multiColumn.selectable();
         this.column = multiColumn.name();
-        this.referenceMode = multiColumn.mode();
-        this.referenceProperties = multiColumn.properties();
+        initReference(multiColumn.mode(), multiColumn.properties(), multiColumn.delimiter());
+    }
+
+    private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
+        this.referenceMode = mode;
+        List<String> referenceProperties = new ArrayList<>(properties.length);
+        Map<String, String> referenceColumns = new HashMap<>(properties.length);
+        for (String property : properties) {
+            if (property.contains(delimiter)) {
+                final String[] split = property.split(delimiter);
+                referenceProperties.add(split[0]);
+                referenceColumns.put(split[0], split[1]);
+            } else {
+                referenceProperties.add(property);
+            }
+        }
+        this.referenceProperties = referenceProperties;
+        this.referenceColumns = referenceColumns;
+
     }
 
 
@@ -216,8 +240,13 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     }
 
     @Override
-    public String[] referenceProperties() {
+    public List<String> referenceProperties() {
         return this.referenceProperties;
+    }
+
+    @Override
+    public String referenceColumn(String property) {
+        return this.referenceColumns == null ? null : this.referenceColumns.get(property);
     }
 
     @Override

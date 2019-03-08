@@ -2,6 +2,7 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.mapping.Property;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
@@ -25,7 +26,7 @@ public class BaseQProperty<T> implements QProperty<T> {
         this.table = table;
         this.path = path;
         this.name = name;
-        this.column = column;
+        this.column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
     }
 
     @Override

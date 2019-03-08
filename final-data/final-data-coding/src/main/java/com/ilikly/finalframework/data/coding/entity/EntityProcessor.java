@@ -9,8 +9,8 @@ import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -64,7 +64,8 @@ public class EntityProcessor extends AbstractProcessor {
                                 if (property.isReference()) {
                                     TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());
                                     Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
-                                    Arrays.stream(property.referenceProperties())
+                                    @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
+                                    properties.stream()
                                             .map(multiEntity::getRequiredProperty)
                                             .map(multiProperty -> {
                                                 final String path = property.getName() + "." + multiProperty.getName();

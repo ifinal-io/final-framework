@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -44,7 +45,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private final boolean isIdProperty;
     private final boolean isReference;
     private final ReferenceMode referenceMode;
-    private final String[] referenceProperties;
+    private List<String> referenceProperties;
 
     public BaseProperty(T entity, ProcessingEnvironment processEnv, Element element) {
         this.entity = entity;
@@ -91,18 +92,29 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
             final ReferenceColumn referenceColumn = getAnnotation(ReferenceColumn.class);
             isReference = true;
             referenceMode = referenceColumn.mode();
-            referenceProperties = referenceColumn.properties();
+            initReferenceProperties(referenceColumn.properties(), referenceColumn.delimiter());
         } else if (hasAnnotation(MultiColumn.class)) {
             final MultiColumn multiColumn = getAnnotation(MultiColumn.class);
             isReference = true;
             referenceMode = multiColumn.mode();
-            referenceProperties = multiColumn.properties();
+            initReferenceProperties(multiColumn.properties(), multiColumn.delimiter());
         } else {
             isReference = false;
             referenceMode = null;
             referenceProperties = null;
         }
 
+    }
+
+    private void initReferenceProperties(String[] properties, String delimiter) {
+        this.referenceProperties = Arrays.stream(properties)
+                .map(property -> {
+                    if (property.contains(delimiter)) {
+                        return property.split(delimiter)[0];
+                    } else {
+                        return property;
+                    }
+                }).collect(Collectors.toList());
     }
 
     private String getElementName(Element element) {
@@ -188,7 +200,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     }
 
     @Override
-    public String[] referenceProperties() {
+    public List<String> referenceProperties() {
         return referenceProperties;
     }
 
