@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion;
 
-import com.ilikly.finalframework.core.Assert;
-import org.springframework.lang.NonNull;
+import com.ilikly.finalframework.data.query.CriterionOperation;
+import com.ilikly.finalframework.data.query.CriterionOperator;
 
 /**
  * @author likly
@@ -9,67 +9,11 @@ import org.springframework.lang.NonNull;
  * @date 2019-02-20 09:31:57
  * @since 1.0
  */
-public class CriterionOperators implements CriterionOperator {
+public interface CriterionOperators<T> {
+    Class<T> type();
 
-    public static final CriterionOperator EQUAL = new CriterionOperators("EQUAL");
-    public static final CriterionOperator NOT_EQUAL = new CriterionOperators("NOT_EQUAL");
-    public static final CriterionOperator GREATER_THAN = new CriterionOperators("GREATER_THAN");
-    public static final CriterionOperator GREATER_EQUAL_THAN = new CriterionOperators("GREATER_EQUAL_THAN");
-    public static final CriterionOperator LESS_THAN = new CriterionOperators("LESS_THAN");
-    public static final CriterionOperator LESS_EQUAL_THAN = new CriterionOperators("LESS_EQUAL_THAN");
-    public static final CriterionOperator IN = new CriterionOperators("IN");
-    public static final CriterionOperator NOT_IN = new CriterionOperators("NOT_IN");
-    public static final CriterionOperator START_WITH = new CriterionOperators("START_WITH");
-    public static final CriterionOperator NOT_START_WITH = new CriterionOperators("NOT_START_WITH");
-    public static final CriterionOperator END_WITH = new CriterionOperators("END_WITH");
-    public static final CriterionOperator NOT_END_WITH = new CriterionOperators("NOT_END_WITH");
-    public static final CriterionOperator CONTAINS = new CriterionOperators("CONTAINS");
-    public static final CriterionOperator NOT_CONTAINS = new CriterionOperators("NOT_CONTAINS");
-    public static final CriterionOperator LIKE = new CriterionOperators("LIKE");
-    public static final CriterionOperator NOT_LIKE = new CriterionOperators("NOT_LIKE");
-    public static final CriterionOperator BEFORE = new CriterionOperators("BEFORE");
-    public static final CriterionOperator AFTER = new CriterionOperators("AFTER");
-    public static final CriterionOperator DATE_EQUAL = new CriterionOperators("DATE_EQUAL");
-    public static final CriterionOperator NOT_DATE_EQUAL = new CriterionOperators("NOT_DATE_EQUAL");
-    public static final CriterionOperator DATE_BEFORE = new CriterionOperators("DATE_BEFORE");
-    public static final CriterionOperator DATE_AFTER = new CriterionOperators("DATE_AFTER");
-    public static final CriterionOperator BETWEEN = new CriterionOperators("BETWEEN");
-    public static final CriterionOperator NOT_BETWEEN = new CriterionOperators("NOT_BETWEEN");
-    public static final CriterionOperator DATE_BETWEEN = new CriterionOperators("DATE_BETWEEN");
-    public static final CriterionOperator NOT_DATE_BETWEEN = new CriterionOperators("NOT_DATE_BETWEEN");
-    public static final CriterionOperator NULL = new CriterionOperators("NULL");
-    public static final CriterionOperator NOT_NULL = new CriterionOperators("NOT_NULL");
+    CriterionOperation get(CriterionOperator operator);
 
+    void register(CriterionOperation operation);
 
-    private final String name;
-
-    public CriterionOperators(@NonNull String name) {
-        Assert.isEmpty(name, "name is empty");
-        this.name = name;
-    }
-
-    @Override
-    @NonNull
-    public String name() {
-        return this.name;
-    }
-
-
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof CriterionOperator) {
-            return name.equals(((CriterionOperator) obj).name());
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

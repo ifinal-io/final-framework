@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion;
 
 import com.ilikly.finalframework.data.query.CriterionOperation;
+import com.ilikly.finalframework.data.query.CriterionOperator;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.criterion.operation.*;
 
@@ -12,9 +13,9 @@ import com.ilikly.finalframework.data.query.criterion.operation.*;
  * @see EqualCriterionOperation
  * @see NotEqualCriterionOperation
  * @see GreaterThanCriterionOperation
- * @see GreaterEqualThanCriterionOperation
+ * @see GreaterThanEqualCriterionOperation
  * @see LessThanCriterionOperation
- * @see LessEqualThanCriterionOperation
+ * @see LessThanEqualCriterionOperation
  * @see StartWithCriterionOperation
  * @see NotStartWithCriterionOperation
  * @see EndWithCriterionOperation

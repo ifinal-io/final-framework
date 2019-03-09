@@ -27,22 +27,22 @@ public class ResultMapFactory implements Factory {
                 .forEach(property -> {
                     if (property.isReference()) {
                         final Class<?> javaType = Utils.getPropertyJavaType(property);
-                        final Entity<?> multiEntity = Entity.from(javaType);
+                        final Entity<?> referenceEntity = Entity.from(javaType);
                         final Association.Builder assocation = Association.builder(property.getName())
                                 .javaType(javaType);
 
                         property.referenceProperties().stream()
                                 .map(String::trim)
-                                .map(multiEntity::getRequiredPersistentProperty)
-                                .map(multiProperty -> {
-                                    final Class multiPropertyJavaType = Utils.getPropertyJavaType(multiProperty);
-                                    final TypeHandler typeHandler = Utils.getPropertyTypeHandler(Dialect.DEFAULT, multiProperty);
-                                    final String column = property.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
-                                            property.getColumn() : property.getColumn() + multiProperty.getColumn().substring(0, 1).toUpperCase() + multiProperty.getColumn().substring(1);
-                                    return Result.builder(multiProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(column))
+                                .map(referenceEntity::getRequiredPersistentProperty)
+                                .map(referenceProperty -> {
+                                    final Class multiPropertyJavaType = Utils.getPropertyJavaType(referenceProperty);
+                                    final TypeHandler typeHandler = Utils.getPropertyTypeHandler(Dialect.DEFAULT, referenceProperty);
+                                    final String referenceColumn = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+                                            property.getColumn() : property.getColumn() + referenceProperty.getColumn().substring(0, 1).toUpperCase() + referenceProperty.getColumn().substring(1);
+                                    return Result.builder(referenceProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(referenceColumn))
                                             .javaType(multiPropertyJavaType)
                                             .typeHandler(typeHandler)
-                                            .idResult(multiProperty.isIdProperty())
+                                            .idResult(referenceProperty.isIdProperty())
                                             .build();
                                 })
                                 .forEach(assocation::addResult);

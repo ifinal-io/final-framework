@@ -31,7 +31,7 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
     /**
      * The name of the variable holding the value object.
      */
-    public static final String RESULT_VARIABLE = "value";
+    public static final String RESULT_VARIABLE = "result";
 
     private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> fieldCache = new ConcurrentHashMap<>(64);

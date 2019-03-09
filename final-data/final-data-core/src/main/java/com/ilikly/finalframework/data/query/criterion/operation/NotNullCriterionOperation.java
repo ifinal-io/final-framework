@@ -1,8 +1,8 @@
 package com.ilikly.finalframework.data.query.criterion.operation;
 
+import com.ilikly.finalframework.data.query.CriterionOperator;
+import com.ilikly.finalframework.data.query.DefaultCriterionOperator;
 import com.ilikly.finalframework.data.query.QProperty;
-import com.ilikly.finalframework.data.query.criterion.CriterionOperator;
-import com.ilikly.finalframework.data.query.criterion.CriterionOperators;
 import com.ilikly.finalframework.data.query.criterion.SingleCriterionOperation;
 
 /**
@@ -12,11 +12,10 @@ import com.ilikly.finalframework.data.query.criterion.SingleCriterionOperation;
  * @since 1.0
  */
 public class NotNullCriterionOperation<T> extends AbsCriterionOperation<T> implements SingleCriterionOperation<T> {
-    public static final NotNullCriterionOperation INSTANCE = new NotNullCriterionOperation();
 
     @Override
     public CriterionOperator operator() {
-        return CriterionOperators.NOT_NULL;
+        return DefaultCriterionOperator.NOT_NULL;
     }
 
     @Override

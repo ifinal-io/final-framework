@@ -35,7 +35,7 @@ public abstract class AbsColumnGenerator implements ColumnGenerator {
             final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
                     referenceProperty.referenceColumn(property.getName()) : property.getColumn();
 
-            column = property.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+            column = property.isIdProperty() && referenceProperty.referenceMode() == ReferenceMode.SIMPLE ?
                     referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 

@@ -155,7 +155,7 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
         if (expression != null && isExpression(expression)) {
             return evaluator.value(generateExpression(expression), this.metadata.getMethodKey(), result);
         }
-        return null;
+        return expression;
     }
 
     @Override

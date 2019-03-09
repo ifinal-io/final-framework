@@ -68,9 +68,14 @@ public class QProperty implements Serializable {
         }
 
         public Builder rawType(String rawType) {
-            this.rawType = rawType.replace("java.lang.", "");
-            if (this.rawType.contains("::")) {
-                this.rawType = this.rawType.substring(this.rawType.lastIndexOf("::") + 3).replace(")", "");
+            System.out.println("----------" + rawType);
+            if (rawType != null) {
+                this.rawType = rawType.replace("java.lang.", "");
+                if (this.rawType.contains("::")) {
+                    this.rawType = this.rawType.substring(this.rawType.lastIndexOf("::") + 3).replace(")", "");
+                }
+            } else {
+                this.rawType = "Object";
             }
             return this;
         }

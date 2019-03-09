@@ -13,7 +13,7 @@ public final class ${name}{
 
 public static final QEntity ${entity.simpleName} = QEntity.from(${entity.simpleName}.class);
 <#list properties as property>
-    public static final QProperty ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");
+    public static final QProperty<${property.rawType!}> ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");
 </#list>
 
 

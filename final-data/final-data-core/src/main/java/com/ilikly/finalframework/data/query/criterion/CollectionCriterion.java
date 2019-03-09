@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query.criterion;
 
+import com.ilikly.finalframework.data.query.CriterionOperator;
 import com.ilikly.finalframework.data.query.QProperty;
 import com.ilikly.finalframework.data.query.criterion.operation.InCriterionOperation;
 import com.ilikly.finalframework.data.query.criterion.operation.NotInCriterionOperation;

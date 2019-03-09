@@ -25,7 +25,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity<Date> implements Result.View {
+public class Person extends AbsEntity implements Result.View {
     private static final long serialVersionUID = -8785625823175210092L;
     @JsonView(Person.class)
     private String name;
@@ -36,7 +36,7 @@ public class Person extends AbsEntity<Date> implements Result.View {
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @ReferenceColumn(mode = ReferenceMode.CANONICAL, properties = {"id", "name:myname", "age"})
+    @ReferenceColumn(mode = ReferenceMode.SIMPLE, properties = {"id", "name", "age"})
     private Person creator;
     @NonColumn
     private Date date = new Date();

@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion;
 
 import com.ilikly.finalframework.data.query.Criterion;
+import com.ilikly.finalframework.data.query.CriterionOperator;
 import com.ilikly.finalframework.data.query.QProperty;
 
 /**
@@ -9,9 +10,9 @@ import com.ilikly.finalframework.data.query.QProperty;
  * @date 2019-02-19 20:52:10
  * @since 1.0
  */
-public interface BetweenCriterion<T extends Comparable<T>> extends Criterion<T> {
+public interface BetweenCriterion<T> extends Criterion<T> {
 
-    static <T extends Comparable<T>> Builder<T> builder() {
+    static <T> Builder<T> builder() {
         return BetweenCriterionImpl.builder();
     }
 
@@ -19,7 +20,7 @@ public interface BetweenCriterion<T extends Comparable<T>> extends Criterion<T> 
 
     T max();
 
-    interface Builder<T extends Comparable<T>> extends Criterion.Builder<BetweenCriterion<T>> {
+    interface Builder<T> extends Criterion.Builder<BetweenCriterion<T>> {
 
         @Override
         Builder<T> property(QProperty property);

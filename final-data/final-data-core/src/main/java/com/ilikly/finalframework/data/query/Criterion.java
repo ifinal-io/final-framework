@@ -2,7 +2,6 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.query.criterion.BetweenCriterion;
 import com.ilikly.finalframework.data.query.criterion.CollectionCriterion;
-import com.ilikly.finalframework.data.query.criterion.CriterionOperator;
 import com.ilikly.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 

@@ -7,6 +7,6 @@ package com.ilikly.finalframework.core.converter;
  * @since 1.0
  */
 @FunctionalInterface
-public interface SelfConverter<TARGET> {
+public interface Convertible<TARGET> {
     TARGET convert();
 }

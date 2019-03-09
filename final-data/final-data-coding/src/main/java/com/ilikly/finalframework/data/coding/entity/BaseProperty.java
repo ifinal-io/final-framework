@@ -156,7 +156,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
     @Override
     public String getRawType() {
-        return rawType;
+        return isCollection ? componentType : type;
     }
 
     @Override

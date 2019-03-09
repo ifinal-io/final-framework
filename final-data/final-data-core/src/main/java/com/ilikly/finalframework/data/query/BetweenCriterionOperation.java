@@ -1,7 +1,6 @@
-package com.ilikly.finalframework.data.query.criterion;
+package com.ilikly.finalframework.data.query;
 
-import com.ilikly.finalframework.data.query.CriterionOperation;
-import com.ilikly.finalframework.data.query.QProperty;
+import com.ilikly.finalframework.data.query.criterion.BetweenCriterion;
 import com.ilikly.finalframework.data.query.criterion.operation.DateBetweenCriterionOperation;
 import com.ilikly.finalframework.data.query.criterion.operation.NotBetweenCriterionOperation;
 import com.ilikly.finalframework.data.query.criterion.operation.NotDateBetweenCriterionOperation;
@@ -16,7 +15,7 @@ import com.ilikly.finalframework.data.query.criterion.operation.NotDateBetweenCr
  * @see DateBetweenCriterionOperation
  * @see NotDateBetweenCriterionOperation
  */
-public interface BetweenCriterionOperation<T extends Comparable<T>> extends CriterionOperation<T, BetweenCriterion<T>> {
+public interface BetweenCriterionOperation<T> extends CriterionOperation<T, BetweenCriterion<T>> {
     @Override
     default String format(BetweenCriterion<T> criterion) {
         return format(criterion.property(), criterion.operator(), criterion.min(), criterion.max());

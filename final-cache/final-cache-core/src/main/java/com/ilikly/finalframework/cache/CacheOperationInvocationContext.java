@@ -2,6 +2,7 @@ package com.ilikly.finalframework.cache;
 
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -13,33 +14,44 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 public interface CacheOperationInvocationContext {
+    @NonNull
     CacheOperation operation();
 
+    @NonNull
     Object target();
 
+    @NonNull
     Method method();
 
-    Object[] args();
-
+    @NonNull
     Class<?> view();
+
+    @Nullable
+    Object[] args();
 
     Class<?> returnType();
 
     Type genericReturnType();
 
-    EvaluationContext createEvaluationContext(Object result);
+    @NonNull
+    EvaluationContext createEvaluationContext(@Nullable Object result);
 
-    Object generateKey(EvaluationContext result);
+    @Nullable
+    Object generateKey(@NonNull EvaluationContext evaluationContext);
 
-    Object generateField(EvaluationContext result);
+    @Nullable
+    Object generateField(@NonNull EvaluationContext evaluationContext);
 
-    Object generateValue(EvaluationContext result);
+    @Nullable
+    Object generateValue(@NonNull EvaluationContext evaluationContext);
 
-    boolean isConditionPassing(EvaluationContext result);
+    boolean isConditionPassing(@NonNull EvaluationContext evaluationContext);
 
-    Object generateExpire(EvaluationContext result);
+    @Nullable
+    Object generateExpire(@NonNull EvaluationContext evaluationContext);
 
     boolean isExpression(String expression);
 
+    @NonNull
     String generateExpression(@NonNull String expression);
 }

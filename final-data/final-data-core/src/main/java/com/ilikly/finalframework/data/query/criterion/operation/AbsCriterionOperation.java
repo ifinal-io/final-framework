@@ -1,9 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion.operation;
 
-import com.ilikly.finalframework.core.formatter.DateFormatter;
 import com.ilikly.finalframework.data.query.QProperty;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +14,6 @@ import java.util.Set;
 public abstract class AbsCriterionOperation<T> {
 
     private static final Set<String> SQL_KEYS = new HashSet<>();
-    private static final DateFormatter dateformatter = DateFormatter.YYYY_MM_DD_HH_MM_SS;
 
     static {
         SQL_KEYS.add("key");
@@ -26,9 +23,4 @@ public abstract class AbsCriterionOperation<T> {
         return SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
                 String.format("`%s`",property.getColumn()) : property.getColumn();
     }
-
-    protected String format(Date date) {
-        return dateformatter.format(date);
-    }
-
 }

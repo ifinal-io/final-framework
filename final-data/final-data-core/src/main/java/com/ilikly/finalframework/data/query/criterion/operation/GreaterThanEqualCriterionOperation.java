@@ -9,12 +9,11 @@ import com.ilikly.finalframework.data.query.DefaultCriterionOperator;
  * @date 2019-01-18 13:52:04
  * @since 1.0
  */
-public abstract class AfterCriterionOperation<T> extends AbsSingleCriterionOperation<T> {
+public abstract class GreaterThanEqualCriterionOperation<T> extends AbsSingleCriterionOperation<T> {
 
     @Override
     public final CriterionOperator operator() {
-        return DefaultCriterionOperator.AFTER;
+        return DefaultCriterionOperator.GREATER_THAN_EQUAL;
     }
-
 
 }

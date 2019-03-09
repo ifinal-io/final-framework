@@ -1,5 +1,6 @@
-package com.ilikly.finalframework.data.query.criterion;
+package com.ilikly.finalframework.data.query;
 
+import com.ilikly.finalframework.data.query.criterion.CriterionOperators;
 import org.springframework.lang.NonNull;
 
 /**
@@ -12,4 +13,6 @@ import org.springframework.lang.NonNull;
 public interface CriterionOperator {
     @NonNull
     String name();
+
+
 }

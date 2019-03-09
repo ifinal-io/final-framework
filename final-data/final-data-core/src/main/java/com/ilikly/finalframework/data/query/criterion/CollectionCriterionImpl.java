@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query.criterion;
 
 import com.ilikly.finalframework.data.query.Criterion;
+import com.ilikly.finalframework.data.query.CriterionOperator;
 import com.ilikly.finalframework.data.query.QProperty;
 
 import java.util.Collection;
