@@ -22,8 +22,8 @@ public class CacheDelOperation extends AbsCacheOperation<CacheDel> {
     public static CacheDelOperation from(CacheDel cacheDel) {
         return new Builder()
                 .beforeInvocation(cacheDel.beforeInvocation())
-                .key(cacheDel.key())
-                .field(cacheDel.field())
+                .key(parse(cacheDel.key(), cacheDel.delimiter()))
+                .field(parse(cacheDel.field(), cacheDel.delimiter()))
                 .delimiter(cacheDel.delimiter())
                 .condition(cacheDel.condition())
                 .build();

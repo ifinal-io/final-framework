@@ -16,8 +16,8 @@ public class CacheableOperation extends AbsCacheOperation<Cacheable> {
 
     public static CacheableOperation from(Cacheable cacheable) {
         return new Builder()
-                .key(cacheable.key())
-                .field(cacheable.field())
+                .key(parse(cacheable.key(), cacheable.delimiter()))
+                .field(parse(cacheable.field(), cacheable.delimiter()))
                 .delimiter(cacheable.delimiter())
                 .condition(cacheable.condition())
                 .expire(cacheable.expire())

@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.mapping;
 
 import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.data.annotation.ColumnView;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
 import com.ilikly.finalframework.data.annotation.Table;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
@@ -17,9 +18,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -31,6 +30,7 @@ import java.util.stream.Stream;
 @Slf4j
 public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
     private final List<Property> properties = new ArrayList<>();
+    private final Set<Class<?>> views = new LinkedHashSet<>();
     @Getter
     private String table;
     @Getter
@@ -70,14 +70,20 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
             BeanInfo beanInfo = Introspector.getBeanInfo(entityClass);
             Arrays.stream(beanInfo.getPropertyDescriptors())
                     .filter(it -> !it.getName().equals("class"))
-                    .map(it -> buildProperty(entityClass,it))
+                    .map(it -> buildProperty(entityClass, it))
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);
 
+                        if (it.hasAnnotation(ColumnView.class)) {
+                            final ColumnView columnView = it.getRequiredAnnotation(ColumnView.class);
+                            this.views.addAll(Arrays.asList(columnView.value()));
+                        }
+
+
                         if (it.isIdProperty()) {
                             if (it.isAnnotationPresent(PrimaryKey.class)) {
-                                this.primaryKeyType = it.findAnnotation(PrimaryKey.class).type();
+                                this.primaryKeyType = it.getRequiredAnnotation(PrimaryKey.class).type();
                             }
                         }
 
@@ -112,5 +118,10 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     @Override
     public Stream<Property> stream() {
         return properties.stream();
+    }
+
+    @Override
+    public Collection<Class<?>> getViews() {
+        return views;
     }
 }

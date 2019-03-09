@@ -13,7 +13,9 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A {@link CacheOperationInvocationContext} context for a {@link CacheOperation}
@@ -114,8 +116,9 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
 
     @Override
     public Object generateKey(EvaluationContext result) {
-        String[] keys = this.metadata.getOperation().key();
-        String[] keyValues = Arrays.stream(keys)
+        Collection<String> keys = this.metadata.getOperation().key();
+        if (Assert.isEmpty(keys)) return null;
+        final List<String> keyValues = keys.stream()
                 .map(key -> {
                     if (isExpression(key)) {
                         return evaluator.key(generateExpression(key), this.metadata.getMethodKey(), result);
@@ -124,7 +127,8 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
                     }
                 })
                 .map(Object::toString)
-                .toArray(String[]::new);
+                .collect(Collectors.toList());
+
 
         return String.join(this.metadata.getOperation().delimiter(), keyValues);
     }
@@ -133,9 +137,9 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
     @Override
     public Object generateField(EvaluationContext result) {
 
-        final String[] fields = this.metadata.getOperation().field();
+        final Collection<String> fields = this.metadata.getOperation().field();
         if (Assert.isEmpty(fields)) return null;
-        String[] fieldValues = Arrays.stream(fields)
+        List<String> fieldValues = fields.stream()
                 .map(field -> {
                     if (isExpression(field)) {
                         return evaluator.field(generateExpression(field), this.metadata.getMethodKey(), result);
@@ -144,7 +148,7 @@ public class CacheOperationContext implements CacheOperationInvocationContext {
                     }
                 })
                 .map(Object::toString)
-                .toArray(String[]::new);
+                .collect(Collectors.toList());
 
         return String.join(this.metadata.getOperation().delimiter(), fieldValues);
     }

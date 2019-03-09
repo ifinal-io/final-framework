@@ -1,10 +1,7 @@
 package com.ilikly.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ilikly.finalframework.data.annotation.Entity;
-import com.ilikly.finalframework.data.annotation.JsonColumn;
-import com.ilikly.finalframework.data.annotation.NonColumn;
-import com.ilikly.finalframework.data.annotation.ReferenceColumn;
+import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.entity.AbsEntity;
 import com.ilikly.finalframework.data.result.Result;
@@ -28,10 +25,13 @@ import java.util.List;
 public class Person extends AbsEntity implements Result.View {
     private static final long serialVersionUID = -8785625823175210092L;
     @JsonView(Person.class)
+    @ColumnView(Result.View.class)
     private String name;
     @JsonView(Person.class)
+    @ColumnView(Result.View.class)
     private Integer age;
     @JsonColumn
+    @ColumnView(Person.class)
     private List<String> stringList;
     @JsonColumn
     private List<Integer> intList;

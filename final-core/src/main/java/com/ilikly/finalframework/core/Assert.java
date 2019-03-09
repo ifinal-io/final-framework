@@ -116,6 +116,10 @@ public interface Assert {
         return text == null || text.trim().isEmpty();
     }
 
+    static void isBlank(String obj, String message, Object... args) {
+        if (isBlank(obj)) throw new IllegalArgumentException(String.format(message, args));
+    }
+
 
     /**
      * Check whether the given {@code text} is not blank.

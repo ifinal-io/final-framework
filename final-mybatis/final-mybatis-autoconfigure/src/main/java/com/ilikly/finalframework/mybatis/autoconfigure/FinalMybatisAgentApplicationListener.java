@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.mybatis.autoconfigure;
 
-import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
 import com.ilikly.finalframework.mybatis.agent.MybatisAgent;
 import com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator;
@@ -25,7 +24,7 @@ public class FinalMybatisAgentApplicationListener implements ApplicationListener
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
         ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(BaseColumnGenerator.INSTANCE);
-        ColumnGeneratorRegistry.getInstance().registerColumnModule(Dialect.DEFAULT, new DefaultColumnGeneratorModule());
+        ColumnGeneratorRegistry.getInstance().registerColumnModule(new DefaultColumnGeneratorModule());
         MybatisAgent.getInstance().agent();
     }
 }

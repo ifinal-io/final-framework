@@ -1,13 +1,24 @@
 package com.ilikly.finalframework.mybatis.agent;
 
-import com.ilikly.finalframework.data.mapping.Dialect;
-import com.ilikly.finalframework.data.mapping.DialectFactory;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.repository.Repository;
 import com.ilikly.finalframework.mybatis.EntityHolderCache;
-import com.ilikly.finalframework.mybatis.builder.DefaultXMLMapperBuilder;
+import com.ilikly.finalframework.mybatis.builder.FinalXmlMapperBuilder;
+import com.ilikly.finalframework.mybatis.builder.XmlMapperBuilder;
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.parsing.XNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -18,8 +29,10 @@ import org.apache.ibatis.parsing.XNode;
  */
 @SuppressWarnings("unused")
 public class XMLMapperBuilderAgent {
-
+    private static final Logger logger = LoggerFactory.getLogger(XMLMapperBuilderAgent.class);
     private static final EntityHolderCache cache = new EntityHolderCache();
+    private static final XmlMapperBuilder xmlMapperBuilder = new FinalXmlMapperBuilder();
+
     @SuppressWarnings("unused")
     public static void configurationDefaultElement(XNode context) {
         String namespace = context.getStringAttribute("namespace");
@@ -29,9 +42,12 @@ public class XMLMapperBuilderAgent {
         try {
             Class mapperClass = Class.forName(namespace);
             if (Repository.class.isAssignableFrom(mapperClass)) {
-                Dialect dialect = DialectFactory.getDialect(mapperClass);
-                Entity entity = cache.get(mapperClass);
-                final DefaultXMLMapperBuilder builder = new DefaultXMLMapperBuilder(dialect, context,mapperClass,entity);
+                Entity<?> entity = cache.get(mapperClass);
+                final Collection<Element> elements = xmlMapperBuilder.build(context.getNode().getOwnerDocument(), mapperClass, entity);
+                if (!elements.isEmpty()) {
+                    elements.forEach(element -> context.getNode().appendChild(element));
+                }
+                loggerMapper(context.getNode().getOwnerDocument());
             }
 
         } catch (ClassNotFoundException e) {
@@ -39,5 +55,35 @@ public class XMLMapperBuilderAgent {
         }
     }
 
-
+    private static void loggerMapper(Document document) {
+        String result = null;
+        if (document != null) {
+            StringWriter strWtr = new StringWriter();
+            StreamResult strResult = new StreamResult(strWtr);
+            TransformerFactory tfac = TransformerFactory.newInstance();
+            try {
+                javax.xml.transform.Transformer t = tfac.newTransformer();
+                t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                t.setOutputProperty(OutputKeys.INDENT, "yes");
+                t.setOutputProperty(OutputKeys.METHOD, "xml"); // xml, html,
+                // text
+                t.setOutputProperty(
+                        "{http://xml.apache.org/xslt}indent-amount", "4");
+                document.setXmlStandalone(true);
+                t.transform(new DOMSource(document.getDocumentElement()),
+                        strResult);
+            } catch (Exception e) {
+                System.err.println("XML.toString(Document): " + e);
+            }
+            result = strResult.getWriter().toString();
+            try {
+                strWtr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info(result);
+    }
 }
+
+

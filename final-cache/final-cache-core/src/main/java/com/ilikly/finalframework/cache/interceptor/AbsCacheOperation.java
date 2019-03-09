@@ -4,6 +4,10 @@ import com.ilikly.finalframework.cache.CacheOperation;
 import com.ilikly.finalframework.core.Assert;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,8 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public abstract class AbsCacheOperation<A extends Annotation> implements CacheOperation<A> {
-    private final String[] key;
-    private final String[] field;
+    private final Collection<String> key;
+    private final Collection<String> field;
     private final String result;
     private final String delimiter;
     private final String condition;
@@ -27,8 +31,8 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     protected AbsCacheOperation(Builder builder) {
         this.key = Assert.isEmpty(builder.key) ? null : builder.key;
         this.field = Assert.isEmpty(builder.field) ? null : builder.field;
-        this.result = Assert.isEmpty(builder.result) ? null : builder.result;
         this.delimiter = Assert.isEmpty(builder.delimiter) ? ":" : builder.delimiter;
+        this.result = Assert.isEmpty(builder.result) ? null : builder.result;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
@@ -37,14 +41,24 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
     }
 
+    protected static Collection<String> parse(String[] keyOrField, String delimiter) {
+        if (Assert.isEmpty(keyOrField)) return null;
+
+        List<String> list = new ArrayList<>();
+        Arrays.stream(keyOrField)
+                .map(item -> item.split(delimiter))
+                .forEach(items -> list.addAll(Arrays.asList(items)));
+        return list;
+    }
+
 
     @Override
-    public String[] key() {
+    public Collection<String> key() {
         return key;
     }
 
     @Override
-    public String[] field() {
+    public Collection<String> field() {
         return field;
     }
 
@@ -89,9 +103,9 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
     }
 
     protected abstract static class Builder<O extends AbsCacheOperation> implements CacheOperation.Builder<O, Builder> {
-        private String[] key;
+        private Collection<String> key;
+        private Collection<String> field;
         private String delimiter;
-        private String[] field;
         private String result;
         private String condition;
         private String expire;
@@ -101,13 +115,13 @@ public abstract class AbsCacheOperation<A extends Annotation> implements CacheOp
         private Long sleep;
 
         @Override
-        public Builder<O> key(String[] key) {
+        public Builder<O> key(Collection<String> key) {
             this.key = key;
             return this;
         }
 
         @Override
-        public Builder<O> field(String[] field) {
+        public Builder<O> field(Collection<String> field) {
             this.field = field;
             return this;
         }

@@ -17,7 +17,7 @@ public class CacheLockOperation extends AbsCacheOperation<CacheLock> {
 
     public static CacheLockOperation from(CacheLock cacheLock) {
         return new Builder()
-                .key(cacheLock.key())
+                .key(parse(cacheLock.key(), cacheLock.delimiter()))
                 .value(cacheLock.value())
                 .delimiter(cacheLock.delimiter())
                 .ttl(cacheLock.ttl())

@@ -40,6 +40,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     private ReferenceMode referenceMode;
     private List<String> referenceProperties;
     private Map<String, String> referenceColumns;
+    private Class<?>[] views;
 
     /**
      * Creates a new {@link AnnotationBasedPersistentProperty}.
@@ -81,6 +82,13 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 nonnull = false;
                 placeholder = true;
             }
+
+            final ColumnView columnView = findAnnotation(ColumnView.class);
+            if (columnView != null) {
+                views = columnView.value();
+            }
+
+
         } finally {
 
             if (isIdProperty()) {
@@ -197,6 +205,17 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
     }
 
+
+    @Override
+    public boolean hasView(Class<?> view) {
+        if (views == null || views.length == 0) return false;
+
+        for (Class<?> item : views) {
+            if (item.isAssignableFrom(view)) return true;
+        }
+
+        return false;
+    }
 
     @Override
     public boolean unique() {

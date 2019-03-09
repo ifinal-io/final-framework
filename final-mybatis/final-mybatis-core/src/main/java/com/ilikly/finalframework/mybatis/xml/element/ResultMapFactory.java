@@ -2,7 +2,6 @@ package com.ilikly.finalframework.mybatis.xml.element;
 
 import com.ilikly.finalframework.core.Factory;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
-import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import com.ilikly.finalframework.mybatis.Utils;
@@ -19,10 +18,8 @@ public class ResultMapFactory implements Factory {
 
     private static final String SUFFIX = "Map";
 
-    @NonNull
-    public ResultMap create(@NonNull Class<?> clazz) {
-        final Entity<?> entity = Entity.from(clazz);
-        final ResultMap.Builder builder = ResultMap.builder(clazz.getSimpleName() + SUFFIX, clazz);
+    public ResultMap create(@NonNull Entity<?> entity) {
+        final ResultMap.Builder builder = ResultMap.builder(entity.getType().getSimpleName() + SUFFIX, entity.getType());
         entity.stream().filter(it -> !it.isTransient())
                 .forEach(property -> {
                     if (property.isReference()) {
@@ -36,7 +33,7 @@ public class ResultMapFactory implements Factory {
                                 .map(referenceEntity::getRequiredPersistentProperty)
                                 .map(referenceProperty -> {
                                     final Class multiPropertyJavaType = Utils.getPropertyJavaType(referenceProperty);
-                                    final TypeHandler typeHandler = Utils.getPropertyTypeHandler(Dialect.DEFAULT, referenceProperty);
+                                    final TypeHandler typeHandler = Utils.getPropertyTypeHandler(referenceProperty);
                                     final String referenceColumn = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
                                             property.getColumn() : property.getColumn() + referenceProperty.getColumn().substring(0, 1).toUpperCase() + referenceProperty.getColumn().substring(1);
                                     return Result.builder(referenceProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(referenceColumn))
@@ -54,7 +51,7 @@ public class ResultMapFactory implements Factory {
                                 Result.builder(property.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(property.getColumn()))
                                         .idResult(property.isIdProperty())
                                         .javaType(Utils.getPropertyJavaType(property))
-                                        .typeHandler(Utils.getPropertyTypeHandler(Dialect.DEFAULT, property))
+                                        .typeHandler(Utils.getPropertyTypeHandler(property))
                                         .build()
                         );
                     }
@@ -62,4 +59,5 @@ public class ResultMapFactory implements Factory {
 
         return builder.build();
     }
+
 }

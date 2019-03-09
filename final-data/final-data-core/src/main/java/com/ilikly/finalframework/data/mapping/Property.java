@@ -31,6 +31,8 @@ public interface Property extends PersistentProperty<Property> {
         return getType().isEnum();
     }
 
+    boolean hasView(@NonNull Class<?> view);
+
     boolean unique();
 
     boolean nonnull();

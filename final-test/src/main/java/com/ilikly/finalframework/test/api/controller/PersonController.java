@@ -1,11 +1,11 @@
 package com.ilikly.finalframework.test.api.controller;
 
 import com.ilikly.finalframework.cache.annotation.CachePut;
+import com.ilikly.finalframework.cache.annotation.Cacheable;
 import com.ilikly.finalframework.data.query.QEntity;
 import com.ilikly.finalframework.data.query.Query;
 import com.ilikly.finalframework.data.query.Update;
-import com.ilikly.finalframework.mybatis.xml.element.ResultMap;
-import com.ilikly.finalframework.mybatis.xml.element.ResultMapFactory;
+import com.ilikly.finalframework.data.result.Result;
 import com.ilikly.finalframework.spring.aop.monitor.MethodMonitor;
 import com.ilikly.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import com.ilikly.finalframework.test.dao.mapper.PersonMapper;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -45,8 +46,6 @@ public class PersonController {
         QEntity<Long, Person> person = QPerson.Person;
         System.out.println(person);
 
-        final ResultMap resultMap = new ResultMapFactory().create(Person.class);
-        System.out.println(resultMap);
     }
 
     @PostMapping("/param")
@@ -56,7 +55,7 @@ public class PersonController {
 
     @PostMapping
     public Person insert(@RequestBody Person person) {
-        personMapper.insert(person);
+        personMapper.insert(Person.class, person);
         return person;
     }
 
@@ -89,7 +88,7 @@ public class PersonController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //    @JsonView(Person.class)
 //    @CacheLock(key = {"person", "{#id}"}, retry = 5, ttl = 30, timeunit = TimeUnit.SECONDS)
-//    @Cacheable(key = {"person", "{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
+    @Cacheable(key = {"person:{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
     @CachePut(key = {"personhash", "{#id}"}, field = "name", value = "{#result.name}")
     public Person get(@PathVariable("id") Long id) {
 
@@ -98,7 +97,8 @@ public class PersonController {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        return personMapper.selectOne(id);
+
+        return personMapper.selectOne(Result.View.class, id);
     }
 
     //    @JsonView(Person.class)

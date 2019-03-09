@@ -4,6 +4,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,10 +15,10 @@ import java.util.concurrent.TimeUnit;
  */
 public interface CacheOperation<A extends Annotation> {
     @NonNull
-    String[] key();
+    Collection<String> key();
 
     @Nullable
-    String[] field();
+    Collection<String> field();
 
     @Nullable
     String value();
@@ -43,9 +44,9 @@ public interface CacheOperation<A extends Annotation> {
     Long sleep();
 
     interface Builder<O extends CacheOperation, B extends Builder> extends com.ilikly.finalframework.core.Builder<O> {
-        B key(@NonNull String[] key);
+        B key(@NonNull Collection<String> key);
 
-        B field(@Nullable String[] field);
+        B field(@Nullable Collection<String> field);
 
         B value(@Nullable String result);
 

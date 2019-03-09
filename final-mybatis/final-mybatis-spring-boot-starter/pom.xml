@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-mybatis</artifactId>
         <groupId>com.ilikly.finalframework</groupId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-mybatis-autoconfigure</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.ilikly.finalframework</groupId>

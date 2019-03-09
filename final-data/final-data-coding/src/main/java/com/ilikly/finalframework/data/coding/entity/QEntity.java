@@ -25,7 +25,6 @@ public class QEntity {
         this.name = builder.name;
         this.properties = builder.properties;
         this.idProperty = builder.idProperty;
-
     }
 
     public static Builder builder(Entity<Property> entity) {

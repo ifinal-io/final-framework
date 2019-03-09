@@ -2,8 +2,10 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.mapping.Entity;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -46,5 +48,8 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
         throw new IllegalStateException(String.format("Required property not found for %s!", getType()));
 
     }
+
+    @Nullable
+    Collection<Class<?>> getViews();
 
 }

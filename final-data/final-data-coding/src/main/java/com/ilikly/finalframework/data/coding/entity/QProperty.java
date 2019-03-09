@@ -46,7 +46,7 @@ public class QProperty implements Serializable {
     }
 
     public String getRawType() {
-        return rawType.replace("java.lang.", "");
+        return rawType;
     }
 
     public static class Builder implements com.ilikly.finalframework.core.Builder<QProperty> {
@@ -71,9 +71,6 @@ public class QProperty implements Serializable {
             System.out.println("----------" + rawType);
             if (rawType != null) {
                 this.rawType = rawType.replace("java.lang.", "");
-                if (this.rawType.contains("::")) {
-                    this.rawType = this.rawType.substring(this.rawType.lastIndexOf("::") + 3).replace(")", "");
-                }
             } else {
                 this.rawType = "Object";
             }

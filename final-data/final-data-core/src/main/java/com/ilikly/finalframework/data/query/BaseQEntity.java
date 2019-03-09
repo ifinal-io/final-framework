@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.data.query;
 
+import com.ilikly.finalframework.data.annotation.ColumnView;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.Entity;
 
@@ -19,6 +20,7 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final List<QProperty> properties = new ArrayList<>();
     private final Map<String, QProperty> propertiesCache = new HashMap<>();
     private QProperty idProperty;
+    private final Set<Class<?>> views = new HashSet<>();
 
     public BaseQEntity(Entity<T> entity) {
         this.entity = entity;
@@ -27,6 +29,8 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                     if (property.isReference()) {
                         final Class multiType = property.getType();
                         final Entity<?> referenceEntity = Entity.from(multiType);
+                        final ColumnView columnView = property.findAnnotation(ColumnView.class);
+                        final Class[] views = columnView == null ? null : columnView.value();
                         property.referenceProperties().stream()
                                 .map(referenceEntity::getRequiredPersistentProperty)
                                 .forEach(referenceProperty -> {
@@ -40,12 +44,14 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                     final String column = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
                                             property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
 
-                                    final QProperty multiQProperty = new BaseQProperty(referenceProperty, property.getTable(), path, name, column);
+                                    final QProperty multiQProperty = new BaseQProperty(referenceProperty, property.getTable(), path, name, column, views);
                                     addProperty(multiQProperty);
                                 });
 
                     } else {
-                        QProperty qProperty = new BaseQProperty(property, property.getTable(), property.getName(), property.getName(), property.getColumn());
+                        final ColumnView columnView = property.findAnnotation(ColumnView.class);
+                        final Class[] views = columnView == null ? null : columnView.value();
+                        QProperty qProperty = new BaseQProperty(property, property.getTable(), property.getName(), property.getName(), property.getColumn(), views);
                         addProperty(qProperty);
                     }
                 });
@@ -71,6 +77,11 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
         return (QProperty<E>) propertiesCache.get(name);
     }
 
+    @Override
+    public Collection<Class<?>> getViews() {
+        return views;
+    }
+
 
     @Override
     public Stream<QProperty> stream() {
@@ -82,7 +93,13 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
         return properties.iterator();
     }
 
-    public void addProperty(QProperty property) {
+    private void addViews(Class<?>[] views) {
+        if (views != null && views.length > 0) {
+            this.views.addAll(Arrays.asList(views));
+        }
+    }
+
+    private void addProperty(QProperty property) {
         if (property.isIdProperty()) {
             idProperty = property;
             properties.add(0, property);

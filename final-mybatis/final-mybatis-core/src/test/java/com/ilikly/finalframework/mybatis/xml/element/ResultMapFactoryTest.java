@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.mybatis.xml.element;
 
+import com.ilikly.finalframework.data.mapping.Entity;
 import com.ilikly.finalframework.mybatis.Bean;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ResultMapFactoryTest {
 
     @Test
     public void create() {
-        final ResultMap resultMap = factory.create(Bean.class);
+        final ResultMap resultMap = factory.create(Entity.from(Bean.class));
 
 
         System.out.println(resultMap);

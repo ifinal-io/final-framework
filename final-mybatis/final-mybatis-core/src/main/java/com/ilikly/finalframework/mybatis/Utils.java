@@ -1,6 +1,5 @@
 package com.ilikly.finalframework.mybatis;
 
-import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.Property;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGenerator;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
@@ -24,16 +23,16 @@ public interface Utils {
         return property.isCollectionLike() ? property.getType() : null;
     }
 
-    static <T> TypeHandler<T> getPropertyTypeHandler(Dialect dialect, Property property) {
+    static <T> TypeHandler<T> getPropertyTypeHandler(Property property) {
         final Class javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
         final Class collectionType = property.isCollectionLike() ? property.getType() : null;
-        return TypeHandlerRegistry.getInstance().getTypeHandler(dialect, javaType, collectionType, property.getPersistentType());
+        return TypeHandlerRegistry.getInstance().getTypeHandler(javaType, collectionType, property.getPersistentType());
     }
 
-    static ColumnGenerator getPropertyColumnGenerator(Dialect dialect,Property property) {
+    static ColumnGenerator getPropertyColumnGenerator(Property property) {
         final Class javaType = getPropertyJavaType(property);
         final Class collectionType = getPropertyCollectionType(property);
-        ColumnGenerator columnGenerator = ColumnGeneratorRegistry.getInstance().getColumnGenerator(dialect, javaType, collectionType);
+        ColumnGenerator columnGenerator = ColumnGeneratorRegistry.getInstance().getColumnGenerator(javaType, collectionType);
         return columnGenerator == null ? BaseColumnGenerator.INSTANCE : columnGenerator;
     }
 
