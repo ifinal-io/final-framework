@@ -17,9 +17,9 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @Data
-class CacheOperationMetadata {
+public class CacheOperationMetadata<O extends CacheOperation> {
 
-    private final CacheOperation operation;
+    private final O operation;
 
     private final Method method;
 
@@ -34,7 +34,7 @@ class CacheOperationMetadata {
     private final AnnotatedElementKey methodKey;
 
 
-    public CacheOperationMetadata(CacheOperation operation, Method method, Class<?> targetClass) {
+    public CacheOperationMetadata(O operation, Method method, Class<?> targetClass) {
         this.operation = operation;
         this.method = BridgeMethodResolver.findBridgedMethod(method);
         this.returnType = method.getReturnType();
@@ -44,4 +44,5 @@ class CacheOperationMetadata {
                 AopUtils.getMostSpecificMethod(method, targetClass) : this.method);
         this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);
     }
+
 }

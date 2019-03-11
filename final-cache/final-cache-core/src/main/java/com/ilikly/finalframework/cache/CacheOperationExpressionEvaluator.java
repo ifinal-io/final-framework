@@ -15,15 +15,15 @@ public interface CacheOperationExpressionEvaluator {
 
     EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result);
 
-    Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext context);
+    Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext context);
+    Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    Object value(String value, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
+    Object value(String valueExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext context);
+    boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext context);
+    Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
     void clear();
 

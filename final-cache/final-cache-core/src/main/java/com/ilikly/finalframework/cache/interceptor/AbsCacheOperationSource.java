@@ -27,7 +27,9 @@ public abstract class AbsCacheOperationSource implements CacheOperationSource {
 
     @Override
     public Collection<CacheOperation> getCacheOperations(Method method, Class<?> targetClass) {
-        if (method.getDeclaringClass() == Object.class) return null;
+        if (method.getDeclaringClass() == Object.class) {
+            return null;
+        }
 
         Object cacheKey = getCacheKey(method, targetClass);
         Collection<CacheOperation> cached = this.cacheOperationCache.get(cacheKey);

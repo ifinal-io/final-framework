@@ -134,11 +134,6 @@
             </dependency>
             <dependency>
                 <groupId>com.ilikly.finalframework</groupId>
-                <artifactId>final-cache-annotation</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ilikly.finalframework</groupId>
                 <artifactId>final-cache-core</artifactId>
                 <version>${final.version}</version>
             </dependency>

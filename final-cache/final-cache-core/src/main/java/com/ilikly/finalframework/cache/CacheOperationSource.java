@@ -15,7 +15,6 @@ import java.util.Collection;
  */
 public interface CacheOperationSource {
 
-
     @Nullable
     Collection<CacheOperation> getCacheOperations(Method method, @Nullable Class<?> targetClass);
 

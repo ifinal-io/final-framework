@@ -1,11 +1,6 @@
 package com.ilikly.finalframework.cache;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -14,54 +9,9 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public interface CacheOperation<A extends Annotation> {
-    @NonNull
-    Collection<String> key();
 
-    @Nullable
-    Collection<String> field();
+    String name();
 
-    @Nullable
-    String value();
+    Class<? extends CacheInvocation> invocation();
 
-    @NonNull
-    String delimiter();
-
-    @Nullable
-    String condition();
-
-    @Nullable
-    String expire();
-
-    @Nullable
-    Long ttl();
-
-    @NonNull
-    TimeUnit timeUnit();
-
-    @NonNull
-    Integer retry();
-
-    Long sleep();
-
-    interface Builder<O extends CacheOperation, B extends Builder> extends com.ilikly.finalframework.core.Builder<O> {
-        B key(@NonNull Collection<String> key);
-
-        B field(@Nullable Collection<String> field);
-
-        B value(@Nullable String result);
-
-        B delimiter(@NonNull String delimiter);
-
-        B condition(@Nullable String condition);
-
-        B expire(@Nullable String expire);
-
-        B ttl(@Nullable Long ttl);
-
-        B timeUnit(@NonNull TimeUnit timeUnit);
-
-        B retry(@Nullable Integer retry);
-
-        B sleep(@Nullable Long sleep);
-    }
 }
