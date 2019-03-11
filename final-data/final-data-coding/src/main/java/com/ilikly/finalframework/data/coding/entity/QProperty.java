@@ -70,7 +70,12 @@ public class QProperty implements Serializable {
         public Builder rawType(String rawType) {
             System.out.println("----------" + rawType);
             if (rawType != null) {
+                if (rawType.contains("::")) {
+                    final int index = rawType.lastIndexOf("::");
+                    rawType = rawType.substring(index + "::".length()).replace(")", "").trim();
+                }
                 this.rawType = rawType.replace("java.lang.", "");
+
             } else {
                 this.rawType = "Object";
             }

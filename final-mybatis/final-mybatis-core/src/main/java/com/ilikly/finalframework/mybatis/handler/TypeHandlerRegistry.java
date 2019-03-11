@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 public class TypeHandlerRegistry {
     private static final Logger logger = LoggerFactory.getLogger(TypeHandlerRegistry.class);
-    private final TypeHandlerModule typeHandlerModule = new TypeHandlerModule();
+    private final TypeHandlerModule typeHandlerModule = TypeHandlerModule.DEFAULT;
     private static final TypeHandlerRegistry INSTANCE = new TypeHandlerRegistry();
 
     public static TypeHandlerRegistry getInstance() {
