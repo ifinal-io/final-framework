@@ -22,8 +22,6 @@ public class TypeHandlerRegistry {
         return INSTANCE;
     }
 
-
-
     private TypeHandlerRegistry() {
     }
 

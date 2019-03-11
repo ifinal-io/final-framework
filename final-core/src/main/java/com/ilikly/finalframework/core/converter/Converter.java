@@ -7,9 +7,11 @@ package com.ilikly.finalframework.core.converter;
  * @since 1.0
  */
 @FunctionalInterface
-public interface Converter<SOURCE, TARGET> {
+public interface Converter<S, T> {
     /**
-     * converter the {@link SOURCE} to the {@link TARGET}
+     * Convert the source object of type {@code S} to target type {@code T}.
+     * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
+     * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
      */
-    TARGET convert(SOURCE source);
+    T convert(S source);
 }

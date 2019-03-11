@@ -34,7 +34,9 @@ public class DateFormatters implements Formatters<Date> {
 
     @Override
     public Date parse(String source) {
-        if (Assert.isEmpty(source)) return null;
+        if (Assert.isEmpty(source)) {
+            return null;
+        }
         for (DateFormatter formatter : dateFormatters) {
             if (formatter.matches(source)) {
                 return formatter.parse(source);
