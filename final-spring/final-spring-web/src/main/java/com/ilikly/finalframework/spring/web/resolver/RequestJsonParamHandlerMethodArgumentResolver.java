@@ -4,6 +4,8 @@ import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.exception.BadRequestException;
 import com.ilikly.finalframework.json.Json;
 import com.ilikly.finalframework.spring.web.resolver.annotation.RequestJsonParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -28,7 +30,10 @@ import java.nio.charset.Charset;
  */
 public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
+    private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
+
     private Charset defaultCharset = Charset.defaultCharset();
+
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(RequestJsonParam.class);
@@ -43,39 +48,50 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         }
 
         final String contentType = webRequest.getHeader("content-type");
+        final Type parameterType = parameter.getGenericParameterType();
         if (Assert.nonEmpty(contentType) && contentType.startsWith("application/json")) {
+
             final Object nativeRequest = webRequest.getNativeRequest();
             if (nativeRequest instanceof HttpServletRequest) {
                 ServletServerHttpRequest inputMessage = new ServletServerHttpRequest((HttpServletRequest) nativeRequest);
                 Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
                 final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
                 if (Assert.nonEmpty(body)) {
-                    return Json.parse(body, parameter.getGenericParameterType());
+                    try {
+                        return parseJson(body, parameterType);
+                    } catch (Throwable e) {
+                        logger.error("==> Json解析异常：json={},type={}", body, parameterType, e);
+                    }
                 }
             }
 
             return null;
 
-
         } else {
             final String parameterName = getParameterName(requestJsonParam, parameter);
             String value = webRequest.getParameter(parameterName);
+            try {
+                if (Assert.isEmpty(value) && requestJsonParam.required()) {
+                    throw new BadRequestException("parameter %s is required", parameterName);
+                }
 
-            if (Assert.isEmpty(value) && requestJsonParam.required()) {
-                throw new BadRequestException("parameter %s is required", parameterName);
+                if (Assert.isEmpty(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+                    value = requestJsonParam.defaultValue();
+                }
+
+                if (Assert.isEmpty(value)) return null;
+                return parseJson(value, parameterType);
+            } catch (Throwable e) {
+                logger.error("==> Json解析异常：json={},type={}", value, parameterType, e);
+                throw new BadRequestException("Json参数异常：name={},value={},type={}", parameter, value, parameterType);
             }
-
-            if (Assert.isEmpty(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
-                value = requestJsonParam.defaultValue();
-            }
-
-            if (Assert.isEmpty(value)) return null;
-
-            Type parameterType = parameter.getGenericParameterType();
-            return Json.parse(value, parameterType);
         }
 
 
+    }
+
+    private Object parseJson(String json, Type type) {
+        return Json.parse(json, type);
     }
 
     /**

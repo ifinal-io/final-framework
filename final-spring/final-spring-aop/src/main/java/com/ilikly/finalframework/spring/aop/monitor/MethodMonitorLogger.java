@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.spring.aop.monitor;
 
+import com.ilikly.finalframework.data.exception.IException;
 import com.ilikly.finalframework.json.Json;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,9 +27,15 @@ public class MethodMonitorLogger implements MethodMonitorListener {
                     point.getMethod().getName(), point.getName(), point.getTag(),
                     Json.toJson(point.getArgs()), duration, Json.toJson(result));
         } else {
-            logger.error("method={},name={},tag={},args={},duration={},exception={}",
-                    point.getMethod().getName(), point.getName(), point.getTag(),
-                    Json.toJson(point.getArgs()), duration, exception);
+            if (exception instanceof IException) {
+                logger.error("method={},name={},tag={},args={},duration={}",
+                        point.getMethod().getName(), point.getName(), point.getTag(),
+                        Json.toJson(point.getArgs()), duration);
+            } else {
+                logger.error("method={},name={},tag={},args={},duration={},exception={}",
+                        point.getMethod().getName(), point.getName(), point.getTag(),
+                        Json.toJson(point.getArgs()), duration, exception);
+            }
         }
     }
 }
