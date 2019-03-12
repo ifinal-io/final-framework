@@ -20,6 +20,27 @@ public class StringCriterionOperations extends BaseCriterionOperators<String> im
 
     public StringCriterionOperations() {
         super(String.class, 16);
+        register(eq());
+        register(neq());
+        register(gt());
+        register(gte());
+        register(lt());
+        register(lte());
+        register(in());
+        register(nin());
+        register(between());
+        register(notBetween());
+        register(isNull());
+        register(nonNull());
+
+        register(startWith());
+        register(notStartWith());
+        register(endWith());
+        register(notEndWith());
+        register(contains());
+        register(notContains());
+        register(like());
+        register(notLike());
     }
 
     @Override
