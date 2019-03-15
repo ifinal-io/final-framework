@@ -3,7 +3,6 @@ package com.ilikly.finalframework.data.mapping;
 import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
-import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import lombok.Getter;
@@ -51,7 +50,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
      */
     public BaseProperty(org.springframework.data.mapping.model.Property property, Entity owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
-        logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
+//        logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
         init();
     }
 
@@ -95,11 +94,18 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 unique = true;
                 nonnull = true;
                 updatable = false;
+                insertable = false;
+                selectable = true;
 
                 if (isAnnotationPresent(PrimaryKey.class)) {
                     PrimaryKey primaryKey = findAnnotation(PrimaryKey.class);
                     this.column = primaryKey.name();
-                    this.insertable = primaryKey.type() != PrimaryKeyType.AUTO_INC;
+                    this.unique = primaryKey.unique();
+                    this.nonnull = primaryKey.nonnull();
+                    this.insertable = primaryKey.insertable();
+                    this.updatable = primaryKey.updatable();
+                    this.selectable = primaryKey.selectable();
+
                 }
 
             }

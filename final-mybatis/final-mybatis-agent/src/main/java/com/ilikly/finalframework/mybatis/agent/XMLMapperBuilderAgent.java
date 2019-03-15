@@ -43,11 +43,13 @@ public class XMLMapperBuilderAgent {
             Class mapperClass = Class.forName(namespace);
             if (Repository.class.isAssignableFrom(mapperClass)) {
                 Entity<?> entity = cache.get(mapperClass);
+                final long itemStart = System.currentTimeMillis();
                 final Collection<Element> elements = xmlMapperBuilder.build(context.getNode().getOwnerDocument(), mapperClass, entity);
                 if (!elements.isEmpty()) {
                     elements.forEach(element -> context.getNode().appendChild(element));
                 }
-                loggerMapper(context.getNode().getOwnerDocument());
+                logger.info("构建 Mapper : {} 用时：{}", mapperClass.getCanonicalName(), (System.currentTimeMillis() - itemStart));
+//                loggerMapper(context.getNode().getOwnerDocument());
             }
 
         } catch (ClassNotFoundException e) {

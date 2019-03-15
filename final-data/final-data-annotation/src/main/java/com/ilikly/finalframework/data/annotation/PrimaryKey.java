@@ -27,4 +27,16 @@ public @interface PrimaryKey {
     String name() default "";
 
     PrimaryKeyType type() default PrimaryKeyType.AUTO_INC;
+
+    boolean unique() default true;
+
+    boolean nonnull() default true;
+
+    boolean insertable() default false;
+
+    boolean updatable() default false;
+
+    boolean selectable() default true;
+
+    boolean placeholder() default true;
 }

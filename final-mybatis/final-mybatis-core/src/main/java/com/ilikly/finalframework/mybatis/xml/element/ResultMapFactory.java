@@ -34,9 +34,14 @@ public class ResultMapFactory implements Factory {
                                 .map(referenceProperty -> {
                                     final Class multiPropertyJavaType = Utils.getPropertyJavaType(referenceProperty);
                                     final TypeHandler typeHandler = Utils.getPropertyTypeHandler(referenceProperty);
-                                    final String referenceColumn = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
-                                            property.getColumn() : property.getColumn() + referenceProperty.getColumn().substring(0, 1).toUpperCase() + referenceProperty.getColumn().substring(1);
-                                    return Result.builder(referenceProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(referenceColumn))
+
+                                    final String referenceColumn = property.referenceColumn(referenceProperty.getName()) != null ?
+                                            property.referenceColumn(referenceProperty.getName()) : referenceProperty.getColumn();
+
+                                    final String column = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+                                            property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+
+                                    return Result.builder(referenceProperty.getName(), NameConverterRegistry.getInstance().getColumnNameConverter().convert(column))
                                             .javaType(multiPropertyJavaType)
                                             .typeHandler(typeHandler)
                                             .idResult(referenceProperty.isIdProperty())

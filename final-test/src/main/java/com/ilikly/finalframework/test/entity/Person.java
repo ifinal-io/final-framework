@@ -3,10 +3,9 @@ package com.ilikly.finalframework.test.entity;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
-import com.ilikly.finalframework.data.entity.AbsEntity;
+import com.ilikly.finalframework.data.entity.IEntity;
 import com.ilikly.finalframework.data.result.Result;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
@@ -20,9 +19,10 @@ import java.util.List;
  */
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity implements Result.View {
+public class Person implements IEntity<Long>, Result.View {
+    @PrimaryKey(insertable = true)
+    private Long id;
     private static final long serialVersionUID = -8785625823175210092L;
     @JsonView(Person.class)
     @ColumnView(Result.View.class)

@@ -58,6 +58,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
                 final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
                 if (Assert.nonEmpty(body)) {
                     try {
+                        logger.debug("==> jsonBody: {}", body);
                         return parseJson(body, parameterType);
                     } catch (Throwable e) {
                         logger.error("==> Json解析异常：json={},type={}", body, parameterType, e);
@@ -80,10 +81,11 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
                 }
 
                 if (Assert.isEmpty(value)) return null;
+                logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
                 return parseJson(value, parameterType);
             } catch (Throwable e) {
                 logger.error("==> Json解析异常：json={},type={}", value, parameterType, e);
-                throw new BadRequestException("Json参数异常：name={},value={},type={}", parameter, value, parameterType);
+                throw new BadRequestException("Json参数异常：name=%s,value=%s,type=%s", parameter, value, parameterType.getTypeName());
             }
         }
 

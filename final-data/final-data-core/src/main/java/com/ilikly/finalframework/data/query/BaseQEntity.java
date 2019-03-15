@@ -38,8 +38,8 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                     final String name = referenceProperty.isIdProperty() ? property.getName()
                                             : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty.getName().substring(1);
 
-                                    final String referenceColumn = property.referenceColumn(property.getName()) != null ?
-                                            property.referenceColumn(property.getName()) : referenceProperty.getColumn();
+                                    final String referenceColumn = property.referenceColumn(referenceProperty.getName()) != null ?
+                                            property.referenceColumn(referenceProperty.getName()) : referenceProperty.getColumn();
 
                                     final String column = referenceProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
                                             property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);

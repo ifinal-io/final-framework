@@ -25,6 +25,10 @@ public class TypeHandlerRegistry {
     private TypeHandlerRegistry() {
     }
 
+    public <T> void registerTypeHandler(Class<T> javaType, Class<? extends Collection> collectionType, PersistentType persistentType, TypeHandler<?> typeHandler) {
+        typeHandlerModule.registerTypeHandler(javaType, collectionType, persistentType, typeHandler);
+    }
+
     public <T> TypeHandler<T> getTypeHandler(Class<T> javaType, Class<? extends Collection> collectionType, PersistentType persistentType) {
         if(javaType.isEnum()){
             return new EnumEntityTypeHandler(javaType);

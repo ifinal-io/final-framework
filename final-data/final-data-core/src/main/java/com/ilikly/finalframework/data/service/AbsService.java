@@ -293,7 +293,9 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return delete(tableName, null, query);
     }
 
-    int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+    default int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query) {
+        return getRepository().delete(tableName, ids, query);
+    }
 
     /*=========================================== SELECT ===========================================*/
 

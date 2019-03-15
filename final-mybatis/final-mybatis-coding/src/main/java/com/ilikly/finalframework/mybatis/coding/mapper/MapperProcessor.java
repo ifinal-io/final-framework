@@ -76,7 +76,8 @@ public class MapperProcessor extends AbstractProcessor {
 
     private void generateMapperFiles(Set<? extends Element> elements) {
         elements.stream()
-                .map(it -> ((TypeElement) it).getQualifiedName().toString())
+                .map(it -> ((TypeElement) it))
+                .map(it -> it.getQualifiedName().toString())
 //                .forEach(it -> {
 //                    final String resourceFile = it.replace(".", "/") + ".xml";
 //                    try {

@@ -2,8 +2,6 @@ package com.ilikly.finalframework.mybatis.builder;
 
 
 import com.ilikly.finalframework.data.mapping.Entity;
-import com.ilikly.finalframework.data.query.Sort;
-import com.ilikly.finalframework.mybatis.handler.SortTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -81,9 +79,9 @@ public abstract class AbsMethodXmlMapperBuilder implements MethodXmlMapperBuilde
 
         final Element ifQueryNotNullAndQuerySortNotNull = document.createElement("if");
         ifQueryNotNullAndQuerySortNotNull.setAttribute("test", "query != null and query.sort != null");
-        final String sort = String.format(" ORDER BY #{query.sort, javaType=%s,typeHandler=%s}",
-                Sort.class.getCanonicalName(), SortTypeHandler.class.getCanonicalName());
-        ifQueryNotNullAndQuerySortNotNull.appendChild(textNode(document, sort));
+//        final String sort = String.format(" ORDER BY #{query.sort.sql, javaType=%s,typeHandler=%s}",
+//                Sort.class.getCanonicalName(), SortTypeHandler.class.getCanonicalName());
+        ifQueryNotNullAndQuerySortNotNull.appendChild(textNode(document, "ORDER BY ${query.sort.sql}"));
         sql.appendChild(ifQueryNotNullAndQuerySortNotNull);
 
         return sql;
