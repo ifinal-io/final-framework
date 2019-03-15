@@ -1,7 +1,5 @@
 package com.ilikly.finalframework.core;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -44,45 +42,44 @@ public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
         return types.stream();
     }
 
-    @NotNull
     @Override
     public Iterator<Class> iterator() {
         return types.iterator();
     }
 
-    public static boolean isByte(@NotNull Class<?> clazz) {
+    public static boolean isByte(Class<?> clazz) {
         return BYTE.types.contains(clazz);
     }
 
-    public static boolean isChar(@NotNull Class<?> clazz) {
+    public static boolean isChar(Class<?> clazz) {
         return CHAR.types.contains(clazz);
     }
 
-    public static boolean isBoolean(@NotNull Class<?> clazz) {
+    public static boolean isBoolean(Class<?> clazz) {
         return BOOLEAN.types.contains(clazz);
     }
 
-    public static boolean isShort(@NotNull Class<?> clazz) {
+    public static boolean isShort(Class<?> clazz) {
         return SHORT.types.contains(clazz);
     }
 
-    public static boolean isInteger(@NotNull Class<?> clazz) {
+    public static boolean isInteger(Class<?> clazz) {
         return INTEGER.types.contains(clazz);
     }
 
-    public static boolean isLong(@NotNull Class<?> clazz) {
+    public static boolean isLong(Class<?> clazz) {
         return LONG.types.contains(clazz);
     }
 
-    public static boolean isFloat(@NotNull Class<?> clazz) {
+    public static boolean isFloat(Class<?> clazz) {
         return FLOAT.types.contains(clazz);
     }
 
-    public static boolean isDouble(@NotNull Class<?> clazz) {
+    public static boolean isDouble(Class<?> clazz) {
         return DOUBLE.types.contains(clazz);
     }
 
-    public static boolean isString(@NotNull Class clazz) {
+    public static boolean isString(Class clazz) {
         return STRING.types.contains(clazz);
     }
 }
