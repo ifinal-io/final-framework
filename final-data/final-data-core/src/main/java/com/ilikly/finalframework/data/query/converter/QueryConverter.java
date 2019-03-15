@@ -11,4 +11,5 @@ import com.ilikly.finalframework.data.query.Query;
  * @since 1.0
  */
 public interface QueryConverter<T extends IQuery> extends Converter<T, Query> {
+
 }

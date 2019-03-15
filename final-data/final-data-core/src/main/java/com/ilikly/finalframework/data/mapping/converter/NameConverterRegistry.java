@@ -1,8 +1,8 @@
 package com.ilikly.finalframework.data.mapping.converter;
 
+import com.ilikly.finalframework.core.configuration.FinalConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * @author likly
@@ -16,16 +16,14 @@ public class NameConverterRegistry {
 
     private final NameConverter defaultNameConverter = new SimpleNameConverter();
 
+
     private NameConverter tableNameConverter = defaultNameConverter;
     private NameConverter columnNameConverter = defaultNameConverter;
 
     private NameConverterRegistry() {
-        logger.trace("try to find final config file final.xml in classpath.");
-        ClassPathResource resource = new ClassPathResource("/final.xml");
-        if (resource.exists()) {
-            logger.trace("found the final config file final.xml on path {}", resource.getPath());
-            String filename = resource.getFilename();
-            System.out.println("NameConverterRegistry:" + filename);
+        final FinalConfiguration configuration = FinalConfiguration.getInstance();
+        if (configuration.isConfiguration()) {
+
         }
     }
 

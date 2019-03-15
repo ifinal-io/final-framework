@@ -1,7 +1,10 @@
 package com.ilikly.finalframework.data.coding.entity;
 
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
+
 import javax.lang.model.element.Element;
 import java.lang.annotation.Annotation;
+import java.util.List;
 
 /**
  * @author likly
@@ -32,6 +35,12 @@ public interface Property<T, P extends Property<T, P>> {
     boolean isMap();
 
     boolean isArray();
+
+    boolean isReference();
+
+    ReferenceMode referenceMode();
+
+    List<String> referenceProperties();
 
     <A extends Annotation> A getAnnotation(Class<A> annotationType);
 

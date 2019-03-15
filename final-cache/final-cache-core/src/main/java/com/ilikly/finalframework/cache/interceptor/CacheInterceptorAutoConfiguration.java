@@ -1,9 +1,13 @@
 package com.ilikly.finalframework.cache.interceptor;
 
 import com.ilikly.finalframework.cache.Cache;
+import com.ilikly.finalframework.cache.CacheOperationSource;
 import com.ilikly.finalframework.cache.RedisCache;
 import com.ilikly.finalframework.spring.coding.AutoConfiguration;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 
 /**
  * @author likly
@@ -11,12 +15,34 @@ import org.springframework.context.annotation.Bean;
  * @date 2018-12-26 13:15:49
  * @since 1.0
  */
+@Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @AutoConfiguration
 @SuppressWarnings("unused")
 public class CacheInterceptorAutoConfiguration {
+
     @Bean
-    public CacheOperationInterceptor cacheOperationInterceptor() {
-        return new CacheOperationInterceptor();
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheOperationSourceAdvisor cacheOperationSourceAdvisor() {
+        final CacheOperationSourceAdvisor advisor = new CacheOperationSourceAdvisor();
+        advisor.setCacheOperationSource(cacheOperationSource());
+        advisor.setAdviceBeanName("cacheInterceptor");
+        return advisor;
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheOperationSource cacheOperationSource() {
+        return new AnnotationCacheOperationSource();
+    }
+
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheInterceptor cacheInterceptor() {
+        final CacheInterceptor interceptor = new CacheInterceptor();
+        interceptor.setCacheOperationSource(cacheOperationSource());
+        return interceptor;
     }
 
     @Bean

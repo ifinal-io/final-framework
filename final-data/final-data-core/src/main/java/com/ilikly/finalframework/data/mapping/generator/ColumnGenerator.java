@@ -1,6 +1,8 @@
 package com.ilikly.finalframework.data.mapping.generator;
 
 import com.ilikly.finalframework.data.mapping.Property;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -10,9 +12,9 @@ import com.ilikly.finalframework.data.mapping.Property;
  */
 public interface ColumnGenerator {
 
-    String generateReadColumn(String table, String prefix, Property property);
+    String generateReadColumn(String table, @Nullable Property referenceProperty, @NonNull Property property);
 
-    String generateWriteColumn(String table, String prefix, Property property);
+    String generateWriteColumn(String table, @Nullable Property referenceProperty, Property property);
 
-    String generateWriteValue(String prefix, Property property, String value);
+    String generateWriteValue(@Nullable Property referenceProperty, Property property, String value);
 }

@@ -45,7 +45,32 @@ public interface Json {
         }
     }
 
+    static String toJson(Object object, @NonNull Class<?> view) {
+        try {
+            if (object instanceof String) {
+                return (String) object;
+            }
+            return JsonRegistry.getInstance().getJsonService().toJson(object, view);
+        } catch (Throwable e) {
+            if (e instanceof JsonException) {
+                throw (JsonException) e;
+            }
+            throw new JsonException(e);
+        }
+    }
+
     static <T> T parse(@NonNull String json, @NonNull Class<T> classOfT) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().parse(json, classOfT);
+        } catch (Throwable e) {
+            if (e instanceof JsonException) {
+                throw (JsonException) e;
+            }
+            throw new JsonException(e);
+        }
+    }
+
+    static <T> T parseWithView(@NonNull String json, @NonNull Class<T> classOfT, @NonNull Class<?> view) {
         try {
             return JsonRegistry.getInstance().getJsonService().parse(json, classOfT);
         } catch (Throwable e) {
@@ -71,6 +96,17 @@ public interface Json {
         }
     }
 
+    static <T> T parse(@NonNull String json, @NonNull Type typeOfT, @NonNull Class<?> view) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().parseWithView(json, typeOfT, view);
+        } catch (Throwable e) {
+            if (e instanceof JsonException) {
+                throw (JsonException) e;
+            }
+            throw new JsonException(e);
+        }
+    }
+
     static <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) {
         try {
             return JsonRegistry.getInstance().getJsonService().parse(json, collectionClass, elementClass);
@@ -82,5 +118,15 @@ public interface Json {
         }
     }
 
+    static <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass, @NonNull Class<?> view) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().parseWithView(json, collectionClass, elementClass, view);
+        } catch (Throwable e) {
+            if (e instanceof JsonException) {
+                throw (JsonException) e;
+            }
+            throw new JsonException(e);
+        }
+    }
 
 }

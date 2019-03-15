@@ -23,7 +23,6 @@ public interface Criteria extends Streamable<Criteria>, Iterable<Criteria> {
         return CriteriaImpl.where(criterion);
     }
 
-
     AndOr andOr();
 
     boolean chain();

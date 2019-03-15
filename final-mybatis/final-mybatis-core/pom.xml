@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-mybatis</artifactId>
         <groupId>com.ilikly.finalframework</groupId>
-        <version>0.0.1.RELEASE</version>
+        <version>0.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -49,11 +49,6 @@
             <artifactId>final-coding</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.7</version>
-        </dependency>
-        <dependency>
             <groupId>com.ilikly.finalframework</groupId>
             <artifactId>final-json-spring-boot-starter</artifactId>
         </dependency>
@@ -73,5 +68,21 @@
             <artifactId>final-data-coding</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
 
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

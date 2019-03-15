@@ -10,15 +10,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @since 1.0
  */
 public enum YN implements IEnum<Integer> {
+    /**
+     * 有效
+     */
     YES(1),
+    /**
+     * 无效
+     */
     NO(0);
+    /**
+     * 枚举码
+     */
     private final Integer code;
 
 
     @JsonCreator
     public static YN valueOf(int value) {
         for (YN yn : values()) {
-            if (yn.code.equals(value)) return yn;
+            if (yn.code.equals(value)) {
+                return yn;
+            }
         }
         return null;
     }

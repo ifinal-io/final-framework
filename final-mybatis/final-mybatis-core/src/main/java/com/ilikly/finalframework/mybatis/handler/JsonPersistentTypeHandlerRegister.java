@@ -27,7 +27,9 @@ public class JsonPersistentTypeHandlerRegister extends PersistentTypeHandlerRegi
     }
 
     private <T> TypeHandler<?> initTypeHandler(Class<T> javaType,Class<? extends Collection> collectionType){
-        if(collectionType == null) return new JsonObjectTypeHandler<>(javaType);
+        if (collectionType == null) {
+            return new JsonObjectTypeHandler<>(javaType);
+        }
 
         if (List.class.isAssignableFrom(collectionType)) {
             return new JsonListTypeHandler<>(javaType);

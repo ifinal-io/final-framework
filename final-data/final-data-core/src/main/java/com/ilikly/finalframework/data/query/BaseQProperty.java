@@ -2,6 +2,7 @@ package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
 import com.ilikly.finalframework.data.mapping.Property;
+import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
@@ -19,13 +20,15 @@ public class BaseQProperty<T> implements QProperty<T> {
     private final String path;
     private final String name;
     private final String column;
+    private final Class<?>[] views;
 
-    public BaseQProperty(Property property, String table, String path, String name, String column) {
+    public BaseQProperty(Property property, String table, String path, String name, String column, Class<?>[] views) {
         this.property = property;
         this.table = table;
         this.path = path;
         this.name = name;
-        this.column = column;
+        this.column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        this.views = views;
     }
 
     @Override
@@ -71,6 +74,17 @@ public class BaseQProperty<T> implements QProperty<T> {
     @Override
     public boolean isIdProperty() {
         return !path.contains(".") && property.isIdProperty();
+    }
+
+    @Override
+    public boolean hasView(Class<?> view) {
+        if (views == null || views.length == 0) return false;
+
+        for (Class<?> item : views) {
+            if (view.isAssignableFrom(item)) return true;
+        }
+
+        return false;
     }
 
     @Override

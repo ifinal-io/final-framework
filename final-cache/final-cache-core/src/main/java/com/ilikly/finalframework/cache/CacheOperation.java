@@ -1,7 +1,6 @@
 package com.ilikly.finalframework.cache;
 
 import java.lang.annotation.Annotation;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -11,19 +10,8 @@ import java.util.concurrent.TimeUnit;
  */
 public interface CacheOperation<A extends Annotation> {
 
-    String keyPattern();
+    String name();
 
-    String[] keys();
+    Class<? extends CacheInvocation> invocation();
 
-    String fieldPattern();
-
-    String[] fields();
-
-    String condition();
-
-    String expire();
-
-    Long ttl();
-
-    TimeUnit timeUnit();
 }

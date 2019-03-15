@@ -1,5 +1,6 @@
 package com.ilikly.finalframework.mybatis.inteceptor;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.query.Pageable;
@@ -70,7 +71,9 @@ public class QueryPageInterceptor implements Interceptor {
     private void startPage(Integer page, Integer size) {
         logger.info("startPage:page={},size={}", page, size);
         if (page != null && size != null) {
-            PageHelper.startPage(page, size);
+            final Page<Object> result = PageHelper.startPage(page, size);
+            logger.info("pageResult:page={},size={},pages={},total={}",
+                    result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
         }
     }
 

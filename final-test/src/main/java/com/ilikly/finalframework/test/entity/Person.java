@@ -1,12 +1,11 @@
 package com.ilikly.finalframework.test.entity;
 
-import com.ilikly.finalframework.data.annotation.Entity;
-import com.ilikly.finalframework.data.annotation.JsonColumn;
-import com.ilikly.finalframework.data.annotation.MultiColumn;
-import com.ilikly.finalframework.data.annotation.NonColumn;
-import com.ilikly.finalframework.data.entity.AbsEntity;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ilikly.finalframework.data.annotation.*;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
+import com.ilikly.finalframework.data.entity.IEntity;
+import com.ilikly.finalframework.data.result.Result;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
@@ -20,18 +19,24 @@ import java.util.List;
  */
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity<Date> {
+public class Person implements IEntity<Long>, Result.View {
+    @PrimaryKey(insertable = true)
+    private Long id;
     private static final long serialVersionUID = -8785625823175210092L;
+    @JsonView(Person.class)
+    @ColumnView(Result.View.class)
     private String name;
+    @JsonView(Person.class)
+    @ColumnView(Result.View.class)
     private Integer age;
     @JsonColumn
+    @ColumnView(Person.class)
     private List<String> stringList;
     @JsonColumn
     private List<Integer> intList;
     //    @NonColumn
-    @MultiColumn(shortId = false, properties = {"id", "name", "age"})
+    @ReferenceColumn(mode = ReferenceMode.SIMPLE, properties = {"id", "name", "age"})
     private Person creator;
     @NonColumn
     private Date date = new Date();

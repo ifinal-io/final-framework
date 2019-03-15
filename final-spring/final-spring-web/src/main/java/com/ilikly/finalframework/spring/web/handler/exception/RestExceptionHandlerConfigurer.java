@@ -1,13 +1,12 @@
 package com.ilikly.finalframework.spring.web.handler.exception;
 
-import com.ilikly.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
 import com.ilikly.finalframework.spring.util.BeanUtils;
+import com.ilikly.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.Order;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,7 +33,7 @@ public class RestExceptionHandlerConfigurer implements ApplicationContextAware {
         this.exceptionHandlerBeans = BeanUtils.findAllBeansAnnotatedBy(applicationContext, RestExceptionHandler.class)
                 .map(it -> {
 
-                    if (!(it instanceof com.ilikly.finalframework.spring.web.handler.exception.ExceptionHandler)) {
+                    if (!(it instanceof ExceptionHandler)) {
                         throw new IllegalStateException("the exception handler must implements ExceptionHandler!");
                     }
 
@@ -45,7 +44,7 @@ public class RestExceptionHandlerConfigurer implements ApplicationContextAware {
                 .collect(Collectors.toList());
     }
 
-    @ExceptionHandler(Exception.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler
     @ResponseBody
     public Object handlerException(Exception e) throws Throwable {
         for (ExceptionHandlerBean item : exceptionHandlerBeans) {

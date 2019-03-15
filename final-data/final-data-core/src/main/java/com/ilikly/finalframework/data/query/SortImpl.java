@@ -1,6 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.core.Assert;
+import com.ilikly.finalframework.data.query.builder.SortSqlBuilder;
 import com.ilikly.finalframework.data.query.enums.Direction;
 
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
  * @date 2019-01-08 15:22:08
  * @since 1.0
  */
-public class SortImpl implements Sort {
+public class SortImpl implements Sort, Sql<Sort> {
 
     private final List<Order> orders;
 
@@ -62,5 +63,10 @@ public class SortImpl implements Sort {
     @Override
     public Iterator<Order> iterator() {
         return orders.iterator();
+    }
+
+    @Override
+    public String getSql() {
+        return new SortSqlBuilder(this).build();
     }
 }

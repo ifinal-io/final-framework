@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.ilikly.finalframework.test.dao.mapper.PersonMapper">
+    <sql id="test">
+        SELECT
+    </sql>
+    <resultMap id="PersonMap" type="com.ilikly.finalframework.test.entity.Person">
+        <result column="age" javaType="java.lang.Integer" property="age"/>
+        <result column="createdTime" javaType="java.util.Date" property="createdTime"/>
+        <association javaType="com.ilikly.finalframework.test.entity.Person" property="creator">
+            <id column="creator" javaType="java.lang.Long" property="id"/>
+            <result column="creatorName" javaType="java.lang.String" property="name"/>
+            <result column="creatorAge" javaType="java.lang.Integer" property="age"/>
+        </association>
+        <id column="id" javaType="java.lang.Long" property="id"/>
+        <result column="intList" javaType="java.lang.Integer" property="intList"/>
+        <result column="lastModifiedTime" javaType="java.util.Date" property="lastModifiedTime"/>
+        <result column="name" javaType="java.lang.String" property="name"/>
+        <result column="stringList" javaType="java.lang.String" property="stringList"/>
+        <result column="yn" javaType="com.ilikly.finalframework.data.entity.enums.YN" property="yn"
+                typeHandler="com.ilikly.finalframework.mybatis.handler.EnumEntityTypeHandler"/>
+    </resultMap>
+    <update id="update">
+        UPDATE
+        <include refid="sql-table"/>
+        <include refid="sql-update"/>
+        <where>
+            <choose>
+                <when test="ids != null">id IN
+                    <foreach close=")" collection="ids" item="id" open="(" separator=",">#{id}</foreach>
+                </when>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </update>
+    <delete id="delete">
+        DELETE FROM
+        <include refid="sql-table"/>
+        <where>
+            <choose>
+                <when test="ids != null">id IN
+                    <foreach close=")" collection="ids" item="id" open="(" separator=",">#{id}</foreach>
+                </when>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+        <include refid="sql-table"/>
+        <choose>
+            <when test="view != null and view == 'com.ilikly.finalframework.data.result.Result.View'.toString()">
+                (age,name)
+            </when>
+            <when test="view != null and view == 'com.ilikly.finalframework.test.entity.Person'.toString()">
+                (age,name,stringList)
+            </when>
+            <otherwise>(age,creator,creatorName,creatorAge,intList,name,stringList)</otherwise>
+        </choose>
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            <choose>
+                <when test="view != null and view == 'com.ilikly.finalframework.data.result.Result.View'.toString()">
+                    (#{list[${index}].age},#{list[${index}].name})
+                </when>
+                <when test="view != null and view == 'com.ilikly.finalframework.test.entity.Person'.toString()">
+                    (#{list[${index}].age},#{list[${index}].name},#{list[${index}].stringList})
+                </when>
+                <otherwise>(#{list[${index}].age}
+                    <choose>
+                        <when test="list[index].creator != null">,#{list[${index}].creator.id},
+                            #{list[${index}].creator.name},
+                            #{list[${index}].creator.age}
+                        </when>
+                        <otherwise>,null,null,null</otherwise>
+                    </choose>
+                    ,#{list[${index}].intList},#{list[${index}].name},#{list[${index}].stringList})
+                </otherwise>
+            </choose>
+        </foreach>
+        <where>
+            <choose>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </insert>
+    <select id="selectCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM
+        <include refid="sql-table"/>
+        <where>
+            <choose>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </select>
+    <select id="selectOne" resultMap="PersonMap">SELECT<include refid="sql-select-columns"/>FROM
+        <include refid="sql-table"/>
+        <where>
+            <choose>
+                <when test="ids != null">id IN
+                    <foreach close=")" collection="ids" item="id" open="(" separator=",">#{id}</foreach>
+                </when>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </select>
+    <select id="select" resultMap="PersonMap">SELECT<include refid="sql-select-columns"/>FROM
+        <include refid="sql-table"/>
+        <where>
+            <choose>
+                <when test="ids != null">id IN
+                    <foreach close=")" collection="ids" item="id" open="(" separator=",">#{id}</foreach>
+                </when>
+                <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
+            </choose>
+        </where>
+        <include refid="sql-order"/>
+        <include refid="sql-limit"/>
+    </select>
+    <sql id="sql-table">
+        <choose>
+            <when test="tableName != null">${tableName}</when>
+            <otherwise>Person</otherwise>
+        </choose>
+    </sql>
+    <sql id="sql-select">SELECT
+        age,createdTime,creator,creatorName,creatorAge,id,intList,lastModifiedTime,name,stringList,yn FROM
+    </sql>
+    <sql id="sql-order">
+        <if test="query != null and query.sort != null">ORDER BY
+            #{query.sort, javaType=com.ilikly.finalframework.data.query.Sort,typeHandler=com.ilikly.finalframework.mybatis.handler.SortTypeHandler}
+        </if>
+    </sql>
+    <sql id="sql-limit">
+        <if test="query != null and query.limit != null">LIMIT #{query.limit}</if>
+    </sql>
+    <sql id="sql-update">
+        <set>
+            <choose>
+                <when test="entity != null and selective == true">
+                    <choose>
+                        <when test="view != null and view == 'com.ilikly.finalframework.data.result.Result.View'.toString()">
+                            <if test="entity.age != null">age = #{entity.age},</if>
+                            <if test="entity.name != null">name = #{entity.name},</if>
+                        </when>
+                        <when test="view != null and view == 'com.ilikly.finalframework.test.entity.Person'.toString()">
+                            <if test="entity.age != null">age = #{entity.age},</if>
+                            <if test="entity.name != null">name = #{entity.name},</if>
+                            <if test="entity.stringList != null">stringList = #{entity.stringList},</if>
+                        </when>
+                        <otherwise>
+                            <if test="entity.age != null">age = #{entity.age},</if>
+                            <if test="entity.creator != null and entity.creator.id != null">creator =
+                                #{entity.creator.id},
+                            </if>
+                            <if test="entity.creator != null and entity.creator.name != null">creatorName =
+                                #{entity.creator.name},
+                            </if>
+                            <if test="entity.creator != null and entity.creator.age != null">creatorAge =
+                                #{entity.creator.age},
+                            </if>
+                            <if test="entity.intList != null">intList = #{entity.intList},</if>
+                            <if test="entity.lastModifiedTime != null">lastModifiedTime = #{entity.lastModifiedTime},
+                            </if>
+                            <if test="entity.name != null">name = #{entity.name},</if>
+                            <if test="entity.stringList != null">stringList = #{entity.stringList},</if>
+                            <if test="entity.yn != null">yn =
+                                #{entity.yn,javaType=com.ilikly.finalframework.data.entity.enums.YN,typeHandler=com.ilikly.finalframework.mybatis.handler.EnumEntityTypeHandler},
+                            </if>
+                        </otherwise>
+                    </choose>
+                </when>
+                <when test="entity != null">
+                    <choose>
+                        <when test="view != null and view == 'com.ilikly.finalframework.data.result.Result.View'.toString()">
+                            <if>age = #{entity.age},</if>
+                            <if>name = #{entity.name},</if>
+                        </when>
+                        <when test="view != null and view == 'com.ilikly.finalframework.test.entity.Person'.toString()">
+                            <if>age = #{entity.age},</if>
+                            <if>name = #{entity.name},</if>
+                            <if>stringList = #{entity.stringList},</if>
+                        </when>
+                        <otherwise>
+                            <if>age = #{entity.age},</if>
+                            <if test="entity.creator != null">creator = #{entity.creator.id},</if>
+                            <if test="entity.creator != null">creatorName = #{entity.creator.name},</if>
+                            <if test="entity.creator != null">creatorAge = #{entity.creator.age},</if>
+                            <if>intList = #{entity.intList},</if>
+                            <if>lastModifiedTime = #{entity.lastModifiedTime},</if>
+                            <if>name = #{entity.name},</if>
+                            <if>stringList = #{entity.stringList},</if>
+                            <if>yn =
+                                #{entity.yn,javaType=com.ilikly.finalframework.data.entity.enums.YN,typeHandler=com.ilikly.finalframework.mybatis.handler.EnumEntityTypeHandler},
+                            </if>
+                        </otherwise>
+                    </choose>
+                </when>
+                <when test="update != null">
+                    <if test="update['age'] != null">
+                        <choose>
+                            <when test="update['age'].operation.name() == 'EQUAL'">age = #{update[age].value},</when>
+                            <when test="update['age'].operation.name() == 'INC'">age = age + 1,</when>
+                            <when test="update['age'].operation.name() == 'INCR'">age = age + #{update[age].value},
+                            </when>
+                            <when test="update['age'].operation.name() == 'DEC'">age = age - 1,</when>
+                            <when test="update['age'].operation.name() == 'DECR'">age = age - #{update[age].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['creatorId'] != null">
+                        <choose>
+                            <when test="update['creatorId'].operation.name() == 'EQUAL'">creatorId =
+                                #{update[creatorId].value},
+                            </when>
+                            <when test="update['creatorId'].operation.name() == 'INC'">creatorId = creatorId + 1,</when>
+                            <when test="update['creatorId'].operation.name() == 'INCR'">creatorId = creatorId +
+                                #{update[creatorId].value},
+                            </when>
+                            <when test="update['creatorId'].operation.name() == 'DEC'">creatorId = creatorId - 1,</when>
+                            <when test="update['creatorId'].operation.name() == 'DECR'">creatorId = creatorId -
+                                #{update[creatorId].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['creatorName'] != null">
+                        <choose>
+                            <when test="update['creatorName'].operation.name() == 'EQUAL'">creatorName =
+                                #{update[creatorName].value},
+                            </when>
+                            <when test="update['creatorName'].operation.name() == 'INC'">creatorName = creatorName +
+                                1,
+                            </when>
+                            <when test="update['creatorName'].operation.name() == 'INCR'">creatorName = creatorName +
+                                #{update[creatorName].value},
+                            </when>
+                            <when test="update['creatorName'].operation.name() == 'DEC'">creatorName = creatorName -
+                                1,
+                            </when>
+                            <when test="update['creatorName'].operation.name() == 'DECR'">creatorName = creatorName -
+                                #{update[creatorName].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['creatorAge'] != null">
+                        <choose>
+                            <when test="update['creatorAge'].operation.name() == 'EQUAL'">creatorAge =
+                                #{update[creatorAge].value},
+                            </when>
+                            <when test="update['creatorAge'].operation.name() == 'INC'">creatorAge = creatorAge + 1,
+                            </when>
+                            <when test="update['creatorAge'].operation.name() == 'INCR'">creatorAge = creatorAge +
+                                #{update[creatorAge].value},
+                            </when>
+                            <when test="update['creatorAge'].operation.name() == 'DEC'">creatorAge = creatorAge - 1,
+                            </when>
+                            <when test="update['creatorAge'].operation.name() == 'DECR'">creatorAge = creatorAge -
+                                #{update[creatorAge].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['date'] != null">
+                        <choose>
+                            <when test="update['date'].operation.name() == 'EQUAL'">date = #{update[date].value},</when>
+                            <when test="update['date'].operation.name() == 'INC'">date = date + 1,</when>
+                            <when test="update['date'].operation.name() == 'INCR'">date = date +
+                                #{update[date].value},
+                            </when>
+                            <when test="update['date'].operation.name() == 'DEC'">date = date - 1,</when>
+                            <when test="update['date'].operation.name() == 'DECR'">date = date -
+                                #{update[date].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['intList'] != null">
+                        <choose>
+                            <when test="update['intList'].operation.name() == 'EQUAL'">intList =
+                                #{update[intList].value},
+                            </when>
+                            <when test="update['intList'].operation.name() == 'INC'">intList = intList + 1,</when>
+                            <when test="update['intList'].operation.name() == 'INCR'">intList = intList +
+                                #{update[intList].value},
+                            </when>
+                            <when test="update['intList'].operation.name() == 'DEC'">intList = intList - 1,</when>
+                            <when test="update['intList'].operation.name() == 'DECR'">intList = intList -
+                                #{update[intList].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['lastModifiedTime'] != null">
+                        <choose>
+                            <when test="update['lastModifiedTime'].operation.name() == 'EQUAL'">lastModifiedTime =
+                                #{update[lastModifiedTime].value},
+                            </when>
+                            <when test="update['lastModifiedTime'].operation.name() == 'INC'">lastModifiedTime =
+                                lastModifiedTime + 1,
+                            </when>
+                            <when test="update['lastModifiedTime'].operation.name() == 'INCR'">lastModifiedTime =
+                                lastModifiedTime + #{update[lastModifiedTime].value},
+                            </when>
+                            <when test="update['lastModifiedTime'].operation.name() == 'DEC'">lastModifiedTime =
+                                lastModifiedTime - 1,
+                            </when>
+                            <when test="update['lastModifiedTime'].operation.name() == 'DECR'">lastModifiedTime =
+                                lastModifiedTime - #{update[lastModifiedTime].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['name'] != null">
+                        <choose>
+                            <when test="update['name'].operation.name() == 'EQUAL'">name = #{update[name].value},</when>
+                            <when test="update['name'].operation.name() == 'INC'">name = name + 1,</when>
+                            <when test="update['name'].operation.name() == 'INCR'">name = name +
+                                #{update[name].value},
+                            </when>
+                            <when test="update['name'].operation.name() == 'DEC'">name = name - 1,</when>
+                            <when test="update['name'].operation.name() == 'DECR'">name = name -
+                                #{update[name].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['stringList'] != null">
+                        <choose>
+                            <when test="update['stringList'].operation.name() == 'EQUAL'">stringList =
+                                #{update[stringList].value},
+                            </when>
+                            <when test="update['stringList'].operation.name() == 'INC'">stringList = stringList + 1,
+                            </when>
+                            <when test="update['stringList'].operation.name() == 'INCR'">stringList = stringList +
+                                #{update[stringList].value},
+                            </when>
+                            <when test="update['stringList'].operation.name() == 'DEC'">stringList = stringList - 1,
+                            </when>
+                            <when test="update['stringList'].operation.name() == 'DECR'">stringList = stringList -
+                                #{update[stringList].value},
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="update['yn'] != null">
+                        <choose>
+                            <when test="update['yn'].operation.name() == 'EQUAL'">yn =
+                                #{update[yn].value,javaType=com.ilikly.finalframework.data.entity.enums.YN,typeHandler=com.ilikly.finalframework.mybatis.handler.EnumEntityTypeHandler},
+                            </when>
+                            <when test="update['yn'].operation.name() == 'INC'">yn = yn + 1,</when>
+                            <when test="update['yn'].operation.name() == 'INCR'">yn = yn + #{update[yn].value},</when>
+                            <when test="update['yn'].operation.name() == 'DEC'">yn = yn - 1,</when>
+                            <when test="update['yn'].operation.name() == 'DECR'">yn = yn - #{update[yn].value},</when>
+                        </choose>
+                    </if>
+                </when>
+            </choose>
+        </set>
+    </sql>
+    <sql id="sql-select-columns">
+        <choose>
+            <when test="view != null and view == 'com.ilikly.finalframework.data.result.Result.View'.toString()">
+                age,name
+            </when>
+            <when test="view != null and view == 'com.ilikly.finalframework.test.entity.Person'.toString()">
+                age,name,stringList
+            </when>
+            <otherwise>age,createdTime,creator,creatorName,creatorAge,id,intList,lastModifiedTime,name,stringList,yn
+            </otherwise>
+        </choose>
+    </sql>
+</mapper>

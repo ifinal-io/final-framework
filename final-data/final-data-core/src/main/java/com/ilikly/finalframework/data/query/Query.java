@@ -1,7 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
 import com.ilikly.finalframework.core.Streamable;
-import com.ilikly.finalframework.data.provider.QuerySqlBuilder;
+import com.ilikly.finalframework.data.query.builder.QuerySqlBuilder;
 import com.ilikly.finalframework.data.query.enums.Direction;
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<Criteria>, Serializable, Pageable {
+public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<Query> {
 
     @Getter
     private Integer page;
@@ -63,6 +63,10 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable {
         return this;
     }
 
+    public Criteria getCriteria() {
+        return criteria.isEmpty() ? null : CriteriaImpl.from(criteria);
+    }
+
     public Query sort(@NonNull Collection<Order> orders) {
         sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
         return this;
@@ -90,8 +94,9 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable {
         return criteria.stream();
     }
 
+    @Override
     public String getSql() {
-        return new QuerySqlBuilder(this).provide();
+        return new QuerySqlBuilder(this).build();
     }
 
 

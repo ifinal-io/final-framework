@@ -12,6 +12,7 @@ public interface Filter<T> {
      * return true if the test data {@link T} is matches, else return false.
      *
      * @param t the data to test
+     * @return {@code true} if the test data {@link T} is matches, else return {@code false}.
      */
     boolean matches(T t);
 }

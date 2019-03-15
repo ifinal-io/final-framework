@@ -1,8 +1,7 @@
 package com.ilikly.finalframework.data.query;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import org.springframework.lang.NonNull;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -13,82 +12,90 @@ import java.util.Date;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public interface Criteriable<T> {
+public interface Criteriable<V, R> {
 
     //    Comparable operator
 
-    T eq(@NotNull Object value);
+    R eq(@NonNull V value);
 
-    T neq(@NotNull Object value);
+    R neq(@NonNull V value);
 
-    T gt(@NotNull Comparable value);
+    R gt(@NonNull V value);
 
-    T gte(@NotNull Comparable value);
+    R gte(@NonNull V value);
 
-    T lt(@NotNull Comparable value);
+    R lt(@NonNull V value);
 
-    T lte(@NotNull Comparable value);
+    R lte(@NonNull V value);
 
     //    in operator
 
-    T in(@NotEmpty Object... values);
+    R in(@NonNull V... values);
 
-    T in(@NotEmpty Collection<Object> values);
+    R in(@NonNull Collection<V> values);
 
-    T nin(@NotEmpty Object... values);
+    R nin(@NonNull V... values);
 
-    T nin(@NotEmpty Collection<Object> values);
+    R nin(@NonNull Collection<V> values);
 
-    T isNull();
+    R isNull();
 
-    T nonNull();
+    R nonNull();
 
     //    like operator
 
-    T startWith(@NotEmpty String value);
+    R startWith(@NonNull String value);
 
-    T notStartWith(@NotEmpty String value);
+    R notStartWith(@NonNull String value);
 
-    T endWith(@NotEmpty String value);
+    R endWith(@NonNull String value);
 
-    T notEndWith(@NotEmpty String value);
+    R notEndWith(@NonNull String value);
 
-    T contains(@NotEmpty String value);
+    R contains(@NonNull String value);
 
-    T notContains(@NotEmpty String value);
+    R notContains(@NonNull String value);
 
-    T like(@NotBlank String value);
+    R like(@NonNull String value);
 
-    T notLike(@NotBlank String value);
+    R notLike(@NonNull String value);
 
     // date operator
 
-    T before(@NotNull Date date);
+    R before(@NonNull Date date);
 
-    T before(@NotNull long date);
+    R before(@NonNull long date);
 
-    T after(@NotNull Date date);
+    R after(@NonNull Date date);
 
-    T after(@NotNull long date);
+    R after(@NonNull long date);
 
-    T dateBefore(@NotNull Date date);
+    R dateEqual(@NonNull Date date);
 
-    T dateBefore(@NotNull long date);
+    R notDateEqual(@NonNull Date date);
 
-    T dateAfter(@NotNull Date date);
+    R dateEqual(@NonNull long date);
 
-    T dateAfter(@NotNull long date);
+    R notDateEqual(@NonNull long date);
 
-    <E extends Comparable<E>> T between(@NotNull E min, @NotNull E max);
+    R dateBefore(@NonNull Date date);
 
-    <E extends Comparable<E>> T notBetween(@NotNull E min, @NotNull E max);
+    R dateBefore(@NonNull long date);
 
-    T dateBetween(@NotNull Date min, @NotNull Date max);
+    R dateAfter(@NonNull Date date);
 
-    T notDateBetween(@NotNull Date min, @NotNull Date max);
+    R dateAfter(@NonNull long date);
 
-    T dateBetween(@NotNull long min, @NotNull long max);
+    R between(@NonNull V min, @NonNull V max);
 
-    T notDateBetween(@NotNull long min, @NotNull long max);
+    R notBetween(@NonNull V min, @NonNull V max);
+
+    R dateBetween(@NonNull Date min, @NonNull Date max);
+
+    R notDateBetween(@NonNull Date min, @NonNull Date max);
+
+    R dateBetween(@NonNull long min, @NonNull long max);
+
+    R notDateBetween(@NonNull long min, @NonNull long max);
 
 }

@@ -4,6 +4,7 @@ import com.ilikly.finalframework.json.JsonException;
 import com.ilikly.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.validation.ConstraintViolationException;
 
@@ -13,7 +14,9 @@ import javax.validation.ConstraintViolationException;
  * @date 2018-12-26 13:45:31
  * @since 1.0
  */
+@Configuration
 @AutoConfiguration
+@SuppressWarnings("all")
 public class RestExceptionHandlerAutoConfiguration {
 
     @Bean

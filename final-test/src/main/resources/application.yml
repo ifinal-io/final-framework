@@ -30,7 +30,7 @@ pagehelper:
   params: pageNum=page;size=size
 logging:
   level:
-    com.ilikly.finalframework.test: debug
+    com.ilikly.finalframework: debug
 server:
   port: 8080
 final:

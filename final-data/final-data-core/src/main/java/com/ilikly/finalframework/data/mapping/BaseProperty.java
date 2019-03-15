@@ -3,13 +3,18 @@ package com.ilikly.finalframework.data.mapping;
 import com.ilikly.finalframework.core.Assert;
 import com.ilikly.finalframework.data.annotation.*;
 import com.ilikly.finalframework.data.annotation.enums.PersistentType;
-import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 import com.ilikly.finalframework.data.mapping.converter.NameConverterRegistry;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -31,6 +36,10 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     private boolean updatable = true;
     private boolean selectable = true;
     private boolean placeholder = true;
+    private ReferenceMode referenceMode;
+    private List<String> referenceProperties;
+    private Map<String, String> referenceColumns;
+    private Class<?>[] views;
 
     /**
      * Creates a new {@link AnnotationBasedPersistentProperty}.
@@ -41,7 +50,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
      */
     public BaseProperty(org.springframework.data.mapping.model.Property property, Entity owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
-        logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
+//        logger.info("==> init property holder: entity={},property={},transient={}", getOwner().getType().getSimpleName(), getName(), isTransient());
         init();
     }
 
@@ -52,7 +61,6 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @SuppressWarnings("all")
     private void initColumn() {
         try {
-
             if (isAnnotationPresent(Column.class)) {
                 initColumn(findAnnotation(Column.class));
             } else if (isAnnotationPresent(JsonColumn.class)) {
@@ -61,6 +69,8 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 initCreatedTime(findAnnotation(CreatedTime.class));
             } else if (isAnnotationPresent(LastModifiedTime.class)) {
                 initLastModifiedTime(findAnnotation(LastModifiedTime.class));
+            } else if (isAnnotationPresent(ReferenceColumn.class)) {
+                initReferenceColumn(findAnnotation(ReferenceColumn.class));
             } else if (isAnnotationPresent(MultiColumn.class)) {
                 initMultiColumn(findAnnotation(MultiColumn.class));
             } else {
@@ -72,6 +82,11 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 placeholder = true;
             }
 
+            final ColumnView columnView = findAnnotation(ColumnView.class);
+            if (columnView != null) {
+                views = columnView.value();
+            }
+
 
         } finally {
 
@@ -79,11 +94,18 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 unique = true;
                 nonnull = true;
                 updatable = false;
+                insertable = false;
+                selectable = true;
 
                 if (isAnnotationPresent(PrimaryKey.class)) {
                     PrimaryKey primaryKey = findAnnotation(PrimaryKey.class);
                     this.column = primaryKey.name();
-                    this.insertable = primaryKey.type() != PrimaryKeyType.AUTO_INC;
+                    this.unique = primaryKey.unique();
+                    this.nonnull = primaryKey.nonnull();
+                    this.insertable = primaryKey.insertable();
+                    this.updatable = primaryKey.updatable();
+                    this.selectable = primaryKey.selectable();
+
                 }
 
             }
@@ -149,14 +171,57 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.placeholder = lastModifiedTime.placeholder();
     }
 
+    @SuppressWarnings("all")
+    private void initReferenceColumn(ReferenceColumn referenceColumn) {
+        this.unique = referenceColumn.unique();
+        this.nonnull = referenceColumn.nonnull();
+        this.insertable = referenceColumn.insertable();
+        this.updatable = referenceColumn.updatable();
+        this.selectable = referenceColumn.selectable();
+        this.column = referenceColumn.name();
+        initReference(referenceColumn.mode(), referenceColumn.properties(), referenceColumn.delimiter());
+    }
+
+    @SuppressWarnings("all")
     private void initMultiColumn(MultiColumn multiColumn) {
         this.unique = multiColumn.unique();
         this.nonnull = multiColumn.nonnull();
         this.insertable = multiColumn.insertable();
         this.updatable = multiColumn.updatable();
+        this.selectable = multiColumn.selectable();
         this.column = multiColumn.name();
+        initReference(multiColumn.mode(), multiColumn.properties(), multiColumn.delimiter());
     }
 
+    private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
+        this.referenceMode = mode;
+        List<String> referenceProperties = new ArrayList<>(properties.length);
+        Map<String, String> referenceColumns = new HashMap<>(properties.length);
+        for (String property : properties) {
+            if (property.contains(delimiter)) {
+                final String[] split = property.split(delimiter);
+                referenceProperties.add(split[0]);
+                referenceColumns.put(split[0], split[1]);
+            } else {
+                referenceProperties.add(property);
+            }
+        }
+        this.referenceProperties = referenceProperties;
+        this.referenceColumns = referenceColumns;
+
+    }
+
+
+    @Override
+    public boolean hasView(Class<?> view) {
+        if (views == null || views.length == 0) return false;
+
+        for (Class<?> item : views) {
+            if (item.isAssignableFrom(view)) return true;
+        }
+
+        return false;
+    }
 
     @Override
     public boolean unique() {
@@ -187,6 +252,26 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
     @Override
     public boolean placeholder() {
         return placeholder;
+    }
+
+    @Override
+    public boolean isReference() {
+        return isAssociation();
+    }
+
+    @Override
+    public ReferenceMode referenceMode() {
+        return this.referenceMode;
+    }
+
+    @Override
+    public List<String> referenceProperties() {
+        return this.referenceProperties;
+    }
+
+    @Override
+    public String referenceColumn(String property) {
+        return this.referenceColumns == null ? null : this.referenceColumns.get(property);
     }
 
     @Override

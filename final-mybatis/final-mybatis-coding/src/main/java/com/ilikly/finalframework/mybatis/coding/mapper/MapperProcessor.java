@@ -2,7 +2,6 @@ package com.ilikly.finalframework.mybatis.coding.mapper;
 
 import com.google.auto.service.AutoService;
 import com.ilikly.finalframework.coding.Coder;
-import com.ilikly.finalframework.data.mapping.Dialect;
 import com.ilikly.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
 import com.ilikly.finalframework.mybatis.generator.BaseColumnGenerator;
 import com.ilikly.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
@@ -62,7 +61,7 @@ public class MapperProcessor extends AbstractProcessor {
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
         ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(BaseColumnGenerator.INSTANCE);
-        ColumnGeneratorRegistry.getInstance().registerColumnModule(Dialect.DEFAULT, new DefaultColumnGeneratorModule());
+        ColumnGeneratorRegistry.getInstance().registerColumnModule(new DefaultColumnGeneratorModule());
     }
 
     @Override
@@ -77,7 +76,8 @@ public class MapperProcessor extends AbstractProcessor {
 
     private void generateMapperFiles(Set<? extends Element> elements) {
         elements.stream()
-                .map(it -> ((TypeElement) it).getQualifiedName().toString())
+                .map(it -> ((TypeElement) it))
+                .map(it -> it.getQualifiedName().toString())
 //                .forEach(it -> {
 //                    final String resourceFile = it.replace(".", "/") + ".xml";
 //                    try {

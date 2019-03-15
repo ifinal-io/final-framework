@@ -16,10 +16,10 @@ import java.util.Set;
 public class DefaultColumnGeneratorModule extends ColumnGeneratorModule {
 
     {
-        PrimaryTypes.INSTANCE.stream().forEach(clazz -> registerColumnGenerator(clazz,null, BaseColumnGenerator.INSTANCE));
-        PrimaryTypes.INSTANCE.stream().forEach(clazz -> registerColumnGenerator(Date.class,null, BaseColumnGenerator.INSTANCE));
-        PrimaryTypes.INSTANCE.stream().forEach(clazz -> registerColumnGenerator(clazz, List.class, BaseColumnGenerator.INSTANCE));
-        PrimaryTypes.INSTANCE.stream().forEach(clazz -> registerColumnGenerator(clazz, Set.class, BaseColumnGenerator.INSTANCE));
+        PrimaryTypes.ALL.stream().forEach(clazz -> registerColumnGenerator(clazz, null, BaseColumnGenerator.INSTANCE));
+        PrimaryTypes.ALL.stream().forEach(clazz -> registerColumnGenerator(clazz, List.class, BaseColumnGenerator.INSTANCE));
+        PrimaryTypes.ALL.stream().forEach(clazz -> registerColumnGenerator(clazz, Set.class, BaseColumnGenerator.INSTANCE));
+        registerColumnGenerator(Date.class, null, BaseColumnGenerator.INSTANCE);
     }
 
 }

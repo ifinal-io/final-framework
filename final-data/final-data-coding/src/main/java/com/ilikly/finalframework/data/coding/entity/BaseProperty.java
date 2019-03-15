@@ -1,6 +1,9 @@
 package com.ilikly.finalframework.data.coding.entity;
 
+import com.ilikly.finalframework.data.annotation.MultiColumn;
 import com.ilikly.finalframework.data.annotation.PrimaryKey;
+import com.ilikly.finalframework.data.annotation.ReferenceColumn;
+import com.ilikly.finalframework.data.annotation.enums.ReferenceMode;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -13,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -39,6 +43,9 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private final boolean isCollection;
     private final boolean isMap;
     private final boolean isIdProperty;
+    private final boolean isReference;
+    private final ReferenceMode referenceMode;
+    private List<String> referenceProperties;
 
     public BaseProperty(T entity, ProcessingEnvironment processEnv, Element element) {
         this.entity = entity;
@@ -81,6 +88,33 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
         isIdProperty = hasAnnotation(PrimaryKey.class);
 
+        if (hasAnnotation(ReferenceColumn.class)) {
+            final ReferenceColumn referenceColumn = getAnnotation(ReferenceColumn.class);
+            isReference = true;
+            referenceMode = referenceColumn.mode();
+            initReferenceProperties(referenceColumn.properties(), referenceColumn.delimiter());
+        } else if (hasAnnotation(MultiColumn.class)) {
+            final MultiColumn multiColumn = getAnnotation(MultiColumn.class);
+            isReference = true;
+            referenceMode = multiColumn.mode();
+            initReferenceProperties(multiColumn.properties(), multiColumn.delimiter());
+        } else {
+            isReference = false;
+            referenceMode = null;
+            referenceProperties = null;
+        }
+
+    }
+
+    private void initReferenceProperties(String[] properties, String delimiter) {
+        this.referenceProperties = Arrays.stream(properties)
+                .map(property -> {
+                    if (property.contains(delimiter)) {
+                        return property.split(delimiter)[0];
+                    } else {
+                        return property;
+                    }
+                }).collect(Collectors.toList());
     }
 
     private String getElementName(Element element) {
@@ -91,9 +125,9 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         final String elementName = element.getSimpleName().toString();
 
         for (String prefix : GETTER_PREFIX) {
-            if(elementName.startsWith(prefix)){
+            if (elementName.startsWith(prefix)) {
                 String name = elementName.substring(prefix.length());
-                return name.substring(0,1).toLowerCase() + name.substring(1);
+                return name.substring(0, 1).toLowerCase() + name.substring(1);
             }
         }
         return elementName;
@@ -122,7 +156,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
     @Override
     public String getRawType() {
-        return rawType;
+        return isCollection ? componentType : type;
     }
 
     @Override
@@ -153,6 +187,21 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     @Override
     public boolean isArray() {
         return false;
+    }
+
+    @Override
+    public boolean isReference() {
+        return isReference;
+    }
+
+    @Override
+    public ReferenceMode referenceMode() {
+        return referenceMode;
+    }
+
+    @Override
+    public List<String> referenceProperties() {
+        return referenceProperties;
     }
 
     @Override

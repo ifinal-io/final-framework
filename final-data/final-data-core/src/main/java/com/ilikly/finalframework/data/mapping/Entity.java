@@ -5,8 +5,9 @@ import com.ilikly.finalframework.core.Streamable;
 import com.ilikly.finalframework.data.annotation.NonCompare;
 import com.ilikly.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.springframework.data.mapping.PersistentEntity;
+import org.springframework.lang.NonNull;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
                 .filter(it -> !it.isTransient() && !it.hasAnnotation(NonCompare.class))
                 .map(property -> CompareProperty.builder()
                         .property(property)
-                        .value(property.get(before),property.get(after))
+                        .value(property.get(before), property.get(after))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -46,6 +47,9 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
             throw new IllegalStateException(String.format("the entity of %s must have no args constructor!", getType().getName()));
         }
     }
+
+    @NonNull
+    Collection<Class<?>> getViews();
 
 
 }

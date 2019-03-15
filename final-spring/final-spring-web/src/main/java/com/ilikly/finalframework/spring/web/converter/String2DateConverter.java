@@ -17,7 +17,6 @@ import java.util.Date;
 @Component
 public class String2DateConverter implements Converter<String, Date> {
 
-
     @Override
     public Date convert(String source) {
         return DateFormatters.DEFAULT.parse(source);

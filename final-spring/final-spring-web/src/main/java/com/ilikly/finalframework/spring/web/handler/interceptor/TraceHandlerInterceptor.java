@@ -27,7 +27,6 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
         String trace = request.getHeader(TRACE);
         if (trace == null) {
             trace = UUID.randomUUID().toString();

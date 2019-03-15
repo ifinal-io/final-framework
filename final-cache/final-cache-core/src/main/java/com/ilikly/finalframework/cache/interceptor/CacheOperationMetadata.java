@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @Data
-class CacheOperationMetadata<O extends CacheOperation> {
+public class CacheOperationMetadata<O extends CacheOperation> {
 
     private final O operation;
 
@@ -44,4 +44,5 @@ class CacheOperationMetadata<O extends CacheOperation> {
                 AopUtils.getMostSpecificMethod(method, targetClass) : this.method);
         this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);
     }
+
 }

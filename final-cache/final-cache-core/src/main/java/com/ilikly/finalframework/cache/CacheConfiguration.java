@@ -1,25 +1,40 @@
 package com.ilikly.finalframework.cache;
 
-import com.ilikly.finalframework.cache.interceptor.CacheOperationAspect;
+import com.ilikly.finalframework.cache.invocation.CacheDelInvocation;
+import com.ilikly.finalframework.cache.invocation.CacheLockInvocation;
+import com.ilikly.finalframework.cache.invocation.CachePutInvocation;
+import com.ilikly.finalframework.cache.invocation.CacheableInvocation;
+import org.springframework.lang.NonNull;
 
-import java.lang.annotation.Annotation;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2018-11-22 17:19:32
+ * @date 2019-03-11 10:35:22
  * @since 1.0
  */
-public interface CacheConfiguration {
+public class CacheConfiguration {
 
-    boolean isCacheAnnotation(Annotation annotation);
+    private final Map<Class<? extends CacheInvocation>, CacheInvocation> invocationMap = new ConcurrentHashMap<>(8);
 
-    <A extends Annotation, O extends CacheOperation<A>> void registerCacheAnnotationParser(A ann, CacheAnnotationParser<A, O> parser);
+    {
+        registerCacheInvocation(new CacheLockInvocation());
+        registerCacheInvocation(new CacheableInvocation());
+        registerCacheInvocation(new CacheDelInvocation());
+        registerCacheInvocation(new CachePutInvocation());
 
-    <A extends Annotation, O extends CacheOperation<A>> CacheAnnotationParser<A, O> getCacheAnnotationParser(A ann);
+    }
 
-    <A extends Annotation, O extends CacheOperation<A>> void registerCacheAspect(A ann, CacheOperationAspect<A, O> aspect);
+    public void registerCacheInvocation(CacheInvocation invocation) {
+        invocationMap.put(invocation.getClass(), invocation);
+    }
 
-    <A extends Annotation, O extends CacheOperation<A>> CacheOperationAspect<A, O> getCacheAspect(A ann);
+    @NonNull
+    @SuppressWarnings("unchecked")
+    public <T extends CacheInvocation> T getCacheInvocation(@NonNull Class<T> invocation) {
+        return (T) invocationMap.get(invocation);
+    }
 
 }
