@@ -1,10 +1,16 @@
 language: java
 
 after_script:
+  - git init
+  - git config user.name "likly"
+  - git config user.email "likly@likly.com.cn"
   - git add .
   - git commit -m "update"
   - git push --force "https://${coding_user}:${coding_token}@${coding_repo}" master:master
 
+branches:
+  only:
+    - master
 
 env:
   global:
