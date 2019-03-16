@@ -29,7 +29,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <appender name="LOGGER_APPENDER" class="com.ilikly.finalframework.test.dao.LoggerAppender">
+    <appender name="LOGGER_APPENDER" class="org.finalframework.test.dao.LoggerAppender">
     </appender>
 
     <!--<appender name="API_LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
@@ -43,7 +43,7 @@
     <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
     <!--</encoder>-->
     <!--</appender>-->
-    <!--<logger name="com.ilikly.framework.api" level="INFO" additivity="false">-->
+    <!--<logger name="org.framework.api" level="INFO" additivity="false">-->
     <!--<appender-ref ref="API_LOGGER"/>-->
     <!--<appender-ref ref="CONSOLE"/>-->
     <!--</logger>-->
@@ -59,7 +59,7 @@
     <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
     <!--</encoder>-->
     <!--</appender>-->
-    <!--<logger name="com.ilikly.framework.mail" level="INFO" additivity="false">-->
+    <!--<logger name="org.framework.mail" level="INFO" additivity="false">-->
     <!--<appender-ref ref="MAIL_LOGGER"/>-->
     <!--<appender-ref ref="CONSOLE"/>-->
     <!--</logger>-->

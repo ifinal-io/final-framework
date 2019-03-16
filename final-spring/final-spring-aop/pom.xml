@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-spring</artifactId>
-        <groupId>com.ilikly.finalframework</groupId>
+        <groupId>org.finalframework</groupId>
         <version>0.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,11 +14,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-data-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-json-core</artifactId>
         </dependency>
         <dependency>
@@ -26,7 +26,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ilikly.finalframework</groupId>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-spring-coding</artifactId>
         </dependency>
     </dependencies>

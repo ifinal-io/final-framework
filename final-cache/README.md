@@ -8,7 +8,7 @@
 
 ```xml
 <dependency>
-    <groupId>com.ilikly.finalframework</groupId>
+    <groupId>org.finalframework</groupId>
     <artifactId>final-cache</artifactId>
 </dependency>
 ```
