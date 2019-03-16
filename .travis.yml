@@ -1,14 +1,4 @@
 language: java
 
 after_script:
-  - git push --force "https://${coding_user}:9741788be93d1d75556f8a5b7544ca184bcc7e64@${coding_repo}" master:master
-
-
-branches:
-  only:
-    - master
-
-env:
-  global:
-    coding_user: likly
-    coding_repo: git.coding.net/likly/final-framework.git
+  - git push --force "https://${coding_user}:${coding_token}@${coding_repo}" master:master
