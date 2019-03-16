@@ -1,7 +1,6 @@
 language: java
 
 after_script:
-  - pwd
   - git add .
   - git commit -m "update"
   - git push --force "https://${coding_user}:${coding_token}@${coding_repo}" master:master
