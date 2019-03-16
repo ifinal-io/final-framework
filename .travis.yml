@@ -1,6 +1,8 @@
 language: java
 
 after_script:
+  - git add .
+  - git commit -m "update"
   - git push --force --quiet "https://${coding_user}:${coding_token}@${coding_repo}" master:master
 
 
