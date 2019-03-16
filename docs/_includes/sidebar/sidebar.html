@@ -1,5 +1,4 @@
-<div class="sidebar" data-background-color="black" data-color="rose" data-image="/assets/img/sidebar-1.jpg"
-     id="sidebar">
+<div class="sidebar" data-background-color="black" data-color="rose" data-image="/assets/img/sidebar-1.jpg" id="sidebar">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -26,23 +25,10 @@
             message: 'Hello Vue!',
             page: {
                 module: "{{ page.collection }}",
-                menus: {
-    {
-        page.menus | jsonify
-    }
-    }
-    },
-    modules: {
-        {
-            site.data.modules | jsonify
+                menus: {{ page.menus | jsonify }}
+            },
+            modules: {{ site.data.modules | jsonify }},
+            sidebar: {{ site.data.sidebar[page.collection] | jsonify }}
         }
-    }
-    ,
-    sidebar: {
-        {
-            site.data.sidebar[page.collection] | jsonify
-        }
-    }
-    }
     })
 </script>
