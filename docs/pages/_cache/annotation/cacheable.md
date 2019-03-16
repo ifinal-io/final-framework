@@ -40,7 +40,7 @@ version: 1.0
 
 ## This's Mine
 
-**[`Cacheable`](../../../../final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/Cacheable.java)**：可缓存的注解（`Annotation`），通过在目标**Method**上声明该注解，达到数据的缓存目的。
+**[`Cacheable`](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/Cacheable.java)**：可缓存的注解（`Annotation`），通过在目标**Method**上声明该注解，达到数据的缓存目的。
 
 **配置项**：
 
