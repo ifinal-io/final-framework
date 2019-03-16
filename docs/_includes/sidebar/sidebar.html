@@ -1,0 +1,48 @@
+<div class="sidebar" data-background-color="black" data-color="rose" data-image="/assets/img/sidebar-1.jpg"
+     id="sidebar">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a class="simple-text logo-mini" href="http://www.creative-tim.com">
+            FFW
+        </a>
+        <a class="simple-text logo-normal" href="http://www.creative-tim.com">
+            Final Framework
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        {% include sidebar/sidebar-user.html %}
+        {% include sidebar/sidebar-menu.html %}
+    </div>
+</div>
+
+<script>
+    var sidebar = new Vue({
+        el: '#sidebar',
+        data: {
+            message: 'Hello Vue!',
+            page: {
+                module: "{{ page.collection }}",
+                menus: {
+    {
+        page.menus | jsonify
+    }
+    }
+    },
+    modules: {
+        {
+            site.data.modules | jsonify
+        }
+    }
+    ,
+    sidebar: {
+        {
+            site.data.sidebar[page.collection] | jsonify
+        }
+    }
+    }
+    })
+</script>

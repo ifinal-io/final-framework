@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg  navbar-fixed-top navbar-absolute fixed-top bg-primary">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <div class="navbar-minimize">
+                <button class="btn btn-just-icon btn-white btn-fab btn-round" id="minimizeSidebar">
+                    <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
+                    <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">{{ page.title }}</a>
+        </div>
+        <button aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
+                <div class="input-group no-border">
+                    <input class="form-control" placeholder="Search..." type="text" value="">
+                    <button class="btn btn-white btn-round btn-just-icon" type="submit">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#pablo">
+                        <i class="material-icons">dashboard</i>
+                        <p class="d-lg-none d-md-block">
+                            Stats
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link" data-toggle="dropdown"
+                       href="http://example.com" id="navbarDropdownMenuLink">
+                        <i class="material-icons">notifications</i>
+                        <span class="notification">5</span>
+                        <p class="d-lg-none d-md-block">
+                            Some Actions
+                        </p>
+                    </a>
+                    <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                        <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                        <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                        <a class="dropdown-item" href="#">Another Notification</a>
+                        <a class="dropdown-item" href="#">Another One</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link" data-toggle="dropdown" href="#pablo"
+                       id="navbarDropdownProfile">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                            Account
+                        </p>
+                    </a>
+                    <div aria-labelledby="navbarDropdownProfile" class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Log out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,27 @@
+{% raw %}
+<div class="user">
+    <div class="photo">
+        <img :src="sidebar.logo"/>
+    </div>
+    <div class="user-info">
+        <a class="username" data-toggle="collapse" href="#collapseExample">
+              <span>
+                <span v-html="sidebar.name"></span>
+                <b class="caret"></b>
+              </span>
+        </a>
+        <div class="collapse" id="collapseExample">
+            <ul class="nav">
+                <li class="nav-item" v-for="module in modules">
+                    <a :href="module.link" class="nav-link" v-if="module.id != page.module">
+                        <span class="sidebar-mini">
+                                    <img :src="module.logo"/>
+                        </span>
+                        <span class="sidebar-normal" v-html="module.name">  </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endraw %}

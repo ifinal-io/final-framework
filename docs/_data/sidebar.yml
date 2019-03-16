@@ -1,0 +1,55 @@
+json:
+  logo: /assets/img/modules/json.png
+  name: Final Json
+mybatis:
+  logo: /assets/img/modules/mybatis.jpg
+  name: Final Mybatis
+spring:
+  logo: /assets/img/modules/spring.svg
+  name: Final Spring
+  menus:
+    - id: index
+      link: /spring
+      icon: dashboard
+      name: README
+    - id: web
+      icon: image
+      name: WEB
+      menus:
+        - id: resolver
+          name: 参数解析器
+          mini: RL
+          menus:
+            - id: request-json-param
+              link: /spring/web/resolver/request-json-param
+              name: RequestJsonParam
+              mini: RJP
+
+cache:
+  logo: /assets/img/modules/redis.jpg
+  name: Final Cache
+  menus:
+    - id: readme
+      link: /cache
+      icon: dashboard
+      name: README
+    - id: annotation
+      icon: image
+      name: Annotation
+      menus:
+        - id: cacheable
+          link: /cache/annotation/cacheable
+          name: Cacheable
+          mini: CA
+        - id: cachelock
+          link: /cache/annotation/cachelock
+          name: CacheLock
+          mini: CL
+        - id: cachedel
+          link: /cache/annotation/cachedel
+          name: CacheDel
+          mini: CD
+        - id: cacheput
+          link: /cache/annotation/cacheput
+          name: CachePut
+          mini: CP
