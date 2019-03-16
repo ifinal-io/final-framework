@@ -17,18 +17,4 @@
         {% include sidebar/sidebar-menu.html %}
     </div>
 </div>
-
-<script>
-    var sidebar = new Vue({
-        el: '#sidebar',
-        data: {
-            message: 'Hello Vue!',
-            page: {
-                module: "{{ page.collection }}",
-                menus: {{ page.menus | jsonify }}
-            },
-            modules: {{ site.data.modules | jsonify }},
-            sidebar: {{ site.data.sidebar[page.collection] | jsonify }}
-        }
-    })
-</script>
+{% include sidebar/sidebar.jekyll %}

@@ -1,0 +1,13 @@
+<script>
+    var sidebar = new Vue({
+        el: '#sidebar',
+        data: {
+            page: {
+                module: "{{ page.collection }}",
+                menus: {{ page.menus | jsonify }}
+            },
+            modules: {{ site.data.modules | jsonify }},
+            sidebar: {{ site.data.sidebar[page.collection] | jsonify }}
+        }
+    })
+</script>
