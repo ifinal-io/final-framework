@@ -1,10 +1,10 @@
 language: java
 
 after_script:
-  - git push --force --quiet "https://${coding-user}:${coding-token}@${coding-repo}" master:master
+  - git push --force --quiet "https://${coding_user}:${coding_token}@${coding_repo}" master:master
 
 
 env:
   global:
-    coding-user: likly
-    coding-repo: git.coding.net/likly/final-framework.git
+    coding_user: likly
+    coding_repo: git.coding.net/likly/final-framework.git
