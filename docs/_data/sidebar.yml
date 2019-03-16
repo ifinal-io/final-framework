@@ -1,3 +1,6 @@
+default:
+  logo: /assets/img/faces/avatar.jpg
+  name: Final Framework
 json:
   logo: /assets/img/modules/json.png
   name: Final Json

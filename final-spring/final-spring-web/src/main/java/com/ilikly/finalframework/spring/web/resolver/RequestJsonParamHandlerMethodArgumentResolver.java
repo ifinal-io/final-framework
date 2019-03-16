@@ -62,6 +62,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
                         return parseJson(body, parameterType);
                     } catch (Throwable e) {
                         logger.error("==> Json解析异常：json={},type={}", body, parameterType, e);
+                        throw e;
                     }
                 }
             }

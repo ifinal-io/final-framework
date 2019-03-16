@@ -1,13 +1,14 @@
+{%- assign module = page.collection | default: 'default' -%}
 <script>
     var sidebar = new Vue({
         el: '#sidebar',
         data: {
             page: {
-                module: "{{ page.collection }}",
+                module: "{{module}}",
                 menus: {{ page.menus | jsonify }}
             },
             modules: {{ site.data.modules | jsonify }},
-            sidebar: {{ site.data.sidebar[page.collection] | jsonify }}
+            sidebar: {{ site.data.sidebar[module] | jsonify }}
         }
     })
 </script>
