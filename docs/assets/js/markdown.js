@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    replaceAllMarkdownLink();
+    formatAllLink();
     openHttpLinkInBlank();
     tableAddClass();
 
@@ -21,13 +21,16 @@ function openHttpLinkInBlank() {
 /**
  * 替换页面中所有的<a href="*.md">的为<a href="*.html">
  */
-function replaceAllMarkdownLink() {
+function formatAllLink() {
     $('a').each(function () {
+        let github = "https://github.com/likly/final-framework/blob/master";
         let $a = $(this);
         let href = $a.attr('href');
         if (href !== undefined && href.indexOf('.md') !== -1) {
             console.log(href);
             $a.attr('href', href.substr(0, href.length - 3).concat('.html'));
+        } else if (href !== undefined && href.indexOf('.java') !== -1) {
+            $a.attr('href', github + href);
         }
     });
 }
