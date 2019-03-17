@@ -24,18 +24,18 @@ public class CacheDelInvocation extends AbsCacheInvocationSupport implements Cac
 
     @Override
     public Void beforeInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
-        invocation(cache, context, result);
+        invocation(cache, context, result, null);
         return null;
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
-        invocation(cache, context, result);
+    public Void afterInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {
+        invocation(cache, context, result, throwable);
         return null;
     }
 
 
-    private void invocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
+    private void invocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result);
         final CacheDelOperation operation = context.operation();

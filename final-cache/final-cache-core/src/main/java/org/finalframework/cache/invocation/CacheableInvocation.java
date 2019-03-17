@@ -52,7 +52,7 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
+    public Void afterInvocation(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result);
         if (!isConditionPassing(context.operation().condition(), context.metadata(), evaluationContext)) {

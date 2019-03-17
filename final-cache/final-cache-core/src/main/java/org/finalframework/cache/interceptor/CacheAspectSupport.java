@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.*;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
-import org.finalframework.cache.handler.CacheDelOperationContextsHandler;
-import org.finalframework.cache.handler.CacheLockOperationContextsHandler;
-import org.finalframework.cache.handler.CachePutOperationContextsHandler;
-import org.finalframework.cache.handler.CacheableOperationContextsHandler;
+import org.finalframework.cache.handler.CacheDelInvocationHandler;
+import org.finalframework.cache.handler.CacheLockInvocationHandler;
+import org.finalframework.cache.handler.CachePutInvocationHandler;
+import org.finalframework.cache.handler.CacheableInvocationHandler;
 import org.finalframework.core.Assert;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.util.LinkedMultiValueMap;
@@ -29,26 +28,26 @@ public abstract class CacheAspectSupport {
     private final CacheOperationExpressionEvaluator evaluator = new DefaultCacheOperationExpressionEvaluator();
     private final Map<CacheOperationCacheKey, CacheOperationMetadata> metadataCache = new ConcurrentHashMap<>(1024);
     private final CacheConfiguration cacheConfiguration = new CacheConfiguration();
-    private final List<CacheOperationContextsHandler<?>> beforeCacheOperationContextsHandlers = new ArrayList<>();
-    private final List<CacheOperationContextsHandler<?>> afterCacheOperationContextsHandlers = new ArrayList<>();
+    private final List<CacheInvocationHandler<?, ?>> beforeCacheInvocationHandlers = new ArrayList<>();
+    private final List<CacheInvocationHandler<?, ?>> afterCacheInvocationHandlers = new ArrayList<>();
     private boolean initialized = true;
     @Setter
     @Getter
     private CacheOperationSource cacheOperationSource;
 
     {
-        final CacheLockOperationContextsHandler cacheLockOperationContextsHandler = new CacheLockOperationContextsHandler();
-        final CacheableOperationContextsHandler cacheableOperationContextsHandler = new CacheableOperationContextsHandler();
-        final CacheDelOperationContextsHandler cacheDelOperationContextsHandler = new CacheDelOperationContextsHandler();
-        beforeCacheOperationContextsHandlers.add(cacheLockOperationContextsHandler);
-        beforeCacheOperationContextsHandlers.add(cacheableOperationContextsHandler);
-        beforeCacheOperationContextsHandlers.add(cacheDelOperationContextsHandler);
+        final CacheLockInvocationHandler cacheLockOperationContextsHandler = new CacheLockInvocationHandler();
+        final CacheableInvocationHandler cacheableOperationContextsHandler = new CacheableInvocationHandler();
+        final CacheDelInvocationHandler cacheDelOperationContextsHandler = new CacheDelInvocationHandler();
+        beforeCacheInvocationHandlers.add(cacheLockOperationContextsHandler);
+        beforeCacheInvocationHandlers.add(cacheableOperationContextsHandler);
+        beforeCacheInvocationHandlers.add(cacheDelOperationContextsHandler);
 
-        final CachePutOperationContextsHandler cachePutOperationContextsHandler = new CachePutOperationContextsHandler();
-        afterCacheOperationContextsHandlers.add(cacheableOperationContextsHandler);
-        afterCacheOperationContextsHandlers.add(cachePutOperationContextsHandler);
-        afterCacheOperationContextsHandlers.add(cacheDelOperationContextsHandler);
-        afterCacheOperationContextsHandlers.add(cacheLockOperationContextsHandler);
+        final CachePutInvocationHandler cachePutOperationContextsHandler = new CachePutInvocationHandler();
+        afterCacheInvocationHandlers.add(cacheableOperationContextsHandler);
+        afterCacheInvocationHandlers.add(cachePutOperationContextsHandler);
+        afterCacheInvocationHandlers.add(cacheDelOperationContextsHandler);
+        afterCacheInvocationHandlers.add(cacheLockOperationContextsHandler);
     }
 
     protected CacheContext getCacheOperationContext(CacheOperation operation, Method method, Object[] args, Object target, Class<?> targetClass) {
@@ -90,8 +89,8 @@ public abstract class CacheAspectSupport {
     private Object execute(CacheOperationInvoker invoker, Method method, CacheOperationContextsImpl contexts) {
 
         Object cacheValue = null;
-        for (CacheOperationContextsHandler<?> handler : beforeCacheOperationContextsHandlers) {
-            Object value = handler.handle(contexts, DefaultCacheOperationExpressionEvaluator.NO_RESULT, CacheInvocationTime.BEFORE);
+        for (CacheInvocationHandler<?, ?> handler : beforeCacheInvocationHandlers) {
+            Object value = handler.handleBefore(contexts, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
             if (cacheValue == null && value != null) {
                 cacheValue = value;
             }
@@ -101,10 +100,23 @@ public abstract class CacheAspectSupport {
             return cacheValue;
         }
 
-        final Object returnValue = invoker.invoke();
-        for (CacheOperationContextsHandler<?> handler : afterCacheOperationContextsHandlers) {
-            handler.handle(contexts, returnValue, CacheInvocationTime.AFTER);
+        Object returnValue = null;
+        Throwable throwable = null;
+
+        try {
+            returnValue = invoker.invoke();
+        } catch (Throwable e) {
+            throwable = e;
         }
+
+        for (CacheInvocationHandler<?, ?> handler : afterCacheInvocationHandlers) {
+            handler.handleAfter(contexts, returnValue, throwable);
+        }
+
+        if (throwable != null) {
+            throw new CacheException(throwable);
+        }
+
         return returnValue;
 
     }

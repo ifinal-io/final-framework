@@ -82,7 +82,7 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result) {
+    public Void afterInvocation(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final CacheLockInvocationContext invocation = context.invocation();
         if (invocation != null && invocation.lock()) {
