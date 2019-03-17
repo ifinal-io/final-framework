@@ -1,4 +1,4 @@
 language: java
 
-after_script:
-  - git push --force "https://${coding_user}:${coding_token}@${coding_repo}" master:master
+before_script:
+  - git push "https://${coding_user}:${coding_token}@${coding_repo}" master:master
