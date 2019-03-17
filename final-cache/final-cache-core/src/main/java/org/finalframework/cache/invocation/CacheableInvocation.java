@@ -4,7 +4,6 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
 import org.finalframework.cache.operation.CacheableOperation;
 import org.finalframework.json.Json;
 import org.slf4j.Logger;
@@ -25,11 +24,6 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("all")
 public class CacheableInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheableOperation, CacheableInvocationContext, Object, Void> {
-
-    @Override
-    public boolean supports(CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, CacheInvocationTime invocationTime) {
-        return true;
-    }
 
     @Override
     public Object beforeInvocation(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {

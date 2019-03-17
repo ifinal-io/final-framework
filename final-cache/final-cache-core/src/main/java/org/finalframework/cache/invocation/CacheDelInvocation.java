@@ -18,18 +18,15 @@ import org.springframework.expression.EvaluationContext;
 public class CacheDelInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheDelOperation, Void, Void, Void> {
 
     @Override
-    public boolean supports(CacheOperationContext<CacheDelOperation, Void> context, CacheInvocationTime invocationTime) {
-        return context.operation().invocationTime() == invocationTime;
-    }
-
-    @Override
     public Void beforeInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
+        if (CacheInvocationTime.BEFORE != context.operation().invocationTime()) return null;
         invocation(cache, context, result, null);
         return null;
     }
 
     @Override
     public Void afterInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {
+        if (CacheInvocationTime.AFTER != context.operation().invocationTime()) return null;
         invocation(cache, context, result, throwable);
         return null;
     }

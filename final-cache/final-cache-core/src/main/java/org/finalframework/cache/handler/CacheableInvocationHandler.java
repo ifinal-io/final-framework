@@ -2,7 +2,6 @@ package org.finalframework.cache.handler;
 
 
 import org.finalframework.cache.*;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
 import org.finalframework.cache.operation.CacheableOperation;
 import org.finalframework.core.Assert;
 
@@ -28,11 +27,9 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            if (cacheInvocation.supports(context, CacheInvocationTime.BEFORE)) {
-                final Object cacheValue = cacheInvocation.beforeInvocation(cache, context, result);
-                if (cacheValue != null) {
-                    return cacheValue;
-                }
+            final Object cacheValue = cacheInvocation.beforeInvocation(cache, context, result);
+            if (cacheValue != null) {
+                return cacheValue;
             }
         }
         return null;
@@ -49,10 +46,7 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            if (cacheInvocation.supports(context, CacheInvocationTime.AFTER)) {
-                cacheInvocation.afterInvocation(cache, context, result, throwable);
-
-            }
+            cacheInvocation.afterInvocation(cache, context, result, throwable);
         }
         return null;
     }

@@ -4,7 +4,6 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.core.Assert;
 import org.finalframework.json.Json;
@@ -25,13 +24,8 @@ import java.util.concurrent.TimeUnit;
 public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation, Void, Void, Void> {
 
     @Override
-    public boolean supports(CacheOperationContext<CachePutOperation, Void> context, CacheInvocationTime invocationTime) {
-        return CacheInvocationTime.AFTER == invocationTime;
-    }
-
-    @Override
     public Void beforeInvocation(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
-        throw new UnsupportedOperationException("CachePut 不支持在方法执行之前调用");
+        return null;
     }
 
     @Override

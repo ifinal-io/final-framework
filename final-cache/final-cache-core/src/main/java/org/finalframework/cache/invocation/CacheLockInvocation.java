@@ -5,7 +5,6 @@ import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheLockException;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.CacheLock;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
 import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.core.Assert;
 import org.slf4j.Logger;
@@ -23,11 +22,6 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public class CacheLockInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheLockOperation, CacheLockInvocationContext, Void, Void> {
-
-    @Override
-    public boolean supports(CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, CacheInvocationTime invocationTime) {
-        return true;
-    }
 
     @Override
     public Void beforeInvocation(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result) {
