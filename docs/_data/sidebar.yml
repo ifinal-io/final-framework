@@ -32,7 +32,7 @@ cache:
   logo: /assets/img/modules/redis.jpg
   name: Final Cache
   menus:
-    - id: readme
+    - id: index
       link: /cache
       icon: dashboard
       name: README

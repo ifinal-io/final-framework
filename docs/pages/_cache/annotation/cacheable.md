@@ -1,6 +1,6 @@
 ---
 title: Cacheable
-subtitle: cacheable
+subtitle: 缓存获取与设置
 description: 通过简单的声明，即可增强目标方法，实现缓存的设置与获取。
 categories: [redis]
 layout: post
@@ -16,33 +16,29 @@ version: 1.0
 
 # Cacheable
 
-## Why
+## What
 
-在你的工作之中，你是否经常需要为了提高系统的执行效率，降低数据库的访问压力，提升系统的并发能力，需要将一些比较**热门**的数据设置到缓存中，
-从而来满足上述需求的一些指标。
+**[`Cacheable`](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/Cacheable.java)** 是一个基于注解(`Annotation`)
+的缓存框架，能够为目标方法**Method**添加上缓存功能。
 
-为了达到上述的缓存目的，你是否又经常`CV`些模板代码，这样的操作方式是否令你感到**厌恶**，甚至有些**头疼**。
+## Usage
 
-如何减少`CV`这种操作，同时还能达到数据的缓存目的，并且还支持一些可配置的选项，以满足不同的业务需求……
+在想要增加缓存功能的方法**Method**上添加声明**Cacheable**注解，配置相应的参数，即可为目标方法增加缓存功能。
 
-## What's Your Want
+**示例**：
 
-不确定你想要的解决方案是什么样的，但下面是我想到的一种解决方案：
+* **需求**：将用户`User`的信息添加的缓存中，`key`的格式为`user:id`，仅当用户的状态`status`有效时（假设`status =1`时为有效）设置，
+并设置缓存有效时间为`5分钟`。
 
-**通过简单的声明式方式来增强目标`Method`的功能，以达到数据缓存的目的。**
+* **Code**:
+```java
+public interface UserService{
+    @Cacheable(key={"user:{#id}"},condition="{#result.status == 1}",ttl=5,timeunit=TimeUnit.MINUTE)
+    User findById(Long id);
+}
+```
 
-**功能点**：
-
-* 在**Method**调用之前，检测缓存**Cache**中是否有与`key`和`field`相对应的数据，如果有，则直接将缓存中的数据返回。
-* 在**Method**调用之后，将方法的返回值设置到缓存`Cache`相应的`key`和`field`所描述的空间。
-* 数据并不一定需要缓存，可配置在数据满足一定条件`conditon`的前提下再设置缓存。
-* 可配置**过期时间**和**有效时间**。
-
-## This's Mine
-
-**[`Cacheable`](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/Cacheable.java)**：可缓存的注解（`Annotation`），通过在目标**Method**上声明该注解，达到数据的缓存目的。
-
-**配置项**：
+## Options
 
 |   配置项    | 是否可选 |   类型   |         默认值          |          备注           |
 | :---------: | :--: | :------: | :---------------------: | :---------------------: |
@@ -55,45 +51,48 @@ version: 1.0
 | `timeunit`  |  Y   |   `TimeUnit`   | `TimeUnit.MILLISECONDS` |      有效时间单位       |
 
 
-## How to Use It
+## Why
 
-在需要增强的**Method**上声明**Cacheable**注解，并指明缓存的`key`和`field`(可选)，即可实现在目标方法之前，优先获取缓存中的数据。
-如果命中缓存，则将缓存中的数据直接返回，减少目标**Method**方法的调用次数，提高数据访问效率；未命中，则继续调用目标**Method**，
-并在调用完成之后，将返回值设置到缓存**Cache**中。
+**“缓存”，一般是为了提高业务系统的响应效率，不涉及具体的业务逻辑。**
 
-**需求**：
-> 将用户`User`的信息添加的缓存中，`key`的格式为`user:id`，仅当用户的状态`status`有效时（假设`status =1`时为有效）设置，
-并设置缓存有效时间为`5分钟`。
-
-**示例**：
+但是，为了给业务添加缓存功能，我们经常会写出如下的模板代码：
 
 ```java
-public interface UserService{
-    @Cacheable(key={"user:{#id}"},condition="{#result.status == 1}",ttl=5,timeunit=TimeUnit.MINUTE)
-    User findById(Long id);
-}
-```
-
-## How it to Work
-
-```java
-public class UserServiceImpl implements UserService{
+public class DataService{
+    @Resource
+    private CacheService cacheService;
     
-    User findById(Long id){
-        // 在方法调用之前先从Cache中获取数据
-        final Object cacheValue = Cache.get(Cacheable.key(),Cacheable.field());
-        if(cacheValue != null){
-            return cacheValue;
-        }
+    public Data findDataById(Long id){
+        // 获取KEY
+        final String key = "cache:data:" + id;
+        // 优先从缓存中获取
+        final Data cache = cacheService.get(key);  
+        // 缓存命中，直接返回
+        if(cache != null) return cache;
         
-        // 方法调用
-        final Object returnValue = method.invode();
-        
-        // 在方法调用之后，将方法的返回值设置到缓存中
-        Ccahe.set(Cacheable.key(),Cacheable.field(),returnValue);
-        
-        return returnValue;
-        
+        // 缓存未命中，查找逻辑
+        final Data result = doFind(id);
+        // 将查询结果添加在缓存中
+        cacheService.set(key,result);
+        // 返回结果
+        return  result;
     }
 }
 ```
+
+在上述伪代码中，核心业务只有`final Data result = doFind(id);`这一行，其它都是为了提高该方法的查询效率而做的性能优化，即使用缓存。
+
+我相信，这样的模板代码你写了N次，也`CV`了无数次，你也一定为这样的代码而感到苦恼，却无奈没有好的解决方法。。。
+
+但是，从现在开始，上面的代码可以变成这样：
+
+```java
+public class DataService{
+    @Cacheable(key={"cache:data:{#id}"})    
+    public Data findDataById(Long id){
+        return doFind(id);
+    }
+}
+```
+
+如此一来，缓存是不是简单了许多呢！

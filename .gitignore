@@ -3,7 +3,8 @@
 */target/
 /logs/
 *.versionsBackup
-
+*/.sass-cache
+*/_site
 ### STS ###
 .apt_generated
 .classpath
