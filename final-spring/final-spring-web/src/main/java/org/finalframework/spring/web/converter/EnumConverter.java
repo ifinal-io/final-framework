@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
  * @date 2019-03-11 15:58:57
  * @since 1.0
  */
-public class String2EnumConverter<T extends IEnum> implements Converter<String, T> {
+public class EnumConverter<T extends IEnum> implements Converter<String, T> {
     private final Class<T> enumType;
     private final Map<String, T> enumMap;
 
-    public String2EnumConverter(Class<T> enumType) {
+    public EnumConverter(Class<T> enumType) {
         this.enumType = enumType;
         final T[] enums = this.enumType.getEnumConstants();
         enumMap = Arrays.stream(enums).collect(Collectors.toMap(e -> e.getCode().toString(), e -> e));

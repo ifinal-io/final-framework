@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.configurer;
 
-import org.finalframework.spring.web.converter.String2EnumConverterFactory;
+import org.finalframework.spring.web.converter.EnumConverterFactory;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +24,8 @@ public class SpringWebMvcConfigurer implements WebMvcConfigurer {
     }
 
     @Bean
-    public String2EnumConverterFactory integer2EnumConverterFactory() {
-        return new String2EnumConverterFactory();
+    public EnumConverterFactory integer2EnumConverterFactory() {
+        return new EnumConverterFactory();
     }
 
     @Override

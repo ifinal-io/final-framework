@@ -19,9 +19,17 @@ spring:
       icon: image
       name: WEB
       menus:
+        - id: converter
+          name: 参数转换器
+          mini: CV
+          menus:
+            - id: date-converter
+              link: /spring/web/converter/date-converter
+              name: DateConverter
+              mini: DCV
         - id: resolver
           name: 参数解析器
-          mini: RL
+          mini: RS
           menus:
             - id: request-json-param
               link: /spring/web/resolver/request-json-param

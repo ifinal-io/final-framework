@@ -1,7 +1,7 @@
 package org.finalframework.spring.web.configurer;
 
 import org.finalframework.spring.coding.AutoConfiguration;
-import org.finalframework.spring.web.converter.String2DateConverter;
+import org.finalframework.spring.web.converter.DateConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
         SpringResourceConfigurer.class,
         CorsConfigurer.class,
         SpringWebMvcConfigurer.class,
-        String2DateConverter.class
+        DateConverter.class
 })
 @Configuration
 @AutoConfiguration

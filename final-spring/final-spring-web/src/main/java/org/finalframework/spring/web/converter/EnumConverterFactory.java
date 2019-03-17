@@ -11,10 +11,10 @@ import org.springframework.core.convert.converter.ConverterFactory;
  * @date 2019-03-11 15:56:02
  * @since 1.0
  */
-public class String2EnumConverterFactory implements ConverterFactory<String, IEnum> {
+public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
 
     @Override
     public <T extends IEnum> Converter<String, T> getConverter(Class<T> targetType) {
-        return new String2EnumConverter<>(targetType);
+        return new EnumConverter<>(targetType);
     }
 }
