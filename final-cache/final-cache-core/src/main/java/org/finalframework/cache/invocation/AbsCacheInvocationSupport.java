@@ -39,9 +39,9 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public EvaluationContext createEvaluationContext(CacheOperationContext context, Object result) {
+    public EvaluationContext createEvaluationContext(CacheOperationContext context, Object result, Throwable e) {
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
-                context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result);
+                context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
     }
 
     @Override

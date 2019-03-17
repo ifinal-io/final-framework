@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheLockInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheLockOperation, CacheLockInvocationContext, Void, Void> {
 
     @Override
-    public Void beforeInvocation(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result) {
+    public Void before(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         final CacheLockOperation operation = context.operation();
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {
@@ -76,7 +76,7 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result, Throwable throwable) {
+    public Void after(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final CacheLockInvocationContext invocation = context.invocation();
         if (invocation != null && invocation.lock()) {

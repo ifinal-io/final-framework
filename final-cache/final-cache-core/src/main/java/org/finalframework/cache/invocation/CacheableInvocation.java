@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheableInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheableOperation, CacheableInvocationContext, Object, Void> {
 
     @Override
-    public Object beforeInvocation(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
+    public Object before(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         final CacheableOperation operation = context.metadata().getOperation();
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {
@@ -46,17 +46,15 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result, Throwable throwable) {
+    public Void afterReturning(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         if (!isConditionPassing(context.operation().condition(), context.metadata(), evaluationContext)) {
             return null;
         }
-
         final Object key = context.invocation().key();
         final Object field = context.invocation().field();
         final Object cacheValue = result;
-
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;
         Object expired = generateExpire(context.operation().expire(), context.metadata(), evaluationContext);
@@ -75,8 +73,10 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
         logger.info("==> cache set: key={},field={},ttl={},timeunit={}", key, field, ttl, timeUnit);
         logger.info("==> cache value: {}", Json.toJson(cacheValue));
         cache.set(key, field, cacheValue, ttl, timeUnit, context.view());
+
         return null;
     }
+
 
     private static class CacheableInvocationContextImpl implements CacheableInvocationContext, Serializable {
         private final Object key;

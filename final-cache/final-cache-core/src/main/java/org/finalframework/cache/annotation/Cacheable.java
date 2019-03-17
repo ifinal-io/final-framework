@@ -3,7 +3,7 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
+import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 缓存，为目标方法增加缓存能力。
  * <ol>
- *     <li>在执行之前，优先从 {@link #key()} 和 {@link #field()} 所描述的缓存区域里读取 {@link Cache#get(Object, Object, Type, Class)}，如果命中，则直接返回。</li>
- *     <li>在执行之后，将方法的执行结果写到 {@link #key()} 和 {@link #field()} 所描述的缓存区域里，{@link Cache#set(Object, Object, Object, Long, TimeUnit, Class)}。</li>
+ * <li>在执行之前，优先从 {@link #key()} 和 {@link #field()} 所描述的缓存区域里读取 {@link Cache#get(Object, Object, Type, Class)}，如果命中，则直接返回。</li>
+ * <li>在执行之后，将方法的执行结果写到 {@link #key()} 和 {@link #field()} 所描述的缓存区域里，{@link Cache#set(Object, Object, Object, Long, TimeUnit, Class)}。</li>
  * </ol>
  *
  * @author likly
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({CacheInvocationTime.BEFORE, CacheInvocationTime.AFTER})
+@CacheAnnotation({InvocationTime.BEFORE, InvocationTime.AFTER_RETURNING})
 public @interface Cacheable {
 
     /**
@@ -75,6 +75,7 @@ public @interface Cacheable {
      * 有效时间单位
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
+
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
 

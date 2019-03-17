@@ -3,7 +3,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheDel;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
+import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.finalframework.cache.invocation.CacheDelInvocation;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
@@ -25,7 +25,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
     private final Collection<String> field;
     private final String condition;
     private final String delimiter;
-    private final CacheInvocationTime invocationTime;
+    private final InvocationTime invocationTime;
     private final Integer retry;
     private final Long sleep;
     private final Class<? extends CacheInvocation> invocation;
@@ -73,7 +73,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
     }
 
     @NonNull
-    public CacheInvocationTime invocationTime() {
+    public InvocationTime invocationTime() {
         return invocationTime;
     }
 
@@ -98,7 +98,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
         private Collection<String> field;
         private String delimiter;
         private String condition;
-        private CacheInvocationTime invocationTime;
+        private InvocationTime invocationTime;
         private Integer retry;
         private Long sleep;
         private Class<? extends CacheInvocation> invocation;
@@ -132,7 +132,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
             return this;
         }
 
-        public Builder invocationTime(CacheInvocationTime invocationTime) {
+        public Builder invocationTime(InvocationTime invocationTime) {
             this.invocationTime = invocationTime;
             return this;
         }

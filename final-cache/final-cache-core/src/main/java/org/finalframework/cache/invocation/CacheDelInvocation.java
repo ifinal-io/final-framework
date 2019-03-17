@@ -3,7 +3,8 @@ package org.finalframework.cache.invocation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
+import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.cache.operation.CacheDelOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,23 +19,29 @@ import org.springframework.expression.EvaluationContext;
 public class CacheDelInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheDelOperation, Void, Void, Void> {
 
     @Override
-    public Void beforeInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
-        if (CacheInvocationTime.BEFORE != context.operation().invocationTime()) return null;
+    public Void before(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
+        if (InvocationTime.BEFORE == context.operation().invocationTime()) return null;
         invocation(cache, context, result, null);
         return null;
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {
-        if (CacheInvocationTime.AFTER != context.operation().invocationTime()) return null;
-        invocation(cache, context, result, throwable);
+    public Void afterReturning(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
+        if (InvocationTime.AFTER_RETURNING == context.operation().invocationTime()) return null;
+        invocation(cache, context, result, null);
         return null;
     }
 
+    @Override
+    public Void afterThrowing(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Throwable throwable) {
+        if (InvocationTime.AFTER_THROWING == context.operation().invocationTime()) return null;
+        invocation(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT, throwable);
+        return null;
+    }
 
     private void invocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CacheDelOperation operation = context.operation();
         if (isConditionPassing(operation.condition(), context.metadata(), evaluationContext)) {
             final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);

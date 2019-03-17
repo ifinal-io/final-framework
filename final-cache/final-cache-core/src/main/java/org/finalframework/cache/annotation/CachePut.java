@@ -3,7 +3,7 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
+import org.finalframework.cache.annotation.enums.InvocationTime;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @Documented
-@CacheAnnotation(CacheInvocationTime.AFTER)
+@CacheAnnotation(InvocationTime.AFTER_RETURNING)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CachePut {

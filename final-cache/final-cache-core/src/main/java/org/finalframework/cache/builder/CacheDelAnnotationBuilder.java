@@ -35,6 +35,7 @@ public class CacheDelAnnotationBuilder extends AbsCacheAnnotationBuilder impleme
                 .condition(ann.condition())
                 .retry(ann.retry())
                 .sleep(ann.sleep())
+                .invocationTime(ann.invocationTime())
                 .invocation(ann.invocation())
                 .build();
 

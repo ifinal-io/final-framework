@@ -17,7 +17,7 @@ import java.util.Collection;
 public interface CacheInvocationSupport {
 
     @NonNull
-    EvaluationContext createEvaluationContext(@NonNull CacheOperationContext context, @Nullable Object result);
+    EvaluationContext createEvaluationContext(@NonNull CacheOperationContext context, @Nullable Object result, @Nullable Throwable e);
 
     @Nullable
     Object generateKey(@NonNull Collection<String> keys, @NonNull String delimiter, @NonNull CacheOperationMetadata<? extends CacheOperation> metadata, @NonNull EvaluationContext evaluationContext);

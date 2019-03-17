@@ -11,8 +11,18 @@ import org.springframework.lang.Nullable;
  */
 public interface CacheInvocation<O extends CacheOperation, CTX, BEFORE, AFTER> {
 
-    BEFORE beforeInvocation(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @Nullable Object result);
+    BEFORE before(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @Nullable Object result);
 
-    AFTER afterInvocation(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @Nullable Object result, @Nullable Throwable throwable);
+    default AFTER after(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @Nullable Object result, @Nullable Throwable throwable) {
+        return throwable == null ? afterReturning(cache, context, result) : afterThrowing(cache, context, throwable);
+    }
+
+    default AFTER afterReturning(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @Nullable Object result) {
+        return null;
+    }
+
+    default AFTER afterThrowing(@NonNull Cache cache, @NonNull CacheOperationContext<O, CTX> context, @NonNull Throwable throwable) {
+        return null;
+    }
 
 }

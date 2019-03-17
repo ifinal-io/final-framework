@@ -24,14 +24,14 @@ import java.util.concurrent.TimeUnit;
 public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation, Void, Void, Void> {
 
     @Override
-    public Void beforeInvocation(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+    public Void before(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
         return null;
     }
 
     @Override
-    public Void afterInvocation(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result, Throwable throwable) {
+    public Void afterReturning(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         final CachePutOperation operation = context.operation();
         if (!isConditionPassing(operation.condition(), context.metadata(), evaluationContext)) {
             return null;

@@ -31,7 +31,8 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
     /**
      * The name of the variable holding the value object.
      */
-    public static final String RESULT_VARIABLE = "result";
+    private static final String RESULT_VARIABLE = "result";
+    private static final String THROWABLE_VARIABLE = "e";
 
     private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> fieldCache = new ConcurrentHashMap<>(64);
@@ -42,7 +43,7 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
 
 
     @Override
-    public EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result) {
+    public EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result, Throwable e) {
 
         CacheExpressionRootObject rootObject = new CacheExpressionRootObject(method, args, target, targetClass);
         CacheEvaluationContext evaluationContext = new CacheEvaluationContext(rootObject, targetMethod, args, getParameterNameDiscoverer());
@@ -50,6 +51,10 @@ public class DefaultCacheOperationExpressionEvaluator extends CachedExpressionEv
             evaluationContext.addUnavailableVariable(RESULT_VARIABLE);
         } else if (result != NO_RESULT) {
             evaluationContext.setVariable(RESULT_VARIABLE, result);
+        }
+
+        if (e != null) {
+            evaluationContext.setVariable(THROWABLE_VARIABLE, e);
         }
 
         return evaluationContext;

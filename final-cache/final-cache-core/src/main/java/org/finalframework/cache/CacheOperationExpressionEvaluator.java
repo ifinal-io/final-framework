@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  */
 public interface CacheOperationExpressionEvaluator {
 
-    EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result);
+    EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result, Throwable e);
 
     Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 

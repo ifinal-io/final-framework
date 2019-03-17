@@ -27,7 +27,7 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            final Object cacheValue = cacheInvocation.beforeInvocation(cache, context, result);
+            final Object cacheValue = cacheInvocation.before(cache, context, result);
             if (cacheValue != null) {
                 return cacheValue;
             }
@@ -36,19 +36,21 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
     }
 
     @Override
-    public Void handleAfter(CacheOperationContexts contexts, Object result, Throwable throwable) {
+    public Void handleAfterReturning(CacheOperationContexts contexts, Object result) {
         final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(CacheableOperation.class);
         if (Assert.isEmpty(cacheOperationContexts)) {
             return null;
         }
         final CacheConfiguration cacheConfiguration = contexts.configuration();
         for (CacheOperationContext context : cacheOperationContexts) {
-            final Class<? extends CacheInvocation> invocation = context.operation().invocation();
+            final CacheOperation operation = context.operation();
+            final Class<? extends CacheInvocation> invocation = operation.invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
-            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            cacheInvocation.afterInvocation(cache, context, result, throwable);
+            final Cache cache = CacheRegistry.getInstance().getCache(operation);
+            cacheInvocation.afterReturning(cache, context, result);
         }
         return null;
     }
+
 
 }

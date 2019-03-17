@@ -2,7 +2,7 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.CacheInvocationTime;
+import org.finalframework.cache.annotation.enums.InvocationTime;
 
 import java.lang.annotation.*;
 
@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({CacheInvocationTime.BEFORE, CacheInvocationTime.AFTER})
+@CacheAnnotation({InvocationTime.BEFORE, InvocationTime.AFTER_RETURNING})
 public @interface CacheDel {
 
     String[] key();
@@ -30,6 +30,8 @@ public @interface CacheDel {
     int retry() default 0;
 
     long sleep() default 1000;
+
+    InvocationTime invocationTime() default InvocationTime.AFTER_RETURNING;
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
 

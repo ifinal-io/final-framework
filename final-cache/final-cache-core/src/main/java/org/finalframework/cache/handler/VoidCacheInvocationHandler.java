@@ -34,7 +34,7 @@ public class VoidCacheInvocationHandler<T extends CacheOperation> implements Cac
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            cacheInvocation.beforeInvocation(cache, context, result);
+            cacheInvocation.before(cache, context, result);
 
         }
 
@@ -52,9 +52,10 @@ public class VoidCacheInvocationHandler<T extends CacheOperation> implements Cac
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            cacheInvocation.afterInvocation(cache, context, result, throwable);
+            cacheInvocation.after(cache, context, result, throwable);
 
         }
         return null;
     }
+
 }
