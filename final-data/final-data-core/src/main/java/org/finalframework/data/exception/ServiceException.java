@@ -18,8 +18,8 @@ public class ServiceException extends RuntimeException implements IException {
         this.code = code;
     }
 
-    public ServiceException(IException exception) {
-        this(exception.getCode(), exception.getMessage());
+    public ServiceException(IException exception, Object... args) {
+        this(exception.getCode(), exception.getMessage(), args);
     }
 
 
