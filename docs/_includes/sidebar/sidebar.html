@@ -1,14 +1,15 @@
-<div class="sidebar" data-background-color="black" data-color="rose" data-image="/assets/img/sidebar-1.jpg" id="sidebar">
+<div :class="sidebar-mini" :data-color="color" class="sidebar" data-background-color="black"
+     data-image="/assets/img/sidebar-1.jpg" id="sidebar">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
       Tip 2: you can also add an image using data-image tag
   -->
     <div class="logo">
-        <a class="simple-text logo-mini" href="http://www.creative-tim.com">
+        <a class="simple-text logo-mini" href="{{ site.url }}">
             FFW
         </a>
-        <a class="simple-text logo-normal" href="http://www.creative-tim.com">
+        <a class="simple-text logo-normal" href="{{ site.url }}">
             Final Framework
         </a>
     </div>

@@ -1,5 +1,5 @@
 default:
-  logo: /assets/img/faces/avatar.jpg
+  logo: /assets/img/modules/mayi.png
   name: Final Framework
 json:
   logo: /assets/img/modules/json.png

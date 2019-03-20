@@ -18,6 +18,13 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
+ * 分页拦截器
+ *
+ * <ul>
+ * <li>单一参数实现了 {@link Pageable} 接口</li>
+ * <li>参数列表中有一个参数实现了 {@link Pageable} 接口</li>
+ * </ul>
+ *
  * @author likly
  * @version 1.0
  * @date 2019-01-15 21:58:13
@@ -30,9 +37,9 @@ import java.util.Properties;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
-public class QueryPageInterceptor implements Interceptor {
+public class PageableInterceptor implements Interceptor {
 
-    private static final Logger logger = LoggerFactory.getLogger(QueryPageInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(PageableInterceptor.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

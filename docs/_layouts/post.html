@@ -52,116 +52,7 @@
         {% include footer.html %}
     </div>
 </div>
-<div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-        <a data-toggle="dropdown" href="#">
-            <i class="fa fa-cog fa-2x"> </i>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="header-title"> Sidebar Filters</li>
-            <li class="adjustments-line">
-                <a class="switch-trigger active-color" href="javascript:void(0)">
-                    <div class="badge-colors ml-auto mr-auto">
-                        <span class="badge filter badge-purple" data-color="purple"></span>
-                        <span class="badge filter badge-azure" data-color="azure"></span>
-                        <span class="badge filter badge-green" data-color="green"></span>
-                        <span class="badge filter badge-warning" data-color="orange"></span>
-                        <span class="badge filter badge-danger" data-color="danger"></span>
-                        <span class="badge filter badge-rose active" data-color="rose"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="header-title">Sidebar Background</li>
-            <li class="adjustments-line">
-                <a class="switch-trigger background-color" href="javascript:void(0)">
-                    <div class="ml-auto mr-auto">
-                        <span class="badge filter badge-black active" data-background-color="black"></span>
-                        <span class="badge filter badge-white" data-background-color="white"></span>
-                        <span class="badge filter badge-red" data-background-color="red"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a class="switch-trigger" href="javascript:void(0)">
-                    <p>Sidebar Mini</p>
-                    <label class="ml-auto">
-                        <div class="togglebutton switch-sidebar-mini">
-                            <label>
-                                <input type="checkbox">
-                                <span class="toggle"></span>
-                            </label>
-                        </div>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line">
-                <a class="switch-trigger" href="javascript:void(0)">
-                    <p>Sidebar Images</p>
-                    <label class="switch-mini ml-auto">
-                        <div class="togglebutton switch-sidebar-image">
-                            <label>
-                                <input checked="" type="checkbox">
-                                <span class="toggle"></span>
-                            </label>
-                        </div>
-                    </label>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="header-title">Images</li>
-            <li class="active">
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img alt="" src="/assets/img/sidebar-1.jpg">
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img alt="" src="/assets/img/sidebar-2.jpg">
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img alt="" src="/assets/img/sidebar-3.jpg">
-                </a>
-            </li>
-            <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img alt="" src="/assets/img/sidebar-4.jpg">
-                </a>
-            </li>
-            <li class="button-container">
-                <a class="btn btn-rose btn-block btn-fill"
-                   href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank">Buy Now</a>
-                <a class="btn btn-default btn-block"
-                   href="https://demos.creative-tim.com/material-dashboard-pro/docs/2.1/getting-started/introduction.html"
-                   target="_blank">
-                    Documentation
-                </a>
-                <a class="btn btn-info btn-block" href="https://www.creative-tim.com/product/material-dashboard"
-                   target="_blank">
-                    Get Free Demo!
-                </a>
-            </li>
-            <li class="button-container github-star">
-                <a aria-label="Star ntkme/github-buttons on GitHub" class="github-button" data-icon="octicon-star"
-                   data-show-count="true" data-size="large"
-                   href="https://github.com/creativetimofficial/ct-material-dashboard-pro">Star</a>
-            </li>
-            <li class="header-title">Thank you for 95 shares!</li>
-            <li class="button-container text-center">
-                <button class="btn btn-round btn-twitter" id="twitter"><i class="fa fa-twitter"></i> &middot; 45
-                </button>
-                <button class="btn btn-round btn-facebook" id="facebook"><i class="fa fa-facebook-f"></i> &middot; 50
-                </button>
-                <br>
-                <br>
-            </li>
-        </ul>
-    </div>
-</div>
+{% include plugins/fixed.html %}
 <script>
     $(document).ready(function () {
         $().ready(function () {
@@ -299,8 +190,9 @@
 
             $('.switch-sidebar-mini input').change(function () {
                 $body = $('body');
-
                 $input = $(this);
+
+                console.log($("input").prop("checked"));
 
                 if (md.misc.sidebar_mini_active == true) {
                     $('body').removeClass('sidebar-mini');

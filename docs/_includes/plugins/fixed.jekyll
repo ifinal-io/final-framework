@@ -1,0 +1,28 @@
+<script>
+
+    var fixed = new Vue({
+        el: '#fixed',
+        data: {
+            color: $.cookie('sidebar_color'),
+            colors: ['purple','azure','green','orange','danger','rose'],
+            mini: $.cookie('sidebar_mini'),
+        },
+        mounted: function(){
+            let $this = this;
+            md.misc.sidebar_mini_active = $this.mini;
+            if($this.mini == true){
+                $('body').addClass('sidebar-mini');
+            }
+        },
+        methods: {
+            changeColor: function(color){
+                let $this = this;
+                $this.color = color;
+                $.cookie('sidebar_color',color);
+            },
+            switchMidiSidebar(mini){
+                $.cookie('sidebar_mini',mini);
+            }
+        }
+    })
+</script>

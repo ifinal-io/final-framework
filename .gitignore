@@ -1,6 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-*/target/
+**/target/
 /logs/
 *.versionsBackup
 */.sass-cache

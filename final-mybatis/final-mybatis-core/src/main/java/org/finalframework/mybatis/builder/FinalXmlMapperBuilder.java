@@ -23,6 +23,7 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
         methodXmlMapperBuilders.add(new UpdateMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new DeleteMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new SelectMethodXmlMapperBuilder());
+        methodXmlMapperBuilders.add(new SelectIdsMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new SelectCountMethodXmlMapperBuilder());
     }
 

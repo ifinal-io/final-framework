@@ -110,7 +110,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default int update(String tableName, T entity, Collection<ID> ids) {
-        return update(tableName, null, entity, true);
+        return update(tableName, null, entity, true, ids);
     }
 
     default int update(String tableName, T entity, Query query) {
@@ -195,6 +195,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     default int update(boolean selective, T... entities) {
         return update(Arrays.asList(entities), selective);
     }
+
     default int update(Collection<T> entities, boolean selective) {
         return entities.stream()
                 .mapToInt(it -> update(it, selective))
@@ -358,6 +359,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     List<T> select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
+    /*=========================================== SELECT IDS===========================================*/
+
+    default List<ID> selectIds(Query query) {
+        return selectIds(null, query);
+    }
+
+    List<ID> selectIds(@Param("tableName") String tableName, @Param("query") Query query);
+
+    /*=========================================== SELECT ONE ===========================================*/
+
     default T selectOne(ID id) {
         return selectOne(null, null, id, null);
     }
@@ -392,6 +403,8 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     T selectOne(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
 
+    /*=========================================== SELECT COUNT ===========================================*/
+
     default long selectCount() {
         return selectCount((Query) null);
     }
@@ -406,6 +419,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     long selectCount(@Param("tableName") String tableName, @Param("query") Query query);
 
+    /*=========================================== IS EXISTS ===========================================*/
     default boolean isExists(ID id) {
         return selectOne(id) != null;
     }
