@@ -5,8 +5,8 @@
 
     <groupId>org.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
-    <!--<version>0.0.3-SNAPSHOT</version>-->
+    <version>0.0.4-SNAPSHOT</version>
+    <!--<version>0.0.4-SNAPSHOT</version>-->
     <modules>
         <module>final-core</module>
         <module>final-util</module>
@@ -35,7 +35,7 @@
     </parent>
 
     <properties>
-        <final.version>0.0.3-SNAPSHOT</final.version>
+        <final.version>0.0.4-SNAPSHOT</final.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -265,6 +265,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
