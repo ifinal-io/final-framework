@@ -49,7 +49,7 @@ cache:
       icon: dashboard
       name: README
     - id: annotation
-      icon: image
+      icon: alternate_email
       name: Annotation
       menus:
         - id: cacheable
@@ -68,3 +68,12 @@ cache:
           link: /cache/annotation/cacheput
           name: CachePut
           mini: CP
+        - id: cacheincrement
+          link: /cache/annotation/cacheincrement
+          name: CacheIncrement
+          mini: CI
+        - id: cachevalue
+          link: /cache/annotation/cachevalue
+          name: CacheValue
+          mini: CV
+

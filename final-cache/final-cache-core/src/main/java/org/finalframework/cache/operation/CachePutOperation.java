@@ -3,6 +3,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CachePut;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CachePutInvocation;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
@@ -18,14 +19,14 @@ import java.util.concurrent.TimeUnit;
  * @see CachePut
  * @since 1.0
  */
-public class CachePutOperation implements CacheOperation<CachePut> {
-    private static final String DELIMITER = ":";
+public class CachePutOperation implements CacheOperation {
     private final String name;
     private final Collection<String> key;
     private final Collection<String> field;
     private final String value;
     private final String delimiter;
     private final String condition;
+    private final Order order;
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeUnit;
@@ -34,12 +35,13 @@ public class CachePutOperation implements CacheOperation<CachePut> {
     private final Class<? extends CacheInvocation> invocation;
 
     private CachePutOperation(Builder builder) {
-        this.name = Assert.isBlank(builder.name) ? CachePutOperation.class.getSimpleName() : builder.name;
+        this.name = Assert.isBlank(builder.name) ? getClass().getSimpleName() : builder.name;
         this.key = Assert.isEmpty(builder.key) ? null : builder.key;
         this.field = Assert.isEmpty(builder.field) ? null : builder.field;
-        this.delimiter = Assert.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.delimiter = builder.delimiter;
         this.value = Assert.isEmpty(builder.value) ? null : builder.delimiter;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
+        this.order = builder.order;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
@@ -82,6 +84,11 @@ public class CachePutOperation implements CacheOperation<CachePut> {
         return condition;
     }
 
+    @NonNull
+    public Order order() {
+        return this.order;
+    }
+
     @Nullable
     public String expire() {
         return this.expire;
@@ -119,6 +126,7 @@ public class CachePutOperation implements CacheOperation<CachePut> {
         private String value;
         private String delimiter;
         private String condition;
+        private Order order;
         private String expire;
         private Long ttl;
         private TimeUnit timeUnit;
@@ -156,6 +164,11 @@ public class CachePutOperation implements CacheOperation<CachePut> {
 
         public Builder condition(String condition) {
             this.condition = condition;
+            return this;
+        }
+
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 

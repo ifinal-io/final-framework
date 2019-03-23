@@ -4,6 +4,7 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.core.Assert;
 import org.finalframework.json.Json;
@@ -21,20 +22,36 @@ import java.util.concurrent.TimeUnit;
  * @see Cacheable
  * @since 1.0
  */
-public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation, Void, Void, Void> {
+public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation, Void> {
 
     @Override
     public Void before(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+        if (Order.BEFORE == context.operation().order()) {
+            invocation(cache, context, result, null);
+        }
         return null;
     }
 
     @Override
-    public Void afterReturning(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+    public void afterReturning(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+        if (Order.AFTER_RETURNING == context.operation().order()) {
+            invocation(cache, context, result, null);
+        }
+    }
+
+    @Override
+    public void afterThrowing(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Throwable throwable) {
+        if (Order.AFTER_THROWING == context.operation().order()) {
+            invocation(cache, context, null, throwable);
+        }
+    }
+
+    private void invocation(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CachePutOperation operation = context.operation();
         if (!isConditionPassing(operation.condition(), context.metadata(), evaluationContext)) {
-            return null;
+            return;
         }
 
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
@@ -63,7 +80,5 @@ public class CachePutInvocation extends AbsCacheInvocationSupport implements Cac
         logger.info("==> cache set: key={},field={},ttl={},timeunit={}", key, field, ttl, timeUnit);
         logger.info("==> cache value: {}", Json.toJson(cacheValue));
         cache.set(key, field, cacheValue, ttl, timeUnit, context.view());
-
-        return null;
     }
 }

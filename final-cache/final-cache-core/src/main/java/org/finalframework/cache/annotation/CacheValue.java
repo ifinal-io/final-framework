@@ -1,13 +1,13 @@
 package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Type;
 
 /**
  * 作用在方法参数 {@link java.lang.reflect.Parameter} 上，实现在方法执行之前，从缓存中获取值，并将该值赋于该参数。
@@ -16,8 +16,9 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @date 2019-03-22 14:34:17
  * @since 1.0
+ * @see org.finalframework.cache.Cache#get(Object, Object, Type, Class)
  */
-@CacheAnnotation(InvocationTime.BEFORE)
+@CacheAnnotation(Order.BEFORE)
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheValue {

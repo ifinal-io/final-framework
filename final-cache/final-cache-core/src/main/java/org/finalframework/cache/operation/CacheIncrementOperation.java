@@ -3,7 +3,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheIncrement;
-import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CacheIncrementInvocation;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheIncrement
  * @since 1.0
  */
-public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
+public class CacheIncrementOperation implements CacheOperation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
@@ -28,7 +28,7 @@ public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
     private final Class<? extends Number> type;
     private final String delimiter;
     private final String condition;
-    private final InvocationTime invocationTime;
+    private final Order order;
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeunit;
@@ -44,7 +44,7 @@ public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
         this.value = Assert.isEmpty(builder.value) ? null : builder.value;
         this.type = builder.type;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.invocationTime = builder.invocationTime;
+        this.order = builder.order;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeunit = builder.timeunit;
@@ -93,8 +93,8 @@ public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
     }
 
     @NonNull
-    public InvocationTime invocationTime() {
-        return invocationTime;
+    public Order order() {
+        return order;
     }
 
     @Nullable
@@ -135,7 +135,7 @@ public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
         private Class<? extends Number> type;
         private String delimiter;
         private String condition;
-        private InvocationTime invocationTime;
+        private Order order;
         private String expire;
         private Long ttl;
         private TimeUnit timeunit;
@@ -181,8 +181,8 @@ public class CacheIncrementOperation implements CacheOperation<CacheIncrement> {
             return this;
         }
 
-        public Builder invocationTime(InvocationTime invocationTime) {
-            this.invocationTime = invocationTime;
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 

@@ -8,6 +8,7 @@ import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.result.Result;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Person implements IEntity<Long>, Result.View {
     @PrimaryKey(insertable = true)
     private Long id;
     @JsonView(Person.class)
+    @NotNull
     @ColumnView(Result.View.class)
     private String name;
     @JsonView(Person.class)

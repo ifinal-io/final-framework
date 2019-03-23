@@ -1,26 +1,9 @@
-<footer class="footer">
+<footer class="footer" id="footer">
     <div class="container-fluid">
         <nav class="float-left">
             <ul>
-                <li>
-                    <a href="https://www.creative-tim.com">
-                        Creative Tim
-                    </a>
-                </li>
-                <li>
-                    <a href="https://creative-tim.com/presentation">
-                        About Us
-                    </a>
-                </li>
-                <li>
-                    <a href="http://blog.creative-tim.com">
-                        Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.creative-tim.com/license">
-                        Licenses
-                    </a>
+                <li v-for="item in footer.links">
+                    <a :href="item.href" v-html="item.name"></a>
                 </li>
             </ul>
         </nav>
@@ -29,8 +12,9 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            , made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            , mark with <i class="material-icons">stars</i> by
+            <a :href="git.url" target="_blank" v-html="git.domain"></a> for a better framework.
         </div>
     </div>
 </footer>
+{% include footer.jekyll %}

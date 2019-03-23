@@ -19,7 +19,7 @@ import java.util.Collection;
  * @see CacheValue
  * @since 1.0
  */
-public class CacheValueOperation implements CacheOperation<CacheValue> {
+public class CacheValueOperation implements CacheOperation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
@@ -34,7 +34,7 @@ public class CacheValueOperation implements CacheOperation<CacheValue> {
     private final Class<? extends CacheInvocation> invocation;
 
     private CacheValueOperation(Builder builder) {
-        this.name = Assert.isBlank(builder.name) ? CacheValueOperation.class.getSimpleName() : builder.name;
+        this.name = Assert.isBlank(builder.name) ? getClass().getSimpleName() : builder.name;
         this.index = builder.index;
         this.parameter = builder.parameter;
         this.parameterType = builder.parameterType;

@@ -14,7 +14,7 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheValueInvocationHandler implements CacheInvocationHandler<Void, Void> {
+public class CacheValueInvocationHandler implements CacheInvocationHandler {
 
     @Override
     public Void handleBefore(CacheOperationContexts contexts, Object result) {

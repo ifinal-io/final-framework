@@ -1,10 +1,10 @@
 package org.finalframework.cache.interceptor;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.cache.CacheInvocationContext;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.CacheOperationExpressionEvaluator;
+import org.finalframework.cache.CacheProperty;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * A {@link CacheInvocationContext} context for a {@link CacheOperation}
+ * A {@link CacheProperty} context for a {@link CacheOperation}
  *
  * @author likly
  * @version 1.0

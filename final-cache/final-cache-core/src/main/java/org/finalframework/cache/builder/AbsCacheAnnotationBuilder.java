@@ -15,18 +15,22 @@ import java.util.List;
  * @since 1.0
  */
 public class AbsCacheAnnotationBuilder {
-
+    private static final String DELIMITER = ":";
 
     protected static Collection<String> parse(String[] keyOrField, String delimiter) {
         if (Assert.isEmpty(keyOrField)) {
             return null;
         }
-
+        final String split = getDelimiter(delimiter);
         List<String> list = new ArrayList<>();
         Arrays.stream(keyOrField)
-                .map(item -> item.split(delimiter))
+                .map(item -> item.split(split))
                 .forEach(items -> list.addAll(Arrays.asList(items)));
         return list;
+    }
+
+    protected static String getDelimiter(String delimiter) {
+        return Assert.isBlank(delimiter) ? DELIMITER : delimiter.trim();
     }
 
 

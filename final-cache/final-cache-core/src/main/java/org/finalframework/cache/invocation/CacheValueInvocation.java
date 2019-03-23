@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheValueInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheValueOperation, Void, Void, Void> {
+public class CacheValueInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheValueOperation, Void> {
 
     @Override
     public Void before(Cache cache, CacheOperationContext<CacheValueOperation, Void> context, Object result) {

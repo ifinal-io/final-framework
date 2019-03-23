@@ -1,6 +1,6 @@
 package org.finalframework.cache.invocation;
 
-import org.finalframework.cache.CacheInvocationContext;
+import org.finalframework.cache.CacheProperty;
 
 /**
  * @author likly
@@ -8,7 +8,7 @@ import org.finalframework.cache.CacheInvocationContext;
  * @date 2019-03-11 00:59:48
  * @since 1.0
  */
-public interface CacheLockInvocationContext extends CacheInvocationContext {
+public interface CacheLockProperty extends CacheProperty {
     boolean lock();
 
     Object key();

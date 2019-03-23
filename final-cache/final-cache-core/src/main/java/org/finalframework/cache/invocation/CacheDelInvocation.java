@@ -3,7 +3,7 @@ package org.finalframework.cache.invocation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
-import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.cache.operation.CacheDelOperation;
 import org.slf4j.Logger;
@@ -16,27 +16,25 @@ import org.springframework.expression.EvaluationContext;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
-public class CacheDelInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheDelOperation, Void, Void, Void> {
+public class CacheDelInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheDelOperation, Void> {
 
     @Override
     public Void before(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
-        if (InvocationTime.BEFORE == context.operation().invocationTime()) return null;
+        if (Order.BEFORE == context.operation().order()) return null;
         invocation(cache, context, result, null);
         return null;
     }
 
     @Override
-    public Void afterReturning(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
-        if (InvocationTime.AFTER_RETURNING == context.operation().invocationTime()) return null;
+    public void afterReturning(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result) {
+        if (Order.AFTER_RETURNING == context.operation().order()) return;
         invocation(cache, context, result, null);
-        return null;
     }
 
     @Override
-    public Void afterThrowing(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Throwable throwable) {
-        if (InvocationTime.AFTER_THROWING == context.operation().invocationTime()) return null;
+    public void afterThrowing(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Throwable throwable) {
+        if (Order.AFTER_THROWING == context.operation().order()) return;
         invocation(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT, throwable);
-        return null;
     }
 
     private void invocation(Cache cache, CacheOperationContext<CacheDelOperation, Void> context, Object result, Throwable throwable) {

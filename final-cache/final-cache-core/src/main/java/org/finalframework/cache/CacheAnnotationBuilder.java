@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * @date 2019-03-11 09:23:17
  * @since 1.0
  */
-public interface CacheAnnotationBuilder<A extends Annotation, O extends CacheOperation<A>> {
+public interface CacheAnnotationBuilder<A extends Annotation, O extends CacheOperation> {
     @NonNull
     O build(@NonNull Class<?> type, @NonNull A ann);
 

@@ -72,7 +72,7 @@ public abstract class CacheAspectSupport {
     private Object execute(CacheOperationInvoker invoker, Method method, CacheOperationContextsImpl contexts) {
 
         Object cacheValue = null;
-        for (CacheInvocationHandler<?, ?> handler : cacheConfiguration.getCacheInvocationHandlers()) {
+        for (CacheInvocationHandler handler : cacheConfiguration.getCacheInvocationHandlers()) {
             Object value = handler.handleBefore(contexts, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
             if (cacheValue == null && value != null) {
                 cacheValue = value;
@@ -92,7 +92,14 @@ public abstract class CacheAspectSupport {
             throwable = e;
         }
 
-        for (CacheInvocationHandler<?, ?> handler : cacheConfiguration.getCacheInvocationHandlers()) {
+        for (CacheInvocationHandler handler : cacheConfiguration.getCacheInvocationHandlers()) {
+
+            if (throwable == null) {
+                handler.handleAfterReturning(contexts, returnValue);
+            } else {
+                handler.handleAfterThrowing(contexts, throwable);
+            }
+
             handler.handleAfter(contexts, returnValue, throwable);
         }
 

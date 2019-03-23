@@ -21,10 +21,10 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
-public class CacheLockInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheLockOperation, CacheLockInvocationContext, Void, Void> {
+public class CacheLockInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheLockOperation, CacheLockProperty> {
 
     @Override
-    public Void before(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result) {
+    public Void before(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockProperty> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         final CacheLockOperation operation = context.operation();
@@ -57,7 +57,7 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
             final boolean lock = cache.lock(key, value, ttl, timeUnit);
             logger.info("<== lock result: {}", lock);
             if (lock) {
-                context.property(new CacheLockInvocationContextImpl(true, key, value));
+                context.property(new CacheLockPropertyImpl(true, key, value));
                 return null;
             }
 
@@ -71,28 +71,27 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
 
             count++;
         } while (count <= operation.retry());
-        context.property(new CacheLockInvocationContextImpl(false, key, value));
+        context.property(new CacheLockPropertyImpl(false, key, value));
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
     @Override
-    public Void after(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result, Throwable throwable) {
+    public void after(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockProperty> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final CacheLockInvocationContext invocation = context.property();
-        if (invocation != null && invocation.lock()) {
-            logger.info("==> try to unlock: key={},value={}", invocation.key(), invocation.value());
-            final boolean unlock = cache.unlock(invocation.key(), invocation.value());
+        final CacheLockProperty property = context.property();
+        if (property != null && property.lock()) {
+            logger.info("==> try to unlock: key={},value={}", property.key(), property.value());
+            final boolean unlock = cache.unlock(property.key(), property.value());
             logger.info("<== result: {}", unlock);
         }
-        return null;
     }
 
-    private static class CacheLockInvocationContextImpl implements CacheLockInvocationContext {
+    private static class CacheLockPropertyImpl implements CacheLockProperty {
         private final boolean lock;
         private final Object key;
         private final Object value;
 
-        public CacheLockInvocationContextImpl(boolean lock, Object key, Object value) {
+        public CacheLockPropertyImpl(boolean lock, Object key, Object value) {
             this.lock = lock;
             this.key = key;
             this.value = value;

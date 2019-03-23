@@ -23,10 +23,10 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheableInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheableOperation, CacheableInvocationContext, Object, Void> {
+public class CacheableInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheableOperation, CacheableProperty> {
 
     @Override
-    public Object before(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
+    public Object before(Cache cache, CacheOperationContext<CacheableOperation, CacheableProperty> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         final CacheableOperation operation = context.metadata().getOperation();
@@ -35,7 +35,7 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
             throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
         }
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
-        context.property(new CacheableInvocationContextImpl(key, field));
+        context.property(new CacheablePropertyImpl(key, field));
 
         final Type genericReturnType = context.genericReturnType();
         Object cacheValue;
@@ -46,11 +46,11 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
     }
 
     @Override
-    public Void afterReturning(Cache cache, CacheOperationContext<CacheableOperation, CacheableInvocationContext> context, Object result) {
+    public void afterReturning(Cache cache, CacheOperationContext<CacheableOperation, CacheableProperty> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
         if (!isConditionPassing(context.operation().condition(), context.metadata(), evaluationContext)) {
-            return null;
+            return;
         }
         final Object key = context.property().key();
         final Object field = context.property().field();
@@ -74,15 +74,14 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
         logger.info("==> cache value: {}", Json.toJson(cacheValue));
         cache.set(key, field, cacheValue, ttl, timeUnit, context.view());
 
-        return null;
     }
 
 
-    private static class CacheableInvocationContextImpl implements CacheableInvocationContext, Serializable {
+    private static class CacheablePropertyImpl implements CacheableProperty, Serializable {
         private final Object key;
         private final Object field;
 
-        public CacheableInvocationContextImpl(Object key, Object field) {
+        public CacheablePropertyImpl(Object key, Object field) {
             this.key = key;
             this.field = field;
         }

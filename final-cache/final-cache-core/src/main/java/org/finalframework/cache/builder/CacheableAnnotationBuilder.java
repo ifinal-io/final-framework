@@ -27,11 +27,12 @@ public class CacheableAnnotationBuilder extends AbsCacheAnnotationBuilder implem
     }
 
     private CacheableOperation build(AnnotatedElement ae, Cacheable ann) {
+        final String delimiter = getDelimiter(ann.delimiter());
         return CacheableOperation.builder()
                 .name(ae.toString())
-                .key(parse(ann.key(), ann.delimiter()))
-                .field(parse(ann.field(), ann.delimiter()))
-                .delimiter(ann.delimiter())
+                .key(parse(ann.key(), delimiter))
+                .field(parse(ann.field(), delimiter))
+                .delimiter(delimiter)
                 .condition(ann.condition())
                 .ttl(ann.ttl())
                 .expire(ann.expire())

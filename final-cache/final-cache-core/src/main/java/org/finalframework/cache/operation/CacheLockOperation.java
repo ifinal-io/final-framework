@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
-public class CacheLockOperation implements CacheOperation<CacheLock> {
+public class CacheLockOperation implements CacheOperation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;

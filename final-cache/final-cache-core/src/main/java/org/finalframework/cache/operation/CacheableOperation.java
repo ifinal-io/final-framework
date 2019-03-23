@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @see Cacheable
  * @since 1.0
  */
-public class CacheableOperation implements CacheOperation<Cacheable> {
+public class CacheableOperation implements CacheOperation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;

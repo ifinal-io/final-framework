@@ -3,8 +3,9 @@
     var sidebar = new Vue({
         el: '#sidebar',
         data: {
-            color: $.cookie('sidebar_color'),
-            mini: $.cookie('sidebar_mini'),
+            //filter: $.cookie('sidebar-filter'),
+            //color: $.cookie('sidebar-color'),
+            //mini: $.cookie('sidebar_mini'),
             page: {
                 module: "{{module}}",
                 menus: {{ page.menus | jsonify }}

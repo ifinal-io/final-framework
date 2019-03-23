@@ -41,6 +41,11 @@
     color: #9c27b0 !important;
     background-color: #eeeeee;
     font-weight: bold !important;
+    text-align: center;
+}
+
+.markdown table tbody td {
+    text-align: center;
 }
 
 

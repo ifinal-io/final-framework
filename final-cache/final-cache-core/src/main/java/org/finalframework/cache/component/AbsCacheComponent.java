@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @date 2019-03-23 00:14:22
  * @since 1.0
  */
-public class AbsCacheComponent<A extends Annotation, O extends CacheOperation<A>,
+public class AbsCacheComponent<A extends Annotation, O extends CacheOperation,
         BUILDER extends CacheAnnotationBuilder<A, O>, INVOCATION extends CacheInvocation,
         HANDLER extends CacheInvocationHandler> implements CacheComponent<A, O, BUILDER, INVOCATION, HANDLER> {
 

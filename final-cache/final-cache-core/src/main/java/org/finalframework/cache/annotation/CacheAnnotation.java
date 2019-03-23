@@ -1,7 +1,5 @@
 package org.finalframework.cache.annotation;
 
-import org.finalframework.cache.annotation.enums.InvocationTime;
-
 import java.lang.annotation.*;
 
 /**
@@ -19,5 +17,5 @@ public @interface CacheAnnotation {
     /**
      * 仅描述该缓存 {@link Annotation} 的调用时机。
      */
-    InvocationTime[] value();
+    Order[] value();
 }

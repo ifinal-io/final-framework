@@ -3,10 +3,10 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.InvocationTime;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
+
 
 /**
  * @author likly
@@ -16,9 +16,10 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @Documented
-@CacheAnnotation(InvocationTime.AFTER_RETURNING)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Repeatable(CachePut.List.class)
+@CacheAnnotation({Order.BEFORE, Order.AFTER, Order.AFTER_RETURNING, Order.AFTER_THROWING})
 public @interface CachePut {
 
     String[] key();
@@ -29,6 +30,8 @@ public @interface CachePut {
 
     String delimiter() default ":";
 
+    Order order() default Order.AFTER_RETURNING;
+
     String condition() default "";
 
     String expire() default "";
@@ -38,4 +41,11 @@ public @interface CachePut {
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @interface List {
+        CachePut[] value();
+    }
 }

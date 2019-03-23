@@ -3,7 +3,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheDel;
-import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CacheDelInvocation;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
@@ -18,14 +18,14 @@ import java.util.Collection;
  * @see CacheDel
  * @since 1.0
  */
-public class CacheDelOperation implements CacheOperation<CacheDel> {
+public class CacheDelOperation implements CacheOperation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
     private final Collection<String> field;
     private final String condition;
     private final String delimiter;
-    private final InvocationTime invocationTime;
+    private final Order order;
     private final Integer retry;
     private final Long sleep;
     private final Class<? extends CacheInvocation> invocation;
@@ -36,7 +36,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
         this.field = Assert.isEmpty(builder.field) ? null : builder.field;
         this.delimiter = Assert.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.invocationTime = builder.invocationTime;
+        this.order = builder.order;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.invocation = builder.invocation;
@@ -73,8 +73,8 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
     }
 
     @NonNull
-    public InvocationTime invocationTime() {
-        return invocationTime;
+    public Order order() {
+        return order;
     }
 
     @Nullable
@@ -98,7 +98,7 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
         private Collection<String> field;
         private String delimiter;
         private String condition;
-        private InvocationTime invocationTime;
+        private Order order;
         private Integer retry;
         private Long sleep;
         private Class<? extends CacheInvocation> invocation;
@@ -132,8 +132,8 @@ public class CacheDelOperation implements CacheOperation<CacheDel> {
             return this;
         }
 
-        public Builder invocationTime(InvocationTime invocationTime) {
-            this.invocationTime = invocationTime;
+        public Builder order(Order order) {
+            this.order = order;
             return this;
         }
 

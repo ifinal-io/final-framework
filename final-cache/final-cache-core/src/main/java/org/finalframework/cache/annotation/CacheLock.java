@@ -2,7 +2,6 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.InvocationTime;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({InvocationTime.BEFORE, InvocationTime.AFTER_RETURNING})
+@CacheAnnotation({Order.BEFORE, Order.AFTER_RETURNING})
 public @interface CacheLock {
     String[] key();
 

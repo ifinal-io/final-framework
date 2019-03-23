@@ -16,17 +16,33 @@ version: 1.0
 
 ## What
 
+基于注解(`Annotation`)声明式的缓存框架，旨在简化程序中的缓存逻辑，让缓存在业务中更加透明化。
 
+`Cache`实现在`Method`的执行生命周期[`Order`](#order)中，增加目标方法的功能，如：
+
+* 在方法执行之前获取分布式锁，避免重复执行。
+* 统计方法的执行次数、成功次数和失败次数。
+* 在方法执行之前，优先从缓存中获取获取数据。
+* 在方法执行之后，将方法的返回值全部或部分值添加到缓存中。
+* ……
+
+## Order
+
+将`Method`的执行生命周期拆分为`Before`、`After`、`AfterReturnning`和`AfterThrowing`四个阶段，其中`After`包含`AfterReturning`和`AfterThrowing`。
+
+{% include cache/order.html %}
 
 ## Annotation
+
+{% include cache/annotations.html %}
 
 ### Cacheable
 
 [Cacheable](annotation/cacheable.md)，为目标方法增加缓存能力。
- 
+
 1. 在方法执行之前，查询缓存命中，如果命中，则直接使用缓存数据；
 2. 在方法执行之后，将业务方法的返回值设置到缓存中。
- 
+
 ### CacheLock
 
 [CacheLock](annotation/cachelock.md)，为目标方法增加分布式锁的功能。

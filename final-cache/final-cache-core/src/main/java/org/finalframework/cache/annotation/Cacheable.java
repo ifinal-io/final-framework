@@ -3,7 +3,6 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -27,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({InvocationTime.BEFORE, InvocationTime.AFTER_RETURNING})
+@CacheAnnotation({Order.BEFORE, Order.AFTER_RETURNING})
 public @interface Cacheable {
 
     /**

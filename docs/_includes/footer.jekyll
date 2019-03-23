@@ -1,0 +1,9 @@
+<script>
+    var footer = new Vue({
+        el: '#footer',
+        data: {
+            footer: {{ site.data.footer | jsonify }},
+            git: {{ site.git | jsonify }}
+        }
+    })
+</script>

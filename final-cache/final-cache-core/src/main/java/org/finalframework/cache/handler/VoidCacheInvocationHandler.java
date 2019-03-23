@@ -13,7 +13,7 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class VoidCacheInvocationHandler<T extends CacheOperation> implements CacheInvocationHandler<Void, Void> {
+public class VoidCacheInvocationHandler<T extends CacheOperation> implements CacheInvocationHandler {
 
     private final Class<T> type;
 
@@ -27,25 +27,53 @@ public class VoidCacheInvocationHandler<T extends CacheOperation> implements Cac
         if (Assert.isEmpty(cacheOperationContexts)) {
             return null;
         }
-
         final CacheConfiguration cacheConfiguration = contexts.configuration();
-
         for (CacheOperationContext context : cacheOperationContexts) {
             final Class<? extends CacheInvocation> invocation = context.operation().invocation();
             final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
             final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
             cacheInvocation.before(cache, context, result);
-
         }
-
         return null;
     }
 
     @Override
-    public Void handleAfter(CacheOperationContexts contexts, Object result, Throwable throwable) {
+    public void handleAfterReturning(CacheOperationContexts contexts, Object result) {
         final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(type);
         if (Assert.isEmpty(cacheOperationContexts)) {
-            return null;
+            return;
+        }
+        final CacheConfiguration cacheConfiguration = contexts.configuration();
+        for (CacheOperationContext context : cacheOperationContexts) {
+            final Class<? extends CacheInvocation> invocation = context.operation().invocation();
+            final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
+            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
+            cacheInvocation.afterReturning(cache, context, result);
+
+        }
+    }
+
+    @Override
+    public void handleAfterThrowing(CacheOperationContexts contexts, Throwable throwable) {
+        final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(type);
+        if (Assert.isEmpty(cacheOperationContexts)) {
+            return;
+        }
+        final CacheConfiguration cacheConfiguration = contexts.configuration();
+        for (CacheOperationContext context : cacheOperationContexts) {
+            final Class<? extends CacheInvocation> invocation = context.operation().invocation();
+            final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
+            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
+            cacheInvocation.afterThrowing(cache, context, throwable);
+
+        }
+    }
+
+    @Override
+    public void handleAfter(CacheOperationContexts contexts, Object result, Throwable throwable) {
+        final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(type);
+        if (Assert.isEmpty(cacheOperationContexts)) {
+            return;
         }
         final CacheConfiguration cacheConfiguration = contexts.configuration();
         for (CacheOperationContext context : cacheOperationContexts) {
@@ -55,7 +83,6 @@ public class VoidCacheInvocationHandler<T extends CacheOperation> implements Cac
             cacheInvocation.after(cache, context, result, throwable);
 
         }
-        return null;
     }
 
 }

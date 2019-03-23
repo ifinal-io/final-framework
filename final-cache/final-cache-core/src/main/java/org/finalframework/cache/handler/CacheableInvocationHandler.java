@@ -14,7 +14,7 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheableInvocationHandler implements CacheInvocationHandler<Object, Void> {
+public class CacheableInvocationHandler implements CacheInvocationHandler {
 
     @Override
     public Object handleBefore(CacheOperationContexts contexts, Object result) {
@@ -36,10 +36,10 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
     }
 
     @Override
-    public Void handleAfterReturning(CacheOperationContexts contexts, Object result) {
+    public void handleAfterReturning(CacheOperationContexts contexts, Object result) {
         final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(CacheableOperation.class);
         if (Assert.isEmpty(cacheOperationContexts)) {
-            return null;
+            return;
         }
         final CacheConfiguration cacheConfiguration = contexts.configuration();
         for (CacheOperationContext context : cacheOperationContexts) {
@@ -49,7 +49,6 @@ public class CacheableInvocationHandler implements CacheInvocationHandler<Object
             final Cache cache = CacheRegistry.getInstance().getCache(operation);
             cacheInvocation.afterReturning(cache, context, result);
         }
-        return null;
     }
 
 

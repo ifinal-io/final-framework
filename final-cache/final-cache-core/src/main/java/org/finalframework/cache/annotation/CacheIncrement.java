@@ -1,24 +1,23 @@
 package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
  * @version 1.0
  * @date 2019-03-21 22:19:50
+ * @see org.finalframework.cache.Cache#increment(Object, Object, Long)
+ * @see org.finalframework.cache.Cache#increment(Object, Object, Double)
  * @since 1.0
  */
-@CacheAnnotation({InvocationTime.BEFORE, InvocationTime.AFTER, InvocationTime.AFTER_RETURNING, InvocationTime.AFTER_THROWING})
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Repeatable(CacheIncrement.List.class)
+@CacheAnnotation({Order.BEFORE, Order.AFTER, Order.AFTER_RETURNING, Order.AFTER_THROWING})
 public @interface CacheIncrement {
 
     /**
@@ -56,7 +55,7 @@ public @interface CacheIncrement {
     @AliasFor("condition")
     String when() default "";
 
-    InvocationTime invocationTime() default InvocationTime.AFTER_RETURNING;
+    Order order() default Order.AFTER_RETURNING;
 
     /**
      * 过期时间
@@ -73,7 +72,13 @@ public @interface CacheIncrement {
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @interface List {
+        CacheIncrement[] value();
+    }
 
 }

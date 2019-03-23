@@ -3,7 +3,7 @@ package org.finalframework.test.api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
-import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
@@ -87,11 +87,9 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CacheIncrement(key = {"invoke:{#id}"}, invocationTime = InvocationTime.AFTER_THROWING)
+    @CacheIncrement(key = {"invoke:{#id}"}, order = Order.AFTER_THROWING)
     public Person get(@PathVariable("id") Long id, @CacheValue(key = {"{#id}"}) Person cahce) {
         logger.info(Json.toJson(cahce));
-        cahce = null;
-        cahce.getId();
         return personMapper.selectOne(Result.View.class, id);
     }
 

@@ -9,19 +9,17 @@ import org.springframework.lang.Nullable;
  * @date 2019-03-11 10:23:59
  * @since 1.0
  */
-public interface CacheInvocationHandler<BEFORE, AFTER> {
+public interface CacheInvocationHandler {
 
-    BEFORE handleBefore(@NonNull CacheOperationContexts contexts, @Nullable Object result);
+    @Nullable
+    Object handleBefore(@NonNull CacheOperationContexts contexts, @Nullable Object result);
 
-    default AFTER handleAfter(@NonNull CacheOperationContexts contexts, @Nullable Object result, @Nullable Throwable throwable) {
-        return throwable == null ? handleAfterReturning(contexts, result) : handleAfterThrowing(contexts, throwable);
+    default void handleAfterReturning(@NonNull CacheOperationContexts contexts, @Nullable Object result) {
     }
 
-    default AFTER handleAfterReturning(@NonNull CacheOperationContexts contexts, @Nullable Object result) {
-        return null;
+    default void handleAfterThrowing(@NonNull CacheOperationContexts contexts, @NonNull Throwable throwable) {
     }
 
-    default AFTER handleAfterThrowing(@NonNull CacheOperationContexts contexts, @NonNull Throwable result) {
-        return null;
+    default void handleAfter(@NonNull CacheOperationContexts contexts, @Nullable Object result, @Nullable Throwable throwable) {
     }
 }

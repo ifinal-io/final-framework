@@ -4,7 +4,7 @@ package org.finalframework.cache.invocation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
-import org.finalframework.cache.annotation.enums.InvocationTime;
+import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.operation.CacheIncrementOperation;
 import org.finalframework.core.PrimaryTypes;
 import org.slf4j.Logger;
@@ -20,30 +20,28 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-03-22 22:33:02
  * @since 1.0
  */
-public class CacheIncrementInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheIncrementOperation, Void, Void, Void> {
+public class CacheIncrementInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheIncrementOperation, Void> {
 
     @Override
     public Void before(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result) {
-        if (InvocationTime.BEFORE == context.operation().invocationTime()) {
+        if (Order.BEFORE == context.operation().order()) {
             doCacheIncrement(cache, context, result, null);
         }
         return null;
     }
 
     @Override
-    public Void afterReturning(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result) {
-        if (InvocationTime.AFTER == context.operation().invocationTime() || InvocationTime.AFTER_RETURNING == context.operation().invocationTime()) {
+    public void afterReturning(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result) {
+        if (Order.AFTER == context.operation().order() || Order.AFTER_RETURNING == context.operation().order()) {
             doCacheIncrement(cache, context, result, null);
         }
-        return null;
     }
 
     @Override
-    public Void afterThrowing(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Throwable throwable) {
-        if (InvocationTime.AFTER == context.operation().invocationTime() || InvocationTime.AFTER_THROWING == context.operation().invocationTime()) {
+    public void afterThrowing(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Throwable throwable) {
+        if (Order.AFTER == context.operation().order() || Order.AFTER_THROWING == context.operation().order()) {
             doCacheIncrement(cache, context, null, throwable);
         }
-        return null;
     }
 
     private void doCacheIncrement(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result, Throwable throwable) {
