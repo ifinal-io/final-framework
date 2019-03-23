@@ -3,15 +3,8 @@ package org.finalframework.cache.interceptor;
 
 import org.finalframework.cache.CacheAnnotationBuilder;
 import org.finalframework.cache.CacheAnnotationParser;
+import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.CacheOperation;
-import org.finalframework.cache.annotation.CacheDel;
-import org.finalframework.cache.annotation.CacheLock;
-import org.finalframework.cache.annotation.CachePut;
-import org.finalframework.cache.annotation.Cacheable;
-import org.finalframework.cache.builder.CacheDelAnnotationBuilder;
-import org.finalframework.cache.builder.CacheLockAnnotationBuilder;
-import org.finalframework.cache.builder.CachePutAnnotationBuilder;
-import org.finalframework.cache.builder.CacheableAnnotationBuilder;
 import org.finalframework.core.Assert;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.lang.Nullable;
@@ -19,7 +12,12 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author likly
@@ -29,21 +27,10 @@ import java.util.*;
  */
 public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serializable {
     private static final long serialVersionUID = -6963734575504018042L;
-    private static final Set<Class<? extends Annotation>> CACHE_OPERATION_ANNOTATIONS = new LinkedHashSet<>(8);
+    private final CacheConfiguration cacheConfiguration;
 
-    private static final Map<Class<? extends Annotation>, CacheAnnotationBuilder> cacheAnnotationBuilders = new LinkedHashMap<>();
-
-
-    static {
-        CACHE_OPERATION_ANNOTATIONS.add(CacheLock.class);
-        CACHE_OPERATION_ANNOTATIONS.add(Cacheable.class);
-        CACHE_OPERATION_ANNOTATIONS.add(CacheDel.class);
-        CACHE_OPERATION_ANNOTATIONS.add(CachePut.class);
-
-        cacheAnnotationBuilders.put(CacheLock.class, new CacheLockAnnotationBuilder());
-        cacheAnnotationBuilders.put(Cacheable.class, new CacheableAnnotationBuilder());
-        cacheAnnotationBuilders.put(CacheDel.class, new CacheDelAnnotationBuilder());
-        cacheAnnotationBuilders.put(CachePut.class, new CachePutAnnotationBuilder());
+    public FinalCacheAnnotationParser(CacheConfiguration cacheConfiguration) {
+        this.cacheConfiguration = cacheConfiguration;
     }
 
     @Override
@@ -57,9 +44,10 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
     }
 
     private Collection<CacheOperation> parseCacheAnnotations(Class<?> ae) {
-        final Collection<CacheOperation> ops = parseCacheAnnotations(ae, false);
+        Collection<CacheOperation> ops = parseCacheAnnotations(ae, false);
         if (ops != null && ops.size() > 1) {
-            final Collection<CacheOperation> localOps = parseCacheAnnotations(ae, true);
+            // More than one operation found -> local declarations override interface-declared ones...
+            Collection<CacheOperation> localOps = parseCacheAnnotations(ae, true);
             if (localOps != null) {
                 return localOps;
             }
@@ -71,17 +59,16 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
     @SuppressWarnings("unchecked")
     private Collection<CacheOperation> parseCacheAnnotations(Class<?> ae, boolean localOnly) {
         final Collection<Annotation> anns = localOnly ?
-                AnnotatedElementUtils.getAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS)
-                : AnnotatedElementUtils.findAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS);
-
+                AnnotatedElementUtils.getAllMergedAnnotations(ae, cacheConfiguration.getCacheOperationAnnotations())
+                : AnnotatedElementUtils.findAllMergedAnnotations(ae, cacheConfiguration.getCacheOperationAnnotations());
         if (Assert.isEmpty(anns)) {
             return null;
         }
 
         final Collection<CacheOperation> ops = new ArrayList<>(1);
 
-        CACHE_OPERATION_ANNOTATIONS.forEach(an -> {
-            final CacheAnnotationBuilder builder = cacheAnnotationBuilders.get(an);
+        cacheConfiguration.getCacheOperationAnnotations().forEach(an -> {
+            final CacheAnnotationBuilder builder = cacheConfiguration.getCacheAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
                     .forEach(ann -> ops.add(builder.build(ae, ann)));
         });
@@ -91,38 +78,74 @@ public class FinalCacheAnnotationParser implements CacheAnnotationParser, Serial
     }
 
 
-    private Collection<CacheOperation> parseCacheAnnotations(Method ae) {
-        final Collection<CacheOperation> ops = parseCacheAnnotations(ae, false);
+    private Collection<CacheOperation> parseCacheAnnotations(Method method) {
+        List<CacheOperation> result = new ArrayList<>();
+
+        final Collection<CacheOperation> ops = parseCacheAnnotations(method, false);
         if (ops != null && ops.size() > 1) {
-            final Collection<CacheOperation> localOps = parseCacheAnnotations(ae, true);
+            // More than one operation found -> local declarations override interface-declared ones...
+            final Collection<CacheOperation> localOps = parseCacheAnnotations(method, true);
             if (localOps != null) {
-                return localOps;
+                result.addAll(localOps);
+            }
+        } else if (ops != null) {
+            result.addAll(ops);
+        }
+
+        final Parameter[] parameters = method.getParameters();
+        final Type[] genericParameterTypes = method.getGenericParameterTypes();
+        for (int i = 0; i < parameters.length; i++) {
+            final Collection<CacheOperation> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i], false);
+            if (cacheOperations != null && cacheOperations.size() > 1) {
+                final Collection<CacheOperation> localOps = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i], true);
+                if (localOps != null) {
+                    result.addAll(localOps);
+                }
+            } else if (cacheOperations != null) {
+                result.addAll(cacheOperations);
             }
         }
-        return ops;
+        return result;
     }
 
     @Nullable
     @SuppressWarnings("unchecked")
     private Collection<CacheOperation> parseCacheAnnotations(Method ae, boolean localOnly) {
+        final Set<Class<? extends Annotation>> cacheOperationAnnotations = cacheConfiguration.getCacheOperationAnnotations();
         final Collection<Annotation> anns = localOnly ?
-                AnnotatedElementUtils.getAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS)
-                : AnnotatedElementUtils.findAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS);
-
+                AnnotatedElementUtils.getAllMergedAnnotations(ae, cacheOperationAnnotations)
+                : AnnotatedElementUtils.findAllMergedAnnotations(ae, cacheOperationAnnotations);
         if (Assert.isEmpty(anns)) {
             return null;
         }
 
         final Collection<CacheOperation> ops = new ArrayList<>(1);
 
-        CACHE_OPERATION_ANNOTATIONS.forEach(an -> {
-            final CacheAnnotationBuilder builder = cacheAnnotationBuilders.get(an);
+        cacheOperationAnnotations.forEach(an -> {
+            final CacheAnnotationBuilder builder = cacheConfiguration.getCacheAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
                     .forEach(ann -> ops.add(builder.build(ae, ann)));
         });
 
         return ops;
 
+    }
+
+    private Collection<CacheOperation> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType, boolean localOnly) {
+        final Set<Class<? extends Annotation>> cacheOperationAnnotations = cacheConfiguration.getCacheOperationAnnotations();
+        final Collection<Annotation> anns = localOnly ?
+                AnnotatedElementUtils.getAllMergedAnnotations(parameter, cacheOperationAnnotations)
+                : AnnotatedElementUtils.findAllMergedAnnotations(parameter, cacheOperationAnnotations);
+        if (Assert.isEmpty(anns)) {
+            return null;
+        }
+        final Collection<CacheOperation> ops = new ArrayList<>(1);
+        cacheOperationAnnotations.forEach(an -> {
+            final CacheAnnotationBuilder builder = cacheConfiguration.getCacheAnnotationBuilder(an);
+            anns.stream().filter(ann -> ann.annotationType() == an)
+                    .forEach(ann -> ops.add(builder.build(index, parameter, parameterType, ann)));
+        });
+        return ops;
     }
 
 

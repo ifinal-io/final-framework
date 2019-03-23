@@ -28,13 +28,17 @@ public interface Cache {
     boolean lock(@NonNull Object key, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
 
     /**
-     * 释放缓存锁，当且仅当缓存 {@linkplain key} 和{@linkplain}
+     * 释放缓存锁，当且仅当缓存 {@code key} 和{@code value}
      *
      * @param key   缓存锁的Key
      * @param value 缓存锁的Value
      * @return 如果缓存释放成功，则返回 {@linkplain true}，否则返回 {@linkplain false}。
      */
     boolean unlock(@NonNull Object key, @Nullable Object value);
+
+    boolean hasKey(@NonNull Object key, @Nullable Object field);
+
+    boolean expire(@NonNull Object key, long ttl, @NonNull TimeUnit timeUnit);
 
     /**
      * 设置缓存
@@ -60,6 +64,10 @@ public interface Cache {
      */
     @Nullable
     <T> T get(@NonNull Object key, @Nullable Object field, @NonNull Type type, @Nullable Class<?> view);
+
+    Long increment(@NonNull Object key, @Nullable Object field, @NonNull Long value);
+
+    Double increment(@NonNull Object key, @Nullable Object field, @NonNull Double value);
 
     /**
      * 删除缓存

@@ -34,6 +34,16 @@ public class RedisCache implements Cache {
     }
 
     @Override
+    public boolean hasKey(Object key, Object field) {
+        return Boolean.TRUE.equals(field == null ? Redis.key().hasKey(key) : Redis.hash().hasKey(key, field));
+    }
+
+    @Override
+    public boolean expire(Object key, long ttl, TimeUnit timeUnit) {
+        return Boolean.TRUE.equals(Redis.key().expire(key, ttl, timeUnit));
+    }
+
+    @Override
     public void set(Object key, Object field, Object value, Long ttl, TimeUnit timeUnit, Class<?> view) {
         final Object cacheValue = view == null ? Json.toJson(value) : Json.toJson(value, view);
         if (field == null) {
@@ -56,6 +66,16 @@ public class RedisCache implements Cache {
         if (cacheValue == null) return null;
         final String json = cacheValue.toString();
         return view == null ? Json.parse(json, type) : Json.parse(json, type, view);
+    }
+
+    @Override
+    public Long increment(Object key, Object field, Long value) {
+        return field == null ? Redis.value().increment(key, value) : Redis.hash().increment(key, field, value);
+    }
+
+    @Override
+    public Double increment(Object key, Object field, Double value) {
+        return field == null ? Redis.value().increment(key, value) : Redis.hash().increment(key, field, value);
     }
 
     @Override

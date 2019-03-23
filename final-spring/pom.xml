@@ -18,6 +18,7 @@
         <module>final-spring-web</module>
         <module>final-spring-aop</module>
         <module>final-spring-boot-starter</module>
+        <module>final-spring-expression</module>
     </modules>
 
 </project>

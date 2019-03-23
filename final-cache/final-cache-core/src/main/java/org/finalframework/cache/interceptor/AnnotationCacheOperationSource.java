@@ -2,6 +2,7 @@ package org.finalframework.cache.interceptor;
 
 
 import org.finalframework.cache.CacheAnnotationParser;
+import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.CacheOperation;
 import org.springframework.lang.Nullable;
 
@@ -24,8 +25,8 @@ public class AnnotationCacheOperationSource extends AbsCacheOperationSource impl
 
     private final Set<CacheAnnotationParser> cacheAnnotationParsers;
 
-    public AnnotationCacheOperationSource() {
-        this.cacheAnnotationParsers = Collections.singleton(new FinalCacheAnnotationParser());
+    public AnnotationCacheOperationSource(CacheConfiguration cacheConfiguration) {
+        this.cacheAnnotationParsers = Collections.singleton(new FinalCacheAnnotationParser(cacheConfiguration));
     }
 
     @Override

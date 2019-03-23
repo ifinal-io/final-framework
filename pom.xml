@@ -218,6 +218,11 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
+                <artifactId>final-spring-expression</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
                 <artifactId>final-spring-aop</artifactId>
                 <version>${final.version}</version>
             </dependency>

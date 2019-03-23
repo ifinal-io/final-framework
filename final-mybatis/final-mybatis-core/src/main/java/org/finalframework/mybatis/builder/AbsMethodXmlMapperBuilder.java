@@ -90,18 +90,23 @@ public abstract class AbsMethodXmlMapperBuilder implements MethodXmlMapperBuilde
     protected Element limit(@NonNull Document document) {
         /**
          * <sql id="sql-limit">
-         *     <if test="query != null and query.limit != null">
-         *          LIMIT #{query.limit}
-         *     </if>
+         *     <choose>
+         *         <when test="query != null and query.offset != null and  query.limit != null">
+         *             LIMIT #{query.offset},#{query.limit}
+         *         </when>
+         *         <when test="query != null and query.limit != null">
+         *             LIMIT #{query.limit}
+         *         </when>
+         *     </choose>
          * </sql>
          */
 
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", SQL_LIMIT);
-        final Element ifQueryNotNullAndQueryLimitNotNull = document.createElement("if");
-        ifQueryNotNullAndQueryLimitNotNull.setAttribute("test", "query != null and query.limit != null");
-        ifQueryNotNullAndQueryLimitNotNull.appendChild(textNode(document, " LIMIT #{query.limit}"));
-        sql.appendChild(ifQueryNotNullAndQueryLimitNotNull);
+
+        final Element whenOffsetLimitNotNull = whenOrOtherwise(document, "query != null and query.offset != null and query.limit != null", textNode(document, " LIMIT #{query.offset},#{query.limit}"));
+        final Element whenLimitNotNull = whenOrOtherwise(document, "query != null and query.limit != null", textNode(document, " LIMIT #{query.limit}"));
+        sql.appendChild(choose(document, Arrays.asList(whenOffsetLimitNotNull, whenLimitNotNull)));
         return sql;
     }
 

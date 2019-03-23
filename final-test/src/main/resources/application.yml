@@ -39,7 +39,7 @@ final:
       column-converter: org.finalframework.data.mapping.converter.SimpleNameConverter
       table-converter: org.finalframework.data.mapping.converter.SimpleNameConverter
     column-generator:
-      default-column-generator: org.finalframework.mybatis.generator.BaseColumnGenerator
+      default-column-generator: org.finalframework.mybatis.generator.DefaultColumnGenerator
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   response:

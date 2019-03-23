@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * @date 2019-03-11 00:14:41
  * @since 1.0
  */
-public interface CacheOperationContext<O extends CacheOperation, IC> {
+public interface CacheOperationContext<O extends CacheOperation, P> {
 
     @NonNull
     O operation();
@@ -37,9 +37,8 @@ public interface CacheOperationContext<O extends CacheOperation, IC> {
 
     Type genericReturnType();
 
+    P property();
 
-    IC invocation();
-
-    void invocation(IC context);
+    void property(P property);
 
 }

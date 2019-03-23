@@ -2,6 +2,7 @@ package org.finalframework.redis;
 
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.lang.NonNull;
 
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unchecked")
 public interface Redis {
 
+    @NonNull
     static RedisOperations key() {
         return RedisRegistry.getInstance().key();
     }

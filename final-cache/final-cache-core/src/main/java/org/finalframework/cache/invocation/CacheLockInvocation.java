@@ -57,7 +57,7 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
             final boolean lock = cache.lock(key, value, ttl, timeUnit);
             logger.info("<== lock result: {}", lock);
             if (lock) {
-                context.invocation(new CacheLockInvocationContextImpl(true, key, value));
+                context.property(new CacheLockInvocationContextImpl(true, key, value));
                 return null;
             }
 
@@ -71,14 +71,14 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
 
             count++;
         } while (count <= operation.retry());
-        context.invocation(new CacheLockInvocationContextImpl(false, key, value));
+        context.property(new CacheLockInvocationContextImpl(false, key, value));
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
     @Override
     public Void after(Cache cache, CacheOperationContext<CacheLockOperation, CacheLockInvocationContext> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final CacheLockInvocationContext invocation = context.invocation();
+        final CacheLockInvocationContext invocation = context.property();
         if (invocation != null && invocation.lock()) {
             logger.info("==> try to unlock: key={},value={}", invocation.key(), invocation.value());
             final boolean unlock = cache.unlock(invocation.key(), invocation.value());

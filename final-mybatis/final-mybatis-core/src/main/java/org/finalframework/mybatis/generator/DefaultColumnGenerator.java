@@ -14,9 +14,9 @@ import org.springframework.lang.Nullable;
  * @date 2019-01-22 12:15:32
  * @since 1.0
  */
-public class BaseColumnGenerator extends AbsColumnGenerator {
+public class DefaultColumnGenerator extends AbsColumnGenerator {
 
-    public static final BaseColumnGenerator INSTANCE = new BaseColumnGenerator();
+    public static final DefaultColumnGenerator INSTANCE = new DefaultColumnGenerator();
 
     @Override
     public String generateWriteValue(@Nullable Property referenceProperty, Property property, String value) {

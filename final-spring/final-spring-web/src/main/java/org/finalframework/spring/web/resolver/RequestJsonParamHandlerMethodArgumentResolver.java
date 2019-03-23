@@ -57,13 +57,8 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
                 Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
                 final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
                 if (Assert.nonEmpty(body)) {
-                    try {
-                        logger.debug("==> jsonBody: {}", body);
-                        return parseJson(body, parameterType);
-                    } catch (Throwable e) {
-                        logger.error("==> Json解析异常：json={},type={}", body, parameterType, e);
-                        throw e;
-                    }
+                    logger.debug("==> jsonBody: {}", body);
+                    return parseJson(body, parameterType);
                 }
             }
 
@@ -72,24 +67,18 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         } else {
             final String parameterName = getParameterName(requestJsonParam, parameter);
             String value = webRequest.getParameter(parameterName);
-            try {
-                if (Assert.isEmpty(value) && requestJsonParam.required()) {
-                    throw new BadRequestException("parameter %s is required", parameterName);
-                }
-
-                if (Assert.isEmpty(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
-                    value = requestJsonParam.defaultValue();
-                }
-
-                if (Assert.isEmpty(value)) return null;
-                logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
-                return parseJson(value, parameterType);
-            } catch (Throwable e) {
-                logger.error("==> Json解析异常：json={},type={}", value, parameterType, e);
-                throw new BadRequestException("Json参数异常：name=%s,value=%s,type=%s", parameter, value, parameterType.getTypeName());
+            if (Assert.isBlank(value) && requestJsonParam.required()) {
+                throw new BadRequestException("parameter %s is required", parameterName);
             }
-        }
 
+            if (Assert.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+                value = requestJsonParam.defaultValue();
+            }
+
+            if (Assert.isBlank(value)) return null;
+            logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
+            return parseJson(value, parameterType);
+        }
 
     }
 

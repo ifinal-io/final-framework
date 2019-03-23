@@ -49,7 +49,7 @@ public class XMLMapperBuilderAgent {
                     elements.forEach(element -> context.getNode().appendChild(element));
                 }
                 logger.info("构建 Mapper : {} 用时：{}", mapperClass.getCanonicalName(), (System.currentTimeMillis() - itemStart));
-//                loggerMapper(context.getNode().getOwnerDocument());
+                loggerMapper(context.getNode().getOwnerDocument());
             }
 
         } catch (ClassNotFoundException e) {

@@ -1,6 +1,7 @@
 package org.finalframework.cache.interceptor;
 
 import org.finalframework.cache.Cache;
+import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.CacheOperationSource;
 import org.finalframework.cache.RedisCache;
 import org.finalframework.spring.coding.AutoConfiguration;
@@ -32,8 +33,14 @@ public class CacheInterceptorAutoConfiguration {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheConfiguration cacheConfiguration() {
+        return new CacheConfiguration();
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public CacheOperationSource cacheOperationSource() {
-        return new AnnotationCacheOperationSource();
+        return new AnnotationCacheOperationSource(cacheConfiguration());
     }
 
 
@@ -42,6 +49,7 @@ public class CacheInterceptorAutoConfiguration {
     public CacheInterceptor cacheInterceptor() {
         final CacheInterceptor interceptor = new CacheInterceptor();
         interceptor.setCacheOperationSource(cacheOperationSource());
+        interceptor.setCacheConfiguration(cacheConfiguration());
         return interceptor;
     }
 

@@ -21,6 +21,8 @@ public interface CacheOperationExpressionEvaluator {
 
     Object value(String valueExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
+    <T> T value(String valueExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext, Class<T> clazz);
+
     boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
     Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);

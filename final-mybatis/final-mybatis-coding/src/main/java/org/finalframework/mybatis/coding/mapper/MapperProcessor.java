@@ -4,7 +4,7 @@ import com.google.auto.service.AutoService;
 import org.apache.ibatis.annotations.Mapper;
 import org.finalframework.coding.Coder;
 import org.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
-import org.finalframework.mybatis.generator.BaseColumnGenerator;
+import org.finalframework.mybatis.generator.DefaultColumnGenerator;
 import org.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
 import org.finalframework.mybatis.mapper.AbsMapper;
 
@@ -60,7 +60,7 @@ public class MapperProcessor extends AbstractProcessor {
         filer = processingEnv.getFiler();
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
-        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(BaseColumnGenerator.INSTANCE);
+        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(DefaultColumnGenerator.INSTANCE);
         ColumnGeneratorRegistry.getInstance().registerColumnModule(new DefaultColumnGeneratorModule());
     }
 

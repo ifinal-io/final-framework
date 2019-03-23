@@ -35,7 +35,7 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
             throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
         }
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
-        context.invocation(new CacheableInvocationContextImpl(key, field));
+        context.property(new CacheableInvocationContextImpl(key, field));
 
         final Type genericReturnType = context.genericReturnType();
         Object cacheValue;
@@ -52,8 +52,8 @@ public class CacheableInvocation extends AbsCacheInvocationSupport implements Ca
         if (!isConditionPassing(context.operation().condition(), context.metadata(), evaluationContext)) {
             return null;
         }
-        final Object key = context.invocation().key();
-        final Object field = context.invocation().field();
+        final Object key = context.property().key();
+        final Object field = context.property().field();
         final Object cacheValue = result;
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;

@@ -28,6 +28,9 @@ public interface CacheInvocationSupport {
     @Nullable
     Object generateValue(@NonNull String value, @NonNull CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
 
+    @Nullable
+    <T> T generateValue(@NonNull String value, @NonNull CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext, Class<T> clazz);
+
     boolean isConditionPassing(@NonNull String condition, @NonNull CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
 
     @Nullable

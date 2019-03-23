@@ -4,6 +4,8 @@ import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 
 /**
  * @author likly
@@ -17,4 +19,9 @@ public interface CacheAnnotationBuilder<A extends Annotation, O extends CacheOpe
 
     @NonNull
     O build(@NonNull Method method, @NonNull A ann);
+
+    @NonNull
+    default O build(@NonNull Integer index, @NonNull Parameter parameter, @NonNull Type parameterType, @NonNull A ann) {
+        return null;
+    }
 }

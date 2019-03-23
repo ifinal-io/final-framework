@@ -8,6 +8,8 @@ import org.finalframework.cache.CacheOperationInvoker;
 import org.finalframework.cache.annotation.CacheDel;
 import org.finalframework.cache.annotation.CachePut;
 import org.finalframework.cache.annotation.Cacheable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -22,6 +24,7 @@ import java.lang.reflect.Method;
  * @since 1.0
  */
 public class CacheInterceptor extends CacheAspectSupport implements MethodInterceptor, Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(CacheInterceptor.class);
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -30,6 +33,7 @@ public class CacheInterceptor extends CacheAspectSupport implements MethodInterc
             try {
                 return invocation.proceed();
             } catch (Throwable ex) {
+                logger.error("cache invoker exception:", ex);
                 throw new CacheException(ex);
             }
         };

@@ -29,7 +29,15 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     @Getter
     private Sort sort;
     @Getter
-    private Integer limit;
+    private Long offset;
+    @Getter
+    private Long limit;
+
+    public Query page(int page, int size) {
+        this.page = page;
+        this.size = size;
+        return this;
+    }
 
     public Query page(int page) {
         this.page = page;
@@ -84,7 +92,13 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
         return sort(Direction.DESC, properties);
     }
 
-    public Query limit(int limit) {
+    public Query limit(long offset, long limit) {
+        this.offset = offset;
+        this.limit = limit;
+        return this;
+    }
+
+    public Query limit(long limit) {
         this.limit = limit;
         return this;
     }

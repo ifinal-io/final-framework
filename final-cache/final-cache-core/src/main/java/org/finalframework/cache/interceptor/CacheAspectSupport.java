@@ -4,17 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.*;
-import org.finalframework.cache.handler.CacheDelInvocationHandler;
-import org.finalframework.cache.handler.CacheLockInvocationHandler;
-import org.finalframework.cache.handler.CachePutInvocationHandler;
-import org.finalframework.cache.handler.CacheableInvocationHandler;
 import org.finalframework.core.Assert;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -27,28 +26,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class CacheAspectSupport {
     private final CacheOperationExpressionEvaluator evaluator = new DefaultCacheOperationExpressionEvaluator();
     private final Map<CacheOperationCacheKey, CacheOperationMetadata> metadataCache = new ConcurrentHashMap<>(1024);
-    private final CacheConfiguration cacheConfiguration = new CacheConfiguration();
-    private final List<CacheInvocationHandler<?, ?>> beforeCacheInvocationHandlers = new ArrayList<>();
-    private final List<CacheInvocationHandler<?, ?>> afterCacheInvocationHandlers = new ArrayList<>();
     private boolean initialized = true;
     @Setter
     @Getter
     private CacheOperationSource cacheOperationSource;
-
-    {
-        final CacheLockInvocationHandler cacheLockOperationContextsHandler = new CacheLockInvocationHandler();
-        final CacheableInvocationHandler cacheableOperationContextsHandler = new CacheableInvocationHandler();
-        final CacheDelInvocationHandler cacheDelOperationContextsHandler = new CacheDelInvocationHandler();
-        beforeCacheInvocationHandlers.add(cacheLockOperationContextsHandler);
-        beforeCacheInvocationHandlers.add(cacheableOperationContextsHandler);
-        beforeCacheInvocationHandlers.add(cacheDelOperationContextsHandler);
-
-        final CachePutInvocationHandler cachePutOperationContextsHandler = new CachePutInvocationHandler();
-        afterCacheInvocationHandlers.add(cacheableOperationContextsHandler);
-        afterCacheInvocationHandlers.add(cachePutOperationContextsHandler);
-        afterCacheInvocationHandlers.add(cacheDelOperationContextsHandler);
-        afterCacheInvocationHandlers.add(cacheLockOperationContextsHandler);
-    }
+    @Setter
+    private CacheConfiguration cacheConfiguration;
 
     protected CacheContext getCacheOperationContext(CacheOperation operation, Method method, Object[] args, Object target, Class<?> targetClass) {
         CacheOperationMetadata metadata = getCacheOperationMetadata(operation, method, targetClass);
@@ -89,7 +72,7 @@ public abstract class CacheAspectSupport {
     private Object execute(CacheOperationInvoker invoker, Method method, CacheOperationContextsImpl contexts) {
 
         Object cacheValue = null;
-        for (CacheInvocationHandler<?, ?> handler : beforeCacheInvocationHandlers) {
+        for (CacheInvocationHandler<?, ?> handler : cacheConfiguration.getCacheInvocationHandlers()) {
             Object value = handler.handleBefore(contexts, DefaultCacheOperationExpressionEvaluator.NO_RESULT);
             if (cacheValue == null && value != null) {
                 cacheValue = value;
@@ -109,7 +92,7 @@ public abstract class CacheAspectSupport {
             throwable = e;
         }
 
-        for (CacheInvocationHandler<?, ?> handler : afterCacheInvocationHandlers) {
+        for (CacheInvocationHandler<?, ?> handler : cacheConfiguration.getCacheInvocationHandlers()) {
             handler.handleAfter(contexts, returnValue, throwable);
         }
 

@@ -100,13 +100,13 @@ public class CacheContext<O extends CacheOperation, T> implements CacheOperation
 
 
     @Override
-    public T invocation() {
+    public T property() {
         return invocation;
     }
 
     @Override
-    public void invocation(T context) {
-        this.invocation = context;
+    public void property(T property) {
+        this.invocation = property;
     }
 
 

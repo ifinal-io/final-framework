@@ -4,7 +4,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.mapping.generator.ColumnGenerator;
 import org.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
-import org.finalframework.mybatis.generator.BaseColumnGenerator;
+import org.finalframework.mybatis.generator.DefaultColumnGenerator;
 import org.finalframework.mybatis.handler.TypeHandlerRegistry;
 
 /**
@@ -33,7 +33,7 @@ public interface Utils {
         final Class javaType = getPropertyJavaType(property);
         final Class collectionType = getPropertyCollectionType(property);
         ColumnGenerator columnGenerator = ColumnGeneratorRegistry.getInstance().getColumnGenerator(javaType, collectionType);
-        return columnGenerator == null ? BaseColumnGenerator.INSTANCE : columnGenerator;
+        return columnGenerator == null ? DefaultColumnGenerator.INSTANCE : columnGenerator;
     }
 
 }

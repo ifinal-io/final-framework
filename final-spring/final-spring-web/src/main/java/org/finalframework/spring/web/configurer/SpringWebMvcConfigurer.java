@@ -24,12 +24,12 @@ public class SpringWebMvcConfigurer implements WebMvcConfigurer {
     }
 
     @Bean
-    public EnumConverterFactory integer2EnumConverterFactory() {
+    public EnumConverterFactory enumConverterFactory() {
         return new EnumConverterFactory();
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverterFactory(integer2EnumConverterFactory());
+        registry.addConverterFactory(enumConverterFactory());
     }
 }

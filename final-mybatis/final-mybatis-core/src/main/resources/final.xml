@@ -5,7 +5,7 @@
             <column-converter class="org.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
         </name-converter>
         <column-generator>
-            <default class="org.finalframework.mybatis.generator.BaseColumnGenerator"/>
+            <default class="org.finalframework.mybatis.generator.DefaultColumnGenerator"/>
         </column-generator>
     </data>
 </final>

@@ -14,6 +14,10 @@ public enum InvocationTime {
      */
     BEFORE,
     /**
+     * 大方法执行之后，包含 {@link #AFTER_RETURNING} 和 {@link #AFTER_THROWING}。
+     */
+    AFTER,
+    /**
      * 在方法返回之后
      */
     AFTER_RETURNING,

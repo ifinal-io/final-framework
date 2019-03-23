@@ -65,7 +65,12 @@ public class SelectMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
         select.appendChild(include(document, SQL_TABLE));
         select.appendChild(where(document, METHOD_SELECT_ONE.equals(method.getName()) ? whenIdNotNull(document, entity) : whenIdsNotNull(document, entity), whenQueryNotNull(document)));
         select.appendChild(include(document, SQL_ORDER));
-        select.appendChild(include(document, SQL_LIMIT));
+        if (METHOD_SELECT_ONE.equals(method.getName())) {
+            // selectOne 默认添加 LIMIT 1
+            select.appendChild(textNode(document, " LIMIT 1"));
+        } else {
+            select.appendChild(include(document, SQL_LIMIT));
+        }
         return select;
     }
 

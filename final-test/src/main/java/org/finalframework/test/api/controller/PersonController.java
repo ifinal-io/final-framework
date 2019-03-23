@@ -1,12 +1,14 @@
 package org.finalframework.test.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.cache.annotation.CachePut;
-import org.finalframework.cache.annotation.Cacheable;
+import org.finalframework.cache.annotation.CacheIncrement;
+import org.finalframework.cache.annotation.CacheValue;
+import org.finalframework.cache.annotation.enums.InvocationTime;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.result.Result;
+import org.finalframework.json.Json;
 import org.finalframework.spring.aop.monitor.MethodMonitor;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -86,23 +87,14 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    @JsonView(Person.class)
-//    @CacheLock(key = {"person", "{#id}"}, retry = 5, ttl = 30, timeunit = TimeUnit.SECONDS)
-    @Cacheable(key = {"person:{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
-    @CachePut(key = {"personhash", "{#id}"}, field = "name", value = "{#result.name}")
-    public Person get(@PathVariable("id") Long id) {
-
-//        try {
-//            Thread.sleep(10 * 1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
+    @CacheIncrement(key = {"invoke:{#id}"}, invocationTime = InvocationTime.AFTER_THROWING)
+    public Person get(@PathVariable("id") Long id, @CacheValue(key = {"{#id}"}) Person cahce) {
+        logger.info(Json.toJson(cahce));
+        cahce = null;
+        cahce.getId();
         return personMapper.selectOne(Result.View.class, id);
     }
 
-    //    @JsonView(Person.class)
-//    @Cacheable(key = {"'person'", "{#id}"}, ttl = 1, timeunit = TimeUnit.MINUTES)
     public Person findById(Long id) {
         return personMapper.selectOne(id);
     }

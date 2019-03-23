@@ -2,7 +2,7 @@ package org.finalframework.mybatis.autoconfigure;
 
 import org.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
 import org.finalframework.mybatis.agent.MybatisAgent;
-import org.finalframework.mybatis.generator.BaseColumnGenerator;
+import org.finalframework.mybatis.generator.DefaultColumnGenerator;
 import org.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
 import org.finalframework.spring.coding.ApplicationEventListener;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class FinalMybatisAgentApplicationListener implements ApplicationListener
 
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
-        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(BaseColumnGenerator.INSTANCE);
+        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(DefaultColumnGenerator.INSTANCE);
         ColumnGeneratorRegistry.getInstance().registerColumnModule(new DefaultColumnGeneratorModule());
         MybatisAgent.getInstance().agent();
     }

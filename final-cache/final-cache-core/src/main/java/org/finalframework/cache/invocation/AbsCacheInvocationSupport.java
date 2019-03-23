@@ -90,6 +90,14 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
+    public <T> T generateValue(String value, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext, Class<T> clazz) {
+        if (value != null && isExpression(value)) {
+            return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
+        }
+        throw new IllegalArgumentException("value expression can not evaluator to " + clazz.getCanonicalName());
+    }
+
+    @Override
     public boolean isConditionPassing(String condition, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         if (this.conditionPassing == null) {
             if (condition != null && isExpression(condition)) {
