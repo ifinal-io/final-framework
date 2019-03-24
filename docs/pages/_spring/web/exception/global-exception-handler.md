@@ -2,7 +2,7 @@
 post: post
 title: GlobalExceptionHandler
 subtitle: 全局异常处理器
-description: 实现异常的全局处理，屏蔽堆栈信息返回。
+description: 全局异常处理机制。
 layout: post
 categories: [spring]
 tags: [web,exception]
@@ -18,3 +18,28 @@ version: 1.0
 # GlobalExceptionHandler
 
 [GlobalExceptionHandler](/final-spring/final-spring-web/src/main/java/org/finalframework/spring/web/exception/GlobalExceptionHandler.java)
+全局异常处理器简化了系统的异常处理，提高系统中异常的可读性。
+
+**定义如下**
+
+```java
+public interface GlobalExceptionHandler<T> {
+
+    /**
+     * 注册异常处理器
+     *
+     * @param handler 异常处理器
+     */
+    void registerExceptionHandler(@NonNull ExceptionHandler<T> handler);
+
+    /**
+     * 设置未捕获的异常处理器
+     *
+     * @param handler 未捕获的异常处理器
+     */
+    void setUnCatchExceptionHandler(@NonNull ExceptionHandler<T> handler);
+
+    @Nullable
+    T handle(@NonNull Throwable throwable) throws Throwable;
+}
+```

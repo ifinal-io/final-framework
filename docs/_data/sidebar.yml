@@ -67,6 +67,15 @@ spring:
         - id: interceptor
           name: 处理器拦截器
           mini: HI
+          menus:
+            - id: handler-interceptor
+              link: /spring/web/interceptor/handler-interceptor
+              name: HandlerInterceptor
+              mini: HI
+            - id: trade-handler-interceptor
+              link: /spring/web/interceptor/trace-handler-interceptor
+              name: TraceHandlerInterceptor
+              mini: THI
 cache:
   logo: /assets/img/modules/redis.jpg
   name: Final Cache
