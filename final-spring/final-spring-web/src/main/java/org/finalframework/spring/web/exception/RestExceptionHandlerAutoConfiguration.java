@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.handler.exception;
+package org.finalframework.spring.web.exception;
 
 import org.finalframework.json.JsonException;
 import org.finalframework.spring.coding.AutoConfiguration;

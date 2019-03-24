@@ -69,8 +69,6 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
-
         this.responseBodyInterceptor = applicationContext.getBean(responseBodyAdviceProperties.getInterceptor());
     }
 

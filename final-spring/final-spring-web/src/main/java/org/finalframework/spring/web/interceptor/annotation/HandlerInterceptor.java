@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.handler.interceptor.annotation;
+package org.finalframework.spring.web.interceptor.annotation;
 
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
-package org.finalframework.spring.web.handler.exception;
+package org.finalframework.spring.web.exception;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.spring.util.BeanUtils;
-import org.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
+import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -26,7 +26,7 @@ public class DefaultGlobalExceptionHandler<T> implements GlobalExceptionHandler<
     private ApplicationContext applicationContext;
     private List<ExceptionHandlerBean<T>> exceptionHandlerBeans;
     @Setter
-    private org.finalframework.spring.web.handler.exception.RestExceptionHandler<T> unCatchExceptionHandler;
+    private org.finalframework.spring.web.exception.RestExceptionHandler<T> unCatchExceptionHandler;
 
     @PostConstruct
     @SuppressWarnings("unchecked")

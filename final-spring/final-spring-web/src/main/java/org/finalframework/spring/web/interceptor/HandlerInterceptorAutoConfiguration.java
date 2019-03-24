@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.handler.interceptor;
+package org.finalframework.spring.web.interceptor;
 
 import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.context.annotation.Bean;

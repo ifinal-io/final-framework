@@ -1,10 +1,10 @@
-package org.finalframework.spring.web.handler.exception;
+package org.finalframework.spring.web.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.core.Assert;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
-import org.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
+import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 

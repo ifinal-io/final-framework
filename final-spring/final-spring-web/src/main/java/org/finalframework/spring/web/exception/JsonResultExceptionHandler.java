@@ -1,9 +1,9 @@
-package org.finalframework.spring.web.handler.exception;
+package org.finalframework.spring.web.exception;
 
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 import org.finalframework.json.JsonException;
-import org.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
+import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.lang.NonNull;
 

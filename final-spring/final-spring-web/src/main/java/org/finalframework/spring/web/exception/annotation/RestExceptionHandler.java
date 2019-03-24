@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.handler.exception.annotation;
+package org.finalframework.spring.web.exception.annotation;
 
 import org.springframework.stereotype.Component;
 
