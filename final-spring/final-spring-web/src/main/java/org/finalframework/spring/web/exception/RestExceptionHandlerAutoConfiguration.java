@@ -37,8 +37,8 @@ public class RestExceptionHandlerAutoConfiguration {
     }
 
     @Bean
-    public DefaultGlobalExceptionHandler defaultGlobalExceptionHandler() {
-        return new DefaultGlobalExceptionHandler();
+    public RestGlobalExceptionHandler defaultGlobalExceptionHandler() {
+        return new RestGlobalExceptionHandler();
     }
 
     @Bean

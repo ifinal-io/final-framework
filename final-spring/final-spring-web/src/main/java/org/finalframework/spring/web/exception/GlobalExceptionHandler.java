@@ -1,5 +1,8 @@
 package org.finalframework.spring.web.exception;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 /**
  * 全局异常处理器
  *
@@ -9,5 +12,21 @@ package org.finalframework.spring.web.exception;
  * @since 1.0
  */
 public interface GlobalExceptionHandler<T> {
-    T handle(Throwable throwable) throws Throwable;
+
+    /**
+     * 注册异常处理器
+     *
+     * @param handler 异常处理器
+     */
+    void registerExceptionHandler(@NonNull ExceptionHandler<T> handler);
+
+    /**
+     * 设置未捕获的异常处理器
+     *
+     * @param handler 未捕获的异常处理器
+     */
+    void setUnCatchExceptionHandler(@NonNull ExceptionHandler<T> handler);
+
+    @Nullable
+    T handle(@NonNull Throwable throwable) throws Throwable;
 }

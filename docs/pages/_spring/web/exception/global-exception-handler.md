@@ -2,6 +2,7 @@
 post: post
 title: GlobalExceptionHandler
 subtitle: 全局异常处理器
+description: 实现异常的全局处理，屏蔽堆栈信息返回。
 layout: post
 categories: [spring]
 tags: [web,exception]

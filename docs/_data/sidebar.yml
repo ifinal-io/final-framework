@@ -52,6 +52,10 @@ spring:
           name: 异常处理器
           mini: EH
           menus:
+            - id: exception-handler
+              link: /spring/web/exception/exception-handler
+              name: ExceptionHandler
+              mini: EH
             - id: global-exception-handler
               link: /spring/web/exception/global-exception-handler
               name: GlobalExceptionHandler
