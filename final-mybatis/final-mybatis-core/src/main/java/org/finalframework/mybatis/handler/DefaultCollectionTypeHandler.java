@@ -1,5 +1,7 @@
 package org.finalframework.mybatis.handler;
 
+import org.finalframework.core.PrimaryTypes;
+
 import java.util.AbstractCollection;
 import java.util.Collection;
 
@@ -44,13 +46,13 @@ public abstract class DefaultCollectionTypeHandler<E, T extends Collection<E>> e
         AbstractCollection result = (AbstractCollection) getCollection();
 
         for (String item : value.split(",")) {
-            if (JavaType.isString(type)) {
+            if (PrimaryTypes.isString(type)) {
                 result.add(item);
-            } else if (JavaType.isInt(type)) {
+            } else if (PrimaryTypes.isInteger(type)) {
                 result.add(Integer.parseInt(item));
-            } else if (JavaType.isLong(type)) {
+            } else if (PrimaryTypes.isLong(type)) {
                 result.add(Long.parseLong(item));
-            } else if (JavaType.isBoolean(type)) {
+            } else if (PrimaryTypes.isBoolean(type)) {
                 result.add(Boolean.parseBoolean(item));
             } else {
                 throw new IllegalArgumentException("the target type eq not support " + type.getName());
