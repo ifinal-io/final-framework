@@ -34,7 +34,7 @@ public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder i
                 .field(parse(ann.field(), delimiter))
                 .delimiter(delimiter)
                 .condition(ann.condition())
-                .order(ann.order())
+                .point(ann.point())
                 .value(ann.value())
                 .type(ann.type())
                 .ttl(ann.ttl())

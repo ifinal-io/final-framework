@@ -3,9 +3,9 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheDel;
-import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CacheDelInvocation;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -25,7 +25,7 @@ public class CacheDelOperation implements CacheOperation {
     private final Collection<String> field;
     private final String condition;
     private final String delimiter;
-    private final Order order;
+    private final CutPoint cutPoint;
     private final Integer retry;
     private final Long sleep;
     private final Class<? extends CacheInvocation> invocation;
@@ -36,7 +36,7 @@ public class CacheDelOperation implements CacheOperation {
         this.field = Assert.isEmpty(builder.field) ? null : builder.field;
         this.delimiter = Assert.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.order = builder.order;
+        this.cutPoint = builder.cutPoint;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.invocation = builder.invocation;
@@ -73,8 +73,8 @@ public class CacheDelOperation implements CacheOperation {
     }
 
     @NonNull
-    public Order order() {
-        return order;
+    public CutPoint point() {
+        return cutPoint;
     }
 
     @Nullable
@@ -98,7 +98,7 @@ public class CacheDelOperation implements CacheOperation {
         private Collection<String> field;
         private String delimiter;
         private String condition;
-        private Order order;
+        private CutPoint cutPoint;
         private Integer retry;
         private Long sleep;
         private Class<? extends CacheInvocation> invocation;
@@ -132,8 +132,8 @@ public class CacheDelOperation implements CacheOperation {
             return this;
         }
 
-        public Builder order(Order order) {
-            this.order = order;
+        public Builder point(CutPoint cutPoint) {
+            this.cutPoint = cutPoint;
             return this;
         }
 

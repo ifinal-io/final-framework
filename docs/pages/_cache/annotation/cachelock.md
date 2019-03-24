@@ -26,12 +26,12 @@ version: 1.0
 
 **示例**：
 
-* **需求**： 在订单服务`OrderService`的下单方法`order(request)`中，对于同一个下单请求`request`在同一时刻有且仅能有一个下单动作，避免造成用户重复下单的问题。
+* **需求**： 在订单服务`OrderService`的下单方法`cutPoint(request)`中，对于同一个下单请求`request`在同一时刻有且仅能有一个下单动作，避免造成用户重复下单的问题。
 * **Code**:
 ```java
 public interface OrderService{
-    @CacheLock(key={"order:{#request.id}"},ttl=5,timeunit=TimeUnit.MINUTES)
-    Order order(Request request);
+    @CacheLock(key={"cutPoint:{#request.id}"},ttl=5,timeunit=TimeUnit.MINUTES)
+    Order cutPoint(Request request);
 }
 ```
 

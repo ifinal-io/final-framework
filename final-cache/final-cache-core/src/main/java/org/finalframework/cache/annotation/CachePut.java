@@ -3,6 +3,7 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
+import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(CachePut.List.class)
-@CacheAnnotation({Order.BEFORE, Order.AFTER, Order.AFTER_RETURNING, Order.AFTER_THROWING})
+@CacheAnnotation({CutPoint.BEFORE, CutPoint.AFTER, CutPoint.AFTER_RETURNING, CutPoint.AFTER_THROWING})
 public @interface CachePut {
 
     String[] key();
@@ -30,7 +31,7 @@ public @interface CachePut {
 
     String delimiter() default ":";
 
-    Order order() default Order.AFTER_RETURNING;
+    CutPoint point() default CutPoint.AFTER_RETURNING;
 
     String condition() default "";
 

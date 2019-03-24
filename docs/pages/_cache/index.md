@@ -18,7 +18,7 @@ version: 1.0
 
 基于注解(`Annotation`)声明式的缓存框架，旨在简化程序中的缓存逻辑，让缓存在业务中更加透明化。
 
-`Cache`实现在`Method`的执行生命周期[`Order`](#order)中，增加目标方法的功能，如：
+`Cache`实现在`Method`的执行生命周期[`Order`](#cutPoint)中，增加目标方法的功能，如：
 
 * 在方法执行之前获取分布式锁，避免重复执行。
 * 统计方法的执行次数、成功次数和失败次数。
@@ -30,7 +30,7 @@ version: 1.0
 
 将`Method`的执行生命周期拆分为`Before`、`After`、`AfterReturnning`和`AfterThrowing`四个阶段，其中`After`包含`AfterReturning`和`AfterThrowing`。
 
-{% include cache/order.html %}
+详情请查看：[Order](../_spring/aop/cutPoint.md)
 
 ## Annotation
 

@@ -1,6 +1,7 @@
 package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.CacheInvocation;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -18,7 +19,7 @@ import java.lang.reflect.Type;
  * @since 1.0
  * @see org.finalframework.cache.Cache#get(Object, Object, Type, Class)
  */
-@CacheAnnotation(Order.BEFORE)
+@CacheAnnotation(CutPoint.BEFORE)
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheValue {

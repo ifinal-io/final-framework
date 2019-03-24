@@ -15,6 +15,14 @@ spring:
       link: /spring
       icon: dashboard
       name: README
+    - id: aop
+      icon: image
+      name: AOP
+      menus:
+        - id: cutpoint
+          link: /spring/aop/cutpoint
+          name: 切入点
+          mini: CP
     - id: web
       icon: image
       name: WEB

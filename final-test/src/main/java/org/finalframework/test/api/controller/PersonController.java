@@ -3,12 +3,12 @@ package org.finalframework.test.api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
-import org.finalframework.cache.annotation.Order;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.finalframework.spring.aop.monitor.MethodMonitor;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
@@ -87,7 +87,7 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CacheIncrement(key = {"invoke:{#id}"}, order = Order.AFTER_THROWING)
+    @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.AFTER_THROWING)
     public Person get(@PathVariable("id") Long id, @CacheValue(key = {"{#id}"}) Person cahce) {
         logger.info(Json.toJson(cahce));
         return personMapper.selectOne(Result.View.class, id);

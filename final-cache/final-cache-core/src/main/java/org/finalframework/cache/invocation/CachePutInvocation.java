@@ -4,10 +4,10 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
-import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.core.Assert;
 import org.finalframework.json.Json;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -26,7 +26,7 @@ public class CachePutInvocation extends AbsCacheInvocationSupport implements Cac
 
     @Override
     public Void before(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
-        if (Order.BEFORE == context.operation().order()) {
+        if (CutPoint.BEFORE == context.operation().point()) {
             invocation(cache, context, result, null);
         }
         return null;
@@ -34,14 +34,14 @@ public class CachePutInvocation extends AbsCacheInvocationSupport implements Cac
 
     @Override
     public void afterReturning(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
-        if (Order.AFTER_RETURNING == context.operation().order()) {
+        if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             invocation(cache, context, result, null);
         }
     }
 
     @Override
     public void afterThrowing(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Throwable throwable) {
-        if (Order.AFTER_THROWING == context.operation().order()) {
+        if (CutPoint.AFTER_THROWING == context.operation().point()) {
             invocation(cache, context, null, throwable);
         }
     }

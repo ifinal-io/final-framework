@@ -1,3 +1,24 @@
+---
+post: post
+title: CutPoint
+subtitle: 切点
+layout: post
+categories: []
+tags: []
+menus:
+    - aop
+    - cutpoint
+author: likly
+date: 2019-03-24 13:09:18 +800
+version: 1.0
+---
+
+# CutPoint
+
+如同 `try~catch-finally` 代码块一样，`AOP`的切入点
+
+
+<div  class="table-responsive">
 <table>
     <thead>
     <tr>
@@ -29,3 +50,4 @@
     </tr>
     </tbody>
 </table>
+</div>

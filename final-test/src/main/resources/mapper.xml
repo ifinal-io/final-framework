@@ -31,7 +31,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </update>
     <delete id="delete">
@@ -45,7 +45,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
@@ -86,7 +86,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </insert>
     <select id="selectCount" resultType="java.lang.Long">
@@ -97,7 +97,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </select>
     <select id="selectOne" resultMap="PersonMap">SELECT<include refid="sql-select-columns"/>FROM
@@ -110,7 +110,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </select>
     <select id="select" resultMap="PersonMap">SELECT<include refid="sql-select-columns"/>FROM
@@ -123,7 +123,7 @@
                 <when test="query != null and query.criteria != null">${query.criteria.sql}</when>
             </choose>
         </where>
-        <include refid="sql-order"/>
+        <include refid="sql-cutPoint"/>
         <include refid="sql-limit"/>
     </select>
     <sql id="sql-table">
@@ -135,7 +135,7 @@
     <sql id="sql-select">SELECT
         age,createdTime,creator,creatorName,creatorAge,id,intList,lastModifiedTime,name,stringList,yn FROM
     </sql>
-    <sql id="sql-order">
+    <sql id="sql-cutPoint">
         <if test="query != null and query.sort != null">ORDER BY
             #{query.sort, javaType=org.finalframework.data.query.Sort,typeHandler=org.finalframework.mybatis.handler.SortTypeHandler}
         </if>

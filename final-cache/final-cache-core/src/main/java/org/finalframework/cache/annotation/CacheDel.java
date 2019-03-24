@@ -3,6 +3,7 @@ package org.finalframework.cache.annotation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.annotation.CacheDel.List;
+import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
 
@@ -21,7 +22,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(List.class)
-@CacheAnnotation({Order.BEFORE, Order.AFTER, Order.AFTER_RETURNING, Order.AFTER_THROWING})
+@CacheAnnotation({CutPoint.BEFORE, CutPoint.AFTER, CutPoint.AFTER_RETURNING, CutPoint.AFTER_THROWING})
 public @interface CacheDel {
 
     /**
@@ -54,7 +55,7 @@ public @interface CacheDel {
      */
     long sleep() default 1000;
 
-    Order order() default Order.AFTER_RETURNING;
+    CutPoint point() default CutPoint.AFTER_RETURNING;
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
 

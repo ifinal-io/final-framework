@@ -14,8 +14,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-spring-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

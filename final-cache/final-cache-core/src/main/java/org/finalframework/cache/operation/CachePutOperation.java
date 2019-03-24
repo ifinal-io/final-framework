@@ -3,9 +3,9 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CachePut;
-import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CachePutInvocation;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -26,7 +26,7 @@ public class CachePutOperation implements CacheOperation {
     private final String value;
     private final String delimiter;
     private final String condition;
-    private final Order order;
+    private final CutPoint cutPoint;
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeUnit;
@@ -41,7 +41,7 @@ public class CachePutOperation implements CacheOperation {
         this.delimiter = builder.delimiter;
         this.value = Assert.isEmpty(builder.value) ? null : builder.delimiter;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.order = builder.order;
+        this.cutPoint = builder.cutPoint;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
@@ -85,8 +85,8 @@ public class CachePutOperation implements CacheOperation {
     }
 
     @NonNull
-    public Order order() {
-        return this.order;
+    public CutPoint point() {
+        return this.cutPoint;
     }
 
     @Nullable
@@ -126,7 +126,7 @@ public class CachePutOperation implements CacheOperation {
         private String value;
         private String delimiter;
         private String condition;
-        private Order order;
+        private CutPoint cutPoint;
         private String expire;
         private Long ttl;
         private TimeUnit timeUnit;
@@ -167,8 +167,8 @@ public class CachePutOperation implements CacheOperation {
             return this;
         }
 
-        public Builder order(Order order) {
-            this.order = order;
+        public Builder point(CutPoint cutPoint) {
+            this.cutPoint = cutPoint;
             return this;
         }
 

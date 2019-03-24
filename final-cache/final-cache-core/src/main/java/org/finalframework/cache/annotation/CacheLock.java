@@ -2,6 +2,7 @@ package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
+import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({Order.BEFORE, Order.AFTER_RETURNING})
+@CacheAnnotation({CutPoint.BEFORE, CutPoint.AFTER_RETURNING})
 public @interface CacheLock {
     String[] key();
 

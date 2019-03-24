@@ -45,7 +45,7 @@ public class HandlerInterceptorConfigurer implements WebMvcConfigurer, Applicati
                 interceptorRegistration.order(order.value());
             }
 
-            logger.info("==> add interceptor={},includes={},excludes={},order={}",
+            logger.info("==> add interceptor={},includes={},excludes={},point={}",
                     item.getClass(),
                     annotation.includes(),
                     annotation.excludes(),

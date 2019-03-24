@@ -3,9 +3,9 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheIncrement;
-import org.finalframework.cache.annotation.Order;
 import org.finalframework.cache.invocation.CacheIncrementInvocation;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -28,7 +28,7 @@ public class CacheIncrementOperation implements CacheOperation {
     private final Class<? extends Number> type;
     private final String delimiter;
     private final String condition;
-    private final Order order;
+    private final CutPoint cutPoint;
     private final String expire;
     private final Long ttl;
     private final TimeUnit timeunit;
@@ -44,7 +44,7 @@ public class CacheIncrementOperation implements CacheOperation {
         this.value = Assert.isEmpty(builder.value) ? null : builder.value;
         this.type = builder.type;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.order = builder.order;
+        this.cutPoint = builder.cutPoint;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeunit = builder.timeunit;
@@ -93,8 +93,8 @@ public class CacheIncrementOperation implements CacheOperation {
     }
 
     @NonNull
-    public Order order() {
-        return order;
+    public CutPoint point() {
+        return cutPoint;
     }
 
     @Nullable
@@ -135,7 +135,7 @@ public class CacheIncrementOperation implements CacheOperation {
         private Class<? extends Number> type;
         private String delimiter;
         private String condition;
-        private Order order;
+        private CutPoint cutPoint;
         private String expire;
         private Long ttl;
         private TimeUnit timeunit;
@@ -181,8 +181,8 @@ public class CacheIncrementOperation implements CacheOperation {
             return this;
         }
 
-        public Builder order(Order order) {
-            this.order = order;
+        public Builder point(CutPoint cutPoint) {
+            this.cutPoint = cutPoint;
             return this;
         }
 
