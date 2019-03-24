@@ -6,12 +6,12 @@ package org.finalframework.spring.web.handler.exception;
  * @date 2018-10-31 11:15
  * @since 1.0
  */
-public class ExceptionHandlerBean<E extends Throwable, R> implements ExceptionHandler<E, R>, Comparable<ExceptionHandlerBean> {
+public class ExceptionHandlerBean<R> implements ExceptionHandler<R>, Comparable<ExceptionHandlerBean> {
 
     private final Integer order;
-    private final ExceptionHandler<E, R> exceptionHandler;
+    private final ExceptionHandler<R> exceptionHandler;
 
-    ExceptionHandlerBean(Integer order, ExceptionHandler<E, R> exceptionHandler) {
+    ExceptionHandlerBean(Integer order, ExceptionHandler<R> exceptionHandler) {
         this.order = order;
         this.exceptionHandler = exceptionHandler;
     }
@@ -27,7 +27,7 @@ public class ExceptionHandlerBean<E extends Throwable, R> implements ExceptionHa
     }
 
     @Override
-    public R handle(E throwable) {
+    public R handle(Throwable throwable) {
         return exceptionHandler.handle(throwable);
     }
 }

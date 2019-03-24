@@ -1,8 +1,8 @@
 package org.finalframework.spring.web.autoconfigure;
 
 import org.finalframework.spring.coding.AutoConfiguration;
-import org.finalframework.spring.web.reponse.DefaultResponseInterceptor;
-import org.finalframework.spring.web.reponse.ResultResponseBodyAdvice;
+import org.finalframework.spring.web.reponse.RestResponseBodyAdvice;
+import org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,21 +16,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AutoConfiguration
 @EnableConfigurationProperties(ResponseBodyAdviceProperties.class)
-public class ResultResponseBodyAdviceAutoConfiguration {
+public class RestResponseBodyAdviceAutoConfiguration {
     private final ResponseBodyAdviceProperties responseBodyAdviceProperties;
 
-    public ResultResponseBodyAdviceAutoConfiguration(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
+    public RestResponseBodyAdviceAutoConfiguration(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
         this.responseBodyAdviceProperties = responseBodyAdviceProperties;
     }
 
     @Bean
-    public ResultResponseBodyAdvice resultResponseBodyAdvice() {
-        return new ResultResponseBodyAdvice(responseBodyAdviceProperties);
+    public RestResponseBodyAdvice resultResponseBodyAdvice() {
+        return new RestResponseBodyAdvice(responseBodyAdviceProperties);
     }
 
     @Bean
-    public DefaultResponseInterceptor defaultResponseInterceptor() {
-        return new DefaultResponseInterceptor();
+    public ResultResponseBodyInterceptor resultResponseBodyInterceptor() {
+        return new ResultResponseBodyInterceptor();
     }
 
 }

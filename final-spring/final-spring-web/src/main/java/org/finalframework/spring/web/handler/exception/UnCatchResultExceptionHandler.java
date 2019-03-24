@@ -1,11 +1,12 @@
 package org.finalframework.spring.web.handler.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.data.exception.IException;
+import org.finalframework.core.Assert;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 import org.finalframework.spring.web.handler.exception.annotation.RestExceptionHandler;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author likly
@@ -16,18 +17,16 @@ import org.springframework.core.annotation.Order;
 @Slf4j
 @Order
 @RestExceptionHandler
-public class DefaultResultExceptionHandler implements ResultExceptionHandler {
+public class UnCatchResultExceptionHandler implements ResultExceptionHandler {
 
     @Override
     public boolean supports(Throwable t) {
-        return t instanceof IException;
+        return true;
     }
 
     @Override
     public Result handle(Throwable throwable) {
-        if (throwable instanceof IException) {
-            return R.failure(((IException) throwable).getCode(), throwable.getMessage());
-        }
-        throw new IllegalArgumentException("不支持异常处理：" + throwable.getClass());
+        logger.error("UnCatchException:", throwable);
+        return R.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), Assert.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
     }
 }

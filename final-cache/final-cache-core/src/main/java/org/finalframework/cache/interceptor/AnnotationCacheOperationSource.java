@@ -4,6 +4,8 @@ package org.finalframework.cache.interceptor;
 import org.finalframework.cache.CacheAnnotationParser;
 import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.CacheOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -22,7 +24,7 @@ import java.util.Set;
 public class AnnotationCacheOperationSource extends AbsCacheOperationSource implements Serializable {
 
     private static final long serialVersionUID = -1745346805308942300L;
-
+    private static final Logger logger = LoggerFactory.getLogger(AnnotationCacheOperationSource.class);
     private final Set<CacheAnnotationParser> cacheAnnotationParsers;
 
     public AnnotationCacheOperationSource(CacheConfiguration cacheConfiguration) {
@@ -31,11 +33,13 @@ public class AnnotationCacheOperationSource extends AbsCacheOperationSource impl
 
     @Override
     protected Collection<CacheOperation> findCacheOperations(Method method) {
+        logger.info("==> find method cache operations: {}", method.toString());
         return determineCacheOperations(parser -> parser.parseCacheAnnotation(method));
     }
 
     @Override
     protected Collection<CacheOperation> findCacheOperations(Class<?> clazz) {
+        logger.info("==> find class cache operations: {}", clazz.toString());
         return determineCacheOperations(parser -> parser.parseCacheAnnotation(clazz));
     }
 

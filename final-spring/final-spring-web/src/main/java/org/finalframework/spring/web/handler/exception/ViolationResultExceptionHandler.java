@@ -19,16 +19,17 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @RestExceptionHandler
-public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
+public class ViolationResultExceptionHandler implements ResultExceptionHandler {
     @Override
     public boolean supports(Throwable t) {
         return t instanceof ConstraintViolationException;
     }
 
     @Override
-    public Result handle(ConstraintViolationException e) {
+    public Result handle(Throwable e) {
+        ConstraintViolationException violationException = (ConstraintViolationException) e;
         return R.failure(
-                HttpStatus.BAD_REQUEST.value(), e.getConstraintViolations()
+                HttpStatus.BAD_REQUEST.value(), violationException.getConstraintViolations()
                         .stream()
                         .map(ConstraintViolation::getMessage)
                         .collect(Collectors.joining(","))

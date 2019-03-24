@@ -6,5 +6,5 @@ package org.finalframework.spring.web.handler.exception;
  * @date 2019-02-23 22:06:35
  * @since 1.0
  */
-public interface RestExceptionHandler<E extends Throwable, R> extends ExceptionHandler<E, R> {
+public interface RestExceptionHandler<R> extends ExceptionHandler<R> {
 }

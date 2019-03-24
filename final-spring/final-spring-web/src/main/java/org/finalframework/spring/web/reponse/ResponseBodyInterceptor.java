@@ -6,8 +6,7 @@ package org.finalframework.spring.web.reponse;
  * @date 2019-02-14 19:27:05
  * @since 1.0
  */
-public interface ResponseInterceptor<SOURCE, TARGET> {
+public interface ResponseBodyInterceptor<BODY, RESULT> {
 
-    TARGET intercept(SOURCE source);
-
+    RESULT intercept(BODY body);
 }

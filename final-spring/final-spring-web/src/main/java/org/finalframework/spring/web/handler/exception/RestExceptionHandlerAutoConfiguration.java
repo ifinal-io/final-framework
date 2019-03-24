@@ -32,13 +32,20 @@ public class RestExceptionHandlerAutoConfiguration {
     }
 
     @Bean
-    DefaultResultExceptionHandler defaultResultExceptionHandler() {
+    public DefaultResultExceptionHandler defaultResultExceptionHandler() {
         return new DefaultResultExceptionHandler();
     }
 
     @Bean
+    public DefaultGlobalExceptionHandler defaultGlobalExceptionHandler() {
+        return new DefaultGlobalExceptionHandler();
+    }
+
+    @Bean
     public RestExceptionHandlerConfigurer restExceptionHandlerConfigurer() {
-        return new RestExceptionHandlerConfigurer();
+        final RestExceptionHandlerConfigurer restExceptionHandlerConfigurer = new RestExceptionHandlerConfigurer();
+        restExceptionHandlerConfigurer.setGlobalExceptionHandler(defaultGlobalExceptionHandler());
+        return restExceptionHandlerConfigurer;
     }
 
 }

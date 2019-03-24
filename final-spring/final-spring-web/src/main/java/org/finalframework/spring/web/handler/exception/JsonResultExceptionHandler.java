@@ -18,7 +18,7 @@ import org.springframework.lang.NonNull;
  */
 @RestExceptionHandler
 @ConditionalOnClass(JsonException.class)
-public class JsonResultExceptionHandler implements ResultExceptionHandler<JsonException> {
+public class JsonResultExceptionHandler implements ResultExceptionHandler {
     @Override
     public boolean supports(@NonNull Throwable t) {
         return t instanceof JsonException;
@@ -26,7 +26,7 @@ public class JsonResultExceptionHandler implements ResultExceptionHandler<JsonEx
 
     @NonNull
     @Override
-    public Result handle(JsonException e) {
+    public Result handle(Throwable e) {
         return R.failure(400, e.getMessage());
     }
 }

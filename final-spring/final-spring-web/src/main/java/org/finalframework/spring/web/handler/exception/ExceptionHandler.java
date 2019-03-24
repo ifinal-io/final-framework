@@ -5,7 +5,6 @@ import org.springframework.lang.NonNull;
 /**
  * 异常处理器
  *
- * @param <E> 支持的异常
  * @param <R> 返回的结果
  * @author likly
  * @version 1.0
@@ -13,7 +12,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 @SuppressWarnings("unused")
-public interface ExceptionHandler<E extends Throwable, R> {
+public interface ExceptionHandler<R> {
 
     /**
      * 返回该异常处理器是否支持该异常，如果支持则返回 {@literal true}，否则返回 {@literal false}。
@@ -24,5 +23,5 @@ public interface ExceptionHandler<E extends Throwable, R> {
     boolean supports(@NonNull Throwable throwable);
 
     @NonNull
-    R handle(E e);
+    R handle(@NonNull Throwable throwable);
 }
