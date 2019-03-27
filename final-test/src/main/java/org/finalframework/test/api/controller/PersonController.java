@@ -9,7 +9,6 @@ import org.finalframework.data.query.Update;
 import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
 import org.finalframework.spring.aop.annotation.CutPoint;
-import org.finalframework.spring.aop.monitor.MethodMonitor;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
@@ -72,7 +71,6 @@ public class PersonController {
     }
 
     @PostMapping("/{id}")
-    @MethodMonitor
     public int update(@PathVariable("id") Long id, @RequestBody Person person) {
         person.setId(id);
 //        return personMapper.update(person);
