@@ -1,9 +1,9 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.CacheAnnotationBuilder;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.operation.CacheIncrementOperation;
+import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-22 22:54:34
  * @since 1.0
  */
-public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder implements CacheAnnotationBuilder<CacheIncrement, CacheIncrementOperation> {
+public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheIncrement, CacheIncrementOperation> {
 
     @Override
     public CacheIncrementOperation build(Class<?> type, CacheIncrement ann) {

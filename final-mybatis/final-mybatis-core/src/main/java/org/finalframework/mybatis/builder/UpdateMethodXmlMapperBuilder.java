@@ -97,19 +97,19 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
          *                 <when test="update != null">
          *                     <if test="update.contains('property')">
          *                         <choose>
-         *                             <when test="update.getUpdateSet('property').operation.name() == 'EQUAL'">
+         *                             <when test="update.getUpdateSet('property').action.name() == 'EQUAL'">
          *                                 column = #{update.getUpdateSet('property').value,javaType=,typeHandler=},
          *                             </when>
-         *                             <when test="update.getUpdateSet('property').operation.name() == 'INC'">
+         *                             <when test="update.getUpdateSet('property').action.name() == 'INC'">
          *                                 column = column + 1,
          *                             </when>
-         *                             <when test="update.getUpdateSet('property').operation.name() == 'INCR'">
+         *                             <when test="update.getUpdateSet('property').action.name() == 'INCR'">
          *                                 column = column + #{update.getUpdateSet('property').value},
          *                             </when>
-         *                             <when test="update.getUpdateSet('property').operation.name() == 'DEC'">
+         *                             <when test="update.getUpdateSet('property').action.name() == 'DEC'">
          *                                 column = column - 1,
          *                             </when>
-         *                             <when test="update.getUpdateSet('property').operation.name() == 'DECR'">
+         *                             <when test="update.getUpdateSet('property').action.name() == 'DECR'">
          *                                 column = column - #{update.getUpdateSet('property').value},
          *                             </when>
          *                         </choose>
@@ -255,7 +255,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
 
                                     List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                             .map(operation -> {
-                                                final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
+                                                final String whenTest = String.format("update['%s'].action.name() == '%s'", updatePath, operation.name());
                                                 String updateSql = null;
                                                 switch (operation) {
                                                     case EQUAL:
@@ -296,7 +296,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
 
                         List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                 .map(operation -> {
-                                    final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
+                                    final String whenTest = String.format("update['%s'].action.name() == '%s'", updatePath, operation.name());
                                     String updateSql = null;
                                     switch (operation) {
                                         case EQUAL:

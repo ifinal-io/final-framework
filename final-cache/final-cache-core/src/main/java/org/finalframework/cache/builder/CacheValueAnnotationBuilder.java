@@ -1,9 +1,9 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.CacheAnnotationBuilder;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.cache.operation.CacheValueOperation;
+import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
  * @date 2019-03-22 14:26:21
  * @since 1.0
  */
-public class CacheValueAnnotationBuilder extends AbsCacheAnnotationBuilder implements CacheAnnotationBuilder<CacheValue, CacheValueOperation> {
+public class CacheValueAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheValue, CacheValueOperation> {
     @Override
     public CacheValueOperation build(Class<?> type, CacheValue ann) {
         return null;

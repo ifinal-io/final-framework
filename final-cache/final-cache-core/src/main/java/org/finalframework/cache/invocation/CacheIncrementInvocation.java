@@ -3,9 +3,9 @@ package org.finalframework.cache.invocation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.operation.CacheIncrementOperation;
 import org.finalframework.core.PrimaryTypes;
+import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +20,10 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-03-22 22:33:02
  * @since 1.0
  */
-public class CacheIncrementInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheIncrementOperation, Void> {
+public class CacheIncrementInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheIncrementOperation> {
 
     @Override
-    public Void before(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
         if (CutPoint.BEFORE == context.operation().point()) {
             doCacheIncrement(cache, context, result, null);
         }
@@ -31,26 +31,26 @@ public class CacheIncrementInvocation extends AbsCacheInvocationSupport implemen
     }
 
     @Override
-    public void afterReturning(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result) {
+    public void afterReturning(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
         if (CutPoint.AFTER == context.operation().point() || CutPoint.AFTER_RETURNING == context.operation().point()) {
             doCacheIncrement(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Throwable throwable) {
+    public void afterThrowing(Cache cache, OperationContext<CacheIncrementOperation> context, Throwable throwable) {
         if (CutPoint.AFTER == context.operation().point() || CutPoint.AFTER_THROWING == context.operation().point()) {
             doCacheIncrement(cache, context, null, throwable);
         }
     }
 
-    private void doCacheIncrement(Cache cache, CacheOperationContext<CacheIncrementOperation, Void> context, Object result, Throwable throwable) {
+    private void doCacheIncrement(Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
-        final CacheIncrementOperation operation = context.metadata().getOperation();
+        final CacheIncrementOperation operation = context.operation();
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
+            throw new IllegalArgumentException("the cache action generate null key, action=" + context.operation());
         }
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
 

@@ -1,26 +1,26 @@
-package org.finalframework.cache.component;
+package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.cache.*;
+import org.finalframework.spring.aop.*;
 
 import java.lang.annotation.Annotation;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-03-23 00:14:22
+ * @date 2019-03-27 21:51:55
  * @since 1.0
  */
-public class AbsCacheComponent<A extends Annotation, O extends CacheOperation,
-        BUILDER extends CacheAnnotationBuilder<A, O>, INVOCATION extends CacheInvocation,
-        HANDLER extends CacheInvocationHandler> implements CacheComponent<A, O, BUILDER, INVOCATION, HANDLER> {
+public class BaseOperationComponent<A extends Annotation, O extends Operation,
+        BUILDER extends OperationAnnotationBuilder<A, O>, INVOCATION extends Invocation,
+        HANDLER extends InvocationHandler> implements OperationComponent<A, O, BUILDER, INVOCATION, HANDLER> {
 
     private final Class<A> type;
     private final BUILDER builder;
     private final INVOCATION invocation;
     private final HANDLER handler;
 
-    public AbsCacheComponent(Class<A> type, BUILDER builder, INVOCATION invocation, HANDLER handler) {
+    public BaseOperationComponent(Class<A> type, BUILDER builder, INVOCATION invocation, HANDLER handler) {
         this.type = type;
         this.builder = builder;
         this.invocation = invocation;

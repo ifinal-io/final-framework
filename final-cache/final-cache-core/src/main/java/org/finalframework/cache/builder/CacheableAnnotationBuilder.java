@@ -1,9 +1,9 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.CacheAnnotationBuilder;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CacheableOperation;
+import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-11 09:26:21
  * @since 1.0
  */
-public class CacheableAnnotationBuilder extends AbsCacheAnnotationBuilder implements CacheAnnotationBuilder<Cacheable, CacheableOperation> {
+public class CacheableAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<Cacheable, CacheableOperation> {
 
     @Override
     public CacheableOperation build(Class<?> type, Cacheable ann) {

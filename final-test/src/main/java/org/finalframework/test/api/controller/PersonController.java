@@ -88,7 +88,7 @@ public class PersonController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.AFTER_THROWING)
-    public Person get(@PathVariable("id") Long id, @CacheValue(key = {"{#id}"}) Person cahce) {
+    public Person get(@PathVariable("id") Long id, @CacheValue(key = {"invoke:{#id}"}) Long cahce) {
         logger.info(Json.toJson(cahce));
         return personMapper.selectOne(Result.View.class, id);
     }

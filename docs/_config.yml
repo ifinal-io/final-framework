@@ -43,6 +43,8 @@ plugins:
   - jekyll-feed
 collections_dir: pages
 collections:
+  datas:
+    output: true
   json:
     output: true
   mybatis:

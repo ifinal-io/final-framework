@@ -1,63 +1,55 @@
-package org.finalframework.cache.interceptor;
+package org.finalframework.spring.aop.interceptor;
+
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.cache.CacheOperation;
-import org.finalframework.cache.CacheOperationContext;
-import org.finalframework.cache.CacheOperationExpressionEvaluator;
-import org.finalframework.cache.CacheProperty;
+import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationContext;
+import org.finalframework.spring.aop.OperationMetadata;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A {@link CacheProperty} context for a {@link CacheOperation}
- *
  * @author likly
  * @version 1.0
- * @date 2018-11-23 16:08:08
+ * @date 2019-03-27 20:15:06
  * @since 1.0
  */
-@SuppressWarnings("all")
-public class CacheContext<O extends CacheOperation, T> implements CacheOperationContext<O, T> {
-
-    private final CacheOperationMetadata<O> metadata;
+public class BaseOperationContext<O extends Operation> implements OperationContext<O> {
+    private final OperationMetadata<O> metadata;
     private final Object target;
-    private final Class<?> view;
     private final Object[] args;
-    private T invocation;
+    private final Class<?> view;
+    private final Map<String, Object> attributes = new HashMap<>();
 
-    public CacheContext(CacheOperationExpressionEvaluator evaluator, CacheOperationMetadata<O> metadata, Object target, Object[] args) {
+    public BaseOperationContext(OperationMetadata<O> metadata, Object target, Object[] args) {
         this.metadata = metadata;
         this.target = target;
-        this.view = extractView(metadata.getMethod());
         this.args = extractArgs(metadata.getMethod(), args);
+        this.view = extractView(metadata.getMethod());
     }
 
     @Override
     public O operation() {
-        return this.metadata.getOperation();
+        return metadata.getOperation();
     }
 
     @Override
-    public CacheOperationMetadata metadata() {
+    public OperationMetadata metadata() {
         return metadata;
     }
 
     @Override
     public Object target() {
-        return this.target;
-    }
-
-    @Override
-    public Method method() {
-        return this.metadata.getMethod();
+        return target;
     }
 
     @Override
     public Object[] args() {
-        return this.args;
+        return args;
     }
 
     @Override
@@ -66,15 +58,15 @@ public class CacheContext<O extends CacheOperation, T> implements CacheOperation
     }
 
     @Override
-    public Class<?> returnType() {
-        return this.metadata.getReturnType();
+    public void addAttribute(String name, Object value) {
+        attributes.put(name, value);
     }
 
     @Override
-    public Type genericReturnType() {
-        return this.metadata.getGenericReturnType();
+    @SuppressWarnings("unchecked")
+    public <T> T getAttribute(String name) {
+        return (T) attributes.get(name);
     }
-
 
     private Object[] extractArgs(Method method, Object[] args) {
         if (!method.isVarArgs()) {
@@ -87,6 +79,7 @@ public class CacheContext<O extends CacheOperation, T> implements CacheOperation
         return combinedArgs;
     }
 
+
     private Class<?> extractView(Method method) {
         final JsonView jsonView = AnnotationUtils.findAnnotation(method, JsonView.class);
         if (jsonView == null) return null;
@@ -97,17 +90,4 @@ public class CacheContext<O extends CacheOperation, T> implements CacheOperation
         }
         return classes[0];
     }
-
-
-    @Override
-    public T property() {
-        return invocation;
-    }
-
-    @Override
-    public void property(T property) {
-        this.invocation = property;
-    }
-
-
 }

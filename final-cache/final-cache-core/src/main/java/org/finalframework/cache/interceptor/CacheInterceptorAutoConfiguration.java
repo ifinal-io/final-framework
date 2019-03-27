@@ -2,8 +2,8 @@ package org.finalframework.cache.interceptor;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheConfiguration;
-import org.finalframework.cache.CacheOperationSource;
 import org.finalframework.cache.RedisCache;
+import org.finalframework.spring.aop.interceptor.OperationSourceAdvisor;
 import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +24,8 @@ public class CacheInterceptorAutoConfiguration {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheOperationSourceAdvisor cacheOperationSourceAdvisor() {
-        final CacheOperationSourceAdvisor advisor = new CacheOperationSourceAdvisor();
-        advisor.setCacheOperationSource(cacheOperationSource());
+    public OperationSourceAdvisor cacheOperationSourceAdvisor() {
+        final OperationSourceAdvisor advisor = new OperationSourceAdvisor(cacheConfiguration());
         advisor.setAdviceBeanName("cacheInterceptor");
         return advisor;
     }
@@ -34,23 +33,14 @@ public class CacheInterceptorAutoConfiguration {
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public CacheConfiguration cacheConfiguration() {
-        return new CacheConfiguration();
+        final CacheConfiguration configuration = new CacheConfiguration();
+        configuration.setExecutor(redisCache());
+        return configuration;
     }
 
     @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheOperationSource cacheOperationSource() {
-        return new AnnotationCacheOperationSource(cacheConfiguration());
-    }
-
-
-    @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public CacheInterceptor cacheInterceptor() {
-        final CacheInterceptor interceptor = new CacheInterceptor();
-        interceptor.setCacheOperationSource(cacheOperationSource());
-        interceptor.setCacheConfiguration(cacheConfiguration());
-        return interceptor;
+        return new CacheInterceptor(cacheConfiguration());
     }
 
     @Bean

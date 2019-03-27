@@ -2,10 +2,10 @@ package org.finalframework.cache.invocation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CacheValueOperation;
 import org.finalframework.json.Json;
+import org.finalframework.spring.aop.OperationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -20,17 +20,17 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheValueInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheValueOperation, Void> {
+public class CacheValueInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CacheValueOperation> {
 
     @Override
-    public Void before(Cache cache, CacheOperationContext<CacheValueOperation, Void> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheValueOperation> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
-        final CacheValueOperation operation = context.metadata().getOperation();
+        final CacheValueOperation operation = context.operation();
 
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {
-            throw new IllegalArgumentException("the cache operation generate null key, operation=" + context.operation());
+            throw new IllegalArgumentException("the cache action generate null key, action=" + context.operation());
         }
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
         final Type type = operation.parameterType();

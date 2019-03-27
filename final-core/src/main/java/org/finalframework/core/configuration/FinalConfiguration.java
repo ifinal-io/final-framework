@@ -2,9 +2,7 @@ package org.finalframework.core.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -22,22 +20,22 @@ public class FinalConfiguration {
     private boolean isConfiguration;
 
     private FinalConfiguration() {
-        logger.info("==> 尝试加载配置文件：{}", PROPERTIES_PATH);
-        ClassPathResource resource = new ClassPathResource(PROPERTIES_PATH);
-        if (resource.exists()) {
-            String filename = resource.getFilename();
-            logger.trace("<== 找到配置文件：path={},name={}", resource.getPath(), filename);
-            try {
-                properties.load(resource.getInputStream());
-                isConfiguration = true;
-            } catch (IOException e) {
-                logger.error("<== 加载配置文件异常：", e);
-                isConfiguration = false;
-            }
-        } else {
-            logger.info("<== 未找到配置文件：{}", PROPERTIES_PATH);
-            isConfiguration = false;
-        }
+//        logger.info("==> 尝试加载配置文件：{}", PROPERTIES_PATH);
+//        ClassPathResource resource = new ClassPathResource(PROPERTIES_PATH);
+//        if (resource.exists()) {
+//            String filename = resource.getFilename();
+//            logger.trace("<== 找到配置文件：path={},name={}", resource.getPath(), filename);
+//            try {
+//                properties.load(resource.getInputStream());
+//                isConfiguration = true;
+//            } catch (IOException e) {
+//                logger.error("<== 加载配置文件异常：", e);
+//                isConfiguration = false;
+//            }
+//        } else {
+//            logger.info("<== 未找到配置文件：{}", PROPERTIES_PATH);
+//            isConfiguration = false;
+//        }
     }
 
     public static FinalConfiguration getInstance() {

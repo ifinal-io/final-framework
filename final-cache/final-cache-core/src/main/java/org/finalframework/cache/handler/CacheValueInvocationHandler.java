@@ -1,11 +1,8 @@
 package org.finalframework.cache.handler;
 
 
-import org.finalframework.cache.*;
 import org.finalframework.cache.operation.CacheValueOperation;
-import org.finalframework.core.Assert;
-
-import java.util.Collection;
+import org.finalframework.spring.aop.interceptor.BaseInvocationHandler;
 
 /**
  * @author likly
@@ -14,23 +11,10 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheValueInvocationHandler implements CacheInvocationHandler {
+public class CacheValueInvocationHandler extends BaseInvocationHandler<CacheValueOperation> {
 
-    @Override
-    public Void handleBefore(CacheOperationContexts contexts, Object result) {
-        final Collection<CacheOperationContext> cacheOperationContexts = contexts.get(CacheValueOperation.class);
-        if (Assert.isEmpty(cacheOperationContexts)) {
-            return null;
-        }
-        final CacheConfiguration cacheConfiguration = contexts.configuration();
-        for (CacheOperationContext context : cacheOperationContexts) {
-            final Class<? extends CacheInvocation> invocation = context.operation().invocation();
-            final CacheInvocation cacheInvocation = cacheConfiguration.getCacheInvocation(invocation);
-            final Cache cache = CacheRegistry.getInstance().getCache(context.operation());
-            cacheInvocation.before(cache, context, result);
-        }
-        return null;
+    public CacheValueInvocationHandler() {
+        super(CacheValueOperation.class);
     }
-
 
 }

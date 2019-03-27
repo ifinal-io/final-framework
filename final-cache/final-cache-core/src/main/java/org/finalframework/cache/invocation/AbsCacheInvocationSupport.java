@@ -5,12 +5,11 @@ import org.finalframework.cache.CacheInvocationSupport;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.CacheOperationExpressionEvaluator;
-import org.finalframework.cache.interceptor.CacheOperationMetadata;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.OperationMetadata;
+import org.finalframework.spring.aop.interceptor.AbsInvocationSupport;
 import org.springframework.expression.EvaluationContext;
-import org.springframework.lang.NonNull;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,19 +21,17 @@ import java.util.stream.Collectors;
  * @date 2019-03-11 01:22:06
  * @since 1.0
  */
-public class AbsCacheInvocationSupport implements CacheInvocationSupport {
-
-    private static final String EXPRESSION_PREFIX = "{";
-    private static final String EXPRESSION_SUFFIX = "}";
+public class AbsCacheInvocationSupport extends AbsInvocationSupport implements CacheInvocationSupport {
 
     private final CacheOperationExpressionEvaluator evaluator;
     private Boolean conditionPassing;
 
     public AbsCacheInvocationSupport() {
-        this.evaluator = new DefaultCacheOperationExpressionEvaluator();
+        this(new DefaultCacheOperationExpressionEvaluator());
     }
 
     public AbsCacheInvocationSupport(CacheOperationExpressionEvaluator evaluator) {
+        super(evaluator);
         this.evaluator = evaluator;
     }
 
@@ -45,7 +42,7 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public Object generateKey(Collection<String> keys, String delimiter, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
+    public Object generateKey(Collection<String> keys, String delimiter, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         final List<String> keyValues = keys.stream()
                 .map(key -> {
                     if (isExpression(key)) {
@@ -63,7 +60,7 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
 
 
     @Override
-    public Object generateField(Collection<String> fields, String delimiter, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
+    public Object generateField(Collection<String> fields, String delimiter, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         if (Assert.isEmpty(fields)) {
             return null;
         }
@@ -82,7 +79,7 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public Object generateValue(String value, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
+    public Object generateValue(String value, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext);
         }
@@ -90,7 +87,7 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public <T> T generateValue(String value, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext, Class<T> clazz) {
+    public <T> T generateValue(String value, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext, Class<T> clazz) {
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
         }
@@ -98,7 +95,7 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public boolean isConditionPassing(String condition, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
+    public boolean isConditionPassing(String condition, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         if (this.conditionPassing == null) {
             if (condition != null && isExpression(condition)) {
                 this.conditionPassing = evaluator.condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
@@ -110,20 +107,11 @@ public class AbsCacheInvocationSupport implements CacheInvocationSupport {
     }
 
     @Override
-    public Object generateExpire(String expire, CacheOperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
+    public Object generateExpire(String expire, OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext) {
         if (expire != null && isExpression(expire)) {
             return evaluator.expired(generateExpression(expire), metadata.getMethodKey(), evaluationContext);
         }
         return null;
     }
 
-    @Override
-    public boolean isExpression(String expression) {
-        return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
-    }
-
-    @Override
-    public String generateExpression(@NonNull String expression) {
-        return expression.substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
-    }
 }

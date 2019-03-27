@@ -6,6 +6,7 @@ import org.finalframework.cache.builder.CacheIncrementAnnotationBuilder;
 import org.finalframework.cache.handler.CacheIncrementInvocationHandler;
 import org.finalframework.cache.invocation.CacheIncrementInvocation;
 import org.finalframework.cache.operation.CacheIncrementOperation;
+import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
 
 /**
  * @author likly
@@ -13,7 +14,7 @@ import org.finalframework.cache.operation.CacheIncrementOperation;
  * @date 2019-03-23 00:18:41
  * @since 1.0
  */
-public class CacheIncrementComponent extends AbsCacheComponent<CacheIncrement, CacheIncrementOperation,
+public class CacheIncrementComponent extends BaseOperationComponent<CacheIncrement, CacheIncrementOperation,
         CacheIncrementAnnotationBuilder, CacheIncrementInvocation, CacheIncrementInvocationHandler> {
 
     public CacheIncrementComponent() {

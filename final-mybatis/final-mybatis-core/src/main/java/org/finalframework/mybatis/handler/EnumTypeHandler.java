@@ -18,10 +18,10 @@ import java.util.Objects;
  * @date 2018-09-26 23:25
  * @since 1.0
  */
-public class EnumEntityTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
+public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     private final Class<E> type;
 
-    public EnumEntityTypeHandler(@NonNull Class<E> type) {
+    public EnumTypeHandler(@NonNull Class<E> type) {
         if (!type.isEnum()) {
             throw new IllegalArgumentException(" the type must be a enum type!");
         }

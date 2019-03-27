@@ -6,6 +6,7 @@ import org.finalframework.cache.builder.CachePutAnnotationBuilder;
 import org.finalframework.cache.handler.CachePutInvocationHandler;
 import org.finalframework.cache.invocation.CachePutInvocation;
 import org.finalframework.cache.operation.CachePutOperation;
+import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
 
 /**
  * @author likly
@@ -13,7 +14,7 @@ import org.finalframework.cache.operation.CachePutOperation;
  * @date 2019-03-23 00:18:41
  * @since 1.0
  */
-public class CachePutComponent extends AbsCacheComponent<CachePut, CachePutOperation,
+public class CachePutComponent extends BaseOperationComponent<CachePut, CachePutOperation,
         CachePutAnnotationBuilder, CachePutInvocation, CachePutInvocationHandler> {
 
     public CachePutComponent() {

@@ -1,11 +1,6 @@
 package org.finalframework.cache;
 
-import org.springframework.core.MethodClassKey;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
-import java.lang.reflect.Method;
-import java.util.Collection;
+import org.finalframework.spring.aop.OperationSource;
 
 /**
  * @author likly
@@ -13,14 +8,7 @@ import java.util.Collection;
  * @date 2019-03-05 10:01:33
  * @since 1.0
  */
-public interface CacheOperationSource {
+public interface CacheOperationSource extends OperationSource<CacheOperation> {
 
-    @Nullable
-    Collection<CacheOperation> getCacheOperations(Method method, @Nullable Class<?> targetClass);
-
-    @NonNull
-    default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {
-        return new MethodClassKey(method, targetClass);
-    }
 
 }

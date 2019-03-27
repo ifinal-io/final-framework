@@ -17,7 +17,7 @@
         <result column="name" javaType="java.lang.String" property="name"/>
         <result column="stringList" javaType="java.lang.String" property="stringList"/>
         <result column="yn" javaType="org.finalframework.data.entity.enums.YN" property="yn"
-                typeHandler="org.finalframework.mybatis.handler.EnumEntityTypeHandler"/>
+                typeHandler="org.finalframework.mybatis.handler.EnumTypeHandler"/>
     </resultMap>
     <update id="update">
         UPDATE

@@ -1,4 +1,4 @@
-package org.finalframework.cache;
+package org.finalframework.spring.aop;
 
 import org.springframework.lang.NonNull;
 
@@ -7,11 +7,12 @@ import java.lang.annotation.Annotation;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-03-23 00:09:28
+ * @date 2019-03-27 21:50:40
  * @since 1.0
  */
-public interface CacheComponent<A extends Annotation, O extends CacheOperation,
-        BUILDER extends CacheAnnotationBuilder<A, O>, INVOCATION extends CacheInvocation, HANDLER extends CacheInvocationHandler> {
+public interface OperationComponent<A extends Annotation, O extends Operation,
+        BUILDER extends OperationAnnotationBuilder<A, O>, INVOCATION extends Invocation, HANDLER extends InvocationHandler> {
+
 
     @NonNull
     Class<A> annotation();
@@ -24,5 +25,4 @@ public interface CacheComponent<A extends Annotation, O extends CacheOperation,
 
     @NonNull
     HANDLER handler();
-
 }

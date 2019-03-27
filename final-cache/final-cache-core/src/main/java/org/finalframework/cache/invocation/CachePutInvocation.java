@@ -2,11 +2,11 @@ package org.finalframework.cache.invocation;
 
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.core.Assert;
 import org.finalframework.json.Json;
+import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +22,10 @@ import java.util.concurrent.TimeUnit;
  * @see Cacheable
  * @since 1.0
  */
-public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation, Void> {
+public class CachePutInvocation extends AbsCacheInvocationSupport implements CacheInvocation<CachePutOperation> {
 
     @Override
-    public Void before(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+    public Void before(Cache cache, OperationContext<CachePutOperation> context, Object result) {
         if (CutPoint.BEFORE == context.operation().point()) {
             invocation(cache, context, result, null);
         }
@@ -33,20 +33,20 @@ public class CachePutInvocation extends AbsCacheInvocationSupport implements Cac
     }
 
     @Override
-    public void afterReturning(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result) {
+    public void afterReturning(Cache cache, OperationContext<CachePutOperation> context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             invocation(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Throwable throwable) {
+    public void afterThrowing(Cache cache, OperationContext<CachePutOperation> context, Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.operation().point()) {
             invocation(cache, context, null, throwable);
         }
     }
 
-    private void invocation(Cache cache, CacheOperationContext<CachePutOperation, Void> context, Object result, Throwable throwable) {
+    private void invocation(Cache cache, OperationContext<CachePutOperation> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CachePutOperation operation = context.operation();

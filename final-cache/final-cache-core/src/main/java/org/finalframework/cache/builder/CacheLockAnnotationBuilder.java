@@ -1,9 +1,9 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.CacheAnnotationBuilder;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.operation.CacheLockOperation;
+import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-11 09:26:21
  * @since 1.0
  */
-public class CacheLockAnnotationBuilder extends AbsCacheAnnotationBuilder implements CacheAnnotationBuilder<CacheLock, CacheLockOperation> {
+public class CacheLockAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheLock, CacheLockOperation> {
 
     @Override
     public CacheLockOperation build(Class<?> type, CacheLock ann) {

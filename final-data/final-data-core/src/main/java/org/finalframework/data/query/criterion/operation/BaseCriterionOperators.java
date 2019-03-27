@@ -36,7 +36,7 @@ public class BaseCriterionOperators<T> implements CriterionOperators<T> {
     public void register(CriterionOperation operation) {
         if (operation != null) {
             this.operations.put(operation.operator(), operation);
-            logger.debug("==> register operation: type={},operator={},operation={}", type.getCanonicalName(), operation.operator(), operation.getClass());
+//            logger.debug("==> register action: type={},operator={},action={}", type.getCanonicalName(), action.operator(), action.getClass());
         }
     }
 

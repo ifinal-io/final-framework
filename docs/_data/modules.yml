@@ -1,3 +1,7 @@
+- id: datas
+  link: /datas
+  logo: /assets/img/modules/json.png
+  name: Final Data
 - id: json
   link: /json
   logo: /assets/img/modules/json.png

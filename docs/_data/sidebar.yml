@@ -1,12 +1,45 @@
 default:
   logo: /assets/img/modules/mayi.png
   name: Final Framework
+datas:
+  logo: /assets/img/modules/mayi.png
+  name: Final Data
+  menus:
+    - id: annotation
+      link: /datas/annotation
+      icon: alternate_email
+      name: Annotation
 json:
   logo: /assets/img/modules/json.png
   name: Final Json
 mybatis:
   logo: /assets/img/modules/mybatis.jpg
   name: Final Mybatis
+  menus:
+    - id: handler
+      icon: dashboard
+      name: 类型处理器
+      menus:
+        - id: enum-type-handler
+          link: /mybatis/handler/enum-type-handler
+          name: EnumTypeHandler
+          mini: ETH
+        - id: json-list-type-handler
+          link: /mybatis/handler/json-list-type-handler
+          name: JsonListTypeHandler
+          mini: JLTH
+        - id: json-set-type-handler
+          link: /mybatis/handler/json-set-type-handler
+          name: JsonSetTypeHandler
+          mini: JSTH
+    - id: interceptor
+      icon: dashboard
+      name: 拦截器
+      menus:
+        - id: pageable-interceptor
+          link: /mybatis/inteceptor/pageable-interceptor
+          name: PageableInteceptor
+          mini: PI
 #  Spring Module
 spring:
   logo: /assets/img/modules/spring.svg
