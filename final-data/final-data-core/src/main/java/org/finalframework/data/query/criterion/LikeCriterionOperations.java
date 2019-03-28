@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-03-08 23:21:17
  * @since 1.0
  */
-public interface LikeCriterionOperations<T> extends SimpleCriterionOperators<T> {
+public interface LikeCriterionOperations<T> extends SimpleCriterionOperations<T> {
 
     @Nullable
     StartWithCriterionOperation<T> startWith();

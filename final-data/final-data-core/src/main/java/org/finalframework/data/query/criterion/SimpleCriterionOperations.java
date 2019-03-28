@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-03-08 23:03:19
  * @since 1.0
  */
-public interface SimpleCriterionOperators<T> extends CriterionOperators<T> {
+public interface SimpleCriterionOperations<T> extends CriterionOperations<T> {
 
     @Nullable
     EqualCriterionOperation<T> eq();

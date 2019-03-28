@@ -2,8 +2,11 @@ package org.finalframework.data.query.criterion.operation;
 
 import org.finalframework.data.query.CriterionOperator;
 import org.finalframework.data.query.DefaultCriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.SingleCriterionOperation;
+
+import java.util.Collection;
 
 /**
  * @author likly
@@ -19,8 +22,8 @@ public class NullCriterionOperation<T> extends AbsCriterionOperation<T> implemen
     }
 
     @Override
-    public String format(QProperty property, CriterionOperator operator, T value) {
-        final String column = getPropertyColumn(property);
+    public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+        final String column = getPropertyColumn(property, functions);
         return String.format("%s IS NULL", column);
     }
 

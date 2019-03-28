@@ -15,6 +15,6 @@ public abstract class AbsCollectionCriterionOperation<E> extends AbsCriterionOpe
 
     @Override
     public final String format(CollectionCriterion<E> criterion) {
-        return format(criterion.property(), criterion.operator(), criterion.value());
+        return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.value());
     }
 }

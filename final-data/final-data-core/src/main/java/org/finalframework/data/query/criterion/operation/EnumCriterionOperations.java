@@ -4,8 +4,9 @@ package org.finalframework.data.query.criterion.operation;
 import org.finalframework.data.entity.enums.IEnum;
 import org.finalframework.data.query.CriterionOperation;
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.SimpleCriterionOperators;
+import org.finalframework.data.query.criterion.SimpleCriterionOperations;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  * @date 2019-03-09 00:30:58
  * @since 1.0
  */
-public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOperators<T> implements SimpleCriterionOperators<T> {
+public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOperations<T> implements SimpleCriterionOperations<T> {
 
     public static final EnumCriterionOperations<IEnum> INSTANCE = new EnumCriterionOperations<>(IEnum.class);
     private final Class<T> type;
@@ -45,17 +46,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public EqualCriterionOperation<T> eq() {
         return new EqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.eq(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.eq(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.eq(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -65,17 +66,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public NotEqualCriterionOperation<T> neq() {
         return new NotEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.neq(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.neq(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.neq(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -85,17 +86,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public GreaterThanCriterionOperation<T> gt() {
         return new GreaterThanCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.gt(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.gt(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.gt(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -105,17 +106,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public GreaterThanEqualCriterionOperation<T> gte() {
         return new GreaterThanEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.gte(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.gte(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.gte(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -125,17 +126,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public LessThanCriterionOperation<T> lt() {
         return new LessThanCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.lt(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.lt(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.lt(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -145,17 +146,17 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public LessThanEqualCriterionOperation<T> lte() {
         return new LessThanEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
                 final Object code = value.getCode();
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.lte(), operator)
-                            .format(property, operator, (String) code);
+                            .format(property, functions, operator, (String) code);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.lte(), operator)
-                            .format(property, operator, (Date) code);
+                            .format(property, functions, operator, (Date) code);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.lte(), operator)
-                            .format(property, operator, code);
+                            .format(property, functions, operator, code);
                 }
             }
         };
@@ -166,18 +167,18 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public InCriterionOperation<T> in() {
         return new InCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<T> value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<T> value) {
                 final List codes = value.stream().map(IEnum::getCode).collect(Collectors.toList());
                 final Object code = codes.get(0);
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.in(), operator)
-                            .format(property, operator, (Collection<String>) codes);
+                            .format(property, functions, operator, (Collection<String>) codes);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.in(), operator)
-                            .format(property, operator, (Collection<Date>) codes);
+                            .format(property, functions, operator, (Collection<Date>) codes);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.in(), operator)
-                            .format(property, operator, codes);
+                            .format(property, functions, operator, codes);
                 }
             }
         };
@@ -188,18 +189,18 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public NotInCriterionOperation<T> nin() {
         return new NotInCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<T> value) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<T> value) {
                 final List codes = value.stream().map(IEnum::getCode).collect(Collectors.toList());
                 final Object code = codes.get(0);
                 if (code instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.nin(), operator)
-                            .format(property, operator, (Collection<String>) codes);
+                            .format(property, functions, operator, (Collection<String>) codes);
                 } else if (code instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.nin(), operator)
-                            .format(property, operator, (Collection<Date>) codes);
+                            .format(property, functions, operator, (Collection<Date>) codes);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.nin(), operator)
-                            .format(property, operator, codes);
+                            .format(property, functions, operator, codes);
                 }
             }
         };
@@ -209,18 +210,18 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public BetweenCriterionOperation<T> between() {
         return new BetweenCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T min, T max) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T min, T max) {
                 final Object minCode = min.getCode();
                 final Object maxCode = max.getCode();
                 if (minCode instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.between(), operator)
-                            .format(property, operator, (String) minCode, (String) maxCode);
+                            .format(property, functions, operator, (String) minCode, (String) maxCode);
                 } else if (minCode instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.between(), operator)
-                            .format(property, operator, (Date) minCode, (Date) maxCode);
+                            .format(property, functions, operator, (Date) minCode, (Date) maxCode);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.between(), operator)
-                            .format(property, operator, minCode, maxCode);
+                            .format(property, functions, operator, minCode, maxCode);
                 }
             }
         };
@@ -230,18 +231,18 @@ public class EnumCriterionOperations<T extends IEnum> extends BaseCriterionOpera
     public NotBetweenCriterionOperation<T> notBetween() {
         return new NotBetweenCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T min, T max) {
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T min, T max) {
                 final Object minCode = min.getCode();
                 final Object maxCode = max.getCode();
                 if (minCode instanceof String) {
                     return getRequiredCriterionOperation(StringCriterionOperations.INSTANCE.notBetween(), operator)
-                            .format(property, operator, (String) minCode, (String) maxCode);
+                            .format(property, functions, operator, (String) minCode, (String) maxCode);
                 } else if (minCode instanceof Date) {
                     return getRequiredCriterionOperation(DateCriterionOperations.INSTANCE.notBetween(), operator)
-                            .format(property, operator, (Date) minCode, (Date) maxCode);
+                            .format(property, functions, operator, (Date) minCode, (Date) maxCode);
                 } else {
                     return getRequiredCriterionOperation(ObjectCriterionOperations.INSTANCE.notBetween(), operator)
-                            .format(property, operator, minCode, maxCode);
+                            .format(property, functions, operator, minCode, maxCode);
                 }
             }
         };

@@ -3,6 +3,7 @@ package org.finalframework.data.query;
 import org.finalframework.data.annotation.ColumnView;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.Entity;
+import org.finalframework.data.query.criterion.BaseQProperty;
 
 import java.io.Serializable;
 import java.util.*;

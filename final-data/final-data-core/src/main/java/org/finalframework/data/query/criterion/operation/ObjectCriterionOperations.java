@@ -2,8 +2,9 @@ package org.finalframework.data.query.criterion.operation;
 
 
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.SimpleCriterionOperators;
+import org.finalframework.data.query.criterion.SimpleCriterionOperations;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * @date 2019-03-08 22:15:33
  * @since 1.0
  */
-public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> implements SimpleCriterionOperators<T> {
+public class ObjectCriterionOperations<T> extends BaseCriterionOperations<T> implements SimpleCriterionOperations<T> {
 
     public static final ObjectCriterionOperations<Object> INSTANCE = new ObjectCriterionOperations<>(Object.class);
 
@@ -39,8 +40,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public EqualCriterionOperation<T> eq() {
         return new EqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s = %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s = %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -49,8 +50,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public NotEqualCriterionOperation<T> neq() {
         return new NotEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s != %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s != %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -59,8 +60,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public GreaterThanCriterionOperation<T> gt() {
         return new GreaterThanCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s > %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s > %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -69,8 +70,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public GreaterThanEqualCriterionOperation<T> gte() {
         return new GreaterThanEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s >= %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s >= %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -79,8 +80,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public LessThanCriterionOperation<T> lt() {
         return new LessThanCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s < %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s < %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -89,8 +90,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public LessThanEqualCriterionOperation<T> lte() {
         return new LessThanEqualCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T value) {
-                return String.format("%s <= %s", getPropertyColumn(property), value.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value) {
+                return String.format("%s <= %s", getPropertyColumn(property, functions), value.toString());
             }
         };
     }
@@ -99,8 +100,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public InCriterionOperation<T> in() {
         return new InCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<T> value) {
-                return String.format("%s IN %s", getPropertyColumn(property),
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<T> value) {
+                return String.format("%s IN %s", getPropertyColumn(property, functions),
                         value.stream().map(Objects::toString).collect(Collectors.joining(",", "(", ")")));
 
             }
@@ -111,8 +112,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public NotInCriterionOperation<T> nin() {
         return new NotInCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<T> value) {
-                return String.format("%s NOT IN %s", getPropertyColumn(property),
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<T> value) {
+                return String.format("%s NOT IN %s", getPropertyColumn(property, functions),
                         value.stream().map(Objects::toString).collect(Collectors.joining(",", "(", ")")));
             }
         };
@@ -122,8 +123,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public BetweenCriterionOperation<T> between() {
         return new BetweenCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T min, T max) {
-                return String.format("%s BETWEEN %s AND %s", getPropertyColumn(property), min.toString(), max.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T min, T max) {
+                return String.format("%s BETWEEN %s AND %s", getPropertyColumn(property, functions), min.toString(), max.toString());
             }
         };
     }
@@ -132,8 +133,8 @@ public class ObjectCriterionOperations<T> extends BaseCriterionOperators<T> impl
     public NotBetweenCriterionOperation<T> notBetween() {
         return new NotBetweenCriterionOperation<T>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, T min, T max) {
-                return String.format("%s NOT BETWEEN %s AND %s", getPropertyColumn(property), min.toString(), max.toString());
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T min, T max) {
+                return String.format("%s NOT BETWEEN %s AND %s", getPropertyColumn(property, functions), min.toString(), max.toString());
             }
         };
     }

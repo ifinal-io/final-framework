@@ -65,7 +65,7 @@ public class PersonController {
 
     @PostConstruct
     public void init() {
-        Query query = new Query().where(QPerson.id.gt(3L));
+        Query query = new Query().where(QPerson.age.and(2).eq(2));
         System.out.println(personMapper.selectCount(query));
     }
 

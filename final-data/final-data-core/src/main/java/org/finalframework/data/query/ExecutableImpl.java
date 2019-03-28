@@ -1,13 +1,15 @@
 package org.finalframework.data.query;
 
+
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
+import org.finalframework.data.query.function.SimpleFunctionCriterion;
+import org.finalframework.data.query.function.SingleFunctionCriterion;
 import org.springframework.lang.NonNull;
 
-import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -15,70 +17,54 @@ import java.util.Date;
 /**
  * @author likly
  * @version 1.0
- * @date 2018-10-25 13:36
+ * @date 2019-03-28 23:13:53
  * @since 1.0
  */
-public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, Executable<T> {
+public class ExecutableImpl<T> implements Executable<T> {
+    private final QProperty<T> property;
+    private final Collection<FunctionCriterion> functions = new ArrayList<>();
 
-    Class<T> getType();
-
-    Class getComponentType();
-
-    String getPath();
-
-    @NonNull
-    String getTable();
-
-    @NonNull
-    String getName();
-
-    @NonNull
-    String getColumn();
-
-    @NonNull
-    PersistentType getPersistentType();
-
-    boolean isEntity();
-
-    boolean isIdProperty();
-
-    boolean hasView(@NonNull Class<?> view);
-
-    boolean isEnum();
-
-    boolean isCollectionLike();
-
-    boolean isMap();
-
-    boolean isTransient();
-
-    /**
-     * Returns whether the property is an array.
-     *
-     * @return
-     */
-    boolean isArray();
-
-    boolean unique();
-
-    boolean nonnull();
-
-    boolean insertable();
-
-    boolean updatable();
-
-    <A extends Annotation> A findAnnotation(Class<A> ann);
-
-    default <A extends Annotation> boolean hasAnnotation(Class<A> ann) {
-        return findAnnotation(ann) != null;
+    public ExecutableImpl(QProperty<T> property) {
+        this.property = property;
     }
 
     @Override
-    default Criteria eq(@NonNull T value) {
+    public Executable<T> date() {
+        this.functions.add(new SimpleFunctionCriterion(DefaultFunctionOperator.DATE));
+        return this;
+    }
+
+    @Override
+    public Executable<T> and(T value) {
+        this.functions.add(new SingleFunctionCriterion<>(DefaultFunctionOperator.AND, value));
+        return this;
+    }
+
+    @Override
+    public Executable<T> or(T value) {
+        this.functions.add(new SingleFunctionCriterion<>(DefaultFunctionOperator.OR, value));
+        return this;
+    }
+
+    @Override
+    public Executable<T> xor(T value) {
+        this.functions.add(new SingleFunctionCriterion<>(DefaultFunctionOperator.XOR, value));
+        return this;
+    }
+
+    @Override
+    public Executable<T> not() {
+        this.functions.add(new SimpleFunctionCriterion(DefaultFunctionOperator.NOT));
+        return this;
+    }
+
+    @Override
+    public Criteria eq(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.EQUAL)
                         .value(value)
                         .build()
@@ -86,11 +72,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria neq(@NonNull T value) {
+    public Criteria neq(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_EQUAL)
                         .value(value)
                         .build()
@@ -98,11 +85,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria gt(@NonNull T value) {
+    public Criteria gt(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.GREATER_THAN)
                         .value(value)
                         .build()
@@ -110,11 +98,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria gte(@NonNull T value) {
+    public Criteria gte(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.GREATER_THAN_EQUAL)
                         .value(value)
                         .build()
@@ -122,11 +111,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria lt(@NonNull T value) {
+    public Criteria lt(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.LESS_THAN)
                         .value(value)
                         .build()
@@ -134,11 +124,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria lte(@NonNull T value) {
+    public Criteria lte(@NonNull T value) {
         Assert.isNull(value, "value is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.LESS_THAN_EQUAL)
                         .value(value)
                         .build()
@@ -146,18 +137,19 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria in(@NonNull T... values) {
+    public Criteria in(@NonNull T... values) {
         Assert.isEmpty(values, "values is null");
         return in(Arrays.asList(values));
     }
 
     @Override
-    default Criteria in(@NonNull Collection<T> values) {
+    public Criteria in(@NonNull Collection<T> values) {
         Assert.isEmpty(values, "values is null");
         final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
         return Criteria.where(
                 builder
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.IN)
                         .value(values)
                         .build()
@@ -165,18 +157,19 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria nin(@NonNull T... values) {
+    public Criteria nin(@NonNull T... values) {
         Assert.isEmpty(values, "values is null");
         return nin(Arrays.asList(values));
     }
 
     @Override
-    default Criteria nin(@NonNull Collection<T> values) {
+    public Criteria nin(@NonNull Collection<T> values) {
         Assert.isEmpty(values, "values is null");
         final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
         return Criteria.where(
                 builder
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_IN)
                         .value(values)
                         .build()
@@ -184,31 +177,34 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria isNull() {
+    public Criteria isNull() {
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NULL)
                         .build()
         );
     }
 
     @Override
-    default Criteria nonNull() {
+    public Criteria nonNull() {
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_NULL)
                         .build()
         );
     }
 
     @Override
-    default Criteria startWith(@NonNull String value) {
+    public Criteria startWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.START_WITH)
                         .value(value)
                         .build()
@@ -216,11 +212,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notStartWith(@NonNull String value) {
+    public Criteria notStartWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_START_WITH)
                         .value(value)
                         .build()
@@ -228,11 +225,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria endWith(@NonNull String value) {
+    public Criteria endWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.END_WITH)
                         .value(value)
                         .build()
@@ -240,11 +238,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notEndWith(@NonNull String value) {
+    public Criteria notEndWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_END_WITH)
                         .value(value)
                         .build()
@@ -252,11 +251,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria contains(@NonNull String value) {
+    public Criteria contains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.CONTAINS)
                         .value(value)
                         .build()
@@ -264,11 +264,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notContains(@NonNull String value) {
+    public Criteria notContains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_CONTAINS)
                         .value(value)
                         .build()
@@ -276,11 +277,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria like(@NonNull String value) {
+    public Criteria like(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.LIKE)
                         .value(value)
                         .build()
@@ -288,11 +290,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notLike(@NonNull String value) {
+    public Criteria notLike(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_LIKE)
                         .value(value)
                         .build()
@@ -300,11 +303,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria before(@NonNull Date date) {
+    public Criteria before(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.BEFORE)
                         .value(date)
                         .build()
@@ -312,17 +316,18 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria before(@NonNull long date) {
+    public Criteria before(@NonNull long date) {
         Assert.isNull(date, "date is null");
         return before(new Date(date));
     }
 
     @Override
-    default Criteria after(@NonNull Date date) {
+    public Criteria after(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.AFTER)
                         .value(date)
                         .build()
@@ -330,17 +335,18 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria after(@NonNull long date) {
+    public Criteria after(@NonNull long date) {
         Assert.isNull(date, "date is null");
         return after(new Date(date));
     }
 
     @Override
-    default Criteria dateEqual(@NonNull Date date) {
+    public Criteria dateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.DATE_EQUAL)
                         .value(date)
                         .build()
@@ -348,11 +354,12 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notDateEqual(@NonNull Date date) {
+    public Criteria notDateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
                         .value(date)
                         .build()
@@ -360,20 +367,21 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria dateEqual(@NonNull long date) {
+    public Criteria dateEqual(@NonNull long date) {
         return dateEqual(new Date(date));
     }
 
     @Override
-    default Criteria notDateEqual(@NonNull long date) {
+    public Criteria notDateEqual(@NonNull long date) {
         return notDateEqual(new Date(date));
     }
 
     @Override
-    default Criteria dateBefore(@NonNull Date date) {
+    public Criteria dateBefore(@NonNull Date date) {
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.DATE_BEFORE)
                         .value(date)
                         .build()
@@ -381,17 +389,18 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria dateBefore(@NonNull long date) {
+    public Criteria dateBefore(@NonNull long date) {
         Assert.isNull(date, "date is empty");
         return dateBefore(new Date(date));
     }
 
     @Override
-    default Criteria dateAfter(@NonNull Date date) {
+    public Criteria dateAfter(@NonNull Date date) {
         Assert.isNull(date, "date is empty");
         return Criteria.where(
                 SingleCriterion.builder()
-                        .property(this)
+                        .property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.DATE_AFTER)
                         .value(date)
                         .build()
@@ -399,18 +408,19 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria dateAfter(@NonNull long date) {
+    public Criteria dateAfter(@NonNull long date) {
         Assert.isNull(date, "date is empty");
         return dateAfter(new Date(date));
     }
 
     @Override
-    default Criteria between(@NonNull T min, @NonNull T max) {
+    public Criteria between(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return Criteria.where(
-                builder.property(this)
+                builder.property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.BETWEEN)
                         .between(min, max)
                         .build()
@@ -418,12 +428,13 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notBetween(@NonNull T min, @NonNull T max) {
+    public Criteria notBetween(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return Criteria.where(
-                builder.property(this)
+                builder.property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_BETWEEN)
                         .between(min, max)
                         .build()
@@ -431,12 +442,13 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria dateBetween(@NonNull Date min, @NonNull Date max) {
+    public Criteria dateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
         return Criteria.where(
-                builder.property(this)
+                builder.property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.DATE_BETWEEN)
                         .between(min, max)
                         .build()
@@ -444,12 +456,13 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria notDateBetween(@NonNull Date min, @NonNull Date max) {
+    public Criteria notDateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
         return Criteria.where(
-                builder.property(this)
+                builder.property(property)
+                        .function(functions)
                         .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
                         .between(min, max)
                         .build()
@@ -457,51 +470,16 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     }
 
     @Override
-    default Criteria dateBetween(@NonNull long min, @NonNull long max) {
+    public Criteria dateBetween(@NonNull long min, @NonNull long max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         return dateBetween(new Date(min), new Date(max));
     }
 
     @Override
-    default Criteria notDateBetween(@NonNull long min, @NonNull long max) {
+    public Criteria notDateBetween(@NonNull long min, @NonNull long max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         return notDateBetween(new Date(min), new Date(max));
-    }
-
-    @Override
-    default Sort asc() {
-        return Sort.asc(this);
-    }
-
-    @Override
-    default Sort desc() {
-        return Sort.desc(this);
-    }
-
-    @Override
-    default Executable<T> date() {
-        return Executable.execute(this).date();
-    }
-
-    @Override
-    default Executable<T> and(T value) {
-        return Executable.execute(this).and(value);
-    }
-
-    @Override
-    default Executable<T> or(T value) {
-        return Executable.execute(this).or(value);
-    }
-
-    @Override
-    default Executable<T> xor(T value) {
-        return Executable.execute(this).xor(value);
-    }
-
-    @Override
-    default Executable<T> not() {
-        return Executable.execute(this).not();
     }
 }

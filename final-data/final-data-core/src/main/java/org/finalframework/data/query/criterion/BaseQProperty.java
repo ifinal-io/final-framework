@@ -1,8 +1,9 @@
-package org.finalframework.data.query;
+package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.finalframework.data.query.QProperty;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;

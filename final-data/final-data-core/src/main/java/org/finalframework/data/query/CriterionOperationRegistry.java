@@ -2,7 +2,7 @@ package org.finalframework.data.query;
 
 import org.finalframework.core.PrimaryTypes;
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.data.query.criterion.CriterionOperators;
+import org.finalframework.data.query.criterion.CriterionOperations;
 import org.finalframework.data.query.criterion.operation.*;
 
 import java.util.Date;
@@ -20,7 +20,7 @@ public class CriterionOperationRegistry {
 
     private static final CriterionOperationRegistry INSTANCE = new CriterionOperationRegistry();
 
-    private final Map<Class, CriterionOperators> cache = new ConcurrentHashMap<>(32);
+    private final Map<Class, CriterionOperations> cache = new ConcurrentHashMap<>(32);
 
     {
         PrimaryTypes.ALL.stream().filter(it -> it != String.class).forEach(it -> registerCriterionOperations(it, new ObjectCriterionOperations<>(it)));
@@ -43,17 +43,17 @@ public class CriterionOperationRegistry {
         new CriterionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperations(Class<T> type, CriterionOperators<T> criterionOperators) {
-        cache.put(type, criterionOperators);
+    public <T> void registerCriterionOperations(Class<T> type, CriterionOperations<T> criterionOperations) {
+        cache.put(type, criterionOperations);
     }
 
     public <T> void registerCriterionOperation(Class<T> type, CriterionOperation criterionOperation) {
 
         if (!cache.containsKey(type)) {
-            cache.put(type, new BaseCriterionOperators(type));
+            cache.put(type, new BaseCriterionOperations(type));
         }
-        final CriterionOperators criterionOperators = cache.get(type);
-        criterionOperators.register(criterionOperation);
+        final CriterionOperations criterionOperations = cache.get(type);
+        criterionOperations.register(criterionOperation);
     }
 
 
@@ -66,12 +66,12 @@ public class CriterionOperationRegistry {
             }
         }
 
-        final CriterionOperators criterionOperators = cache.get(key);
+        final CriterionOperations criterionOperations = cache.get(key);
 
-        if (criterionOperators == null) {
+        if (criterionOperations == null) {
             throw new UnsupportedOperationException("不支持的类型:" + type.getCanonicalName());
         }
-        CriterionOperation criterionOperation = criterionOperators.get(operator);
+        CriterionOperation criterionOperation = criterionOperations.get(operator);
         if (criterionOperation == null) {
             throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator.name(), type.getCanonicalName()));
         }

@@ -2,6 +2,7 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.CriterionOperation;
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
 
 import java.util.Collection;
@@ -16,8 +17,8 @@ public interface CollectionCriterionOperation<T> extends CriterionOperation<Coll
 
     @Override
     default String format(CollectionCriterion<T> criterion) {
-        return format(criterion.property(), criterion.operator(), criterion.value());
+        return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.value());
     }
 
-    String format(QProperty property, CriterionOperator operator, Collection<T> value);
+    String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<T> value);
 }

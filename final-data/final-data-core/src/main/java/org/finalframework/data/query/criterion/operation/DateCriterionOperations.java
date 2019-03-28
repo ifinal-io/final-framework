@@ -3,6 +3,7 @@ package org.finalframework.data.query.criterion.operation;
 
 import org.finalframework.core.formatter.DateFormatter;
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * @date 2019-03-08 22:13:20
  * @since 1.0
  */
-public class DateCriterionOperations extends BaseCriterionOperators<Date> implements org.finalframework.data.query.criterion.DateCriterionOperations<Date> {
+public class DateCriterionOperations extends BaseCriterionOperations<Date> implements org.finalframework.data.query.criterion.DateCriterionOperations<Date> {
 
     public static final DateCriterionOperations INSTANCE = new DateCriterionOperations();
 
@@ -48,8 +49,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public BeforeCriterionOperation<Date> before() {
         return new BeforeCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s < '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s < '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -58,8 +59,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public AfterCriterionOperation<Date> after() {
         return new AfterCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s > '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s > '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -68,8 +69,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public DateEqualCriterionOperation<Date> dateEqual() {
         return new DateEqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) = '%s'", column, date(value));
             }
 
@@ -80,8 +81,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public NotDateEqualCriterionOperation<Date> notDateEqual() {
         return new NotDateEqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) != '%s'", column, date(value));
             }
         };
@@ -91,8 +92,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public DateBeforeCriterionOperation<Date> dateBefore() {
         return new DateBeforeCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) < '%s'", column, dateTime(value));
             }
         };
@@ -102,8 +103,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public DateAfterCriterionOperation<Date> dateAfter() {
         return new DateAfterCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) > '%s'", column, dateTime(value));
             }
         };
@@ -113,8 +114,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public DateBetweenCriterionOperation<Date> dateBetween() {
         return new DateBetweenCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date min, Date max) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date min, Date max) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) BETWEEN '%s' AND '%s'", column, dateTime(min), dateTime(max));
             }
         };
@@ -124,8 +125,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public NotDateBetweenCriterionOperation<Date> notDateBetween() {
         return new NotDateBetweenCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date min, Date max) {
-                final String column = getPropertyColumn(property);
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date min, Date max) {
+                final String column = getPropertyColumn(property, functions);
                 return String.format("DATE(%s) NOT BETWEEN '%s' AND '%s'", column, dateTime(min), dateTime(max));
             }
         };
@@ -135,8 +136,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public EqualCriterionOperation<Date> eq() {
         return new EqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s = '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s = '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -145,8 +146,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public NotEqualCriterionOperation<Date> neq() {
         return new NotEqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s != '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s != '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -155,8 +156,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public GreaterThanCriterionOperation<Date> gt() {
         return new GreaterThanCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s > '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s > '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -165,8 +166,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public GreaterThanEqualCriterionOperation<Date> gte() {
         return new GreaterThanEqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s >= '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s >= '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -175,8 +176,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public LessThanCriterionOperation<Date> lt() {
         return new LessThanCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s < '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s < '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -185,8 +186,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public LessThanEqualCriterionOperation<Date> lte() {
         return new LessThanEqualCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date value) {
-                return String.format("%s <= '%s'", getPropertyColumn(property), dateTime(value));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date value) {
+                return String.format("%s <= '%s'", getPropertyColumn(property, functions), dateTime(value));
             }
         };
     }
@@ -195,8 +196,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public InCriterionOperation<Date> in() {
         return new InCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<Date> value) {
-                return String.format("%s IN %s", getPropertyColumn(property),
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<Date> value) {
+                return String.format("%s IN %s", getPropertyColumn(property, functions),
                         value.stream().map(it -> String.format("'%s'", dateTime(it))).collect(Collectors.joining(",", "(", ")")));
             }
         };
@@ -206,8 +207,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public NotInCriterionOperation<Date> nin() {
         return new NotInCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Collection<Date> value) {
-                return String.format("%s NOT IN %s", getPropertyColumn(property),
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Collection<Date> value) {
+                return String.format("%s NOT IN %s", getPropertyColumn(property, functions),
                         value.stream().map(it -> String.format("'%s'", dateTime(it))).collect(Collectors.joining(",", "(", ")")));
             }
         };
@@ -217,8 +218,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public BetweenCriterionOperation<Date> between() {
         return new BetweenCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date min, Date max) {
-                return String.format("%s BETWEEN '%s' AND '%s'", getPropertyColumn(property), dateTime(min), dateTime(max));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date min, Date max) {
+                return String.format("%s BETWEEN '%s' AND '%s'", getPropertyColumn(property, functions), dateTime(min), dateTime(max));
             }
         };
     }
@@ -227,8 +228,8 @@ public class DateCriterionOperations extends BaseCriterionOperators<Date> implem
     public NotBetweenCriterionOperation<Date> notBetween() {
         return new NotBetweenCriterionOperation<Date>() {
             @Override
-            public String format(QProperty property, CriterionOperator operator, Date min, Date max) {
-                return String.format("%s BETWEEN '%s' AND '%s'", getPropertyColumn(property), dateTime(min), dateTime(max));
+            public String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, Date min, Date max) {
+                return String.format("%s BETWEEN '%s' AND '%s'", getPropertyColumn(property, functions), dateTime(min), dateTime(max));
             }
         };
     }

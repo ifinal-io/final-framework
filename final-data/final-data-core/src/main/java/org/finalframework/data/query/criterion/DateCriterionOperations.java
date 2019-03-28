@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-03-08 23:26:00
  * @since 1.0
  */
-public interface DateCriterionOperations<T> extends SimpleCriterionOperators<T> {
+public interface DateCriterionOperations<T> extends SimpleCriterionOperations<T> {
     @Nullable
     BeforeCriterionOperation<T> before();
 

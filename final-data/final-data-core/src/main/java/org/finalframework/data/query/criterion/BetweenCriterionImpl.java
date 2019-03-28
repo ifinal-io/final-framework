@@ -2,7 +2,11 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -12,12 +16,14 @@ import org.finalframework.data.query.QProperty;
  */
 public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
     private final QProperty property;
+    private final Collection<FunctionCriterion> functions;
     private final CriterionOperator operator;
     private final T min;
     private final T max;
 
     private BetweenCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
+        this.functions = builder.functions;
         this.operator = builder.operator;
         this.min = builder.min;
         this.max = builder.max;
@@ -30,6 +36,11 @@ public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
     @Override
     public QProperty property() {
         return property;
+    }
+
+    @Override
+    public Collection<FunctionCriterion> functions() {
+        return functions;
     }
 
     @Override
@@ -49,6 +60,7 @@ public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
 
     private static class BuilderImpl<T> implements BetweenCriterion.Builder<T> {
         private QProperty property;
+        private Collection<FunctionCriterion> functions = new ArrayList<>();
         private CriterionOperator operator;
         private T min;
         private T max;
@@ -59,6 +71,18 @@ public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
         @Override
         public Builder<T> property(QProperty property) {
             this.property = property;
+            return this;
+        }
+
+        @Override
+        public Builder<T> function(FunctionCriterion function) {
+            this.functions.add(function);
+            return this;
+        }
+
+        @Override
+        public Builder<T> function(Collection<FunctionCriterion> functions) {
+            this.functions.addAll(functions);
             return this;
         }
 

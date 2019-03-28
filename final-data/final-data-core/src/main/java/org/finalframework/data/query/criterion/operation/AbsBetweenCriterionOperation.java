@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.operation;
 
-import org.finalframework.data.query.BetweenCriterionOperation;
 import org.finalframework.data.query.criterion.BetweenCriterion;
+import org.finalframework.data.query.criterion.BetweenCriterionOperation;
 
 /**
  * @author likly
@@ -12,6 +12,6 @@ import org.finalframework.data.query.criterion.BetweenCriterion;
 public abstract class AbsBetweenCriterionOperation<T> extends AbsCriterionOperation<T> implements BetweenCriterionOperation<T> {
     @Override
     public final String format(BetweenCriterion<T> criterion) {
-        return format(criterion.property(), criterion.operator(), criterion.min(), criterion.max());
+        return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.min(), criterion.max());
     }
 }

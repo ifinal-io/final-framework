@@ -3,7 +3,7 @@ package org.finalframework.data.query.criterion.operation;
 
 import org.finalframework.data.query.CriterionOperation;
 import org.finalframework.data.query.CriterionOperator;
-import org.finalframework.data.query.criterion.CriterionOperators;
+import org.finalframework.data.query.criterion.CriterionOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -18,17 +18,17 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0
  */
 
-public class BaseCriterionOperators<T> implements CriterionOperators<T> {
-    private static final Logger logger = LoggerFactory.getLogger(CriterionOperators.class);
+public class BaseCriterionOperations<T> implements CriterionOperations<T> {
+    private static final Logger logger = LoggerFactory.getLogger(CriterionOperations.class);
     private final Class<T> type;
     private final Map<CriterionOperator, CriterionOperation> operations;
 
-    public BaseCriterionOperators(Class<T> type, @NonNull Integer initialCapacity) {
+    public BaseCriterionOperations(Class<T> type, @NonNull Integer initialCapacity) {
         this.type = type;
         this.operations = new ConcurrentHashMap<>(initialCapacity);
     }
 
-    public BaseCriterionOperators(Class<T> type) {
+    public BaseCriterionOperations(Class<T> type) {
         this(type, 16);
     }
 

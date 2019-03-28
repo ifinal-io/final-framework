@@ -9,7 +9,7 @@ import org.finalframework.data.query.CriterionOperator;
  * @date 2019-02-20 09:31:57
  * @since 1.0
  */
-public interface CriterionOperators<T> {
+public interface CriterionOperations<T> {
     Class<T> type();
 
     CriterionOperation get(CriterionOperator operator);

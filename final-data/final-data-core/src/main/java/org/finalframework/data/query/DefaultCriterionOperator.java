@@ -44,7 +44,7 @@ public class DefaultCriterionOperator implements CriterionOperator {
     private final String name;
 
     public DefaultCriterionOperator(@NonNull String name) {
-        Assert.isEmpty(name, "name is empty");
+        Assert.isBlank(name, "name is blank");
         this.name = name;
     }
 

@@ -2,7 +2,11 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -13,10 +17,12 @@ import org.finalframework.data.query.QProperty;
 public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     private final QProperty property;
     private final CriterionOperator operator;
+    private final Collection<FunctionCriterion> functions;
     private final T value;
 
     private SingleCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
+        this.functions = builder.functions;
         this.operator = builder.operator;
         this.value = builder.value;
     }
@@ -28,6 +34,11 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     @Override
     public QProperty property() {
         return property;
+    }
+
+    @Override
+    public Collection<FunctionCriterion> functions() {
+        return functions;
     }
 
     @Override
@@ -43,6 +54,7 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     private static class BuilderImpl<T> implements SingleCriterion.Builder<T> {
         private QProperty property;
         private CriterionOperator operator;
+        private Collection<FunctionCriterion> functions = new ArrayList<>();
         private T value;
 
         private BuilderImpl() {
@@ -51,6 +63,18 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
         @Override
         public Builder<T> property(QProperty property) {
             this.property = property;
+            return this;
+        }
+
+        @Override
+        public Builder<T> function(FunctionCriterion function) {
+            this.functions.add(function);
+            return this;
+        }
+
+        @Override
+        public Builder<T> function(Collection<FunctionCriterion> functions) {
+            this.functions.addAll(functions);
             return this;
         }
 
