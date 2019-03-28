@@ -3,7 +3,6 @@ package org.finalframework.cache.invocation;
 
 import org.finalframework.cache.CacheInvocationSupport;
 import org.finalframework.cache.CacheOperation;
-import org.finalframework.cache.CacheOperationContext;
 import org.finalframework.cache.CacheOperationExpressionEvaluator;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.core.Assert;
@@ -33,12 +32,6 @@ public class AbsCacheInvocationSupport extends AbsInvocationSupport implements C
     public AbsCacheInvocationSupport(CacheOperationExpressionEvaluator evaluator) {
         super(evaluator);
         this.evaluator = evaluator;
-    }
-
-    @Override
-    public EvaluationContext createEvaluationContext(CacheOperationContext context, Object result, Throwable e) {
-        return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
-                context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
     }
 
     @Override

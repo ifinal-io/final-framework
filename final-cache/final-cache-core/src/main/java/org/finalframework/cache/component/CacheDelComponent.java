@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheDelComponent extends BaseOperationComponent<CacheDel, CacheDelOperation,
-        CacheDelAnnotationBuilder, CacheDelInvocation, CacheDelInvocationHandler> {
+        CacheDelAnnotationBuilder, CacheDelInvocationHandler, CacheDelInvocation> {
 
     public CacheDelComponent() {
-        super(CacheDel.class, new CacheDelAnnotationBuilder(), new CacheDelInvocation(), new CacheDelInvocationHandler());
+        super(CacheDel.class, new CacheDelAnnotationBuilder(), new CacheDelInvocationHandler(), new CacheDelInvocation());
     }
 }

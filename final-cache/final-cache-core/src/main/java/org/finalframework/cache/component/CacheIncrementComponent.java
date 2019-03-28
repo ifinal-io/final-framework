@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheIncrementComponent extends BaseOperationComponent<CacheIncrement, CacheIncrementOperation,
-        CacheIncrementAnnotationBuilder, CacheIncrementInvocation, CacheIncrementInvocationHandler> {
+        CacheIncrementAnnotationBuilder, CacheIncrementInvocationHandler, CacheIncrementInvocation> {
 
     public CacheIncrementComponent() {
-        super(CacheIncrement.class, new CacheIncrementAnnotationBuilder(), new CacheIncrementInvocation(), new CacheIncrementInvocationHandler());
+        super(CacheIncrement.class, new CacheIncrementAnnotationBuilder(), new CacheIncrementInvocationHandler(), new CacheIncrementInvocation());
     }
 }

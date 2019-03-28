@@ -38,7 +38,7 @@ public class BaseOperationContext<O extends Operation> implements OperationConte
     }
 
     @Override
-    public OperationMetadata metadata() {
+    public OperationMetadata<O> metadata() {
         return metadata;
     }
 

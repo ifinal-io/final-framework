@@ -32,7 +32,7 @@ public class OperationInterceptor extends OperationAspectSupport implements Meth
             try {
                 return invocation.proceed();
             } catch (Throwable ex) {
-                logger.error("operation invoker exception:", ex);
+                logger.error("action invoker exception:", ex);
                 throw new OperationException(ex);
             }
         };

@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @since 1.0
  */
 public interface OperationComponent<A extends Annotation, O extends Operation,
-        BUILDER extends OperationAnnotationBuilder<A, O>, INVOCATION extends Invocation, HANDLER extends InvocationHandler> {
+        BUILDER extends OperationAnnotationBuilder<A, O>, HANDLER extends InvocationHandler, INVOCATION extends Invocation> {
 
 
     @NonNull
@@ -21,8 +21,8 @@ public interface OperationComponent<A extends Annotation, O extends Operation,
     BUILDER builder();
 
     @NonNull
-    INVOCATION invocation();
+    HANDLER handler();
 
     @NonNull
-    HANDLER handler();
+    INVOCATION invocation();
 }

@@ -38,6 +38,12 @@ public class CacheDelInvocation extends AbsCacheInvocationSupport implements Cac
         invocation(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT, throwable);
     }
 
+    @Override
+    public void after(Cache cache, OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {
+        if (CutPoint.AFTER == context.operation().point()) return;
+        invocation(cache, context, result, throwable);
+    }
+
     private void invocation(Cache cache, OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {
         final OperationMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());

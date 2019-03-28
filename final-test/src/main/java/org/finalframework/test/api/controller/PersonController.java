@@ -8,6 +8,8 @@ import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
+import org.finalframework.monitor.action.annotation.OperationAction;
+import org.finalframework.monitor.action.annotation.OperationAttribute;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
@@ -85,7 +87,11 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.AFTER_THROWING)
+    @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.BEFORE)
+    @OperationAction(name = "查询用户", operator = "{-1}", target = "{#id}",
+            attributes = {
+                    @OperationAttribute(name = "name", value = "{#result.name}")
+            })
     public Person get(@PathVariable("id") Long id, @CacheValue(key = {"invoke:{#id}"}) Long cahce) {
         logger.info(Json.toJson(cahce));
         return personMapper.selectOne(Result.View.class, id);

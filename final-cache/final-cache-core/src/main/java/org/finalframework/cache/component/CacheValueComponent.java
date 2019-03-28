@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheValueComponent extends BaseOperationComponent<CacheValue, CacheValueOperation,
-        CacheValueAnnotationBuilder, CacheValueInvocation, CacheValueInvocationHandler> {
+        CacheValueAnnotationBuilder, CacheValueInvocationHandler, CacheValueInvocation> {
 
     public CacheValueComponent() {
-        super(CacheValue.class, new CacheValueAnnotationBuilder(), new CacheValueInvocation(), new CacheValueInvocationHandler());
+        super(CacheValue.class, new CacheValueAnnotationBuilder(), new CacheValueInvocationHandler(), new CacheValueInvocation());
     }
 }

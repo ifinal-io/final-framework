@@ -85,8 +85,8 @@ public class OperationAspectSupport {
             throwable = e;
         }
 
-        for (InvocationHandler handler : handlers) {
-
+        for (int i = handlers.size() - 1; i >= 0; i--) {
+            InvocationHandler handler = handlers.get(i);
             if (throwable == null) {
                 handler.handleAfterReturning(contexts, returnValue);
             } else {

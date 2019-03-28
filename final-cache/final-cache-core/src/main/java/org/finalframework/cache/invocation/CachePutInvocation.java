@@ -46,6 +46,13 @@ public class CachePutInvocation extends AbsCacheInvocationSupport implements Cac
         }
     }
 
+    @Override
+    public void after(Cache cache, OperationContext<CachePutOperation> context, Object result, Throwable throwable) {
+        if (CutPoint.AFTER == context.operation().point()) {
+            invocation(cache, context, result, throwable);
+        }
+    }
+
     private void invocation(Cache cache, OperationContext<CachePutOperation> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

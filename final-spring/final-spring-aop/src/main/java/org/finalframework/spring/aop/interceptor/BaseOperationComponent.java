@@ -12,19 +12,19 @@ import java.lang.annotation.Annotation;
  * @since 1.0
  */
 public class BaseOperationComponent<A extends Annotation, O extends Operation,
-        BUILDER extends OperationAnnotationBuilder<A, O>, INVOCATION extends Invocation,
-        HANDLER extends InvocationHandler> implements OperationComponent<A, O, BUILDER, INVOCATION, HANDLER> {
+        BUILDER extends OperationAnnotationBuilder<A, O>, HANDLER extends InvocationHandler, INVOCATION extends Invocation
+        > implements OperationComponent<A, O, BUILDER, HANDLER, INVOCATION> {
 
     private final Class<A> type;
     private final BUILDER builder;
-    private final INVOCATION invocation;
     private final HANDLER handler;
+    private final INVOCATION invocation;
 
-    public BaseOperationComponent(Class<A> type, BUILDER builder, INVOCATION invocation, HANDLER handler) {
+    public BaseOperationComponent(Class<A> type, BUILDER builder, HANDLER handler, INVOCATION invocation) {
         this.type = type;
         this.builder = builder;
-        this.invocation = invocation;
         this.handler = handler;
+        this.invocation = invocation;
     }
 
     @Override
@@ -38,12 +38,12 @@ public class BaseOperationComponent<A extends Annotation, O extends Operation,
     }
 
     @Override
-    public INVOCATION invocation() {
-        return invocation;
+    public HANDLER handler() {
+        return handler;
     }
 
     @Override
-    public HANDLER handler() {
-        return handler;
+    public INVOCATION invocation() {
+        return invocation;
     }
 }

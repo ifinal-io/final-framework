@@ -21,6 +21,7 @@
         <module>final-logging</module>
         <module>final-test</module>
         <module>final-dubbo</module>
+        <module>final-monitor</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -140,6 +141,11 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-cache-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-monitor-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!-- final-data -->

@@ -8,5 +8,7 @@ package org.finalframework.spring.aop;
  */
 public interface Operation {
 
+    String name();
+
     Class<? extends Invocation> invocation();
 }

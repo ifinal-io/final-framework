@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CachePutComponent extends BaseOperationComponent<CachePut, CachePutOperation,
-        CachePutAnnotationBuilder, CachePutInvocation, CachePutInvocationHandler> {
+        CachePutAnnotationBuilder, CachePutInvocationHandler, CachePutInvocation> {
 
     public CachePutComponent() {
-        super(CachePut.class, new CachePutAnnotationBuilder(), new CachePutInvocation(), new CachePutInvocationHandler());
+        super(CachePut.class, new CachePutAnnotationBuilder(), new CachePutInvocationHandler(), new CachePutInvocation());
     }
 }

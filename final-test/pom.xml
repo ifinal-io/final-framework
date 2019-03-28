@@ -26,6 +26,10 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
+            <artifactId>final-monitor-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-cache-spring-boot-starter</artifactId>
         </dependency>
         <dependency>

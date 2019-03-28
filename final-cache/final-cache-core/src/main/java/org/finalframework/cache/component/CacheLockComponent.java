@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheLockComponent extends BaseOperationComponent<CacheLock, CacheLockOperation,
-        CacheLockAnnotationBuilder, CacheLockInvocation, CacheLockInvocationHandler> {
+        CacheLockAnnotationBuilder, CacheLockInvocationHandler, CacheLockInvocation> {
 
     public CacheLockComponent() {
-        super(CacheLock.class, new CacheLockAnnotationBuilder(), new CacheLockInvocation(), new CacheLockInvocationHandler());
+        super(CacheLock.class, new CacheLockAnnotationBuilder(), new CacheLockInvocationHandler(), new CacheLockInvocation());
     }
 }

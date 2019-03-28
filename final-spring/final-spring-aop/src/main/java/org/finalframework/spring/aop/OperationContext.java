@@ -9,7 +9,7 @@ package org.finalframework.spring.aop;
 public interface OperationContext<O extends Operation> {
     O operation();
 
-    OperationMetadata metadata();
+    OperationMetadata<O> metadata();
 
     Object target();
 

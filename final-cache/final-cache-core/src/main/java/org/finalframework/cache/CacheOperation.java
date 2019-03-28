@@ -10,9 +10,6 @@ import org.finalframework.spring.aop.Operation;
  */
 public interface CacheOperation extends Operation {
 
-    String name();
-
     Class<? extends CacheInvocation> invocation();
-
 
 }

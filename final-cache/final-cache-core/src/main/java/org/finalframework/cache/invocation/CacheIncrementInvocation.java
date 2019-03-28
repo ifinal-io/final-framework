@@ -32,15 +32,22 @@ public class CacheIncrementInvocation extends AbsCacheInvocationSupport implemen
 
     @Override
     public void afterReturning(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
-        if (CutPoint.AFTER == context.operation().point() || CutPoint.AFTER_RETURNING == context.operation().point()) {
+        if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             doCacheIncrement(cache, context, result, null);
         }
     }
 
     @Override
     public void afterThrowing(Cache cache, OperationContext<CacheIncrementOperation> context, Throwable throwable) {
-        if (CutPoint.AFTER == context.operation().point() || CutPoint.AFTER_THROWING == context.operation().point()) {
+        if (CutPoint.AFTER_THROWING == context.operation().point()) {
             doCacheIncrement(cache, context, null, throwable);
+        }
+    }
+
+    @Override
+    public void after(Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
+        if (CutPoint.AFTER == context.operation().point()) {
+            doCacheIncrement(cache, context, result, throwable);
         }
     }
 

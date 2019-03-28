@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheableComponent extends BaseOperationComponent<Cacheable, CacheableOperation,
-        CacheableAnnotationBuilder, CacheableInvocation, CacheableInvocationHandler> {
+        CacheableAnnotationBuilder, CacheableInvocationHandler, CacheableInvocation> {
 
     public CacheableComponent() {
-        super(Cacheable.class, new CacheableAnnotationBuilder(), new CacheableInvocation(), new CacheableInvocationHandler());
+        super(Cacheable.class, new CacheableAnnotationBuilder(), new CacheableInvocationHandler(), new CacheableInvocation());
     }
 }

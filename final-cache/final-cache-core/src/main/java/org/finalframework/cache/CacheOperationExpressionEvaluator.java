@@ -4,8 +4,6 @@ import org.finalframework.spring.aop.OperationExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 
-import java.lang.reflect.Method;
-
 /**
  * @author likly
  * @version 1.0
@@ -13,8 +11,6 @@ import java.lang.reflect.Method;
  * @since 1.0
  */
 public interface CacheOperationExpressionEvaluator extends OperationExpressionEvaluator {
-
-    EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result, Throwable e);
 
     Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 

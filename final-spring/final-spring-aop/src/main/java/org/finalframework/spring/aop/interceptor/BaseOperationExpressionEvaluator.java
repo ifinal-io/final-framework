@@ -18,11 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class BaseOperationExpressionEvaluator extends MethodExpressionEvaluator implements OperationExpressionEvaluator {
 
-    /**
-     * Indicate that there is no value variable.
-     */
-    public static final Object NO_RESULT = new Object();
-
     private final Map<ExpressionKey, Expression> valueCache = new ConcurrentHashMap<>(64);
 
     @Override

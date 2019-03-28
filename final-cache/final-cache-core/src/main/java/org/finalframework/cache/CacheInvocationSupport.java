@@ -17,9 +17,6 @@ import java.util.Collection;
  */
 public interface CacheInvocationSupport extends InvocationSupport {
 
-    @NonNull
-    EvaluationContext createEvaluationContext(@NonNull CacheOperationContext context, @Nullable Object result, @Nullable Throwable e);
-
     @Nullable
     Object generateKey(@NonNull Collection<String> keys, @NonNull String delimiter, @NonNull OperationMetadata<? extends CacheOperation> metadata, @NonNull EvaluationContext evaluationContext);
 
@@ -36,10 +33,5 @@ public interface CacheInvocationSupport extends InvocationSupport {
 
     @Nullable
     Object generateExpire(@NonNull String expire, @NonNull OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
-
-    boolean isExpression(String expression);
-
-    @NonNull
-    String generateExpression(@NonNull String expression);
 
 }
