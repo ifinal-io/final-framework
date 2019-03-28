@@ -240,7 +240,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default int update(String tableName, Update update, Query query) {
-        return update(null, null, null, update, false, null, query);
+        return update(tableName, null, null, update, false, null, query);
     }
 
     int update(@Param("tableName") String tableName, @Param("view") Class<?> view,
