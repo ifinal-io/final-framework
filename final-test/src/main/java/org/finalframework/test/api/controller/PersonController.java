@@ -6,7 +6,6 @@ import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
-import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.action.annotation.OperationAction;
 import org.finalframework.monitor.action.annotation.OperationAttribute;
@@ -15,6 +14,7 @@ import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.entity.QPerson;
+import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -41,6 +41,8 @@ public class PersonController {
 
     @Resource
     private PersonMapper personMapper;
+    @Resource
+    private PersonService personService;
 
     public static void main(String[] args) {
         QEntity<Long, Person> entity = QEntity.from(Person.class);
@@ -94,7 +96,7 @@ public class PersonController {
             })
     public Person get(@PathVariable("id") Long id, @CacheValue(key = {"invoke:{#id}"}) Long cahce) {
         logger.info(Json.toJson(cahce));
-        return personMapper.selectOne(Result.View.class, id);
+        return personService.findById(id);
     }
 
     public Person findById(Long id) {

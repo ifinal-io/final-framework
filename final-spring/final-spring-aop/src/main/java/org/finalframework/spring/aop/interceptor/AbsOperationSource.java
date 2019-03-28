@@ -37,17 +37,17 @@ public abstract class AbsOperationSource<O extends Operation> implements Operati
             return (cached != NULL_CACHE_OPERATION ? cached : null);
         }
 
-        Collection<O> cacheOperations = computeCacheOperations(method, targetClass);
-        if (cacheOperations != null) {
-            this.operationCache.put(cacheKey, cacheOperations);
+        Collection<O> operations = computeOperations(method, targetClass);
+        if (operations != null) {
+            this.operationCache.put(cacheKey, operations);
         } else {
             this.operationCache.put(cacheKey, NULL_CACHE_OPERATION);
         }
-        return cacheOperations;
+        return operations;
     }
 
     @Nullable
-    private Collection<O> computeCacheOperations(Method method, @Nullable Class<?> targetClass) {
+    private Collection<O> computeOperations(Method method, @Nullable Class<?> targetClass) {
 
         // Don't allow no-public methods as required.
         if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
@@ -56,12 +56,15 @@ public abstract class AbsOperationSource<O extends Operation> implements Operati
 
         // The method may be on an interface, but we need attributes from the target class.
         // If the target class is null, the method will be unchanged.
+        // 注解可能是声明在接口上的，因此不需要找到实现类的方法
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
+//        @SuppressWarnings("all")
+//       final Method specificMethod = method;
 
         // First try is the method in the target class.
         Collection<O> opDef = findOperations(specificMethod);
 
-        if (opDef != null) {
+        if (opDef != null && !opDef.isEmpty()) {
             return opDef;
         }
 
@@ -74,7 +77,7 @@ public abstract class AbsOperationSource<O extends Operation> implements Operati
         if (specificMethod != method) {
             // Fallback is to look at the original method.
             opDef = findOperations(method);
-            if (opDef == null) {
+            if (opDef != null && !opDef.isEmpty()) {
                 return opDef;
             }
             // Last fallback is the class of the original method.

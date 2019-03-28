@@ -24,7 +24,7 @@ public @interface OperationAction {
 
     int action() default 0;
 
-    String operator();
+    String operator() default "";
 
     String target();
 

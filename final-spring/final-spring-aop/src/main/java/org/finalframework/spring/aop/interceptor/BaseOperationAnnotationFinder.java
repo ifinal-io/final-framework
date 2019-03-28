@@ -54,9 +54,25 @@ public class BaseOperationAnnotationFinder<A extends Annotation> implements Oper
         final Set<Class<? extends Annotation>> annTypes = Collections.singleton(ann);
         final Collection<Annotation> annotations = AnnotatedElementUtils.getAllMergedAnnotations(ae, annTypes);
 
+        /**
+         * 	public static Set<Annotation> getAllMergedAnnotations(AnnotatedElement element, Set<Class<? extends Annotation>> annotationTypes) {
+         * 		MergedAnnotationAttributesProcessor processor = new MergedAnnotationAttributesProcessor(false, false, true);
+         * 		searchWithGetSemantics(element, annotationTypes, null, null, processor);
+         * 		return postProcessAndSynthesizeAggregatedResults(element, processor.getAggregatedResults());
+         *  }
+         *
+         *  	public static Set<Annotation> findAllMergedAnnotations(AnnotatedElement element, Set<Class<? extends Annotation>> annotationTypes) {
+         * 		MergedAnnotationAttributesProcessor processor = new MergedAnnotationAttributesProcessor(false, false, true);
+         * 		searchWithFindSemantics(element, annotationTypes, null, null, processor);
+         * 		return postProcessAndSynthesizeAggregatedResults(element, processor.getAggregatedResults());
+         *        }
+         */
+
         if (annotations.size() > 1 && !repeatable) {
             // More than one annotation found -> local declarations override interface-declared ones...
-            return (Collection<A>) AnnotatedElementUtils.findAllMergedAnnotations(ae, annTypes);
+            return AnnotatedElementUtils.findAllMergedAnnotations(ae, ann);
+        } else if (annotations.isEmpty()) {
+            return AnnotatedElementUtils.findAllMergedAnnotations(ae, ann);
         }
 
         return (Collection<A>) annotations;

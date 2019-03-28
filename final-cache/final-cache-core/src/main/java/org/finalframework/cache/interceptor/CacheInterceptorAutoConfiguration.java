@@ -4,10 +4,8 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.RedisCache;
 import org.finalframework.spring.aop.interceptor.OperationSourceAdvisor;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 
 /**
@@ -16,9 +14,9 @@ import org.springframework.context.annotation.Role;
  * @date 2018-12-26 13:15:49
  * @since 1.0
  */
-@Configuration
+//@Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@AutoConfiguration
+//@AutoConfiguration
 @SuppressWarnings("unused")
 public class CacheInterceptorAutoConfiguration {
 
