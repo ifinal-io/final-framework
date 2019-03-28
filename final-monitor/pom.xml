@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>final-monitor-core</module>
+        <module>final-monitor-autoconfigure</module>
+        <module>final-monitor-spring-boot-starter</module>
     </modules>
 
 

@@ -46,3 +46,6 @@ final:
   response:
     sync-status: false
     interceptor: org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor
+  monitor:
+    action:
+      logger: org.finalframework.test.monitor.action.handler

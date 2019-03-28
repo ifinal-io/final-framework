@@ -143,9 +143,20 @@
                 <artifactId>final-cache-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <!-- final-monitor -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-monitor-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-monitor-autoconfigure</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-monitor-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!-- final-data -->

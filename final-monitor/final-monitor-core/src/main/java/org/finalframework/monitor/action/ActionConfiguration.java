@@ -14,7 +14,6 @@ public class ActionConfiguration extends OperationConfiguration {
 
     {
         registerCacheComponent(new ActionOperationComponent());
-        setExecutor(new LoggerActionRecorder());
     }
 
 }
