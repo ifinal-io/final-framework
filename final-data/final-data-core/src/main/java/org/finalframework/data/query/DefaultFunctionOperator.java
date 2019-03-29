@@ -12,10 +12,25 @@ import org.springframework.lang.NonNull;
  */
 public class DefaultFunctionOperator implements FunctionOperator {
 
+    /**
+     * DATE()
+     */
     public static final FunctionOperator DATE = new DefaultFunctionOperator("DATE");
+    /**
+     * a & b
+     */
     public static final FunctionOperator AND = new DefaultFunctionOperator("AND");
+    /**
+     * a | b
+     */
     public static final FunctionOperator OR = new DefaultFunctionOperator("OR");
+    /**
+     * a ^ b
+     */
     public static final FunctionOperator XOR = new DefaultFunctionOperator("XOR");
+    /**
+     * ~ a
+     */
     public static final FunctionOperator NOT = new DefaultFunctionOperator("NOT");
 
     private final String name;
