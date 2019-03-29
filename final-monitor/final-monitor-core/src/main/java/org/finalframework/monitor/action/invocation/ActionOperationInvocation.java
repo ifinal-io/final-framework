@@ -2,10 +2,8 @@ package org.finalframework.monitor.action.invocation;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.monitor.action.ActionContext;
-import org.finalframework.monitor.action.ActionInvocation;
-import org.finalframework.monitor.action.ActionOperation;
-import org.finalframework.monitor.action.ActionRecorder;
+import org.finalframework.data.exception.IException;
+import org.finalframework.monitor.action.*;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -63,6 +61,12 @@ public class ActionOperationInvocation<T> extends AbsActionInvocationSupport imp
                 .level(operation.level())
                 .operator(generateOperator(operation.operator(), metadata, evaluationContext))
                 .target(generateTarget(operation.target(), metadata, evaluationContext));
+
+        if (throwable != null) {
+            builder.exception(throwable instanceof IException
+                    ? new ActionException((IException) throwable)
+                    : new ActionException(500, throwable.getMessage()));
+        }
 
 
         final Map<String, String> attributes = operation.attributes();

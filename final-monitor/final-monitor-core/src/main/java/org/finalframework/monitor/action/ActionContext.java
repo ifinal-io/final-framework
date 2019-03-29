@@ -17,6 +17,7 @@ public class ActionContext<T> {
     private final T operator;
     private final Object target;
     private final Map<String, Object> attributes;
+    private final ActionException exception;
 
     private ActionContext(Builder<T> builder) {
         this.name = builder.name;
@@ -26,6 +27,7 @@ public class ActionContext<T> {
         this.operator = builder.operator;
         this.target = builder.target;
         this.attributes = builder.attributes;
+        this.exception = builder.exception;
     }
 
     public static <T> Builder<T> builder() {
@@ -60,6 +62,10 @@ public class ActionContext<T> {
         return attributes;
     }
 
+    public ActionException exception() {
+        return exception;
+    }
+
     public static class Builder<T> implements org.finalframework.core.Builder<ActionContext<T>> {
         private String name;
         private int type;
@@ -68,6 +74,7 @@ public class ActionContext<T> {
         private T operator;
         private Object target;
         private Map<String, Object> attributes = new HashMap<>();
+        private ActionException exception;
 
         private Builder() {
         }
@@ -104,6 +111,11 @@ public class ActionContext<T> {
 
         public Builder addAttribute(String name, Object value) {
             this.attributes.put(name, value);
+            return this;
+        }
+
+        public Builder exception(ActionException exception) {
+            this.exception = exception;
             return this;
         }
 
