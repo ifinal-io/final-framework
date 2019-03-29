@@ -25,5 +25,9 @@ public class R {
         return new Result<>(code, message);
     }
 
+    public static Result<?> failure(@NonNull Integer code, @NonNull String message, String toast) {
+        return new Result<>(code, message, toast);
+    }
+
 
 }

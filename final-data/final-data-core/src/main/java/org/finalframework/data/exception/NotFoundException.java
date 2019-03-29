@@ -10,8 +10,16 @@ public class NotFoundException extends ServiceException {
 
     public static final NotFoundException DEFAULT = new NotFoundException(CommonServiceException.NOT_FOUND.getMessage());
 
+    @Deprecated
     public NotFoundException(String message, Object... args) {
         super(CommonServiceException.NOT_FOUND.getCode(), String.format(message, args));
     }
 
+    public NotFoundException(Integer code, String message, String toast, Object... args) {
+        super(code, message, toast, args);
+    }
+
+    public NotFoundException(IException exception, Object... args) {
+        super(exception, args);
+    }
 }

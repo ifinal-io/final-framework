@@ -2,6 +2,7 @@ package org.finalframework.data.exception;
 
 import lombok.NonNull;
 import org.finalframework.data.result.Result;
+import org.springframework.lang.Nullable;
 
 /**
  * 统一异常处理接口，实现该接口的异常，将会被{@literal Spring}的异常处理机制拦截，
@@ -20,4 +21,9 @@ public interface IException {
 
     @NonNull
     String getMessage();
+
+    @Nullable
+    default String getToast() {
+        return null;
+    }
 }

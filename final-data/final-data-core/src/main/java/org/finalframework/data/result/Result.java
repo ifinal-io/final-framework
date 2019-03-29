@@ -20,6 +20,8 @@ public final class Result<T> implements Serializable {
     private Integer status;
     @JsonView(View.class)
     private String message;
+    @JsonView
+    private String toast;
     @JsonView(View.class)
     private T data;
     @JsonView(View.class)
@@ -37,6 +39,12 @@ public final class Result<T> implements Serializable {
         this.status = status;
         this.message = message;
         this.data = data;
+    }
+
+    public Result(Integer status, String message, String toast) {
+        this.status = status;
+        this.message = message;
+        this.toast = toast;
     }
 
     public Result(Integer status, String message) {

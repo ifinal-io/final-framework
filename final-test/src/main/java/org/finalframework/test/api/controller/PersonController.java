@@ -96,11 +96,12 @@ public class PersonController {
             })
     public Person get(@PathVariable("id") Long id, @CacheValue(key = {"invoke:{#id}"}) Long cahce) {
         logger.info(Json.toJson(cahce));
-        return personService.findById(id);
+        return findById(id);
     }
 
+    @OperationAction(name = "内部调用", target = "{#id}")
     public Person findById(Long id) {
-        return personMapper.selectOne(id);
+        return personService.findById(id);
     }
 
 

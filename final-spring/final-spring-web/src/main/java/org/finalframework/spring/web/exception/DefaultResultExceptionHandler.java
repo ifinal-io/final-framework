@@ -26,7 +26,7 @@ public class DefaultResultExceptionHandler implements ResultExceptionHandler {
     @Override
     public Result handle(Throwable throwable) {
         if (throwable instanceof IException) {
-            return R.failure(((IException) throwable).getCode(), throwable.getMessage());
+            return R.failure(((IException) throwable).getCode(), throwable.getMessage(), ((IException) throwable).getToast());
         }
         throw new IllegalArgumentException("不支持异常处理：" + throwable.getClass());
     }
