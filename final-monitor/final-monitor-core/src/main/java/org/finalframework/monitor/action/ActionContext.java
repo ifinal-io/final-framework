@@ -13,6 +13,7 @@ public class ActionContext<T> {
     private final String name;
     private final int type;
     private final int action;
+    private final ActionLevel level;
     private final T operator;
     private final Object target;
     private final Map<String, Object> attributes;
@@ -21,6 +22,7 @@ public class ActionContext<T> {
         this.name = builder.name;
         this.type = builder.type;
         this.action = builder.action;
+        this.level = builder.level;
         this.operator = builder.operator;
         this.target = builder.target;
         this.attributes = builder.attributes;
@@ -42,6 +44,10 @@ public class ActionContext<T> {
         return action;
     }
 
+    public ActionLevel getLevel() {
+        return level;
+    }
+
     public T getOperator() {
         return operator;
     }
@@ -58,6 +64,7 @@ public class ActionContext<T> {
         private String name;
         private int type;
         private int action;
+        private ActionLevel level;
         private T operator;
         private Object target;
         private Map<String, Object> attributes = new HashMap<>();
@@ -77,6 +84,11 @@ public class ActionContext<T> {
 
         public Builder action(int action) {
             this.action = action;
+            return this;
+        }
+
+        public Builder level(ActionLevel level) {
+            this.level = level;
             return this;
         }
 

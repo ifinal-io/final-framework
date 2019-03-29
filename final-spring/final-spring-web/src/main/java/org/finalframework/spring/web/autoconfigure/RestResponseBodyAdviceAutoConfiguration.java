@@ -17,15 +17,15 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfiguration
 @EnableConfigurationProperties(ResponseBodyAdviceProperties.class)
 public class RestResponseBodyAdviceAutoConfiguration {
-    private final ResponseBodyAdviceProperties responseBodyAdviceProperties;
+    private final ResponseBodyAdviceProperties properties;
 
-    public RestResponseBodyAdviceAutoConfiguration(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
-        this.responseBodyAdviceProperties = responseBodyAdviceProperties;
+    public RestResponseBodyAdviceAutoConfiguration(ResponseBodyAdviceProperties properties) {
+        this.properties = properties;
     }
 
     @Bean
     public RestResponseBodyAdvice resultResponseBodyAdvice() {
-        return new RestResponseBodyAdvice(responseBodyAdviceProperties);
+        return new RestResponseBodyAdvice(properties);
     }
 
     @Bean

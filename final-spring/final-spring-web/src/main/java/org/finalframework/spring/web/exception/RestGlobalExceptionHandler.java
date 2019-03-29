@@ -1,8 +1,10 @@
 package org.finalframework.spring.web.exception;
 
-import lombok.extern.slf4j.Slf4j;
+import org.finalframework.data.exception.IException;
 import org.finalframework.spring.util.BeanUtils;
 import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -20,8 +22,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @date 2018-09-29 15:49
  * @since 1.0
  */
-@Slf4j
 public class RestGlobalExceptionHandler<T> implements GlobalExceptionHandler<T>, ApplicationContextAware {
+
+    private final Logger logger;
+
+    public RestGlobalExceptionHandler(String logger) {
+        this.logger = LoggerFactory.getLogger(logger);
+    }
 
     private ApplicationContext applicationContext;
     private final List<ExceptionHandlerBean<T>> exceptionHandlerBeans = new CopyOnWriteArrayList<>();
@@ -59,6 +66,14 @@ public class RestGlobalExceptionHandler<T> implements GlobalExceptionHandler<T>,
     @Override
     @ResponseBody
     public T handle(Throwable throwable) throws Throwable {
+
+        if (throwable instanceof IException) {
+            final IException e = (IException) throwable;
+            logger.warn("==> exception: code={},message={},toast={}", e.getCode(), e.getMessage(), e.getToast());
+        } else {
+            logger.error("==> ", throwable);
+        }
+
         for (ExceptionHandlerBean<T> item : exceptionHandlerBeans) {
             if (item.supports(throwable)) {
                 return item.handle(throwable);
@@ -69,7 +84,7 @@ public class RestGlobalExceptionHandler<T> implements GlobalExceptionHandler<T>,
             return unCatchExceptionHandler.handle(throwable);
         }
 
-        logger.error("UnCatchException", throwable);
+        logger.error("==> UnCatchException", throwable);
         throw throwable;
     }
 }

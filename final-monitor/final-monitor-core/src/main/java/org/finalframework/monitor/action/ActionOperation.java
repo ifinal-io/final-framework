@@ -22,6 +22,7 @@ public class ActionOperation implements Operation {
     private final int action;
     private final String operator;
     private final String target;
+    private final ActionLevel level;
     private final CutPoint point;
     private final Map<String, String> attributes;
     private final Class<? extends Invocation> invocation;
@@ -32,6 +33,7 @@ public class ActionOperation implements Operation {
         this.action = builder.action;
         this.operator = Assert.isBlank(builder.operator) ? null : builder.operator;
         this.target = builder.target;
+        this.level = builder.level;
         this.point = builder.point;
         this.invocation = builder.invocation;
         this.attributes = Assert.isEmpty(builder.attributes) ? null : builder.attributes;
@@ -74,6 +76,10 @@ public class ActionOperation implements Operation {
         return target;
     }
 
+    public ActionLevel level() {
+        return level;
+    }
+
     public CutPoint point() {
         return point;
     }
@@ -93,6 +99,7 @@ public class ActionOperation implements Operation {
         private int type;
         private int action;
         private String operator;
+        private ActionLevel level;
         private String target;
         private CutPoint point;
         private Class<? extends Invocation> invocation;
@@ -124,6 +131,11 @@ public class ActionOperation implements Operation {
 
         public Builder target(String target) {
             this.target = target;
+            return this;
+        }
+
+        public Builder level(ActionLevel level) {
+            this.level = level;
             return this;
         }
 

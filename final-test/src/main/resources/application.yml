@@ -44,8 +44,10 @@ final:
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   response:
-    sync-status: false
-    interceptor: org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor
+    sync-status: true
+    default-interceptor: org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor
   monitor:
     action:
       logger: org.finalframework.test.monitor.action.handler
+  exception:
+    logger: org.finalframework.test.error

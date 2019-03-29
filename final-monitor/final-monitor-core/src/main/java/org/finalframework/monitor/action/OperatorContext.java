@@ -14,7 +14,7 @@ public class OperatorContext<T> {
     private static final OperatorContext instance = new OperatorContext();
     private final ThreadLocal<T> operator = new ThreadLocal<>();
 
-    public static OperatorContext getInstance() {
+    public static <T> OperatorContext<T> getInstance() {
         return instance;
     }
 
@@ -24,6 +24,10 @@ public class OperatorContext<T> {
 
     public T get() {
         return operator.get();
+    }
+
+    public void clear() {
+        operator.remove();
     }
 
 

@@ -1,8 +1,10 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.spring.web.autoconfigure;
 
 import org.finalframework.json.JsonException;
 import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.spring.web.exception.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +18,15 @@ import javax.validation.ConstraintViolationException;
  */
 @Configuration
 @AutoConfiguration
+@EnableConfigurationProperties(RestExceptionHandlerProperties.class)
 @SuppressWarnings("all")
 public class RestExceptionHandlerAutoConfiguration {
+
+    private final RestExceptionHandlerProperties properties;
+
+    public RestExceptionHandlerAutoConfiguration(RestExceptionHandlerProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     @ConditionalOnClass(JsonException.class)
@@ -38,7 +47,7 @@ public class RestExceptionHandlerAutoConfiguration {
 
     @Bean
     public RestGlobalExceptionHandler defaultGlobalExceptionHandler() {
-        return new RestGlobalExceptionHandler();
+        return new RestGlobalExceptionHandler(properties.getLogger());
     }
 
     @Bean

@@ -60,6 +60,7 @@ public class ActionOperationInvocation<T> extends AbsActionInvocationSupport imp
         builder.name(operation.name())
                 .type(operation.type())
                 .action(operation.action())
+                .level(operation.level())
                 .operator(generateOperator(operation.operator(), metadata, evaluationContext))
                 .target(generateTarget(operation.target(), metadata, evaluationContext));
 

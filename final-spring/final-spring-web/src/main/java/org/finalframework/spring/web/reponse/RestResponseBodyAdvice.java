@@ -1,6 +1,7 @@
 package org.finalframework.spring.web.reponse;
 
 import lombok.Setter;
+import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
 import org.finalframework.spring.web.autoconfigure.ResponseBodyAdviceProperties;
 import org.springframework.beans.BeansException;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -28,14 +30,21 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, ApplicationContextAware, InitializingBean {
 
-    private final ResponseBodyAdviceProperties responseBodyAdviceProperties;
     private ApplicationContext applicationContext;
+
+    private final ResponseBodyAdviceProperties properties;
+    @Setter
+    private ResponseBodyInterceptor<Object, ?> defaultResponseBodyInterceptor = new ResultResponseBodyInterceptor();
+    @Setter
+    private boolean syncStatus;
     @Setter
     private ResponseBodyInterceptor<Object, ?> responseBodyInterceptor;
 
-    public RestResponseBodyAdvice(ResponseBodyAdviceProperties responseBodyAdviceProperties) {
-        this.responseBodyAdviceProperties = responseBodyAdviceProperties;
+    public RestResponseBodyAdvice(ResponseBodyAdviceProperties properties) {
+        this.properties = properties;
+        this.syncStatus = properties.isSyncStatus();
     }
+
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -54,8 +63,17 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        serverHttpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
+    public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
+        final Object defaultResult = defaultResponseBodyInterceptor == null ? body : defaultResponseBodyInterceptor.intercept(body);
+
+        if (syncStatus && defaultResult instanceof Result) {
+            final HttpStatus httpStatus = HttpStatus.valueOf(((Result) defaultResult).getStatus());
+            if (httpStatus != null) {
+                response.setStatusCode(httpStatus);
+            }
+        }
+
         final Object result = responseBodyInterceptor.intercept(body);
         if (body == null && methodParameter.getMethod() != null && methodParameter.getMethod().getReturnType() == String.class) {
             return Json.toJson(result);
@@ -68,8 +86,18 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void afterPropertiesSet() throws Exception {
-        this.responseBodyInterceptor = applicationContext.getBean(responseBodyAdviceProperties.getInterceptor());
+
+        if (properties.getDefaultInterceptor() != null) {
+            this.defaultResponseBodyInterceptor = applicationContext.getBean(properties.getDefaultInterceptor());
+        }
+
+        if (properties.getInterceptor() != null) {
+            this.responseBodyInterceptor = applicationContext.getBean(properties.getInterceptor());
+        }
+
+
     }
 
     @Override

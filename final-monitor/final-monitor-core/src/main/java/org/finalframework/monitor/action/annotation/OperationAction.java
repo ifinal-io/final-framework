@@ -1,5 +1,6 @@
 package org.finalframework.monitor.action.annotation;
 
+import org.finalframework.monitor.action.ActionLevel;
 import org.finalframework.spring.aop.Invocation;
 import org.finalframework.spring.aop.annotation.CutPoint;
 
@@ -27,6 +28,8 @@ public @interface OperationAction {
     String operator() default "";
 
     String target();
+
+    ActionLevel level() default ActionLevel.INFO;
 
     CutPoint point() default CutPoint.AFTER_RETURNING;
 
