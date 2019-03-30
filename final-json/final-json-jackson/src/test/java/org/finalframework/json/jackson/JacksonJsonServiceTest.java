@@ -42,6 +42,7 @@ public class JacksonJsonServiceTest {
         assertEquals("1", Json.toJson(1));
         final String json = "{\"name\":\"xiaoming\"}";
         assertEquals(json,Json.toJson(json));
+
     }
 
     @Test

@@ -16,7 +16,7 @@ import org.finalframework.mybatis.handler.TypeHandlerRegistry;
 @SuppressWarnings("all")
 public interface Utils {
     static Class getPropertyJavaType(Property property) {
-        return property.isCollectionLike() ? property.getComponentType() : property.getType();
+        return property.isMap() || property.isCollectionLike() ? property.getComponentType() : property.getType();
     }
 
     static Class getPropertyCollectionType(Property property) {

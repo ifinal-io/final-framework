@@ -25,7 +25,6 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
     private final String id;
     private final Class type;
     private final Boolean autoMapping;
-    private final Result idResult;
     private final List<Result> results;
     private final List<Association> associations;
     private final List<Element> elements;
@@ -34,7 +33,6 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
         this.id = builder.id;
         this.type = builder.type;
         this.autoMapping = builder.autoMapping;
-        this.idResult = builder.idResult;
         this.results = builder.results.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.results);
         this.associations = builder.associations.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.associations);
         this.elements = builder.elements.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.elements);
@@ -90,7 +88,6 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
         private final List<Association> associations = new ArrayList<>();
         private final List<Element> elements = new ArrayList<>();
         private Boolean autoMapping;
-        private Result idResult;
 
         private Builder(String id, Class type) {
             this.id = id;
@@ -100,9 +97,6 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
         public Builder addResult(Result result) {
             this.results.add(result);
             this.elements.add(result);
-            if (result.isIdResult()) {
-                idResult = result;
-            }
             return this;
         }
 

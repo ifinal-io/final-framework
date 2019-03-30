@@ -7,6 +7,7 @@ import org.finalframework.monitor.action.*;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.annotation.CutPoint;
+import org.slf4j.MDC;
 import org.springframework.expression.EvaluationContext;
 
 import java.util.Map;
@@ -60,7 +61,10 @@ public class ActionOperationInvocation<T> extends AbsActionInvocationSupport imp
                 .action(operation.action())
                 .level(operation.level())
                 .operator(generateOperator(operation.operator(), metadata, evaluationContext))
-                .target(generateTarget(operation.target(), metadata, evaluationContext));
+                .target(generateTarget(operation.target(), metadata, evaluationContext))
+                .trace(MDC.get("trace"))
+                .timestamp(System.currentTimeMillis());
+
 
         if (throwable != null) {
             builder.exception(throwable instanceof IException

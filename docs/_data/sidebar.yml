@@ -1,14 +1,18 @@
 default:
   logo: /assets/img/modules/mayi.png
   name: Final Framework
-datas:
+framework:
   logo: /assets/img/modules/mayi.png
-  name: Final Data
+  name: Final Framework
   menus:
-    - id: annotation
-      link: /datas/annotation
-      icon: alternate_email
-      name: Annotation
+    - id: data
+      name: Data
+      icon: image
+      menus:
+        - id: annotation
+          link: /framework/data/annotation
+          mini: AN
+          name: Annotation
 json:
   logo: /assets/img/modules/json.png
   name: Final Json

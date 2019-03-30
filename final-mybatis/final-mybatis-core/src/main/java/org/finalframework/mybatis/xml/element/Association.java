@@ -51,7 +51,6 @@ public class Association implements Element, Streamable<Element>, Iterable<Eleme
     private final String foreignColumn;
     private final Boolean autoMapping;
     private final FetchType fetchType;
-    private final Result idResult;
     private final List<Result> results;
     private final List<Element> elements;
 
@@ -67,7 +66,6 @@ public class Association implements Element, Streamable<Element>, Iterable<Eleme
         this.foreignColumn = builder.foreignColumn;
         this.autoMapping = builder.autoMapping;
         this.fetchType = builder.fetchType;
-        this.idResult = builder.idResult;
         this.results = builder.results.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.results);
         this.elements = builder.elements.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(builder.elements);
     }
@@ -140,7 +138,6 @@ public class Association implements Element, Streamable<Element>, Iterable<Eleme
         private String foreignColumn;
         private Boolean autoMapping;
         private FetchType fetchType;
-        private Result idResult;
 
         private Builder(String property) {
             this.property = property;
@@ -159,9 +156,6 @@ public class Association implements Element, Streamable<Element>, Iterable<Eleme
         public Builder addResult(Result result) {
             this.results.add(result);
             this.elements.add(result);
-            if (result.isIdResult()) {
-                this.idResult = result;
-            }
             return this;
         }
 

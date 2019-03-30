@@ -1,7 +1,7 @@
-- id: datas
-  link: /datas
+- id: framework
+  link: /framework
   logo: /assets/img/modules/json.png
-  name: Final Data
+  name: Final Framework
 - id: json
   link: /json
   logo: /assets/img/modules/json.png

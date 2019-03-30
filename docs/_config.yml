@@ -43,7 +43,7 @@ plugins:
   - jekyll-feed
 collections_dir: pages
 collections:
-  datas:
+  framework:
     output: true
   json:
     output: true

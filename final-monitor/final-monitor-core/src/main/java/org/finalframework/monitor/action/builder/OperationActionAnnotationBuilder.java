@@ -23,6 +23,7 @@ public class OperationActionAnnotationBuilder implements OperationAnnotationBuil
                 .type(ann.type())
                 .action(ann.action())
                 .operator(ann.operator())
+                .level(ann.level())
                 .target(ann.target())
                 .point(ann.point())
                 .invocation(ann.invocation());

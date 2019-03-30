@@ -18,6 +18,8 @@ public class ActionContext<T> {
     private final Object target;
     private final Map<String, Object> attributes;
     private final ActionException exception;
+    private final String trace;
+    private final Long timestamp;
 
     private ActionContext(Builder<T> builder) {
         this.name = builder.name;
@@ -28,6 +30,8 @@ public class ActionContext<T> {
         this.target = builder.target;
         this.attributes = builder.attributes;
         this.exception = builder.exception;
+        this.trace = builder.trace;
+        this.timestamp = builder.timestamp;
     }
 
     public static <T> Builder<T> builder() {
@@ -50,6 +54,10 @@ public class ActionContext<T> {
         return level;
     }
 
+    public String getTrace() {
+        return trace;
+    }
+
     public T getOperator() {
         return operator;
     }
@@ -62,8 +70,12 @@ public class ActionContext<T> {
         return attributes;
     }
 
-    public ActionException exception() {
+    public ActionException getException() {
         return exception;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
     }
 
     public static class Builder<T> implements org.finalframework.core.Builder<ActionContext<T>> {
@@ -75,6 +87,8 @@ public class ActionContext<T> {
         private Object target;
         private Map<String, Object> attributes = new HashMap<>();
         private ActionException exception;
+        private String trace;
+        private Long timestamp;
 
         private Builder() {
         }
@@ -99,15 +113,16 @@ public class ActionContext<T> {
             return this;
         }
 
+        public Builder trace(String trace) {
+            this.trace = trace;
+            return this;
+        }
+
         public Builder operator(T operator) {
             this.operator = operator;
             return this;
         }
 
-        public Builder target(Object target) {
-            this.target = target;
-            return this;
-        }
 
         public Builder addAttribute(String name, Object value) {
             this.attributes.put(name, value);
@@ -118,6 +133,17 @@ public class ActionContext<T> {
             this.exception = exception;
             return this;
         }
+
+        public Builder target(Object target) {
+            this.target = target;
+            return this;
+        }
+
+        public Builder timestamp(Long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
 
         @Override
         public ActionContext<T> build() {
