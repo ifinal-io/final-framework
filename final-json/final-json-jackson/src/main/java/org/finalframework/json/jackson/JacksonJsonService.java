@@ -41,7 +41,7 @@ public class JacksonJsonService implements JsonService {
     }
 
     @Override
-    public <T> T parse(String json, Class<T> classOfT) {
+    public <T> T toObject(String json, Class<T> classOfT) {
         try {
             return objectMapper.readValue(json, classOfT);
         } catch (IOException e) {
@@ -50,29 +50,29 @@ public class JacksonJsonService implements JsonService {
     }
 
     @Override
-    public <T> T parseWithView(String json, Class<T> classOfT, Class<?> view) throws Throwable {
+    public <T> T toObject(String json, Class<T> classOfT, Class<?> view) throws Throwable {
         return objectMapper.readerWithView(view).forType(classOfT).readValue(json);
     }
 
     @Override
-    public <T> T parse(String json, Type typeOfT) throws Throwable {
+    public <T> T toObject(String json, Type typeOfT) throws Throwable {
         return objectMapper.readValue(json, objectMapper.getTypeFactory().constructType(typeOfT));
     }
 
     @Override
-    public <T> T parseWithView(String json, Type typeOfT, Class<?> view) throws Throwable {
+    public <T> T toObject(String json, Type typeOfT, Class<?> view) throws Throwable {
         return objectMapper.readerWithView(view)
                 .forType(objectMapper.getTypeFactory().constructType(typeOfT))
                 .readValue(json);
     }
 
     @Override
-    public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
+    public <E, T extends Collection<E>> T toCollection(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
         return objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass));
     }
 
     @Override
-    public <E, T extends Collection<E>> T parseWithView(String json, Class<T> collectionClass, Class<E> elementClass, Class<?> view) throws Throwable {
+    public <E, T extends Collection<E>> T toCollection(String json, Class<T> collectionClass, Class<E> elementClass, Class<?> view) throws Throwable {
         return objectMapper.readerWithView(view)
                 .forType(objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass))
                 .readValue(json);

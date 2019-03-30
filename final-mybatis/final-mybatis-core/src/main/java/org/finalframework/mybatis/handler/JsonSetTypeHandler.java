@@ -21,6 +21,6 @@ public class JsonSetTypeHandler<T> extends JsonCollectionTypeHandler<T, Set<T>> 
 
     @Override
     protected Set<T> getResult(String value, Class type) {
-        return Json.parse(value, Set.class, type);
+        return Json.toCollection(value, Set.class, type);
     }
 }

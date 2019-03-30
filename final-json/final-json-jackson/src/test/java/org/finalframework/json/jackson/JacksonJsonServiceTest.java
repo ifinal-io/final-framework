@@ -47,7 +47,7 @@ public class JacksonJsonServiceTest {
 
     @Test
     public void parse() throws Throwable {
-        final int parse = Json.parse("1", int.class);
+        final int parse = Json.toObject("1", int.class);
         assertEquals(1, parse);
     }
 

@@ -24,22 +24,22 @@ public class FastJsonService implements JsonService {
     }
 
     @Override
-    public <T> T parse(String json, Class<T> classOfT) throws Throwable {
+    public <T> T toObject(String json, Class<T> classOfT) throws Throwable {
         return JSON.parseObject(json, classOfT);
     }
 
     @Override
-    public <T> T parse(String json, Type typeOfT) throws Throwable {
+    public <T> T toObject(String json, Type typeOfT) throws Throwable {
         return JSON.parseObject(json, typeOfT);
     }
 
     @Override
-    public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
+    public <E, T extends Collection<E>> T toCollection(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
         if (List.class.isAssignableFrom(collectionClass)) {
             return (T) JSON.parseArray(json, elementClass);
         } else if (Set.class.isAssignableFrom(collectionClass)) {
             return (T) new HashSet<E>(JSON.parseArray(json, elementClass));
         }
-        throw new UnsupportedOperationException("fast json not support parse " + collectionClass.getName());
+        throw new UnsupportedOperationException("fast json not support toObject " + collectionClass.getName());
     }
 }

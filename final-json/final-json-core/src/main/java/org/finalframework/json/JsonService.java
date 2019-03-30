@@ -26,21 +26,21 @@ public interface JsonService {
         return toJson(object);
     }
 
-    <T> T parse(@NonNull String json, @NonNull Class<T> classOfT) throws Throwable;
+    <T> T toObject(@NonNull String json, @NonNull Class<T> classOfT) throws Throwable;
 
-    default <T> T parseWithView(@NonNull String json, @NonNull Class<T> classOfT, @NonNull Class<?> view) throws Throwable {
-        return parse(json, classOfT);
+    default <T> T toObject(@NonNull String json, @NonNull Class<T> classOfT, @NonNull Class<?> view) throws Throwable {
+        return toObject(json, classOfT);
     }
 
-    <T> T parse(@NonNull String json, @NonNull Type typeOfT) throws Throwable;
+    <T> T toObject(@NonNull String json, @NonNull Type typeOfT) throws Throwable;
 
-    default <T> T parseWithView(@NonNull String json, @NonNull Type typeOfT, @NonNull Class<?> view) throws Throwable {
-        return parse(json, typeOfT);
+    default <T> T toObject(@NonNull String json, @NonNull Type typeOfT, @NonNull Class<?> view) throws Throwable {
+        return toObject(json, typeOfT);
     }
 
-    <E, T extends Collection<E>> T parse(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) throws Throwable;
+    <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) throws Throwable;
 
-    default <E, T extends Collection<E>> T parseWithView(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass, @NonNull Class<?> view) throws Throwable {
-        return parse(json, collectionClass, elementClass);
+    default <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass, @NonNull Class<?> view) throws Throwable {
+        return toCollection(json, collectionClass, elementClass);
     }
 }

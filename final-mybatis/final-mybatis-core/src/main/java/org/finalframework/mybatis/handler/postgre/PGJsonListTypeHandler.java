@@ -19,6 +19,6 @@ public class PGJsonListTypeHandler<T> extends PGJsonCollectionTypeHandler<T, Lis
 
     @Override
     protected List<T> getResult(String value, Class type) {
-        return Json.parse(value, List.class, type);
+        return Json.toCollection(value, List.class, type);
     }
 }

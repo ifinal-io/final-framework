@@ -37,18 +37,18 @@ public class GsonJsonService implements JsonService {
     }
 
     @Override
-    public <T> T parse(String json, Class<T> classOfT) {
+    public <T> T toObject(String json, Class<T> classOfT) {
         return gson.fromJson(json, classOfT);
     }
 
     @Override
-    public <T> T parse(String json, Type typeOfT) {
+    public <T> T toObject(String json, Type typeOfT) {
         return gson.fromJson(json, typeOfT);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <E, T extends Collection<E>> T parse(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
+    public <E, T extends Collection<E>> T toCollection(String json, Class<T> collectionClass, Class<E> elementClass) throws Throwable {
 
         JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
 

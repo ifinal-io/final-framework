@@ -83,7 +83,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
     }
 
     private Object parseJson(String json, Type type) {
-        return Json.parse(json, type);
+        return Json.toObject(json, type);
     }
 
     /**

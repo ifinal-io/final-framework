@@ -65,7 +65,7 @@ public class RedisCache implements Cache {
         final Object cacheValue = field == null ? Redis.value().get(key) : Redis.hash().get(key, field);
         if (cacheValue == null) return null;
         final String json = cacheValue.toString();
-        return view == null ? Json.parse(json, type) : Json.parse(json, type, view);
+        return view == null ? Json.toObject(json, type) : Json.toObject(json, type, view);
     }
 
     @Override

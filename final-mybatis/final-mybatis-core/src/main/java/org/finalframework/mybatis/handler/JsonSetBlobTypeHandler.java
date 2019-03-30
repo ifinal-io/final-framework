@@ -17,6 +17,6 @@ public class JsonSetBlobTypeHandler<E> extends JsonCollectionBlobTypeHandler<E, 
 
     @Override
     protected Set<E> getNullableResult(String json, Class type) {
-        return Json.parse(json, Set.class, type);
+        return Json.toCollection(json, Set.class, type);
     }
 }

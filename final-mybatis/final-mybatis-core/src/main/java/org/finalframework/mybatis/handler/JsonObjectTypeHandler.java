@@ -32,20 +32,20 @@ public class JsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
     public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String json = rs.getString(columnName);
         if (json == null || json.trim().isEmpty()) return null;
-        return Json.parse(json, type);
+        return Json.toObject(json, type);
     }
 
     @Override
     public T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String json = rs.getString(columnIndex);
         if (json == null || json.trim().isEmpty()) return null;
-        return Json.parse(json, type);
+        return Json.toObject(json, type);
     }
 
     @Override
     public T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String json = cs.getString(columnIndex);
         if (json == null || json.trim().isEmpty()) return null;
-        return Json.parse(json, type);
+        return Json.toObject(json, type);
     }
 }

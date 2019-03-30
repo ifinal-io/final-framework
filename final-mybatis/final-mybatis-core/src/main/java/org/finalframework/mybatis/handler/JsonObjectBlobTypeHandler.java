@@ -19,6 +19,6 @@ public class JsonObjectBlobTypeHandler<T> extends StringBlobTypeHandler<T> {
     @Override
     protected T getNullableResult(String string) {
         if (string == null || string.isEmpty()) return null;
-        return Json.parse(string, type);
+        return Json.toObject(string, type);
     }
 }
