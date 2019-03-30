@@ -2,6 +2,7 @@ package org.finalframework.spring.web.interceptor;
 
 import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author likly
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
  * @since 1.0
  */
 @AutoConfiguration
+@Configuration
 public class HandlerInterceptorAutoConfiguration {
     @Bean
     public HandlerInterceptorConfigurer handlerInterceptorConfigurer() {
