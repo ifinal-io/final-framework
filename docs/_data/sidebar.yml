@@ -65,14 +65,10 @@ mybatis:
           link: /mybatis/handler/enum-type-handler
           name: EnumTypeHandler
           mini: ETH
-        - id: json-list-type-handler
-          link: /mybatis/handler/json-list-type-handler
-          name: JsonListTypeHandler
-          mini: JLTH
-        - id: json-set-type-handler
-          link: /mybatis/handler/json-set-type-handler
-          name: JsonSetTypeHandler
-          mini: JSTH
+        - id: json-type-handler
+          link: /mybatis/handler/json-type-handler
+          name: JsonTypeHandler
+          mini: JTH
     - id: interceptor
       icon: dashboard
       name: 拦截器

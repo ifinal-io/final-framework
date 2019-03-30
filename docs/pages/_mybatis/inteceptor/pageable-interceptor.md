@@ -12,3 +12,9 @@ author: likly
 date: 2019-03-24 23:31:22 +800
 version: 1.0
 ---
+
+# PageableInterceptor
+
+## What
+
+[PageableInterceptor](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/inteceptor/PageableInterceptor.java)

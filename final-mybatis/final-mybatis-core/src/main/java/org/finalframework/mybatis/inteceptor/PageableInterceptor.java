@@ -1,7 +1,5 @@
 package org.finalframework.mybatis.inteceptor;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -9,10 +7,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.core.Assert;
 import org.finalframework.data.query.Pageable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Properties;
@@ -37,9 +32,7 @@ import java.util.Properties;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
-public class PageableInterceptor implements Interceptor {
-
-    private static final Logger logger = LoggerFactory.getLogger(PageableInterceptor.class);
+public abstract class PageableInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -70,20 +63,7 @@ public class PageableInterceptor implements Interceptor {
 
     }
 
-    private void startPage(Pageable pageable) {
-        if (Assert.isNull(pageable)) return;
-        startPage(pageable.getPage(), pageable.getSize());
-    }
-
-    private void startPage(Integer page, Integer size) {
-        logger.info("startPage:page={},size={}", page, size);
-        if (page != null && size != null) {
-            final Page<Object> result = PageHelper.startPage(page, size);
-            logger.info("pageResult:page={},size={},pages={},total={}",
-                    result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
-        }
-    }
-
+    protected abstract void startPage(Pageable pageable);
     @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
