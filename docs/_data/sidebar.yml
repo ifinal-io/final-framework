@@ -17,6 +17,10 @@ monitor:
   logo: /assets/img/modules/mayi.png
   name: Final Monitor
   menus:
+    - id: index
+      link: /monitor
+      icon: dashboard
+      name: README
     - id: action
       name: Action
       icon: image

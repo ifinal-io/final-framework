@@ -10,13 +10,15 @@ import java.util.Set;
  * @date 2018-11-20 11:20:53
  * @since 1.0
  */
-public class JsonSetBlobTypeHandler<E> extends JsonCollectionBlobTypeHandler<E, Set<E>> {
+public class JsonSetBlobTypeHandler<E> extends StringBlobTypeHandler<Set<E>> {
+    private final Class<E> type;
+
     public JsonSetBlobTypeHandler(Class<E> type) {
-        super(type);
+        this.type = type;
     }
 
     @Override
-    protected Set<E> getNullableResult(String json, Class type) {
-        return Json.toCollection(json, Set.class, type);
+    protected Set<E> getNullableResult(String string) {
+        return Json.toSet(string, type);
     }
 }

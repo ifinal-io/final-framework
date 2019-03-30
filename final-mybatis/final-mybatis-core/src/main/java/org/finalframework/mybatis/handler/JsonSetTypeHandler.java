@@ -12,15 +12,16 @@ import java.util.Set;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class JsonSetTypeHandler<T> extends JsonCollectionTypeHandler<T, Set<T>> {
+public class JsonSetTypeHandler<T> extends JsonTypeHandler<Set<T>> {
 
+    private final Class<T> type;
 
     public JsonSetTypeHandler(Class<T> type) {
-        super(type);
+        this.type = type;
     }
 
     @Override
-    protected Set<T> getResult(String value, Class type) {
-        return Json.toCollection(value, Set.class, type);
+    protected Set<T> getNullableResult(String json) {
+        return Json.toSet(json, type);
     }
 }

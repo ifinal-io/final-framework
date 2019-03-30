@@ -39,7 +39,7 @@ public abstract class DefaultCollectionTypeHandler<E, T extends Collection<E>> e
 
     @Override
     @SuppressWarnings("unchecked")
-    protected final T getResult(String value, Class type) {
+    protected final T getResult(String value, Class<E> type) {
 
         if (value == null || value.trim().isEmpty()) return null;
 

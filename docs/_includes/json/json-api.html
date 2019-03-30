@@ -3,28 +3,45 @@
     <table>
         <thead>
         <tr>
-            <th rowspan="2">参数</th>
-            <th colspan="2" rowspan="1">序列化</th>
-            <th colspan="2" rowspan="1">反序列化</th>
-        </tr>
-        <tr>
-            <th>普通</th>
-            <th>视图</th>
+            <th>类型</th>
+            <th>参数</th>
+            <th>结果</th>
             <th>普通</th>
             <th>视图</th>
         </tr>
         </thead>
         <tbody>
         <tr>
+            <td>序列化</td>
             <td class="text-rose">Object</td>
+            <td class="text-rose">String</td>
             <td>toJson(Object)</td>
             <td>toJson(Object,Class)</td>
-            <td>parse(String,Class)</td>
-            <td>parseWithView(String,Class,Class)</td>
-            <td></td>
-            <td><i class="material-icons">check</i></td>
-            <td></td>
-            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="4">反序列化</td>
+            <td class="text-rose">String,Class</td>
+            <td class="text-rose">Object</td>
+            <td>toObject(String,Class)</td>
+            <td>toObject(String,Class,Class)</td>
+        </tr>
+        <tr>
+            <td class="text-rose">String,Type</td>
+            <td class="text-rose">Object</td>
+            <td>toObject(String,Type)</td>
+            <td>toObject(String,Type,Class)</td>
+        </tr>
+        <tr>
+            <td class="text-rose">String,Class</td>
+            <td class="text-rose">List&lt;Object&gt;</td>
+            <td>toList(String,Class)</td>
+            <td>toList(String,Class,Class)</td>
+        </tr>
+        <tr>
+            <td class="text-rose">String,Class</td>
+            <td class="text-rose">Set&lt;Object&gt;</td>
+            <td>toSet(String,Type)</td>
+            <td>toSet(String,Type,Class)</td>
         </tr>
         </tbody>
     </table>

@@ -10,13 +10,15 @@ import java.util.List;
  * @date 2018-11-20 11:20:53
  * @since 1.0
  */
-public class JsonListBlobTypeHandler<E> extends JsonCollectionBlobTypeHandler<E, List<E>> {
+public class JsonListBlobTypeHandler<E> extends StringBlobTypeHandler<List<E>> {
+    private final Class<E> type;
     public JsonListBlobTypeHandler(Class<E> type) {
-        super(type);
+        this.type = type;
     }
 
     @Override
-    protected List<E> getNullableResult(String json, Class type) {
-        return Json.toCollection(json, List.class, type);
+    protected List<E> getNullableResult(String string) {
+        return Json.toList(string, type);
     }
+
 }

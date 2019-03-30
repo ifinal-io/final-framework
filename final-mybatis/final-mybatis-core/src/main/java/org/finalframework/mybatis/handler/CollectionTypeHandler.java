@@ -52,5 +52,5 @@ public abstract class CollectionTypeHandler<E, T extends Collection<E>> extends 
 
     protected abstract String setParameter(T parameter);
 
-    protected abstract T getResult(String value, Class type);
+    protected abstract T getResult(String value, Class<E> type);
 }

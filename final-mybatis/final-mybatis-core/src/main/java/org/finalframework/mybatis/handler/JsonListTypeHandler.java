@@ -12,13 +12,14 @@ import java.util.List;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class JsonListTypeHandler<T> extends JsonCollectionTypeHandler<T, List<T>> {
+public class JsonListTypeHandler<T> extends JsonTypeHandler<List<T>> {
+    private final Class<T> type;
     public JsonListTypeHandler(Class<T> type) {
-        super(type);
+        this.type = type;
     }
 
     @Override
-    protected List<T> getResult(String value, Class type) {
-        return Json.toCollection(value, List.class, type);
+    protected List<T> getNullableResult(String json) {
+        return Json.toList(json, type);
     }
 }
