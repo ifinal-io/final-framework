@@ -68,13 +68,13 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
         final Object defaultResult = defaultResponseBodyInterceptor == null ? body : defaultResponseBodyInterceptor.intercept(body);
 
         if (syncStatus && defaultResult instanceof Result) {
-            final HttpStatus httpStatus = HttpStatus.valueOf(((Result) defaultResult).getStatus());
+            final HttpStatus httpStatus = HttpStatus.resolve(((Result) defaultResult).getStatus());
             if (httpStatus != null) {
                 response.setStatusCode(httpStatus);
             }
         }
 
-        final Object result = responseBodyInterceptor.intercept(body);
+        final Object result = responseBodyInterceptor == null ? defaultResult : responseBodyInterceptor.intercept(defaultResult);
         if (body == null && methodParameter.getMethod() != null && methodParameter.getMethod().getReturnType() == String.class) {
             return Json.toJson(result);
         }

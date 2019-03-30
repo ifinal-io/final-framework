@@ -30,13 +30,19 @@ version: 1.0
 * Second，声明`OperationAction`
 
 ```java
-@Controller
+@RestController
 public class IndexController{
     
     @GetMapping
-    @OperationAction(name="访问首页")
+    @OperationAction("访问首页")
     public String index(){
         return "Hello";
     }
 }
+```
+
+* Now，启动`Application`并访问`http://localhost:8080`，控制台将输出：
+
+```
+║  ==> action handler: {"name":"访问首页","type":0,"action":0,"level":3,"attributes":{},"timestamp":1553918114710}
 ```
