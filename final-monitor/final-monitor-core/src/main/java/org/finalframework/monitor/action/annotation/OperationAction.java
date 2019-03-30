@@ -3,6 +3,7 @@ package org.finalframework.monitor.action.annotation;
 import org.finalframework.monitor.action.ActionLevel;
 import org.finalframework.spring.aop.Invocation;
 import org.finalframework.spring.aop.annotation.CutPoint;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -19,7 +20,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OperationAction {
 
-    String name();
+    @AliasFor("value")
+    String name() default "";
+
+    @AliasFor("name")
+    String value() default "";
 
     int type() default 0;
 
@@ -27,7 +32,7 @@ public @interface OperationAction {
 
     String operator() default "";
 
-    String target();
+    String target() default "";
 
     ActionLevel level() default ActionLevel.INFO;
 

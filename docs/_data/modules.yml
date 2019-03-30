@@ -2,6 +2,10 @@
   link: /framework
   logo: /assets/img/modules/json.png
   name: Final Framework
+- id: monitor
+  link: /monitor
+  logo: /assets/img/modules/json.png
+  name: Final Monitor
 - id: json
   link: /json
   logo: /assets/img/modules/json.png

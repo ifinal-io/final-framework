@@ -157,7 +157,11 @@ body {
 
 div.content {
     /*margin-top: 0px !important;*/
-    min-height: calc(100vh - 366px) !important
+    min-height: calc(100vh - 418px) !important
+}
+
+.main-panel > .content {
+    min-height: calc(100vh - 158px);
 }
 
 

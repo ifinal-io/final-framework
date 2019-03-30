@@ -18,8 +18,9 @@ import java.lang.reflect.Method;
 public class OperationActionAnnotationBuilder implements OperationAnnotationBuilder<OperationAction, ActionOperation> {
     @Override
     public ActionOperation build(Method method, OperationAction ann) {
+        final String name = Assert.isBlank(ann.name()) ? method.getDeclaringClass().getSimpleName() + "#" + method.getName() : ann.name();
         final ActionOperation.Builder builder = ActionOperation.builder()
-                .name(ann.name())
+                .name(name)
                 .type(ann.type())
                 .action(ann.action())
                 .operator(ann.operator())

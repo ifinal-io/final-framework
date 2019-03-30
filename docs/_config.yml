@@ -27,6 +27,8 @@ domain: https://github.com/likly/final-framework/blob/master
 git:
   url: https://github.com/likly/final-framework
   domain: Github
+final:
+  version: 0.0.5-SNAPSHOT
 # Build settings
 markdown: kramdown
 highlighter: rouge
@@ -44,6 +46,8 @@ plugins:
 collections_dir: pages
 collections:
   framework:
+    output: true
+  monitor:
     output: true
   json:
     output: true

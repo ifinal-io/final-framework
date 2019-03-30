@@ -43,7 +43,8 @@ public class AbsActionInvocationSupport extends AbsInvocationSupport implements 
 
     @Override
     public Object generateTarget(String target, OperationMetadata<? extends ActionOperation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.nonBlank(target) && isExpression(target)) {
+        if (Assert.isBlank(target)) return null;
+        if (isExpression(target)) {
             return evaluator.target(generateExpression(target), metadata.getMethodKey(), evaluationContext);
         }
         return target;
