@@ -8,7 +8,14 @@ package org.finalframework.spring.aop;
  * @since 1.0
  */
 public class OperationException extends RuntimeException {
-    public OperationException(Throwable cause) {
-        super(cause);
+    private final Throwable original;
+
+    public OperationException(Throwable original) {
+        super(original.getMessage(), original);
+        this.original = original;
+    }
+
+    public Throwable getOriginal() {
+        return original;
     }
 }

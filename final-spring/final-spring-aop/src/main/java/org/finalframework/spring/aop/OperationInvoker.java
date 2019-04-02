@@ -9,5 +9,6 @@ package org.finalframework.spring.aop;
 @FunctionalInterface
 public interface OperationInvoker {
 
-    Object invoke();
+    Object invoke() throws OperationException;
+
 }

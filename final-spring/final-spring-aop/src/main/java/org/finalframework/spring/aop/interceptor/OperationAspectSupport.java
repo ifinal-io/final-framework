@@ -49,7 +49,7 @@ public class OperationAspectSupport {
     }
 
 
-    protected Object execute(OperationInvoker invoker, Object target, Method method, Object[] args) {
+    protected Object execute(OperationInvoker invoker, Object target, Method method, Object[] args) throws Throwable {
         final Class<?> targetClass = getTargetClass(target);
         final Collection<Operation> operations = source.getOperations(method, targetClass);
         if (Assert.nonEmpty(operations)) {
@@ -60,7 +60,7 @@ public class OperationAspectSupport {
         return invoker.invoke();
     }
 
-    private Object execute(OperationInvoker invoker, OperationContexts contexts) {
+    private Object execute(OperationInvoker invoker, OperationContexts contexts) throws Throwable {
         Object operationValue = null;
         final List<InvocationHandler> handlers = configuration.getInvocationHandlers();
 
@@ -97,7 +97,10 @@ public class OperationAspectSupport {
         }
 
         if (throwable != null) {
-            throw new OperationException(throwable);
+            if (throwable instanceof OperationException) {
+                throw ((OperationException) throwable).getOriginal();
+            }
+            throw throwable;
         }
 
         return returnValue;

@@ -36,6 +36,10 @@ public class OperationInterceptor extends OperationAspectSupport implements Meth
                 throw new OperationException(ex);
             }
         };
-        return execute(invoker, invocation.getThis(), method, invocation.getArguments());
+        try {
+            return execute(invoker, invocation.getThis(), method, invocation.getArguments());
+        } catch (OperationException exception) {
+            throw exception.getOriginal();
+        }
     }
 }

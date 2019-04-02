@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.0.5-SNAPSHOT</version>
+        <version>0.0.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-data-core</artifactId>
-            <version>0.0.5-SNAPSHOT</version>
+            <version>0.0.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

@@ -32,6 +32,7 @@ logging:
   level:
     org.finalframework: info
     org.springframework: info
+  file: classpath:logback-srping.xml
 server:
   port: 8080
 final:

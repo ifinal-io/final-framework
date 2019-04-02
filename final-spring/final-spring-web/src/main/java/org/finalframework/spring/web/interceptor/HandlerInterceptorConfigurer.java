@@ -6,6 +6,7 @@ import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -43,6 +44,8 @@ public class HandlerInterceptorConfigurer implements WebMvcConfigurer, Applicati
             Order order = item.getClass().getAnnotation(Order.class);
             if (order != null) {
                 interceptorRegistration.order(order.value());
+            } else {
+                interceptorRegistration.order(Ordered.LOWEST_PRECEDENCE);
             }
 
             logger.info("==> add interceptor={},includes={},excludes={},point={}",
