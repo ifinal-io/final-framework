@@ -204,13 +204,15 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
                         final String column = columnGenerator.generateWriteColumn(property.getTable(), null, property);
                         final String value = columnGenerator.generateWriteValue(null, property, "entity");
 
-                        final Element ifPropertyNotNull = document.createElement("if");
                         if (selective) {
+                            final Element ifPropertyNotNull = document.createElement("if");
                             final String ifTest = String.format("entity.%s != null", property.getName());
                             ifPropertyNotNull.setAttribute("test", ifTest);
+                            ifPropertyNotNull.appendChild(textNode(document, String.format("%s = %s,", column, value)));
+                            whenOrOtherwise.appendChild(ifPropertyNotNull);
+                        } else {
+                            whenOrOtherwise.appendChild(textNode(document, String.format("%s = %s,", column, value)));
                         }
-                        ifPropertyNotNull.appendChild(textNode(document, String.format("%s = %s,", column, value)));
-                        whenOrOtherwise.appendChild(ifPropertyNotNull);
                     }
 
                 });
