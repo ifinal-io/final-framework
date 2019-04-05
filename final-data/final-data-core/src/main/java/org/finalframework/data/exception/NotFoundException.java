@@ -11,8 +11,8 @@ public class NotFoundException extends ServiceException {
     public static final NotFoundException DEFAULT = new NotFoundException(CommonServiceException.NOT_FOUND.getMessage());
 
     @Deprecated
-    public NotFoundException(String message, Object... args) {
-        super(CommonServiceException.NOT_FOUND.getCode(), String.format(message, args));
+    public NotFoundException(String message) {
+        super(CommonServiceException.NOT_FOUND.getCode(), message);
     }
 
     public NotFoundException(Integer code, String message, String toast, Object... args) {

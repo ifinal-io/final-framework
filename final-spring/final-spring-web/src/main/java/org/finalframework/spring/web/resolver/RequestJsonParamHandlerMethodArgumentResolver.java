@@ -68,7 +68,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
             final String parameterName = getParameterName(requestJsonParam, parameter);
             String value = webRequest.getParameter(parameterName);
             if (Assert.isBlank(value) && requestJsonParam.required()) {
-                throw new BadRequestException("parameter %s is required", parameterName);
+                throw new BadRequestException(String.format("parameter %s is required", parameterName));
             }
 
             if (Assert.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
