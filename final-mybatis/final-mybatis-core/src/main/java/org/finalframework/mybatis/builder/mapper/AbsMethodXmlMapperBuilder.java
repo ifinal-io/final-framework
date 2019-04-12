@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.builder;
+package org.finalframework.mybatis.builder.mapper;
 
 
 import org.finalframework.data.mapping.Entity;

@@ -53,3 +53,5 @@ final:
       logger: org.finalframework.test.monitor.action.handler
   exception:
     logger: org.finalframework.test.error
+mybatis:
+  mapper-locations: classpath:org/finalframework/test/dao/mapper/*Mapper.xml

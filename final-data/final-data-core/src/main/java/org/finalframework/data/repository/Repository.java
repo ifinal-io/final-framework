@@ -65,6 +65,15 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return insert(null, view, entities, query);
     }
 
+    /**
+     * 批量插入数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entities  实体集
+     * @param query     条件
+     * @return 指插入数据所影响的行数
+     */
     int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities, @Param("query") Query query);
 
     /*=========================================== UPDATE ===========================================*/
@@ -240,6 +249,18 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(tableName, null, null, update, false, null, query);
     }
 
+    /**
+     * 更新数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entity    实体，值不为 {@code null}时，忽略 {@code update} 的值
+     * @param update    更新，仅当 {@code entity}为空时有效
+     * @param selective 有选择的，值为{@code true}时，是更新值为 {@code null}的属性。
+     * @param ids       要更新的IDS
+     * @param query     更新条件
+     * @return 更新数据后影响的行数
+     */
     int update(@Param("tableName") String tableName, @Param("view") Class<?> view,
                @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
                @Param("ids") Collection<ID> ids, @Param("query") Query query);
@@ -286,6 +307,14 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return delete(tableName, null, query);
     }
 
+    /**
+     * 删除符合条件的数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param ids       IDS
+     * @param query     条件
+     * @return 删除符合条件的数据所影响的行数
+     */
     int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== SELECT ===========================================*/
@@ -398,6 +427,15 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectOne(tableName, view, null, query.limit(1));
     }
 
+    /**
+     * 返回符合查询 {@link ID} 或 {@link Query} 的一个结果，当找不到时返回 {@code null}
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param id        ID
+     * @param query     query
+     * @return 符合查询 {@link ID} 或 {@link Query} 的一个结果
+     */
     T selectOne(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
 
     /*=========================================== SELECT COUNT ===========================================*/
@@ -414,6 +452,13 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectCount(null, query);
     }
 
+    /**
+     * 返回符合查询条件 {@link Query}的结果集的大小
+     *
+     * @param tableName 表名
+     * @param query     query
+     * @return 符合查询条件 {@link Query}的结果集的大小
+     */
     long selectCount(@Param("tableName") String tableName, @Param("query") Query query);
 
     /*=========================================== IS EXISTS ===========================================*/
