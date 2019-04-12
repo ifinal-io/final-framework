@@ -20,9 +20,9 @@ import java.util.Collection;
  * @see NotDateBetweenCriterionOperation
  * @since 1.0
  */
-public interface BetweenCriterionOperation<T> extends CriterionOperation<T, BetweenCriterion<T>> {
+public interface DoubleCriterionOperation<T> extends CriterionOperation<T, DoubleCriterion<T>> {
     @Override
-    default String format(BetweenCriterion<T> criterion) {
+    default String format(DoubleCriterion<T> criterion) {
         return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.min(), criterion.max());
     }
 

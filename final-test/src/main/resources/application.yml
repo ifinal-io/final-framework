@@ -31,6 +31,7 @@ pagehelper:
 logging:
   level:
     org.finalframework: info
+    org.finalframework.test.dao: debug
     org.springframework: info
   file: classpath:logback-srping.xml
 server:

@@ -69,8 +69,11 @@ public abstract class AbsMethodXmlMapperBuilder implements MethodXmlMapperBuilde
     protected Element order(Document document) {
         /**
          * <sql id="sql-order">
-         *     <if test="query != null and query.sort != null">
-         *         #{query.sort,javatype={},typeHandler={}}
+         *     <if test="query != null and query.sort != null and query.sort.size > 0">
+         *         ORDER BY
+         *         <foreach collection="query.sort" index="index" item="order" separator=",">
+         *              #{order}
+         *         </foreach>
          *     </if>
          * </sql>
          */
@@ -78,9 +81,24 @@ public abstract class AbsMethodXmlMapperBuilder implements MethodXmlMapperBuilde
         sql.setAttribute("id", SQL_ORDER);
 
         final Element ifQueryNotNullAndQuerySortNotNull = document.createElement("if");
-        ifQueryNotNullAndQuerySortNotNull.setAttribute("test", "query != null and query.sort != null");
+        ifQueryNotNullAndQuerySortNotNull.setAttribute("test", "query != null and query.sort != null and query.sort.size > 0");
 //        final String sort = String.format(" ORDER BY #{query.sort.sql, javaType=%s,typeHandler=%s}",
 //                Sort.class.getCanonicalName(), SortTypeHandler.class.getCanonicalName());
+
+//        ifQueryNotNullAndQuerySortNotNull.appendChild(textNode(document,"ORDER BY"));
+
+//        Element foreach = document.createElement("foreach");
+//        foreach.setAttribute("collection", "query.sort");
+//        foreach.setAttribute("index", "index");
+//        foreach.setAttribute("item", "order");
+//        foreach.setAttribute("separator", ",");
+
+//        foreach.appendChild(textNode(document,String.format("#{order,javaType=%s,typeHandler=%s}", Order.class.getCanonicalName(), OrderTypeHandler.class.getCanonicalName())));
+
+//        ifQueryNotNullAndQuerySortNotNull.appendChild(foreach);
+
+
+
         ifQueryNotNullAndQuerySortNotNull.appendChild(textNode(document, "ORDER BY ${query.sort.sql}"));
         sql.appendChild(ifQueryNotNullAndQuerySortNotNull);
 

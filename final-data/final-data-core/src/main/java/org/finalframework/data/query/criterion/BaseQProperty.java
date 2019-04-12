@@ -7,6 +7,7 @@ import org.finalframework.data.query.QProperty;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 
 /**
  * @author likly
@@ -138,5 +139,14 @@ public class BaseQProperty<T> implements QProperty<T> {
         return property.findAnnotation(ann);
     }
 
-
+    @Override
+    public String toString() {
+        return "BaseQProperty{" +
+                "table='" + table + '\'' +
+                ", path='" + path + '\'' +
+                ", name='" + name + '\'' +
+                ", column='" + column + '\'' +
+                ", views=" + Arrays.toString(views) +
+                '}';
+    }
 }

@@ -49,18 +49,32 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
 
     }
 
-    <E> QProperty<E> getColumnProperty(String column);
+    <E> QProperty<E> getPropertyByName(String name);
 
-    default <E> QProperty<E> getRequiredColumnProperty(String column) {
-        QProperty property = getColumnProperty(column);
+    default <E> QProperty<E> getRequiredPropertyByName(String name) {
+        QProperty property = getPropertyByName(name);
 
         if (property != null) {
             return property;
         }
 
-        throw new IllegalStateException(String.format("Required property not found for %s!", getType()));
+        throw new IllegalStateException(String.format("Required property not found for %s!", name));
 
     }
+
+    <E> QProperty<E> getPropertyByColumn(String column);
+
+    default <E> QProperty<E> getRequiredPropertyByColumn(String column) {
+        QProperty property = getPropertyByColumn(column);
+
+        if (property != null) {
+            return property;
+        }
+
+        throw new IllegalStateException(String.format("Required property not found for %s!", column));
+
+    }
+
 
     @Nullable
     Collection<Class<?>> getViews();

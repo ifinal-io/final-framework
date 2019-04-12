@@ -14,14 +14,14 @@ import java.util.Collection;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
+public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
     private final QProperty property;
     private final Collection<FunctionCriterion> functions;
     private final CriterionOperator operator;
     private final T min;
     private final T max;
 
-    private BetweenCriterionImpl(BuilderImpl<T> builder) {
+    private DoubleCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
         this.functions = builder.functions;
         this.operator = builder.operator;
@@ -58,7 +58,7 @@ public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
         return max;
     }
 
-    private static class BuilderImpl<T> implements BetweenCriterion.Builder<T> {
+    private static class BuilderImpl<T> implements DoubleCriterion.Builder<T> {
         private QProperty property;
         private Collection<FunctionCriterion> functions = new ArrayList<>();
         private CriterionOperator operator;
@@ -103,7 +103,7 @@ public class BetweenCriterionImpl<T> implements BetweenCriterion<T> {
 
         @Override
         public Criterion build() {
-            return new BetweenCriterionImpl<>(this);
+            return new DoubleCriterionImpl<>(this);
         }
     }
 }

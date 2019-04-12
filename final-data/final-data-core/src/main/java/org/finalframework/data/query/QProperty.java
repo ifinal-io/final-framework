@@ -2,8 +2,8 @@ package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterion;
+import org.finalframework.data.query.criterion.DoubleCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 
@@ -408,7 +408,7 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     default Criteria between(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(this)
                         .operator(DefaultCriterionOperator.BETWEEN)
@@ -421,7 +421,7 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     default Criteria notBetween(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(this)
                         .operator(DefaultCriterionOperator.NOT_BETWEEN)
@@ -434,7 +434,7 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     default Criteria dateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(this)
                         .operator(DefaultCriterionOperator.DATE_BETWEEN)
@@ -447,7 +447,7 @@ public interface QProperty<T> extends Criteriable<T, Criteria>, Sortable<Sort>, 
     default Criteria notDateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(this)
                         .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)

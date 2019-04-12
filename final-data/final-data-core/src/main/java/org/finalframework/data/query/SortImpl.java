@@ -1,10 +1,11 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.builder.SortSqlBuilder;
 import org.finalframework.data.query.enums.Direction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,12 +15,13 @@ import java.util.stream.Stream;
  * @date 2019-01-08 15:22:08
  * @since 1.0
  */
-public class SortImpl implements Sort, Sql<Sort> {
+public class SortImpl extends ArrayList<Order> implements Sort, Sql<Sort> {
 
-    private final List<Order> orders;
+//    private final List<Order> orders;
 
     private SortImpl(Collection<Order> orders) {
-        this.orders = new ArrayList<>(orders);
+        this.addAll(orders);
+//        this.orders = new ArrayList<>(orders);
     }
 
     public static Sort by(Order... orders) {
@@ -45,7 +47,7 @@ public class SortImpl implements Sort, Sql<Sort> {
 
     public Sort and(Sort sort) {
         Assert.isNull(sort, "Sort must not be null!");
-        ArrayList<Order> these = new ArrayList<>(this.orders);
+        ArrayList<Order> these = new ArrayList<>(this);
 
         for (Order order : sort) {
             these.add(order);
@@ -54,19 +56,19 @@ public class SortImpl implements Sort, Sql<Sort> {
         return SortImpl.by(these);
     }
 
-
     @Override
     public Stream<Order> stream() {
-        return orders.stream();
+        return super.stream();
     }
 
     @Override
-    public Iterator<Order> iterator() {
-        return orders.iterator();
+    public String toString() {
+        return isEmpty() ? "" : stream().map(Order::toString).collect(Collectors.joining(","));
     }
 
     @Override
     public String getSql() {
-        return new SortSqlBuilder(this).build();
+        return toString();
+//        return new SortSqlBuilder(this).build();
     }
 }

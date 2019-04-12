@@ -3,8 +3,8 @@ package org.finalframework.test.api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
-import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.Sort;
 import org.finalframework.data.query.Update;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.action.annotation.OperationAction;
@@ -45,11 +45,8 @@ public class PersonController {
     private PersonService personService;
 
     public static void main(String[] args) {
-        QEntity<Long, Person> entity = QEntity.from(Person.class);
-        System.out.println(entity);
-        QEntity<Long, Person> person = QPerson.Person;
-        System.out.println(person);
-
+        final Sort sort = Sort.desc(QPerson.age).and(Sort.desc(QPerson.id));
+        System.out.println(sort);
     }
 
     @PostMapping("/param")
@@ -65,7 +62,7 @@ public class PersonController {
 
     @PostConstruct
     public void init() {
-        Query query = new Query().where(QPerson.age.and(2).eq(2));
+        Query query = new Query().where(QPerson.age.and(2).eq(2)).desc(QPerson.age);
         System.out.println(personMapper.selectCount(query));
     }
 

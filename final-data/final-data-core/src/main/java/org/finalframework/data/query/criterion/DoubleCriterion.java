@@ -13,17 +13,17 @@ import java.util.Collection;
  * @date 2019-02-19 20:52:10
  * @since 1.0
  */
-public interface BetweenCriterion<T> extends Criterion<T> {
+public interface DoubleCriterion<T> extends Criterion<T> {
 
     static <T> Builder<T> builder() {
-        return BetweenCriterionImpl.builder();
+        return DoubleCriterionImpl.builder();
     }
 
     T min();
 
     T max();
 
-    interface Builder<T> extends Criterion.Builder<BetweenCriterion<T>> {
+    interface Builder<T> extends Criterion.Builder<DoubleCriterion<T>> {
 
         @Override
         Builder<T> property(QProperty property);

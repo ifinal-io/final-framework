@@ -2,8 +2,8 @@ package org.finalframework.data.query;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterion;
+import org.finalframework.data.query.criterion.DoubleCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.finalframework.data.query.function.SimpleFunctionCriterion;
 import org.finalframework.data.query.function.SingleFunctionCriterion;
@@ -417,7 +417,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     public Criteria between(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(property)
                         .function(functions)
@@ -431,7 +431,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     public Criteria notBetween(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(property)
                         .function(functions)
@@ -445,7 +445,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     public Criteria dateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(property)
                         .function(functions)
@@ -459,7 +459,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     public Criteria notDateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
-        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
+        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return Criteria.where(
                 builder.property(property)
                         .function(functions)
