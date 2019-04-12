@@ -32,6 +32,7 @@ public class CachePutAnnotationBuilder extends AbsCacheAnnotationBuilder impleme
                 .key(parse(ann.key(), ann.delimiter()))
                 .field(parse(ann.field(), ann.delimiter()))
                 .delimiter(ann.delimiter())
+                .value(ann.value())
                 .condition(ann.condition())
                 .point(ann.point())
                 .ttl(ann.ttl())

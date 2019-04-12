@@ -39,7 +39,7 @@ public class CachePutOperation implements CacheOperation {
         this.key = Assert.isEmpty(builder.key) ? null : builder.key;
         this.field = Assert.isEmpty(builder.field) ? null : builder.field;
         this.delimiter = builder.delimiter;
-        this.value = Assert.isEmpty(builder.value) ? null : builder.delimiter;
+        this.value = Assert.isEmpty(builder.value) ? null : builder.value;
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
         this.cutPoint = builder.cutPoint;
         this.expire = Assert.isEmpty(builder.expire) ? null : builder.expire;

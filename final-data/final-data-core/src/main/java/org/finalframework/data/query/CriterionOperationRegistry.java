@@ -59,6 +59,7 @@ public class CriterionOperationRegistry {
 
     @SuppressWarnings("unchecked")
     public <T> CriterionOperation getCriterionOperation(CriterionOperator operator, Class<T> type) {
+
         Class<?> key = type;
         if (type.isEnum()) {
             if (IEnum.class.isAssignableFrom(type)) {
@@ -66,7 +67,7 @@ public class CriterionOperationRegistry {
             }
         }
 
-        final CriterionOperations criterionOperations = cache.get(key);
+        final CriterionOperations criterionOperations = cache.containsKey(key) ? cache.get(key) : cache.get(Object.class);
 
         if (criterionOperations == null) {
             throw new UnsupportedOperationException("不支持的类型:" + type.getCanonicalName());

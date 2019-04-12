@@ -20,6 +20,7 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final Entity<T> entity;
     private final List<QProperty> properties = new ArrayList<>();
     private final Map<String, QProperty> propertiesCache = new HashMap<>();
+    private final Map<String, QProperty> columnPropertiesCache = new HashMap<>();
     private final Set<Class<?>> views = new HashSet<>();
     private QProperty idProperty;
 
@@ -79,10 +80,14 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     }
 
     @Override
+    public <E> QProperty<E> getColumnProperty(String column) {
+        return columnPropertiesCache.get(column);
+    }
+
+    @Override
     public Collection<Class<?>> getViews() {
         return views;
     }
-
 
     @Override
     public Stream<QProperty> stream() {
@@ -108,6 +113,7 @@ public class BaseQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
             properties.add(property);
         }
         propertiesCache.put(property.getPath(), property);
+        columnPropertiesCache.put(property.getColumn(), property);
     }
 
 

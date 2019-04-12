@@ -298,7 +298,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
 
                         List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                 .map(operation -> {
-                                    final String whenTest = String.format("update['%s'].action.name() == '%s'", updatePath, operation.name());
+                                    final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
                                     String updateSql = null;
                                     switch (operation) {
                                         case EQUAL:

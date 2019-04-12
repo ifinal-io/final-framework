@@ -162,9 +162,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(tableName, view, entity, null, selective, null, query);
     }
 
-    default int update(String tableName, Class<?> view, T entity, boolean selective, Collection<ID> ids, Query query) {
-        return update(tableName, view, entity, null, selective, ids, query);
-    }
 
     default int update(T... entities) {
         return update(Arrays.asList(entities));
