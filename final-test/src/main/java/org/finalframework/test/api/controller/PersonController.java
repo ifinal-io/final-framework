@@ -60,7 +60,7 @@ public class PersonController {
 
     @PostMapping
     public Person insert(@RequestBody Person person) {
-        personMapper.insert(Person.class, person);
+        personMapper.insert(person);
         return person;
     }
 

@@ -21,4 +21,7 @@ import org.springframework.context.annotation.Import;
 @AutoConfiguration
 public class CommonAutoConfiguration {
 
+    public CommonAutoConfiguration() {
+        System.out.println(getClass().getName() + ":------------");
+    }
 }

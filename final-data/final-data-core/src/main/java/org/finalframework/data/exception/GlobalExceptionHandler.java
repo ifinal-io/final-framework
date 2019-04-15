@@ -28,5 +28,5 @@ public interface GlobalExceptionHandler<T> {
     void setUnCatchExceptionHandler(@NonNull ExceptionHandler<T> handler);
 
     @Nullable
-    T handle(@NonNull Throwable throwable) throws Throwable;
+    T handle(@NonNull Throwable throwable);
 }

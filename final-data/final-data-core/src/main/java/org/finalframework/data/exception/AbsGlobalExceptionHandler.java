@@ -41,7 +41,7 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     }
 
     @Override
-    public T handle(Throwable throwable) throws Throwable {
+    public T handle(Throwable throwable) {
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
@@ -60,6 +60,6 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
             return unCatchExceptionHandler.handle(throwable);
         }
 
-        throw throwable;
+        throw new UnCatchException(throwable);
     }
 }

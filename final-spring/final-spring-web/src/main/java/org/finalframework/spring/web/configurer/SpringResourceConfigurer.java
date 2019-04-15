@@ -1,7 +1,10 @@
 package org.finalframework.spring.web.configurer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * @author likly
@@ -12,5 +15,9 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @ImportResource({"classpath:spring-config-*.xml", "classpath*:config/spring-config-*.xml", "classpath*:spring/spring-config-*.xml"})
 public class SpringResourceConfigurer {
+    private static final Logger logger = LoggerFactory.getLogger(SpringResourceConfigurer.class);
 
+    public SpringResourceConfigurer() {
+        logger.info("加载资源文件目录：{}", String.join(",", AnnotationUtils.findAnnotation(SpringResourceConfigurer.class, ImportResource.class).value()));
+    }
 }
