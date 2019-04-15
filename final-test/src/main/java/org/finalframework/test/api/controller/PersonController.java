@@ -1,10 +1,10 @@
 package org.finalframework.test.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.Sort;
 import org.finalframework.data.query.Update;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.action.annotation.OperationAction;
@@ -45,13 +45,17 @@ public class PersonController {
     private PersonService personService;
 
     public static void main(String[] args) {
-        final Sort sort = Sort.desc(QPerson.age).and(Sort.desc(QPerson.id));
-        System.out.println(sort);
+
     }
 
     @PostMapping("/param")
     public Object param(@RequestJsonParam Person param) {
         return param;
+    }
+
+    @PostMapping("/jsonObject")
+    public Object jsonObject(@RequestJsonParam("json") JSONObject jsonObject) {
+        return jsonObject;
     }
 
     @PostMapping
@@ -62,7 +66,7 @@ public class PersonController {
 
     @PostConstruct
     public void init() {
-        Query query = new Query().where(QPerson.age.and(2).eq(2)).desc(QPerson.age);
+        Query query = new Query().where(QPerson.age.and(2).eq(2), QPerson.name.in("123", "321")).desc(QPerson.age);
         System.out.println(personMapper.selectCount(query));
     }
 

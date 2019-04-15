@@ -12,6 +12,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication()
 public class FinalTestApplication {
     public static void main(String[] args) {
+//
+//        RequestJsonParamHandlerRegistry.getInstance()
+//                .register(JSONObject.class, new RequestJsonParamHandler<JSONObject>() {
+//                    @Override
+//                    public JSONObject convert(String source) {
+//                        return JSON.parseObject(source);
+//                    }
+//                });
+
+
+
         final long start = System.currentTimeMillis();
         SpringApplication.run(FinalTestApplication.class, args);
         final long end = System.currentTimeMillis();

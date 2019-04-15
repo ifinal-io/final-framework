@@ -1,7 +1,6 @@
 package org.finalframework.spring.web.configurer;
 
 import org.finalframework.spring.web.converter.EnumConverterFactory;
-import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -20,8 +19,9 @@ import java.util.List;
 public class SpringWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(0, new RequestJsonParamHandlerMethodArgumentResolver());
+//        resolvers.add(0, new RequestJsonParamHandlerMethodArgumentResolver());
     }
+
 
     @Bean
     public EnumConverterFactory enumConverterFactory() {

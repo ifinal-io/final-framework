@@ -3,6 +3,7 @@ package org.finalframework.spring.web.resolver;
 import org.finalframework.core.Assert;
 import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.json.Json;
+import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
 /**
@@ -28,6 +28,7 @@ import java.nio.charset.Charset;
  * @see RequestJsonParam
  * @since 1.0
  */
+@ArgumentResolver
 public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
@@ -48,7 +49,6 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         }
 
         final String contentType = webRequest.getHeader("content-type");
-        final Type parameterType = parameter.getGenericParameterType();
         if (Assert.nonEmpty(contentType) && contentType.startsWith("application/json")) {
 
             final Object nativeRequest = webRequest.getNativeRequest();
@@ -58,7 +58,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
                 final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
                 if (Assert.nonEmpty(body)) {
                     logger.debug("==> jsonBody: {}", body);
-                    return parseJson(body, parameterType);
+                    return parseJson(body, parameter);
                 }
             }
 
@@ -77,13 +77,18 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
 
             if (Assert.isBlank(value)) return null;
             logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
-            return parseJson(value, parameterType);
+            return parseJson(value, parameter);
         }
 
     }
 
-    private Object parseJson(String json, Type type) {
-        return Json.toObject(json, type);
+    private Object parseJson(String json, MethodParameter parameter) {
+        final Class<?> type = parameter.getParameterType();
+        final RequestJsonParamHandler<?> requestJsonParamHandler = RequestJsonParamHandlerRegistry.getInstance().getRequestJsonParamHandler(type);
+        if (requestJsonParamHandler != null) {
+            return requestJsonParamHandler.convert(json);
+        }
+        return Json.toObject(json, parameter.getGenericParameterType());
     }
 
     /**
