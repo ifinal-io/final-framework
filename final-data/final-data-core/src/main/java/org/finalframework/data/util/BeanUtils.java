@@ -1,4 +1,4 @@
-package org.finalframework.spring.util;
+package org.finalframework.data.util;
 
 import org.finalframework.core.Assert;
 import org.springframework.beans.factory.BeanFactoryUtils;

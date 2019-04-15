@@ -2,11 +2,11 @@ package org.finalframework.monitor.action.interceptor;
 
 
 import lombok.Setter;
+import org.finalframework.data.util.BeanUtils;
 import org.finalframework.monitor.action.ActionContext;
 import org.finalframework.monitor.action.ActionContextHandler;
 import org.finalframework.monitor.action.ActionRecorder;
 import org.finalframework.monitor.action.annotation.ActionHandler;
-import org.finalframework.spring.util.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

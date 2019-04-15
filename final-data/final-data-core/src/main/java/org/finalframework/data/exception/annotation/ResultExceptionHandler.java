@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.exception.annotation;
+package org.finalframework.data.exception.annotation;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +17,6 @@ import java.lang.annotation.Target;
 @Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RestExceptionHandler {
+public @interface ResultExceptionHandler {
 
 }

@@ -1,10 +1,10 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.data.exception.result;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.exception.IException;
+import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
-import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -15,8 +15,8 @@ import org.springframework.core.annotation.Order;
  */
 @Slf4j
 @Order
-@RestExceptionHandler
-public class DefaultResultExceptionHandler implements ResultExceptionHandler {
+@ResultExceptionHandler
+public class IExceptionResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler {
 
     @Override
     public boolean supports(Throwable t) {

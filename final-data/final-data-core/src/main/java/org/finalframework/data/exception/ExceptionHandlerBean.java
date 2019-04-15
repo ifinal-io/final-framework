@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.data.exception;
 
 /**
  * @author likly

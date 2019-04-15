@@ -1,9 +1,9 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.data.exception.result;
 
+import org.finalframework.data.exception.CommonServiceException;
+import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
-import org.finalframework.spring.web.exception.annotation.RestExceptionHandler;
-import org.springframework.http.HttpStatus;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
  * @see ConstraintViolationException
  * @since 1.0
  */
-@RestExceptionHandler
-public class ViolationResultExceptionHandler implements ResultExceptionHandler {
+@ResultExceptionHandler
+public class ViolationResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler {
     @Override
     public boolean supports(Throwable t) {
         return t instanceof ConstraintViolationException;
@@ -29,7 +29,7 @@ public class ViolationResultExceptionHandler implements ResultExceptionHandler {
     public Result handle(Throwable e) {
         ConstraintViolationException violationException = (ConstraintViolationException) e;
         return R.failure(
-                HttpStatus.BAD_REQUEST.value(), violationException.getConstraintViolations()
+                CommonServiceException.BAD_REQUEST.getCode(), violationException.getConstraintViolations()
                         .stream()
                         .map(ConstraintViolation::getMessage)
                         .collect(Collectors.joining(","))

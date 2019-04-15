@@ -25,7 +25,6 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-data-core</artifactId>
-            <version>0.0.11-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

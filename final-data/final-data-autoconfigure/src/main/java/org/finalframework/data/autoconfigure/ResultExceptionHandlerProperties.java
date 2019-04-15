@@ -1,7 +1,7 @@
-package org.finalframework.spring.web.autoconfigure;
+package org.finalframework.data.autoconfigure;
 
 
-import org.finalframework.spring.web.exception.RestGlobalExceptionHandler;
+import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,11 +10,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2019-03-29 21:53:04
  * @since 1.0
  */
-@ConfigurationProperties(prefix = RestExceptionHandlerProperties.PROPERTIES_PREFIX)
-public class RestExceptionHandlerProperties {
+@ConfigurationProperties(prefix = ResultExceptionHandlerProperties.PROPERTIES_PREFIX)
+public class ResultExceptionHandlerProperties {
     static final String PROPERTIES_PREFIX = "final.exception";
 
-    private String logger = RestGlobalExceptionHandler.class.getName();
+    private String logger = ResultGlobalResultExceptionHandler.class.getName();
 
     public String getLogger() {
         return logger;

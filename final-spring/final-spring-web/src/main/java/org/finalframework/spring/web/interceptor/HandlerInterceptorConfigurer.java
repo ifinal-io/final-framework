@@ -1,7 +1,7 @@
 package org.finalframework.spring.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.spring.util.BeanUtils;
+import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

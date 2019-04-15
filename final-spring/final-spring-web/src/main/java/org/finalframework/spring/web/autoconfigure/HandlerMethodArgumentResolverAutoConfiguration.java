@@ -2,9 +2,9 @@ package org.finalframework.spring.web.autoconfigure;
 
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.coding.ApplicationEventListener;
 import org.finalframework.spring.coding.AutoConfiguration;
-import org.finalframework.spring.util.BeanUtils;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -35,12 +35,10 @@ import java.util.List;
 @ApplicationEventListener
 public class HandlerMethodArgumentResolverAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
-
     @Bean
     public RequestJsonParamHandlerMethodArgumentResolver requestJsonParamHandlerMethodArgumentResolver() {
         return new RequestJsonParamHandlerMethodArgumentResolver();
     }
-
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
