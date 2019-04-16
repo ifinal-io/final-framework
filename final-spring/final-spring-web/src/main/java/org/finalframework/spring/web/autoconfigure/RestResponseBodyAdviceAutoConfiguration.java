@@ -1,11 +1,15 @@
 package org.finalframework.spring.web.autoconfigure;
 
+import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.spring.web.exception.RestExceptionHandlerConfigurer;
 import org.finalframework.spring.web.reponse.RestResponseBodyAdvice;
 import org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * @author likly
@@ -23,6 +27,9 @@ public class RestResponseBodyAdviceAutoConfiguration {
         this.properties = properties;
     }
 
+    @Resource
+    private ResultGlobalResultExceptionHandler resultGlobalResultExceptionHandler;
+
     @Bean
     public RestResponseBodyAdvice resultResponseBodyAdvice() {
         return new RestResponseBodyAdvice(properties);
@@ -31,6 +38,14 @@ public class RestResponseBodyAdviceAutoConfiguration {
     @Bean
     public ResultResponseBodyInterceptor resultResponseBodyInterceptor() {
         return new ResultResponseBodyInterceptor();
+    }
+
+
+    @Bean
+    public RestExceptionHandlerConfigurer restExceptionHandlerConfigurer() {
+        final RestExceptionHandlerConfigurer restExceptionHandlerConfigurer = new RestExceptionHandlerConfigurer();
+        restExceptionHandlerConfigurer.setGlobalExceptionHandler(resultGlobalResultExceptionHandler);
+        return restExceptionHandlerConfigurer;
     }
 
 }

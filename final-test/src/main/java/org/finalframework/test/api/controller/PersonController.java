@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
+import org.finalframework.core.formatter.DateFormatter;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.json.Json;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Date;
 
 
 /**
@@ -46,6 +48,11 @@ public class PersonController {
 
     public static void main(String[] args) {
 
+    }
+
+    @PostMapping("/date")
+    public String date(Date date) {
+        return DateFormatter.YYYY__MM__DD_HH_MM_SS.format(date);
     }
 
     @PostMapping("/param")

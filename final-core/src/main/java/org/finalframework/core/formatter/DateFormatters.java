@@ -42,6 +42,13 @@ public class DateFormatters implements Formatters<Date> {
                 return formatter.parse(source);
             }
         }
-        return null;
+
+        try {
+            final long timestamp = Long.parseLong(source);
+            return new Date(timestamp);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }
