@@ -10,6 +10,6 @@ import org.finalframework.test.entity.Person;
  * @since 1.0
  */
 public interface PersonService {
-    @OperationAction(name = "PersonService", target = "{#id}")
+    @OperationAction(type = 1, name = "PersonService", target = "{#id}")
     Person findById(Long id);
 }

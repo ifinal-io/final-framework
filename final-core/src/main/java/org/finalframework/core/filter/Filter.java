@@ -1,6 +1,8 @@
 package org.finalframework.core.filter;
 
 /**
+ * 数据过滤器，判断数据是否匹配
+ *
  * @author likly
  * @version 1.0
  * @date 2018-11-28 21:53:49

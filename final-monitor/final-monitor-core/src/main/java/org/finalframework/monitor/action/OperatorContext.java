@@ -9,11 +9,15 @@ package org.finalframework.monitor.action;
  * @date 2019-03-28 10:58:42
  * @since 1.0
  */
-public class OperatorContext<T> {
+public final class OperatorContext<T> {
 
     private static final OperatorContext instance = new OperatorContext();
     private final ThreadLocal<T> operator = new ThreadLocal<>();
 
+    private OperatorContext() {
+    }
+
+    @SuppressWarnings("unchecked")
     public static <T> OperatorContext<T> getInstance() {
         return instance;
     }

@@ -24,7 +24,7 @@ public class PersonServiceImpl implements PersonService {
     private PersonMapper personMapper;
 
     @Override
-    @OperationAction(name = "PersonServiceImpl", target = "{#id}")
+    @OperationAction(type = 2, name = "PersonServiceImpl", target = "{#id}")
     public Person findById(Long id) {
         return personMapper.selectOne(id);
     }

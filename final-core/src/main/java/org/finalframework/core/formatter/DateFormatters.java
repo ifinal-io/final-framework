@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 日期格式化器，将{@link String}解析成{@link Date}或将{@link Date}格式化成指定的格式{@link DateFormatterPattern#pattern}
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-15 21:58:15

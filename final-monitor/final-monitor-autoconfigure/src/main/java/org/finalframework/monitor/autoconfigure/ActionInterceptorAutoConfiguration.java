@@ -31,13 +31,6 @@ public class ActionInterceptorAutoConfiguration {
         this.properties = properties;
     }
 
-    @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public OperationSourceAdvisor actionOperationSourceAdvisor() {
-        final OperationSourceAdvisor advisor = new OperationSourceAdvisor(actionConfiguration());
-        advisor.setAdviceBeanName("actionInterceptor");
-        return advisor;
-    }
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -62,6 +55,15 @@ public class ActionInterceptorAutoConfiguration {
     @Bean
     public ActionContextLoggerHandler actionContextLoggerHandler() {
         return new ActionContextLoggerHandler(properties.getLogger());
+    }
+
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public OperationSourceAdvisor actionOperationSourceAdvisor() {
+        final OperationSourceAdvisor advisor = new OperationSourceAdvisor(actionConfiguration());
+        advisor.setAdviceBeanName("actionInterceptor");
+        return advisor;
     }
 
 }

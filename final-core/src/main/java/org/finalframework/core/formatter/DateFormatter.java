@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * {@link Date}格式化器，可使用 {@link #format(Date)} 格式化{@link Date}或 使用{@link #parse(String)}奖{@link String}解析成{@link Date}
  * @author likly
  * @version 1.0
  * @date 2019-02-15 21:48:24

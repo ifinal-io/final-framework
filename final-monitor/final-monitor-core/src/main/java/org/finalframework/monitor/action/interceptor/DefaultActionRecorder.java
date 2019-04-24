@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2019-03-28 13:53:45
  * @since 1.0
  */
+@SuppressWarnings({"unchecked", "null"})
 public class DefaultActionRecorder implements ActionRecorder, ApplicationContextAware {
     private final Map<Integer, ActionContextHandler> handlers = new ConcurrentHashMap<>(8);
     private ApplicationContext applicationContext;

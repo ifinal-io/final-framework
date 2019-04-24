@@ -99,6 +99,7 @@ public class PersonController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.BEFORE)
     @OperationAction(name = "查询用户", operator = "{-1}", target = "{#id}",
+            type = 1,
             attributes = {
                     @OperationAttribute(name = "name", value = "{#result.name}")
             })
