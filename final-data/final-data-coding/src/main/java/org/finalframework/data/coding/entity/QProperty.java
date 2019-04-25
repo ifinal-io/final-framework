@@ -68,7 +68,7 @@ public class QProperty implements Serializable {
         }
 
         public Builder rawType(String rawType) {
-//            System.out.println("----------" + rawType);
+            System.out.println("----------" + rawType);
             if (rawType != null) {
                 if (rawType.contains("::")) {
                     final int index = rawType.lastIndexOf("::");
@@ -79,6 +79,34 @@ public class QProperty implements Serializable {
                     final int index = rawType.lastIndexOf(")");
                     rawType = rawType.substring(index + 1);
                 }
+
+                switch (rawType) {
+                    case "byte":
+                        rawType = Byte.class.getCanonicalName();
+                        break;
+                    case "char":
+                        rawType = Character.class.getCanonicalName();
+                        break;
+                    case "short":
+                        rawType = Short.class.getCanonicalName();
+                        break;
+                    case "int":
+                        rawType = Integer.class.getCanonicalName();
+                        break;
+                    case "long":
+                        rawType = Long.class.getCanonicalName();
+                        break;
+                    case "float":
+                        rawType = Float.class.getCanonicalName();
+                        break;
+                    case "double":
+                        rawType = Double.class.getCanonicalName();
+                        break;
+                    case "boolean":
+                        rawType = Boolean.class.getCanonicalName();
+                        break;
+                }
+
 
                 this.rawType = rawType.replace("java.lang.", "");
 

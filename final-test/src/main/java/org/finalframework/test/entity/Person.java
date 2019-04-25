@@ -31,7 +31,7 @@ public class Person implements IEntity<Long>, Result.View {
     private String name;
     @JsonView(Person.class)
     @ColumnView(Result.View.class)
-    private Integer age;
+    private int age;
     @JsonColumn
     @ColumnView(Person.class)
     private List<String> stringList;

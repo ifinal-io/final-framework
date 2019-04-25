@@ -8,6 +8,7 @@ import org.finalframework.data.annotation.enums.ReferenceMode;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -54,7 +55,39 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.types = processEnv.getTypeUtils();
         this.element = element;
         this.name = getElementName(element);
-        this.rawType = element.asType().toString();
+        final TypeKind kind = element.asType().getKind();
+        if (kind.isPrimitive()) {
+            switch (kind) {
+                case INT:
+                    this.rawType = Integer.class.getCanonicalName();
+                    break;
+                case BYTE:
+                    this.rawType = Byte.class.getCanonicalName();
+                    break;
+                case CHAR:
+                    this.rawType = Character.class.getCanonicalName();
+                    break;
+                case LONG:
+                    this.rawType = Long.class.getCanonicalName();
+                    break;
+                case FLOAT:
+                    this.rawType = Float.class.getCanonicalName();
+                    break;
+                case DOUBLE:
+                    this.rawType = Double.class.getCanonicalName();
+                    break;
+                case BOOLEAN:
+                    this.rawType = Boolean.class.getCanonicalName();
+                    break;
+                case SHORT:
+                    this.rawType = Short.class.getCanonicalName();
+                    break;
+                default:
+                    throw new IllegalArgumentException("不支持的基础类型");
+            }
+        } else {
+            this.rawType = element.asType().toString();
+        }
         this.type = types.erasure(element.asType()).toString();
 
         if (element.getKind().isField()) {
