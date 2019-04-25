@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.0.11-SNAPSHOT</version>
+        <version>0.0.12-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
