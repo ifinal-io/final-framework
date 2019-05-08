@@ -4,22 +4,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Action 上下文
+ * Action 上下文，描述一个 Action 的动作
+ *
  * @author likly
  * @version 1.0
  * @date 2019-03-27 23:56:52
  * @since 1.0
  */
 public class ActionContext<T> {
+    /**
+     * 名称
+     */
     private final String name;
+    /**
+     * 类型
+     */
     private final int type;
+    /**
+     * 动作
+     */
     private final int action;
+    /**
+     * 级别
+     */
     private final ActionLevel level;
+    /**
+     * 操作者 {@link OperatorContext#get()}
+     */
     private final T operator;
+    /**
+     * 目标
+     */
     private final Object target;
+    /**
+     * 属性
+     */
     private final Map<String, Object> attributes;
+    /**
+     * 异常
+     */
     private final ActionException exception;
+    /**
+     * 追踪
+     */
     private final String trace;
+    /**
+     * 时间戳
+     */
     private final Long timestamp;
 
     private ActionContext(Builder<T> builder) {

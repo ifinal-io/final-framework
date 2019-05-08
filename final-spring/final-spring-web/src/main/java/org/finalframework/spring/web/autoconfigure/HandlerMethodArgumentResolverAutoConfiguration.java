@@ -33,8 +33,16 @@ import java.util.List;
 @Configuration
 @AutoConfiguration
 @ApplicationEventListener
+@SuppressWarnings("all")
 public class HandlerMethodArgumentResolverAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
+    /**
+     * {@link org.finalframework.spring.web.resolver.annotation.RequestJsonParam} 参数注解解析器
+     *
+     * @return
+     * @see org.finalframework.spring.web.resolver.annotation.RequestJsonParam
+     * @see org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver
+     */
     @Bean
     public RequestJsonParamHandlerMethodArgumentResolver requestJsonParamHandlerMethodArgumentResolver() {
         return new RequestJsonParamHandlerMethodArgumentResolver();

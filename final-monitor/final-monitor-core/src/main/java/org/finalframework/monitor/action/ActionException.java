@@ -4,6 +4,8 @@ package org.finalframework.monitor.action;
 import org.finalframework.data.exception.IException;
 
 /**
+ * Action异常
+ *
  * @author likly
  * @version 1.0
  * @date 2019-03-29 22:34:46

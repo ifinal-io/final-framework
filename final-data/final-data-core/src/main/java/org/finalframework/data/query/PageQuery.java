@@ -1,12 +1,14 @@
 package org.finalframework.data.query;
 
+import org.finalframework.core.Assert;
+
 /**
  * @author likly
  * @version 1.0
  * @date 2019-02-12 12:41:24
  * @since 1.0
  */
-public class PageQuery implements IQuery, Pageable {
+public class PageQuery implements IQuery, Pageable, Queryable {
 
     private static final Integer DEFAULT_PAGE = 1;
     private static final Integer DEFAULT_SIZE = 20;
@@ -30,5 +32,14 @@ public class PageQuery implements IQuery, Pageable {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    @Override
+    public Query convert() {
+        final Query query = new Query();
+        if (Assert.nonNull(page) && Assert.nonNull(size)) {
+            query.page(page, size);
+        }
+        return query;
     }
 }

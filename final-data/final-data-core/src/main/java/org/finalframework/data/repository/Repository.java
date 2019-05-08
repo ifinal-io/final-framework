@@ -3,6 +3,7 @@ package org.finalframework.data.repository;
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 
 import java.io.Serializable;
@@ -53,12 +54,24 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return insert(tableName, view, entities, null);
     }
 
+    default int insert(Collection<T> entities, Queryable query) {
+        return insert(entities, query.convert());
+    }
+
     default int insert(Collection<T> entities, Query query) {
         return insert(null, null, entities, query);
     }
 
+    default int insert(String tableName, Collection<T> entities, Queryable query) {
+        return insert(tableName, entities, query.convert());
+    }
+
     default int insert(String tableName, Collection<T> entities, Query query) {
         return insert(tableName, null, entities, query);
+    }
+
+    default int insert(Class<?> view, Collection<T> entities, Queryable query) {
+        return insert(view, entities, query.convert());
     }
 
     default int insert(Class<?> view, Collection<T> entities, Query query) {
@@ -102,6 +115,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update((String) null, entity, ids);
     }
 
+    default int update(T entity, Queryable query) {
+        return update(entity, query.convert());
+    }
+
     default int update(T entity, Query query) {
         return update((String) null, entity, query);
     }
@@ -112,6 +129,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     default int update(T entity, boolean selective, Collection<ID> ids) {
         return update(null, null, entity, selective, ids);
+    }
+
+    default int update(T entity, boolean selective, Queryable query) {
+        return update(entity, selective, query.convert());
     }
 
     default int update(T entity, boolean selective, Query query) {
@@ -134,6 +155,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(tableName, null, entity, true, ids);
     }
 
+    default int update(String tableName, T entity, Queryable query) {
+        return update(tableName, entity, query.convert());
+    }
+
     default int update(String tableName, T entity, Query query) {
         return update(tableName, null, entity, query);
     }
@@ -150,6 +175,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(null, view, entity, ids);
     }
 
+    default int update(Class<?> view, T entity, Queryable query) {
+        return update(view, entity, query.convert());
+    }
+
     default int update(Class<?> view, T entity, Query query) {
         return update(null, view, entity, query);
     }
@@ -161,6 +190,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     default int update(String tableName, Class<?> view, T entity, Collection<ID> ids) {
         return update(tableName, view, entity, null, true, ids, null);
+    }
+
+    default int update(String tableName, Class<?> view, T entity, Queryable query) {
+        return update(tableName, view, entity, query.convert());
     }
 
     default int update(String tableName, Class<?> view, T entity, Query query) {
@@ -177,6 +210,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     default int update(String tableName, Class<?> view, T entity, boolean selective, Collection<ID> ids) {
         return update(tableName, view, entity, null, selective, ids, null);
+    }
+
+    default int update(String tableName, Class<?> view, T entity, boolean selective, Queryable query) {
+        return update(tableName, view, entity, selective, query.convert());
     }
 
     default int update(String tableName, Class<?> view, T entity, boolean selective, Query query) {
@@ -253,8 +290,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(tableName, null, null, update, false, ids, null);
     }
 
+    default int update(Update update, Queryable query) {
+        return update(update, query.convert());
+    }
+
     default int update(Update update, Query query) {
         return update(null, update, query);
+    }
+
+    default int update(String tableName, Update update, Queryable query) {
+        return update(tableName, update, query.convert());
     }
 
     default int update(String tableName, Update update, Query query) {
@@ -311,8 +356,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return delete(tableName, ids, null);
     }
 
+    default int delete(Queryable query) {
+        return delete(query.convert());
+    }
+
     default int delete(Query query) {
         return delete(null, null, query);
+    }
+
+    default int delete(String tableName, Queryable query) {
+        return delete(tableName, query.convert());
     }
 
     default int delete(String tableName, Query query) {
@@ -383,12 +436,24 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return select(null, null, query);
     }
 
+    default List<T> select(String tableName, Queryable query) {
+        return select(tableName, query.convert());
+    }
+
     default List<T> select(String tableName, Query query) {
         return select(tableName, null, null, query);
     }
 
+    default List<T> select(Class<?> view, Queryable query) {
+        return select(view, query.convert());
+    }
+
     default List<T> select(Class<?> view, Query query) {
         return select(null, view, query);
+    }
+
+    default List<T> select(String tableName, Class<?> view, Queryable query) {
+        return select(tableName, view, query.convert());
     }
 
     default List<T> select(String tableName, Class<?> view, Query query) {
@@ -399,8 +464,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SELECT IDS===========================================*/
 
+    default List<ID> selectIds(Queryable query) {
+        return selectIds(query.convert());
+    }
+
     default List<ID> selectIds(Query query) {
         return selectIds(null, query);
+    }
+
+    default List<ID> selectIds(String tableName, Queryable query) {
+        return selectIds(tableName, query.convert());
     }
 
     List<ID> selectIds(@Param("tableName") String tableName, @Param("query") Query query);
@@ -423,16 +496,33 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectOne(tableName, view, id, null);
     }
 
+    default T selectOne(Queryable query) {
+        return selectOne(query.convert());
+    }
+
     default T selectOne(Query query) {
         return selectOne(null, null, query.limit(1));
     }
+
+    default T selectOne(String tableName, Queryable query) {
+        return selectOne(tableName, null, query.convert().limit(1));
+    }
+
 
     default T selectOne(String tableName, Query query) {
         return selectOne(tableName, null, query.limit(1));
     }
 
+    default T selectOne(Class<?> view, Queryable query) {
+        return selectOne(view, query.convert().limit(1));
+    }
+
     default T selectOne(Class<?> view, Query query) {
         return selectOne(null, view, null, query.limit(1));
+    }
+
+    default T selectOne(String tableName, Class<?> view, Queryable query) {
+        return selectOne(tableName, view, query.convert().limit(1));
     }
 
     default T selectOne(String tableName, Class<?> view, Query query) {
@@ -457,11 +547,19 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default long selectCount(String tableName) {
-        return selectCount(tableName, null);
+        return selectCount(tableName, (Query) null);
+    }
+
+    default long selectCount(Queryable query) {
+        return selectCount(query.convert());
     }
 
     default long selectCount(Query query) {
         return selectCount(null, query);
+    }
+
+    default long selectCount(String tableName, Queryable query) {
+        return selectCount(tableName, query.convert());
     }
 
     /**
@@ -482,8 +580,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectOne(tableName, id) != null;
     }
 
+    default boolean isExists(Queryable query) {
+        return isExists(query.convert());
+    }
+
     default boolean isExists(Query query) {
         return selectCount(query) > 0;
+    }
+
+    default boolean isExists(String tableName, Queryable query) {
+        return isExists(tableName, query.convert());
     }
 
     default boolean isExists(String tableName, Query query) {
