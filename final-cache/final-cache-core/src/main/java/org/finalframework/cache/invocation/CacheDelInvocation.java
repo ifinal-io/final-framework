@@ -21,27 +21,31 @@ public class CacheDelInvocation extends AbsCacheInvocationSupport implements Cac
 
     @Override
     public Void before(Cache cache, OperationContext<CacheDelOperation> context, Object result) {
-        if (CutPoint.BEFORE == context.operation().point()) return null;
-        invocation(cache, context, result, null);
+        if (CutPoint.BEFORE == context.operation().point()) {
+            invocation(cache, context, result, null);
+        }
         return null;
     }
 
     @Override
     public void afterReturning(Cache cache, OperationContext<CacheDelOperation> context, Object result) {
-        if (CutPoint.AFTER_RETURNING == context.operation().point()) return;
-        invocation(cache, context, result, null);
+        if (CutPoint.AFTER_RETURNING != context.operation().point()) {
+            invocation(cache, context, result, null);
+        }
     }
 
     @Override
     public void afterThrowing(Cache cache, OperationContext<CacheDelOperation> context, Throwable throwable) {
-        if (CutPoint.AFTER_THROWING == context.operation().point()) return;
-        invocation(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT, throwable);
+        if (CutPoint.AFTER_THROWING != context.operation().point()) {
+            invocation(cache, context, DefaultCacheOperationExpressionEvaluator.NO_RESULT, throwable);
+        }
     }
 
     @Override
     public void after(Cache cache, OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {
-        if (CutPoint.AFTER == context.operation().point()) return;
-        invocation(cache, context, result, throwable);
+        if (CutPoint.AFTER != context.operation().point()) {
+            invocation(cache, context, result, throwable);
+        }
     }
 
     private void invocation(Cache cache, OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {

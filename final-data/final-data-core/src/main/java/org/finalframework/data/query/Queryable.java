@@ -11,4 +11,5 @@ import org.finalframework.core.converter.Convertible;
  * @since 1.0
  */
 public interface Queryable extends Convertible<Query> {
+
 }

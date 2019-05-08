@@ -3,6 +3,8 @@ package org.finalframework.data.query;
 import org.finalframework.core.Assert;
 
 /**
+ * 分页查询
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-12 12:41:24

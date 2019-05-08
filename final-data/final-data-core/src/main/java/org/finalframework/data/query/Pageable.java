@@ -1,5 +1,7 @@
 package org.finalframework.data.query;
 
+import org.springframework.lang.Nullable;
+
 /**
  * 可分页的
  *
@@ -14,6 +16,7 @@ public interface Pageable {
      *
      * @return 分页页码
      */
+    @Nullable
     Integer getPage();
 
     /**
@@ -21,5 +24,6 @@ public interface Pageable {
      *
      * @return 页面容量
      */
+    @Nullable
     Integer getSize();
 }

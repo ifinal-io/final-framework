@@ -432,6 +432,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return select(tableName, view, ids, null);
     }
 
+    default List<T> select(Queryable query) {
+        return select(query.convert());
+    }
+
+
     default List<T> select(Query query) {
         return select(null, null, query);
     }
