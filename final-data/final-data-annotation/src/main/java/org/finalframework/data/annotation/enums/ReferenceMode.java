@@ -11,10 +11,20 @@ package org.finalframework.data.annotation.enums;
 public enum ReferenceMode {
     /**
      * 简单模式，{@literal id} 引用简写为引用属性名
+     * <pre>
+     *     <code>
+     *          Bean.id ==> bean
+     *     </code>
+     * </pre>
      */
     SIMPLE,
     /**
      * 典范模式，与其他引用一样，{@literal id} 将与引用属性拼接
+     * <pre>
+     *     <code>
+     *         Bean.id ==> beanId
+     *     </code>
+     * </pre>
      */
     CANONICAL
 }

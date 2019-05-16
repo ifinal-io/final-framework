@@ -244,39 +244,45 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
 
                                     final Element ifUpdateContains = document.createElement("if");
 
-                                    final String referenceColumn = property.referenceColumn(multiProperty.getName()) != null
-                                            ? property.referenceColumn(multiProperty.getName())
-                                            : multiProperty.getColumn();
+                                    final String name = multiProperty.isIdProperty() ? property.getName()
+                                            : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
 
-                                    final String multiColumn = multiProperty.isIdProperty() && multiProperty.referenceMode() == ReferenceMode.SIMPLE ? property.getColumn()
-                                            : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
-                                    final String updatePath = multiColumn;
-                                    final String updateColumn = NameConverterRegistry.getInstance().getColumnNameConverter().convert(multiColumn);
-                                    final String ifTest = String.format("update['%s'] != null", updatePath);
+
+                                    final String referenceColumn = property.referenceColumn(multiProperty.getName()) != null ?
+                                            property.referenceColumn(multiProperty.getName()) : multiProperty.getColumn();
+
+                                    final String column = multiProperty.isIdProperty() && property.referenceMode() == ReferenceMode.SIMPLE ?
+                                            property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+
+
+//                                    final String multiColumn = multiProperty.isIdProperty() && multiProperty.referenceMode() == ReferenceMode.SIMPLE ? property.getColumn()
+//                                            : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+                                    final String updateColumn = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+                                    final String ifTest = String.format("update['%s'] != null", name);
                                     ifUpdateContains.setAttribute("test", ifTest);
 
                                     List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                             .map(operation -> {
-                                                final String whenTest = String.format("update['%s'].action.name() == '%s'", updatePath, operation.name());
+                                                final String whenTest = String.format("update['%s'].operation.name() == '%s'", name, operation.name());
                                                 String updateSql = null;
                                                 switch (operation) {
                                                     case EQUAL:
                                                         updateSql = typeHandler == null ?
-                                                                String.format("%s = #{update[%s].value},", updateColumn, updatePath)
+                                                                String.format("%s = #{update[%s].value},", updateColumn, name)
                                                                 : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
-                                                                updateColumn, updatePath, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
+                                                                updateColumn, name, javaType.getCanonicalName(), typeHandler.getClass().getCanonicalName());
                                                         break;
                                                     case INC:
                                                         updateSql = String.format("%s = %s + 1,", updateColumn, updateColumn);
                                                         break;
                                                     case INCR:
-                                                        updateSql = String.format("%s = %s + #{update[%s].value},", updateColumn, updateColumn, updatePath);
+                                                        updateSql = String.format("%s = %s + #{update[%s].value},", updateColumn, updateColumn, name);
                                                         break;
                                                     case DEC:
                                                         updateSql = String.format("%s = %s - 1,", updateColumn, updateColumn);
                                                         break;
                                                     case DECR:
-                                                        updateSql = String.format("%s = %s - #{update[%s].value},", updateColumn, updateColumn, updatePath);
+                                                        updateSql = String.format("%s = %s - #{update[%s].value},", updateColumn, updateColumn, name);
                                                         break;
                                                 }
                                                 return whenOrOtherwise(document, whenTest, textNode(document, updateSql));

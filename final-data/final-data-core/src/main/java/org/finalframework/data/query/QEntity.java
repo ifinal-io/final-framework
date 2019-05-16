@@ -45,7 +45,7 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
             return property;
         }
 
-        throw new IllegalStateException(String.format("Required property not found for %s!", getType()));
+        throw new IllegalStateException(String.format("Required property of path = %s not found for %s!", path, getType()));
 
     }
 
@@ -58,7 +58,7 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
             return property;
         }
 
-        throw new IllegalStateException(String.format("Required property not found for %s!", name));
+        throw new IllegalStateException(String.format("Required property of name = %s not found for %s!", name, getType()));
 
     }
 
@@ -71,7 +71,7 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
             return property;
         }
 
-        throw new IllegalStateException(String.format("Required property not found for %s!", column));
+        throw new IllegalStateException(String.format("Required property of column = %s not found for %s!", column, getType()));
 
     }
 
