@@ -1,7 +1,6 @@
 package org.finalframework.mybatis.builder.mapper;
 
 
-import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.generator.ColumnGenerator;
@@ -195,7 +194,6 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
                                 .map(multiEntity::getRequiredPersistentProperty)
                                 .map(multiProperty -> {
                                     final Class javaType = Utils.getPropertyJavaType(multiProperty);
-                                    final TypeHandler typeHandler = Utils.getPropertyTypeHandler(multiProperty);
                                     //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
                                     final String value = property.placeholder() ? "list[${index}]" : "item";
                                     ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(multiProperty);
@@ -217,7 +215,6 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder impl
                     } else {
                         //#{list[${index}].property,javaType=%s,typeHandler=%s}
                         final Class javaType = Utils.getPropertyJavaType(property);
-                        final TypeHandler typeHandler = Utils.getPropertyTypeHandler(property);
                         StringBuilder builder = new StringBuilder();
 
                         if (!first.get()) {

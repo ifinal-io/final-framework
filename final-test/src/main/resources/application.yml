@@ -25,7 +25,7 @@ pagehelper:
   auto-dialect: true
   close-conn: true
   helper-dialect: mysql
-  reasonable: true
+  reasonable: false
   support-methods-arguments: true
   params: pageNum=page;size=size
 logging:

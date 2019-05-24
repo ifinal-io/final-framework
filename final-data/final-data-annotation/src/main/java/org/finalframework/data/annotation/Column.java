@@ -39,4 +39,5 @@ public @interface Column {
     boolean selectable() default true;
 
     boolean placeholder() default true;
+
 }

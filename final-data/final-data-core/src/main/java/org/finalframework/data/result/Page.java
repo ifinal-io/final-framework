@@ -12,15 +12,18 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Page<T> implements Serializable {
+public class Page<T extends Serializable> implements Serializable {
 
-    private final Integer page;
-    private final Integer size;
-    private final Integer pages;
-    private final Long total;
-    private final List<T> result;
-    private final Boolean firstPage;
-    private final Boolean lastPage;
+    private Integer page;
+    private Integer size;
+    private Integer pages;
+    private Long total;
+    private List<T> result;
+    private Boolean firstPage;
+    private Boolean lastPage;
+
+    public Page() {
+    }
 
     private Page(Builder<T> builder) {
         this.page = builder.page;
@@ -32,11 +35,11 @@ public class Page<T> implements Serializable {
         this.lastPage = builder.lastPage;
     }
 
-    public static <T> Builder<T> builder() {
+    public static <T extends Serializable> Builder<T> builder() {
         return new Builder<>();
     }
 
-    public static class Builder<T> implements org.finalframework.core.Builder<Page<T>> {
+    public static class Builder<T extends Serializable> implements org.finalframework.core.Builder<Page<T>> {
         private Integer page;
         private Integer size;
         private Integer pages;
@@ -45,22 +48,22 @@ public class Page<T> implements Serializable {
         private Boolean firstPage;
         private Boolean lastPage;
 
-        public Builder<T> page(int page) {
+        public Builder<T> page(Integer page) {
             this.page = page;
             return this;
         }
 
-        public Builder<T> size(int size) {
+        public Builder<T> size(Integer size) {
             this.size = size;
             return this;
         }
 
-        public Builder<T> pages(int pages) {
+        public Builder<T> pages(Integer pages) {
             this.pages = pages;
             return this;
         }
 
-        public Builder<T> total(long total) {
+        public Builder<T> total(Long total) {
             this.total = total;
             return this;
         }

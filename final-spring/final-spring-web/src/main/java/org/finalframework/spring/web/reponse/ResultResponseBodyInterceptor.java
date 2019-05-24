@@ -2,9 +2,9 @@ package org.finalframework.spring.web.reponse;
 
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
+import org.finalframework.spring.web.converter.Page2PageResultConverter;
 import org.slf4j.MDC;
 import org.springframework.lang.NonNull;
 
@@ -15,6 +15,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public class ResultResponseBodyInterceptor implements ResponseBodyInterceptor<Object, Result> {
+    private final Page2PageResultConverter page2PageResultConverter = new Page2PageResultConverter();
 
     @Override
     public Result intercept(Object body) {
@@ -33,17 +34,7 @@ public class ResultResponseBodyInterceptor implements ResponseBodyInterceptor<Ob
         if (body == null) return R.success();
 
         if (body instanceof Page) {
-            final PageInfo pageInfo = ((Page) body).toPageInfo();
-            org.finalframework.data.result.Page pageResult = org.finalframework.data.result.Page.builder()
-                    .page(pageInfo.getPageNum())
-                    .size(pageInfo.getPageSize())
-                    .pages(pageInfo.getPages())
-                    .total(pageInfo.getTotal())
-                    .result(pageInfo.getList())
-                    .firstPage(pageInfo.isIsFirstPage())
-                    .lastPage(pageInfo.isIsLastPage())
-                    .build();
-            return R.success(pageResult);
+            return R.success(page2PageResultConverter.convert((Page) body));
         } else if (body instanceof Result) {
             return (Result<?>) body;
         }

@@ -26,4 +26,28 @@ public interface Pageable {
      */
     @Nullable
     Integer getSize();
+
+    /**
+     * 是否进行Count统计
+     *
+     * @return Count统计
+     */
+    @Nullable
+    Boolean getCount();
+
+    /**
+     * 分页合理化
+     *
+     * @return 分页合理化
+     */
+    @Nullable
+    Boolean getReasonable();
+
+    /**
+     * true且pageSize=0时返回全部结果，false时分页,null时用默认配置
+     *
+     * @return true且pageSize=0时返回全部结果，false时分页,null时用默认配置
+     */
+    @Nullable
+    Boolean getPageSizeZero();
 }

@@ -1,10 +1,12 @@
 package org.finalframework.data.repository;
 
 import org.apache.ibatis.annotations.Param;
+import org.finalframework.core.Assert;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.result.Page;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -466,6 +468,73 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     List<T> select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+
+
+    /*=========================================== SCANNER ===========================================*/
+
+    default void scan(Queryable query, ScanListener<T> listener) {
+        scan(query.convert(), listener);
+    }
+
+    default void scan(Query query, ScanListener<T> listener) {
+        scan(null, null, query, listener);
+    }
+
+    default void scan(Class<?> view, Queryable query, ScanListener<T> listener) {
+        scan(view, query.convert(), listener);
+    }
+
+    default void scan(Class<?> view, Query query, ScanListener<T> listener) {
+        scan(null, view, query, listener);
+    }
+
+    default void scan(String tableName, Queryable query, ScanListener<T> listener) {
+        scan(tableName, query.convert(), listener);
+    }
+
+    default void scan(String tableName, Query query, ScanListener<T> listener) {
+        scan(tableName, null, query, listener);
+    }
+
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, ScanListener<T> listener) {
+        scan(tableName, view, query.convert(), listener);
+    }
+
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Query query, ScanListener<T> listener) {
+        if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
+            throw new IllegalArgumentException("query page or size is null");
+        }
+
+        if (Assert.isNull(listener)) {
+            throw new NullPointerException("listener is null");
+        }
+        //设置分页合理化
+        query.reasonable(false);
+        int page = query.getPage();
+        final int size = query.getSize();
+        final Long total = Boolean.TRUE.equals(query.getCount()) ? selectCount(tableName, query) : null;
+        final Integer pages = total != null ? (int) Math.ceil(total * 1.0 / size) : null;
+        boolean finished;
+        listener.beforeScanning();
+        do {
+            final List<T> list = select(tableName, view, null, query);
+            final Page.Builder<T> builder = Page.builder();
+            finished = Assert.isEmpty(list) || list.size() < size;
+            final Page<T> result = builder.firstPage(page == 1)
+                    .lastPage(finished)
+                    .page(page)
+                    .size(size)
+                    .total(total)
+                    .pages(pages)
+                    .result(list)
+                    .build();
+            finished = finished || !listener.onScanning(result);
+            page++;
+            query.page(page);
+        } while (!finished);
+
+        listener.afterScanning();
+    }
 
     /*=========================================== SELECT IDS===========================================*/
 

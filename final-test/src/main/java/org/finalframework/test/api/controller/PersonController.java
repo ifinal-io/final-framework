@@ -7,6 +7,8 @@ import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.formatter.DateFormatter;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.repository.ScanListener;
+import org.finalframework.data.result.Page;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.action.annotation.OperationAction;
 import org.finalframework.monitor.action.annotation.OperationAttribute;
@@ -75,6 +77,17 @@ public class PersonController {
     public void init() {
         Query query = new Query().where(QPerson.age.and(2).eq(2), QPerson.name.in("123", "321")).desc(QPerson.age);
         System.out.println(personMapper.selectCount(query));
+    }
+
+    @GetMapping("/scan")
+    public void scan(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, @RequestParam(value = "size", required = false, defaultValue = "2") Integer size) {
+        personMapper.scan(new Query().page(page, size), new ScanListener<Person>() {
+            @Override
+            public boolean onScanning(Page<Person> list) {
+                logger.info(Json.toJson(list));
+                return true;
+            }
+        });
     }
 
     @GetMapping("/count")

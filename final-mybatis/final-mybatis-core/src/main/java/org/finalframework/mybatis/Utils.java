@@ -23,6 +23,15 @@ public interface Utils {
         return property.isCollectionLike() ? property.getType() : null;
     }
 
+    static Class<? extends TypeHandler> getPropertyTypeHandlerClass(Property property) {
+        if (property.hasAnnotation(org.finalframework.data.annotation.TypeHandler.class)) {
+            return property.findAnnotation(org.finalframework.data.annotation.TypeHandler.class).value();
+        }
+
+        final TypeHandler<Object> typeHandler = getPropertyTypeHandler(property);
+        return typeHandler == null ? null : typeHandler.getClass();
+    }
+
     static <T> TypeHandler<T> getPropertyTypeHandler(Property property) {
         final Class javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
         final Class collectionType = property.isCollectionLike() ? property.getType() : null;

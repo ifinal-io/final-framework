@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-spring</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.0.14-SNAPSHOT</version>
+        <version>0.0.16-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,6 +16,11 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-data-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

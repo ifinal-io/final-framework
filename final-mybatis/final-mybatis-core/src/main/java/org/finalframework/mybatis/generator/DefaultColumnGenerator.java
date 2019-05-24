@@ -32,7 +32,7 @@ public class DefaultColumnGenerator extends AbsColumnGenerator {
 
     protected String formatValue(@Nullable Property referenceProperty, Property property, String value) {
         final Class javaType = Utils.getPropertyJavaType(property);
-        final TypeHandler typeHandler = Utils.getPropertyTypeHandler(property);
+        final Class<? extends TypeHandler> typeHandler = Utils.getPropertyTypeHandlerClass(property);
         final StringBuilder builder = new StringBuilder();
 
         builder.append(property.placeholder() ? "#{" : "${").append(value);
@@ -44,7 +44,7 @@ public class DefaultColumnGenerator extends AbsColumnGenerator {
 
         if (typeHandler != null) {
             builder.append(",javaType=").append(javaType.getCanonicalName());
-            builder.append(",typeHandler=").append(typeHandler.getClass().getCanonicalName());
+            builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
         }
         builder.append("}");
 

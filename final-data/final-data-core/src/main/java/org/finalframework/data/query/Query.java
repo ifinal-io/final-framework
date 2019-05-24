@@ -21,10 +21,27 @@ import java.util.stream.Stream;
  */
 public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<Query> {
 
+    /**
+     * 页码，第一页从1开始
+     */
     @Getter
     private Integer page;
+    /**
+     * 页面容量
+     */
     @Getter
     private Integer size;
+    /**
+     * 是否进行Count查询
+     */
+    @Getter
+    private Boolean count;
+    @Getter
+    private Boolean reasonable;
+    @Getter
+    private Boolean pageSizeZero;
+
+
     private List<Criteria> criteria = new ArrayList<>();
     @Getter
     private Sort sort;
@@ -33,19 +50,36 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     @Getter
     private Long limit;
 
-    public Query page(int page, int size) {
+    public Query page(Integer page, Integer size) {
         this.page = page;
         this.size = size;
         return this;
     }
 
-    public Query page(int page) {
+    @Deprecated
+    public Query page(Integer page) {
         this.page = page;
         return this;
     }
 
-    public Query size(int size) {
+    @Deprecated
+    public Query size(Integer size) {
         this.size = size;
+        return this;
+    }
+
+    public Query count(Boolean count) {
+        this.count = count;
+        return this;
+    }
+
+    public Query reasonable(Boolean reasonable) {
+        this.reasonable = reasonable;
+        return this;
+    }
+
+    public Query pageSizeZero(Boolean pageSizeZero) {
+        this.pageSizeZero = pageSizeZero;
         return this;
     }
 
