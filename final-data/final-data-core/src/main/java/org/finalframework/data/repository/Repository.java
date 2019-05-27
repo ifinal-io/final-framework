@@ -472,35 +472,36 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SCANNER ===========================================*/
 
-    default void scan(Queryable query, ScanListener<T> listener) {
+
+    default void scan(Queryable query, ScanListener<Page<T>> listener) {
         scan(query.convert(), listener);
     }
 
-    default void scan(Query query, ScanListener<T> listener) {
+    default void scan(Query query, ScanListener<Page<T>> listener) {
         scan(null, null, query, listener);
     }
 
-    default void scan(Class<?> view, Queryable query, ScanListener<T> listener) {
+    default void scan(Class<?> view, Queryable query, ScanListener<Page<T>> listener) {
         scan(view, query.convert(), listener);
     }
 
-    default void scan(Class<?> view, Query query, ScanListener<T> listener) {
+    default void scan(Class<?> view, Query query, ScanListener<Page<T>> listener) {
         scan(null, view, query, listener);
     }
 
-    default void scan(String tableName, Queryable query, ScanListener<T> listener) {
+    default void scan(String tableName, Queryable query, ScanListener<Page<T>> listener) {
         scan(tableName, query.convert(), listener);
     }
 
-    default void scan(String tableName, Query query, ScanListener<T> listener) {
+    default void scan(String tableName, Query query, ScanListener<Page<T>> listener) {
         scan(tableName, null, query, listener);
     }
 
-    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, ScanListener<T> listener) {
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, ScanListener<Page<T>> listener) {
         scan(tableName, view, query.convert(), listener);
     }
 
-    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Query query, ScanListener<T> listener) {
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Query query, ScanListener<Page<T>> listener) {
         if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
@@ -510,30 +511,28 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         }
         //设置分页合理化
         query.reasonable(false);
-        int page = query.getPage();
+        final int page = query.getPage();
         final int size = query.getSize();
         final Long total = Boolean.TRUE.equals(query.getCount()) ? selectCount(tableName, query) : null;
         final Integer pages = total != null ? (int) Math.ceil(total * 1.0 / size) : null;
-        boolean finished;
-        listener.beforeScanning();
-        do {
+
+        final Scanner<Page<T>> scanner = index -> {
+            query.page(page + index - 1);
             final List<T> list = select(tableName, view, null, query);
             final Page.Builder<T> builder = Page.builder();
-            finished = Assert.isEmpty(list) || list.size() < size;
-            final Page<T> result = builder.firstPage(page == 1)
-                    .lastPage(finished)
+            final boolean last = Assert.isEmpty(list) || list.size() < size;
+            return builder.firstPage(page == 1)
+                    .lastPage(last)
                     .page(page)
                     .size(size)
                     .total(total)
                     .pages(pages)
                     .result(list)
                     .build();
-            finished = finished || !listener.onScanning(result);
-            page++;
-            query.page(page);
-        } while (!finished);
+        };
 
-        listener.afterScanning();
+        scanner.scan(listener);
+
     }
 
     /*=========================================== SELECT IDS===========================================*/

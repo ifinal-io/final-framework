@@ -1,9 +1,5 @@
 package org.finalframework.data.repository;
 
-import org.finalframework.data.result.Page;
-
-import java.io.Serializable;
-
 /**
  * 扫描监听
  *
@@ -12,14 +8,14 @@ import java.io.Serializable;
  * @date 2019-05-23 10:37:18
  * @since 1.0
  */
-public interface ScanListener<T extends Serializable> {
+public interface ScanListener<T> {
     /**
      * 扫描开始
      */
     default void beforeScanning() {
     }
 
-    boolean onScanning(Page<T> list);
+    boolean onScanning(T data);
 
     /**
      * 扫描结束

@@ -14,12 +14,33 @@ import java.util.List;
 @Data
 public class Page<T extends Serializable> implements Serializable {
 
+    /**
+     * 页码
+     */
     private Integer page;
+    /**
+     * 页面容量
+     */
     private Integer size;
+    /**
+     * 页数
+     */
     private Integer pages;
+    /**
+     * 总条数
+     */
     private Long total;
+    /**
+     * 结果集
+     */
     private List<T> result;
+    /**
+     * 是否首页
+     */
     private Boolean firstPage;
+    /**
+     * 是否尾页
+     */
     private Boolean lastPage;
 
     public Page() {

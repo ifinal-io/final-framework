@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
+import org.finalframework.core.Assert;
 import org.finalframework.core.formatter.DateFormatter;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
-import org.finalframework.data.repository.ScanListener;
-import org.finalframework.data.result.Page;
+import org.finalframework.data.repository.Scanner;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.action.annotation.OperationAction;
 import org.finalframework.monitor.action.annotation.OperationAttribute;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -81,13 +82,35 @@ public class PersonController {
 
     @GetMapping("/scan")
     public void scan(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, @RequestParam(value = "size", required = false, defaultValue = "2") Integer size) {
-        personMapper.scan(new Query().page(page, size), new ScanListener<Person>() {
+
+        new Scanner<List<Person>>() {
+            Long lastId = null;
             @Override
-            public boolean onScanning(Page<Person> list) {
-                logger.info(Json.toJson(list));
-                return true;
+            public List<Person> onScan(Integer index) {
+                logger.info("scan index = {}", index);
+                final Query query = new Query().page(1, size);
+                if (lastId != null) {
+                    query.where(QPerson.id.gt(lastId));
+                }
+                final List<Person> list = personMapper.select(query);
+                if (Assert.nonEmpty(list)) {
+                    lastId = list.get(list.size() - 1).getId();
+                }
+                return list;
             }
+        }.scan(data -> {
+            logger.info(Json.toJson(data));
+            return true;
         });
+
+
+//        personMapper.onScan(new Query().page(page, size), new ScanListener<Person>() {
+//            @Override
+//            public boolean onScanning(Page<Person> list) {
+//                logger.info(Json.toJson(list));
+//                return true;
+//            }
+//        });
     }
 
     @GetMapping("/count")
