@@ -1,6 +1,7 @@
 package org.finalframework.data.repository;
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.result.Page;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -36,6 +37,8 @@ public interface Scanner<T> {
             if (!listener.onScanning(data)) break;
             // 当扫描结果为空时，认为扫描已经完成，结束扫描
             if (Assert.isEmpty(data)) break;
+            // 扫描结果为 Page 时，如果是最后一页，结束扫描
+            if (data instanceof Page && Boolean.TRUE.equals(((Page) data).getLastPage())) break;
         } while (true);
         listener.afterScanning();
 

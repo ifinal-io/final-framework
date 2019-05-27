@@ -6,6 +6,7 @@ package org.finalframework.data.repository;
  * @author likly
  * @version 1.0
  * @date 2019-05-23 10:37:18
+ * @see Scanner
  * @since 1.0
  */
 public interface ScanListener<T> {
