@@ -13,7 +13,6 @@ public class ServiceException extends RuntimeException implements IException {
     private final Integer code;
     private final String toast;
 
-    @Deprecated
     public ServiceException(Integer code, String message) {
         super(message);
         Assert.isNull(code, "code is null");

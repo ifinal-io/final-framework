@@ -10,7 +10,6 @@ public class BadRequestException extends ServiceException {
 
     public static final BadRequestException DEFAULT = new BadRequestException(CommonServiceException.BAD_REQUEST.getMessage());
 
-    @Deprecated
     public BadRequestException(String message) {
         super(CommonServiceException.BAD_REQUEST.getCode(), message);
     }

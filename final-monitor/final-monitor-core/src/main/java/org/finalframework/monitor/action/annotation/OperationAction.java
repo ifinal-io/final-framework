@@ -20,20 +20,45 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OperationAction {
 
+    /**
+     * 操作名称
+     *
+     * @see #value()
+     */
     @AliasFor("value")
     String name() default "";
 
+    /**
+     * 操作名称
+     *
+     * @see #name()
+     */
     @AliasFor("name")
     String value() default "";
 
+    /**
+     * 操作类型
+     */
     int type() default 0;
 
+    /**
+     * 操作动作
+     */
     int action() default 0;
 
+    /**
+     * 操作者
+     */
     String operator() default "";
 
+    /**
+     * 操作目标
+     */
     String target() default "";
 
+    /**
+     * 级别
+     */
     ActionLevel level() default ActionLevel.INFO;
 
     CutPoint point() default CutPoint.AFTER_RETURNING;
