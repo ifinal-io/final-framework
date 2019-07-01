@@ -3,9 +3,15 @@ package org.finalframework.data.exception;
 import org.finalframework.core.Assert;
 
 /**
+ * 业务异常
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-12 13:17
+ * @see NotFoundException
+ * @see BadRequestException
+ * @see ForbiddenException
+ * @see UnCatchException
  * @since 1.0
  */
 @SuppressWarnings({"unused"})
@@ -21,10 +27,10 @@ public class ServiceException extends RuntimeException implements IException {
     }
 
     public ServiceException(Integer code, String message, String toast, Object... args) {
-        super(String.format(message, args));
+        super(message);
         Assert.isNull(code, "code is null");
         this.code = code;
-        this.toast = toast == null ? null : String.format(toast, args);
+        this.toast = toast == null ? message : String.format(toast, args);
     }
 
     public ServiceException(IException exception, Object... args) {
