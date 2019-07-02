@@ -3,7 +3,7 @@ package org.finalframework.monitor.action.annotation;
 import org.finalframework.monitor.action.ActionLevel;
 import org.finalframework.monitor.action.interceptor.DefaultActionRecorder;
 import org.finalframework.spring.aop.Executor;
-import org.finalframework.spring.aop.Invocation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.core.annotation.AliasFor;
 
@@ -67,7 +67,7 @@ public @interface OperationAction {
 
     OperationAttribute[] attributes() default {};
 
-    Class<? extends Invocation> invocation() default Invocation.class;
+    Class<? extends OperationHandler> invocation() default OperationHandler.class;
 
     Class<? extends Executor> executor() default DefaultActionRecorder.class;
 

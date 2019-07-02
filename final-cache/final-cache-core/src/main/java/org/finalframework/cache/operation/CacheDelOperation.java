@@ -1,11 +1,11 @@
 package org.finalframework.cache.operation;
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheDel;
-import org.finalframework.cache.invocation.CacheDelInvocation;
+import org.finalframework.cache.handler.CacheDelOperationHandler;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -19,7 +19,7 @@ import java.util.Collection;
  * @see CacheDel
  * @since 1.0
  */
-public class CacheDelOperation implements CacheOperation {
+public class CacheDelOperation implements Operation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
@@ -29,7 +29,7 @@ public class CacheDelOperation implements CacheOperation {
     private final CutPoint cutPoint;
     private final Integer retry;
     private final Long sleep;
-    private final Class<? extends CacheInvocation> invocation;
+    private final Class<? extends OperationHandler> handler;
     private final Class<? extends Cache> executor;
 
     private CacheDelOperation(Builder builder) {
@@ -41,7 +41,7 @@ public class CacheDelOperation implements CacheOperation {
         this.cutPoint = builder.cutPoint;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
-        this.invocation = builder.invocation;
+        this.handler = builder.handler;
         this.executor = builder.executor;
     }
 
@@ -91,14 +91,15 @@ public class CacheDelOperation implements CacheOperation {
     }
 
     @Override
-    public Class<? extends CacheInvocation> invocation() {
-        return invocation;
+    public Class<? extends OperationHandler> handler() {
+        return handler;
     }
 
     @Override
     public Class<? extends Cache> executor() {
         return this.executor;
     }
+
     public static class Builder implements org.finalframework.core.Builder<CacheDelOperation> {
         private String name;
         private Collection<String> key;
@@ -108,7 +109,7 @@ public class CacheDelOperation implements CacheOperation {
         private CutPoint cutPoint;
         private Integer retry;
         private Long sleep;
-        private Class<? extends CacheInvocation> invocation;
+        private Class<? extends OperationHandler> handler;
         private Class<? extends Cache> executor;
 
         private Builder() {
@@ -155,12 +156,15 @@ public class CacheDelOperation implements CacheOperation {
             return this;
         }
 
-
-        public Builder invocation(Class<? extends CacheInvocation> invocation) {
-            this.invocation = invocation == null || invocation == CacheInvocation.class ? CacheDelInvocation.class : invocation;
+        public Builder handler(Class<? extends OperationHandler> handler) {
+            this.handler = handler == null ? CacheDelOperationHandler.class : handler;
             return this;
         }
 
+        public Builder executor(Class<? extends Cache> executor) {
+            this.executor = executor == null ? Cache.class : executor;
+            return this;
+        }
 
         @Override
         public CacheDelOperation build() {

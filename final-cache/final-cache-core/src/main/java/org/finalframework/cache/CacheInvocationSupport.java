@@ -2,6 +2,7 @@ package org.finalframework.cache;
 
 
 import org.finalframework.spring.aop.InvocationSupport;
+import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationMetadata;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
@@ -18,20 +19,20 @@ import java.util.Collection;
 public interface CacheInvocationSupport extends InvocationSupport {
 
     @Nullable
-    Object generateKey(@NonNull Collection<String> keys, @NonNull String delimiter, @NonNull OperationMetadata<? extends CacheOperation> metadata, @NonNull EvaluationContext evaluationContext);
+    Object generateKey(@NonNull Collection<String> keys, @NonNull String delimiter, @NonNull OperationMetadata<? extends Operation> metadata, @NonNull EvaluationContext evaluationContext);
 
     @Nullable
-    Object generateField(@NonNull Collection<String> fields, @NonNull String delimiter, @NonNull OperationMetadata<? extends CacheOperation> metadata, @NonNull EvaluationContext evaluationContext);
+    Object generateField(@NonNull Collection<String> fields, @NonNull String delimiter, @NonNull OperationMetadata<? extends Operation> metadata, @NonNull EvaluationContext evaluationContext);
 
     @Nullable
-    Object generateValue(@NonNull String value, @NonNull OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
+    Object generateValue(@NonNull String value, @NonNull OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext);
 
     @Nullable
-    <T> T generateValue(@NonNull String value, @NonNull OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext, Class<T> clazz);
+    <T> T generateValue(@NonNull String value, @NonNull OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext, Class<T> clazz);
 
-    boolean isConditionPassing(@NonNull String condition, @NonNull OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
+    boolean isConditionPassing(@NonNull String condition, @NonNull OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext);
 
     @Nullable
-    Object generateExpire(@NonNull String expire, @NonNull OperationMetadata<? extends CacheOperation> metadata, EvaluationContext evaluationContext);
+    Object generateExpire(@NonNull String expire, @NonNull OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext);
 
 }

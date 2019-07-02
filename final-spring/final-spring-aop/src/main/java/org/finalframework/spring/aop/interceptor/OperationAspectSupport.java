@@ -62,10 +62,10 @@ public class OperationAspectSupport {
 
     private Object execute(OperationInvoker invoker, OperationContexts contexts) throws Throwable {
         Object operationValue = null;
-        final List<InvocationHandler> handlers = configuration.getInvocationHandlers();
+        final List<Invocation> invocations = configuration.getInvocations();
 
-        for (InvocationHandler handler : handlers) {
-            Object value = handler.handleBefore(contexts, null);
+        for (Invocation invocation : invocations) {
+            Object value = invocation.handleBefore(contexts, null);
             if (operationValue == null && value != null) {
                 operationValue = value;
             }
@@ -85,15 +85,15 @@ public class OperationAspectSupport {
             throwable = e;
         }
 
-        for (int i = handlers.size() - 1; i >= 0; i--) {
-            InvocationHandler handler = handlers.get(i);
+        for (int i = invocations.size() - 1; i >= 0; i--) {
+            Invocation invocation = invocations.get(i);
             if (throwable == null) {
-                handler.handleAfterReturning(contexts, returnValue);
+                invocation.handleAfterReturning(contexts, returnValue);
             } else {
-                handler.handleAfterThrowing(contexts, throwable);
+                invocation.handleAfterThrowing(contexts, throwable);
             }
 
-            handler.handleAfter(contexts, returnValue, throwable);
+            invocation.handleAfter(contexts, returnValue, throwable);
         }
 
         if (throwable != null) {

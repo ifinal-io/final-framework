@@ -3,10 +3,10 @@ package org.finalframework.monitor.action;
 
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.action.annotation.OperationAction;
-import org.finalframework.monitor.action.invocation.ActionOperationInvocation;
+import org.finalframework.monitor.action.invocation.ActionOperationOperationHandler;
 import org.finalframework.spring.aop.Executor;
-import org.finalframework.spring.aop.Invocation;
 import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class ActionOperation implements Operation {
     /**
      * 调度器
      */
-    private final Class<? extends Invocation> invocation;
+    private final Class<? extends OperationHandler> invocation;
 
     private final Class<? extends Executor> executor;
 
@@ -123,7 +123,7 @@ public class ActionOperation implements Operation {
     }
 
     @Override
-    public Class<? extends Invocation> invocation() {
+    public Class<? extends OperationHandler> handler() {
         return invocation;
     }
 
@@ -141,7 +141,7 @@ public class ActionOperation implements Operation {
         private ActionLevel level;
         private String target;
         private CutPoint point;
-        private Class<? extends Invocation> invocation;
+        private Class<? extends OperationHandler> invocation;
         private Class<? extends Executor> executor;
 
         private Builder() {
@@ -189,8 +189,8 @@ public class ActionOperation implements Operation {
             return this;
         }
 
-        public Builder invocation(Class<? extends Invocation> invocation) {
-            this.invocation = invocation == null || invocation == Invocation.class ? ActionOperationInvocation.class : invocation;
+        public Builder invocation(Class<? extends OperationHandler> invocation) {
+            this.invocation = invocation == null || invocation == OperationHandler.class ? ActionOperationOperationHandler.class : invocation;
             return this;
         }
 

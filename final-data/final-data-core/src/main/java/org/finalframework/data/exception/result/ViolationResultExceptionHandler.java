@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 /**
- * The handler is to handle the exception throw by framework of {@link javax.validation.Validator}
+ * The invocation is to handle the exception throw by framework of {@link javax.validation.Validator}
  *
  * @author likly
  * @version 1.0

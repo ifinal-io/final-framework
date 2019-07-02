@@ -3,7 +3,7 @@ package org.finalframework.cache.component;
 
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.builder.CacheLockAnnotationBuilder;
-import org.finalframework.cache.handler.CacheLockInvocationHandler;
+import org.finalframework.cache.handler.CacheLockOperationHandler;
 import org.finalframework.cache.invocation.CacheLockInvocation;
 import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheLockComponent extends BaseOperationComponent<CacheLock, CacheLockOperation,
-        CacheLockAnnotationBuilder, CacheLockInvocationHandler, CacheLockInvocation> {
+        CacheLockAnnotationBuilder, CacheLockInvocation, CacheLockOperationHandler> {
 
     public CacheLockComponent() {
-        super(CacheLock.class, new CacheLockAnnotationBuilder(), new CacheLockInvocationHandler(), new CacheLockInvocation());
+        super(CacheLock.class, new CacheLockAnnotationBuilder(), new CacheLockInvocation(), new CacheLockOperationHandler());
     }
 }

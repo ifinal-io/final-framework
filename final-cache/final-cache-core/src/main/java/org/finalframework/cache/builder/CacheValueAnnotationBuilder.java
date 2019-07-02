@@ -37,7 +37,8 @@ public class CacheValueAnnotationBuilder extends AbsCacheAnnotationBuilder imple
                 .field(parse(ann.field(), ann.delimiter()))
                 .delimiter(ann.delimiter())
                 .condition(ann.condition())
-                .invocation(ann.invocation())
+                .handler(ann.handler())
+                .executor(ann.executor())
                 .build();
     }
 }

@@ -3,7 +3,7 @@ package org.finalframework.cache.component;
 
 import org.finalframework.cache.annotation.CachePut;
 import org.finalframework.cache.builder.CachePutAnnotationBuilder;
-import org.finalframework.cache.handler.CachePutInvocationHandler;
+import org.finalframework.cache.handler.CachePutOperationHandler;
 import org.finalframework.cache.invocation.CachePutInvocation;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CachePutComponent extends BaseOperationComponent<CachePut, CachePutOperation,
-        CachePutAnnotationBuilder, CachePutInvocationHandler, CachePutInvocation> {
+        CachePutAnnotationBuilder, CachePutInvocation, CachePutOperationHandler> {
 
     public CachePutComponent() {
-        super(CachePut.class, new CachePutAnnotationBuilder(), new CachePutInvocationHandler(), new CachePutInvocation());
+        super(CachePut.class, new CachePutAnnotationBuilder(), new CachePutInvocation(), new CachePutOperationHandler());
     }
 }

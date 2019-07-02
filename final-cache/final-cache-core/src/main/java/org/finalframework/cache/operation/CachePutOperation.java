@@ -1,11 +1,11 @@
 package org.finalframework.cache.operation;
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CachePut;
-import org.finalframework.cache.invocation.CachePutInvocation;
+import org.finalframework.cache.handler.CachePutOperationHandler;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @see CachePut
  * @since 1.0
  */
-public class CachePutOperation implements CacheOperation {
+public class CachePutOperation implements Operation {
     private final String name;
     private final Collection<String> key;
     private final Collection<String> field;
@@ -33,7 +33,7 @@ public class CachePutOperation implements CacheOperation {
     private final TimeUnit timeUnit;
     private final Integer retry;
     private final Long sleep;
-    private final Class<? extends CacheInvocation> invocation;
+    private final Class<? extends OperationHandler> handler;
     private final Class<? extends Cache> executor;
 
     private CachePutOperation(Builder builder) {
@@ -49,7 +49,7 @@ public class CachePutOperation implements CacheOperation {
         this.timeUnit = builder.timeUnit;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : null;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
-        this.invocation = builder.invocation;
+        this.handler = builder.handler;
         this.executor = builder.executor;
     }
 
@@ -118,14 +118,15 @@ public class CachePutOperation implements CacheOperation {
 
 
     @Override
-    public Class<? extends CacheInvocation> invocation() {
-        return invocation;
+    public Class<? extends OperationHandler> handler() {
+        return handler;
     }
 
     @Override
     public Class<? extends Cache> executor() {
         return this.executor;
     }
+
     public static class Builder implements org.finalframework.core.Builder<CachePutOperation> {
         private String name;
         private Collection<String> key;
@@ -139,7 +140,7 @@ public class CachePutOperation implements CacheOperation {
         private TimeUnit timeUnit;
         private Integer retry;
         private Long sleep;
-        private Class<? extends CacheInvocation> invocation;
+        private Class<? extends OperationHandler> handler;
         private Class<? extends Cache> executor;
 
         private Builder() {
@@ -205,8 +206,8 @@ public class CachePutOperation implements CacheOperation {
             return this;
         }
 
-        public Builder invocation(Class<? extends CacheInvocation> invocation) {
-            this.invocation = invocation == null || invocation == CacheInvocation.class ? CachePutInvocation.class : invocation;
+        public Builder handler(Class<? extends OperationHandler> handler) {
+            this.handler = handler == null ? CachePutOperationHandler.class : handler;
             return this;
         }
 
@@ -214,6 +215,7 @@ public class CachePutOperation implements CacheOperation {
             this.executor = executor == null ? Cache.class : executor;
             return this;
         }
+
         @Override
         public CachePutOperation build() {
             return new CachePutOperation(this);

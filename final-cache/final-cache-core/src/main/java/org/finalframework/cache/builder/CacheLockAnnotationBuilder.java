@@ -33,9 +33,12 @@ public class CacheLockAnnotationBuilder extends AbsCacheAnnotationBuilder implem
                 .value(ann.value())
                 .delimiter(ann.delimiter())
                 .condition(ann.condition())
+                .retry(ann.retry())
+                .sleep(ann.sleep())
                 .ttl(ann.ttl())
                 .timeunit(ann.timeunit())
-                .invocation(ann.invocation())
+                .handler(ann.handler())
+                .executor(ann.executor())
                 .build();
 
     }

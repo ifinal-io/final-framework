@@ -21,6 +21,6 @@ public class ActionContextLoggerHandler implements ActionContextHandler<Object> 
 
     @Override
     public void handle(ActionContext<Object> context) {
-        logger.info("==> action handler: {}", Json.toJson(context));
+        logger.info("==> action invocation: {}", Json.toJson(context));
     }
 }

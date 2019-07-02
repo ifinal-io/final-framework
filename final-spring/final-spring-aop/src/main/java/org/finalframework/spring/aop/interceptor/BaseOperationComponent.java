@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
  * @since 1.0
  */
 public class BaseOperationComponent<A extends Annotation, O extends Operation,
-        BUILDER extends OperationAnnotationBuilder<A, O>, HANDLER extends InvocationHandler, INVOCATION extends Invocation
+        BUILDER extends OperationAnnotationBuilder<A, O>, HANDLER extends Invocation, INVOCATION extends OperationHandler
         > implements OperationComponent<A, O, BUILDER, HANDLER, INVOCATION> {
 
     private final Class<A> type;

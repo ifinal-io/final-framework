@@ -22,7 +22,7 @@ public interface Operation {
      * 调用者
      */
     @NonNull
-    Class<? extends Invocation> invocation();
+    Class<? extends OperationHandler> handler();
 
     @NonNull
     Class<? extends Executor> executor();

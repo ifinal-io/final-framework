@@ -12,11 +12,11 @@ import java.util.Collection;
  * @date 2019-03-27 21:32:11
  * @since 1.0
  */
-public class BaseInvocationHandler<O extends Operation> implements InvocationHandler {
+public class BaseInvocation<O extends Operation> implements Invocation {
 
     private final Class<O> type;
 
-    public BaseInvocationHandler(Class<O> type) {
+    public BaseInvocation(Class<O> type) {
         this.type = type;
     }
 
@@ -28,9 +28,9 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         }
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
-            final Invocation invocation = configuration.getInvocation(context.operation().invocation());
+            final OperationHandler handler = configuration.getHandler(context.operation().handler());
             final Executor executor = configuration.getExecutor(context.operation());
-            final Object cacheValue = invocation.before(executor, context, result);
+            final Object cacheValue = handler.before(executor, context, result);
             if (cacheValue != null) {
                 return cacheValue;
             }
@@ -46,9 +46,9 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         }
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
-            final Invocation invocation = configuration.getInvocation(context.operation().invocation());
+            final OperationHandler handler = configuration.getHandler(context.operation().handler());
             final Executor executor = configuration.getExecutor(context.operation());
-            invocation.afterReturning(executor, context, result);
+            handler.afterReturning(executor, context, result);
         }
     }
 
@@ -60,9 +60,9 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         }
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
-            final Invocation invocation = configuration.getInvocation(context.operation().invocation());
+            final OperationHandler handler = configuration.getHandler(context.operation().handler());
             final Executor executor = configuration.getExecutor(context.operation());
-            invocation.afterThrowing(executor, context, throwable);
+            handler.afterThrowing(executor, context, throwable);
         }
     }
 
@@ -74,9 +74,9 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         }
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
-            final Invocation invocation = configuration.getInvocation(context.operation().invocation());
+            final OperationHandler handler = configuration.getHandler(context.operation().handler());
             final Executor executor = configuration.getExecutor(context.operation());
-            invocation.after(executor, context, result, throwable);
+            handler.after(executor, context, result, throwable);
         }
     }
 }

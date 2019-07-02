@@ -57,16 +57,16 @@ mybatis:
   logo: /assets/img/modules/mybatis.jpg
   name: Final Mybatis
   menus:
-    - id: handler
+    - id: invocation
       icon: dashboard
       name: 类型处理器
       menus:
-        - id: enum-type-handler
-          link: /mybatis/handler/enum-type-handler
+        - id: enum-type-invocation
+          link: /mybatis/invocation/enum-type-invocation
           name: EnumTypeHandler
           mini: ETH
-        - id: json-type-handler
-          link: /mybatis/handler/json-type-handler
+        - id: json-type-invocation
+          link: /mybatis/invocation/json-type-invocation
           name: JsonTypeHandler
           mini: JTH
     - id: interceptor
@@ -122,28 +122,28 @@ spring:
           name: 异常处理器
           mini: EH
           menus:
-            - id: exception-handler
-              link: /spring/web/exception/exception-handler
+            - id: exception-invocation
+              link: /spring/web/exception/exception-invocation
               name: ExceptionHandler
               mini: EH
-            - id: global-exception-handler
-              link: /spring/web/exception/global-exception-handler
+            - id: global-exception-invocation
+              link: /spring/web/exception/global-exception-invocation
               name: GlobalExceptionHandler
               mini: GEH
-            - id: json-exception-handler
-              link: /spring/web/exception/json-exception-handler
+            - id: json-exception-invocation
+              link: /spring/web/exception/json-exception-invocation
               name: JsonExceptionHandler
               mini: JEH
         - id: interceptor
           name: 处理器拦截器
           mini: HI
           menus:
-            - id: handler-interceptor
-              link: /spring/web/interceptor/handler-interceptor
+            - id: invocation-interceptor
+              link: /spring/web/interceptor/invocation-interceptor
               name: HandlerInterceptor
               mini: HI
-            - id: trade-handler-interceptor
-              link: /spring/web/interceptor/trace-handler-interceptor
+            - id: trade-invocation-interceptor
+              link: /spring/web/interceptor/trace-invocation-interceptor
               name: TraceHandlerInterceptor
               mini: THI
 cache:

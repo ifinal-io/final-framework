@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 2019-03-28 12:20:29
  * @since 1.0
  */
-public class ActionOperationInvocation<T> extends AbsActionInvocationSupport implements ActionInvocation<T> {
+public class ActionOperationOperationHandler<T> extends AbsActionInvocationSupport implements ActionOperationHandler<T> {
 
     @Override
     public Object before(ActionRecorder<T> executor, OperationContext<ActionOperation> context, Object result) {

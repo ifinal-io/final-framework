@@ -37,7 +37,8 @@ public class CacheDelAnnotationBuilder extends AbsCacheAnnotationBuilder impleme
                 .retry(ann.retry())
                 .sleep(ann.sleep())
                 .point(ann.point())
-                .invocation(ann.invocation())
+                .handler(ann.handler())
+                .executor(ann.executor())
                 .build();
 
     }

@@ -38,7 +38,8 @@ public class CachePutAnnotationBuilder extends AbsCacheAnnotationBuilder impleme
                 .ttl(ann.ttl())
                 .expire(ann.expire())
                 .timeunit(ann.timeunit())
-                .invocation(ann.invocation())
+                .handler(ann.handler())
+                .executor(ann.executor())
                 .build();
 
     }

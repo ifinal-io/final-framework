@@ -1,11 +1,11 @@
 package org.finalframework.cache.operation;
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheValue;
-import org.finalframework.cache.invocation.CacheValueInvocation;
+import org.finalframework.cache.handler.CacheValueOperationHandler;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -20,7 +20,7 @@ import java.util.Collection;
  * @see CacheValue
  * @since 1.0
  */
-public class CacheValueOperation implements CacheOperation {
+public class CacheValueOperation implements Operation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
@@ -32,7 +32,7 @@ public class CacheValueOperation implements CacheOperation {
     private final Type parameterType;
     private final Integer retry;
     private final Long sleep;
-    private final Class<? extends CacheInvocation> invocation;
+    private final Class<? extends OperationHandler> handler;
     private final Class<? extends Cache> executor;
 
     private CacheValueOperation(Builder builder) {
@@ -46,7 +46,7 @@ public class CacheValueOperation implements CacheOperation {
         this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : null;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
-        this.invocation = builder.invocation;
+        this.handler = builder.handler;
         this.executor = builder.executor;
     }
 
@@ -106,8 +106,8 @@ public class CacheValueOperation implements CacheOperation {
 
 
     @Override
-    public Class<? extends CacheInvocation> invocation() {
-        return invocation;
+    public Class<? extends OperationHandler> handler() {
+        return handler;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class CacheValueOperation implements CacheOperation {
         private Type parameterType;
         private Integer retry;
         private Long sleep;
-        private Class<? extends CacheInvocation> invocation;
+        private Class<? extends OperationHandler> handler;
         private Class<? extends Cache> executor;
 
         private Builder() {
@@ -181,8 +181,8 @@ public class CacheValueOperation implements CacheOperation {
             return this;
         }
 
-        public Builder invocation(Class<? extends CacheInvocation> invocation) {
-            this.invocation = invocation == null || invocation == CacheInvocation.class ? CacheValueInvocation.class : invocation;
+        public Builder handler(Class<? extends OperationHandler> handler) {
+            this.handler = handler == null ? CacheValueOperationHandler.class : handler;
             return this;
         }
 

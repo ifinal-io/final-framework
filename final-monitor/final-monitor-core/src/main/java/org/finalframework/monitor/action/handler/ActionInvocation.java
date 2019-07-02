@@ -2,7 +2,7 @@ package org.finalframework.monitor.action.handler;
 
 
 import org.finalframework.monitor.action.ActionOperation;
-import org.finalframework.spring.aop.interceptor.BaseInvocationHandler;
+import org.finalframework.spring.aop.interceptor.BaseInvocation;
 
 /**
  * @author likly
@@ -10,9 +10,9 @@ import org.finalframework.spring.aop.interceptor.BaseInvocationHandler;
  * @date 2019-03-28 00:01:21
  * @since 1.0
  */
-public class ActionInvocationHandler extends BaseInvocationHandler<ActionOperation> {
+public class ActionInvocation extends BaseInvocation<ActionOperation> {
 
-    public ActionInvocationHandler() {
+    public ActionInvocation() {
         super(ActionOperation.class);
     }
 }

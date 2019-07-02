@@ -2,7 +2,8 @@ package org.finalframework.cache.annotation;
 
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
+import org.finalframework.cache.handler.CachePutOperationHandler;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
@@ -41,7 +42,7 @@ public @interface CachePut {
 
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-    Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+    Class<? extends OperationHandler> handler() default CachePutOperationHandler.class;
 
     Class<? extends Cache> executor() default Cache.class;
 

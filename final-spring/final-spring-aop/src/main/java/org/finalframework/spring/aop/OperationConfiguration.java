@@ -22,16 +22,16 @@ public class OperationConfiguration {
     private final Set<Class<? extends Annotation>> operationAnnotations = new CopyOnWriteArraySet<>();
     private final Map<Class<? extends Annotation>, OperationComponent> operationComponents = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Annotation>, OperationAnnotationBuilder> operationAnnotationBuilders = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final Map<Class<? extends Invocation>, Invocation> invocations = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
+    private final Map<Class<? extends OperationHandler>, OperationHandler> operationHandlers = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Executor>, Executor> executors = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final List<InvocationHandler> invocationHandlers = new CopyOnWriteArrayList<>();
+    private final List<Invocation> invocations = new CopyOnWriteArrayList<>();
 
     @SuppressWarnings("all")
     public void registerCacheComponent(OperationComponent component) {
         operationAnnotations.add(component.annotation());
         operationAnnotationBuilders.put(component.annotation(), component.builder());
-        invocations.put(component.invocation().getClass(), component.invocation());
-        invocationHandlers.add(component.handler());
+        operationHandlers.put(component.invocation().getClass(), component.invocation());
+        invocations.add(component.handler());
         operationComponents.put(component.annotation(), component);
     }
 
@@ -48,12 +48,16 @@ public class OperationConfiguration {
         return operationAnnotationBuilders.get(ann);
     }
 
-    public <T extends Invocation> T getInvocation(@NonNull Class<T> invocation) {
-        return (T) invocations.get(invocation);
+    public <T extends OperationHandler> T getHandler(@NonNull Class<T> invocation) {
+        return (T) operationHandlers.get(invocation);
     }
 
-    public List<InvocationHandler> getInvocationHandlers() {
-        return invocationHandlers;
+    public List<Invocation> getInvocations() {
+        return invocations;
+    }
+
+    public OperationHandler getHandler(Operation operation) {
+        return operationHandlers.get(operation.handler());
     }
 
     public Executor getExecutor(Operation operation) {

@@ -3,7 +3,7 @@ package org.finalframework.cache.component;
 
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.builder.CacheableAnnotationBuilder;
-import org.finalframework.cache.handler.CacheableInvocationHandler;
+import org.finalframework.cache.handler.CacheableOperationHandler;
 import org.finalframework.cache.invocation.CacheableInvocation;
 import org.finalframework.cache.operation.CacheableOperation;
 import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheableComponent extends BaseOperationComponent<Cacheable, CacheableOperation,
-        CacheableAnnotationBuilder, CacheableInvocationHandler, CacheableInvocation> {
+        CacheableAnnotationBuilder, CacheableInvocation, CacheableOperationHandler> {
 
     public CacheableComponent() {
-        super(Cacheable.class, new CacheableAnnotationBuilder(), new CacheableInvocationHandler(), new CacheableInvocation());
+        super(Cacheable.class, new CacheableAnnotationBuilder(), new CacheableInvocation(), new CacheableOperationHandler());
     }
 }

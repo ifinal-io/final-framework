@@ -3,7 +3,7 @@ package org.finalframework.cache.component;
 
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.cache.builder.CacheValueAnnotationBuilder;
-import org.finalframework.cache.handler.CacheValueInvocationHandler;
+import org.finalframework.cache.handler.CacheValueOperationHandler;
 import org.finalframework.cache.invocation.CacheValueInvocation;
 import org.finalframework.cache.operation.CacheValueOperation;
 import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
@@ -15,9 +15,9 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @since 1.0
  */
 public class CacheValueComponent extends BaseOperationComponent<CacheValue, CacheValueOperation,
-        CacheValueAnnotationBuilder, CacheValueInvocationHandler, CacheValueInvocation> {
+        CacheValueAnnotationBuilder, CacheValueInvocation, CacheValueOperationHandler> {
 
     public CacheValueComponent() {
-        super(CacheValue.class, new CacheValueAnnotationBuilder(), new CacheValueInvocationHandler(), new CacheValueInvocation());
+        super(CacheValue.class, new CacheValueAnnotationBuilder(), new CacheValueInvocation(), new CacheValueOperationHandler());
     }
 }

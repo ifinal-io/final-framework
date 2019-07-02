@@ -3,7 +3,6 @@ package org.finalframework.cache;
 import org.finalframework.json.Json;
 import org.finalframework.redis.Redis;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
@@ -17,11 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class RedisCache implements Cache {
 
     private static final Long ONE = 1L;
-
-    @PostConstruct
-    public void init() {
-        CacheRegistry.getInstance().registerCache(null, this);
-    }
 
     @Override
     public boolean lock(Object key, Object value, Long ttl, TimeUnit timeUnit) {

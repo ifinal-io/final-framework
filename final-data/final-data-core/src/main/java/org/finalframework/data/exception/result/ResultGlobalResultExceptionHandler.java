@@ -33,7 +33,7 @@ public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandle
         BeanUtils.findAllBeansAnnotatedBy(applicationContext, ResultExceptionHandler.class)
                 .map(it -> {
                     if (!(it instanceof ExceptionHandler)) {
-                        throw new IllegalStateException("the exception handler must implements ExceptionHandler!");
+                        throw new IllegalStateException("the exception invocation must implements ExceptionHandler!");
                     }
                     return (ExceptionHandler) it;
                 }).forEach(this::registerExceptionHandler);

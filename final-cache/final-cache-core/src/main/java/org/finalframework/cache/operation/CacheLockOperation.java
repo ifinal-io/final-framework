@@ -1,11 +1,11 @@
 package org.finalframework.cache.operation;
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
-import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheLock;
-import org.finalframework.cache.invocation.CacheLockInvocation;
+import org.finalframework.cache.handler.CacheLockOperationHandler;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.aop.Operation;
+import org.finalframework.spring.aop.OperationHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
-public class CacheLockOperation implements CacheOperation {
+public class CacheLockOperation implements Operation {
     private static final String DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
@@ -31,7 +31,7 @@ public class CacheLockOperation implements CacheOperation {
     private final TimeUnit timeUnit;
     private final Integer retry;
     private final Long sleep;
-    private final Class<? extends CacheInvocation> invocation;
+    private final Class<? extends OperationHandler> handler;
     private final Class<? extends Cache> executor;
 
     private CacheLockOperation(Builder builder) {
@@ -45,7 +45,7 @@ public class CacheLockOperation implements CacheOperation {
         this.timeUnit = builder.timeUnit;
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : 0;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
-        this.invocation = builder.invocation;
+        this.handler = builder.handler;
         this.executor = builder.executor;
     }
 
@@ -104,8 +104,8 @@ public class CacheLockOperation implements CacheOperation {
 
 
     @Override
-    public Class<? extends CacheInvocation> invocation() {
-        return invocation;
+    public Class<? extends OperationHandler> handler() {
+        return handler;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class CacheLockOperation implements CacheOperation {
         private TimeUnit timeUnit;
         private Integer retry;
         private Long sleep;
-        private Class<? extends CacheInvocation> invocation;
+        private Class<? extends OperationHandler> handler;
         private Class<? extends Cache> executor;
 
         private Builder() {
@@ -179,8 +179,8 @@ public class CacheLockOperation implements CacheOperation {
             return this;
         }
 
-        public Builder invocation(Class<? extends CacheInvocation> invocation) {
-            this.invocation = invocation == null || invocation == CacheInvocation.class ? CacheLockInvocation.class : invocation;
+        public Builder handler(Class<? extends OperationHandler> handler) {
+            this.handler = handler == null ? CacheLockOperationHandler.class : handler;
             return this;
         }
 

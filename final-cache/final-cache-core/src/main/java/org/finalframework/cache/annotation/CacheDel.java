@@ -1,8 +1,9 @@
 package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.annotation.CacheDel.List;
+import org.finalframework.cache.handler.CacheDelOperationHandler;
+import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
@@ -57,7 +58,7 @@ public @interface CacheDel {
 
     CutPoint point() default CutPoint.AFTER_RETURNING;
 
-    Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+    Class<? extends OperationHandler> handler() default CacheDelOperationHandler.class;
 
 
     Class<? extends Cache> executor() default Cache.class;

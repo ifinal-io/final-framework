@@ -38,7 +38,7 @@ public class DefaultActionRecorder implements ActionRecorder, ApplicationContext
         BeanUtils.findAllBeansAnnotatedBy(applicationContext, ActionHandler.class)
                 .map(it -> {
                     if (!(it instanceof ActionContextHandler)) {
-                        throw new IllegalStateException("the exception handler must implements ExceptionHandler!");
+                        throw new IllegalStateException("the exception invocation must implements ExceptionHandler!");
                     }
                     return (ActionContextHandler) it;
                 }).forEach(it -> {

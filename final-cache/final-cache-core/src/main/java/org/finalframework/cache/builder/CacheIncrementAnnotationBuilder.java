@@ -40,7 +40,8 @@ public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder i
                 .ttl(ann.ttl())
                 .expire(ann.expire())
                 .timeunit(ann.timeunit())
-                .invocation(ann.invocation())
+                .handler(ann.handler())
+                .executor(ann.executor())
                 .build();
 
     }

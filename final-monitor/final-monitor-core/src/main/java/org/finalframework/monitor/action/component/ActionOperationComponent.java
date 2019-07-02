@@ -4,8 +4,8 @@ package org.finalframework.monitor.action.component;
 import org.finalframework.monitor.action.ActionOperation;
 import org.finalframework.monitor.action.annotation.OperationAction;
 import org.finalframework.monitor.action.builder.OperationActionAnnotationBuilder;
-import org.finalframework.monitor.action.handler.ActionInvocationHandler;
-import org.finalframework.monitor.action.invocation.ActionOperationInvocation;
+import org.finalframework.monitor.action.handler.ActionInvocation;
+import org.finalframework.monitor.action.invocation.ActionOperationOperationHandler;
 import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
 
 /**
@@ -14,14 +14,14 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @date 2019-03-28 00:02:38
  * @see OperationAction
  * @see OperationActionAnnotationBuilder
- * @see ActionInvocationHandler
- * @see ActionOperationInvocation
+ * @see ActionInvocation
+ * @see ActionOperationOperationHandler
  * @since 1.0
  */
 public final class ActionOperationComponent extends BaseOperationComponent<OperationAction, ActionOperation,
-        OperationActionAnnotationBuilder, ActionInvocationHandler, ActionOperationInvocation> {
+        OperationActionAnnotationBuilder, ActionInvocation, ActionOperationOperationHandler> {
 
     public ActionOperationComponent() {
-        super(OperationAction.class, new OperationActionAnnotationBuilder(), new ActionInvocationHandler(), new ActionOperationInvocation());
+        super(OperationAction.class, new OperationActionAnnotationBuilder(), new ActionInvocation(), new ActionOperationOperationHandler());
     }
 }
