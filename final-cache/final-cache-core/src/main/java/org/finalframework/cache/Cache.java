@@ -26,6 +26,7 @@ public interface Cache extends OperationExecutor {
      * @param timeUnit 有效时间单位
      * @return 如果获取成功，则返回 {@linkplain true}，否则返回 {@linkplain false}。
      * @see org.finalframework.cache.annotation.CacheLock
+     * @see org.finalframework.cache.invocation.CacheLockInvocation
      */
     boolean lock(@NonNull Object key, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
 

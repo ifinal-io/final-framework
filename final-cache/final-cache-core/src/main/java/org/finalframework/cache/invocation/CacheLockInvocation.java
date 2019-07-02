@@ -27,7 +27,6 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
     private static final String VALUE = "value";
     private static final String LOCK = "lock";
 
-
     @Override
     public Void before(Cache cache, OperationContext<CacheLockOperation> context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
@@ -71,7 +70,7 @@ public class CacheLockInvocation extends AbsCacheInvocationSupport implements Ca
                 try {
                     Thread.sleep(sleep);
                 } catch (InterruptedException e) {
-                    logger.error("retry sleep error,key={},value={}", e);
+                    logger.error("retry sleep error,key={},value={}", key, value, e);
                 }
             }
 

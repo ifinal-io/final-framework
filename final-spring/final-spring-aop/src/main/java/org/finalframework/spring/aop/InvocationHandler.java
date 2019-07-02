@@ -11,15 +11,37 @@ import org.springframework.lang.Nullable;
  */
 public interface InvocationHandler {
 
+    /**
+     * @param contexts
+     * @param result
+     * @return
+     * @see Invocation#before(OperationExecutor, OperationContext, Object)
+     */
     @Nullable
     Object handleBefore(@NonNull OperationContexts contexts, @Nullable Object result);
 
+    /**
+     * @param contexts
+     * @param result
+     * @see Invocation#afterReturning(OperationExecutor, OperationContext, Object)
+     */
     default void handleAfterReturning(@NonNull OperationContexts contexts, @Nullable Object result) {
     }
 
+    /**
+     * @param contexts
+     * @param throwable
+     * @see Invocation#afterThrowing(OperationExecutor, OperationContext, Throwable)
+     */
     default void handleAfterThrowing(@NonNull OperationContexts contexts, @NonNull Throwable throwable) {
     }
 
+    /**
+     * @param contexts
+     * @param result
+     * @param throwable
+     * @see Invocation#after(OperationExecutor, OperationContext, Object, Throwable)
+     */
     default void handleAfter(@NonNull OperationContexts contexts, @Nullable Object result, @Nullable Throwable throwable) {
     }
 

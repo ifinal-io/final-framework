@@ -126,7 +126,6 @@ public class OperationAspectSupport {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public <O extends Operation> Collection<OperationContext<? extends Operation>> get(Class<? extends O> operation) {
             return this.contexts.get(operation);
         }

@@ -12,17 +12,27 @@ public enum CutPoint {
     /**
      * 在方法执行之前
      */
-    BEFORE,
+    BEFORE(1),
     /**
      * 在方法返回之后
      */
-    AFTER_RETURNING,
+    AFTER_RETURNING(2),
     /**
      * 在方法抛出异常后
      */
-    AFTER_THROWING,
+    AFTER_THROWING(4),
     /**
      * 在方法执行之后，包含 {@link #AFTER_RETURNING} 和 {@link #AFTER_THROWING}。
      */
-    AFTER;
+    AFTER(6);
+
+    private final Integer value;
+
+    CutPoint(Integer value) {
+        this.value = value;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
 }

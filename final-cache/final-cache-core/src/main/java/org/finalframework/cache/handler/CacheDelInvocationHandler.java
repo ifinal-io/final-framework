@@ -8,6 +8,8 @@ import org.finalframework.spring.aop.interceptor.BaseInvocationHandler;
  * @author likly
  * @version 1.0
  * @date 2019-03-11 10:25:28
+ * @see org.finalframework.cache.annotation.CacheDel
+ * @see org.finalframework.cache.invocation.CacheDelInvocation
  * @since 1.0
  */
 public class CacheDelInvocationHandler extends BaseInvocationHandler<CacheDelOperation> {
