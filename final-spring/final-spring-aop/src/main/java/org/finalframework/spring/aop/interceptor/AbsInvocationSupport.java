@@ -1,11 +1,13 @@
 package org.finalframework.spring.aop.interceptor;
 
 
+import org.finalframework.core.Assert;
 import org.finalframework.spring.aop.InvocationSupport;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationExpressionEvaluator;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 /**
@@ -32,13 +34,19 @@ public class AbsInvocationSupport implements InvocationSupport {
 
     }
 
+    /**
+     * 以{@link AbsInvocationSupport#EXPRESSION_PREFIX}开头，并且以{@link AbsInvocationSupport#EXPRESSION_SUFFIX}结尾的字符串，为一个表达式。
+     *
+     * @param expression 表达式字符串
+     */
     @Override
-    public boolean isExpression(String expression) {
+    public boolean isExpression(@Nullable String expression) {
         return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
     }
 
     @Override
     public String generateExpression(@NonNull String expression) {
-        return expression.substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
+        Assert.isEmpty(expression, "expression is empty");
+        return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
 }

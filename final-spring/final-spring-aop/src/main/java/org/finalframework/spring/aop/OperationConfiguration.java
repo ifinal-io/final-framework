@@ -29,6 +29,7 @@ public class OperationConfiguration {
     private OperationExecutor executor;
 
 
+    @SuppressWarnings("all")
     public void registerCacheComponent(OperationComponent component) {
         operationAnnotations.add(component.annotation());
         operationAnnotationBuilders.put(component.annotation(), component.builder());

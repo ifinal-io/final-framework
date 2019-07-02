@@ -61,7 +61,7 @@ public class CacheIncrementInvocation extends AbsCacheInvocationSupport implemen
         }
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
 
-        final boolean hasKey = cache.hasKey(key, field);
+        final boolean hasKey = cache.isExists(key, field);
 
         final Class<? extends Number> type = operation.type();
         boolean incremented = false;

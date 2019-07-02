@@ -12,9 +12,13 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @author likly
  * @version 1.0
  * @date 2019-03-28 00:02:38
+ * @see OperationAction
+ * @see OperationActionAnnotationBuilder
+ * @see ActionInvocationHandler
+ * @see ActionOperationInvocation
  * @since 1.0
  */
-public class ActionOperationComponent extends BaseOperationComponent<OperationAction, ActionOperation,
+public final class ActionOperationComponent extends BaseOperationComponent<OperationAction, ActionOperation,
         OperationActionAnnotationBuilder, ActionInvocationHandler, ActionOperationInvocation> {
 
     public ActionOperationComponent() {

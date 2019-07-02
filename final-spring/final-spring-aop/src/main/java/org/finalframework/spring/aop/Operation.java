@@ -1,6 +1,8 @@
 package org.finalframework.spring.aop;
 
 /**
+ * AOP 切点操作描述
+ *
  * @author likly
  * @version 1.0
  * @date 2019-03-26 09:40:18
@@ -8,7 +10,13 @@ package org.finalframework.spring.aop;
  */
 public interface Operation {
 
+    /**
+     * 切点名称
+     */
     String name();
 
+    /**
+     * 调用者
+     */
     Class<? extends Invocation> invocation();
 }

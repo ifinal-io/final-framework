@@ -34,7 +34,7 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public boolean hasKey(Object key, Object field) {
+    public boolean isExists(Object key, Object field) {
         return Boolean.TRUE.equals(field == null ? Redis.key().hasKey(key) : Redis.hash().hasKey(key, field));
     }
 
