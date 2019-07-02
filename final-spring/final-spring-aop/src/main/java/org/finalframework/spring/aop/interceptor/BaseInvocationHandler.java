@@ -29,7 +29,7 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
             final Invocation invocation = configuration.getInvocation(context.operation().invocation());
-            final OperationExecutor executor = configuration.getExecutor(context.operation());
+            final Executor executor = configuration.getExecutor(context.operation());
             final Object cacheValue = invocation.before(executor, context, result);
             if (cacheValue != null) {
                 return cacheValue;
@@ -47,7 +47,7 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
             final Invocation invocation = configuration.getInvocation(context.operation().invocation());
-            final OperationExecutor executor = configuration.getExecutor(context.operation());
+            final Executor executor = configuration.getExecutor(context.operation());
             invocation.afterReturning(executor, context, result);
         }
     }
@@ -61,7 +61,7 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
             final Invocation invocation = configuration.getInvocation(context.operation().invocation());
-            final OperationExecutor executor = configuration.getExecutor(context.operation());
+            final Executor executor = configuration.getExecutor(context.operation());
             invocation.afterThrowing(executor, context, throwable);
         }
     }
@@ -75,7 +75,7 @@ public class BaseInvocationHandler<O extends Operation> implements InvocationHan
         final OperationConfiguration configuration = contexts.configuration();
         for (OperationContext<? extends Operation> context : operationContexts) {
             final Invocation invocation = configuration.getInvocation(context.operation().invocation());
-            final OperationExecutor executor = configuration.getExecutor(context.operation());
+            final Executor executor = configuration.getExecutor(context.operation());
             invocation.after(executor, context, result, throwable);
         }
     }

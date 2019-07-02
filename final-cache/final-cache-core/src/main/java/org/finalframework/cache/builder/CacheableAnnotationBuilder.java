@@ -38,6 +38,7 @@ public class CacheableAnnotationBuilder extends AbsCacheAnnotationBuilder implem
                 .expire(ann.expire())
                 .timeunit(ann.timeunit())
                 .invocation(ann.invocation())
+                .executor(ann.executor())
                 .build();
 
     }

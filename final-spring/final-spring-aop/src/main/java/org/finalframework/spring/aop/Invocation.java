@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-03-26 09:42:44
  * @since 1.0
  */
-public interface Invocation<E extends OperationExecutor, O extends Operation> {
+public interface Invocation<E extends Executor, O extends Operation> {
 
     default Object before(@NonNull E executor, @NonNull OperationContext<O> context, @Nullable Object result) {
         return null;

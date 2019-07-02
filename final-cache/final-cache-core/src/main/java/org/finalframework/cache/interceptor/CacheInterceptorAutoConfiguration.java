@@ -34,7 +34,7 @@ public class CacheInterceptorAutoConfiguration {
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public CacheConfiguration cacheConfiguration() {
         final CacheConfiguration configuration = new CacheConfiguration();
-        configuration.setExecutor(redisCache());
+        configuration.registerExecutor(Cache.class, redisCache());
         return configuration;
     }
 

@@ -1,5 +1,6 @@
 package org.finalframework.cache.annotation;
 
+import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.core.annotation.AliasFor;
@@ -56,4 +57,6 @@ public @interface CacheValue {
     String when() default "";
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+
+    Class<? extends Cache> executor() default Cache.class;
 }

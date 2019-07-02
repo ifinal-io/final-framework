@@ -1,6 +1,6 @@
 package org.finalframework.cache;
 
-import org.finalframework.spring.aop.OperationExecutor;
+import org.finalframework.spring.aop.Executor;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -13,9 +13,10 @@ import java.util.concurrent.TimeUnit;
  * @author likly
  * @version 1.0
  * @date 2018-11-23 15:50:33
+ * @see RedisCache
  * @since 1.0
  */
-public interface Cache extends OperationExecutor {
+public interface Cache extends Executor {
 
     /**
      * 获取缓存锁

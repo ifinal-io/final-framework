@@ -12,4 +12,6 @@ public interface CacheOperation extends Operation {
 
     Class<? extends CacheInvocation> invocation();
 
+    Class<? extends Cache> executor();
+
 }

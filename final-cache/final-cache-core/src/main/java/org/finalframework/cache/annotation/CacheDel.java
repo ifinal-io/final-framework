@@ -59,6 +59,9 @@ public @interface CacheDel {
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
 
+
+    Class<? extends Cache> executor() default Cache.class;
+
     /**
      * Defines several {@link CacheDel } annotations on the same element.
      *

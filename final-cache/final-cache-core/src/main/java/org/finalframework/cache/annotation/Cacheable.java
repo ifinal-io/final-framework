@@ -79,4 +79,6 @@ public @interface Cacheable {
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
 
+    Class<? extends Cache> executor() default Cache.class;
+
 }

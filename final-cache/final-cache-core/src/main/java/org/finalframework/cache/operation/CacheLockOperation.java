@@ -1,5 +1,6 @@
 package org.finalframework.cache.operation;
 
+import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheInvocation;
 import org.finalframework.cache.CacheOperation;
 import org.finalframework.cache.annotation.CacheLock;
@@ -31,6 +32,7 @@ public class CacheLockOperation implements CacheOperation {
     private final Integer retry;
     private final Long sleep;
     private final Class<? extends CacheInvocation> invocation;
+    private final Class<? extends Cache> executor;
 
     private CacheLockOperation(Builder builder) {
         this.name = Assert.isBlank(builder.name) ? CacheLockOperation.class.getSimpleName() : builder.name;
@@ -44,6 +46,7 @@ public class CacheLockOperation implements CacheOperation {
         this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : 0;
         this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.invocation = builder.invocation;
+        this.executor = builder.executor;
     }
 
     public static Builder builder() {
@@ -105,6 +108,10 @@ public class CacheLockOperation implements CacheOperation {
         return invocation;
     }
 
+    @Override
+    public Class<? extends Cache> executor() {
+        return this.executor;
+    }
     public static class Builder implements org.finalframework.core.Builder<CacheLockOperation> {
         private String name;
         private Collection<String> key;
@@ -117,6 +124,7 @@ public class CacheLockOperation implements CacheOperation {
         private Integer retry;
         private Long sleep;
         private Class<? extends CacheInvocation> invocation;
+        private Class<? extends Cache> executor;
 
         private Builder() {
         }
@@ -176,6 +184,10 @@ public class CacheLockOperation implements CacheOperation {
             return this;
         }
 
+        public Builder executor(Class<? extends Cache> executor) {
+            this.executor = executor == null ? Cache.class : executor;
+            return this;
+        }
         @Override
         public CacheLockOperation build() {
             return new CacheLockOperation(this);

@@ -45,4 +45,7 @@ public @interface CacheLock {
     long sleep() default 1000;
 
     Class<? extends CacheInvocation> invocation() default CacheInvocation.class;
+
+
+    Class<? extends Cache> executor() default Cache.class;
 }

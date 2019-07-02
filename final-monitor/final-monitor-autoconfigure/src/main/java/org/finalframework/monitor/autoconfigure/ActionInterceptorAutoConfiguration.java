@@ -2,6 +2,7 @@ package org.finalframework.monitor.autoconfigure;
 
 import org.finalframework.monitor.action.ActionConfiguration;
 import org.finalframework.monitor.action.ActionContextLoggerHandler;
+import org.finalframework.monitor.action.ActionRecorder;
 import org.finalframework.monitor.action.interceptor.ActionInterceptor;
 import org.finalframework.monitor.action.interceptor.DefaultActionRecorder;
 import org.finalframework.spring.aop.interceptor.OperationSourceAdvisor;
@@ -36,7 +37,7 @@ public class ActionInterceptorAutoConfiguration {
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public ActionConfiguration actionConfiguration() {
         final ActionConfiguration configuration = new ActionConfiguration();
-        configuration.setExecutor(actionRecorder());
+        configuration.registerExecutor(ActionRecorder.class, actionRecorder());
         return configuration;
     }
 

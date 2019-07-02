@@ -15,7 +15,7 @@ public interface InvocationHandler {
      * @param contexts
      * @param result
      * @return
-     * @see Invocation#before(OperationExecutor, OperationContext, Object)
+     * @see Invocation#before(Executor, OperationContext, Object)
      */
     @Nullable
     Object handleBefore(@NonNull OperationContexts contexts, @Nullable Object result);
@@ -23,7 +23,7 @@ public interface InvocationHandler {
     /**
      * @param contexts
      * @param result
-     * @see Invocation#afterReturning(OperationExecutor, OperationContext, Object)
+     * @see Invocation#afterReturning(Executor, OperationContext, Object)
      */
     default void handleAfterReturning(@NonNull OperationContexts contexts, @Nullable Object result) {
     }
@@ -31,7 +31,7 @@ public interface InvocationHandler {
     /**
      * @param contexts
      * @param throwable
-     * @see Invocation#afterThrowing(OperationExecutor, OperationContext, Throwable)
+     * @see Invocation#afterThrowing(Executor, OperationContext, Throwable)
      */
     default void handleAfterThrowing(@NonNull OperationContexts contexts, @NonNull Throwable throwable) {
     }
@@ -40,7 +40,7 @@ public interface InvocationHandler {
      * @param contexts
      * @param result
      * @param throwable
-     * @see Invocation#after(OperationExecutor, OperationContext, Object, Throwable)
+     * @see Invocation#after(Executor, OperationContext, Object, Throwable)
      */
     default void handleAfter(@NonNull OperationContexts contexts, @Nullable Object result, @Nullable Throwable throwable) {
     }

@@ -1,6 +1,5 @@
 package org.finalframework.spring.aop;
 
-import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
@@ -24,10 +23,8 @@ public class OperationConfiguration {
     private final Map<Class<? extends Annotation>, OperationComponent> operationComponents = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Annotation>, OperationAnnotationBuilder> operationAnnotationBuilders = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Invocation>, Invocation> invocations = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
+    private final Map<Class<? extends Executor>, Executor> executors = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final List<InvocationHandler> invocationHandlers = new CopyOnWriteArrayList<>();
-    @Setter
-    private OperationExecutor executor;
-
 
     @SuppressWarnings("all")
     public void registerCacheComponent(OperationComponent component) {
@@ -36,6 +33,10 @@ public class OperationConfiguration {
         invocations.put(component.invocation().getClass(), component.invocation());
         invocationHandlers.add(component.handler());
         operationComponents.put(component.annotation(), component);
+    }
+
+    public void registerExecutor(Class<? extends Executor> clazz, Executor executor) {
+        executors.put(clazz, executor);
     }
 
 
@@ -55,7 +56,7 @@ public class OperationConfiguration {
         return invocationHandlers;
     }
 
-    public OperationExecutor getExecutor(Operation operation) {
-        return executor;
+    public Executor getExecutor(Operation operation) {
+        return executors.get(operation.executor());
     }
 }

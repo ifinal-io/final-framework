@@ -6,5 +6,5 @@ package org.finalframework.spring.aop;
  * @date 2019-03-26 10:02:31
  * @since 1.0
  */
-public interface OperationExecutor {
+public interface Executor {
 }

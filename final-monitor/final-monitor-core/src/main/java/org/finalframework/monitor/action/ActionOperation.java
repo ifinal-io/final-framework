@@ -4,6 +4,7 @@ package org.finalframework.monitor.action;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.action.annotation.OperationAction;
 import org.finalframework.monitor.action.invocation.ActionOperationInvocation;
+import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.Invocation;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -57,6 +58,8 @@ public class ActionOperation implements Operation {
      */
     private final Class<? extends Invocation> invocation;
 
+    private final Class<? extends Executor> executor;
+
     private ActionOperation(Builder builder) {
         this.name = builder.name;
         this.type = builder.type;
@@ -66,6 +69,7 @@ public class ActionOperation implements Operation {
         this.level = builder.level;
         this.point = builder.point;
         this.invocation = builder.invocation;
+        this.executor = builder.executor;
         this.attributes = Assert.isEmpty(builder.attributes) ? null : builder.attributes;
     }
 
@@ -123,6 +127,11 @@ public class ActionOperation implements Operation {
         return invocation;
     }
 
+    @Override
+    public Class<? extends Executor> executor() {
+        return this.executor;
+    }
+
     public static class Builder implements org.finalframework.core.Builder<ActionOperation> {
         private final Map<String, String> attributes = new HashMap<>();
         private String name;
@@ -133,6 +142,7 @@ public class ActionOperation implements Operation {
         private String target;
         private CutPoint point;
         private Class<? extends Invocation> invocation;
+        private Class<? extends Executor> executor;
 
         private Builder() {
         }
@@ -181,6 +191,11 @@ public class ActionOperation implements Operation {
 
         public Builder invocation(Class<? extends Invocation> invocation) {
             this.invocation = invocation == null || invocation == Invocation.class ? ActionOperationInvocation.class : invocation;
+            return this;
+        }
+
+        public Builder executor(Class<? extends ActionRecorder> executor) {
+            this.executor = executor == null ? ActionRecorder.class : executor;
             return this;
         }
 
