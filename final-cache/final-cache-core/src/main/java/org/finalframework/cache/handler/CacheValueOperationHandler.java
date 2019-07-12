@@ -17,10 +17,11 @@ import java.lang.reflect.Type;
  * @version 1.0
  * @date 2018-11-23 21:15:34
  * @see Cacheable
+ * @see Cache#get(Object, Object, Type, Class)
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheValueOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CacheValueOperation> {
+public class CacheValueOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheValueOperation> {
 
     @Override
     public Void before(Cache cache, OperationContext<CacheValueOperation> context, Object result) {

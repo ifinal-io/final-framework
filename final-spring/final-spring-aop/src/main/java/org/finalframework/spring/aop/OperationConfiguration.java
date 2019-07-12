@@ -28,11 +28,11 @@ public class OperationConfiguration {
 
     @SuppressWarnings("all")
     public void registerCacheComponent(OperationComponent component) {
-        operationAnnotations.add(component.annotation());
-        operationAnnotationBuilders.put(component.annotation(), component.builder());
-        operationHandlers.put(component.invocation().getClass(), component.invocation());
-        invocations.add(component.handler());
-        operationComponents.put(component.annotation(), component);
+        operationAnnotations.add(component.getAnnotation());
+        operationAnnotationBuilders.put(component.getAnnotation(), component.getBuilder());
+        operationHandlers.put(component.getHandler().getClass(), component.getHandler());
+        invocations.add(component.getInvocation());
+        operationComponents.put(component.getAnnotation(), component);
     }
 
     public void registerExecutor(Class<? extends Executor> clazz, Executor executor) {

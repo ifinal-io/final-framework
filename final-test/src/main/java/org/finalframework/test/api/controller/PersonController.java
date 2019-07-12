@@ -10,9 +10,10 @@ import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Scanner;
 import org.finalframework.json.Json;
-import org.finalframework.monitor.action.annotation.OperationAction;
-import org.finalframework.monitor.action.annotation.OperationAttribute;
+import org.finalframework.monitor.annotation.MonitorTrace;
+import org.finalframework.monitor.annotation.OperationAction;
 import org.finalframework.spring.aop.annotation.CutPoint;
+import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
@@ -127,6 +128,7 @@ public class PersonController {
         return personMapper.update(update, id);
     }
 
+    @MonitorTrace
     @GetMapping("/index")
     public void index() {
 

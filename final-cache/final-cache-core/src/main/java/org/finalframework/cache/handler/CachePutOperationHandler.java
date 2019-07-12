@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @see Cacheable
  * @since 1.0
  */
-public class CachePutOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CachePutOperation> {
+public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CachePutOperation> {
 
     @Override
     public Void before(Cache cache, OperationContext<CachePutOperation> context, Object result) {

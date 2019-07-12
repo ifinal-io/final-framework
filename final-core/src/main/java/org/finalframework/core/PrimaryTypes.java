@@ -14,6 +14,7 @@ import java.util.stream.Stream;
  * @date 2019-01-22 13:27:32
  * @since 1.0
  */
+@SuppressWarnings("all")
 public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
 
     public static final PrimaryTypes BYTE = new PrimaryTypes(byte.class, Byte.class);

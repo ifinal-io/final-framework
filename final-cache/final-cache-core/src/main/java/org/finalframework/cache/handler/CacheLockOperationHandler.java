@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
-public class CacheLockOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CacheLockOperation> {
+public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheLockOperation> {
 
     private static final String KEY = "key";
     private static final String VALUE = "value";

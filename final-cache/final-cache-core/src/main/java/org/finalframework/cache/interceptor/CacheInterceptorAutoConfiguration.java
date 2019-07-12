@@ -1,9 +1,7 @@
 package org.finalframework.cache.interceptor;
 
-import org.finalframework.cache.Cache;
-import org.finalframework.cache.CacheConfiguration;
 import org.finalframework.cache.RedisCache;
-import org.finalframework.spring.aop.interceptor.OperationSourceAdvisor;
+import org.finalframework.cache.component.*;
 import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -23,28 +21,37 @@ import org.springframework.context.annotation.Role;
 public class CacheInterceptorAutoConfiguration {
 
     @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public OperationSourceAdvisor cacheOperationSourceAdvisor() {
-        final OperationSourceAdvisor advisor = new OperationSourceAdvisor(cacheConfiguration());
-        advisor.setAdviceBeanName("cacheInterceptor");
-        return advisor;
+    public CacheValueComponent cacheValueComponent() {
+        return new CacheValueComponent();
     }
 
     @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheConfiguration cacheConfiguration() {
-        final CacheConfiguration configuration = new CacheConfiguration();
-        configuration.registerExecutor(Cache.class, redisCache());
-        return configuration;
+    public CacheDelComponent cacheDelComponent() {
+        return new CacheDelComponent();
     }
 
     @Bean
-    public CacheInterceptor cacheInterceptor() {
-        return new CacheInterceptor(cacheConfiguration());
+    public CacheIncrementComponent cacheIncrementComponent() {
+        return new CacheIncrementComponent();
     }
 
     @Bean
-    public Cache redisCache() {
+    public CacheableComponent cacheableComponent() {
+        return new CacheableComponent();
+    }
+
+    @Bean
+    public CacheLockComponent cacheLockComponent() {
+        return new CacheLockComponent();
+    }
+
+    @Bean
+    public CachePutComponent cachePutComponent() {
+        return new CachePutComponent();
+    }
+
+    @Bean
+    public RedisCache redisCache() {
         return new RedisCache();
     }
 }

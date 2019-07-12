@@ -5,8 +5,8 @@ import org.finalframework.cache.annotation.CachePut;
 import org.finalframework.cache.builder.CachePutAnnotationBuilder;
 import org.finalframework.cache.handler.CachePutOperationHandler;
 import org.finalframework.cache.invocation.CachePutInvocation;
-import org.finalframework.cache.operation.CachePutOperation;
-import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
+import org.finalframework.spring.aop.annotation.OperationComponent;
+import org.springframework.core.annotation.Order;
 
 /**
  * @author likly
@@ -14,10 +14,12 @@ import org.finalframework.spring.aop.interceptor.BaseOperationComponent;
  * @date 2019-03-23 00:18:41
  * @since 1.0
  */
-public class CachePutComponent extends BaseOperationComponent<CachePut, CachePutOperation,
-        CachePutAnnotationBuilder, CachePutInvocation, CachePutOperationHandler> {
-
-    public CachePutComponent() {
-        super(CachePut.class, new CachePutAnnotationBuilder(), new CachePutInvocation(), new CachePutOperationHandler());
-    }
+@Order(CacheOrder.CACHE_PUT)
+@OperationComponent(
+        annotation = CachePut.class,
+        builder = CachePutAnnotationBuilder.class,
+        handler = CachePutOperationHandler.class,
+        invocation = CachePutInvocation.class
+)
+public final class CachePutComponent {
 }

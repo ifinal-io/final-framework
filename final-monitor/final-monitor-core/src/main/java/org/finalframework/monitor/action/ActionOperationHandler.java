@@ -1,5 +1,7 @@
 package org.finalframework.monitor.action;
 
+import org.finalframework.monitor.executor.Recorder;
+import org.finalframework.monitor.operation.ActionOperation;
 import org.finalframework.spring.aop.OperationHandler;
 
 /**
@@ -8,6 +10,6 @@ import org.finalframework.spring.aop.OperationHandler;
  * @date 2019-03-27 23:59:21
  * @since 1.0
  */
-public interface ActionOperationHandler<T> extends OperationHandler<ActionRecorder<T>, ActionOperation> {
+public interface ActionOperationHandler<T> extends OperationHandler<Recorder<T>, ActionOperation> {
 
 }

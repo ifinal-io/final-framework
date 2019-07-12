@@ -2,6 +2,7 @@ package org.finalframework.monitor.action;
 
 
 import org.finalframework.json.Json;
+import org.finalframework.monitor.context.ActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,6 @@ public class ActionContextLoggerHandler implements ActionContextHandler<Object> 
 
     @Override
     public void handle(ActionContext<Object> context) {
-        logger.info("==> action invocation: {}", Json.toJson(context));
+        logger.info("==> action handler: {}", Json.toJson(context));
     }
 }

@@ -1,6 +1,6 @@
 package org.finalframework.test.service;
 
-import org.finalframework.monitor.action.annotation.OperationAction;
+import org.finalframework.monitor.annotation.OperationAction;
 import org.finalframework.test.entity.Person;
 
 /**

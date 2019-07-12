@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-03-22 22:33:02
  * @since 1.0
  */
-public class CacheIncrementOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CacheIncrementOperation> {
+public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrementOperation> {
 
     @Override
     public Void before(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {

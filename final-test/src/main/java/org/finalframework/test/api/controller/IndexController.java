@@ -1,6 +1,6 @@
 package org.finalframework.test.api.controller;
 
-import org.finalframework.monitor.action.annotation.OperationAction;
+import org.finalframework.monitor.annotation.OperationAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

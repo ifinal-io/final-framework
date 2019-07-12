@@ -13,6 +13,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
 /**
+ * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link CutPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-31 18:21

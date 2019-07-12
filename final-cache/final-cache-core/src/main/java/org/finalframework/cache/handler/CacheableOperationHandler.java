@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class CacheableOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CacheableOperation> {
+public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheableOperation> {
     private static final String KEY = "key";
     private static final String FIELD = "field";
 

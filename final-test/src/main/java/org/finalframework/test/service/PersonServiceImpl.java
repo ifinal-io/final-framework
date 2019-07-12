@@ -1,6 +1,6 @@
 package org.finalframework.test.service;
 
-import org.finalframework.monitor.action.annotation.OperationAction;
+import org.finalframework.monitor.annotation.OperationAction;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.slf4j.Logger;

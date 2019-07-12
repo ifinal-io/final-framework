@@ -17,7 +17,7 @@ import org.springframework.expression.EvaluationContext;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
-public class CacheDelOperationHandler extends AbsCacheInvocationSupport implements OperationHandler<Cache, CacheDelOperation> {
+public class CacheDelOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheDelOperation> {
 
     @Override
     public Void before(Cache cache, OperationContext<CacheDelOperation> context, Object result) {

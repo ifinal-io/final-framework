@@ -8,7 +8,7 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 
 /**
- * {@link Operation} 注解构建器
+ * {@link Operation} 注解构建器，将符合条件的{@link Annotation} 转化为对应的 {@link Operation}。
  *
  * @author likly
  * @version 1.0

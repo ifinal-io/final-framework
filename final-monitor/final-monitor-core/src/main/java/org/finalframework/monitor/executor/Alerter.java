@@ -1,0 +1,14 @@
+package org.finalframework.monitor.executor;
+
+import org.finalframework.monitor.context.AlertContext;
+import org.finalframework.spring.aop.Executor;
+
+/**
+ * @author ilikly
+ * @version 1.0
+ * @date 2019-07-10 18:17
+ * @since 1.0
+ */
+public interface Alerter<T> extends Executor {
+    void alert(AlertContext<T> context);
+}
