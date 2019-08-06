@@ -43,10 +43,22 @@ public interface Cache extends Executor {
      */
     boolean unlock(@NonNull Object key, @Nullable Object value);
 
+    /**
+     * 检查指定的 {@code key} 和 {@code field} 是否存在
+     *
+     * <a href="http://doc.redisfans.com/key/exists.html">EXISTS</a>
+     * <a href="http://doc.redisfans.com/hash/hexists.html">HEXISTS</a>
+     *
+     * @param key   缓存 key
+     * @param field 缓存域
+     * @return 如果存在，返回 {@code true}，否则返回 {@code false}。
+     */
     boolean isExists(@NonNull Object key, @Nullable Object field);
 
     /**
-     * 设置过期时间
+     * 为给定的 {@code key} 设置我正在时间，当 {@code key} 过期时（生存时间为0），它会被自动删除
+     *
+     * <a href="http://doc.redisfans.com/key/expire.html">EXPIRE</a>
      *
      * @param key      缓存key
      * @param ttl      过期时间
@@ -106,6 +118,9 @@ public interface Cache extends Executor {
 
     /**
      * 删除缓存
+     *
+     * <a href="http://doc.redisfans.com/key/del.html">DEL</a>
+     * <a href="http://doc.redisfans.com/hash/hdel.html">HDEL</a>
      *
      * @param key   缓存的 Key
      * @param field 缓存的 Field

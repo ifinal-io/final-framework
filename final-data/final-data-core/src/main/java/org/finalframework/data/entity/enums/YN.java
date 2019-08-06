@@ -3,6 +3,11 @@ package org.finalframework.data.entity.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 /**
  * @author likly
  * @version 1.0
@@ -13,34 +18,41 @@ public enum YN implements IEnum<Integer> {
     /**
      * 有效
      */
-    YES(1),
+    YES(1, "有效"),
     /**
      * 无效
      */
-    NO(0);
+    NO(0, "无效");
     /**
      * 枚举码
      */
     private final Integer code;
+    private static final Map<Integer, YN> cache;
 
-
-    YN(Integer code) {
-        this.code = code;
+    static {
+        cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
     }
+
+    private final String description;
+
+    YN(Integer code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
 
     @JsonCreator
     public static YN valueOf(int value) {
-        for (YN yn : values()) {
-            if (yn.code.equals(value)) {
-                return yn;
-            }
-        }
-        return null;
+        return cache.get(value);
     }
 
     @Override
     @JsonValue
     public Integer getCode() {
         return code;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

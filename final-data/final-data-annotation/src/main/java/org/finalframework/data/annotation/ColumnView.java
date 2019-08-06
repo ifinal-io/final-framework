@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 视图，根据视图生成SQL。
+ * 实现根据不同的实图查询不同的列的需求。
  * 功能参考 {@link com.fasterxml.jackson.annotation.JsonView}
  *
  * @author likly

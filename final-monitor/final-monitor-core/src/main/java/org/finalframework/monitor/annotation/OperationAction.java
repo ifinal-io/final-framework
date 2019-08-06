@@ -52,7 +52,11 @@ public @interface OperationAction {
     /**
      * 操作者
      */
+    @AliasFor("who")
     String operator() default "";
+
+    @AliasFor("operator")
+    String who() default "";
 
     /**
      * 操作目标

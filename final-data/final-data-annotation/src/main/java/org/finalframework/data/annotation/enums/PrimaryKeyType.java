@@ -1,6 +1,8 @@
 package org.finalframework.data.annotation.enums;
 
 /**
+ * 主键类型
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-17 16:02
