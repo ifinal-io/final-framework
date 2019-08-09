@@ -12,7 +12,7 @@ import java.util.Set;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class JsonSetTypeHandler<T> extends JsonTypeHandler<Set<T>> {
+public class JsonSetTypeHandler<T> extends AbsJsonTypeHandler<Set<T>> {
 
     private final Class<T> type;
 

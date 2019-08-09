@@ -14,8 +14,11 @@ import java.sql.SQLException;
  * @version 1.0
  * @date 2018-09-26 23:48
  * @since 1.0
+ * @see JsonObjectTypeHandler
+ * @see JsonListTypeHandler
+ * @see JsonSetTypeHandler
  */
-public abstract class JsonTypeHandler<T> extends BaseTypeHandler<T> {
+public abstract class AbsJsonTypeHandler<T> extends BaseTypeHandler<T> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {

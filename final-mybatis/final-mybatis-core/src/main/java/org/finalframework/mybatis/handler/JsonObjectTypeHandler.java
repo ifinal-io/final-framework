@@ -9,7 +9,7 @@ import org.finalframework.json.Json;
  * @date 2018-09-26 23:48
  * @since 1.0
  */
-public class JsonObjectTypeHandler<T> extends JsonTypeHandler<T> {
+public class JsonObjectTypeHandler<T> extends AbsJsonTypeHandler<T> {
     private final Class<T> type;
 
     public JsonObjectTypeHandler(@NonNull Class<T> type) {

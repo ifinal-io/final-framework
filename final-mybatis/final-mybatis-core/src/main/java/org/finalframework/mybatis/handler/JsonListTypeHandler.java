@@ -12,7 +12,7 @@ import java.util.List;
  * @since 1.0
  */
 @SuppressWarnings("unchecked")
-public class JsonListTypeHandler<T> extends JsonTypeHandler<List<T>> {
+public class JsonListTypeHandler<T> extends AbsJsonTypeHandler<List<T>> {
     private final Class<T> type;
     public JsonListTypeHandler(Class<T> type) {
         this.type = type;
