@@ -6,12 +6,13 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
- * mark the entity property is a primary key.
+ * 标记{@link java.lang.reflect.Field}映射为主键。
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:14
- * @since 1.0
  * @see org.springframework.data.annotation.Id
+ * @since 1.0
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

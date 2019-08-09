@@ -21,4 +21,6 @@ public @interface DataSource {
     String[] basePackages();
 
     String[] mapperLocations() default {};
+
+    boolean primary() default false;
 }

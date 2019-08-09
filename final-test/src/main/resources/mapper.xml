@@ -5,7 +5,7 @@
     </sql>
     <resultMap id="PersonMap" type="org.finalframework.test.entity.Person">
         <result column="age" javaType="java.lang.Integer" property="age"/>
-        <result column="createdTime" javaType="java.util.Date" property="createdTime"/>
+        <result column="created" javaType="java.util.Date" property="created"/>
         <association javaType="org.finalframework.test.entity.Person" property="creator">
             <id column="creator" javaType="java.lang.Long" property="id"/>
             <result column="creatorName" javaType="java.lang.String" property="name"/>
@@ -13,7 +13,7 @@
         </association>
         <id column="id" javaType="java.lang.Long" property="id"/>
         <result column="intList" javaType="java.lang.Integer" property="intList"/>
-        <result column="lastModifiedTime" javaType="java.util.Date" property="lastModifiedTime"/>
+        <result column="lastModified" javaType="java.util.Date" property="lastModified"/>
         <result column="name" javaType="java.lang.String" property="name"/>
         <result column="stringList" javaType="java.lang.String" property="stringList"/>
         <result column="yn" javaType="org.finalframework.data.entity.enums.YN" property="yn"
@@ -133,7 +133,7 @@
         </choose>
     </sql>
     <sql id="sql-select">SELECT
-        age,createdTime,creator,creatorName,creatorAge,id,intList,lastModifiedTime,name,stringList,yn FROM
+        age,created,creator,creatorName,creatorAge,id,intList,lastModified,name,stringList,yn FROM
     </sql>
     <sql id="sql-cutPoint">
         <if test="query != null and query.sort != null">ORDER BY
@@ -169,7 +169,7 @@
                                 #{entity.creator.age},
                             </if>
                             <if test="entity.intList != null">intList = #{entity.intList},</if>
-                            <if test="entity.lastModifiedTime != null">lastModifiedTime = #{entity.lastModifiedTime},
+                            <if test="entity.lastModified != null">lastModified = #{entity.lastModified},
                             </if>
                             <if test="entity.name != null">name = #{entity.name},</if>
                             <if test="entity.stringList != null">stringList = #{entity.stringList},</if>
@@ -196,7 +196,7 @@
                             <if test="entity.creator != null">creatorName = #{entity.creator.name},</if>
                             <if test="entity.creator != null">creatorAge = #{entity.creator.age},</if>
                             <if>intList = #{entity.intList},</if>
-                            <if>lastModifiedTime = #{entity.lastModifiedTime},</if>
+                            <if>lastModified = #{entity.lastModified},</if>
                             <if>name = #{entity.name},</if>
                             <if>stringList = #{entity.stringList},</if>
                             <if>yn =
@@ -296,22 +296,22 @@
                             </when>
                         </choose>
                     </if>
-                    <if test="update['lastModifiedTime'] != null">
+                    <if test="update['lastModified'] != null">
                         <choose>
-                            <when test="update['lastModifiedTime'].operation.name() == 'EQUAL'">lastModifiedTime =
-                                #{update[lastModifiedTime].value},
+                            <when test="update['lastModified'].operation.name() == 'EQUAL'">lastModified =
+                                #{update[lastModified].value},
                             </when>
-                            <when test="update['lastModifiedTime'].operation.name() == 'INC'">lastModifiedTime =
-                                lastModifiedTime + 1,
+                            <when test="update['lastModified'].operation.name() == 'INC'">lastModified =
+                                lastModified + 1,
                             </when>
-                            <when test="update['lastModifiedTime'].operation.name() == 'INCR'">lastModifiedTime =
-                                lastModifiedTime + #{update[lastModifiedTime].value},
+                            <when test="update['lastModified'].operation.name() == 'INCR'">lastModified =
+                                lastModified + #{update[lastModified].value},
                             </when>
-                            <when test="update['lastModifiedTime'].operation.name() == 'DEC'">lastModifiedTime =
-                                lastModifiedTime - 1,
+                            <when test="update['lastModified'].operation.name() == 'DEC'">lastModified =
+                                lastModified - 1,
                             </when>
-                            <when test="update['lastModifiedTime'].operation.name() == 'DECR'">lastModifiedTime =
-                                lastModifiedTime - #{update[lastModifiedTime].value},
+                            <when test="update['lastModified'].operation.name() == 'DECR'">lastModified =
+                                lastModified - #{update[lastModified].value},
                             </when>
                         </choose>
                     </if>
@@ -368,7 +368,7 @@
             <when test="view != null and view == 'org.finalframework.test.entity.Person'.toString()">
                 age,name,stringList
             </when>
-            <otherwise>age,createdTime,creator,creatorName,creatorAge,id,intList,lastModifiedTime,name,stringList,yn
+            <otherwise>age,created,creator,creatorName,creatorAge,id,intList,lastModified,name,stringList,yn
             </otherwise>
         </choose>
     </sql>

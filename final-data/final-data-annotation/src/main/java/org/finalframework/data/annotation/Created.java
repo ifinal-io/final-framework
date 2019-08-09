@@ -6,9 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import java.lang.annotation.*;
 
 /**
+ * 创建时间
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:14
+ * @see LastModified
  * @since 1.0
  */
 @Index(Integer.MAX_VALUE - 100)
@@ -16,7 +19,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @CreatedDate
-public @interface CreatedTime {
+public @interface Created {
     String table() default "";
 
     @AliasFor("name")

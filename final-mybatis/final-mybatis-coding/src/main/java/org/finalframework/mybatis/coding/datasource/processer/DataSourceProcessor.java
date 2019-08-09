@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class DataSourceProcessor extends AbstractProcessor {
+    public static final String DATASOURCE = "DataSource";
     private final Coder coder = new FreeMakerCoder();
     private Filer filer;
     private Elements elements;
@@ -74,7 +75,7 @@ public class DataSourceProcessor extends AbstractProcessor {
                             .basePackages(dataSource.basePackages())
                             .mapperLocations(dataSource.mapperLocations())
                             .prefix(dataSource.prefix())
-                            .dataSource(name + "DataSource")
+                            .dataSource(DATASOURCE.equalsIgnoreCase(name) ? name : name + DATASOURCE)
                             .transactionManager(name + "TransactionManager")
                             .sqlSessionFactory(name + "SqlSessionFactory")
                             .sqlSessionTemplate(name + "SqlSessionTemplate")

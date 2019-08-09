@@ -24,7 +24,7 @@ public class DataSourceModel implements Serializable {
     private final String transactionManager;
     private final String sqlSessionFactory;
     private final String sqlSessionTemplate;
-
+    private final boolean primary;
 
     private DataSourceModel(Builder builder) {
         this.packageName = builder.packageName;
@@ -36,6 +36,7 @@ public class DataSourceModel implements Serializable {
         this.transactionManager = builder.transactionManager;
         this.sqlSessionFactory = builder.sqlSessionFactory;
         this.sqlSessionTemplate = builder.sqlSessionTemplate;
+        this.primary = builder.primary;
     }
 
     public static Builder builder() {
@@ -78,6 +79,10 @@ public class DataSourceModel implements Serializable {
         return sqlSessionTemplate;
     }
 
+    public boolean isPrimary() {
+        return primary;
+    }
+
     public static class Builder implements org.finalframework.core.Builder<DataSourceModel> {
         private String packageName;
         private String name;
@@ -88,6 +93,7 @@ public class DataSourceModel implements Serializable {
         private String transactionManager;
         private String sqlSessionFactory;
         private String sqlSessionTemplate;
+        private boolean primary = false;
 
         public Builder packageName(String packageName) {
             this.packageName = packageName;
@@ -131,6 +137,11 @@ public class DataSourceModel implements Serializable {
 
         public Builder sqlSessionTemplate(String sqlSessionTemplate) {
             this.sqlSessionTemplate = sqlSessionTemplate;
+            return this;
+        }
+
+        public Builder primary(boolean primary) {
+            this.primary = primary;
             return this;
         }
 

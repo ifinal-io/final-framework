@@ -65,10 +65,10 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
                 initColumn(findAnnotation(Column.class));
             } else if (isAnnotationPresent(JsonColumn.class)) {
                 initJsonColumn(findAnnotation(JsonColumn.class));
-            } else if (isAnnotationPresent(CreatedTime.class)) {
-                initCreatedTime(findAnnotation(CreatedTime.class));
-            } else if (isAnnotationPresent(LastModifiedTime.class)) {
-                initLastModifiedTime(findAnnotation(LastModifiedTime.class));
+            } else if (isAnnotationPresent(Created.class)) {
+                initCreatedTime(findAnnotation(Created.class));
+            } else if (isAnnotationPresent(LastModified.class)) {
+                initLastModifiedTime(findAnnotation(LastModified.class));
             } else if (isAnnotationPresent(ReferenceColumn.class)) {
                 initReferenceColumn(findAnnotation(ReferenceColumn.class));
             } else if (isAnnotationPresent(MultiColumn.class)) {
@@ -148,27 +148,27 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
 
 
     @SuppressWarnings("all")
-    private void initCreatedTime(CreatedTime createdTime) {
-        this.unique = createdTime.unique();
-        this.nonnull = createdTime.nonnull();
-        this.insertable = createdTime.insertable();
-        this.updatable = createdTime.updatable();
-        this.selectable = createdTime.selectable();
-        this.table = createdTime.table();
-        this.column = createdTime.name();
-        this.placeholder = createdTime.placeholder();
+    private void initCreatedTime(Created created) {
+        this.unique = created.unique();
+        this.nonnull = created.nonnull();
+        this.insertable = created.insertable();
+        this.updatable = created.updatable();
+        this.selectable = created.selectable();
+        this.table = created.table();
+        this.column = created.name();
+        this.placeholder = created.placeholder();
     }
 
     @SuppressWarnings("all")
-    private void initLastModifiedTime(LastModifiedTime lastModifiedTime) {
-        this.unique = lastModifiedTime.unique();
-        this.nonnull = lastModifiedTime.nonnull();
-        this.insertable = lastModifiedTime.insertable();
-        this.updatable = lastModifiedTime.updatable();
-        this.selectable = lastModifiedTime.selectable();
-        this.table = lastModifiedTime.table();
-        this.column = lastModifiedTime.name();
-        this.placeholder = lastModifiedTime.placeholder();
+    private void initLastModifiedTime(LastModified lastModified) {
+        this.unique = lastModified.unique();
+        this.nonnull = lastModified.nonnull();
+        this.insertable = lastModified.insertable();
+        this.updatable = lastModified.updatable();
+        this.selectable = lastModified.selectable();
+        this.table = lastModified.table();
+        this.column = lastModified.name();
+        this.placeholder = lastModified.placeholder();
     }
 
     @SuppressWarnings("all")

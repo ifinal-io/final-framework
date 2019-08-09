@@ -2,8 +2,8 @@ package org.finalframework.data.entity;
 
 import lombok.Data;
 import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.CreatedTime;
-import org.finalframework.data.annotation.LastModifiedTime;
+import org.finalframework.data.annotation.Created;
+import org.finalframework.data.annotation.LastModified;
 import org.finalframework.data.annotation.PrimaryKey;
 import org.finalframework.data.entity.enums.YN;
 
@@ -22,9 +22,9 @@ public abstract class AbsEntity implements IEntity<Long> {
 
     @PrimaryKey
     private Long id;
-    @CreatedTime
+    @Created
     private Date createdTime;
-    @LastModifiedTime
+    @LastModified
     private Date lastModifiedTime;
     @Column(insertable = false)
     private YN yn;
