@@ -15,9 +15,6 @@ public abstract class DefaultCollectionTypeHandler<E, T extends Collection<E>> e
 
     public DefaultCollectionTypeHandler(Class<E> type) {
         super(type);
-//        if (!JavaType.isPrimary(type)) {
-        //            throw new IllegalArgumentException("the target type eq not support " + type.getName());
-//        }
     }
 
     @Override

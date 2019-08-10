@@ -29,6 +29,7 @@ public class TypeHandlerRegistry {
         typeHandlerModule.registerTypeHandler(javaType, collectionType, persistentType, typeHandler);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> TypeHandler<T> getTypeHandler(Class<T> javaType, Class<? extends Collection> collectionType, PersistentType persistentType) {
         if (javaType.isEnum()) {
             return new EnumTypeHandler(javaType);
@@ -36,10 +37,9 @@ public class TypeHandlerRegistry {
 
         TypeHandler<T> typeHandler = typeHandlerModule.getTypeHandler(javaType, collectionType, persistentType);
         logger.trace("find typeHandler: ,javaType={},collectionType={},persistentType={},typeHandler={}",
-                javaType, collectionType, persistentType.getClass());
+                javaType, collectionType, persistentType.getClass(), typeHandler.getClass().getCanonicalName());
         return typeHandler;
 
     }
-
 
 }
