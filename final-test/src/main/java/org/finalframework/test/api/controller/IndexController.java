@@ -1,11 +1,16 @@
 package org.finalframework.test.api.controller;
 
+import org.finalframework.data.entity.enums.YN;
 import org.finalframework.monitor.annotation.OperationAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -24,5 +29,11 @@ public class IndexController {
     @OperationAction("访问首页")
     public String hello() {
         return "Hello";
+    }
+
+
+    @GetMapping("/yn")
+    public List<YN> yn() {
+        return Arrays.stream(YN.values()).collect(Collectors.toList());
     }
 }

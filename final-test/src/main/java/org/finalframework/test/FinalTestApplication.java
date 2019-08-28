@@ -1,8 +1,12 @@
 package org.finalframework.test;
 
-import org.springframework.boot.SpringApplication;
+import org.finalframework.monitor.annotation.OperationAction;
+import org.finalframework.test.service.PersonServiceImpl;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -12,7 +16,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 @SpringBootApplication()
 public class FinalTestApplication extends SpringBootServletInitializer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
 //
 //        RequestJsonParamHandlerRegistry.getInstance()
 //                .register(JSONObject.class, new RequestJsonParamHandler<JSONObject>() {
@@ -22,10 +26,14 @@ public class FinalTestApplication extends SpringBootServletInitializer {
 //                    }
 //                });
 
+        Method findById = PersonServiceImpl.class.getMethod("findById", Long.class);
+        Collection<OperationAction> operationAnnotation = new FinalOperationAnnotationFinder<>(OperationAction.class).findOperationAnnotation(findById);
+        System.out.println(operationAnnotation);
 
-        final long start = System.currentTimeMillis();
-        SpringApplication.run(FinalTestApplication.class, args);
-        final long end = System.currentTimeMillis();
-        System.out.println(end - start);
+
+//        final long start = System.currentTimeMillis();
+//        SpringApplication.run(FinalTestApplication.class, args);
+//        final long end = System.currentTimeMillis();
+//        System.out.println(end - start);
     }
 }

@@ -1,7 +1,7 @@
 package org.finalframework.monitor.annotation;
 
 import org.finalframework.monitor.enums.MonitorLevel;
-import org.finalframework.monitor.interceptor.DefaultRecorder;
+import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -74,7 +74,7 @@ public @interface OperationAction {
 
     Class<? extends OperationHandler> handler() default OperationHandler.class;
 
-    Class<? extends Executor> executor() default DefaultRecorder.class;
+    Class<? extends Executor> executor() default Recorder.class;
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

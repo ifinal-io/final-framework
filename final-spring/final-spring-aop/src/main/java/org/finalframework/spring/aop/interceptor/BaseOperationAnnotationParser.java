@@ -71,7 +71,7 @@ public class BaseOperationAnnotationParser<O extends Operation> implements Opera
     private <A extends Annotation> OperationAnnotationFinder<A> getOperationAnnotationFinder(Class<A> ann) {
         OperationAnnotationFinder finder = annotationFinders.get(ann);
         if (finder == null) {
-            finder = new BaseOperationAnnotationFinder<>(ann);
+            finder = new FinalOperationAnnotationFinder(ann);
             annotationFinders.put(ann, finder);
         }
         return finder;

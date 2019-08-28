@@ -1,0 +1,16 @@
+package org.finalframework.core.generator;
+
+import java.util.UUID;
+
+/**
+ * @author likly
+ * @version 1.0
+ * @date 2019-08-27 14:52:41
+ * @since 1.0
+ */
+public class UUIDTraceGenerator implements TraceGenerator {
+    @Override
+    public String generate() {
+        return UUID.randomUUID().toString();
+    }
+}

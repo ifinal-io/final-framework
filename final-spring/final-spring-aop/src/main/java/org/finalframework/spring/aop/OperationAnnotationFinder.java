@@ -1,5 +1,6 @@
 package org.finalframework.spring.aop;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
@@ -13,6 +14,7 @@ import java.util.Collection;
  * @date 2019-03-26 12:43:08
  * @since 1.0
  */
+@CacheEvict
 public interface OperationAnnotationFinder<A extends Annotation> {
 
     Collection<A> findOperationAnnotation(@NonNull Class<?> type);

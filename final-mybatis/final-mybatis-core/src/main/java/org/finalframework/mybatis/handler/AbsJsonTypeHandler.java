@@ -21,8 +21,8 @@ import java.sql.SQLException;
 public abstract class AbsJsonTypeHandler<T> extends BaseTypeHandler<T> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, Json.toJson(parameter));
+    public final void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
+        ps.setString(i, setNonNullParameter(parameter));
     }
 
     @Override
@@ -44,6 +44,11 @@ public abstract class AbsJsonTypeHandler<T> extends BaseTypeHandler<T> {
         String json = cs.getString(columnIndex);
         if (json == null || json.trim().isEmpty()) return null;
         return getNullableResult(json);
+    }
+
+
+    protected String setNonNullParameter(T parameter) {
+        return Json.toJson(parameter);
     }
 
     protected abstract T getNullableResult(String json);

@@ -37,7 +37,7 @@ public class TypeHandlerRegistry {
 
         TypeHandler<T> typeHandler = typeHandlerModule.getTypeHandler(javaType, collectionType, persistentType);
         logger.trace("find typeHandler: ,javaType={},collectionType={},persistentType={},typeHandler={}",
-                javaType, collectionType, persistentType.getClass(), typeHandler.getClass().getCanonicalName());
+                javaType, collectionType, persistentType.getClass(), typeHandler == null ? null : typeHandler.getClass().getCanonicalName());
         return typeHandler;
 
     }

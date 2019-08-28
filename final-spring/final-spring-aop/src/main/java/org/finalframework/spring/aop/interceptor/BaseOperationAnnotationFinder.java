@@ -10,8 +10,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 /**
  * @author likly
@@ -49,32 +47,16 @@ public class BaseOperationAnnotationFinder<A extends Annotation> implements Oper
         return findOperationAnnotation((AnnotatedElement) parameter);
     }
 
-    @SuppressWarnings("unchecked")
     private Collection<A> findOperationAnnotation(AnnotatedElement ae) {
-        final Set<Class<? extends Annotation>> annTypes = Collections.singleton(ann);
-        final Collection<Annotation> annotations = AnnotatedElementUtils.getAllMergedAnnotations(ae, annTypes);
-
-        /**
-         * 	public static Set<Annotation> getAllMergedAnnotations(AnnotatedElement element, Set<Class<? extends Annotation>> annotationTypes) {
-         * 		MergedAnnotationAttributesProcessor processor = new MergedAnnotationAttributesProcessor(false, false, true);
-         * 		searchWithGetSemantics(element, annotationTypes, null, null, processor);
-         * 		return postProcessAndSynthesizeAggregatedResults(element, processor.getAggregatedResults());
-         *  }
-         *
-         *  	public static Set<Annotation> findAllMergedAnnotations(AnnotatedElement element, Set<Class<? extends Annotation>> annotationTypes) {
-         * 		MergedAnnotationAttributesProcessor processor = new MergedAnnotationAttributesProcessor(false, false, true);
-         * 		searchWithFindSemantics(element, annotationTypes, null, null, processor);
-         * 		return postProcessAndSynthesizeAggregatedResults(element, processor.getAggregatedResults());
-         *        }
-         */
-
-        if (annotations.size() > 1 && !repeatable) {
-            // More than one annotation found -> local declarations override interface-declared ones...
-            return AnnotatedElementUtils.findAllMergedAnnotations(ae, ann);
-        } else if (annotations.isEmpty()) {
-            return AnnotatedElementUtils.findAllMergedAnnotations(ae, ann);
+        if (repeatable) {
+            return AnnotatedElementUtils.findMergedRepeatableAnnotations(ae, ann);
+        } else {
+            final Collection<A> annotations = AnnotatedElementUtils.findAllMergedAnnotations(ae, ann);
+            if (annotations.size() > 1) {
+                // More than one annotation found -> local declarations override interface-declared ones...
+                return AnnotatedElementUtils.getAllMergedAnnotations(ae, ann);
+            }
+            return annotations;
         }
-
-        return (Collection<A>) annotations;
     }
 }

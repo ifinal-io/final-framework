@@ -33,3 +33,12 @@ version: 1.0
 ```
 
 * Second，使用[Json](json.md)对象API。
+
+## Show
+
+### Enum 增强
+
+#### 
+
+1. 支持在`Bean`对象中使用直接使用枚举值，序列化为期对应的`code`值。
+

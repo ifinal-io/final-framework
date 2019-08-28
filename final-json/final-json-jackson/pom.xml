@@ -17,6 +17,10 @@
             <artifactId>final-json-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-data-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>

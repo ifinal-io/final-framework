@@ -25,7 +25,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -73,12 +72,6 @@ public class PersonController {
     public Person insert(@RequestBody Person person) {
         personMapper.insert(person);
         return person;
-    }
-
-    @PostConstruct
-    public void init() {
-        Query query = new Query().where(QPerson.age.and(2).eq(2), QPerson.name.in("123", "321")).desc(QPerson.age);
-        System.out.println(personMapper.selectCount(query));
     }
 
     @GetMapping("/scan")

@@ -1,7 +1,6 @@
 package org.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -47,10 +46,11 @@ public enum YN implements IEnum<Integer> {
     }
 
     @Override
-    @JsonValue
+//    @JsonValue
     public Integer getCode() {
         return code;
     }
+
 
     public String getDescription() {
         return description;

@@ -6,6 +6,7 @@ import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.finalframework.json.jackson.JavaTimeModule;
+import org.finalframework.json.jackson.serializer.BeanEnumPropertySerializerModifier;
 import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,7 @@ public class JsonAutoConfiguration {
     @PostConstruct
     public void initObjectMapper() {
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
     }
 

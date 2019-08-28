@@ -11,5 +11,6 @@ import org.finalframework.test.entity.Person;
  */
 public interface PersonService {
     @OperationAction(type = 1, name = "PersonService", target = "{#id}")
+    @OperationAction(type = 1, name = "PersonService", target = "{#id}")
     Person findById(Long id);
 }

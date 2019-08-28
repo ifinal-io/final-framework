@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.entity.enums.YN;
 import org.finalframework.data.result.Result;
 
 import javax.validation.constraints.NotNull;
@@ -43,4 +44,9 @@ public class Person implements IEntity<Long>, Result.View {
     @NonColumn
     private Date date = new Date();
 
+    private YN yn;
+
+    public YN getYn() {
+        return yn;
+    }
 }

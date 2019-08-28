@@ -20,8 +20,8 @@ public abstract class StringBlobTypeHandler<T> extends BaseTypeHandler<T> {
     private final Charset UTF8 = Charset.forName("utf-8");
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
-        String json = Json.toJson(parameter);
+    public final void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
+        String json = setNonNullParameter(parameter);
         if (json != null) {
             ps.setBytes(i, json.getBytes(UTF8));
         }
@@ -47,6 +47,10 @@ public abstract class StringBlobTypeHandler<T> extends BaseTypeHandler<T> {
         if (bytes == null) return null;
         final String string = new String(bytes, UTF8);
         return getNullableResult(string);
+    }
+
+    protected String setNonNullParameter(T parameter) {
+        return Json.toJson(parameter);
     }
 
     protected abstract T getNullableResult(String string);
