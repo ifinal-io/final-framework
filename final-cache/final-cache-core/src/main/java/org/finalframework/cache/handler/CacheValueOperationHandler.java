@@ -24,9 +24,9 @@ import java.lang.reflect.Type;
 public class CacheValueOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheValueOperation> {
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheValueOperation> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheValueOperation> context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final CacheValueOperation operation = context.operation();
 
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);

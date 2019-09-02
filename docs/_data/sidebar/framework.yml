@@ -1,0 +1,11 @@
+logo: /assets/img/modules/mayi.png
+name: Final Framework
+menus:
+  - id: data
+    name: Data
+    icon: image
+    menus:
+      - id: annotation
+        link: /framework/data/annotation
+        mini: AN
+        name: Annotation

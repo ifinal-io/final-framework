@@ -9,6 +9,10 @@ import java.util.UUID;
  * @since 1.0
  */
 public class UUIDTraceGenerator implements TraceGenerator {
+
+    public static final UUIDTraceGenerator instance = new UUIDTraceGenerator();
+
+
     @Override
     public String generate() {
         return UUID.randomUUID().toString();

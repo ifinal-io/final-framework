@@ -39,7 +39,7 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        MDC.remove(TRACE);
         logger.info("remove trace from MDC context");
+        MDC.remove(TRACE);
     }
 }

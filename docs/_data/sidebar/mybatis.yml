@@ -1,0 +1,23 @@
+logo: /assets/img/modules/mybatis.jpg
+name: Final Mybatis
+menus:
+  - id: handler
+    icon: dashboard
+    name: 类型处理器
+    menus:
+      - id: enum-type-handler
+        link: /mybatis/handler/enum-type-handler
+        name: EnumTypeHandler
+        mini: ETH
+      - id: json-type-handler
+        link: /mybatis/handler/json-type-handler
+        name: JsonTypeHandler
+        mini: JTH
+  - id: interceptor
+    icon: dashboard
+    name: 拦截器
+    menus:
+      - id: pageable-interceptor
+        link: /mybatis/inteceptor/pageable-interceptor
+        name: PageableInteceptor
+        mini: PI

@@ -38,7 +38,10 @@ version: 1.0
 
 ### Enum 增强
 
-#### 
+1. 支持在`Bean`对象中使用直接使用枚举值，序列化为其对应的`code`值。
 
-1. 支持在`Bean`对象中使用直接使用枚举值，序列化为期对应的`code`值。
+2. 支持在`Bean`对象中添加枚举对应的描述性字段`xxxName`，序列化为期对应的`description`值。
+
+> PS：枚举需要实现[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
+
 

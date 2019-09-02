@@ -16,7 +16,7 @@ import org.springframework.expression.EvaluationContext;
 import java.util.Map;
 
 /**
- * @author ilikly
+ * @author likly
  * @version 1.0
  * @date 2019-07-10 18:16
  * @since 1.0
@@ -24,9 +24,9 @@ import java.util.Map;
 public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter<T>, AlertOperation> {
 
     @Override
-    public Object before(Alerter<T> executor, OperationContext<AlertOperation> context, Object result) {
+    public Object before(Alerter<T> executor, OperationContext<AlertOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
-            alert(executor, context, result, null);
+            alert(executor, context, null, null);
         }
         return null;
     }

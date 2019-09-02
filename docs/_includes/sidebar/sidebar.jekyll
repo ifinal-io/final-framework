@@ -11,7 +11,21 @@
                 menus: {{ page.menus | jsonify }}
             },
             modules: {{ site.data.modules | jsonify }},
-            sidebar: {{ site.data.sidebar[module] | jsonify }}
+            {% if module == 'cache' %}
+            sidebar: {{ site.data.sidebar.cache | jsonify }}
+            {% elsif module == 'monitor' %}
+            sidebar: {{ site.data.sidebar.monitor | jsonify }}
+            {% elsif module == 'spring' %}
+            sidebar: {{ site.data.sidebar.spring | jsonify }}
+            {% elsif module == 'mybatis' %}
+            sidebar: {{ site.data.sidebar.mybatis | jsonify }}
+            {% elsif module == 'framework' %}
+            sidebar: {{ site.data.sidebar.framework | jsonify }}
+            {% elsif module == 'json' %}
+            sidebar: {{ site.data.sidebar.json | jsonify }}
+            {% else %}
+            sidebar: {{ site.data.sidebar.default | jsonify }}
+            {% endif %}
         }
     })
 </script>

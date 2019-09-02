@@ -12,13 +12,12 @@ import org.springframework.lang.Nullable;
 public interface Invocation {
 
     /**
-     * @param contexts
-     * @param result
+     * @param contexts 操作上下文
      * @return
-     * @see OperationHandler#before(Executor, OperationContext, Object)
+     * @see OperationHandler#before(Executor, OperationContext)
      */
     @Nullable
-    Object handleBefore(@NonNull OperationContexts contexts, @Nullable Object result);
+    Object handleBefore(@NonNull OperationContexts contexts);
 
     /**
      * @param contexts

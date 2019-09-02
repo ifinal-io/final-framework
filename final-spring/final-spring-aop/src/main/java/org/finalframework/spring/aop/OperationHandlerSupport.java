@@ -33,4 +33,5 @@ public interface OperationHandlerSupport {
 
     @NonNull
     String generateExpression(@NonNull String expression);
+
 }

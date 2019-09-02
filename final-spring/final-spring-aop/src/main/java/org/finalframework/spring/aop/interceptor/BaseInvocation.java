@@ -21,7 +21,7 @@ public class BaseInvocation<O extends Operation> implements Invocation {
     }
 
     @Override
-    public Object handleBefore(OperationContexts contexts, Object result) {
+    public Object handleBefore(OperationContexts contexts) {
         final Collection<OperationContext<? extends Operation>> operationContexts = contexts.get(type);
         if (Assert.isEmpty(operationContexts)) {
             return null;
@@ -30,7 +30,7 @@ public class BaseInvocation<O extends Operation> implements Invocation {
         for (OperationContext<? extends Operation> context : operationContexts) {
             final OperationHandler handler = configuration.getHandler(context.operation().handler());
             final Executor executor = configuration.getExecutor(context.operation());
-            final Object cacheValue = handler.before(executor, context, result);
+            final Object cacheValue = handler.before(executor, context);
             if (cacheValue != null) {
                 return cacheValue;
             }

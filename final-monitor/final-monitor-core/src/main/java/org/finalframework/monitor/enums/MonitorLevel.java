@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import org.finalframework.data.entity.enums.IEnum;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 监控级别
+ *
  * @author likly
  * @version 1.0
  * @date 2019-03-29 17:15:11
@@ -23,16 +25,10 @@ public enum MonitorLevel implements IEnum<Integer> {
     ERROR(5, "ERROR"),
     ;
 
-    private static final Map<Integer, MonitorLevel> cache;
+    private static final Map<Integer, MonitorLevel> cache = Arrays.stream(MonitorLevel.values()).collect(Collectors.toMap(MonitorLevel::getCode, Function.identity()));
 
     private final Integer code;
     private final String description;
-
-    static {
-        cache = new HashMap<>(MonitorLevel.values().length);
-        Arrays.stream(MonitorLevel.values()).forEach(item -> cache.put(item.code, item));
-    }
-
 
     MonitorLevel(Integer code, String description) {
         this.code = code;
@@ -52,6 +48,7 @@ public enum MonitorLevel implements IEnum<Integer> {
         return code;
     }
 
+    @Override
     @SuppressWarnings("unused")
     public String getDescription() {
         return description;

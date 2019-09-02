@@ -1,7 +1,7 @@
 package org.finalframework.cache.component;
 
 /**
- * @author ilikly
+ * @author likly
  * @version 1.0
  * @date 2019-07-09 17:35
  * @since 1.0

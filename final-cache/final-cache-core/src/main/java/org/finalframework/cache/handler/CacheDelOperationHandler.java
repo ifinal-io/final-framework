@@ -20,9 +20,9 @@ import org.springframework.expression.EvaluationContext;
 public class CacheDelOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheDelOperation> {
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheDelOperation> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheDelOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
-            invocation(cache, context, result, null);
+            invocation(cache, context, null, null);
         }
         return null;
     }

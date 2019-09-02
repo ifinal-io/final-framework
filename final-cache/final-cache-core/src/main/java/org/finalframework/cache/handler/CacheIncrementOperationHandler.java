@@ -23,9 +23,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrementOperation> {
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheIncrementOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
-            doCacheIncrement(cache, context, result, null);
+            doCacheIncrement(cache, context, null, null);
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package org.finalframework.test.service;
 
 import org.finalframework.monitor.annotation.OperationAction;
+import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.finalframework.test.entity.Person;
 
 /**
@@ -11,6 +12,8 @@ import org.finalframework.test.entity.Person;
  */
 public interface PersonService {
     @OperationAction(type = 1, name = "PersonService", target = "{#id}")
-    @OperationAction(type = 1, name = "PersonService", target = "{#id}")
+    @OperationAction(type = 1, name = "PersonService", target = "{#id}", attributes = {
+            @OperationAttribute(name = "name", value = "{'haha' + #id}")
+    })
     Person findById(Long id);
 }

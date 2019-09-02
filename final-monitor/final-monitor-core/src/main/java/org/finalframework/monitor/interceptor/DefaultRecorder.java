@@ -40,7 +40,7 @@ public class DefaultRecorder implements Recorder, ApplicationContextAware {
         BeanUtils.findAllBeansAnnotatedBy(applicationContext, ActionHandler.class)
                 .map(it -> {
                     if (!(it instanceof ActionContextHandler)) {
-                        throw new IllegalStateException("the exception handler must implements ExceptionHandler!");
+                        throw new IllegalStateException("the action handler must implements ActionContextHandler!");
                     }
                     return (ActionContextHandler) it;
                 }).forEach(it -> {

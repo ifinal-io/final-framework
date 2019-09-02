@@ -65,7 +65,7 @@ public class OperationAspectSupport {
         final List<Invocation> invocations = configuration.getInvocations();
 
         for (Invocation invocation : invocations) {
-            Object value = invocation.handleBefore(contexts, null);
+            Object value = invocation.handleBefore(contexts);
             if (operationValue == null && value != null) {
                 operationValue = value;
             }

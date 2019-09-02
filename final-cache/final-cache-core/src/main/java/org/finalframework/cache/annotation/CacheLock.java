@@ -1,8 +1,10 @@
 package org.finalframework.cache.annotation;
 
 import org.finalframework.cache.Cache;
+import org.finalframework.cache.builder.CacheLockAnnotationBuilder;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
 import org.finalframework.cache.invocation.CacheLockInvocation;
+import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  *     <code>
  *         public interface Service{
  *              @CacheLock(key="cache:lock:{#param.id}")
- *             void lock(Param param)
+ *             void lock(Param param);
  *         }
  *     </code>
  * </pre>
@@ -28,6 +30,8 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-03-06 22:12:11
  * @see Cache#lock(Object, Object, Long, TimeUnit)
  * @see Cache#unlock(Object, Object)
+ * @see CacheLockOperation
+ * @see CacheLockAnnotationBuilder
  * @see CacheLockOperationHandler
  * @see CacheLockInvocation
  * @since 1.0

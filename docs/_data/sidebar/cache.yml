@@ -1,0 +1,35 @@
+logo: /assets/img/modules/redis.jpg
+name: Final Cache
+menus:
+  - id: index
+    link: /cache
+    icon: dashboard
+    name: README
+  - id: annotation
+    icon: alternate_email
+    name: Annotation
+    menus:
+      - id: cacheable
+        link: /cache/annotation/cacheable
+        name: Cacheable
+        mini: CA
+      - id: cachelock
+        link: /cache/annotation/cachelock
+        name: CacheLock
+        mini: CL
+      - id: cachedel
+        link: /cache/annotation/cachedel
+        name: CacheDel
+        mini: CD
+      - id: cacheput
+        link: /cache/annotation/cacheput
+        name: CachePut
+        mini: CP
+      - id: cacheincrement
+        link: /cache/annotation/cacheincrement
+        name: CacheIncrement
+        mini: CI
+      - id: cachevalue
+        link: /cache/annotation/cachevalue
+        name: CacheValue
+        mini: CV

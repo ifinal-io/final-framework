@@ -27,9 +27,9 @@ public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport i
     private static final String FIELD = "field";
 
     @Override
-    public Object before(Cache cache, OperationContext<CacheableOperation> context, Object result) {
+    public Object before(Cache cache, OperationContext<CacheableOperation> context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final CacheableOperation operation = context.operation();
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {

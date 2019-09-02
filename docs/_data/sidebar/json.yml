@@ -1,0 +1,23 @@
+logo: /assets/img/modules/json.png
+name: Final Json
+menus:
+  - id: index
+    link: /json
+    icon: dashboard
+    name: README
+  - id: json
+    link: /json/json
+    icon: image
+    name: Json
+  - id: jackson
+    icon: dashboard
+    name: Jackson
+    menus:
+      - id: serializer
+        name: Serializer
+        mini: SER
+        menus:
+          - id: bean-property-modifier
+            link: /json/jackson/serializer/bean-property-modifier
+            name: BeanPropertyModifier
+            mini: BPM

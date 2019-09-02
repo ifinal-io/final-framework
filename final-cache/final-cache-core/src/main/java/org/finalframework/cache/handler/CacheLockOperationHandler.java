@@ -28,9 +28,9 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
     private static final String LOCK = "lock";
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheLockOperation> context, Object result) {
+    public Void before(Cache cache, OperationContext<CacheLockOperation> context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
-        final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
+        final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final CacheLockOperation operation = context.operation();
         final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
         if (key == null) {

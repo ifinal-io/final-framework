@@ -1,20 +1,28 @@
 package org.finalframework.monitor.handler;
 
+import org.finalframework.monitor.context.TraceContext;
 import org.finalframework.monitor.executor.Tracer;
 import org.finalframework.monitor.operation.TraceOperation;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 
 /**
- * @author ilikly
+ * @author likly
  * @version 1.0
  * @date 2019-07-09 17:42
  * @since 1.0
  */
-public class TraceOperatonHandler implements OperationHandler<Tracer, TraceOperation> {
+public class TraceOperationHandler implements OperationHandler<Tracer, TraceOperation> {
+
+    private static final String TRACE_CONTEXT = "traceContext";
+
     @Override
-    public Object before(Tracer executor, OperationContext<TraceOperation> context, Object result) {
-        executor.start(context);
+    public Object before(Tracer executor, OperationContext<TraceOperation> context) {
+
+        TraceContext traceContext = new TraceContext();
+        traceContext.setTrace(context.operation().trace());
+        context.addAttribute(TRACE_CONTEXT, traceContext);
+        executor.start(traceContext);
         return null;
     }
 
@@ -30,6 +38,6 @@ public class TraceOperatonHandler implements OperationHandler<Tracer, TraceOpera
 
     @Override
     public void after(Tracer executor, OperationContext<TraceOperation> context, Object result, Throwable throwable) {
-        executor.stop(context);
+        executor.stop(context.getAttribute(TRACE_CONTEXT));
     }
 }

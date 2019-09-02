@@ -25,9 +25,9 @@ import java.util.Map;
 public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Recorder<T>, ActionOperation> {
 
     @Override
-    public Object before(Recorder<T> executor, OperationContext<ActionOperation> context, Object result) {
+    public Object before(Recorder<T> executor, OperationContext<ActionOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
-            record(executor, context, result, null);
+            record(executor, context, null, null);
         }
         return null;
     }

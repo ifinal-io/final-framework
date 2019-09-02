@@ -1,7 +1,7 @@
 package org.finalframework.monitor.annotation;
 
 import org.finalframework.monitor.executor.Tracer;
-import org.finalframework.monitor.handler.TraceOperatonHandler;
+import org.finalframework.monitor.handler.TraceOperationHandler;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.AopAnnotation;
@@ -29,7 +29,7 @@ public @interface MonitorTrace {
     @AliasFor("value")
     String trace() default "trace";
 
-    Class<? extends OperationHandler> handler() default TraceOperatonHandler.class;
+    Class<? extends OperationHandler> handler() default TraceOperationHandler.class;
 
     Class<? extends Executor> executor() default Tracer.class;
 }

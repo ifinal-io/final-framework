@@ -25,9 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CachePutOperation> {
 
     @Override
-    public Void before(Cache cache, OperationContext<CachePutOperation> context, Object result) {
+    public Void before(Cache cache, OperationContext<CachePutOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
-            invocation(cache, context, result, null);
+            invocation(cache, context, null, null);
         }
         return null;
     }

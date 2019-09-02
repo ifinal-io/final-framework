@@ -1,9 +1,13 @@
 package org.finalframework.data.exception;
 
 /**
+ * 错误的请求异常
+ *
  * @author likly
  * @version 1.0
  * @date 2019-01-15 20:57:04
+ * @see ForbiddenException
+ * @see NotFoundException
  * @since 1.0
  */
 public class BadRequestException extends ServiceException {
