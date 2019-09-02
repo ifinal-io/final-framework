@@ -1,6 +1,7 @@
 package org.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -26,11 +27,7 @@ public enum YN implements IEnum<Integer> {
      * 枚举码
      */
     private final Integer code;
-    private static final Map<Integer, YN> cache;
-
-    static {
-        cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
-    }
+    private static final Map<Integer, YN> cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
 
     private final String description;
 
@@ -46,13 +43,15 @@ public enum YN implements IEnum<Integer> {
     }
 
     @Override
-//    @JsonValue
+    @JsonValue
     public Integer getCode() {
         return code;
     }
 
-
+    @Override
     public String getDescription() {
         return description;
     }
+
+
 }

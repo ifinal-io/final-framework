@@ -20,6 +20,19 @@ version: 1.0
 在`Java`领域，比较常见的Json库有`jackson`、`gson`和`fastjson`，`Json`只是基于这三个库进行统一的`API`封装，并非**造轮子**，
 使底级json库对开发者透明，降低项目与Json组件的耦合。
 
+
+## Show
+
+### Enum 增强
+
+1. 支持在`Bean`对象中使用直接使用枚举值，序列化为其对应的`code`值。
+
+2. 支持在`Bean`对象中添加枚举对应的描述性字段`xxxName`，序列化为期对应的`description`值。
+
+> PS：枚举需要实现[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
+>
+> [BeanEnumPropertySerializer](jackson/serializer/bean-enum-property-serializer-modifier.md)
+
 ## Usage
 
 * First，引入依赖
@@ -34,14 +47,5 @@ version: 1.0
 
 * Second，使用[Json](json.md)对象API。
 
-## Show
-
-### Enum 增强
-
-1. 支持在`Bean`对象中使用直接使用枚举值，序列化为其对应的`code`值。
-
-2. 支持在`Bean`对象中添加枚举对应的描述性字段`xxxName`，序列化为期对应的`description`值。
-
-> PS：枚举需要实现[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
 
 

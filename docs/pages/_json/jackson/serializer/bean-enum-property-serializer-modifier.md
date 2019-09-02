@@ -1,37 +1,28 @@
-package org.finalframework.json.jackson.serializer;
+---
+post: post
+title: 对象枚举属性序列化修改器
+subtitle: 对对象的枚举属性进行序列化增强
+layout: post
+categories: []
+tags: []
+menus:
+    - jackson
+    - serializer
+    - bean-enum-property-serializer-modifier
+author: likly
+date: 2019-08-27 14:59:34 +800
+version: 1.0
+---
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.core.io.SerializedString;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
-import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import org.finalframework.data.entity.enums.IEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+## BeanEnumPropertySerializerModifier
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+[BeanEnumPropertySerializerModifier](/final-json/final-json-jackson/src/main/java/org/finalframework/json/jackson/serializer/BeanEnumPropertySerializerModifier.java)
+对`JavaBean`的枚举类型属性（实现了[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口）
+进行了序列化修改，并其序列化为`IEnum#getCode()`所返回的值，并增加一个名为`xxxName`的属性来描述该枚举型属性的含义，其值为`IEnum#getDescription()`。
 
-/**
- * 对JavaBean的枚举型属性（实现了{@link IEnum}接口）进行序列化修改。
- * <p>
- * 1. 将该枚举属性序列化为{@link IEnum#getCode()}所对应的值。
- * 2. 增加"xxxName"属性，其值为{@link IEnum#getDescription()}所对应的值。
- *
- * @author likly
- * @version 1.0
- * @date 2019-08-26 14:27:05
- * @see EnumCodeSerializer
- * @see EnumNameSerializer
- * @since 1.0
- */
+
+```java
+
 public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
 
     private static final Logger logger = LoggerFactory.getLogger(BeanEnumPropertySerializerModifier.class);
@@ -46,7 +37,7 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
         // 2. 遍历，找出实现了 IEnum 接口的属性，为其增加一个名称 xxxName 的新属性到 JavaBean的
         List<BeanPropertyDefinition> properties = beanDesc.findProperties();
         for (BeanPropertyDefinition property : properties) {
-
+            
             if (IEnum.class.isAssignableFrom(property.getPrimaryType().getRawClass())) {
                 // 实现了 IEnum 的属性
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
@@ -82,3 +73,5 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
 //        return super.modifyEnumSerializer(config, valueType, beanDesc, serializer);
     }
 }
+
+```

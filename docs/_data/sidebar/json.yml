@@ -17,7 +17,11 @@ menus:
         name: Serializer
         mini: SER
         menus:
-          - id: bean-property-modifier
-            link: /json/jackson/serializer/bean-property-modifier
-            name: BeanPropertyModifier
-            mini: BPM
+          - id: bean-property-serializer-modifier
+            link: /json/jackson/serializer/bean-property-serializer-modifier
+            name: BP-SerializerModifier
+            mini: BP
+          - id: bean-enum-property-serializer-modifier
+            link: /json/jackson/serializer/bean-enum-property-serializer-modifier
+            name: BEP-SerializerModifer
+            mini: BEP
