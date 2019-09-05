@@ -19,17 +19,16 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @ResultExceptionHandler
-public class ViolationResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler {
+public class ViolationResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<ConstraintViolationException> {
     @Override
     public boolean supports(Throwable t) {
         return t instanceof ConstraintViolationException;
     }
 
     @Override
-    public Result handle(Throwable e) {
-        ConstraintViolationException violationException = (ConstraintViolationException) e;
+    public Result handle(ConstraintViolationException e) {
         return R.failure(
-                CommonServiceException.BAD_REQUEST.getCode(), violationException.getConstraintViolations()
+                CommonServiceException.BAD_REQUEST.getCode(), ((ConstraintViolationException) e).getConstraintViolations()
                         .stream()
                         .map(ConstraintViolation::getMessage)
                         .collect(Collectors.joining(","))

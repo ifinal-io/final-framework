@@ -4,7 +4,9 @@ import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.parsing.XNode;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.repository.Repository;
+import org.finalframework.mybatis.DefaultMapperContextCache;
 import org.finalframework.mybatis.EntityHolderCache;
+import org.finalframework.mybatis.MapperContextCache;
 import org.finalframework.mybatis.builder.mapper.FinalXmlMapperBuilder;
 import org.finalframework.mybatis.builder.mapper.XmlMapperBuilder;
 import org.slf4j.Logger;
@@ -32,6 +34,7 @@ public class XMLMapperBuilderAgent {
     private static final Logger logger = LoggerFactory.getLogger(XMLMapperBuilderAgent.class);
     private static final EntityHolderCache cache = new EntityHolderCache();
     private static final XmlMapperBuilder xmlMapperBuilder = new FinalXmlMapperBuilder();
+    private static final MapperContextCache MAPPER_CONTEXT_CACHE = DefaultMapperContextCache.INSTANCE;
 
     @SuppressWarnings("unused")
     public static void configurationDefaultElement(XNode context) {
@@ -41,6 +44,7 @@ public class XMLMapperBuilderAgent {
         }
         try {
             Class mapperClass = Class.forName(namespace);
+            MAPPER_CONTEXT_CACHE.put(mapperClass, context);
             if (Repository.class.isAssignableFrom(mapperClass)) {
                 Entity<?> entity = cache.get(mapperClass);
                 final long itemStart = System.currentTimeMillis();

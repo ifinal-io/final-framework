@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     private final Logger logger;
     private final List<ExceptionHandlerBean<T>> exceptionHandlerBeans = new CopyOnWriteArrayList<>();
-    private ExceptionHandler<T> unCatchExceptionHandler;
+    private ExceptionHandler<Throwable, T> unCatchExceptionHandler;
 
     public AbsGlobalExceptionHandler(String logger) {
         this.logger = LoggerFactory.getLogger(logger);
@@ -29,19 +29,20 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     }
 
     @Override
-    public void registerExceptionHandler(ExceptionHandler<T> handler) {
+    public void registerExceptionHandler(ExceptionHandler<Throwable, T> handler) {
         Order order = handler.getClass().getAnnotation(Order.class);
         this.exceptionHandlerBeans.add(new ExceptionHandlerBean<>(order == null ? 0 : order.value(), handler));
         Collections.sort(exceptionHandlerBeans);
     }
 
     @Override
-    public void setUnCatchExceptionHandler(ExceptionHandler<T> handler) {
+    public void setUnCatchExceptionHandler(ExceptionHandler<Throwable, T> handler) {
         this.unCatchExceptionHandler = handler;
     }
 
     @Override
     public T handle(Throwable throwable) {
+
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;

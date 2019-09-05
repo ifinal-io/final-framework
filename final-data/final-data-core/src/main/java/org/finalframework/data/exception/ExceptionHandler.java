@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 @SuppressWarnings("unused")
-public interface ExceptionHandler<R> {
+public interface ExceptionHandler<E, R> {
 
     /**
      * 返回该异常处理器是否支持该异常，如果支持则返回 {@code true}，否则返回 {@code false}。
@@ -29,5 +29,5 @@ public interface ExceptionHandler<R> {
      * @return 异常转化后的结果
      */
     @NonNull
-    R handle(@NonNull Throwable throwable);
+    R handle(@NonNull E throwable);
 }

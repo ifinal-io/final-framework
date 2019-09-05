@@ -16,7 +16,7 @@ import org.springframework.core.annotation.Order;
 @Slf4j
 @Order
 @ResultExceptionHandler
-public class IExceptionResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler {
+public class IExceptionResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<Throwable> {
 
     @Override
     public boolean supports(Throwable t) {

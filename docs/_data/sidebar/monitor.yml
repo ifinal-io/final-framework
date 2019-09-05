@@ -25,3 +25,11 @@ menus:
             link: /monitor/action/context/action-context
             name: ActionContext
             mini: ACTX
+  - id: alert
+    name: Alert
+    icon: image
+    menus:
+      - id: readme
+        link: /monitor/alert/readme
+        name: README
+        mini: RD

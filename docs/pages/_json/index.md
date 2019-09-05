@@ -35,7 +35,7 @@ version: 1.0
 
 ## Usage
 
-* First，引入依赖
+### Import Dependency
 
 ```xml
 <dependency>
@@ -45,7 +45,24 @@ version: 1.0
 </dependency>
 ```
 
-* Second，使用[Json](json.md)对象API。
+### Use Json API
+
+使用[Json](json.md)对象API。
+
+* 序列化
+
+```java
+Json.toJson(Object);
+```
+
+* 反序列化
+
+```java
+Json.toObject(String,Class);
+Json.toList(String,Class);
+Json.toSet(String,Class);
+```
+
 
 
 

@@ -1,6 +1,7 @@
 package org.finalframework.monitor.annotation;
 
 import org.finalframework.monitor.enums.MonitorLevel;
+import org.finalframework.monitor.executor.Alerter;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.AopAnnotation;
@@ -46,7 +47,7 @@ public @interface MonitorAlert {
 
     Class<? extends OperationHandler> handler() default OperationHandler.class;
 
-    Class<? extends Executor> executor();
+    Class<? extends Executor> executor() default Alerter.class;
 
 
 }

@@ -18,14 +18,14 @@ public interface GlobalExceptionHandler<T> {
      *
      * @param handler 异常处理器
      */
-    void registerExceptionHandler(@NonNull ExceptionHandler<T> handler);
+    void registerExceptionHandler(@NonNull ExceptionHandler<Throwable, T> handler);
 
     /**
      * 设置未捕获的异常处理器
      *
      * @param handler 未捕获的异常处理器
      */
-    void setUnCatchExceptionHandler(@NonNull ExceptionHandler<T> handler);
+    void setUnCatchExceptionHandler(@NonNull ExceptionHandler<Throwable, T> handler);
 
     @Nullable
     T handle(@NonNull Throwable throwable);

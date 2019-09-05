@@ -3,9 +3,7 @@ package org.finalframework.spring.web.exception;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.exception.GlobalExceptionHandler;
-import org.finalframework.json.JsonException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,17 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @since 1.0
  */
 @Slf4j
+@Configuration
 @RestControllerAdvice
 public class RestExceptionHandlerConfigurer {
     @Setter
     private GlobalExceptionHandler<?> globalExceptionHandler;
-
-    @Bean
-    @ConditionalOnClass(JsonException.class)
-    public JsonResultExceptionHandler jsonResultExceptionHandler() {
-        return new JsonResultExceptionHandler();
-    }
-
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     @ResponseBody

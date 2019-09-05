@@ -6,12 +6,12 @@ package org.finalframework.data.exception;
  * @date 2018-10-31 11:15
  * @since 1.0
  */
-public class ExceptionHandlerBean<R> implements ExceptionHandler<R>, Comparable<ExceptionHandlerBean> {
+public class ExceptionHandlerBean<R> implements ExceptionHandler<Throwable, R>, Comparable<ExceptionHandlerBean> {
 
     private final Integer order;
-    private final ExceptionHandler<R> exceptionHandler;
+    private final ExceptionHandler<Throwable, R> exceptionHandler;
 
-    ExceptionHandlerBean(Integer order, ExceptionHandler<R> exceptionHandler) {
+    ExceptionHandlerBean(Integer order, ExceptionHandler<Throwable, R> exceptionHandler) {
         this.order = order;
         this.exceptionHandler = exceptionHandler;
     }

@@ -10,6 +10,7 @@ import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Scanner;
 import org.finalframework.json.Json;
+import org.finalframework.monitor.annotation.MonitorAlert;
 import org.finalframework.monitor.annotation.MonitorTrace;
 import org.finalframework.monitor.annotation.OperationAction;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -121,9 +122,10 @@ public class PersonController {
         return personMapper.update(update, id);
     }
 
+    @MonitorAlert(name = "测试Alert", key = "alert")
     @MonitorTrace
     @GetMapping("/index")
-    public void index() {
+    public void index(@RequestParam("id") Long id) {
 
     }
 

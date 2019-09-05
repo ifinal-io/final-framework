@@ -89,6 +89,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     条件
      * @return 指插入数据所影响的行数
      */
+    @Deprecated
     int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities, @Param("query") Query query);
 
     /*=========================================== UPDATE ===========================================*/
