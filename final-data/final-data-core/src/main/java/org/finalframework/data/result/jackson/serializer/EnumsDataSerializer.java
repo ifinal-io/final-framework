@@ -6,6 +6,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.entity.enums.IEnum;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -40,22 +41,31 @@ public class EnumsDataSerializer extends DataSerializer<Object> {
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
-        if (value instanceof List) {
-            if (Assert.nonEmpty(value)) {
-                List<IEnum> enums = (List<IEnum>) value;
-                gen.writeStartArray();
-                for (IEnum item : enums) {
-                    gen.writeStartObject();
-                    gen.writeFieldName("code");
-                    gen.writeObject(item.getCode());
-                    gen.writeFieldName("name");
-                    gen.writeObject(item.getDescription());
-                    gen.writeEndObject();
-                }
-                gen.writeEndArray();
-
-
+        if (value instanceof Collection) {
+            Collection<IEnum> enums = (Collection<IEnum>) value;
+            gen.writeStartArray();
+            for (IEnum item : enums) {
+                gen.writeStartObject();
+                gen.writeFieldName("code");
+                gen.writeObject(item.getCode());
+                gen.writeFieldName("name");
+                gen.writeObject(item.getDescription());
+                gen.writeEndObject();
             }
+            gen.writeEndArray();
+        } else if (value.getClass().isArray()) {
+            IEnum[] enums = (IEnum[]) value;
+            gen.writeStartArray();
+            for (IEnum item : enums) {
+                gen.writeStartObject();
+                gen.writeFieldName("code");
+                gen.writeObject(item.getCode());
+                gen.writeFieldName("name");
+                gen.writeObject(item.getDescription());
+                gen.writeEndObject();
+            }
+            gen.writeEndArray();
+
         }
 
 
