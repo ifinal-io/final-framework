@@ -1,5 +1,6 @@
 package org.finalframework.spring.web.reponse;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Setter;
 import org.finalframework.data.result.Result;
 import org.finalframework.json.Json;
@@ -17,10 +18,11 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * Wrap the return result of {@link org.springframework.web.method.HandlerMethod} which annotated by {@link ResponseBody} or {@link RestController}.
+ * Wrap the return result of {@link HandlerMethod} which annotated by {@link ResponseBody} or {@link RestController}.
  *
  * @author likly
  * @version 1.0
@@ -63,9 +65,11 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
         final Object defaultResult = defaultResponseBodyInterceptor == null ? body : defaultResponseBodyInterceptor.intercept(body);
+
 
         if (syncStatus && defaultResult instanceof Result) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Result) defaultResult).getStatus());
@@ -75,6 +79,23 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
         }
 
         final Object result = responseBodyInterceptor == null ? defaultResult : responseBodyInterceptor.intercept(defaultResult);
+
+        if (result instanceof Result) {
+            JsonView jsonView = methodParameter.getMethodAnnotation(JsonView.class);
+
+            if (jsonView != null) {
+                Class<?>[] views = jsonView.value();
+
+                if (views.length > 1) {
+                    throw new IllegalArgumentException("Controller @JsonView only support one view.");
+                } else {
+                    ((Result) result).setView(views[0]);
+                }
+            }
+
+        }
+
+
         if (body == null && methodParameter.getMethod() != null && methodParameter.getMethod().getReturnType() == String.class) {
             return Json.toJson(result);
         }

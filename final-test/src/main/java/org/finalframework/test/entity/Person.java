@@ -7,7 +7,6 @@ import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.entity.enums.YN;
-import org.finalframework.data.result.Result;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -22,16 +21,14 @@ import java.util.List;
 @Data
 @Entity
 @ToString(callSuper = true)
-public class Person implements IEntity<Long>, Result.View {
+public class Person implements IEntity<Long> {
     private static final long serialVersionUID = -8785625823175210092L;
     @PrimaryKey(insertable = true)
     private Long id;
     @JsonView(Person.class)
     @NotNull
-    @ColumnView(Result.View.class)
     private String name;
     @JsonView(Person.class)
-    @ColumnView(Result.View.class)
     private int age;
     @JsonColumn
     @ColumnView(Person.class)

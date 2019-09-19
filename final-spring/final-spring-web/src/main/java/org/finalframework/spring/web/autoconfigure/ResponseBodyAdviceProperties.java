@@ -3,6 +3,7 @@ package org.finalframework.spring.web.autoconfigure;
 import lombok.Getter;
 import lombok.Setter;
 import org.finalframework.spring.web.reponse.ResponseBodyInterceptor;
+import org.finalframework.spring.web.reponse.ResponseBodySerializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -20,6 +21,7 @@ public class ResponseBodyAdviceProperties {
      * 是否同步业务状态到Response中
      */
     private boolean syncStatus = true;
+    private Class<? extends ResponseBodySerializer> serializer;
     private Class<? extends ResponseBodyInterceptor> defaultInterceptor;
     private Class<? extends ResponseBodyInterceptor> interceptor;
 

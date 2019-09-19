@@ -30,6 +30,8 @@ public class ResultDataSerializer extends JsonSerializer<Object> {
                 return;
             }
         }
+
+
         gen.writeObject(value);
 
     }

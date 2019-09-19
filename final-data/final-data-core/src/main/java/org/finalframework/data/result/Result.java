@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Data
-public final class Result<T> implements Serializable {
+public final class Result<T> implements Viewable, Serializable {
 
     private static final long serialVersionUID = -5373427854167752891L;
     /**
@@ -27,12 +27,10 @@ public final class Result<T> implements Serializable {
     /**
      * 状态码
      */
-    @JsonView(View.class)
     private Integer status;
     /**
      * 状态描述
      */
-    @JsonView(View.class)
     private String message;
     /**
      * 提示消息
@@ -43,25 +41,28 @@ public final class Result<T> implements Serializable {
      * 业务数据
      */
     @JsonSerialize(using = ResultDataSerializer.class)
-    @JsonView(View.class)
     private T data;
     /**
      * trace
      */
-    @JsonView(View.class)
     private String trace;
     /**
      * 响应时间戳
      */
-    @JsonView(View.class)
     private Long timestamp = System.currentTimeMillis();
     /**
      * 执行时长
      */
-    @JsonView(View.class)
     private Long duration;
 
-    public interface View {
+    private Class<?> view;
+
+    public Class<?> getView() {
+        return view;
+    }
+
+    public void setView(Class<?> view) {
+        this.view = view;
     }
 
     public Result() {

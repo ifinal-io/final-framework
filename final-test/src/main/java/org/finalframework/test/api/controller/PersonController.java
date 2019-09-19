@@ -1,6 +1,7 @@
 package org.finalframework.test.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
@@ -129,6 +130,7 @@ public class PersonController {
 
     }
 
+    @JsonView(Person.class)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CacheIncrement(key = {"invoke:{#id}"}, point = CutPoint.BEFORE)
     @OperationAction(name = "查询用户", operator = "{-1}", target = "{#id}",

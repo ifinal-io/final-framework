@@ -68,6 +68,5 @@ public class EnumsDataSerializer extends DataSerializer<Object> {
 
         }
 
-
     }
 }

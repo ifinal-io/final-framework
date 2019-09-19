@@ -47,6 +47,7 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
         List<BeanPropertyDefinition> properties = beanDesc.findProperties();
         for (BeanPropertyDefinition property : properties) {
 
+
             if (IEnum.class.isAssignableFrom(property.getPrimaryType().getRawClass())) {
                 // 实现了 IEnum 的属性
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
@@ -70,6 +71,7 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
         }
         return super.changeProperties(config, beanDesc, beanProperties);
     }
+
 
     @Override
     public JsonSerializer<?> modifyEnumSerializer(SerializationConfig config, JavaType valueType, BeanDescription beanDesc, JsonSerializer<?> serializer) {

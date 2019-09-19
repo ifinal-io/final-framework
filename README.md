@@ -33,3 +33,11 @@
     * [`final-spring-boot-starter`](final-spring/final-spring-boot-starter/README.md)
 * [`final-util`](final-util/README.md)：定义常用的工具类
 
+for (Map.Entry<String, Long> entry : skuIdAndRfIdMap.entrySet()) {
+            Map<String, Long> temp = new HashMap<>();
+            logger.info("构建商品预打印数据：wareCode={},sku={}",entry.getKey(),entry.getValue());
+            temp.put(entry.getKey(), entry.getValue());
+            param.setSkuRfIdMap(temp);
+            handle(param);
+
+        }

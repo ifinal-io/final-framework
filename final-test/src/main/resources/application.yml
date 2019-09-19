@@ -48,6 +48,7 @@ final:
   response:
     sync-status: true
     default-interceptor: org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor
+    serializer: org.finalframework.spring.web.reponse.ResultResponseBodySerializer
   monitor:
     action:
       logger: org.finalframework.test.monitor.action.handler
