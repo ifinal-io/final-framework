@@ -9,3 +9,7 @@ menus:
         link: /framework/data/annotation
         mini: AN
         name: Annotation
+      - id: result
+        link: /framework/data/result
+        mini: RST
+        name: Result

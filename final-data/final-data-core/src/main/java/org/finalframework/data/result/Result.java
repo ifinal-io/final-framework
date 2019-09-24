@@ -86,7 +86,7 @@ public final class Result<T> implements Viewable, Serializable {
     }
 
     public boolean isSuccess() {
-        return status == null || status == 0;
+        return SUCCESS_STATUS.equals(status);
     }
 
 }
