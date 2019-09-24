@@ -15,12 +15,11 @@ version: 1.0
 
 # Result——统一的结果集对象
 
+## What
+
 [Result](/final-data/final-data-core/src/main/java/org/finalframework/data/result/Result.java)——全局统一的结果集对象。
 它描述了一次业务的执行结果。
 
-
-
-## What
 
 |   属性    |  类型   | 非空 |   含义   | 备注 |
 | :-------: | :-----: | :--: | :------: | :--: |
