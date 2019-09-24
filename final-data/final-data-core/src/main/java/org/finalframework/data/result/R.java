@@ -1,6 +1,7 @@
 package org.finalframework.data.result;
 
-import lombok.NonNull;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -20,6 +21,15 @@ public class R {
     public static <T> Result<T> success(T data) {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
+
+    public static <T> Result<T> success(@NonNull Integer code, @NonNull String message, @Nullable T data) {
+        return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
+    }
+
+    public static Result<?> failure(@NonNull Integer status, @NonNull String description, @NonNull Integer code, @NonNull String message, @Nullable String toast) {
+        return new Result<>(status, description, code, message, toast);
+    }
+
 
     public static Result<?> failure(@NonNull Integer code, @NonNull String message) {
         return new Result<>(code, message);

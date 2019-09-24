@@ -43,7 +43,6 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     @Override
     public T handle(Throwable throwable) {
 
-
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
             logger.warn("==> exception: code={},message={},toast={}", e.getCode(), e.getMessage(), e.getToast());

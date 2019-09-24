@@ -3,7 +3,6 @@ package org.finalframework.spring.web.reponse;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Setter;
 import org.finalframework.data.result.Result;
-import org.finalframework.json.Json;
 import org.finalframework.spring.web.autoconfigure.ResponseBodyAdviceProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -69,8 +68,6 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
         final Object defaultResult = defaultResponseBodyInterceptor == null ? body : defaultResponseBodyInterceptor.intercept(body);
-
-
         if (syncStatus && defaultResult instanceof Result) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Result) defaultResult).getStatus());
             if (httpStatus != null) {
@@ -96,12 +93,12 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object>, Appli
         }
 
 
-        if (body == null && methodParameter.getMethod() != null && methodParameter.getMethod().getReturnType() == String.class) {
-            return Json.toJson(result);
-        }
-        if (body instanceof String) {
-            return Json.toJson(result);
-        }
+//        if (body == null && methodParameter.getMethod() != null && methodParameter.getMethod().getReturnType() == String.class) {
+//            return Json.toJson(result);
+//        }
+//        if (body instanceof String) {
+//            return Json.toJson(result);
+//        }
         return result;
     }
 

@@ -1,9 +1,12 @@
 package org.finalframework.data.exception;
 
 /**
+ * 未找到异常，一般为要访问的数据或页面不存在。
+ *
  * @author likly
  * @version 1.0
  * @date 2019-01-15 20:57:04
+ * @see CommonServiceException#BAD_REQUEST
  * @since 1.0
  */
 public class NotFoundException extends ServiceException {

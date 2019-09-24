@@ -6,6 +6,7 @@ import org.finalframework.data.exception.ExceptionHandler;
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.Result;
 import org.finalframework.data.util.BeanUtils;
+import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -42,5 +43,15 @@ public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandle
                     }
                     return (ExceptionHandler) it;
                 }).forEach(this::registerExceptionHandler);
+    }
+
+    @Override
+    public Result handle(Throwable throwable) {
+        Result result = super.handle(throwable);
+        if (result != null) {
+            result.setTrace(MDC.get("trace"));
+            result.setTimestamp(System.currentTimeMillis());
+        }
+        return result;
     }
 }

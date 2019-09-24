@@ -30,6 +30,8 @@ public class ResultResponseBodySerializer extends ResponseBodyJacksonSerializer<
         gen.writeStartObject();
         writeObjectField("success", value.isSuccess(), gen, null);
         writeObjectField("status", value.getStatus(), gen, null);
+        writeObjectField("description", value.getDescription(), gen, null);
+        writeObjectField("code", value.getCode(), gen, null);
         writeObjectField("message", value.getMessage(), gen, null);
         writeObjectField("toast", value.getToast(), gen, null);
         writeObjectField("view", value.getView(), gen, null);

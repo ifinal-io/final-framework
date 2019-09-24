@@ -1,5 +1,6 @@
 package org.finalframework.spring.web.autoconfigure;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
@@ -85,10 +86,14 @@ public class RestResponseBodyAdviceAutoConfiguration implements ApplicationConte
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        SimpleModule module = new SimpleModule();
         ResponseBodySerializer bodySerializer = applicationContext.getBean(properties.getSerializer());
-        module.addSerializer(bodySerializer.type(), bodySerializer);
-        objectMapper.registerModule(module);
+
+
+        if (bodySerializer instanceof JsonSerializer) {
+            SimpleModule module = new SimpleModule();
+            module.addSerializer(bodySerializer.type(), (JsonSerializer) bodySerializer);
+            objectMapper.registerModule(module);
+        }
     }
 
     @Override

@@ -10,16 +10,21 @@ public class ForbiddenException extends ServiceException {
 
     public static final ForbiddenException DEFAULT = new ForbiddenException(CommonServiceException.FORBIDDEN.getMessage());
 
-    @Deprecated
     public ForbiddenException(String message) {
-        super(CommonServiceException.FORBIDDEN.getCode(), message);
+        this(CommonServiceException.FORBIDDEN.getCode(), message);
     }
 
     public ForbiddenException(Integer code, String message, String toast, Object... args) {
-        super(code, message, toast, args);
+        super(CommonServiceException.FORBIDDEN.getCode(), CommonServiceException.FORBIDDEN.getMessage(),
+                code, message, toast, args);
     }
 
-    public ForbiddenException(IException exception, Object... args) {
-        super(exception, args);
+    public ForbiddenException(Integer code, String message) {
+        this(code, message, message);
+    }
+
+
+    public ForbiddenException(IException e, Object... args) {
+        this(e.getCode(), e.getMessage(), e.getToast(), args);
     }
 }

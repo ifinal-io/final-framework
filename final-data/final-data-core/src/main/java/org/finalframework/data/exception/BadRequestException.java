@@ -15,14 +15,20 @@ public class BadRequestException extends ServiceException {
     public static final BadRequestException DEFAULT = new BadRequestException(CommonServiceException.BAD_REQUEST.getMessage());
 
     public BadRequestException(String message) {
-        super(CommonServiceException.BAD_REQUEST.getCode(), message);
+        this(CommonServiceException.BAD_REQUEST.getCode(), message);
     }
 
     public BadRequestException(Integer code, String message, String toast, Object... args) {
-        super(code, message, toast, args);
+        super(CommonServiceException.BAD_REQUEST.getCode(), CommonServiceException.BAD_REQUEST.getMessage(),
+                code, message, toast, args);
     }
 
-    public BadRequestException(IException exception, Object... args) {
-        super(exception, args);
+    public BadRequestException(Integer code, String message) {
+        this(code, message, message);
+    }
+
+
+    public BadRequestException(IException e, Object... args) {
+        this(e.getCode(), e.getMessage(), e.getToast(), args);
     }
 }

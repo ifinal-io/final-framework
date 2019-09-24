@@ -28,8 +28,18 @@ public final class Result<T> implements Viewable, Serializable {
      * 状态码
      */
     private Integer status;
+
     /**
      * 状态描述
+     */
+    private String description;
+
+    /**
+     * 业务状态码
+     */
+    private Integer code;
+    /**
+     * 业务状态描述
      */
     private String message;
     /**
@@ -66,6 +76,22 @@ public final class Result<T> implements Viewable, Serializable {
     }
 
     public Result() {
+    }
+
+    public Result(Integer status, String description, Integer code, String message, T data) {
+        this.status = status;
+        this.description = description;
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public Result(Integer status, String description, Integer code, String message, String toast) {
+        this.status = status;
+        this.description = description;
+        this.code = code;
+        this.message = message;
+        this.toast = toast;
     }
 
     public Result(Integer status, String message, T data) {

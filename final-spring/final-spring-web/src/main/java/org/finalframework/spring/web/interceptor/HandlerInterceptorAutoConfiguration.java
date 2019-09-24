@@ -22,4 +22,5 @@ public class HandlerInterceptorAutoConfiguration {
     public TraceHandlerInterceptor traceHandlerInterceptor() {
         return new TraceHandlerInterceptor();
     }
+
 }

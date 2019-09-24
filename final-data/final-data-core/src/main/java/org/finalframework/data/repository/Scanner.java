@@ -18,7 +18,7 @@ public interface Scanner<T> {
      * 返回当次扫描的结果
      *
      * @param index 扫描轮询次数，从1开始
-     * @return 汝瓷扫描的结果
+     * @return 扫描的结果
      */
     @Nullable
     T onScan(@NonNull Integer index);

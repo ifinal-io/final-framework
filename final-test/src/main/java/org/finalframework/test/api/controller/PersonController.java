@@ -7,6 +7,7 @@ import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.Assert;
 import org.finalframework.core.formatter.DateFormatter;
+import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Scanner;
@@ -81,6 +82,7 @@ public class PersonController {
 
         new Scanner<List<Person>>() {
             Long lastId = null;
+
             @Override
             public List<Person> onScan(Integer index) {
                 logger.info("scan index = {}", index);
@@ -146,6 +148,13 @@ public class PersonController {
     @OperationAction(name = "内部调用", target = "{#id}")
     public Person findById(Long id) {
         return personService.findById(id);
+    }
+
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() {
+        throw new BadRequestException(1001, "密码不正确");
+//        return "hello";
     }
 
 

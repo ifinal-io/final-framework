@@ -12,4 +12,8 @@ public final class Monitor {
 
     }
 
+    public static void notify(String key, String message) {
+
+    }
+
 }

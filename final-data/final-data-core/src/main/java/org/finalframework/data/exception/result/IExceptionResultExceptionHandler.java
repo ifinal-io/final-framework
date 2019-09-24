@@ -2,6 +2,7 @@ package org.finalframework.data.exception.result;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.exception.IException;
+import org.finalframework.data.exception.ServiceException;
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
@@ -25,9 +26,19 @@ public class IExceptionResultExceptionHandler implements org.finalframework.data
 
     @Override
     public Result handle(Throwable throwable) {
-        if (throwable instanceof IException) {
-            return R.failure(((IException) throwable).getCode(), throwable.getMessage(), ((IException) throwable).getToast());
+        if (throwable instanceof ServiceException) {
+            return handle((ServiceException) throwable);
+        } else if (throwable instanceof IException) {
+            return handle((IException) throwable);
         }
         throw new IllegalArgumentException("不支持异常处理：" + throwable.getClass());
+    }
+
+    public Result handle(ServiceException e) {
+        return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage(), e.getToast());
+    }
+
+    public Result handle(IException e) {
+        return R.failure(e.getCode(), e.getMessage(), e.getToast());
     }
 }

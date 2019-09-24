@@ -5,10 +5,13 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.coding.ApplicationEventListener;
 import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.spring.web.http.converter.JsonStringHttpMessageConverter;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.annotation.MapMethodProcessor;
@@ -34,7 +37,7 @@ import java.util.List;
 @AutoConfiguration
 @ApplicationEventListener
 @SuppressWarnings("all")
-public class HandlerMethodArgumentResolverAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
+public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
     /**
      * {@link org.finalframework.spring.web.resolver.annotation.RequestJsonParam} 参数注解解析器
@@ -50,20 +53,44 @@ public class HandlerMethodArgumentResolverAutoConfiguration implements Applicati
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
+        ConfigurableApplicationContext applicationContext = event.getApplicationContext();
+        final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext.getBean(RequestMappingHandlerAdapter.class);
+
+        configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
+        configureMessageConverters(applicationContext, requestMappingHandlerAdapter);
+
+    }
+
+    /**
+     * @param context
+     * @param adapter
+     * @see RequestMappingHandlerAdapter#setArgumentResolvers(List)
+     */
+    private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
-        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = BeanUtils.findBeansByAnnotation(event.getApplicationContext(), ArgumentResolver.class);
+        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = BeanUtils.findBeansByAnnotation(context, ArgumentResolver.class);
         if (Assert.nonEmpty(customerArgumentResolvers)) {
             //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
             argumentResolvers.addAll(customerArgumentResolvers);
         }
 
         // 获取默认的参数解析器
-        final RequestMappingHandlerAdapter requestMappingHandlerAdapter = event.getApplicationContext().getBean(RequestMappingHandlerAdapter.class);
-        final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = requestMappingHandlerAdapter.getArgumentResolvers();
+        final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
         if (Assert.nonEmpty(defaultArgumentResolvers)) {
             argumentResolvers.addAll(defaultArgumentResolvers);
         }
 
-        requestMappingHandlerAdapter.setArgumentResolvers(argumentResolvers);
+        adapter.setArgumentResolvers(argumentResolvers);
     }
+
+    /**
+     * @param context
+     * @param adapter
+     * @see RequestMappingHandlerAdapter#getMessageConverters()
+     */
+    private void configureMessageConverters(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+        adapter.getMessageConverters().add(0, new JsonStringHttpMessageConverter());
+    }
+
 }
