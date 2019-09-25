@@ -1,4 +1,4 @@
-package org.finalframework.data.exception;
+package org.finalframework.data.response;
 
 import lombok.Getter;
 
@@ -8,7 +8,8 @@ import lombok.Getter;
  * @date 2019-01-15 20:50:00
  * @since 1.0
  */
-public enum CommonServiceException implements IException {
+public enum ResponseStatus {
+    SUCCESS(0, "Success"),
     BAD_REQUEST(400, "Bad Request"),
     FORBIDDEN(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
@@ -19,7 +20,7 @@ public enum CommonServiceException implements IException {
     @Getter
     private final String message;
 
-    CommonServiceException(Integer code, String message) {
+    ResponseStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

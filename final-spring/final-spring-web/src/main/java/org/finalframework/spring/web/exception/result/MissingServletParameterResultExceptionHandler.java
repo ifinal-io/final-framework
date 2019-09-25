@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.spring.web.exception.result;
 
 import org.finalframework.data.exception.result.ResultExceptionHandler;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  */
 @AutoConfigureBefore(ResultGlobalResultExceptionHandler.class)
 @org.finalframework.data.exception.annotation.ResultExceptionHandler
-public class MissingServletRequestParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
+public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
     @Override
     public boolean supports(Throwable throwable) {
         return throwable instanceof MissingServletRequestParameterException;

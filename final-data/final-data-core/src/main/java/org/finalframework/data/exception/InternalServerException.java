@@ -1,5 +1,7 @@
 package org.finalframework.data.exception;
 
+import org.finalframework.data.response.ResponseStatus;
+
 /**
  * 错误的请求异常
  *
@@ -12,10 +14,10 @@ package org.finalframework.data.exception;
  */
 public class InternalServerException extends ServiceException {
 
-    public static final InternalServerException DEFAULT = new InternalServerException(CommonServiceException.INTERNAL_SERVER_ERROR.getMessage());
+    public static final InternalServerException DEFAULT = new InternalServerException(ResponseStatus.INTERNAL_SERVER_ERROR.getMessage());
 
     public InternalServerException(String message) {
-        this(CommonServiceException.INTERNAL_SERVER_ERROR.getCode(), message);
+        this(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), message);
     }
 
     public InternalServerException(Integer code, String message) {
@@ -23,7 +25,7 @@ public class InternalServerException extends ServiceException {
     }
 
     public InternalServerException(Integer code, String message, String toast, Object... args) {
-        super(CommonServiceException.INTERNAL_SERVER_ERROR.getCode(), CommonServiceException.INTERNAL_SERVER_ERROR.getMessage(),
+        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getMessage(),
                 code, message, toast, args);
     }
 

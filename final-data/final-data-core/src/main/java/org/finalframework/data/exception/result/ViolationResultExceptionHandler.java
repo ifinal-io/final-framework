@@ -1,7 +1,7 @@
 package org.finalframework.data.exception.result;
 
-import org.finalframework.data.exception.CommonServiceException;
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
+import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 
@@ -28,7 +28,7 @@ public class ViolationResultExceptionHandler implements org.finalframework.data.
     @Override
     public Result handle(ConstraintViolationException e) {
         return R.failure(
-                CommonServiceException.BAD_REQUEST.getCode(), ((ConstraintViolationException) e).getConstraintViolations()
+                ResponseStatus.BAD_REQUEST.getCode(), ((ConstraintViolationException) e).getConstraintViolations()
                         .stream()
                         .map(ConstraintViolation::getMessage)
                         .collect(Collectors.joining(","))

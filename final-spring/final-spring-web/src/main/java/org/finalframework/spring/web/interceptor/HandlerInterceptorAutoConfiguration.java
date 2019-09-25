@@ -13,14 +13,20 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfiguration
 @Configuration
 public class HandlerInterceptorAutoConfiguration {
-    @Bean
-    public HandlerInterceptorConfigurer handlerInterceptorConfigurer() {
-        return new HandlerInterceptorConfigurer();
-    }
+
 
     @Bean
     public TraceHandlerInterceptor traceHandlerInterceptor() {
         return new TraceHandlerInterceptor();
     }
 
+    @Bean
+    public HandlerInterceptorConfigurer handlerInterceptorConfigurer() {
+        return new HandlerInterceptorConfigurer();
+    }
+
+
 }
+
+
+

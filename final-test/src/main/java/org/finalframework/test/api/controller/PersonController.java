@@ -7,7 +7,6 @@ import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.Assert;
 import org.finalframework.core.formatter.DateFormatter;
-import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Scanner;
@@ -153,8 +152,8 @@ public class PersonController {
     @GetMapping("/hello")
     @ResponseBody
     public String hello() {
-        throw new BadRequestException(1001, "密码不正确");
-//        return "hello";
+//        throw new BadRequestException(1001, "密码不正确");
+        return "hello";
     }
 
 

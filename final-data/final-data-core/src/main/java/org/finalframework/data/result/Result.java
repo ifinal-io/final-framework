@@ -1,9 +1,7 @@
 package org.finalframework.data.result;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Data;
-import org.finalframework.data.result.jackson.serializer.ResultDataSerializer;
+import org.finalframework.data.response.ResponseStatus;
+import org.finalframework.data.response.Responsible;
 
 import java.io.Serializable;
 
@@ -16,16 +14,17 @@ import java.io.Serializable;
  * @see Page
  * @since 1.0
  */
-@Data
-public final class Result<T> implements Viewable, Serializable {
+public final class Result<T> implements Responsible, Viewable, Serializable {
 
-    private static final long serialVersionUID = -5373427854167752891L;
+    private static final long serialVersionUID = -2801752781032532754L;
     /**
-     * 成功的状态码
-     */
-    private static final Integer SUCCESS_STATUS = 0;
-    /**
-     * 状态码
+     * 状态码，描述一次请求的状态
+     *
+     * @see ResponseStatus#SUCCESS
+     * @see ResponseStatus#BAD_REQUEST
+     * @see ResponseStatus#FORBIDDEN
+     * @see ResponseStatus#NOT_FOUND
+     * @see ResponseStatus#INTERNAL_SERVER_ERROR
      */
     private Integer status;
 
@@ -45,12 +44,10 @@ public final class Result<T> implements Viewable, Serializable {
     /**
      * 提示消息
      */
-    @JsonView
     private String toast;
     /**
      * 业务数据
      */
-    @JsonSerialize(using = ResultDataSerializer.class)
     private T data;
     /**
      * trace
@@ -66,14 +63,6 @@ public final class Result<T> implements Viewable, Serializable {
     private Long duration;
 
     private Class<?> view;
-
-    public Class<?> getView() {
-        return view;
-    }
-
-    public void setView(Class<?> view) {
-        this.view = view;
-    }
 
     public Result() {
     }
@@ -111,8 +100,95 @@ public final class Result<T> implements Viewable, Serializable {
         this.message = message;
     }
 
+    @Override
+    public Integer getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getToast() {
+        return toast;
+    }
+
+    public void setToast(String toast) {
+        this.toast = toast;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getTrace() {
+        return trace;
+    }
+
+    public void setTrace(String trace) {
+        this.trace = trace;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+
+    @Override
+    public Class<?> getView() {
+        return view;
+    }
+
+    @Override
+    public void setView(Class<?> view) {
+        this.view = view;
+    }
+
     public boolean isSuccess() {
-        return SUCCESS_STATUS.equals(status);
+        return ResponseStatus.SUCCESS.getCode().equals(status);
     }
 
 }

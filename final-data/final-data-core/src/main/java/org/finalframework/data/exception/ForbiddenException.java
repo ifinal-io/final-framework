@@ -1,5 +1,7 @@
 package org.finalframework.data.exception;
 
+import org.finalframework.data.response.ResponseStatus;
+
 /**
  * @author likly
  * @version 1.0
@@ -8,14 +10,14 @@ package org.finalframework.data.exception;
  */
 public class ForbiddenException extends ServiceException {
 
-    public static final ForbiddenException DEFAULT = new ForbiddenException(CommonServiceException.FORBIDDEN.getMessage());
+    public static final ForbiddenException DEFAULT = new ForbiddenException(ResponseStatus.FORBIDDEN.getMessage());
 
     public ForbiddenException(String message) {
-        this(CommonServiceException.FORBIDDEN.getCode(), message);
+        this(ResponseStatus.FORBIDDEN.getCode(), message);
     }
 
     public ForbiddenException(Integer code, String message, String toast, Object... args) {
-        super(CommonServiceException.FORBIDDEN.getCode(), CommonServiceException.FORBIDDEN.getMessage(),
+        super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getMessage(),
                 code, message, toast, args);
     }
 

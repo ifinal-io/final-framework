@@ -14,12 +14,21 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.method.annotation.MapMethodProcessor;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
+import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver;
+import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 自定义参数解析器配置器。
@@ -55,10 +64,9 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     public void onApplicationEvent(ApplicationReadyEvent event) {
         ConfigurableApplicationContext applicationContext = event.getApplicationContext();
         final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext.getBean(RequestMappingHandlerAdapter.class);
-
-        configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
         configureMessageConverters(applicationContext, requestMappingHandlerAdapter);
-
+        configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
+        configureHandlerReturnValueHandler(applicationContext, requestMappingHandlerAdapter);
     }
 
     /**
@@ -78,10 +86,41 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         // 获取默认的参数解析器
         final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
         if (Assert.nonEmpty(defaultArgumentResolvers)) {
-            argumentResolvers.addAll(defaultArgumentResolvers);
+
+
+            for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
+                if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
+                    Field messageConverters = ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters");
+                    messageConverters.setAccessible(true);
+                    ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
+                }
+                argumentResolvers.add(argumentResolver);
+            }
         }
 
         adapter.setArgumentResolvers(argumentResolvers);
+    }
+
+    private void configureHandlerReturnValueHandler(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+
+        final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
+
+        List<HandlerMethodReturnValueHandler> defualtReturnValueHandlers = adapter.getReturnValueHandlers();
+        if (Assert.nonEmpty(defualtReturnValueHandlers)) {
+
+
+            for (HandlerMethodReturnValueHandler returnValueHandler : defualtReturnValueHandlers) {
+                if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {
+                    Field messageConverters = ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters");
+                    messageConverters.setAccessible(true);
+                    ReflectionUtils.setField(messageConverters, returnValueHandler, adapter.getMessageConverters());
+                }
+                returnValueHandlers.add(returnValueHandler);
+            }
+        }
+
+
+        adapter.setReturnValueHandlers(returnValueHandlers);
     }
 
     /**
@@ -90,7 +129,24 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
      * @see RequestMappingHandlerAdapter#getMessageConverters()
      */
     private void configureMessageConverters(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
-        adapter.getMessageConverters().add(0, new JsonStringHttpMessageConverter());
+
+        List<HttpMessageConverter<?>> messageConverters = adapter.getMessageConverters();
+
+
+        List<HttpMessageConverter<?>> httpMessageConverters = messageConverters.stream()
+                .map(it -> {
+                    if (it instanceof StringHttpMessageConverter) {
+                        JsonStringHttpMessageConverter jsonStringHttpMessageConverter = new JsonStringHttpMessageConverter();
+                        jsonStringHttpMessageConverter.setSupportedMediaTypes(it.getSupportedMediaTypes());
+                        jsonStringHttpMessageConverter.setDefaultCharset(((StringHttpMessageConverter) it).getDefaultCharset());
+                        return jsonStringHttpMessageConverter;
+                    } else {
+                        return it;
+                    }
+                }).collect(Collectors.toList());
+
+
+        adapter.setMessageConverters(httpMessageConverters);
     }
 
 }

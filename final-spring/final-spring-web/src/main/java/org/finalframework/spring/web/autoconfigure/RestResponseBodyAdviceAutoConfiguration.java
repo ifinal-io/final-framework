@@ -1,20 +1,18 @@
 package org.finalframework.spring.web.autoconfigure;
 
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.lettuce.core.RedisConnectionException;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.json.JsonException;
 import org.finalframework.spring.coding.AutoConfiguration;
-import org.finalframework.spring.web.exception.JsonResultExceptionHandler;
-import org.finalframework.spring.web.exception.MissingServletRequestParameterResultExceptionHandler;
 import org.finalframework.spring.web.exception.RestExceptionHandlerConfigurer;
-import org.finalframework.spring.web.reponse.ResponseBodySerializer;
-import org.finalframework.spring.web.reponse.RestResponseBodyAdvice;
-import org.finalframework.spring.web.reponse.ResultResponseBodyInterceptor;
-import org.finalframework.spring.web.reponse.ResultResponseBodySerializer;
+import org.finalframework.spring.web.exception.result.JsonExceptionHandler;
+import org.finalframework.spring.web.exception.result.MissingServletParameterResultExceptionHandler;
+import org.finalframework.spring.web.exception.result.RedisConnectExceptionHandler;
+import org.finalframework.spring.web.reponse.advice.EnumsResponseBodyAdvice;
+import org.finalframework.spring.web.reponse.advice.PageResponseBodyAdvice;
+import org.finalframework.spring.web.reponse.advice.ResponsibleResponseBodyAdvice;
+import org.finalframework.spring.web.reponse.advice.ResultResponseBodyAdvice;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -33,7 +31,7 @@ import javax.annotation.Resource;
 @Configuration
 @AutoConfiguration
 @EnableConfigurationProperties(ResponseBodyAdviceProperties.class)
-public class RestResponseBodyAdviceAutoConfiguration implements ApplicationContextAware, InitializingBean {
+public class RestResponseBodyAdviceAutoConfiguration implements ApplicationContextAware {
     private final ResponseBodyAdviceProperties properties;
 
     private ApplicationContext applicationContext;
@@ -44,57 +42,56 @@ public class RestResponseBodyAdviceAutoConfiguration implements ApplicationConte
 
     @Resource
     private ResultGlobalResultExceptionHandler resultGlobalResultExceptionHandler;
-    @Resource
-    private ObjectMapper objectMapper;
-
-    @Bean
-    public ResultResponseBodySerializer resultResponseBodySerializer() {
-        return new ResultResponseBodySerializer();
-    }
-
-
-    @Bean
-    public RestResponseBodyAdvice resultResponseBodyAdvice() {
-        return new RestResponseBodyAdvice(properties);
-    }
-
-    @Bean
-    public ResultResponseBodyInterceptor resultResponseBodyInterceptor() {
-        return new ResultResponseBodyInterceptor();
-    }
 
     @Bean
     @ConditionalOnClass(JsonException.class)
-    public JsonResultExceptionHandler jsonResultExceptionHandler() {
-        return new JsonResultExceptionHandler();
+    public JsonExceptionHandler jsonResultExceptionHandler() {
+        return new JsonExceptionHandler();
     }
 
     @Bean
-    public MissingServletRequestParameterResultExceptionHandler missingServletRequestParameterResultExceptionHandler() {
-        return new MissingServletRequestParameterResultExceptionHandler();
+    @ConditionalOnClass(RedisConnectionException.class)
+    public RedisConnectExceptionHandler redisConnectExceptionHandler() {
+        return new RedisConnectExceptionHandler();
+    }
+
+
+    @Bean
+    public MissingServletParameterResultExceptionHandler missingServletRequestParameterResultExceptionHandler() {
+        return new MissingServletParameterResultExceptionHandler();
     }
 
 
     @Bean
     public RestExceptionHandlerConfigurer restExceptionHandlerConfigurer() {
-
         final RestExceptionHandlerConfigurer restExceptionHandlerConfigurer = new RestExceptionHandlerConfigurer();
         restExceptionHandlerConfigurer.setGlobalExceptionHandler(resultGlobalResultExceptionHandler);
         return restExceptionHandlerConfigurer;
     }
 
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        ResponseBodySerializer bodySerializer = applicationContext.getBean(properties.getSerializer());
-
-
-        if (bodySerializer instanceof JsonSerializer) {
-            SimpleModule module = new SimpleModule();
-            module.addSerializer(bodySerializer.type(), (JsonSerializer) bodySerializer);
-            objectMapper.registerModule(module);
-        }
+    @Bean
+    public EnumsResponseBodyAdvice enumsResponseBodyAdvice() {
+        return new EnumsResponseBodyAdvice();
     }
+
+    @Bean
+    public PageResponseBodyAdvice pageResponseBodyAdvice() {
+        return new PageResponseBodyAdvice();
+    }
+
+    @Bean
+    public ResultResponseBodyAdvice resultResponseBodyAdvice() {
+        return new ResultResponseBodyAdvice();
+    }
+
+    @Bean
+    public ResponsibleResponseBodyAdvice responsibleResponseBodyAdvice() {
+        ResponsibleResponseBodyAdvice advice = new ResponsibleResponseBodyAdvice();
+        advice.setSyncStatus(properties.isSyncStatus());
+        return advice;
+    }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

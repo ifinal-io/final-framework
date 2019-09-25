@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.exception;
+package org.finalframework.spring.web.exception.result;
 
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
@@ -21,7 +21,7 @@ import org.springframework.lang.NonNull;
 @AutoConfigureBefore(ResultGlobalResultExceptionHandler.class)
 @ResultExceptionHandler
 @ConditionalOnClass(JsonException.class)
-public class JsonResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<JsonException> {
+public class JsonExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<JsonException> {
     @Override
     public boolean supports(@NonNull Throwable t) {
         return t instanceof JsonException;
