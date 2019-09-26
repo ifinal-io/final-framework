@@ -13,9 +13,6 @@ import org.finalframework.data.response.ResponseStatus;
  */
 public class NotFoundException extends ServiceException {
 
-    public static final NotFoundException DEFAULT = new NotFoundException(ResponseStatus.NOT_FOUND.getMessage());
-
-    @Deprecated
     public NotFoundException(String message) {
         super(ResponseStatus.NOT_FOUND.getCode(), message);
     }

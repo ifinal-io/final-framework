@@ -1,8 +1,8 @@
 package org.finalframework.data.exception.result;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.exception.GlobalExceptionHandler;
 import org.finalframework.data.exception.InvokeExceptionWrapper;
+import org.finalframework.data.exception.handler.GlobalExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 import org.slf4j.MDC;

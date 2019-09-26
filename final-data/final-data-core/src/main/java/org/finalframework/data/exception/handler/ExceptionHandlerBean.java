@@ -1,4 +1,4 @@
-package org.finalframework.data.exception;
+package org.finalframework.data.exception.handler;
 
 /**
  * @author likly

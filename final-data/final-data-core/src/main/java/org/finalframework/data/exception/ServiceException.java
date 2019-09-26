@@ -32,17 +32,14 @@ public class ServiceException extends RuntimeException implements IException {
         this.toast = toast == null ? message : String.format(toast, args);
     }
 
-    @Deprecated
     public ServiceException(Integer code, String message) {
         this(code, message, code, message, message);
     }
 
-    @Deprecated
     public ServiceException(Integer code, String message, String toast, Object... args) {
         this(code, message, code, message, toast == null ? message : String.format(toast, args));
     }
 
-    @Deprecated
     public ServiceException(IException exception, Object... args) {
         this(exception.getCode(), exception.getMessage(), exception.getToast(), args);
     }

@@ -1,6 +1,6 @@
 package org.finalframework.data.exception.result;
 
-import org.finalframework.data.exception.ExceptionHandler;
+import org.finalframework.data.exception.handler.ExceptionHandler;
 import org.finalframework.data.result.Result;
 
 /**

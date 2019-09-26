@@ -1,4 +1,4 @@
-package org.finalframework.data.exception;
+package org.finalframework.data.exception.handler;
 
 import org.springframework.lang.NonNull;
 

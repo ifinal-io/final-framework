@@ -2,7 +2,7 @@ package org.finalframework.spring.web.exception;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.data.exception.GlobalExceptionHandler;
+import org.finalframework.data.exception.handler.GlobalExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
