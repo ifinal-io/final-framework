@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 
 /**
  * 对JavaBean的枚举型属性（实现了{@link IEnum}接口）进行序列化修改。
- * <p>
+ * <p/>
  * 1. 将该枚举属性序列化为{@link IEnum#getCode()}所对应的值。
  * 2. 增加"xxxName"属性，其值为{@link IEnum#getDescription()}所对应的值。
+ * <p/>
+ * <a href="https://final.ilikly.com/json/jackson/serializer/bean-enum-property-serializer-modifier">BeanEnumPropertySerializerModifier</a>
  *
  * @author likly
  * @version 1.0
@@ -51,7 +53,7 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
             if (IEnum.class.isAssignableFrom(property.getPrimaryType().getRawClass())) {
                 // 实现了 IEnum 的属性
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
-
+                //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
                 BeanPropertyWriter bpw = new BeanPropertyWriter(property,
                         def.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                         EnumNameSerializer.instance, def.getTypeSerializer(), def.getSerializationType(),
@@ -81,6 +83,5 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
         }
 
         return EnumCodeSerializer.instance;
-//        return super.modifyEnumSerializer(config, valueType, beanDesc, serializer);
     }
 }

@@ -1,8 +1,9 @@
-package org.finalframework.spring.web.reponse;
+package org.finalframework.spring.web.reponse.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.*;
 
@@ -11,6 +12,7 @@ import java.lang.annotation.*;
  * @version 1.0
  * @date 2019-02-14 14:57:22
  * @since 1.0
+ * @see RestController
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

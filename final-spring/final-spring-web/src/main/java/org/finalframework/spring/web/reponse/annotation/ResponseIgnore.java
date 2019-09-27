@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.reponse;
+package org.finalframework.spring.web.reponse.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

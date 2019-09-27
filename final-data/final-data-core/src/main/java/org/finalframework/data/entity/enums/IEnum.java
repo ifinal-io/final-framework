@@ -16,10 +16,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @since 1.0
  */
 public interface IEnum<T> {
+
+    /**
+     * 返回表示该枚举常量的code
+     */
     @JsonValue
     T getCode();
 
+    /**
+     * 返回对该枚举常量的描述信息
+     */
     String getDescription();
-
 
 }
