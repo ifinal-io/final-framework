@@ -1,8 +1,8 @@
 ---
 title: Json
 subtitle: 数据传输的载体
-categories: []
-tags: []
+categories: [json]
+tags: [json]
 layout: post
 menus:
     - index
@@ -23,7 +23,9 @@ version: 1.0
 
 ## Show
 
-### Enum 增强
+### Stronger Enum
+
+加强的**枚举**类型，对于实现了`IEnum`接口的枚举类型，在`Json`序列化的时，将会遵循以下规则：
 
 1. 支持在`Bean`对象中使用直接使用枚举值，序列化为其对应的`code`值。
 

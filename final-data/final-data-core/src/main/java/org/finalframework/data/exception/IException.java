@@ -1,6 +1,7 @@
 package org.finalframework.data.exception;
 
 import lombok.NonNull;
+import org.finalframework.data.exception.handler.ExceptionHandler;
 import org.finalframework.data.result.Result;
 import org.springframework.lang.Nullable;
 
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
  * @version 1.0
  * @date 2018-09-26 20:57
  * @see Result
+ * @see ExceptionHandler
  * @since 1.0
  */
 public interface IException {

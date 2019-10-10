@@ -15,9 +15,21 @@ package org.finalframework.data.exception;
  */
 @SuppressWarnings({"unused"})
 public class ServiceException extends RuntimeException implements IException {
+    /**
+     * 状态
+     */
     private final Integer status;
+    /**
+     * 状态描述
+     */
     private final String description;
+    /**
+     * 异常码
+     */
     private final Integer code;
+    /**
+     * 提示消息
+     */
     private final String toast;
 
     public ServiceException(Integer status, String description, Integer code, String message) {

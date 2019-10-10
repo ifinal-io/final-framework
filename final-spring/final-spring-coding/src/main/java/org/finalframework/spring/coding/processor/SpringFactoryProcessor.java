@@ -2,7 +2,6 @@ package org.finalframework.spring.coding.processor;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.coding.FreeMakerCoder;
 import org.finalframework.spring.coding.ApplicationEventListener;
 import org.finalframework.spring.coding.AutoConfiguration;
 
@@ -27,7 +26,7 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class SpringFactoryProcessor extends AbstractProcessor {
-    private final Coder coder = new FreeMakerCoder();
+    private final Coder coder = Coder.getDefaultCoder();
     private final Set<Element> processorElements = new HashSet<>();
     private Filer filer;
 

@@ -56,13 +56,19 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<EnumBean
 
         if (body instanceof Collection) {
             Collection<IEnum> enums = (Collection<IEnum>) body;
-            return enums.stream().map(EnumBean::new).collect(Collectors.toList());
+            List<EnumBean> collect = enums.stream().map(this::buildEnumBean).collect(Collectors.toList());
+            return collect;
         } else if (body.getClass().isArray()) {
             IEnum[] enums = (IEnum[]) body;
-            return Arrays.stream(enums).map(EnumBean::new).collect(Collectors.toList());
+            List<EnumBean> collect = Arrays.stream(enums).map(this::buildEnumBean).collect(Collectors.toList());
+            return collect;
         }
 
         throw new IllegalArgumentException("不支持的数据类型：" + body.getClass());
+    }
+
+    private EnumBean buildEnumBean(IEnum ienum) {
+        return new EnumBean<>(ienum);
     }
 
 }

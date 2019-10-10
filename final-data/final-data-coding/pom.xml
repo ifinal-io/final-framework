@@ -24,6 +24,13 @@
             <groupId>org.finalframework</groupId>
             <artifactId>final-data-annotation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <version>${java.version}</version>
+            <scope>system</scope>
+            <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

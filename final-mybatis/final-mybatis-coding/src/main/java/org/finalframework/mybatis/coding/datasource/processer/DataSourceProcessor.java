@@ -2,7 +2,6 @@ package org.finalframework.mybatis.coding.datasource.processer;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.coding.FreeMakerCoder;
 import org.finalframework.core.Assert;
 import org.finalframework.mybatis.coding.datasource.DataSource;
 
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class DataSourceProcessor extends AbstractProcessor {
     public static final String DATASOURCE = "DataSource";
-    private final Coder coder = new FreeMakerCoder();
+    private final Coder coder = Coder.getDefaultCoder();
     private Filer filer;
     private Elements elements;
 

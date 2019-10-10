@@ -1,5 +1,6 @@
 package org.finalframework.data.coding.entity;
 
+import com.sun.tools.javac.code.Type;
 import org.finalframework.data.annotation.MultiColumn;
 import org.finalframework.data.annotation.PrimaryKey;
 import org.finalframework.data.annotation.ReferenceColumn;
@@ -29,7 +30,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
 
-
     private final T entity;
     private final ProcessingEnvironment processEnv;
     private final Elements elements;
@@ -55,7 +55,10 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.types = processEnv.getTypeUtils();
         this.element = element;
         this.name = getElementName(element);
-        final TypeKind kind = element.asType().getKind();
+        TypeMirror typeMirror = element.asType();
+        TypeMirror realTypeMirror = getRealTypeMirror(typeMirror);
+
+        final TypeKind kind = typeMirror.getKind();
         if (kind.isPrimitive()) {
             switch (kind) {
                 case INT:
@@ -86,25 +89,25 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
                     throw new IllegalArgumentException("不支持的基础类型");
             }
         } else {
-            this.rawType = element.asType().toString();
+            this.rawType = typeMirror.toString();
         }
-        this.type = types.erasure(element.asType()).toString();
+        this.type = types.erasure(typeMirror).toString();
 
         if (element.getKind().isField()) {
-            this.isCollection = types.isAssignable(types.erasure(element.asType()), elements
+            this.isCollection = types.isAssignable(types.erasure(typeMirror), elements
                     .getTypeElement("java.util.Collection")
                     .asType());
             if (isCollection) {
-                componentType = ((DeclaredType) element.asType()).getTypeArguments().get(0).toString();
+                componentType = ((DeclaredType) typeMirror).getTypeArguments().get(0).toString();
             } else {
                 componentType = null;
             }
 
-            this.isMap = types.isAssignable(types.erasure(element.asType()), elements
+            this.isMap = types.isAssignable(types.erasure(typeMirror), elements
                     .getTypeElement("java.util.Map")
                     .asType());
             if (isMap) {
-                List<? extends TypeMirror> arguments = ((DeclaredType) element.asType()).getTypeArguments();
+                List<? extends TypeMirror> arguments = ((DeclaredType) typeMirror).getTypeArguments();
                 this.mapKeyType = arguments.get(0).toString();
                 this.mapValueType = arguments.get(1).toString();
             } else {
@@ -137,6 +140,14 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
             referenceProperties = null;
         }
 
+    }
+
+    private TypeMirror getRealTypeMirror(TypeMirror typeMirror) {
+        if (typeMirror instanceof Type.AnnotatedType) {
+            return ((Type.AnnotatedType) typeMirror).unannotatedType();
+        }
+
+        return typeMirror;
     }
 
     private void initReferenceProperties(String[] properties, String delimiter) {
@@ -189,7 +200,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
     @Override
     public String getRawType() {
-        return isCollection ? componentType : type;
+        return isCollection ? componentType : rawType;
     }
 
     @Override

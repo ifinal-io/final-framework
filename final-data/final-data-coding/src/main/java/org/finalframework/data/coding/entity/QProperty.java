@@ -108,7 +108,7 @@ public class QProperty implements Serializable {
                 }
 
 
-                this.rawType = rawType.replace("java.lang.", "");
+                this.rawType = rawType;//.replace("java.lang.", "");
 
             } else {
                 this.rawType = "Object";

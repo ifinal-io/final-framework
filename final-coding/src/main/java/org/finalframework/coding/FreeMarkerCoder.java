@@ -11,14 +11,19 @@ import java.io.Writer;
  * @date 2018-10-29 13:20
  * @since 1.0
  */
-public class FreeMakerCoder implements Coder {
+public class FreeMarkerCoder implements Coder {
     //    private static final Logger logger = LoggerFactory.getLogger(FreeMakerCoder.class);
-    private final Configuration configuration;
+    private Configuration configuration;
 
-    public FreeMakerCoder() {
-        this.configuration = new Configuration();
-        this.configuration.setClassForTemplateLoading(this.getClass(), "/template/");
-        this.configuration.setDefaultEncoding("UTF-8");
+    public FreeMarkerCoder() {
+
+        try {
+            this.configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+            this.configuration.setClassForTemplateLoading(this.getClass(), "/template/");
+            this.configuration.setDefaultEncoding("UTF-8");
+        } catch (Exception e) {
+            System.err.println("++++++++++++++++++++++++++++++++" + e.getMessage());
+        }
 
     }
 

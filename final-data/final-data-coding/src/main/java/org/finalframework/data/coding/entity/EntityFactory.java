@@ -1,10 +1,12 @@
 package org.finalframework.data.coding.entity;
 
 import org.finalframework.data.annotation.Column;
+import org.finalframework.data.coding.entity.javac.PropertyElementVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -45,6 +47,7 @@ public interface EntityFactory {
                             )
 
                     )
+                    .peek(it -> ((Element) it).accept(new PropertyElementVisitor(processEnv), null))
                     .map(it -> new BaseProperty(result, processEnv, it))
 //                    .peek(it -> {
 //                        logger.info("name={},rawType={},type={},,isCollection={},componentType={},isMap={},keyType={},valueType={}", it
