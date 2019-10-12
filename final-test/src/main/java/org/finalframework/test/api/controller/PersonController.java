@@ -8,7 +8,6 @@ import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.Assert;
 import org.finalframework.core.formatter.DateFormatter;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Scanner;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.annotation.MonitorAlert;
@@ -19,7 +18,6 @@ import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
-import org.finalframework.test.entity.QPerson;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+
+//import org.finalframework.test.entity.QPerson;
 
 
 /**
@@ -87,7 +87,7 @@ public class PersonController {
                 logger.info("scan index = {}", index);
                 final Query query = new Query().page(1, size);
                 if (lastId != null) {
-                    query.where(QPerson.id.gt(lastId));
+//                    query.where(QPerson.id.gt(lastId));
                 }
                 final List<Person> list = personMapper.select(query);
                 if (Assert.nonEmpty(list)) {
@@ -119,9 +119,10 @@ public class PersonController {
     public int update(@PathVariable("id") Long id, @RequestBody Person person) {
         person.setId(id);
 //        return personMapper.update(person);
-        Update update = Update.update().set(QPerson.name, person.getName())
-                .set(QPerson.creator, person.getCreator().getId());
-        return personMapper.update(update, id);
+//        Update update = Update.update().set(QPerson.name, person.getName())
+//                .set(QPerson.creator, person.getCreator().getId());
+//        return personMapper.update(update, id);
+        return 0;
     }
 
     @MonitorAlert(name = "测试Alert", key = "alert")

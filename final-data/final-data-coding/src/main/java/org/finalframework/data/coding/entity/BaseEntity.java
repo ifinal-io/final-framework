@@ -1,5 +1,7 @@
 package org.finalframework.data.coding.entity;
 
+import org.finalframework.core.Assert;
+
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -23,9 +25,11 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     private final String packageName;
     private final String simpleName;
     private final String name;
+    private final String table;
     private final String type;
     private final List<P> properties = new LinkedList<>();
     private final Map<String, P> propertyCache = new LinkedHashMap<>();
+    private final Set<TypeElement> views = new HashSet<>();
     private P idProperty;
 
     public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
@@ -35,6 +39,7 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
         this.name = typeElement.getQualifiedName().toString();
+        this.table = name;
         this.simpleName = typeElement.getSimpleName().toString();
         this.type = types.erasure(typeElement.asType()).toString();
 
@@ -57,6 +62,11 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
             properties.add(property);
         }
 
+        List<TypeElement> views = property.getViews();
+        if (Assert.nonEmpty(views)) {
+            this.views.addAll(views);
+        }
+
     }
 
     @Override
@@ -70,8 +80,18 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     }
 
     @Override
+    public String getTable() {
+        return simpleName;
+    }
+
+    @Override
     public String getSimpleName() {
         return simpleName;
+    }
+
+    @Override
+    public TypeElement getElement() {
+        return typeElement;
     }
 
     @Override
@@ -99,9 +119,15 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
         return idProperty;
     }
 
+
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
         return typeElement.getAnnotation(annotationType);
+    }
+
+    @Override
+    public Collection<TypeElement> getViews() {
+        return views;
     }
 
     @Override

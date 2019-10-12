@@ -1,11 +1,13 @@
 package org.finalframework.data.coding.entity;
 
 import org.finalframework.core.Streamable;
+import org.finalframework.data.annotation.enums.PrimaryKeyType;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
+
 
     /**
      * return the package of entity
@@ -28,11 +31,14 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
      */
     String getName();
 
+    String getTable();
 
     /**
      * return the simpleName of entity
      */
     String getSimpleName();
+
+    TypeElement getElement();
 
     /**
      * return the raw type of entity
@@ -76,10 +82,16 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
         throw new IllegalStateException(String.format("Required identifier property not found for %s!", getType()));
     }
 
+    default PrimaryKeyType getPrimaryKeyType() {
+        return getIdProperty() == null ? null : getIdProperty().getPrimaryKeyType();
+    }
+
     <A extends Annotation> A getAnnotation(Class<A> annotationType);
 
     default <A extends Annotation> boolean hasAnnotation(Class<A> annotationType) {
         return getAnnotation(annotationType) != null;
     }
+
+    Collection<TypeElement> getViews();
 
 }

@@ -13,6 +13,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author likly
@@ -20,12 +22,21 @@ import javax.lang.model.type.TypeMirror;
  * @date 2018-10-29 10:19
  * @since 1.0
  */
-public interface EntityFactory {
+public final class EntityFactory {
 
     Logger logger = LoggerFactory.getLogger(EntityFactory.class);
 
-    static Entity<Property> create(ProcessingEnvironment processEnv, TypeElement typeElement) {
-//        logger.info("create entity: {}", typeElement.getSimpleName().toString());
+    private static final Map<String, Entity<Property>> cache = new HashMap<>();
+
+    public static Entity<Property> create(ProcessingEnvironment processEnv, TypeElement typeElement) {
+
+
+        String name = typeElement.getQualifiedName().toString();
+
+        if (cache.containsKey(name)) {
+            return cache.get(name);
+        }
+
         final BaseEntity<Property> result = new BaseEntity<>(processEnv, typeElement);
 
         while (typeElement != null) {
@@ -64,6 +75,8 @@ public interface EntityFactory {
                 }
             }
         }
+
+        cache.put(name, result);
 
         return result;
     }

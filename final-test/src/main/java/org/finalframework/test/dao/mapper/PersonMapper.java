@@ -12,4 +12,6 @@ import org.finalframework.test.entity.Person;
  */
 @Mapper
 public interface PersonMapper extends AbsMapper<Long, Person> {
+
+
 }

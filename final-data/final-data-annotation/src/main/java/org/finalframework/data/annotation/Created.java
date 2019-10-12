@@ -1,5 +1,6 @@
 package org.finalframework.data.annotation;
 
+import org.finalframework.data.annotation.enums.PersistentType;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -39,4 +40,6 @@ public @interface Created {
     boolean selectable() default true;
 
     boolean placeholder() default true;
+
+    PersistentType persistentType() default PersistentType.AUTO;
 }
