@@ -6,6 +6,8 @@ import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.coding.entity.Property;
 import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.finalframework.mybatis.Configuration;
 import org.finalframework.mybatis.handler.*;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -47,7 +49,6 @@ public final class Utils {
     private String jsonListBlobTypeHandler = JsonListBlobTypeHandler.class.getCanonicalName();
     private String jsonSetBlobTypeHandler = JsonSetBlobTypeHandler.class.getCanonicalName();
 
-
     public Utils(ProcessingEnvironment processEnv) {
         this.processEnv = processEnv;
         this.typeUtils = processEnv.getTypeUtils();
@@ -55,6 +56,7 @@ public final class Utils {
         this.enumTypeElement = processEnv.getElementUtils().getTypeElement(IEnum.class.getCanonicalName());
         this.listTypeElement = processEnv.getElementUtils().getTypeElement(List.class.getCanonicalName());
         this.setTypeElement = processEnv.getElementUtils().getTypeElement(Set.class.getCanonicalName());
+        jsonObjectTypeHandler = Configuration.getInstance().getJsonObjectTypeHandler();
     }
 
     public static void init(ProcessingEnvironment processingEnvironment) {
@@ -110,14 +112,17 @@ public final class Utils {
 
     @NonNull
     public String formatPropertyColumn(@Nullable Property referenceProperty, @NonNull Property property) {
+        String column = null;
         if (referenceProperty == null) {
-            return property.getColumn();
+            column = property.getColumn();
         } else {
             final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
                     referenceProperty.referenceColumn(property.getName()) : property.getColumn();
-            return property.isIdProperty() && referenceProperty.referenceMode() == ReferenceMode.SIMPLE ?
+            column = property.isIdProperty() && referenceProperty.referenceMode() == ReferenceMode.SIMPLE ?
                     referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
+
+        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
     }
 
 

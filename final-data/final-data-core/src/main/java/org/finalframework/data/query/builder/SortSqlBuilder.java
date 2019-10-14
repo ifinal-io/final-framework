@@ -23,7 +23,7 @@ public class SortSqlBuilder implements SqlBuilder<Sort> {
     public String build() {
         if (sort == null) return "";
         return sort.stream()
-                .map(it -> String.format("%s %s", formatProperty(it.property()), it.direction().name()))
+                .map(it -> String.format("%s %s", formatProperty(it.getProperty()), it.getDirection().name()))
                 .collect(Collectors.joining(","));
     }
 }

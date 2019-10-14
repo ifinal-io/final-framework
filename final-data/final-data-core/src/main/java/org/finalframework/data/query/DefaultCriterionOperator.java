@@ -1,5 +1,6 @@
 package org.finalframework.data.query;
 
+import lombok.Getter;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
 
@@ -41,6 +42,7 @@ public class DefaultCriterionOperator implements CriterionOperator {
     public static final CriterionOperator NOT_NULL = new DefaultCriterionOperator("NOT_NULL");
 
 
+    @Getter
     private final String name;
 
     public DefaultCriterionOperator(@NonNull String name) {

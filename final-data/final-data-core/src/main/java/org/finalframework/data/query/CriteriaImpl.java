@@ -1,5 +1,6 @@
 package org.finalframework.data.query;
 
+import lombok.Getter;
 import org.finalframework.data.query.builder.CriteriaSqlBuilder;
 import org.finalframework.data.query.enums.AndOr;
 
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 public class CriteriaImpl implements Criteria, Sql<Criteria> {
     private final AndOr andOr;
     private final List<Criteria> criteriaChain;
+    @Getter
     private final List<Criterion> criterion;
 
     private CriteriaImpl(BuilderImpl builder) {

@@ -4,10 +4,9 @@ import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.Property;
 import org.springframework.lang.NonNull;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import javax.lang.model.element.TypeElement;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -16,5 +15,5 @@ import java.util.Collection;
  * @since 1.0
  */
 public interface XmlMapperBuilder {
-    Collection<Element> build(@NonNull Document document, @NonNull TypeElement mapper, @NonNull Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull TypeElement mapper, @NonNull Entity<Property> entity);
 }

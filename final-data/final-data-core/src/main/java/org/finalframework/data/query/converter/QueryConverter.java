@@ -2,7 +2,7 @@ package org.finalframework.data.query.converter;
 
 import org.finalframework.core.converter.Converter;
 import org.finalframework.data.query.IQuery;
-import org.finalframework.data.query.Query;
+import org.finalframework.data.query.QueryImpl;
 
 /**
  * @author likly
@@ -10,6 +10,6 @@ import org.finalframework.data.query.Query;
  * @date 2019-02-19 23:12:15
  * @since 1.0
  */
-public interface QueryConverter<T extends IQuery> extends Converter<T, Query> {
+public interface QueryConverter<T extends IQuery> extends Converter<T, QueryImpl> {
 
 }

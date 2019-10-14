@@ -3,12 +3,10 @@ package org.finalframework.mybatis.coding.mapper.builder;
 import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.Property;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import javax.lang.model.element.ExecutableElement;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -20,11 +18,7 @@ public interface MethodXmlMapperBuilder {
 
     boolean supports(@NonNull ExecutableElement method);
 
-    @NonNull
-    Element build(@NonNull ExecutableElement method, Document document, Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull ExecutableElement method, Entity<Property> entity);
 
-    @Nullable
-    default Collection<Element> sqlFragments(@NonNull ExecutableElement method, @NonNull Document document, @NonNull Entity<Property> entity) {
-        return null;
-    }
+
 }

@@ -2,7 +2,6 @@ package org.finalframework.data.coding.entity;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.data.annotation.NonColumn;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 
 import javax.annotation.processing.*;
@@ -59,7 +58,7 @@ public class EntityProcessor extends AbstractProcessor {
                     builder.packageName(packageName)
                             .name("Q" + entityName);
                     it.stream()
-                            .filter(property -> !property.hasAnnotation(NonColumn.class))
+                            .filter(property -> !property.isTransient())
                             .forEach(property -> {
                                 if (property.isReference()) {
                                     TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());

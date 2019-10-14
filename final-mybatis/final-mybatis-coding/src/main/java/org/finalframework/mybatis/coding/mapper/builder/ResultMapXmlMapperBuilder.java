@@ -4,7 +4,7 @@ import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.Property;
 import org.springframework.lang.NonNull;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -13,5 +13,7 @@ import org.w3c.dom.Element;
  * @since 1.0
  */
 public interface ResultMapXmlMapperBuilder {
-    Element build(@NonNull Document document, @NonNull Entity<Property> entity);
+
+    void build(@NonNull Node root, @NonNull Document document, @NonNull Entity<Property> entity);
+
 }

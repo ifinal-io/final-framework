@@ -1,5 +1,6 @@
 package org.finalframework.data.query.criterion;
 
+import lombok.Getter;
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
 import org.finalframework.data.query.FunctionCriterion;
@@ -15,9 +16,12 @@ import java.util.Collection;
  * @since 1.0
  */
 public class SingleCriterionImpl<T> implements SingleCriterion<T> {
+    @Getter
     private final QProperty property;
+    @Getter
     private final CriterionOperator operator;
     private final Collection<FunctionCriterion> functions;
+    @Getter
     private final T value;
 
     private SingleCriterionImpl(BuilderImpl<T> builder) {

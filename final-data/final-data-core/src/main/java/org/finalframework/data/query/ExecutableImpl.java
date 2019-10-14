@@ -59,425 +59,368 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Criteria eq(@NonNull T value) {
+    public Criterion eq(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.EQUAL)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.EQUAL)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria neq(@NonNull T value) {
+    public Criterion neq(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_EQUAL)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_EQUAL)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria gt(@NonNull T value) {
+    public Criterion gt(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.GREATER_THAN)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.GREATER_THAN)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria gte(@NonNull T value) {
+    public Criterion gte(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.GREATER_THAN_EQUAL)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.GREATER_THAN_EQUAL)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria lt(@NonNull T value) {
+    public Criterion lt(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.LESS_THAN)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.LESS_THAN)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria lte(@NonNull T value) {
+    public Criterion lte(@NonNull T value) {
         Assert.isNull(value, "value is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.LESS_THAN_EQUAL)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.LESS_THAN_EQUAL)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria in(@NonNull T... values) {
+    public Criterion in(@NonNull T... values) {
         Assert.isEmpty(values, "values is null");
         return in(Arrays.asList(values));
     }
 
     @Override
-    public Criteria in(@NonNull Collection<T> values) {
+    public Criterion in(@NonNull Collection<T> values) {
         Assert.isEmpty(values, "values is null");
         final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
-        return Criteria.where(
-                builder
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.IN)
-                        .value(values)
-                        .build()
-        );
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.IN)
+                .value(values)
+                .build();
     }
 
     @Override
-    public Criteria nin(@NonNull T... values) {
+    public Criterion nin(@NonNull T... values) {
         Assert.isEmpty(values, "values is null");
         return nin(Arrays.asList(values));
     }
 
     @Override
-    public Criteria nin(@NonNull Collection<T> values) {
+    public Criterion nin(@NonNull Collection<T> values) {
         Assert.isEmpty(values, "values is null");
         final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
-        return Criteria.where(
-                builder
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_IN)
-                        .value(values)
-                        .build()
-        );
+        return builder
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_IN)
+                .value(values)
+                .build();
     }
 
     @Override
-    public Criteria isNull() {
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NULL)
-                        .build()
-        );
+    public Criterion isNull() {
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NULL)
+                .build();
     }
 
     @Override
-    public Criteria nonNull() {
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_NULL)
-                        .build()
-        );
+    public Criterion nonNull() {
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_NULL)
+                .build();
     }
 
     @Override
-    public Criteria startWith(@NonNull String value) {
+    public Criterion startWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.START_WITH)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.START_WITH)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria notStartWith(@NonNull String value) {
+    public Criterion notStartWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_START_WITH)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_START_WITH)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria endWith(@NonNull String value) {
+    public Criterion endWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.END_WITH)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.END_WITH)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria notEndWith(@NonNull String value) {
+    public Criterion notEndWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_END_WITH)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_END_WITH)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria contains(@NonNull String value) {
+    public Criterion contains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.CONTAINS)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.CONTAINS)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria notContains(@NonNull String value) {
+    public Criterion notContains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_CONTAINS)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_CONTAINS)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria like(@NonNull String value) {
+    public Criterion like(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.LIKE)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.LIKE)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria notLike(@NonNull String value) {
+    public Criterion notLike(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_LIKE)
-                        .value(value)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_LIKE)
+                .value(value)
+                .build();
     }
 
     @Override
-    public Criteria before(@NonNull Date date) {
+    public Criterion before(@NonNull Date date) {
         Assert.isNull(date, "date is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.BEFORE)
-                        .value(date)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.BEFORE)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria before(@NonNull long date) {
+    public Criterion before(@NonNull long date) {
         Assert.isNull(date, "date is null");
         return before(new Date(date));
     }
 
     @Override
-    public Criteria after(@NonNull Date date) {
+    public Criterion after(@NonNull Date date) {
         Assert.isNull(date, "date is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.AFTER)
-                        .value(date)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.AFTER)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria after(@NonNull long date) {
+    public Criterion after(@NonNull long date) {
         Assert.isNull(date, "date is null");
         return after(new Date(date));
     }
 
     @Override
-    public Criteria dateEqual(@NonNull Date date) {
+    public Criterion dateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.DATE_EQUAL)
-                        .value(date)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_EQUAL)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria notDateEqual(@NonNull Date date) {
+    public Criterion notDateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
-                        .value(date)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria dateEqual(@NonNull long date) {
+    public Criterion dateEqual(@NonNull long date) {
         return dateEqual(new Date(date));
     }
 
     @Override
-    public Criteria notDateEqual(@NonNull long date) {
+    public Criterion notDateEqual(@NonNull long date) {
         return notDateEqual(new Date(date));
     }
 
     @Override
-    public Criteria dateBefore(@NonNull Date date) {
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.DATE_BEFORE)
-                        .value(date)
-                        .build()
-        );
+    public Criterion dateBefore(@NonNull Date date) {
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_BEFORE)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria dateBefore(@NonNull long date) {
+    public Criterion dateBefore(@NonNull long date) {
         Assert.isNull(date, "date is empty");
         return dateBefore(new Date(date));
     }
 
     @Override
-    public Criteria dateAfter(@NonNull Date date) {
+    public Criterion dateAfter(@NonNull Date date) {
         Assert.isNull(date, "date is empty");
-        return Criteria.where(
-                SingleCriterion.builder()
-                        .property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.DATE_AFTER)
-                        .value(date)
-                        .build()
-        );
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_AFTER)
+                .value(date)
+                .build();
     }
 
     @Override
-    public Criteria dateAfter(@NonNull long date) {
+    public Criterion dateAfter(@NonNull long date) {
         Assert.isNull(date, "date is empty");
         return dateAfter(new Date(date));
     }
 
     @Override
-    public Criteria between(@NonNull T min, @NonNull T max) {
+    public Criterion between(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
-        return Criteria.where(
-                builder.property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.BETWEEN)
-                        .between(min, max)
-                        .build()
-        );
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.BETWEEN)
+                .between(min, max)
+                .build();
     }
 
     @Override
-    public Criteria notBetween(@NonNull T min, @NonNull T max) {
+    public Criterion notBetween(@NonNull T min, @NonNull T max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
-        return Criteria.where(
-                builder.property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_BETWEEN)
-                        .between(min, max)
-                        .build()
-        );
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_BETWEEN)
+                .between(min, max)
+                .build();
     }
 
     @Override
-    public Criteria dateBetween(@NonNull Date min, @NonNull Date max) {
+    public Criterion dateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
-        return Criteria.where(
-                builder.property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.DATE_BETWEEN)
-                        .between(min, max)
-                        .build()
-        );
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_BETWEEN)
+                .between(min, max)
+                .build();
     }
 
     @Override
-    public Criteria notDateBetween(@NonNull Date min, @NonNull Date max) {
+    public Criterion notDateBetween(@NonNull Date min, @NonNull Date max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
-        return Criteria.where(
-                builder.property(property)
-                        .function(functions)
-                        .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
-                        .between(min, max)
-                        .build()
-        );
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
+                .between(min, max)
+                .build();
     }
 
     @Override
-    public Criteria dateBetween(@NonNull long min, @NonNull long max) {
+    public Criterion dateBetween(@NonNull long min, @NonNull long max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         return dateBetween(new Date(min), new Date(max));
     }
 
     @Override
-    public Criteria notDateBetween(@NonNull long min, @NonNull long max) {
+    public Criterion notDateBetween(@NonNull long min, @NonNull long max) {
         Assert.isNull(min, "min is empty");
         Assert.isNull(max, "max is empty");
         return notDateBetween(new Date(min), new Date(max));

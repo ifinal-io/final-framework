@@ -20,17 +20,17 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public String table() {
+    public String getTable() {
         return table;
     }
 
     @Override
-    public QProperty property() {
+    public QProperty getProperty() {
         return property;
     }
 
     @Override
-    public Direction direction() {
+    public Direction getDirection() {
         return direction;
     }
 

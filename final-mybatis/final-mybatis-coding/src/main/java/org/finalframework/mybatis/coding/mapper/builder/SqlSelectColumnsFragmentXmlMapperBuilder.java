@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @date 2019-10-12 11:23:34
  * @since 1.0
  */
-public class SqlSelectColumnsXmlMapperBuilder extends AbsXmlMapperBuilder implements SqlXmlMapperBuilder {
+public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
 
     @Override
     public String id() {
@@ -27,7 +27,7 @@ public class SqlSelectColumnsXmlMapperBuilder extends AbsXmlMapperBuilder implem
     }
 
     @Override
-    public Element build(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", id());
 

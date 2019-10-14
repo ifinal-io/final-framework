@@ -7,7 +7,7 @@ import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.Assert;
 import org.finalframework.core.formatter.DateFormatter;
-import org.finalframework.data.query.Query;
+import org.finalframework.data.query.QueryImpl;
 import org.finalframework.data.repository.Scanner;
 import org.finalframework.json.Json;
 import org.finalframework.monitor.annotation.MonitorAlert;
@@ -18,6 +18,7 @@ import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
+import org.finalframework.test.entity.QPerson;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,14 @@ public class PersonController {
         return person;
     }
 
+    @GetMapping("/test")
+    public List<Person> test() {
+        QueryImpl query = new QueryImpl()
+//                .where(QPerson.age.gt(0),QPerson.name.eq("12"))
+                .sort(QPerson.id.desc().and(QPerson.age.asc())).limit(2);
+        return personMapper.select(query);
+    }
+
     @GetMapping("/scan")
     public void scan(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, @RequestParam(value = "size", required = false, defaultValue = "2") Integer size) {
 
@@ -85,7 +94,7 @@ public class PersonController {
             @Override
             public List<Person> onScan(Integer index) {
                 logger.info("scan index = {}", index);
-                final Query query = new Query().page(1, size);
+                final QueryImpl query = new QueryImpl().page(1, size);
                 if (lastId != null) {
 //                    query.where(QPerson.id.gt(lastId));
                 }
@@ -112,7 +121,7 @@ public class PersonController {
 
     @GetMapping("/count")
     public int count() {
-        return personMapper.select(new Query()).size();
+        return personMapper.select(new QueryImpl()).size();
     }
 
     @PostMapping("/{id}")

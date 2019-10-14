@@ -2,7 +2,7 @@ package org.finalframework.data.query.converter;
 
 import lombok.NonNull;
 import org.finalframework.data.query.IQuery;
-import org.finalframework.data.query.Query;
+import org.finalframework.data.query.QueryImpl;
 
 /**
  * @author likly
@@ -12,9 +12,9 @@ import org.finalframework.data.query.Query;
  */
 public class DefaultQueryConverter<T extends IQuery> implements QueryConverter<T> {
     @Override
-    public Query convert(@NonNull T query) {
+    public QueryImpl convert(@NonNull T query) {
 
-        final Query result = new Query();
+        final QueryImpl result = new QueryImpl();
 
         return result;
     }

@@ -15,9 +15,11 @@ import org.w3c.dom.Element;
  * @date 2019-10-10 16:33:53
  * @since 1.0
  */
-public class DefaultResultMapXmlMapperBuilder implements ResultMapXmlMapperBuilder {
+public class DefaultResultMapXmlMapperBuilder implements AbsResultMapXmlMapperBuilder {
+
+
     @Override
-    public Element build(Document document, Entity<Property> entity) {
+    public Element buildResultMap(Document document, Entity<Property> entity) {
         return buildResultMap(document, ResultMap.from(entity));
     }
 
@@ -76,6 +78,5 @@ public class DefaultResultMapXmlMapperBuilder implements ResultMapXmlMapperBuild
         }
         return element;
     }
-
 
 }

@@ -19,11 +19,12 @@ import org.w3c.dom.Element;
  *     </sql>
  * </pre>
  **/
-final class SqlTableXmlMapperBuilder extends AbsXmlMapperBuilder implements SqlXmlMapperBuilder {
+final class SqlTableFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
     @Override
     public String id() {
         return SQL_TABLE;
     }
+
 
     /**
      * <pre>
@@ -44,7 +45,7 @@ final class SqlTableXmlMapperBuilder extends AbsXmlMapperBuilder implements SqlX
      * @return
      */
     @Override
-    public Element build(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity<Property> entity) {
         //  <sql id="id">
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", id());

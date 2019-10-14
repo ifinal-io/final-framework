@@ -12,9 +12,19 @@ public enum Direction {
     /**
      * 正序
      */
-    ASC,
+    ASC("ASC"),
     /**
      * 倒序
      */
-    DESC
+    DESC("DESC");
+
+    private final String value;
+
+    Direction(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

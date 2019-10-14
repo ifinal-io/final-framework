@@ -25,11 +25,11 @@ public interface Order {
         return order(property, Direction.DESC);
     }
 
-    String table();
+    String getTable();
 
-    QProperty property();
+    QProperty getProperty();
 
-    Direction direction();
+    Direction getDirection();
 
 
 }

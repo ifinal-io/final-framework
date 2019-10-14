@@ -1,6 +1,6 @@
 package org.finalframework.test;
 
-import org.springframework.boot.SpringApplication;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
@@ -13,9 +13,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication()
 public class FinalTestApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        final long start = System.currentTimeMillis();
-        SpringApplication.run(FinalTestApplication.class, args);
-        final long end = System.currentTimeMillis();
-        System.out.println(end - start);
+
+        System.out.println(NameConverterRegistry.getInstance().getColumnNameConverter().getClass());
+
+
+//        final long start = System.currentTimeMillis();
+//        SpringApplication.run(FinalTestApplication.class, args);
+//        final long end = System.currentTimeMillis();
+//        System.out.println(end - start);
     }
 }

@@ -13,7 +13,6 @@ public class LimitImpl implements Limit, Serializable {
     private Long offset;
     private Long limit;
 
-    //
     public LimitImpl(Long offset, Long limit) {
         this.offset = offset;
         this.limit = limit;

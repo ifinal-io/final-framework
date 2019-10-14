@@ -7,7 +7,7 @@ import org.apache.ibatis.parsing.XPathParser;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.finalframework.coding.Coder;
-import org.finalframework.core.Assert;
+import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.EntityFactory;
 import org.finalframework.data.coding.entity.Property;
@@ -40,7 +40,10 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Generate mapper.xml file of the mapper which annotated by {@link Mapper}.
@@ -100,6 +103,7 @@ public class MapperProcessor extends AbstractProcessor {
         filer = processingEnv.getFiler();
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
+        Configuration.getInstance().load(processingEnv);
         this.repositoryTypeElement = elementsUtils.getTypeElement(Repository.class.getCanonicalName());
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
         absMapperType = (DeclaredType) absMapperElement.asType();
@@ -202,10 +206,7 @@ public class MapperProcessor extends AbstractProcessor {
                         }
 
 
-                        Collection<org.w3c.dom.Element> mapperElements = xmlMapperBuilder.build(document, this.repositoryTypeElement, entity);
-                        if (Assert.nonEmpty(mapperElements)) {
-                            mapperElements.forEach(mapper.getNode()::appendChild);
-                        }
+                        xmlMapperBuilder.build(mapper.getNode(), document, this.repositoryTypeElement, entity);
                         String mapperContent = buildMapperContent(document);
 //                        loggerMapper(document);
 //                        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,"create mapper: " + it.getSimpleName().toString());

@@ -1,8 +1,9 @@
 package org.finalframework.mybatis;
 
 import lombok.Data;
-import org.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter;
-import org.finalframework.data.mapping.converter.NameConverter;
+import org.finalframework.mybatis.handler.JsonObjectTypeHandler;
+
+import java.util.Properties;
 
 /**
  * @author likly
@@ -12,13 +13,29 @@ import org.finalframework.data.mapping.converter.NameConverter;
  */
 @Data
 public class Configuration {
+    private static final String FINAL_MYBATIS_TYPE_HANDLER_JSON_OBJECT_TYPE_HANDLER = "final.mybatis.typeHandler.jsonObjectTypeHandler";
 
     private static final Configuration instance = new Configuration();
-    private final NameConverter defaultNameConverter = new CameHump2UnderlineNameConverter();
-    private NameConverter tableNameConverter = defaultNameConverter;
-    private NameConverter columnNameConverter = defaultNameConverter;
+
+    private String jsonObjectTypeHandler;
+
+    public Configuration() {
+        try {
+            Properties properties = new Properties();
+            properties.load(getClass().getResourceAsStream("/final.properties"));
+            this.jsonObjectTypeHandler = properties.getProperty(FINAL_MYBATIS_TYPE_HANDLER_JSON_OBJECT_TYPE_HANDLER, JsonObjectTypeHandler.class.getCanonicalName());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Configuration getInstance() {
         return instance;
+    }
+
+    public static void main(String[] args) {
+        Configuration instance = Configuration.getInstance();
+        System.out.println();
     }
 }

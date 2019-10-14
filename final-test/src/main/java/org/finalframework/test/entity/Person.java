@@ -40,7 +40,7 @@ public class Person implements IEntity<Long> {
     //    @NonColumn
     @ReferenceColumn(mode = ReferenceMode.SIMPLE, properties = {"id", "name", "age"})
     private Person creator;
-    @NonColumn
+    @Transient
     private Date date = new Date();
 
     private YN yn;
