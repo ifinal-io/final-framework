@@ -1,6 +1,7 @@
 package org.finalframework.data.coding.entity;
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.Table;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -39,10 +40,15 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
         this.name = typeElement.getQualifiedName().toString();
-        this.table = name;
+        this.table = initTable();
         this.simpleName = typeElement.getSimpleName().toString();
         this.type = types.erasure(typeElement.asType()).toString();
 
+    }
+
+    private String initTable() {
+        Table table = getAnnotation(Table.class);
+        return Assert.isNull(table) ? this.name : table.value();
     }
 
     @Override
@@ -81,7 +87,7 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
 
     @Override
     public String getTable() {
-        return simpleName;
+        return table;
     }
 
     @Override

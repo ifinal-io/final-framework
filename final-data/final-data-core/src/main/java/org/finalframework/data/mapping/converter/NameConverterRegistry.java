@@ -19,8 +19,8 @@ public class NameConverterRegistry {
 
     private final NameConverter defaultNameConverter = new SimpleNameConverter();
 
-    private NameConverter tableNameConverter;//= defaultNameConverter;
-    private NameConverter columnNameConverter;// = defaultNameConverter;
+    private NameConverter tableNameConverter = defaultNameConverter;
+    private NameConverter columnNameConverter = defaultNameConverter;
 
     private NameConverterRegistry() {
         final Configuration configuration = Configuration.getInstance();

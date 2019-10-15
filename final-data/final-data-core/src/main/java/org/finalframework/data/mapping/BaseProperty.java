@@ -129,7 +129,7 @@ public class BaseProperty extends AnnotationBasedPersistentProperty<Property> im
         this.updatable = column.updatable();
         this.selectable = column.selectable();
         this.table = column.table();
-        this.column = column.name();
+        this.column = column.value();
         this.placeholder = column.placeholder();
     }
 

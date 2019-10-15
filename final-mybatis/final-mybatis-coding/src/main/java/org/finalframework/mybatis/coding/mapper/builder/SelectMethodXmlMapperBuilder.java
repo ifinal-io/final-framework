@@ -40,9 +40,8 @@ public class SelectMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
         final Element sql = document.createElement("select");
         String methodName = method.getSimpleName().toString();
+        sql.setAttribute("resultMap", entity.getSimpleName() + "Map");
         sql.setAttribute("id", methodName);
-        sql.setAttribute("resultMap", methodName + "Map");
-
         Element select = document.createElement("trim");
         select.setAttribute("prefix", "SELECT");
         select.appendChild(include(document, SQL_SELECT_COLUMNS));

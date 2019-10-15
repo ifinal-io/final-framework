@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  * @date 2018-10-15 15:14
  * @since 1.0
  */
-@Target({ElementType.FIELD,ElementType.METHOD,ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Persistent
@@ -23,6 +23,12 @@ public @interface Column {
 
     String table() default "";
 
+    /**
+     * 即将废弃，因 {@link AliasFor}注解并不支持编译时处理
+     *
+     * @see #value()
+     */
+    @Deprecated
     @AliasFor("value")
     String name() default "";
 

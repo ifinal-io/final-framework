@@ -204,7 +204,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.updatable = ann.updatable();
         this.selectable = ann.selectable();
         this.table = ann.table();
-        this.column = ann.name();
+        this.column = ann.value();
         this.placeholder = ann.placeholder();
     }
 
@@ -217,7 +217,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.updatable = ann.updatable();
         this.selectable = ann.selectable();
         this.table = ann.table();
-        this.column = ann.name();
+        this.column = ann.value();
         this.placeholder = ann.placeholder();
     }
 
@@ -230,7 +230,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.updatable = ann.updatable();
         this.selectable = ann.selectable();
         this.table = ann.table();
-        this.column = ann.name();
+        this.column = ann.value();
         this.placeholder = ann.placeholder();
     }
 
@@ -243,7 +243,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.updatable = ann.updatable();
         this.selectable = ann.selectable();
         this.table = ann.table();
-        this.column = ann.name();
+        this.column = ann.value();
         this.placeholder = ann.placeholder();
     }
 

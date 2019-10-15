@@ -1,6 +1,8 @@
 package org.finalframework.data.query.builder;
 
-import org.finalframework.data.query.QueryImpl;
+import org.finalframework.data.query.Query;
+
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -8,11 +10,11 @@ import org.finalframework.data.query.QueryImpl;
  * @date 2018-12-22 19:58:40
  * @since 1.0
  */
-public class QuerySqlBuilder implements SqlBuilder<QueryImpl> {
+public class QuerySqlBuilder implements SqlBuilder<Query> {
 
-    private final QueryImpl query;
+    private final Query query;
 
-    public QuerySqlBuilder(QueryImpl query) {
+    public QuerySqlBuilder(Query query) {
         this.query = query;
     }
 
@@ -21,17 +23,18 @@ public class QuerySqlBuilder implements SqlBuilder<QueryImpl> {
         if (query == null) return "";
 
         final StringBuilder sb = new StringBuilder();
-//        final Criteria criteria = query.getCriteria();
-//        if (criteria != null) {
-//            sb.append(new CriteriaSqlBuilder(criteria).build());
-//        }
-//        if (query.getSort() != null) {
-//            sb.append(" ORDER BY ").append(new SortSqlBuilder(query.getSort()).build());
-//        }
-//
-//        if (query.getLimit() != null) {
-//            sb.append(" LIMIT ").append(query.getLimit());
-//        }
+
+        String criteria = query.getCriteria().stream().map(it -> new CriteriaSqlBuilder(it).build()).collect(Collectors.joining(" AND "));
+
+        sb.append(criteria);
+
+        if (query.getSort() != null) {
+            sb.append(" ORDER BY ").append(new SortSqlBuilder(query.getSort()).build());
+        }
+
+        if (query.getLimit() != null) {
+            sb.append(" LIMIT ").append(query.getLimit());
+        }
 
         return sb.toString();
     }

@@ -9,6 +9,29 @@ menus:
         link: /mybatis/mapper/mapper
         name: Mapper
         mini: MP
+      - id: method
+        icon: dashboard
+        name: Method
+        mini: MTD
+        menus:
+          - id: insert
+            link: /mybatis/mapper/method/insert
+            name: Insert
+            mini: I
+          - id: delete
+            link: /mybatis/mapper/method/delete
+            name: Delete
+            mini: D
+      - id: fragment
+        icon: dashboard
+        name: Fragment
+        mini: FMT
+        menus:
+          - id: table
+            link: /mybatis/mapper/fragment/table
+            name: table
+            mini: T
+
   - id: handler
     icon: dashboard
     name: 类型处理器

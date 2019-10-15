@@ -24,7 +24,7 @@ public class Configuration {
         ClassPathResource resource = new ClassPathResource("/" + PROPERTIES_PATH);
         if (resource.exists()) {
             try {
-                properties.load(getClass().getResourceAsStream(PROPERTIES_PATH));
+                properties.load(resource.getInputStream());
                 isConfiguration = false;
             } catch (Exception e) {
                 e.printStackTrace();

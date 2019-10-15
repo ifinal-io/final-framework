@@ -16,9 +16,35 @@ version: 1.0
 # Final Mybatis
 
 
-## 统一的API
+## Questions
 
-提供以`insert`、`update`、`delete`、`select`、`selectOne`、`selectIds`、`selectCount`命名的多种CURD方法，支持多种类型的方法重载。
+* 你是否为写`CRUD`模板代码而烦恼？
+
+* 你是否由于添加（或删除）字段要重新生成`模板代码`（mybatis-generator）而头疼？
+
+* 。。。
+
+## What
+
+**Final MyBatis** 
+
+## Apis
+
+提供以[`insert`](mapper/method/insert.md)、`update`、`delete`、`select`、`selectOne`、`selectIds`、`selectCount`命名的多种CURD方法，支持多种类型的方法重载。
+
+### Insert
+
+### Delete
+
+### Update
+
+### Select
+
+### SelectOne
+
+### SelectIds
+
+### SelectCount
 
 ## 增强的类型
 

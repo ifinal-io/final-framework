@@ -94,8 +94,8 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
     }
 
     @Override
-    public QueryImpl convert() {
-        final QueryImpl query = new QueryImpl();
+    public Query convert() {
+        final Query query = new Query();
         if (Assert.nonNull(page) && Assert.nonNull(size)) {
             query.page(page, size);
         }
