@@ -1,16 +1,20 @@
 package org.finalframework.mybatis.coding.mapper.builder;
 
+import org.finalframework.core.Assert;
 import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.Property;
 import org.springframework.lang.NonNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -19,6 +23,12 @@ import java.util.List;
  * @since 1.0
  */
 public class FinalXmlMapperBuilder implements XmlMapperBuilder {
+
+    private final ProcessingEnvironment processingEnvironment;
+
+    public FinalXmlMapperBuilder(ProcessingEnvironment processingEnvironment) {
+        this.processingEnvironment = processingEnvironment;
+    }
 
     private List<ResultMapXmlMapperBuilder> resultMapXmlMapperBuilders = new ArrayList<>(1);
     private List<MethodXmlMapperBuilder> methodXmlMapperBuilders = new ArrayList<>(8);
@@ -51,6 +61,31 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
         generateStartComment(root, document);
         resultMapXmlMapperBuilders.forEach(item -> item.build(root, document, entity));
 
+        buildMapperMethods(root, document, getMapperInterfaces(mapper), entity);
+
+        sqlFragmentXmlMapperBuilders.forEach(item -> item.build(root, document, entity));
+
+        generateEndComment(root, document);
+
+    }
+
+    private List<TypeElement> getMapperInterfaces(TypeElement mapper) {
+        return mapper.getInterfaces().stream()
+                .map(it -> (TypeElement) ((DeclaredType) it).asElement())
+                .collect(Collectors.toList());
+    }
+
+    private void buildMapperMethods(Node root, Document document, List<TypeElement> mappers, Entity<Property> entity) {
+        if (Assert.isEmpty(mappers)) return;
+
+        mappers.forEach(mapper -> {
+            buildMapperMethods(root, document, mapper, entity);
+            buildMapperMethods(root, document, getMapperInterfaces(mapper), entity);
+        });
+
+    }
+
+    private void buildMapperMethods(Node root, Document document, TypeElement mapper, Entity<Property> entity) {
         mapper.getEnclosedElements()
                 .stream()
                 .filter(it -> it.getKind() == ElementKind.METHOD)
@@ -63,12 +98,6 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
                         }
                     }
                 });
-
-
-        sqlFragmentXmlMapperBuilders.forEach(item -> item.build(root, document, entity));
-
-        generateEndComment(root, document);
-
     }
 
     private void generateStartComment(@NonNull Node root, @NonNull Document document) {

@@ -64,7 +64,7 @@ public class MapperProcessor extends AbstractProcessor {
     private Filer filer;
     private Elements elementsUtils;
     private Types types;
-    private final XmlMapperBuilder xmlMapperBuilder = new FinalXmlMapperBuilder();
+    private XmlMapperBuilder xmlMapperBuilder;
     private TypeElement absMapperElement;
     private DeclaredType absMapperType;
     private TypeElement repositoryTypeElement;
@@ -103,6 +103,7 @@ public class MapperProcessor extends AbstractProcessor {
         filer = processingEnv.getFiler();
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
+        this.xmlMapperBuilder = new FinalXmlMapperBuilder(processingEnv);
         Configuration.getInstance().load(processingEnv);
         this.repositoryTypeElement = elementsUtils.getTypeElement(Repository.class.getCanonicalName());
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
@@ -183,7 +184,8 @@ public class MapperProcessor extends AbstractProcessor {
                         Document document = mapper.getNode().getOwnerDocument();
 
                         DeclaredType absMapperElement = findAbsMapperElement(it);
-                        TypeElement entityTypeElement = (TypeElement) ((DeclaredType) absMapperElement.getTypeArguments().get(1)).asElement();
+                        DeclaredType entityType = (DeclaredType) absMapperElement.getTypeArguments().get(1);
+                        TypeElement entityTypeElement = (TypeElement) entityType.asElement();
                         Entity<Property> entity = EntityFactory.create(processingEnv, entityTypeElement);
 
 //                        error("views:"+entity.getProperty("stringList").getViews());
@@ -206,7 +208,7 @@ public class MapperProcessor extends AbstractProcessor {
                         }
 
 
-                        xmlMapperBuilder.build(mapper.getNode(), document, this.repositoryTypeElement, entity);
+                        xmlMapperBuilder.build(mapper.getNode(), document, it, entity);
                         String mapperContent = buildMapperContent(document);
 //                        loggerMapper(document);
 //                        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,"create mapper: " + it.getSimpleName().toString());

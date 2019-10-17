@@ -30,6 +30,7 @@ import java.util.Collection;
  * @since 1.0
  */
 @SuppressWarnings("unused")
+@Deprecated
 public class XMLMapperBuilderAgent {
     private static final Logger logger = LoggerFactory.getLogger(XMLMapperBuilderAgent.class);
     private static final EntityHolderCache cache = new EntityHolderCache();

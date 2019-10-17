@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * @date 2018-12-23 21:31:56
  * @since 1.0
  */
+@Deprecated
 public final class MybatisAgent {
     private static final Logger logger = LoggerFactory.getLogger(MybatisAgent.class);
     private static final MybatisAgent instance = new MybatisAgent();
