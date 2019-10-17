@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
+ *
+ * <a href="https://final.ilikly.com/mybatis/mapper/fragment/query">query</a>
  * <pre>
  *     <code>
  *          <sql id="sql-query">
