@@ -22,6 +22,26 @@ menus:
             link: /mybatis/mapper/method/delete
             name: Delete
             mini: D
+          - id: update
+            link: /mybatis/mapper/method/update
+            name: Update
+            mini: U
+          - id: select
+            link: /mybaits/mapper/method/select
+            name: Select
+            mini: S
+          - id: select-one
+            link: /mybatis/mapper/method/select-one
+            name: SelectOne
+            mini: SO
+          - id: select-ids
+            link: /mybaits/mapper/method/select-ids
+            name: SelectIds
+            mini: SI
+          - id:
+            link: /mybatis/mapper/method/select-count
+            name: SelectCount
+            mini: SC
       - id: fragment
         icon: dashboard
         name: Fragment
@@ -29,8 +49,23 @@ menus:
         menus:
           - id: table
             link: /mybatis/mapper/fragment/table
-            name: table
+            name: Table
             mini: T
+          - id: where-id
+            link: /mhybatis/mapper/fragment/where-id
+            mini: WI
+          - id: query
+            link: /mybatis/mapper/fragment/query
+            name: Query
+            mini: Q
+          - id: order
+            link: /mybatis/mapper/fragment/order
+            name: Order
+            mini: O
+          - id: limit
+            link: /mybatis/mapper/fragment/limit
+            name: Limit
+            mini: L
 
   - id: handler
     icon: dashboard

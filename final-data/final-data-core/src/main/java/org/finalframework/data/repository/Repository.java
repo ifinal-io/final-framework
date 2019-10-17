@@ -316,7 +316,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param view      视图
      * @param entity    实体，值不为 {@code null}时，忽略 {@code update} 的值
      * @param update    更新，仅当 {@code entity}为空时有效
-     * @param selective 有选择的，值为{@code true}时，是更新值为 {@code null}的属性。
+     * @param selective 有选择的，值为{@code true}时，不更新值为 {@code null}的属性。
      * @param ids       要更新的IDS
      * @param query     更新条件
      * @return 更新数据后影响的行数
@@ -468,6 +468,14 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return select(tableName, view, null, query);
     }
 
+    /**
+     * 根据 {@link ID} 集合或 {@link Query} 查询
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param ids       要查询的IDS
+     * @param query     查询条件
+     */
     List<T> select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
 

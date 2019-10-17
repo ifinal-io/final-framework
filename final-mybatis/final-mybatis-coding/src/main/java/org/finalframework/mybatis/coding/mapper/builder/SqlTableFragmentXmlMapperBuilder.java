@@ -7,17 +7,16 @@ import org.w3c.dom.Element;
 
 /**
  * <pre>
- *     <sql id="id">
- *         <choose>
- *             <when test="tableName != null">
- *                 ${tableName}
- *             </when>
- *             <otherwise>
- *                 tableName
- *             </otherwise>
- *         </choose>
- *     </sql>
+ *     <code>
+ *          <sql id="sql-table">
+ *              <choose>
+ *                  <when test="tableName != null">${tableName}</when>
+ *              <otherwise>{Entity.simpleName}</otherwise>
+ *              </choose>
+ *          </sql>
+ *     </code>
  * </pre>
+ * <a href="https://final.ilikly.com/mybatis/mapper/fragment/table">table</a>
  **/
 final class SqlTableFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
     @Override

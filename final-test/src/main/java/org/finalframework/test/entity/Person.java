@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.ToString;
 import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.entity.enums.YN;
@@ -24,7 +23,7 @@ import java.util.List;
 @ToString(callSuper = true)
 public class Person implements IEntity<Long> {
     private static final long serialVersionUID = -8785625823175210092L;
-    @PrimaryKey(insertable = true, type = PrimaryKeyType.UUID_MD5)
+    @PrimaryKey(insertable = true)
     private Long id;
     @JsonView(Person.class)
     @NotNull

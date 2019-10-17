@@ -1,6 +1,11 @@
 /**
  * Markdown Style
  */
+
+body {
+    background-color: #073642 !important;
+}
+
 .float-block {
     position: fixed;
     right: 0px;
