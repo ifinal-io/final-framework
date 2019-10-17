@@ -2,8 +2,6 @@ package org.finalframework.data.coding.entity;
 
 import org.finalframework.data.annotation.Column;
 import org.finalframework.data.coding.entity.javac.PropertyElementVisitor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -24,12 +22,9 @@ import java.util.Map;
  */
 public final class EntityFactory {
 
-    Logger logger = LoggerFactory.getLogger(EntityFactory.class);
-
     private static final Map<String, Entity<Property>> cache = new HashMap<>();
 
     public static Entity<Property> create(ProcessingEnvironment processEnv, TypeElement typeElement) {
-
 
         String name = typeElement.getQualifiedName().toString();
 
