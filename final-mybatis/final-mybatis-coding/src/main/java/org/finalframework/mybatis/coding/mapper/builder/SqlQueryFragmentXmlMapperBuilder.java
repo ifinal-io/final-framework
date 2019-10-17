@@ -26,6 +26,8 @@ import org.w3c.dom.Element;
  * @author likly
  * @version 1.0
  * @date 2019-10-13 11:12:07
+ * @see SqlOrderFragmentXmlMapperBuilder
+ * @see SqlLimitFragmentXmlMapperBuilder
  * @since 1.0
  */
 public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
@@ -34,27 +36,6 @@ public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         return SQL_QUERY;
     }
 
-    /**
-     * <pre>
-     *     <code>
-     *          <sql id="sql-query">
-     *              <if test="query != null">
-     *                  <bind name="andOr" value="'AND'"/>
-     *                  <bind name="criteria" value="query.criteria"/>
-     *                  <bind name="sort" value="query.sort"/>
-     *                  <bind name="limit" value="query.limit"/>
-     *                  <include refid="sql-criteria"/>
-     *                  <include refid="sql-order"/>
-     *                  <include refid="sql-limit"/>
-     *              </if>
-     *          </sql>
-     *     </code>
-     * </pre>
-     *
-     * @param document
-     * @param entity
-     * @return
-     */
     @Override
     protected Element buildSqlFragment(Document document, Entity<Property> entity) {
 
