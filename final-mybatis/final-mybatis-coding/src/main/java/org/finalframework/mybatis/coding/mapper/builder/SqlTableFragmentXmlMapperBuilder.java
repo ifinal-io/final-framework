@@ -46,8 +46,7 @@ final class SqlTableFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuil
     @Override
     public Element buildSqlFragment(Document document, Entity<Property> entity) {
         //  <sql id="id">
-        final Element sql = document.createElement("sql");
-        sql.setAttribute("id", id());
+        final Element sql = sql(document, SQL_TABLE);
         //      <choose>
         final Element choose = document.createElement("choose");
         //              <when test="tableName != null">
