@@ -5,6 +5,7 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
@@ -62,9 +63,15 @@ public class JsonStringHttpMessageConverter extends AbstractHttpMessageConverter
     }
 
     @Override
-    protected String readInternal(Class<? extends Object> clazz, HttpInputMessage inputMessage) throws IOException {
+    public boolean canRead(Class<?> clazz, MediaType mediaType) {
+        return false;
+    }
+
+    @Override
+    protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
         Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
-        return StreamUtils.copyToString(inputMessage.getBody(), charset);
+        String json = StreamUtils.copyToString(inputMessage.getBody(), charset);
+        return Json.toObject(json, clazz);
     }
 
     @Override

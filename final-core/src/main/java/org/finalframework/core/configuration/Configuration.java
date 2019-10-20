@@ -25,7 +25,7 @@ public class Configuration {
         if (resource.exists()) {
             try {
                 properties.load(resource.getInputStream());
-                isConfiguration = false;
+                isConfiguration = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -77,6 +77,11 @@ public class PersonController {
         return person;
     }
 
+    @PostMapping("/list")
+    public Object list(@RequestBody List<Long> list) {
+        return list;
+    }
+
     @GetMapping("/test")
     public List<Person> test() {
         Query query = new Query()

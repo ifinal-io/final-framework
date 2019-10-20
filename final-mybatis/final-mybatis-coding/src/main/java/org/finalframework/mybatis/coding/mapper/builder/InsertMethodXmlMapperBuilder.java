@@ -54,7 +54,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                  * </insert>
                  */
                 insert.setAttribute("useGeneratedKeys", "true");
-                insert.setAttribute("keyProperty", entity.getRequiredIdProperty().getName());
+                insert.setAttribute("keyProperty", "list." + entity.getRequiredIdProperty().getName());
                 insert.setAttribute("keyColumn", entity.getRequiredIdProperty().getColumn());
                 break;
             case UUID:
