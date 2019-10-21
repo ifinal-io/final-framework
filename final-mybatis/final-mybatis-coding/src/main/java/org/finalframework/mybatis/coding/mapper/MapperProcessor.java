@@ -6,18 +6,14 @@ import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.finalframework.coding.Coder;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.coding.entity.Entity;
 import org.finalframework.data.coding.entity.EntityFactory;
 import org.finalframework.data.coding.entity.Property;
-import org.finalframework.data.mapping.generator.ColumnGeneratorRegistry;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.mybatis.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.mybatis.coding.mapper.xml.Association;
-import org.finalframework.mybatis.generator.DefaultColumnGenerator;
-import org.finalframework.mybatis.generator.DefaultColumnGeneratorModule;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
@@ -59,7 +55,7 @@ import java.util.Set;
 public class MapperProcessor extends AbstractProcessor {
     //    private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
     private static final String ABS_MAPPER = AbsMapper.class.getName();
-    private final Coder coder = Coder.getDefaultCoder();
+//    private final Coder coder = Coder.getDefaultCoder();
     private final Set<Element> mapperElements = new HashSet<>();
     private Filer filer;
     private Elements elementsUtils;
@@ -109,8 +105,6 @@ public class MapperProcessor extends AbstractProcessor {
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
         absMapperType = (DeclaredType) absMapperElement.asType();
         Utils.init(processingEnv);
-        ColumnGeneratorRegistry.getInstance().setDefaultColumnGenerator(DefaultColumnGenerator.INSTANCE);
-        ColumnGeneratorRegistry.getInstance().registerColumnModule(new DefaultColumnGeneratorModule());
     }
 
     @Override
@@ -131,11 +125,7 @@ public class MapperProcessor extends AbstractProcessor {
                     final String mapperClassName = it.getQualifiedName().toString();
                     final String resourceFile = mapperClassName.replace(".", "/") + ".xml";
                     XPathParser parser = null;
-//                    Document document = null;
                     try {
-//                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//                        DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-
                         try {
                             // would like to be able to print the full path
                             // before we attempt to get the resource in case the behavior
@@ -147,15 +137,12 @@ public class MapperProcessor extends AbstractProcessor {
                             parser = new XPathParser(existingFile.openInputStream());
 //                            document = documentBuilder.parse(existingFile.openInputStream());
                         } catch (Exception e) {
-//                        logger.error("Resource file found exception.{}",resourceFile,e);
                             // According to the javadoc, Filer.getResource throws an exception
                             // if the file doesn't already exist.  In practice this doesn't
                             // appear to be the case.  Filer.getResource will happily return a
                             // FileObject that refers to a non-existent file but will throw
                             // IOException if you try to open an input stream for it.
                             info("Resource file did not already exist.");
-//                        logger.info("========Resource file did not already exist. {}", resourceFile);
-//                            document = documentBuilder.parse(getMapperTemplate(mapperClassName));
                             parser = new XPathParser(getMapperTemplate(mapperClassName));
                         }
 
@@ -210,7 +197,7 @@ public class MapperProcessor extends AbstractProcessor {
 
                         xmlMapperBuilder.build(mapper.getNode(), document, it, entity);
                         String mapperContent = buildMapperContent(document);
-//                        loggerMapper(document);
+//                        error(mapperContent);
 //                        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,"create mapper: " + it.getSimpleName().toString());
 //                        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, document.toString());
 //
@@ -219,10 +206,10 @@ public class MapperProcessor extends AbstractProcessor {
                             FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
                             Writer writer = fileObject.openWriter();
                             writer.write(mapperContent);
+                            writer.flush();
                             writer.close();
                         } catch (IOException e) {
-                            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.toString());
-
+                            error("Generate mapper error" + e.getMessage());
                         }
                         info(mapperContent);
                     }
@@ -275,74 +262,6 @@ public class MapperProcessor extends AbstractProcessor {
 
     private void loggerMapper(Document document) {
         error(buildMapperContent(document));
-    }
-
-    private void generateMapperFiles(Set<? extends Element> elements) {
-        elements.stream()
-                .map(it -> ((TypeElement) it))
-                .map(it -> it.getQualifiedName().toString())
-//                .forEach(it -> {
-//                    final String resourceFile = it.replace(".", "/") + ".xml";
-//                    try {
-//                        // would like to be able to print the full path
-//                        // before we attempt to get the resource in case the behavior
-//                        // of filer.getResource does change to match the spec, but there's
-//                        // no good way to resolve CLASS_OUTPUT without first getting a resource.
-//                        FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
-//
-////                        logger.info("========Resource file is already exist. {}", resourceFile);
-//                        info("Looking for existing resource file at " + existingFile.toUri());
-//                        generateMapper(new XPathParser(existingFile.openInputStream()));
-//                    } catch (IOException e) {
-////                        logger.error("Resource file found exception.{}",resourceFile,e);
-//                        // According to the javadoc, Filer.getResource throws an exception
-//                        // if the file doesn't already exist.  In practice this doesn't
-//                        // appear to be the case.  Filer.getResource will happily return a
-//                        // FileObject that refers to a non-existent file but will throw
-//                        // IOException if you try to open an input stream for it.
-//                        info("Resource file did not already exist.");
-////                        logger.info("========Resource file did not already exist. {}", resourceFile);
-//
-//                        generateMapper(new XPathParser(getMapperTemplate(it)));
-//                    }
-//                });
-//
-                .filter(it -> {
-                    final String resourceFile = it.replace(".", "/") + ".xml";
-                    try {
-                        // would like to be able to print the full path
-                        // before we attempt to get the resource in case the behavior
-                        // of filer.getResource does change to match the spec, but there's
-                        // no good way to resolve CLASS_OUTPUT without first getting a resource.
-                        FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
-//                        logger.info("========Resource file is already exist. {}", resourceFile);
-                        info("Looking for existing resource file at " + existingFile.toUri());
-                        return false;
-                    } catch (IOException e) {
-//                        logger.error("Resource file found exception.{}",resourceFile,e);
-                        // According to the javadoc, Filer.getResource throws an exception
-                        // if the file doesn't already exist.  In practice this doesn't
-                        // appear to be the case.  Filer.getResource will happily return a
-                        // FileObject that refers to a non-existent file but will throw
-                        // IOException if you try to open an input stream for it.
-                        info("Resource file did not already exist.");
-//                        logger.info("========Resource file did not already exist. {}", resourceFile);
-                        return true;
-                    }
-                })
-                .forEach(it -> {
-                    try {
-
-//                        buildMapper(new XPathParser(getMapperTemplate(it)));
-                        final String resourceFile = it.replace(".", "/") + ".xml";
-                        FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
-                        coder.coding(new MapperXml(it), fileObject.openWriter());
-                        info("Create mapper.xml of mapper:" + it);
-                    } catch (Exception e) {
-//                        logger.error("Create mapper.xml error of mapper:{}", it, e);
-                        error("Create mapper.xml error of mapper:" + it + "," + e.getMessage());
-                    }
-                });
     }
 
     private String getMapperTemplate(String mapper) {

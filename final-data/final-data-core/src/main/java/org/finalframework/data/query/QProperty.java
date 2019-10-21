@@ -17,7 +17,7 @@ import java.util.Date;
  * @date 2018-10-25 13:36
  * @since 1.0
  */
-public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>, Executable<T> {
+public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>, Executable<T> {
 
     static <T, E extends QEntity> QProperty.Builder<T> builder(E entity, Class<T> type) {
         return new QPropertyImpl.BuilderImpl<>(entity, type);
@@ -404,13 +404,13 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>,
     }
 
     @Override
-    default Sort asc() {
-        return Sort.asc(this);
+    default Order asc() {
+        return Order.asc(this);
     }
 
     @Override
-    default Sort desc() {
-        return Sort.desc(this);
+    default Order desc() {
+        return Order.desc(this);
     }
 
     @Override
