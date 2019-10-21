@@ -54,6 +54,9 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                  * </insert>
                  */
                 insert.setAttribute("useGeneratedKeys", "true");
+                /*
+                 * mybatis 3.5 + 的版本 keyProperty 需要添加参数名 list.
+                 */
                 insert.setAttribute("keyProperty", "list." + entity.getRequiredIdProperty().getName());
                 insert.setAttribute("keyColumn", entity.getRequiredIdProperty().getColumn());
                 break;
