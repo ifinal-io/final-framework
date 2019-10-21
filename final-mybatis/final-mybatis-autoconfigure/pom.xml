@@ -30,10 +30,6 @@
             <groupId>org.finalframework</groupId>
             <artifactId>final-mybatis-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-mybatis-agent</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

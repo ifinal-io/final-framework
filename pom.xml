@@ -216,11 +216,6 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-mybatis-agent</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
                 <artifactId>final-mybatis-autoconfigure</artifactId>
                 <version>${final.version}</version>
             </dependency>

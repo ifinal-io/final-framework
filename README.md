@@ -24,7 +24,6 @@
     * [`final-mybatis-core`](final-mybatis/final-mybatis-core/README.md)
     * [`final-mybatis-autoconfigure`](final-mybatis/final-mybatis-autoconfigure/README.md)
     * [`final-mybatis-coding`](final-mybatis/final-mybatis-coding/README.md)
-    * [`final-mybatis-agent`](final-mybatis/final-mybatis-agent/README.md)
     * [`final-mybatis-spring-boot-starter`](final-mybatis/final-mybatis-spring-boot-starter/README.md)
 * [`final-coding`](final-coding/README.md)：注解处理器，在编译时生成模板代码，如`Qentity`、`Mapper`等
 * [`final-spring`](final-spring/README.md)：基于`spring-boot`进行二次封装，添加如`HandlerInteceptor`、`ExceptionHandler`等自定义组件，简化`spring`的配置。

@@ -15,7 +15,6 @@
         <module>final-mybatis-core</module>
         <module>final-mybatis-autoconfigure</module>
         <module>final-mybatis-spring-boot-starter</module>
-        <module>final-mybatis-agent</module>
         <module>final-mybatis-coding</module>
     </modules>
 
