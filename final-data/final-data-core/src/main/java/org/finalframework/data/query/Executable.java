@@ -12,7 +12,6 @@ public interface Executable<T> extends Criteriable<T, Criterion> {
         return new ExecutableImpl<>(property);
     }
 
-
     Executable<T> date();
 
     Executable<T> and(T value);

@@ -3,10 +3,8 @@ package org.finalframework.mybatis.coding.mapper;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.JsonColumn;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.coding.entity.Property;
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.mybatis.Configuration;
 import org.finalframework.mybatis.handler.*;
 import org.springframework.lang.NonNull;
@@ -112,17 +110,7 @@ public final class Utils {
 
     @NonNull
     public String formatPropertyColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        String column = null;
-        if (referenceProperty == null) {
-            column = property.getColumn();
-        } else {
-            final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
-                    referenceProperty.referenceColumn(property.getName()) : property.getColumn();
-            column = property.isIdProperty() && referenceProperty.referenceMode() == ReferenceMode.SIMPLE ?
-                    referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
-        }
-
-        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        return org.finalframework.data.coding.entity.Utils.formatPropertyColumn(referenceProperty, property);
     }
 
 

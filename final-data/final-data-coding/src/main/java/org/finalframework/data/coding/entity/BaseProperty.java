@@ -1,6 +1,7 @@
 package org.finalframework.data.coding.entity;
 
 import com.sun.tools.javac.code.Type;
+import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
@@ -31,7 +32,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private final Elements elements;
     private final Types types;
     private final Element element;
-    private final PrimaryKeyType primaryKeyType;
+    private PrimaryKeyType primaryKeyType;
     private final List<TypeElement> views = new ArrayList<>();
 
     private final String name;
@@ -44,16 +45,15 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private boolean nonnull = true;
     private boolean insertable = true;
     private boolean updatable = true;
-    private final String rawType;
     private final String type;
     private final String componentType;
     private final String mapKeyType;
     private final String mapValueType;
     private final boolean isCollection;
     private final boolean isMap;
-    private final boolean isIdProperty;
+    private boolean isIdProperty;
     private boolean selectable = true;
-    private final boolean isReference;
+    private boolean isReference;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
@@ -66,7 +66,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.types = processEnv.getTypeUtils();
         this.element = element;
         this.name = getElementName(element);
-        this.column = this.name;
         TypeMirror typeMirror = element.asType();
         TypeMirror realTypeMirror = getRealTypeMirror(typeMirror);
         this.javaTypeElement = (TypeElement) ((Type) typeMirror).asElement();
@@ -76,49 +75,37 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         if (kind.isPrimitive()) {
             switch (kind) {
                 case INT:
-                    this.rawType = Integer.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Integer.class.getCanonicalName());
                     break;
                 case BYTE:
-                    this.rawType = Byte.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Byte.class.getCanonicalName());
                     break;
                 case CHAR:
-                    this.rawType = Character.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Character.class.getCanonicalName());
                     break;
                 case LONG:
-                    this.rawType = Long.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Long.class.getCanonicalName());
                     break;
                 case FLOAT:
-                    this.rawType = Float.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Float.class.getCanonicalName());
                     break;
                 case DOUBLE:
-                    this.rawType = Double.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Double.class.getCanonicalName());
                     break;
                 case BOOLEAN:
-                    this.rawType = Boolean.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Boolean.class.getCanonicalName());
                     break;
                 case SHORT:
-                    this.rawType = Short.class.getCanonicalName();
                     this.metaTypeElement = elements.getTypeElement(Short.class.getCanonicalName());
                     break;
                 default:
                     throw new IllegalArgumentException("不支持的基础类型");
             }
-        } else {
-            this.rawType = typeMirror.toString();
         }
+
         this.type = types.erasure(typeMirror).toString();
 
-
         if (element.getKind().isField()) {
-
-
             this.isCollection = types.isAssignable(types.erasure(typeMirror), elements
                     .getTypeElement("java.util.Collection")
                     .asType());
@@ -150,32 +137,12 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
             this.isMap = false;
         }
 
-        isIdProperty = hasAnnotation(PrimaryKey.class);
-
-        if (isIdProperty) {
-            PrimaryKey primaryKey = getAnnotation(PrimaryKey.class);
-            this.primaryKeyType = primaryKey.type();
-        } else {
-            this.primaryKeyType = null;
-        }
-
-        if (hasAnnotation(ReferenceColumn.class)) {
-            final ReferenceColumn referenceColumn = getAnnotation(ReferenceColumn.class);
-            isReference = true;
-            initReference(referenceColumn.mode(), referenceColumn.properties(), referenceColumn.delimiter());
-        } else if (hasAnnotation(MultiColumn.class)) {
-            final MultiColumn multiColumn = getAnnotation(MultiColumn.class);
-            isReference = true;
-            initReference(multiColumn.mode(), multiColumn.properties(), multiColumn.delimiter());
-        } else {
-            isReference = false;
-            referenceMode = null;
-            referenceProperties = null;
-            referenceColumns = null;
-        }
-
-//        initColumn();
+        initColumn();
         initColumnView();
+
+        if (Assert.isBlank(this.column)) {
+            this.column = this.name;
+        }
 
     }
 
@@ -205,7 +172,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.selectable = ann.selectable();
         this.table = ann.table();
         this.column = ann.value();
-        this.placeholder = ann.placeholder();
     }
 
     private void initJsonColumn(JsonColumn ann) {
@@ -218,7 +184,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.selectable = ann.selectable();
         this.table = ann.table();
         this.column = ann.value();
-        this.placeholder = ann.placeholder();
     }
 
     private void initCreated(Created ann) {
@@ -231,7 +196,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.selectable = ann.selectable();
         this.table = ann.table();
         this.column = ann.value();
-        this.placeholder = ann.placeholder();
     }
 
     private void initLastModified(LastModified ann) {
@@ -244,7 +208,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.selectable = ann.selectable();
         this.table = ann.table();
         this.column = ann.value();
-        this.placeholder = ann.placeholder();
     }
 
     private void initReferenceColumn(ReferenceColumn ann) {
@@ -252,7 +215,13 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     }
 
     private void initPrimaryKey(PrimaryKey ann) {
-
+        this.isIdProperty = true;
+        this.primaryKeyType = ann.type();
+        this.unique = ann.unique();
+        this.nonnull = ann.nonnull();
+        this.insertable = ann.insertable();
+        this.updatable = ann.updatable();
+        this.selectable = ann.selectable();
     }
 
     private void initColumnView() {
@@ -260,19 +229,12 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         TypeElement columnView = elements.getTypeElement(ColumnView.class.getCanonicalName());
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             if (types.isSameType(annotationMirror.getAnnotationType(), columnView.asType())) {
-//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,"columnView:"+annotationMirror.getAnnotationType().toString());
                 Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
-//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,"annValues：" + elementValues.size());
-//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,"annElements：" + columnView.getEnclosedElements().size());
                 columnView.getEnclosedElements().stream()
                         .map(it -> (ExecutableElement) it)
                         .forEach(method -> {
-//                            if ("value".equals(method.getSimpleName())) {
-//                            Object value = elementValues.get(method).getValue();
                             com.sun.tools.javac.util.List<AnnotationValue> views = (com.sun.tools.javac.util.List<AnnotationValue>) elementValues.get(method).getValue();
                             views.stream().map(AnnotationValue::getValue).map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
-//                            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "name:" + name + ",method:" + method.getSimpleName() + ",columnViews:" + this.views);
-//                            }
                         });
 
             }
@@ -288,6 +250,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     }
 
     private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
+        this.isReference = true;
         this.referenceMode = mode;
         List<String> referenceProperties = new ArrayList<>(properties.length);
         Map<String, String> referenceColumns = new HashMap<>(properties.length);
@@ -390,15 +353,6 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         return type;
     }
 
-    @Override
-    public String getComponentType() {
-        return componentType;
-    }
-
-    @Override
-    public String getRawType() {
-        return isCollection ? componentType : rawType;
-    }
 
     @Override
     public TypeElement getJavaTypeElement() {

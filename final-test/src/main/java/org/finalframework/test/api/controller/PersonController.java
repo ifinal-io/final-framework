@@ -18,7 +18,6 @@ import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
-import org.finalframework.test.entity.QPerson;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +85,8 @@ public class PersonController {
     public List<Person> test() {
         Query query = new Query()
 //                .where(QPerson.age.gt(0),QPerson.name.eq("12"))
-                .sort(QPerson.id.desc().and(QPerson.age.asc())).limit(2);
+//                .sort(QPerson.id.desc().and(QPerson.age.asc()))
+                .limit(2);
         return personMapper.select(query);
     }
 

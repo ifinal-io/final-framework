@@ -2,7 +2,9 @@ package org.finalframework.data.coding.entity;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.core.configuration.Configuration;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -39,6 +41,7 @@ public class EntityProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         filer = processingEnv.getFiler();
+        Configuration.getInstance().load(processingEnv);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class EntityProcessor extends AbstractProcessor {
                 .stream()
                 .map(it -> EntityFactory.create(processingEnv, (TypeElement) it))
                 .forEach(it -> {
-                    final String packageName = it.getPackage();
+                    final String packageName = it.getPackage() + ".query";
                     final String entityName = it.getSimpleName();
                     final QEntity.Builder builder = new QEntity.Builder(it);
                     builder.packageName(packageName)
@@ -66,25 +69,10 @@ public class EntityProcessor extends AbstractProcessor {
                                     @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
                                     properties.stream()
                                             .map(multiEntity::getRequiredProperty)
-                                            .map(multiProperty -> {
-                                                final String path = property.getName() + "." + multiProperty.getName();
-                                                final String name = multiProperty.isIdProperty() ?
-                                                        property.referenceMode() == ReferenceMode.SIMPLE ?
-                                                                property.getName() : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1)
-                                                        : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
-                                                return QProperty.builder(path, name)
-                                                        .type(multiProperty.getType())
-                                                        .rawType(multiProperty.getRawType())
-                                                        .build();
-                                            }).forEach(builder::addProperty);
+                                            .map(multiProperty -> this.buildProperty(property, multiProperty))
+                                            .forEach(builder::addProperty);
                                 } else {
-                                    builder.addProperty(
-                                            QProperty.builder(property.getName(), property.getName())
-                                                    .type(property.getType())
-                                                    .rawType(property.getRawType())
-                                                    .idProperty(property.isIdProperty())
-                                                    .build()
-                                    );
+                                    builder.addProperty(this.buildProperty(null, property));
                                 }
 
                             });
@@ -102,5 +90,32 @@ public class EntityProcessor extends AbstractProcessor {
 
     }
 
+    private QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property) {
+        if (referenceProperty == null) {
+            return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
+                    .type(property.getMetaTypeElement().getQualifiedName().toString())
+                    .idProperty(property.isIdProperty())
+                    .column(Utils.formatPropertyColumn(null, property))
+                    .idProperty(property.isIdProperty())
+                    .persistentType(property.getPersistentType())
+                    .insertable(property.insertable())
+                    .updatable(property.updatable())
+                    .selectable(property.selectable())
+                    .build();
+        } else {
+            final String path = referenceProperty.getName() + "." + property.getName();
+            final String name = Utils.formatPropertyName(referenceProperty, property);
+            return QProperty.builder(path, name)
+                    .column(Utils.formatPropertyColumn(referenceProperty, property))
+                    .type(property.getMetaTypeElement().getQualifiedName().toString())
+                    .idProperty(false)
+                    .persistentType(property.getPersistentType())
+                    .insertable(referenceProperty.insertable())
+                    .updatable(referenceProperty.updatable())
+                    .selectable(referenceProperty.selectable())
+                    .build();
+        }
+
+    }
 
 }

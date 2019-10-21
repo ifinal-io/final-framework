@@ -7,7 +7,6 @@ import org.finalframework.data.query.criterion.DoubleCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -20,9 +19,13 @@ import java.util.Date;
  */
 public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>, Executable<T> {
 
-    Class<T> getType();
+    static <T, E extends QEntity> QProperty.Builder<T> builder(E entity, Class<T> type) {
+        return new QPropertyImpl.BuilderImpl<>(entity, type);
+    }
 
-    Class getComponentType();
+    <E extends QEntity> E getEntity();
+
+    Class<T> getType();
 
     String getPath();
 
@@ -35,22 +38,10 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>,
     @NonNull
     String getColumn();
 
-    @NonNull
-    PersistentType getPersistentType();
-
-    boolean isEntity();
-
     boolean isIdProperty();
 
-    boolean hasView(@NonNull Class<?> view);
-
-    boolean isEnum();
-
-    boolean isCollectionLike();
-
-    boolean isMap();
-
-    boolean isTransient();
+    @NonNull
+    PersistentType getPersistentType();
 
     /**
      * Returns whether the property is an array.
@@ -63,15 +54,11 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>,
 
     boolean nonnull();
 
-    boolean insertable();
+    boolean isInsertable();
 
-    boolean updatable();
+    boolean isUpdatable();
 
-    <A extends Annotation> A findAnnotation(Class<A> ann);
-
-    default <A extends Annotation> boolean hasAnnotation(Class<A> ann) {
-        return findAnnotation(ann) != null;
-    }
+    boolean isSelectable();
 
     @Override
     default Criterion eq(@NonNull T value) {
@@ -449,5 +436,26 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Sort>,
     @Override
     default Executable<T> not() {
         return Executable.execute(this).not();
+    }
+
+
+    interface Builder<T> extends org.finalframework.core.Builder<QProperty<T>> {
+
+        Builder<T> path(String path);
+
+        Builder<T> name(String name);
+
+        Builder<T> column(String column);
+
+        Builder<T> idProperty(boolean idProperty);
+
+        Builder<T> persistentType(PersistentType persistentType);
+
+        Builder<T> insertable(boolean insertable);
+
+        Builder<T> updatable(boolean updatable);
+
+        Builder<T> selectable(boolean selectable);
+
     }
 }

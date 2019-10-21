@@ -55,10 +55,6 @@ public interface Property<T, P extends Property<T, P>> {
 
     String getType();
 
-    String getComponentType();
-
-    String getRawType();
-
     String getMapKeyType();
 
     String getMapValueType();
