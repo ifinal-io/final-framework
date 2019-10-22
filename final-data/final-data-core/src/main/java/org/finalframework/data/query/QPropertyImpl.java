@@ -1,5 +1,6 @@
 package org.finalframework.data.query;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 
 /**
@@ -18,6 +19,9 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
 
     private final boolean idProperty;
     private final PersistentType persistentType;
+
+    private final Class<? extends TypeHandler> typeHandler;
+
     private final boolean insertable;
     private final boolean updatable;
     private final boolean selectable;
@@ -30,6 +34,8 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
         this.column = builder.column;
         this.idProperty = builder.idProperty;
         this.persistentType = builder.persistentType;
+
+        this.typeHandler = builder.typeHandler;
 
         this.insertable = builder.insertable;
         this.updatable = builder.updatable;
@@ -77,6 +83,11 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
     }
 
     @Override
+    public Class<? extends org.apache.ibatis.type.TypeHandler> getTypeHandler() {
+        return this.typeHandler;
+    }
+
+    @Override
     public boolean isArray() {
         return false;
     }
@@ -115,6 +126,8 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
 
         private boolean idProperty = false;
         private PersistentType persistentType;
+
+        private Class<? extends TypeHandler> typeHandler;
 
         private boolean insertable = true;
         private boolean updatable = true;
@@ -156,6 +169,12 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
         }
 
         @Override
+        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
+            this.typeHandler = typeHandler;
+            return this;
+        }
+
+        @Override
         public Builder<T> insertable(boolean insertable) {
             this.insertable = insertable;
             return this;
@@ -172,7 +191,6 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
             this.selectable = selectable;
             return this;
         }
-
 
         @Override
         public QProperty<T> build() {

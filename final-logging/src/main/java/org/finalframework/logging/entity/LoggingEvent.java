@@ -1,7 +1,6 @@
 package org.finalframework.logging.entity;
 
 import lombok.Data;
-import org.finalframework.data.annotation.Entity;
 import org.finalframework.data.annotation.PrimaryKey;
 import org.finalframework.data.entity.IEntity;
 
@@ -14,7 +13,6 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
-@Entity
 public class LoggingEvent implements IEntity<Long> {
     @PrimaryKey
     private Long id;

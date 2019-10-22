@@ -1,12 +1,13 @@
 package org.finalframework.spring.aop.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationConfiguration;
 import org.finalframework.spring.aop.annotation.OperationComponent;
 import org.finalframework.spring.aop.annotation.OperationExecutor;
 import org.finalframework.spring.coding.AutoConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -27,8 +28,9 @@ import org.springframework.core.annotation.Order;
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @AutoConfiguration
-@Slf4j
 public class OperationInterceptorAutoConfiguration implements ApplicationContextAware, InitializingBean {
+
+    private static final Logger logger = LoggerFactory.getLogger(OperationInterceptorAutoConfiguration.class);
 
 
     private ApplicationContext applicationContext;

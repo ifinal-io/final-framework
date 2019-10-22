@@ -52,6 +52,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private final boolean isCollection;
     private final boolean isMap;
     private boolean isIdProperty;
+    private boolean isVersionProperty;
     private boolean selectable = true;
     private boolean isReference;
     private boolean placeholder = true;
@@ -155,6 +156,8 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
             initCreated(getAnnotation(Created.class));
         } else if (hasAnnotation(LastModified.class)) {
             initLastModified(getAnnotation(LastModified.class));
+        } else if (hasAnnotation(Version.class)) {
+            initVersion(getAnnotation(Version.class));
         } else if (hasAnnotation(ReferenceColumn.class)) {
             initReferenceColumn(getAnnotation(ReferenceColumn.class));
         } else if (hasAnnotation(PrimaryKey.class)) {
@@ -208,6 +211,19 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         this.selectable = ann.selectable();
         this.table = ann.table();
         this.column = ann.value();
+    }
+
+    private void initVersion(Version ann) {
+        this.placeholder = ann.placeholder();
+        this.persistentType = ann.persistentType();
+        this.unique = ann.unique();
+        this.nonnull = ann.nonnull();
+        this.insertable = ann.insertable();
+        this.updatable = ann.updatable();
+        this.selectable = ann.selectable();
+        this.table = ann.table();
+        this.column = ann.value();
+        this.isVersionProperty = true;
     }
 
     private void initReferenceColumn(ReferenceColumn ann) {
@@ -377,6 +393,11 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     @Override
     public boolean isIdProperty() {
         return isIdProperty;
+    }
+
+    @Override
+    public boolean isVersionProperty() {
+        return isVersionProperty;
     }
 
     @Override

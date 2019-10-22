@@ -35,7 +35,7 @@ public final class Utils {
 
     private TypeHandlerRegistry typeHandlerRegistry;
 
-    public Utils(ProcessingEnvironment processEnv) {
+    private Utils(ProcessingEnvironment processEnv) {
         this.processEnv = processEnv;
         this.typeUtils = processEnv.getTypeUtils();
         this.elementUtils = processEnv.getElementUtils();

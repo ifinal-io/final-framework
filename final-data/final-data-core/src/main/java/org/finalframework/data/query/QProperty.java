@@ -1,5 +1,6 @@
 package org.finalframework.data.query;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.criterion.CollectionCriterion;
@@ -42,6 +43,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @NonNull
     PersistentType getPersistentType();
+
+    Class<? extends TypeHandler> getTypeHandler();
 
     /**
      * Returns whether the property is an array.
@@ -159,16 +162,16 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     @Override
     default Criterion isNull() {
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NULL)
+                .property(this)
+                .operator(DefaultCriterionOperator.NULL)
                 .build();
     }
 
     @Override
     default Criterion nonNull() {
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_NULL)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_NULL)
                 .build();
     }
 
@@ -176,9 +179,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion startWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.START_WITH)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.START_WITH)
+                .value(value)
                 .build();
     }
 
@@ -186,9 +189,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion notStartWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_START_WITH)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_START_WITH)
+                .value(value)
                 .build();
     }
 
@@ -196,9 +199,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion endWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.END_WITH)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.END_WITH)
+                .value(value)
                 .build();
     }
 
@@ -206,9 +209,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion notEndWith(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_END_WITH)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_END_WITH)
+                .value(value)
                 .build();
     }
 
@@ -216,9 +219,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion contains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.CONTAINS)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.CONTAINS)
+                .value(value)
                 .build();
     }
 
@@ -226,9 +229,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion notContains(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_CONTAINS)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_CONTAINS)
+                .value(value)
                 .build();
     }
 
@@ -236,9 +239,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion like(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.LIKE)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.LIKE)
+                .value(value)
                 .build();
     }
 
@@ -246,9 +249,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion notLike(@NonNull String value) {
         Assert.isBlank(value, "value is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_LIKE)
-                        .value(value)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_LIKE)
+                .value(value)
                 .build();
     }
 
@@ -256,9 +259,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion before(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.BEFORE)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.BEFORE)
+                .value(date)
                 .build();
     }
 
@@ -272,9 +275,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion after(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.AFTER)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.AFTER)
+                .value(date)
                 .build();
     }
 
@@ -288,9 +291,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion dateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.DATE_EQUAL)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.DATE_EQUAL)
+                .value(date)
                 .build();
     }
 
@@ -298,9 +301,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion notDateEqual(@NonNull Date date) {
         Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
+                .value(date)
                 .build();
     }
 
@@ -317,9 +320,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     @Override
     default Criterion dateBefore(@NonNull Date date) {
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.DATE_BEFORE)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.DATE_BEFORE)
+                .value(date)
                 .build();
     }
 
@@ -333,9 +336,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     default Criterion dateAfter(@NonNull Date date) {
         Assert.isNull(date, "date is empty");
         return SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.DATE_AFTER)
-                        .value(date)
+                .property(this)
+                .operator(DefaultCriterionOperator.DATE_AFTER)
+                .value(date)
                 .build();
     }
 
@@ -351,8 +354,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return builder.property(this)
-                        .operator(DefaultCriterionOperator.BETWEEN)
-                        .between(min, max)
+                .operator(DefaultCriterionOperator.BETWEEN)
+                .between(min, max)
                 .build();
     }
 
@@ -362,8 +365,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
         return builder.property(this)
-                        .operator(DefaultCriterionOperator.NOT_BETWEEN)
-                        .between(min, max)
+                .operator(DefaultCriterionOperator.NOT_BETWEEN)
+                .between(min, max)
                 .build();
     }
 
@@ -373,8 +376,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return builder.property(this)
-                        .operator(DefaultCriterionOperator.DATE_BETWEEN)
-                        .between(min, max)
+                .operator(DefaultCriterionOperator.DATE_BETWEEN)
+                .between(min, max)
                 .build();
     }
 
@@ -384,8 +387,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         Assert.isNull(max, "max is empty");
         final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
         return builder.property(this)
-                        .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
-                        .between(min, max)
+                .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
+                .between(min, max)
                 .build();
     }
 
@@ -450,6 +453,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         Builder<T> idProperty(boolean idProperty);
 
         Builder<T> persistentType(PersistentType persistentType);
+
+        Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler);
 
         Builder<T> insertable(boolean insertable);
 

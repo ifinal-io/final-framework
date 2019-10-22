@@ -1,6 +1,5 @@
 package org.finalframework.mybatis.coding.mapper.handler;
 
-import lombok.Getter;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.mybatis.handler.*;
 
@@ -22,18 +21,14 @@ public class TypeHandlerRegistry {
     private static final String JSON_LIST_BLOB_TYPE_HANDLER = "final.mybatis.type-handler.json-blob-type-handlers.list";
     private static final String JSON_SET_BLOB_TYPE_HANDLER = "final.mybatis.type-handler.json-blob-type-handlers.set";
     private static final TypeHandlerRegistry instance = new TypeHandlerRegistry();
-    @Getter
+
     private final String enumTypeHandler;
-    @Getter
     private final String listTypeHandler;
-    @Getter
     private final String setTypeHandler;
-    @Getter
     private final JsonTypeHandlers jsonTypesHandlers;
-    @Getter
     private final JsonTypeHandlers jsonBlobTypeHandlers;
 
-    public TypeHandlerRegistry() {
+    private TypeHandlerRegistry() {
         Configuration configuration = Configuration.getInstance();
         this.enumTypeHandler = configuration.getString(ENUM_TYPE_HANDLER, EnumTypeHandler.class.getCanonicalName());
         this.listTypeHandler = configuration.getString(LIST_TYPE_HANDLER, DefaultListTypeHandler.class.getCanonicalName());
@@ -52,14 +47,32 @@ public class TypeHandlerRegistry {
                 configuration.getString(JSON_SET_BLOB_TYPE_HANDLER, JsonSetBlobTypeHandler.class.getCanonicalName())
         );
 
-
     }
 
     public static TypeHandlerRegistry getInstance() {
         return instance;
     }
 
-    @Getter
+    public String getEnumTypeHandler() {
+        return enumTypeHandler;
+    }
+
+    public String getListTypeHandler() {
+        return listTypeHandler;
+    }
+
+    public String getSetTypeHandler() {
+        return setTypeHandler;
+    }
+
+    public JsonTypeHandlers getJsonTypesHandlers() {
+        return jsonTypesHandlers;
+    }
+
+    public JsonTypeHandlers getJsonBlobTypeHandlers() {
+        return jsonBlobTypeHandlers;
+    }
+
     public static class JsonTypeHandlers {
         private final String object;
         private final String list;
@@ -69,6 +82,18 @@ public class TypeHandlerRegistry {
             this.object = object;
             this.list = list;
             this.set = set;
+        }
+
+        public String getObject() {
+            return object;
+        }
+
+        public String getList() {
+            return list;
+        }
+
+        public String getSet() {
+            return set;
         }
     }
 

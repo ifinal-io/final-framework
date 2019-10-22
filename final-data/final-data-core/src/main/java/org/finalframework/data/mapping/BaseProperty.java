@@ -1,7 +1,5 @@
 package org.finalframework.data.mapping;
 
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
@@ -13,8 +11,6 @@ import org.springframework.data.mapping.model.SimpleTypeHolder;
  * @date 2018-10-17 11:03
  * @since 1.0
  */
-@Slf4j
-@Getter
 public class BaseProperty extends AnnotationBasedPersistentProperty<Property> implements Property {
 
     /**

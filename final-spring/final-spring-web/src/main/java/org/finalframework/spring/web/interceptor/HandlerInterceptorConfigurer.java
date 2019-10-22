@@ -1,8 +1,9 @@
 package org.finalframework.spring.web.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -18,8 +19,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2018-09-28 15:23
  * @since 1.0
  */
-@Slf4j
 public class HandlerInterceptorConfigurer implements WebMvcConfigurer, ApplicationContextAware {
+
+    private static final Logger logger = LoggerFactory.getLogger(HandlerInterceptorConfigurer.class);
 
     private ApplicationContext applicationContext;
 
@@ -55,7 +57,6 @@ public class HandlerInterceptorConfigurer implements WebMvcConfigurer, Applicati
                     order == null ? 0 : order.value()
             );
         });
-
 
 
     }

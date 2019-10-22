@@ -82,6 +82,8 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
         throw new IllegalStateException(String.format("Required identifier property not found for %s!", getType()));
     }
 
+    P getVersionProperty();
+
     default PrimaryKeyType getPrimaryKeyType() {
         return getIdProperty() == null ? null : getIdProperty().getPrimaryKeyType();
     }

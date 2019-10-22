@@ -33,6 +33,7 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     private final Map<String, P> propertyCache = new LinkedHashMap<>();
     private final Set<TypeElement> views = new HashSet<>();
     private P idProperty;
+    private P versionProperty;
 
     public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
         this.processEnv = processEnv;
@@ -60,7 +61,10 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
                 throw new IllegalArgumentException("the entity must only have only one id property!,entity=" + getType());
             }
             this.idProperty = property;
+        } else if (property.isVersionProperty()) {
+            this.versionProperty = property;
         }
+
 
         if (propertyCache.containsKey(property.getName())) {
             throw new IllegalArgumentException(String.format("the entity have not only one property named %s", property.getName()));
@@ -126,6 +130,10 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
         return idProperty;
     }
 
+    @Override
+    public P getVersionProperty() {
+        return versionProperty;
+    }
 
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {

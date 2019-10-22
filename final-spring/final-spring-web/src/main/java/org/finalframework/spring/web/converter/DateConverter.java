@@ -1,6 +1,5 @@
 package org.finalframework.spring.web.converter;
 
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.core.formatter.DateFormatters;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import java.util.Date;
  * @date 2018-09-29 16:32
  * @since 1.0
  */
-@Slf4j
 @Component
 public class DateConverter implements Converter<String, Date> {
 

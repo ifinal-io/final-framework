@@ -138,13 +138,29 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         //          <when test="entity != null and selective == true">
         //          <when test="update != null">
         //      </choose>
-        set.appendChild(choose(document, Arrays.asList(
+
+
+        Element choose = choose(document, Arrays.asList(
                 whenEntityNotNull(document, entity, true),
                 whenEntityNotNull(document, entity, false),
                 whenUpdateNotNull(document, entity)
-        )));
-        //</set>
+        ));
+
+        Property versionProperty = entity.getVersionProperty();
+
+        if (versionProperty != null && !versionProperty.updatable()) {
+            Element trim = document.createElement("trim");
+            String column = Utils.getInstance().formatPropertyColumn(null, versionProperty);
+            trim.setAttribute("suffix", String.format("%s = %s + 1", column, column));
+            trim.appendChild(choose);
+            set.appendChild(trim);
+        } else {
+            set.appendChild(choose);
+        }
         sql.appendChild(set);
+
+
+        //</set>
         //</sql>
         return sql;
     }
@@ -167,14 +183,13 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     private Element buildEntitySelectiveViewElement(@NonNull Document document, @NonNull Entity<Property> entity, boolean selective, @Nullable TypeElement view) {
 
-        final Element whenOrOtherwise = document.createElement(view != null ? "when" : "otherwise");
+        final Element whenOrOtherwise = document.createElement("when");
 
-        if (view != null) {
-            final String test = String.format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
-            whenOrOtherwise.setAttribute("test", test);
-        }
+        final String test = view == null ? "view == null" : String.format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
+        whenOrOtherwise.setAttribute("test", test);
 
-        entity.stream().filter(it -> !it.isTransient() && it.updatable() && (view == null || it.hasView(view)))
+        entity.stream()
+                .filter(it -> !it.isTransient() && it.updatable() && (view == null || it.hasView(view)))
                 .forEach(property -> {
                     if (property.isReference()) {
                         /**
@@ -222,10 +237,10 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                             final Element ifPropertyNotNull = document.createElement("if");
                             final String ifTest = String.format("entity.%s != null", property.getName());
                             ifPropertyNotNull.setAttribute("test", ifTest);
-                            ifPropertyNotNull.appendChild(textNode(document, String.format("%s = %s,", column, value)));
+                            ifPropertyNotNull.appendChild(textNode(document, String.format("%s = %s,\n", column, value)));
                             whenOrOtherwise.appendChild(ifPropertyNotNull);
                         } else {
-                            whenOrOtherwise.appendChild(textNode(document, String.format("%s = %s,", column, value)));
+                            whenOrOtherwise.appendChild(textNode(document, String.format("%s = %s", column, value)));
                         }
                     }
 

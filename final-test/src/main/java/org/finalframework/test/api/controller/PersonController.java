@@ -2,7 +2,6 @@ package org.finalframework.test.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.core.Assert;
@@ -37,7 +36,6 @@ import java.util.List;
  * @date 2018-09-27 22:35
  * @since 1.0
  */
-@Slf4j
 @Service
 @RestController
 @RequestMapping("/person")

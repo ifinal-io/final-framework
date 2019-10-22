@@ -1,7 +1,8 @@
 package org.finalframework.spring.web.listener;
 
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.spring.coding.ApplicationEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 
@@ -11,9 +12,10 @@ import org.springframework.context.ApplicationListener;
  * @date 2019-01-09 21:18:06
  * @since 1.0
  */
-@Slf4j
 @ApplicationEventListener
 public class ApplicationStartedEventListener implements ApplicationListener<ApplicationStartedEvent> {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationStartedEventListener.class);
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {

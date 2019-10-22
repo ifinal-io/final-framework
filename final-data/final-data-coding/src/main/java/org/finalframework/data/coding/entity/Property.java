@@ -61,6 +61,8 @@ public interface Property<T, P extends Property<T, P>> {
 
     boolean isIdProperty();
 
+    boolean isVersionProperty();
+
     PrimaryKeyType getPrimaryKeyType();
 
     boolean isCollection();

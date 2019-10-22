@@ -1,7 +1,6 @@
 package org.finalframework.monitor.interceptor;
 
 
-import lombok.Setter;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.monitor.action.ActionContextHandler;
 import org.finalframework.monitor.annotation.ActionHandler;
@@ -28,7 +27,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultRecorder implements Recorder, ApplicationContextAware {
     private final Map<Integer, ActionContextHandler> handlers = new ConcurrentHashMap<>(8);
     private ApplicationContext applicationContext;
-    @Setter
     private ActionContextHandler defaultActionContextHandler;
 
     public void registerActionContextHandler(int type, ActionContextHandler handler) {
@@ -65,5 +63,13 @@ public class DefaultRecorder implements Recorder, ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public ActionContextHandler getDefaultActionContextHandler() {
+        return defaultActionContextHandler;
+    }
+
+    public void setDefaultActionContextHandler(ActionContextHandler defaultActionContextHandler) {
+        this.defaultActionContextHandler = defaultActionContextHandler;
     }
 }

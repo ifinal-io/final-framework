@@ -1,6 +1,7 @@
 package org.finalframework.data.mapping;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mapping.model.BasicPersistentEntity;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.ClassTypeInformation;
@@ -20,8 +21,9 @@ import java.util.stream.Stream;
  * @date 2018-10-17 11:06
  * @since 1.0
  */
-@Slf4j
 public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
+    private static final Logger logger = LoggerFactory.getLogger(BaseEntity.class);
+
     private final List<Property> properties = new ArrayList<>();
     private final Set<Class<?>> views = new LinkedHashSet<>();
 
