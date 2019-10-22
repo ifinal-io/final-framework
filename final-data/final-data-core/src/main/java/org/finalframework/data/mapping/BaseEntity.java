@@ -1,13 +1,6 @@
 package org.finalframework.data.mapping;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.ColumnView;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.Table;
-import org.finalframework.data.annotation.enums.PrimaryKeyType;
-import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.data.mapping.model.BasicPersistentEntity;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.ClassTypeInformation;
@@ -31,10 +24,6 @@ import java.util.stream.Stream;
 public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
     private final List<Property> properties = new ArrayList<>();
     private final Set<Class<?>> views = new LinkedHashSet<>();
-    @Getter
-    private String table;
-    @Getter
-    private PrimaryKeyType primaryKeyType = PrimaryKeyType.AUTO_INC;
 
     private BaseEntity(TypeInformation<T> information) {
         super(information);
@@ -46,21 +35,7 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     }
 
     private void init() {
-        initTable();
         initProperties();
-    }
-
-    private void initTable() {
-        final Class entityClass = getType();
-        try {
-            if (isAnnotationPresent(Table.class)) {
-                this.table = findAnnotation(Table.class).value();
-            }
-        } finally {
-            if (Assert.isEmpty(table)) {
-                this.table = NameConverterRegistry.getInstance().getTableNameConverter().convert(entityClass.getSimpleName());
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -74,23 +49,8 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
                     .forEach(it -> {
                         addPersistentProperty(it);
                         properties.add(it);
-
-                        if (it.hasAnnotation(ColumnView.class)) {
-                            final ColumnView columnView = it.getRequiredAnnotation(ColumnView.class);
-                            this.views.addAll(Arrays.asList(columnView.value()));
-                        }
-
-
-                        if (it.isIdProperty()) {
-                            if (it.isAnnotationPresent(PrimaryKey.class)) {
-                                this.primaryKeyType = it.getRequiredAnnotation(PrimaryKey.class).type();
-                            }
-                        }
-
-
                     });
 
-            System.out.println();
 
         } catch (IntrospectionException e) {
             logger.error("", e);
@@ -120,8 +80,4 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
         return properties.stream();
     }
 
-    @Override
-    public Collection<Class<?>> getViews() {
-        return views;
-    }
 }

@@ -5,8 +5,7 @@ import org.finalframework.data.annotation.JsonColumn;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.coding.entity.Property;
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.mybatis.Configuration;
-import org.finalframework.mybatis.handler.*;
+import org.finalframework.mybatis.coding.mapper.handler.TypeHandlerRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -34,18 +33,7 @@ public final class Utils {
     private final TypeElement listTypeElement;
     private final TypeElement setTypeElement;
 
-
-    private String enumTypeHandler = EnumTypeHandler.class.getCanonicalName();
-
-    private String listTypeHandler = DefaultListTypeHandler.class.getCanonicalName();
-    private String setTypeHandler = DefaultSetTypeHandler.class.getCanonicalName();
-
-    private String jsonObjectTypeHandler = JsonObjectTypeHandler.class.getCanonicalName();
-    private String jsonListTypeHandler = JsonListTypeHandler.class.getCanonicalName();
-    private String jsonSetTypeHandler = JsonSetTypeHandler.class.getCanonicalName();
-
-    private String jsonListBlobTypeHandler = JsonListBlobTypeHandler.class.getCanonicalName();
-    private String jsonSetBlobTypeHandler = JsonSetBlobTypeHandler.class.getCanonicalName();
+    private TypeHandlerRegistry typeHandlerRegistry;
 
     public Utils(ProcessingEnvironment processEnv) {
         this.processEnv = processEnv;
@@ -54,7 +42,7 @@ public final class Utils {
         this.enumTypeElement = processEnv.getElementUtils().getTypeElement(IEnum.class.getCanonicalName());
         this.listTypeElement = processEnv.getElementUtils().getTypeElement(List.class.getCanonicalName());
         this.setTypeElement = processEnv.getElementUtils().getTypeElement(Set.class.getCanonicalName());
-        jsonObjectTypeHandler = Configuration.getInstance().getJsonObjectTypeHandler();
+        this.typeHandlerRegistry = TypeHandlerRegistry.getInstance();
     }
 
     public static void init(ProcessingEnvironment processingEnvironment) {
@@ -68,30 +56,35 @@ public final class Utils {
 
     public TypeElement getTypeHandler(Element element) {
         if (isEnum(element)) {
-            return getTypeElement(enumTypeHandler);
+            return getTypeElement(typeHandlerRegistry.getEnumTypeHandler());
         }
         JsonColumn jsonColumn = element.getAnnotation(JsonColumn.class);
         PersistentType persistentType = jsonColumn == null ? PersistentType.AUTO : jsonColumn.persistentType();
         if (isList(element)) {
             switch (persistentType) {
                 case JSON:
-                    return getTypeElement(jsonListTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getList());
                 case BLOB:
-                    return getTypeElement(jsonListBlobTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getList());
                 default:
-                    return getTypeElement(listTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getListTypeHandler());
             }
         } else if (isSet(element)) {
             switch (persistentType) {
                 case JSON:
-                    return getTypeElement(jsonSetTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getSet());
                 case BLOB:
-                    return getTypeElement(jsonSetBlobTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getSet());
                 default:
-                    return getTypeElement(setTypeHandler);
+                    return getTypeElement(typeHandlerRegistry.getSetTypeHandler());
             }
         } else if (jsonColumn != null) {
-            return getTypeElement(jsonObjectTypeHandler);
+            switch (persistentType) {
+                case JSON:
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
+                case BLOB:
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
+            }
         }
 
 

@@ -12,8 +12,8 @@ import org.springframework.lang.Nullable;
  */
 public class NameConverterRegistry {
 
-    private static final String FINAL_NAME_CONVERTER_TABLE_CONVERTER = "final.nameConverter.tableConverter";
-    private static final String FINAL_NAME_CONVERTER_COLUMN_CONVERTER = "final.nameConverter.columnConverter";
+    private static final String FINAL_NAME_CONVERTER_TABLE_CONVERTER = "final.data.name-converter.table-converter";
+    private static final String FINAL_NAME_CONVERTER_COLUMN_CONVERTER = "final.data.name-converter.column-converter";
 
     private static NameConverterRegistry instance = new NameConverterRegistry();
 

@@ -1,13 +1,9 @@
 package org.finalframework.data.mapping;
 
-import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.mapping.PersistentProperty;
-import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
-import java.util.List;
 
 
 /**
@@ -18,40 +14,9 @@ import java.util.List;
  */
 public interface Property extends PersistentProperty<Property> {
 
-    @NotNull
-    String getTable();
-
-    @NotNull
-    String getColumn();
-
-    @NotNull
-    PersistentType getPersistentType();
-
     default boolean isEnum() {
         return getType().isEnum();
     }
-
-    boolean hasView(@NonNull Class<?> view);
-
-    boolean unique();
-
-    boolean nonnull();
-
-    boolean insertable();
-
-    boolean updatable();
-
-    boolean selectable();
-
-    boolean placeholder();
-
-    boolean isReference();
-
-    ReferenceMode referenceMode();
-
-    List<String> referenceProperties();
-
-    String referenceColumn(@NonNull String property);
 
     default Object get(@NotNull Object target) {
         try {

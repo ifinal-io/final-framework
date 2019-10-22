@@ -3,11 +3,8 @@ package org.finalframework.data.mapping;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.annotation.NonCompare;
-import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.springframework.data.mapping.PersistentEntity;
-import org.springframework.lang.NonNull;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,10 +33,6 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
                 .collect(Collectors.toList());
     }
 
-    String getTable();
-
-    PrimaryKeyType getPrimaryKeyType();
-
     default T getInstance() {
         try {
             return getType().newInstance();
@@ -47,9 +40,5 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
             throw new IllegalStateException(String.format("the entity of %s must have no args constructor!", getType().getName()));
         }
     }
-
-    @NonNull
-    Collection<Class<?>> getViews();
-
 
 }

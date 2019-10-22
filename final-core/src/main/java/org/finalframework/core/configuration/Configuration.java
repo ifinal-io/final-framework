@@ -6,6 +6,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.util.Properties;
+import java.util.function.BiConsumer;
 
 /**
  * @author likly
@@ -40,7 +41,14 @@ public class Configuration {
 
     public static void main(String[] args) {
         Configuration configuration = Configuration.getInstance();
-        System.out.println();
+        Properties properties = configuration.properties;
+        properties.forEach(new BiConsumer<Object, Object>() {
+            @Override
+            public void accept(Object key, Object value) {
+                System.out.println(String.format("key=%s,value=%s",key,value));
+            }
+        });
+
     }
 
     public boolean isConfiguration() {
