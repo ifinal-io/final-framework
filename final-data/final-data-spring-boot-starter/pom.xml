@@ -19,6 +19,7 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-data-coding</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>

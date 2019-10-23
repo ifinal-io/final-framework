@@ -11,6 +11,7 @@
     * [`final-data-spring-boot-starter`](final-data/final-data-spring-boot-starter/README.md)
 * [`final-json`](final-json/README.md)：定义统一的`Json`操作[`API`](final-json/final-json-core/src/main/java/com/ilikly/finalframework/json/JsonService.java)，支持多种`Json`库，如`jackson`、`fastjson`、`gson`,可自定义`Json`库。
     * [`final-json-core`](final-json/final-json-core/README.md)
+    * [`final-json-jackson`](final-json/final-json-jackson/README.md)
     * [`final-json-autoconfigure`](final-json/final-json-autoconfigure/README.md)
     * [`final-json-spring-boot-starter`](final-json/final-json-spring-boot-starter/README.md)
 * [`final-redis`](final-redis/README.md)：定义统一的`Redis`操作`API`，支持注解声明式缓存，默认基于`spring-boot-starter-data-redis`实现，可定义义实现。

@@ -1,6 +1,5 @@
 package org.finalframework.test.api.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.annotation.CacheValue;
@@ -22,7 +21,6 @@ import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,7 +34,6 @@ import java.util.List;
  * @date 2018-09-27 22:35
  * @since 1.0
  */
-@Service
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -62,10 +59,6 @@ public class PersonController {
         return param;
     }
 
-    @PostMapping("/jsonObject")
-    public Object jsonObject(@RequestJsonParam("json") JSONObject jsonObject) {
-        return jsonObject;
-    }
 
     @PostMapping
     public Person insert(@RequestBody Person person) {
