@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2018-12-25 22:26:06
  * @since 1.0
  */
-@Template("spring/spring.factories")
+@Template("spring/spring.factories.vm")
 public class SpringFactories implements Serializable {
 
     private final List<String> autoConfigurations;

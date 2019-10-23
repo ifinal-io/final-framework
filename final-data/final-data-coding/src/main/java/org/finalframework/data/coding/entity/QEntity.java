@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2018-10-29 13:24
  * @since 1.0
  */
-@Template("entity/entity.ftl")
+@Template("entity/entity.vm")
 public class QEntity {
     private final String packageName;
     private final String name;

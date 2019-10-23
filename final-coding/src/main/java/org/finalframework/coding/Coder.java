@@ -15,7 +15,7 @@ import java.io.Writer;
 public interface Coder {
 
     static Coder getDefaultCoder(){
-        return new FreeMarkerCoder();
+        return new VelocityCoder();
     }
 
     /**

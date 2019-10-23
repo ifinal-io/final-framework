@@ -1,0 +1,30 @@
+#set($autoConfigurations = $springFactories.autoConfigurations)
+#set($applicationListeners = $springFactories.applicationListeners)
+
+#if($applicationListeners)
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    #foreach($!{item} in $!{autoConfigurations})
+        #if($velocityHasNext)
+            ${item},\
+        #else
+            ${item}
+        #end
+    #end
+
+#end
+
+#if($applicationListeners)
+# ApplicationListeners
+org.springframework.context.ApplicationListener=\
+    #foreach($!{item} in $!{applicationListeners})
+        #if($velocityHasNext)
+            ${item},\
+        #else
+            ${item}
+        #end
+    #end
+#end
+
+
+
