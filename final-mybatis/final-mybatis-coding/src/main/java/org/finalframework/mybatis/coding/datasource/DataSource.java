@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.SOURCE)
 public @interface DataSource {
     /**
      * 数据源名称，默认为类名（不包含'DataSource'）。

@@ -12,11 +12,12 @@ import java.util.stream.Collectors;
  * @date 2018-11-08 10:16
  * @since 1.0
  */
-@Template("datasource/datasource.ftl")
+@Template("datasource/dataSourceAutoConfiguration.vm")
 @SuppressWarnings("unused")
-public class DataSourceModel implements Serializable {
+public class DataSourceAutoConfiguration implements Serializable {
     private final String packageName;
     private final String name;
+    private final String properties;
     private final String[] basePackages;
     private final String mapperLocations;
     private final String prefix;
@@ -26,9 +27,10 @@ public class DataSourceModel implements Serializable {
     private final String sqlSessionTemplate;
     private final boolean primary;
 
-    private DataSourceModel(Builder builder) {
+    private DataSourceAutoConfiguration(Builder builder) {
         this.packageName = builder.packageName;
         this.name = builder.name;
+        this.properties = builder.properties;
         this.basePackages = builder.basePackages;
         this.mapperLocations = String.join(",", builder.mapperLocations);
         this.prefix = builder.prefix;
@@ -49,6 +51,10 @@ public class DataSourceModel implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getProperties() {
+        return properties;
     }
 
     public String getBasePackages() {
@@ -83,9 +89,10 @@ public class DataSourceModel implements Serializable {
         return primary;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<DataSourceModel> {
+    public static class Builder implements org.finalframework.core.Builder<DataSourceAutoConfiguration> {
         private String packageName;
         private String name;
+        private String properties;
         private String[] basePackages;
         private String[] mapperLocations;
         private String prefix;
@@ -102,6 +109,11 @@ public class DataSourceModel implements Serializable {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder properties(String properties){
+            this.properties = properties;
             return this;
         }
 
@@ -146,8 +158,8 @@ public class DataSourceModel implements Serializable {
         }
 
         @Override
-        public DataSourceModel build() {
-            return new DataSourceModel(this);
+        public DataSourceAutoConfiguration build() {
+            return new DataSourceAutoConfiguration(this);
         }
     }
 }

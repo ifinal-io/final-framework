@@ -3,7 +3,6 @@ package org.finalframework.mybatis.coding.datasource.processer;
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
 import org.finalframework.core.Assert;
-import org.finalframework.mybatis.coding.datasource.DataSource;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -31,7 +30,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(DataSource.class.getName());
+        types.add(org.finalframework.mybatis.coding.datasource.DataSource.class.getName());
         return types;
     }
 
@@ -49,7 +48,7 @@ public class DataSourceProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        generateEntityFiles(roundEnv.getElementsAnnotatedWith(DataSource.class));
+        generateEntityFiles(roundEnv.getElementsAnnotatedWith(org.finalframework.mybatis.coding.datasource.DataSource.class));
         return true;
     }
 
@@ -57,7 +56,7 @@ public class DataSourceProcessor extends AbstractProcessor {
         elements
                 .stream()
                 .map(it -> {
-                    DataSource dataSource = it.getAnnotation(DataSource.class);
+                    org.finalframework.mybatis.coding.datasource.DataSource dataSource = it.getAnnotation(org.finalframework.mybatis.coding.datasource.DataSource.class);
 
                     final String packageName = this.elements.getPackageOf(it).getQualifiedName().toString();
                     final String className = it.getSimpleName().toString();
@@ -68,9 +67,10 @@ public class DataSourceProcessor extends AbstractProcessor {
                         name = name.substring(0, name.indexOf("DataSource"));
                     }
 
-                    return DataSourceModel.builder()
+                    return DataSourceAutoConfiguration.builder()
                             .packageName(packageName)
-                            .name(className + "Config")
+                            .name(className + "AutoConfiguration")
+                            .properties(className + "Properties")
                             .basePackages(dataSource.basePackages())
                             .mapperLocations(dataSource.mapperLocations())
                             .prefix(dataSource.prefix())
@@ -84,9 +84,15 @@ public class DataSourceProcessor extends AbstractProcessor {
                 .collect(Collectors.toList())
                 .forEach(it -> {
                     try {
-                        coder.coding(it, filer
-                                .createSourceFile(it.getPackage() + "." + it.getName())
-                                .openWriter());
+
+                        DataSourceProperties dataSourceProperties = DataSourceProperties.builder()
+                                .packageName(it.getPackage())
+                                .name(it.getProperties())
+                                .prefix(it.getPrefix())
+                                .build();
+
+                        coder.coding(dataSourceProperties, filer.createSourceFile(dataSourceProperties.getPackageName() + "." + dataSourceProperties.getName()).openWriter());
+                        coder.coding(it, filer.createSourceFile(it.getPackage() + "." + it.getName()).openWriter());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
