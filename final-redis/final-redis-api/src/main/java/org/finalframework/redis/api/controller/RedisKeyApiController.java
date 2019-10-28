@@ -1,7 +1,7 @@
 package org.finalframework.redis.api.controller;
 
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.redis.Redis;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;

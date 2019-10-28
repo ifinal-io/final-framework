@@ -1,11 +1,11 @@
 package org.finalframework.spring.aop.interceptor;
 
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationConfiguration;
 import org.finalframework.spring.aop.annotation.OperationComponent;
 import org.finalframework.spring.aop.annotation.OperationExecutor;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

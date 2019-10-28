@@ -2,7 +2,7 @@ package org.finalframework.cache.interceptor;
 
 import org.finalframework.cache.RedisCache;
 import org.finalframework.cache.component.*;
-import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

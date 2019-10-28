@@ -14,7 +14,6 @@
     <modules>
         <module>final-data-annotation</module>
         <module>final-data-core</module>
-        <module>final-data-coding</module>
         <module>final-data-autoconfigure</module>
         <module>final-data-spring-boot-starter</module>
     </modules>

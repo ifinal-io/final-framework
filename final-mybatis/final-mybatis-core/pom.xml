@@ -61,10 +61,6 @@
             <version>9.4-1205-jdbc4</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-data-coding</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-coding</artifactId>
+            <artifactId>final-coding-spring</artifactId>
         </dependency>
     </dependencies>
     <build>

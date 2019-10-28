@@ -2,11 +2,11 @@ package org.finalframework.mybatis.autoconfigure;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.core.Assert;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
 import org.finalframework.mybatis.inteceptor.PageHelperPageableInterceptor;
 import org.finalframework.mybatis.inteceptor.PageableInterceptor;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;

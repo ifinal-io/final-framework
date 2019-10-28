@@ -1,10 +1,10 @@
 package org.finalframework.data.autoconfigure;
 
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.data.exception.result.IExceptionResultExceptionHandler;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.data.exception.result.UnCatchResultExceptionHandler;
 import org.finalframework.data.exception.result.ViolationResultExceptionHandler;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

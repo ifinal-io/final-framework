@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-coding</artifactId>
+            <artifactId>final-coding-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

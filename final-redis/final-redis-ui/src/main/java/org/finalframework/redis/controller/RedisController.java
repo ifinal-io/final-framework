@@ -1,6 +1,6 @@
 package org.finalframework.redis.controller;
 
-import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

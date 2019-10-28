@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.listener;
 
-import org.finalframework.spring.coding.ApplicationEventListener;
+import org.finalframework.coding.spring.ApplicationEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
