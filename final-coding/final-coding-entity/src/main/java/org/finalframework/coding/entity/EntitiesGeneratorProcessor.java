@@ -40,6 +40,7 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
     private TypeElement entityTypeElement;
 
     private Set<TypeElement> entities = new HashSet<>(128);
+    private static final String RESOURCE_FILE = "META-INF/final.entities";
 
 
     @Override
@@ -53,9 +54,9 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-        if(roundEnv.processingOver()){
+        if (roundEnv.processingOver()) {
             coding(Entities.builder().addEntities(entities).build());
-        }else {
+        } else {
             roundEnv.getRootElements()
                     .stream()
                     .filter(it -> it.getKind() == ElementKind.CLASS)
@@ -68,12 +69,12 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         return false;
     }
 
-    private void coding(Entities entities){
+    private void coding(Entities entities) {
 
-        if(Assert.isEmpty(entities.getEntities())) return;
+        if (Assert.isEmpty(entities.getEntities())) return;
 
         try {
-            coder.coding(entities,processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT,"","final.entities").openWriter());
+            coder.coding(entities, processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", RESOURCE_FILE).openWriter());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -32,6 +32,8 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class QEntityGeneratorProcessor extends AbstractProcessor {
 
+    private static final String RESOURCE_FILE = "META-INF/final.entities";
+
     private Elements elementUtils;
     private Types typeUtils;
 
@@ -91,7 +93,7 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
         if (entitiesProcessed) return;
 
         try {
-            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", "final.entities");
+            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", RESOURCE_FILE);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(resource.openInputStream()));
             String line;

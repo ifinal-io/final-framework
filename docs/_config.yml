@@ -29,6 +29,7 @@ git:
   domain: Github
 final:
   version: 0.0.1
+  entities: META-INF/final.entities
 # Build settings
 markdown: kramdown
 highlighter: rouge
