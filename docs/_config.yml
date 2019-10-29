@@ -44,6 +44,15 @@ theme: minima
 encoding: UTF-8
 plugins:
   - jekyll-feed
+  - jekyll-coffeescript
+  #  - jekyll-default-layout
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-optional-front-matter
+  - jekyll-paginate
+  #  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-relative-links
 collections_dir: pages
 collections:
   framework:
@@ -74,6 +83,11 @@ collections:
 #      toc: true
 #      module: "json"
 # 插件配置
+gist:
+  noscript: false
+relative_links:
+  enabled:     true
+  collections: true
 toc:
   enable: true
   min_level: 2

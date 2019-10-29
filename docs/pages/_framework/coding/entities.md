@@ -54,3 +54,9 @@ version: 1.0
     </configuration>
 </plugin>
 ```
+
+## How
+
+### Template
+
+{% gist 7c02b23421ac8c944719ecc5da35d319 final.entities.vm %}
