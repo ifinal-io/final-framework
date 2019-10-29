@@ -11,7 +11,9 @@ import java.lang.annotation.Target;
  * @date 2018-10-19 15:13
  * @since 1.0
  */
+@Deprecated
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.SOURCE)
 public @interface Entity {
 }
+

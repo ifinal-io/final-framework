@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,10 +13,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>final-redis-core</module>
-        <module>final-redis-spring-boot-starter</module>
         <module>final-redis-autoconfigure</module>
         <module>final-redis-api</module>
         <module>final-redis-ui</module>
+        <module>final-redis-spring-boot-starter</module>
     </modules>
 
 

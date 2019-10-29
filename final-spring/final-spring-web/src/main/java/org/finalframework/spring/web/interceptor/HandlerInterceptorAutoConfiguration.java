@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.interceptor;
 
-import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

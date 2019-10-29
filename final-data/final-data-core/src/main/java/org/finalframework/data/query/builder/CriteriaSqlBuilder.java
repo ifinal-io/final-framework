@@ -22,7 +22,8 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
     }
 
     private static Class getPropertyJavaType(QProperty property) {
-        return property.isCollectionLike() ? property.getComponentType() : property.getType();
+        return property.getType();
+//        return property.isCollectionLike() ? property.getComponentType() : property.getType();
     }
 
     @Override

@@ -1,9 +1,9 @@
 package org.finalframework.spring.web.autoconfigure;
 
 import io.lettuce.core.RedisConnectionException;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.json.JsonException;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.finalframework.spring.web.exception.RestExceptionHandlerConfigurer;
 import org.finalframework.spring.web.exception.result.JsonExceptionHandler;
 import org.finalframework.spring.web.exception.result.MissingServletParameterResultExceptionHandler;

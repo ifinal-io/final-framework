@@ -28,7 +28,8 @@ public abstract class AbsCriterionOperation<T> {
         String column = SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
                 String.format("`%s`", property.getColumn()) : property.getColumn();
 
-        final Class<?> javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
+//        final Class<?> javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
+        final Class<?> javaType = property.getType();
         ;
 
         if (Assert.nonEmpty(functions)) {

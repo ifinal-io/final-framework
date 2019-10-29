@@ -1,12 +1,12 @@
 package org.finalframework.monitor.autoconfigure;
 
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.monitor.action.ActionContextLoggerHandler;
 import org.finalframework.monitor.component.ActionOperationComponent;
 import org.finalframework.monitor.component.AlertOperationComponent;
 import org.finalframework.monitor.component.TraceOperationComponent;
 import org.finalframework.monitor.executor.MDCTracer;
 import org.finalframework.monitor.interceptor.DefaultRecorder;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

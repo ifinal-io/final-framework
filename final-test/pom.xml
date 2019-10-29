@@ -5,64 +5,42 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>final-test</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>final-test-entity</module>
+        <module>final-test-dao</module>
+        <module>final-test-service</module>
+        <module>final-test-controller</module>
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-mybatis-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-redis-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-monitor-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-cache-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-logging</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-redis-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-redis-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>

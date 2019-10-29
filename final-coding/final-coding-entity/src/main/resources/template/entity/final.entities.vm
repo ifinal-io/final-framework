@@ -1,0 +1,9 @@
+#if($entities)
+    #foreach($!{item} in $!{entities.entities})
+        #if($velocityHasNext)
+            ${item}
+        #else
+            ${item}
+        #end
+    #end
+#end

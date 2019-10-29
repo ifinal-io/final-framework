@@ -1,0 +1,10 @@
+package $!{mapper.packageName};
+
+import org.apache.ibatis.annotations.Mapper;
+import org.finalframework.mybatis.mapper.AbsMapper;
+import ${mapper.entity.name};
+
+@Mapper
+public interface $!{mapper.name} extends AbsMapper<${mapper.entity.idProperty.type.replace("java.lang.","")},${mapper.entity.simpleName}>{
+
+}

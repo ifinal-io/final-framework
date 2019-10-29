@@ -30,3 +30,8 @@ version: 1.0
     * [JsonObjectTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonObjectTypeHandler.java)
     * [JsonListTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonListTypeHandler.java)
     * [JsonSetTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonSetTypeHandler.java)
+* JsonBlobTypeHandler
+    * [JsonObjectTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonObjectBlobTypeHandler.java)
+    * [JsonListTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonListTypeHandler.java)
+    * [JsonSetTypeHandler](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/handler/JsonSetTypeHandler.java)
+    

@@ -1,10 +1,7 @@
 package org.finalframework.data.entity;
 
 import lombok.Data;
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.Created;
-import org.finalframework.data.annotation.LastModified;
-import org.finalframework.data.annotation.PrimaryKey;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.enums.YN;
 
 import java.util.Date;
@@ -22,10 +19,12 @@ public abstract class AbsEntity implements IEntity<Long> {
 
     @PrimaryKey
     private Long id;
+    @Version
+    private Integer version;
     @Created
-    private Date createdTime;
+    private Date created;
     @LastModified
-    private Date lastModifiedTime;
+    private Date lastModified;
     @Column(insertable = false)
     private YN yn;
 }

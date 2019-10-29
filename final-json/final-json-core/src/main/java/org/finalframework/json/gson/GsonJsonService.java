@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.json.JsonService;
 
 import java.lang.reflect.Type;
@@ -17,10 +15,8 @@ import java.util.*;
  * @date 2018-11-02 11:22
  * @since 1.0
  */
-@Slf4j
 public class GsonJsonService implements JsonService {
 
-    @Setter
     private Gson gson;
 
     public GsonJsonService(Gson gson) {
@@ -29,6 +25,14 @@ public class GsonJsonService implements JsonService {
 
     public GsonJsonService() {
         this(new Gson());
+    }
+
+    public Gson getGson() {
+        return gson;
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
     }
 
     @Override

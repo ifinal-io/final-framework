@@ -1,8 +1,8 @@
 package org.finalframework.data.autoconfigure;
 
+import org.finalframework.coding.spring.ApplicationEventListener;
 import org.finalframework.data.mapping.converter.NameConverter;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.finalframework.spring.coding.ApplicationEventListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;

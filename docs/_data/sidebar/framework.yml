@@ -3,7 +3,7 @@ name: Final Framework
 menus:
   - id: data
     name: Data
-    icon: image
+    icon: table_chart
     menus:
       - id: annotation
         link: /framework/data/annotation
@@ -13,3 +13,23 @@ menus:
         link: /framework/data/result
         mini: RST
         name: Result
+  - id: coding
+    name: Coding
+    icon: code
+    menus:
+      - id: entities
+        link: /framework/coding/entities
+        mini: ETS
+        name: Entities
+      - id: qentity
+        link: /framework/coding/qentity
+        mini: QET
+        name: QEntity
+      - id: mapper
+        link: /framework/coding/mapper
+        mini: MPR
+        name: Mapper
+      - id: spring
+        link: /framework/coding/spring
+        mini: SPR
+        name: Spring

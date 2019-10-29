@@ -1,0 +1,10 @@
+package ${dataSourceProperties.packageName};
+
+
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "${dataSourceProperties.prefix}")
+public class ${dataSourceProperties.name} extends DataSourceProperties {
+}
+

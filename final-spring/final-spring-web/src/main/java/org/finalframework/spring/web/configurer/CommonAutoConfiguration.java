@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.configurer;
 
-import org.finalframework.spring.coding.AutoConfiguration;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.spring.web.converter.DateConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

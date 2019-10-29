@@ -2,12 +2,12 @@ package org.finalframework.json.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.finalframework.json.jackson.JavaTimeModule;
 import org.finalframework.json.jackson.serializer.BeanEnumPropertySerializerModifier;
-import org.finalframework.spring.coding.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

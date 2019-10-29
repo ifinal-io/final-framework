@@ -1,11 +1,12 @@
 package org.finalframework.data.exception.result;
 
-import lombok.extern.slf4j.Slf4j;
 import org.finalframework.data.exception.IException;
 import org.finalframework.data.exception.ServiceException;
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -14,10 +15,11 @@ import org.springframework.core.annotation.Order;
  * @date 2018-10-31 11:40
  * @since 1.0
  */
-@Slf4j
 @Order
 @ResultExceptionHandler
 public class IExceptionResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<Throwable> {
+
+    private static final Logger logger = LoggerFactory.getLogger(IExceptionResultExceptionHandler.class);
 
     @Override
     public boolean supports(Throwable t) {

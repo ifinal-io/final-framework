@@ -5,8 +5,8 @@
 
     <groupId>org.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-    <!--<version>0.1.0-SNAPSHOT</version>-->
+    <version>0.0.1</version>
+    <!--<version>0.0.1</version>-->
     <modules>
         <module>final-core</module>
         <module>final-util</module>
@@ -36,7 +36,7 @@
     </parent>
 
     <properties>
-        <final.version>0.1.0-SNAPSHOT</final.version>
+        <final.version>0.0.1</final.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -45,6 +45,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <bintray.user>likly</bintray.user>
         <bintray.repo>maven</bintray.repo>
         <bintray.package>${project.artifactId}</bintray.package>
     </properties>
@@ -190,11 +191,6 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-data-coding</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
                 <artifactId>final-data-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
@@ -212,11 +208,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-mybatis-core</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-mybatis-agent</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
@@ -239,11 +230,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-spring</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-spring-coding</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
@@ -293,7 +279,41 @@
                 <artifactId>final-coding</artifactId>
                 <version>${final.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-entity</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-query</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-mapper</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-service</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-controller</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-spring</artifactId>
+                <version>${final.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -335,7 +355,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -344,6 +363,13 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -361,7 +387,7 @@
         <!--        </snapshotRepository>-->
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/likly/${bintray.repo}/final-framework/;publish=1</url>
+            <url>https://api.bintray.com/maven/${bintray.user}/${bintray.repo}/${project.artifactId}/;publish=1</url>
         </repository>
 
     </distributionManagement>

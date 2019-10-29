@@ -1,7 +1,5 @@
 package org.finalframework.spring.web.autoconfigure;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -11,8 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0
  */
 @ConfigurationProperties(prefix = ResponseBodyAdviceProperties.RESPONSE_PROPERTIES)
-@Setter
-@Getter
 public class ResponseBodyAdviceProperties {
     static final String RESPONSE_PROPERTIES = "final.response";
     /**
@@ -20,4 +16,11 @@ public class ResponseBodyAdviceProperties {
      */
     private boolean syncStatus = true;
 
+    public boolean isSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setSyncStatus(boolean syncStatus) {
+        this.syncStatus = syncStatus;
+    }
 }
