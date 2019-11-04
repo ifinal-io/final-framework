@@ -24,4 +24,4 @@ version: 1.0
 </sql>
 ```
 
-> [SqlTableFragmentXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlTableFragmentXmlMapperBuilder.java)
+> [SqlTableFragmentXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlTableFragmentXmlMapperBuilder.java)

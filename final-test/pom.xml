@@ -16,6 +16,7 @@
         <module>final-test-dao</module>
         <module>final-test-service</module>
         <module>final-test-controller</module>
+        <module>final-test-web</module>
     </modules>
 
     <dependencies>

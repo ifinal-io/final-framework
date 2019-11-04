@@ -25,6 +25,10 @@ menus:
         link: /framework/coding/qentity
         mini: QET
         name: QEntity
+      - id: datasoruce
+        link: /framework/coding/datasource
+        mini: DS
+        name: DataSource
       - id: mapper
         link: /framework/coding/mapper
         mini: MPR

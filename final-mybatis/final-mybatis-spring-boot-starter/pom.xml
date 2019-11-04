@@ -17,10 +17,6 @@
             <artifactId>final-mybatis-autoconfigure</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-mybatis-coding</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

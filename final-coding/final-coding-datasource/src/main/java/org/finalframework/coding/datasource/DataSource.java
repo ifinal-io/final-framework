@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.coding.datasource;
+package org.finalframework.coding.datasource;
 
 import org.springframework.context.annotation.Primary;
 

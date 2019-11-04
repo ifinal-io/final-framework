@@ -8,6 +8,13 @@
     * [`final-data-core`](final-data/final-data-core/README.md)
     * [`final-data-autoconfigure`](final-data/final-data-autoconfigure/README.md)
     * [`final-data-spring-boot-starter`](final-data/final-data-spring-boot-starter/README.md)
+* [`final-coding`](final-coding/README.md): 编译时注解处理器，在编译时生成模板代码
+    * [`final-coding-core`](final-coding/final-coding-core/README.md)
+    * [`final-coding-entity`](final-coding/final-coding-entity/README.md)
+    * [`final-coding-datasource`](final-coding/final-coding-datasource/README.md)
+    * [`final-coding-query`](final-coding/final-coding-query/README.md)
+    * [`final-coding-mapper`](final-coding/final-coding-mapper/README.md)
+    * [`final-coding-spring`](final-coding/final-coding-spring/README.md)
 * [`final-json`](final-json/README.md)：定义统一的`Json`操作[`API`](final-json/final-json-core/src/main/java/com/ilikly/finalframework/json/JsonService.java)，支持多种`Json`库，如`jackson`、`fastjson`、`gson`,可自定义`Json`库。
     * [`final-json-core`](final-json/final-json-core/README.md)
     * [`final-json-jackson`](final-json/final-json-jackson/README.md)
@@ -23,19 +30,9 @@
 * [`final-mybatis`](final-mybatis/README.md)：操作`mysql`的`mybatis`实现，支持多数据源。
     * [`final-mybatis-core`](final-mybatis/final-mybatis-core/README.md)
     * [`final-mybatis-autoconfigure`](final-mybatis/final-mybatis-autoconfigure/README.md)
-    * [`final-mybatis-coding`](final-mybatis/final-mybatis-coding/README.md)
     * [`final-mybatis-spring-boot-starter`](final-mybatis/final-mybatis-spring-boot-starter/README.md)
 * [`final-coding`](final-coding/README.md)：注解处理器，在编译时生成模板代码，如`Qentity`、`Mapper`等
 * [`final-spring`](final-spring/README.md)：基于`spring-boot`进行二次封装，添加如`HandlerInteceptor`、`ExceptionHandler`等自定义组件，简化`spring`的配置。
     * [`final-spring-core`](final-spring/final-spring-core/README.md)
     * [`final-spring-boot-starter`](final-spring/final-spring-boot-starter/README.md)
 * [`final-util`](final-util/README.md)：定义常用的工具类
-
-for (Map.Entry<String, Long> entry : skuIdAndRfIdMap.entrySet()) {
-            Map<String, Long> temp = new HashMap<>();
-            logger.info("构建商品预打印数据：wareCode={},sku={}",entry.getKey(),entry.getValue());
-            temp.put(entry.getKey(), entry.getValue());
-            param.setSkuRfIdMap(temp);
-            handle(param);
-
-        }

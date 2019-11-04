@@ -30,6 +30,6 @@ version: 1.0
 </sql>
 ```
 
-> [SqlQueryFragmentXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlQueryFragmentXmlMapperBuilder.java)
+> [SqlQueryFragmentXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlQueryFragmentXmlMapperBuilder.java)
 > [sql-order](order.md)
 > [sql-limit](limit.md)

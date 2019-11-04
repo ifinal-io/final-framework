@@ -20,7 +20,7 @@ version: 1.0
 
 * sql-table
 
-[SqlTableXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlTableXmlMapperBuilder.java)
+[SqlTableXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlTableXmlMapperBuilder.java)
 
 ```xml
 <sql id="sql-table">
@@ -42,7 +42,7 @@ version: 1.0
     </where>
 </sql>
 ```
-> [SqlWhereIdXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlWhereIdXmlMapperBuilder.java)
+> [SqlWhereIdXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlWhereIdXmlMapperBuilder.java)
 
 * sql-where-ids
 
@@ -55,7 +55,7 @@ version: 1.0
     </if>
 </sql>
 ```
-> [SqlWhereIdsXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlWhereIdsXmlMapperBuilder.java)
+> [SqlWhereIdsXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlWhereIdsXmlMapperBuilder.java)
 
 * sql-query
 

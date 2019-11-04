@@ -25,4 +25,4 @@ version: 1.0
 </sql>
 ```
 
-> [](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlOrderFragmentXmlMapperBuilder.java)
+> [](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlOrderFragmentXmlMapperBuilder.java)

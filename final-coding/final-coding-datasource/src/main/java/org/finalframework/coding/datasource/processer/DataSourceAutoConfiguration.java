@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.coding.datasource.processer;
+package org.finalframework.coding.datasource.processer;
 
 import org.finalframework.coding.annotation.Template;
 

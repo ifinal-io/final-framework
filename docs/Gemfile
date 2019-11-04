@@ -20,6 +20,16 @@ gem "minima", "~> 2.0"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
+  gem 'jekyll-gist'
+  gem 'jekyll-coffeescript'
+  # gem 'jekyll-default-layout'
+  gem 'jekyll-gist'
+  gem 'jekyll-github-metadata'
+  gem 'jekyll-optional-front-matter'
+  gem 'jekyll-paginate'
+#  gem 'jekyll-readme-index', '~> 0.2.0'
+  gem 'jekyll-titles-from-headings'
+  gem 'jekyll-relative-links'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -28,14 +38,5 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.0.1" if Gem.win_platform?
 
-gem 'jekyll-gist'
-gem 'jekyll-coffeescript'
-# gem 'jekyll-default-layout'
-gem 'jekyll-gist'
-gem 'jekyll-github-metadata'
-gem 'jekyll-optional-front-matter'
-gem 'jekyll-paginate'
-# gem 'jekyll-readme-index'
-gem 'jekyll-titles-from-headings'
-gem 'jekyll-relative-links'
+
 

@@ -1,7 +1,8 @@
-package org.finalframework.mybatis.coding.datasource.processer;
+package org.finalframework.coding.datasource.processer;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
+import org.finalframework.coding.datasource.DataSource;
 import org.finalframework.core.Assert;
 
 import javax.annotation.processing.*;
@@ -30,7 +31,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
-        types.add(org.finalframework.mybatis.coding.datasource.DataSource.class.getName());
+        types.add(DataSource.class.getName());
         return types;
     }
 
@@ -48,7 +49,7 @@ public class DataSourceProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        generateEntityFiles(roundEnv.getElementsAnnotatedWith(org.finalframework.mybatis.coding.datasource.DataSource.class));
+        generateEntityFiles(roundEnv.getElementsAnnotatedWith(DataSource.class));
         return true;
     }
 
@@ -56,7 +57,7 @@ public class DataSourceProcessor extends AbstractProcessor {
         elements
                 .stream()
                 .map(it -> {
-                    org.finalframework.mybatis.coding.datasource.DataSource dataSource = it.getAnnotation(org.finalframework.mybatis.coding.datasource.DataSource.class);
+                    DataSource dataSource = it.getAnnotation(DataSource.class);
 
                     final String packageName = this.elements.getPackageOf(it).getQualifiedName().toString();
                     final String className = it.getSimpleName().toString();

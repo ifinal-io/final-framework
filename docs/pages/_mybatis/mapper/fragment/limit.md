@@ -26,4 +26,4 @@ version: 1.0
 </sql>
 ```
 
-> [SqlLimitFragmentXmlMapperBuilder](/final-mybatis/final-mybatis-coding/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlLimitFragmentXmlMapperBuilder.java)
+> [SqlLimitFragmentXmlMapperBuilder](/final-coding/final-coding-mapper/src/main/java/org/finalframework/mybatis/coding/mapper/builder/SqlLimitFragmentXmlMapperBuilder.java)

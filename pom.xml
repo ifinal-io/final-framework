@@ -217,11 +217,6 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-mybatis-coding</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
                 <artifactId>final-mybatis-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
@@ -307,6 +302,11 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-coding-controller</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-coding-datasource</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
