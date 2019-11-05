@@ -15,8 +15,10 @@ import javax.tools.JavaFileObject;
  */
 public class QEntityGenerator extends AbsTemplateCodeGenerator {
 
+    private static final String QUERY_PACKAGE_PATH = "query";
+
     public QEntityGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, "query");
+        super(processEnv, QUERY_PACKAGE_PATH);
     }
 
     @Override

@@ -15,8 +15,6 @@
         <module>final-coding-entity</module>
         <module>final-coding-query</module>
         <module>final-coding-mapper</module>
-        <module>final-coding-service</module>
-        <module>final-coding-controller</module>
         <module>final-coding-datasource</module>
         <module>final-coding-spring</module>
     </modules>

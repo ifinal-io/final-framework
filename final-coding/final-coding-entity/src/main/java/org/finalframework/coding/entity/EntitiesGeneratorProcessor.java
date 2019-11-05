@@ -2,7 +2,6 @@ package org.finalframework.coding.entity;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.core.Assert;
 import org.finalframework.data.entity.IEntity;
 
 import javax.annotation.processing.*;
@@ -12,8 +11,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import javax.tools.StandardLocation;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +37,8 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
     private TypeElement entityTypeElement;
 
     private Set<TypeElement> entities = new HashSet<>(128);
-    private static final String RESOURCE_FILE = "META-INF/final.entities";
+
+    private EntitiesHelper entitiesHelper;
 
 
     @Override
@@ -48,12 +46,12 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         super.init(processingEnv);
         this.typeUtils = processingEnv.getTypeUtils();
         this.elementUtils = processingEnv.getElementUtils();
+        this.entitiesHelper = new EntitiesHelper(processingEnv);
         this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-
         if (roundEnv.processingOver()) {
             coding(Entities.builder().addEntities(entities).build());
         } else {
@@ -63,21 +61,12 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
                     .map(it -> ((TypeElement) it))
                     .filter(this::isEntity)
                     .forEach(entities::add);
-
         }
-
         return false;
     }
 
     private void coding(Entities entities) {
-
-        if (Assert.isEmpty(entities.getEntities())) return;
-
-        try {
-            coder.coding(entities, processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", RESOURCE_FILE).openWriter());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        entitiesHelper.generate(entities);
     }
 
 
@@ -85,7 +74,6 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         if (isSubtype(typeElement, entityTypeElement)) {
             return true;
         }
-
         return false;
 
     }

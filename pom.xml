@@ -296,16 +296,6 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-service</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-controller</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
                 <artifactId>final-coding-datasource</artifactId>
                 <version>${final.version}</version>
             </dependency>

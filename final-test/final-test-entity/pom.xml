@@ -17,30 +17,6 @@
             <groupId>org.finalframework</groupId>
             <artifactId>final-coding-entity</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.finalframework</groupId>-->
-<!--            <artifactId>final-coding-query</artifactId>-->
-<!--        </dependency>-->
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includes>
-                        <include>final.entities</include>
-                    </includes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

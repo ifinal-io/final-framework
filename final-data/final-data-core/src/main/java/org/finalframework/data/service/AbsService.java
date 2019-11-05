@@ -3,8 +3,11 @@ package org.finalframework.data.service;
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
+import org.finalframework.data.repository.ScanListener;
+import org.finalframework.data.result.Page;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
@@ -55,18 +58,40 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return insert(tableName, view, entities, null);
     }
 
+    default int insert(Collection<T> entities, Queryable query) {
+        return insert(entities, query.convert());
+    }
+
     default int insert(Collection<T> entities, Query query) {
         return insert(null, null, entities, query);
+    }
+
+    default int insert(String tableName, Collection<T> entities, Queryable query) {
+        return insert(tableName, entities, query.convert());
     }
 
     default int insert(String tableName, Collection<T> entities, Query query) {
         return insert(tableName, null, entities, query);
     }
 
+    default int insert(Class<?> view, Collection<T> entities, Queryable query) {
+        return insert(view, entities, query.convert());
+    }
+
     default int insert(Class<?> view, Collection<T> entities, Query query) {
         return insert(null, view, entities, query);
     }
 
+    /**
+     * 批量插入数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entities  实体集
+     * @param query     条件
+     * @return 指插入数据所影响的行数
+     */
+    @Deprecated
     default int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities, @Param("query") Query query) {
         return getRepository().insert(tableName, view, entities, query);
     }
@@ -97,8 +122,28 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return update((String) null, entity, ids);
     }
 
+    default int update(T entity, Queryable query) {
+        return update(entity, query.convert());
+    }
+
     default int update(T entity, Query query) {
         return update((String) null, entity, query);
+    }
+
+    default int update(T entity, boolean selective, ID... ids) {
+        return update(entity, selective, Arrays.asList(ids));
+    }
+
+    default int update(T entity, boolean selective, Collection<ID> ids) {
+        return update(null, null, entity, selective, ids);
+    }
+
+    default int update(T entity, boolean selective, Queryable query) {
+        return update(entity, selective, query.convert());
+    }
+
+    default int update(T entity, boolean selective, Query query) {
+        return update(null, null, entity, selective, query);
     }
 
     default int update(String tableName, Class<?> view, T entity) {
@@ -114,7 +159,11 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     default int update(String tableName, T entity, Collection<ID> ids) {
-        return update(tableName, null, entity, true);
+        return update(tableName, null, entity, true, ids);
+    }
+
+    default int update(String tableName, T entity, Queryable query) {
+        return update(tableName, entity, query.convert());
     }
 
     default int update(String tableName, T entity, Query query) {
@@ -133,6 +182,10 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return update(null, view, entity, ids);
     }
 
+    default int update(Class<?> view, T entity, Queryable query) {
+        return update(view, entity, query.convert());
+    }
+
     default int update(Class<?> view, T entity, Query query) {
         return update(null, view, entity, query);
     }
@@ -144,6 +197,10 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
 
     default int update(String tableName, Class<?> view, T entity, Collection<ID> ids) {
         return update(tableName, view, entity, null, true, ids, null);
+    }
+
+    default int update(String tableName, Class<?> view, T entity, Queryable query) {
+        return update(tableName, view, entity, query.convert());
     }
 
     default int update(String tableName, Class<?> view, T entity, Query query) {
@@ -162,13 +219,14 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return update(tableName, view, entity, null, selective, ids, null);
     }
 
+    default int update(String tableName, Class<?> view, T entity, boolean selective, Queryable query) {
+        return update(tableName, view, entity, selective, query.convert());
+    }
+
     default int update(String tableName, Class<?> view, T entity, boolean selective, Query query) {
         return update(tableName, view, entity, null, selective, null, query);
     }
 
-    default int update(String tableName, Class<?> view, T entity, boolean selective, Collection<ID> ids, Query query) {
-        return update(tableName, view, entity, null, selective, ids, query);
-    }
 
     default int update(T... entities) {
         return update(Arrays.asList(entities));
@@ -239,17 +297,37 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return update(tableName, null, null, update, false, ids, null);
     }
 
+    default int update(Update update, Queryable query) {
+        return update(update, query.convert());
+    }
+
     default int update(Update update, Query query) {
         return update(null, update, query);
     }
 
-    default int update(String tableName, Update update, Query query) {
-        return update(null, null, null, update, false, null, query);
+    default int update(String tableName, Update update, Queryable query) {
+        return update(tableName, update, query.convert());
     }
 
-    default int update(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query) {
-        return getRepository().update(tableName, view, entity, update, selective, ids, query);
+    default int update(String tableName, Update update, Query query) {
+        return update(tableName, null, null, update, false, null, query);
     }
+
+    /**
+     * 更新数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entity    实体，值不为 {@code null}时，忽略 {@code update} 的值
+     * @param update    更新，仅当 {@code entity}为空时有效
+     * @param selective 有选择的，值为{@code true}时，不更新值为 {@code null}的属性。
+     * @param ids       要更新的IDS
+     * @param query     更新条件
+     * @return 更新数据后影响的行数
+     */
+    int update(@Param("tableName") String tableName, @Param("view") Class<?> view,
+               @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
+               @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== DELETE ===========================================*/
 
@@ -285,17 +363,31 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return delete(tableName, ids, null);
     }
 
+    default int delete(Queryable query) {
+        return delete(query.convert());
+    }
+
     default int delete(Query query) {
         return delete(null, null, query);
+    }
+
+    default int delete(String tableName, Queryable query) {
+        return delete(tableName, query.convert());
     }
 
     default int delete(String tableName, Query query) {
         return delete(tableName, null, query);
     }
 
-    default int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query) {
-        return getRepository().delete(tableName, ids, query);
-    }
+    /**
+     * 删除符合条件的数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param ids       IDS
+     * @param query     条件
+     * @return 删除符合条件的数据所影响的行数
+     */
+    int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== SELECT ===========================================*/
 
@@ -347,25 +439,51 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return select(tableName, view, ids, null);
     }
 
+    default List<T> select(Queryable query) {
+        return select(query.convert());
+    }
+
+
     default List<T> select(Query query) {
         return select(null, null, query);
+    }
+
+    default List<T> select(String tableName, Queryable query) {
+        return select(tableName, query.convert());
     }
 
     default List<T> select(String tableName, Query query) {
         return select(tableName, null, null, query);
     }
 
+    default List<T> select(Class<?> view, Queryable query) {
+        return select(view, query.convert());
+    }
+
     default List<T> select(Class<?> view, Query query) {
         return select(null, view, query);
+    }
+
+    default List<T> select(String tableName, Class<?> view, Queryable query) {
+        return select(tableName, view, query.convert());
     }
 
     default List<T> select(String tableName, Class<?> view, Query query) {
         return select(tableName, view, null, query);
     }
 
-    default List<T> select(String tableName, Class<?> view, Collection<ID> ids, Query query) {
-        return getRepository().select(tableName, view, ids, query);
-    }
+    /**
+     * 根据 {@link ID} 集合或 {@link Query} 查询
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param ids       要查询的IDS
+     * @param query     查询条件
+     */
+    List<T> select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+
+
+    /*=========================================== SELECT ONE ===========================================*/
 
     default T selectOne(ID id) {
         return selectOne(null, null, id, null);
@@ -383,42 +501,137 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return selectOne(tableName, view, id, null);
     }
 
+    default T selectOne(Queryable query) {
+        return selectOne(query.convert());
+    }
+
     default T selectOne(Query query) {
         return selectOne(null, null, query.limit(1));
     }
 
+    default T selectOne(String tableName, Queryable query) {
+        return selectOne(tableName, null, query.convert().limit(1));
+    }
+
+
     default T selectOne(String tableName, Query query) {
         return selectOne(tableName, null, query.limit(1));
+    }
+
+    default T selectOne(Class<?> view, Queryable query) {
+        return selectOne(view, query.convert().limit(1));
     }
 
     default T selectOne(Class<?> view, Query query) {
         return selectOne(null, view, null, query.limit(1));
     }
 
+    default T selectOne(String tableName, Class<?> view, Queryable query) {
+        return selectOne(tableName, view, query.convert().limit(1));
+    }
+
     default T selectOne(String tableName, Class<?> view, Query query) {
         return selectOne(tableName, view, null, query.limit(1));
     }
 
-    default T selectOne(String tableName, Class<?> view, @Param("id") ID id, Query query) {
-        return getRepository().selectOne(tableName, view, id, query);
+    /**
+     * 返回符合查询 {@link ID} 或 {@link Query} 的一个结果，当找不到时返回 {@code null}
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param id        ID
+     * @param query     query
+     * @return 符合查询 {@link ID} 或 {@link Query} 的一个结果
+     */
+    T selectOne(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
+
+    /*=========================================== SCANNER ===========================================*/
+
+
+    default void scan(Queryable query, ScanListener<Page<T>> listener) {
+        scan(query.convert(), listener);
     }
+
+    default void scan(Query query, ScanListener<Page<T>> listener) {
+        scan(null, null, query, listener);
+    }
+
+    default void scan(Class<?> view, Queryable query, ScanListener<Page<T>> listener) {
+        scan(view, query.convert(), listener);
+    }
+
+    default void scan(Class<?> view, Query query, ScanListener<Page<T>> listener) {
+        scan(null, view, query, listener);
+    }
+
+    default void scan(String tableName, Queryable query, ScanListener<Page<T>> listener) {
+        scan(tableName, query.convert(), listener);
+    }
+
+    default void scan(String tableName, Query query, ScanListener<Page<T>> listener) {
+        scan(tableName, null, query, listener);
+    }
+
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, ScanListener<Page<T>> listener) {
+        scan(tableName, view, query.convert(), listener);
+    }
+
+    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Query query, ScanListener<Page<T>> listener) {
+        getRepository().scan(tableName, view, query, listener);
+    }
+
+    /*=========================================== SELECT IDS===========================================*/
+
+    default List<ID> selectIds(Queryable query) {
+        return selectIds(query.convert());
+    }
+
+    default List<ID> selectIds(Query query) {
+        return selectIds(null, query);
+    }
+
+    default List<ID> selectIds(String tableName, Queryable query) {
+        return selectIds(tableName, query.convert());
+    }
+
+    default List<ID> selectIds(@Param("tableName") String tableName, @Param("query") Query query) {
+        return getRepository().selectIds(tableName, query);
+    }
+
+    /*=========================================== SELECT COUNT ===========================================*/
 
     default long selectCount() {
         return selectCount((Query) null);
     }
 
     default long selectCount(String tableName) {
-        return selectCount(tableName, null);
+        return selectCount(tableName, (Query) null);
+    }
+
+    default long selectCount(Queryable query) {
+        return selectCount(query.convert());
     }
 
     default long selectCount(Query query) {
         return selectCount(null, query);
     }
 
-    default long selectCount(String tableName, Query query) {
+    default long selectCount(String tableName, Queryable query) {
+        return selectCount(tableName, query.convert());
+    }
+
+    /**
+     * 返回符合查询条件 {@link Query}的结果集的大小
+     *
+     * @param tableName 表名
+     * @param query     query
+     * @return 符合查询条件 {@link Query}的结果集的大小
+     */
+    default long selectCount(@Param("tableName") String tableName, @Param("query") Query query){
         return getRepository().selectCount(tableName, query);
     }
 
+    /*=========================================== IS EXISTS ===========================================*/
     default boolean isExists(ID id) {
         return selectOne(id) != null;
     }
@@ -427,8 +640,16 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return selectOne(tableName, id) != null;
     }
 
+    default boolean isExists(Queryable query) {
+        return isExists(query.convert());
+    }
+
     default boolean isExists(Query query) {
         return selectCount(query) > 0;
+    }
+
+    default boolean isExists(String tableName, Queryable query) {
+        return isExists(tableName, query.convert());
     }
 
     default boolean isExists(String tableName, Query query) {

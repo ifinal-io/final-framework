@@ -15,8 +15,11 @@ import java.io.IOException;
  * @since 1.0
  */
 public class MapperGenerator extends AbsTemplateCodeGenerator {
+
+    private static final String MAPPER_PACKAGE_PATH = "dao.mapper";
+
     public MapperGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, "dao.mapper");
+        super(processEnv, MAPPER_PACKAGE_PATH);
     }
 
     @Override

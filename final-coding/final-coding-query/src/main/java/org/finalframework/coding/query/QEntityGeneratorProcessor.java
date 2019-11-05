@@ -1,6 +1,8 @@
 package org.finalframework.coding.query;
 
 import com.google.auto.service.AutoService;
+import org.finalframework.coding.entity.Entities;
+import org.finalframework.coding.entity.EntitiesHelper;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.entity.IEntity;
 
@@ -11,11 +13,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import javax.tools.Diagnostic;
-import javax.tools.FileObject;
-import javax.tools.StandardLocation;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Set;
 
 /**
@@ -31,8 +28,6 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class QEntityGeneratorProcessor extends AbstractProcessor {
-
-    private static final String RESOURCE_FILE = "META-INF/final.entities";
 
     private Elements elementUtils;
     private Types typeUtils;
@@ -50,6 +45,7 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
     private Processor lombokProcessor;
 
     private boolean entitiesProcessed = false;
+    private EntitiesHelper entitiesHelper;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -59,6 +55,7 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
         this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
         initLombokProcessor();
         Configuration.getInstance().load(processingEnv);
+        this.entitiesHelper = new EntitiesHelper(processingEnv);
         generator = new QEntityGenerator(processingEnv);
     }
 
@@ -92,22 +89,12 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
 
         if (entitiesProcessed) return;
 
-        try {
-            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", RESOURCE_FILE);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.openInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                generator.generate(elementUtils.getTypeElement(line.trim()));
-            }
-            reader.close();
-            resource.delete();
-
-        } catch (Exception e) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, "---------------");
-        } finally {
-            entitiesProcessed = true;
+        Entities entities = entitiesHelper.parse();
+        for (TypeElement entity : entities) {
+            generator.generate(entity);
         }
+
+        entitiesProcessed = true;
     }
 
     private boolean isEntity(TypeElement typeElement) {
