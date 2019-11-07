@@ -2,7 +2,6 @@ package org.finalframework.json.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
@@ -20,9 +19,9 @@ import javax.annotation.Resource;
  * @date 2018-12-26 14:16:57
  * @since 1.0
  */
-@AutoConfiguration
-@EnableConfigurationProperties(JsonProperties.class)
 @Configuration
+//@SpringConfiguration
+@EnableConfigurationProperties(JsonProperties.class)
 public class JsonAutoConfiguration {
 
     private final JsonProperties properties;

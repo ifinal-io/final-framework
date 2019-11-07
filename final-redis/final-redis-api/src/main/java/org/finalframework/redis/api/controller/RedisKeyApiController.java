@@ -1,7 +1,7 @@
 package org.finalframework.redis.api.controller;
 
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.redis.Redis;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019-08-28 17:35:10
  * @since 1.0
  */
-@AutoConfiguration
+@SpringConfiguration
 @RestController
 @RequestMapping("/api/redis/keys")
 @SuppressWarnings("unchecked")

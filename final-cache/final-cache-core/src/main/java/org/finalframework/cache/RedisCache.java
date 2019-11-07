@@ -2,6 +2,7 @@ package org.finalframework.cache;
 
 import org.finalframework.json.Json;
 import org.finalframework.redis.Redis;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.annotation.OperationExecutor;
 
 import java.lang.reflect.Type;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unchecked")
 @OperationExecutor(value = Cache.class)
+@SpringComponent
 public class RedisCache implements Cache {
 
     private static final Long ONE = 1L;

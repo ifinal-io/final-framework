@@ -1,12 +1,8 @@
 package org.finalframework.monitor.autoconfigure;
 
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.monitor.action.ActionContextLoggerHandler;
-import org.finalframework.monitor.component.ActionOperationComponent;
-import org.finalframework.monitor.component.AlertOperationComponent;
-import org.finalframework.monitor.component.TraceOperationComponent;
-import org.finalframework.monitor.executor.MDCTracer;
 import org.finalframework.monitor.interceptor.DefaultRecorder;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +17,7 @@ import org.springframework.context.annotation.Role;
  */
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@AutoConfiguration
+@SpringConfiguration
 @SuppressWarnings("unused")
 @EnableConfigurationProperties(MonitorProperties.class)
 public class MonitorInterceptorAutoConfiguration {
@@ -31,28 +27,6 @@ public class MonitorInterceptorAutoConfiguration {
     public MonitorInterceptorAutoConfiguration(MonitorProperties properties) {
         this.properties = properties;
     }
-
-    @Bean
-    public ActionOperationComponent actionOperationComponent() {
-        return new ActionOperationComponent();
-    }
-
-
-    @Bean
-    public TraceOperationComponent traceOperationComponent() {
-        return new TraceOperationComponent();
-    }
-
-    @Bean
-    public AlertOperationComponent alertOperationComponent() {
-        return new AlertOperationComponent();
-    }
-
-    @Bean
-    public MDCTracer mdcTracer() {
-        return new MDCTracer();
-    }
-
 
     @Bean
     public DefaultRecorder actionRecorder() {

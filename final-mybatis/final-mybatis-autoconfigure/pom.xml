@@ -24,11 +24,11 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-coding</artifactId>
+            <artifactId>final-mybatis-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-mybatis-core</artifactId>
+            <artifactId>final-spring-annotation</artifactId>
         </dependency>
     </dependencies>
     <build>

@@ -12,7 +12,6 @@
     <artifactId>final-dubbo</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>final-dubbo-coding</module>
         <module>final-dubbo-annotation</module>
     </modules>
 

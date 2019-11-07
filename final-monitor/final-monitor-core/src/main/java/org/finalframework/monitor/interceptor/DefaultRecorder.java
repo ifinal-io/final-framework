@@ -6,6 +6,7 @@ import org.finalframework.monitor.action.ActionContextHandler;
 import org.finalframework.monitor.annotation.ActionHandler;
 import org.finalframework.monitor.context.ActionContext;
 import org.finalframework.monitor.executor.Recorder;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.annotation.OperationExecutor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0
  */
 @SuppressWarnings({"unchecked", "null"})
+@SpringComponent
 @OperationExecutor(Recorder.class)
 public class DefaultRecorder implements Recorder, ApplicationContextAware {
     private final Map<Integer, ActionContextHandler> handlers = new ConcurrentHashMap<>(8);

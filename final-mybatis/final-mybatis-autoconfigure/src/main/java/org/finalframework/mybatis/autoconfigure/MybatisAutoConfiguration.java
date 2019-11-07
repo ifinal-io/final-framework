@@ -2,11 +2,11 @@ package org.finalframework.mybatis.autoconfigure;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.core.Assert;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
 import org.finalframework.mybatis.inteceptor.PageHelperPageableInterceptor;
 import org.finalframework.mybatis.inteceptor.PageableInterceptor;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @date 2019-01-15 21:59:36
  * @since 1.0
  */
-@AutoConfiguration
+@SpringConfiguration
 @Configuration
 public class MybatisAutoConfiguration implements ApplicationContextAware, InitializingBean {
 

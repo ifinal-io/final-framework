@@ -1,7 +1,7 @@
 package org.finalframework.redis.api.controller;
 
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.redis.Redis;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019-08-28 17:17:56
  * @since 1.0
  */
-@AutoConfiguration
+@SpringConfiguration
 @RestController
 @RequestMapping("/api/redis/values")
 @SuppressWarnings("unchecked")

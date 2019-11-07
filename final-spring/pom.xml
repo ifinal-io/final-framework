@@ -13,11 +13,12 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>final-spring-annotation</module>
         <module>final-spring-core</module>
-        <module>final-spring-web</module>
         <module>final-spring-aop</module>
-        <module>final-spring-boot-starter</module>
         <module>final-spring-expression</module>
+        <module>final-spring-web</module>
+        <module>final-spring-boot-starter</module>
     </modules>
 
 </project>

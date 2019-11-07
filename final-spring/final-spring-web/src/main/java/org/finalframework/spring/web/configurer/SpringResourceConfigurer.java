@@ -1,8 +1,8 @@
 package org.finalframework.spring.web.configurer;
 
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.annotation.AnnotationUtils;
 
@@ -14,12 +14,12 @@ import org.springframework.core.annotation.AnnotationUtils;
  * @date 2018-09-29 16:31
  * @since 1.0
  */
-@Configuration
 @ImportResource({
         SpringResourceConfigurer.CLASS_PATH_SPRING_CONFIG_XML,
         SpringResourceConfigurer.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
         SpringResourceConfigurer.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
+@SpringComponent
 public class SpringResourceConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(SpringResourceConfigurer.class);
 

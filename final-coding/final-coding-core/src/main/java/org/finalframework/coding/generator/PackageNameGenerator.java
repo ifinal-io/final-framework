@@ -10,8 +10,5 @@ import javax.lang.model.element.TypeElement;
  * @date 2019-10-26 23:43:03
  * @since 1.0
  */
-public interface PackageNameGenerator extends Generator {
-
-    String generate(TypeElement entity);
-
+public interface PackageNameGenerator extends Generator<TypeElement,String> {
 }

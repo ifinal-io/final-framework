@@ -24,14 +24,18 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);
     private static final String TRACE = "trace";
 
+    public static final String TRACE_ATTRIBUTE = "org.finalframework.handler.trace";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String trace = request.getHeader(TRACE);
         if (trace == null) {
+            trace = (String) request.getAttribute(TRACE_ATTRIBUTE);
+        }
+        if (trace == null) {
             trace = UUID.randomUUID().toString();
         }
-
+        request.setAttribute(TRACE_ATTRIBUTE, trace);
         MDC.put(TRACE, trace);
         logger.info("put trace to MDC context: {}", trace);
         return true;

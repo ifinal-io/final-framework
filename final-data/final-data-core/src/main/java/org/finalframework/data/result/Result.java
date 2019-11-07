@@ -83,21 +83,16 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
         this.toast = toast;
     }
 
-    public Result(Integer status, String message, T data) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
+    public Result(Integer status, String description, T data) {
+        this(status, description, status, description, data);
     }
 
-    public Result(Integer status, String message, String toast) {
-        this.status = status;
-        this.message = message;
-        this.toast = toast;
+    public Result(Integer status, String description, String toast) {
+        this(status, description, status, description, toast);
     }
 
-    public Result(Integer status, String message) {
-        this.status = status;
-        this.message = message;
+    public Result(Integer status, String description) {
+        this(status, description, (String) null);
     }
 
     @Override

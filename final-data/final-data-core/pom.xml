@@ -40,6 +40,10 @@
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-coding-spring</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

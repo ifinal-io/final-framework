@@ -3,11 +3,11 @@ package org.finalframework.redis.autoconfigure;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.json.jackson.JavaTimeModule;
 import org.finalframework.redis.RedisRegistry;
 import org.finalframework.redis.serializer.Object2JsonRedisSerializer;
 import org.finalframework.redis.serializer.Object2StringRedisSerializer;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
  * @date 2018-11-22 14:10:58
  * @since 1.0
  */
-@AutoConfiguration
+@SpringConfiguration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisAutoConfiguration implements ApplicationContextAware {
 

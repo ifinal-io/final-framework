@@ -8,5 +8,8 @@ package org.finalframework.core.generator;
  * @date 2019-08-27 14:51:33
  * @since 1.0
  */
-public interface Generator {
+public interface Generator<T,R> {
+
+
+    R generate(T data);
 }

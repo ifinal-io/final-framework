@@ -12,10 +12,7 @@
     <artifactId>final-data-spring-boot-starter</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-data-autoconfigure</artifactId>
-        </dependency>
+
     </dependencies>
     <build>
         <plugins>

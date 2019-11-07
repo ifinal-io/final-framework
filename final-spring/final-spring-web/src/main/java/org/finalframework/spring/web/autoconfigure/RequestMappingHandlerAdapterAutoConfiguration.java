@@ -1,10 +1,9 @@
 package org.finalframework.spring.web.autoconfigure;
 
 
-import org.finalframework.coding.spring.ApplicationEventListener;
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.core.Assert;
 import org.finalframework.data.util.BeanUtils;
+import org.finalframework.spring.annotation.factory.SpringApplicationListener;
 import org.finalframework.spring.web.http.converter.JsonStringHttpMessageConverter;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
@@ -43,8 +42,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Configuration
-@AutoConfiguration
-@ApplicationEventListener
+@SpringApplicationListener
 @SuppressWarnings("all")
 public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 

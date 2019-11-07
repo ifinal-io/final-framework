@@ -24,9 +24,12 @@ version: 1.0
 |   属性    |  类型   | 非空 |   含义   | 备注 |
 | :-------: | :-----: | :--: | :------: | :--: |
 |  status   | Integer |  Y   |  状态码  |      |
-|  message  | String  |  Y   | 状态描述 |      |
+|  description  | String  |  Y   | 状态描述 |      |
+|  code   | Integer |  Y   |  业务码  |      |
+|  message  | String  |  Y   | 业务描述 |      |
 |   data    |    T    |  N   |   数据   |      |
 |   trace   | String  |  Y   |   链路   |      |
+| duration |  Long   |  Y   |  执行时长  |      |
 | timestamp |  Long   |  Y   |  时间戳  |      |
 
 

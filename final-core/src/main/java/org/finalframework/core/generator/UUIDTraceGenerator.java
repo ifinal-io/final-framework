@@ -14,7 +14,7 @@ public class UUIDTraceGenerator implements TraceGenerator {
 
 
     @Override
-    public String generate() {
+    public String generate(Void data) {
         return UUID.randomUUID().toString();
     }
 }

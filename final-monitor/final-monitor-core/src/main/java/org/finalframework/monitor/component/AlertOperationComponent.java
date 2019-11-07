@@ -4,6 +4,7 @@ import org.finalframework.monitor.annotation.MonitorAlert;
 import org.finalframework.monitor.builder.AlertOperationAnnotationBuilder;
 import org.finalframework.monitor.handler.AlertOperationHandler;
 import org.finalframework.monitor.invocation.AlertInvocation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.annotation.OperationComponent;
 
 /**
@@ -18,5 +19,6 @@ import org.finalframework.spring.aop.annotation.OperationComponent;
         handler = AlertOperationHandler.class,
         invocation = AlertInvocation.class
 )
+@SpringComponent
 public final class AlertOperationComponent {
 }

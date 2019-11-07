@@ -1,5 +1,6 @@
 package org.finalframework.spring.aop.annotation;
 
+import org.finalframework.coding.spring.factory.annotation.SpringFactory;
 import org.finalframework.spring.aop.Invocation;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.OperationHandler;
@@ -17,6 +18,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@SpringFactory(OperationComponent.class)
 public @interface OperationComponent {
     Class<? extends Annotation> annotation();
 

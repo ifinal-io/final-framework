@@ -6,7 +6,6 @@
 * [`final-data`](final-data/README.md)：数据对象模型化，为简化数据的CURD做基础。
     * [`final-data-annotation`](final-data/final-data-annotation/README.md)
     * [`final-data-core`](final-data/final-data-core/README.md)
-    * [`final-data-autoconfigure`](final-data/final-data-autoconfigure/README.md)
     * [`final-data-spring-boot-starter`](final-data/final-data-spring-boot-starter/README.md)
 * [`final-coding`](final-coding/README.md): 编译时注解处理器，在编译时生成模板代码
     * [`final-coding-core`](final-coding/final-coding-core/README.md)

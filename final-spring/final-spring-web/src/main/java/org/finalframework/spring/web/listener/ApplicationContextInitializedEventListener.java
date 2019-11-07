@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.listener;
 
-import org.finalframework.coding.spring.ApplicationEventListener;
+import org.finalframework.spring.annotation.factory.SpringApplicationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationListener;
  * @date 2019-01-09 21:18:06
  * @since 1.0
  */
-@ApplicationEventListener
+@SpringApplicationListener
 public class ApplicationContextInitializedEventListener implements ApplicationListener<ApplicationContextInitializedEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(ApplicationContextInitializedEventListener.class);

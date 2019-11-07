@@ -6,8 +6,6 @@ package org.finalframework.core.generator;
  * @date 2019-08-27 14:52:00
  * @since 1.0
  */
-public interface TraceGenerator extends Generator {
-
-    String generate();
+public interface TraceGenerator extends Generator<Void,String> {
 
 }

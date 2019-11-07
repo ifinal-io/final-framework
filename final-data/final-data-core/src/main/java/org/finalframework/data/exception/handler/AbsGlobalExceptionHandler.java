@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,6 +21,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     private final Logger logger;
     private final List<ExceptionHandlerBean<T>> exceptionHandlerBeans = new CopyOnWriteArrayList<>();
+
+    @Resource
     private ExceptionHandler<Throwable, T> unCatchExceptionHandler;
 
     public AbsGlobalExceptionHandler(String logger) {

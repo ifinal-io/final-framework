@@ -1,6 +1,5 @@
 package org.finalframework.spring.aop.interceptor;
 
-import org.finalframework.coding.spring.AutoConfiguration;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationConfiguration;
@@ -27,7 +26,7 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-@AutoConfiguration
+//@SpringConfiguration
 public class OperationInterceptorAutoConfiguration implements ApplicationContextAware, InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(OperationInterceptorAutoConfiguration.class);

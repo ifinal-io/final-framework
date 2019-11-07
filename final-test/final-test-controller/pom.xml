@@ -11,5 +11,11 @@
 
     <artifactId>final-test-controller</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-spring-web</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -24,7 +24,6 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-coding-spring</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

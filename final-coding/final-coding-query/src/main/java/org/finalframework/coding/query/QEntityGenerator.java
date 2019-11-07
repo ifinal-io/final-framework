@@ -1,7 +1,7 @@
 package org.finalframework.coding.query;
 
 import org.finalframework.coding.entity.EntityFactory;
-import org.finalframework.coding.generator.AbsTemplateCodeGenerator;
+import org.finalframework.coding.generator.TemplateCodeGenerator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -13,7 +13,7 @@ import javax.tools.JavaFileObject;
  * @date 2019-10-27 00:15:44
  * @since 1.0
  */
-public class QEntityGenerator extends AbsTemplateCodeGenerator {
+public class QEntityGenerator extends TemplateCodeGenerator {
 
     private static final String QUERY_PACKAGE_PATH = "query";
 
@@ -22,9 +22,10 @@ public class QEntityGenerator extends AbsTemplateCodeGenerator {
     }
 
     @Override
-    public void generate(TypeElement typeElement) {
+    public Void generate(TypeElement typeElement) {
         String packageName = packageNameGenerator.generate(typeElement);
         coding(QEntityFactory.create(processEnv, packageName, EntityFactory.create(processEnv, typeElement)));
+        return null;
     }
 
     private void coding(QEntity entity) {
