@@ -1,9 +1,12 @@
 package org.finalframework.spring.web.exception;
 
 import org.finalframework.data.exception.handler.GlobalExceptionHandler;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.annotation.Resource;
 
 /**
  * @author likly
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @Configuration
 @RestControllerAdvice
+@SpringComponent
 public class RestExceptionHandlerConfigurer {
     private GlobalExceptionHandler<?> globalExceptionHandler;
 

@@ -1,5 +1,6 @@
 package org.finalframework.spring.web.response.advice;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
@@ -37,11 +38,16 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
         final Result result = buildResult(body);
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
-            result.setDuration(System.currentTimeMillis() - durationStart);
+            if(durationStart != null) {
+                result.setDuration(System.currentTimeMillis() - durationStart);
+            }
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
-
+        JsonView jsonView = returnType.getMethodAnnotation(JsonView.class);
+        if(jsonView != null){
+            result.setView(jsonView.value()[0]);
+        }
         return result;
     }
 

@@ -4,6 +4,13 @@ spring:
     username: root
     password: Aa000000
     type: com.zaxxer.hikari.HikariDataSource
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
 final:
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
+logging:
+  level:
+    org.springframework: debug

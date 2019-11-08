@@ -29,7 +29,6 @@ public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandle
     private ApplicationContext applicationContext;
 
     public ResultGlobalResultExceptionHandler(){
-        System.out.println();
     }
 
     public ResultGlobalResultExceptionHandler(String logger) {

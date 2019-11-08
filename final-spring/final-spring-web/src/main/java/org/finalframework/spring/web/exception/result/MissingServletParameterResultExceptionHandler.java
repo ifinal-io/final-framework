@@ -16,7 +16,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  * @see MissingServletRequestParameterException
  * @since 1.0
  */
-@AutoConfigureBefore(ResultGlobalResultExceptionHandler.class)
 @org.finalframework.data.exception.annotation.ResultExceptionHandler
 public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
     @Override

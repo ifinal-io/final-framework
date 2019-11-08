@@ -11,11 +11,13 @@
 
     <artifactId>final-test-web</artifactId>
 
+    <packaging>war</packaging>
+
     <dependencies>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-coding-datasource</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.finalframework</groupId>-->
+<!--            <artifactId>final-coding-datasource</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-test-controller</artifactId>
@@ -23,7 +25,25 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
+            <artifactId>final-spring-ui</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

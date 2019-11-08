@@ -3,10 +3,8 @@ package org.finalframework.spring.web.exception.result;
 import io.lettuce.core.RedisConnectionException;
 import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.exception.handler.ExceptionHandler;
-import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 /**
@@ -15,7 +13,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
  * @date 2019-09-25 11:31:21
  * @since 1.0
  */
-@AutoConfigureBefore(ResultGlobalResultExceptionHandler.class)
 @ResultExceptionHandler
 @ConditionalOnClass(RedisConnectionException.class)
 public class RedisConnectExceptionHandler implements ExceptionHandler<RedisConnectionException, Result> {

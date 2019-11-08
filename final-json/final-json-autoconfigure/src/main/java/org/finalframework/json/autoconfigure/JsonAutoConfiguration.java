@@ -7,6 +7,7 @@ import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.finalframework.json.jackson.JavaTimeModule;
 import org.finalframework.json.jackson.serializer.BeanEnumPropertySerializerModifier;
+import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  * @since 1.0
  */
 @Configuration
-//@SpringConfiguration
+@SpringConfiguration
 @EnableConfigurationProperties(JsonProperties.class)
 public class JsonAutoConfiguration {
 

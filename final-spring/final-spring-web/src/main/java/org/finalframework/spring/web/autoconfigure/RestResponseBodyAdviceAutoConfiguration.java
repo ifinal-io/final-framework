@@ -27,14 +27,6 @@ public class RestResponseBodyAdviceAutoConfiguration implements ApplicationConte
         this.properties = properties;
     }
 
-    @Bean
-    public RestExceptionHandlerConfigurer restExceptionHandlerConfigurer() {
-        final RestExceptionHandlerConfigurer restExceptionHandlerConfigurer = new RestExceptionHandlerConfigurer();
-//        restExceptionHandlerConfigurer.setGlobalExceptionHandler(resultGlobalResultExceptionHandler);
-        return restExceptionHandlerConfigurer;
-    }
-
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;

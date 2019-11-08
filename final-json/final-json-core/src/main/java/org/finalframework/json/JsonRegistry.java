@@ -13,7 +13,9 @@ import org.finalframework.core.Assert;
  */
 public final class JsonRegistry {
     private static final JsonRegistry instance = new JsonRegistry();
+    private static final String DEFAULT_JSON_SERVICE = "org.finalframework.json.jackson.JacksonJsonService";
     private JsonService jsonService;
+    private boolean initDefaulted = false;
 
     private JsonRegistry() {
     }
@@ -26,8 +28,23 @@ public final class JsonRegistry {
      * return the {@link JsonService} registered by {@link #register(JsonService)}
      */
     JsonService getJsonService() {
-        Assert.isNull(jsonService, "json service had not been registered.");
+        if (jsonService == null && !initDefaulted) {
+            initDefaultJsonService();
+        }
+        Assert.isNull(jsonService, "json service is not registered!!!");
         return jsonService;
+    }
+
+    private synchronized void initDefaultJsonService() {
+
+        try {
+            this.jsonService = (JsonService) Class.forName(DEFAULT_JSON_SERVICE).newInstance();
+        } catch (Exception e) {
+            // ignore
+        } finally {
+            initDefaulted = true;
+        }
+
     }
 
     public synchronized void register(JsonService jsonService) {

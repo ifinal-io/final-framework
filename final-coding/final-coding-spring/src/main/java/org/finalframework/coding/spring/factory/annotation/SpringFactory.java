@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
  * @see org.springframework.boot.autoconfigure.EnableAutoConfiguration
  * @since 1.0
  */
-@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.SOURCE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.PACKAGE})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface SpringFactory {
     /**
      * 工具接口类

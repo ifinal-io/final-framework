@@ -50,7 +50,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         generateEntityFiles(roundEnv.getElementsAnnotatedWith(DataSource.class));
-        return true;
+        return false;
     }
 
     private void generateEntityFiles(Set<? extends Element> elements) {
