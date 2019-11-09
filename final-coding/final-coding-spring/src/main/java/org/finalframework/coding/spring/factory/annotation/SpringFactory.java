@@ -1,5 +1,6 @@
 package org.finalframework.coding.spring.factory.annotation;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,7 +18,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SpringFactory {
     /**
-     * 工具接口类
+     * 工具接口类，也可以是 {@link Annotation}
      */
     Class<?> value();
 

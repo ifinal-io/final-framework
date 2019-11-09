@@ -20,7 +20,6 @@
         <module>final-auth</module>
         <module>final-logging</module>
         <module>final-test</module>
-        <module>final-dubbo</module>
         <module>final-monitor</module>
     </modules>
     <packaging>pom</packaging>

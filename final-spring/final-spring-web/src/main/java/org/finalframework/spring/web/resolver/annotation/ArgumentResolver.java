@@ -1,5 +1,6 @@
 package org.finalframework.spring.web.resolver.annotation;
 
+import org.finalframework.coding.spring.factory.annotation.SpringFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
@@ -16,5 +17,6 @@ import java.lang.annotation.*;
 @Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@SpringFactory(value = ArgumentResolver.class,expand = true)
 public @interface ArgumentResolver {
 }
