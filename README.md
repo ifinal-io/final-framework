@@ -8,12 +8,12 @@
     * [`final-data-core`](final-data/final-data-core/README.md)
     * [`final-data-spring-boot-starter`](final-data/final-data-spring-boot-starter/README.md)
 * [`final-coding`](final-coding/README.md): 编译时注解处理器，在编译时生成模板代码
-    * [`final-coding-core`](final-coding/final-coding-core/README.md)
-    * [`final-coding-entity`](final-coding/final-coding-entity/README.md)
-    * [`final-coding-datasource`](final-coding/final-coding-datasource/README.md)
+    * [`final-coding-core`](final-coding/final-coding-core/README.md):提供基础的编译时工具类。
+    * [`final-coding-entity`](final-coding/final-coding-entity/README.md)：将实现了`IEntity`接口JavaBean类，写入`META-INF/final.entities`，以供其他编译处理器使用。
+    * [`final-coding-datasource`](final-coding/final-coding-datasource/README.md): 自动生成`DataSource`配置，结合`spring-auotconfigure`，在要`application`配置文件中给出提示。
     * [`final-coding-query`](final-coding/final-coding-query/README.md)
     * [`final-coding-mapper`](final-coding/final-coding-mapper/README.md)
-    * [`final-coding-spring`](final-coding/final-coding-spring/README.md)
+    * [`final-coding-spring`](final-coding/final-coding-spring/README.md): 提供`SpringFactory`注解，实现将其写入`META-INF/spring.factories`文件，可由`spring`IOC管理。
 * [`final-json`](final-json/README.md)：定义统一的`Json`操作[`API`](final-json/final-json-core/src/main/java/com/ilikly/finalframework/json/JsonService.java)，支持多种`Json`库，如`jackson`、`fastjson`、`gson`,可自定义`Json`库。
     * [`final-json-core`](final-json/final-json-core/README.md)
     * [`final-json-jackson`](final-json/final-json-jackson/README.md)
