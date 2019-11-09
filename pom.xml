@@ -84,7 +84,10 @@
                 <artifactId>final-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!-- final-json -->
+
+            <!-- ==================================================================================================== -->
+            <!-- ============================================ final-json ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-json</artifactId>
@@ -110,7 +113,10 @@
                 <artifactId>final-json-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!-- final-redis -->
+
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-redis ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-redis</artifactId>
@@ -136,7 +142,10 @@
                 <artifactId>final-redis-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!-- final-cache -->
+
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-cache ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-cache</artifactId>
@@ -152,7 +161,10 @@
                 <artifactId>final-cache-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!-- final-monitor -->
+
+            <!-- ==================================================================================================== -->
+            <!-- ========================================== final-monitor =========================================== -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-monitor-core</artifactId>
@@ -168,7 +180,9 @@
                 <artifactId>final-monitor-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!-- final-data -->
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-data ============================================= -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-data-annotation</artifactId>
@@ -184,7 +198,10 @@
                 <artifactId>final-data-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <!--final-mybatis-->
+
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-mybatis ============================================= -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
@@ -211,7 +228,9 @@
                 <version>${final.version}</version>
             </dependency>
 
-            <!--final-spring-->
+            <!-- ==================================================================================================== -->
+            <!-- ========================================== final-spring ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-spring</artifactId>
@@ -264,6 +283,9 @@
                 <version>${final.version}</version>
             </dependency>
 
+            <!-- ==================================================================================================== -->
+            <!-- ========================================== final-coding ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-coding</artifactId>
@@ -311,12 +333,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-<!--            <dependency>-->
-<!--                <groupId>org.freemarker</groupId>-->
-<!--                <artifactId>freemarker</artifactId>-->
-<!--                <version>2.3.28</version>-->
-<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
