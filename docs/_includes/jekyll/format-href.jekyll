@@ -12,6 +12,11 @@ $(document).ready(function () {
             if (href.indexOf('.java') !== -1) {
                 href = domain + href;
             }
+
+            if (href.indexOf('.vm') !== -1) {
+                href = domain + href;
+            }
+
             if( href.indexOf('\/_') !== -1){
                 href = href.replace(/\/_/g,'/');
             }
