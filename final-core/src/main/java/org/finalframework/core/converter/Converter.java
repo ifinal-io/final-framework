@@ -5,6 +5,7 @@ package org.finalframework.core.converter;
  * @version 1.0
  * @date 2018-11-22 20:54:20
  * @since 1.0
+ * @see org.springframework.core.convert.converter.Converter
  */
 @FunctionalInterface
 public interface Converter<S, T> {

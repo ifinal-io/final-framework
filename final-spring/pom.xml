@@ -14,7 +14,7 @@
 
     <modules>
         <module>final-spring-annotation</module>
-        <module>final-spring-core</module>
+        <module>final-spring-context</module>
         <module>final-spring-aop</module>
         <module>final-spring-expression</module>
         <module>final-spring-web</module>

@@ -1,4 +1,4 @@
-package org.finalframework.spring.bean.factory.support;
+package org.finalframework.spring.beans.factory.support;
 
 
 import org.springframework.beans.BeansException;

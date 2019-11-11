@@ -31,6 +31,6 @@
     * [`final-mybatis-autoconfigure`](final-mybatis/final-mybatis-autoconfigure/README.md)
     * [`final-mybatis-spring-boot-starter`](final-mybatis/final-mybatis-spring-boot-starter/README.md)
 * [`final-spring`](final-spring/README.md)：基于`spring-boot`进行二次封装，添加如`HandlerInteceptor`、`ExceptionHandler`等自定义组件，简化`spring`的配置。
-    * [`final-spring-core`](final-spring/final-spring-core/README.md)
+    * [`final-spring-context`](final-spring/final-spring-context/README.md)
     * [`final-spring-boot-starter`](final-spring/final-spring-boot-starter/README.md)
 * [`final-util`](final-util/README.md)：定义常用的工具类

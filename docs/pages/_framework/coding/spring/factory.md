@@ -23,35 +23,4 @@ version: 1.0
 
 ## Expands
 
-### Configuration
-
-[SpringConfiguration](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringConfiguration.java)
-
-
-### ApplicationListener
-
-`ApplicationListener`是`Spring`提供的应用监听接口，可以监听`Spring Application`产生的各种`Event`。
-
-```java
-@FunctionalInterface
-public interface ApplicationListener<E extends ApplicationEvent> extends EventListener {
-
-	/**
-	 * Handle an application event.
-	 * @param event the event to respond to
-	 */
-	void onApplicationEvent(E event);
-
-}
-```
-
- [@SpringApplicationListener](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringApplicationListener.java)
-注解则可以将工程中的`ApplicationListener`实现类写入到文件`META-INF/spring.factories`中的`org.springframework.context.ApplicationListener`配置下，在`Spring`启动时，自动加载注册。
-
-### ResponseBodyAdvice
-
-### WebMvcConfigurer
-
-1. [SpringResponseBodyAdvice](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringResponseBodyAdvice.java)
-1. [SpringWebMvcConfigurer](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringWebMvcConfigurer.java)
-1. [SpringComponent](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringComponent.java)
+* [ApplicationListener](../../../_spring/context/listener/README.md)

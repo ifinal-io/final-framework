@@ -2,13 +2,14 @@
 post: post
 title: DateConverter
 subtitle: 日期转换器
+description: 接口调试日期格式难？常见的日期格式随心传，不出意外，我都认识！
 layout: post
 menus:
     - web
     - converter
     - date-converter
-categories: []
-tags: []
+categories: [spring]
+tags: [converter]
 author: likly
 date: 2019-03-17 20:42:41 +800
 version: 1.0

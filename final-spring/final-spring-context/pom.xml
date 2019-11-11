@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-spring-core</artifactId>
+    <artifactId>final-spring-context</artifactId>
 
 
     <dependencies>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-coding-spring</artifactId>
+            <artifactId>final-spring-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

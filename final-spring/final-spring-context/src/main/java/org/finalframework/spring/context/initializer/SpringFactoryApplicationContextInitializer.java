@@ -2,7 +2,7 @@ package org.finalframework.spring.context.initializer;
 
 
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
-import org.finalframework.spring.bean.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
+import org.finalframework.spring.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;

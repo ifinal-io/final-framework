@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-core</artifactId>
+            <artifactId>final-spring-context</artifactId>
         </dependency>
 
     </dependencies>
