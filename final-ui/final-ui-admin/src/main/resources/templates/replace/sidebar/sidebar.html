@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SideBar</title>
+</head>
+<body>
+<div th:fragment="sidebar">
+    <div class="sidebar" data-background-color="black" data-color="green"
+         data-image="/assets/img/sidebar-1.jpg" id="sidebar">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+            <a class="simple-text logo-mini" href="{{ site.url }}">
+                FFW
+            </a>
+            <a class="simple-text logo-normal" href="{{ site.url }}">
+                Final Framework
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <!--            <div th:replace="replace/sidebar/sidebar-modules.html" class="user"></div>-->
+            <!--            <div th:replace="replace/sidebar/sidebar-menus.html" class="user"></div>-->
+        </div>
+    </div>
+    <script>
+        var sidebar = new Vue({
+            el: '#sidebar',
+            data: {
+                page: {},
+                modules: []
+            },
+            mounted: function () {
+                var _this = this;
+                var page = $('#page').text();
+                console.log(page);
+                // _this.page = JSON.parse(page);
+                // alert(_this.page);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

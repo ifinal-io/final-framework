@@ -13,7 +13,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -21,8 +20,7 @@ import org.springframework.stereotype.Component;
  * @date 2019-04-15 11:09:58
  * @since 1.0
  */
-@Component
-@SpringFactory(GlobalExceptionHandler.class)
+@SpringFactory(value = GlobalExceptionHandler.class, expand = true)
 public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandler<Result>
         implements ApplicationContextAware, InitializingBean {
 
@@ -57,6 +55,7 @@ public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandle
         if (result != null) {
             result.setTrace(MDC.get("trace"));
             result.setTimestamp(System.currentTimeMillis());
+            result.setException(throwable.getClass());
         }
         return result;
     }

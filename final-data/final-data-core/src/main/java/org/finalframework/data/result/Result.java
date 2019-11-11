@@ -1,5 +1,6 @@
 package org.finalframework.data.result;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
 
@@ -48,6 +49,7 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
     /**
      * 业务数据
      */
+    @JsonView(Object.class)
     private T data;
     /**
      * trace
@@ -63,6 +65,8 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
     private Long duration;
 
     private Class<?> view;
+
+    private Class<Throwable> exception;
 
     public Result() {
     }
@@ -180,6 +184,14 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
     @Override
     public void setView(Class<?> view) {
         this.view = view;
+    }
+
+    public Class<Throwable> getException() {
+        return exception;
+    }
+
+    public void setException(Class<Throwable> exception) {
+        this.exception = exception;
     }
 
     public boolean isSuccess() {

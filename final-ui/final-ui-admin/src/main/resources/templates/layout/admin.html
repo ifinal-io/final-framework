@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="replace/head.html">
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body style="background-color: #eeeeee">
+        <div class="d-none">
+            <p id="page" th:text="${#json.toJson(page)}"></p>
+        </div>
+        <div class="wrapper ">
+            <div class="sidebar" th:replace="replace/sidebar/sidebar.html"></div>
+            <div class="main-panel">
+                <!-- Navbar -->
+                {% include navbar.html %}
+                <!-- End Navbar -->
+                <div class="content">
+                    <div layout:fragment="content"></div>
+                </div>
+                {% include footer.html %}
+            </div>
+        </div>
+        <h1>FOOTER</h1>
+        <script>
+            $(document).ready(function () {
+                $('form').each(function () {
+                    console.log(this);
+                    $(this).validate({
+                        highlight: function (element) {
+                            $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
+                            $(element).closest('.form-check').removeClass('has-success').addClass('has-danger');
+                        },
+                        success: function (element) {
+                            $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
+                            $(element).closest('.form-check').removeClass('has-danger').addClass('has-success');
+                        },
+                        errorPlacement: function (error, element) {
+                            $(element).closest('.form-group').append(error);
+                        },
+                        submitHandler: function (form) {
+                            alert("submit!");
+                            form.submit();
+                        }
+                    });
+                });
+
+            });
+        </script>
+    </body>
+</html>

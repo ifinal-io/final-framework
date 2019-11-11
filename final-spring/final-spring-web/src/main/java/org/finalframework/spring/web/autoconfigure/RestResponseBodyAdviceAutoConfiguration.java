@@ -1,12 +1,10 @@
 package org.finalframework.spring.web.autoconfigure;
 
 import org.finalframework.spring.annotation.factory.SpringConfiguration;
-import org.finalframework.spring.web.exception.RestExceptionHandlerConfigurer;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**

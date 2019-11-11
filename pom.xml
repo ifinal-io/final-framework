@@ -21,6 +21,7 @@
         <module>final-logging</module>
         <module>final-test</module>
         <module>final-monitor</module>
+        <module>final-ui</module>
     </modules>
     <packaging>pom</packaging>
 

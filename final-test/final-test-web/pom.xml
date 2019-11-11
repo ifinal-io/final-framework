@@ -25,11 +25,6 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-ui</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
             <artifactId>final-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
@@ -39,6 +34,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-ui-admin</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-redis-admin</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-redis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

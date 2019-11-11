@@ -27,7 +27,7 @@ public final class JsonRegistry {
     /**
      * return the {@link JsonService} registered by {@link #register(JsonService)}
      */
-    JsonService getJsonService() {
+    public JsonService getJsonService() {
         if (jsonService == null && !initDefaulted) {
             initDefaultJsonService();
         }

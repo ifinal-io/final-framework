@@ -48,8 +48,6 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
         // 2. 遍历，找出实现了 IEnum 接口的属性，为其增加一个名称 xxxName 的新属性到 JavaBean的
         List<BeanPropertyDefinition> properties = beanDesc.findProperties();
         for (BeanPropertyDefinition property : properties) {
-
-
             if (IEnum.class.isAssignableFrom(property.getPrimaryType().getRawClass())) {
                 // 实现了 IEnum 的属性
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
@@ -66,8 +64,6 @@ public class BeanEnumPropertySerializerModifier extends BeanSerializerModifier {
                 } catch (Exception e) {
                     logger.error("", e);
                 }
-
-
                 beanProperties.add(bpw);
             }
         }

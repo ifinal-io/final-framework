@@ -3,14 +3,18 @@ spring:
     url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false
     username: root
     password: Aa000000
-    type: com.zaxxer.hikari.HikariDataSource
   thymeleaf:
     cache: false
     check-template: true
     check-template-location: true
+  redis:
+    host: localhost
+    port: 6379
 final:
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
-logging:
-  level:
-    org.springframework: debug
+  exception:
+    global-exception-handler: org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler
+#logging:
+#  level:
+#    org.springframework: info

@@ -16,6 +16,7 @@
         <module>final-redis-autoconfigure</module>
         <module>final-redis-api</module>
         <module>final-redis-spring-boot-starter</module>
+        <module>final-redis-admin</module>
     </modules>
 
 

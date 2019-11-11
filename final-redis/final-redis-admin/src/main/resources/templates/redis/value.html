@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="layout/admin.html"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="value" layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form @submit.native.prevent action="" id="RedisValueFrom" method=""
+                      novalidate="novalidate">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">code</i>
+                            </div>
+                            <h4 class="card-title">Value</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div :class="data.key? 'is-filled' : ''" class="form-group bmd-form-group">
+                                <label class="bmd-label-floating" for="redisKey">Key *</label>
+                                <input aria-required="true" class="form-control" id="redisKey" required="true"
+                                       type="text"
+                                       v-model="data.key">
+                            </div>
+                            <div :class="data.value? 'is-filled' : ''" class="form-group bmd-form-group">
+                                <label class="bmd-label-floating" for="redisValue">Value</label>
+                                <input aria-required="true" class="form-control" id="redisValue" required="true"
+                                       type="text"
+                                       v-model="data.value">
+                            </div>
+                            <div :class="data.ttl? 'is-filled' : ''" class="form-group bmd-form-group">
+                                <label class="bmd-label-floating" for="redisTtl">Ttl *</label>
+                                <input aria-required="true" class="form-control" id="redisTtl" min="0" required="true"
+                                       step="1"
+                                       type="number"
+                                       v-model="data.ttl">
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <div class="mr-auto"></div>
+                            <button :disabled="data.key == null" @click="get('GET',urls.values,{key: data.key})"
+                                    class="btn btn-primary"
+                                    type="button">GET
+                            </button>
+                            <button :disabled="data.key == null" @click="ttl('GET',urls.ttl,{key:data.key})"
+                                    class="btn btn-warning"
+                                    type="button">TTL
+                            </button>
+                            <button :disabled="data.key == null || value == null" @click="set" class="btn btn-rose"
+                                    type="button">SET
+                            </button>
+                            <!--                            <button type="button" class="btn btn-danger" @click="delete" :disabled="key == null">DELETE</button>-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form @submit.native.prevent action="" method="" novalidate="novalidate">
+                    <div class="card ">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">language</i>
+                            </div>
+                            <h4 class="card-title">
+                                <span class="badge badge-primary" v-html="form.method">Method</span>
+                                <span class="badge badge-success" style="text-transform: unset" v-html="form.action">Action</span>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div :class="result? 'is-filled' : ''" class="form-group bmd-form-group">
+                                <label class="bmd-label-floating" for="result"> Redis Result *</label>
+                                <textarea class="form-control" id="result" rows="20">
+                                    {{JSON.stringify(result,null,4)}}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var value = new Vue({
+            el: '#value',
+            data: {
+                page: {},
+                modules: [],
+                urls: {
+                    values: '/api/redis/values',
+                    keys: '/api/redis/keys',
+                    ttl: '/api/redis/keys/ttl'
+                },
+                form: {
+                    action: null,
+                    method: null
+                },
+                data: {
+                    key: null,
+                    value: null,
+                    ttl: null
+                },
+                result: null
+            },
+            mounted: function () {
+                var _this = this;
+                var page = $('#page').text();
+                console.log(page);
+            },
+            methods: {
+                get: function (method, action, data) {
+                    var _this = this;
+                    _this.form.method = method;
+                    _this.form.action = action;
+                    $.http.get({
+                        url: action,
+                        data: data,
+                        callback: function (result) {
+                            _this.result = result;
+                            if (result.success) {
+                                _this.data.value = result.data;
+                            } else {
+
+                            }
+                        }
+                    });
+                },
+                ttl: function (method, action, data) {
+                    var _this = this;
+                    _this.form.method = method;
+                    _this.form.action = action;
+                    $.http.get({
+                        url: action,
+                        data: data,
+                        callback: function (result) {
+                            _this.result = result;
+                            if (result.success) {
+                                _this.data.ttl = result.data;
+                            }
+                        }
+                    })
+                },
+                set: function () {
+                    var _this = this;
+                    $.http.post({
+                        url: _this.urls.values,
+                        data: {
+                            key: _this.key,
+                            value: _this.value,
+                            ttl: _this.ttl
+                        },
+                        callback: function (result) {
+                            _this.result = result;
+                        }
+                    })
+                },
+                delete: function () {
+
+                }
+            }
+        });
+
+    </script>
+</div>
+</body>
+</html>

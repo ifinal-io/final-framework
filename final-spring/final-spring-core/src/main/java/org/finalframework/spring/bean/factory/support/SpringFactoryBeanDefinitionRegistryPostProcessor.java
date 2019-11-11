@@ -13,6 +13,8 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
+import java.util.List;
+
 /**
  * @author likly
  * @version 1.0
@@ -30,7 +32,8 @@ public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements Bean
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        for (String factory : SpringFactoriesLoader.loadFactoryNames(factoryInterface, this.getClass().getClassLoader())) {
+        List<String> factories = SpringFactoriesLoader.loadFactoryNames(factoryInterface, this.getClass().getClassLoader());
+        for (String factory : factories) {
             try {
                 Class<?> item = Class.forName(factory);
                 AnnotatedBeanDefinition annotatedBeanDefinition = new AnnotatedGenericBeanDefinition(item);

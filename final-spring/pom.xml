@@ -19,7 +19,6 @@
         <module>final-spring-expression</module>
         <module>final-spring-web</module>
         <module>final-spring-boot-starter</module>
-        <module>final-spring-ui</module>
     </modules>
 
 </project>
