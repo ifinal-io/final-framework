@@ -12,38 +12,43 @@
         {% include navbar.html %}
         <!-- End Navbar -->
         <div class="content">
-
             <div class="container-fluid">
-                <div class="card">
-                    <div class="section">
-
-                        <div class="container-fluid content markdown">
-
-                            <div class="row">
-                                <div class="col-lg-8 col-sm-12 offset-lg-2 offset-sm-0">
-                                    <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}"><h1>{{ page.title
-                                        }}——{{ page.subtitle }}</h1></a>
-                                    <p class="category">{{ page.description }}</p>
+                <div class="card" style="margin-top: 80px">
+                    <div class="card-header card-header-primary " style="margin-top: -80px">
+                        <div class="row">
+                            <div class="col-lg-8 col-sm-12 offset-lg-2 offset-sm-0">
+                                {% assign title = page.title %}
+                                {% if page.subtitle %}
+                                {% assign title = page.title | append: '——' | append: page.subtitle %}
+                                {% endif %}
+                                <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}">
+                                    <h1 class="card-title post-title">{{ title | markdownify }}</h1>
+                                </a>
+                                <div class="category">
+                                    {{ page.description | markdownify }}
                                 </div>
                             </div>
-                            <div class="row flex-md-nowrap">
-                                <div class="d-none d-lg-block col-lg-2 sticky-top">
-                                </div>
-                                <main class="col-lg-8 col-sm-12 offset-sm-0" role="main">
-                                    <article class="post-content">
-
-                                        {{ content }}
-                                    </article>
-                                </main>
-
-                                <div class="d-none d-lg-block col-lg-2 sticky-top flex-order-2">
-                                    <div class="toc" id="toc">
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                    </div>
+
+                    <div class="container-fluid content markdown">
+
+                        <div class="row flex-md-nowrap">
+                            <div class="d-none d-lg-block col-lg-2 sticky-top">
+                            </div>
+                            <main class="col-lg-8 col-sm-12 offset-sm-0" role="main">
+                                <article class="post-content">
+                                    {{ content }}
+                                </article>
+                            </main>
+
+                            <div class="d-none d-lg-block col-lg-2 sticky-top flex-order-2">
+                                <div class="toc" id="toc">
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

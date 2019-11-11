@@ -19,15 +19,13 @@ public class SpringFactories implements Serializable {
     private Map<TypeElement, Set<TypeElement>> springFactories = new LinkedHashMap<>();
 
     public void addSpringFactories(TypeElement clazz, Collection<TypeElement> elements) {
-        Set<TypeElement> elementSet = springFactories.getOrDefault(clazz, new HashSet<>());
-        elementSet.addAll(elements);
-        springFactories.put(clazz,elementSet);
+        elements.forEach(item -> addSpringFactory(clazz, item));
     }
 
-    public void addSpringFactory(TypeElement clazz, TypeElement element){
+    public void addSpringFactory(TypeElement clazz, TypeElement element) {
         Set<TypeElement> elementSet = springFactories.getOrDefault(clazz, new HashSet<>());
         elementSet.add(element);
-        springFactories.put(clazz,elementSet);
+        springFactories.put(clazz, elementSet);
     }
 
     public Map<TypeElement, Set<TypeElement>> getSpringFactories() {

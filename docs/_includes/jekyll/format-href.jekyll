@@ -4,7 +4,9 @@ $(document).ready(function () {
    $('a').each(function () {
        let $a = $(this);
        let href = $a.attr('href');
-       if (href !== undefined && href.indexOf(http) != -1) {
+       console.log(href);
+
+       if (href !== undefined && href.indexOf('http') == -1) {
             if(href.indexOf('.md') !== -1){
                 href = href.substr(0, href.length - 3).concat('.html');
             }
