@@ -6,13 +6,29 @@ menus:
     link: /spring
     icon: dashboard
     name: README
+  - id: annotation
+    icon: image
+    name: Annotation
+    menus:
+      - id: factory
+        name: Factory
+        mini: FTY
+        menus:
+          - id: index
+            link: /spring/annotation/factory
+            name: README
+            mini: RD
+          - id: application-listener
+            link: /spring/annotation/factory/application-listener
+            name: SpringApplicationListener
+            mini: SAL
   - id: context
     icon: image
     name: Context
     menus:
       - id: application-listener
-        name: Listener
-        mini: LS
+        name: ApplicationListener
+        mini: ALS
         menus:
           - id: index
             link: /spring/context/application-listener

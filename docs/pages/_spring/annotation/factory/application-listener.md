@@ -1,3 +1,29 @@
+---
+layout: post
+title: SpringApplicationListener
+subtitle: Spring Factory Application Listener 扩展
+description: 自动生成`spring.factories`文件，提高开发效率
+categories: [spring]
+tags: [annotation,factory]
+menus:
+    - annotation
+    - factory
+    - application-listener
+author: likly
+date: 2019-11-12 11:16:50 +800
+version: 1.0
+---
+
+# SpringApplicationListener
+
+## What
+
+[@SpringApplicationListener](/final-spring/final-spring-annotation/src/main/java/org/finalframework/spring/annotation/factory/SpringApplicationListener.java)
+注解是实现了`Spring`的[]()的`SPI`扩展机制。
+
+## Definition
+
+```java
 package org.finalframework.spring.annotation.factory;
 
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
@@ -23,3 +49,5 @@ import java.lang.annotation.Target;
 @SpringFactory(ApplicationListener.class)
 public @interface SpringApplicationListener {
 }
+
+```
