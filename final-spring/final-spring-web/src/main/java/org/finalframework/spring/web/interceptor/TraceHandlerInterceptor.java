@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.interceptor;
 
-import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
+import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -19,7 +19,7 @@ import java.util.UUID;
  * @since 1.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@HandlerInterceptor
+@SpringHandlerInterceptor
 public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);
     private static final String TRACE = "trace";

@@ -1,7 +1,7 @@
 package org.finalframework.spring.web.interceptor;
 
 
-import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
+import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-11-05 21:55:37
  * @since 1.0
  */
-@HandlerInterceptor
+@SpringHandlerInterceptor
 public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
 
     public static final String DURATION_START_ATTRIBUTE = "org.finalframework.handler.duration.start";

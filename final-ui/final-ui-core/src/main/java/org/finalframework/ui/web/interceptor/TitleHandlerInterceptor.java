@@ -1,7 +1,7 @@
 package org.finalframework.ui.web.interceptor;
 
 
-import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
+import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.finalframework.ui.annotation.Title;
 import org.finalframework.ui.model.Page;
 import org.springframework.web.method.HandlerMethod;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-11-09 14:20:32
  * @since 1.0
  */
-@HandlerInterceptor
+@SpringHandlerInterceptor
 public class TitleHandlerInterceptor extends AnnotationUiHandlerInterceptor<Title> {
 
     public TitleHandlerInterceptor() {

@@ -22,6 +22,10 @@ menus:
             link: /spring/annotation/factory/application-listener
             name: SpringApplicationListener
             mini: SAL
+          - id: handler-interceptor
+            link: /spring/annotation/factory/handler-interceptor
+            name: SpringHandlerInterceptor
+            mini: SHI
   - id: context
     icon: image
     name: Context

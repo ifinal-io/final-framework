@@ -1,8 +1,8 @@
 package org.finalframework.spring.web.interceptor;
 
 import org.finalframework.data.util.BeanUtils;
+import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.finalframework.spring.annotation.factory.SpringWebMvcConfigurer;
-import org.finalframework.spring.web.interceptor.annotation.HandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -34,8 +34,8 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer, App
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        BeanUtils.findBeansByAnnotation(applicationContext, HandlerInterceptor.class).forEach(item -> {
-            HandlerInterceptor annotation = item.getClass().getAnnotation(HandlerInterceptor.class);
+        BeanUtils.findBeansByAnnotation(applicationContext, SpringHandlerInterceptor.class).forEach(item -> {
+            SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
             InterceptorRegistration interceptorRegistration = registry.addInterceptor((org.springframework.web.servlet.HandlerInterceptor) item);
             if (annotation.includes().length > 0) {
                 interceptorRegistration.addPathPatterns(annotation.includes());

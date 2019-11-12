@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.interceptor.annotation;
+package org.finalframework.spring.annotation.factory;
 
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringFactory(value = org.springframework.web.servlet.HandlerInterceptor.class,expand = true)
-public @interface HandlerInterceptor {
+public @interface SpringHandlerInterceptor {
     String[] includes() default {};
 
     String[] excludes() default {};
