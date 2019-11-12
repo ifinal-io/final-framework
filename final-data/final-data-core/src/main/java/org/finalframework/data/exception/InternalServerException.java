@@ -21,7 +21,11 @@ public class InternalServerException extends ServiceException {
     }
 
     public InternalServerException(Integer code, String message) {
-        this(code, message, message);
+        this(code, message, null);
+    }
+
+    public InternalServerException(IException e, Object... args) {
+        this(e.getCode(), e.getMessage(), e.getToast(), args);
     }
 
     public InternalServerException(Integer code, String message, String toast, Object... args) {
@@ -29,8 +33,4 @@ public class InternalServerException extends ServiceException {
                 code, message, toast, args);
     }
 
-
-    public InternalServerException(IException e, Object... args) {
-        this(e.getCode(), e.getMessage(), e.getToast(), args);
-    }
 }

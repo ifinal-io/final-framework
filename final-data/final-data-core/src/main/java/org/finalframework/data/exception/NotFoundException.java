@@ -14,14 +14,21 @@ import org.finalframework.data.response.ResponseStatus;
 public class NotFoundException extends ServiceException {
 
     public NotFoundException(String message) {
-        super(ResponseStatus.NOT_FOUND.getCode(), message);
+        this(ResponseStatus.NOT_FOUND.getCode(), message);
     }
 
-    public NotFoundException(Integer code, String message, String toast, Object... args) {
-        super(code, message, toast, args);
+    public NotFoundException(Integer code, String message) {
+        this(code, message, null);
     }
 
     public NotFoundException(IException exception, Object... args) {
-        super(exception, args);
+        this(exception.getCode(), exception.getMessage(), exception.getToast(), args);
     }
+
+    public NotFoundException(Integer code, String message, String toast, Object... args) {
+        super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getMessage(),
+                code, message, toast, args);
+    }
+
+
 }

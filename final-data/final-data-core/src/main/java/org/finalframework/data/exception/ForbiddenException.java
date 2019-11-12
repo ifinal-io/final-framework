@@ -16,17 +16,18 @@ public class ForbiddenException extends ServiceException {
         this(ResponseStatus.FORBIDDEN.getCode(), message);
     }
 
+    public ForbiddenException(Integer code, String message) {
+        this(code, message, message);
+    }
+
+    public ForbiddenException(IException e, Object... args) {
+        this(e.getCode(), e.getMessage(), e.getToast(), args);
+    }
+
     public ForbiddenException(Integer code, String message, String toast, Object... args) {
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getMessage(),
                 code, message, toast, args);
     }
 
-    public ForbiddenException(Integer code, String message) {
-        this(code, message, message);
-    }
 
-
-    public ForbiddenException(IException e, Object... args) {
-        this(e.getCode(), e.getMessage(), e.getToast(), args);
-    }
 }
