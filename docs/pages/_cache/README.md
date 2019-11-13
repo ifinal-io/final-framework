@@ -27,6 +27,34 @@ version: 1.0
 * 在方法执行之后，将方法的返回值全部或部分值添加到缓存中。
 * ……
 
+## Usage
+
+### Import
+
+添加依赖：
+
+* maven
+
+```xml
+<dependency>
+    <groupId>org.finalframework</groupId>
+    <artifactId>final-cache-spring-boot-starter</artifactId>
+    <version>{{site.final.version}}</version>
+</dependency>
+```
+
+### Declared
+
+在目标方法`Method`或参数 `Parameter` 上添加缓存注解。
+
+```java
+public interface CacheService {
+    
+    @Cacheable(key="key:{#id}")
+    String cacheMethod(Long id);
+}
+```
+
 ## CutPoint
 
 `Cache`实现在方法的生命周期中织入相应的缓存逻辑，[CutPoint](../_spring/aop/cutpoint.md)将执行生命周期拆分为
