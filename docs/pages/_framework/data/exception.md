@@ -22,8 +22,6 @@ version: 1.0
 [IException](/final-data/final-data-context/src/main/java/org/finalframework/data/exception/IException.java)
 为定义的`Exception`描述性接口，提供了`code`、`message`和`toast`属性，可由[Handler](#handler)处理。
 
-{% gh_raw %}
-
 ```java
 package org.finalframework.data.exception;
 
