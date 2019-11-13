@@ -60,7 +60,7 @@ public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
 
         final ActionContext.Builder<T> builder = ActionContext.builder();
-        builder.name(operation.name())
+        builder.name(generateName(operation.name(), metadata, evaluationContext))
                 .type(operation.type())
                 .action(operation.action())
                 .level(operation.level())

@@ -12,6 +12,7 @@ import org.springframework.expression.EvaluationContext;
  */
 public interface MonitorOperationExpressionEvaluator extends OperationExpressionEvaluator {
 
+    String name(String nameExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
     Object operator(String operatorExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
     Object target(String targetExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);

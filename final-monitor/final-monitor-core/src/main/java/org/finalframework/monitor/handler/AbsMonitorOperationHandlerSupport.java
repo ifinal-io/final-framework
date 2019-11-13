@@ -30,6 +30,15 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     }
 
     @Override
+    public String generateName(String name, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+        if (Assert.isBlank(name)) return null;
+        if (isExpression(name)) {
+            return evaluator.name(generateExpression(name), metadata.getMethodKey(), evaluationContext);
+        }
+        return name;
+    }
+
+    @Override
     public Object generateOperator(String operator, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
         if (Assert.nonBlank(operator)) {
             if (isExpression(operator)) {

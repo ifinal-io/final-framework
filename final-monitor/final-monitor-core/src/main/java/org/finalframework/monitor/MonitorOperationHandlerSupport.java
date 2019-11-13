@@ -16,6 +16,9 @@ import org.springframework.lang.Nullable;
 public interface MonitorOperationHandlerSupport extends OperationHandlerSupport {
 
     @Nullable
+    String generateName(@NonNull String name, @NonNull OperationMetadata<? extends Operation> metadata, @NonNull EvaluationContext evaluationContext);
+
+    @Nullable
     Object generateOperator(@NonNull String operator, @NonNull OperationMetadata<? extends Operation> metadata, @NonNull EvaluationContext evaluationContext);
 
     Object generateTarget(@NonNull String target, @NonNull OperationMetadata<? extends Operation> metadata, @NonNull EvaluationContext evaluationContext);

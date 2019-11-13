@@ -17,9 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0
  */
 public class DefaultMonitorOperationExpressionEvaluator extends BaseOperationExpressionEvaluator implements MonitorOperationExpressionEvaluator {
+    private final Map<ExpressionKey, Expression> nameCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> operatorCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> targetCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> attributeCache = new ConcurrentHashMap<>(64);
+
+    @Override
+    public String name(String nameExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
+        return getExpression(this.nameCache, methodKey, nameExpression).getValue(evaluationContext).toString();
+    }
 
     @Override
     public Object operator(String operatorExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
