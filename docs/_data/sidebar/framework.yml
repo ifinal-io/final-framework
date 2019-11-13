@@ -13,6 +13,10 @@ menus:
         link: /framework/data/result
         mini: RST
         name: Result
+      - id: exception
+        link: /framework/data/exception
+        name: Exception
+        mini: EP
   - id: coding
     name: Coding
     icon: code

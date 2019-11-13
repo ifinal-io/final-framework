@@ -50,7 +50,7 @@ plugins:
   - jekyll-github-metadata
   - jekyll-optional-front-matter
   - jekyll-paginate
-#  - jekyll-readme-index
+  - jekyll-readme-index
   - jekyll-titles-from-headings
   - jekyll-relative-links
 collections_dir: pages
@@ -85,6 +85,10 @@ collections:
 # 插件配置
 gist:
   noscript: false
+readme_index:
+  enabled:          true
+  remove_originals: true
+  with_frontmatter: false
 relative_links:
   enabled:     true
   collections: true

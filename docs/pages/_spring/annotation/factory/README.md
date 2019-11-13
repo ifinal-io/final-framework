@@ -5,7 +5,7 @@ subtitle: Spring Service Provider Interface
 description: 遵循`Spring SPI`机制，提高开发效率。
 categories: []
 tags: []
-permalink: /spring/annotation/factory
+permalink: /spring/annotation/factory/
 menus:
     - annotation
     - factory
