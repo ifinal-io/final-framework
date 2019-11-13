@@ -17,7 +17,7 @@ version: 1.0
 ## What
 
 [EntitiesGeneratorProcessor](/final-coding/final-coding-entity/src/main/java/org/finalframework/coding/entity/EntitiesGeneratorProcessor.java)
-将实现了[`IEntity`](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/IEntity.java)接口的`Class`集合，生成到`{{site.final.entities}}`文件中，
+将实现了[`IEntity`](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/IEntity.java)接口的`Class`集合，生成到`{{site.final.entities}}`文件中，
 以供其他处理器处理，如[QEntity处理器](entities.md)、[Mapper处理器](mapper.md)等。
 
 ## Usage

@@ -50,7 +50,7 @@ version: 1.0
 
 ### 枚举类型
 
-对于实现了[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)的枚举类型，
+对于实现了[IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)的枚举类型，
 在持久化时，会将其持久化为其`IEnum#getCode()`所对应的值。
 
 > 详情查看：[EnumTypeHandler](handler/enum-type-handler.md)

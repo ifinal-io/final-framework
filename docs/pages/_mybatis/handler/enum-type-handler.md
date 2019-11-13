@@ -22,12 +22,12 @@ version: 1.0
 
 ## Usage
 
-要实现`Enum`类与数据库的自动映射，只需要定义的枚举类实现[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)
+要实现`Enum`类与数据库的自动映射，只需要定义的枚举类实现[IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)
 接口，即可实现映射。
 
 *示例*：
 
-如[YN](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/YN.java)：
+如[YN](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/YN.java)：
 
 ```java
 public enum YN implements IEnum<Integer> {

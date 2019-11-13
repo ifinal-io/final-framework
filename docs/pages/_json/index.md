@@ -31,7 +31,7 @@ version: 1.0
 
 2. 支持在`Bean`对象中添加枚举对应的描述性字段`xxxName`，序列化为期对应的`description`值。
 
-> PS：枚举需要实现[IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
+> PS：枚举需要实现[IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
 >
 > [BeanEnumPropertySerializer](jackson/serializer/bean-enum-property-serializer-modifier.md)
 

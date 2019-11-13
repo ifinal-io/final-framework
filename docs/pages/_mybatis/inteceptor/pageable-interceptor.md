@@ -22,14 +22,14 @@ version: 1.0
 
 ## How
 
-`PageableInterceptor`分页拦截器的原理是当`MappedStatement`的参数（或参数列表中的某一个）实现了[Pageable](/final-data/final-data-core/src/main/java/org/finalframework/data/query/Pageable.java)
+`PageableInterceptor`分页拦截器的原理是当`MappedStatement`的参数（或参数列表中的某一个）实现了[Pageable](/final-data/final-data-context/src/main/java/org/finalframework/data/query/Pageable.java)
 接口，并且执行的是`query`方法，那么该方法将会被执行分页拦截。是否分页取决于`Pageable#getPage()`和`Pageable#getSize()`的值都存在。
 
 ## Usage
 
-1. 使用[Query](/final-data/final-data-core/src/main/java/org/finalframework/data/query/Query.java)查询；
-2. 自定义查询参数，并实现[Pageable](/final-data/final-data-core/src/main/java/org/finalframework/data/query/Pageable.java)接口,
-如[PageQuery](/final-data/final-data-core/src/main/java/org/finalframework/data/query/PageQuery.java)
+1. 使用[Query](/final-data/final-data-context/src/main/java/org/finalframework/data/query/Query.java)查询；
+2. 自定义查询参数，并实现[Pageable](/final-data/final-data-context/src/main/java/org/finalframework/data/query/Pageable.java)接口,
+如[PageQuery](/final-data/final-data-context/src/main/java/org/finalframework/data/query/PageQuery.java)
 
 > 目前使用的分页插件为[PageHelper](/final-mybatis/final-mybatis-core/src/main/java/org/finalframework/mybatis/inteceptor/PageHelperPageableInterceptor.java),
 访问[GitHub](https://github.com/pagehelper/Mybatis-PageHelper/blob/master/README_zh.md)。

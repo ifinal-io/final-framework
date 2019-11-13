@@ -17,7 +17,7 @@ version: 1.0
 
 ## What
 
-[Result](/final-data/final-data-core/src/main/java/org/finalframework/data/result/Result.java)——全局统一的结果集对象。
+[Result](/final-data/final-data-context/src/main/java/org/finalframework/data/result/Result.java)——全局统一的结果集对象。
 它描述了一次业务的执行结果。
 
 

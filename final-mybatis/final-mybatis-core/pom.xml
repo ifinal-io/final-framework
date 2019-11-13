@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-data-core</artifactId>
+            <artifactId>final-data-context</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

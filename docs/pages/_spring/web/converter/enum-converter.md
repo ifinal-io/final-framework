@@ -23,7 +23,7 @@ version: 1.0
 
 ## Usage
 
-* 定义枚举并实现 [IEnum](/final-data/final-data-core/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
+* 定义枚举并实现 [IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
 
 ```java
 public enum YN implements IEnum<Integer> {

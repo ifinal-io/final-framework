@@ -19,7 +19,7 @@ version: 1.0
 
 ## What
 
-[ExceptionHandler](/final-data/final-data-core/src/main/java/org/finalframework/data/exception/ExceptionHandler.java)
+[ExceptionHandler](/final-data/final-data-context/src/main/java/org/finalframework/data/exception/ExceptionHandler.java)
 异常处理器简化了项目中的异常处理。
 
 **定义**：
@@ -49,7 +49,7 @@ public interface ExceptionHandler<R> {
 
 ## Usage
 
-自定义异常处理器只需要实现[ExceptionHandler](/final-data/final-data-core/src/main/java/org/finalframework/data/exception/ExceptionHandler.java)
+自定义异常处理器只需要实现[ExceptionHandler](/final-data/final-data-context/src/main/java/org/finalframework/data/exception/ExceptionHandler.java)
 接口，并注册到全局异常处理器[GlobalExceptionHandler](global-exception-handler.md)中，即可实现异常处理器的自定义。
 
 ```java
