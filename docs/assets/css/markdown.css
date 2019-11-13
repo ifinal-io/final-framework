@@ -166,8 +166,8 @@ body {
 }
 
 .markdown div.highlight {
-    background-color: #ececec;
-    vertical-align: middle !important;
+    /*background-color: #ececec;*/
+    /*vertical-align: middle !important;*/
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
     border-radius: 5px;
