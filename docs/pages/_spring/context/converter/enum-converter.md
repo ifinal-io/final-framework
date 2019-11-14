@@ -6,7 +6,7 @@ layout: post
 categories: []
 tags: []
 menus:
-    - web
+    - context
     - converter
     - enum-converter
 author: likly
@@ -18,12 +18,12 @@ version: 1.0
 
 ## What
 
-[EnumConverter](/final-spring/final-spring-web/src/main/java/org/finalframework/spring/web/converter/EnumConverter.java)
+[EnumConverter](/org/finalframework/spring/web/converter/EnumConverter.java)
 枚举转换器实现将表单请求中的枚举常量值转换成对应的枚举类型。
 
 ## Usage
 
-* 定义枚举并实现 [IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
+* 定义枚举并实现 [IEnum](/org/finalframework/data/entity/enums/IEnum.java)接口。
 
 ```java
 public enum YN implements IEnum<Integer> {

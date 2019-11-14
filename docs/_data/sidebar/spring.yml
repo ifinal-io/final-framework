@@ -30,6 +30,22 @@ menus:
     icon: image
     name: Context
     menus:
+      - id: converter
+        name: Converter
+        mini: CT
+        menus:
+          - id: index
+            link: /spring/context/converter
+            name: README
+            mini: RD
+          - id: date-converter
+            link: /spring/context/converter/date-converter
+            name: DateConverter
+            mini: DCT
+          - id: enum-converter
+            link: /spring/context/converter/enum-converter
+            name: EnumConverter
+            mini: ECT
       - id: application-listener
         name: ApplicationListener
         mini: ALS
@@ -50,22 +66,6 @@ menus:
     icon: computer
     name: WEB
     menus:
-      - id: converter
-        name: Converter
-        mini: CT
-        menus:
-          - id: index
-            link: /spring/web/converter
-            name: README
-            mini: RD
-          - id: date-converter
-            link: /spring/web/converter/date-converter
-            name: DateConverter
-            mini: DCT
-          - id: enum-converter
-            link: /spring/web/converter/enum-converter
-            name: EnumConverter
-            mini: ECT
       - id: resolver
         name: 参数解析器
         mini: RS

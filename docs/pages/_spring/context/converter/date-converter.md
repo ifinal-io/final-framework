@@ -5,7 +5,7 @@ subtitle: 日期转换器
 description: 接口调试日期格式难？常见的日期格式随心传，不出意外，我都认识！
 layout: post
 menus:
-    - web
+    - context
     - converter
     - date-converter
 categories: [spring]
@@ -19,7 +19,7 @@ version: 1.0
 
 ## What
 
-[DateConverter](/final-spring/final-spring-web/src/main/java/org/finalframework/spring/web/converter/DateConverter.java)
+[DateConverter](/org/finalframework/spring/web/converter/DateConverter.java)
 实现将表单请求中的`String`格式的日期转换成`java.util.Date`类型。
 
 支持以下格式：

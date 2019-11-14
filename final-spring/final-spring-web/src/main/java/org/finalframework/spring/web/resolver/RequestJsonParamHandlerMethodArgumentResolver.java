@@ -3,7 +3,7 @@ package org.finalframework.spring.web.resolver;
 import org.finalframework.core.Assert;
 import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.json.Json;
-import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
+import org.finalframework.spring.annotation.factory.SpringArgumentResolver;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ import java.nio.charset.Charset;
  * @see RequestJsonParamHandler
  * @since 1.0
  */
-@ArgumentResolver
+@SpringArgumentResolver
 public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);

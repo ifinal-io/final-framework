@@ -4,9 +4,9 @@ package org.finalframework.spring.web.autoconfigure;
 import org.finalframework.core.Assert;
 import org.finalframework.data.util.BeanUtils;
 import org.finalframework.spring.annotation.factory.SpringApplicationListener;
+import org.finalframework.spring.annotation.factory.SpringArgumentResolver;
 import org.finalframework.spring.web.http.converter.JsonStringHttpMessageConverter;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
-import org.finalframework.spring.web.resolver.annotation.ArgumentResolver;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
@@ -75,7 +75,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
-        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = BeanUtils.findBeansByAnnotation(context, ArgumentResolver.class);
+        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = BeanUtils.findBeansByAnnotation(context, SpringArgumentResolver.class);
         if (Assert.nonEmpty(customerArgumentResolvers)) {
             //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
             argumentResolvers.addAll(customerArgumentResolvers);
@@ -134,9 +134,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         List<HttpMessageConverter<?>> httpMessageConverters = messageConverters.stream()
                 .map(it -> {
                     if (it instanceof StringHttpMessageConverter) {
-                        JsonStringHttpMessageConverter jsonStringHttpMessageConverter = new JsonStringHttpMessageConverter();
-                        jsonStringHttpMessageConverter.setSupportedMediaTypes(it.getSupportedMediaTypes());
-                        jsonStringHttpMessageConverter.setDefaultCharset(((StringHttpMessageConverter) it).getDefaultCharset());
+                        JsonStringHttpMessageConverter jsonStringHttpMessageConverter = new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
                         return jsonStringHttpMessageConverter;
                     } else {
                         return it;
