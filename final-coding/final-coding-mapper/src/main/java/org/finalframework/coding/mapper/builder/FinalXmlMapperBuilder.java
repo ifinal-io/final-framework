@@ -40,9 +40,12 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
         methodXmlMapperBuilders.add(new InsertMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new UpdateMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new DeleteMethodXmlMapperBuilder());
+
         methodXmlMapperBuilders.add(new SelectMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new SelectIdsMethodXmlMapperBuilder());
         methodXmlMapperBuilders.add(new SelectCountMethodXmlMapperBuilder());
+
+        methodXmlMapperBuilders.add(new TruncateMethodXmlMapperBuilder());
 
         sqlFragmentXmlMapperBuilders.add(new SqlTableFragmentXmlMapperBuilder());
         sqlFragmentXmlMapperBuilders.add(new SqlWhereIdFragmentXmlMapperBuilder());

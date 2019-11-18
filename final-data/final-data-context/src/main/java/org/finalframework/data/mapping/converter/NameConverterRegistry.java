@@ -23,10 +23,13 @@ public class NameConverterRegistry {
     private NameConverter columnNameConverter = defaultNameConverter;
 
     private NameConverterRegistry() {
+        reload();
+    }
+
+    public void reload() {
         final Configuration configuration = Configuration.getInstance();
         initTableConverter(configuration.getString(FINAL_NAME_CONVERTER_TABLE_CONVERTER, null));
         initNameConverter(configuration.getString(FINAL_NAME_CONVERTER_COLUMN_CONVERTER, null));
-
     }
 
     private void initTableConverter(@Nullable String tableNameConverter) {

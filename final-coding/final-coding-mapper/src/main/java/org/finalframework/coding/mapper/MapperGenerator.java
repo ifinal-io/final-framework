@@ -34,7 +34,11 @@ public class MapperGenerator extends TemplateCodeGenerator {
                 .build();
 
         try {
-            coder.coding(mapper, processEnv.getFiler().createSourceFile(mapper.getPackageName() + "." + mapper.getName()).openWriter());
+            String mapperName = mapper.getPackageName() + "." + mapper.getName();
+            TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperName);
+            if (mapperTypeElement == null) {
+                coder.coding(mapper, processEnv.getFiler().createSourceFile(mapperName).openWriter());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

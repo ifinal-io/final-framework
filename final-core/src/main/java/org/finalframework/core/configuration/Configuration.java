@@ -45,7 +45,7 @@ public class Configuration {
         properties.forEach(new BiConsumer<Object, Object>() {
             @Override
             public void accept(Object key, Object value) {
-                System.out.println(String.format("key=%s,value=%s",key,value));
+                System.out.println(String.format("key=%s,value=%s", key, value));
             }
         });
 
@@ -66,10 +66,15 @@ public class Configuration {
      */
     public void load(ProcessingEnvironment processingEnv) {
         try {
-            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_PATH, "", PROPERTIES_PATH);
+            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             properties.load(resource.openInputStream());
+            System.out.println("======" + resource.toUri().toString());
+            for (Object key : properties.keySet()) {
+                System.out.println(String.format("%s=%s", key, getString(key.toString(), null)));
+            }
         } catch (Exception e) {
             // ignore
+            e.printStackTrace();
         }
     }
 

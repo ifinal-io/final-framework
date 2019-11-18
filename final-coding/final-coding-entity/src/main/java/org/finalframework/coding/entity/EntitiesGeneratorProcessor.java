@@ -2,7 +2,9 @@ package org.finalframework.coding.entity;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
+import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -46,6 +48,8 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         super.init(processingEnv);
         this.typeUtils = processingEnv.getTypeUtils();
         this.elementUtils = processingEnv.getElementUtils();
+        Configuration.getInstance().load(processingEnv);
+        NameConverterRegistry.getInstance().reload();
         this.entitiesHelper = new EntitiesHelper(processingEnv);
         this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
     }

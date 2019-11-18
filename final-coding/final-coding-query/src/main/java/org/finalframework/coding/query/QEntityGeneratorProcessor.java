@@ -88,8 +88,8 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
     private void processEntities() {
 
         if (entitiesProcessed) return;
-
         Entities entities = entitiesHelper.parse();
+
         for (TypeElement entity : entities) {
             generator.generate(entity);
         }

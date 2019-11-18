@@ -680,4 +680,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
 
+    default void truncate() {
+        truncate(null);
+    }
+
+    void truncate(@Param("tableName") String tableName);
+
+
 }

@@ -13,6 +13,7 @@ import org.finalframework.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.coding.mapper.xml.Association;
 import org.finalframework.core.configuration.Configuration;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.w3c.dom.Document;
@@ -101,6 +102,7 @@ public class MapperProcessor extends AbstractProcessor {
         types = processingEnv.getTypeUtils();
         this.xmlMapperBuilder = new FinalXmlMapperBuilder(processingEnv);
         Configuration.getInstance().load(processingEnv);
+        NameConverterRegistry.getInstance().reload();
         this.repositoryTypeElement = elementsUtils.getTypeElement(Repository.class.getCanonicalName());
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
         absMapperType = (DeclaredType) absMapperElement.asType();

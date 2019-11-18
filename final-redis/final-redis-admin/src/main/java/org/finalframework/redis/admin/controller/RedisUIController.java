@@ -2,7 +2,6 @@ package org.finalframework.redis.admin.controller;
 
 import org.finalframework.ui.annotation.Menus;
 import org.finalframework.ui.annotation.Title;
-import org.finalframework.ui.annotation.UIController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2019-11-09 16:58:30
  * @since 1.0
  */
-@UIController
 @Controller
 @RequestMapping("/redis")
 public class RedisUIController {
