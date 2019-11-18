@@ -53,13 +53,11 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
         return this;
     }
 
-    @Deprecated
     public Query page(Integer page) {
         this.page = page;
         return this;
     }
 
-    @Deprecated
     public Query size(Integer size) {
         this.size = size;
         return this;
