@@ -35,11 +35,11 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
      * 是否进行Count查询
      */
     @Getter
-    private Boolean count;
+    private Boolean count = Boolean.TRUE;
     @Getter
-    private Boolean reasonable;
+    private Boolean reasonable = Boolean.FALSE;
     @Getter
-    private Boolean pageSizeZero;
+    private Boolean pageSizeZero = Boolean.FALSE;
     @Getter
     private List<Criteria> criteria = new ArrayList<>();
     @Getter

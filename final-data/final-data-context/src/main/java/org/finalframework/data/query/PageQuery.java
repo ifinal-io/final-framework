@@ -25,11 +25,6 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
     private static final Integer DEFAULT_SIZE = 20;
 
     /**
-     * 默认启用Count统计
-     */
-    private static final Boolean DEFAULT_COUNT = Boolean.TRUE;
-
-    /**
      * 分页页面
      */
     private Integer page = DEFAULT_PAGE;
@@ -40,13 +35,13 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
     /**
      * 是否启用Count统计
      */
-    private Boolean count = DEFAULT_COUNT;
+    private Boolean count = Boolean.TRUE;
     /**
      * 是否启用分页合理化
      */
-    private Boolean reasonable = Boolean.TRUE;
+    private Boolean reasonable = Boolean.FALSE;
 
-    private Boolean pageSizeZero;
+    private Boolean pageSizeZero = Boolean.FALSE;
 
     @Override
     public Integer getPage() {
