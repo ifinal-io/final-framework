@@ -37,10 +37,6 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     @Getter
     private Boolean count = Boolean.TRUE;
     @Getter
-    private Boolean reasonable = Boolean.FALSE;
-    @Getter
-    private Boolean pageSizeZero = Boolean.FALSE;
-    @Getter
     private List<Criteria> criteria = new ArrayList<>();
     @Getter
     private Sort sort;
@@ -65,16 +61,6 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
 
     public Query count(Boolean count) {
         this.count = count;
-        return this;
-    }
-
-    public Query reasonable(Boolean reasonable) {
-        this.reasonable = reasonable;
-        return this;
-    }
-
-    public Query pageSizeZero(Boolean pageSizeZero) {
-        this.pageSizeZero = pageSizeZero;
         return this;
     }
 

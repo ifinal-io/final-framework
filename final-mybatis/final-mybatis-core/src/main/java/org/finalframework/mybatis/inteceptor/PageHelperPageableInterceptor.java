@@ -42,7 +42,7 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
     @Override
     protected void startPage(Pageable pageable) {
         if (Assert.isNull(pageable) || Assert.isNull(pageable.getPage()) || Assert.isNull(pageable.getSize())) return;
-        final Page<Object> result = PageHelper.startPage(pageable.getPage(), pageable.getSize(), Boolean.TRUE.equals(pageable.getCount()), pageable.getReasonable(), pageable.getPageSizeZero());
+        final Page<Object> result = PageHelper.startPage(pageable.getPage(), pageable.getSize(), Boolean.TRUE.equals(pageable.getCount()), false, false);
         logger.info("pageResult:page={},size={},pages={},total={}",
                 result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
 

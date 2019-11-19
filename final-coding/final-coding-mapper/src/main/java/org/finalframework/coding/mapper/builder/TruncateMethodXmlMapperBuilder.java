@@ -30,7 +30,7 @@ public class TruncateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     }
 
-    /**
+    /** 
      * <update id="truncate" >
      * <trim prefix="TRUNCATE TABLE">
      * <include refid="sql-table"/>

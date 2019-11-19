@@ -33,21 +33,8 @@ public interface Pageable {
      * @return Count统计
      */
     @Nullable
-    Boolean getCount();
+    default Boolean getCount() {
+        return Boolean.TRUE;
+    }
 
-    /**
-     * 分页合理化
-     *
-     * @return 分页合理化
-     */
-    @Nullable
-    Boolean getReasonable();
-
-    /**
-     * true且pageSize=0时返回全部结果，false时分页,null时用默认配置
-     *
-     * @return true且pageSize=0时返回全部结果，false时分页,null时用默认配置
-     */
-    @Nullable
-    Boolean getPageSizeZero();
 }
