@@ -11,5 +11,13 @@
 
     <artifactId>final-test-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-test-dao</artifactId>
+            <version>${final.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -580,8 +580,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         if (Assert.isNull(listener)) {
             throw new NullPointerException("listener is null");
         }
-        //设置分页合理化
-        query.reasonable(false);
         final int page = query.getPage();
         final int size = query.getSize();
         final Long total = Boolean.TRUE.equals(query.getCount()) ? selectCount(tableName, query) : null;

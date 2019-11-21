@@ -10,32 +10,37 @@ import javax.tools.JavaFileObject;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-10-27 00:15:44
+ * @date 2019-11-21 18:05:44
  * @since 1.0
  */
 
-public class QEntityGenerator extends TemplateCodeGenerator {
+public class QueryGenerator extends TemplateCodeGenerator {
 
     private static final String QUERY_PACKAGE_PATH = "query";
 
-    public QEntityGenerator(ProcessingEnvironment processEnv) {
+    public QueryGenerator(ProcessingEnvironment processEnv) {
         super(processEnv, QUERY_PACKAGE_PATH);
     }
 
     @Override
     public Void generate(TypeElement typeElement) {
         String packageName = packageNameGenerator.generate(typeElement);
-        coding(QEntityFactory.create(processEnv, packageName, EntityFactory.create(processEnv, typeElement)));
+        QEntity entity = QEntityFactory.create(processEnv, packageName, EntityFactory.create(processEnv, typeElement));
+        Query query = Query.builder().packageName(entity.getPackage())
+                .simpleName(typeElement.getSimpleName() + "Query")
+                .entity(entity)
+                .build();
+        coding(query);
         return null;
     }
 
-    private void coding(QEntity entity) {
+    private void coding(Query query) {
         try {
-            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(entity.getName());
+            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(query.getName());
             if (typeElement == null) {
                 JavaFileObject sourceFile = processEnv.getFiler()
-                        .createSourceFile(entity.getName());
-                coder.coding(entity, sourceFile.openWriter());
+                        .createSourceFile(query.getName());
+                coder.coding(query, sourceFile.openWriter());
             }
         } catch (Exception e) {
 //            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());

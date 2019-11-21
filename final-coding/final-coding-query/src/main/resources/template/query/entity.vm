@@ -1,6 +1,6 @@
 #set($package = $qEntity.package)
 #set($entity = $qEntity.entity)
-#set($name = $qEntity.name)
+#set($simpleName = $qEntity.simpleName)
 #set($properties = $qEntity.properties)
 package ${package};
 
@@ -13,17 +13,18 @@ import javax.annotation.Generated;
 
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.EntityProcessor")
-public final class ${name} extends AbsQEntity<${entity.idProperty.type.replace("java.lang.","")},${entity.simpleName}>{
+public final class ${simpleName} extends AbsQEntity<${entity.idProperty.type.replace(
+    "java.lang.","")},${entity.simpleName}>{
 
-    public ${name}() {
+public ${simpleName}() {
         super(${entity.simpleName}.class);
     }
 
-    public ${name}(String table) {
+public ${simpleName}(String table) {
         super(${entity.simpleName}.class, table);
     }
 
-    public static final ${name} ${entity.simpleName} = new ${name}();
+public static final ${simpleName} ${entity.simpleName} = new ${simpleName}();
 
 #foreach($property in $properties)
     public static final QProperty<${property.type.replace("java.lang.","")}> ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");

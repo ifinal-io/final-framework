@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 public class EntitiesHelper {
 
     /**
-     * 生成的文件路径: classpath/META-INF/final.entities
+     * 生成的文件路径: classpath:/META-INF/final.entities
      */
     private static final String RESOURCE_FILE = "META-INF/final.entities";
     private final Coder coder = Coder.getDefaultCoder();

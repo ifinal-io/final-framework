@@ -32,7 +32,8 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
     private Elements elementUtils;
     private Types typeUtils;
 
-    private QEntityGenerator generator;
+    private QEntityGenerator entityGenerator;
+    private QueryGenerator queryGenerator;
 
     /**
      * @see IEntity
@@ -56,7 +57,9 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
         initLombokProcessor();
         Configuration.getInstance().load(processingEnv);
         this.entitiesHelper = new EntitiesHelper(processingEnv);
-        generator = new QEntityGenerator(processingEnv);
+        entityGenerator = new QEntityGenerator(processingEnv);
+        queryGenerator = new QueryGenerator(processingEnv);
+
     }
 
     private void initLombokProcessor() {
@@ -79,10 +82,14 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
                 .filter(it -> it.getKind() == ElementKind.CLASS)
                 .map(it -> ((TypeElement) it))
                 .filter(this::isEntity)
-                .forEach(generator::generate);
-
+                .forEach(this::generate);
 
         return false;
+    }
+
+    private void generate(TypeElement entity) {
+        entityGenerator.generate(entity);
+        queryGenerator.generate(entity);
     }
 
     private void processEntities() {
@@ -91,7 +98,7 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
         Entities entities = entitiesHelper.parse();
 
         for (TypeElement entity : entities) {
-            generator.generate(entity);
+            this.generate(entity);
         }
 
         entitiesProcessed = true;

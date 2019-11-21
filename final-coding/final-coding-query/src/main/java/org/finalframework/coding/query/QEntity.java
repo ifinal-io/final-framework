@@ -17,6 +17,7 @@ import java.util.List;
 public class QEntity {
     private final String packageName;
     private final String name;
+    private final String simpleName;
     private final Entity<Property> entity;
     private final List<QProperty> properties;
     private final QProperty idProperty;
@@ -24,7 +25,8 @@ public class QEntity {
     private QEntity(Builder builder) {
         this.entity = builder.entity;
         this.packageName = builder.packageName;
-        this.name = builder.name;
+        this.simpleName = builder.simpleName;
+        this.name = builder.packageName + "." + builder.simpleName;
         this.properties = builder.properties;
         this.idProperty = builder.idProperty;
     }
@@ -45,6 +47,10 @@ public class QEntity {
         return name;
     }
 
+    public String getSimpleName() {
+        return simpleName;
+    }
+
     public List<QProperty> getProperties() {
         return properties;
     }
@@ -56,7 +62,7 @@ public class QEntity {
     public static class Builder implements org.finalframework.core.Builder<QEntity> {
         private final Entity<Property> entity;
         private String packageName;
-        private String name;
+        private String simpleName;
         private List<QProperty> properties = new ArrayList<>();
         private QProperty idProperty;
 
@@ -69,8 +75,8 @@ public class QEntity {
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder name(String simpleName) {
+            this.simpleName = simpleName;
             return this;
         }
 
