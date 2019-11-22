@@ -2,17 +2,15 @@
 #set($entity = $qEntity.entity)
 #set($simpleName = $qEntity.simpleName)
 #set($properties = $qEntity.properties)
-package ${package};
+#* @formatter:off *#
+package ${package}import javax.annotation.Generated;
 
-import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.AbsQEntity;
-import ${entity.package}.${entity.simpleName};
-
-import javax.annotation.Generated;
+;
+${entity.package}
+        .${entity.simpleName};
 
 #parse("/template/parse/header.vm")
-@Generated("org.finalframework.coding.EntityProcessor")
+@Generated("org.finalframework.coding.query.QEntityGenerator")
 public final class ${simpleName} extends AbsQEntity<${entity.idProperty.type.replace(
     "java.lang.","")},${entity.simpleName}>{
 

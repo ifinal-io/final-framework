@@ -1,18 +1,19 @@
 #set($package = $query.packageName)
 #set($simpleName = $query.simpleName)
 #set($properties = $query.entity.properties)
+#* @formatter:off *#
 package ${package}import org.finalframework.data.query.Criteriable;
 
 import javax.annotation.Generated;
 
 ;
 
+
 #parse("/template/parse/header.vm")
-@Generated("org.finalframework.coding.EntityProcessor")
+@Generated("org.finalframework.coding.query.QueryGenerator")
 public final class ${simpleName} extends AbsQuery{
 
 #foreach($property in $properties)
-#* @formatter:off *#
     #set($_returnValue = $simpleName)
     #set($_name = $property.name.substring(0,1).toUpperCase() + $property.name.substring(1))
     #set($_paramterType = $property.type.getQualifiedName().toString().replace("java.lang.",""))
