@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
+import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.enums.Direction;
@@ -38,6 +39,8 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     private Boolean count = Boolean.TRUE;
     @Getter
     private List<Criteria> criteria = new ArrayList<>();
+    @Getter
+    private Group group;
     @Getter
     private Sort sort;
     @Getter
@@ -79,6 +82,15 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
 
     public Query where(List<Criterion> criterion) {
         this.where(Criteria.where(criterion));
+        return this;
+    }
+
+    public Query group(QProperty... properties) {
+        return group(Arrays.asList(properties));
+    }
+
+    public Query group(Collection<QProperty> properties) {
+        this.group = Assert.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
         return this;
     }
 

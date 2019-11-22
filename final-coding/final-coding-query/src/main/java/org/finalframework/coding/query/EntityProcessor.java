@@ -27,7 +27,7 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class QEntityGeneratorProcessor extends AbstractProcessor {
+public class EntityProcessor extends AbstractProcessor {
 
     private Elements elementUtils;
     private Types typeUtils;
@@ -114,7 +114,6 @@ public class QEntityGeneratorProcessor extends AbstractProcessor {
         return false;
 
     }
-
 
     private boolean isSubtype(Element subTypeElement, Element parentTypeElement) {
         return typeUtils.isSubtype(typeUtils.erasure(subTypeElement.asType()), typeUtils.erasure(parentTypeElement.asType()));

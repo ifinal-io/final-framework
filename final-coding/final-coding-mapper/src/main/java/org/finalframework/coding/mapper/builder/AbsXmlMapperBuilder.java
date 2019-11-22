@@ -24,6 +24,7 @@ public abstract class AbsXmlMapperBuilder {
     protected static final String SQL_WHERE_ID = "sql-where-id";
     protected static final String SQL_WHERE_IDS = "sql-where-ids";
     protected static final String SQL_CRITERIA = "sql-criteria";
+    protected static final String SQL_GROUP = "sql-group";
     protected static final String SQL_ORDER = "sql-order";
     protected static final String SQL_LIMIT = "sql-limit";
     protected static final String SQL_SELECT_COLUMNS = "sql-select-columns";

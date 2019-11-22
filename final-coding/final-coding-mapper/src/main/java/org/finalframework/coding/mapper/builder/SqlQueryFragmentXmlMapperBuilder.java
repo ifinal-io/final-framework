@@ -18,6 +18,7 @@ import org.w3c.dom.Element;
  *                  <where>
  *                      <include refid="sql-criteria"/>
  *                  </where>
+ *                  <include refid="sql-group"/>
  *                  <include refid="sql-order"/>
  *                  <include refid="sql-limit"/>
  *              </if>
@@ -45,6 +46,7 @@ public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         Element ifQueryNotNull = ifTest(document, "query != null");
 
         ifQueryNotNull.appendChild(bind(document, "criteria", "query.criteria"));
+        ifQueryNotNull.appendChild(bind(document, "group", "query.group"));
         ifQueryNotNull.appendChild(bind(document, "sort", "query.sort"));
         ifQueryNotNull.appendChild(bind(document, "limit", "query.limit"));
 
