@@ -2,7 +2,9 @@ package org.finalframework.coding.query;
 
 import org.finalframework.data.annotation.enums.PersistentType;
 
+import javax.lang.model.element.TypeElement;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author likly
@@ -16,7 +18,7 @@ public class QProperty implements Serializable {
     private final String path;
     private final String name;
     private final String column;
-    private final String type;
+    private final TypeElement type;
     private final boolean idProperty;
     private final PersistentType persistentType;
     private final boolean insertable;
@@ -55,7 +57,7 @@ public class QProperty implements Serializable {
         return idProperty;
     }
 
-    public String getType() {
+    public TypeElement getType() {
         return type;
     }
 
@@ -75,12 +77,16 @@ public class QProperty implements Serializable {
         return selectable;
     }
 
+    public boolean isDate() {
+        return type.getQualifiedName().toString().equals(Date.class.getName());
+    }
+
     public static class Builder implements org.finalframework.core.Builder<QProperty> {
 
         private final String path;
         private final String name;
         private String column;
-        private String type;
+        private TypeElement type;
         private PersistentType persistentType;
         private boolean idProperty;
 
@@ -98,7 +104,7 @@ public class QProperty implements Serializable {
             return this;
         }
 
-        public Builder type(String type) {
+        public Builder type(TypeElement type) {
             this.type = type;
             return this;
         }

@@ -27,7 +27,8 @@ public ${simpleName}(String table) {
 public static final ${simpleName} ${entity.simpleName} = new ${simpleName}();
 
 #foreach($property in $properties)
-    public static final QProperty<${property.type.replace("java.lang.","")}> ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");
+public static final QProperty<${property.type.getQualifiedName().toString().replace(
+    "java.lang.","")}> ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");
 #end
 
     @Override
@@ -36,7 +37,7 @@ public static final ${simpleName} ${entity.simpleName} = new ${simpleName}();
 
 #foreach($property in $properties)
         addProperty(
-                QProperty.builder(this,${property.type.replace("java.lang.","")}.class)
+QProperty.builder(this,${property.type.getQualifiedName().toString().replace("java.lang.","")}.class)
                         .path("${property.path}").name("${property.name}").column("${property.column}")
                         .idProperty(${property.idProperty}).persistentType(PersistentType.${property.persistentType})
                         .insertable(${property.insertable}).updatable(${property.updatable}).selectable(${property.selectable})

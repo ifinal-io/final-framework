@@ -74,7 +74,6 @@ public class Configuration {
             }
         } catch (Exception e) {
             // ignore
-            e.printStackTrace();
         }
     }
 

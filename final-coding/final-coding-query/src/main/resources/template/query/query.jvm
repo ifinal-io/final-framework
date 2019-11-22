@@ -1,0 +1,325 @@
+#set($package = $query.packageName)
+#set($simpleName = $query.simpleName)
+#set($properties = $query.entity.properties)
+package ${package}import org.finalframework.data.query.Criteriable;
+
+import javax.annotation.Generated;
+
+;
+
+#parse("/template/parse/header.vm")
+@Generated("org.finalframework.coding.EntityProcessor")
+public final class ${simpleName} extends AbsQuery{
+
+#foreach($property in $properties)
+#* @formatter:off *#
+    #set($_returnValue = $simpleName)
+    #set($_name = $property.name.substring(0,1).toUpperCase() + $property.name.substring(1))
+    #set($_paramterType = $property.type.getQualifiedName().toString().replace("java.lang.",""))
+    #set($_paramterName = $property.name)
+
+    #set($_start = $_name.format("%-52s",$_name).replaceAll(" ","="))
+    #set($_end = $_name.format("%52s",$_name).replaceAll(" ","="))
+    #set($_isDate = $property.isDate())
+
+    //==================================================================================================================
+    //=====${_start}${_end}=====
+    //==================================================================================================================
+
+    /**
+     * @see Criteriable#eq(Object)
+     */
+    public ${_returnValue} add${_name}Equal(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.eq(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#neq(Object)
+     */
+    public ${_returnValue} add${_name}NotEqual(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.neq(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#gt(Object)
+    */
+    public ${_returnValue} add${_name}GreaterThan(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.gt(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#gte(Object)
+    */
+    public ${_returnValue} add${_name}GreaterThanEqual(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.gte(${_paramterName}));
+        return this;
+    }
+
+
+    /**
+    * @see Criteriable#lt(Object)
+    */
+    public ${_returnValue} add${_name}LessThan(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.gt(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#lte(Object)
+    */
+    public ${_returnValue} add${_name}LessThanEqual(${_paramterType} ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.gte(${_paramterName}));
+        return this;
+    }
+
+    // in operator
+
+    /**
+     * @see Criteriable#in(Object[])
+     */
+    public ${_returnValue} add${_name}In(${_paramterType}... ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#in(Collection)
+     */
+    public ${_returnValue} add${_name}In(Collection<${_paramterType}> ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#nin(Object[])
+     */
+    public ${_returnValue} add${_name}NotIn(${_paramterType}... ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#nin(Collection)
+     */
+    public ${_returnValue} add${_name}NotIn(Collection<${_paramterType}> ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    // null operator
+
+    /**
+     * @see Criteriable#isNull()
+     */
+    public ${_returnValue} add${_name}IsNull(){
+        where(${query.entity.simpleName}.${property.name}.isNull());
+        return this;
+    }
+
+    /**
+     * @see Criteriable#nonNull()
+     */
+    public ${_returnValue} add${_name}IsNotNull(){
+        where(${query.entity.simpleName}.${property.name}.nonNull());
+        return this;
+    }
+
+    // like operator
+
+
+    /**
+    * @see Criteriable#startWith(String)
+    */
+    public ${_returnValue} add${_name}StartWith(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.startWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notStartWith(String)
+    */
+    public ${_returnValue} add${_name}NotStartWith(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notStartWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#endWith(String)
+    */
+    public ${_returnValue} add${_name}EndWith(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.endWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notEndWith(String)
+    */
+    public ${_returnValue} add${_name}NotEndWith(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notEndWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#contains(String)
+    */
+    public ${_returnValue} add${_name}Contains(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.contains(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notContains(String)
+    */
+    public ${_returnValue} add${_name}NotContains(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notContains(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#like(String)
+    */
+    public ${_returnValue} add${_name}Like(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.like(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notLike(String)
+    */
+    public ${_returnValue} add${_name}NotLike(String ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notLike(${_paramterName}));
+        return this;
+    }
+
+    #if($_isDate)
+    // date operator
+
+    /**
+    * @see Criteriable#before(Date)
+    */
+    public ${_returnValue} add${_name}Before(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.before(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#before(long)
+    */
+    public ${_returnValue} add${_name}Before(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.before(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#after(Date)
+    */
+    public ${_returnValue} add${_name}After(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.after(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#after(long)
+    */
+    public ${_returnValue} add${_name}After(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.after(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateEqual(Date)
+    */
+    public ${_returnValue} add${_name}DateEqual(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateEqual(long)
+    */
+    public ${_returnValue} add${_name}DateEqual(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(Date)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(long)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(Date)
+    */
+    public ${_returnValue} add${_name}DateBefore(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(long)
+    */
+    public ${_returnValue} add${_name}DateBefore(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(Date)
+    */
+    public ${_returnValue} add${_name}DateAfter(Date ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(long)
+    */
+    public ${_returnValue} add${_name}DateAfter(long ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+
+
+    /**
+    * @see Criteriable#dateBetween(Date,Date)
+    */
+    public ${_returnValue} add${_name}DateBetween(Date min,Date max){
+        where(${query.entity.simpleName}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBetween(long,long)
+    */
+    public ${_returnValue} add${_name}DateBetween(long min,long max){
+        where(${query.entity.simpleName}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(Date,Date)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(Date min, Date max){
+        where(${query.entity.simpleName}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(long,long)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(long min, long max){
+        where(${query.entity.simpleName}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+    #end
+
+    /**
+    * @see Criteriable#between(Object,Object)
+    */
+    public ${_returnValue} add${_name}Between(${_paramterType} min, ${_paramterType} max){
+        where(${query.entity.simpleName}.${property.name}.between(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notBetween(Object,Object)
+    */
+    public ${_returnValue} add${_name}NotBetween(${_paramterType} min, ${_paramterType} max){
+        where(${query.entity.simpleName}.${property.name}.notBetween(min, max));
+        return this;
+    }
+
+#end
+}

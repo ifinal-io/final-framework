@@ -9,7 +9,7 @@ import org.finalframework.coding.annotation.Template;
  * @date 2019-11-21 17:56:47
  * @since 1.0
  */
-@Template("query/query.vm")
+@Template("query/query.jvm")
 public class Query {
     private final String packageName;
     private final String simpleName;
