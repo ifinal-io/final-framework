@@ -9,6 +9,7 @@ import javax.annotation.Generated;
 ;
 
 
+
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.query.QueryGenerator")
 public final class ${simpleName} extends AbsQuery{
@@ -121,10 +122,10 @@ public final class ${simpleName} extends AbsQuery{
     }
 
     /**
-     * @see Criteriable#nonNull()
+     * @see Criteriable#isNotNull()
      */
     public ${_returnValue} add${_name}IsNotNull(){
-        where(${query.entity.simpleName}.${property.name}.nonNull());
+        where(${query.entity.simpleName}.${property.name}.isNotNull());
         return this;
     }
 
@@ -190,33 +191,11 @@ public final class ${simpleName} extends AbsQuery{
 
     #if($_isDate)
     // date operator
-
     /**
-    * @see Criteriable#before(Date)
+    * @see Criteriable#dateEqual(LocalDateTime)
     */
-    public ${_returnValue} add${_name}Before(Date ${_paramterName}){
-        where(${query.entity.simpleName}.${property.name}.before(${_paramterName}));
-        return this;
-    }
-    /**
-    * @see Criteriable#before(long)
-    */
-    public ${_returnValue} add${_name}Before(long ${_paramterName}){
-        where(${query.entity.simpleName}.${property.name}.before(${_paramterName}));
-        return this;
-    }
-    /**
-    * @see Criteriable#after(Date)
-    */
-    public ${_returnValue} add${_name}After(Date ${_paramterName}){
-        where(${query.entity.simpleName}.${property.name}.after(${_paramterName}));
-        return this;
-    }
-    /**
-    * @see Criteriable#after(long)
-    */
-    public ${_returnValue} add${_name}After(long ${_paramterName}){
-        where(${query.entity.simpleName}.${property.name}.after(${_paramterName}));
+    public ${_returnValue} add${_name}DateEqual(LocalDateTime ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateEqual(${_paramterName}));
         return this;
     }
     /**
@@ -234,6 +213,13 @@ public final class ${simpleName} extends AbsQuery{
         return this;
     }
     /**
+    * @see Criteriable#notDateEqual(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(LocalDateTime ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
     * @see Criteriable#notDateEqual(Date)
     */
     public ${_returnValue} add${_name}NotDateEqual(Date ${_paramterName}){
@@ -248,6 +234,13 @@ public final class ${simpleName} extends AbsQuery{
         return this;
     }
     /**
+    * @see Criteriable#dateBefore(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateBefore(LocalDateTime ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
     * @see Criteriable#dateBefore(Date)
     */
     public ${_returnValue} add${_name}DateBefore(Date ${_paramterName}){
@@ -259,6 +252,13 @@ public final class ${simpleName} extends AbsQuery{
     */
     public ${_returnValue} add${_name}DateBefore(long ${_paramterName}){
         where(${query.entity.simpleName}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateAfter(LocalDateTime ${_paramterName}){
+        where(${query.entity.simpleName}.${property.name}.dateAfter(${_paramterName}));
         return this;
     }
     /**
@@ -278,6 +278,13 @@ public final class ${simpleName} extends AbsQuery{
 
 
     /**
+    * @see Criteriable#dateBetween(LocalDateTime,LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateBetween(LocalDateTime min,LocalDateTime max){
+        where(${query.entity.simpleName}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
     * @see Criteriable#dateBetween(Date,Date)
     */
     public ${_returnValue} add${_name}DateBetween(Date min,Date max){
@@ -289,6 +296,13 @@ public final class ${simpleName} extends AbsQuery{
     */
     public ${_returnValue} add${_name}DateBetween(long min,long max){
         where(${query.entity.simpleName}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(LocalDateTime,LocalDateTime)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(LocalDateTime min, LocalDateTime max){
+        where(${query.entity.simpleName}.${property.name}.notDateBetween(min, max));
         return this;
     }
     /**
@@ -305,8 +319,7 @@ public final class ${simpleName} extends AbsQuery{
         where(${query.entity.simpleName}.${property.name}.notDateBetween(min, max));
         return this;
     }
-    #end
-
+    #else
     /**
     * @see Criteriable#between(Object,Object)
     */
@@ -321,6 +334,7 @@ public final class ${simpleName} extends AbsQuery{
         where(${query.entity.simpleName}.${property.name}.notBetween(min, max));
         return this;
     }
+    #end
 
 #end
 }

@@ -15,3 +15,6 @@ final:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   exception:
     global-exception-handler: org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler
+logging:
+  level:
+    org.finalframework.test.dao.mapper: DEBUG

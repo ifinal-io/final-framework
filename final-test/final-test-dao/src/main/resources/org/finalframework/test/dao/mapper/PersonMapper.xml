@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.finalframework.test.dao.mapper.PersonMapper">
+
+    <sql id="sql-criteria">
+        <foreach collection="criteria" item="item" separator="AND">
+            <choose>
+                <when test="item.chain">
+
+                </when>
+                <otherwise>
+                    <bind name="criterion" value="item.criterion"/>
+                    <include refid="sql-criterion"/>
+                </otherwise>
+            </choose>
+        </foreach>
+    </sql>
+    <sql id="sql-criterion">
+        <foreach collection="criterion" item="item" open="(" close=")" separator="AND">
+            <choose>
+                <when test="'EQUAL' == item.operator.name">
+                    ${item.column} = #{item.value}
+                </when>
+                <otherwise>
+                    ${item.column} = #{item.value}
+                </otherwise>
+            </choose>
+        </foreach>
+    </sql>
+</mapper>

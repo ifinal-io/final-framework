@@ -1,10 +1,11 @@
 package org.finalframework.data.query.criterion;
 
-import lombok.Getter;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.operation.AbsCriterion;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,19 +16,18 @@ import java.util.Collection;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class SingleCriterionImpl<T> implements SingleCriterion<T> {
-    @Getter
+public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCriterion<T> {
     private final QProperty property;
-    @Getter
     private final CriterionOperator operator;
     private final Collection<FunctionCriterion> functions;
-    @Getter
+    private final Class<? extends TypeHandler> typeHandler;
     private final T value;
 
     private SingleCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
         this.functions = builder.functions;
         this.operator = builder.operator;
+        this.typeHandler = builder.typeHandler;
         this.value = builder.value;
     }
 
@@ -36,22 +36,32 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
     }
 
     @Override
-    public QProperty property() {
+    public QProperty getProperty() {
         return property;
     }
 
     @Override
-    public Collection<FunctionCriterion> functions() {
+    public Collection<FunctionCriterion> getFunctions() {
         return functions;
     }
 
     @Override
-    public CriterionOperator operator() {
+    public CriterionOperator getOperator() {
         return operator;
     }
 
     @Override
-    public T value() {
+    public Class<? extends TypeHandler> getTypeHandler() {
+        return typeHandler;
+    }
+
+    @Override
+    public String getColumn() {
+        return getPropertyColumn(property, functions);
+    }
+
+    @Override
+    public T getValue() {
         return value;
     }
 
@@ -59,6 +69,7 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
         private QProperty property;
         private CriterionOperator operator;
         private Collection<FunctionCriterion> functions = new ArrayList<>();
+        private Class<? extends TypeHandler> typeHandler;
         private T value;
 
         private BuilderImpl() {
@@ -85,6 +96,12 @@ public class SingleCriterionImpl<T> implements SingleCriterion<T> {
         @Override
         public Builder<T> operator(CriterionOperator operator) {
             this.operator = operator;
+            return this;
+        }
+
+        @Override
+        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
+            this.typeHandler = typeHandler;
             return this;
         }
 

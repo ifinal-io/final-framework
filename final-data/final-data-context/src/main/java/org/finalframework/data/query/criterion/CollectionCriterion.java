@@ -23,7 +23,7 @@ public interface CollectionCriterion<T> extends SingleCriterion<Collection<T>> {
         return CollectionCriterionImpl.builder();
     }
 
-    Collection<T> value();
+    Collection<T> getValue();
 
     interface Builder<T> extends SingleCriterion.Builder<Collection<T>> {
 

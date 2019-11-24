@@ -4,7 +4,10 @@ import org.finalframework.data.annotation.enums.PersistentType;
 
 import javax.lang.model.element.TypeElement;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author likly
@@ -15,6 +18,14 @@ import java.util.Date;
 public class QProperty implements Serializable {
 
     private static final long serialVersionUID = 737464778206273859L;
+
+    private static final Set<String> dateTypes = new HashSet<>();
+
+    static {
+        dateTypes.add(Date.class.getCanonicalName());
+        dateTypes.add(LocalDateTime.class.getCanonicalName());
+    }
+
     private final String path;
     private final String name;
     private final String column;
@@ -78,7 +89,7 @@ public class QProperty implements Serializable {
     }
 
     public boolean isDate() {
-        return type.getQualifiedName().toString().equals(Date.class.getName());
+        return dateTypes.contains(type.getQualifiedName().toString());
     }
 
     public static class Builder implements org.finalframework.core.Builder<QProperty> {

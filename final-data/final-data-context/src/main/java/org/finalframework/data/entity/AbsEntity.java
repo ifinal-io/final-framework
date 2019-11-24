@@ -4,7 +4,7 @@ import lombok.Data;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.enums.YN;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author likly
@@ -22,9 +22,9 @@ public abstract class AbsEntity implements IEntity<Long> {
     @Version
     private Integer version;
     @Created
-    private Date created;
+    private LocalDateTime created;
     @LastModified
-    private Date lastModified;
+    private LocalDateTime lastModified;
     @Column(insertable = false)
     private YN yn;
 }

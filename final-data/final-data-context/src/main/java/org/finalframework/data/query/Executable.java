@@ -1,5 +1,7 @@
 package org.finalframework.data.query;
 
+import org.finalframework.data.query.condition.DateCondition;
+
 /**
  * @author likly
  * @version 1.0
@@ -12,7 +14,7 @@ public interface Executable<T> extends Criteriable<T, Criterion> {
         return new ExecutableImpl<>(property);
     }
 
-    Executable<T> date();
+    DateCondition<T, Criterion> date();
 
     Executable<T> and(T value);
 

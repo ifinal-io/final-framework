@@ -1,9 +1,11 @@
 package org.finalframework.data.query.criterion;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.operation.AbsCriterion;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,17 +16,19 @@ import java.util.Collection;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
+public class BetweenCriterionImpl<T> extends AbsCriterion<T> implements BetweenCriterion<T> {
     private final QProperty property;
     private final Collection<FunctionCriterion> functions;
     private final CriterionOperator operator;
+    private final Class<? extends TypeHandler> typeHandler;
     private final T min;
     private final T max;
 
-    private DoubleCriterionImpl(BuilderImpl<T> builder) {
+    private BetweenCriterionImpl(BuilderImpl<T> builder) {
         this.property = builder.property;
         this.functions = builder.functions;
         this.operator = builder.operator;
+        this.typeHandler = builder.typeHandler;
         this.min = builder.min;
         this.max = builder.max;
     }
@@ -34,18 +38,28 @@ public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
     }
 
     @Override
-    public QProperty property() {
+    public QProperty getProperty() {
         return property;
     }
 
     @Override
-    public Collection<FunctionCriterion> functions() {
+    public Collection<FunctionCriterion> getFunctions() {
         return functions;
     }
 
     @Override
-    public CriterionOperator operator() {
+    public CriterionOperator getOperator() {
         return operator;
+    }
+
+    @Override
+    public Class<? extends TypeHandler> getTypeHandler() {
+        return typeHandler;
+    }
+
+    @Override
+    public String getColumn() {
+        return getPropertyColumn(property, functions);
     }
 
     @Override
@@ -58,10 +72,11 @@ public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
         return max;
     }
 
-    private static class BuilderImpl<T> implements DoubleCriterion.Builder<T> {
+    private static class BuilderImpl<T> implements BetweenCriterion.Builder<T> {
         private QProperty property;
         private Collection<FunctionCriterion> functions = new ArrayList<>();
         private CriterionOperator operator;
+        private Class<? extends TypeHandler> typeHandler;
         private T min;
         private T max;
 
@@ -92,6 +107,11 @@ public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
             return this;
         }
 
+        @Override
+        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
+            this.typeHandler = typeHandler;
+            return this;
+        }
 
         @Override
         public Builder<T> between(T min, T max) {
@@ -103,7 +123,7 @@ public class DoubleCriterionImpl<T> implements DoubleCriterion<T> {
 
         @Override
         public Criterion build() {
-            return new DoubleCriterionImpl<>(this);
+            return new BetweenCriterionImpl<>(this);
         }
     }
 }

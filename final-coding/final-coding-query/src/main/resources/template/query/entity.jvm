@@ -5,9 +5,7 @@
 #* @formatter:off *#
 package ${package}import javax.annotation.Generated;
 
-;
-${entity.package}
-        .${entity.simpleName};
+; ${entity.package}.${entity.simpleName};
 
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.query.QEntityGenerator")

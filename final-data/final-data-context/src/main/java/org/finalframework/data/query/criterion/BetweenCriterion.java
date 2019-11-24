@@ -1,9 +1,11 @@
 package org.finalframework.data.query.criterion;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.CriterionOperator;
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+import org.springframework.lang.NonNull;
 
 import java.util.Collection;
 
@@ -13,17 +15,17 @@ import java.util.Collection;
  * @date 2019-02-19 20:52:10
  * @since 1.0
  */
-public interface DoubleCriterion<T> extends Criterion<T> {
+public interface BetweenCriterion<T> extends Criterion<T> {
 
     static <T> Builder<T> builder() {
-        return DoubleCriterionImpl.builder();
+        return BetweenCriterionImpl.builder();
     }
 
     T min();
 
     T max();
 
-    interface Builder<T> extends Criterion.Builder<DoubleCriterion<T>> {
+    interface Builder<T> extends Criterion.Builder<BetweenCriterion<T>> {
 
         @Override
         Builder<T> property(QProperty property);
@@ -36,6 +38,9 @@ public interface DoubleCriterion<T> extends Criterion<T> {
 
         @Override
         Builder<T> operator(CriterionOperator operator);
+
+        @Override
+        Builder<T> typeHandler(@NonNull Class<? extends TypeHandler> typeHandler);
 
         Builder<T> between(T min, T max);
     }

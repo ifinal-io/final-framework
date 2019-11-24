@@ -2,13 +2,15 @@ package org.finalframework.data.query;
 
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.query.condition.DateCondition;
+import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterion;
-import org.finalframework.data.query.criterion.DoubleCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.finalframework.data.query.function.SimpleFunctionCriterion;
 import org.finalframework.data.query.function.SingleFunctionCriterion;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,9 +31,8 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Executable<T> date() {
-        this.functions.add(new SimpleFunctionCriterion(DefaultFunctionOperator.DATE));
-        return this;
+    public DateCondition<T, Criterion> date() {
+        return DateCondition.date(property);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Criterion eq(@NonNull T value) {
+    public Criterion eq(@NonNull Object value) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
                 .property(property)
@@ -169,7 +170,7 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Criterion nonNull() {
+    public Criterion isNotNull() {
         return SingleCriterion.builder()
                 .property(property)
                 .function(functions)
@@ -266,37 +267,14 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Criterion before(@NonNull Date date) {
+    public Criterion dateEqual(LocalDateTime date) {
         Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
                 .property(property)
                 .function(functions)
-                .operator(DefaultCriterionOperator.BEFORE)
+                .operator(DefaultCriterionOperator.DATE_EQUAL)
                 .value(date)
                 .build();
-    }
-
-    @Override
-    public Criterion before(@NonNull long date) {
-        Assert.isNull(date, "date is null");
-        return before(new Date(date));
-    }
-
-    @Override
-    public Criterion after(@NonNull Date date) {
-        Assert.isNull(date, "date is null");
-        return SingleCriterion.builder()
-                .property(property)
-                .function(functions)
-                .operator(DefaultCriterionOperator.AFTER)
-                .value(date)
-                .build();
-    }
-
-    @Override
-    public Criterion after(@NonNull long date) {
-        Assert.isNull(date, "date is null");
-        return after(new Date(date));
     }
 
     @Override
@@ -306,6 +284,17 @@ public class ExecutableImpl<T> implements Executable<T> {
                 .property(property)
                 .function(functions)
                 .operator(DefaultCriterionOperator.DATE_EQUAL)
+                .value(date)
+                .build();
+    }
+
+    @Override
+    public Criterion notDateEqual(LocalDateTime date) {
+        Assert.isNull(date, "date is null");
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
                 .value(date)
                 .build();
     }
@@ -332,6 +321,16 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
+    public Criterion dateBefore(LocalDateTime date) {
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_BEFORE)
+                .value(date)
+                .build();
+    }
+
+    @Override
     public Criterion dateBefore(@NonNull Date date) {
         return SingleCriterion.builder()
                 .property(property)
@@ -343,13 +342,24 @@ public class ExecutableImpl<T> implements Executable<T> {
 
     @Override
     public Criterion dateBefore(@NonNull long date) {
-        Assert.isNull(date, "date is empty");
+        Assert.isNull(date, "date is null");
         return dateBefore(new Date(date));
     }
 
     @Override
+    public Criterion dateAfter(LocalDateTime date) {
+        Assert.isNull(date, "date is null");
+        return SingleCriterion.builder()
+                .property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_AFTER)
+                .value(date)
+                .build();
+    }
+
+    @Override
     public Criterion dateAfter(@NonNull Date date) {
-        Assert.isNull(date, "date is empty");
+        Assert.isNull(date, "date is null");
         return SingleCriterion.builder()
                 .property(property)
                 .function(functions)
@@ -360,15 +370,15 @@ public class ExecutableImpl<T> implements Executable<T> {
 
     @Override
     public Criterion dateAfter(@NonNull long date) {
-        Assert.isNull(date, "date is empty");
+        Assert.isNull(date, "date is null");
         return dateAfter(new Date(date));
     }
 
     @Override
     public Criterion between(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return builder.property(property)
                 .function(functions)
                 .operator(DefaultCriterionOperator.BETWEEN)
@@ -378,9 +388,9 @@ public class ExecutableImpl<T> implements Executable<T> {
 
     @Override
     public Criterion notBetween(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return builder.property(property)
                 .function(functions)
                 .operator(DefaultCriterionOperator.NOT_BETWEEN)
@@ -389,10 +399,10 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
-    public Criterion dateBetween(@NonNull Date min, @NonNull Date max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
+    public Criterion dateBetween(LocalDateTime min, LocalDateTime max) {
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<LocalDateTime> builder = BetweenCriterion.builder();
         return builder.property(property)
                 .function(functions)
                 .operator(DefaultCriterionOperator.DATE_BETWEEN)
@@ -401,10 +411,34 @@ public class ExecutableImpl<T> implements Executable<T> {
     }
 
     @Override
+    public Criterion dateBetween(@NonNull Date min, @NonNull Date max) {
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.DATE_BETWEEN)
+                .between(min, max)
+                .build();
+    }
+
+    @Override
+    public Criterion notDateBetween(LocalDateTime min, LocalDateTime max) {
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<LocalDateTime> builder = BetweenCriterion.builder();
+        return builder.property(property)
+                .function(functions)
+                .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
+                .between(min, max)
+                .build();
+    }
+
+    @Override
     public Criterion notDateBetween(@NonNull Date min, @NonNull Date max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<Date> builder = BetweenCriterion.builder();
         return builder.property(property)
                 .function(functions)
                 .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
@@ -414,15 +448,15 @@ public class ExecutableImpl<T> implements Executable<T> {
 
     @Override
     public Criterion dateBetween(@NonNull long min, @NonNull long max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
         return dateBetween(new Date(min), new Date(max));
     }
 
     @Override
     public Criterion notDateBetween(@NonNull long min, @NonNull long max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
         return notDateBetween(new Date(min), new Date(max));
     }
 }

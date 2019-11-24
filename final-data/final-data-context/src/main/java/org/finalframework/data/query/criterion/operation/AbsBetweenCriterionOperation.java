@@ -1,6 +1,6 @@
 package org.finalframework.data.query.criterion.operation;
 
-import org.finalframework.data.query.criterion.DoubleCriterion;
+import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.DoubleCriterionOperation;
 
 /**
@@ -11,7 +11,7 @@ import org.finalframework.data.query.criterion.DoubleCriterionOperation;
  */
 public abstract class AbsBetweenCriterionOperation<T> extends AbsCriterionOperation<T> implements DoubleCriterionOperation<T> {
     @Override
-    public final String format(DoubleCriterion<T> criterion) {
-        return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.min(), criterion.max());
+    public final String format(BetweenCriterion<T> criterion) {
+        return format(criterion.getProperty(), criterion.getFunctions(), criterion.getOperator(), criterion.min(), criterion.max());
     }
 }

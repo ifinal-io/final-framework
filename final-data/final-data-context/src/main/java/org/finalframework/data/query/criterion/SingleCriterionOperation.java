@@ -35,7 +35,7 @@ public interface SingleCriterionOperation<T> extends CriterionOperation<T, Singl
 
     @Override
     default String format(SingleCriterion<T> criterion) {
-        return format(criterion.property(), criterion.functions(), criterion.operator(), criterion.value());
+        return format(criterion.getProperty(), criterion.getFunctions(), criterion.getOperator(), criterion.getValue());
     }
 
     String format(QProperty property, Collection<FunctionCriterion> functions, CriterionOperator operator, T value);

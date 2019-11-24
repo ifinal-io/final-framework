@@ -3,11 +3,13 @@ package org.finalframework.data.query;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.query.condition.DateCondition;
+import org.finalframework.data.query.criterion.BetweenCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterion;
-import org.finalframework.data.query.criterion.DoubleCriterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -168,7 +170,7 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
-    default Criterion nonNull() {
+    default Criterion isNotNull() {
         return SingleCriterion.builder()
                 .property(this)
                 .operator(DefaultCriterionOperator.NOT_NULL)
@@ -255,104 +257,72 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
                 .build();
     }
 
-    @Override
-    default Criterion before(@NonNull Date date) {
-        Assert.isNull(date, "date is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.BEFORE)
-                .value(date)
-                .build();
-    }
 
     @Override
-    default Criterion before(@NonNull long date) {
-        Assert.isNull(date, "date is null");
-        return before(new Date(date));
-    }
-
-    @Override
-    default Criterion after(@NonNull Date date) {
-        Assert.isNull(date, "date is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.AFTER)
-                .value(date)
-                .build();
-    }
-
-    @Override
-    default Criterion after(@NonNull long date) {
-        Assert.isNull(date, "date is null");
-        return after(new Date(date));
+    default Criterion dateEqual(@NonNull LocalDateTime date) {
+        return date().eq(date);
     }
 
     @Override
     default Criterion dateEqual(@NonNull Date date) {
-        Assert.isNull(date, "date is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.DATE_EQUAL)
-                .value(date)
-                .build();
+        return date().eq(date);
+    }
+
+    @Override
+    default Criterion notDateEqual(@NonNull LocalDateTime date) {
+        return date().neq(date);
     }
 
     @Override
     default Criterion notDateEqual(@NonNull Date date) {
-        Assert.isNull(date, "date is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.NOT_DATE_EQUAL)
-                .value(date)
-                .build();
+        return date().neq(date);
     }
 
     @Override
     default Criterion dateEqual(@NonNull long date) {
-        return dateEqual(new Date(date));
+        return date().eq(date);
     }
 
     @Override
     default Criterion notDateEqual(@NonNull long date) {
-        return notDateEqual(new Date(date));
+        return date().neq(date);
+    }
+
+    @Override
+    default Criterion dateBefore(LocalDateTime date) {
+        return date().before(date);
     }
 
     @Override
     default Criterion dateBefore(@NonNull Date date) {
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.DATE_BEFORE)
-                .value(date)
-                .build();
+        return date().before(date);
     }
 
     @Override
     default Criterion dateBefore(@NonNull long date) {
-        Assert.isNull(date, "date is empty");
-        return dateBefore(new Date(date));
+        return date().before(date);
+    }
+
+    @Override
+    default Criterion dateAfter(LocalDateTime date) {
+        return date().after(date);
     }
 
     @Override
     default Criterion dateAfter(@NonNull Date date) {
-        Assert.isNull(date, "date is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.DATE_AFTER)
-                .value(date)
-                .build();
+        return date().after(date);
     }
 
     @Override
     default Criterion dateAfter(@NonNull long date) {
-        Assert.isNull(date, "date is empty");
-        return dateAfter(new Date(date));
+        return date().after(date);
     }
 
     @Override
     default Criterion between(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return builder.property(this)
                 .operator(DefaultCriterionOperator.BETWEEN)
                 .between(min, max)
@@ -361,9 +331,9 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default Criterion notBetween(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<T> builder = DoubleCriterion.builder();
+        Assert.isNull(min, "min is null");
+        Assert.isNull(max, "max is null");
+        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
         return builder.property(this)
                 .operator(DefaultCriterionOperator.NOT_BETWEEN)
                 .between(min, max)
@@ -371,39 +341,33 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
+    default Criterion dateBetween(LocalDateTime min, LocalDateTime max) {
+        return date().between(min, max);
+    }
+
+    @Override
     default Criterion dateBetween(@NonNull Date min, @NonNull Date max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.DATE_BETWEEN)
-                .between(min, max)
-                .build();
+        return date().between(min, max);
+    }
+
+    @Override
+    default Criterion notDateBetween(LocalDateTime min, LocalDateTime max) {
+        return date().notBetween(min, max);
     }
 
     @Override
     default Criterion notDateBetween(@NonNull Date min, @NonNull Date max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        final DoubleCriterion.Builder<Date> builder = DoubleCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.NOT_DATE_BETWEEN)
-                .between(min, max)
-                .build();
+        return date().notBetween(min, max);
     }
 
     @Override
     default Criterion dateBetween(@NonNull long min, @NonNull long max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        return dateBetween(new Date(min), new Date(max));
+        return date().between(min, max);
     }
 
     @Override
     default Criterion notDateBetween(@NonNull long min, @NonNull long max) {
-        Assert.isNull(min, "min is empty");
-        Assert.isNull(max, "max is empty");
-        return notDateBetween(new Date(min), new Date(max));
+        return date().notBetween(min, max);
     }
 
     @Override
@@ -417,8 +381,8 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
-    default Executable<T> date() {
-        return Executable.execute(this).date();
+    default DateCondition<T, Criterion> date() {
+        return DateCondition.date(this);
     }
 
     @Override

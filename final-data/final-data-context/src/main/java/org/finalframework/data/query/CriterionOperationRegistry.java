@@ -5,6 +5,7 @@ import org.finalframework.data.entity.enums.IEnum;
 import org.finalframework.data.query.criterion.CriterionOperations;
 import org.finalframework.data.query.criterion.operation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +28,7 @@ public class CriterionOperationRegistry {
 
         registerCriterionOperations(Object.class, ObjectCriterionOperations.INSTANCE);
         registerCriterionOperations(Date.class, DateCriterionOperations.INSTANCE);
+        registerCriterionOperations(LocalDateTime.class, LocalDateTimeCriterionOperations.INSTANCE);
         registerCriterionOperations(String.class, StringCriterionOperations.INSTANCE);
         registerCriterionOperations(IEnum.class, EnumCriterionOperations.INSTANCE);
 

@@ -23,7 +23,6 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
 
     private static Class getPropertyJavaType(QProperty property) {
         return property.getType();
-//        return property.isCollectionLike() ? property.getComponentType() : property.getType();
     }
 
     @Override
@@ -65,8 +64,8 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
         sb.append(
                 criteriaSets.stream()
                         .map(criterion -> {
-                            final Class javaType = getPropertyJavaType(criterion.property());
-                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.operator(), javaType);
+                            final Class javaType = getPropertyJavaType(criterion.getProperty());
+                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.getOperator(), javaType);
                             return criterionOperation.format(criterion);
                         })
                         .collect(Collectors.joining(String.format(" %s ", andOr.name())))

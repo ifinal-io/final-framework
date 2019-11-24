@@ -42,6 +42,11 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
         return !criteriaChain.isEmpty();
     }
 
+
+    public boolean getChain() {
+        return chain();
+    }
+
     @Override
     public Stream<Criterion> criterionStream() {
         return criterion.stream();
