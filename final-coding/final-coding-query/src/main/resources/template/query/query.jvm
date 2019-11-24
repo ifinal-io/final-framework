@@ -2,11 +2,15 @@
 #set($simpleName = $query.simpleName)
 #set($properties = $query.entity.properties)
 #* @formatter:off *#
-package ${package}import org.finalframework.data.query.Criteriable;
+package ${package};
+
+import org.finalframework.data.query.AbsQuery;
+import org.finalframework.data.query.Criteriable;
 
 import javax.annotation.Generated;
-
-;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Date;
 
 
 

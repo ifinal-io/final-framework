@@ -3,9 +3,14 @@
 #set($simpleName = $qEntity.simpleName)
 #set($properties = $qEntity.properties)
 #* @formatter:off *#
-package ${package}import javax.annotation.Generated;
+package ${package};
 
-; ${entity.package}.${entity.simpleName};
+import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.AbsQEntity;
+import javax.annotation.Generated;
+
+import  ${entity.package}.${entity.simpleName};
 
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.query.QEntityGenerator")
