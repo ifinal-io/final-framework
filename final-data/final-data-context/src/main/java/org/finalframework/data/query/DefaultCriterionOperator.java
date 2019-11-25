@@ -18,6 +18,7 @@ public class DefaultCriterionOperator implements CriterionOperator {
     public static final CriterionOperator GREATER_THAN_EQUAL = new DefaultCriterionOperator("GREATER_THAN_EQUAL");
     public static final CriterionOperator LESS_THAN = new DefaultCriterionOperator("LESS_THAN");
     public static final CriterionOperator LESS_THAN_EQUAL = new DefaultCriterionOperator("LESS_THAN_EQUAL");
+
     public static final CriterionOperator IN = new DefaultCriterionOperator("IN");
     public static final CriterionOperator NOT_IN = new DefaultCriterionOperator("NOT_IN");
     public static final CriterionOperator START_WITH = new DefaultCriterionOperator("START_WITH");

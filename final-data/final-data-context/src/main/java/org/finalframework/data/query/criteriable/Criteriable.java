@@ -1,4 +1,4 @@
-package org.finalframework.data.query;
+package org.finalframework.data.query.criteriable;
 
 import org.finalframework.data.query.condition.*;
 import org.springframework.lang.NonNull;
@@ -15,8 +15,9 @@ import java.util.Date;
 @SuppressWarnings("all")
 public interface Criteriable<V, R> extends CompareCondition<V, R>, NullCondition<R>, InCondition<V, R>, LikeCondition<R>, BetweenCondition<V, R> {
 
-
     // date operator
+
+    R dateEqual(@NonNull String date);
 
     R dateEqual(@NonNull LocalDateTime date);
 
@@ -24,11 +25,15 @@ public interface Criteriable<V, R> extends CompareCondition<V, R>, NullCondition
 
     R dateEqual(@NonNull long date);
 
+    R notDateEqual(@NonNull String date);
+
     R notDateEqual(@NonNull LocalDateTime date);
 
     R notDateEqual(@NonNull Date date);
 
     R notDateEqual(@NonNull long date);
+
+    R dateBefore(@NonNull String date);
 
     R dateBefore(@NonNull LocalDateTime date);
 
@@ -36,21 +41,27 @@ public interface Criteriable<V, R> extends CompareCondition<V, R>, NullCondition
 
     R dateBefore(@NonNull long date);
 
+    R dateAfter(@NonNull String date);
+
     R dateAfter(@NonNull LocalDateTime date);
 
     R dateAfter(@NonNull Date date);
 
     R dateAfter(@NonNull long date);
 
+    R dateBetween(@NonNull String min, @NonNull String max);
+
     R dateBetween(@NonNull LocalDateTime min, @NonNull LocalDateTime max);
 
     R dateBetween(@NonNull Date min, @NonNull Date max);
 
+    R dateBetween(@NonNull long min, @NonNull long max);
+
+    R notDateBetween(@NonNull String min, @NonNull String max);
+
     R notDateBetween(@NonNull LocalDateTime min, @NonNull LocalDateTime max);
 
     R notDateBetween(@NonNull Date min, @NonNull Date max);
-
-    R dateBetween(@NonNull long min, @NonNull long max);
 
     R notDateBetween(@NonNull long min, @NonNull long max);
 

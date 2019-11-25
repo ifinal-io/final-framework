@@ -1,6 +1,7 @@
 package org.finalframework.data.query.condition;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -9,19 +10,39 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public interface LikeCondition<R> extends Condition {
-    R startWith(@NonNull String value);
+    default R startWith(@NonNull String value) {
+        return like(null, value, "%");
+    }
 
-    R notStartWith(@NonNull String value);
+    default R notStartWith(@NonNull String value) {
+        return notLike(null, value, "%s");
+    }
 
-    R endWith(@NonNull String value);
+    default R endWith(@NonNull String value) {
+        return like("%", value, null);
+    }
 
-    R notEndWith(@NonNull String value);
+    default R notEndWith(@NonNull String value) {
+        return notLike("%", value, null);
+    }
 
-    R contains(@NonNull String value);
+    default R contains(@NonNull String value) {
+        return like("%", value, "%");
+    }
 
-    R notContains(@NonNull String value);
+    default R notContains(@NonNull String value) {
+        return notLike("%", value, "%");
+    }
 
-    R like(@NonNull String value);
+    default R like(@NonNull String value) {
+        return contains(value);
+    }
 
-    R notLike(@NonNull String value);
+    default R notLike(@NonNull String value) {
+        return notContains(value);
+    }
+
+    R like(@Nullable String prefix, @NonNull String value, @Nullable String suffix);
+
+    R notLike(@Nullable String prefix, @NonNull String value, @Nullable String suffix);
 }

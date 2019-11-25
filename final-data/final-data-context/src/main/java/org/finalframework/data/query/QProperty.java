@@ -1,17 +1,15 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.condition.DateCondition;
-import org.finalframework.data.query.criterion.BetweenCriterion;
-import org.finalframework.data.query.criterion.CollectionCriterion;
+import org.finalframework.data.query.criteriable.Criteriable;
+import org.finalframework.data.query.criteriable.DateCriteriable;
+import org.finalframework.data.query.criteriable.Executable;
+import org.finalframework.data.query.criteriable.NumberCriteriable;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -20,7 +18,7 @@ import java.util.Date;
  * @date 2018-10-25 13:36
  * @since 1.0
  */
-public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>, Executable<T> {
+public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>, Executable<T, T, Criterion> {
 
     static <T, E extends QEntity> QProperty.Builder<T> builder(E entity, Class<T> type) {
         return new QPropertyImpl.BuilderImpl<>(entity, type);
@@ -66,102 +64,6 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     boolean isSelectable();
 
     @Override
-    default Criterion eq(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.EQUAL)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion neq(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return
-                SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.NOT_EQUAL)
-                        .value(value)
-                        .build();
-    }
-
-    @Override
-    default Criterion gt(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return
-                SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.GREATER_THAN)
-                        .value(value)
-                        .build();
-    }
-
-    @Override
-    default Criterion gte(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return
-                SingleCriterion.builder()
-                        .property(this)
-                        .operator(DefaultCriterionOperator.GREATER_THAN_EQUAL)
-                        .value(value)
-                        .build();
-    }
-
-    @Override
-    default Criterion lt(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.LESS_THAN)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion lte(@NonNull T value) {
-        Assert.isNull(value, "value is null");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.LESS_THAN_EQUAL)
-                .value(value)
-                .build()
-                ;
-    }
-
-    @Override
-    default Criterion in(@NonNull T... values) {
-        Assert.isEmpty(values, "values is null");
-        return in(Arrays.asList(values));
-    }
-
-    @Override
-    default Criterion in(@NonNull Collection<T> values) {
-        Assert.isEmpty(values, "values is null");
-        final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.IN)
-                .value(values)
-                .build();
-    }
-
-    @Override
-    default Criterion nin(@NonNull T... values) {
-        Assert.isEmpty(values, "values is null");
-        return nin(Arrays.asList(values));
-    }
-
-    @Override
-    default Criterion nin(@NonNull Collection<T> values) {
-        Assert.isEmpty(values, "values is null");
-        final CollectionCriterion.Builder<T> builder = CollectionCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.NOT_IN)
-                .value(values)
-                .build();
-    }
-
-    @Override
     default Criterion isNull() {
         return SingleCriterion.builder()
                 .property(this)
@@ -174,86 +76,6 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         return SingleCriterion.builder()
                 .property(this)
                 .operator(DefaultCriterionOperator.NOT_NULL)
-                .build();
-    }
-
-    @Override
-    default Criterion startWith(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.START_WITH)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion notStartWith(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.NOT_START_WITH)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion endWith(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.END_WITH)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion notEndWith(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.NOT_END_WITH)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion contains(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.CONTAINS)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion notContains(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.NOT_CONTAINS)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion like(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.LIKE)
-                .value(value)
-                .build();
-    }
-
-    @Override
-    default Criterion notLike(@NonNull String value) {
-        Assert.isBlank(value, "value is empty");
-        return SingleCriterion.builder()
-                .property(this)
-                .operator(DefaultCriterionOperator.NOT_LIKE)
-                .value(value)
                 .build();
     }
 
@@ -319,28 +141,6 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
-    default Criterion between(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is null");
-        Assert.isNull(max, "max is null");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.BETWEEN)
-                .between(min, max)
-                .build();
-    }
-
-    @Override
-    default Criterion notBetween(@NonNull T min, @NonNull T max) {
-        Assert.isNull(min, "min is null");
-        Assert.isNull(max, "max is null");
-        final BetweenCriterion.Builder<T> builder = BetweenCriterion.builder();
-        return builder.property(this)
-                .operator(DefaultCriterionOperator.NOT_BETWEEN)
-                .between(min, max)
-                .build();
-    }
-
-    @Override
     default Criterion dateBetween(LocalDateTime min, LocalDateTime max) {
         return date().between(min, max);
     }
@@ -381,30 +181,29 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
-    default DateCondition<T, Criterion> date() {
-        return DateCondition.date(this);
+    default DateCriteriable<T, Criterion> date() {
+        return DateCriteriable.date(this);
     }
 
     @Override
-    default Executable<T> and(T value) {
-        return Executable.execute(this).and(value);
+    default NumberCriteriable<T, Number, Criterion> and(T value) {
+        return NumberCriteriable.and(this, value);
     }
 
     @Override
-    default Executable<T> or(T value) {
-        return Executable.execute(this).or(value);
+    default NumberCriteriable<T, Number, Criterion> or(T value) {
+        return NumberCriteriable.or(this, value);
     }
 
     @Override
-    default Executable<T> xor(T value) {
-        return Executable.execute(this).xor(value);
+    default NumberCriteriable<T, Number, Criterion> xor(T value) {
+        return NumberCriteriable.xor(this, value);
     }
 
     @Override
-    default Executable<T> not() {
-        return Executable.execute(this).not();
+    default NumberCriteriable<T, Number, Criterion> not() {
+        return NumberCriteriable.not(this);
     }
-
 
     interface Builder<T> extends org.finalframework.core.Builder<QProperty<T>> {
 

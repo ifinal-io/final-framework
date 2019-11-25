@@ -16,15 +16,8 @@
         </foreach>
     </sql>
     <sql id="sql-criterion">
-        <foreach collection="criterion" item="item" open="(" close=")" separator="AND">
-            <choose>
-                <when test="'EQUAL' == item.operator.name">
-                    ${item.column} = #{item.value}
-                </when>
-                <otherwise>
-                    ${item.column} = #{item.value}
-                </otherwise>
-            </choose>
+        <foreach collection="criterion" item="criterion" open="(" close=")" separator="AND">
+            <include refid="sql-criterion-condition"/>
         </foreach>
     </sql>
 </mapper>

@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.query.criteriable.AbsCriteriable;
 
 /**
  * @author likly
@@ -9,7 +10,7 @@ import org.finalframework.data.annotation.enums.PersistentType;
  * @date 2019-10-21 10:27:10
  * @since 1.0
  */
-public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
+public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> implements QProperty<T> {
 
     private final E entity;
     private final Class<T> type;
@@ -27,6 +28,7 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
     private final boolean selectable;
 
     public QPropertyImpl(BuilderImpl<T, E> builder) {
+        super();
         this.entity = builder.entity;
         this.type = builder.type;
         this.path = builder.path;
@@ -115,6 +117,36 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
     @Override
     public boolean isSelectable() {
         return selectable;
+    }
+
+    @Override
+    public Criterion dateEqual(String date) {
+        return date().eq(date);
+    }
+
+    @Override
+    public Criterion notDateEqual(String date) {
+        return date().neq(date);
+    }
+
+    @Override
+    public Criterion dateBefore(String date) {
+        return date().before(date);
+    }
+
+    @Override
+    public Criterion dateAfter(String date) {
+        return date().after(date);
+    }
+
+    @Override
+    public Criterion dateBetween(String min, String max) {
+        return date().between(min, max);
+    }
+
+    @Override
+    public Criterion notDateBetween(String min, String max) {
+        return date().notBetween(min, max);
     }
 
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {

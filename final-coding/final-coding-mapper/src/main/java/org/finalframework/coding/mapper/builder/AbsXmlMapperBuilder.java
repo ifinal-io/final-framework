@@ -19,11 +19,15 @@ import java.util.Collection;
  * @since 1.0
  */
 public abstract class AbsXmlMapperBuilder {
+
+    protected static final String GENERATED_TAG = "GENERATED-BY-FINAL-FRAMEWORK";
+
     protected static final String SQL_TABLE = "sql-table";
     protected static final String SQL_QUERY = "sql-query";
     protected static final String SQL_WHERE_ID = "sql-where-id";
     protected static final String SQL_WHERE_IDS = "sql-where-ids";
     protected static final String SQL_CRITERIA = "sql-criteria";
+    protected static final String SQL_CRITERION_CONDITION = "sql-criterion-condition";
     protected static final String SQL_GROUP = "sql-group";
     protected static final String SQL_ORDER = "sql-order";
     protected static final String SQL_LIMIT = "sql-limit";

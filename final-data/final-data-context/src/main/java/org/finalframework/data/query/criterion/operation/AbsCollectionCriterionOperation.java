@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.operation;
 
-import org.finalframework.data.query.criterion.CollectionCriterion;
 import org.finalframework.data.query.criterion.CollectionCriterionOperation;
+import org.finalframework.data.query.criterion.SingleCriterion;
 
 import java.util.Collection;
 
@@ -14,7 +14,7 @@ import java.util.Collection;
 public abstract class AbsCollectionCriterionOperation<E> extends AbsCriterionOperation<Collection<E>> implements CollectionCriterionOperation<E> {
 
     @Override
-    public final String format(CollectionCriterion<E> criterion) {
+    public final String format(SingleCriterion<Collection<E>> criterion) {
         return format(criterion.getProperty(), criterion.getFunctions(), criterion.getOperator(), criterion.getValue());
     }
 }

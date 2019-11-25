@@ -13,10 +13,10 @@ import java.util.Collection;
  * @date 2019-01-18 13:34:21
  * @since 1.0
  */
-public interface CollectionCriterionOperation<T> extends CriterionOperation<Collection<T>, CollectionCriterion<T>> {
+public interface CollectionCriterionOperation<T> extends CriterionOperation<Collection<T>, SingleCriterion<Collection<T>>> {
 
     @Override
-    default String format(CollectionCriterion<T> criterion) {
+    default String format(SingleCriterion<Collection<T>> criterion) {
         return format(criterion.getProperty(), criterion.getFunctions(), criterion.getOperator(), criterion.getValue());
     }
 

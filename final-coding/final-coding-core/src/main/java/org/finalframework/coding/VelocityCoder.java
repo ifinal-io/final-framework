@@ -23,6 +23,7 @@ public class VelocityCoder implements Coder {
         properties.setProperty("resource.loader", "classpath");
         //配置加载器实现类
         properties.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getCanonicalName());
+        properties.setProperty("runtime.log.invalid.references", "false");
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("output.encoding", "UTF-8");
 

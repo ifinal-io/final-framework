@@ -183,7 +183,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "list");
         foreach.setAttribute("index", "index");
-        foreach.setAttribute("item", "item");
+        foreach.setAttribute("item", "entity");
         foreach.setAttribute("separator", ",");
 
         final Element insertValues = document.createElement("choose");
@@ -208,7 +208,8 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
                         final Element choose = document.createElement("choose");
                         final Element when = document.createElement("when");
-                        final String whenTest = String.format("list[index].%s != null", property.getName());
+//                        final String whenTest = String.format("list[index].%s != null", property.getName());
+                        final String whenTest = String.format("entity.%s != null", property.getName());
                         when.setAttribute("test", whenTest);
                         List<String> properties = property.referenceProperties();
                         final String insertMultiValues = properties.stream()
@@ -216,11 +217,12 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 .map(multiProperty -> {
 //                                    final Class javaType = Utils.getPropertyJavaType(multiProperty);
                                     //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
-                                    final String item = property.placeholder() ? "list[${index}]" : "item";
+//                                    final String item = property.placeholder() ? "list[${index}]" : "item";
+//                                    final String item = property.placeholder() ? "list[${index}]" : "item";
 //                                    ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(multiProperty);
 //                                    return columnGenerator.generateWriteValue(property, multiProperty, value);
 
-                                    return Utils.getInstance().formatPropertyValues(property, multiProperty, item);
+                                    return Utils.getInstance().formatPropertyValues(property, multiProperty, "entity");
                                 })
                                 .collect(Collectors.joining(",\n"));
                         when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
@@ -244,9 +246,9 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                             builder.append(",");
                         }
 //                        final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
-                        final String item = property.placeholder() ? "list[${index}]" : "item";
+//                        final String item = property.placeholder() ? "list[${index}]" : "item";
 //                        final String value = columnGenerator.generateWriteValue(null, property, item);
-                        final String value = Utils.getInstance().formatPropertyValues(null, property, item);
+                        final String value = Utils.getInstance().formatPropertyValues(null, property, "entity");
                         builder.append(value);
                         first.set(false);
                         insertValues.appendChild(textNode(document, builder.toString()));
