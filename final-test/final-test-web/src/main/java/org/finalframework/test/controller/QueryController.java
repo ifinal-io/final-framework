@@ -38,7 +38,8 @@ public class QueryController {
 //                .addCreatedEqual("2019-11-23")
 //                .addCreatedEqual("")
 //                .addIdEqual(1L)
-                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
+                .addNameContains("1");
+//                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
         return personMapper.select(query);
     }
 }
