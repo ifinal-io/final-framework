@@ -49,11 +49,7 @@ public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         ifQueryNotNull.appendChild(bind(document, "group", "query.group"));
         ifQueryNotNull.appendChild(bind(document, "sort", "query.sort"));
         ifQueryNotNull.appendChild(bind(document, "limit", "query.limit"));
-
-        Element where = document.createElement("where");
-        where.appendChild(include(document, SQL_CRITERIA));
-        ifQueryNotNull.appendChild(where);
-
+        ifQueryNotNull.appendChild(include(document, SQL_WHERE_CRITERIA));
         ifQueryNotNull.appendChild(include(document, SQL_ORDER));
         ifQueryNotNull.appendChild(include(document, SQL_LIMIT));
         sql.appendChild(ifQueryNotNull);

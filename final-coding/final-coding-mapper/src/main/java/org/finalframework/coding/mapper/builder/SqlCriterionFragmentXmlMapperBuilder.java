@@ -16,11 +16,11 @@ import java.util.Arrays;
  * @date 2019-11-24 21:30:54
  * @since 1.0
  */
-public class SqlCriterionConditionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
 
     @Override
     public String id() {
-        return SQL_CRITERION_CONDITION;
+        return SQL_CRITERION;
     }
 
     @Override

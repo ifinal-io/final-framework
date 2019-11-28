@@ -1,11 +1,7 @@
 package org.finalframework.coding.query;
 
-import org.finalframework.coding.entity.EntityFactory;
-import org.finalframework.coding.generator.TemplateCodeGenerator;
-
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 
 /**
  * @author likly
@@ -14,7 +10,7 @@ import javax.tools.JavaFileObject;
  * @since 1.0
  */
 
-public class QEntityGenerator extends TemplateCodeGenerator {
+public class QEntityGenerator extends AbsEntityGenerator<QEntity> {
 
     private static final String QUERY_PACKAGE_PATH = "query";
 
@@ -23,24 +19,8 @@ public class QEntityGenerator extends TemplateCodeGenerator {
     }
 
     @Override
-    public Void generate(TypeElement typeElement) {
-        String packageName = packageNameGenerator.generate(typeElement);
-        coding(QEntityFactory.create(processEnv, packageName, EntityFactory.create(processEnv, typeElement)));
-        return null;
+    protected QEntity buildEntityJavaSource(TypeElement typeElement, QEntity entity) {
+        return entity;
     }
-
-    private void coding(QEntity entity) {
-        try {
-            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(entity.getName());
-            if (typeElement == null) {
-                JavaFileObject sourceFile = processEnv.getFiler()
-                        .createSourceFile(entity.getName());
-                coder.coding(entity, sourceFile.openWriter());
-            }
-        } catch (Exception e) {
-//            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
-        }
-    }
-
 }
 

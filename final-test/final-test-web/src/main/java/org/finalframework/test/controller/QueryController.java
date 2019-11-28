@@ -34,11 +34,13 @@ public class QueryController {
 //        Query query = new Query();
 //        query.where(QPerson.created.date().eq("2019-11-23"));
         PersonQuery query = new PersonQuery();
-        query
+        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);
+        query.andOrderByAgeDesc();
+
 //                .addCreatedEqual("2019-11-23")
 //                .addCreatedEqual("")
 //                .addIdEqual(1L)
-                .addNameContains("1");
+//                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
         return personMapper.select(query);
     }

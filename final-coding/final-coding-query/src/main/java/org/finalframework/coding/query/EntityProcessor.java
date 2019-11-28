@@ -34,6 +34,7 @@ public class EntityProcessor extends AbstractProcessor {
 
     private QEntityGenerator entityGenerator;
     private QueryGenerator queryGenerator;
+    private CriteriaGenerator criteriaGenerator;
 
     /**
      * @see IEntity
@@ -59,6 +60,7 @@ public class EntityProcessor extends AbstractProcessor {
         this.entitiesHelper = new EntitiesHelper(processingEnv);
         entityGenerator = new QEntityGenerator(processingEnv);
         queryGenerator = new QueryGenerator(processingEnv);
+        criteriaGenerator = new CriteriaGenerator(processingEnv);
 
     }
 
@@ -90,6 +92,7 @@ public class EntityProcessor extends AbstractProcessor {
     private void generate(TypeElement entity) {
         entityGenerator.generate(entity);
         queryGenerator.generate(entity);
+        criteriaGenerator.generate(entity);
     }
 
     private void processEntities() {

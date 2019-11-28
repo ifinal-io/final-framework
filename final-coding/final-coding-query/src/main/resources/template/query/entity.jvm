@@ -1,4 +1,4 @@
-#set($package = $qEntity.package)
+#set($package = $qEntity.packageName)
 #set($entity = $qEntity.entity)
 #set($simpleName = $qEntity.simpleName)
 #set($properties = $qEntity.properties)

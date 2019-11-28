@@ -7,22 +7,20 @@ import org.finalframework.coding.file.JavaSource;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-11-21 17:56:47
+ * @date 2019-11-27 22:07:04
  * @since 1.0
  */
-@Template("query/query.jvm")
-public class Query implements JavaSource {
+@Template("query/criteria.jvm")
+public class Criteria implements JavaSource {
     private final String packageName;
     private final String simpleName;
     private final String name;
-    private final String criteria;
     private final QEntity entity;
 
-    private Query(Builder builder) {
+    private Criteria(Builder builder) {
         this.packageName = builder.packageName;
         this.simpleName = builder.simpleName;
         this.name = builder.packageName + "." + builder.simpleName;
-        this.criteria = builder.criteria;
         this.entity = builder.entity;
     }
 
@@ -46,18 +44,13 @@ public class Query implements JavaSource {
         return name;
     }
 
-    public String getCriteria() {
-        return criteria;
-    }
-
     public QEntity getEntity() {
         return entity;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<Query> {
+    public static class Builder implements org.finalframework.core.Builder<Criteria> {
         private String packageName;
         private String simpleName;
-        private String criteria;
         private QEntity entity;
 
         public Builder packageName(String packageName) {
@@ -70,11 +63,6 @@ public class Query implements JavaSource {
             return this;
         }
 
-        public Builder criteria(String criteria) {
-            this.criteria = criteria;
-            return this;
-        }
-
         public Builder entity(QEntity entity) {
             this.entity = entity;
             return this;
@@ -82,8 +70,8 @@ public class Query implements JavaSource {
 
 
         @Override
-        public Query build() {
-            return new Query(this);
+        public Criteria build() {
+            return new Criteria(this);
         }
     }
 }

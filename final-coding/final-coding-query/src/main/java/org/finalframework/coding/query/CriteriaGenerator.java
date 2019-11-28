@@ -10,19 +10,18 @@ import javax.lang.model.element.TypeElement;
  * @since 1.0
  */
 
-public class QueryGenerator extends AbsEntityGenerator<Query> {
+public class CriteriaGenerator extends AbsEntityGenerator<Criteria> {
 
     private static final String QUERY_PACKAGE_PATH = "query";
 
-    public QueryGenerator(ProcessingEnvironment processEnv) {
+    public CriteriaGenerator(ProcessingEnvironment processEnv) {
         super(processEnv, QUERY_PACKAGE_PATH);
     }
 
     @Override
-    protected Query buildEntityJavaSource(TypeElement typeElement, QEntity entity) {
-        return Query.builder().packageName(entity.getPackageName())
-                .simpleName(typeElement.getSimpleName() + "Query")
-                .criteria(typeElement.getSimpleName() + "Criteria")
+    protected Criteria buildEntityJavaSource(TypeElement typeElement, QEntity entity) {
+        return Criteria.builder().packageName(entity.getPackageName())
+                .simpleName(typeElement.getSimpleName() + "Criteria")
                 .entity(entity)
                 .build();
     }

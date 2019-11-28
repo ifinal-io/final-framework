@@ -1,6 +1,5 @@
 package org.finalframework.data.query;
 
-import lombok.Getter;
 import org.finalframework.data.query.builder.CriteriaSqlBuilder;
 import org.finalframework.data.query.enums.AndOr;
 
@@ -15,21 +14,21 @@ import java.util.stream.Stream;
  */
 public class CriteriaImpl implements Criteria, Sql<Criteria> {
     private final AndOr andOr;
-    private final List<Criteria> criteriaChain;
-    @Getter
-    private final List<Criterion> criterion;
+    private final Collection<Criteria> criteria;
+    private final Collection<Criterion> criterion;
 
-    private CriteriaImpl(BuilderImpl builder) {
-        this.andOr = builder.andOr;
-        this.criteriaChain = builder.criteriaChain;
-        this.criterion = builder.criterion;
+    public CriteriaImpl() {
+        this(AndOr.AND, new ArrayList<>());
     }
 
-    static Criteria from(Collection<Criteria> criteria) {
-        return new CriteriaImpl.BuilderImpl(AndOr.AND, Collections.emptyList(), criteria).build();
+    protected CriteriaImpl(AndOr andOr, Collection<Criterion> criterion) {
+        this(andOr, Collections.EMPTY_LIST, criterion);
     }
-    static Criteria where(Collection<Criterion> criterion) {
-        return new CriteriaImpl.BuilderImpl(AndOr.AND, criterion, Collections.emptyList()).build();
+
+    protected CriteriaImpl(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion) {
+        this.andOr = andOr;
+        this.criteria = criteria;
+        this.criterion = criterion;
     }
 
     @Override
@@ -39,12 +38,24 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
 
     @Override
     public boolean chain() {
-        return !criteriaChain.isEmpty();
+        return !criteria.isEmpty();
     }
-
 
     public boolean getChain() {
         return chain();
+    }
+
+
+    public AndOr getAndOr() {
+        return andOr;
+    }
+
+    public Collection<Criteria> getCriteria() {
+        return criteria;
+    }
+
+    public Collection<Criterion> getCriterion() {
+        return criterion;
     }
 
     @Override
@@ -53,30 +64,41 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
     }
 
     @Override
+    public Criteria add(Collection<Criterion> criterion) {
+        if (chain()) {
+            return and(Criteria.where(criterion));
+        } else {
+            this.criterion.addAll(criterion);
+            return this;
+        }
+    }
+
+    @Override
     public Criteria and(Criteria... criteria) {
-        List<Criteria> list = new ArrayList<>();
-        list.add(this);
-        list.addAll(Arrays.asList(criteria));
-        return new BuilderImpl(AndOr.AND, Collections.emptyList(), list).build();
+        return andOr(AndOr.AND, criteria);
     }
 
 
     @Override
     public Criteria or(Criteria... criteria) {
+        return andOr(AndOr.OR, criteria);
+    }
+
+    private Criteria andOr(AndOr andOr, Criteria... criteria) {
         List<Criteria> list = new ArrayList<>();
         list.add(this);
         list.addAll(Arrays.asList(criteria));
-        return new BuilderImpl(AndOr.OR, Collections.emptyList(), list).build();
+        return new CriteriaImpl(andOr, list, Collections.emptyList());
     }
 
     @Override
     public Stream<Criteria> stream() {
-        return criteriaChain.stream();
+        return criteria.stream();
     }
 
     @Override
     public Iterator<Criteria> iterator() {
-        return criteriaChain.iterator();
+        return criteria.iterator();
     }
 
     @Override
@@ -84,21 +106,4 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
         return new CriteriaSqlBuilder(this).build();
     }
 
-
-    private static class BuilderImpl implements Builder {
-        private final AndOr andOr;
-        private final List<Criterion> criterion = new ArrayList<>();
-        private final List<Criteria> criteriaChain = new ArrayList<>();
-
-        public BuilderImpl(AndOr andOr, Collection<Criterion> criterion, Collection<Criteria> criteriaChain) {
-            this.andOr = andOr;
-            this.criterion.addAll(criterion);
-            this.criteriaChain.addAll(criteriaChain);
-        }
-
-        @Override
-        public Criteria build() {
-            return new CriteriaImpl(this);
-        }
-    }
 }

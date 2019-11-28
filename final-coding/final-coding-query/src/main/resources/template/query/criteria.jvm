@@ -1,0 +1,395 @@
+#set($package = $criteria.packageName)
+#set($simpleName = $criteria.simpleName)
+#set($properties = $criteria.entity.properties)
+#set($qentity = $criteria.entity.simpleName)
+#set($criteria = $criteria.simpleName)
+#* @formatter:off *#
+package ${package};
+
+import org.finalframework.data.query.AbsCriteria;
+import org.finalframework.data.query.AbsQuery;
+import org.finalframework.data.query.Criteria;
+import org.finalframework.data.query.Criterion;
+import org.finalframework.data.query.enums.AndOr;
+
+import javax.annotation.Generated;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+
+#parse("/template/parse/header.vm")
+@Generated("org.finalframework.coding.query.CriteriaGenerator")
+public final class ${criteria} extends AbsCriteria<${criteria}>{
+
+    protected ${criteria}() {
+        super(AndOr.AND, Collections.emptyList());
+    }
+
+    protected ${criteria}(AndOr andOr) {
+        super(andOr, Collections.emptyList());
+    }
+
+    protected ${criteria}(AndOr andOr, Collection<Criteria> criteria) {
+        super(andOr, criteria, Collections.emptyList());
+    }
+
+    protected ${criteria}(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion) {
+        super(andOr, criteria, criterion);
+    }
+
+    protected ${criteria} andOr(AndOr andOr, Collection<Criteria> criteria,Collection<Criterion> criterion) {
+        return new ${criteria}(andOr, criteria,criterion);
+    }
+
+
+#foreach($property in $properties)
+    #set($_returnValue = $criteria)
+    #set($_name = $property.name.substring(0,1).toUpperCase() + $property.name.substring(1))
+    #set($_paramterType = $property.type.getQualifiedName().toString().replace("java.lang.",""))
+    #set($_paramterName = $property.name)
+
+    #set($_start = $_name.format("%-52s",$_name).replaceAll(" ","="))
+    #set($_end = $_name.format("%52s",$_name).replaceAll(" ","="))
+    #set($_isDate = $property.isDate())
+
+    //==================================================================================================================
+    //=====${_start}${_end}=====
+    //==================================================================================================================
+
+    /**
+     * @see Criteriable#eq(Object)
+     */
+    public ${_returnValue} add${_name}Equal(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.eq(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#neq(Object)
+     */
+    public ${_returnValue} add${_name}NotEqual(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.neq(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#gt(Object)
+    */
+    public ${_returnValue} add${_name}GreaterThan(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.gt(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#gte(Object)
+    */
+    public ${_returnValue} add${_name}GreaterThanEqual(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.gte(${_paramterName}));
+        return this;
+    }
+
+
+    /**
+    * @see Criteriable#lt(Object)
+    */
+    public ${_returnValue} add${_name}LessThan(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.gt(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#lte(Object)
+    */
+    public ${_returnValue} add${_name}LessThanEqual(${_paramterType} ${_paramterName}){
+        add(${qentity}.${property.name}.gte(${_paramterName}));
+        return this;
+    }
+
+    // in operator
+
+    /**
+     * @see Criteriable#in(Object[])
+     */
+    public ${_returnValue} add${_name}In(${_paramterType}... ${_paramterName}){
+        add(${qentity}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#in(Collection)
+     */
+    public ${_returnValue} add${_name}In(Collection<${_paramterType}> ${_paramterName}){
+        add(${qentity}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#nin(Object[])
+     */
+    public ${_returnValue} add${_name}NotIn(${_paramterType}... ${_paramterName}){
+        add(${qentity}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#nin(Collection)
+     */
+    public ${_returnValue} add${_name}NotIn(Collection<${_paramterType}> ${_paramterName}){
+        add(${qentity}.${property.name}.in(${_paramterName}));
+        return this;
+    }
+
+    // null operator
+
+    /**
+     * @see Criteriable#isNull()
+     */
+    public ${_returnValue} add${_name}IsNull(){
+        add(${qentity}.${property.name}.isNull());
+        return this;
+    }
+
+    /**
+     * @see Criteriable#isNotNull()
+     */
+    public ${_returnValue} add${_name}IsNotNull(){
+        add(${qentity}.${property.name}.isNotNull());
+        return this;
+    }
+
+    // like operator
+
+
+    /**
+    * @see Criteriable#startWith(String)
+    */
+    public ${_returnValue} add${_name}StartWith(String ${_paramterName}){
+        add(${qentity}.${property.name}.startWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notStartWith(String)
+    */
+    public ${_returnValue} add${_name}NotStartWith(String ${_paramterName}){
+        add(${qentity}.${property.name}.notStartWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#endWith(String)
+    */
+    public ${_returnValue} add${_name}EndWith(String ${_paramterName}){
+        add(${qentity}.${property.name}.endWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notEndWith(String)
+    */
+    public ${_returnValue} add${_name}NotEndWith(String ${_paramterName}){
+        add(${qentity}.${property.name}.notEndWith(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#contains(String)
+    */
+    public ${_returnValue} add${_name}Contains(String ${_paramterName}){
+        add(${qentity}.${property.name}.contains(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notContains(String)
+    */
+    public ${_returnValue} add${_name}NotContains(String ${_paramterName}){
+        add(${qentity}.${property.name}.notContains(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#like(String)
+    */
+    public ${_returnValue} add${_name}Like(String ${_paramterName}){
+        add(${qentity}.${property.name}.like(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notLike(String)
+    */
+    public ${_returnValue} add${_name}NotLike(String ${_paramterName}){
+        add(${qentity}.${property.name}.notLike(${_paramterName}));
+        return this;
+    }
+
+    #if($_isDate)
+    // date operator
+    /**
+    * @see Criteriable#dateEqual(String)
+    */
+    public ${_returnValue} add${_name}DateEqual(String ${_paramterName}){
+        add(${qentity}.${property.name}.dateEqual(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#dateEqual(Date)
+    */
+    public ${_returnValue} add${_name}DateEqual(Date ${_paramterName}){
+        add(${qentity}.${property.name}.dateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateEqual(long)
+    */
+    public ${_returnValue} add${_name}DateEqual(long ${_paramterName}){
+        add(${qentity}.${property.name}.dateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(String)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(String ${_paramterName}){
+        add(${qentity}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(LocalDateTime ${_paramterName}){
+        add(${qentity}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(Date)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(Date ${_paramterName}){
+        add(${qentity}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateEqual(long)
+    */
+    public ${_returnValue} add${_name}NotDateEqual(long ${_paramterName}){
+        add(${qentity}.${property.name}.notDateEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(String)
+    */
+    public ${_returnValue} add${_name}DateBefore(String ${_paramterName}){
+        add(${qentity}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateBefore(LocalDateTime ${_paramterName}){
+        add(${qentity}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(Date)
+    */
+    public ${_returnValue} add${_name}DateBefore(Date ${_paramterName}){
+        add(${qentity}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBefore(long)
+    */
+    public ${_returnValue} add${_name}DateBefore(long ${_paramterName}){
+        add(${qentity}.${property.name}.dateBefore(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(String)
+    */
+    public ${_returnValue} add${_name}DateAfter(String ${_paramterName}){
+        add(${qentity}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateAfter(LocalDateTime ${_paramterName}){
+        add(${qentity}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(Date)
+    */
+    public ${_returnValue} add${_name}DateAfter(Date ${_paramterName}){
+        add(${qentity}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateAfter(long)
+    */
+    public ${_returnValue} add${_name}DateAfter(long ${_paramterName}){
+        add(${qentity}.${property.name}.dateAfter(${_paramterName}));
+        return this;
+    }
+
+
+    /**
+    * @see Criteriable#dateBetween(String,String)
+    */
+    public ${_returnValue} add${_name}DateBetween(String min,String max){
+        add(${qentity}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBetween(LocalDateTime,LocalDateTime)
+    */
+    public ${_returnValue} add${_name}DateBetween(LocalDateTime min,LocalDateTime max){
+        add(${qentity}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBetween(Date,Date)
+    */
+    public ${_returnValue} add${_name}DateBetween(Date min,Date max){
+        add(${qentity}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#dateBetween(long,long)
+    */
+    public ${_returnValue} add${_name}DateBetween(long min,long max){
+        add(${qentity}.${property.name}.dateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(String,String)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(String min, String max){
+        add(${qentity}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(LocalDateTime,LocalDateTime)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(LocalDateTime min, LocalDateTime max){
+        add(${qentity}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(Date,Date)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(Date min, Date max){
+        add(${qentity}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#notDateBetween(long,long)
+    */
+    public ${_returnValue} add${_name}NotDateBetween(long min, long max){
+        add(${qentity}.${property.name}.notDateBetween(min, max));
+        return this;
+    }
+
+    #end
+
+    #end
+
+}
+

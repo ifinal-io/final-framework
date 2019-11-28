@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
  * @see SqlSelectColumnsFragmentXmlMapperBuilder
  * @see SqlWhereIdFragmentXmlMapperBuilder
  * @see SqlWhereIdsFragmentXmlMapperBuilder
- * @see SqlCriteriaFragmentXmlMapperBuilder
+ * @see SqlWhereCriteriaFragmentXmlMapperBuilder
  * @see SqlGroupFragmentXmlMapperBuilder
  * @see SqlOrderFragmentXmlMapperBuilder
  * @see SqlLimitFragmentXmlMapperBuilder

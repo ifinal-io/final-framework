@@ -3,6 +3,7 @@ package org.finalframework.coding.query;
 import org.finalframework.coding.annotation.Template;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.file.JavaSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 1.0
  */
 @Template("query/entity.jvm")
-public class QEntity {
+public class QEntity implements JavaSource {
     private final String packageName;
     private final String name;
     private final String simpleName;
@@ -39,14 +40,17 @@ public class QEntity {
         return entity;
     }
 
-    public String getPackage() {
+    @Override
+    public String getPackageName() {
         return packageName;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getSimpleName() {
         return simpleName;
     }
