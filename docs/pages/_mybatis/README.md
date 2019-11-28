@@ -79,5 +79,5 @@ version: 1.0
 * maven
 
 ```shell
-mvn clean complete 
+mvn clean compile
 ```
