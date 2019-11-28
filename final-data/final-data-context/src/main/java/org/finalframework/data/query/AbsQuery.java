@@ -13,7 +13,7 @@ public abstract class AbsQuery<T extends AbsCriteria, Q extends AbsQuery> implem
     private final Query query;
 
     public AbsQuery() {
-        this.query = new Query();
+        this.query = new Query().page(1, 20);
     }
 
     public Q page(Integer page, Integer size) {
