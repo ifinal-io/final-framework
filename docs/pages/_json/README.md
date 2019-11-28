@@ -4,6 +4,7 @@ subtitle: 数据传输的载体
 categories: [json]
 tags: [json]
 layout: post
+permalink: /json/
 menus:
     - index
 author: likly
@@ -34,6 +35,15 @@ version: 1.0
 > PS：枚举需要实现[IEnum](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/IEnum.java)接口。
 >
 > [BeanEnumPropertySerializer](jackson/serializer/bean-enum-property-serializer-modifier.md)
+
+### Stronger Date And Time
+
+* LocalDateTime
+
+1. `Bean`对象中的`LocalDateTime`类型的属性，会增加与其应对的`xxxFormat`的属性，来描述共经过`yyyy-MM-dd HH:mm:dd`格式化为的值。
+
+
+
 
 ## Usage
 

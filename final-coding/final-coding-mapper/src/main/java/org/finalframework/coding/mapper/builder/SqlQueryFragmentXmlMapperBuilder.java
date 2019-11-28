@@ -6,7 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
  * <a href="https://final.ilikly.com/mybatis/mapper/fragment/query">query</a>
  * <pre>
  *     <code>
@@ -15,9 +14,7 @@ import org.w3c.dom.Element;
  *                  <bind name="criteria" value="query.criteria"/>
  *                  <bind name="sort" value="query.sort"/>
  *                  <bind name="limit" value="query.limit"/>
- *                  <where>
- *                      <include refid="sql-criteria"/>
- *                  </where>
+ *                  <include refid="sql-criteria"/>
  *                  <include refid="sql-group"/>
  *                  <include refid="sql-order"/>
  *                  <include refid="sql-limit"/>
@@ -29,6 +26,8 @@ import org.w3c.dom.Element;
  * @author likly
  * @version 1.0
  * @date 2019-10-13 11:12:07
+ * @see SqlWhereCriteriaFragmentXmlMapperBuilder
+ * @see SqlGroupFragmentXmlMapperBuilder
  * @see SqlOrderFragmentXmlMapperBuilder
  * @see SqlLimitFragmentXmlMapperBuilder
  * @since 1.0
@@ -50,6 +49,7 @@ public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         ifQueryNotNull.appendChild(bind(document, "sort", "query.sort"));
         ifQueryNotNull.appendChild(bind(document, "limit", "query.limit"));
         ifQueryNotNull.appendChild(include(document, SQL_WHERE_CRITERIA));
+        ifQueryNotNull.appendChild(include(document, SQL_GROUP));
         ifQueryNotNull.appendChild(include(document, SQL_ORDER));
         ifQueryNotNull.appendChild(include(document, SQL_LIMIT));
         sql.appendChild(ifQueryNotNull);

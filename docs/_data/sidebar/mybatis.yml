@@ -1,6 +1,10 @@
 logo: /assets/img/modules/mybatis.jpg
 name: Final Mybatis
 menus:
+  - id: index
+    link: /mybatis/index
+    name: README
+    icon: dashboard
   - id: mapper
     icon: dashboard
     name: Mapper
