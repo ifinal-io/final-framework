@@ -6,7 +6,9 @@ import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.finalframework.json.jackson.JavaTimeModule;
+import org.finalframework.json.jackson.serializer.modifier.BeanDatePropertySerializerModifier;
 import org.finalframework.json.jackson.serializer.modifier.BeanEnumPropertySerializerModifier;
+import org.finalframework.json.jackson.serializer.modifier.BeanLocalDatePropertySerializerModifier;
 import org.finalframework.json.jackson.serializer.modifier.BeanLocalDateTimePropertySerializerModifier;
 import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,6 +40,8 @@ public class JsonAutoConfiguration {
     public void initObjectMapper() {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanDatePropertySerializerModifier()));
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDatePropertySerializerModifier()));
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDateTimePropertySerializerModifier()));
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
     }
