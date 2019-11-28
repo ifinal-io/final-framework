@@ -40,7 +40,7 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
         if (formatter != null) {
             gen.writeString(localDate.format(formatter));
         } else {
-            gen.writeNumber(localDate.atStartOfDay().toInstant(ZoneOffset.of(ZONE_OFFSET_ID)).toEpochMilli());
+            gen.writeNumber(localDate.toEpochDay());
         }
     }
 }
