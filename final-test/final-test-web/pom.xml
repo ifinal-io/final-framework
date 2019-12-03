@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-test</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.2.3-SNAPSHOT</version>
+        <version>0.2.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-test-controller</artifactId>
-            <version>0.2.3-SNAPSHOT</version>
+            <version>0.2.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
@@ -38,12 +38,12 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-ui-admin</artifactId>
-            <version>0.2.3-SNAPSHOT</version>
+            <version>0.2.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-redis-admin</artifactId>
-            <version>0.2.3-SNAPSHOT</version>
+            <version>0.2.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
