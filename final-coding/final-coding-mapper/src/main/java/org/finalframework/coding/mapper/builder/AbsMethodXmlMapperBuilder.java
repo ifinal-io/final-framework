@@ -3,6 +3,8 @@ package org.finalframework.coding.mapper.builder;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.core.Assert;
+import org.finalframework.core.parser.xml.XNode;
+import org.finalframework.core.parser.xml.XPathParser;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -29,6 +31,14 @@ public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder impl
 
     @Override
     public final void build(Node root, Document document, ExecutableElement method, Entity<Property> entity) {
+
+        XPathParser parser = new XPathParser(document);
+        XNode node = parser.evalNode("//*[@id='" + method.getSimpleName() + "']");
+        if (node != null) {
+//            root.removeChild(node.getNode());
+            return;
+        }
+
         buildMethodStartComment(root, document, method, entity);
         root.appendChild(buildMethodElement(method, document, entity));
         Collection<Element> fragments = buildMethodFragments(document, method, entity);
