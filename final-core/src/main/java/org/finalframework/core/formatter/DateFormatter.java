@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * {@link Date}格式化器，可使用 {@link #format(Date)} 格式化{@link Date}或 使用{@link #parse(String)}奖{@link String}解析成{@link Date}
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-15 21:48:24
@@ -26,11 +27,11 @@ public class DateFormatter implements Formatter<Date> {
     public static final DateFormatter YYYYMMDDHHMMSS = new DateFormatter(DateFormatterPattern.YYYYMMDDHHMMSS);
 
     private final String regex;
-    private final DateFormat dateFormat;
+    private final String pattern;
 
     public DateFormatter(String regex, String pattern) {
         this.regex = regex;
-        this.dateFormat = new SimpleDateFormat(pattern);
+        this.pattern = pattern;
     }
 
     public DateFormatter(DateFormatterPattern pattern) {
@@ -40,7 +41,7 @@ public class DateFormatter implements Formatter<Date> {
     @Override
     public Date parse(String source) {
         try {
-            return Assert.isEmpty(source) ? null : dateFormat.parse(source);
+            return Assert.isEmpty(source) ? null : new SimpleDateFormat(pattern).parse(source);
         } catch (ParseException e) {
             return null;
         }
@@ -48,7 +49,7 @@ public class DateFormatter implements Formatter<Date> {
 
     @Override
     public String format(Date target) {
-        return dateFormat.format(target);
+        return new SimpleDateFormat(pattern).format(target);
     }
 
     @Override

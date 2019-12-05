@@ -9,6 +9,7 @@ import org.finalframework.data.query.enums.AndOr;
  * @date 2019-11-22 09:47:02
  * @since 1.0
  */
+@SuppressWarnings("unchecked")
 public abstract class AbsQuery<T extends AbsCriteria, Q extends AbsQuery> implements Queryable {
     private final Query query;
 

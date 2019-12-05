@@ -1,6 +1,5 @@
 package org.finalframework.data.query;
 
-import com.sun.tools.corba.se.idl.constExpr.And;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.enums.AndOr;
 
@@ -51,7 +50,7 @@ public interface Criteria extends Streamable<Criteria>, Iterable<Criteria> {
     }
 
     static Criteria where(AndOr andOr, List<Criteria> criteria) {
-        return new CriteriaImpl(andOr, criteria, Collections.EMPTY_LIST);
+        return new CriteriaImpl(andOr, criteria, Collections.emptyList());
     }
 
     AndOr andOr();
