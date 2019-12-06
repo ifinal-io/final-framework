@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
-import org.finalframework.json.jackson.JavaTimeModule;
+import org.finalframework.json.jackson.FinalJacksonModule;
 import org.finalframework.json.jackson.serializer.modifier.BeanDatePropertySerializerModifier;
 import org.finalframework.json.jackson.serializer.modifier.BeanEnumPropertySerializerModifier;
 import org.finalframework.json.jackson.serializer.modifier.BeanLocalDatePropertySerializerModifier;
@@ -38,7 +38,7 @@ public class JsonAutoConfiguration {
 
     @PostConstruct
     public void initObjectMapper() {
-        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new FinalJacksonModule(objectMapper));
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanDatePropertySerializerModifier()));
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDatePropertySerializerModifier()));

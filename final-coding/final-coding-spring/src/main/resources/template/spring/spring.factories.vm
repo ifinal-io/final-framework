@@ -2,8 +2,8 @@
     #set($key = $entry.key)
     #set($list = $entry.value)
     #if($list)
-    # ${key.simpleName}
-    ${key.qualifiedName}=\
+    # ${key}
+        ${key}=\
         #foreach($!{item} in $!{list})
             #if($foreach.hasNext)
                 ${item},\

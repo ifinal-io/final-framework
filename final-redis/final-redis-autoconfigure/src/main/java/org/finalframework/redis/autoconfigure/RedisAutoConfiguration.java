@@ -3,7 +3,7 @@ package org.finalframework.redis.autoconfigure;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.finalframework.json.jackson.JavaTimeModule;
+import org.finalframework.json.jackson.FinalJacksonModule;
 import org.finalframework.redis.RedisRegistry;
 import org.finalframework.redis.serializer.Object2JsonRedisSerializer;
 import org.finalframework.redis.serializer.Object2StringRedisSerializer;
@@ -62,7 +62,7 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
     @Bean
     public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
         final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new FinalJacksonModule(objectMapper));
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
 //        objectMapper.registerModule(new SimpleModule());
 //        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

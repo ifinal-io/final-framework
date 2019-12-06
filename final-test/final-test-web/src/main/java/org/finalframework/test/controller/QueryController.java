@@ -1,5 +1,6 @@
 package org.finalframework.test.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.repository.ScanListener;
 import org.finalframework.data.result.Page;
@@ -33,6 +34,7 @@ public class QueryController {
     private PersonMapper personMapper;
 
     @GetMapping
+    @JsonView(Person.class)
     public Object query() {
 //        Query query = new Query();
 //        query.where(QPerson.created.date().eq("2019-11-23"));

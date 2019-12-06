@@ -2,6 +2,8 @@ package org.finalframework.coding.spring.factory;
 
 
 import org.finalframework.coding.annotation.Template;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import javax.lang.model.element.TypeElement;
 import java.io.Serializable;
@@ -16,19 +18,21 @@ import java.util.*;
 @Template("spring/spring.factories.vm")
 public class SpringFactories implements Serializable {
 
-    private Map<TypeElement, Set<TypeElement>> springFactories = new LinkedHashMap<>();
+    private MultiValueMap<String, String> springFactories = new LinkedMultiValueMap<>();
 
     public void addSpringFactories(TypeElement clazz, Collection<TypeElement> elements) {
         elements.forEach(item -> addSpringFactory(clazz, item));
     }
 
     public void addSpringFactory(TypeElement clazz, TypeElement element) {
-        Set<TypeElement> elementSet = springFactories.getOrDefault(clazz, new HashSet<>());
-        elementSet.add(element);
-        springFactories.put(clazz, elementSet);
+        this.addSpringFactory(clazz.getQualifiedName().toString(), element.getQualifiedName().toString());
     }
 
-    public Map<TypeElement, Set<TypeElement>> getSpringFactories() {
+    public void addSpringFactory(String factoryClass, String factoryName) {
+        this.springFactories.add(factoryClass, factoryName);
+    }
+
+    public MultiValueMap<String, String> getSpringFactories() {
         return springFactories;
     }
 

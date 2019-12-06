@@ -1,6 +1,7 @@
 package org.finalframework.spring.web.response.advice;
 
 
+import org.finalframework.data.result.JsonViewValue;
 import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.springframework.core.MethodParameter;
@@ -27,10 +28,16 @@ public class MappingJacksonValueResponseBodyAdvice extends RestMethodParameterFi
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof MappingJacksonValue) {
-            Object value = ((MappingJacksonValue) body).getValue();
+            MappingJacksonValue container = (MappingJacksonValue) body;
+            Object value = container.getValue();
+            Class<?> view = container.getSerializationView();
             if (value instanceof Result) {
-                ((Result) value).setView(((MappingJacksonValue) body).getSerializationView());
-                return value;
+                Result result = (Result) value;
+                result.setView(view);
+                result.setData(new JsonViewValue(result.getData(), view));
+                return result;
+            } else {
+                return new JsonViewValue(value, view);
             }
         }
         return body;

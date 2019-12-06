@@ -16,6 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author likly
  * @version 1.0
  * @date 2019-09-24 23:29:47
+ * @see Page {@link com.github.pagehelper.PageHelper}执行分页后返回的{@link java.util.List}对象
+ * @see org.finalframework.data.result.Page
+ * @see Page2PageConverter
  * @since 1.0
  */
 @Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)

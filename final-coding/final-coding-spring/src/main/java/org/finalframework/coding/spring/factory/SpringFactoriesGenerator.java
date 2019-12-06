@@ -3,6 +3,10 @@ package org.finalframework.coding.spring.factory;
 
 import org.finalframework.coding.Coder;
 import org.finalframework.core.generator.Generator;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -10,6 +14,9 @@ import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author likly
@@ -34,8 +41,6 @@ public class SpringFactoriesGenerator implements Generator<SpringFactories, Void
     @Override
     public Void generate(SpringFactories springFactories) {
 
-        if (springFactories.getSpringFactories().isEmpty()) return null;
-
         try {
             // would like to be able to print the full path
             // before we attempt to get the resource in case the behavior
@@ -43,6 +48,15 @@ public class SpringFactoriesGenerator implements Generator<SpringFactories, Void
             // no good way to resolve CLASS_OUTPUT without first getting a resource.
             FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
                     RESOURCE_FILE);
+            InputStreamResource resource = new InputStreamResource(existingFile.openInputStream());
+            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+            for (Map.Entry<?, ?> entry : properties.entrySet()) {
+                String factoryClassName = ((String) entry.getKey()).trim();
+                for (String factoryName : StringUtils.commaDelimitedListToStringArray((String) entry.getValue())) {
+                    springFactories.addSpringFactory(factoryClassName, factoryName.trim());
+                }
+            }
+
             info("Looking for existing resource file at " + existingFile.toUri());
         } catch (IOException e) {
             // According to the javadoc, Filer.getResource throws an exception
@@ -52,6 +66,8 @@ public class SpringFactoriesGenerator implements Generator<SpringFactories, Void
             // IOException if you try to open an input stream for it.
             info("Resource file did not already exist.");
         }
+
+        if (springFactories.getSpringFactories().isEmpty()) return null;
 
         try {
             FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", RESOURCE_FILE);
