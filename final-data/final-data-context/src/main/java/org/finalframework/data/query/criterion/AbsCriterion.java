@@ -66,7 +66,6 @@ public abstract class AbsCriterion<T> implements Criterion<T> {
 
 //        final Class<?> javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
         final Class<?> javaType = property.getType();
-        ;
 
         if (Assert.nonEmpty(functions)) {
             for (FunctionCriterion function : functions) {

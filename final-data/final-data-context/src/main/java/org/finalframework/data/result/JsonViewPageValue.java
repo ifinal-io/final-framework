@@ -1,8 +1,6 @@
 package org.finalframework.data.result;
 
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -12,45 +10,31 @@ import java.util.Collection;
  * @date 2019-12-06 11:26:21
  * @since 1.0
  */
-@Data
-public class JsonViewPageValue<T> implements Serializable {
-    /**
-     * 页码
-     */
-    private final Integer page;
-    /**
-     * 页面容量
-     */
-    private final Integer size;
-    /**
-     * 页数
-     */
-    private final Integer pages;
-    /**
-     * 总条数
-     */
-    private final Long total;
+public class JsonViewPageValue<T> extends PageInfo implements Serializable {
     /**
      * 结果集
      */
-    private final JsonViewValue<Collection<T>> result;
-    /**
-     * 是否首页
-     */
-    private final Boolean firstPage;
-    /**
-     * 是否尾页
-     */
-    private final Boolean lastPage;
+    private JsonViewValue<Collection<T>> value;
+
+    public JsonViewPageValue() {
+    }
 
     public JsonViewPageValue(Page page, Class<?> view) {
-        this.page = page.getPage();
-        this.pages = page.getPages();
-        this.size = page.getSize();
-        this.total = page.getTotal();
-        this.firstPage = page.getFirstPage();
-        this.lastPage = page.getLastPage();
-        this.result = new JsonViewValue<>(page.getResult(), view);
+        this.setPage(page.getPage());
+        this.setSize(page.getSize());
+        this.setPages(page.getPages());
+        this.setTotal(page.getTotal());
+        this.setFirstPage(page.getFirstPage());
+        this.setLastPage(page.getLastPage());
+        this.value = new JsonViewValue<>(page.getResult(), view);
+    }
+
+    public void setValue(JsonViewValue<Collection<T>> value) {
+        this.value = value;
+    }
+
+    public JsonViewValue<Collection<T>> getValue() {
+        return value;
     }
 }
 

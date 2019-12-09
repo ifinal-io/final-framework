@@ -17,6 +17,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.List;
+
 /**
  * @author likly
  * @version 1.0
@@ -34,9 +36,8 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        Class<?> view = getJsonView(returnType);
-        final Result result = buildResult(body, view);
-        result.setView(view);
+        final Result result = buildResult(body);
+        result.setView(getJsonView(returnType));
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
@@ -50,30 +51,32 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
     }
 
     @NonNull
-    private Result buildResult(Object body, Class<?> view) {
+    private Result buildResult(Object body) {
         if (body == null) return R.success();
 
         if (body instanceof Result) {
             return (Result<?>) body;
         }
 
-        return R.success(buildBodyWithView(body, view));
-    }
-
-
-    private Object buildBodyWithView(Object body, Class<?> view) {
-        if (view == null) return body;
-
         if (body instanceof Page) {
-            return new JsonViewPageValue<>((Page) body, view);
-
+            Page page = (Page) body;
+            Result<List> result = R.success(page.getResult());
+            result.setPage(page.toPageInfo());
+            return result;
+        } else if (body instanceof JsonViewPageValue) {
+            JsonViewPageValue page = (JsonViewPageValue) body;
+            Result<JsonViewValue> result = R.success(page.getValue());
+            result.setPage(page.toPageInfo());
+            return result;
         }
-        return new JsonViewValue<>(body, view);
+
+        return R.success(body);
     }
 
     private Class<?> getJsonView(MethodParameter returnType) {
         JsonView ann = returnType.getMethodAnnotation(JsonView.class);
-        Assert.state(ann != null, "No JsonView annotation");
+
+        if (ann == null) return null;
 
         Class<?>[] classes = ann.value();
         if (classes.length != 1) {

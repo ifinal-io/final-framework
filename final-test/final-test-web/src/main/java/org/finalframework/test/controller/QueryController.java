@@ -39,7 +39,7 @@ public class QueryController {
 //        Query query = new Query();
 //        query.where(QPerson.created.date().eq("2019-11-23"));
         PersonQuery query = new PersonQuery();
-        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);
+        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);//.addLastModifiedDateBetween("2019-12-01","2019-12-12");
         query.andOrderByAgeDesc();
 
 //                .addCreatedEqual("2019-11-23")

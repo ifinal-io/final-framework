@@ -52,6 +52,10 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
     @JsonView(Object.class)
     private T data;
     /**
+     * 分页信息
+     */
+    private PageInfo page;
+    /**
      * trace
      */
     private String trace;
@@ -149,6 +153,14 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public PageInfo getPage() {
+        return page;
+    }
+
+    public void setPage(PageInfo page) {
+        this.page = page;
     }
 
     public String getTrace() {

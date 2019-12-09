@@ -14,6 +14,7 @@ public interface RestAdviceOrdered {
      */
     int HIGHEST_PRECEDENCE = Ordered.HIGHEST_PRECEDENCE;
     int DEFAULT_PRECEDENCE = 0;
+    int JSON_VIEW_PRECEDENCE = 800;
     int RESULT_PRECEDENCE = 1000;
     /**
      * @see Integer#MAX_VALUE

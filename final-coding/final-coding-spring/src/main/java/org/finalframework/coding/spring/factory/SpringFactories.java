@@ -29,7 +29,10 @@ public class SpringFactories implements Serializable {
     }
 
     public void addSpringFactory(String factoryClass, String factoryName) {
-        this.springFactories.add(factoryClass, factoryName);
+        List<String> factories = this.springFactories.get(factoryClass);
+        if (factories == null || !factories.contains(factoryName)) {
+            this.springFactories.add(factoryClass, factoryName);
+        }
     }
 
     public MultiValueMap<String, String> getSpringFactories() {

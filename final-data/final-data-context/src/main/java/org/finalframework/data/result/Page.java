@@ -12,48 +12,23 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Page<T extends Serializable> implements Serializable {
-
-    /**
-     * 页码
-     */
-    private Integer page;
-    /**
-     * 页面容量
-     */
-    private Integer size;
-    /**
-     * 页数
-     */
-    private Integer pages;
-    /**
-     * 总条数
-     */
-    private Long total;
+public class Page<T extends Serializable> extends PageInfo implements Serializable {
     /**
      * 结果集
      */
     private List<T> result;
-    /**
-     * 是否首页
-     */
-    private Boolean firstPage;
-    /**
-     * 是否尾页
-     */
-    private Boolean lastPage;
 
     public Page() {
     }
 
     private Page(Builder<T> builder) {
-        this.page = builder.page;
-        this.size = builder.size;
-        this.pages = builder.pages;
-        this.total = builder.total;
+        setPage(builder.page);
+        setSize(builder.size);
+        setPages(builder.pages);
+        setTotal(builder.total);
+        setFirstPage(builder.firstPage);
+        setLastPage(builder.lastPage);
         this.result = builder.result;
-        this.firstPage = builder.firstPage;
-        this.lastPage = builder.lastPage;
     }
 
     public static <T extends Serializable> Builder<T> builder() {

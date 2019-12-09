@@ -10,7 +10,7 @@ A simple and powerful json api framework.
 <dependency>
     <groupId>org.finalframework</groupId>
     <artifactId>final-json</artifactId>
-    <version>0.2.4-SNAPSHOT</version>
+    <version>0.2.5-SNAPSHOT</version>
 </dependency>
 ```
 
