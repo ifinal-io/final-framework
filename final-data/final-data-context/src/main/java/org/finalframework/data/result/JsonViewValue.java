@@ -26,6 +26,7 @@ public class JsonViewValue<T> implements Viewable, Serializable {
         return value;
     }
 
+    @Override
     public Class<?> getView() {
         return view;
     }

@@ -10,7 +10,9 @@ import java.util.List;
  * @date 2019-12-09 10:57:58
  * @since 1.0
  */
-public class PageJsonViewValue<T extends Serializable> extends PageInfo implements Viewable {
+public class PageJsonViewValue<T extends Serializable> extends PageInfo implements Viewable, Serializable {
+
+    private static final long serialVersionUID = -7123032399172554094L;
 
     private final JsonViewValue<List<T>> value;
     private final Class<?> view;
@@ -26,13 +28,15 @@ public class PageJsonViewValue<T extends Serializable> extends PageInfo implemen
         this.view = view;
     }
 
-    public JsonViewValue<List<T>> getValue() {
-        return value;
-    }
-
     @Override
     public Class<?> getView() {
         return view;
+    }
+
+
+    @Override
+    public JsonViewValue<List<T>> getValue() {
+        return value;
     }
 }
 
