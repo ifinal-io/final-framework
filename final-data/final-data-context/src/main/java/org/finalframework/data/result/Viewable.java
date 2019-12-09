@@ -1,7 +1,6 @@
 package org.finalframework.data.result;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.springframework.lang.Nullable;
 
 /**
  * 可视图的，实现根据业务场景而展示不同的视图，主要结合{@link JsonView}使用。
@@ -12,7 +11,7 @@ import org.springframework.lang.Nullable;
  * @see JsonView
  * @since 1.0
  */
-public interface Viewable {
+public interface Viewable<T> {
 
     Class<?> getView();
 

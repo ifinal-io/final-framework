@@ -1,9 +1,6 @@
 package org.finalframework.spring.web.response.advice;
 
-import org.finalframework.data.result.JsonViewValue;
-import org.finalframework.data.result.Page;
-import org.finalframework.data.result.R;
-import org.finalframework.data.result.Result;
+import org.finalframework.data.result.*;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.finalframework.spring.web.interceptor.DurationHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.TraceHandlerInterceptor;
@@ -55,21 +52,12 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
             return (Result<?>) body;
         }
 
-        if (body instanceof JsonViewValue) {
-            JsonViewValue<?> jsonViewValue = (JsonViewValue<?>) body;
-            Object value = jsonViewValue.getValue();
-            Class<?> view = jsonViewValue.getView();
-            if (value instanceof Page) {
-                Page<?> page = (Page<?>) value;
-                Result<JsonViewValue<?>> result = R.success(new JsonViewValue<>(page.getResult(), view));
-                result.setPage(page.toPageInfo());
-                result.setView(view);
-                return result;
-            } else {
-                Result<JsonViewValue<?>> result = R.success(jsonViewValue);
-                result.setView(view);
-                return result;
-            }
+        if (body instanceof PageJsonViewValue) {
+            PageJsonViewValue pageJsonViewValue = (PageJsonViewValue) body;
+            Result<JsonViewValue<?>> result = R.success(pageJsonViewValue.getValue());
+            result.setPage(pageJsonViewValue.toPageInfo());
+            result.setView(pageJsonViewValue.getView());
+            return result;
         }
 
         return R.success(body);

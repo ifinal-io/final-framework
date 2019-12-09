@@ -1,12 +1,15 @@
 package org.finalframework.data.result;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 /**
  * @author likly
  * @version 1.0
  * @date 2019-12-06 10:32:29
+ * @see JsonView
  * @since 1.0
  */
 public class JsonViewValue<T> implements Viewable, Serializable {

@@ -3,6 +3,8 @@ package org.finalframework.spring.web.response.advice;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.result.JsonViewValue;
+import org.finalframework.data.result.Page;
+import org.finalframework.data.result.PageJsonViewValue;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -33,7 +35,14 @@ public class JsonViewResponseBodyAdvice extends RestMethodParameterFilter implem
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body == null) return null;
         Class<?> view = getJsonView(returnType);
-        return new JsonViewValue<>(body, view);
+
+        if (body instanceof Page) {
+            return new PageJsonViewValue<>((Page<?>) body, view);
+        } else {
+            return new JsonViewValue<>(body, view);
+        }
+
+
     }
 
     private Class<?> getJsonView(MethodParameter returnType) {
