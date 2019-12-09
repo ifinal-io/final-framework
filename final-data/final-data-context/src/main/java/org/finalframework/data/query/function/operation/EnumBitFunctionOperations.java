@@ -4,6 +4,7 @@ package org.finalframework.data.query.function.operation;
 import org.finalframework.data.entity.enums.IEnum;
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.function.BitFunctionOperations;
+import org.finalframework.data.query.function.MathFunctionOperations;
 import org.finalframework.data.query.function.SingleFunctionCriterion;
 
 /**
@@ -12,7 +13,8 @@ import org.finalframework.data.query.function.SingleFunctionCriterion;
  * @date 2019-03-28 21:51:57
  * @since 1.0
  */
-public class EnumBitFunctionOperations<T extends IEnum> extends BaseFunctionOperations<T> implements BitFunctionOperations<T> {
+public class EnumBitFunctionOperations<T extends IEnum> extends BaseFunctionOperations<T>
+        implements BitFunctionOperations<T> {
 
     public EnumBitFunctionOperations(Class<T> type) {
         super(type);
@@ -64,4 +66,5 @@ public class EnumBitFunctionOperations<T extends IEnum> extends BaseFunctionOper
             }
         };
     }
+
 }

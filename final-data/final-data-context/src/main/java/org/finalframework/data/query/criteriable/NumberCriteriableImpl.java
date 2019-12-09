@@ -4,7 +4,7 @@ package org.finalframework.data.query.criteriable;
 import org.finalframework.data.query.Criterion;
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.function.DefaultFunctionCriterion;
+import org.finalframework.data.query.function.NumberFunctionCriterion;
 
 import java.util.Collection;
 
@@ -30,27 +30,50 @@ public class NumberCriteriableImpl<T> extends AbsCriteriable<T, Number> implemen
 
     @Override
     public NumberCriteriable<T, Number, Criterion> and(Number value) {
-        addFunctionCriterion(DefaultFunctionCriterion.and(value));
+        addFunctionCriterion(NumberFunctionCriterion.and(value));
         return this;
     }
 
     @Override
     public NumberCriteriable<T, Number, Criterion> or(Number value) {
-        addFunctionCriterion(DefaultFunctionCriterion.or(value));
+        addFunctionCriterion(NumberFunctionCriterion.or(value));
         return this;
     }
 
     @Override
     public NumberCriteriable<T, Number, Criterion> xor(Number value) {
-        addFunctionCriterion(DefaultFunctionCriterion.xor(value));
+        addFunctionCriterion(NumberFunctionCriterion.xor(value));
         return this;
     }
 
     @Override
     public NumberCriteriable<T, Number, Criterion> not() {
-        addFunctionCriterion(DefaultFunctionCriterion.not());
+        addFunctionCriterion(NumberFunctionCriterion.not());
         return this;
     }
 
+    @Override
+    public NumberCriteriable<T, Number, Criterion> min() {
+        addFunctionCriterion(NumberFunctionCriterion.min());
+        return this;
+    }
+
+    @Override
+    public NumberCriteriable<T, Number, Criterion> max() {
+        addFunctionCriterion(NumberFunctionCriterion.max());
+        return this;
+    }
+
+    @Override
+    public NumberCriteriable<T, Number, Criterion> sum() {
+        addFunctionCriterion(NumberFunctionCriterion.sum());
+        return this;
+    }
+
+    @Override
+    public NumberCriteriable<T, Number, Criterion> avg() {
+        addFunctionCriterion(NumberFunctionCriterion.avg());
+        return this;
+    }
 }
 

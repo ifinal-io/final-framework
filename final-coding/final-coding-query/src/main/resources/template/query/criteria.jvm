@@ -10,6 +10,7 @@ import org.finalframework.data.query.AbsCriteria;
 import org.finalframework.data.query.AbsQuery;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.Criterion;
+import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.enums.AndOr;
 
 import javax.annotation.Generated;
@@ -388,6 +389,309 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     }
 
     #end
+
+    // max operator
+
+    /**
+    * @see Criteriable#maxEqual(Number)
+    */
+    public ${_returnValue} add${_name}MaxEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxNotEqual(Number)
+    */
+    public ${_returnValue} add${_name}MaxNotEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxNotEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxGreaterThan(Number)
+    */
+    public ${_returnValue} add${_name}MaxGreaterThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxGreaterThan(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxGreaterThanEqual(Number)
+    */
+    public ${_returnValue} add${_name}MaxGreaterThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxGreaterThanEqual(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxLessThan(Number)
+    */
+    public ${_returnValue} add${_name}MaxLessThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxLessThan(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#maxLessThanEqual(Number)
+    */
+    public ${_returnValue} add${_name}MaxLessThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.maxLessThanEqual(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#maxIn(Collection)
+     */
+    public ${_returnValue} add${_name}MaxIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.maxIn(${_paramterName}));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxNotIn(Collection)
+    */
+    public ${_returnValue} add${_name}MaxNotIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.maxNotIn(${_paramterName}));
+        return this;
+    }
+
+    /**
+    * @see Criteriable#maxBetween(Number,Number)
+    */
+    public ${_returnValue} add${_name}MaxBetween(Number min,Number max){
+        add(${qentity}.${property.name}.maxBetween(min, max));
+        return this;
+    }
+    /**
+    * @see Criteriable#maxNotBetween(Number,Number)
+    */
+    public ${_returnValue} add${_name}MaxNotBetween(Number min,Number max){
+        add(${qentity}.${property.name}.maxNotBetween(min, max));
+        return this;
+    }
+
+
+    // min operator
+
+    /**
+     * @see Criteriable#maxEqual(Number)
+     */
+    public ${_returnValue} add${_name}MinEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minEqual(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#minNotEqual(Number)
+     */
+    public ${_returnValue} add${_name}MinNotEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minNotEqual(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#minGreaterThan(Number)
+     */
+    public ${_returnValue} add${_name}MinGreaterThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minGreaterThan(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#minGreaterThanEqual(Number)
+    */
+    public ${_returnValue} add${_name}MinGreaterThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minGreaterThanEqual(${_paramterName}));
+        return this;
+        }
+    /**
+    * @see Criteriable#minLessThan(Number)
+    */
+    public ${_returnValue} add${_name}MinLessThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minLessThan(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#minLessThanEqual(Number)
+     */
+    public ${_returnValue} add${_name}MinLessThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.minLessThanEqual(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#minIn(Collection)
+     */
+    public ${_returnValue} add${_name}MinIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.minIn(${_paramterName}));
+        return this;
+    }
+    /**
+     * @see Criteriable#minNotIn(Collection)
+     */
+    public ${_returnValue} add${_name}MinNotIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.minNotIn(${_paramterName}));
+        return this;
+    }
+
+    /**
+     * @see Criteriable#minBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}MinBetween(Number min,Number max){
+        add(${qentity}.${property.name}.minBetween(min, max));
+        return this;
+    }
+    /**
+     * @see Criteriable#minNotBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}MinNotBetween(Number min,Number max){
+        add(${qentity}.${property.name}.minNotBetween(min, max));
+        return this;
+    }
+
+
+    // sum operator
+
+    /**
+     * @see Criteriable#sumEqual(Number)
+     */
+    public ${_returnValue} add${_name}SumEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumNotEqual(Number)
+     */
+    public ${_returnValue} add${_name}SumNotEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumNotEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumGreaterThan(Number)
+     */
+    public ${_returnValue} add${_name}SumGreaterThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumGreaterThan(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumGreaterThanEqual(Number)
+     */
+    public ${_returnValue} add${_name}SumGreaterThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumGreaterThanEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumLessThan(Number)
+     */
+    public ${_returnValue} add${_name}SumLessThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumLessThan(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumLessThanEqual(Number)
+     */
+    public ${_returnValue} add${_name}SumLessThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.sumLessThanEqual(${_paramterName}));
+        return this;
+        }
+
+    /**
+     * @see Criteriable#sumIn(Collection)
+     */
+    public ${_returnValue} add${_name}SumIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.sumIn(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumNotIn(Collection)
+     */
+    public ${_returnValue} add${_name}SumNotIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.sumNotIn(${_paramterName}));
+        return this;
+        }
+
+    /**
+     * @see Criteriable#sumBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}SumBetween(Number min,Number max){
+        add(${qentity}.${property.name}.sumBetween(min, max));
+        return this;
+        }
+    /**
+     * @see Criteriable#sumNotBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}SumNotBetween(Number min,Number max){
+        add(${qentity}.${property.name}.sumNotBetween(min, max));
+        return this;
+        }
+
+
+    // avg operator
+
+    /**
+     * @see Criteriable#avgEqual(Number)
+     */
+    public ${_returnValue} add${_name}AvgEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgNotEqual(Number)
+     */
+    public ${_returnValue} add${_name}AvgNotEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgNotEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgGreaterThan(Number)
+     */
+    public ${_returnValue} add${_name}AvgGreaterThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgGreaterThan(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgGreaterThanEqual(Number)
+     */
+    public ${_returnValue} add${_name}AvgGreaterThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgGreaterThanEqual(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgLessThan(Number)
+     */
+    public ${_returnValue} add${_name}AvgLessThan(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgLessThan(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgLessThanEqual(Number)
+     */
+    public ${_returnValue} add${_name}AvgLessThanEqual(Number ${_paramterName}){
+        add(${qentity}.${property.name}.avgLessThanEqual(${_paramterName}));
+        return this;
+        }
+
+    /**
+     * @see Criteriable#avgIn(Collection)
+     */
+    public ${_returnValue} add${_name}AvgIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.avgIn(${_paramterName}));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgNotIn(Collection)
+     */
+    public ${_returnValue} add${_name}AvgNotIn(Collection<Number> ${_paramterName}){
+        add(${qentity}.${property.name}.avgNotIn(${_paramterName}));
+        return this;
+        }
+
+    /**
+     * @see Criteriable#avgBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}AvgBetween(Number min,Number max){
+        add(${qentity}.${property.name}.avgBetween(min, max));
+        return this;
+        }
+    /**
+     * @see Criteriable#avgNotBetween(Number,Number)
+     */
+    public ${_returnValue} add${_name}AvgNotBetween(Number min,Number max){
+        add(${qentity}.${property.name}.avgNotBetween(min, max));
+        return this;
+    }
 
     #end
 

@@ -119,35 +119,6 @@ public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> im
         return selectable;
     }
 
-    @Override
-    public Criterion dateEqual(String date) {
-        return date().eq(date);
-    }
-
-    @Override
-    public Criterion notDateEqual(String date) {
-        return date().neq(date);
-    }
-
-    @Override
-    public Criterion dateBefore(String date) {
-        return date().before(date);
-    }
-
-    @Override
-    public Criterion dateAfter(String date) {
-        return date().after(date);
-    }
-
-    @Override
-    public Criterion dateBetween(String min, String max) {
-        return date().between(min, max);
-    }
-
-    @Override
-    public Criterion notDateBetween(String min, String max) {
-        return date().notBetween(min, max);
-    }
 
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
         private final E entity;

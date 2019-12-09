@@ -3,6 +3,7 @@ package org.finalframework.data.query.function.operation;
 
 import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.function.BitFunctionOperations;
+import org.finalframework.data.query.function.MathFunctionOperations;
 import org.finalframework.data.query.function.SingleFunctionCriterion;
 
 /**
@@ -11,7 +12,8 @@ import org.finalframework.data.query.function.SingleFunctionCriterion;
  * @date 2019-03-28 21:51:57
  * @since 1.0
  */
-public class NumberFunctionOperations<T extends Number> extends BaseFunctionOperations<T> implements BitFunctionOperations<T> {
+public class NumberFunctionOperations<T extends Number> extends BaseFunctionOperations<T>
+        implements BitFunctionOperations<T>, MathFunctionOperations<T> {
 
     public NumberFunctionOperations(Class<T> type) {
         super(type);
@@ -19,6 +21,10 @@ public class NumberFunctionOperations<T extends Number> extends BaseFunctionOper
         register(or());
         register(xor());
         register(not());
+        register(min());
+        register(max());
+        register(sum());
+        register(avg());
     }
 
     @Override
@@ -62,5 +68,25 @@ public class NumberFunctionOperations<T extends Number> extends BaseFunctionOper
                 return String.format("~ %s", column);
             }
         };
+    }
+
+    @Override
+    public MaxFunctionOperation max() {
+        return new MaxFunctionOperation();
+    }
+
+    @Override
+    public MinFunctionOperation min() {
+        return new MinFunctionOperation();
+    }
+
+    @Override
+    public SumFunctionOperation sum() {
+        return new SumFunctionOperation();
+    }
+
+    @Override
+    public AvgFunctionOperation avg() {
+        return new AvgFunctionOperation();
     }
 }

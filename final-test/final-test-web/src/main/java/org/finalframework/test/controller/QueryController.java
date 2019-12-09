@@ -40,6 +40,9 @@ public class QueryController {
 //        query.where(QPerson.created.date().eq("2019-11-23"));
         PersonQuery query = new PersonQuery();
         query.andCriteria().addNameContains("1").addAgeGreaterThan(1);//.addLastModifiedDateBetween("2019-12-01","2019-12-12");
+//        query.andCriteria().addMaxAgeGreaterThan(1);
+//        query.andCriteria().addAgeMaxGreaterThan(1);
+        query.andGroupByName();
         query.andOrderByAgeDesc();
 
 //                .addCreatedEqual("2019-11-23")
@@ -47,7 +50,7 @@ public class QueryController {
 //                .addIdEqual(1L)
 //                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
-        return personMapper.select(query);
+        return personMapper.select(Person.class, query);
     }
 }
 

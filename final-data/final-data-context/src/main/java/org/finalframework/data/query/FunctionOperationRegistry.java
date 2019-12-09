@@ -29,6 +29,7 @@ public class FunctionOperationRegistry {
 
         registerCriterionOperation(Date.class, new DateFunctionOperation());
         registerCriterionOperation(LocalDateTime.class, new DateFunctionOperation());
+
         registerCriterionOperations(Byte.class, new NumberFunctionOperations<>(Byte.class));
         registerCriterionOperations(byte.class, new NumberFunctionOperations<>(byte.class));
         registerCriterionOperations(Short.class, new NumberFunctionOperations<>(Short.class));
