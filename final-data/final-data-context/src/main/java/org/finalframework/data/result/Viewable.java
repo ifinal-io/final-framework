@@ -14,9 +14,6 @@ import org.springframework.lang.Nullable;
  */
 public interface Viewable {
 
-    @Nullable
     Class<?> getView();
-
-    void setView(@Nullable Class<?> view);
 
 }

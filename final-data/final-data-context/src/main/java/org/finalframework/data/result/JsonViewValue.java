@@ -9,7 +9,8 @@ import java.io.Serializable;
  * @date 2019-12-06 10:32:29
  * @since 1.0
  */
-public class JsonViewValue<T> implements Serializable {
+public class JsonViewValue<T> implements Viewable, Serializable {
+    private static final long serialVersionUID = -4251222094454545408L;
     private final T value;
     private final Class<?> view;
 
@@ -25,5 +26,6 @@ public class JsonViewValue<T> implements Serializable {
     public Class<?> getView() {
         return view;
     }
+
 }
 

@@ -187,13 +187,11 @@ public final class Result<T> implements Responsible, Viewable, Serializable {
         this.duration = duration;
     }
 
-
     @Override
     public Class<?> getView() {
         return view;
     }
 
-    @Override
     public void setView(Class<?> view) {
         this.view = view;
     }

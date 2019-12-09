@@ -1,7 +1,9 @@
 package org.finalframework.spring.web.response.advice;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.data.result.*;
+import org.finalframework.data.result.JsonViewValue;
+import org.finalframework.data.result.Page;
+import org.finalframework.data.result.R;
+import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.finalframework.spring.web.interceptor.DurationHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.TraceHandlerInterceptor;
@@ -13,11 +15,8 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import java.util.List;
 
 /**
  * @author likly
@@ -36,8 +35,7 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        final Result result = buildResult(body);
-        result.setView(getJsonView(returnType));
+        final Result<?> result = buildResult(body);
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
@@ -46,44 +44,35 @@ public class ResultResponseBodyAdvice extends RestMethodParameterFilter implemen
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
-
         return result;
     }
 
     @NonNull
-    private Result buildResult(Object body) {
+    private Result<?> buildResult(Object body) {
         if (body == null) return R.success();
 
         if (body instanceof Result) {
             return (Result<?>) body;
         }
 
-        if (body instanceof Page) {
-            Page page = (Page) body;
-            Result<List> result = R.success(page.getResult());
-            result.setPage(page.toPageInfo());
-            return result;
-        } else if (body instanceof JsonViewPageValue) {
-            JsonViewPageValue page = (JsonViewPageValue) body;
-            Result<JsonViewValue> result = R.success(page.getValue());
-            result.setPage(page.toPageInfo());
-            return result;
+        if (body instanceof JsonViewValue) {
+            JsonViewValue<?> jsonViewValue = (JsonViewValue<?>) body;
+            Object value = jsonViewValue.getValue();
+            Class<?> view = jsonViewValue.getView();
+            if (value instanceof Page) {
+                Page<?> page = (Page<?>) value;
+                Result<JsonViewValue<?>> result = R.success(new JsonViewValue<>(page.getResult(), view));
+                result.setPage(page.toPageInfo());
+                result.setView(view);
+                return result;
+            } else {
+                Result<JsonViewValue<?>> result = R.success(jsonViewValue);
+                result.setView(view);
+                return result;
+            }
         }
 
         return R.success(body);
     }
 
-    private Class<?> getJsonView(MethodParameter returnType) {
-        JsonView ann = returnType.getMethodAnnotation(JsonView.class);
-
-        if (ann == null) return null;
-
-        Class<?>[] classes = ann.value();
-        if (classes.length != 1) {
-            throw new IllegalArgumentException(
-                    "@JsonView only supported for response body advice with exactly 1 class argument: " + returnType);
-        }
-
-        return classes[0];
-    }
 }
