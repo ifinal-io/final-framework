@@ -1,6 +1,30 @@
 logo: /assets/img/modules/mayi.png
 name: Final Framework
 menus:
+  - id: index
+    name: README
+    icon: dashboard
+    link: /framework/
+  - id: starter
+    name: Starter
+    icon: dashboard
+    menus:
+      - id: entity
+        link: /framework/starter/entity
+        mini: ET
+        name: Entity
+      - id: mybatis
+        link: /framework/starter/mybatis
+        mini: MB
+        name: Mybatis
+      - id: service
+        link: /framework/starter/service
+        mini: SV
+        name: Service
+      - id: spring
+        link: /framework/starter/spring
+        mini: SP
+        name: Spring
   - id: data
     name: Data
     icon: table_chart
