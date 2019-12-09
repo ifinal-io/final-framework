@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.Utils;
+import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -41,7 +42,17 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
 
     private Element whenViewSelectColumns(@NonNull Document document, @NonNull Entity<Property> entity, @Nullable TypeElement view) {
         final List<String> columns = new ArrayList<>();
-        entity.stream().filter(it -> !it.isTransient() && it.selectable() && (view == null || it.hasView(view)))
+        entity.stream().filter(it -> !it.isTransient() && it.selectable())
+                .filter(it -> {
+                    if (view == null) {
+                        if (it.hasAnnotation(ReadOnly.class)) {
+                            return false;
+                        }
+                        return true;
+                    } else {
+                        return it.hasView(view);
+                    }
+                })
                 .forEach(property -> {
                     if (property.isReference()) {
                         final TypeElement multiType = property.getMetaTypeElement();

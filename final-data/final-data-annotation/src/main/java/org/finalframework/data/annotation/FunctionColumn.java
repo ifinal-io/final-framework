@@ -25,7 +25,7 @@ public @interface FunctionColumn {
     @AliasFor("value")
     String name() default "";
 
-    String writer();
+    String writer() default "";
 
-    String reader();
+    String reader() default "";
 }

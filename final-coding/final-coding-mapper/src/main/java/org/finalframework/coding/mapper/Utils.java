@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.handler.TypeHandlerRegistry;
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.FunctionColumn;
 import org.finalframework.data.annotation.JsonColumn;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
@@ -16,6 +17,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
@@ -76,7 +78,13 @@ public final class Utils {
 
     @NonNull
     public String formatPropertyReadColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        return formatPropertyColumn(referenceProperty, property);
+        String column = formatPropertyColumn(referenceProperty, property);
+        if (property.hasAnnotation(FunctionColumn.class)) {
+            FunctionColumn annotation = (FunctionColumn) property.getAnnotation(FunctionColumn.class);
+            String reader = annotation.reader();
+            return String.format("%s AS %s", reader, column);
+        }
+        return column;
     }
 
     @NonNull

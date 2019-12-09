@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.Utils;
+import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -31,7 +32,6 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     public boolean supports(ExecutableElement method) {
         return !method.isDefault() && INSERT_METHOD_NAME.equals(method.getSimpleName().toString());
     }
-
 
 
     @Override
@@ -135,7 +135,17 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final List<String> columns = new ArrayList<>();
         entity.stream()
-                .filter(it -> !it.isTransient() && it.insertable() && (view == null || it.hasView(view)))
+                .filter(it -> !it.isTransient() && it.insertable())
+                .filter(it -> {
+                    if (view == null) {
+                        if (it.hasAnnotation(ReadOnly.class)) {
+                            return false;
+                        }
+                        return true;
+                    } else {
+                        return it.hasView(view);
+                    }
+                })
                 .forEach(property -> {
                     if (property.isReference()) {
                         final Entity<Property> multiEntity = property.toEntity();
@@ -201,7 +211,17 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
-                .filter(it -> !it.isTransient() && it.insertable() && (view == null || it.hasView(view)))
+                .filter(it -> !it.isTransient() && it.insertable())
+                .filter(it -> {
+                    if (view == null) {
+                        if (it.hasAnnotation(ReadOnly.class)) {
+                            return false;
+                        }
+                        return true;
+                    } else {
+                        return it.hasView(view);
+                    }
+                })
                 .forEach(property -> {
                     if (property.isReference()) {
                         final Entity<Property> multiEntity = property.toEntity();

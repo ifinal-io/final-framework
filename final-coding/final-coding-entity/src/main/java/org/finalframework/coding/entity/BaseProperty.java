@@ -141,6 +141,11 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
         initColumn();
         initColumnView();
 
+        if (hasAnnotation(ReadOnly.class)) {
+            this.insertable = false;
+            this.updatable = false;
+        }
+
         if (Assert.isBlank(this.column)) {
             this.column = this.name;
         }
