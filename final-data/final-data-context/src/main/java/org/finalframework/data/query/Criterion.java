@@ -29,7 +29,7 @@ import java.util.Collection;
  * @see LikeCriterion
  * @since 1.0
  */
-public interface Criterion<T> {
+public interface Criterion {
 
     @NonNull
     QProperty getProperty();

@@ -6,7 +6,7 @@ package org.finalframework.data.query;
  * @date 2019-01-18 13:34:21
  * @since 1.0
  */
-public interface CriterionOperation<T, C extends Criterion<T>> {
+public interface CriterionOperation<T, C extends Criterion> {
 
     CriterionOperator operator();
 

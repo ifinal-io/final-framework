@@ -8,7 +8,7 @@ import org.finalframework.data.query.Criterion;
  * @date 2019-11-25 14:28:03
  * @since 1.0
  */
-public interface LikeCriterion<T> extends Criterion<T> {
+public interface LikeCriterion<T> extends Criterion {
 
     static <T> Builder<T> builder() {
         return LikeCriterionImpl.builder();

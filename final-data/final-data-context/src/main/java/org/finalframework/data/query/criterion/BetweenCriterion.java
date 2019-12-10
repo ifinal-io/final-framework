@@ -8,7 +8,7 @@ import org.finalframework.data.query.Criterion;
  * @date 2019-02-19 20:52:10
  * @since 1.0
  */
-public interface BetweenCriterion<T> extends Criterion<T> {
+public interface BetweenCriterion<T> extends Criterion {
 
     static <T> Builder<T> builder() {
         return BetweenCriterionImpl.builder();

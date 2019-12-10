@@ -13,7 +13,7 @@ import java.util.*;
  * @date 2019-01-18 13:42:22
  * @since 1.0
  */
-public abstract class AbsCriterion<T> implements Criterion<T> {
+public abstract class AbsCriterion<T> implements Criterion {
 
     private static final Set<String> SQL_KEYS = new HashSet<>();
 

@@ -9,7 +9,7 @@ import org.finalframework.data.query.Criterion;
  * @see SingleCriterionOperation
  * @since 1.0
  */
-public interface SingleCriterion<T> extends Criterion<T> {
+public interface SingleCriterion<T> extends Criterion {
 
     static <T> SingleCriterion.Builder<T> builder() {
         return SingleCriterionImpl.builder();
