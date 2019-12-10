@@ -49,19 +49,16 @@ public class PageJsonViewValue<T extends Serializable> extends JsonViewValue<Jso
      */
     private final Boolean lastPage;
 
-    @JsonIgnore
-    private final PageInfo pageInfo;
 
 
     public PageJsonViewValue(Page<T> page, Class<?> view) {
         super(new JsonViewValue<>(page.getResult(), view), view);
-        this.pageInfo = page.toPageInfo();
-        this.page = this.pageInfo.getPage();
-        this.size = this.pageInfo.getSize();
-        this.pages = this.pageInfo.getPages();
-        this.total = this.pageInfo.getTotal();
-        this.firstPage = this.pageInfo.getFirstPage();
-        this.lastPage = this.pageInfo.getLastPage();
+        this.page = page.getPage();
+        this.size = page.getSize();
+        this.pages = page.getPages();
+        this.total = page.getTotal();
+        this.firstPage = page.getFirstPage();
+        this.lastPage = page.getLastPage();
     }
 
     public Integer getPage() {
@@ -88,7 +85,14 @@ public class PageJsonViewValue<T extends Serializable> extends JsonViewValue<Jso
         return lastPage;
     }
 
-    public PageInfo getPageInfo() {
+    public PageInfo toPageInfo() {
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setPage(this.page);
+        pageInfo.setSize(this.size);
+        pageInfo.setPages(this.pages);
+        pageInfo.setTotal(this.total);
+        pageInfo.setFirstPage(this.firstPage);
+        pageInfo.setLastPage(this.lastPage);
         return pageInfo;
     }
 }

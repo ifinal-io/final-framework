@@ -25,7 +25,7 @@ public class Object2ResultConverter implements Converter<Object, Result<?>> {
         if (body instanceof PageJsonViewValue) {
             PageJsonViewValue<?> pageJsonViewValue = (PageJsonViewValue<?>) body;
             Result<JsonViewValue<?>> result = R.success(pageJsonViewValue.getValue());
-            result.setPage(pageJsonViewValue.getPageInfo());
+            result.setPage(pageJsonViewValue.toPageInfo());
             result.setView(pageJsonViewValue.getView());
             return result;
         }
