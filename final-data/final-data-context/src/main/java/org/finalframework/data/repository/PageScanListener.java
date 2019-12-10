@@ -1,7 +1,7 @@
 package org.finalframework.data.repository;
 
 import org.finalframework.data.result.Page;
-import org.finalframework.data.result.PageInfo;
+import org.finalframework.data.entity.PageInfo;
 
 import java.io.Serializable;
 import java.util.List;

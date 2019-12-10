@@ -1,10 +1,9 @@
-package org.finalframework.data.view;
+package org.finalframework.json.jackson.view;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.data.entity.IPage;
+import org.finalframework.data.entity.PageImpl;
 import org.finalframework.data.result.Page;
-import org.finalframework.data.result.PageInfo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,11 +17,9 @@ import java.util.List;
  * @see Page
  * @since 1.0
  */
-public class PageJsonViewValue<T extends Serializable> extends PageInfo implements IPage<JsonViewValue<List<T>>> {
+public class PageJsonViewValue<T extends Serializable> extends PageImpl<JsonViewValue<List<T>>> {
 
     private static final long serialVersionUID = -7123032399172554094L;
-
-    private final JsonViewValue<List<T>> result;
 
     public PageJsonViewValue(Page<T> page, Class<?> view) {
         this.setPage(page.getPage());
@@ -31,12 +28,7 @@ public class PageJsonViewValue<T extends Serializable> extends PageInfo implemen
         this.setTotal(page.getTotal());
         this.setFirstPage(page.getFirstPage());
         this.setLastPage(page.getLastPage());
-        this.result = new JsonViewValue<>(page.getResult(), view);
-    }
-
-    @Override
-    public JsonViewValue<List<T>> getResult() {
-        return result;
+        this.setResult(new JsonViewValue<>(page.getResult(), view));
     }
 }
 

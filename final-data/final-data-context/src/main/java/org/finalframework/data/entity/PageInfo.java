@@ -1,4 +1,4 @@
-package org.finalframework.data.result;
+package org.finalframework.data.entity;
 
 
 import lombok.Data;

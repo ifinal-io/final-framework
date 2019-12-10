@@ -1,7 +1,8 @@
-package org.finalframework.data.view;
+package org.finalframework.json.jackson.view;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.finalframework.data.view.Viewable;
 
 import java.io.Serializable;
 

@@ -1,6 +1,7 @@
 package org.finalframework.data.result;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.finalframework.data.entity.PageInfo;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
 

@@ -1,7 +1,7 @@
 package org.finalframework.data.result;
 
 import lombok.Data;
-import org.finalframework.data.entity.IPage;
+import org.finalframework.data.entity.PageImpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,11 +13,7 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Page<E extends Serializable> extends PageInfo implements IPage<List<E>> {
-    /**
-     * 结果集
-     */
-    private List<E> result;
+public class Page<E extends Serializable> extends PageImpl<List<E>> {
 
     public Page() {
     }
@@ -29,7 +25,7 @@ public class Page<E extends Serializable> extends PageInfo implements IPage<List
         setTotal(builder.total);
         setFirstPage(builder.firstPage);
         setLastPage(builder.lastPage);
-        this.result = builder.result;
+        setResult(builder.result);
     }
 
     public static <E extends Serializable, T extends Serializable> Builder<E> builder() {

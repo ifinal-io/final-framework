@@ -2,10 +2,12 @@ package org.finalframework.spring.web.converter;
 
 
 import org.finalframework.core.converter.Converter;
-import org.finalframework.data.view.JsonViewValue;
-import org.finalframework.data.view.PageJsonViewValue;
+import org.finalframework.json.jackson.view.JsonViewValue;
+import org.finalframework.json.jackson.view.PageJsonViewValue;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
+
+import java.util.List;
 
 /**
  * @author likly
@@ -24,9 +26,10 @@ public class Object2ResultConverter implements Converter<Object, Result<?>> {
 
         if (body instanceof PageJsonViewValue) {
             PageJsonViewValue<?> pageJsonViewValue = (PageJsonViewValue<?>) body;
-            Result<JsonViewValue<?>> result = R.success(pageJsonViewValue.getValue());
+            JsonViewValue<? extends List<?>> jsonViewValue = pageJsonViewValue.getResult();
+            Result<JsonViewValue<?>> result = R.success(jsonViewValue);
             result.setPage(pageJsonViewValue.toPageInfo());
-            result.setView(pageJsonViewValue.getView());
+            result.setView(jsonViewValue.getView());
             return result;
         }
 
