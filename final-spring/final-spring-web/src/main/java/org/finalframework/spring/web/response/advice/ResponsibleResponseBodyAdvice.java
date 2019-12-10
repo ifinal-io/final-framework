@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Order
 @RestControllerAdvice
 @SpringFactory(ResponseBodyAdvice.class)
-public class ResponsibleResponseBodyAdvice extends RestMethodParameterFilter implements ResponseBodyAdvice<Object> {
+public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     /**
      * 是否同步Response状态
@@ -34,11 +34,6 @@ public class ResponsibleResponseBodyAdvice extends RestMethodParameterFilter imp
 
     public void setSyncStatus(boolean syncStatus) {
         this.syncStatus = syncStatus;
-    }
-
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return matches(returnType);
     }
 
     @Override

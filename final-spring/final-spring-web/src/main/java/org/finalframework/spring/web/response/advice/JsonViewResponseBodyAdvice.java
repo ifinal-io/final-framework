@@ -2,8 +2,8 @@ package org.finalframework.spring.web.response.advice;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.data.result.Page;
+import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.json.jackson.view.PageJsonViewValue;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.springframework.core.MethodParameter;
@@ -14,7 +14,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author likly
@@ -25,10 +24,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Order(RestAdviceOrdered.JSON_VIEW_PRECEDENCE)
 @RestControllerAdvice
 @SpringResponseBodyAdvice
-public class JsonViewResponseBodyAdvice extends RestMethodParameterFilter implements ResponseBodyAdvice<Object> {
+public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return matches(returnType) && returnType.hasMethodAnnotation(JsonView.class);
+        return super.supports(returnType, converterType) && returnType.hasMethodAnnotation(JsonView.class);
     }
 
     @Override
@@ -41,7 +40,6 @@ public class JsonViewResponseBodyAdvice extends RestMethodParameterFilter implem
         } else {
             return new JsonViewValue<>(body, view);
         }
-
 
     }
 

@@ -25,14 +25,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Order(RestAdviceOrdered.RESULT_PRECEDENCE)
 @RestControllerAdvice
 @SpringResponseBodyAdvice
-public class ResultResponseBodyAdvice extends RestMethodParameterFilter implements ResponseBodyAdvice<Object> {
+public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
-
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return matches(returnType);
-    }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {

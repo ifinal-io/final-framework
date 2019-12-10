@@ -23,14 +23,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @SpringResponseBodyAdvice
 @Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
 @RestControllerAdvice
-public class PageResponseBodyAdvice extends RestMethodParameterFilter implements ResponseBodyAdvice<Object> {
+public class PageResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Page2PageConverter page2PageConverter = new Page2PageConverter();
-
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return matches(returnType);
-    }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
