@@ -1,6 +1,7 @@
 package org.finalframework.data.result;
 
 import lombok.Data;
+import org.finalframework.data.entity.IPage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,16 +13,16 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Page<T extends Serializable> extends PageInfo implements Serializable {
+public class Page<E extends Serializable> extends PageInfo implements IPage<List<E>> {
     /**
      * 结果集
      */
-    private List<T> result;
+    private List<E> result;
 
     public Page() {
     }
 
-    private Page(Builder<T> builder) {
+    private Page(Builder<E> builder) {
         setPage(builder.page);
         setSize(builder.size);
         setPages(builder.pages);
@@ -31,58 +32,58 @@ public class Page<T extends Serializable> extends PageInfo implements Serializab
         this.result = builder.result;
     }
 
-    public static <T extends Serializable> Builder<T> builder() {
+    public static <E extends Serializable, T extends Serializable> Builder<E> builder() {
         return new Builder<>();
     }
 
-    public static class Builder<T extends Serializable> implements org.finalframework.core.Builder<Page<T>> {
+    public static class Builder<E extends Serializable> implements org.finalframework.core.Builder<Page<E>> {
         private Integer page;
         private Integer size;
         private Integer pages;
         private Long total;
-        private List<T> result;
+        private List<E> result;
         private Boolean firstPage;
         private Boolean lastPage;
 
-        public Builder<T> page(Integer page) {
+        public Builder<E> page(Integer page) {
             this.page = page;
             return this;
         }
 
-        public Builder<T> size(Integer size) {
+        public Builder<E> size(Integer size) {
             this.size = size;
             return this;
         }
 
-        public Builder<T> pages(Integer pages) {
+        public Builder<E> pages(Integer pages) {
             this.pages = pages;
             return this;
         }
 
-        public Builder<T> total(Long total) {
+        public Builder<E> total(Long total) {
             this.total = total;
             return this;
         }
 
 
-        public Builder<T> result(List<T> result) {
+        public Builder<E> result(List<E> result) {
             this.result = result;
             return this;
         }
 
-        public Builder<T> firstPage(boolean firstPage) {
+        public Builder<E> firstPage(boolean firstPage) {
             this.firstPage = firstPage;
             return this;
         }
 
-        public Builder<T> lastPage(boolean lastPage) {
+        public Builder<E> lastPage(boolean lastPage) {
             this.lastPage = lastPage;
             return this;
         }
 
         @Override
-        public Page<T> build() {
-            return new Page<T>(this);
+        public Page<E> build() {
+            return new Page<E>(this);
         }
     }
 }

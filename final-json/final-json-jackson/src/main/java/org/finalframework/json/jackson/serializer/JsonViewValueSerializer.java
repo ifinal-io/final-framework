@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.json.jackson.view.JsonViewValue;
+import org.finalframework.data.view.JsonViewValue;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package org.finalframework.data.result;
+package org.finalframework.data.view;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
