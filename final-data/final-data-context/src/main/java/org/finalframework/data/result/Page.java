@@ -13,7 +13,7 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class Page<E extends Serializable> extends PageImpl<List<E>> {
+public class Page<E> extends PageImpl<List<E>> {
 
     public Page() {
     }
@@ -28,11 +28,11 @@ public class Page<E extends Serializable> extends PageImpl<List<E>> {
         setResult(builder.result);
     }
 
-    public static <E extends Serializable, T extends Serializable> Builder<E> builder() {
+    public static <E> Builder<E> builder() {
         return new Builder<>();
     }
 
-    public static class Builder<E extends Serializable> implements org.finalframework.core.Builder<Page<E>> {
+    public static class Builder<E> implements org.finalframework.core.Builder<Page<E>> {
         private Integer page;
         private Integer size;
         private Integer pages;

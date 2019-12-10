@@ -36,7 +36,7 @@ public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
         Class<?> view = getJsonView(returnType);
 
         if (body instanceof Page) {
-            return new PageJsonViewValue<>((Page<?>) body, view);
+            return new PageJsonViewValue((Page<?>) body, view);
         } else {
             return new JsonViewValue<>(body, view);
         }
