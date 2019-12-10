@@ -1,5 +1,11 @@
-package org.finalframework.data.result;
+package org.finalframework.json.jackson.view;
 
+
+import com.fasterxml.jackson.annotation.JsonView;
+import org.finalframework.data.result.Page;
+import org.finalframework.data.result.PageInfo;
+import org.finalframework.data.result.Viewable;
+import org.finalframework.json.jackson.serializer.JsonViewValueSerializer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +14,10 @@ import java.util.List;
  * @author likly
  * @version 1.0
  * @date 2019-12-09 10:57:58
+ * @see JsonView
+ * @see JsonViewValue
+ * @see JsonViewValueSerializer
+ * @see Page
  * @since 1.0
  */
 public class PageJsonViewValue<T extends Serializable> extends PageInfo implements Viewable, Serializable {

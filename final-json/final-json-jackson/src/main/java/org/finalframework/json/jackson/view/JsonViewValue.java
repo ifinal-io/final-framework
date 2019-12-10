@@ -1,7 +1,9 @@
-package org.finalframework.data.result;
+package org.finalframework.json.jackson.view;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.finalframework.data.result.Viewable;
+import org.finalframework.json.jackson.serializer.JsonViewValueSerializer;
 
 import java.io.Serializable;
 
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2019-12-06 10:32:29
  * @see JsonView
+ * @see JsonViewValueSerializer
  * @since 1.0
  */
 public class JsonViewValue<T> implements Viewable, Serializable {

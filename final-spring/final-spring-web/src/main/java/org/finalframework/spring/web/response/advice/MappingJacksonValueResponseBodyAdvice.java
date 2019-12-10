@@ -1,7 +1,7 @@
 package org.finalframework.spring.web.response.advice;
 
 
-import org.finalframework.data.result.JsonViewValue;
+import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.springframework.core.MethodParameter;
