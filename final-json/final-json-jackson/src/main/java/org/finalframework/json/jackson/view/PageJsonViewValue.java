@@ -21,7 +21,7 @@ import java.util.List;
  * @see Page
  * @since 1.0
  */
-public class PageJsonViewValue<T extends Serializable> extends JsonViewValue<JsonViewValue<List<T>>> implements Viewable, Serializable {
+public class PageJsonViewValue<T extends Serializable> extends JsonViewValue<JsonViewValue<List<T>>> {
 
     private static final long serialVersionUID = -7123032399172554094L;
     /**

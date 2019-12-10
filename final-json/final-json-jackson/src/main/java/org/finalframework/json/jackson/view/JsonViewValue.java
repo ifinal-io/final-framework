@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @see JsonViewValueSerializer
  * @since 1.0
  */
-public class JsonViewValue<T> implements Viewable, Serializable {
+public class JsonViewValue<T> implements Viewable<T>, Serializable {
     private static final long serialVersionUID = -4251222094454545408L;
     private final T value;
     private final Class<?> view;

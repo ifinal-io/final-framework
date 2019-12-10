@@ -1,6 +1,5 @@
 package org.finalframework.data.result;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -16,7 +15,6 @@ public interface Viewable<T> {
 
     Class<?> getView();
 
-    @JsonValue
     T getValue();
 
 }
