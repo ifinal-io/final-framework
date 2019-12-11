@@ -16,9 +16,21 @@ public class DefaultFunctionOperator implements FunctionOperator {
      * DATE()
      */
     public static final FunctionOperator DATE = new DefaultFunctionOperator("DATE");
+    /**
+     * AVG()
+     */
     public static final FunctionOperator AVG = new DefaultFunctionOperator("AVG");
+    /**
+     * MAX()
+     */
     public static final FunctionOperator MAX = new DefaultFunctionOperator("MAX");
+    /**
+     * MIN()
+     */
     public static final FunctionOperator MIN = new DefaultFunctionOperator("MIN");
+    /**
+     * SUM()
+     */
     public static final FunctionOperator SUM = new DefaultFunctionOperator("SUM");
     /**
      * a & b
