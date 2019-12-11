@@ -1,9 +1,7 @@
 package org.finalframework.data.result;
 
-import lombok.Data;
 import org.finalframework.data.entity.PageImpl;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +10,6 @@ import java.util.List;
  * @date 2018-09-26 21:09
  * @since 1.0
  */
-@Data
 public class Page<E> extends PageImpl<List<E>> {
 
     public Page() {
