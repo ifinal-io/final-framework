@@ -2,6 +2,7 @@ package org.finalframework.mybatis.handler;
 
 
 import org.finalframework.json.Json;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -11,10 +12,10 @@ import java.util.List;
  * @date 2018-09-26 23:55
  * @since 1.0
  */
-@SuppressWarnings("unchecked")
 public class JsonListTypeHandler<T> extends AbsJsonTypeHandler<List<T>> {
     private final Class<T> type;
-    public JsonListTypeHandler(Class<T> type) {
+
+    public JsonListTypeHandler(@NonNull Class<T> type) {
         this.type = type;
     }
 

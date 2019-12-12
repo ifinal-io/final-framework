@@ -1,7 +1,7 @@
 package org.finalframework.mybatis.handler;
 
-import lombok.NonNull;
 import org.finalframework.json.Json;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
