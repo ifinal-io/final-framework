@@ -1,6 +1,7 @@
 package org.finalframework.data.query.criterion.function;
 
 
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.operator.DefaultFunctionOperator;
 import org.finalframework.data.query.criterion.FunctionCriterion;
 import org.springframework.lang.NonNull;
@@ -14,35 +15,35 @@ import org.springframework.lang.NonNull;
 public interface NumberFunctionCriterion {
 
     static FunctionCriterion and(@NonNull Number value) {
-        return new SingleFunctionCriterion<>(DefaultFunctionOperator.AND, value);
+        return new SingleFunctionCriterion<>(FunctionOperation.AND, value);
     }
 
     static FunctionCriterion or(@NonNull Number value) {
-        return new SingleFunctionCriterion<>(DefaultFunctionOperator.OR, value);
+        return new SingleFunctionCriterion<>(FunctionOperation.OR, value);
     }
 
     static FunctionCriterion xor(@NonNull Number value) {
-        return new SingleFunctionCriterion<>(DefaultFunctionOperator.XOR, value);
+        return new SingleFunctionCriterion<>(FunctionOperation.XOR, value);
     }
 
     static FunctionCriterion not() {
-        return new SimpleFunctionCriterion(DefaultFunctionOperator.NOT);
+        return new SimpleFunctionCriterion(FunctionOperation.NOT);
     }
 
     static FunctionCriterion min() {
-        return new SimpleFunctionCriterion(DefaultFunctionOperator.MIN);
+        return new SimpleFunctionCriterion(FunctionOperation.MIN);
     }
 
     static FunctionCriterion max() {
-        return new SimpleFunctionCriterion(DefaultFunctionOperator.MAX);
+        return new SimpleFunctionCriterion(FunctionOperation.MAX);
     }
 
     static FunctionCriterion sum() {
-        return new SimpleFunctionCriterion(DefaultFunctionOperator.SUM);
+        return new SimpleFunctionCriterion(FunctionOperation.SUM);
     }
 
     static FunctionCriterion avg() {
-        return new SimpleFunctionCriterion(DefaultFunctionOperator.AVG);
+        return new SimpleFunctionCriterion(FunctionOperation.AVG);
     }
 
 }

@@ -1,7 +1,5 @@
 package org.finalframework.data.query.criterion.function;
 
-import org.finalframework.data.query.criterion.operator.FunctionOperator;
-
 /**
  * @author likly
  * @version 1.0
@@ -11,7 +9,7 @@ import org.finalframework.data.query.criterion.operator.FunctionOperator;
 public class SingleFunctionCriterion<T> extends SimpleFunctionCriterion {
     private final T value;
 
-    public SingleFunctionCriterion(FunctionOperator operator, T value) {
+    public SingleFunctionCriterion(String operator, T value) {
         super(operator);
         this.value = value;
     }

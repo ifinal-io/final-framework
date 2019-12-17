@@ -45,11 +45,11 @@ public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<
         return !criteria.isEmpty();
     }
 
-    protected T add(Criterion... criterion) {
+    public T add(Criterion... criterion) {
         return add(Arrays.asList(criterion));
     }
 
-    protected T add(Collection<Criterion> criterion) {
+    public T add(Collection<Criterion> criterion) {
         if (chain()) {
             return and(andOr(AndOr.AND, Collections.emptyList(), criterion));
         } else {

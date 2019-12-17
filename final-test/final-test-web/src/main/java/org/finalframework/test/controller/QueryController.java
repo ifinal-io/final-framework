@@ -39,7 +39,9 @@ public class QueryController {
 //        Query query = new Query();
 //        query.where(QPerson.created.date().eq("2019-11-23"));
         PersonQuery query = new PersonQuery();
-        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);//.addLastModifiedDateBetween("2019-12-01","2019-12-12");
+        query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));
+//        query.andCriteria().add(QPerson.intList.extract("$[1]").eq(2));
+//        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);//.addLastModifiedDateBetween("2019-12-01","2019-12-12");
 //        query.andCriteria().addMaxAgeGreaterThan(1);
 //        query.andCriteria().addAgeMaxGreaterThan(1);
 //        query.andGroupByName();

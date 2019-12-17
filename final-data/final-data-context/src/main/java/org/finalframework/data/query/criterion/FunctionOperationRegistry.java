@@ -1,17 +1,11 @@
 package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.data.query.criterion.function.FunctionOperations;
-import org.finalframework.data.query.criterion.function.operation.BaseFunctionOperations;
-import org.finalframework.data.query.criterion.function.operation.DateFunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.EnumBitFunctionOperations;
-import org.finalframework.data.query.criterion.function.operation.NumberFunctionOperations;
-import org.finalframework.data.query.criterion.operator.FunctionOperator;
+import org.finalframework.data.query.criterion.function.operation.*;
+import org.finalframework.util.LinkedMultiKeyMap;
+import org.finalframework.util.MultiKeyMap;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Arrays;
 
 /**
  * @author likly
@@ -24,23 +18,27 @@ public class FunctionOperationRegistry {
 
     private static final FunctionOperationRegistry INSTANCE = new FunctionOperationRegistry();
 
-    private final Map<Class, FunctionOperations> cache = new ConcurrentHashMap<>(32);
+    private final MultiKeyMap<String, Class<?>, FunctionCriterionOperation<?>> operations = new LinkedMultiKeyMap<>();
 
     {
+        registerCriterionOperation(new DateFunctionCriterionOperation());
 
-        registerCriterionOperation(Date.class, new DateFunctionOperation());
-        registerCriterionOperation(LocalDateTime.class, new DateFunctionOperation());
+        registerCriterionOperation(new NumberAndFunctionCriterionOperation<>());
+        registerCriterionOperation(new NumberOrFunctionCriterionOperation<>());
+        registerCriterionOperation(new NumberXorFunctionCriterionOperation<>());
+        registerCriterionOperation(new NumberNotFunctionCriterionOperation<>());
 
-        registerCriterionOperations(Byte.class, new NumberFunctionOperations<>(Byte.class));
-        registerCriterionOperations(byte.class, new NumberFunctionOperations<>(byte.class));
-        registerCriterionOperations(Short.class, new NumberFunctionOperations<>(Short.class));
-        registerCriterionOperations(short.class, new NumberFunctionOperations<>(short.class));
-        registerCriterionOperations(Integer.class, new NumberFunctionOperations<>(Integer.class));
-        registerCriterionOperations(int.class, new NumberFunctionOperations<>(int.class));
-        registerCriterionOperations(Long.class, new NumberFunctionOperations<>(Long.class));
-        registerCriterionOperations(long.class, new NumberFunctionOperations<>(long.class));
-        registerCriterionOperations(IEnum.class, new EnumBitFunctionOperations<>(IEnum.class));
+        registerCriterionOperation(new IEnumAndFunctionCriterionOperation<>());
+        registerCriterionOperation(new IEnumOrFunctionCriterionOperation<>());
+        registerCriterionOperation(new IEnumXorFunctionCriterionOperation<>());
+        registerCriterionOperation(new IEnumNotFunctionCriterionOperation<>());
 
+        registerCriterionOperation(new MinFunctionCriterionOperation());
+        registerCriterionOperation(new MaxFunctionCriterionOperation());
+        registerCriterionOperation(new SumFunctionCriterionOperation());
+        registerCriterionOperation(new AvgFunctionCriterionOperation());
+
+        registerCriterionOperation(new JsonExtractFunctionCriterionOperation<>());
     }
 
     private FunctionOperationRegistry() {
@@ -54,22 +52,26 @@ public class FunctionOperationRegistry {
         new FunctionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperations(Class<T> type, FunctionOperations<T> criterionOperations) {
-        cache.put(type, criterionOperations);
+    public <T> void registerCriterionOperation(String operator, Class<T> type, FunctionCriterionOperation operation) {
+        operations.add(operator, type, operation);
     }
 
-    public <T> void registerCriterionOperation(Class<T> type, FunctionOperation criterionOperation) {
-
-        if (!cache.containsKey(type)) {
-            cache.put(type, new BaseFunctionOperations(type));
+    public <T> void registerCriterionOperation(FunctionCriterionOperation criterionOperation) {
+        FunctionOperation functionOperation = criterionOperation.getClass().getAnnotation(FunctionOperation.class);
+        if (functionOperation == null) {
+            throw new IllegalArgumentException();
         }
-        final FunctionOperations criterionOperations = cache.get(type);
-        criterionOperations.register(criterionOperation);
-    }
 
+        String operator = functionOperation.value();
+        Class<?>[] types = functionOperation.types();
+
+        Arrays.stream(types).forEach(type -> registerCriterionOperation(operator, type, criterionOperation));
+
+
+    }
 
     @SuppressWarnings("unchecked")
-    public <T> FunctionOperation getCriterionOperation(FunctionOperator operator, Class<T> type) {
+    public <T> FunctionCriterionOperation getCriterionOperation(String operator, Class<T> type) {
         Class<?> key = type;
         if (type.isEnum()) {
             if (IEnum.class.isAssignableFrom(type)) {
@@ -77,16 +79,17 @@ public class FunctionOperationRegistry {
             }
         }
 
-        final FunctionOperations criterionOperations = cache.get(key);
+        FunctionCriterionOperation<?> functionCriterionOperation = operations.get(operator, key);
 
-        if (criterionOperations == null) {
-            throw new UnsupportedOperationException("不支持的类型:" + type.getCanonicalName());
+        if (functionCriterionOperation == null) {
+            functionCriterionOperation = operations.get(operator, Object.class);
         }
-        FunctionOperation criterionOperation = criterionOperations.get(operator);
-        if (criterionOperation == null) {
-            throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator.name(), type.getCanonicalName()));
+
+
+        if (functionCriterionOperation == null) {
+            throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator, type.getCanonicalName()));
         }
-        return criterionOperation;
+        return functionCriterionOperation;
     }
 
 

@@ -26,6 +26,13 @@ public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
     public static final PrimaryTypes FLOAT = new PrimaryTypes(float.class, Float.class);
     public static final PrimaryTypes DOUBLE = new PrimaryTypes(double.class, Double.class);
     public static final PrimaryTypes STRING = new PrimaryTypes(String.class);
+
+    public static final PrimaryTypes NUMBER = new PrimaryTypes(
+            byte.class, Byte.class, short.class, Short.class,
+            int.class, Integer.class, long.class, Long.class,
+            float.class, Float.class, double.class, Double.class
+    );
+
     public static final PrimaryTypes ALL = new PrimaryTypes(
             byte.class, Byte.class, short.class, Short.class,
             char.class, Character.class, boolean.class, Boolean.class,

@@ -12,6 +12,7 @@ import org.finalframework.data.entity.AbsEntity;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author likly
@@ -42,6 +43,8 @@ public class Person extends AbsEntity {
     private List<String> stringList;
     @JsonColumn
     private List<Integer> intList;
+    @JsonColumn
+    private Map<String, Object> properties;
     //    @NonColumn
     @ReferenceColumn(mode = ReferenceMode.SIMPLE, properties = {"id", "name", "age"})
     private Person creator;

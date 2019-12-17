@@ -1,10 +1,10 @@
 package org.finalframework.data.query.criteriable;
 
 
-import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.operator.DefaultFunctionOperator;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.function.SimpleFunctionCriterion;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 
 /**
  * @author likly
@@ -15,7 +15,7 @@ import org.finalframework.data.query.criterion.function.SimpleFunctionCriterion;
 public class DateCriteriableImpl<T> extends AbsCriteriable<T, String> implements DateCriteriable<T, Criterion> {
 
     public DateCriteriableImpl(QProperty<T> property) {
-        super(property, new SimpleFunctionCriterion(DefaultFunctionOperator.DATE));
+        super(property, new SimpleFunctionCriterion(FunctionOperation.DATE));
     }
 
 }

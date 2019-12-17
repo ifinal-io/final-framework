@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.function;
 
 import org.finalframework.data.query.criterion.FunctionCriterion;
-import org.finalframework.data.query.criterion.operator.DefaultFunctionOperator;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.springframework.lang.NonNull;
 
 /**
@@ -12,6 +12,6 @@ import org.springframework.lang.NonNull;
  */
 public interface JsonFunctionCriterion {
     static FunctionCriterion extract(@NonNull String path) {
-        return new SingleFunctionCriterion<>(DefaultFunctionOperator.JSON_EXTRACT, path);
+        return new SingleFunctionCriterion<>(FunctionOperation.JSON_EXTRACT, path);
     }
 }

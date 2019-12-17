@@ -2,7 +2,6 @@ package org.finalframework.data.query.criterion.function;
 
 
 import org.finalframework.data.query.criterion.FunctionCriterion;
-import org.finalframework.data.query.criterion.operator.FunctionOperator;
 
 /**
  * @author likly
@@ -11,14 +10,14 @@ import org.finalframework.data.query.criterion.operator.FunctionOperator;
  * @since 1.0
  */
 public class SimpleFunctionCriterion implements FunctionCriterion {
-    private final FunctionOperator operator;
+    private final String operator;
 
-    public SimpleFunctionCriterion(FunctionOperator operator) {
+    public SimpleFunctionCriterion(String operator) {
         this.operator = operator;
     }
 
     @Override
-    public FunctionOperator operator() {
+    public String operator() {
         return operator;
     }
 }

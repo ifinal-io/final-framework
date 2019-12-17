@@ -1,7 +1,5 @@
 package org.finalframework.data.query.criterion;
 
-import org.finalframework.data.query.criterion.operator.FunctionOperator;
-
 /**
  * @author likly
  * @version 1.0
@@ -9,5 +7,5 @@ import org.finalframework.data.query.criterion.operator.FunctionOperator;
  * @since 1.0
  */
 public interface FunctionCriterion {
-    FunctionOperator operator();
+    String operator();
 }
