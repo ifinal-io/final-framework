@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.operation;
 
-import org.finalframework.data.query.CriterionOperator;
-import org.finalframework.data.query.DefaultCriterionOperator;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 
 /**
  * @author likly

@@ -2,7 +2,7 @@ package org.finalframework.data.query.criteriable;
 
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.condition.*;
-import org.finalframework.data.query.function.NumberFunctionCriterion;
+import org.finalframework.data.query.criterion.function.NumberFunctionCriterion;
 
 /**
  * @author likly

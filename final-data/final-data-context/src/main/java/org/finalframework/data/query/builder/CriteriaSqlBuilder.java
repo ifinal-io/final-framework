@@ -2,6 +2,9 @@ package org.finalframework.data.query.builder;
 
 
 import org.finalframework.data.query.*;
+import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.CriterionOperation;
+import org.finalframework.data.query.criterion.CriterionOperationRegistry;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Collection;

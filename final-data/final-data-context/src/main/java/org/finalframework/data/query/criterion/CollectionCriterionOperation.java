@@ -1,9 +1,7 @@
 package org.finalframework.data.query.criterion;
 
-import org.finalframework.data.query.CriterionOperation;
-import org.finalframework.data.query.CriterionOperator;
-import org.finalframework.data.query.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
 
 import java.util.Collection;
 

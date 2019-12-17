@@ -2,10 +2,9 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.criteriable.Criteriable;
-import org.finalframework.data.query.criteriable.DateCriteriable;
-import org.finalframework.data.query.criteriable.Executable;
-import org.finalframework.data.query.criteriable.NumberCriteriable;
+import org.finalframework.data.query.criteriable.*;
+import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.springframework.lang.NonNull;
 
@@ -129,6 +128,11 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     @Override
     default NumberCriteriable<T, Number, Criterion> avg() {
         return NumberCriteriable.avg(this);
+    }
+
+    @Override
+    default JsonCriteriable<T, Object, Criterion> extract(String path) {
+        return JsonCriteriable.extract(this, path);
     }
 
     interface Builder<T> extends org.finalframework.core.Builder<QProperty<T>> {

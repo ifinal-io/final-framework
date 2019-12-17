@@ -3,8 +3,8 @@ package org.finalframework.data.query.criterion;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.*;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**

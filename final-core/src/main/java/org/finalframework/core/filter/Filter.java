@@ -1,7 +1,7 @@
 package org.finalframework.core.filter;
 
 /**
- * 数据过滤器，判断数据是否匹配
+ * 数据过滤器，判断数据是否匹配，用于过滤数据集中不符合目标数据的数据。
  *
  * @author likly
  * @version 1.0

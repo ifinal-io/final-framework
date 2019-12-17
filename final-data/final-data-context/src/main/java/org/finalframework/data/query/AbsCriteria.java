@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
 import org.finalframework.core.converter.Convertible;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.*;

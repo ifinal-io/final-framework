@@ -1,8 +1,8 @@
 package org.finalframework.data.query.criterion.operation;
 
 
-import org.finalframework.data.query.CriterionOperation;
-import org.finalframework.data.query.CriterionOperator;
+import org.finalframework.data.query.criterion.CriterionOperation;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.finalframework.data.query.criterion.CriterionOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
 package org.finalframework.data.query.criterion.operation;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.FunctionCriterion;
-import org.finalframework.data.query.FunctionOperationRegistry;
+import org.finalframework.data.query.criterion.FunctionCriterion;
+import org.finalframework.data.query.criterion.FunctionOperationRegistry;
 import org.finalframework.data.query.QProperty;
 
 import java.util.Collection;

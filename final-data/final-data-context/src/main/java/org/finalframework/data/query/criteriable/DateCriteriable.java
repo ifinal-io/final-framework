@@ -1,6 +1,6 @@
 package org.finalframework.data.query.criteriable;
 
-import org.finalframework.data.query.Criterion;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.condition.BetweenCondition;
 import org.finalframework.data.query.condition.CompareCondition;

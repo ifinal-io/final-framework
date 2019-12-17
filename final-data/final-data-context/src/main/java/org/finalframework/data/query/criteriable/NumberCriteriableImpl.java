@@ -1,10 +1,10 @@
 package org.finalframework.data.query.criteriable;
 
 
-import org.finalframework.data.query.Criterion;
-import org.finalframework.data.query.FunctionCriterion;
+import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.function.NumberFunctionCriterion;
+import org.finalframework.data.query.criterion.function.NumberFunctionCriterion;
 
 import java.util.Collection;
 
@@ -16,7 +16,7 @@ import java.util.Collection;
  */
 public class NumberCriteriableImpl<T> extends AbsCriteriable<T, Number> implements NumberCriteriable<T, Number, Criterion> {
 
-    NumberCriteriableImpl(QProperty<T> property) {
+    public NumberCriteriableImpl(QProperty<T> property) {
         super(property);
     }
 

@@ -2,6 +2,7 @@ package org.finalframework.data.query.criteriable;
 
 import org.finalframework.data.query.condition.BitFunctionCondition;
 import org.finalframework.data.query.condition.DateFunctionCondition;
+import org.finalframework.data.query.condition.JsonFunctionCondition;
 import org.finalframework.data.query.condition.MathFunctionCondition;
 
 /**
@@ -13,5 +14,6 @@ import org.finalframework.data.query.condition.MathFunctionCondition;
 public interface Executable<T, V, R> extends
         DateFunctionCondition<DateCriteriable<V, R>>,
         BitFunctionCondition<V, NumberCriteriable<T, Number, R>>,
-        MathFunctionCondition<V, NumberCriteriable<T, Number, R>> {
+        MathFunctionCondition<V, NumberCriteriable<T, Number, R>>,
+        JsonFunctionCondition<T, JsonCriteriable<T, Object, R>> {
 }

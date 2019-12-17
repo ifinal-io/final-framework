@@ -7,16 +7,13 @@
 package ${package};
 
 import org.finalframework.data.query.AbsCriteria;
-import org.finalframework.data.query.AbsQuery;
 import org.finalframework.data.query.Criteria;
-import org.finalframework.data.query.Criterion;
-import org.finalframework.data.query.criteriable.Criteriable;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import javax.annotation.Generated;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;

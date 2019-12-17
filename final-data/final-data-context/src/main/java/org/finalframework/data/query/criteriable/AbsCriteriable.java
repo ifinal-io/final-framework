@@ -7,9 +7,9 @@ import org.finalframework.data.query.condition.BetweenCondition;
 import org.finalframework.data.query.condition.CompareCondition;
 import org.finalframework.data.query.condition.InCondition;
 import org.finalframework.data.query.condition.LikeCondition;
-import org.finalframework.data.query.criterion.BetweenCriterion;
-import org.finalframework.data.query.criterion.LikeCriterion;
-import org.finalframework.data.query.criterion.SingleCriterion;
+import org.finalframework.data.query.criterion.*;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +25,6 @@ public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, Bet
         InCondition<V, Criterion>, LikeCondition<Criterion> {
     private final QProperty<T> property;
     private final Collection<FunctionCriterion> functions = new ArrayList<>();
-
-    @SuppressWarnings("all")
-    public AbsCriteriable() {
-        this(null);
-    }
-
     public AbsCriteriable(QProperty<T> property) {
         this.property = property;
     }

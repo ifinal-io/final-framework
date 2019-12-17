@@ -1,10 +1,10 @@
 package org.finalframework.data.query.criteriable;
 
 
-import org.finalframework.data.query.Criterion;
-import org.finalframework.data.query.DefaultFunctionOperator;
+import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.operator.DefaultFunctionOperator;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.function.SimpleFunctionCriterion;
+import org.finalframework.data.query.criterion.function.SimpleFunctionCriterion;
 
 /**
  * @author likly

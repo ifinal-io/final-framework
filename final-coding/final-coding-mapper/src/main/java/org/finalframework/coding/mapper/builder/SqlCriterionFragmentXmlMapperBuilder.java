@@ -3,8 +3,8 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.data.query.CriterionOperator;
-import org.finalframework.data.query.DefaultCriterionOperator;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

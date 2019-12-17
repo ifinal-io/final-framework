@@ -3,6 +3,8 @@ package org.finalframework.data.query;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.criteriable.AbsCriteriable;
+import org.finalframework.data.query.criteriable.JsonCriteriable;
+import org.finalframework.data.query.criterion.Criterion;
 
 /**
  * @author likly
@@ -28,7 +30,7 @@ public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> im
     private final boolean selectable;
 
     public QPropertyImpl(BuilderImpl<T, E> builder) {
-        super();
+        super(null);
         this.entity = builder.entity;
         this.type = builder.type;
         this.path = builder.path;
@@ -118,7 +120,6 @@ public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> im
     public boolean isSelectable() {
         return selectable;
     }
-
 
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
         private final E entity;

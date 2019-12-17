@@ -1,0 +1,15 @@
+package org.finalframework.data.query.criterion;
+
+import org.finalframework.data.query.criterion.operator.FunctionOperator;
+
+/**
+ * @author likly
+ * @version 1.0
+ * @date 2019-03-28 20:59:43
+ * @since 1.0
+ */
+public interface FunctionOperation<T extends FunctionCriterion> {
+    FunctionOperator operator();
+
+    String format(String column, T criterion);
+}

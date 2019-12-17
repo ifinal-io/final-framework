@@ -2,9 +2,9 @@ package org.finalframework.data.query.criterion.operation;
 
 
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.data.query.CriterionOperation;
-import org.finalframework.data.query.CriterionOperator;
-import org.finalframework.data.query.FunctionCriterion;
+import org.finalframework.data.query.criterion.CriterionOperation;
+import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.criterion.FunctionCriterion;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.SimpleCriterionOperations;
 import org.springframework.lang.NonNull;
