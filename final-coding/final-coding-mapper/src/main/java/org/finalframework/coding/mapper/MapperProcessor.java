@@ -50,9 +50,15 @@ import java.util.*;
 @SupportedAnnotationTypes("*")
 @SuppressWarnings("unused")
 public class MapperProcessor extends AbstractProcessor {
-    //    private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
+
+    /**
+     * <mapper namespace=\"%s\">
+     *
+     * </mapper>
+     */
+    private static final String MAPPER_TEMPLATE = "<mapper namespace=\"%s\">\n</mapper>";
+
     private static final String ABS_MAPPER = AbsMapper.class.getCanonicalName();
-    //    private final Coder coder = Coder.getDefaultCoder();
     private final Set<Element> mapperElements = new HashSet<>();
     private Filer filer;
     private Elements elementsUtils;
@@ -62,13 +68,6 @@ public class MapperProcessor extends AbstractProcessor {
     private DeclaredType absMapperType;
     private TypeElement repositoryTypeElement;
     private MappersHelper mappersHelper;
-
-//    @Override
-//    public Set<String> getSupportedAnnotationTypes() {
-//        Set<String> types = new LinkedHashSet<>();
-//        types.add(Mapper.class.getName());
-//        return types;
-//    }
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
@@ -292,11 +291,7 @@ public class MapperProcessor extends AbstractProcessor {
     }
 
     private String getMapperTemplate(String mapper) {
-        System.out.println("========================================================");
-        String format = String.format("<mapper namespace=\"%s\">\n" +
-                "</mapper>", mapper);
-        System.out.println(format);
-        return format;
+        return String.format(MAPPER_TEMPLATE, mapper);
     }
 
     private void info(String msg) {
