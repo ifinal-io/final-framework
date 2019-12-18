@@ -7,6 +7,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Pageable;
 
 import java.util.Map;
@@ -34,6 +35,10 @@ import java.util.Properties;
 )
 public abstract class PageableInterceptor implements Interceptor {
 
+    private static final String PAGE_PARAMETER = "page";
+    private static final String SIZE_PARAMETER = "size";
+    private static final String COUNT_PARAMETER = "count";
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
 
@@ -50,6 +55,21 @@ public abstract class PageableInterceptor implements Interceptor {
                             return invocation.proceed();
                         }
                     }
+
+                    PageQuery query = new PageQuery();
+                    if (map.containsKey(PAGE_PARAMETER) && map.get(PAGE_PARAMETER) instanceof Integer) {
+                        query.setPage((Integer) map.get(PAGE_PARAMETER));
+                    }
+                    if (map.containsKey(SIZE_PARAMETER) && map.get(SIZE_PARAMETER) instanceof Integer) {
+                        query.setSize((Integer) map.get(SIZE_PARAMETER));
+                    }
+                    if (map.containsKey(COUNT_PARAMETER) && map.get(COUNT_PARAMETER) instanceof Boolean) {
+                        query.setCount((Boolean) map.get(COUNT_PARAMETER));
+                    }
+                    startPage(query);
+                    return invocation.proceed();
+
+
                 } else if (parameter instanceof Pageable) {
                     startPage((Pageable) parameter);
                     return invocation.proceed();
@@ -64,6 +84,7 @@ public abstract class PageableInterceptor implements Interceptor {
     }
 
     protected abstract void startPage(Pageable pageable);
+
     @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
