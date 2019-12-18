@@ -33,8 +33,8 @@ public class MapperGenerator extends TemplateCodeGenerator {
                 .entity(EntityFactory.create(processEnv, typeElement))
                 .build();
 
+        String mapperName = mapper.getPackageName() + "." + mapper.getName();
         try {
-            String mapperName = mapper.getPackageName() + "." + mapper.getName();
             TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperName);
             if (mapperTypeElement == null) {
                 coder.coding(mapper, processEnv.getFiler().createSourceFile(mapperName).openWriter());

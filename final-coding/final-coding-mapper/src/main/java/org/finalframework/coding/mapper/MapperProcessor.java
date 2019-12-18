@@ -6,9 +6,7 @@ import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.finalframework.coding.entity.Entity;
-import org.finalframework.coding.entity.EntityFactory;
-import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.entity.*;
 import org.finalframework.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.coding.mapper.xml.Association;
@@ -37,10 +35,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Generate mapper.xml file of the mapper which annotated by {@link Mapper}.
@@ -52,11 +47,12 @@ import java.util.Set;
  * @since 1.0
  */
 @AutoService(Processor.class)
+@SupportedAnnotationTypes("*")
 @SuppressWarnings("unused")
 public class MapperProcessor extends AbstractProcessor {
     //    private static final Logger logger = LoggerFactory.getLogger(MapperProcessor.class);
     private static final String ABS_MAPPER = AbsMapper.class.getCanonicalName();
-//    private final Coder coder = Coder.getDefaultCoder();
+    //    private final Coder coder = Coder.getDefaultCoder();
     private final Set<Element> mapperElements = new HashSet<>();
     private Filer filer;
     private Elements elementsUtils;
@@ -65,13 +61,14 @@ public class MapperProcessor extends AbstractProcessor {
     private TypeElement absMapperElement;
     private DeclaredType absMapperType;
     private TypeElement repositoryTypeElement;
+    private MappersHelper mappersHelper;
 
-    @Override
-    public Set<String> getSupportedAnnotationTypes() {
-        Set<String> types = new LinkedHashSet<>();
-        types.add(Mapper.class.getName());
-        return types;
-    }
+//    @Override
+//    public Set<String> getSupportedAnnotationTypes() {
+//        Set<String> types = new LinkedHashSet<>();
+//        types.add(Mapper.class.getName());
+//        return types;
+//    }
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
@@ -107,13 +104,29 @@ public class MapperProcessor extends AbstractProcessor {
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
         absMapperType = (DeclaredType) absMapperElement.asType();
         Utils.init(processingEnv);
+        this.mappersHelper = new MappersHelper(processingEnv);
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) {
-//            generateMapperFiles(mapperElements);
-            generateMapperFiles2(mapperElements);
+            Mappers mappers = mappersHelper.parse();
+
+            Mappers.Builder builder = Mappers.builder();
+            builder.addMappers(mappers.getMappers());
+
+            mapperElements.stream().filter(it -> it instanceof TypeElement)
+                    .map(it -> (TypeElement) it)
+                    .forEach(it -> builder.addMapper(it));
+
+            Mappers mappers2 = builder.build();
+
+            mappersHelper.generate(mappers2);
+
+//            TypeElement typeElement = processingEnv.getElementUtils().getTypeElement("org.finalframework.test.dao.mapper.PersonMapper");
+            generateMapperFiles2(mappers2.getMappers());
+
+
         } else {
             mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
         }
@@ -182,7 +195,7 @@ public class MapperProcessor extends AbstractProcessor {
 
                         DeclaredType absMapperElement = findAbsMapperElement(it);
 
-                        if(absMapperElement != null){
+                        if (absMapperElement != null) {
 
                             List<? extends TypeMirror> typeArguments = absMapperElement.getTypeArguments();
                             DeclaredType entityType = (DeclaredType) typeArguments.get(1);
@@ -231,7 +244,7 @@ public class MapperProcessor extends AbstractProcessor {
     private DeclaredType findAbsMapperElement(TypeElement element) {
         for (TypeMirror item : element.getInterfaces()) {
 
-            if(item.toString().startsWith(ABS_MAPPER)){
+            if (item.toString().startsWith(ABS_MAPPER)) {
                 return (DeclaredType) item;
             }
 
