@@ -18,9 +18,6 @@ public class MapperGenerator extends TemplateCodeGenerator {
 
     private static final String MAPPER_PACKAGE_PATH = "dao.mapper";
 
-    private static final String ABS_MAPPER_TEMPLATE = "mapper/absMapper.jvm";
-    private static final String MAPPER_TEMPLATE = "mapper/mapper.jvm";
-
     private static final String MAPPER_PREFIX = "Abs";
     private static final String MAPPER_SUFFIX = "Mapper";
 
@@ -34,23 +31,23 @@ public class MapperGenerator extends TemplateCodeGenerator {
         final String packageName = packageNameGenerator.generate(typeElement);
         String mapperName = typeElement.getSimpleName().toString() + MAPPER_SUFFIX;
         String absMapperName = MAPPER_PREFIX + mapperName;
+
+        String mapperClassName = packageName + "." + mapperName;
+
+        TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperClassName);
+
         Mapper mapper = Mapper.builder()
                 .packageName(packageName)
-                .name(mapperName)
-                .mapper(absMapperName)
+                .name(mapperTypeElement == null ? mapperName : absMapperName)
                 .entity(EntityFactory.create(processEnv, typeElement))
                 .build();
 
-        String absMapperClassName = mapper.getPackageName() + "." + absMapperName;
-        String mapperClassName = mapper.getPackageName() + "." + mapperName;
+
         try {
-            TypeElement absMapperTypeElement = processEnv.getElementUtils().getTypeElement(absMapperClassName);
-            if (absMapperTypeElement == null) {
-                coder.coding(ABS_MAPPER_TEMPLATE, mapper, processEnv.getFiler().createSourceFile(absMapperClassName).openWriter());
-            }
-            TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperClassName);
-            if (mapperTypeElement == null) {
-                coder.coding(MAPPER_TEMPLATE, mapper, processEnv.getFiler().createSourceFile(mapperClassName).openWriter());
+            String mapperFileName = mapper.getPackageName() + "." + mapper.getName();
+            TypeElement mapperElement = processEnv.getElementUtils().getTypeElement(mapperFileName);
+            if (mapperElement == null) {
+                coder.coding(mapper, processEnv.getFiler().createSourceFile(mapperFileName).openWriter());
             }
 
         } catch (IOException e) {

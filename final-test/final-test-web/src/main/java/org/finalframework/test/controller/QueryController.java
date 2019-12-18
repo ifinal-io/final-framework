@@ -1,7 +1,6 @@
 package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.test.dao.mapper.PersonExtMapper;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.query.PersonQuery;
@@ -27,7 +26,7 @@ public class QueryController {
     public static final Logger logger = LoggerFactory.getLogger(QueryController.class);
 
     @Resource
-    private PersonExtMapper personExtMapper;
+    private PersonMapper personMapper;
 
     @GetMapping
     @JsonView(Person.class)
@@ -48,7 +47,7 @@ public class QueryController {
 //                .addIdEqual(1L)
 //                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
-        return personExtMapper.select(query);
+        return personMapper.select(query);
     }
 }
 
