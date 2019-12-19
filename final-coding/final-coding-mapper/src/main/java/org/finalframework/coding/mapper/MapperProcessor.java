@@ -110,37 +110,37 @@ public class MapperProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-        Set<TypeElement> typeElements = roundEnv.getRootElements()
-                .stream()
-                .filter(it -> it instanceof TypeElement)
-                .map(it -> (TypeElement) it)
-                .filter(it -> it.getAnnotation(Mapper.class) != null || it.getQualifiedName().toString().endsWith("Mapper"))
-                .collect(Collectors.toSet());
+//        Set<TypeElement> typeElements = roundEnv.getRootElements()
+//                .stream()
+//                .filter(it -> it instanceof TypeElement)
+//                .map(it -> (TypeElement) it)
+//                .filter(it -> it.getAnnotation(Mapper.class) != null || it.getQualifiedName().toString().endsWith("Mapper"))
+//                .collect(Collectors.toSet());
+//
+//        generateMapperFiles2(typeElements);
 
-        generateMapperFiles2(typeElements);
 
-//
-//        if (roundEnv.processingOver()) {
-//            Mappers mappers = mappersHelper.parse();
-//
-//            Mappers.Builder builder = Mappers.builder();
-//            builder.addMappers(mappers.getMappers());
-//
-//            mapperElements.stream().filter(it -> it instanceof TypeElement)
-//                    .map(it -> (TypeElement) it)
-//                    .forEach(it -> builder.addMapper(it));
-//
-//            Mappers mappers2 = builder.build();
-//
-//            mappersHelper.generate(mappers2);
-//
+        if (roundEnv.processingOver()) {
+            Mappers mappers = mappersHelper.parse();
+
+            Mappers.Builder builder = Mappers.builder();
+            builder.addMappers(mappers.getMappers());
+
+            mapperElements.stream().filter(it -> it instanceof TypeElement)
+                    .map(it -> (TypeElement) it)
+                    .forEach(it -> builder.addMapper(it));
+
+            Mappers mappers2 = builder.build();
+
+            mappersHelper.generate(mappers2);
+
 //            TypeElement typeElement = processingEnv.getElementUtils().getTypeElement("org.finalframework.test.dao.mapper.PersonMapper");
-//            generateMapperFiles2(mappers2.getMappers());
-//
-//
-//        } else {
-//            mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
-//        }
+            generateMapperFiles2(mappers2.getMappers());
+
+
+        } else {
+            mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
+        }
         return false;
     }
 

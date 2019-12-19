@@ -17,7 +17,7 @@ public class NameConverterRegistry {
 
     private static NameConverterRegistry instance = new NameConverterRegistry();
 
-    private final NameConverter defaultNameConverter = new SimpleNameConverter();
+    private final NameConverter defaultNameConverter = new CameHump2UnderlineNameConverter();
 
     private NameConverter tableNameConverter = defaultNameConverter;
     private NameConverter columnNameConverter = defaultNameConverter;

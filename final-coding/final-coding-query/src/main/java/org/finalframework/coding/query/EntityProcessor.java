@@ -5,6 +5,7 @@ import org.finalframework.coding.entity.Entities;
 import org.finalframework.coding.entity.EntitiesHelper;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -57,6 +58,7 @@ public class EntityProcessor extends AbstractProcessor {
         this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
         initLombokProcessor();
         Configuration.getInstance().load(processingEnv);
+        NameConverterRegistry.getInstance().reload();
         this.entitiesHelper = new EntitiesHelper(processingEnv);
         entityGenerator = new QEntityGenerator(processingEnv);
         queryGenerator = new QueryGenerator(processingEnv);

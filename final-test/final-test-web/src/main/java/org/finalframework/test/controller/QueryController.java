@@ -1,7 +1,6 @@
 package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.query.PersonQuery;
 import org.finalframework.test.query.QPerson;
@@ -25,8 +24,8 @@ import javax.annotation.Resource;
 public class QueryController {
     public static final Logger logger = LoggerFactory.getLogger(QueryController.class);
 
-    @Resource
-    private PersonMapper personMapper;
+//    @Resource
+//    private PersonMapper personMapper;
 
     @GetMapping
     @JsonView(Person.class)
@@ -34,6 +33,7 @@ public class QueryController {
 //        Query query = new Query();
 //        query.where(QPerson.created.date().eq("2019-11-23"));
         PersonQuery query = new PersonQuery();
+//        QPerson.properties.extract("$.name")
         query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));
 //        query.andCriteria().add(QPerson.intList.extract("$[1]").eq(2));
 //        query.andCriteria().addNameContains("1").addAgeGreaterThan(1);//.addLastModifiedDateBetween("2019-12-01","2019-12-12");
@@ -47,7 +47,8 @@ public class QueryController {
 //                .addIdEqual(1L)
 //                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
-        return personMapper.select(query);
+//        return personMapper.select(query);
+        return null;
     }
 }
 
