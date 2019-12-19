@@ -6,8 +6,16 @@ import ${mapper.entity.name};
 
 import javax.annotation.Generated;
 
+#if($mapper.inner)
+@Mapper
+@Generated("org.finalframework.coding.mapper.MapperGenerator")
+interface $!{mapper.name} extends AbsMapper<${mapper.entity.idProperty.type.replace("java.lang.","")},${mapper.entity.simpleName}>{
+
+}
+#else
 @Mapper
 @Generated("org.finalframework.coding.mapper.MapperGenerator")
 public interface $!{mapper.name} extends AbsMapper<${mapper.entity.idProperty.type.replace("java.lang.","")},${mapper.entity.simpleName}>{
 
 }
+#end

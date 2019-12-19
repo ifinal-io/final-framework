@@ -43,7 +43,7 @@ public class SqlOrderFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         foreach.setAttribute("collection", "sort");
         foreach.setAttribute("item", "order");
         foreach.setAttribute("separator", ",");
-        foreach.appendChild(textNode(document, "#{order.property.column} #{order.direction.value}"));
+        foreach.appendChild(textNode(document, "${order.property.column} ${order.direction.value}"));
 
         trim.appendChild(foreach);
 

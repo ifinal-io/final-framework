@@ -35,10 +35,12 @@ public class MapperGenerator extends TemplateCodeGenerator {
         String mapperClassName = packageName + "." + mapperName;
 
         TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperClassName);
-
+//        boolean inner = mapperTypeElement != null;
+        boolean inner = false;
         Mapper mapper = Mapper.builder()
                 .packageName(packageName)
-                .name(mapperTypeElement == null ? mapperName : absMapperName)
+                .name(inner ? absMapperName : mapperName)
+                .inner(inner)
                 .entity(EntityFactory.create(processEnv, typeElement))
                 .build();
 

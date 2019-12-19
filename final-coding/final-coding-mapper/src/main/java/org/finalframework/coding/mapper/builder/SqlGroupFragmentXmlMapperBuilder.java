@@ -36,7 +36,7 @@ public class SqlGroupFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
         foreach.setAttribute("collection", "group");
         foreach.setAttribute("item", "property");
         foreach.setAttribute("separator", ",");
-        foreach.appendChild(textNode(document, "#{property.column}"));
+        foreach.appendChild(textNode(document, "${property.column}"));
 
         trim.appendChild(foreach);
 

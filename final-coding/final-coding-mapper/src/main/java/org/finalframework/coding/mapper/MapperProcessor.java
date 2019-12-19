@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Generate mapper.xml file of the mapper which annotated by {@link Mapper}.
@@ -108,27 +109,38 @@ public class MapperProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        if (roundEnv.processingOver()) {
-            Mappers mappers = mappersHelper.parse();
 
-            Mappers.Builder builder = Mappers.builder();
-            builder.addMappers(mappers.getMappers());
+        Set<TypeElement> typeElements = roundEnv.getRootElements()
+                .stream()
+                .filter(it -> it instanceof TypeElement)
+                .map(it -> (TypeElement) it)
+                .filter(it -> it.getAnnotation(Mapper.class) != null || it.getQualifiedName().toString().endsWith("Mapper"))
+                .collect(Collectors.toSet());
 
-            mapperElements.stream().filter(it -> it instanceof TypeElement)
-                    .map(it -> (TypeElement) it)
-                    .forEach(it -> builder.addMapper(it));
+        generateMapperFiles2(typeElements);
 
-            Mappers mappers2 = builder.build();
-
-            mappersHelper.generate(mappers2);
-
+//
+//        if (roundEnv.processingOver()) {
+//            Mappers mappers = mappersHelper.parse();
+//
+//            Mappers.Builder builder = Mappers.builder();
+//            builder.addMappers(mappers.getMappers());
+//
+//            mapperElements.stream().filter(it -> it instanceof TypeElement)
+//                    .map(it -> (TypeElement) it)
+//                    .forEach(it -> builder.addMapper(it));
+//
+//            Mappers mappers2 = builder.build();
+//
+//            mappersHelper.generate(mappers2);
+//
 //            TypeElement typeElement = processingEnv.getElementUtils().getTypeElement("org.finalframework.test.dao.mapper.PersonMapper");
-            generateMapperFiles2(mappers2.getMappers());
-
-
-        } else {
-            mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
-        }
+//            generateMapperFiles2(mappers2.getMappers());
+//
+//
+//        } else {
+//            mapperElements.addAll(roundEnv.getElementsAnnotatedWith(Mapper.class));
+//        }
         return false;
     }
 
@@ -194,8 +206,7 @@ public class MapperProcessor extends AbstractProcessor {
 
                         DeclaredType absMapperElement = findAbsMapperElement(it);
 
-                        if (absMapperElement != null) {
-
+                        if (absMapperElement != null && absMapperElement.getTypeArguments().size() == 2) {
                             List<? extends TypeMirror> typeArguments = absMapperElement.getTypeArguments();
                             DeclaredType entityType = (DeclaredType) typeArguments.get(1);
                             TypeElement entityTypeElement = (TypeElement) entityType.asElement();

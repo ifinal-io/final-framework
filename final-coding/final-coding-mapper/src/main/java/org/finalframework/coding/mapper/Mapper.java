@@ -19,13 +19,13 @@ public class Mapper implements Serializable {
     private static final long serialVersionUID = 6273326791444775523L;
     private final String packageName;
     private final String name;
-    private final String mapper;
+    private final Boolean inner;
     private final Entity<Property> entity;
 
     private Mapper(Builder builder) {
         this.packageName = builder.packageName;
         this.name = builder.name;
-        this.mapper = builder.mapper;
+        this.inner = builder.inner;
         this.entity = builder.entity;
     }
 
@@ -41,9 +41,8 @@ public class Mapper implements Serializable {
         return name;
     }
 
-
-    public String getMapper() {
-        return mapper;
+    public Boolean getInner() {
+        return inner;
     }
 
     public Entity<Property> getEntity() {
@@ -53,7 +52,7 @@ public class Mapper implements Serializable {
     public static class Builder implements org.finalframework.core.Builder<Mapper> {
         private String packageName;
         private String name;
-        private String mapper;
+        private Boolean inner;
         private Entity<Property> entity;
 
         public Builder packageName(String packageName) {
@@ -61,13 +60,13 @@ public class Mapper implements Serializable {
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder inner(boolean inner) {
+            this.inner = inner;
             return this;
         }
 
-        public Builder mapper(String mapper) {
-            this.mapper = mapper;
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
 
