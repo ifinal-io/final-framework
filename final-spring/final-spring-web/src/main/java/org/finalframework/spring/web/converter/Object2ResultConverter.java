@@ -2,6 +2,7 @@ package org.finalframework.spring.web.converter;
 
 
 import org.finalframework.core.converter.Converter;
+import org.finalframework.data.result.Page;
 import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.json.jackson.view.PageJsonViewValue;
 import org.finalframework.data.result.R;
@@ -22,6 +23,13 @@ public class Object2ResultConverter implements Converter<Object, Result<?>> {
 
         if (body instanceof Result) {
             return (Result<?>) body;
+        }
+
+        if (body instanceof Page) {
+            Page<?> page = (Page) body;
+            Result<? extends List<?>> result = R.success(page.getResult());
+            result.setPage(page.toPageInfo());
+            return result;
         }
 
         if (body instanceof PageJsonViewValue) {

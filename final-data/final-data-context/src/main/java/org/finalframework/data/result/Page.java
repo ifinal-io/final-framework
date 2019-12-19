@@ -25,6 +25,7 @@ public class Page<E> extends PageImpl<List<E>> {
         setResult(builder.result);
     }
 
+
     public static <E> Builder<E> builder() {
         return new Builder<>();
     }
