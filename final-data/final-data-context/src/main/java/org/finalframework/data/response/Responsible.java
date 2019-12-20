@@ -9,6 +9,11 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public interface Responsible {
+    /**
+     * 响应状态码
+     *
+     * @see ResponseStatus#getCode()
+     */
     @NonNull
     Integer getStatus();
 

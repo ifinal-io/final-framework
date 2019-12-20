@@ -311,7 +311,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                         ifUpdateContains.setAttribute("test", ifTest);
 
                         ifUpdateContains.setAttribute("test", ifTest);
-                        final String multiColumn = property.getColumn();
+                        final String multiColumn = Utils.getInstance().formatPropertyWriteColumn(null, property);
 
                         List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                 .map(operation -> {
