@@ -34,9 +34,9 @@ public class QueryController {
         Query query = new Query();
 
 
-        QPerson.properties.extract("$.name").contains("中国");
+//        QPerson.properties.extract("$.name").contains("中国");
 
-        query.where(QPerson.created.date().eq("2019-11-23"));
+        query.where(QPerson.id.in(1L));
 //        PersonQuery query = new PersonQuery();
 //        QPerson.properties.extract("$.name")
 //        query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));

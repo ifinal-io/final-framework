@@ -114,12 +114,12 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default Criterion in(Collection<T> values) {
-        return new AbsCriteriable<>(this).in(values);
+        return new AbsCriteriable<>(this).in((Collection) values);
     }
 
     @Override
     default Criterion nin(Collection<T> values) {
-        return new AbsCriteriable<>(this).nin(values);
+        return new AbsCriteriable<>(this).nin((Collection) values);
     }
 
     @Override
