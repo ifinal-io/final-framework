@@ -148,68 +148,6 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
                 .build();
     }
 
-    @Override
-    public DateCriteriable<Criterion> date() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.DATE));
-        return new DateCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> min() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.MIN));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> max() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.MAX));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> sum() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.SUM));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> avg() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.AVG));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> and(V value) {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SingleFunctionCriterion<>(FunctionOperation.AND, value));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> or(V value) {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SingleFunctionCriterion<>(FunctionOperation.OR, value));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> xor(V value) {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SingleFunctionCriterion<>(FunctionOperation.XOR, value));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
-
-    @Override
-    public NumberCriteriable<Criterion> not() {
-        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
-        functions.add(new SimpleFunctionCriterion(FunctionOperation.NOT));
-        return new NumberCriteriableImpl<>(this.property, functions);
-    }
 
     @Override
     public FunctionCriteriable<V, Criterion> extract(String path) {
@@ -220,6 +158,60 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     @Override
     public FunctionCriteriable<V, Criterion> unquote() {
         this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.JSON_UNQUOTE));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> and(V value) {
+        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.AND, value));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> or(V value) {
+        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.OR, value));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> xor(V value) {
+        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.XOR, value));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> not() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.NOT));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> date() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.DATE));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> min() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.MIN));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> max() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.MAX));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> sum() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.SUM));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> avg() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.AVG));
         return this;
     }
 }

@@ -32,6 +32,10 @@ public class QueryController {
     @JsonView(Person.class)
     public Object query() {
         Query query = new Query();
+
+
+        QPerson.properties.extract("$.name").contains("中国");
+
         query.where(QPerson.created.date().eq("2019-11-23"));
 //        PersonQuery query = new PersonQuery();
 //        QPerson.properties.extract("$.name")

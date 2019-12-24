@@ -132,50 +132,6 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
         return new AbsCriteriable<>(this).notLike(prefix, value, suffix);
     }
 
-    @Override
-    default NumberCriteriable<Criterion> and(Object value) {
-        return new NumberCriteriableImpl<>(this, new SingleFunctionCriterion<>(FunctionOperation.AND, value));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> or(Object value) {
-        return new NumberCriteriableImpl<>(this, new SingleFunctionCriterion<>(FunctionOperation.OR, value));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> xor(Object value) {
-        return new NumberCriteriableImpl<>(this, new SingleFunctionCriterion<>(FunctionOperation.XOR, value));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> not() {
-        return new NumberCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.AND));
-    }
-
-    @Override
-    default DateCriteriable<Criterion> date() {
-        return new DateCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.DATE));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> min() {
-        return new NumberCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.MIN));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> max() {
-        return new NumberCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.MAX));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> sum() {
-        return new NumberCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.SUM));
-    }
-
-    @Override
-    default NumberCriteriable<Criterion> avg() {
-        return new NumberCriteriableImpl<>(this, new SimpleFunctionCriterion(FunctionOperation.AVG));
-    }
 
     @Override
     default FunctionCriteriable<Object, Criterion> extract(String path) {
@@ -185,6 +141,51 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     @Override
     default FunctionCriteriable<Object, Criterion> unquote() {
         return new AbsCriteriable<>(this, new SimpleFunctionCriterion(FunctionOperation.JSON_UNQUOTE));
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> and(Object value) {
+        return new AbsCriteriable<>(this).and(value);
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> or(Object value) {
+        return new AbsCriteriable<>(this).or(value);
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> xor(Object value) {
+        return new AbsCriteriable<>(this).xor(value);
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> not() {
+        return new AbsCriteriable<>(this).not();
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> date() {
+        return new AbsCriteriable<>(this).date();
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> min() {
+        return new AbsCriteriable<>(this).min();
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> max() {
+        return new AbsCriteriable<>(this).max();
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> sum() {
+        return new AbsCriteriable<>(this).sum();
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> avg() {
+        return new AbsCriteriable<>(this).avg();
     }
 
     @Override
