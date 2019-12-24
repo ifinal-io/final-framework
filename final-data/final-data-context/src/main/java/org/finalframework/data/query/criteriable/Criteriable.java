@@ -14,6 +14,7 @@ import java.util.Date;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public interface Criteriable<V, R> extends CompareCondition<V, R>, NullCondition<R>, InCondition<V, R>, LikeCondition<R>, BetweenCondition<V, R> {
+public interface Criteriable<V, R> extends NullCondition<R>, CompareCondition<V, R>, InCondition<V, R>, LikeCondition<R>, BetweenCondition<V, R> {
+
 
 }

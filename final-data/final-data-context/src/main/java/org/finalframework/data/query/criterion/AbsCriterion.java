@@ -60,7 +60,7 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @SuppressWarnings("unchecked")
-    protected String getPropertyColumn(QProperty property, Collection<FunctionCriterion> functions) {
+    protected String getPropertyColumn(QProperty property, Collection<? extends FunctionCriterion> functions) {
         String column = SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
                 String.format("`%s`", property.getColumn()) : property.getColumn();
 
@@ -69,7 +69,8 @@ public abstract class AbsCriterion<T> implements Criterion {
 
         if (Assert.nonEmpty(functions)) {
             for (FunctionCriterion function : functions) {
-                column = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), javaType).format(column, function);
+                FunctionCriterionOperation functionCriterionOperation = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), javaType);
+                column = functionCriterionOperation.format(column, function);
             }
         }
 

@@ -11,9 +11,9 @@ import org.finalframework.data.query.condition.MathFunctionCondition;
  * @date 2019-03-28 23:09:27
  * @since 1.0
  */
-public interface Executable<T, V, R> extends
-        DateFunctionCondition<DateCriteriable<V, R>>,
-        BitFunctionCondition<V, NumberCriteriable<T, Number, R>>,
-        MathFunctionCondition<V, NumberCriteriable<T, Number, R>>,
-        JsonFunctionCondition<T, JsonCriteriable<T, Object, R>> {
+public interface ExecuteCriteriable<V, R> extends
+        DateFunctionCondition<DateCriteriable<R>>,
+        MathFunctionCondition<V, NumberCriteriable<R>>,
+        BitFunctionCondition<V, NumberCriteriable<R>>,
+        JsonFunctionCondition<V, FunctionCriteriable<V, R>> {
 }

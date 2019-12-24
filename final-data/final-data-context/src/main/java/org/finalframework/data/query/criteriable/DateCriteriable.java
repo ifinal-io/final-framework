@@ -1,10 +1,5 @@
 package org.finalframework.data.query.criteriable;
 
-import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.condition.BetweenCondition;
-import org.finalframework.data.query.condition.CompareCondition;
-import org.finalframework.data.query.condition.InCondition;
 import org.springframework.lang.NonNull;
 
 import java.text.SimpleDateFormat;
@@ -16,14 +11,10 @@ import java.util.Date;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-11-23 23:37:22
+ * @date 2019-12-24 15:30:04
  * @since 1.0
  */
-public interface DateCriteriable<T, R> extends CompareCondition<String, R>, BetweenCondition<String, R>, InCondition<String, R> {
-
-    static <T> DateCriteriable<T, Criterion> date(QProperty<T> property) {
-        return new DateCriteriableImpl<>(property);
-    }
+public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
 
     default R eq(@NonNull Date date) {
         return eq(new SimpleDateFormat("yyyy-MM-dd").format(date));

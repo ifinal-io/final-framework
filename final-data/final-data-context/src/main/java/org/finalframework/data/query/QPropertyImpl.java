@@ -2,9 +2,6 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.criteriable.AbsCriteriable;
-import org.finalframework.data.query.criteriable.JsonCriteriable;
-import org.finalframework.data.query.criterion.Criterion;
 
 /**
  * @author likly
@@ -12,7 +9,7 @@ import org.finalframework.data.query.criterion.Criterion;
  * @date 2019-10-21 10:27:10
  * @since 1.0
  */
-public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> implements QProperty<T> {
+public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
 
     private final E entity;
     private final Class<T> type;
@@ -30,7 +27,7 @@ public class QPropertyImpl<T, E extends QEntity> extends AbsCriteriable<T, T> im
     private final boolean selectable;
 
     public QPropertyImpl(BuilderImpl<T, E> builder) {
-        super(null);
+//        super(null);
         this.entity = builder.entity;
         this.type = builder.type;
         this.path = builder.path;

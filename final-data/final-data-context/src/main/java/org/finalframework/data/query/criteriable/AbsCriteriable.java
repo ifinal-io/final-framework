@@ -2,17 +2,15 @@ package org.finalframework.data.query.criteriable;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.*;
-import org.finalframework.data.query.condition.BetweenCondition;
-import org.finalframework.data.query.condition.CompareCondition;
-import org.finalframework.data.query.condition.InCondition;
-import org.finalframework.data.query.condition.LikeCondition;
+import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
+import org.finalframework.data.query.criterion.function.SimpleFunctionCriterion;
+import org.finalframework.data.query.criterion.function.SingleFunctionCriterion;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -21,16 +19,17 @@ import java.util.Collection;
  * @date 2019-11-24 14:59:59
  * @since 1.0
  */
-public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, BetweenCondition<V, Criterion>,
-        InCondition<V, Criterion>, LikeCondition<Criterion> {
+public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, FunctionCriteriable<V, Criterion> {
     private final QProperty<T> property;
     private final Collection<FunctionCriterion> functions = new ArrayList<>();
+
     public AbsCriteriable(QProperty<T> property) {
         this.property = property;
     }
 
-    public AbsCriteriable(QProperty<T> property, FunctionCriterion functions) {
-        this(property, Arrays.asList(functions));
+    public AbsCriteriable(QProperty<T> property, FunctionCriterion function) {
+        this(property);
+        this.addFunctionCriterion(function);
     }
 
     public AbsCriteriable(QProperty<T> property, Collection<FunctionCriterion> functions) {
@@ -42,6 +41,21 @@ public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, Bet
         this.functions.add(function);
     }
 
+    @Override
+    public Criterion isNull() {
+        return SingleCriterion.builder()
+                .property(this.property)
+                .operator(DefaultCriterionOperator.NULL)
+                .build();
+    }
+
+    @Override
+    public Criterion isNotNull() {
+        return SingleCriterion.builder()
+                .property(this.property)
+                .operator(DefaultCriterionOperator.NOT_NULL)
+                .build();
+    }
 
     @Override
     public Criterion between(V min, V max) {
@@ -106,7 +120,7 @@ public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, Bet
     private Criterion buildSingleCriterion(CriterionOperator operator, Object value) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
-                .property(this.property == null ? (QProperty) this : this.property)
+                .property(this.property)
                 .function(this.functions)
                 .operator(operator)
                 .value(value)
@@ -116,7 +130,7 @@ public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, Bet
     private Criterion buildLikeCriterion(CriterionOperator operator, String prefix, String value, String suffix) {
         Assert.isNull(value, "value is null");
         return LikeCriterion.builder()
-                .property(this.property == null ? (QProperty) this : this.property)
+                .property(this.property)
                 .function(this.functions)
                 .operator(operator)
                 .like(prefix, value, suffix)
@@ -127,11 +141,86 @@ public class AbsCriteriable<T, V> implements CompareCondition<V, Criterion>, Bet
         Assert.isNull(min, "min is null");
         Assert.isNull(max, "max is null");
         return BetweenCriterion.builder()
-                .property(this.property == null ? (QProperty) this : this.property)
+                .property(this.property)
                 .function(this.functions)
                 .operator(operator)
                 .between(min, max)
                 .build();
+    }
+
+    @Override
+    public DateCriteriable<Criterion> date() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.DATE));
+        return new DateCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> min() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.MIN));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> max() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.MAX));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> sum() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.SUM));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> avg() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.AVG));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> and(V value) {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SingleFunctionCriterion<>(FunctionOperation.AND, value));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> or(V value) {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SingleFunctionCriterion<>(FunctionOperation.OR, value));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> xor(V value) {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SingleFunctionCriterion<>(FunctionOperation.XOR, value));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public NumberCriteriable<Criterion> not() {
+        ArrayList<FunctionCriterion> functions = new ArrayList<>(this.functions);
+        functions.add(new SimpleFunctionCriterion(FunctionOperation.NOT));
+        return new NumberCriteriableImpl<>(this.property, functions);
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> extract(String path) {
+        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.JSON_EXTRACT, path));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> unquote() {
+        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.JSON_UNQUOTE));
+        return this;
     }
 }
 

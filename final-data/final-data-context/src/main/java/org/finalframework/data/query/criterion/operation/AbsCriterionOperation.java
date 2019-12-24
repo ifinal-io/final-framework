@@ -2,6 +2,7 @@ package org.finalframework.data.query.criterion.operation;
 
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.criterion.FunctionCriterion;
+import org.finalframework.data.query.criterion.FunctionCriterionOperation;
 import org.finalframework.data.query.criterion.FunctionOperationRegistry;
 import org.finalframework.data.query.QProperty;
 
@@ -21,10 +22,12 @@ public abstract class AbsCriterionOperation<T> {
 
     static {
         SQL_KEYS.add("key");
+        SQL_KEYS.add("order");
+        SQL_KEYS.add("group");
     }
 
     @SuppressWarnings("unchecked")
-    protected String getPropertyColumn(QProperty property, Collection<FunctionCriterion> functions) {
+    protected String getPropertyColumn(QProperty property, Collection<? extends FunctionCriterion> functions) {
         String column = SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
                 String.format("`%s`", property.getColumn()) : property.getColumn();
 
@@ -34,7 +37,8 @@ public abstract class AbsCriterionOperation<T> {
 
         if (Assert.nonEmpty(functions)) {
             for (FunctionCriterion function : functions) {
-                column = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), javaType).format(column, function);
+                FunctionCriterionOperation functionCriterionOperation = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), javaType);
+                column = functionCriterionOperation.format(column, function);
             }
         }
 

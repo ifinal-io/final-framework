@@ -346,6 +346,7 @@
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

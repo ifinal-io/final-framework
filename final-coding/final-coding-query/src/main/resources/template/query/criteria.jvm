@@ -3,6 +3,7 @@
 #set($properties = $criteria.entity.properties)
 #set($qentity = $criteria.entity.simpleName)
 #set($criteria = $criteria.simpleName)
+#set($prefix = "add")
 #* @formatter:off *#
 package ${package};
 
@@ -60,7 +61,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#eq(Object)
      */
-    public ${_returnValue} add${_name}Equal(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}Equal(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.eq(${_paramterName}));
         return this;
     }
@@ -68,7 +69,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#neq(Object)
      */
-    public ${_returnValue} add${_name}NotEqual(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotEqual(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.neq(${_paramterName}));
         return this;
     }
@@ -76,7 +77,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
     * @see Criteriable#gt(Object)
     */
-    public ${_returnValue} add${_name}GreaterThan(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}GreaterThan(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.gt(${_paramterName}));
         return this;
     }
@@ -84,7 +85,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
     * @see Criteriable#gte(Object)
     */
-    public ${_returnValue} add${_name}GreaterThanEqual(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}GreaterThanEqual(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.gte(${_paramterName}));
         return this;
     }
@@ -93,7 +94,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
     * @see Criteriable#lt(Object)
     */
-    public ${_returnValue} add${_name}LessThan(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}LessThan(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.gt(${_paramterName}));
         return this;
     }
@@ -101,7 +102,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
     * @see Criteriable#lte(Object)
     */
-    public ${_returnValue} add${_name}LessThanEqual(${_paramterType} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}LessThanEqual(${_paramterType} ${_paramterName}){
         add(${qentity}.${property.name}.gte(${_paramterName}));
         return this;
     }
@@ -111,7 +112,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#in(Object[])
      */
-    public ${_returnValue} add${_name}In(${_paramterType}... ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}In(${_paramterType}... ${_paramterName}){
         add(${qentity}.${property.name}.in(${_paramterName}));
         return this;
     }
@@ -119,7 +120,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#in(Collection)
      */
-    public ${_returnValue} add${_name}In(Collection<${_paramterType}> ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}In(Collection<${_paramterType}> ${_paramterName}){
         add(${qentity}.${property.name}.in(${_paramterName}));
         return this;
     }
@@ -127,7 +128,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#nin(Object[])
      */
-    public ${_returnValue} add${_name}NotIn(${_paramterType}... ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotIn(${_paramterType}... ${_paramterName}){
         add(${qentity}.${property.name}.in(${_paramterName}));
         return this;
     }
@@ -135,7 +136,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#nin(Collection)
      */
-    public ${_returnValue} add${_name}NotIn(Collection<${_paramterType}> ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotIn(Collection<${_paramterType}> ${_paramterName}){
         add(${qentity}.${property.name}.in(${_paramterName}));
         return this;
     }
@@ -145,7 +146,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#isNull()
      */
-    public ${_returnValue} add${_name}IsNull(){
+    public ${_returnValue} ${prefix}${_name}IsNull(){
         add(${qentity}.${property.name}.isNull());
         return this;
     }
@@ -153,7 +154,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#isNotNull()
      */
-    public ${_returnValue} add${_name}IsNotNull(){
+    public ${_returnValue} ${prefix}${_name}IsNotNull(){
         add(${qentity}.${property.name}.isNotNull());
         return this;
     }
@@ -164,56 +165,56 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
     * @see Criteriable#startWith(String)
     */
-    public ${_returnValue} add${_name}StartWith(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}StartWith(String ${_paramterName}){
         add(${qentity}.${property.name}.startWith(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#notStartWith(String)
     */
-    public ${_returnValue} add${_name}NotStartWith(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotStartWith(String ${_paramterName}){
         add(${qentity}.${property.name}.notStartWith(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#endWith(String)
     */
-    public ${_returnValue} add${_name}EndWith(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}EndWith(String ${_paramterName}){
         add(${qentity}.${property.name}.endWith(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#notEndWith(String)
     */
-    public ${_returnValue} add${_name}NotEndWith(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotEndWith(String ${_paramterName}){
         add(${qentity}.${property.name}.notEndWith(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#contains(String)
     */
-    public ${_returnValue} add${_name}Contains(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}Contains(String ${_paramterName}){
         add(${qentity}.${property.name}.contains(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#notContains(String)
     */
-    public ${_returnValue} add${_name}NotContains(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotContains(String ${_paramterName}){
         add(${qentity}.${property.name}.notContains(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#like(String)
     */
-    public ${_returnValue} add${_name}Like(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}Like(String ${_paramterName}){
         add(${qentity}.${property.name}.like(${_paramterName}));
         return this;
     }
     /**
     * @see Criteriable#notLike(String)
     */
-    public ${_returnValue} add${_name}NotLike(String ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotLike(String ${_paramterName}){
         add(${qentity}.${property.name}.notLike(${_paramterName}));
         return this;
     }
@@ -225,7 +226,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#eq(${date})
      */
-    public ${_returnValue} add${_name}DateEqual(${date} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}DateEqual(${date} ${_paramterName}){
         add(${qentity}.${property.name}.date().eq(${_paramterName}));
         return this;
     }
@@ -233,7 +234,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#neq(${date})
      */
-    public ${_returnValue} add${_name}NotDateEqual(${date} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}NotDateEqual(${date} ${_paramterName}){
         add(${qentity}.${property.name}.date().neq(${_paramterName}));
         return this;
     }
@@ -241,7 +242,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#lt(${date})
      */
-    public ${_returnValue} add${_name}DateBefore(${date} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}DateBefore(${date} ${_paramterName}){
         add(${qentity}.${property.name}.date().lt(${_paramterName}));
         return this;
     }
@@ -249,7 +250,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#gt(${date})
      */
-    public ${_returnValue} add${_name}DateAfter(${date} ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}DateAfter(${date} ${_paramterName}){
         add(${qentity}.${property.name}.date().gt(${_paramterName}));
         return this;
     }
@@ -257,7 +258,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#between(${date},${date})
      */
-    public ${_returnValue} add${_name}DateBetween(${date} min,${date} max){
+    public ${_returnValue} ${prefix}${_name}DateBetween(${date} min,${date} max){
         add(${qentity}.${property.name}.date().between(min, max));
         return this;
     }
@@ -265,7 +266,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#date()#notBetween(${date},${date})
      */
-    public ${_returnValue} add${_name}NotDateBetween(${date} min,${date} max){
+    public ${_returnValue} ${prefix}${_name}NotDateBetween(${date} min,${date} max){
         add(${qentity}.${property.name}.date().notBetween(min, max));
         return this;
     }
@@ -284,42 +285,42 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#${function}()#eq(Object)
      */
-    public ${_returnValue} add${_name}${_function}Equal(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}Equal(Number ${_paramterName}){
         add(${qentity}.${property.name}.${function}().eq(${_paramterName}));
         return this;
     }
     /**
      * @see Criteriable#${function}()#ne(Object)
      */
-    public ${_returnValue} add${_name}${_function}NotEqual(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}NotEqual(Number ${_paramterName}){
         add(${qentity}.${property.name}.${function}().neq(${_paramterName}));
         return this;
     }
     /**
      * @see Criteriable#${function}()#gt(Object)
      */
-    public ${_returnValue} add${_name}${_function}GreaterThan(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}GreaterThan(Number ${_paramterName}){
         add(${qentity}.${property.name}.${function}().gt(${_paramterName}));
         return this;
     }
     /**
      * @see Criteriable#${function}()#gte(Object)
      */
-    public ${_returnValue} add${_name}${_function}GreaterThanEqual(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}GreaterThanEqual(Number ${_paramterName}){
         add(${qentity}.${property.name}.${function}().gte(${_paramterName}));
         return this;
     }
     /**
      * @see Criteriable#${function}()#lt(Object)
      */
-    public ${_returnValue} add${_name}${_function}LessThan(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}LessThan(Number ${_paramterName}){
         add(${qentity}.${property.name}.${function}().lt(${_paramterName}));
         return this;
     }
     /**
      * @see Criteriable#${function}()#lte(Object)
      */
-    public ${_returnValue} add${_name}${_function}LessThanEqual(Number ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}LessThanEqual(Number ${_paramterName}){
             add(${qentity}.${property.name}.${function}().lte(${_paramterName}));
             return this;
             }
@@ -327,14 +328,14 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#${function}()#in(Collection)
      */
-    public ${_returnValue} add${_name}${_function}In(Collection<Number> ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}In(Collection<Number> ${_paramterName}){
             add(${qentity}.${property.name}.${function}().in(${_paramterName}));
             return this;
             }
     /**
      * @see Criteriable#${function}()#nin(Collection)
      */
-    public ${_returnValue} add${_name}${_function}NotIn(Collection<Number> ${_paramterName}){
+    public ${_returnValue} ${prefix}${_name}${_function}NotIn(Collection<Number> ${_paramterName}){
         add(${qentity}.${property.name}.${function}().nin(${_paramterName}));
         return this;
     }
@@ -342,14 +343,14 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
     /**
      * @see Criteriable#${function}()#between(Object,Object)
      */
-    public ${_returnValue} add${_name}${_function}Between(Number min,Number max){
+    public ${_returnValue} ${prefix}${_name}${_function}Between(Number min,Number max){
         add(${qentity}.${property.name}.${function}().between(min, max));
         return this;
     }
     /**
      * @see Criteriable#${function}()#notBetween(Object,Object)
      */
-    public ${_returnValue} add${_name}${_function}NotBetween(Number min,Number max){
+    public ${_returnValue} ${prefix}${_name}${_function}NotBetween(Number min,Number max){
         add(${qentity}.${property.name}.${function}().notBetween(min, max));
         return this;
     }

@@ -26,31 +26,31 @@ import java.lang.annotation.Target;
 public @interface FunctionOperation {
 
     /**
-     * DATE()
+     * DATE(value)
      *
      * @see DateFunctionCriterionOperation
      */
     String DATE = "DATE";
     /**
-     * MIN()
+     * MIN(value)
      *
      * @see MinFunctionCriterionOperation
      */
     String MIN = "MIN";
     /**
-     * MAX()
+     * MAX(value)
      *
      * @see MaxFunctionCriterionOperation
      */
     String MAX = "MAX";
     /**
-     * SUM()
+     * SUM(value)
      *
      * @see SumFunctionCriterionOperation
      */
     String SUM = "SUM";
     /**
-     * AVG()
+     * AVG(value)
      *
      * @see AvgFunctionCriterionOperation
      */
@@ -85,6 +85,12 @@ public @interface FunctionOperation {
      * @see JsonExtractFunctionCriterionOperation
      */
     String JSON_EXTRACT = "JSON_EXTRACT";
+    /**
+     * JSON_UNQUOTE(value)
+     *
+     * @see JsonExtractFunctionCriterionOperation
+     */
+    String JSON_UNQUOTE = "JSON_UNQUOTE";
 
     String value();
 

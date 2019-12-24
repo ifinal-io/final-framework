@@ -18,7 +18,7 @@ public class FunctionOperationRegistry {
 
     private static final FunctionOperationRegistry INSTANCE = new FunctionOperationRegistry();
 
-    private final MultiKeyMap<String, Class<?>, FunctionCriterionOperation<?>> operations = new LinkedMultiKeyMap<>();
+    private final MultiKeyMap<String, Class<?>, FunctionCriterionOperation<? extends FunctionCriterion>> operations = new LinkedMultiKeyMap<>();
 
     {
         registerCriterionOperation(new DateFunctionCriterionOperation());
@@ -39,6 +39,7 @@ public class FunctionOperationRegistry {
         registerCriterionOperation(new AvgFunctionCriterionOperation());
 
         registerCriterionOperation(new JsonExtractFunctionCriterionOperation<>());
+        registerCriterionOperation(new JsonUnquoteFunctionCriterionOperation<>());
     }
 
     private FunctionOperationRegistry() {
@@ -52,11 +53,11 @@ public class FunctionOperationRegistry {
         new FunctionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperation(String operator, Class<T> type, FunctionCriterionOperation operation) {
+    public <T> void registerCriterionOperation(String operator, Class<T> type, FunctionCriterionOperation<? extends FunctionCriterion> operation) {
         operations.add(operator, type, operation);
     }
 
-    public <T> void registerCriterionOperation(FunctionCriterionOperation criterionOperation) {
+    public <T> void registerCriterionOperation(FunctionCriterionOperation<? extends FunctionCriterion> criterionOperation) {
         FunctionOperation functionOperation = criterionOperation.getClass().getAnnotation(FunctionOperation.class);
         if (functionOperation == null) {
             throw new IllegalArgumentException();
@@ -71,7 +72,7 @@ public class FunctionOperationRegistry {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> FunctionCriterionOperation getCriterionOperation(String operator, Class<T> type) {
+    public <T> FunctionCriterionOperation<? extends FunctionCriterion> getCriterionOperation(String operator, Class<T> type) {
         Class<?> key = type;
         if (type.isEnum()) {
             if (IEnum.class.isAssignableFrom(type)) {
@@ -79,7 +80,7 @@ public class FunctionOperationRegistry {
             }
         }
 
-        FunctionCriterionOperation<?> functionCriterionOperation = operations.get(operator, key);
+        FunctionCriterionOperation<? extends FunctionCriterion> functionCriterionOperation = operations.get(operator, key);
 
         if (functionCriterionOperation == null) {
             functionCriterionOperation = operations.get(operator, Object.class);
