@@ -133,12 +133,12 @@ public abstract class AbsXmlMapperBuilder {
         return choose;
     }
 
-    protected Element whenOrOtherwise(@NonNull Document document, @Nullable String test, @NonNull Node child) {
+    protected Element whenOrOtherwise(@NonNull Document document, @Nullable String test, @NonNull Node... child) {
         final Element when = document.createElement(test != null ? "when" : "otherwise");
         if (test != null) {
             when.setAttribute("test", test);
         }
-        when.appendChild(child);
+        Arrays.stream(child).forEach(when::appendChild);
         return when;
     }
 

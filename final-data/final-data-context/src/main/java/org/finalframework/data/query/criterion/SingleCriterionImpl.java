@@ -23,6 +23,10 @@ public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCri
         return value;
     }
 
+    public String getFunctionValue() {
+        return getFunctionValue("#{value}");
+    }
+
     private static class BuilderImpl<T> extends AbsBuilder<SingleCriterion<T>, SingleCriterion.Builder<T>>
             implements SingleCriterion.Builder<T> {
         private T value;

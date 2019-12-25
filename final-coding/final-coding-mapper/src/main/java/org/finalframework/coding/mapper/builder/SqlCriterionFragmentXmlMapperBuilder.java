@@ -29,24 +29,53 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
         sql.appendChild(choose(document, Arrays.asList(
 
-                whenOrOtherwise(document, test(DefaultCriterionOperator.EQUAL), cdata(document, "${criterion.column} = #{criterion.value}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_EQUAL), cdata(document, "${criterion.column} != #{criterion.value}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.GREATER_THAN), cdata(document, "${criterion.column} > #{criterion.value}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.GREATER_THAN_EQUAL), cdata(document, "${criterion.column} >= #{criterion.value}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.LESS_THAN), cdata(document, "${criterion.column} < #{criterion.value}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.LESS_THAN_EQUAL), cdata(document, "${criterion.column} <= #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.EQUAL), cdata(document, "${criterion.column} = #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_EQUAL), cdata(document, "${criterion.column} != #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.GREATER_THAN), cdata(document, "${criterion.column} > #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.GREATER_THAN_EQUAL), cdata(document, "${criterion.column} >= #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.LESS_THAN), cdata(document, "${criterion.column} < #{criterion.value}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.LESS_THAN_EQUAL), cdata(document, "${criterion.column} <= #{criterion.value}")),
 
-                whenOrOtherwise(document, test(DefaultCriterionOperator.BETWEEN), cdata(document, "${criterion.column} BETWEEN #{criterion.min} AND #{criterion.max}")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_BETWEEN), cdata(document, "${criterion.column} NOT BETWEEN #{criterion.min} AND #{criterion.max}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.BETWEEN), cdata(document, "${criterion.column} BETWEEN #{criterion.min} AND #{criterion.max}")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_BETWEEN), cdata(document, "${criterion.column} NOT BETWEEN #{criterion.min} AND #{criterion.max}")),
 
-                whenOrOtherwise(document, test(DefaultCriterionOperator.LIKE), cdata(document, "${criterion.column} LIKE CONCAT('${criterion.prefix}',#{criterion.value},'${criterion.suffix}')")),
-                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_LIKE), cdata(document, "${criterion.column} NOT LIKE CONCAT('${criterion.prefix}',#{criterion.value},'${criterion.suffix}')")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.LIKE), cdata(document, "${criterion.column} LIKE CONCAT('${criterion.prefix}',#{criterion.value},'${criterion.suffix}')")),
+//                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_LIKE), cdata(document, "${criterion.column} NOT LIKE CONCAT('${criterion.prefix}',#{criterion.value},'${criterion.suffix}')")),
+
+
+                singleWhenElement(document, DefaultCriterionOperator.EQUAL, "${criterion.column} = ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.NOT_EQUAL, "${criterion.column} != ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.GREATER_THAN, "${criterion.column} > ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.GREATER_THAN_EQUAL, "${criterion.column} >= ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.LESS_THAN, "${criterion.column} < ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.LESS_THAN_EQUAL, "${criterion.column} <= ${criterion.functionValue}"),
+
+                betweenWhenElement(document, DefaultCriterionOperator.BETWEEN, "${criterion.column} BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
+                betweenWhenElement(document, DefaultCriterionOperator.NOT_BETWEEN, "${criterion.column} NOT BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
+
+                singleWhenElement(document, DefaultCriterionOperator.LIKE, "${criterion.column} LIKE ${criterion.functionValue}"),
+                singleWhenElement(document, DefaultCriterionOperator.NOT_LIKE, "${criterion.column} NOT LIKE ${criterion.functionValue}"),
 
                 collectionWhenElement(document, DefaultCriterionOperator.IN, "%s IN"),
                 collectionWhenElement(document, DefaultCriterionOperator.NOT_IN, "%s NOT IN")
         )));
 
         return sql;
+    }
+
+    private Element singleWhenElement(Document document, CriterionOperator operator, String expression) {
+        return whenOrOtherwise(document, test(operator),
+                bind(document, "value", "criterion.value"),
+                cdata(document, expression)
+        );
+    }
+
+    private Element betweenWhenElement(Document document, CriterionOperator operator, String expression) {
+        return whenOrOtherwise(document, test(operator),
+                bind(document, "min", "criterion.min"),
+                bind(document, "max", "criterion.max"),
+                cdata(document, expression)
+        );
     }
 
     private Element collectionWhenElement(Document document, CriterionOperator operator, String format) {
@@ -67,7 +96,8 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         foreach.setAttribute("open", "(");
         foreach.setAttribute("separator", ",");
         foreach.setAttribute("close", ")");
-        foreach.appendChild(textNode(document, "#{value}"));
+//        foreach.appendChild(bind(document, "value", "cri"));
+        foreach.appendChild(textNode(document, "${criterion.functionValue}"));
 
         when.appendChild(foreach);
 

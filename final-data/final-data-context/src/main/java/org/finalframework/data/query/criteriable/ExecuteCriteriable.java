@@ -1,9 +1,9 @@
 package org.finalframework.data.query.criteriable;
 
-import org.finalframework.data.query.condition.BitFunctionCondition;
-import org.finalframework.data.query.condition.DateFunctionCondition;
-import org.finalframework.data.query.condition.JsonFunctionCondition;
-import org.finalframework.data.query.condition.MathFunctionCondition;
+import org.finalframework.data.query.function.BitFunction;
+import org.finalframework.data.query.function.DateFunction;
+import org.finalframework.data.query.function.JsonFunction;
+import org.finalframework.data.query.function.MathFunction;
 
 /**
  * @author likly
@@ -12,8 +12,8 @@ import org.finalframework.data.query.condition.MathFunctionCondition;
  * @since 1.0
  */
 public interface ExecuteCriteriable<V, R> extends
-        DateFunctionCondition<FunctionCriteriable<V, R>>,
-        MathFunctionCondition<V, FunctionCriteriable<V, R>>,
-        BitFunctionCondition<V, FunctionCriteriable<V, R>>,
-        JsonFunctionCondition<V, FunctionCriteriable<V, R>> {
+        DateFunction<FunctionCriteriable<V, R>>,
+        MathFunction<V, FunctionCriteriable<V, R>>,
+        BitFunction<V, FunctionCriteriable<V, R>>,
+        JsonFunction<V, FunctionCriteriable<V, R>> {
 }

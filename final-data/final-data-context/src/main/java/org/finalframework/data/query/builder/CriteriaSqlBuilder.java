@@ -1,10 +1,10 @@
 package org.finalframework.data.query.builder;
 
 
-import org.finalframework.data.query.*;
+import org.finalframework.data.query.Criteria;
+import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.CriterionOperation;
-import org.finalframework.data.query.criterion.CriterionOperationRegistry;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Collection;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
-    private static final CriterionOperationRegistry criterionOperationRegistry = CriterionOperationRegistry.getInstance();
+    //    private static final CriterionOperationRegistry criterionOperationRegistry = CriterionOperationRegistry.getInstance();
     private final Criteria criteria;
 
     public CriteriaSqlBuilder(Criteria criteria) {
@@ -67,9 +67,10 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
         sb.append(
                 criteriaSets.stream()
                         .map(criterion -> {
-                            final Class javaType = getPropertyJavaType(criterion.getProperty());
-                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.getOperator(), javaType);
-                            return criterionOperation.format(criterion);
+                            final Class javaType = getPropertyJavaType(criterion.getProperty().getProperty());
+//                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.getOperator(), javaType);
+//                            return criterionOperation.format(criterion);
+                            return "";
                         })
                         .collect(Collectors.joining(String.format(" %s ", andOr.name())))
         );

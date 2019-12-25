@@ -3,6 +3,8 @@ package org.finalframework.data.query.criterion;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.function.Executable;
+import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -25,40 +27,38 @@ import java.util.Collection;
  * @date 2019-01-18 12:19:55
  * @see SingleCriterion
  * @see BetweenCriterion
- * @see LikeCriterion
  * @since 1.0
  */
-public interface Criterion {
+public interface Criterion extends Executable<Object, Criterion> {
 
     @NonNull
-    QProperty getProperty();
+    CriterionProperty<?> getProperty();
 
     @Nullable
-    Collection<FunctionCriterion> getFunctions();
+    Collection<FunctionOperation> getFunctions();
 
     @NonNull
     CriterionOperator getOperator();
 
     @Nullable
-    Class<? extends TypeHandler> getTypeHandler();
+    Class<? extends TypeHandler<?>> getTypeHandler();
 
     String getColumn();
 
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
         @NonNull
-        R property(@NonNull QProperty property);
+        default R property(@NonNull QProperty<?> property) {
+            return property(property, null);
+        }
 
         @NonNull
-        R function(@NonNull FunctionCriterion function);
-
-        @NonNull
-        R function(Collection<FunctionCriterion> functions);
+        R property(@NonNull QProperty<?> property, @Nullable Collection<FunctionOperation> functions);
 
         @NonNull
         R operator(@NonNull CriterionOperator operator);
 
         @NonNull
-        R typeHandler(@NonNull Class<? extends TypeHandler> typeHandler);
+        R typeHandler(@NonNull Class<? extends TypeHandler<?>> typeHandler);
 
     }
 

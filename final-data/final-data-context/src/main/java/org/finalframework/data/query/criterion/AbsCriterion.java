@@ -2,8 +2,10 @@ package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.*;
+import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.function.expression.FunctionExpression;
+import org.finalframework.data.query.function.operation.*;
 
 import java.util.*;
 
@@ -17,15 +19,14 @@ public abstract class AbsCriterion<T> implements Criterion {
 
     private static final Set<String> SQL_KEYS = new HashSet<>();
 
-    private final QProperty property;
-    private final Collection<FunctionCriterion> functions;
+    private final CriterionProperty<?> property;
+    private final Collection<FunctionOperation> functions = new ArrayList<>();
     private final CriterionOperator operator;
-    private final Class<? extends TypeHandler> typeHandler;
+    private final Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
     public AbsCriterion(AbsBuilder builder) {
-        this.property = builder.property;
-        this.functions = builder.functions;
+        this.property = new CriterionProperty<>(builder.property, builder.functions);
         this.operator = builder.operator;
         this.typeHandler = builder.typeHandler;
     }
@@ -35,12 +36,12 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @Override
-    public QProperty getProperty() {
+    public CriterionProperty<?> getProperty() {
         return this.property;
     }
 
     @Override
-    public Collection<FunctionCriterion> getFunctions() {
+    public Collection<FunctionOperation> getFunctions() {
         return this.functions;
     }
 
@@ -50,56 +51,77 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @Override
-    public Class<? extends TypeHandler> getTypeHandler() {
+    public Class<? extends TypeHandler<?>> getTypeHandler() {
         return this.typeHandler;
     }
 
     @Override
     public String getColumn() {
-        return getPropertyColumn(property, functions);
+        return getPropertyColumn(property.getProperty(), property.getFunctions());
+    }
+
+
+    @Override
+    public Criterion contact(String prefix, String suffix) {
+        this.functions.add(new DoubleFunctionOperation<>(FunctionExpression.CONCAT, prefix, suffix));
+        return this;
+    }
+
+    public String getFunctionValue(String expression) {
+        return getFunctionValue(expression, this.functions);
     }
 
     @SuppressWarnings("unchecked")
-    protected String getPropertyColumn(QProperty property, Collection<? extends FunctionCriterion> functions) {
+    protected String getPropertyColumn(QProperty property, Collection<? extends FunctionOperation> functions) {
         String column = SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
                 String.format("`%s`", property.getColumn()) : property.getColumn();
 
-//        final Class<?> javaType = property.isCollectionLike() ? property.getComponentType() : property.getType();
-        final Class<?> javaType = property.getType();
+        return getFunctionValue(column, functions);
 
+    }
+
+    protected String getFunctionValue(String expression, Collection<? extends FunctionOperation> functions) {
+        String value = expression;
         if (Assert.nonEmpty(functions)) {
-            for (FunctionCriterion function : functions) {
-                FunctionCriterionOperation functionCriterionOperation = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), javaType);
-                column = functionCriterionOperation.format(column, function);
+            for (FunctionOperation function : functions) {
+                Class<?> type = getFunctionOperationType(function);
+                FunctionOperationExpression functionOperationExpression = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), type);
+                value = functionOperationExpression.expression(value, function);
+            }
+        }
+        return value;
+    }
+
+    private Class<?> getFunctionOperationType(FunctionOperation operation) {
+        if (operation instanceof SimpleFunctionOperation) {
+            return Object.class;
+        } else if (operation instanceof SingleFunctionOperation) {
+            SingleFunctionOperation singleFunctionOperation = (SingleFunctionOperation) operation;
+            Object value = singleFunctionOperation.value();
+
+            if (value instanceof List) {
+                return ((List) value).get(0).getClass();
+            } else {
+                return value.getClass();
             }
         }
 
-        return column;
-
+        return Object.class;
     }
 
     @SuppressWarnings("unchecked")
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
-        private QProperty property;
-        private Collection<FunctionCriterion> functions = new ArrayList<>();
+        private QProperty<?> property;
+        private Collection<FunctionOperation> functions = new ArrayList<>();
         private CriterionOperator operator;
-        private Class<? extends TypeHandler> typeHandler;
+        private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R property(QProperty property) {
+        public R property(QProperty<?> property, Collection<FunctionOperation> functions) {
             this.property = property;
-            return (R) this;
-        }
-
-        @Override
-        public R function(FunctionCriterion function) {
-            this.functions.add(function);
-            return (R) this;
-        }
-
-        @Override
-        public R function(Collection<FunctionCriterion> functions) {
-            this.functions.addAll(functions);
+            if (functions != null) {
+                this.functions.addAll(functions);
+            }
             return (R) this;
         }
 
@@ -110,7 +132,7 @@ public abstract class AbsCriterion<T> implements Criterion {
         }
 
         @Override
-        public R typeHandler(Class<? extends TypeHandler> typeHandler) {
+        public R typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
             this.typeHandler = typeHandler;
             return (R) this;
         }

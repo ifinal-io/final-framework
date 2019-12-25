@@ -4,11 +4,13 @@ package org.finalframework.data.query.criteriable;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
-import org.finalframework.data.query.criterion.function.SimpleFunctionCriterion;
-import org.finalframework.data.query.criterion.function.SingleFunctionCriterion;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
+import org.finalframework.data.query.function.operation.FunctionOperation;
+import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
+import org.finalframework.data.query.function.expression.FunctionExpression;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,23 +23,23 @@ import java.util.Collection;
  */
 public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, FunctionCriteriable<V, Criterion> {
     private final QProperty<T> property;
-    private final Collection<FunctionCriterion> functions = new ArrayList<>();
+    private final Collection<FunctionOperation> functions = new ArrayList<>();
 
     public AbsCriteriable(QProperty<T> property) {
         this.property = property;
     }
 
-    public AbsCriteriable(QProperty<T> property, FunctionCriterion function) {
+    public AbsCriteriable(QProperty<T> property, FunctionOperation function) {
         this(property);
         this.addFunctionCriterion(function);
     }
 
-    public AbsCriteriable(QProperty<T> property, Collection<FunctionCriterion> functions) {
+    public AbsCriteriable(QProperty<T> property, Collection<FunctionOperation> functions) {
         this.property = property;
         this.functions.addAll(functions);
     }
 
-    protected void addFunctionCriterion(FunctionCriterion function) {
+    protected void addFunctionCriterion(FunctionOperation function) {
         this.functions.add(function);
     }
 
@@ -120,8 +122,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     private Criterion buildSingleCriterion(CriterionOperator operator, Object value) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
-                .property(this.property)
-                .function(this.functions)
+                .property(this.property, this.functions)
                 .operator(operator)
                 .value(value)
                 .build();
@@ -129,20 +130,24 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     private Criterion buildLikeCriterion(CriterionOperator operator, String prefix, String value, String suffix) {
         Assert.isNull(value, "value is null");
-        return LikeCriterion.builder()
-                .property(this.property)
-                .function(this.functions)
+//        this.functions.add(new DoubleFunctionOperation<>(FunctionExpression.CONCAT,prefix,suffix));
+        return SingleCriterion.builder()
+                .property(this.property, this.functions)
                 .operator(operator)
-                .like(prefix, value, suffix)
-                .build();
+                .value(value)
+                .build().contact(prefix, suffix);
+//        return LikeCriterion.builder()
+//                .property(this.property, this.functions)
+//                .operator(operator)
+//                .like(prefix, value, suffix)
+//                .build();
     }
 
     private Criterion buildBetweenCriterion(CriterionOperator operator, Object min, Object max) {
         Assert.isNull(min, "min is null");
         Assert.isNull(max, "max is null");
         return BetweenCriterion.builder()
-                .property(this.property)
-                .function(this.functions)
+                .property(this.property, this.functions)
                 .operator(operator)
                 .between(min, max)
                 .build();
@@ -151,67 +156,67 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> extract(String path) {
-        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.JSON_EXTRACT, path));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.JSON_EXTRACT, path));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> unquote() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.JSON_UNQUOTE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.JSON_UNQUOTE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> and(V value) {
-        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.AND, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.AND, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> or(V value) {
-        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.OR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.OR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> xor(V value) {
-        this.addFunctionCriterion(new SingleFunctionCriterion<>(FunctionOperation.XOR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.XOR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> not() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.NOT));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.NOT));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> date() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.DATE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.DATE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> min() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.MIN));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.MIN));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> max() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.MAX));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.MAX));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> sum() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.SUM));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.SUM));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> avg() {
-        this.addFunctionCriterion(new SimpleFunctionCriterion(FunctionOperation.AVG));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.AVG));
         return this;
     }
 }
