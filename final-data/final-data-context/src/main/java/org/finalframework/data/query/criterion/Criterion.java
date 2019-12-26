@@ -43,8 +43,6 @@ public interface Criterion extends Executable<Object, Criterion> {
     @Nullable
     Class<? extends TypeHandler<?>> getTypeHandler();
 
-    String getColumn();
-
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
         @NonNull
         default R property(@NonNull QProperty<?> property) {

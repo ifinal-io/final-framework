@@ -30,6 +30,16 @@ public class BetweenCriterionImpl<T> extends AbsCriterion<T> implements BetweenC
         return max;
     }
 
+
+    public String getFunctionMin() {
+        return getFunctionValue("#{min}");
+    }
+
+    public String getFunctionMax() {
+        return getFunctionValue("#{max}");
+    }
+
+
     private static class BuilderImpl<T> extends AbsBuilder<BetweenCriterion<T>, BetweenCriterion.Builder<T>> implements BetweenCriterion.Builder<T> {
 
         private T min;

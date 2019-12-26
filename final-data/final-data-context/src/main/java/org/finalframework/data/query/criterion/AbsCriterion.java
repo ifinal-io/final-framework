@@ -26,7 +26,7 @@ public abstract class AbsCriterion<T> implements Criterion {
 
     @SuppressWarnings("unchecked")
     public AbsCriterion(AbsBuilder builder) {
-        this.property = new CriterionProperty<>(builder.property, builder.functions);
+        this.property = new CriterionProperty(builder.property, builder.functions);
         this.operator = builder.operator;
         this.typeHandler = builder.typeHandler;
     }
@@ -55,11 +55,9 @@ public abstract class AbsCriterion<T> implements Criterion {
         return this.typeHandler;
     }
 
-    @Override
     public String getColumn() {
         return getPropertyColumn(property.getProperty(), property.getFunctions());
     }
-
 
     @Override
     public Criterion contact(String prefix, String suffix) {
