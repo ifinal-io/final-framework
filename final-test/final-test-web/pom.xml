@@ -14,10 +14,6 @@
     <packaging>war</packaging>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.finalframework</groupId>-->
-<!--            <artifactId>final-coding-datasource</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-test-controller</artifactId>

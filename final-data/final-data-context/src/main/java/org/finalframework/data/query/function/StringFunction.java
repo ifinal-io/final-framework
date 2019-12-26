@@ -12,7 +12,6 @@ public interface StringFunction<V, R> extends Function {
      *
      * @param prefix 前缀
      * @param suffix 后续
-     * @return
      */
     R contact(String prefix, String suffix);
 }

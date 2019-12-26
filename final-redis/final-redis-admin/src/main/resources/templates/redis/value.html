@@ -50,7 +50,9 @@
                                     class="btn btn-warning"
                                     type="button">TTL
                             </button>
-                            <button :disabled="data.key == null || value == null" @click="set" class="btn btn-rose"
+                            <button :disabled="data.key == null || value == null"
+                                    @click="set('POST',urls.values,{key: data.key, value: data.value, ttl: data.ttl})"
+                                    class="btn btn-rose"
                                     type="button">SET
                             </button>
                             <!--                            <button type="button" class="btn btn-danger" @click="delete" :disabled="key == null">DELETE</button>-->
@@ -147,15 +149,13 @@
                         }
                     })
                 },
-                set: function () {
+                set: function (method, action, data) {
                     var _this = this;
+                    _this.form.method = method;
+                    _this.form.action = action;
                     $.http.post({
-                        url: _this.urls.values,
-                        data: {
-                            key: _this.key,
-                            value: _this.value,
-                            ttl: _this.ttl
-                        },
+                        url: action,
+                        data: data,
                         callback: function (result) {
                             _this.result = result;
                         }

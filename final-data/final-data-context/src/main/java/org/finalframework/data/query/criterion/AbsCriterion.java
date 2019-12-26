@@ -65,6 +65,12 @@ public abstract class AbsCriterion<T> implements Criterion {
         return this;
     }
 
+    @Override
+    public Criterion date() {
+        this.functions.add(new SimpleFunctionOperation(FunctionOperator.DATE));
+        return this;
+    }
+
     public String getFunctionValue(String expression) {
         return getFunctionValue(expression, this.functions);
     }
