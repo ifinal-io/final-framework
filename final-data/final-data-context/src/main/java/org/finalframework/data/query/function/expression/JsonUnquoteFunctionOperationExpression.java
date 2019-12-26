@@ -1,6 +1,7 @@
 package org.finalframework.data.query.function.expression;
 
 
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.FunctionOperationExpression;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 
@@ -10,7 +11,7 @@ import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
  * @date 2019-12-24 14:01:37
  * @since 1.0
  */
-@FunctionExpression(FunctionExpression.JSON_UNQUOTE)
+@FunctionOperator(FunctionOperator.JSON_UNQUOTE)
 public class JsonUnquoteFunctionOperationExpression<T> implements FunctionOperationExpression<SimpleFunctionOperation> {
 
     @Override

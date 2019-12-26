@@ -2,9 +2,6 @@ package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.function.expression.FunctionExpression;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.query.QPerson;

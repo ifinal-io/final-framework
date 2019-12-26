@@ -1,6 +1,7 @@
 package org.finalframework.data.query.function.operation;
 
 import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.expression.*;
 import org.finalframework.util.LinkedMultiKeyMap;
 import org.finalframework.util.MultiKeyMap;
@@ -60,13 +61,13 @@ public class FunctionOperationRegistry {
     }
 
     public <T> void registerCriterionOperation(FunctionOperationExpression<? extends FunctionOperation> criterionOperation) {
-        FunctionExpression functionExpression = criterionOperation.getClass().getAnnotation(FunctionExpression.class);
-        if (functionExpression == null) {
+        FunctionOperator functionOperator = criterionOperation.getClass().getAnnotation(FunctionOperator.class);
+        if (functionOperator == null) {
             throw new IllegalArgumentException();
         }
 
-        String operator = functionExpression.value();
-        Class<?>[] types = functionExpression.types();
+        String operator = functionOperator.value();
+        Class<?>[] types = functionOperator.types();
 
         Arrays.stream(types).forEach(type -> registerCriterionOperation(operator, type, criterionOperation));
 

@@ -1,6 +1,7 @@
 package org.finalframework.data.query.function.expression;
 
 
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.finalframework.data.query.function.operation.FunctionOperationExpression;
 
@@ -11,8 +12,8 @@ import org.finalframework.data.query.function.operation.FunctionOperationExpress
  * @since 1.0
  */
 
-@FunctionExpression(
-        value = FunctionExpression.NOT,
+@FunctionOperator(
+        value = FunctionOperator.NOT,
         types = {
                 byte.class, Byte.class,
                 short.class, Short.class,

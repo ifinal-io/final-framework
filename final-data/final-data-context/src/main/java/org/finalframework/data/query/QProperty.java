@@ -6,7 +6,7 @@ import org.finalframework.data.query.criteriable.*;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
-import org.finalframework.data.query.function.expression.FunctionExpression;
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;
@@ -135,12 +135,12 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default FunctionCriteriable<Object, Criterion> extract(String path) {
-        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionExpression.JSON_EXTRACT, path));
+        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> unquote() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionExpression.JSON_UNQUOTE));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
     }
 
     @Override

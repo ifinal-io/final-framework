@@ -4,7 +4,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
-import org.finalframework.data.query.function.expression.FunctionExpression;
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.*;
 
 import java.util.*;
@@ -61,7 +61,7 @@ public abstract class AbsCriterion<T> implements Criterion {
 
     @Override
     public Criterion contact(String prefix, String suffix) {
-        this.functions.add(new DoubleFunctionOperation<>(FunctionExpression.CONCAT, prefix, suffix));
+        this.functions.add(new DoubleFunctionOperation<>(FunctionOperator.CONCAT, prefix, suffix));
         return this;
     }
 

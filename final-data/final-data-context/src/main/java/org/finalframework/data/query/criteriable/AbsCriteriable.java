@@ -4,13 +4,12 @@ package org.finalframework.data.query.criteriable;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
-import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
-import org.finalframework.data.query.function.expression.FunctionExpression;
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -156,67 +155,67 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> extract(String path) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.JSON_EXTRACT, path));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> unquote() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.JSON_UNQUOTE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> and(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.AND, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.AND, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> or(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.OR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.OR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> xor(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionExpression.XOR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.XOR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> not() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.NOT));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.NOT));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> date() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.DATE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.DATE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> min() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.MIN));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.MIN));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> max() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.MAX));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.MAX));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> sum() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.SUM));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.SUM));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> avg() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionExpression.AVG));
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.AVG));
         return this;
     }
 }

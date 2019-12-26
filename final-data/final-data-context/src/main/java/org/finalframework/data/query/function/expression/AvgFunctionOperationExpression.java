@@ -1,6 +1,7 @@
 package org.finalframework.data.query.function.expression;
 
 
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.finalframework.data.query.function.operation.FunctionOperationExpression;
 
@@ -10,7 +11,7 @@ import org.finalframework.data.query.function.operation.FunctionOperationExpress
  * @date 2019-03-28 21:11:49
  * @since 1.0
  */
-@FunctionExpression(FunctionExpression.AVG)
+@FunctionOperator(FunctionOperator.AVG)
 public class AvgFunctionOperationExpression implements FunctionOperationExpression<FunctionOperation> {
 
     @Override

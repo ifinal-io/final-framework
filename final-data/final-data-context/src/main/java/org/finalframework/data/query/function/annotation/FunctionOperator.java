@@ -1,4 +1,6 @@
-package org.finalframework.data.query.function.expression;
+package org.finalframework.data.query.function.annotation;
+
+import org.finalframework.data.query.function.expression.*;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,6 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 函数运算符
+ *
  * @author likly
  * @version 1.0
  * @date 2019-12-17 14:04:08
@@ -19,11 +23,12 @@ import java.lang.annotation.Target;
  * @see NumberXorFunctionOperationExpression
  * @see NumberNotFunctionOperationExpression
  * @see JsonExtractFunctionOperationExpression
+ * @see JsonUnquoteFunctionOperationExpression
  * @since 1.0
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FunctionExpression {
+public @interface FunctionOperator {
 
     /**
      * DATE(value)

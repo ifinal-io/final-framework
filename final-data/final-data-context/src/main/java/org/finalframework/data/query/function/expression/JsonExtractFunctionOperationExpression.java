@@ -1,6 +1,7 @@
 package org.finalframework.data.query.function.expression;
 
 
+import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.FunctionOperationExpression;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 
@@ -10,7 +11,7 @@ import org.finalframework.data.query.function.operation.SingleFunctionOperation;
  * @date 2019-03-28 21:11:49
  * @since 1.0
  */
-@FunctionExpression(FunctionExpression.JSON_EXTRACT)
+@FunctionOperator(FunctionOperator.JSON_EXTRACT)
 public class JsonExtractFunctionOperationExpression<T> implements FunctionOperationExpression<SingleFunctionOperation<T>> {
 
     @Override
