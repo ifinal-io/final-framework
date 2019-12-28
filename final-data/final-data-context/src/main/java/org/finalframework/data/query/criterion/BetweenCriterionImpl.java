@@ -32,11 +32,13 @@ public class BetweenCriterionImpl<T> extends AbsCriterion<T> implements BetweenC
 
 
     public String getFunctionMin() {
-        return getFunctionValue("#{min}");
+        String expression = getTypeHandler() == null ? "" : String.format("#{min, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        return getFunctionValue(expression);
     }
 
     public String getFunctionMax() {
-        return getFunctionValue("#{max}");
+        String expression = getTypeHandler() == null ? "" : String.format("#{max, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        return getFunctionValue(expression);
     }
 
 

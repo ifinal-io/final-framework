@@ -24,7 +24,8 @@ public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCri
     }
 
     public String getFunctionValue() {
-        return getFunctionValue("#{value}");
+        String expression = getTypeHandler() == null ? "" : String.format("#{value, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        return getFunctionValue(expression);
     }
 
     private static class BuilderImpl<T> extends AbsBuilder<SingleCriterion<T>, SingleCriterion.Builder<T>>

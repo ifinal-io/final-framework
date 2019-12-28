@@ -40,6 +40,8 @@ public interface Criterion extends Executable<Object, Criterion> {
     @NonNull
     CriterionOperator getOperator();
 
+    Criterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler);
+
     @Nullable
     Class<? extends TypeHandler<?>> getTypeHandler();
 

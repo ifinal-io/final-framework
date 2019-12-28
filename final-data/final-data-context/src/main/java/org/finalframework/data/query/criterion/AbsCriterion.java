@@ -22,7 +22,7 @@ public abstract class AbsCriterion<T> implements Criterion {
     private final CriterionProperty<?> property;
     private final Collection<FunctionOperation> functions = new ArrayList<>();
     private final CriterionOperator operator;
-    private final Class<? extends TypeHandler<?>> typeHandler;
+    private Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
     public AbsCriterion(AbsBuilder builder) {
@@ -48,6 +48,12 @@ public abstract class AbsCriterion<T> implements Criterion {
     @Override
     public CriterionOperator getOperator() {
         return this.operator;
+    }
+
+    @Override
+    public Criterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler) {
+        this.typeHandler = typeHandler;
+        return this;
     }
 
     @Override
