@@ -18,6 +18,8 @@ import java.util.UUID;
  * @author likly
  * @version 1.0
  * @date 2018-09-28 15:18
+ * @see TraceGenerator
+ * @see UUIDTraceGenerator
  * @since 1.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
