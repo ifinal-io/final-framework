@@ -11,6 +11,7 @@ import java.lang.annotation.*;
  * @date 2019-10-22 14:34:21
  * @since 1.0
  */
+@Column
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

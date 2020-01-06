@@ -18,6 +18,7 @@ import java.lang.annotation.*;
 @Documented
 @Persistent
 @Reference
+@Column
 public @interface ReferenceColumn {
 
     @AliasFor("name")

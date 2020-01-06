@@ -12,13 +12,15 @@ import java.lang.annotation.*;
  * @version 1.0
  * @date 2018-10-15 15:14
  * @see org.springframework.data.annotation.Id
+ * @see PrimaryKeyType
  * @since 1.0
  */
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+@Column
 @Documented
 @Index(Integer.MIN_VALUE)
 @org.springframework.data.annotation.Id
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface PrimaryKey {
 
     @AliasFor("name")

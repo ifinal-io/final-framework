@@ -15,11 +15,12 @@ import java.lang.annotation.*;
  * @since 1.0
  * @see Created
  */
+@Column
+@Documented
+@LastModifiedDate
 @Index(Integer.MAX_VALUE - 99)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
-@LastModifiedDate
 public @interface LastModified {
     String table() default "";
 

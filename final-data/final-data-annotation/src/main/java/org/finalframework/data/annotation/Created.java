@@ -12,14 +12,16 @@ import java.lang.annotation.*;
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:14
+ * @see Column
  * @see LastModified
  * @since 1.0
  */
+@Column
+@CreatedDate
+@Documented
 @Index(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
-@CreatedDate
 public @interface Created {
     String table() default "";
 

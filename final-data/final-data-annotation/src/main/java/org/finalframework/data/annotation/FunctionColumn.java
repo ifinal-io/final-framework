@@ -13,10 +13,11 @@ import java.lang.annotation.*;
  * @date 2019-01-23 13:07:44
  * @since 1.0
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
+@Column
 @Persistent
 @Documented
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface FunctionColumn {
 
     @AliasFor("name")

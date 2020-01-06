@@ -1,6 +1,5 @@
 package org.finalframework.test.entity;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,6 @@ import java.util.Map;
  * @since 1.0
  */
 @Data
-@Entity
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class Person extends AbsEntity {
