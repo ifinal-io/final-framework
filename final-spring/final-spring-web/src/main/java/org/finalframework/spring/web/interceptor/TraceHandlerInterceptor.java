@@ -1,5 +1,7 @@
 package org.finalframework.spring.web.interceptor;
 
+import org.finalframework.core.generator.TraceGenerator;
+import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,8 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
 
     public static final String TRACE_ATTRIBUTE = "org.finalframework.handler.trace";
 
+    private final TraceGenerator traceGenerator = new UUIDTraceGenerator();
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String trace = request.getHeader(TRACE);
@@ -33,7 +37,7 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
             trace = (String) request.getAttribute(TRACE_ATTRIBUTE);
         }
         if (trace == null) {
-            trace = UUID.randomUUID().toString();
+            trace = traceGenerator.generate();
         }
         request.setAttribute(TRACE_ATTRIBUTE, trace);
         MDC.put(TRACE, trace);
