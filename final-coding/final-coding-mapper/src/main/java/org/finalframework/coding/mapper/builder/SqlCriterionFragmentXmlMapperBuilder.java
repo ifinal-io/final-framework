@@ -43,6 +43,9 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 //                whenOrOtherwise(document, test(DefaultCriterionOperator.NOT_LIKE), cdata(document, "${criterion.column} NOT LIKE CONCAT('${criterion.prefix}',#{criterion.value},'${criterion.suffix}')")),
 
 
+                singleWhenElement(document, DefaultCriterionOperator.NULL, "${criterion.column} IS NULL"),
+                singleWhenElement(document, DefaultCriterionOperator.NOT_NULL, "${criterion.column} IS NOT NULL"),
+
                 singleWhenElement(document, DefaultCriterionOperator.EQUAL, "${criterion.column} = ${criterion.functionValue}"),
                 singleWhenElement(document, DefaultCriterionOperator.NOT_EQUAL, "${criterion.column} != ${criterion.functionValue}"),
                 singleWhenElement(document, DefaultCriterionOperator.GREATER_THAN, "${criterion.column} > ${criterion.functionValue}"),

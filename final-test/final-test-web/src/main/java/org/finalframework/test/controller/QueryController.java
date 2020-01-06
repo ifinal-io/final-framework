@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.query.Query;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
+import org.finalframework.test.query.PersonQuery;
 import org.finalframework.test.query.QPerson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,15 +32,17 @@ public class QueryController {
     @GetMapping
     @JsonView(Person.class)
     public Object query() {
-        Query query = new Query();
+//        Query query = new Query();
 
 
 //        QPerson.properties.extract("$.name").contains("中国");
 
 //        Criterion criterion = QPerson.created.date().eq("2019-12-20 10:20:30");
 //        criterion.getFunctions().add(new SimpleFunctionOperation(FunctionExpression.DATE));
-        query.where(QPerson.name.contains("111"));
-//        PersonQuery query = new PersonQuery();
+
+//        query.where(QPerson.name.contains("111"));
+        PersonQuery query = new PersonQuery();
+        query.orCriteria().addIdEqual(1L).addIdIsNull();
 //        QPerson.properties.extract("$.name")
 //        query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));
 //        query.andCriteria().addCreatedDateAfter(LocalDateTime.now());
