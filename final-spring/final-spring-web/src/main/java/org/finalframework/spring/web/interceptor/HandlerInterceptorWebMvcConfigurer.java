@@ -34,30 +34,31 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer, App
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        BeanUtils.findBeansByAnnotation(applicationContext, SpringHandlerInterceptor.class).forEach(item -> {
-            SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
-            InterceptorRegistration interceptorRegistration = registry.addInterceptor((org.springframework.web.servlet.HandlerInterceptor) item);
-            if (annotation.includes().length > 0) {
-                interceptorRegistration.addPathPatterns(annotation.includes());
-            }
-            if (annotation.excludes().length > 0) {
-                interceptorRegistration.excludePathPatterns(annotation.excludes());
-            }
+        BeanUtils.findBeansByAnnotation(applicationContext, SpringHandlerInterceptor.class)
+                .forEach(item -> {
+                    SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
+                    InterceptorRegistration interceptorRegistration = registry.addInterceptor((org.springframework.web.servlet.HandlerInterceptor) item);
+                    if (annotation.includes().length > 0) {
+                        interceptorRegistration.addPathPatterns(annotation.includes());
+                    }
+                    if (annotation.excludes().length > 0) {
+                        interceptorRegistration.excludePathPatterns(annotation.excludes());
+                    }
 
-            Order order = item.getClass().getAnnotation(Order.class);
-            if (order != null) {
-                interceptorRegistration.order(order.value());
-            } else {
-                interceptorRegistration.order(Ordered.LOWEST_PRECEDENCE);
-            }
+                    Order order = item.getClass().getAnnotation(Order.class);
+                    if (order != null) {
+                        interceptorRegistration.order(order.value());
+                    } else {
+                        interceptorRegistration.order(Ordered.LOWEST_PRECEDENCE);
+                    }
 
-            logger.info("==> add interceptor={},includes={},excludes={},point={}",
-                    item.getClass(),
-                    annotation.includes(),
-                    annotation.excludes(),
-                    order == null ? 0 : order.value()
-            );
-        });
+                    logger.info("==> add interceptor={},includes={},excludes={},point={}",
+                            item.getClass(),
+                            annotation.includes(),
+                            annotation.excludes(),
+                            order == null ? 0 : order.value()
+                    );
+                });
 
 
     }

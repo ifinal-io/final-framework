@@ -90,16 +90,16 @@ menus:
             link: /spring/web/exception/json-exception-handler
             name: JsonExceptionHandler
             mini: JEH
-      - id: interceptor
+      - id: handler-interceptor
         name: 处理器拦截器
         mini: HI
         menus:
-          - id: handler-interceptor
-            link: /spring/web/interceptor/handler-interceptor
-            name: HandlerInterceptor
-            mini: HI
+          - id: index
+            link: /spring/web/handler-interceptor
+            name: README
+            mini: RD
           - id: trade-handler-interceptor
-            link: /spring/web/interceptor/trace-handler-interceptor
+            link: /spring/web/handler-interceptor/trace-handler-interceptor
             name: TraceHandlerInterceptor
             mini: THI
 
