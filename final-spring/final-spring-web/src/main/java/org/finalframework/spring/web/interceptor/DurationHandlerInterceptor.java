@@ -22,6 +22,7 @@ public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
     public static final String DURATION_START_ATTRIBUTE = "org.finalframework.handler.duration.start";
     public static final String DURATION_END_ATTRIBUTE = "org.finalframework.handler.duration.end";
     public static final String DURATION_ATTRIBUTE = "org.finalframework.handler.duration";
+
     private static final Logger logger = LoggerFactory.getLogger(DurationHandlerInterceptor.class);
 
     @Override
