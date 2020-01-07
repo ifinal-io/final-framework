@@ -8,7 +8,6 @@ import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
-import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
 import org.finalframework.data.query.function.annotation.FunctionOperator;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     public Criterion isNull() {
         return SingleCriterion.builder()
                 .property(this.property)
-                .operator(DefaultCriterionOperator.NULL)
+                .operator(CriterionOperator.NULL)
                 .build();
     }
 
@@ -54,68 +53,68 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     public Criterion isNotNull() {
         return SingleCriterion.builder()
                 .property(this.property)
-                .operator(DefaultCriterionOperator.NOT_NULL)
+                .operator(CriterionOperator.NOT_NULL)
                 .build();
     }
 
     @Override
     public Criterion between(V min, V max) {
-        return buildBetweenCriterion(DefaultCriterionOperator.BETWEEN, min, max);
+        return buildBetweenCriterion(CriterionOperator.BETWEEN, min, max);
     }
 
     @Override
     public Criterion notBetween(V min, V max) {
-        return buildBetweenCriterion(DefaultCriterionOperator.NOT_BETWEEN, min, max);
+        return buildBetweenCriterion(CriterionOperator.NOT_BETWEEN, min, max);
     }
 
     @Override
     public Criterion eq(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.EQUAL, value);
+        return buildSingleCriterion(CriterionOperator.EQUAL, value);
     }
 
     @Override
     public Criterion neq(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.NOT_EQUAL, value);
+        return buildSingleCriterion(CriterionOperator.NOT_EQUAL, value);
     }
 
     @Override
     public Criterion gt(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.GREATER_THAN, value);
+        return buildSingleCriterion(CriterionOperator.GREATER_THAN, value);
     }
 
     @Override
     public Criterion gte(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.GREATER_THAN_EQUAL, value);
+        return buildSingleCriterion(CriterionOperator.GREATER_THAN_EQUAL, value);
     }
 
     @Override
     public Criterion lt(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.LESS_THAN, value);
+        return buildSingleCriterion(CriterionOperator.LESS_THAN, value);
     }
 
     @Override
     public Criterion lte(V value) {
-        return buildSingleCriterion(DefaultCriterionOperator.LESS_THAN_EQUAL, value);
+        return buildSingleCriterion(CriterionOperator.LESS_THAN_EQUAL, value);
     }
 
     @Override
     public Criterion in(Collection<V> values) {
-        return buildSingleCriterion(DefaultCriterionOperator.IN, values);
+        return buildSingleCriterion(CriterionOperator.IN, values);
     }
 
     @Override
     public Criterion nin(Collection<V> values) {
-        return buildSingleCriterion(DefaultCriterionOperator.NOT_IN, values);
+        return buildSingleCriterion(CriterionOperator.NOT_IN, values);
     }
 
     @Override
     public Criterion like(String prefix, String value, String suffix) {
-        return buildLikeCriterion(DefaultCriterionOperator.LIKE, prefix, value, suffix);
+        return buildLikeCriterion(CriterionOperator.LIKE, prefix, value, suffix);
     }
 
     @Override
     public Criterion notLike(String prefix, String value, String suffix) {
-        return buildLikeCriterion(DefaultCriterionOperator.NOT_LIKE, prefix, value, suffix);
+        return buildLikeCriterion(CriterionOperator.NOT_LIKE, prefix, value, suffix);
     }
 
     private Criterion buildSingleCriterion(CriterionOperator operator, Object value) {
@@ -129,17 +128,11 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     private Criterion buildLikeCriterion(CriterionOperator operator, String prefix, String value, String suffix) {
         Assert.isNull(value, "value is null");
-//        this.functions.add(new DoubleFunctionOperation<>(FunctionExpression.CONCAT,prefix,suffix));
         return SingleCriterion.builder()
                 .property(this.property, this.functions)
                 .operator(operator)
                 .value(value)
                 .build().contact(prefix, suffix);
-//        return LikeCriterion.builder()
-//                .property(this.property, this.functions)
-//                .operator(operator)
-//                .like(prefix, value, suffix)
-//                .build();
     }
 
     private Criterion buildBetweenCriterion(CriterionOperator operator, Object min, Object max) {
