@@ -43,6 +43,8 @@ public class QueryController {
 //        query.where(QPerson.name.contains("111"));
         PersonQuery query = new PersonQuery();
         query.orCriteria().addIdEqual(1L).addIdIsNull();
+        query.andCriteria().addIdGreaterThan(2L);
+//        query.andCriteria().addIdIn(2L);
 //        QPerson.properties.extract("$.name")
 //        query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));
 //        query.andCriteria().addCreatedDateAfter(LocalDateTime.now());

@@ -1,5 +1,7 @@
 package org.finalframework.data.query.criterion;
 
+import org.finalframework.data.query.criterion.operator.DefaultCriterionOperator;
+
 /**
  * @author likly
  * @version 1.0
@@ -24,7 +26,10 @@ public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCri
     }
 
     public String getFunctionValue() {
-        String expression = getTypeHandler() == null ? "#{value}" : String.format("#{value, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        String expression = getTypeHandler() == null ? "#{criterion.value}" : String.format("#{criterion.value, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        if (DefaultCriterionOperator.IN.name().equals(getOperator().name()) || DefaultCriterionOperator.IN.name().equals(getOperator().name())) {
+            expression = getTypeHandler() == null ? "#{value}" : String.format("#{value, typeHandler=%s}", getTypeHandler().getCanonicalName());
+        }
         return getFunctionValue(expression);
     }
 

@@ -68,15 +68,15 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
     private Element singleWhenElement(Document document, CriterionOperator operator, String expression) {
         return whenOrOtherwise(document, test(operator),
-                bind(document, "value", "criterion.value"),
+//                bind(document, "value", "criterion.value"),
                 cdata(document, expression)
         );
     }
 
     private Element betweenWhenElement(Document document, CriterionOperator operator, String expression) {
         return whenOrOtherwise(document, test(operator),
-                bind(document, "min", "criterion.min"),
-                bind(document, "max", "criterion.max"),
+//                bind(document, "min", "criterion.min"),
+//                bind(document, "max", "criterion.max"),
                 cdata(document, expression)
         );
     }
@@ -87,14 +87,14 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
         when.setAttribute("test", test(operator));
 
-        Element values = bind(document, "values", "criterion.value");
+//        Element values = bind(document, "values", "criterion.value");
 
-        when.appendChild(values);
+//        when.appendChild(values);
 
         when.appendChild(cdata(document, String.format(format, "${criterion.column}")));
 
         Element foreach = document.createElement("foreach");
-        foreach.setAttribute("collection", "values");
+        foreach.setAttribute("collection", "criterion.value");
         foreach.setAttribute("item", "value");
         foreach.setAttribute("open", "(");
         foreach.setAttribute("separator", ",");
