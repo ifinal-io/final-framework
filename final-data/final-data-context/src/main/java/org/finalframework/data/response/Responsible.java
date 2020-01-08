@@ -17,11 +17,6 @@ public interface Responsible {
     @NonNull
     Integer getStatus();
 
-    void setStatus(@NonNull Integer status);
-
     String getDescription();
-
-    @NonNull
-    void setDescription(@NonNull String description);
 
 }

@@ -26,17 +26,13 @@ public class R {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
     }
 
-    public static Result<?> failure(@NonNull Integer status, @NonNull String description, @NonNull Integer code, @NonNull String message, @Nullable String toast) {
-        return new Result<>(status, description, code, message, toast);
+    public static Result<?> failure(@NonNull Integer status, @NonNull String description, @NonNull Integer code, @NonNull String message) {
+        return new Result<>(status, description, code, message);
     }
 
 
     public static Result<?> failure(@NonNull Integer code, @NonNull String message) {
         return new Result<>(code, message);
-    }
-
-    public static Result<?> failure(@NonNull Integer code, @NonNull String message, String toast) {
-        return new Result<>(code, message, toast);
     }
 
 

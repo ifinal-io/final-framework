@@ -37,10 +37,10 @@ public class IExceptionResultExceptionHandler implements org.finalframework.data
     }
 
     public Result handle(ServiceException e) {
-        return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage(), e.getToast());
+        return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage());
     }
 
     public Result handle(IException e) {
-        return R.failure(e.getCode(), e.getMessage(), e.getToast());
+        return R.failure(e.getCode(), e.getMessage());
     }
 }

@@ -1,6 +1,7 @@
 package org.finalframework.data.result;
 
 import org.finalframework.data.entity.PageInfo;
+import org.finalframework.data.exception.IException;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * @see Page
  * @since 1.0
  */
-public final class Result<T> implements Responsible, Serializable {
+public final class Result<T> implements Responsible, IException, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;
     /**
@@ -42,10 +43,6 @@ public final class Result<T> implements Responsible, Serializable {
      * 业务状态描述
      */
     private String message;
-    /**
-     * 提示消息
-     */
-    private String toast;
     /**
      * 业务数据
      */
@@ -82,24 +79,19 @@ public final class Result<T> implements Responsible, Serializable {
         this.data = data;
     }
 
-    public Result(Integer status, String description, Integer code, String message, String toast) {
+    public Result(Integer status, String description, Integer code, String message) {
         this.status = status;
         this.description = description;
         this.code = code;
         this.message = message;
-        this.toast = toast;
     }
 
     public Result(Integer status, String description, T data) {
         this(status, description, status, description, data);
     }
 
-    public Result(Integer status, String description, String toast) {
-        this(status, description, status, description, toast);
-    }
-
     public Result(Integer status, String description) {
-        this(status, description, (String) null);
+        this(status, description, status, description);
     }
 
     @Override
@@ -107,7 +99,6 @@ public final class Result<T> implements Responsible, Serializable {
         return status;
     }
 
-    @Override
     public void setStatus(Integer status) {
         this.status = status;
     }
@@ -117,11 +108,11 @@ public final class Result<T> implements Responsible, Serializable {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public Integer getCode() {
         return code;
     }
@@ -130,20 +121,13 @@ public final class Result<T> implements Responsible, Serializable {
         this.code = code;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getToast() {
-        return toast;
-    }
-
-    public void setToast(String toast) {
-        this.toast = toast;
     }
 
     public T getData() {

@@ -24,8 +24,4 @@ public interface IException {
     @NonNull
     String getMessage();
 
-    @Nullable
-    default String getToast() {
-        return null;
-    }
 }

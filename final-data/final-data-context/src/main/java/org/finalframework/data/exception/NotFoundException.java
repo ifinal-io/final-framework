@@ -12,22 +12,18 @@ import org.finalframework.data.response.ResponseStatus;
  * @since 1.0
  */
 public class NotFoundException extends ServiceException {
+    public static final NotFoundException DEFAULT = new NotFoundException(ResponseStatus.NOT_FOUND.getMessage());
 
-    public NotFoundException(String message) {
-        this(ResponseStatus.NOT_FOUND.getCode(), message);
+    public NotFoundException(String message, Object... args) {
+        this(ResponseStatus.NOT_FOUND.getCode(), message, args);
     }
 
-    public NotFoundException(Integer code, String message) {
-        this(code, message, null);
+    public NotFoundException(IException e, Object... args) {
+        this(e.getCode(), e.getMessage(), args);
     }
 
-    public NotFoundException(IException exception, Object... args) {
-        this(exception.getCode(), exception.getMessage(), exception.getToast(), args);
-    }
-
-    public NotFoundException(Integer code, String message, String toast, Object... args) {
-        super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getMessage(),
-                code, message, toast, args);
+    public NotFoundException(Integer code, String message, Object... args) {
+        super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getMessage(), code, message, args);
     }
 
 

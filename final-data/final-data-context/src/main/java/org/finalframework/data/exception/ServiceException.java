@@ -1,5 +1,7 @@
 package org.finalframework.data.exception;
 
+import org.finalframework.data.response.Responsible;
+
 /**
  * 业务异常
  *
@@ -14,7 +16,7 @@ package org.finalframework.data.exception;
  * @since 1.0
  */
 @SuppressWarnings({"unused"})
-public class ServiceException extends RuntimeException implements IException {
+public class ServiceException extends RuntimeException implements Responsible, IException {
     /**
      * 状态
      */
@@ -27,33 +29,25 @@ public class ServiceException extends RuntimeException implements IException {
      * 异常码
      */
     private final Integer code;
-    /**
-     * 提示消息
-     */
-    private final String toast;
-
-    public ServiceException(Integer status, String description, Integer code, String message) {
-        this(status, description, code, message, null);
-    }
-
-    public ServiceException(Integer status, String description, Integer code, String message, String toast, Object... args) {
-        super(message);
-        this.status = status;
-        this.description = description;
-        this.code = code;
-        this.toast = toast == null ? message : String.format(toast, args);
-    }
 
     public ServiceException(Integer code, String message) {
         this(code, message, code, message, message);
     }
 
-    public ServiceException(Integer code, String message, String toast, Object... args) {
-        this(code, message, code, message, toast == null ? message : String.format(toast, args));
+    public ServiceException(Integer code, String message, Object... args) {
+        this(code, message, code, message, args);
     }
 
     public ServiceException(IException exception, Object... args) {
-        this(exception.getCode(), exception.getMessage(), exception.getToast(), args);
+        this(exception.getCode(), exception.getMessage(), args);
+    }
+
+
+    public ServiceException(Integer status, String description, Integer code, String message, Object... args) {
+        super(message == null ? message : String.format(message, args));
+        this.status = status;
+        this.description = description;
+        this.code = code;
     }
 
     @Override
@@ -62,14 +56,16 @@ public class ServiceException extends RuntimeException implements IException {
     }
 
     @Override
-    public String getToast() {
-        return this.toast;
+    public String getMessage() {
+        return super.getMessage();
     }
 
+    @Override
     public Integer getStatus() {
         return status;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }

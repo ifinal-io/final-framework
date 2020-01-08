@@ -48,7 +48,7 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
-            logger.warn("==> exception: code={},message={},toast={}", e.getCode(), e.getMessage(), e.getToast());
+            logger.warn("==> exception: code={},message={}", e.getCode(), e.getMessage());
         } else {
             logger.error("==> ", throwable);
         }

@@ -16,21 +16,17 @@ public class InternalServerException extends ServiceException {
 
     public static final InternalServerException DEFAULT = new InternalServerException(ResponseStatus.INTERNAL_SERVER_ERROR.getMessage());
 
-    public InternalServerException(String message) {
-        this(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), message);
-    }
 
-    public InternalServerException(Integer code, String message) {
-        this(code, message, null);
+    public InternalServerException(String message, Object... args) {
+        this(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), message, args);
     }
 
     public InternalServerException(IException e, Object... args) {
-        this(e.getCode(), e.getMessage(), e.getToast(), args);
+        this(e.getCode(), e.getMessage(), args);
     }
 
-    public InternalServerException(Integer code, String message, String toast, Object... args) {
-        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getMessage(),
-                code, message, toast, args);
+    public InternalServerException(Integer code, String message, Object... args) {
+        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getMessage(), code, message, args);
     }
 
 }
