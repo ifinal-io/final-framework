@@ -14,6 +14,6 @@ import org.finalframework.data.result.Result;
  * @see UnCatchResultExceptionHandler
  * @since 1.0
  */
-public interface ResultExceptionHandler<E> extends ExceptionHandler<E, Result> {
+public interface ResultExceptionHandler<E> extends ExceptionHandler<E, Result<?>> {
 
 }

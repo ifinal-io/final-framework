@@ -27,7 +27,7 @@ public class IExceptionResultExceptionHandler implements org.finalframework.data
     }
 
     @Override
-    public Result handle(Throwable throwable) {
+    public Result<?> handle(Throwable throwable) {
         if (throwable instanceof ServiceException) {
             return handle((ServiceException) throwable);
         } else if (throwable instanceof IException) {
@@ -36,11 +36,11 @@ public class IExceptionResultExceptionHandler implements org.finalframework.data
         throw new IllegalArgumentException("不支持异常处理：" + throwable.getClass());
     }
 
-    public Result handle(ServiceException e) {
+    public Result<?> handle(ServiceException e) {
         return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage());
     }
 
-    public Result handle(IException e) {
+    public Result<?> handle(IException e) {
         return R.failure(e.getCode(), e.getMessage());
     }
 }

@@ -28,7 +28,7 @@ public class ViolationResultExceptionHandler implements org.finalframework.data.
     }
 
     @Override
-    public Result handle(ConstraintViolationException e) {
+    public Result<?> handle(ConstraintViolationException e) {
         return R.failure(
                 ResponseStatus.BAD_REQUEST.getCode(), ((ConstraintViolationException) e).getConstraintViolations()
                         .stream()

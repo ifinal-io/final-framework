@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @see Page
  * @since 1.0
  */
-public final class Result<T> implements Responsible, IException, Serializable {
+public final class Result<T> implements Responsible, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;
     /**
@@ -112,7 +112,6 @@ public final class Result<T> implements Responsible, IException, Serializable {
         this.description = description;
     }
 
-    @Override
     public Integer getCode() {
         return code;
     }
@@ -121,7 +120,6 @@ public final class Result<T> implements Responsible, IException, Serializable {
         this.code = code;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }

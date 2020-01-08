@@ -18,13 +18,13 @@ import java.util.UUID;
  */
 public abstract class ResultInvokeExceptionWrapper<T extends Serializable> implements InvokeExceptionWrapper<Result<T>> {
 
-    private GlobalExceptionHandler<Result> globalExceptionHandler;
+    private GlobalExceptionHandler<Result<?>> globalExceptionHandler;
 
-    public ResultInvokeExceptionWrapper(GlobalExceptionHandler<Result> globalExceptionHandler) {
+    public ResultInvokeExceptionWrapper(GlobalExceptionHandler<Result<?>> globalExceptionHandler) {
         this.globalExceptionHandler = globalExceptionHandler;
     }
 
-    public GlobalExceptionHandler<Result> getGlobalExceptionHandler() {
+    public GlobalExceptionHandler<Result<?>> getGlobalExceptionHandler() {
         return globalExceptionHandler;
     }
 
