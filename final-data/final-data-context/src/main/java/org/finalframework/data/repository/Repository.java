@@ -561,35 +561,35 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SCANNER ===========================================*/
 
-    default <PARAM> void select(Queryable query, Listener<PARAM, List<T>> listener) {
-        select(query.convert(), listener);
+    default <PARAM> void scan(Queryable query, Listener<PARAM, List<T>> listener) {
+        scan(query.convert(), listener);
     }
 
-    default <PARAM> void select(Query query, Listener<PARAM, List<T>> listener) {
-        select(null, null, query, listener);
+    default <PARAM> void scan(Query query, Listener<PARAM, List<T>> listener) {
+        scan(null, null, query, listener);
     }
 
-    default <PARAM> void select(Class<?> view, Queryable query, Listener<PARAM, List<T>> listener) {
-        select(view, query.convert(), listener);
+    default <PARAM> void scan(Class<?> view, Queryable query, Listener<PARAM, List<T>> listener) {
+        scan(view, query.convert(), listener);
     }
 
-    default <PARAM> void select(Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
-        select(null, view, query, listener);
+    default <PARAM> void scan(Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
+        scan(null, view, query, listener);
     }
 
-    default <PARAM> void select(String tableName, Queryable query, Listener<PARAM, List<T>> listener) {
-        select(tableName, query.convert(), listener);
+    default <PARAM> void scan(String tableName, Queryable query, Listener<PARAM, List<T>> listener) {
+        scan(tableName, query.convert(), listener);
     }
 
-    default <PARAM> void select(String tableName, Query query, Listener<PARAM, List<T>> listener) {
-        select(tableName, null, query, listener);
+    default <PARAM> void scan(String tableName, Query query, Listener<PARAM, List<T>> listener) {
+        scan(tableName, null, query, listener);
     }
 
-    default <PARAM> void select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, Listener<PARAM, List<T>> listener) {
-        select(tableName, view, query.convert(), listener);
+    default <PARAM> void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, Listener<PARAM, List<T>> listener) {
+        scan(tableName, view, query.convert(), listener);
     }
 
-    default <PARAM> void select(String tableName, Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
+    default <PARAM> void scan(String tableName, Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
         if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
