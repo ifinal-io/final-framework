@@ -576,10 +576,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
-
-        if (Assert.isNull(listener)) {
-            throw new NullPointerException("listener is null");
-        }
+        Assert.isNull(listener, "listener is null");
         final int page = query.getPage();
         final int size = query.getSize();
         final Long total = Boolean.TRUE.equals(query.getCount()) ? selectCount(tableName, query) : null;
@@ -678,10 +675,17 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
 
+    /*=========================================== TRUNCATE ===========================================*/
+
     default void truncate() {
         truncate(null);
     }
 
+    /**
+     * 清空表数据
+     *
+     * @param tableName 表名
+     */
     void truncate(@Param("tableName") String tableName);
 
 
