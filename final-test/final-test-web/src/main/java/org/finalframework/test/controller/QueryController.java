@@ -2,10 +2,10 @@ package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.repository.Listener;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.query.PersonQuery;
-import org.finalframework.test.query.QPerson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +44,16 @@ public class QueryController {
         PersonQuery query = new PersonQuery();
         query.orCriteria().addIdEqual(1L).addIdIsNull();
         query.andCriteria().addIdGreaterThan(2L);
+
+
+        personMapper.delete(new Query().limit(1), new Listener<Void, Integer>() {
+            @Override
+            public boolean onListening(int index, Void aVoid, Integer integer) {
+                return true;
+            }
+        });
+
+
 //        query.andCriteria().addIdIn(2L);
 //        QPerson.properties.extract("$.name")
 //        query.andCriteria().add(QPerson.properties.extract("$.name").contains("22"));

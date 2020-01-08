@@ -6,7 +6,6 @@ import org.finalframework.data.entity.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
-import org.finalframework.data.result.Page;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -385,6 +384,25 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
+    default <PARAM> void delete(Query query, Listener<PARAM, Integer> listener) {
+        this.delete(null, query, listener);
+    }
+
+    default <PARAM> void delete(String tableName, Query query, Listener<PARAM, Integer> listener) {
+        Long limit = query.getLimit().getLimit();
+        Assert.isNull(limit, "limit is null");
+        Assert.isNull(listener, "listener is null");
+        int offset = 0;
+        PARAM param = listener.onInit();
+        listener.onStart(param);
+        while (true) {
+            int rows = delete(tableName, query);
+            if (!listener.onListening(offset, param, rows)) break;
+            if (rows < limit) break;
+        }
+        listener.onFinish(param);
+    }
+
     /*=========================================== SELECT ===========================================*/
 
     default List<T> select() {
@@ -543,62 +561,51 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SCANNER ===========================================*/
 
-
-    default void scan(Queryable query, ScanListener<Page<T>> listener) {
-        scan(query.convert(), listener);
+    default <PARAM> void select(Queryable query, Listener<PARAM, List<T>> listener) {
+        select(query.convert(), listener);
     }
 
-    default void scan(Query query, ScanListener<Page<T>> listener) {
-        scan(null, null, query, listener);
+    default <PARAM> void select(Query query, Listener<PARAM, List<T>> listener) {
+        select(null, null, query, listener);
     }
 
-    default void scan(Class<?> view, Queryable query, ScanListener<Page<T>> listener) {
-        scan(view, query.convert(), listener);
+    default <PARAM> void select(Class<?> view, Queryable query, Listener<PARAM, List<T>> listener) {
+        select(view, query.convert(), listener);
     }
 
-    default void scan(Class<?> view, Query query, ScanListener<Page<T>> listener) {
-        scan(null, view, query, listener);
+    default <PARAM> void select(Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
+        select(null, view, query, listener);
     }
 
-    default void scan(String tableName, Queryable query, ScanListener<Page<T>> listener) {
-        scan(tableName, query.convert(), listener);
+    default <PARAM> void select(String tableName, Queryable query, Listener<PARAM, List<T>> listener) {
+        select(tableName, query.convert(), listener);
     }
 
-    default void scan(String tableName, Query query, ScanListener<Page<T>> listener) {
-        scan(tableName, null, query, listener);
+    default <PARAM> void select(String tableName, Query query, Listener<PARAM, List<T>> listener) {
+        select(tableName, null, query, listener);
     }
 
-    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, ScanListener<Page<T>> listener) {
-        scan(tableName, view, query.convert(), listener);
+    default <PARAM> void select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Queryable query, Listener<PARAM, List<T>> listener) {
+        select(tableName, view, query.convert(), listener);
     }
 
-    default void scan(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("query") Query query, ScanListener<Page<T>> listener) {
+    default <PARAM> void select(String tableName, Class<?> view, Query query, Listener<PARAM, List<T>> listener) {
         if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
         Assert.isNull(listener, "listener is null");
-        final int page = query.getPage();
-        final int size = query.getSize();
-        final Long total = Boolean.TRUE.equals(query.getCount()) ? selectCount(tableName, query) : null;
-        final Integer pages = total != null ? (int) Math.ceil(total * 1.0 / size) : null;
-
-        final Scanner<Page<T>> scanner = index -> {
-            query.page(page + index - 1);
-            final List<T> list = select(tableName, view, null, query);
-            final Page.Builder<T> builder = Page.builder();
-            final boolean last = Assert.isEmpty(list) || list.size() < size;
-            return builder.firstPage(page == 1)
-                    .lastPage(last)
-                    .page(page)
-                    .size(size)
-                    .total(total)
-                    .pages(pages)
-                    .result(list)
-                    .build();
-        };
-
-        scanner.scan(listener);
-
+        int index = query.getPage();
+        int offset = 0;
+        PARAM param = listener.onInit();
+        listener.onStart(param);
+        while (true) {
+            query.page(index + offset);
+            List<T> list = select(tableName, view, query);
+            offset++;
+            if (!listener.onListening(offset, param, list)) break;
+            if (Assert.isEmpty(list) || list.size() < query.getSize()) break;
+        }
+        listener.onFinish(param);
     }
 
     /*=========================================== SELECT IDS===========================================*/
