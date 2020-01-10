@@ -1,6 +1,6 @@
 package org.finalframework.spring.aop.interceptor;
 
-import org.finalframework.data.util.BeanUtils;
+import org.finalframework.data.util.Beans;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationConfiguration;
 import org.finalframework.spring.aop.annotation.OperationComponent;
@@ -58,7 +58,7 @@ public class OperationInterceptorAutoConfiguration implements ApplicationContext
     public void afterPropertiesSet() throws Exception {
         OperationConfiguration operationConfiguration = operationConfiguration();
 
-        BeanUtils.findAllBeansAnnotatedBy(applicationContext, OperationExecutor.class)
+        Beans.findAllBeansAnnotatedBy(applicationContext, OperationExecutor.class)
                 .map(it -> (Executor) it)
                 .forEach(it -> {
                     OperationExecutor annotation = AnnotationUtils.findAnnotation(it.getClass(), OperationExecutor.class);
@@ -67,7 +67,7 @@ public class OperationInterceptorAutoConfiguration implements ApplicationContext
                     operationConfiguration.registerExecutor(clazz, it);
                 });
 
-        BeanUtils.findAllBeansAnnotatedBy(applicationContext, OperationComponent.class)
+        Beans.findAllBeansAnnotatedBy(applicationContext, OperationComponent.class)
                 .map(it -> {
                     Class<?> clazz = it.getClass();
                     OperationComponent operationComponent = AnnotationUtils.findAnnotation(clazz, OperationComponent.class);

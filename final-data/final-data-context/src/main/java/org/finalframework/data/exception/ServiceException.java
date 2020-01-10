@@ -1,6 +1,7 @@
 package org.finalframework.data.exception;
 
 import org.finalframework.data.response.Responsible;
+import org.finalframework.data.util.Messages;
 
 /**
  * 业务异常
@@ -30,6 +31,10 @@ public class ServiceException extends RuntimeException implements Responsible, I
      */
     private final Integer code;
 
+    private final Object[] args;
+
+    private final String formatMessage;
+
     public ServiceException(Integer code, String message) {
         this(code, message, code, message, message);
     }
@@ -44,10 +49,22 @@ public class ServiceException extends RuntimeException implements Responsible, I
 
 
     public ServiceException(Integer status, String description, Integer code, String message, Object... args) {
-        super(message == null ? message : String.format(message, args));
+        super(message = Messages.getMessage(message, message, args));
         this.status = status;
         this.description = description;
         this.code = code;
+        this.args = args;
+        this.formatMessage = message == null ? null : String.format(message, args);
+    }
+
+    @Override
+    public Integer getStatus() {
+        return status;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -60,13 +77,11 @@ public class ServiceException extends RuntimeException implements Responsible, I
         return super.getMessage();
     }
 
-    @Override
-    public Integer getStatus() {
-        return status;
+    public Object[] getArgs() {
+        return args;
     }
 
-    @Override
-    public String getDescription() {
-        return description;
+    public String getFormatMessage() {
+        return this.formatMessage;
     }
 }

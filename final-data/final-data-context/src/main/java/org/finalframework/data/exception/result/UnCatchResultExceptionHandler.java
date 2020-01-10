@@ -26,7 +26,7 @@ public class UnCatchResultExceptionHandler implements org.finalframework.data.ex
     }
 
     @Override
-    public Result handle(Throwable throwable) {
+    public Result<?> handle(Throwable throwable) {
         logger.error("UnCatchException:", throwable);
         return R.failure(500, Assert.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
     }

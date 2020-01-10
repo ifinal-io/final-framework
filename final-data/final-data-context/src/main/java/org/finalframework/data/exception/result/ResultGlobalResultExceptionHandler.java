@@ -7,7 +7,7 @@ import org.finalframework.data.exception.handler.AbsGlobalExceptionHandler;
 import org.finalframework.data.exception.handler.ExceptionHandler;
 import org.finalframework.data.exception.handler.GlobalExceptionHandler;
 import org.finalframework.data.result.Result;
-import org.finalframework.data.util.BeanUtils;
+import org.finalframework.data.util.Beans;
 import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -40,7 +40,7 @@ public class ResultGlobalResultExceptionHandler extends AbsGlobalExceptionHandle
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        BeanUtils.findAllBeansAnnotatedBy(applicationContext, ResultExceptionHandler.class)
+        Beans.findAllBeansAnnotatedBy(applicationContext, ResultExceptionHandler.class)
                 .map(it -> {
                     if (!(it instanceof ExceptionHandler)) {
                         throw new IllegalStateException("the exception handler must implements ExceptionHandler!");

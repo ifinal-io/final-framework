@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
-public interface BeanUtils {
+public interface Beans {
 
     /**
      * return the beans annotated by specified annotation.

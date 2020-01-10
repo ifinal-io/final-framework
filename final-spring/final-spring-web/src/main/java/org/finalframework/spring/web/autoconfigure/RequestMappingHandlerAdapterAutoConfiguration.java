@@ -2,7 +2,7 @@ package org.finalframework.spring.web.autoconfigure;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.util.BeanUtils;
+import org.finalframework.data.util.Beans;
 import org.finalframework.spring.annotation.factory.SpringApplicationListener;
 import org.finalframework.spring.annotation.factory.SpringArgumentResolver;
 import org.finalframework.spring.web.http.converter.JsonStringHttpMessageConverter;
@@ -75,7 +75,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
-        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = BeanUtils.findBeansByAnnotation(context, SpringArgumentResolver.class);
+        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = Beans.findBeansByAnnotation(context, SpringArgumentResolver.class);
         if (Assert.nonEmpty(customerArgumentResolvers)) {
             //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
             argumentResolvers.addAll(customerArgumentResolvers);

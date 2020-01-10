@@ -1,7 +1,7 @@
 package org.finalframework.monitor.interceptor;
 
 
-import org.finalframework.data.util.BeanUtils;
+import org.finalframework.data.util.Beans;
 import org.finalframework.monitor.action.ActionContextHandler;
 import org.finalframework.monitor.annotation.ActionHandler;
 import org.finalframework.monitor.context.ActionContext;
@@ -37,7 +37,7 @@ public class DefaultRecorder implements Recorder, ApplicationContextAware {
 
     @PostConstruct
     public void init() {
-        BeanUtils.findAllBeansAnnotatedBy(applicationContext, ActionHandler.class)
+        Beans.findAllBeansAnnotatedBy(applicationContext, ActionHandler.class)
                 .map(it -> {
                     if (!(it instanceof ActionContextHandler)) {
                         throw new IllegalStateException("the action handler must implements ActionContextHandler!");

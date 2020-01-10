@@ -1,6 +1,6 @@
 package org.finalframework.spring.web.interceptor;
 
-import org.finalframework.data.util.BeanUtils;
+import org.finalframework.data.util.Beans;
 import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.finalframework.spring.annotation.factory.SpringWebMvcConfigurer;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer, App
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        BeanUtils.findBeansByAnnotation(applicationContext, SpringHandlerInterceptor.class)
+        Beans.findBeansByAnnotation(applicationContext, SpringHandlerInterceptor.class)
                 .forEach(item -> {
                     SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
                     InterceptorRegistration interceptorRegistration = registry.addInterceptor((org.springframework.web.servlet.HandlerInterceptor) item);
