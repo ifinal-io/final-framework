@@ -5,8 +5,8 @@
 
     <groupId>org.finalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>0.3.4-SNAPSHOT</version>
-    <!--<version>0.3.4-SNAPSHOT</version>-->
+    <version>0.4.0-SNAPSHOT</version>
+    <!--<version>0.4.0-SNAPSHOT</version>-->
     <modules>
         <module>final-core</module>
         <module>final-util</module>
@@ -36,12 +36,13 @@
     </parent>
 
     <properties>
-        <final.version>0.3.4-SNAPSHOT</final.version>
+        <final.version>0.4.0-SNAPSHOT</final.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
+        <sharding.version>4.0.0</sharding.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -54,7 +55,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <final.version>0.3.4-SNAPSHOT.RELEASE</final.version>
+                <final.version>0.4.0-SNAPSHOT.RELEASE</final.version>
             </properties>
         </profile>
     </profiles>
@@ -345,6 +346,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.shardingsphere/sharding-jdbc-core -->
+            <dependency>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-core</artifactId>
+                <version>${sharding.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.shardingsphere/sharding-transaction-core -->
+            <dependency>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-transaction-core</artifactId>
+                <version>${sharding.version}</version>
             </dependency>
 
         </dependencies>

@@ -10,6 +10,7 @@ import org.finalframework.data.response.ResponseStatus;
  * @date 2019-01-15 20:57:04
  * @see ForbiddenException
  * @see NotFoundException
+ * @see BadRequestException
  * @since 1.0
  */
 public class InternalServerException extends ServiceException {

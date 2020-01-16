@@ -2,7 +2,7 @@ package org.finalframework.coding.datasource.processer;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
-import org.finalframework.coding.datasource.DataSource;
+import org.finalframework.coding.datasource.annotation.DataSource;
 import org.finalframework.core.Assert;
 
 import javax.annotation.processing.*;

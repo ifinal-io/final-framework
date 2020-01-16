@@ -1,4 +1,4 @@
-package org.finalframework.coding.datasource;
+package org.finalframework.coding.datasource.annotation;
 
 import org.springframework.context.annotation.Primary;
 
