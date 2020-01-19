@@ -27,12 +27,12 @@ public abstract class JavaSourceGenerator<T extends JavaSource> extends Template
     protected abstract T buildJavaSource(TypeElement entity);
 
 
-    private void coding(T query) {
+    protected void coding(T source) {
         try {
-            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(query.getName());
+            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(source.getName());
             if (typeElement == null) {
-                JavaFileObject sourceFile = processEnv.getFiler().createSourceFile(query.getName());
-                coder.coding(query, sourceFile.openWriter());
+                JavaFileObject sourceFile = processEnv.getFiler().createSourceFile(source.getName());
+                coder.coding(source, sourceFile.openWriter());
             }
         } catch (Exception e) {
 //            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());

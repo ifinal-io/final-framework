@@ -3,6 +3,7 @@ package org.finalframework.coding.datasource.processer;
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
 import org.finalframework.coding.datasource.annotation.DataSource;
+import org.finalframework.coding.datasource.annotation.ShardingRule;
 import org.finalframework.core.Assert;
 
 import javax.annotation.processing.*;
@@ -28,10 +29,13 @@ public class DataSourceProcessor extends AbstractProcessor {
     private Filer filer;
     private Elements elements;
 
+    private DataSourceAutoConfigurationGenerator dataSourceAutoConfigurationGenerator;
+
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
         types.add(DataSource.class.getName());
+        types.add(ShardingRule.class.getName());
         return types;
     }
 
@@ -45,20 +49,30 @@ public class DataSourceProcessor extends AbstractProcessor {
         super.init(processingEnv);
         this.filer = processingEnv.getFiler();
         this.elements = processingEnv.getElementUtils();
+        this.dataSourceAutoConfigurationGenerator = new DataSourceAutoConfigurationGenerator(processingEnv, "");
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        generateEntityFiles(roundEnv.getElementsAnnotatedWith(DataSource.class));
+//        generateEntityFiles(roundEnv.getRootElements());
+        processDataSources(roundEnv.getRootElements());
         return false;
+    }
+
+    private void processDataSources(Set<? extends Element> elements) {
+        for (Element element : elements) {
+            if (element.getAnnotation(ShardingRule.class) != null) {
+                dataSourceAutoConfigurationGenerator.generate((TypeElement) element);
+            }
+        }
     }
 
     private void generateEntityFiles(Set<? extends Element> elements) {
         elements
                 .stream()
                 .map(it -> {
-                    DataSource dataSource = it.getAnnotation(DataSource.class);
 
+                    DataSource dataSource = it.getAnnotation(DataSource.class);
                     final String packageName = this.elements.getPackageOf(it).getQualifiedName().toString();
                     final String className = it.getSimpleName().toString();
                     String name = Assert.isEmpty(dataSource.name()) ? className.substring(0, 1).toLowerCase() + className.substring(1)
@@ -68,7 +82,7 @@ public class DataSourceProcessor extends AbstractProcessor {
                         name = name.substring(0, name.indexOf("DataSource"));
                     }
 
-                    return DataSourceAutoConfiguration.builder()
+                    return DataSourceAutoConfigurations.builder()
                             .packageName(packageName)
                             .name(className + "AutoConfiguration")
                             .properties(className + "Properties")

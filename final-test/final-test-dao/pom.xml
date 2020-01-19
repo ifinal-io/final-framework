@@ -29,8 +29,18 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
+            <artifactId>final-coding-datasource</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-coding-mapper</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>${sharding.version}</version>
         </dependency>
     </dependencies>
 

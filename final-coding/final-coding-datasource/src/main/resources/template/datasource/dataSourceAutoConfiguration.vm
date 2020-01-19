@@ -1,78 +1,88 @@
+#* @formatter:off *#
 #set($dataSource = $dataSourceAutoConfiguration)
-package ${dataSource.package};
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+## 数据源列表
+#set($dataSources = $dataSource.dataSources)
+package ${dataSource.packageName};
+## import
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-#if($dataSource.primary)
-import org.springframework.context.annotation.Primary;
-#end
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
+import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
+import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
+import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
-@Configuration
-@EnableAutoConfiguration
-@EnableConfigurationProperties(${dataSource.properties}.class)
-@MapperScan(basePackages = {${dataSource.basePackages}}, sqlSessionTemplateRef = "${dataSource.sqlSessionTemplate}", sqlSessionFactoryRef = "${dataSource.sqlSessionFactory}")
-public class ${dataSource.name} {
+@EnableConfigurationProperties({
+#foreach($item in $dataSources)
+    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
+    #if($className.equalsIgnoreCase('DataSource'))
+        #set($className = '')
+    #end
+    #if($foreach.hasNext)
+        ${className}DataSourceProperties.class,
+    #else
+        ${className}DataSourceProperties.class
+    #end
+#end
+})
+## 类声明
+public class ${dataSource.simpleName} {
 
-    public static final String TRANSACTION_MANAGER = "${dataSource.transactionManager}";
+## 属性 datasources
+#foreach($item in $dataSources)
+    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
+    #if($className.equalsIgnoreCase('DataSource'))
+        #set($className = '')
+    #end
+    private final ${className}DataSourceProperties ${item};
+#end
 
-
-    private final ${dataSource.properties} properties;
-
-    public ${dataSource.name}(${dataSource.properties} properties) {
-        this.properties = properties;
+## 构造函数
+    public ${dataSource.simpleName}(
+#foreach($item in $dataSources)
+    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
+    #if($className.equalsIgnoreCase('DataSource'))
+        #set($className = '')
+    #end
+    #if($foreach.hasNext)
+        ${className}DataSourceProperties ${item},
+    #else
+        ${className}DataSourceProperties ${item}
+    #end
+#end){
+#foreach($item in $dataSources)
+        this.${item} = ${item};
+#end
     }
 
+## datasource
 
-    @Bean
-    #if($dataSource.primary)
-    @Primary
-    #end
-    public DataSource ${dataSource.dataSource}() {
-        return properties.initializeDataSourceBuilder().build();
-    }
+    public DataSource ${dataSource.dataSource}() throws SQLException {
 
-    @Bean
-    #if($dataSource.primary)
-    @Primary
-    #end
-    public DataSourceTransactionManager ${dataSource.transactionManager}(@Qualifier("${dataSource.dataSource}") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+        ShardingRuleConfiguration shardingRuleConfiguration = new ShardingRuleConfiguration();
 
-    @Bean
-    #if($dataSource.primary)
-    @Primary
-    #end
-    public SqlSessionFactory ${dataSource.sqlSessionFactory}(@Qualifier("${dataSource.dataSource}") DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        #if($!dataSource.mapperLocations != "")
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        bean.setMapperLocations(resolver.getResources("${dataSource.mapperLocations}"));
-        #end
-        return bean.getObject();
-    }
+#foreach($tableRule in $dataSource.tableRules)
+        TableRuleConfiguration ${tableRule.table}RuleConfiguration = new TableRuleConfiguration("${tableRule.table}","${tableRule.actualDataNodes}");
 
-    @Bean
-    #if($dataSource.primary)
-    @Primary
+    #if($tableRule.tableShardingStrategy && $tableRule.tableShardingStrategy.getClass().simpleName == 'InlineShardingStrategyConfiguration')
+        personRuleConfiguration.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("${tableRule.tableShardingStrategy.shardingColumn}","${tableRule.tableShardingStrategy.algorithmExpression}"));
     #end
-    public SqlSessionTemplate ${dataSource.sqlSessionTemplate}(@Qualifier("${dataSource.sqlSessionFactory}") SqlSessionFactory sqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(sqlSessionFactory);
+
+        shardingRuleConfiguration.getTableRuleConfigs().add(${tableRule.table}RuleConfiguration);
+#end
+
+        final Map<String, DataSource> dataSourceMap = new HashMap<>();
+#foreach($item in $dataSources)
+        dataSourceMap.put("${item}",this.${item}.initializeDataSourceBuilder().build());
+#end
+
+        return ShardingDataSourceFactory.createDataSource(dataSourceMap,shardingRuleConfiguration,new Properties());
+
     }
 }

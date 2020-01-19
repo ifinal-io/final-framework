@@ -18,25 +18,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface DataSource {
-    /**
-     * 数据源名称，默认为类名（不包含'DataSource'）。
-     */
-    String name() default "";
 
     /**
      * 数据源配置前缀，参考 spring.datasource
      */
     String prefix();
 
-    /**
-     * Mapper所在的包路径
-     */
-    String[] basePackages();
-
-    /**
-     * mapper.xml所有的文件路径
-     */
-    String[] mapperLocations() default {};
+    String[] value();
 
     /**
      * 是否为主要的数据源，默认为{@code false}，当配置为 {@code true}时，会在生成的代码中添加 {@link Primary}注解。
