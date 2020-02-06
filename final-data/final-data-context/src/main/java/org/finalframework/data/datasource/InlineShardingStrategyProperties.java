@@ -1,16 +1,24 @@
-package org.finalframework.data.sharding;
+package org.finalframework.data.datasource;
 
 
 import java.io.Serializable;
 
 /**
+ * 行内分片策略
+ *
  * @author likly
  * @version 1.0
  * @date 2020-01-17 23:01:38
  * @since 1.0
  */
 public class InlineShardingStrategyProperties implements Serializable {
+    /**
+     * 分片列名
+     */
     private String shardingColumn;
+    /**
+     * 算法表达式
+     */
     private String algorithmExpression;
 
     public String getShardingColumn() {

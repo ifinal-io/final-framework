@@ -1,4 +1,4 @@
-package org.finalframework.data.sharding;
+package org.finalframework.data.datasource;
 
 
 import java.io.Serializable;
@@ -10,9 +10,21 @@ import java.io.Serializable;
  * @since 1.0
  */
 public class TableRuleProperties implements Serializable {
+    /**
+     * 逻辑表名
+     */
     private String logicTable;
+    /**
+     * 物理节点
+     */
     private String actualDataNodes;
+    /**
+     * 分库策略
+     */
     private ShardingStrategyProperties databaseShardingStrategy;
+    /**
+     * 分表策略
+     */
     private ShardingStrategyProperties tableShardingStrategy;
 
 

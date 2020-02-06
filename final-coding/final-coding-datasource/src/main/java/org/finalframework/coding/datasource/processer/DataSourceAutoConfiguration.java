@@ -23,7 +23,9 @@ public class DataSourceAutoConfiguration implements JavaSource {
     private final String prefix;
     private final List<String> dataSources = new ArrayList<>();
     private String dataSource;
+    private ShardingRuleConfiguration shardingRule;
 
+    private MapperScanConfiguration mapperScan;
 
     public DataSourceAutoConfiguration(String prefix, String packageName, String simpleName) {
         this.prefix = prefix;
@@ -63,5 +65,20 @@ public class DataSourceAutoConfiguration implements JavaSource {
         return dataSources;
     }
 
+    public ShardingRuleConfiguration getShardingRule() {
+        return shardingRule;
+    }
+
+    public void setShardingRule(ShardingRuleConfiguration shardingRule) {
+        this.shardingRule = shardingRule;
+    }
+
+    public MapperScanConfiguration getMapperScan() {
+        return mapperScan;
+    }
+
+    public void setMapperScan(MapperScanConfiguration mapperScan) {
+        this.mapperScan = mapperScan;
+    }
 }
 

@@ -24,4 +24,5 @@ public @interface MapperScan {
      * mapper.xml所有的文件路径
      */
     String[] mapperLocations() default {};
+
 }

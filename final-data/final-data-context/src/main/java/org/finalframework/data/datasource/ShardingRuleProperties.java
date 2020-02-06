@@ -1,10 +1,9 @@
-package org.finalframework.data.sharding;
+package org.finalframework.data.datasource;
 
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author likly
@@ -13,19 +12,19 @@ import java.util.Properties;
  * @since 1.0
  */
 public class ShardingRuleProperties implements Serializable {
-    private Map<String, TableRuleProperties> tableRules;
+    private Map<String, TableRuleProperties> tables;
     private List<String> bindingTables;
     private List<String> broadcastTables;
     private ShardingStrategyProperties defaultDatabaseShardingStrategy;
     private ShardingStrategyProperties defaultTableShardingStrategy;
     private Map<String, MasterSlaveRuleProperties> masterSlaveRules;
 
-    public Map<String, TableRuleProperties> getTableRules() {
-        return tableRules;
+    public Map<String, TableRuleProperties> getTables() {
+        return tables;
     }
 
-    public void setTableRules(Map<String, TableRuleProperties> tableRules) {
-        this.tableRules = tableRules;
+    public void setTables(Map<String, TableRuleProperties> tables) {
+        this.tables = tables;
     }
 
     public List<String> getBindingTables() {

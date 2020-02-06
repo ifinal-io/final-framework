@@ -4,85 +4,31 @@
 #set($dataSources = $dataSource.dataSources)
 package ${dataSource.packageName};
 ## import
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
-import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
-import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
-import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
+import org.finalframework.data.datasource.DataSourceAutoConfigurationProperties;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
-@EnableConfigurationProperties({
-#foreach($item in $dataSources)
-    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
-    #if($className.equalsIgnoreCase('DataSource'))
-        #set($className = '')
-    #end
-    #if($foreach.hasNext)
-        ${className}DataSourceProperties.class,
-    #else
-        ${className}DataSourceProperties.class
-    #end
-#end
-})
 ## 类声明
+@Configuration
+@AutoConfigureBefore(DataSourceAutoConfiguration.class)
 public class ${dataSource.simpleName} {
 
-## 属性 datasources
-#foreach($item in $dataSources)
-    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
-    #if($className.equalsIgnoreCase('DataSource'))
-        #set($className = '')
-    #end
-    private final ${className}DataSourceProperties ${item};
-#end
 
-## 构造函数
-    public ${dataSource.simpleName}(
-#foreach($item in $dataSources)
-    #set($className = $item.substring(0,1).toUpperCase() + $item.substring(1))
-    #if($className.equalsIgnoreCase('DataSource'))
-        #set($className = '')
-    #end
-    #if($foreach.hasNext)
-        ${className}DataSourceProperties ${item},
-    #else
-        ${className}DataSourceProperties ${item}
-    #end
-#end){
-#foreach($item in $dataSources)
-        this.${item} = ${item};
-#end
+    @Bean
+    @ConfigurationProperties(prefix = "${dataSource.prefix}")
+    public DataSourceAutoConfigurationProperties ${dataSource.dataSource}AutoConfigurationProperties(){
+        return new DataSourceAutoConfigurationProperties();
     }
 
-## datasource
-
+    @Bean
     public DataSource ${dataSource.dataSource}() throws SQLException {
-
-        ShardingRuleConfiguration shardingRuleConfiguration = new ShardingRuleConfiguration();
-
-#foreach($tableRule in $dataSource.tableRules)
-        TableRuleConfiguration ${tableRule.table}RuleConfiguration = new TableRuleConfiguration("${tableRule.table}","${tableRule.actualDataNodes}");
-
-    #if($tableRule.tableShardingStrategy && $tableRule.tableShardingStrategy.getClass().simpleName == 'InlineShardingStrategyConfiguration')
-        personRuleConfiguration.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("${tableRule.tableShardingStrategy.shardingColumn}","${tableRule.tableShardingStrategy.algorithmExpression}"));
-    #end
-
-        shardingRuleConfiguration.getTableRuleConfigs().add(${tableRule.table}RuleConfiguration);
-#end
-
-        final Map<String, DataSource> dataSourceMap = new HashMap<>();
-#foreach($item in $dataSources)
-        dataSourceMap.put("${item}",this.${item}.initializeDataSourceBuilder().build());
-#end
-
-        return ShardingDataSourceFactory.createDataSource(dataSourceMap,shardingRuleConfiguration,new Properties());
-
+        return ${dataSource.dataSource}AutoConfigurationProperties().build();
     }
+
 }

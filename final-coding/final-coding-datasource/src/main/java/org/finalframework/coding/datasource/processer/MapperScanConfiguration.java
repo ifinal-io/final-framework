@@ -1,4 +1,4 @@
-package org.finalframework.coding.datasource.configuration;
+package org.finalframework.coding.datasource.processer;
 
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class MapperScanConfiguration implements Serializable {
 
     private String[] basePackages;
-    private String mapperLocations;
+    private String[] mapperLocations;
     private String transactionManager;
     private String sqlSessionFactory;
     private String sqlSessionTemplate;
@@ -25,11 +25,11 @@ public class MapperScanConfiguration implements Serializable {
         this.basePackages = basePackages;
     }
 
-    public String getMapperLocations() {
+    public String[] getMapperLocations() {
         return mapperLocations;
     }
 
-    public void setMapperLocations(String mapperLocations) {
+    public void setMapperLocations(String[] mapperLocations) {
         this.mapperLocations = mapperLocations;
     }
 
