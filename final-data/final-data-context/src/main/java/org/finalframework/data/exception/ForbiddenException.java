@@ -22,6 +22,10 @@ public class ForbiddenException extends ServiceException {
     }
 
     public ForbiddenException(Integer code, String message, Object... args) {
+        this(code.toString(), message, args);
+    }
+
+    public ForbiddenException(String code, String message, Object... args) {
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getMessage(), code, message, args);
     }
 

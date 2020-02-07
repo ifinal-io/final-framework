@@ -23,6 +23,10 @@ public class NotFoundException extends ServiceException {
     }
 
     public NotFoundException(Integer code, String message, Object... args) {
+        this(code.toString(), message, args);
+    }
+
+    public NotFoundException(String code, String message, Object... args) {
         super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getMessage(), code, message, args);
     }
 

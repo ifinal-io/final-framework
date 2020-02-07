@@ -12,10 +12,14 @@ import org.finalframework.data.exception.IException;
  * @since 1.0
  */
 public class MonitorException {
-    private final Integer code;
+    private final String code;
     private final String message;
 
     public MonitorException(Integer code, String message) {
+        this(code.toString(), message);
+    }
+
+    public MonitorException(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -24,7 +28,7 @@ public class MonitorException {
         this(exception.getCode(), exception.getMessage());
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 

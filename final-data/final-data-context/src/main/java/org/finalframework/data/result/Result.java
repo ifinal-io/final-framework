@@ -38,7 +38,7 @@ public final class Result<T> implements Responsible, Serializable {
     /**
      * 业务状态码
      */
-    private Integer code;
+    private String code;
     /**
      * 业务状态描述
      */
@@ -71,7 +71,7 @@ public final class Result<T> implements Responsible, Serializable {
     public Result() {
     }
 
-    public Result(Integer status, String description, Integer code, String message, T data) {
+    public Result(Integer status, String description, String code, String message, T data) {
         this.status = status;
         this.description = description;
         this.code = code;
@@ -79,7 +79,7 @@ public final class Result<T> implements Responsible, Serializable {
         this.data = data;
     }
 
-    public Result(Integer status, String description, Integer code, String message) {
+    public Result(Integer status, String description, String code, String message) {
         this.status = status;
         this.description = description;
         this.code = code;
@@ -87,11 +87,11 @@ public final class Result<T> implements Responsible, Serializable {
     }
 
     public Result(Integer status, String description, T data) {
-        this(status, description, status, description, data);
+        this(status, description, status.toString(), description, data);
     }
 
     public Result(Integer status, String description) {
-        this(status, description, status, description);
+        this(status, description, status.toString(), description);
     }
 
     @Override
@@ -112,11 +112,11 @@ public final class Result<T> implements Responsible, Serializable {
         this.description = description;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

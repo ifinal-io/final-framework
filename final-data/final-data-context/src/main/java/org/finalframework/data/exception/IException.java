@@ -19,7 +19,7 @@ import org.springframework.lang.Nullable;
 public interface IException {
 
     @NonNull
-    Integer getCode();
+    String getCode();
 
     @NonNull
     String getMessage();

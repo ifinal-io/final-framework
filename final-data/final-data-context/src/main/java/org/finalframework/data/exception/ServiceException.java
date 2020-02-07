@@ -29,26 +29,21 @@ public class ServiceException extends RuntimeException implements Responsible, I
     /**
      * 异常码
      */
-    private final Integer code;
+    private final String code;
 
     private final Object[] args;
 
     private final String formatMessage;
 
-    public ServiceException(Integer code, String message) {
-        this(code, message, code, message, message);
+    public ServiceException(Integer status, String description, IException exception, Object... args) {
+        this(status, description, exception.getCode(), exception.getMessage(), args);
     }
 
-    public ServiceException(Integer code, String message, Object... args) {
-        this(code, message, code, message, args);
+    public ServiceException(Integer status, String description) {
+        this(status, description, status.toString(), description);
     }
 
-    public ServiceException(IException exception, Object... args) {
-        this(exception.getCode(), exception.getMessage(), args);
-    }
-
-
-    public ServiceException(Integer status, String description, Integer code, String message, Object... args) {
+    public ServiceException(Integer status, String description, String code, String message, Object... args) {
         super(message = Messages.getMessage(message, message, args));
         this.status = status;
         this.description = description;
@@ -68,7 +63,7 @@ public class ServiceException extends RuntimeException implements Responsible, I
     }
 
     @Override
-    public Integer getCode() {
+    public String getCode() {
         return this.code;
     }
 

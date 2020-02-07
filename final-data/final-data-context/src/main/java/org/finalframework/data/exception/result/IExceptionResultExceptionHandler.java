@@ -41,6 +41,6 @@ public class IExceptionResultExceptionHandler implements org.finalframework.data
     }
 
     public Result<?> handle(IException e) {
-        return R.failure(e.getCode(), e.getMessage());
+        return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
     }
 }

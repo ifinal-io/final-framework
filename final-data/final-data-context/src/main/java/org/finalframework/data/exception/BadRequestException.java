@@ -25,6 +25,10 @@ public class BadRequestException extends ServiceException {
     }
 
     public BadRequestException(Integer code, String message, Object... args) {
+        this(code.toString(), message, args);
+    }
+
+    public BadRequestException(String code, String message, Object... args) {
         super(ResponseStatus.BAD_REQUEST.getCode(), ResponseStatus.BAD_REQUEST.getMessage(), code, message, args);
     }
 

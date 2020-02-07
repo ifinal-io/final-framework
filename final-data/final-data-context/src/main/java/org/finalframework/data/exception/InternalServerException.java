@@ -27,6 +27,10 @@ public class InternalServerException extends ServiceException {
     }
 
     public InternalServerException(Integer code, String message, Object... args) {
+        this(code.toString(), message, args);
+    }
+
+    public InternalServerException(String code, String message, Object... args) {
         super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getMessage(), code, message, args);
     }
 
