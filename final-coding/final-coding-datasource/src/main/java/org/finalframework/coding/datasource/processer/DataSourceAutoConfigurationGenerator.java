@@ -1,22 +1,16 @@
 package org.finalframework.coding.datasource.processer;
 
 
+import org.finalframework.coding.datasource.spring.metadata.DataSourceMetaData;
+import org.finalframework.coding.datasource.spring.metadata.ShardingRuleMetaData;
+import org.finalframework.coding.datasource.spring.metadata.ShardingTableMetaData;
 import org.finalframework.coding.generator.JavaSourceGenerator;
-import org.finalframework.data.datasource.InlineShardingStrategyProperties;
-import org.finalframework.data.datasource.TableRuleProperties;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.configurationprocessor.MetadataStore;
 import org.springframework.boot.configurationprocessor.metadata.ConfigurationMetadata;
-import org.springframework.boot.configurationprocessor.metadata.ItemHint;
-import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
-import java.sql.Driver;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author likly
@@ -46,17 +40,14 @@ public class DataSourceAutoConfigurationGenerator extends JavaSourceGenerator<Da
     @Override
     protected void coding(DataSourceAutoConfiguration source) {
         source.getDataSources()
-                .forEach(it -> {
-                    this.buildDataSourceMetadata(source.getPrefix(), it);
-                });
+                .stream()
+                .map(it -> new DataSourceMetaData(source.getPrefix() + ".datasource", it))
+                .forEach(this.metadata::merge);
 
         if (source.getShardingRule() != null) {
-            source.getShardingRule()
-                    .getTables()
-                    .forEach(it -> {
-                        this.buildShardingRuleTable(source.getPrefix(), it);
-                    });
+            this.metadata.merge(new ShardingRuleMetaData(source.getPrefix() + ".sharding-rule", source.getShardingRule().getTables()));
         }
+
 
         super.coding(source);
 
@@ -73,192 +64,6 @@ public class DataSourceAutoConfigurationGenerator extends JavaSourceGenerator<Da
         }
     }
 
-    /**
-     * {
-     * "name": "final.sharding.data-source.ds0.continue-on-error",
-     * "type": "java.lang.Boolean",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.data",
-     * "type": "java.util.List<java.lang.String>",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.data-username",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.driver-class-name",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.generate-unique-name",
-     * "type": "java.lang.Boolean",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.initialization-mode",
-     * "type": "org.springframework.boot.jdbc.DataSourceInitializationMode",ShardingDataSourceAutoConfiguration
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.jndi-name",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.name",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.platform",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.schema",
-     * "type": "java.util.List<java.lang.String>",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.schema-password",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.schema-username",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.separator",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.sql-script-encoding",
-     * "type": "java.nio.charset.Charset",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.type",
-     * "type": "java.lang.Class<? extends javax.sql.DataSource>",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.url",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.username",
-     * "type": "java.lang.String",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * },
-     * {
-     * "name": "final.sharding.data-source.ds0.xa",
-     * "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
-     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-     * }
-     */
-    private void buildDataSourceMetadata(String prefix, String datasource) {
-        /**
-         * {
-         *  "name": "final.sharding.datasource.ds0.url",
-         *  "type": "java.lang.String",
-         *  "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-         *  }
-         */
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".datasource", datasource + ".url",
-                String.class.getCanonicalName(), DataSourceProperties.class.getCanonicalName(),
-                null, null, null, null));
-        /**
-         * {
-         *  "name": "final.sharding.datasource.ds0.username",
-         *  "type": "java.lang.String",
-         *  "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-         *  }
-         */
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".datasource", datasource + ".username",
-                String.class.getCanonicalName(), DataSourceProperties.class.getCanonicalName(),
-                null, null, null, null));
 
-        /**
-         * {
-         * "name": "final.sharding.datasource.ds0.password",
-         * "type": "java.lang.String",
-         * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-         */
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".datasource", datasource + ".password",
-                String.class.getCanonicalName(), DataSourceProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        /**
-         * {
-         * "name": "final.sharding.data-source.ds0.driver-class-name",
-         * "type": "java.lang.String",
-         * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
-         * },
-         */
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".datasource", datasource + ".driverClassName",
-                String.class.getCanonicalName(), DataSourceProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        /**
-         * {
-         *       "name": "final.sharding.data-source.ds0.driver-class-name",
-         *       "providers": [
-         *         {
-         *           "name": "class-reference",
-         *           "parameters": {
-         *             "target": "java.sql.Driver"
-         *           }
-         *         }
-         *       ]
-         *     }
-         */
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("target", Driver.class.getCanonicalName());
-        this.metadata.add(new ItemHint(prefix + ".datasource." + datasource + ".driverClassName",
-                null,
-                Arrays.asList(
-                        new ItemHint.ValueProvider("class-reference", parameters)
-                )
-        ));
-    }
-
-    private void buildShardingRuleTable(String prefix, String table) {
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".logicTable",
-                String.class.getCanonicalName(), TableRuleProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".actualDataNodes",
-                String.class.getCanonicalName(), TableRuleProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".databaseShardingStrategy.inline.shardingColumn",
-                String.class.getCanonicalName(), InlineShardingStrategyProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".databaseShardingStrategy.inline.algorithmExpression",
-                String.class.getCanonicalName(), InlineShardingStrategyProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".tableShardingStrategy.inline.shardingColumn",
-                String.class.getCanonicalName(), InlineShardingStrategyProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-        this.metadata.add(ItemMetadata.newProperty(prefix + ".shardingRule.tables.", table + ".tableShardingStrategy.inline.algorithmExpression",
-                String.class.getCanonicalName(), InlineShardingStrategyProperties.class.getCanonicalName(),
-                null, null, null, null));
-
-    }
 }
 

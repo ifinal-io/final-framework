@@ -30,6 +30,15 @@ final:
             inline:
               sharding-column: age
               algorithm-expression: person_${age % 2}
+          database-sharding-strategy:
+            inline:
+              sharding-column: age
+              algorithm-expression: ds${age % 2}
+      binding-tables: []
+      broadcast-tables: []
+      default-database-sharding-strategy:
+        inline:
+          sharding-column:
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   exception:
