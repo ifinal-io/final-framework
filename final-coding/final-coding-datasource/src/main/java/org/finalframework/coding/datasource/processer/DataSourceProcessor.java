@@ -4,12 +4,17 @@ import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
 import org.finalframework.coding.datasource.annotation.DataSource;
 import org.finalframework.coding.datasource.annotation.ShardingRule;
+import org.springframework.boot.configurationprocessor.MetadataStore;
+import org.springframework.boot.configurationprocessor.metadata.ConfigurationMetadata;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
+import javax.tools.Diagnostic;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,9 +30,10 @@ import java.util.Set;
 public class DataSourceProcessor extends AbstractProcessor {
     public static final String DATASOURCE = "DataSource";
     private final Coder coder = Coder.getDefaultCoder();
-    private Filer filer;
-    private Elements elements;
     private final Set<Element> dataSourceElements = new HashSet<>();
+
+    private MetadataStore metadataStore;
+    private ConfigurationMetadata metadata;
 
     private DataSourceAutoConfigurationGenerator dataSourceAutoConfigurationGenerator;
 
@@ -47,9 +53,9 @@ public class DataSourceProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.filer = processingEnv.getFiler();
-        this.elements = processingEnv.getElementUtils();
-        this.dataSourceAutoConfigurationGenerator = new DataSourceAutoConfigurationGenerator(processingEnv, "");
+        this.dataSourceAutoConfigurationGenerator = new DataSourceAutoConfigurationGenerator(processingEnv);
+        this.metadataStore = new MetadataStore(processingEnv);
+        this.metadata = new ConfigurationMetadata();
     }
 
     @Override
@@ -65,8 +71,22 @@ public class DataSourceProcessor extends AbstractProcessor {
     private void processDataSources(Set<? extends Element> elements) {
         for (Element element : elements) {
             if (element.getAnnotation(ShardingRule.class) != null) {
-                dataSourceAutoConfigurationGenerator.generate((TypeElement) element);
+                this.metadata.merge(dataSourceAutoConfigurationGenerator.generate((TypeElement) element));
             }
+        }
+    }
+
+    private void writeMetaData() {
+        try {
+            ConfigurationMetadata configurationMetadata = this.metadataStore.readMetadata();
+            if (configurationMetadata != null) {
+                this.metadata.merge(configurationMetadata);
+            }
+            if (!this.metadata.getItems().isEmpty()) {
+                this.metadataStore.writeMetadata(this.metadata);
+            }
+        } catch (Exception e) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
         }
     }
 

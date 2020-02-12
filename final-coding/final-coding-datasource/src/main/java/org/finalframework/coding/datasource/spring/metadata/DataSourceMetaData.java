@@ -98,11 +98,6 @@ import java.util.Map;
  * "type": "java.lang.String",
  * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
  * },
- * {
- * "name": "final.sharding.data-source.ds0.xa",
- * "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
- * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
- * }
  *
  * @author likly
  * @version 1.0
@@ -125,6 +120,7 @@ public class DataSourceMetaData extends ConfigurationMetadata {
         this.username();
         this.password();
         this.driverClassName();
+        this.xa();
     }
 
     private void url() {
@@ -200,6 +196,19 @@ public class DataSourceMetaData extends ConfigurationMetadata {
                         new ItemHint.ValueProvider("class-reference", parameters)
                 )
         ));
+    }
+
+    /**
+     * {
+     * "name": "final.sharding.data-source.ds0.xa",
+     * "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
+     * "sourceType": "org.finalframework.test.dao.datasource.Ds0DataSourceProperties"
+     * }
+     */
+    private void xa() {
+        this.add(ItemMetadata.newProperty(prefix + ".", datasource + ".xa",
+                DataSourceProperties.Xa.class.getCanonicalName(), DataSourceProperties.class.getCanonicalName(),
+                null, "XA", null, null));
     }
 
 

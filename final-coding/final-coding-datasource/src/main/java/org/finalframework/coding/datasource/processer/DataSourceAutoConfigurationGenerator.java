@@ -1,16 +1,13 @@
 package org.finalframework.coding.datasource.processer;
 
 
-import org.finalframework.coding.datasource.spring.metadata.DataSourceMetaData;
-import org.finalframework.coding.datasource.spring.metadata.ShardingRuleMetaData;
-import org.finalframework.coding.datasource.spring.metadata.ShardingTableMetaData;
-import org.finalframework.coding.generator.JavaSourceGenerator;
-import org.springframework.boot.configurationprocessor.MetadataStore;
-import org.springframework.boot.configurationprocessor.metadata.ConfigurationMetadata;
+import org.finalframework.coding.Coder;
+import org.finalframework.coding.datasource.spring.metadata.DataSourceAutoConfigurationMetaData;
+import org.finalframework.core.generator.Generator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
+import javax.tools.JavaFileObject;
 
 /**
  * @author likly
@@ -18,52 +15,29 @@ import javax.tools.Diagnostic;
  * @date 2020-01-17 02:09:30
  * @since 1.0
  */
-public class DataSourceAutoConfigurationGenerator extends JavaSourceGenerator<DataSourceAutoConfiguration> {
-
+public class DataSourceAutoConfigurationGenerator implements Generator<TypeElement, DataSourceAutoConfigurationMetaData> {
+    protected final Coder coder = Coder.getDefaultCoder();
+    protected final ProcessingEnvironment processEnv;
     private final DataSourceAutoConfigurationFactory factory;
-    private final MetadataStore metadataStore;
-    private final ConfigurationMetadata metadata;
 
-    public DataSourceAutoConfigurationGenerator(ProcessingEnvironment processEnv, String targetRoute) {
-        super(processEnv, targetRoute);
-        this.metadataStore = new MetadataStore(processEnv);
-        this.metadata = new ConfigurationMetadata();
+    public DataSourceAutoConfigurationGenerator(ProcessingEnvironment processEnv) {
+        this.processEnv = processEnv;
         factory = new DataSourceAutoConfigurationFactory(processEnv);
     }
 
     @Override
-    protected DataSourceAutoConfiguration buildJavaSource(TypeElement entity) {
-        return factory.create(entity);
-    }
-
-
-    @Override
-    protected void coding(DataSourceAutoConfiguration source) {
-        source.getDataSources()
-                .stream()
-                .map(it -> new DataSourceMetaData(source.getPrefix() + ".datasource", it))
-                .forEach(this.metadata::merge);
-
-        if (source.getShardingRule() != null) {
-            this.metadata.merge(new ShardingRuleMetaData(source.getPrefix() + ".sharding-rule", source.getShardingRule().getTables()));
-        }
-
-
-        super.coding(source);
-
+    public DataSourceAutoConfigurationMetaData generate(TypeElement element) {
+        DataSourceAutoConfiguration configuration = factory.create(element);
         try {
-            ConfigurationMetadata configurationMetadata = this.metadataStore.readMetadata();
-            if (configurationMetadata != null) {
-                this.metadata.merge(configurationMetadata);
-            }
-            if (!this.metadata.getItems().isEmpty()) {
-                this.metadataStore.writeMetadata(this.metadata);
+            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(configuration.getName());
+            if (typeElement == null) {
+                JavaFileObject sourceFile = processEnv.getFiler().createSourceFile(configuration.getName());
+                coder.coding(configuration, sourceFile.openWriter());
             }
         } catch (Exception e) {
-            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+//            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
         }
+        return new DataSourceAutoConfigurationMetaData(configuration);
     }
-
-
 }
 
