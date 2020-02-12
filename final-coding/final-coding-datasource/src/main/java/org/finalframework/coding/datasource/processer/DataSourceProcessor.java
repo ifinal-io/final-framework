@@ -62,6 +62,7 @@ public class DataSourceProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) {
             processDataSources(dataSourceElements);
+            this.writeMetaData();
         } else {
             dataSourceElements.addAll(roundEnv.getElementsAnnotatedWith(DataSource.class));
         }
