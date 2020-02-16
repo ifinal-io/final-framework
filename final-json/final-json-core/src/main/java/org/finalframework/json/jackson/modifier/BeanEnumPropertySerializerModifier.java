@@ -40,6 +40,9 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     private static final Logger logger = LoggerFactory.getLogger(BeanEnumPropertySerializerModifier.class);
 
+    private static final String ENUM_NAME_PROPERTY_SUFFIX = "Name";
+    private static final String ENUM_DESCRIPTION_PROPERTY_SUFFIX = "Description";
+
     @Override
     public JsonSerializer<?> modifyEnumSerializer(SerializationConfig config, JavaType valueType, BeanDescription beanDesc, JsonSerializer<?> serializer) {
         JsonFormat jsonFormat = beanDesc.getClassAnnotations().get(JsonFormat.class);
@@ -56,19 +59,12 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     @Override
     public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
-        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
-                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-                EnumDescriptionSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
-                writer.willSuppressNulls(), null, property.findViews());
+        BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
+        BeanPropertyWriter enumDescriptionPropertyWriter = buildEnumDescriptionPropertyWriter(beanDesc, property, writer);
+        return Arrays.asList(enumNamePropertyWriter, enumDescriptionPropertyWriter);
+    }
 
-        try {
-            Field name = BeanPropertyWriter.class.getDeclaredField("_name");
-            name.setAccessible(true);
-            name.set(enumDescriptionPropertyWriter, new SerializedString(enumDescriptionPropertyWriter.getName() + "Description"));
-        } catch (Exception e) {
-            logger.error("", e);
-        }
-
+    private BeanPropertyWriter buildEnumNamePropertyWriter(BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
         BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                 EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
@@ -77,10 +73,26 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         try {
             Field name = BeanPropertyWriter.class.getDeclaredField("_name");
             name.setAccessible(true);
-            name.set(enumNamePropertyWriter, new SerializedString(enumNamePropertyWriter.getName() + "Name"));
+            name.set(enumNamePropertyWriter, new SerializedString(enumNamePropertyWriter.getName() + ENUM_NAME_PROPERTY_SUFFIX));
         } catch (Exception e) {
             logger.error("", e);
         }
-        return Arrays.asList(enumNamePropertyWriter, enumDescriptionPropertyWriter);
+        return enumNamePropertyWriter;
+    }
+
+    private BeanPropertyWriter buildEnumDescriptionPropertyWriter(BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
+        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                EnumDescriptionSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
+
+        try {
+            Field name = BeanPropertyWriter.class.getDeclaredField("_name");
+            name.setAccessible(true);
+            name.set(enumDescriptionPropertyWriter, new SerializedString(enumDescriptionPropertyWriter.getName() + ENUM_DESCRIPTION_PROPERTY_SUFFIX));
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return enumDescriptionPropertyWriter;
     }
 }
