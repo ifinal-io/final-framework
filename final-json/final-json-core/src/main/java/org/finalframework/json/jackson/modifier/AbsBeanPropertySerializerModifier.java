@@ -1,4 +1,4 @@
-package org.finalframework.json.jackson.serializer.modifier;
+package org.finalframework.json.jackson.modifier;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -38,6 +38,8 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
                 }
             }
         }
+
+
         return super.changeProperties(config, beanDesc, beanProperties);
     }
 

@@ -1,4 +1,4 @@
-package org.finalframework.json.jackson.serializer.modifier;
+package org.finalframework.json.jackson.modifier;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.io.SerializedString;
@@ -9,9 +9,9 @@ import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.json.jackson.serializer.EnumCodeSerializer;
-import org.finalframework.json.jackson.serializer.EnumNameSerializer;
-import org.finalframework.json.jackson.serializer.EnumSerializer;
+import org.finalframework.json.jackson.EnumCodeSerializer;
+import org.finalframework.json.jackson.EnumNameSerializer;
+import org.finalframework.json.jackson.EnumSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

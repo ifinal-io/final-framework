@@ -3,7 +3,6 @@ package org.finalframework.json.jackson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.finalframework.json.jackson.view.JsonViewValue;
-import org.finalframework.json.jackson.serializer.JsonViewValueSerializer;
 
 import java.time.LocalDateTime;
 

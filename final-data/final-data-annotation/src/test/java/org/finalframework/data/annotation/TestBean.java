@@ -6,7 +6,7 @@ package org.finalframework.data.annotation;
  * @date 2019-02-22 13:18:00
  * @since 1.0
  */
-@Table(name = "test", value = "test")
+@Table(value = "test")
 public class TestBean {
 
 }

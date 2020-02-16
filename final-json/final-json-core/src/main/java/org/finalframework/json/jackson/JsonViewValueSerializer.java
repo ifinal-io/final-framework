@@ -1,4 +1,4 @@
-package org.finalframework.json.jackson.serializer;
+package org.finalframework.json.jackson;
 
 
 import com.fasterxml.jackson.core.JsonGenerator;

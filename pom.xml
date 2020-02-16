@@ -102,11 +102,6 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-json-jackson</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
                 <artifactId>final-json-autoconfigure</artifactId>
                 <version>${final.version}</version>
             </dependency>

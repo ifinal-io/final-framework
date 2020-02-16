@@ -1,6 +1,5 @@
 package org.finalframework.data.annotation;
 
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.*;
@@ -17,11 +16,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Table {
-    @AliasFor("name")
     @NonNull
-    String value() default "";
-
-    @AliasFor("value")
-    @NonNull
-    String name() default "";
+    String value();
 }
