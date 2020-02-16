@@ -10,12 +10,14 @@ import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import org.finalframework.data.entity.enums.IEnum;
 import org.finalframework.json.jackson.EnumCodeSerializer;
+import org.finalframework.json.jackson.EnumDescriptionSerializer;
 import org.finalframework.json.jackson.EnumNameSerializer;
 import org.finalframework.json.jackson.EnumSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -31,7 +33,7 @@ import java.util.Collections;
  * @version 1.0
  * @date 2019-08-26 14:27:05
  * @see EnumCodeSerializer
- * @see EnumNameSerializer
+ * @see EnumDescriptionSerializer
  * @since 1.0
  */
 public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<IEnum> {
@@ -54,8 +56,20 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     @Override
     public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
-        //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
-        BeanPropertyWriter bpw = new BeanPropertyWriter(property,
+        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                EnumDescriptionSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
+
+        try {
+            Field name = BeanPropertyWriter.class.getDeclaredField("_name");
+            name.setAccessible(true);
+            name.set(enumDescriptionPropertyWriter, new SerializedString(enumDescriptionPropertyWriter.getName() + "Description"));
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+
+        BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                 EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
@@ -63,10 +77,10 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         try {
             Field name = BeanPropertyWriter.class.getDeclaredField("_name");
             name.setAccessible(true);
-            name.set(bpw, new SerializedString(bpw.getName() + "Name"));
+            name.set(enumNamePropertyWriter, new SerializedString(enumNamePropertyWriter.getName() + "Name"));
         } catch (Exception e) {
             logger.error("", e);
         }
-        return Collections.singleton(bpw);
+        return Arrays.asList(enumNamePropertyWriter, enumDescriptionPropertyWriter);
     }
 }

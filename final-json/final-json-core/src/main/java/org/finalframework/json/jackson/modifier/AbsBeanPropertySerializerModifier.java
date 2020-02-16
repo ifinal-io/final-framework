@@ -34,7 +34,12 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
                 Collection<BeanPropertyWriter> changeProperties = changeProperties(config, beanDesc, property, def);
                 if (Assert.nonEmpty(changeProperties)) {
-                    beanProperties.addAll(changeProperties);
+                    int index = beanProperties.indexOf(def);
+                    if (index != -1) {
+                        beanProperties.addAll(index + 1, changeProperties);
+                    } else {
+                        beanProperties.addAll(changeProperties);
+                    }
                 }
             }
         }
