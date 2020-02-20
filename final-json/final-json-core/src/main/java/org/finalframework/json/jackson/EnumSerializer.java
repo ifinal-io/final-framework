@@ -13,8 +13,9 @@ import java.io.IOException;
  * <pre>
  *     <code>
  *         {
+ *             "name" : "NAME",
  *             "code" : 1,
- *             "name" : "名称"
+ *             "description" : "名称",
  *         }
  *     </code>
  * </pre>
