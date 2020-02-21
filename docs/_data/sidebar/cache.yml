@@ -14,7 +14,7 @@ menus:
         name: Cacheable
         mini: CA
       - id: cache-lock
-        link: /cache/usage/cachelock
+        link: /cache/usage/cache-lock
         name: CacheLock
         mini: CL
       - id: cachedel
