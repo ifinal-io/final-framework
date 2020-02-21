@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 public interface Cache extends Executor {
 
     /**
-     * 获取缓存锁
+     * 获取缓存锁,当且仅当缓存 {@code key} 不存在时，才可猎取成功。
+     * <a href="https://final.ilikly.com/cache/annotation/cachelock">CacheLock</a>
      *
      * @param key      key 锁的Key
      * @param value    value 锁的Value
@@ -29,17 +30,20 @@ public interface Cache extends Executor {
      * @return 如果获取成功，则返回 {@linkplain true}，否则返回 {@linkplain false}。
      * @see org.finalframework.cache.annotation.CacheLock
      * @see CacheLockOperationHandler
+     * @see #unlock(Object, Object)
      */
     boolean lock(@NonNull Object key, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
 
     /**
-     * 释放缓存锁，当且仅当缓存 {@code key} 和{@code value}
+     * 释放缓存锁，当且仅当缓存 {@code key} 和 {@code value}。
+     * <a href="https://final.ilikly.com/cache/annotation/cachelock">CacheLock</a>
      *
      * @param key   缓存锁的Key
      * @param value 缓存锁的Value
      * @return 如果缓存释放成功，则返回 {@linkplain true}，否则返回 {@linkplain false}。
      * @see org.finalframework.cache.annotation.CacheLock
      * @see CacheLockOperationHandler
+     * @see #lock(Object, Object, Long, TimeUnit)
      */
     boolean unlock(@NonNull Object key, @Nullable Object value);
 

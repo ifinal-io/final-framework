@@ -5,7 +5,7 @@ layout: post
 categories: []
 tags: []
 menus:
-    - annotation
+    - usage
     - cachevalue
 author: likly
 date: 2019-03-23 16:08:55 +800
@@ -16,7 +16,7 @@ version: 1.0
 
 ## What
 
-[`CacheValue`](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/CacheValue.java)注解实现在方法执行之前，
+[`CacheValue`](/org/finalframework/cache/annotation/CacheValue.java)注解实现在方法执行之前，
 将其所描述的缓存区域中的值赋予被标记的参数`Parameter`。
 
 ## Usage

@@ -5,7 +5,7 @@ description: 通过简单的声明，即可增强目标方法，实现缓存的�
 categories: [redis]
 layout: post
 menus:
-    - annotation
+    - usage
     - cacheable
 tags: []
 toc: true
@@ -18,7 +18,7 @@ version: 1.0
 
 ## What
 
-**[`Cacheable`](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/Cacheable.java)** 是一个基于注解(`Annotation`)
+**[`Cacheable`](/org/finalframework/cache/annotation/Cacheable.java)** 是一个基于注解(`Annotation`)
 的缓存框架，能够为目标方法**Method**添加上缓存功能。
 
 ## Usage

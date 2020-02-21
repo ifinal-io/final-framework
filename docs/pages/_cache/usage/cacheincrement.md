@@ -6,7 +6,7 @@ layout: post
 categories: []
 tags: []
 menus:
-    - annotation
+    - usage
     - cacheincrement
 author: likly
 date: 2019-03-24 12:39:08 +800
@@ -17,7 +17,7 @@ version: 1.0
 
 ## What
 
-[CacheIncrement](/final-cache/final-cache-core/src/main/java/org/finalframework/cache/annotation/CacheIncrement.java)
+[CacheIncrement](/org/finalframework/cache/annotation/CacheIncrement.java)
 实现在方法的执行生命周期内，统计次数。如目标方法的执行次数、执行成功次数、执行失败次数等。
 
 ## Usage

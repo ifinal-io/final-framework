@@ -5,7 +5,7 @@ layout: post
 categories: []
 tags: []
 menus:
-    - annotation
+    - usage
     - cachedel
 author: likly
 date: 2019-03-17 14:46:16 +800

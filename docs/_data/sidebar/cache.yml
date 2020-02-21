@@ -5,31 +5,31 @@ menus:
     link: /cache
     icon: dashboard
     name: README
-  - id: annotation
+  - id: usage
     icon: alternate_email
     name: Annotation
     menus:
       - id: cacheable
-        link: /cache/annotation/cacheable
+        link: /cache/usage/cacheable
         name: Cacheable
         mini: CA
-      - id: cachelock
-        link: /cache/annotation/cachelock
+      - id: cache-lock
+        link: /cache/usage/cachelock
         name: CacheLock
         mini: CL
       - id: cachedel
-        link: /cache/annotation/cachedel
+        link: /cache/usage/cachedel
         name: CacheDel
         mini: CD
       - id: cacheput
-        link: /cache/annotation/cacheput
+        link: /cache/usage/cacheput
         name: CachePut
         mini: CP
       - id: cacheincrement
-        link: /cache/annotation/cacheincrement
+        link: /cache/usage/cacheincrement
         name: CacheIncrement
         mini: CI
       - id: cachevalue
-        link: /cache/annotation/cachevalue
+        link: /cache/usage/cachevalue
         name: CacheValue
         mini: CV

@@ -6,8 +6,8 @@ layout: post
 categories: []
 tags: []
 menus: 
-    - annotation
-    - cachelock
+    - usage
+    - cache-lock
 author: likly
 date: 2019-03-16 15:15:27 +800
 version: 1.0
