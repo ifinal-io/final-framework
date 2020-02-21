@@ -27,7 +27,7 @@ version: 1.0
 * 在方法执行之后，将方法的返回值全部或部分值添加到缓存中。
 * ……
 
-## Usage
+## Guide
 
 ### Import
 
@@ -54,6 +54,7 @@ public interface CacheService {
     String cacheMethod(Long id);
 }
 ```
+
 
 ## CutPoint
 

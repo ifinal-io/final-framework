@@ -97,7 +97,6 @@ public class CacheLockOperation implements Operation {
         return this.retry;
     }
 
-    @NonNull
     public Long sleep() {
         return this.sleep;
     }

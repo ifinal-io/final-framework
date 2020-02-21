@@ -26,14 +26,39 @@ version: 1.0
 
 **示例**：
 
-* **需求**： 在订单服务`OrderService`的下单方法`cutPoint(request)`中，对于同一个下单请求`request`在同一时刻有且仅能有一个下单动作，避免造成用户重复下单的问题。
-* **Code**:
+* **需求**： 在订单服务`OrderService`的下单方法`order(request)`中，对于同一个下单请求`request`在同一时刻有且仅能有一个下单动作，避免造成用户重复下单的问题。
+* **编程方式**:
 ```java
-public interface OrderService{
-    @CacheLock(key={"cutPoint:{#request.id}"},ttl=5,timeunit=TimeUnit.MINUTES)
-    Order cutPoint(Request request);
+public class OrderServiceImpl implements OrderService{
+
+    @Resource
+    private Cache cache;
+
+    @Override
+    public Order order(Request request){
+        
+        final String key = "lock:" + request.id;
+        final String value = UUID.randomUUID().toString();
+        
+        try{
+            if(cache.lock(key,value,5,TimeUnit.MINUTES)){
+                // do order
+            }
+            throw new ServiceExcetion(500,"订单正在处理...");
+        }finally{
+            cache.unlock(key,value);
+        }
+    }
 }
 ```
+* **注解方式**
+```java
+public interface OrderService{
+    @CacheLock(key={"lock:{#request.id}"},ttl=5,timeunit=TimeUnit.MINUTES)
+    Order order(Request request);
+}
+```
+
 
 ## Options
 
