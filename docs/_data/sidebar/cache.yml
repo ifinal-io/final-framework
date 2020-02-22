@@ -7,7 +7,7 @@ menus:
     name: README
   - id: usage
     icon: alternate_email
-    name: Annotation
+    name: 使用手册
     menus:
       - id: cacheable
         link: /cache/usage/cacheable
