@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Persistent;
 import java.lang.annotation.*;
 
 /**
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:14

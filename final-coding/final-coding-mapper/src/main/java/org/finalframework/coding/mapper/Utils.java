@@ -19,9 +19,11 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.finalframework.data.annotation.enums.PersistentType.AUTO;
+import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 
 /**
  * @author likly
@@ -35,9 +37,23 @@ public final class Utils {
     private final ProcessingEnvironment processEnv;
     private final Types typeUtils;
     private final Elements elementUtils;
+
+    /**
+     * @see IEnum
+     */
     private final TypeElement enumTypeElement;
+    /**
+     * @see List
+     */
     private final TypeElement listTypeElement;
+    /**
+     * @see Set
+     */
     private final TypeElement setTypeElement;
+    /**
+     * @see Map
+     */
+    private final TypeElement mapTypeElement;
 
     private TypeHandlerRegistry typeHandlerRegistry;
 
@@ -48,6 +64,7 @@ public final class Utils {
         this.enumTypeElement = processEnv.getElementUtils().getTypeElement(IEnum.class.getCanonicalName());
         this.listTypeElement = processEnv.getElementUtils().getTypeElement(List.class.getCanonicalName());
         this.setTypeElement = processEnv.getElementUtils().getTypeElement(Set.class.getCanonicalName());
+        this.mapTypeElement = processEnv.getElementUtils().getTypeElement(Map.class.getCanonicalName());
         this.typeHandlerRegistry = TypeHandlerRegistry.getInstance();
     }
 
@@ -107,7 +124,7 @@ public final class Utils {
             return getTypeElement(typeHandlerRegistry.getEnumTypeHandler());
         }
         JsonColumn jsonColumn = element.getAnnotation(JsonColumn.class);
-        PersistentType persistentType = jsonColumn == null ? AUTO : jsonColumn.persistentType();
+        PersistentType persistentType = jsonColumn == null ? JSON : jsonColumn.persistentType();
         if (isList(element)) {
             switch (persistentType) {
                 case JSON:
@@ -125,6 +142,13 @@ public final class Utils {
                     return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getSet());
                 default:
                     return getTypeElement(typeHandlerRegistry.getSetTypeHandler());
+            }
+        } else if (isMap(element)) {
+            switch (persistentType) {
+                case JSON:
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
+                case BLOB:
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
             }
         } else if (jsonColumn != null) {
             switch (persistentType) {
@@ -184,6 +208,10 @@ public final class Utils {
 
     public boolean isSet(Element element) {
         return isSubtype(element, setTypeElement);
+    }
+
+    public boolean isMap(Element element) {
+        return isSubtype(element, mapTypeElement);
     }
 
 

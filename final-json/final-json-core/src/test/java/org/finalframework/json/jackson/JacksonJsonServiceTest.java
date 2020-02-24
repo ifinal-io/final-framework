@@ -1,5 +1,6 @@
 package org.finalframework.json.jackson;
 
+import com.alibaba.fastjson.JSONObject;
 import org.finalframework.data.entity.enums.YN;
 import org.finalframework.json.Json;
 import org.finalframework.json.JsonRegistry;
@@ -7,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-
-import static org.junit.Assert.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author likly
@@ -18,9 +19,19 @@ import static org.junit.Assert.*;
  */
 public class JacksonJsonServiceTest {
 
+    private String json;
+
     @Before
     public void setup() {
         JsonRegistry.getInstance().register(new JacksonJsonService());
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "XiaoMing");
+        map.put("age", 12);
+        Map<String,Object> properties = new HashMap<>();
+        properties.put("add","中国");
+        map.put("properties",properties);
+        this.json = Json.toJson(map);
+
     }
 
     @Test
@@ -33,6 +44,9 @@ public class JacksonJsonServiceTest {
     }
 
     @Test
-    public void testToJson() {
+    public void toJSONObject() {
+        JSONObject jsonObject = Json.toObject(json, JSONObject.class);
+        assert jsonObject.getString("name").equals("XiaoMing");
     }
+
 }

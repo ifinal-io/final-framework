@@ -23,7 +23,7 @@ body {
 }
 
 .markdown {
-    font-size: 1em;
+    font-size: 1.2em;
     font-family: Roboto, Helvetica, Arial, sans-serif;;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .markdown p {
-    font-size: 1em;
+    font-size: 1.1em;
     font-family: Roboto, Helvetica, Arial, sans-serif;;
 }
 
@@ -66,6 +66,7 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
 
 .markdown .post-content h2, .markdown .post-content h3, .markdown .post-content h4, .markdown .post-content h5, .markdown .post-content h6 {
     /*margin-left: -20px;*/

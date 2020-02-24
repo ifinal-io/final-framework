@@ -141,7 +141,7 @@ body {
 .post-content {
     font-family: Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.7;
-    font-size: 16px;
+    /*font-size: 16px;*/
     color: #404040;
     font-weight: 400;
 }
