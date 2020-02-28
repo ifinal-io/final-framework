@@ -27,7 +27,7 @@ public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCri
 
     public String getFunctionValue() {
         String expression = getTypeHandler() == null ? "#{criterion.value}" : String.format("#{criterion.value, typeHandler=%s}", getTypeHandler().getCanonicalName());
-        if (CriterionOperator.IN.getName().equals(getOperator().getName()) || CriterionOperator.IN.getName().equals(getOperator().getName())) {
+        if (CriterionOperator.IN.getName().equals(getOperator().getName()) || CriterionOperator.NOT_IN.getName().equals(getOperator().getName())) {
             expression = getTypeHandler() == null ? "#{value}" : String.format("#{value, typeHandler=%s}", getTypeHandler().getCanonicalName());
         }
         return getFunctionValue(expression);
