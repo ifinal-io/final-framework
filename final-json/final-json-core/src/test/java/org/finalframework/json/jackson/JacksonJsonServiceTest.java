@@ -44,6 +44,15 @@ public class JacksonJsonServiceTest {
     }
 
     @Test
+    public void toObject() {
+        Integer integer = Json.toObject("1", Integer.class);
+        System.out.println(integer);
+        System.out.println(Json.toObject("1", Object.class));
+        System.out.println(Json.toObject("[1,2]", Object.class));
+        System.out.println(Json.toObject("[\"a\",\"2\"]", Object.class));
+    }
+
+    @Test
     public void toJSONObject() {
         JSONObject jsonObject = Json.toObject(json, JSONObject.class);
         assert jsonObject.getString("name").equals("XiaoMing");
