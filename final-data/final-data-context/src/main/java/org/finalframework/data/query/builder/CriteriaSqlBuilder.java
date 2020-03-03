@@ -4,7 +4,6 @@ package org.finalframework.data.query.builder;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.CriterionOperation;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Collection;
@@ -67,7 +66,7 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
         sb.append(
                 criteriaSets.stream()
                         .map(criterion -> {
-                            final Class javaType = getPropertyJavaType(criterion.getProperty().getProperty());
+//                            final Class javaType = getPropertyJavaType(criterion.getProperty().getProperty());
 //                            CriterionOperation criterionOperation = criterionOperationRegistry.getCriterionOperation(criterion.getOperator(), javaType);
 //                            return criterionOperation.format(criterion);
                             return "";

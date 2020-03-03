@@ -18,15 +18,14 @@ import java.util.*;
 public abstract class AbsCriterion<T> implements Criterion {
 
     private static final Set<String> SQL_KEYS = new HashSet<>();
-
-    private final CriterionProperty<?> property;
+    private final CriterionValue<?> target;
     private final Collection<FunctionOperation> functions = new ArrayList<>();
     private final CriterionOperator operator;
     private Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
     public AbsCriterion(AbsBuilder builder) {
-        this.property = new CriterionProperty(builder.property, builder.functions);
+        this.target = builder.target;
         this.operator = builder.operator;
         this.typeHandler = builder.typeHandler;
     }
@@ -36,8 +35,8 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @Override
-    public CriterionProperty<?> getProperty() {
-        return this.property;
+    public CriterionValue<?> getTarget() {
+        return this.target;
     }
 
     @Override
@@ -61,8 +60,8 @@ public abstract class AbsCriterion<T> implements Criterion {
         return this.typeHandler;
     }
 
-    public String getColumn() {
-        return getPropertyColumn(property.getProperty(), property.getFunctions());
+    public String getCriterionTarget() {
+        return getTarget().getSql();
     }
 
     @Override
@@ -79,15 +78,6 @@ public abstract class AbsCriterion<T> implements Criterion {
 
     public String getFunctionValue(String expression) {
         return getFunctionValue(expression, this.functions);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected String getPropertyColumn(QProperty property, Collection<? extends FunctionOperation> functions) {
-        String column = SQL_KEYS.contains(property.getColumn().toLowerCase()) ?
-                String.format("`%s`", property.getColumn()) : property.getColumn();
-
-        return getFunctionValue(column, functions);
-
     }
 
     protected String getFunctionValue(String expression, Collection<? extends FunctionOperation> functions) {
@@ -121,19 +111,17 @@ public abstract class AbsCriterion<T> implements Criterion {
 
     @SuppressWarnings("unchecked")
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
-        private QProperty<?> property;
+        private CriterionValue<?> target;
         private Collection<FunctionOperation> functions = new ArrayList<>();
         private CriterionOperator operator;
         private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R property(QProperty<?> property, Collection<FunctionOperation> functions) {
-            this.property = property;
-            if (functions != null) {
-                this.functions.addAll(functions);
-            }
+        public R target(CriterionValue<?> target) {
+            this.target = target;
             return (R) this;
         }
+
 
         @Override
         public R operator(CriterionOperator operator) {

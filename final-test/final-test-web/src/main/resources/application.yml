@@ -21,24 +21,26 @@ final:
         username: root
         password: Aa000000
         driver-class-name: com.mysql.cj.jdbc.Driver
+      ds1:
+        url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+        username: root
+        password: Aa000000
+        driver-class-name: com.mysql.cj.jdbc.Driver
     sharding-rule:
       tables:
         person:
           logic-table: person
-          actual-data-nodes: ds0.person_${0..1}
+          actual-data-nodes: ds${0..1}.person_0${0..9},ds${0..1}.person_${10..99}
           table-sharding-strategy:
             inline:
               sharding-column: age
-              algorithm-expression: person_${age % 2}
+              algorithm-expression: person_${String.format("%2d",age % 100)}
           database-sharding-strategy:
             inline:
               sharding-column: age
               algorithm-expression: ds${age % 2}
       binding-tables: []
       broadcast-tables: []
-      default-database-sharding-strategy:
-        inline:
-          sharding-column:
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   exception:

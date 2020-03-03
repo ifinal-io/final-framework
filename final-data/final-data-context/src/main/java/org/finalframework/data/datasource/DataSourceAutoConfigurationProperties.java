@@ -84,7 +84,7 @@ public class DataSourceAutoConfigurationProperties implements Serializable {
                         .map(tableRule -> {
                             final TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(tableRule.getLogicTable(), tableRule.getActualDataNodes());
 
-                            tableRuleConfiguration.setDatabaseShardingStrategyConfig(buildShardingStrategyConfiguration(tableRule.getTableShardingStrategy()));
+                            tableRuleConfiguration.setDatabaseShardingStrategyConfig(buildShardingStrategyConfiguration(tableRule.getDatabaseShardingStrategy()));
                             tableRuleConfiguration.setTableShardingStrategyConfig(buildShardingStrategyConfiguration(tableRule.getTableShardingStrategy()));
                             return tableRuleConfiguration;
                         })

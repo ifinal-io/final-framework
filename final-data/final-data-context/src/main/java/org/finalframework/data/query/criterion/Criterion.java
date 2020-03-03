@@ -32,7 +32,7 @@ import java.util.Collection;
 public interface Criterion extends Executable<Object, Criterion> {
 
     @NonNull
-    CriterionProperty<?> getProperty();
+    CriterionValue<?> getTarget();
 
     @Nullable
     Collection<FunctionOperation> getFunctions();
@@ -46,13 +46,19 @@ public interface Criterion extends Executable<Object, Criterion> {
     Class<? extends TypeHandler<?>> getTypeHandler();
 
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
+
+        @NonNull
+        R target(CriterionValue<?> target);
+
         @NonNull
         default R property(@NonNull QProperty<?> property) {
             return property(property, null);
         }
 
         @NonNull
-        R property(@NonNull QProperty<?> property, @Nullable Collection<FunctionOperation> functions);
+        default R property(@NonNull QProperty<?> property, @Nullable Collection<FunctionOperation> functions) {
+            return target(CriterionValue.builder(property).functions(functions).build());
+        }
 
         @NonNull
         R operator(@NonNull CriterionOperator operator);
