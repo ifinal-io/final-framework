@@ -1,7 +1,9 @@
 language: java
 
+script: true
+
 jdk:
   - oraclejdk9
 
-before_script:
+before_install:
   - git push "https://${coding_user}:${coding_token}@${coding_repo}" master:master
