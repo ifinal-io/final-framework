@@ -9,9 +9,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
+ * 是否有效枚举，用于标记记录是否有效。
+ *
  * @author likly
  * @version 1.0
  * @date 2018-09-27 22:32
+ * @see org.finalframework.data.entity.IEntity
  * @since 1.0
  */
 public enum YN implements IEnum<Integer> {

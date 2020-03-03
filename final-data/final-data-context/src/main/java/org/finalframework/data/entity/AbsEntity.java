@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 抽象的基础实现模型，包含数据表记录的基础属性如：{@link #id}
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-20 17:17
