@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2018-12-26 19:53:09
  * @since 1.0
  */
-public interface QEntity<ID extends Serializable, T> extends Streamable<QProperty>, Iterable<QProperty> {
+public interface QEntity<ID extends Serializable, T> extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
 
     String getTable();
 

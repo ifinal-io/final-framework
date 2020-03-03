@@ -30,15 +30,19 @@ public class BetweenCriterionImpl<T> extends AbsCriterion<T> implements BetweenC
         return max;
     }
 
-
-    public String getFunctionMin() {
-        String expression = getTypeHandler() == null ? "#{criterion.min}" : String.format("#{criterion.min, typeHandler=%s}", getTypeHandler().getCanonicalName());
-        return getFunctionValue(expression);
+    public String getCriterionMin() {
+        return CriterionValue.builder(min)
+                .functions(getFunctions())
+                .typeHandler(getTypeHandler())
+                .build().getSqlExpression("criterion.min");
     }
 
-    public String getFunctionMax() {
-        String expression = getTypeHandler() == null ? "#{criterion.max}" : String.format("#{criterion.max, typeHandler=%s}", getTypeHandler().getCanonicalName());
-        return getFunctionValue(expression);
+
+    public String getCriterionMax() {
+        return CriterionValue.builder(max)
+                .functions(getFunctions())
+                .typeHandler(getTypeHandler())
+                .build().getSqlExpression("criterion.max");
     }
 
 

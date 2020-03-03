@@ -42,16 +42,17 @@ public class QueryController {
 
 //        query.where(QPerson.name.contains("111"));
         PersonQuery query = new PersonQuery();
-        query.orCriteria().addIdEqual(1L).addIdIsNull();
-        query.andCriteria().addIdGreaterThan(2L);
+//        query.orCriteria().addIdEqual(1L).addIdIsNull();
+//        query.andCriteria().addIdGreaterThan(2L);
 
+        query.andCriteria().addAgeEqual(20);
 
-        personMapper.delete(new Query().limit(1), new Listener<Void, Integer>() {
-            @Override
-            public boolean onListening(int index, Void aVoid, Integer integer) {
-                return true;
-            }
-        });
+//        personMapper.delete(new Query().limit(1), new Listener<Void, Integer>() {
+//            @Override
+//            public boolean onListening(int index, Void aVoid, Integer integer) {
+//                return true;
+//            }
+//        });
 
 
 //        query.andCriteria().addIdIn(2L);

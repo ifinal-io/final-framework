@@ -27,23 +27,21 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         Element sql = sql(document, id());
 
         sql.appendChild(choose(document, Arrays.asList(
+                singleWhenElement(document, CriterionOperator.NULL, "${criterion.criterionTarget} IS NULL"),
+                singleWhenElement(document, CriterionOperator.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
 
+                singleWhenElement(document, CriterionOperator.EQUAL, "${criterion.criterionTarget} = ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.NOT_EQUAL, "${criterion.criterionTarget} != ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.GREATER_THAN, "${criterion.criterionTarget} > ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.GREATER_THAN_EQUAL, "${criterion.criterionTarget} >= ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.LESS_THAN, "${criterion.criterionTarget} < ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.LESS_THAN_EQUAL, "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
 
-                singleWhenElement(document, CriterionOperator.NULL, "${criterion.column} IS NULL"),
-                singleWhenElement(document, CriterionOperator.NOT_NULL, "${criterion.column} IS NOT NULL"),
+                betweenWhenElement(document, CriterionOperator.BETWEEN, "${criterion.criterionTarget} BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
+                betweenWhenElement(document, CriterionOperator.NOT_BETWEEN, "${criterion.criterionTarget} NOT BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
 
-                singleWhenElement(document, CriterionOperator.EQUAL, "${criterion.column} = ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.NOT_EQUAL, "${criterion.column} != ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.GREATER_THAN, "${criterion.column} > ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.GREATER_THAN_EQUAL, "${criterion.column} >= ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.LESS_THAN, "${criterion.column} < ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.LESS_THAN_EQUAL, "${criterion.column} <= ${criterion.functionValue}"),
-
-                betweenWhenElement(document, CriterionOperator.BETWEEN, "${criterion.column} BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
-                betweenWhenElement(document, CriterionOperator.NOT_BETWEEN, "${criterion.column} NOT BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
-
-                singleWhenElement(document, CriterionOperator.LIKE, "${criterion.column} LIKE ${criterion.functionValue}"),
-                singleWhenElement(document, CriterionOperator.NOT_LIKE, "${criterion.column} NOT LIKE ${criterion.functionValue}"),
+                singleWhenElement(document, CriterionOperator.LIKE, "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
+                singleWhenElement(document, CriterionOperator.NOT_LIKE, "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
 
                 collectionWhenElement(document, CriterionOperator.IN, "%s IN"),
                 collectionWhenElement(document, CriterionOperator.NOT_IN, "%s NOT IN")

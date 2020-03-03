@@ -12,8 +12,8 @@ import java.util.stream.Stream;
  */
 public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
-    private final List<QProperty> properties = new ArrayList<>();
-    private final Map<String, QProperty> pathProperties = new HashMap<>();
+    private final List<QProperty<?>> properties = new ArrayList<>();
+    private final Map<String, QProperty<?>> pathProperties = new HashMap<>();
 
     private final Class<T> type;
     private final String table;
@@ -32,7 +32,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
     }
 
-    protected void addProperty(QProperty property) {
+    public void addProperty(QProperty<?> property) {
         this.properties.add(property);
         this.pathProperties.put(property.getPath(), property);
     }
@@ -48,17 +48,17 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     }
 
     @Override
-    public QProperty getProperty(String path) {
+    public QProperty<?> getProperty(String path) {
         return pathProperties.get(path);
     }
 
     @Override
-    public Iterator<QProperty> iterator() {
+    public Iterator<QProperty<?>> iterator() {
         return properties.iterator();
     }
 
     @Override
-    public Stream<QProperty> stream() {
+    public Stream<QProperty<?>> stream() {
         return properties.stream();
     }
 }
