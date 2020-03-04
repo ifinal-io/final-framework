@@ -76,7 +76,7 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         foreach.setAttribute("open", "(");
         foreach.setAttribute("separator", ",");
         foreach.setAttribute("close", ")");
-        foreach.appendChild(textNode(document, "${criterion.functionValue}"));
+        foreach.appendChild(textNode(document, "${criterion.criterionValue}"));
 
         when.appendChild(foreach);
 
