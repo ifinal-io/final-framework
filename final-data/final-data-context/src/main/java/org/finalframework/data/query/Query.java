@@ -6,6 +6,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.Direction;
 
 import java.io.Serializable;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<Query> {
+public class Query implements Streamable<ICriterion>, Serializable, Pageable, Sql<Query> {
 
     /**
      * 页码，第一页从1开始
@@ -39,7 +40,7 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     @Getter
     private Boolean count = Boolean.TRUE;
     @Getter
-    private List<Criteria> criteria = new ArrayList<>();
+    private List<ICriterion> criteria = new ArrayList<>();
     @Getter
     private Group group;
     @Getter
@@ -68,29 +69,20 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
         return this;
     }
 
-    public Query where(@NonNull Criteria... criteria) {
+    public Query where(@NonNull ICriterion... criteria) {
         return where(Arrays.asList(criteria));
     }
 
-    public Query where(@NonNull Collection<Criteria> criteria) {
+    public Query where(@NonNull Collection<ICriterion> criteria) {
         this.criteria.addAll(criteria);
         return this;
     }
 
-    public Query where(Criterion... criterion) {
-        return where(Arrays.asList(criterion));
-    }
-
-    public Query where(List<Criterion> criterion) {
-        this.where(Criteria.where(criterion));
-        return this;
-    }
-
-    public Query group(QProperty... properties) {
+    public Query group(QProperty<?>... properties) {
         return group(Arrays.asList(properties));
     }
 
-    public Query group(Collection<QProperty> properties) {
+    public Query group(Collection<QProperty<?>> properties) {
         this.group = Assert.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
         return this;
     }
@@ -136,7 +128,7 @@ public class Query implements Streamable<Criteria>, Serializable, Pageable, Sql<
     }
 
     @Override
-    public Stream<Criteria> stream() {
+    public Stream<ICriterion> stream() {
         return criteria.stream();
     }
 

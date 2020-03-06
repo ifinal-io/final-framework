@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Arrays;
@@ -16,59 +17,44 @@ import java.util.stream.Stream;
  * @date 2018-10-25 11:34
  * @since 1.0
  */
-public interface Criteria extends Streamable<Criteria>, Iterable<Criteria> {
+public interface Criteria extends ICriterion, Streamable<ICriterion>, Iterable<ICriterion> {
 
-    static Criteria where(Criterion... criterion) {
-        return where(Arrays.asList(criterion));
+    static Criteria where(ICriterion... criterion) {
+        return and(criterion);
     }
 
-    static Criteria where(Collection<Criterion> criterion) {
-        return new CriteriaImpl(AndOr.AND, criterion);
+    static Criteria where(Collection<ICriterion> criterion) {
+        return and(criterion);
     }
 
-    static Criteria and(Criterion... criterion) {
+    static Criteria and(ICriterion... criterion) {
         return and(Arrays.asList(criterion));
     }
 
-    static Criteria and(Collection<Criterion> criterion) {
+    static Criteria and(Collection<ICriterion> criterion) {
         return new CriteriaImpl(AndOr.AND, criterion);
     }
 
-    static Criteria or(Criterion... criterion) {
+    static Criteria or(ICriterion... criterion) {
         return or(Arrays.asList(criterion));
     }
 
-    static Criteria or(Collection<Criterion> criterion) {
+    static Criteria or(Collection<ICriterion> criterion) {
         return new CriteriaImpl(AndOr.OR, criterion);
-    }
-
-    static Criteria where(Criteria... criterion) {
-        return where(Arrays.asList(criterion));
-    }
-
-    static Criteria where(List<Criteria> criteria) {
-        return where(AndOr.AND, criteria);
-    }
-
-    static Criteria where(AndOr andOr, List<Criteria> criteria) {
-        return new CriteriaImpl(andOr, criteria, Collections.emptyList());
     }
 
     AndOr andOr();
 
-    boolean chain();
+    @Override
+    default boolean isChain() {
+        return true;
+    }
 
-    Collection<Criteria> getCriteria();
-
-    Collection<Criterion> getCriterion();
-
-    Stream<Criterion> criterionStream();
-
-    default Criteria add(Criterion... criterion) {
+    default Criteria add(ICriterion... criterion) {
         return add(Arrays.asList(criterion));
     }
 
-    Criteria add(Collection<Criterion> criterion);
+    Criteria add(Collection<ICriterion> criterion);
 
     Criteria and(Criteria... criteria);
 

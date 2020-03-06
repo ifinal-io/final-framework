@@ -29,29 +29,25 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
 
     @Override
     public String build() {
-        if (criteria.chain()) {
-            return joinCriteria(criteria.stream().collect(Collectors.toList()), AndOr.AND);
-        } else {
-            return joinCriteriaSet(criteria.criterionStream().collect(Collectors.toList()), AndOr.AND);
-        }
+        return "";
     }
 
     private String joinCriteria(Collection<Criteria> criteria, AndOr andOr) {
         final StringBuilder sb = new StringBuilder();
-        if (criteria.size() > 1) {
-            sb.append("(");
-        }
-        sb.append(
-                criteria.stream().map(
-                        it -> it.chain()
-                                ? joinCriteria(it.stream().collect(Collectors.toList()), it.andOr())
-                                : joinCriteriaSet(it.criterionStream().collect(Collectors.toList()), it.andOr()))
-                        .collect(Collectors.joining(String.format(" %s ", andOr)))
-        );
-
-        if (criteria.size() > 1) {
-            sb.append(")");
-        }
+//        if (criteria.size() > 1) {
+//            sb.append("(");
+//        }
+//        sb.append(
+//                criteria.stream().map(
+//                        it -> it.isChain()
+//                                ? joinCriteria(it.stream().collect(Collectors.toList()), it.andOr())
+//                                : joinCriteriaSet(it.criterionStream().collect(Collectors.toList()), it.andOr()))
+//                        .collect(Collectors.joining(String.format(" %s ", andOr)))
+//        );
+//
+//        if (criteria.size() > 1) {
+//            sb.append(")");
+//        }
 
         return sb.toString();
     }

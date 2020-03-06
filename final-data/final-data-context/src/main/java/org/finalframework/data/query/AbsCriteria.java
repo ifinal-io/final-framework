@@ -1,8 +1,8 @@
 package org.finalframework.data.query;
 
-import org.finalframework.core.Assert;
 import org.finalframework.core.converter.Convertible;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.*;
@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<Criteria> {
     private final AndOr andOr;
-    private final List<Criteria> criteria = new ArrayList<>();
-    private final Collection<Criterion> criterion = new ArrayList<>();
+    private final List<ICriterion> criteria = new ArrayList<>();
 
     protected AbsCriteria() {
         this(AndOr.AND, Collections.emptyList());
@@ -27,56 +26,43 @@ public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<
         this(andOr, Collections.emptyList());
     }
 
-    protected AbsCriteria(AndOr andOr, Collection<Criterion> criterion) {
-        this(andOr, Collections.emptyList(), criterion);
-    }
-
-    protected AbsCriteria(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion) {
+    protected AbsCriteria(AndOr andOr, Collection<? extends ICriterion> criteria) {
         this.andOr = andOr;
-        if (Assert.nonEmpty(criteria)) {
-            this.criteria.addAll(criteria);
-        }
-        if (Assert.nonEmpty(criterion)) {
-            this.criterion.addAll(criterion);
-        }
+        this.criteria.addAll(criteria);
     }
 
     private boolean chain() {
         return !criteria.isEmpty();
     }
 
-    public T add(Criterion... criterion) {
+    public T add(ICriterion... criterion) {
         return add(Arrays.asList(criterion));
     }
 
-    public T add(Collection<Criterion> criterion) {
-        if (chain()) {
-            return and(andOr(AndOr.AND, Collections.emptyList(), criterion));
-        } else {
-            this.criterion.addAll(criterion);
-            return (T) this;
-        }
+    public T add(Collection<ICriterion> criterion) {
+        this.criteria.addAll(criterion);
+        return (T) this;
     }
 
     public T and(T... criteria) {
-        return andOr(AndOr.AND, Arrays.stream(criteria).map(T::convert).collect(Collectors.toList()), Collections.emptyList());
+        return andOr(AndOr.AND, Arrays.stream(criteria).map(T::convert).collect(Collectors.toList()));
     }
 
 
     public T or(T... criteria) {
-        return andOr(AndOr.OR, Arrays.stream(criteria).map(T::convert).collect(Collectors.toList()), Collections.emptyList());
+        return andOr(AndOr.OR, Arrays.stream(criteria).map(T::convert).collect(Collectors.toList()));
     }
 
-    protected abstract T andOr(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion);
+    protected abstract T andOr(AndOr andOr, Collection<Criteria> criteria);
 
 
     @Override
     public Criteria convert() {
         switch (andOr) {
             case AND:
-                return chain() ? Criteria.where(this.criteria) : Criteria.and(this.criterion);
+                return Criteria.and(this.criteria);
             case OR:
-                return chain() ? Criteria.where(AndOr.OR, this.criteria) : Criteria.or(this.criterion);
+                return Criteria.or(this.criteria);
         }
 
         throw new IllegalStateException();

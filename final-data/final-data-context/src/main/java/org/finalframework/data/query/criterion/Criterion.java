@@ -29,7 +29,12 @@ import java.util.Collection;
  * @see BetweenCriterion
  * @since 1.0
  */
-public interface Criterion extends Executable<Object, Criterion> {
+public interface Criterion extends ICriterion, Executable<Object, Criterion> {
+
+    @Override
+    default boolean isChain() {
+        return false;
+    }
 
     @NonNull
     CriterionValue<?> getTarget();

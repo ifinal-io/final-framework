@@ -36,12 +36,18 @@ public class SqlWhereCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
 
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "criteria");
-        foreach.setAttribute("item", "criteria");
+        foreach.setAttribute("item", "criterion");
         foreach.setAttribute("separator", "AND");
         foreach.appendChild(
                 choose(document, Arrays.asList(
-                        whenOrOtherwise(document, "criteria.chain", include(document, SQL_CRITERIA_CRITERIA)),
-                        whenOrOtherwise(document, null, include(document, SQL_CRITERIA_CRITERION))
+                        /**
+                         * @see SqlCriteriaFragmentXmlMapperBuilder
+                         */
+                        whenOrOtherwise(document, "criterion.chain", include(document, SQL_CRITERIA)),
+                        /**
+                         * @see SqlCriterionFragmentXmlMapperBuilder
+                         */
+                        whenOrOtherwise(document, null, include(document, SQL_CRITERION))
                 ))
         );
 

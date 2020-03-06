@@ -13,13 +13,13 @@ import java.util.stream.Stream;
  * @date 2019-11-22 16:01:19
  * @since 1.0
  */
-public class GroupImpl extends ArrayList<QProperty> implements Group {
+public class GroupImpl extends ArrayList<QProperty<?>> implements Group {
 
-    private GroupImpl(Collection<QProperty> properties) {
+    private GroupImpl(Collection<QProperty<?>> properties) {
         this.addAll(properties);
     }
 
-    public static Group by(Collection<QProperty> properties) {
+    public static Group by(Collection<QProperty<?>> properties) {
         return new GroupImpl(properties);
     }
 
@@ -27,9 +27,9 @@ public class GroupImpl extends ArrayList<QProperty> implements Group {
     @Override
     public Group and(Group group) {
         Assert.isNull(group, "Sort must not be null!");
-        ArrayList<QProperty> these = new ArrayList<>(this);
+        ArrayList<QProperty<?>> these = new ArrayList<>(this);
 
-        for (QProperty order : group) {
+        for (QProperty<?> order : group) {
             these.add(order);
         }
 
@@ -37,7 +37,7 @@ public class GroupImpl extends ArrayList<QProperty> implements Group {
     }
 
     @Override
-    public Stream<QProperty> stream() {
+    public Stream<QProperty<?>> stream() {
         return super.stream();
     }
 }

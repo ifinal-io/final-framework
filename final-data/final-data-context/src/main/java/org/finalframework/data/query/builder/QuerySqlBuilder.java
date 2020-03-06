@@ -24,9 +24,9 @@ public class QuerySqlBuilder implements SqlBuilder<Query> {
 
         final StringBuilder sb = new StringBuilder();
 
-        String criteria = query.getCriteria().stream().map(it -> new CriteriaSqlBuilder(it).build()).collect(Collectors.joining(" AND "));
+//        String criteria = query.getCriteria().stream().map(it -> new CriteriaSqlBuilder(it).build()).collect(Collectors.joining(" AND "));
 
-        sb.append(criteria);
+//        sb.append(criteria);
 
         if (query.getSort() != null) {
             sb.append(" ORDER BY ").append(new SortSqlBuilder(query.getSort()).build());

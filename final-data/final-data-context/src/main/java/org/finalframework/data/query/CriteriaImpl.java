@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.finalframework.data.query.builder.CriteriaSqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.*;
@@ -15,21 +16,15 @@ import java.util.stream.Stream;
  */
 public class CriteriaImpl implements Criteria, Sql<Criteria> {
     private final AndOr andOr;
-    private final Collection<Criteria> criteria;
-    private final Collection<Criterion> criterion;
+    private final Collection<ICriterion> criteria;
 
     public CriteriaImpl() {
         this(AndOr.AND, new ArrayList<>());
     }
 
-    protected CriteriaImpl(AndOr andOr, Collection<Criterion> criterion) {
-        this(andOr, Collections.EMPTY_LIST, criterion);
-    }
-
-    protected CriteriaImpl(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion) {
+    protected CriteriaImpl(AndOr andOr, Collection<ICriterion> criterion) {
         this.andOr = andOr;
-        this.criteria = criteria;
-        this.criterion = criterion;
+        this.criteria = criterion;
     }
 
     @Override
@@ -37,41 +32,14 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
         return andOr;
     }
 
-    @Override
-    public boolean chain() {
-        return !criteria.isEmpty();
-    }
-
-    public boolean getChain() {
-        return chain();
-    }
-
-
     public AndOr getAndOr() {
         return andOr;
     }
 
-    public Collection<Criteria> getCriteria() {
-        return criteria;
-    }
-
-    public Collection<Criterion> getCriterion() {
-        return criterion;
-    }
-
     @Override
-    public Stream<Criterion> criterionStream() {
-        return criterion.stream();
-    }
-
-    @Override
-    public Criteria add(Collection<Criterion> criterion) {
-        if (chain()) {
-            return and(Criteria.where(criterion));
-        } else {
-            this.criterion.addAll(criterion);
-            return this;
-        }
+    public Criteria add(Collection<ICriterion> criterion) {
+        this.criteria.addAll(criterion);
+        return this;
     }
 
     @Override
@@ -86,19 +54,19 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
     }
 
     private Criteria andOr(AndOr andOr, Criteria... criteria) {
-        List<Criteria> list = new ArrayList<>();
+        List<ICriterion> list = new ArrayList<>();
         list.add(this);
         list.addAll(Arrays.asList(criteria));
-        return new CriteriaImpl(andOr, list, Collections.emptyList());
+        return new CriteriaImpl(andOr, list);
     }
 
     @Override
-    public Stream<Criteria> stream() {
+    public Stream<ICriterion> stream() {
         return criteria.stream();
     }
 
     @Override
-    public Iterator<Criteria> iterator() {
+    public Iterator<ICriterion> iterator() {
         return criteria.iterator();
     }
 

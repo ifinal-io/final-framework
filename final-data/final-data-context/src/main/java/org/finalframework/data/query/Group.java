@@ -11,13 +11,13 @@ import java.util.Collection;
  * @date 2019-11-22 16:00:05
  * @since 1.0
  */
-public interface Group extends Streamable<QProperty>, Iterable<QProperty> {
+public interface Group extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
 
-    static Group by(QProperty... properties) {
+    static Group by(QProperty<?>... properties) {
         return by(Arrays.asList(properties));
     }
 
-    static Group by(Collection<QProperty> properties) {
+    static Group by(Collection<QProperty<?>> properties) {
         return GroupImpl.by(properties);
     }
 

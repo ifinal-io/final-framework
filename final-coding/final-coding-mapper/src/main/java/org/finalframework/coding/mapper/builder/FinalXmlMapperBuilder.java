@@ -54,8 +54,8 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
         sqlFragmentXmlMapperBuilders.add(new SqlSelectColumnsFragmentXmlMapperBuilder());
 
         sqlFragmentXmlMapperBuilders.add(new SqlWhereCriteriaFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaCriteriaFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaCriterionFragmentXmlMapperBuilder());
+        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaFragmentXmlMapperBuilder());
+//        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaCriterionFragmentXmlMapperBuilder());
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionFragmentXmlMapperBuilder());
 
         sqlFragmentXmlMapperBuilders.add(new SqlGroupFragmentXmlMapperBuilder());

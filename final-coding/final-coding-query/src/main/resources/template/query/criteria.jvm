@@ -2,13 +2,14 @@
 #set($simpleName = $criteria.simpleName)
 #set($properties = $criteria.entity.properties)
 #set($qentity = $criteria.entity.simpleName)
+#set($prefix = $criteria.prefix)
 #set($criteria = $criteria.simpleName)
-#set($prefix = "add")
 #* @formatter:off *#
 package ${package};
 
 import org.finalframework.data.query.AbsCriteria;
 import org.finalframework.data.query.Criteria;
+import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
 
@@ -31,16 +32,12 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
         super(andOr, Collections.emptyList());
     }
 
-    protected ${criteria}(AndOr andOr, Collection<Criteria> criteria) {
-        super(andOr, criteria, Collections.emptyList());
+    protected ${criteria}(AndOr andOr, Collection<? extends ICriterion> criteria) {
+        super(andOr, criteria);
     }
 
-    protected ${criteria}(AndOr andOr, Collection<Criteria> criteria, Collection<Criterion> criterion) {
-        super(andOr, criteria, criterion);
-    }
-
-    protected ${criteria} andOr(AndOr andOr, Collection<Criteria> criteria,Collection<Criterion> criterion) {
-        return new ${criteria}(andOr, criteria,criterion);
+    protected ${criteria} andOr(AndOr andOr, Collection<Criteria> criteria) {
+        return new ${criteria}(andOr, criteria);
     }
 
 

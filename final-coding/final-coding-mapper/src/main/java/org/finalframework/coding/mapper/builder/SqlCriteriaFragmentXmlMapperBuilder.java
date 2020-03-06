@@ -15,13 +15,13 @@ import java.util.Arrays;
  * @date 2019-11-28 10:59:26
  * @since 1.0
  */
-public class SqlCriteriaCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+public class SqlCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
 
     private static final Integer MAX_CRITERIA_LOOP = 3;
 
     @Override
     public String id() {
-        return SQL_CRITERIA_CRITERIA;
+        return SQL_CRITERIA;
     }
 
     @Override
@@ -41,22 +41,22 @@ public class SqlCriteriaCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentX
     private Element whenCriteriaAndOr(Document document, AndOr andOr, int loop) {
 
         Element foreach = document.createElement("foreach");
-        foreach.setAttribute("collection", "criteria.criteria");
-        foreach.setAttribute("item", "criteria");
+        foreach.setAttribute("collection", "criterion.criteria");
+        foreach.setAttribute("item", "criterion");
         foreach.setAttribute("open", "(");
         foreach.setAttribute("separator", String.format(" %s ", andOr.name()));
         foreach.setAttribute("close", ")");
         foreach.appendChild(choose(document, Arrays.asList(
                 whenCriteriaIsChain(document, loop),
-                whenOrOtherwise(document, null, include(document, SQL_CRITERIA_CRITERION))
+                whenOrOtherwise(document, null, include(document, SQL_CRITERION))
         )));
 
-        return whenOrOtherwise(document, "criteria.andOr.name == '" + andOr.name() + "'", foreach);
+        return whenOrOtherwise(document, "criterion.andOr.name == '" + andOr.name() + "'", foreach);
     }
 
     private Element whenCriteriaIsChain(Document document, int loop) {
         Element when = document.createElement("when");
-        when.setAttribute("test", "criteria.chain");
+        when.setAttribute("test", "criterion.chain");
         if (loop <= MAX_CRITERIA_LOOP) {
             when.appendChild(criteria(document, ++loop));
         }
