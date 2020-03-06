@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @date 2018-12-12 14:01:44
  * @since 1.0
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
     String[] value() default {};

@@ -15,7 +15,6 @@ import org.springframework.core.annotation.Order;
  * @date 2018-10-31 11:40
  * @since 1.0
  */
-@Order
 @ResultExceptionHandler
 public class IExceptionResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<Throwable> {
 

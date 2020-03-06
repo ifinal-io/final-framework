@@ -42,6 +42,9 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
             trace = (String) request.getAttribute(TRACE_ATTRIBUTE);
         }
         if (trace == null) {
+            trace = request.getParameter(TRACE_NAME);
+        }
+        if (trace == null) {
             // 如果 trace 还为空，则生成一个新的 trace
             trace = traceGenerator.generate();
         }

@@ -1,8 +1,6 @@
 package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.data.query.Query;
-import org.finalframework.data.repository.Listener;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.query.PersonQuery;

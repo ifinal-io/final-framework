@@ -25,7 +25,11 @@ public enum YN implements IEnum<Integer> {
     /**
      * 无效
      */
-    NO(0, "无效");
+    NO(0, "无效"),
+    /**
+     * 删除
+     */
+    DELETED(-1, "删除");
     /**
      * 枚举码
      */
