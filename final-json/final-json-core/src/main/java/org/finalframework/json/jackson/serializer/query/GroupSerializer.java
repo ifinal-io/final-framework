@@ -16,7 +16,7 @@ import java.io.IOException;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class GroupJsonSerializer extends JsonSerializer<Group> {
+public class GroupSerializer extends JsonSerializer<Group> {
     @Override
     public void serialize(Group group, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (group == null) return;

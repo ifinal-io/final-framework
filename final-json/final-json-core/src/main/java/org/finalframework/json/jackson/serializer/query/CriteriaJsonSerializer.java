@@ -8,7 +8,6 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.ICriterion;
-import org.finalframework.data.query.enums.AndOr;
 
 import java.io.IOException;
 
@@ -20,7 +19,7 @@ import java.io.IOException;
  */
 public class CriteriaJsonSerializer extends JsonSerializer<Criteria> {
 
-    private final CriterionJsonSerializer criterionJsonSerializer = new CriterionJsonSerializer();
+    private final CriterionSerializer criterionSerializer = new CriterionSerializer();
 
     @Override
     public void serialize(Criteria criteria, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -32,7 +31,7 @@ public class CriteriaJsonSerializer extends JsonSerializer<Criteria> {
                         if (criterion.isChain()) {
                             serialize((Criteria) criterion, gen, serializers);
                         } else {
-                            criterionJsonSerializer.serialize((Criterion) criterion, gen, serializers);
+                            criterionSerializer.serialize((Criterion) criterion, gen, serializers);
                         }
                     }
                     gen.writeEndArray();
@@ -45,7 +44,7 @@ public class CriteriaJsonSerializer extends JsonSerializer<Criteria> {
                         if (criterion.isChain()) {
                             serialize((Criteria) criterion, gen, serializers);
                         } else {
-                            criterionJsonSerializer.serialize((Criterion) criterion, gen, serializers);
+                            criterionSerializer.serialize((Criterion) criterion, gen, serializers);
                         }
                     }
                     gen.writeEndArray();

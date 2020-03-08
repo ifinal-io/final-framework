@@ -17,7 +17,7 @@ import java.io.IOException;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class CriterionJsonSerializer extends JsonSerializer<Criterion> {
+public class CriterionSerializer extends JsonSerializer<Criterion> {
     @Override
     public void serialize(Criterion criterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();

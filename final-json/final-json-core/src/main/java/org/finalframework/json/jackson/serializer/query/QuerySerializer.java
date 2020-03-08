@@ -8,7 +8,6 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.Pageable;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.ICriterion;
 
 import java.io.IOException;
@@ -20,12 +19,12 @@ import java.util.List;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class QueryJsonSerializer extends JsonSerializer<Query> {
+public class QuerySerializer extends JsonSerializer<Query> {
 
     private final CriteriaJsonSerializer criteriaJsonSerializer = new CriteriaJsonSerializer();
-    private final SortJsonSerializer sortJsonSerializer = new SortJsonSerializer();
-    private final GroupJsonSerializer groupJsonSerializer = new GroupJsonSerializer();
-    private final LimitJsonSerializer limitJsonSerializer = new LimitJsonSerializer();
+    private final SortSerializer sortSerializer = new SortSerializer();
+    private final GroupSerializer groupSerializer = new GroupSerializer();
+    private final LimitSerializer limitSerializer = new LimitSerializer();
 
     @Override
     public void serialize(Query query, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -36,9 +35,9 @@ public class QueryJsonSerializer extends JsonSerializer<Query> {
             gen.writeFieldName("where");
             criteriaJsonSerializer.serialize(Criteria.where(criteria), gen, serializers);
         }
-        sortJsonSerializer.serialize(query.getSort(), gen, serializers);
-        groupJsonSerializer.serialize(query.getGroup(), gen, serializers);
-        limitJsonSerializer.serialize(query.getLimit(), gen, serializers);
+        sortSerializer.serialize(query.getSort(), gen, serializers);
+        groupSerializer.serialize(query.getGroup(), gen, serializers);
+        limitSerializer.serialize(query.getLimit(), gen, serializers);
         gen.writeEndObject();
     }
 

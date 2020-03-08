@@ -17,7 +17,7 @@ import java.io.IOException;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class SortJsonSerializer extends JsonSerializer<Sort> {
+public class SortSerializer extends JsonSerializer<Sort> {
     @Override
     public void serialize(Sort sort, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (sort == null) return;

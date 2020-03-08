@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class LimitJsonSerializer extends JsonSerializer<Limit> {
+public class LimitSerializer extends JsonSerializer<Limit> {
     @Override
     public void serialize(Limit limit, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (limit == null) return;
