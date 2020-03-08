@@ -6,6 +6,7 @@ import org.finalframework.coding.datasource.annotation.DataSource;
 import org.finalframework.coding.datasource.annotation.ShardingRule;
 import org.springframework.boot.configurationprocessor.MetadataStore;
 import org.springframework.boot.configurationprocessor.metadata.ConfigurationMetadata;
+import org.springframework.boot.configurationprocessor.metadata.JsonMarshaller;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -15,6 +16,12 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+import javax.tools.FileObject;
+import javax.tools.StandardLocation;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -28,6 +35,7 @@ import java.util.Set;
 @AutoService(Processor.class)
 @SuppressWarnings("unused")
 public class DataSourceProcessor extends AbstractProcessor {
+    private static final String ADDITIONAL_METADATA_PATH = "META-INF/additional-spring-configuration-metadata.json";
     public static final String DATASOURCE = "DataSource";
     private final Coder coder = Coder.getDefaultCoder();
     private final Set<Element> dataSourceElements = new HashSet<>();
@@ -77,15 +85,21 @@ public class DataSourceProcessor extends AbstractProcessor {
         }
     }
 
+
     private void writeMetaData() {
         try {
-            ConfigurationMetadata configurationMetadata = this.metadataStore.readMetadata();
-            if (configurationMetadata != null) {
-                this.metadata.merge(configurationMetadata);
-            }
-            if (!this.metadata.getItems().isEmpty()) {
-                this.metadataStore.writeMetadata(this.metadata);
-            }
+//            ConfigurationMetadata configurationMetadata = this.metadataStore.readMetadata();
+//            if (configurationMetadata != null) {
+//                this.metadata.merge(configurationMetadata);
+//            }
+//            if (!this.metadata.getItems().isEmpty()) {
+//                FileObject fileObject = this.processingEnv.getFiler()
+//                        .createResource(StandardLocation.CLASS_OUTPUT, "", ADDITIONAL_METADATA_PATH);
+//                new JsonMarshaller().write(this.metadata,fileObject.openOutputStream());
+//
+//                this.metadataStore.writeMetadata(this.metadata);
+//
+//            }
         } catch (Exception e) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
         }
