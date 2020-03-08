@@ -3,6 +3,7 @@ package org.finalframework.data.repository;
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.core.Assert;
 import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
@@ -22,6 +23,35 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings({"unused", "unchecked"})
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
+
+    /*=========================================== SAVE ===========================================*/
+
+    default int save(T entity) {
+        return save((String) null, entity);
+    }
+
+    default int save(Class<?> view, T entity) {
+        return save(null, view, entity);
+    }
+
+    default int save(String table, T entity) {
+        return save(table, null, entity);
+    }
+
+    default int save(String table, Class<?> view, T entity) {
+        return save(table, view, entity, null);
+    }
+
+    default int save(String tableName, Class<?> view, T entity, Query query) {
+        long count = query == null ? selectCount(tableName, entity.getId()) : selectCount(tableName, query);
+        if (count > 1) {
+            throw new BadRequestException("expect one result but found " + count);
+        }
+        if (count == 1) {
+            return update(tableName, view, entity, query);
+        }
+        return insert(tableName, view, Arrays.asList(entity), query);
+    }
 
     /*=========================================== INSERT ===========================================*/
     default int insert(T... entities) {
@@ -633,7 +663,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default long selectCount(String tableName) {
-        return selectCount(tableName, (Query) null);
+        return selectCount(tableName, null, (Query) null);
     }
 
     default long selectCount(@NonNull Queryable query) {
@@ -641,12 +671,34 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default long selectCount(Query query) {
-        return selectCount(null, query);
+        return selectCount(null, null, query);
     }
 
+
     default long selectCount(String tableName, @NonNull Queryable query) {
-        return selectCount(tableName, query.convert());
+        return selectCount(tableName, null, query.convert());
     }
+
+    default long selectCount(String tableName, Query query) {
+        return selectCount(tableName, null, query);
+    }
+
+    default long selectCount(ID... ids) {
+        return selectCount(Arrays.asList(ids));
+    }
+
+    default long selectCount(Collection<ID> ids) {
+        return selectCount(null, ids);
+    }
+
+    default long selectCount(String tableName, ID... ids) {
+        return selectCount(tableName, Arrays.asList(ids));
+    }
+
+    default long selectCount(String tableName, Collection<ID> ids) {
+        return selectCount(tableName, ids, null);
+    }
+
 
     /**
      * 返回符合查询条件 {@link Query}的结果集的大小
@@ -655,7 +707,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     query
      * @return 符合查询条件 {@link Query}的结果集的大小
      */
-    long selectCount(@Param("tableName") String tableName, @Param("query") Query query);
+    long selectCount(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     /*=========================================== IS EXISTS ===========================================*/
     default boolean isExists(ID id) {
@@ -679,7 +731,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default boolean isExists(String tableName, Query query) {
-        return selectCount(tableName, query) > 0;
+        return selectCount(tableName, null, query) > 0;
     }
 
 
