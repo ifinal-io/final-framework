@@ -17,7 +17,6 @@ import java.util.*;
  */
 public abstract class AbsCriterion<T> implements Criterion {
 
-    private static final Set<String> SQL_KEYS = new HashSet<>();
     private final CriterionValue<?> target;
     private final Collection<FunctionOperation> functions = new ArrayList<>();
     private final CriterionOperator operator;
@@ -28,10 +27,6 @@ public abstract class AbsCriterion<T> implements Criterion {
         this.target = builder.target;
         this.operator = builder.operator;
         this.typeHandler = builder.typeHandler;
-    }
-
-    static {
-        SQL_KEYS.add("key");
     }
 
     @Override
@@ -74,39 +69,6 @@ public abstract class AbsCriterion<T> implements Criterion {
     public Criterion date() {
         this.functions.add(new SimpleFunctionOperation(FunctionOperator.DATE));
         return this;
-    }
-
-    public String getFunctionValue(String expression) {
-        return getFunctionValue(expression, this.functions);
-    }
-
-    protected String getFunctionValue(String expression, Collection<? extends FunctionOperation> functions) {
-        String value = expression;
-        if (Assert.nonEmpty(functions)) {
-            for (FunctionOperation function : functions) {
-                Class<?> type = getFunctionOperationType(function);
-                FunctionOperationExpression functionOperationExpression = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), type);
-                value = functionOperationExpression.expression(value, function);
-            }
-        }
-        return value;
-    }
-
-    private Class<?> getFunctionOperationType(FunctionOperation operation) {
-        if (operation instanceof SimpleFunctionOperation) {
-            return Object.class;
-        } else if (operation instanceof SingleFunctionOperation) {
-            SingleFunctionOperation singleFunctionOperation = (SingleFunctionOperation) operation;
-            Object value = singleFunctionOperation.value();
-
-            if (value instanceof List) {
-                return ((List) value).get(0).getClass();
-            } else {
-                return value.getClass();
-            }
-        }
-
-        return Object.class;
     }
 
     @SuppressWarnings("unchecked")

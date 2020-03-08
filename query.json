@@ -1,0 +1,29 @@
+{
+  "page": 1,
+  "size": 20,
+  "where": {
+    "andOr": "AND",
+    "criteria": [
+      {
+        "target": {
+          "operator": ""
+        }
+        ]
+      },
+      "order"
+      :
+      {
+        "name": "DESC"
+      },
+      "group"
+      :
+      [
+        ""
+      ],
+      "offset"
+      :
+      1,
+      "limit"
+      :
+      1
+      }

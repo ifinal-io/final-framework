@@ -1,6 +1,10 @@
 package org.finalframework.test;
 
 
+import org.finalframework.data.query.Query;
+import org.finalframework.json.Json;
+import org.finalframework.test.query.PersonQuery;
+import org.finalframework.test.query.QPerson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -17,7 +21,20 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class TestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestApplication.class);
+
+        Query query = new Query();
+        query.page(1, 20);
+
+        query.where(QPerson.age.eq(10));
+
+        query.sort(QPerson.age.desc(), QPerson.id.asc());
+        query.group(QPerson.name, QPerson.age);
+        query.limit(200, 20);
+
+        System.out.println(Json.toJson(query));
+
+
+//        SpringApplication.run(TestApplication.class);
     }
 }
 
