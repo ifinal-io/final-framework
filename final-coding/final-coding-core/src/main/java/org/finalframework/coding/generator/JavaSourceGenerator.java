@@ -2,6 +2,7 @@ package org.finalframework.coding.generator;
 
 
 import org.finalframework.coding.file.JavaSource;
+import org.finalframework.core.configuration.Configuration;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -14,8 +15,11 @@ import javax.tools.JavaFileObject;
  * @since 1.0
  */
 public abstract class JavaSourceGenerator<T extends JavaSource> extends TemplateCodeGenerator {
+    protected final PackageNameGenerator packageNameGenerator;
     public JavaSourceGenerator(ProcessingEnvironment processEnv, String targetRoute) {
         super(processEnv, targetRoute);
+        String entity = Configuration.getInstance().getString("final.coding.domain.entity", "entity");
+        this.packageNameGenerator = new DefaultPackageNameGenerator(processEnv, entity, targetRoute);
     }
 
     @Override

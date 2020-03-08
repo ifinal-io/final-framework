@@ -17,12 +17,9 @@ import javax.lang.model.element.TypeElement;
 public abstract class TemplateCodeGenerator implements Generator<TypeElement,Void> {
     protected final Coder coder = Coder.getDefaultCoder();
     protected final ProcessingEnvironment processEnv;
-    protected final PackageNameGenerator packageNameGenerator;
 
     public TemplateCodeGenerator(ProcessingEnvironment processEnv, String targetRoute) {
         this.processEnv = processEnv;
-        String entity = Configuration.getInstance().getString("final.coding.domain.entity", "entity");
-        this.packageNameGenerator = new DefaultPackageNameGenerator(processEnv, entity, targetRoute);
     }
 }
 
