@@ -1,4 +1,4 @@
-package org.finalframework.json.jackson;
+package org.finalframework.json.jackson.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

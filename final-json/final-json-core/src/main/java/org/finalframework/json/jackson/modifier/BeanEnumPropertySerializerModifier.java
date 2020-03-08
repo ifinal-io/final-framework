@@ -9,17 +9,16 @@ import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import org.finalframework.data.entity.enums.IEnum;
-import org.finalframework.json.jackson.EnumCodeSerializer;
-import org.finalframework.json.jackson.EnumDescriptionSerializer;
-import org.finalframework.json.jackson.EnumNameSerializer;
-import org.finalframework.json.jackson.EnumSerializer;
+import org.finalframework.json.jackson.serializer.EnumCodeSerializer;
+import org.finalframework.json.jackson.serializer.EnumDescriptionSerializer;
+import org.finalframework.json.jackson.serializer.EnumNameSerializer;
+import org.finalframework.json.jackson.serializer.EnumSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * 对JavaBean的枚举型属性（实现了{@link IEnum}接口）进行序列化修改。
