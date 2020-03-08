@@ -7,6 +7,7 @@ import org.finalframework.core.configuration.Configuration;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
+import java.io.IOException;
 
 /**
  * @author likly
@@ -16,6 +17,7 @@ import javax.tools.JavaFileObject;
  */
 public abstract class JavaSourceGenerator<T extends JavaSource> extends TemplateCodeGenerator {
     protected final PackageNameGenerator packageNameGenerator;
+
     public JavaSourceGenerator(ProcessingEnvironment processEnv, String targetRoute) {
         super(processEnv, targetRoute);
         String entity = Configuration.getInstance().getString("final.coding.domain.entity", "entity");
@@ -33,14 +35,15 @@ public abstract class JavaSourceGenerator<T extends JavaSource> extends Template
 
     protected void coding(T source) {
         try {
-            TypeElement typeElement = processEnv.getElementUtils().getTypeElement(source.getName());
-            if (typeElement == null) {
-                JavaFileObject sourceFile = processEnv.getFiler().createSourceFile(source.getName());
-                coder.coding(source, sourceFile.openWriter());
+            TypeElement mapperElement = processEnv.getElementUtils().getTypeElement(source.getName());
+            if (mapperElement == null) {
+                coder.coding(source, processEnv.getFiler().createSourceFile(source.getName()).openWriter());
             }
-        } catch (Exception e) {
-//            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 }
 

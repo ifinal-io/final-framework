@@ -2,8 +2,8 @@ package org.finalframework.test.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.test.dao.mapper.PersonMapper;
+import org.finalframework.test.dao.query.PersonQuery;
 import org.finalframework.test.entity.Person;
-import org.finalframework.test.query.PersonQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

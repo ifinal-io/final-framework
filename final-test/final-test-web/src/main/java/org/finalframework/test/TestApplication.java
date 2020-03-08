@@ -3,8 +3,7 @@ package org.finalframework.test;
 
 import org.finalframework.data.query.Query;
 import org.finalframework.json.Json;
-import org.finalframework.test.query.PersonQuery;
-import org.finalframework.test.query.QPerson;
+import org.finalframework.test.dao.query.QPerson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

@@ -4,6 +4,7 @@ package org.finalframework.coding.mapper;
 import org.finalframework.coding.annotation.Template;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.file.JavaSource;
 
 import java.io.Serializable;
 
@@ -14,17 +15,19 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Template("mapper/mapper.jvm")
-public class Mapper implements Serializable {
+public class Mapper implements JavaSource, Serializable {
 
     private static final long serialVersionUID = 6273326791444775523L;
     private final String packageName;
+    private final String simpleName;
     private final String name;
     private final Boolean inner;
     private final Entity<Property> entity;
 
     private Mapper(Builder builder) {
         this.packageName = builder.packageName;
-        this.name = builder.name;
+        this.simpleName = builder.simpleName;
+        this.name = this.packageName + "." + this.simpleName;
         this.inner = builder.inner;
         this.entity = builder.entity;
     }
@@ -33,12 +36,19 @@ public class Mapper implements Serializable {
         return new Builder();
     }
 
+    @Override
     public String getPackageName() {
         return packageName;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getSimpleName() {
+        return simpleName;
     }
 
     public Boolean getInner() {
@@ -51,7 +61,7 @@ public class Mapper implements Serializable {
 
     public static class Builder implements org.finalframework.core.Builder<Mapper> {
         private String packageName;
-        private String name;
+        private String simpleName;
         private Boolean inner;
         private Entity<Property> entity;
 
@@ -65,8 +75,8 @@ public class Mapper implements Serializable {
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder simpleName(String simpleName) {
+            this.simpleName = simpleName;
             return this;
         }
 

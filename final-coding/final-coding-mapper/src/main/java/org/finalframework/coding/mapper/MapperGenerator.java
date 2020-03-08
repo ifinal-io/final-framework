@@ -2,11 +2,11 @@ package org.finalframework.coding.mapper;
 
 
 import org.finalframework.coding.entity.EntityFactory;
-import org.finalframework.coding.generator.TemplateCodeGenerator;
+import org.finalframework.coding.generator.JavaSourceGenerator;
+import org.finalframework.core.configuration.Configuration;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
-import java.io.IOException;
 
 /**
  * @author likly
@@ -14,7 +14,7 @@ import java.io.IOException;
  * @date 2019-10-28 09:30:39
  * @since 1.0
  */
-public class MapperGenerator extends TemplateCodeGenerator {
+public class MapperGenerator extends JavaSourceGenerator<Mapper> {
 
     private static final String MAPPER_PACKAGE_PATH = "dao.mapper";
 
@@ -22,12 +22,11 @@ public class MapperGenerator extends TemplateCodeGenerator {
     private static final String MAPPER_SUFFIX = "Mapper";
 
     public MapperGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, MAPPER_PACKAGE_PATH);
+        super(processEnv, Configuration.getInstance().getString("final.coding.dao.mapper", MAPPER_PACKAGE_PATH));
     }
 
     @Override
-    public Void generate(TypeElement typeElement) {
-
+    protected Mapper buildJavaSource(TypeElement typeElement) {
         final String packageName = packageNameGenerator.generate(typeElement);
         String mapperName = typeElement.getSimpleName().toString() + MAPPER_SUFFIX;
         String absMapperName = MAPPER_PREFIX + mapperName;
@@ -37,27 +36,12 @@ public class MapperGenerator extends TemplateCodeGenerator {
         TypeElement mapperTypeElement = processEnv.getElementUtils().getTypeElement(mapperClassName);
 //        boolean inner = mapperTypeElement != null;
         boolean inner = false;
-        Mapper mapper = Mapper.builder()
+        return Mapper.builder()
                 .packageName(packageName)
-                .name(inner ? absMapperName : mapperName)
+                .simpleName(inner ? absMapperName : mapperName)
                 .inner(inner)
                 .entity(EntityFactory.create(processEnv, typeElement))
                 .build();
-
-
-        try {
-            String mapperFileName = mapper.getPackageName() + "." + mapper.getName();
-            TypeElement mapperElement = processEnv.getElementUtils().getTypeElement(mapperFileName);
-            if (mapperElement == null) {
-                coder.coding(mapper, processEnv.getFiler().createSourceFile(mapperFileName).openWriter());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return null;
     }
 }
 
