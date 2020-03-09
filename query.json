@@ -5,25 +5,37 @@
     "andOr": "AND",
     "criteria": [
       {
-        "target": {
-          "operator": ""
-        }
-        ]
+        "name": "xiaoming",
+        "operator": "like",
+        "prefix": "%",
+        "suffix": "%"
       },
-      "order"
-      :
       {
-        "name": "DESC"
+        "age": {
+          "min": 10,
+          "max": 20
+        },
+        "operator": "between",
+        "min": 10,
+        "max": 20
       },
-      "group"
-      :
-      [
-        ""
-      ],
-      "offset"
-      :
-      1,
-      "limit"
-      :
-      1
+      {
+        "type": [
+          1,
+          2
+        ],
+        "operator": "in"
       }
+    ]
+  },
+  "order": [
+    {
+      "name": "DESC"
+    }
+  ],
+  "group": [
+    ""
+  ],
+  "offset": 1,
+  "limit": 1
+}
