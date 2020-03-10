@@ -20,8 +20,8 @@ import java.util.List;
 public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> extends Repository<ID, T> {
 
     @Override
-    default int insert(String tableName, Class<?> view, Collection<T> entities, Query query) {
-        return getRepository().insert(tableName, view, entities, query);
+    default int insert(String tableName, Class<?> view, Collection<T> entities) {
+        return getRepository().insert(tableName, view, entities);
     }
 
     @Override
@@ -49,9 +49,10 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         return getRepository().selectIds(tableName, query);
     }
 
+
     @Override
-    default long selectCount(String tableName, Query query) {
-        return getRepository().selectCount(tableName, query);
+    default long selectCount(String tableName, Collection<ID> ids, Query query) {
+        return getRepository().selectCount(tableName, ids, query);
     }
 
     @Override

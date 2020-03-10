@@ -17,7 +17,7 @@ public class CriteriaGenerator extends AbsEntityGenerator<Criteria> {
     private static final String QUERY_PACKAGE_PATH = "dao.query";
 
     public CriteriaGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, Configuration.getInstance().getString("final.coding.dao.mapper", QUERY_PACKAGE_PATH));
+        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH));
     }
 
     @Override

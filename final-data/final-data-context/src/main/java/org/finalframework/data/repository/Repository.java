@@ -43,6 +43,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default int save(String tableName, Class<?> view, T entity, Query query) {
+        if (query == null && entity.getId() == null) {
+            return insert(tableName, view, entity);
+        }
+
         long count = query == null ? selectCount(tableName, entity.getId()) : selectCount(tableName, query);
         if (count > 1) {
             throw new BadRequestException("expect one result but found " + count);
@@ -50,7 +54,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         if (count == 1) {
             return update(tableName, view, entity, query);
         }
-        return insert(tableName, view, Arrays.asList(entity), query);
+        return insert(tableName, view, Arrays.asList(entity));
     }
 
     /*=========================================== INSERT ===========================================*/
@@ -67,7 +71,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default int insert(String tableName, Collection<T> entities) {
-        return insert(tableName, null, entities, null);
+        return insert(tableName, null, entities);
     }
 
     default int insert(Class<?> view, T... entities) {
@@ -82,45 +86,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return insert(tableName, view, Arrays.asList(entities));
     }
 
-    default int insert(String tableName, Class<?> view, Collection<T> entities) {
-        return insert(tableName, view, entities, null);
-    }
-
-    default int insert(Collection<T> entities, @NonNull Queryable query) {
-        return insert(entities, query.convert());
-    }
-
-    default int insert(Collection<T> entities, Query query) {
-        return insert(null, null, entities, query);
-    }
-
-    default int insert(String tableName, Collection<T> entities, @NonNull Queryable query) {
-        return insert(tableName, entities, query.convert());
-    }
-
-    default int insert(String tableName, Collection<T> entities, Query query) {
-        return insert(tableName, null, entities, query);
-    }
-
-    default int insert(Class<?> view, Collection<T> entities, @NonNull Queryable query) {
-        return insert(view, entities, query.convert());
-    }
-
-    default int insert(Class<?> view, Collection<T> entities, Query query) {
-        return insert(null, view, entities, query);
-    }
-
     /**
      * 批量插入数据并返回影响的行数
      *
      * @param tableName 表名
      * @param view      视图
      * @param entities  实体集
-     * @param query     条件
      * @return 指插入数据所影响的行数
      */
     @Deprecated
-    int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities, @Param("query") Query query);
+    int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
     /*=========================================== UPDATE ===========================================*/
 

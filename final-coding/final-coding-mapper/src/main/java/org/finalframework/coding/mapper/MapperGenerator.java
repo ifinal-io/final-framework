@@ -22,7 +22,7 @@ public class MapperGenerator extends JavaSourceGenerator<Mapper> {
     private static final String MAPPER_SUFFIX = "Mapper";
 
     public MapperGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, Configuration.getInstance().getString("final.coding.dao.mapper", MAPPER_PACKAGE_PATH));
+        super(processEnv, Configuration.getInstance().getString("final.coding.mapper.path", MAPPER_PACKAGE_PATH));
     }
 
     @Override

@@ -17,7 +17,7 @@ public class QueryGenerator extends AbsEntityGenerator<Query> {
     private static final String QUERY_PACKAGE_PATH = "dao.query";
 
     public QueryGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, Configuration.getInstance().getString("final.coding.dao.mapper", QUERY_PACKAGE_PATH));
+        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH));
     }
 
     @Override

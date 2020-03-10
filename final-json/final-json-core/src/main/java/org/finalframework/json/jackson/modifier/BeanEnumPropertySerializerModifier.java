@@ -44,11 +44,14 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     @Override
     public JsonSerializer<?> modifyEnumSerializer(SerializationConfig config, JavaType valueType, BeanDescription beanDesc, JsonSerializer<?> serializer) {
-        JsonFormat jsonFormat = beanDesc.getClassAnnotations().get(JsonFormat.class);
-        if (jsonFormat != null && JsonFormat.Shape.OBJECT == jsonFormat.shape()) {
-            return EnumSerializer.instance;
+        if (IEnum.class.isAssignableFrom(valueType.getRawClass())) {
+            JsonFormat jsonFormat = beanDesc.getClassAnnotations().get(JsonFormat.class);
+            if (jsonFormat != null && JsonFormat.Shape.OBJECT == jsonFormat.shape()) {
+                return EnumSerializer.instance;
+            }
+            return EnumCodeSerializer.instance;
         }
-        return EnumCodeSerializer.instance;
+        return super.modifyEnumSerializer(config, valueType, beanDesc, serializer);
     }
 
     @Override

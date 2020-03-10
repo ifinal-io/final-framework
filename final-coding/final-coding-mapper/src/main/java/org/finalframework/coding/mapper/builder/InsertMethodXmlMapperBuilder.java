@@ -104,7 +104,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insert.appendChild(values);
 
 
-        insert.appendChild(include(document, SQL_QUERY));
+//        insert.appendChild(include(document, SQL_QUERY));
 
         return insert;
     }

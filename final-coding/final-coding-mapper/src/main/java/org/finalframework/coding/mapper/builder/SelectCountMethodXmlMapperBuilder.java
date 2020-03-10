@@ -30,7 +30,11 @@ public class SelectCountMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder
         trim.setAttribute("prefix", "SELECT COUNT(*) FROM");
         // <include refid="sql-table"/>
         trim.appendChild(include(document, SQL_TABLE));
-        trim.appendChild(include(document, SQL_QUERY));
+        trim.appendChild(where(document,
+                whenIdsNotNull(document, entity),
+                whenQueryNotNull(document)
+        ));
+//        trim.appendChild(include(document, SQL_QUERY));
         selectCount.appendChild(trim);
         return selectCount;
     }
