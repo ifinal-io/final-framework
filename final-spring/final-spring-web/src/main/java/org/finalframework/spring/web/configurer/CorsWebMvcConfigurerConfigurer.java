@@ -20,4 +20,6 @@ public class CorsWebMvcConfigurerConfigurer implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }
+
+
 }

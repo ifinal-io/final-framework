@@ -68,7 +68,7 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
         when.setAttribute("test", test(operator));
 
-        when.appendChild(cdata(document, String.format(format, "${criterion.column}")));
+        when.appendChild(cdata(document, String.format(format, "${criterion.criterionTarget}")));
 
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "criterion.value");

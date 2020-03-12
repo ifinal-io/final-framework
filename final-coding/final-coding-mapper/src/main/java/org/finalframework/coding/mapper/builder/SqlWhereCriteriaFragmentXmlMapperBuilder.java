@@ -37,7 +37,7 @@ public class SqlWhereCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "criteria");
         foreach.setAttribute("item", "criterion");
-        foreach.setAttribute("separator", "AND");
+        foreach.setAttribute("separator", " AND ");
         foreach.appendChild(
                 choose(document, Arrays.asList(
                         /**

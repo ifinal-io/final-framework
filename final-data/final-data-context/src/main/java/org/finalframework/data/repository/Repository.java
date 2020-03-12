@@ -8,6 +8,7 @@ import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -26,23 +27,36 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== SAVE ===========================================*/
 
-    default int save(T entity) {
+    default int save(@NonNull T entity) {
         return save((String) null, entity);
     }
 
-    default int save(Class<?> view, T entity) {
+    default int save(@NonNull T entity, @Nullable Queryable query) {
+        return save((String) null, entity, query == null ? null : query.convert());
+    }
+
+    default int save(@Nullable Class<?> view, @NonNull T entity) {
         return save(null, view, entity);
     }
 
-    default int save(String table, T entity) {
+    default int save(@Nullable String table, @NonNull T entity) {
         return save(table, null, entity);
     }
 
-    default int save(String table, Class<?> view, T entity) {
+    default int save(@Nullable Class<?> view, @NonNull T entity, @Nullable Queryable query) {
+        return save(null, view, entity, query == null ? null : query.convert());
+    }
+
+
+    default int save(@Nullable String table, @NonNull T entity, @Nullable Queryable query) {
+        return save(table, null, entity, query == null ? null : query.convert());
+    }
+
+    default int save(@Nullable String table, @Nullable Class<?> view, @NonNull T entity) {
         return save(table, view, entity, null);
     }
 
-    default int save(String tableName, Class<?> view, T entity, Query query) {
+    default int save(@Nullable String tableName, @Nullable Class<?> view, @NonNull T entity, @Nullable Query query) {
         if (query == null && entity.getId() == null) {
             return insert(tableName, view, entity);
         }
@@ -54,7 +68,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         if (count == 1) {
             return update(tableName, view, entity, query);
         }
-        return insert(tableName, view, Arrays.asList(entity));
+        return insert(tableName, view, entity);
     }
 
     /*=========================================== INSERT ===========================================*/

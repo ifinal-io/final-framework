@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<ICriterion>, Serializable, Pageable, Sql<Query> {
+public class Query implements Streamable<ICriterion>, Serializable, Pageable, Queryable, Sql<Query> {
 
     /**
      * 页码，第一页从1开始
@@ -137,5 +137,8 @@ public class Query implements Streamable<ICriterion>, Serializable, Pageable, Sq
         return new QuerySqlBuilder(this).build();
     }
 
-
+    @Override
+    public Query convert() {
+        return this;
+    }
 }

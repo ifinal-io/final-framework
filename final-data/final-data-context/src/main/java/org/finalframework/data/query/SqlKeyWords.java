@@ -17,7 +17,7 @@ public final class SqlKeyWords {
     private static final Set<String> keys = new HashSet<>();
 
     static {
-        init("key");
+        init("key", "order", "group");
     }
 
     private static void init(String... keys) {

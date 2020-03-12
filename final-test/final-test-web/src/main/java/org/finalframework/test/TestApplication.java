@@ -33,7 +33,7 @@ public class TestApplication {
         System.out.println(Json.toJson(query));
 
 
-//        SpringApplication.run(TestApplication.class);
+        SpringApplication.run(TestApplication.class);
     }
 }
 
