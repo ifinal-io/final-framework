@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.finalframework.data.entity.AbsEntity;
+import org.finalframework.data.entity.AbsRecord;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -22,7 +21,7 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Person extends AbsEntity {
+public class Person extends AbsRecord {
     private static final long serialVersionUID = -8785625823175210092L;
     //    @PrimaryKey(insertable = true)
 //    private Long id;
@@ -44,11 +43,10 @@ public class Person extends AbsEntity {
     @JsonColumn
     private Map<String, Object> properties;
     //    @NonColumn
-    @ReferenceColumn(mode = ReferenceMode.SIMPLE, properties = {"id", "name", "age"})
-    private Person creator;
     @Transient
     private Date date = new Date();
 
 //    private YN yn;
+
 
 }

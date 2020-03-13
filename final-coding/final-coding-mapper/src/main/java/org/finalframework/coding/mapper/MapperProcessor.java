@@ -6,7 +6,9 @@ import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.finalframework.coding.entity.*;
+import org.finalframework.coding.entity.Entity;
+import org.finalframework.coding.entity.EntityFactory;
+import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.coding.mapper.xml.Association;
@@ -16,6 +18,9 @@ import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -33,10 +38,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
+import java.io.StringBufferInputStream;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Generate mapper.xml file of the mapper which annotated by {@link Mapper}.
@@ -69,6 +76,15 @@ public class MapperProcessor extends AbstractProcessor {
     private DeclaredType absMapperType;
     private TypeElement repositoryTypeElement;
     private MappersHelper mappersHelper;
+
+    private EntityResolver entityResolver = new EntityResolver() {
+        InputSource source = new InputSource(new StringBufferInputStream("<?xml version='1.0' encoding='UTF-8'?>"));
+
+        @Override
+        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+            return source;
+        }
+    };
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
@@ -110,7 +126,7 @@ public class MapperProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-//        Set<TypeElement> typeElements = roundEnv.getRootElements()
+//        Set<TypeElement> typeElements = roundEnv.getElementsAnnotatedWith(Mapper.class)
 //                .stream()
 //                .filter(it -> it instanceof TypeElement)
 //                .map(it -> (TypeElement) it)
@@ -152,6 +168,7 @@ public class MapperProcessor extends AbstractProcessor {
                     final String resourceFile = mapperClassName.replace(".", "/") + ".xml";
                     XPathParser parser = null;
                     try {
+
                         try {
                             // would like to be able to print the full path
                             // before we attempt to get the resource in case the behavior
@@ -160,7 +177,7 @@ public class MapperProcessor extends AbstractProcessor {
                             FileObject existingFile = filer.getResource(StandardLocation.CLASS_PATH, "", resourceFile);
 //                        logger.info("========Resource file is already exist. {}", resourceFile);
                             info("Looking for existing resource file at " + existingFile.toUri());
-                            parser = new XPathParser(existingFile.openInputStream());
+                            parser = new XPathParser(existingFile.openInputStream(), false, null, entityResolver);
 //                            document = documentBuilder.parse(existingFile.openInputStream());
                         } catch (Exception e) {
                             // According to the javadoc, Filer.getResource throws an exception
@@ -168,8 +185,9 @@ public class MapperProcessor extends AbstractProcessor {
                             // appear to be the case.  Filer.getResource will happily return a
                             // FileObject that refers to a non-existent file but will throw
                             // IOException if you try to open an input stream for it.
-                            info("Resource file did not already exist.");
-                            parser = new XPathParser(getMapperTemplate(mapperClassName));
+//                            e.printStackTrace(System.err);
+                            info("Resource file did not already exist. " + resourceFile + ":" + e.getMessage());
+                            parser = new XPathParser(getMapperTemplate(mapperClassName), false, null, entityResolver);
                         }
 
 
@@ -234,6 +252,7 @@ public class MapperProcessor extends AbstractProcessor {
                         }
 
                         String mapperContent = buildMapperContent(document);
+                        System.out.println(mapperContent);
                         try {
                             FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
                             Writer writer = fileObject.openWriter();
@@ -243,7 +262,6 @@ public class MapperProcessor extends AbstractProcessor {
                         } catch (IOException e) {
                             error("Generate mapper error" + e.getMessage());
                         }
-                        info(mapperContent);
                     }
 
                 });

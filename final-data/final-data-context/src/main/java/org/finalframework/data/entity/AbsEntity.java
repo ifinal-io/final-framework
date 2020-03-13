@@ -1,11 +1,8 @@
 package org.finalframework.data.entity;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.enums.YN;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -16,8 +13,6 @@ import java.time.LocalDateTime;
  * @date 2018-10-20 17:17
  * @since 1.0
  */
-@Setter
-@Getter
 public abstract class AbsEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
@@ -47,6 +42,48 @@ public abstract class AbsEntity implements IEntity<Long> {
      */
     @Column(insertable = false)
     private YN yn;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public YN getYn() {
+        return yn;
+    }
+
+    public void setYn(YN yn) {
+        this.yn = yn;
+    }
 }
 
     
