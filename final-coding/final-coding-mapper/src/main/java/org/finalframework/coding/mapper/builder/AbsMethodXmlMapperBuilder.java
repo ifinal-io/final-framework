@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.Assert;
 import org.finalframework.core.parser.xml.XNode;
 import org.finalframework.core.parser.xml.XPathParser;
@@ -28,6 +29,10 @@ import java.util.Collection;
  */
 public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder implements MethodXmlMapperBuilder {
 
+
+    public AbsMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public final void build(Node root, Document document, ExecutableElement method, Entity<Property> entity) {

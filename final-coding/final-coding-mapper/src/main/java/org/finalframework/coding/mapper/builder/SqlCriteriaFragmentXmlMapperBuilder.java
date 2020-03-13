@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.query.enums.AndOr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,6 +19,10 @@ import java.util.Arrays;
 public class SqlCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
 
     private static final Integer MAX_CRITERIA_LOOP = 3;
+
+    public SqlCriteriaFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public String id() {

@@ -30,6 +30,7 @@ public class QProperty implements Serializable {
     private final String name;
     private final String column;
     private final TypeElement type;
+    private final TypeElement typeHandler;
     private final boolean idProperty;
     private final PersistentType persistentType;
     private final boolean insertable;
@@ -41,6 +42,7 @@ public class QProperty implements Serializable {
         this.name = builder.name;
         this.column = builder.column;
         this.type = builder.type;
+        this.typeHandler = builder.typeHandler;
         this.idProperty = builder.idProperty;
         this.persistentType = builder.persistentType;
         this.insertable = builder.insertable;
@@ -72,6 +74,10 @@ public class QProperty implements Serializable {
         return type;
     }
 
+    public TypeElement getTypeHandler() {
+        return typeHandler;
+    }
+
     public PersistentType getPersistentType() {
         return persistentType;
     }
@@ -98,6 +104,7 @@ public class QProperty implements Serializable {
         private final String name;
         private String column;
         private TypeElement type;
+        private TypeElement typeHandler;
         private PersistentType persistentType;
         private boolean idProperty;
 
@@ -117,6 +124,11 @@ public class QProperty implements Serializable {
 
         public Builder type(TypeElement type) {
             this.type = type;
+            return this;
+        }
+
+        public Builder typeHandler(TypeElement typeHandler) {
+            this.typeHandler = typeHandler;
             return this;
         }
 

@@ -2,7 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.Utils;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.query.enums.UpdateOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -26,6 +26,10 @@ import java.util.stream.Collectors;
 public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     private static final String SQL_UPDATE = "sql-update";
+
+    public UpdateMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public boolean supports(ExecutableElement method) {
@@ -60,7 +64,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "UPDATE");
 
-        trim.appendChild(include(document, SQL_TABLE));
+        trim.appendChild(include(document, SQL_TABLES));
         trim.appendChild(include(document, SQL_UPDATE));
         trim.appendChild(where(document, whenIdsNotNull(document, entity), whenQueryNotNull(document)));
         update.appendChild(trim);
@@ -142,7 +146,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         if (versionProperty != null && !versionProperty.updatable()) {
             Element trim = document.createElement("trim");
-            String column = Utils.getInstance().formatPropertyColumn(null, versionProperty);
+            String column = typeHandlers.formatPropertyColumn(null, versionProperty);
             trim.setAttribute("suffix", String.format("%s = %s + 1", column, column));
             trim.appendChild(choose);
             set.appendChild(trim);
@@ -200,8 +204,8 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property, multiProperty);
 //                                    final String value = columnGenerator.generateWriteValue(property, multiProperty, "entity");
 
-                                    final String column = Utils.getInstance().formatPropertyWriteColumn(property, multiProperty);
-                                    final String value = Utils.getInstance().formatPropertyValues(property, multiProperty, "entity");
+                                    final String column = typeHandlers.formatPropertyWriteColumn(property, multiProperty);
+                                    final String value = typeHandlers.formatPropertyValues(property, multiProperty, "entity");
 
 
                                     final Element ifPropertyNotNull = document.createElement("if");
@@ -222,8 +226,8 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                        final String column = columnGenerator.generateWriteColumn(property.getTable(), null, property);
 //                        final String value = columnGenerator.generateWriteValue(null, property, "entity");
 
-                        final String column = Utils.getInstance().formatPropertyWriteColumn(null, property);
-                        final String value = Utils.getInstance().formatPropertyValues(null, property, "entity");
+                        final String column = typeHandlers.formatPropertyWriteColumn(null, property);
+                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
                         if (selective) {
                             final Element ifPropertyNotNull = document.createElement("if");
@@ -261,14 +265,14 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 .map(multiEntity::getProperty)
                                 .map(multiProperty -> {
                                     final TypeElement javaType = multiProperty.getMetaTypeElement();
-                                    final TypeElement typeHandler = Utils.getInstance().getTypeHandler(property.getElement());
+                                    final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
 
                                     final Element ifUpdateContains = document.createElement("if");
 
                                     final String name = multiProperty.isIdProperty() ? property.getName()
                                             : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
 
-                                    final String column = Utils.getInstance().formatPropertyWriteColumn(property, multiProperty);
+                                    final String column = typeHandlers.formatPropertyWriteColumn(property, multiProperty);
                                     final String ifTest = String.format("update['%s'] != null", name);
                                     ifUpdateContains.setAttribute("test", ifTest);
 
@@ -304,14 +308,14 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
                     } else {
                         final TypeElement javaType = property.getMetaTypeElement();
-                        final TypeElement typeHandler = Utils.getInstance().getTypeHandler(property.getElement());
+                        final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
                         final Element ifUpdateContains = document.createElement("if");
                         final String updatePath = property.getName();
                         final String ifTest = String.format("update['%s'] != null", updatePath);
                         ifUpdateContains.setAttribute("test", ifTest);
 
                         ifUpdateContains.setAttribute("test", ifTest);
-                        final String multiColumn = Utils.getInstance().formatPropertyWriteColumn(null, property);
+                        final String multiColumn = typeHandlers.formatPropertyWriteColumn(null, property);
 
                         List<Element> whenElements = Arrays.stream(UpdateOperation.values())
                                 .map(operation -> {

@@ -1,7 +1,7 @@
 package org.finalframework.coding.mapper.xml;
 
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.Utils;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.PrimaryKey;
 
 import javax.lang.model.element.TypeElement;
@@ -28,10 +28,11 @@ public class Result implements Element {
         this.idResult = builder.idResult;
     }
 
-    public static Result from(Property referenceProperty, Property property) {
-        return new Builder(property.getName(), Utils.getInstance().formatPropertyWriteColumn(referenceProperty, property))
+    public static Result from(Property referenceProperty, Property property, TypeHandlers typeHandlers) {
+        return new Builder(property.getName(),
+                typeHandlers.formatPropertyWriteColumn(referenceProperty, property))
                 .javaType(property.getMetaTypeElement())
-                .typeHandler(Utils.getInstance().getTypeHandler(property.getElement()))
+                .typeHandler(typeHandlers.getTypeHandler(property))
                 .idResult(property.hasAnnotation(PrimaryKey.class))
                 .build();
     }

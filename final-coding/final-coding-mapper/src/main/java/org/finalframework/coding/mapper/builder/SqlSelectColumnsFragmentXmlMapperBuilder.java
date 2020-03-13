@@ -2,7 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.Utils;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -21,6 +21,10 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+
+    public SqlSelectColumnsFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public String id() {
@@ -62,10 +66,10 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
                                 .map(multiEntity::getProperty)
                                 .filter(Property::selectable)
                                 .forEach(multiProperty -> {
-                                    columns.add(Utils.getInstance().formatPropertyReadColumn(property, multiProperty));
+                                    columns.add(typeHandlers.formatPropertyReadColumn(property, multiProperty));
                                 });
                     } else {
-                        columns.add(Utils.getInstance().formatPropertyReadColumn(null, property));
+                        columns.add(typeHandlers.formatPropertyReadColumn(null, property));
                     }
                 });
 

@@ -38,6 +38,9 @@ public final class ${simpleName} extends AbsQEntity<${entity.idProperty.type.rep
         #foreach($property in $properties)
         addProperty(
                 QProperty.builder(this,${property.type.getQualifiedName().toString().replace("java.lang.","")}.class)
+                    #if($property.typeHandler)
+                        .typeHandler(${property.typeHandler.getQualifiedName().toString()}.class)
+                    #end
                         .path("${property.path}").name("${property.name}").column("${property.column}")
                         .idProperty(${property.idProperty}).persistentType(PersistentType.${property.persistentType})
                         .insertable(${property.insertable}).updatable(${property.updatable}).selectable(${property.selectable})

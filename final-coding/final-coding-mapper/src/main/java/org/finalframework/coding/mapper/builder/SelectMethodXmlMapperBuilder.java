@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,6 +23,10 @@ public class SelectMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     private static final String METHOD_SELECT_ONE = "selectOne";
     private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_SELECT, METHOD_SELECT_ONE));
 
+    public SelectMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
+
     @Override
     public boolean supports(ExecutableElement method) {
         return !method.isDefault() && methods.contains(method.getSimpleName().toString());
@@ -40,7 +45,7 @@ public class SelectMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         Element from = document.createElement("trim");
         from.setAttribute("prefix", "FROM");
-        from.appendChild(include(document, SQL_TABLE));
+        from.appendChild(include(document, SQL_TABLES));
         sql.appendChild(from);
         sql.appendChild(where(document,
                 METHOD_SELECT_ONE.equals(methodName) ? whenIdNotNull(document, entity) : whenIdsNotNull(document, entity),

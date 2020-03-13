@@ -2,7 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.Utils;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -27,6 +27,10 @@ import static org.finalframework.data.annotation.enums.PrimaryKeyType.UUID;
 public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     private static final String INSERT_METHOD_NAME = "insert";
+
+    public InsertMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public boolean supports(ExecutableElement method) {
@@ -93,7 +97,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         Element insertInto = document.createElement("trim");
         insertInto.setAttribute("prefix", "INSERT INTO");
-        insertInto.appendChild(include(document, SQL_TABLE));
+        insertInto.appendChild(include(document, SQL_TABLES));
         insert.appendChild(insertInto);
 
         insert.appendChild(insertColumnsElement(document, entity));
@@ -155,11 +159,11 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 .map(multiProperty -> {
 //                                    final String table = property.getTable();
 //                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
-                                    return Utils.getInstance().formatPropertyWriteColumn(property, multiProperty);
+                                    return typeHandlers.formatPropertyWriteColumn(property, multiProperty);
                                 })
                                 .forEach(columns::add);
                     } else {
-                        columns.add(Utils.getInstance().formatPropertyWriteColumn(null, property));
+                        columns.add(typeHandlers.formatPropertyWriteColumn(null, property));
 //                        ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        columns.add(columnGenerator.generateWriteColumn(property.getTable(), null, property));
                     }
@@ -242,7 +246,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                                    ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(multiProperty);
 //                                    return columnGenerator.generateWriteValue(property, multiProperty, value);
 
-                                    return Utils.getInstance().formatPropertyValues(property, multiProperty, "entity");
+                                    return typeHandlers.formatPropertyValues(property, multiProperty, "entity");
                                 })
                                 .collect(Collectors.joining(",\n"));
                         when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
@@ -268,7 +272,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                        final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        final String item = property.placeholder() ? "list[${index}]" : "item";
 //                        final String value = columnGenerator.generateWriteValue(null, property, item);
-                        final String value = Utils.getInstance().formatPropertyValues(null, property, "entity");
+                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
                         builder.append(value);
                         first.set(false);
                         insertValues.appendChild(textNode(document, builder.toString()));

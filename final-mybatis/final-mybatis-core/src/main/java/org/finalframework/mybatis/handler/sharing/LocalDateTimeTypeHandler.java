@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.handler;
+package org.finalframework.mybatis.handler.sharing;
 
 
 import org.apache.ibatis.type.BaseTypeHandler;
@@ -10,13 +10,13 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
+ * 解决{@linkplain Sharding-JDBC}不支持JAVA8时间问题
+ *
  * @author likly
  * @version 1.0
  * @date 2020-03-13 17:06:25

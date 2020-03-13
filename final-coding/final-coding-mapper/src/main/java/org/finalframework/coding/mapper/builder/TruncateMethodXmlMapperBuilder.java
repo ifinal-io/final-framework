@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -16,12 +17,16 @@ import javax.lang.model.element.ExecutableElement;
  */
 public class TruncateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
+    public TruncateMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
+
     @Override
     public boolean supports(ExecutableElement method) {
         return !method.isDefault() && "truncate".equals(method.getSimpleName().toString());
     }
 
-    /** 
+    /**
      * <update id="truncate" >
      * <trim prefix="TRUNCATE TABLE">
      * <include refid="sql-table"/>
@@ -40,7 +45,7 @@ public class TruncateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "TRUNCATE TABLE");
-        trim.appendChild(include(document, SQL_TABLE));
+        trim.appendChild(include(document, SQL_TABLES));
 
         truncate.appendChild(trim);
 

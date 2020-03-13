@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +17,10 @@ import java.util.Arrays;
  * @since 1.0
  */
 public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+
+    public SqlCriterionFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public String id() {

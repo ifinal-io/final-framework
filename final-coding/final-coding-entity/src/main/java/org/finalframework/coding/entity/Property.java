@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2018-10-26 20:05
  * @since 1.0
  */
-public interface Property<T, P extends Property<T, P>> {
+public interface Property<T> {
 
     Element getElement();
 
@@ -66,6 +66,10 @@ public interface Property<T, P extends Property<T, P>> {
     PrimaryKeyType getPrimaryKeyType();
 
     boolean isCollection();
+
+    boolean isList();
+
+    boolean isSet();
 
     boolean isMap();
 

@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.coding.mapper.xml.Association;
 import org.finalframework.coding.mapper.xml.Result;
 import org.finalframework.coding.mapper.xml.ResultMap;
@@ -15,12 +16,16 @@ import org.w3c.dom.Element;
  * @date 2019-10-10 16:33:53
  * @since 1.0
  */
-public class DefaultResultMapXmlMapperBuilder implements AbsResultMapXmlMapperBuilder {
+public class DefaultResultMapXmlMapperBuilder extends AbsXmlMapperBuilder implements AbsResultMapXmlMapperBuilder {
 
+
+    public DefaultResultMapXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
 
     @Override
     public Element buildResultMap(Document document, Entity<Property> entity) {
-        return buildResultMap(document, ResultMap.from(entity));
+        return buildResultMap(document, ResultMap.from(entity, typeHandlers));
     }
 
     private Element buildResultMap(Document document, ResultMap resultMap) {

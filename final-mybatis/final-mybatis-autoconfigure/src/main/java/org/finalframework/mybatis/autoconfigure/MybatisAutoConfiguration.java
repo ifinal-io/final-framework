@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.finalframework.core.Assert;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
-import org.finalframework.mybatis.handler.LocalDateTimeTypeHandler;
+import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.finalframework.mybatis.inteceptor.PageHelperPageableInterceptor;
 import org.finalframework.mybatis.inteceptor.PageableInterceptor;
 import org.finalframework.spring.annotation.factory.SpringConfiguration;

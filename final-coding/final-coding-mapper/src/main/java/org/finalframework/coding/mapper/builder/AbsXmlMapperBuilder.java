@@ -2,7 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.Utils;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -22,18 +22,26 @@ public abstract class AbsXmlMapperBuilder {
 
     protected static final String GENERATED_TAG = "GENERATED-BY-FINAL-FRAMEWORK";
 
+    protected static final String SQL_TABLES = "sql-tables";
     protected static final String SQL_TABLE = "sql-table";
-    protected static final String SQL_QUERY = "sql-query";
+
     protected static final String SQL_WHERE_ID = "sql-where-id";
     protected static final String SQL_WHERE_IDS = "sql-where-ids";
+
+    protected static final String SQL_QUERY = "sql-query";
     protected static final String SQL_WHERE_CRITERIA = "sql-where-criteria";
-    protected static final String SQL_CRITERIA = "sql-criteria-criteria";
-    protected static final String SQL_CRITERIA_CRITERION = "sql-criteria-criterion";
+    protected static final String SQL_CRITERIA = "sql-criteria";
     protected static final String SQL_CRITERION = "sql-criterion";
     protected static final String SQL_GROUP = "sql-group";
     protected static final String SQL_ORDER = "sql-order";
     protected static final String SQL_LIMIT = "sql-limit";
     protected static final String SQL_SELECT_COLUMNS = "sql-select-columns";
+
+    protected final TypeHandlers typeHandlers;
+
+    public AbsXmlMapperBuilder(TypeHandlers typeHandlers) {
+        this.typeHandlers = typeHandlers;
+    }
 
     /**
      * <pre>
@@ -56,7 +64,7 @@ public abstract class AbsXmlMapperBuilder {
     protected Element table(@NonNull Document document, @NonNull Entity<?> entity) {
         //  <sql id="id">
         final Element sql = document.createElement("sql");
-        sql.setAttribute("id", SQL_TABLE);
+        sql.setAttribute("id", SQL_TABLES);
         //      <choose>
         final Element choose = document.createElement("choose");
         //              <when test="tableName != null">
@@ -184,8 +192,8 @@ public abstract class AbsXmlMapperBuilder {
                         Element ifPropertyNotNull = document.createElement("if");
                         ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
 
-                        final String column = Utils.getInstance().formatPropertyColumn(null, property);
-                        final String value = Utils.getInstance().formatPropertyValues(null, property, "entity");
+                        final String column = typeHandlers.formatPropertyColumn(null, property);
+                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
                         ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));
                         whenEntityNotNull.appendChild(ifPropertyNotNull);

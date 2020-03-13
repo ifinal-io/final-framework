@@ -4,6 +4,7 @@ import org.apache.ibatis.mapping.FetchType;
 import org.apache.ibatis.type.JdbcType;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.Streamable;
 
 import javax.lang.model.element.TypeElement;
@@ -69,7 +70,7 @@ public final class Association implements Element, Streamable<Element>, Iterable
 
     }
 
-    public static Association from(Property referenceProperty, Entity<Property> entity) {
+    public static Association from(Property referenceProperty, Entity<Property> entity, TypeHandlers typeHandlers) {
         Builder builder = new Builder(referenceProperty.getName());
         builder.javaType(entity.getElement());
 
@@ -78,7 +79,7 @@ public final class Association implements Element, Streamable<Element>, Iterable
                     if (property.isReference()) {
 //                        builder.addAssociation(Association.from(property,property.toEntity()));
                     } else {
-                        builder.addResult(Result.from(referenceProperty, property));
+                        builder.addResult(Result.from(referenceProperty, property, typeHandlers));
                     }
                 });
 

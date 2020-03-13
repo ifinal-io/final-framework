@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
 import org.w3c.dom.Document;
@@ -25,43 +26,47 @@ import java.util.stream.Collectors;
 public class FinalXmlMapperBuilder implements XmlMapperBuilder {
 
     private final ProcessingEnvironment processingEnvironment;
+    private final TypeHandlers typeHandlers;
 
-    public FinalXmlMapperBuilder(ProcessingEnvironment processingEnvironment) {
+    public FinalXmlMapperBuilder(ProcessingEnvironment processingEnvironment, TypeHandlers typeHandlers) {
         this.processingEnvironment = processingEnvironment;
+        this.typeHandlers = typeHandlers;
+        this.init();
     }
 
     private List<ResultMapXmlMapperBuilder> resultMapXmlMapperBuilders = new ArrayList<>(1);
     private List<MethodXmlMapperBuilder> methodXmlMapperBuilders = new ArrayList<>(8);
     private List<SqlFragmentXmlMapperBuilder> sqlFragmentXmlMapperBuilders = new ArrayList<>();
 
-    {
-        resultMapXmlMapperBuilders.add(new DefaultResultMapXmlMapperBuilder());
+    private void init() {
+        resultMapXmlMapperBuilders.add(new DefaultResultMapXmlMapperBuilder(typeHandlers));
 
-        methodXmlMapperBuilders.add(new InsertMethodXmlMapperBuilder());
-        methodXmlMapperBuilders.add(new UpdateMethodXmlMapperBuilder());
-        methodXmlMapperBuilders.add(new DeleteMethodXmlMapperBuilder());
+        methodXmlMapperBuilders.add(new InsertMethodXmlMapperBuilder(typeHandlers));
+        methodXmlMapperBuilders.add(new UpdateMethodXmlMapperBuilder(typeHandlers));
+        methodXmlMapperBuilders.add(new DeleteMethodXmlMapperBuilder(typeHandlers));
 
-        methodXmlMapperBuilders.add(new SelectMethodXmlMapperBuilder());
-        methodXmlMapperBuilders.add(new SelectIdsMethodXmlMapperBuilder());
-        methodXmlMapperBuilders.add(new SelectCountMethodXmlMapperBuilder());
+        methodXmlMapperBuilders.add(new SelectMethodXmlMapperBuilder(typeHandlers));
+        methodXmlMapperBuilders.add(new SelectIdsMethodXmlMapperBuilder(typeHandlers));
+        methodXmlMapperBuilders.add(new SelectCountMethodXmlMapperBuilder(typeHandlers));
 
-        methodXmlMapperBuilders.add(new TruncateMethodXmlMapperBuilder());
+        methodXmlMapperBuilders.add(new TruncateMethodXmlMapperBuilder(typeHandlers));
 
-        sqlFragmentXmlMapperBuilders.add(new SqlTableFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlWhereIdFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlWhereIdsFragmentXmlMapperBuilder());
+        sqlFragmentXmlMapperBuilders.add(new SqlTableFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlTablesFragmentXmlMapperBuilder(typeHandlers));
 
-        sqlFragmentXmlMapperBuilders.add(new SqlSelectColumnsFragmentXmlMapperBuilder());
+        sqlFragmentXmlMapperBuilders.add(new SqlWhereIdFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlWhereIdsFragmentXmlMapperBuilder(typeHandlers));
 
-        sqlFragmentXmlMapperBuilders.add(new SqlWhereCriteriaFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaFragmentXmlMapperBuilder());
-//        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaCriterionFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFragmentXmlMapperBuilder());
+        sqlFragmentXmlMapperBuilders.add(new SqlSelectColumnsFragmentXmlMapperBuilder(typeHandlers));
 
-        sqlFragmentXmlMapperBuilders.add(new SqlGroupFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlOrderFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlLimitFragmentXmlMapperBuilder());
-        sqlFragmentXmlMapperBuilders.add(new SqlQueryFragmentXmlMapperBuilder());
+        sqlFragmentXmlMapperBuilders.add(new SqlWhereCriteriaFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlCriteriaFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFragmentXmlMapperBuilder(typeHandlers));
+
+        sqlFragmentXmlMapperBuilders.add(new SqlGroupFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlOrderFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlLimitFragmentXmlMapperBuilder(typeHandlers));
+        sqlFragmentXmlMapperBuilders.add(new SqlQueryFragmentXmlMapperBuilder(typeHandlers));
 
     }
 

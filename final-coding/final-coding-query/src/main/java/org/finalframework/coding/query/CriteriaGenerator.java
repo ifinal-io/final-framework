@@ -1,5 +1,6 @@
 package org.finalframework.coding.query;
 
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.configuration.Configuration;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -16,8 +17,8 @@ public class CriteriaGenerator extends AbsEntityGenerator<Criteria> {
 
     private static final String QUERY_PACKAGE_PATH = "dao.query";
 
-    public CriteriaGenerator(ProcessingEnvironment processEnv) {
-        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH));
+    public CriteriaGenerator(ProcessingEnvironment processEnv, TypeHandlers typeHandlers) {
+        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH), typeHandlers);
     }
 
     @Override

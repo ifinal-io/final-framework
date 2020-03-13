@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.xml;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.Streamable;
 
 import javax.lang.model.element.TypeElement;
@@ -42,15 +43,15 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
     }
 
 
-    public static ResultMap from(Entity<Property> entity) {
+    public static ResultMap from(Entity<Property> entity, TypeHandlers typeHandlers) {
         ResultMap.Builder builder = new ResultMap.Builder(entity.getSimpleName() + SUFFIX, entity.getElement());
         entity.stream()
                 .filter(it -> !it.isTransient())
                 .forEach(property -> {
                     if (property.isReference()) {
-                        builder.addAssociation(Association.from(property, property.toEntity()));
+                        builder.addAssociation(Association.from(property, property.toEntity(), typeHandlers));
                     } else {
-                        builder.addResult(Result.from(null, property));
+                        builder.addResult(Result.from(null, property, typeHandlers));
                     }
                 });
 //

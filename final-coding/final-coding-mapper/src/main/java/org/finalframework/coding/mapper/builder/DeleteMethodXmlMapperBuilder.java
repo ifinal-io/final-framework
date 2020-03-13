@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -14,6 +15,10 @@ import javax.lang.model.element.ExecutableElement;
  * @since 1.0
  */
 public class DeleteMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
+    public DeleteMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
+
     @Override
     public boolean supports(ExecutableElement method) {
         return !method.isDefault() && "delete".equals(method.getSimpleName().toString());
@@ -45,7 +50,7 @@ public class DeleteMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "DELETE FROM");
-        trim.appendChild(include(document, SQL_TABLE));
+        trim.appendChild(include(document, SQL_TABLES));
         trim.appendChild(where(document, whenIdsNotNull(document, entity), whenQueryNotNull(document)));
 
         delete.appendChild(trim);

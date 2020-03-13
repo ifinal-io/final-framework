@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.parser.xml.XNode;
 import org.finalframework.core.parser.xml.XPathParser;
 import org.w3c.dom.Document;
@@ -24,6 +25,10 @@ import org.w3c.dom.Node;
  * @since 1.0
  */
 public abstract class AbsSqlFragmentXmlMapperBuilder extends AbsXmlMapperBuilder implements SqlFragmentXmlMapperBuilder {
+    public AbsSqlFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
+
     @Override
     public final void build(Node root, Document document, Entity<Property> entity) {
         XPathParser parser = new XPathParser(document);

@@ -12,6 +12,7 @@ import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.coding.mapper.xml.Association;
+import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.repository.Repository;
@@ -76,6 +77,7 @@ public class MapperProcessor extends AbstractProcessor {
     private DeclaredType absMapperType;
     private TypeElement repositoryTypeElement;
     private MappersHelper mappersHelper;
+    private TypeHandlers typeHandlers;
 
     private EntityResolver entityResolver = new EntityResolver() {
         InputSource source = new InputSource(new StringBufferInputStream("<?xml version='1.0' encoding='UTF-8'?>"));
@@ -113,14 +115,14 @@ public class MapperProcessor extends AbstractProcessor {
         filer = processingEnv.getFiler();
         elementsUtils = processingEnv.getElementUtils();
         types = processingEnv.getTypeUtils();
-        this.xmlMapperBuilder = new FinalXmlMapperBuilder(processingEnv);
         Configuration.getInstance().load(processingEnv);
         NameConverterRegistry.getInstance().reload();
         this.repositoryTypeElement = elementsUtils.getTypeElement(Repository.class.getCanonicalName());
         this.absMapperElement = elementsUtils.getTypeElement(ABS_MAPPER);
         absMapperType = (DeclaredType) absMapperElement.asType();
-        Utils.init(processingEnv);
         this.mappersHelper = new MappersHelper(processingEnv);
+        this.typeHandlers = new TypeHandlers(processingEnv);
+        this.xmlMapperBuilder = new FinalXmlMapperBuilder(processingEnv, typeHandlers);
     }
 
     @Override
@@ -238,12 +240,12 @@ public class MapperProcessor extends AbstractProcessor {
                                 builder.append("type=").append(property.getElement().asType().toString()).append("\n");
                                 builder.append("name=").append(property.getName()).append("\n");
                                 builder.append("kind=").append(property.getElement().getKind()).append("\n");
-                                builder.append("isEnum=").append(Utils.getInstance().isEnum(property.getElement())).append("\n");
+                                builder.append("isEnum=").append(typeHandlers.isEnum(property.getElement())).append("\n");
                                 builder.append("isReference=").append(property.isReference()).append("\n");
                                 builder.append("elementClass=").append(property.getElement().getClass()).append("\n");
                                 builder.append("views=").append(property.getViews()).append("\n");
                                 if (property.isReference()) {
-                                    builder.append("association=").append(Association.from(property, property.toEntity()).getElements().size()).append("\n");
+                                    builder.append("association=").append(Association.from(property, property.toEntity(), typeHandlers).getElements().size()).append("\n");
                                 }
 
 //                            error(builder.toString());

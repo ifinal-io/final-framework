@@ -4,6 +4,7 @@ package org.finalframework.coding.query;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.EntityFactory;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class QEntityFactory {
 
-    public static QEntity create(ProcessingEnvironment processingEnv,String packageName, Entity<Property> entity) {
+    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity<Property> entity, TypeHandlers typeHandlers) {
         final String entityName = entity.getSimpleName();
         final QEntity.Builder builder = new QEntity.Builder(entity);
         builder.packageName(packageName)
@@ -33,10 +34,10 @@ public class QEntityFactory {
                         @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getRequiredProperty)
-                                .map(multiProperty -> buildProperty(property, multiProperty))
+                                .map(multiProperty -> buildProperty(property, multiProperty, typeHandlers))
                                 .forEach(builder::addProperty);
                     } else {
-                        builder.addProperty(buildProperty(null, property));
+                        builder.addProperty(buildProperty(null, property, typeHandlers));
                     }
 
                 });
@@ -45,10 +46,11 @@ public class QEntityFactory {
     }
 
 
-    private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property) {
+    private static QProperty buildProperty(@Nullable Property<?> referenceProperty, @NonNull Property<?> property, TypeHandlers typeHandlers) {
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .type(property.getMetaTypeElement())
+                    .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
                     .idProperty(property.isIdProperty())
@@ -63,6 +65,7 @@ public class QEntityFactory {
             return QProperty.builder(path, name)
                     .column(Utils.formatPropertyColumn(referenceProperty, property))
                     .type(property.getMetaTypeElement())
+                    .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
                     .insertable(referenceProperty.insertable())

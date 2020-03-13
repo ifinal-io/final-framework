@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,6 +14,10 @@ import org.w3c.dom.Element;
  * @since 1.0
  */
 public class SqlGroupFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+    public SqlGroupFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
+        super(typeHandlers);
+    }
+
     /**
      * <sql id="sql-group">
      * <if test="group != null">

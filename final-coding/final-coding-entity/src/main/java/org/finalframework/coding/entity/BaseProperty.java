@@ -1,6 +1,8 @@
 package org.finalframework.coding.entity;
 
 import com.sun.tools.javac.code.Type;
+import org.finalframework.coding.utils.PrimitiveTypeKinds;
+import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
@@ -12,8 +14,6 @@ import javax.lang.model.element.*;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.*;
 
@@ -23,15 +23,15 @@ import java.util.*;
  * @date 2018-10-29 10:18
  * @since 1.0
  */
-public class BaseProperty<T extends Entity, P extends Property<T, P>> implements Property<T, P> {
+public class BaseProperty<T extends Entity> implements Property<T> {
 
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
 
+
     private final T entity;
     private final ProcessingEnvironment processEnv;
-    private final Elements elements;
-    private final Types types;
     private final Element element;
+    private final TypeElements typeElements;
     private PrimaryKeyType primaryKeyType;
     private final List<TypeElement> views = new ArrayList<>();
 
@@ -50,6 +50,8 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     private final String mapKeyType;
     private final String mapValueType;
     private final boolean isCollection;
+    private final boolean isList;
+    private final boolean isSet;
     private final boolean isMap;
     private boolean isIdProperty;
     private boolean isVersionProperty;
@@ -63,8 +65,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     public BaseProperty(T entity, ProcessingEnvironment processEnv, Element element) {
         this.entity = entity;
         this.processEnv = processEnv;
-        this.elements = processEnv.getElementUtils();
-        this.types = processEnv.getTypeUtils();
+        this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
         this.element = element;
         this.name = getElementName(element);
         TypeMirror typeMirror = element.asType();
@@ -74,43 +75,21 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
         final TypeKind kind = typeMirror.getKind();
         if (kind.isPrimitive()) {
-            switch (kind) {
-                case INT:
-                    this.metaTypeElement = elements.getTypeElement(Integer.class.getCanonicalName());
-                    break;
-                case BYTE:
-                    this.metaTypeElement = elements.getTypeElement(Byte.class.getCanonicalName());
-                    break;
-                case CHAR:
-                    this.metaTypeElement = elements.getTypeElement(Character.class.getCanonicalName());
-                    break;
-                case LONG:
-                    this.metaTypeElement = elements.getTypeElement(Long.class.getCanonicalName());
-                    break;
-                case FLOAT:
-                    this.metaTypeElement = elements.getTypeElement(Float.class.getCanonicalName());
-                    break;
-                case DOUBLE:
-                    this.metaTypeElement = elements.getTypeElement(Double.class.getCanonicalName());
-                    break;
-                case BOOLEAN:
-                    this.metaTypeElement = elements.getTypeElement(Boolean.class.getCanonicalName());
-                    break;
-                case SHORT:
-                    this.metaTypeElement = elements.getTypeElement(Short.class.getCanonicalName());
-                    break;
-                default:
-                    throw new IllegalArgumentException("不支持的基础类型");
+            Class<?> clazz = PrimitiveTypeKinds.getPrimitiveTypeKind(kind);
+            if (clazz != null) {
+                this.metaTypeElement = typeElements.getTypeElement(clazz);
             }
         }
 
-        this.type = types.erasure(typeMirror).toString();
+        this.type = processEnv.getTypeUtils().erasure(typeMirror).toString();
 
         if (element.getKind().isField()) {
-            this.isCollection = types.isAssignable(types.erasure(typeMirror), elements
-                    .getTypeElement("java.util.Collection")
-                    .asType());
-            if (isCollection) {
+            this.isCollection = typeElements.isCollection(element);
+            this.isList = typeElements.isList(element);
+            this.isSet = typeElements.isSet(element);
+            this.isMap = typeElements.isMap(element);
+
+            if (isList || isSet) {
                 TypeMirror metaType = ((DeclaredType) typeMirror).getTypeArguments().get(0);
                 this.metaTypeElement = (TypeElement) ((DeclaredType) metaType).asElement();
                 componentType = metaType.toString();
@@ -118,14 +97,11 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
                 componentType = null;
             }
 
-            this.isMap = types.isAssignable(types.erasure(typeMirror), elements
-                    .getTypeElement("java.util.Map")
-                    .asType());
             if (isMap) {
                 List<? extends TypeMirror> arguments = ((DeclaredType) typeMirror).getTypeArguments();
                 this.mapKeyType = arguments.get(0).toString();
                 this.mapValueType = arguments.get(1).toString();
-                this.metaTypeElement = elements.getTypeElement(Map.class.getCanonicalName());
+                this.metaTypeElement = typeElements.getTypeElement(Map.class);
             } else {
                 mapKeyType = null;
                 mapValueType = null;
@@ -135,6 +111,8 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
             this.mapKeyType = null;
             this.mapValueType = null;
             this.isCollection = false;
+            this.isList = false;
+            this.isSet = false;
             this.isMap = false;
         }
 
@@ -247,9 +225,9 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
 
     private void initColumnView() {
         List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
-        TypeElement columnView = elements.getTypeElement(ColumnView.class.getCanonicalName());
+        TypeElement columnView = typeElements.getTypeElement(ColumnView.class);
         for (AnnotationMirror annotationMirror : annotationMirrors) {
-            if (types.isSameType(annotationMirror.getAnnotationType(), columnView.asType())) {
+            if (typeElements.isSameType(annotationMirror.getAnnotationType(), columnView.asType())) {
                 Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
                 columnView.getEnclosedElements().stream()
                         .map(it -> (ExecutableElement) it)
@@ -416,6 +394,16 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     }
 
     @Override
+    public boolean isList() {
+        return isList;
+    }
+
+    @Override
+    public boolean isSet() {
+        return isSet;
+    }
+
+    @Override
     public boolean isMap() {
         return isMap;
     }
@@ -459,7 +447,7 @@ public class BaseProperty<T extends Entity, P extends Property<T, P>> implements
     public boolean hasView(TypeElement view) {
 
         for (TypeElement typeElement : views) {
-            if (types.isAssignable(types.erasure(view.asType()), types.erasure(typeElement.asType()))) {
+            if (typeElements.isAssignable(view.asType(), typeElement.asType())) {
                 return true;
             }
         }
