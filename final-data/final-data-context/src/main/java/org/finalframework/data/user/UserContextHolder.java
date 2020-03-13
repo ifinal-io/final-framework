@@ -52,7 +52,7 @@ public class UserContextHolder {
         setUserContext(localeContext, false);
     }
 
-    public static void setUser(@Nullable IUser<?> user, boolean inheritable) {
+    public static <T extends IUser<?>> void setUser(@Nullable T user, boolean inheritable) {
         UserContext<?> userContext = getUserContext();
         if (userContext == null) {
             userContext = new SimpleUserContext<>(user);
@@ -60,11 +60,11 @@ public class UserContextHolder {
         setUserContext(userContext, inheritable);
     }
 
-    public static void setDefaultUser(@Nullable IUser<?> user) {
+    public static <T extends IUser<?>> void setDefaultUser(@Nullable T user) {
         UserContextHolder.defaultUser = user;
     }
 
-    public static IUser<?> getUser() {
+    public static <T extends IUser<?>> T getUser() {
         return getUser(getUserContext());
     }
 
@@ -72,14 +72,15 @@ public class UserContextHolder {
         setUser(user, false);
     }
 
-    public static IUser<?> getUser(@Nullable UserContext<? extends IUser<?>> localeContext) {
+    @SuppressWarnings("unchecked")
+    public static <T extends IUser<?>> T getUser(@Nullable UserContext<? extends IUser<?>> localeContext) {
         if (localeContext != null) {
             IUser<?> locale = localeContext.getUser();
             if (locale != null) {
-                return locale;
+                return (T) locale;
             }
         }
-        return defaultUser;
+        return (T) defaultUser;
     }
 
 }

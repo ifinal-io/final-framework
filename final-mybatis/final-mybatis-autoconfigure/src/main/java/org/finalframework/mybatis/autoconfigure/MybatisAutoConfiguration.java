@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.finalframework.core.Assert;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
+import org.finalframework.mybatis.handler.LocalDateTimeTypeHandler;
 import org.finalframework.mybatis.inteceptor.PageHelperPageableInterceptor;
 import org.finalframework.mybatis.inteceptor.PageableInterceptor;
 import org.finalframework.spring.annotation.factory.SpringConfiguration;
@@ -13,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -41,6 +43,7 @@ public class MybatisAutoConfiguration implements ApplicationContextAware, Initia
             sessionFactory.getConfiguration().addInterceptor(pageableInterceptor);
             final TypeHandlerRegistry registry = sessionFactory.getConfiguration().getTypeHandlerRegistry();
             registry.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+            registry.register(LocalDateTime.class, new LocalDateTimeTypeHandler());
         }
     }
 }

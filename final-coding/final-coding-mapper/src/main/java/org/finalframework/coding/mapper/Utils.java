@@ -9,6 +9,7 @@ import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.enums.IEnum;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.finalframework.mybatis.handler.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -17,12 +18,11 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import java.lang.annotation.Annotation;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.finalframework.data.annotation.enums.PersistentType.AUTO;
 import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 
 /**
@@ -55,6 +55,8 @@ public final class Utils {
      */
     private final TypeElement mapTypeElement;
 
+    private final TypeElement localDateTimeTypeElement;
+
     private TypeHandlerRegistry typeHandlerRegistry;
 
     private Utils(ProcessingEnvironment processEnv) {
@@ -65,6 +67,7 @@ public final class Utils {
         this.listTypeElement = processEnv.getElementUtils().getTypeElement(List.class.getCanonicalName());
         this.setTypeElement = processEnv.getElementUtils().getTypeElement(Set.class.getCanonicalName());
         this.mapTypeElement = processEnv.getElementUtils().getTypeElement(Map.class.getCanonicalName());
+        this.localDateTimeTypeElement = processEnv.getElementUtils().getTypeElement(LocalDateTime.class.getCanonicalName());
         this.typeHandlerRegistry = TypeHandlerRegistry.getInstance();
     }
 
@@ -122,6 +125,9 @@ public final class Utils {
     public TypeElement getTypeHandler(Element element) {
         if (isEnum(element)) {
             return getTypeElement(typeHandlerRegistry.getEnumTypeHandler());
+        }
+        if (isLocalDateTime(element)) {
+            return getTypeElement(LocalDateTimeTypeHandler.class);
         }
         JsonColumn jsonColumn = element.getAnnotation(JsonColumn.class);
         PersistentType persistentType = jsonColumn == null ? JSON : jsonColumn.persistentType();
@@ -212,6 +218,11 @@ public final class Utils {
 
     public boolean isMap(Element element) {
         return isSubtype(element, mapTypeElement);
+    }
+
+    public boolean isLocalDateTime(Element element) {
+        return typeUtils.isSameType(element.asType(), localDateTimeTypeElement.asType());
+//        return element instanceof TypeElement && LocalDateTime.class.getCanonicalName().equals(((TypeElement) element).getQualifiedName().toString());
     }
 
 
