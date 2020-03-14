@@ -25,17 +25,17 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-coding-query</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-coding-datasource</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-coding-mapper</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>

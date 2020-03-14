@@ -4,6 +4,7 @@ package org.finalframework.data.util;
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -30,7 +31,7 @@ public class Messages {
 
     public static String getMessage(String code, String defaultMessage, Object... args) {
         if (messageSource == null) {
-            return String.format(code, args);
+            return MessageFormatter.arrayFormat(code, args).getMessage();
         }
         try {
             return messageSource.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());

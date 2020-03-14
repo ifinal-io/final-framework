@@ -1,5 +1,6 @@
 package org.finalframework.spring.web.interceptor;
 
+import org.finalframework.core.Assert;
 import org.finalframework.data.util.Beans;
 import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 import org.finalframework.spring.annotation.factory.SpringWebMvcConfigurer;
@@ -38,12 +39,23 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer, App
                 .forEach(item -> {
                     SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
                     InterceptorRegistration interceptorRegistration = registry.addInterceptor((org.springframework.web.servlet.HandlerInterceptor) item);
-                    if (annotation.includes().length > 0) {
-                        interceptorRegistration.addPathPatterns(annotation.includes());
+                    if (item instanceof IHandlerInterceptor) {
+                        IHandlerInterceptor handlerInterceptor = (IHandlerInterceptor) item;
+                        if (Assert.nonEmpty(handlerInterceptor.getPathPatterns())) {
+                            interceptorRegistration.addPathPatterns(handlerInterceptor.getPathPatterns());
+                        }
+                        if (Assert.nonEmpty(handlerInterceptor.getExcludePathPatterns())) {
+                            interceptorRegistration.excludePathPatterns(handlerInterceptor.getExcludePathPatterns());
+                        }
+                    } else {
+                        if (annotation.includes().length > 0) {
+                            interceptorRegistration.addPathPatterns(annotation.includes());
+                        }
+                        if (annotation.excludes().length > 0) {
+                            interceptorRegistration.excludePathPatterns(annotation.excludes());
+                        }
                     }
-                    if (annotation.excludes().length > 0) {
-                        interceptorRegistration.excludePathPatterns(annotation.excludes());
-                    }
+
 
                     Order order = item.getClass().getAnnotation(Order.class);
                     if (order != null) {

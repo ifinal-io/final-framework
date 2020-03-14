@@ -4,7 +4,7 @@ import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.finalframework.spring.web.converter.Object2ResultConverter;
 import org.finalframework.spring.web.interceptor.DurationHandlerInterceptor;
-import org.finalframework.spring.web.interceptor.TraceHandlerInterceptor;
+import org.finalframework.spring.web.interceptor.trace.TraceHandlerInterceptor;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
