@@ -42,7 +42,7 @@ public class TraceHandlerInterceptorProperties implements HandlerInterceptorProp
     /**
      * 排序
      */
-    private Integer order = Ordered.LOWEST_PRECEDENCE;
+    private Integer order = Ordered.HIGHEST_PRECEDENCE;
 
     /**
      * 包含的路径规则
