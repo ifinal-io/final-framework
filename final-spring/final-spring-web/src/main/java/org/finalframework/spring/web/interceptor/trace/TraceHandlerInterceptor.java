@@ -56,11 +56,12 @@ public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
     private TraceGenerator generator;
 
     public TraceHandlerInterceptor() {
+
     }
 
     @Autowired
     public TraceHandlerInterceptor(TraceHandlerInterceptorProperties properties) throws Exception {
-
+        super(properties);
         this.setTraceName(properties.getTraceName());
         this.setParamName(properties.getParamName());
         this.setHeaderName(properties.getHeaderName());
