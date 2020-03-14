@@ -24,6 +24,20 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
 
 
     public AbsHandlerInterceptor() {
+        this(null);
+    }
+
+    public AbsHandlerInterceptor(HandlerInterceptorProperties properties) {
+        if (properties != null) {
+            this.setOrder(properties.getOrder());
+            this.setPathPatterns(properties.getPathPatterns());
+            this.setExcludePathPatterns(properties.getExcludePathPatterns());
+        } else {
+            init();
+        }
+    }
+
+    private void init() {
         SpringHandlerInterceptor annotation = this.getClass().getAnnotation(SpringHandlerInterceptor.class);
         if (annotation != null) {
             setPathPatterns(Arrays.asList(annotation.includes()));
