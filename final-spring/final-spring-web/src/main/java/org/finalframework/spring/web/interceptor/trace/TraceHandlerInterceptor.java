@@ -60,6 +60,7 @@ public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
 
     @Autowired
     public TraceHandlerInterceptor(TraceHandlerInterceptorProperties properties) throws Exception {
+        this.setOrder(properties.getOrder());
         this.setPathPatterns(properties.getPathPatterns());
         this.setExcludePathPatterns(properties.getExcludePathPatterns());
         this.setTraceName(properties.getTraceName());

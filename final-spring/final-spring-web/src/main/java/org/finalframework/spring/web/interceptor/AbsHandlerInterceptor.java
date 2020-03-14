@@ -3,6 +3,8 @@ package org.finalframework.spring.web.interceptor;
 
 import org.finalframework.core.Assert;
 import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class AbsHandlerInterceptor implements IHandlerInterceptor {
 
-
+    private Integer order = Ordered.LOWEST_PRECEDENCE;
     private final List<String> pathPatterns = new ArrayList<>();
     private final List<String> excludePathPatterns = new ArrayList<>();
 
@@ -26,6 +28,10 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
         if (annotation != null) {
             setPathPatterns(Arrays.asList(annotation.includes()));
             setExcludePathPatterns(Arrays.asList(annotation.excludes()));
+        }
+        Order order = this.getClass().getAnnotation(Order.class);
+        if (order != null) {
+            this.setOrder(order.value());
         }
     }
 
@@ -53,6 +59,16 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
         if (Assert.nonEmpty(patterns)) {
             this.excludePathPatterns.addAll(patterns);
         }
+    }
+
+    @Override
+    public Integer getOrder() {
+        return order;
+    }
+
+    @Override
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 }
 

@@ -20,4 +20,9 @@ public interface IHandlerInterceptor extends AsyncHandlerInterceptor {
 
     void setExcludePathPatterns(List<String> patterns);
 
+    Integer getOrder();
+
+    void setOrder(Integer order);
+
+
 }

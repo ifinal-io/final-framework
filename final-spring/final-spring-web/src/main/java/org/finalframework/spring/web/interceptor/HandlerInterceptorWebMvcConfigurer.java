@@ -47,6 +47,9 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer, App
                         if (Assert.nonEmpty(handlerInterceptor.getExcludePathPatterns())) {
                             interceptorRegistration.excludePathPatterns(handlerInterceptor.getExcludePathPatterns());
                         }
+                        interceptorRegistration.order(handlerInterceptor.getOrder());
+
+
                     } else {
                         if (annotation.includes().length > 0) {
                             interceptorRegistration.addPathPatterns(annotation.includes());

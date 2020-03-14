@@ -1,11 +1,14 @@
 package org.finalframework.spring.web.interceptor.trace;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.spring.web.interceptor.HandlerInterceptorProperties;
 import org.slf4j.MDC;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.Ordered;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +19,8 @@ import java.util.List;
  * @date 2020-03-14 10:13:51
  * @since 1.0
  */
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "final.spring.handler-interceptors.trace")
 public class TraceHandlerInterceptorProperties implements HandlerInterceptorProperties {
     private static final String TRACE = "trace";
@@ -35,6 +40,11 @@ public class TraceHandlerInterceptorProperties implements HandlerInterceptorProp
     private Class<? extends TraceGenerator> generator = UUIDTraceGenerator.class;
 
     /**
+     * 排序
+     */
+    private Integer order = Ordered.LOWEST_PRECEDENCE;
+
+    /**
      * 包含的路径规则
      */
     private List<String> pathPatterns = Collections.singletonList("/**");
@@ -43,60 +53,6 @@ public class TraceHandlerInterceptorProperties implements HandlerInterceptorProp
      */
     private List<String> excludePathPatterns;
 
-    public static String getTRACE() {
-        return TRACE;
-    }
 
-    public String getTraceName() {
-        return traceName;
-    }
-
-    public void setTraceName(String traceName) {
-        this.traceName = traceName;
-    }
-
-    public String getParamName() {
-        return paramName;
-    }
-
-    public void setParamName(String paramName) {
-        this.paramName = paramName;
-    }
-
-    public String getHeaderName() {
-        return headerName;
-    }
-
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
-    }
-
-    public Class<? extends TraceGenerator> getGenerator() {
-        return generator;
-    }
-
-    public void setGenerator(Class<? extends TraceGenerator> generator) {
-        this.generator = generator;
-    }
-
-    @Override
-    public List<String> getPathPatterns() {
-        return pathPatterns;
-    }
-
-    @Override
-    public void setPathPatterns(List<String> pathPatterns) {
-        this.pathPatterns = pathPatterns;
-    }
-
-    @Override
-    public List<String> getExcludePathPatterns() {
-        return excludePathPatterns;
-    }
-
-    @Override
-    public void setExcludePathPatterns(List<String> excludePathPatterns) {
-        this.excludePathPatterns = excludePathPatterns;
-    }
 }
 

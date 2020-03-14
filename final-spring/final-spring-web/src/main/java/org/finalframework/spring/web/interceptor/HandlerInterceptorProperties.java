@@ -9,6 +9,11 @@ import java.util.List;
  * @since 1.0
  */
 public interface HandlerInterceptorProperties {
+
+    Integer getOrder();
+
+    void setOrder(Integer order);
+
     List<String> getPathPatterns();
 
     void setPathPatterns(List<String> patterns);

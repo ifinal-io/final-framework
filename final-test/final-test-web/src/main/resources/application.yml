@@ -17,7 +17,9 @@ final:
   spring:
     handler-interceptors:
       trace:
-        generator:
+        generator: org.finalframework.core.generator.UUIDTraceGenerator
+        exclude-path-patterns:
+        path-patterns:
 
   sharding:
     datasource:
