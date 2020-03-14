@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "final.spring.handler-interceptors.trace")
+@ConfigurationProperties(prefix = "final.trace")
 public class TraceHandlerInterceptorProperties implements HandlerInterceptorProperties {
     private static final String TRACE = "trace";
     /**
