@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.ColumnView;
+import org.finalframework.data.annotation.FunctionColumn;
+import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.entity.AbsRecord;
 
 import javax.validation.constraints.NotNull;
@@ -35,12 +38,9 @@ public class Person extends AbsRecord {
     @FunctionColumn(reader = "MAX(age)")
     @ColumnView(Person.class)
     private int maxAge;
-    @JsonColumn
     @ColumnView(Person.class)
     private List<String> stringList;
-    @JsonColumn
     private List<Integer> intList;
-    @JsonColumn
     private Map<String, Object> properties;
     //    @NonColumn
     @Transient

@@ -254,7 +254,7 @@ public class MapperProcessor extends AbstractProcessor {
                         }
 
                         String mapperContent = buildMapperContent(document);
-                        System.out.println(mapperContent);
+//                        System.out.println(mapperContent);
                         try {
                             FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
                             Writer writer = fileObject.openWriter();

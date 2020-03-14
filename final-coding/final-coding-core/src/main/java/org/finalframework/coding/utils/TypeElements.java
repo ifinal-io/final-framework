@@ -24,6 +24,7 @@ public final class TypeElements {
     private final Types types;
     private final Elements elements;
     private final Map<Class<?>, TypeElement> typeElements = new HashMap<>(16);
+    private final Map<Class<?>, TypeMirror> elementTypes = new HashMap<>(16);
 
 
     public TypeElements(Types types, Elements elements) {
@@ -33,9 +34,15 @@ public final class TypeElements {
     }
 
     private void init() {
-        Stream.of(Collection.class, List.class, Set.class, Map.class,
-                LocalDateTime.class, LocalDate.class, LocalTime.class, Object.class)
+//        Collection.class, List.class, Set.class, Map.class,
+
+        Stream.of(LocalDateTime.class, LocalDate.class, LocalTime.class, Object.class)
                 .forEach(this::initTypeElements);
+        elementTypes.put(Collection.class, types.getDeclaredType(elements.getTypeElement(Collection.class.getCanonicalName()), types.getWildcardType(null, null)));
+        elementTypes.put(List.class, types.getDeclaredType(elements.getTypeElement(List.class.getCanonicalName()), types.getWildcardType(null, null)));
+        elementTypes.put(Set.class, types.getDeclaredType(elements.getTypeElement(Set.class.getCanonicalName()), types.getWildcardType(null, null)));
+        elementTypes.put(Map.class, types.getDeclaredType(elements.getTypeElement(Map.class.getCanonicalName()), types.getWildcardType(null, null), types.getWildcardType(null, null)));
+        ;
     }
 
     private void initTypeElements(Class<?> type) {
@@ -43,19 +50,19 @@ public final class TypeElements {
     }
 
     public boolean isCollection(@NonNull Element element) {
-        return isSubtype(element, Collection.class);
+        return isAssignable(element.asType(), elementTypes.get(Collection.class)) || isSubtype(element.asType(), elementTypes.get(Collection.class));
     }
 
     public boolean isList(@NonNull Element element) {
-        return isSubtype(element, typeElements.get(List.class));
+        return isAssignable(element.asType(), elementTypes.get(List.class)) || isSubtype(element.asType(), elementTypes.get(List.class));
     }
 
     public boolean isSet(@NonNull Element element) {
-        return isSubtype(element, typeElements.get(Set.class));
+        return isAssignable(element.asType(), elementTypes.get(Set.class)) || isSubtype(element.asType(), elementTypes.get(Set.class));
     }
 
     public boolean isMap(@NonNull Element element) {
-        return isSubtype(element, typeElements.get(Map.class));
+        return isAssignable(element.asType(), elementTypes.get(Map.class)) || isSubtype(element.asType(), elementTypes.get(Map.class));
     }
 
     public boolean isSameType(@NonNull Element element, @NonNull Class<?> target) {
@@ -77,10 +84,21 @@ public final class TypeElements {
 
     public boolean isSubtype(@NonNull Element element, @NonNull Element target) {
         return types.isSubtype(types.erasure(element.asType()), types.erasure(target.asType()));
+
     }
+
+    public boolean isSubtype(@NonNull TypeMirror element, @NonNull TypeMirror target) {
+        return types.isSubtype(element, target);
+
+    }
+
 
     public boolean isObject(Element element) {
         return isSameType(element, Object.class);
+    }
+
+    public boolean isAssignable(@NonNull Element element, @NonNull Element target) {
+        return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
     }
 
     public boolean isAssignable(@NonNull TypeMirror type, @NonNull TypeMirror target) {

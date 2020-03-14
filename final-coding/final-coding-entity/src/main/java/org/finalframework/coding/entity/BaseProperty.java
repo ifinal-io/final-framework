@@ -14,6 +14,7 @@ import javax.lang.model.element.*;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.tools.Diagnostic;
 import java.lang.annotation.Annotation;
 import java.util.*;
 
@@ -67,6 +68,7 @@ public class BaseProperty<T extends Entity> implements Property<T> {
         this.processEnv = processEnv;
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
         this.element = element;
+        processEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, element.toString());
         this.name = getElementName(element);
         TypeMirror typeMirror = element.asType();
         TypeMirror realTypeMirror = getRealTypeMirror(typeMirror);

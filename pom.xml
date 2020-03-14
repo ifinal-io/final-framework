@@ -183,44 +183,6 @@
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
-            <!-- =========================================== final-boot ============================================ -->
-            <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-boot</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-json-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-redis-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-cache-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-mybatis-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework.boot</groupId>
-                <artifactId>final-monitor-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <!-- ==================================================================================================== -->
             <!-- =========================================== final-cache ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
@@ -257,11 +219,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-data-context</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-data-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
@@ -353,6 +310,50 @@
             <dependency>
                 <groupId>org.finalframework.ui</groupId>
                 <artifactId>final-ui-admin</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-boot ============================================ -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-data-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-json-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-redis-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-cache-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-mybatis-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-monitor-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!--外部依赖-->

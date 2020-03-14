@@ -1,6 +1,7 @@
 package $!{mapper.packageName};
     #* @formatter:off *#
 import org.apache.ibatis.annotations.Mapper;
+import org.finalframework.mybatis.mapper.AbsMapper;
 import ${mapper.entity.name};
 
 import javax.annotation.Generated;

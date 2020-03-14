@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @see Column
  * @since 1.0
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @org.springframework.data.annotation.Transient

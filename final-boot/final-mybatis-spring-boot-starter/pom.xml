@@ -15,7 +15,18 @@
         <dependency>
             <groupId>org.finalframework.mybatis</groupId>
             <artifactId>final-mybatis-autoconfigure</artifactId>
-            <version>0.4.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.coding</groupId>
+            <artifactId>final-coding-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.coding</groupId>
+            <artifactId>final-coding-query</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.coding</groupId>
+            <artifactId>final-coding-mapper</artifactId>
         </dependency>
     </dependencies>
 

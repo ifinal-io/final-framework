@@ -28,5 +28,9 @@
             <groupId>org.finalframework.boot</groupId>
             <artifactId>final-json-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework.coding</groupId>
+            <artifactId>final-coding-spring</artifactId>
+        </dependency>
     </dependencies>
 </project>
