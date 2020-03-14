@@ -24,7 +24,7 @@ public class SqlOrderFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
     }
 
     @Override
-    public Element buildSqlFragment(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity entity) {
         /**
          *     <sql id="sql-order">
          *         <if test="sort != null">

@@ -33,7 +33,7 @@ public class SelectMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
     @Override
-    public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         final Element sql = document.createElement("select");
         String methodName = method.getSimpleName().toString();
         sql.setAttribute("resultMap", entity.getSimpleName() + "Map");

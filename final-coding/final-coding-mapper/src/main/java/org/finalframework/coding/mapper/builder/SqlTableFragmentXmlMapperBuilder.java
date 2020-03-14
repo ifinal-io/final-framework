@@ -35,7 +35,7 @@ final class SqlTableFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuil
      * </pre>
      */
     @Override
-    public Element buildSqlFragment(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = sql(document, id());
         sql.appendChild(textNode(document, entity.getTable()));
         return sql;

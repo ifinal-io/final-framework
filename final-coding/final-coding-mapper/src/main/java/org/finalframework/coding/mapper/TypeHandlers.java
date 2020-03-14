@@ -85,7 +85,7 @@ public final class TypeHandlers {
         return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
     }
 
-    public TypeElement getTypeHandler(Property<?> property) {
+    public TypeElement getTypeHandler(Property property) {
         if (property.hasAnnotation(JsonColumn.class) || typeElements.isObject(property.getElement())) {
             JsonColumn jsonColumn = property.getAnnotation(JsonColumn.class);
             PersistentType persistentType = jsonColumn == null ? JSON : jsonColumn.persistentType();

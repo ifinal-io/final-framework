@@ -43,7 +43,7 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
     }
 
 
-    public static ResultMap from(Entity<Property> entity, TypeHandlers typeHandlers) {
+    public static ResultMap from(Entity entity, TypeHandlers typeHandlers) {
         ResultMap.Builder builder = new ResultMap.Builder(entity.getSimpleName() + SUFFIX, entity.getElement());
         entity.stream()
                 .filter(it -> !it.isTransient())

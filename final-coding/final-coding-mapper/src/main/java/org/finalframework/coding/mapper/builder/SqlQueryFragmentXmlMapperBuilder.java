@@ -44,7 +44,7 @@ public class SqlQueryFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
     }
 
     @Override
-    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity entity) {
 
         final Element sql = sql(document, id());
         Element ifQueryNotNull = ifTest(document, "query != null");

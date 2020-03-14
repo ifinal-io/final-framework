@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2018-10-26 20:05
  * @since 1.0
  */
-public interface Property<T> {
+public interface Property {
 
     Element getElement();
 
@@ -94,4 +94,20 @@ public interface Property<T> {
     boolean hasView(@NonNull TypeElement view);
 
     boolean isTransient();
+
+
+    interface Builder extends org.finalframework.core.Builder<Property> {
+
+        Builder primitive(boolean primitive);
+
+        Builder array(boolean array);
+
+        Builder collection(boolean collection);
+
+        Builder list(boolean list);
+
+        Builder set(boolean set);
+
+        Builder map(boolean map);
+    }
 }

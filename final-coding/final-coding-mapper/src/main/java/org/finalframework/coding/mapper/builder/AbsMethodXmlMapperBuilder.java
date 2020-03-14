@@ -35,7 +35,7 @@ public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder impl
     }
 
     @Override
-    public final void build(Node root, Document document, ExecutableElement method, Entity<Property> entity) {
+    public final void build(Node root, Document document, ExecutableElement method, Entity entity) {
 
         XPathParser parser = new XPathParser(document);
         XNode node = parser.evalNode("//*[@id='" + method.getSimpleName() + "']");
@@ -53,7 +53,7 @@ public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder impl
         buildMethodEndComment(root, document, method, entity);
     }
 
-    protected void buildMethodStartComment(Node root, Document document, @NonNull ExecutableElement method, Entity<Property> entity) {
+    protected void buildMethodStartComment(Node root, Document document, @NonNull ExecutableElement method, Entity entity) {
         String methodName = method.getSimpleName().toString().replaceAll("[A-Z]", " $0").toUpperCase();
         root.appendChild(document.createComment("=============================================================================================================="));
         root.appendChild(document.createComment(String.format("=====%-36s" + GENERATED_TAG + "%36s=====", methodName, methodName).replaceAll(" ", "=")));
@@ -62,16 +62,16 @@ public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder impl
     }
 
 
-    private void buildMethodEndComment(Node root, Document document, @NonNull ExecutableElement method, Entity<Property> entity) {
+    private void buildMethodEndComment(Node root, Document document, @NonNull ExecutableElement method, Entity entity) {
 
     }
 
 
     @Nullable
-    protected Collection<Element> buildMethodFragments(@NonNull Document document, @NonNull ExecutableElement method, @NonNull Entity<Property> entity) {
+    protected Collection<Element> buildMethodFragments(@NonNull Document document, @NonNull ExecutableElement method, @NonNull Entity entity) {
         return null;
     }
 
 
-    protected abstract Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity);
+    protected abstract Element buildMethodElement(ExecutableElement method, Document document, Entity entity);
 }

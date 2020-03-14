@@ -1,4 +1,4 @@
-package org.finalframework.coding.entity.javac;
+package org.finalframework.coding.entity.vistor;
 
 import com.sun.tools.javac.code.Type;
 import org.finalframework.coding.entity.BaseProperty;
@@ -23,7 +23,7 @@ import javax.tools.Diagnostic;
  * @date 2019-10-09 15:25:34
  * @since 1.0
  */
-public class PropertyElementVisitor extends SimpleElementVisitor8<Property, Entity<Property>> {
+public class PropertyElementVisitor extends SimpleElementVisitor8<Property, Entity> {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyElementVisitor.class);
 
@@ -61,7 +61,7 @@ public class PropertyElementVisitor extends SimpleElementVisitor8<Property, Enti
     }
 
     @Override
-    public Property visitType(TypeElement e, Entity<Property> properties) {
+    public Property visitType(TypeElement e, Entity properties) {
         System.out.println("===================================================typeElement:" + e.getQualifiedName().toString());
         return super.visitType(e, properties);
     }

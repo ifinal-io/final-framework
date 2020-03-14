@@ -28,7 +28,7 @@ public class SqlGroupFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
      * </sql>
      */
     @Override
-    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", id());
 

@@ -25,7 +25,7 @@ public class SelectIdsMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
     @Override
-    public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         final Element select = document.createElement("select");
         select.setAttribute("id", method.getSimpleName().toString());
         final Property idProperty = entity.getRequiredIdProperty();

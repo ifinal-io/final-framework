@@ -39,7 +39,7 @@ public class TruncateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
      * @return
      */
     @Override
-    protected Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    protected Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         Element truncate = document.createElement("update");
         truncate.setAttribute("id", method.getSimpleName().toString());
 

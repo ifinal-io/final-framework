@@ -24,7 +24,7 @@ public class SqlLimitFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
     }
 
     @Override
-    public Element buildSqlFragment(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity entity) {
         /**
          *      <sql id="sql-limit">
          *         <if test="limit != null">

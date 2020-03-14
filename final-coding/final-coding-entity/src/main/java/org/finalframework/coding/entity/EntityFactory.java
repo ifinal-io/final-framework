@@ -1,6 +1,6 @@
 package org.finalframework.coding.entity;
 
-import org.finalframework.coding.entity.javac.PropertyElementVisitor;
+import org.finalframework.coding.entity.vistor.PropertyElementVisitor;
 import org.finalframework.data.annotation.Column;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -22,9 +22,9 @@ import java.util.Map;
  */
 public final class EntityFactory {
 
-    private static final Map<String, Entity<Property>> cache = new HashMap<>();
+    private static final Map<String, Entity> cache = new HashMap<>();
 
-    public static Entity<Property> create(ProcessingEnvironment processEnv, TypeElement typeElement) {
+    public static Entity create(ProcessingEnvironment processEnv, TypeElement typeElement) {
 
         String name = typeElement.getQualifiedName().toString();
 
@@ -32,7 +32,7 @@ public final class EntityFactory {
             return cache.get(name);
         }
 
-        final BaseEntity<Property> result = new BaseEntity<>(processEnv, typeElement);
+        final BaseEntity result = new BaseEntity(processEnv, typeElement);
 
         while (typeElement != null) {
             typeElement

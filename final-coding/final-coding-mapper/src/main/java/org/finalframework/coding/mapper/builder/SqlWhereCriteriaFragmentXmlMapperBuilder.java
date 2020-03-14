@@ -35,7 +35,7 @@ public class SqlWhereCriteriaFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
     }
 
     @Override
-    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity entity) {
         Element sql = sql(document, id());
         Element where = document.createElement("where");
 

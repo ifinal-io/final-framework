@@ -70,7 +70,7 @@ public final class Association implements Element, Streamable<Element>, Iterable
 
     }
 
-    public static Association from(Property referenceProperty, Entity<Property> entity, TypeHandlers typeHandlers) {
+    public static Association from(Property referenceProperty, Entity entity, TypeHandlers typeHandlers) {
         Builder builder = new Builder(referenceProperty.getName());
         builder.javaType(entity.getElement());
 

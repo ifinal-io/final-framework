@@ -82,7 +82,7 @@ version: 1.0
 public class QEntity {
     private final String packageName;
     private final String name;
-    private final Entity<Property> entity;
+    private final Entity entity;
     private final List<QProperty> properties;
     private final QProperty idProperty;
 }

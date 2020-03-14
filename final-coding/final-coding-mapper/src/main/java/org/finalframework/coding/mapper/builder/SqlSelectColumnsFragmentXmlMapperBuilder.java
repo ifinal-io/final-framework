@@ -32,7 +32,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
     }
 
     @Override
-    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", id());
 
@@ -44,7 +44,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
         return sql;
     }
 
-    private Element whenViewSelectColumns(@NonNull Document document, @NonNull Entity<Property> entity, @Nullable TypeElement view) {
+    private Element whenViewSelectColumns(@NonNull Document document, @NonNull Entity entity, @Nullable TypeElement view) {
         final List<String> columns = new ArrayList<>();
         entity.stream().filter(it -> !it.isTransient() && it.selectable())
                 .filter(it -> {
@@ -60,7 +60,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
                 .forEach(property -> {
                     if (property.isReference()) {
                         final TypeElement multiType = property.getMetaTypeElement();
-                        final Entity<Property> multiEntity = property.toEntity();
+                        final Entity multiEntity = property.toEntity();
                         List<String> referenceProperties = property.referenceProperties();
                         referenceProperties.stream()
                                 .map(multiEntity::getProperty)

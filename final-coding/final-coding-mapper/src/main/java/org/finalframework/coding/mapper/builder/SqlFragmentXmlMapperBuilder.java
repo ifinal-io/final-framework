@@ -16,6 +16,6 @@ public interface SqlFragmentXmlMapperBuilder {
 
     String id();
 
-    void build(@NonNull Node root, @NonNull Document document, @NonNull Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull Entity entity);
 
 }

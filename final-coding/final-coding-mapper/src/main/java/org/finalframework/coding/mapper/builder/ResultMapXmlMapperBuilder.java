@@ -14,6 +14,6 @@ import org.w3c.dom.Node;
  */
 public interface ResultMapXmlMapperBuilder {
 
-    void build(@NonNull Node root, @NonNull Document document, @NonNull Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull Entity entity);
 
 }

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class QEntityFactory {
 
-    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity<Property> entity, TypeHandlers typeHandlers) {
+    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity entity, TypeHandlers typeHandlers) {
         final String entityName = entity.getSimpleName();
         final QEntity.Builder builder = new QEntity.Builder(entity);
         builder.packageName(packageName)
@@ -30,7 +30,7 @@ public class QEntityFactory {
                 .forEach(property -> {
                     if (property.isReference()) {
                         TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());
-                        Entity<Property> multiEntity = EntityFactory.create(processingEnv, multiElement);
+                        Entity multiEntity = EntityFactory.create(processingEnv, multiElement);
                         @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getRequiredProperty)
@@ -46,7 +46,7 @@ public class QEntityFactory {
     }
 
 
-    private static QProperty buildProperty(@Nullable Property<?> referenceProperty, @NonNull Property<?> property, TypeHandlers typeHandlers) {
+    private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property, TypeHandlers typeHandlers) {
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .type(property.getMetaTypeElement())

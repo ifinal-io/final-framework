@@ -61,7 +61,7 @@ public abstract class AbsXmlMapperBuilder {
      * @param entity
      * @return
      */
-    protected Element table(@NonNull Document document, @NonNull Entity<?> entity) {
+    protected Element table(@NonNull Document document, @NonNull Entity entity) {
         //  <sql id="id">
         final Element sql = document.createElement("sql");
         sql.setAttribute("id", SQL_TABLES);
@@ -151,11 +151,11 @@ public abstract class AbsXmlMapperBuilder {
     }
 
 
-    protected Element whenIdNotNull(@NonNull Document document, @NonNull Entity<?> entity) {
+    protected Element whenIdNotNull(@NonNull Document document, @NonNull Entity entity) {
         return whenOrOtherwise(document, "id != null", include(document, SQL_WHERE_ID));
     }
 
-    protected Element whenIdsNotNull(@NonNull Document document, @NonNull Entity<?> entity) {
+    protected Element whenIdsNotNull(@NonNull Document document, @NonNull Entity entity) {
         return whenOrOtherwise(document, "ids != null", include(document, SQL_WHERE_IDS));
     }
 
@@ -180,7 +180,7 @@ public abstract class AbsXmlMapperBuilder {
      * @return
      */
     @Deprecated
-    protected Element whenEntityNotNull(@NonNull Document document, Entity<Property> entity) {
+    protected Element whenEntityNotNull(@NonNull Document document, Entity entity) {
         final Element whenEntityNotNull = document.createElement("when");
         whenEntityNotNull.setAttribute("test", "entity != null");
         entity.stream()

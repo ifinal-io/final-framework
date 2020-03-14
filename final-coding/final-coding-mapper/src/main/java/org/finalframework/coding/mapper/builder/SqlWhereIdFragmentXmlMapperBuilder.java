@@ -39,7 +39,7 @@ public class SqlWhereIdFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperB
      * @return
      */
     @Override
-    public Element buildSqlFragment(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity entity) {
         Element sql = sql(document, id());
         Element where = document.createElement("where");
         Element trim = document.createElement("trim");

@@ -15,5 +15,5 @@ import javax.lang.model.element.TypeElement;
  * @since 1.0
  */
 public interface XmlMapperBuilder {
-    void build(@NonNull Node root, @NonNull Document document, @NonNull TypeElement mapper, @NonNull Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull TypeElement mapper, @NonNull Entity entity);
 }

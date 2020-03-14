@@ -25,7 +25,7 @@ public class DeleteMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
     @Override
-    public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         /**
          *     <delete id="delete">
          *         DELETE FROM

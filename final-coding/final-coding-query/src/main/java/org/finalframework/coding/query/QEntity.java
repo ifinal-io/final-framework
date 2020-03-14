@@ -19,7 +19,7 @@ public class QEntity implements JavaSource {
     private final String packageName;
     private final String name;
     private final String simpleName;
-    private final Entity<Property> entity;
+    private final Entity entity;
     private final List<QProperty> properties;
     private final QProperty idProperty;
 
@@ -32,11 +32,11 @@ public class QEntity implements JavaSource {
         this.idProperty = builder.idProperty;
     }
 
-    public static Builder builder(Entity<Property> entity) {
+    public static Builder builder(Entity entity) {
         return new Builder(entity);
     }
 
-    public Entity<Property> getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
@@ -64,13 +64,13 @@ public class QEntity implements JavaSource {
     }
 
     public static class Builder implements org.finalframework.core.Builder<QEntity> {
-        private final Entity<Property> entity;
+        private final Entity entity;
         private String packageName;
         private String simpleName;
         private List<QProperty> properties = new ArrayList<>();
         private QProperty idProperty;
 
-        public Builder(Entity<Property> entity) {
+        public Builder(Entity entity) {
             this.entity = entity;
         }
 

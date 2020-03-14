@@ -22,7 +22,7 @@ public class Mapper implements JavaSource, Serializable {
     private final String simpleName;
     private final String name;
     private final Boolean inner;
-    private final Entity<Property> entity;
+    private final Entity entity;
 
     private Mapper(Builder builder) {
         this.packageName = builder.packageName;
@@ -55,7 +55,7 @@ public class Mapper implements JavaSource, Serializable {
         return inner;
     }
 
-    public Entity<Property> getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
@@ -63,7 +63,7 @@ public class Mapper implements JavaSource, Serializable {
         private String packageName;
         private String simpleName;
         private Boolean inner;
-        private Entity<Property> entity;
+        private Entity entity;
 
         public Builder packageName(String packageName) {
             this.packageName = packageName;

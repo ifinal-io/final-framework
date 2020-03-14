@@ -49,7 +49,7 @@ final class SqlTablesFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBui
      * @return
      */
     @Override
-    public Element buildSqlFragment(Document document, Entity<Property> entity) {
+    public Element buildSqlFragment(Document document, Entity entity) {
         //  <sql id="id">
         final Element sql = sql(document, id());
         //      <choose>

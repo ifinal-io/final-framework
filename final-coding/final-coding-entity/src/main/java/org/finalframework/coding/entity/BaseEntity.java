@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * @date 2018-10-29 09:57
  * @since 1.0
  */
-public class BaseEntity<P extends Property> implements MutableEntity<P> {
+public class BaseEntity implements MutableEntity {
 
     private final ProcessingEnvironment processEnv;
     private final Elements elements;
@@ -29,11 +29,11 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     private final String name;
     private final String table;
     private final String type;
-    private final List<P> properties = new LinkedList<>();
-    private final Map<String, P> propertyCache = new LinkedHashMap<>();
+    private final List<Property> properties = new LinkedList<>();
+    private final Map<String, Property> propertyCache = new LinkedHashMap<>();
     private final Set<TypeElement> views = new HashSet<>();
-    private P idProperty;
-    private P versionProperty;
+    private Property idProperty;
+    private Property versionProperty;
 
     public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
         this.processEnv = processEnv;
@@ -54,7 +54,7 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     }
 
     @Override
-    public void addProperty(P property) {
+    public void addProperty(Property property) {
 
         if (property.isIdProperty()) {
             if (idProperty != null) {
@@ -116,22 +116,22 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     }
 
     @Override
-    public List<P> getProperties() {
+    public List<Property> getProperties() {
         return properties;
     }
 
     @Override
-    public P getProperty(String name) {
+    public Property getProperty(String name) {
         return propertyCache.get(name);
     }
 
     @Override
-    public P getIdProperty() {
+    public Property getIdProperty() {
         return idProperty;
     }
 
     @Override
-    public P getVersionProperty() {
+    public Property getVersionProperty() {
         return versionProperty;
     }
 
@@ -146,12 +146,12 @@ public class BaseEntity<P extends Property> implements MutableEntity<P> {
     }
 
     @Override
-    public Stream<P> stream() {
+    public Stream<Property> stream() {
         return properties.stream();
     }
 
     @Override
-    public Iterator<P> iterator() {
+    public Iterator<Property> iterator() {
         return properties.iterator();
     }
 }

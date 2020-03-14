@@ -230,7 +230,7 @@ public class MapperProcessor extends AbstractProcessor {
                             List<? extends TypeMirror> typeArguments = absMapperElement.getTypeArguments();
                             DeclaredType entityType = (DeclaredType) typeArguments.get(1);
                             TypeElement entityTypeElement = (TypeElement) entityType.asElement();
-                            Entity<Property> entity = EntityFactory.create(processingEnv, entityTypeElement);
+                            Entity entity = EntityFactory.create(processingEnv, entityTypeElement);
 
 //                        error("views:"+entity.getProperty("stringList").getViews());
 

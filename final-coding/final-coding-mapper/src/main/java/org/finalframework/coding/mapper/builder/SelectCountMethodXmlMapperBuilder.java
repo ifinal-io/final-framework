@@ -26,7 +26,7 @@ public class SelectCountMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder
 
 
     @Override
-    public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         final Element selectCount = document.createElement("select");
         selectCount.setAttribute("id", method.getSimpleName().toString());
         selectCount.setAttribute("resultType", Long.class.getCanonicalName());

@@ -28,7 +28,7 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
     }
 
     @Override
-    protected Element buildSqlFragment(Document document, Entity<Property> entity) {
+    protected Element buildSqlFragment(Document document, Entity entity) {
         Element sql = sql(document, id());
 
         sql.appendChild(choose(document, Arrays.asList(

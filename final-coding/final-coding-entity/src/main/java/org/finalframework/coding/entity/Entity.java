@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2018-10-29 09:55
  * @since 1.0
  */
-public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
+public interface Entity extends Streamable<Property>, Iterable<Property> {
 
 
     /**
@@ -54,13 +54,13 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
      */
     String getType();
 
-    List<P> getProperties();
+    List<Property> getProperties();
 
-    P getProperty(String name);
+    Property getProperty(String name);
 
-    default P getRequiredProperty(String name) {
+    default Property getRequiredProperty(String name) {
 
-        P property = getProperty(name);
+        Property property = getProperty(name);
 
         if (property != null) {
             return property;
@@ -69,11 +69,11 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
         throw new IllegalStateException(String.format("Required property of %s not found for %s!", name, getType()));
     }
 
-    P getIdProperty();
+    Property getIdProperty();
 
-    default P getRequiredIdProperty() {
+    default Property getRequiredIdProperty() {
 
-        P property = getIdProperty();
+        Property property = getIdProperty();
 
         if (property != null) {
             return property;
@@ -82,7 +82,7 @@ public interface Entity<P extends Property> extends Streamable<P>, Iterable<P> {
         throw new IllegalStateException(String.format("Required identifier property not found for %s!", getType()));
     }
 
-    P getVersionProperty();
+    Property getVersionProperty();
 
     default PrimaryKeyType getPrimaryKeyType() {
         return getIdProperty() == null ? null : getIdProperty().getPrimaryKeyType();

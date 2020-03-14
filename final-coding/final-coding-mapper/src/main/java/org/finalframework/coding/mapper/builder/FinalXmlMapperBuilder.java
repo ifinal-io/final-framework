@@ -71,7 +71,7 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
     }
 
     @Override
-    public void build(Node root, Document document, TypeElement mapper, Entity<Property> entity) {
+    public void build(Node root, Document document, TypeElement mapper, Entity entity) {
         generateStartComment(root, document);
         resultMapXmlMapperBuilders.forEach(item -> item.build(root, document, entity));
 
@@ -93,7 +93,7 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
                 .collect(Collectors.toList());
     }
 
-    private void buildMapperMethods(Node root, Document document, List<TypeElement> mappers, Entity<Property> entity) {
+    private void buildMapperMethods(Node root, Document document, List<TypeElement> mappers, Entity entity) {
         if (Assert.isEmpty(mappers)) return;
 
         mappers.forEach(mapper -> {
@@ -103,7 +103,7 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
 
     }
 
-    private void buildMapperMethods(Node root, Document document, TypeElement mapper, Entity<Property> entity) {
+    private void buildMapperMethods(Node root, Document document, TypeElement mapper, Entity entity) {
         mapper.getEnclosedElements()
                 .stream()
                 .filter(it -> it.getKind() == ElementKind.METHOD)

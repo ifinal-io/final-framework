@@ -18,7 +18,7 @@ public interface MethodXmlMapperBuilder {
 
     boolean supports(@NonNull ExecutableElement method);
 
-    void build(@NonNull Node root, @NonNull Document document, @NonNull ExecutableElement method, Entity<Property> entity);
+    void build(@NonNull Node root, @NonNull Document document, @NonNull ExecutableElement method, Entity entity);
 
 
 }

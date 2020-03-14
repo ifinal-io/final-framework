@@ -24,7 +24,7 @@ public class DefaultResultMapXmlMapperBuilder extends AbsXmlMapperBuilder implem
     }
 
     @Override
-    public Element buildResultMap(Document document, Entity<Property> entity) {
+    public Element buildResultMap(Document document, Entity entity) {
         return buildResultMap(document, ResultMap.from(entity, typeHandlers));
     }
 

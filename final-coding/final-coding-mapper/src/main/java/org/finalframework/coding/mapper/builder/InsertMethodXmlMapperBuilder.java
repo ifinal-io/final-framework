@@ -39,7 +39,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
 
     @Override
-    public Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         final Element insert = document.createElement("insert");
 
         insert.setAttribute("id", "insert");
@@ -114,7 +114,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
 
-    private Element insertColumnsElement(@NonNull Document document, @NonNull Entity<Property> entity) {
+    private Element insertColumnsElement(@NonNull Document document, @NonNull Entity entity) {
         /**
          * <choose>
          *     <when test="'view' == view">
@@ -133,7 +133,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         return insertColumns;
     }
 
-    private Element buildInsertColumnsElement(@NonNull Document document, @NonNull Entity<Property> entity, @Nullable TypeElement view) {
+    private Element buildInsertColumnsElement(@NonNull Document document, @NonNull Entity entity, @Nullable TypeElement view) {
 
         final String test = view == null ? "view == null" : String.format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
 
@@ -152,7 +152,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                 })
                 .forEach(property -> {
                     if (property.isReference()) {
-                        final Entity<Property> multiEntity = property.toEntity();
+                        final Entity multiEntity = property.toEntity();
                         List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getProperty)
@@ -172,7 +172,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
 
-    private Element insertValuesElement(@NonNull Document document, @NonNull Entity<Property> entity) {
+    private Element insertValuesElement(@NonNull Document document, @NonNull Entity entity) {
         /**
          *      <foreach collection="list" index="index" item="entity" separator=",">
          *          <choose>
@@ -207,7 +207,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         return foreach;
     }
 
-    private Element buildInsertValuesElement(@NonNull Document document, @NonNull Entity<Property> entity, @Nullable TypeElement view) {
+    private Element buildInsertValuesElement(@NonNull Document document, @NonNull Entity entity, @Nullable TypeElement view) {
 
         final Element insertValues = document.createElement("when");
         final String test = view == null ? "view == null" : String.format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
@@ -228,7 +228,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                 })
                 .forEach(property -> {
                     if (property.isReference()) {
-                        final Entity<Property> multiEntity = property.toEntity();
+                        final Entity multiEntity = property.toEntity();
 
                         final Element choose = document.createElement("choose");
                         final Element when = document.createElement("when");

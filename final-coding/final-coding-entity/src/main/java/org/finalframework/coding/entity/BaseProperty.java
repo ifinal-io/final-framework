@@ -24,12 +24,11 @@ import java.util.*;
  * @date 2018-10-29 10:18
  * @since 1.0
  */
-public class BaseProperty<T extends Entity> implements Property<T> {
+public class BaseProperty implements Property {
 
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
 
-
-    private final T entity;
+    private final Entity entity;
     private final ProcessingEnvironment processEnv;
     private final Element element;
     private final TypeElements typeElements;
@@ -63,7 +62,7 @@ public class BaseProperty<T extends Entity> implements Property<T> {
     private ReferenceMode referenceMode;
     private Map<String, String> referenceColumns;
 
-    public BaseProperty(T entity, ProcessingEnvironment processEnv, Element element) {
+    public BaseProperty(Entity entity, ProcessingEnvironment processEnv, Element element) {
         this.entity = entity;
         this.processEnv = processEnv;
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());

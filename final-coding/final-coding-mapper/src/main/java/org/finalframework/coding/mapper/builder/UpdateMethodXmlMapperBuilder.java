@@ -38,7 +38,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
 
     @Override
-    protected Element buildMethodElement(ExecutableElement method, Document document, Entity<Property> entity) {
+    protected Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         /*
          *      <update id="update">
          *         UPDATE
@@ -72,12 +72,12 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     }
 
     @Override
-    protected Collection<Element> buildMethodFragments(Document document, ExecutableElement method, Entity<Property> entity) {
+    protected Collection<Element> buildMethodFragments(Document document, ExecutableElement method, Entity entity) {
         return Collections.singletonList(appendUpdateSqlFragment(document, entity));
     }
 
     @SuppressWarnings("all")
-    private Element appendUpdateSqlFragment(@NonNull Document document, @NonNull Entity<Property> entity) {
+    private Element appendUpdateSqlFragment(@NonNull Document document, @NonNull Entity entity) {
         /*
          *      <sql id="sql-update">
          *         <set>
@@ -161,7 +161,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         return sql;
     }
 
-    private Element whenEntityNotNull(@NonNull Document document, @NonNull Entity<Property> entity, boolean selective) {
+    private Element whenEntityNotNull(@NonNull Document document, @NonNull Entity entity, boolean selective) {
         //        <when test="entity != null and selective == true">
         //              <choose>
         //                  <when test="view != null and view == 'view'.toString()">
@@ -177,7 +177,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         return whenOrOtherwise(document, test, choose);
     }
 
-    private Element buildEntitySelectiveViewElement(@NonNull Document document, @NonNull Entity<Property> entity, boolean selective, @Nullable TypeElement view) {
+    private Element buildEntitySelectiveViewElement(@NonNull Document document, @NonNull Entity entity, boolean selective, @Nullable TypeElement view) {
 
         final Element whenOrOtherwise = document.createElement("when");
 
@@ -194,7 +194,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                          * </if>
                          */
                         final TypeElement multiType = property.getMetaTypeElement();
-                        final Entity<Property> multiEntity = property.toEntity();
+                        final Entity multiEntity = property.toEntity();
                         List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getProperty)
@@ -245,7 +245,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         return whenOrOtherwise;
     }
 
-    private Element whenUpdateNotNull(@NonNull Document document, @NonNull Entity<Property> entity) {
+    private Element whenUpdateNotNull(@NonNull Document document, @NonNull Entity entity) {
         //        <when test="update != null">
         final Element whenUpdateNotNull = document.createElement("when");
         whenUpdateNotNull.setAttribute("test", "update != null");
@@ -259,7 +259,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                      * </if>
                      */
                     if (property.isReference()) {
-                        final Entity<Property> multiEntity = property.toEntity();
+                        final Entity multiEntity = property.toEntity();
                         List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getProperty)

@@ -18,7 +18,7 @@ import org.w3c.dom.Node;
 public interface AbsResultMapXmlMapperBuilder extends ResultMapXmlMapperBuilder {
 
     @Override
-    default void build(Node root, Document document, Entity<Property> entity) {
+    default void build(Node root, Document document, Entity entity) {
 
         XPathParser parser = new XPathParser(document);
         XNode node = parser.evalNode("//*[@id='" + entity.getSimpleName() + "Map" + "']");
@@ -32,13 +32,13 @@ public interface AbsResultMapXmlMapperBuilder extends ResultMapXmlMapperBuilder 
         buildResultMapEndComment(root, document, entity);
     }
 
-    default void buildResultMapStartComment(@NonNull Node root, @NonNull Document document, @NonNull Entity<Property> entity) {
+    default void buildResultMapStartComment(@NonNull Node root, @NonNull Document document, @NonNull Entity entity) {
 
     }
 
-    Element buildResultMap(@NonNull Document document, @NonNull Entity<Property> entity);
+    Element buildResultMap(@NonNull Document document, @NonNull Entity entity);
 
-    default void buildResultMapEndComment(@NonNull Node root, @NonNull Document document, @NonNull Entity<Property> entity) {
+    default void buildResultMapEndComment(@NonNull Node root, @NonNull Document document, @NonNull Entity entity) {
 
     }
 

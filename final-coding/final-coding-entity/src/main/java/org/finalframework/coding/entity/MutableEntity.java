@@ -6,8 +6,8 @@ package org.finalframework.coding.entity;
  * @date 2018-10-29 09:57
  * @since 1.0
  */
-public interface MutableEntity<P extends Property> extends Entity<P> {
+public interface MutableEntity extends Entity {
 
-    void addProperty(P property);
+    void addProperty(Property property);
 
 }
