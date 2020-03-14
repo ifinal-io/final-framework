@@ -7,6 +7,7 @@ import org.finalframework.spring.web.interceptor.HandlerInterceptorProperties;
 import org.slf4j.MDC;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,24 +16,28 @@ import java.util.List;
  * @date 2020-03-14 10:13:51
  * @since 1.0
  */
-@ConfigurationProperties(prefix = "final.spring.handler-interceptor.trace")
+@ConfigurationProperties(prefix = "final.spring.handler-interceptors.trace")
 public class TraceHandlerInterceptorProperties implements HandlerInterceptorProperties {
     private static final String TRACE = "trace";
     /**
      * TRACE 名称，放置到{@link MDC}中的KEY的名称
      */
     private String traceName = TRACE;
-
+    /**
+     * TRACE 参数名称
+     */
     private String paramName = TRACE;
-
+    /**
+     * TRACE 请求头名称
+     */
     private String headerName = TRACE;
 
-    private TraceGenerator generator = new UUIDTraceGenerator();
+    private Class<? extends TraceGenerator> generator = UUIDTraceGenerator.class;
 
     /**
      * 包含的路径规则
      */
-    private List<String> pathPatterns;
+    private List<String> pathPatterns = Collections.singletonList("/**");
     /**
      * 排除的路径规则
      */
@@ -66,11 +71,11 @@ public class TraceHandlerInterceptorProperties implements HandlerInterceptorProp
         this.headerName = headerName;
     }
 
-    public TraceGenerator getGenerator() {
+    public Class<? extends TraceGenerator> getGenerator() {
         return generator;
     }
 
-    public void setGenerator(TraceGenerator generator) {
+    public void setGenerator(Class<? extends TraceGenerator> generator) {
         this.generator = generator;
     }
 

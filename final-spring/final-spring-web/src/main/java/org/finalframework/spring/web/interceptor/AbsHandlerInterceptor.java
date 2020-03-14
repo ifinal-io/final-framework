@@ -1,6 +1,7 @@
 package org.finalframework.spring.web.interceptor;
 
 
+import org.finalframework.core.Assert;
 import org.finalframework.spring.annotation.factory.SpringHandlerInterceptor;
 
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
     @Override
     public void setPathPatterns(List<String> patterns) {
         this.pathPatterns.clear();
-        this.pathPatterns.addAll(patterns);
+        if (Assert.nonEmpty(patterns)) {
+            this.pathPatterns.addAll(patterns);
+        }
     }
 
     @Override
@@ -47,7 +50,9 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
     @Override
     public void setExcludePathPatterns(List<String> patterns) {
         this.excludePathPatterns.clear();
-        this.excludePathPatterns.addAll(patterns);
+        if (Assert.nonEmpty(patterns)) {
+            this.excludePathPatterns.addAll(patterns);
+        }
     }
 }
 

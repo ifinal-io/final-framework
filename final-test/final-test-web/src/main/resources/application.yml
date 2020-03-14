@@ -14,6 +14,11 @@ spring:
     host: localhost
     port: 6379
 final:
+  spring:
+    handler-interceptors:
+      trace:
+        generator:
+
   sharding:
     datasource:
       ds0:
