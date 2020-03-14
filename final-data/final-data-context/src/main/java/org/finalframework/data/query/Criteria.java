@@ -1,15 +1,11 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Streamable;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * @author likly

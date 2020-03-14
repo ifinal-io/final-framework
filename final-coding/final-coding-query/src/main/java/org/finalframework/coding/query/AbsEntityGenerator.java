@@ -4,11 +4,9 @@ import org.finalframework.coding.entity.EntityFactory;
 import org.finalframework.coding.file.JavaSource;
 import org.finalframework.coding.generator.JavaSourceGenerator;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.annotation.TypeHandler;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 
 /**
  * @author likly

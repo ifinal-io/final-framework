@@ -4,14 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-mybatis</artifactId>
-        <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
+        <groupId>org.finalframework.mybatis</groupId>
+        <version>0.4.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>final-mybatis-autoconfigure</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.finalframework.mybatis</groupId>
+            <artifactId>final-mybatis-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.spring</groupId>
+            <artifactId>final-spring-annotation</artifactId>
+        </dependency>
+        <!--外部依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -22,30 +31,5 @@
             <optional>true</optional>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-mybatis-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-annotation</artifactId>
-        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

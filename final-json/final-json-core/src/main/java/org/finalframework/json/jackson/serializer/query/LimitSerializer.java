@@ -4,13 +4,9 @@ package org.finalframework.json.jackson.serializer.query;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.core.Assert;
 import org.finalframework.data.query.*;
-import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.ICriterion;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author likly

@@ -1,6 +1,5 @@
 package org.finalframework.data.query.function;
 
-import org.finalframework.data.query.function.Function;
 import org.springframework.lang.NonNull;
 
 /**

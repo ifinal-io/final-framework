@@ -6,7 +6,6 @@ import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.FunctionColumn;
 import org.finalframework.data.annotation.JsonColumn;
-import org.finalframework.data.annotation.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.enums.IEnum;
@@ -21,10 +20,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 

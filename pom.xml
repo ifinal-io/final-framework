@@ -4,24 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.finalframework</groupId>
-    <artifactId>final-framework</artifactId>
-    <version>0.4.2-SNAPSHOT</version>
-    <!--<version>0.4.2-SNAPSHOT</version>-->
+    <artifactId>final-framework-parent</artifactId>
+    <version>0.4.3-SNAPSHOT</version>
+    <!--<version>0.4.3-SNAPSHOT</version>-->
     <modules>
-        <module>final-core</module>
-        <module>final-util</module>
+        <module>final-framework</module>
         <module>final-data</module>
-        <module>final-coding</module>
         <module>final-json</module>
-        <module>final-cache</module>
-        <module>final-mybatis</module>
-        <module>final-spring</module>
         <module>final-redis</module>
-        <module>final-auth</module>
-        <module>final-logging</module>
-        <module>final-test</module>
+        <module>final-cache</module>
+        <module>final-spring</module>
+        <module>final-mybatis</module>
         <module>final-monitor</module>
+        <module>final-coding</module>
         <module>final-ui</module>
+        <module>final-boot</module>
+        <module>final-test</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -36,7 +34,7 @@
     </parent>
 
     <properties>
-        <final.version>0.4.2-SNAPSHOT</final.version>
+        <final.version>0.4.3-SNAPSHOT</final.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -55,7 +53,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <final.version>0.4.2-SNAPSHOT.RELEASE</final.version>
+                <final.version>0.4.3-SNAPSHOT.RELEASE</final.version>
             </properties>
         </profile>
     </profiles>
@@ -83,98 +81,169 @@
             <!-- final-core -->
             <dependency>
                 <groupId>org.finalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
                 <artifactId>final-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-auth</artifactId>
+                <version>${final.version}</version>
+            </dependency>
 
+            <!-- ==================================================================================================== -->
+            <!-- ============================================ final-data ============================================ -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.data</groupId>
+                <artifactId>final-data-annotation</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.data</groupId>
+                <artifactId>final-data-context</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ============================================ final-coding ============================================ -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-entity</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-query</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-mapper</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-datasource</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding-spring</artifactId>
+                <version>${final.version}</version>
+            </dependency>
             <!-- ==================================================================================================== -->
             <!-- ============================================ final-json ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.json</groupId>
                 <artifactId>final-json</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.json</groupId>
                 <artifactId>final-json-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.json</groupId>
                 <artifactId>final-json-autoconfigure</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-json-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-redis ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.redis</groupId>
                 <artifactId>final-redis</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.redis</groupId>
                 <artifactId>final-redis-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.redis</groupId>
                 <artifactId>final-redis-api</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.redis</groupId>
                 <artifactId>final-redis-autoconfigure</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-boot ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-json-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
                 <artifactId>final-redis-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-cache-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-mybatis-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-monitor-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-cache ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.cache</groupId>
                 <artifactId>final-cache</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.cache</groupId>
                 <artifactId>final-cache-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-cache-spring-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-
             <!-- ==================================================================================================== -->
             <!-- ========================================== final-monitor =========================================== -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.monitor</groupId>
                 <artifactId>final-monitor-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.monitor</groupId>
                 <artifactId>final-monitor-autoconfigure</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-monitor-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
@@ -195,7 +264,6 @@
                 <artifactId>final-data-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
-
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-mybatis ============================================= -->
             <!-- ==================================================================================================== -->
@@ -210,18 +278,13 @@
                 <version>${mybatis.spring.boot.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.mybatis</groupId>
                 <artifactId>final-mybatis-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.mybatis</groupId>
                 <artifactId>final-mybatis-autoconfigure</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-mybatis-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
 
@@ -229,38 +292,33 @@
             <!-- ========================================== final-spring ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring-annotation</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring-context</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring-expression</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring-aop</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework</groupId>
+                <groupId>org.finalframework.spring</groupId>
                 <artifactId>final-spring-web</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
 
@@ -274,50 +332,32 @@
                 <artifactId>final-data</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================== final-ui ============================================ -->
+            <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-mybatis</artifactId>
+                <groupId>org.finalframework.ui</groupId>
+                <artifactId>final-ui</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.finalframework.ui</groupId>
+                <artifactId>final-ui-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.ui</groupId>
+                <artifactId>final-ui-annotation</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.ui</groupId>
+                <artifactId>final-ui-admin</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <!--外部依赖-->
 
-            <!-- ==================================================================================================== -->
-            <!-- ========================================== final-coding ============================================ -->
-            <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-core</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-entity</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-query</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-mapper</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-datasource</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-coding-spring</artifactId>
-                <version>${final.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>

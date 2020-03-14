@@ -2,8 +2,6 @@ package org.finalframework.data.query.builder;
 
 import org.finalframework.data.query.Query;
 
-import java.util.stream.Collectors;
-
 /**
  * @author likly
  * @version 1.0

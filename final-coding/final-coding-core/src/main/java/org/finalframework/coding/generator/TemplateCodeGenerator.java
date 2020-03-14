@@ -2,7 +2,6 @@ package org.finalframework.coding.generator;
 
 
 import org.finalframework.coding.Coder;
-import org.finalframework.core.configuration.Configuration;
 import org.finalframework.core.generator.Generator;
 
 import javax.annotation.processing.ProcessingEnvironment;

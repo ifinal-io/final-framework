@@ -6,7 +6,6 @@ import org.finalframework.core.configuration.Configuration;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 import java.io.IOException;
 
 /**

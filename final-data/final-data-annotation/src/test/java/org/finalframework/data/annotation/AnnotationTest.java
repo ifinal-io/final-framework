@@ -1,6 +1,5 @@
 package org.finalframework.data.annotation;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.annotation.AnnotationUtils;
 

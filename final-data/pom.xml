@@ -2,18 +2,20 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>final-framework</artifactId>
-        <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.finalframework.data</groupId>
     <artifactId>final-data</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>final-data-annotation</module>
         <module>final-data-context</module>
-        <module>final-data-spring-boot-starter</module>
     </modules>
+
+    <parent>
+        <artifactId>final-framework-parent</artifactId>
+        <groupId>org.finalframework</groupId>
+        <version>0.4.3-SNAPSHOT</version>
+
+    </parent>
 </project>

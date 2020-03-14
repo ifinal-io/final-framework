@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-cache</artifactId>
-        <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
+        <groupId>org.finalframework.cache</groupId>
+        <version>0.4.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,23 +14,23 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-expression</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.spring</groupId>
+            <artifactId>final-spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.redis</groupId>
             <artifactId>final-redis-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.json</groupId>
             <artifactId>final-json-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
         </dependency>
         <dependency>

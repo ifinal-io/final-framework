@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>final-framework</artifactId>
+    <version>0.4.3-SNAPSHOT</version>
+    <modules>
+        <module>final-core</module>
+        <module>final-util</module>
+        <module>final-auth</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <parent>
+        <artifactId>final-framework-parent</artifactId>
+        <groupId>org.finalframework</groupId>
+        <version>0.4.3-SNAPSHOT</version>
+    </parent>
+
+</project>

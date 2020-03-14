@@ -2,7 +2,6 @@ package org.finalframework.coding.datasource.spring.metadata;
 
 
 import org.finalframework.data.datasource.InlineShardingStrategyProperties;
-import org.finalframework.data.datasource.TableRuleProperties;
 import org.springframework.boot.configurationprocessor.metadata.ConfigurationMetadata;
 import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 

@@ -1,10 +1,8 @@
 package org.finalframework.spring.web.exception.result;
 
 import org.finalframework.data.exception.result.ResultExceptionHandler;
-import org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /**

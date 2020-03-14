@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.data.query.Group;
-import org.finalframework.data.query.Limit;
 import org.finalframework.data.query.QProperty;
 
 import java.io.IOException;

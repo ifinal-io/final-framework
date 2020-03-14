@@ -1,7 +1,6 @@
 package org.finalframework.data.result;
 
 import org.finalframework.data.entity.PageInfo;
-import org.finalframework.data.exception.IException;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
 

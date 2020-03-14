@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-test</artifactId>
-        <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
+        <groupId>org.finalframework.test</groupId>
+        <version>0.4.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,12 +15,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.test</groupId>
             <artifactId>final-test-controller</artifactId>
-            <version>0.4.2-SNAPSHOT</version>
+            <version>0.4.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.boot</groupId>
             <artifactId>final-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
@@ -32,17 +32,17 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.ui</groupId>
             <artifactId>final-ui-admin</artifactId>
-            <version>0.4.2-SNAPSHOT</version>
+            <version>0.4.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.redis</groupId>
             <artifactId>final-redis-admin</artifactId>
-            <version>0.4.2-SNAPSHOT</version>
+            <version>0.4.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.boot</groupId>
             <artifactId>final-redis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>

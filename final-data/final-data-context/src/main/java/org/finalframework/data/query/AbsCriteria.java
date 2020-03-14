@@ -1,7 +1,6 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.converter.Convertible;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.AndOr;
 

@@ -4,7 +4,6 @@ package org.finalframework.coding.spring.factory;
 import org.finalframework.coding.Coder;
 import org.finalframework.core.generator.Generator;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +13,6 @@ import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 

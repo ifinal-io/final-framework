@@ -1,11 +1,6 @@
 package org.finalframework.data.query.criteriable;
 
 import org.finalframework.data.query.condition.*;
-import org.springframework.lang.NonNull;
-
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
 
 /**
  * @author likly

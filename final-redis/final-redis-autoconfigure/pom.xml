@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-redis</artifactId>
-        <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
+        <groupId>org.finalframework.redis</groupId>
+        <version>0.4.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,29 +23,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.redis</groupId>
             <artifactId>final-redis-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.enums.Direction;
 

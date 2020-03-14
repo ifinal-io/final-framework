@@ -3,18 +3,25 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-framework</artifactId>
+        <artifactId>final-framework-parent</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.4.2-SNAPSHOT</version>
+        <version>0.4.3-SNAPSHOT</version>
+
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.finalframework.mybatis</groupId>
     <artifactId>final-mybatis</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>final-mybatis-core</module>
         <module>final-mybatis-autoconfigure</module>
-        <module>final-mybatis-spring-boot-starter</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

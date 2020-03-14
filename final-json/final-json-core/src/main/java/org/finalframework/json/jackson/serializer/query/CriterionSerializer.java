@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
 
 import java.io.IOException;
 

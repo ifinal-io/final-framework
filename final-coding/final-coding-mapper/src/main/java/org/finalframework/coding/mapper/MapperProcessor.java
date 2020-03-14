@@ -12,7 +12,6 @@ import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.builder.FinalXmlMapperBuilder;
 import org.finalframework.coding.mapper.builder.XmlMapperBuilder;
 import org.finalframework.coding.mapper.xml.Association;
-import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.repository.Repository;

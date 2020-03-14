@@ -4,9 +4,7 @@ package org.finalframework.json.jackson.serializer.query;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.data.query.Group;
 import org.finalframework.data.query.Order;
-import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.Sort;
 
 import java.io.IOException;

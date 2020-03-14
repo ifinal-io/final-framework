@@ -4,8 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.finalframework.core.converter.Converter;
 
-import java.util.ArrayList;
-
 /**
  * 将 {@link Page}对象转化成 {@link org.finalframework.data.result.Page}对象的转换器
  *
