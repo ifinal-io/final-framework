@@ -1,7 +1,7 @@
 package org.finalframework.coding.entity.vistor;
 
 import com.sun.tools.javac.code.Type;
-import org.finalframework.coding.entity.BaseProperty;
+import org.finalframework.coding.entity.AnnotationProperty;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.slf4j.Logger;
@@ -68,7 +68,7 @@ public class PropertyElementVisitor extends SimpleElementVisitor8<Property, Enti
 
     @SuppressWarnings("all")
     private Property buildProperty(Element e, Entity entity) {
-        return new BaseProperty(entity, processEnv, e);
+        return new AnnotationProperty(entity, processEnv, e);
     }
 
 

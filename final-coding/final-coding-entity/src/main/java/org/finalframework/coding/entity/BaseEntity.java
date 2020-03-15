@@ -61,7 +61,7 @@ public class BaseEntity implements MutableEntity {
                 throw new IllegalArgumentException("the entity must only have only one id property!,entity=" + getType());
             }
             this.idProperty = property;
-        } else if (property.isVersionProperty()) {
+        } else if (property.isVersion()) {
             this.versionProperty = property;
         }
 

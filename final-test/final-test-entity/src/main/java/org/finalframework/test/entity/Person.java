@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.finalframework.data.annotation.ColumnView;
 import org.finalframework.data.annotation.FunctionColumn;
-import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.ReadOnlyColumn;
 import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.entity.AbsRecord;
 
@@ -21,9 +21,6 @@ import java.util.Map;
  * @date 2018-09-27 22:25
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 public class Person extends AbsRecord {
     private static final long serialVersionUID = -8785625823175210092L;
     //    @PrimaryKey(insertable = true)
@@ -34,7 +31,7 @@ public class Person extends AbsRecord {
     private String name;
     @JsonView(Person.class)
     private int age;
-    @ReadOnly
+    @ReadOnlyColumn
     @FunctionColumn(reader = "MAX(age)")
     @ColumnView(Person.class)
     private int maxAge;
@@ -49,4 +46,59 @@ public class Person extends AbsRecord {
 //    private YN yn;
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
+    }
+
+    public List<String> getStringList() {
+        return stringList;
+    }
+
+    public void setStringList(List<String> stringList) {
+        this.stringList = stringList;
+    }
+
+    public List<Integer> getIntList() {
+        return intList;
+    }
+
+    public void setIntList(List<Integer> intList) {
+        this.intList = intList;
+    }
+
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

@@ -3,7 +3,7 @@ package org.finalframework.coding.mapper.builder;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.ReadOnlyColumn;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -46,10 +46,10 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
 
     private Element whenViewSelectColumns(@NonNull Document document, @NonNull Entity entity, @Nullable TypeElement view) {
         final List<String> columns = new ArrayList<>();
-        entity.stream().filter(it -> !it.isTransient() && it.selectable())
+        entity.stream().filter(it -> !it.isTransient() && it.isReadable())
                 .filter(it -> {
                     if (view == null) {
-                        if (it.hasAnnotation(ReadOnly.class)) {
+                        if (it.hasAnnotation(ReadOnlyColumn.class)) {
                             return false;
                         }
                         return true;
@@ -64,7 +64,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
                         List<String> referenceProperties = property.referenceProperties();
                         referenceProperties.stream()
                                 .map(multiEntity::getProperty)
-                                .filter(Property::selectable)
+                                .filter(Property::isReadable)
                                 .forEach(multiProperty -> {
                                     columns.add(typeHandlers.formatPropertyReadColumn(property, multiProperty));
                                 });

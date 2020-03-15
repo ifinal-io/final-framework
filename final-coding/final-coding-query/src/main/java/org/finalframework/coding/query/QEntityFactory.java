@@ -55,9 +55,9 @@ public class QEntityFactory {
                     .column(Utils.formatPropertyColumn(null, property))
                     .idProperty(property.isIdProperty())
                     .persistentType(property.getPersistentType())
-                    .insertable(property.insertable())
+                    .insertable(property.isWriteable())
                     .updatable(property.updatable())
-                    .selectable(property.selectable())
+                    .selectable(property.isReadable())
                     .build();
         } else {
             final String path = referenceProperty.getName() + "." + property.getName();
@@ -68,9 +68,9 @@ public class QEntityFactory {
                     .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
-                    .insertable(referenceProperty.insertable())
+                    .insertable(referenceProperty.isWriteable())
                     .updatable(referenceProperty.updatable())
-                    .selectable(referenceProperty.selectable())
+                    .selectable(referenceProperty.isReadable())
                     .build();
         }
 

@@ -3,8 +3,8 @@ package org.finalframework.coding.beans;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 14:06:06
+ * @date 2020-03-15 14:55:15
  * @since 1.0
  */
-public interface ParameterDescriptor extends FeatureDescriptor {
+public interface BeanInfo {
 }

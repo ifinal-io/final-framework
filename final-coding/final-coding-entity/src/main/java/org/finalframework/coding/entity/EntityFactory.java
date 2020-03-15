@@ -54,7 +54,7 @@ public final class EntityFactory {
 
                     )
                     .peek(it -> ((Element) it).accept(new PropertyElementVisitor(processEnv), null))
-                    .map(it -> new BaseProperty(result, processEnv, it))
+                    .map(it -> new AnnotationProperty(result, processEnv, it))
 //                    .peek(it -> {
 //                        logger.info("name={},rawType={},type={},,isCollection={},componentType={},isMap={},keyType={},valueType={}", it
 //                                .getName(), it.getRawType(), it.getType(), it.isCollection(), it.getComponentType(), it.isMap(), it

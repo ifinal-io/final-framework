@@ -1,11 +1,9 @@
 package org.finalframework.data.annotation;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
-
 import java.lang.annotation.*;
 
 /**
- * The property annotated by {@link ReadOnly} will not be updated.
+ * The property annotated by {@link WriteOnlyColumn} will not be selected.
  *
  * @author likly
  * @version 1.0
@@ -14,9 +12,8 @@ import java.lang.annotation.*;
  */
 @Column
 @Documented
-@ReadOnlyProperty
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReadOnly {
+public @interface WriteOnlyColumn {
 
 }

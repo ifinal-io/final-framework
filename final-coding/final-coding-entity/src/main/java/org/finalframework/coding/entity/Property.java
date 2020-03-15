@@ -18,6 +18,10 @@ import java.util.List;
  */
 public interface Property {
 
+    static Builder builder(@NonNull Element element) {
+        return null;
+    }
+
     Element getElement();
 
     TypeElement getJavaTypeElement();
@@ -45,11 +49,11 @@ public interface Property {
 
     boolean nonnull();
 
-    boolean insertable();
+    boolean isWriteable();
 
     boolean updatable();
 
-    boolean selectable();
+    boolean isReadable();
 
     boolean placeholder();
 
@@ -61,7 +65,7 @@ public interface Property {
 
     boolean isIdProperty();
 
-    boolean isVersionProperty();
+    boolean isVersion();
 
     PrimaryKeyType getPrimaryKeyType();
 

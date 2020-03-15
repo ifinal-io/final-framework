@@ -8,6 +8,7 @@ import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.springframework.data.util.Lazy;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
@@ -24,7 +25,7 @@ import java.util.*;
  * @date 2018-10-29 10:18
  * @since 1.0
  */
-public class BaseProperty implements Property {
+public class AnnotationProperty implements Property {
 
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
 
@@ -43,26 +44,27 @@ public class BaseProperty implements Property {
     private PersistentType persistentType = PersistentType.AUTO;
     private boolean unique = false;
     private boolean nonnull = true;
-    private boolean insertable = true;
     private boolean updatable = true;
     private final String type;
     private final String componentType;
     private final String mapKeyType;
     private final String mapValueType;
+    private final Lazy<Boolean> isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
+    private final Lazy<Boolean> isReference = Lazy.of(!isTransient() && hasAnnotation(ReferenceColumn.class));
+    private final Lazy<Boolean> isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
+    private final Lazy<Boolean> isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnlyColumn.class));
+    private final Lazy<Boolean> isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnlyColumn.class));
+
     private final boolean isCollection;
     private final boolean isList;
     private final boolean isSet;
     private final boolean isMap;
-    private boolean isIdProperty;
-    private boolean isVersionProperty;
-    private boolean selectable = true;
-    private boolean isReference;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
     private Map<String, String> referenceColumns;
 
-    public BaseProperty(Entity entity, ProcessingEnvironment processEnv, Element element) {
+    public AnnotationProperty(Entity entity, ProcessingEnvironment processEnv, Element element) {
         this.entity = entity;
         this.processEnv = processEnv;
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
@@ -117,13 +119,7 @@ public class BaseProperty implements Property {
             this.isMap = false;
         }
 
-        initColumn();
         initColumnView();
-
-        if (hasAnnotation(ReadOnly.class)) {
-            this.insertable = false;
-            this.updatable = false;
-        }
 
         if (Assert.isBlank(this.column)) {
             this.column = this.name;
@@ -131,97 +127,9 @@ public class BaseProperty implements Property {
 
     }
 
-    private void initColumn() {
-        if (hasAnnotation(Column.class)) {
-            initColumn(getAnnotation(Column.class));
-        } else if (hasAnnotation(JsonColumn.class)) {
-            initJsonColumn(getAnnotation(JsonColumn.class));
-        } else if (hasAnnotation(Created.class)) {
-            initCreated(getAnnotation(Created.class));
-        } else if (hasAnnotation(LastModified.class)) {
-            initLastModified(getAnnotation(LastModified.class));
-        } else if (hasAnnotation(Version.class)) {
-            initVersion(getAnnotation(Version.class));
-        } else if (hasAnnotation(ReferenceColumn.class)) {
-            initReferenceColumn(getAnnotation(ReferenceColumn.class));
-        } else if (hasAnnotation(PrimaryKey.class)) {
-            initPrimaryKey(getAnnotation(PrimaryKey.class));
-        }
-    }
-
-    private void initColumn(Column ann) {
-        this.placeholder = ann.placeholder();
-        this.persistentType = ann.persistentType();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
-        this.table = ann.table();
-        this.column = ann.value();
-    }
-
-    private void initJsonColumn(JsonColumn ann) {
-        this.placeholder = ann.placeholder();
-        this.persistentType = ann.persistentType();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
-        this.table = ann.table();
-        this.column = ann.value();
-    }
-
-    private void initCreated(Created ann) {
-        this.placeholder = ann.placeholder();
-        this.persistentType = ann.persistentType();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
-        this.table = ann.table();
-        this.column = ann.value();
-    }
-
-    private void initLastModified(LastModified ann) {
-        this.placeholder = ann.placeholder();
-        this.persistentType = ann.persistentType();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
-        this.table = ann.table();
-        this.column = ann.value();
-    }
-
-    private void initVersion(Version ann) {
-        this.placeholder = ann.placeholder();
-        this.persistentType = ann.persistentType();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
-        this.table = ann.table();
-        this.column = ann.value();
-        this.isVersionProperty = true;
-    }
 
     private void initReferenceColumn(ReferenceColumn ann) {
         initReference(ann.mode(), ann.properties(), ann.delimiter());
-    }
-
-    private void initPrimaryKey(PrimaryKey ann) {
-        this.isIdProperty = true;
-        this.primaryKeyType = ann.type();
-        this.unique = ann.unique();
-        this.nonnull = ann.nonnull();
-        this.insertable = ann.insertable();
-        this.updatable = ann.updatable();
-        this.selectable = ann.selectable();
     }
 
     private void initColumnView() {
@@ -250,7 +158,6 @@ public class BaseProperty implements Property {
     }
 
     private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
-        this.isReference = true;
         this.referenceMode = mode;
         List<String> referenceProperties = new ArrayList<>(properties.length);
         Map<String, String> referenceColumns = new HashMap<>(properties.length);
@@ -329,8 +236,8 @@ public class BaseProperty implements Property {
     }
 
     @Override
-    public boolean insertable() {
-        return insertable;
+    public boolean isWriteable() {
+        return isWritable.get();
     }
 
     @Override
@@ -339,8 +246,8 @@ public class BaseProperty implements Property {
     }
 
     @Override
-    public boolean selectable() {
-        return selectable;
+    public boolean isReadable() {
+        return isReadable.get();
     }
 
     @Override
@@ -376,12 +283,12 @@ public class BaseProperty implements Property {
 
     @Override
     public boolean isIdProperty() {
-        return isIdProperty;
+        return isIdProperty.get();
     }
 
     @Override
-    public boolean isVersionProperty() {
-        return isVersionProperty;
+    public boolean isVersion() {
+        return isVersion.get();
     }
 
     @Override
@@ -416,7 +323,7 @@ public class BaseProperty implements Property {
 
     @Override
     public boolean isReference() {
-        return isReference;
+        return isReference.get();
     }
 
     @Override
@@ -459,5 +366,51 @@ public class BaseProperty implements Property {
     @Override
     public boolean isTransient() {
         return hasAnnotation(Transient.class);
+    }
+
+    private static final class BuilderImpl implements Builder {
+        private Boolean primitive;
+        private Boolean array;
+        private Boolean collection;
+        private Boolean list;
+        private Boolean set;
+        private Boolean map;
+
+        @Override
+        public Builder primitive(boolean primitive) {
+            this.primitive = primitive;
+            return this;
+        }
+
+        @Override
+        public Builder array(boolean array) {
+            this.array = array;
+            return this;
+        }
+
+        @Override
+        public Builder collection(boolean collection) {
+            return null;
+        }
+
+        @Override
+        public Builder list(boolean list) {
+            return null;
+        }
+
+        @Override
+        public Builder set(boolean set) {
+            return null;
+        }
+
+        @Override
+        public Builder map(boolean map) {
+            return null;
+        }
+
+        @Override
+        public Property build() {
+            return null;//new AnnotationProperty(this);
+        }
     }
 }
