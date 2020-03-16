@@ -1,9 +1,17 @@
 package org.finalframework.data.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import javax.annotation.processing.Processor;
 
 /**
- * 被标记的{@link java.lang.reflect.Field} 或 {@link java.lang.reflect.Method}将不会映射框架解析。
+ * The marked element of {@link Field}、 {@link Method} or {@link Class} is not passed by {@link
+ * Processor}
  *
  * @author likly
  * @version 1.0
@@ -11,9 +19,10 @@ import java.lang.annotation.*;
  * @see Column
  * @since 1.0
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @org.springframework.data.annotation.Transient
 public @interface Transient {
+
 }
