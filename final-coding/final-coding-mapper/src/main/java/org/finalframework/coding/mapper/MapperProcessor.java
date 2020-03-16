@@ -240,7 +240,7 @@ public class MapperProcessor extends AbstractProcessor {
                                 builder.append("type=").append(property.getElement().asType().toString()).append("\n");
                                 builder.append("name=").append(property.getName()).append("\n");
                                 builder.append("kind=").append(property.getElement().getKind()).append("\n");
-                                builder.append("isEnum=").append(typeHandlers.isEnum(property.getElement())).append("\n");
+                                builder.append("isEnum=").append(property.isEnum()).append("\n");
                                 builder.append("isReference=").append(property.isReference()).append("\n");
                                 builder.append("elementClass=").append(property.getElement().getClass()).append("\n");
                                 builder.append("views=").append(property.getViews()).append("\n");

@@ -1,11 +1,12 @@
 package org.finalframework.coding.query;
 
 import com.google.auto.service.AutoService;
+import org.finalframework.coding.beans.Bean;
 import org.finalframework.coding.entity.Entities;
 import org.finalframework.coding.entity.EntitiesHelper;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.configuration.Configuration;
-import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.annotation.processing.*;
@@ -15,6 +16,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
 import java.util.Set;
 
 /**
@@ -87,6 +89,7 @@ public class EntityProcessor extends AbstractProcessor {
                 .stream()
                 .filter(it -> it.getKind() == ElementKind.CLASS)
                 .map(it -> ((TypeElement) it))
+
                 .filter(this::isEntity)
                 .forEach(this::generate);
 
@@ -94,6 +97,12 @@ public class EntityProcessor extends AbstractProcessor {
     }
 
     private void generate(TypeElement entity) {
+//        Bean.from(processingEnv, entity)
+//                .forEach(property -> {
+//                    processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, property.toString());
+//                });
+
+
         entityGenerator.generate(entity);
         queryGenerator.generate(entity);
         criteriaGenerator.generate(entity);

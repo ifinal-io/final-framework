@@ -2,7 +2,7 @@ package org.finalframework.monitor.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.annotation.IEnum;
 
 import java.util.Arrays;
 import java.util.Map;

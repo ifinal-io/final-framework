@@ -1,7 +1,7 @@
 package org.finalframework.data.query.function.expression;
 
 
-import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.finalframework.data.query.function.operation.FunctionOperationExpression;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;

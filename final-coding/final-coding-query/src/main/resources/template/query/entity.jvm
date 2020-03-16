@@ -1,4 +1,5 @@
 #set($package = $qEntity.packageName)
+#set($idProperty = $qEntity.idProperty)
 #set($entity = $qEntity.entity)
 #set($simpleName = $qEntity.simpleName)
 #set($properties = $qEntity.properties)
@@ -14,8 +15,7 @@ import  ${entity.package}.${entity.simpleName};
 
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.query.QEntityGenerator")
-public final class ${simpleName} extends AbsQEntity<${entity.idProperty.type.replace(
-    "java.lang.","")},${entity.simpleName}>{
+public final class ${simpleName} extends AbsQEntity<${idProperty.type.getQualifiedName().toString().replace("java.lang.","")},${entity.simpleName}>{
 
     public ${simpleName}() {
         super(${entity.simpleName}.class);

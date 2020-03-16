@@ -3,7 +3,7 @@ package org.finalframework.coding.entity;
 
 import org.finalframework.core.filter.Filter;
 import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.annotation.IEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -24,7 +24,7 @@ import java.lang.annotation.Annotation;
 public class EntityFilter implements Filter<TypeElement> {
 
     /**
-     * @see org.finalframework.data.entity.IEntity
+     * @see IEntity
      */
     private final TypeElement entityTypeElement;
     private final Types typeUtils;

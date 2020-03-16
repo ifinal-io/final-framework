@@ -2,7 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.annotation.ReadOnlyColumn;
+import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -138,10 +138,10 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final List<String> columns = new ArrayList<>();
         entity.stream()
-                .filter(it -> !it.isTransient() && it.isWriteable())
+                .filter(it -> !it.isTransient() && it.isWriteOnly())
                 .filter(it -> {
                     if (view == null) {
-                        if (it.hasAnnotation(ReadOnlyColumn.class)) {
+                        if (it.hasAnnotation(ReadOnly.class)) {
                             return false;
                         }
                         return true;
@@ -214,10 +214,10 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
-                .filter(it -> !it.isTransient() && it.isWriteable())
+                .filter(it -> !it.isTransient() && it.isWriteOnly())
                 .filter(it -> {
                     if (view == null) {
-                        if (it.hasAnnotation(ReadOnlyColumn.class)) {
+                        if (it.hasAnnotation(ReadOnly.class)) {
                             return false;
                         }
                         return true;

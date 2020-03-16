@@ -16,24 +16,27 @@ import java.util.Optional;
 public class PropertyDescriptor {
 
     private final Bean bean;
+    private final String name;
     private final Optional<VariableElement> field;
     private final Optional<ExecutableElement> setter;
     private final Optional<ExecutableElement> getter;
     private final Lazy<String> toString;
 
-    public PropertyDescriptor(Bean bean, Optional<VariableElement> field,
+    public PropertyDescriptor(Bean bean, String name, Optional<VariableElement> field,
                               Optional<ExecutableElement> setter,
                               Optional<ExecutableElement> getter) {
         this.bean = bean;
+        this.name = name;
         this.field = field;
         this.setter = setter;
         this.getter = getter;
 
         this.toString = Lazy.of(() -> {
             StringBuilder sb = new StringBuilder();
-            sb.append("field=").append(field.map(e -> e.getSimpleName().toString()).orElse(""))
+            sb.append(name).append(":{field=").append(field.map(e -> e.getSimpleName().toString()).orElse(""))
                     .append(",setter=").append(setter.map(e -> e.getSimpleName().toString()).orElse(""))
-                    .append(",getter=").append(getter.map(e -> e.getSimpleName().toString()).orElse(""));
+                    .append(",getter=").append(getter.map(e -> e.getSimpleName().toString()).orElse(""))
+                    .append("}");
             return sb.toString();
         });
     }
@@ -42,16 +45,20 @@ public class PropertyDescriptor {
         return bean;
     }
 
-    public VariableElement getField() {
-        return field.get();
+    public String getName() {
+        return name;
     }
 
-    public ExecutableElement getGetter() {
-        return getter.get();
+    public Optional<VariableElement> getField() {
+        return field;
     }
 
-    public ExecutableElement getSetter() {
-        return setter.get();
+    public Optional<ExecutableElement> getSetter() {
+        return setter;
+    }
+
+    public Optional<ExecutableElement> getGetter() {
+        return getter;
     }
 
     @Override

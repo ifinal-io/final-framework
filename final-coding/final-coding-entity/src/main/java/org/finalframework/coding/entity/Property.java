@@ -6,7 +6,10 @@ import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.lang.NonNull;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
@@ -18,19 +21,22 @@ import java.util.List;
  */
 public interface Property {
 
-    static Builder builder(@NonNull Element element) {
-        return null;
-    }
-
+    /**
+     * @return
+     */
     Element getElement();
+
+    VariableElement getField();
+
+    ExecutableElement getWriteMethod();
+
+    ExecutableElement getReadMethod();
 
     TypeElement getJavaTypeElement();
 
     TypeElement getMetaTypeElement();
 
     String getName();
-
-    String getTable();
 
     String getColumn();
 
@@ -39,25 +45,21 @@ public interface Property {
 
     List<TypeElement> getViews();
 
-    default boolean isEnum() {
-        return false;
-    }
-
     boolean hasView(@NonNull Class<?> view);
 
     boolean unique();
 
     boolean nonnull();
 
-    boolean isWriteable();
+    boolean isWriteOnly();
 
     boolean updatable();
 
-    boolean isReadable();
+    boolean isReadOnly();
 
     boolean placeholder();
 
-    String getType();
+    TypeMirror getType();
 
     String getMapKeyType();
 
@@ -68,6 +70,10 @@ public interface Property {
     boolean isVersion();
 
     PrimaryKeyType getPrimaryKeyType();
+
+    boolean isPrimitive();
+
+    boolean isEnum();
 
     boolean isCollection();
 
@@ -99,19 +105,4 @@ public interface Property {
 
     boolean isTransient();
 
-
-    interface Builder extends org.finalframework.core.Builder<Property> {
-
-        Builder primitive(boolean primitive);
-
-        Builder array(boolean array);
-
-        Builder collection(boolean collection);
-
-        Builder list(boolean list);
-
-        Builder set(boolean set);
-
-        Builder map(boolean map);
-    }
 }

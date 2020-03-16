@@ -193,7 +193,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                          *     column = #{entity.property.property,javaType=,typeHandler},
                          * </if>
                          */
-                        final TypeElement multiType = property.getMetaTypeElement();
+                        final TypeElement multiType = property.getJavaTypeElement();
                         final Entity multiEntity = property.toEntity();
                         List<String> properties = property.referenceProperties();
                         properties.stream()
@@ -264,7 +264,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                         properties.stream()
                                 .map(multiEntity::getProperty)
                                 .map(multiProperty -> {
-                                    final TypeElement javaType = multiProperty.getMetaTypeElement();
+                                    final TypeElement javaType = multiProperty.getJavaTypeElement();
                                     final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
 
                                     final Element ifUpdateContains = document.createElement("if");
@@ -307,7 +307,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 }).forEach(whenUpdateNotNull::appendChild);
 
                     } else {
-                        final TypeElement javaType = property.getMetaTypeElement();
+                        final TypeElement javaType = property.getJavaTypeElement();
                         final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
                         final Element ifUpdateContains = document.createElement("if");
                         final String updatePath = property.getName();

@@ -2,6 +2,8 @@ package org.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.annotation.IEnum;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
  * @author likly
  * @version 1.0
  * @date 2018-09-27 22:32
- * @see org.finalframework.data.entity.IEntity
+ * @see IEntity
  * @since 1.0
  */
 public enum YN implements IEnum<Integer> {

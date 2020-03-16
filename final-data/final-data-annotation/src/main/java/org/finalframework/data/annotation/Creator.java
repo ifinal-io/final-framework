@@ -1,26 +1,28 @@
 package org.finalframework.data.annotation;
 
 import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.lang.annotation.*;
 
 /**
- * 最后更新时间
+ * 创建时间
  *
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:14
+ * @see Column
  * @see Created
+ * @see LastModifier
+ * @see LastModified
  * @since 1.0
  */
 @Column
+@Default
 @Documented
-@LastModifiedDate
-@Index(Integer.MAX_VALUE - 99)
+@Index(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LastModified {
+public @interface Creator {
     @AliasFor("name")
     String value() default "";
 

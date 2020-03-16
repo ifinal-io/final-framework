@@ -29,7 +29,7 @@ public class SelectIdsMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         final Element select = document.createElement("select");
         select.setAttribute("id", method.getSimpleName().toString());
         final Property idProperty = entity.getRequiredIdProperty();
-        select.setAttribute("resultType", idProperty.getMetaTypeElement().getQualifiedName().toString());
+        select.setAttribute("resultType", idProperty.getJavaTypeElement().getQualifiedName().toString());
 
         Element trim = document.createElement("trim");
         trim.setAttribute("prefix", String.format("SELECT %s FROM", idProperty.getColumn()));

@@ -1,5 +1,7 @@
 package org.finalframework.data.entity;
 
+import org.finalframework.data.annotation.IUser;
+
 import java.io.Serializable;
 
 /**

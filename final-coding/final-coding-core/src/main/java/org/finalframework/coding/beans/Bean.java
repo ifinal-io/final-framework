@@ -22,6 +22,9 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 public class Bean implements Streamable<PropertyDescriptor>, Iterable<PropertyDescriptor> {
+
+    private static final Map<TypeElement, Bean> cache = new HashMap<>(128);
+
     static final String ADD_PREFIX = "add";
     static final String REMOVE_PREFIX = "remove";
     static final String GET_PREFIX = "get";
@@ -32,10 +35,10 @@ public class Bean implements Streamable<PropertyDescriptor>, Iterable<PropertyDe
     private final TypeElement typeElement;
     private final SetterAndGetterFilter setterAndGetterFilter;
 
-    private final Map<String, VariableElement> fields = new HashMap<>();
+    private final Map<String, VariableElement> fields = new LinkedHashMap<>();
     private final List<ExecutableElement> methods = new ArrayList<>();
     private final Map<ExecutableElement, Boolean> processed = new HashMap<>();
-    private final Map<String, PropertyDescriptor> properties = new HashMap<>();
+    private final Map<String, PropertyDescriptor> properties = new LinkedHashMap<>();
 
     private Bean(ProcessingEnvironment env, TypeElement typeElement) {
         this.env = env;
@@ -45,7 +48,14 @@ public class Bean implements Streamable<PropertyDescriptor>, Iterable<PropertyDe
     }
 
     public static Bean from(ProcessingEnvironment env, TypeElement typeElement) {
-        return new Bean(env, typeElement);
+
+        if (!cache.containsKey(typeElement)) {
+            synchronized (cache) {
+                cache.put(typeElement, new Bean(env, typeElement));
+            }
+        }
+
+        return cache.get(typeElement);
     }
 
     private void init() {
@@ -74,31 +84,29 @@ public class Bean implements Streamable<PropertyDescriptor>, Iterable<PropertyDe
 
         // for each field
         fields.forEach((key, field) -> {
-            this.properties.put(key, new PropertyDescriptor(this, Optional.of(field),
+            this.properties.put(key, new PropertyDescriptor(this, key, Optional.of(field),
                     findSetter(key), findGetter(key)));
         });
 
 
         methods.stream()
-                .filter(it -> Boolean.FALSE.equals(processed.get(it)))
+                .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
                 .filter(setterAndGetterFilter::isSetter)
                 .forEach(setter -> {
                     String setterName = setter.getSimpleName().toString();
                     if (setterName.startsWith(SET_PREFIX)) {
                         String propertyName = setterName.substring(SET_PREFIX.length());
                         if (!properties.containsKey(propertyName)) {
-                            this.properties.put(propertyName, new PropertyDescriptor(this, Optional.empty(),
+                            this.properties.put(propertyName, new PropertyDescriptor(this, propertyName, Optional.empty(),
                                     Optional.of(setter), findGetter(propertyName)));
                         }
 
-                        if (properties.get(propertyName).getSetter() != setter) {
-                            throw new IllegalArgumentException("");
-                        }
+
                     }
                 });
 
         methods.stream()
-                .filter(it -> Boolean.FALSE.equals(processed.get(it)))
+                .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
                 .filter(setterAndGetterFilter::isGetter)
                 .forEach(getter -> {
                     String getterName = getter.getSimpleName().toString();
@@ -112,13 +120,10 @@ public class Bean implements Streamable<PropertyDescriptor>, Iterable<PropertyDe
                     }
 
                     if (!properties.containsKey(propertyName)) {
-                        this.properties.put(propertyName, new PropertyDescriptor(this, Optional.empty(),
+                        this.properties.put(propertyName, new PropertyDescriptor(this, propertyName, Optional.empty(),
                                 findSetter(propertyName), Optional.of(getter)));
                     }
 
-                    if (properties.get(propertyName).getGetter() != getter) {
-                        throw new IllegalArgumentException("");
-                    }
                 });
 
     }

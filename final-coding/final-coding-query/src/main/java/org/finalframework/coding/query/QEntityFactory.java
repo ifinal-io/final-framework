@@ -29,7 +29,7 @@ public class QEntityFactory {
                 .filter(property -> !property.isTransient())
                 .forEach(property -> {
                     if (property.isReference()) {
-                        TypeElement multiElement = processingEnv.getElementUtils().getTypeElement(property.getType());
+                        TypeElement multiElement = property.getJavaTypeElement();
                         Entity multiEntity = EntityFactory.create(processingEnv, multiElement);
                         @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
                         properties.stream()
@@ -48,29 +48,30 @@ public class QEntityFactory {
 
     private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property, TypeHandlers typeHandlers) {
         if (referenceProperty == null) {
+            System.out.println("1:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
-                    .type(property.getMetaTypeElement())
+                    .type(property.getJavaTypeElement())
                     .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
-                    .idProperty(property.isIdProperty())
                     .persistentType(property.getPersistentType())
-                    .insertable(property.isWriteable())
+                    .insertable(property.isWriteOnly())
                     .updatable(property.updatable())
-                    .selectable(property.isReadable())
+                    .selectable(property.isReadOnly())
                     .build();
         } else {
+            System.out.println("2:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             final String path = referenceProperty.getName() + "." + property.getName();
             final String name = Utils.formatPropertyName(referenceProperty, property);
             return QProperty.builder(path, name)
                     .column(Utils.formatPropertyColumn(referenceProperty, property))
-                    .type(property.getMetaTypeElement())
+                    .type(property.getJavaTypeElement())
                     .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
-                    .insertable(referenceProperty.isWriteable())
+                    .insertable(referenceProperty.isWriteOnly())
                     .updatable(referenceProperty.updatable())
-                    .selectable(referenceProperty.isReadable())
+                    .selectable(referenceProperty.isReadOnly())
                     .build();
         }
 

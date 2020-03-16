@@ -3,6 +3,7 @@ package org.finalframework.coding.entity;
 
 import org.finalframework.coding.Coder;
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.IEntity;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.tools.StandardLocation;
@@ -12,7 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * 将实现了{@link org.finalframework.data.entity.IEntity}接口的JavaBean对象生成到{@link EntitiesHelper#RESOURCE_FILE}文件中，以供其他处理使用。
+ * 将实现了{@link IEntity}接口的JavaBean对象生成到{@link EntitiesHelper#RESOURCE_FILE}文件中，以供其他处理使用。
  * 如编译时生成{@link org.finalframework.data.query.QEntity}等。
  *
  * @author likly

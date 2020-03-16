@@ -2,7 +2,7 @@ package org.finalframework.data.repository;
 
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.core.Assert;
-import org.finalframework.data.entity.IEntity;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.exception.BadRequestException;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;

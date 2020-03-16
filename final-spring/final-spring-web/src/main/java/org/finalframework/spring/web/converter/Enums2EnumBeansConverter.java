@@ -4,7 +4,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.core.converter.Converter;
 import org.finalframework.core.filter.Filter;
 import org.finalframework.data.entity.enums.EnumBean;
-import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.annotation.IEnum;
 import org.finalframework.spring.web.response.advice.EnumsResponseBodyAdvice;
 
 import java.util.Arrays;

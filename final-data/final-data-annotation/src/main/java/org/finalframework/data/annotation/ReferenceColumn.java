@@ -20,10 +20,8 @@ import java.lang.annotation.*;
 @Reference
 @Column
 public @interface ReferenceColumn {
-
     @AliasFor("name")
     String value() default "";
-
     @AliasFor("value")
     String name() default "";
 
@@ -32,15 +30,4 @@ public @interface ReferenceColumn {
     String[] properties();
 
     String delimiter() default ":";
-
-    boolean unique() default false;
-
-    boolean nonnull() default false;
-
-    boolean insertable() default true;
-
-    boolean updatable() default true;
-
-    boolean selectable() default true;
-
 }

@@ -1,11 +1,11 @@
 package org.finalframework.data.annotation;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
 /**
- * The property annotated by {@link ReadOnlyColumn} will not be updated.
+ * 最后更新时间
  *
  * @author likly
  * @version 1.0
@@ -14,9 +14,13 @@ import java.lang.annotation.*;
  */
 @Column
 @Documented
-@ReadOnlyProperty
+@Index(Integer.MAX_VALUE - 99)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReadOnlyColumn {
+public @interface LastModifier {
+    @AliasFor("name")
+    String value() default "";
 
+    @AliasFor("value")
+    String name() default "";
 }

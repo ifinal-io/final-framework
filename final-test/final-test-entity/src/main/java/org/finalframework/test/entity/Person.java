@@ -1,13 +1,7 @@
 package org.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.finalframework.data.annotation.ColumnView;
-import org.finalframework.data.annotation.FunctionColumn;
-import org.finalframework.data.annotation.ReadOnlyColumn;
-import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.AbsRecord;
 
 import javax.validation.constraints.NotNull;
@@ -31,12 +25,14 @@ public class Person extends AbsRecord {
     private String name;
     @JsonView(Person.class)
     private int age;
-    @ReadOnlyColumn
+    @ReadOnly
     @FunctionColumn(reader = "MAX(age)")
     @ColumnView(Person.class)
     private int maxAge;
     @ColumnView(Person.class)
+    @JsonColumn("jsonList")
     private List<String> stringList;
+    @Column
     private List<Integer> intList;
     private Map<String, Object> properties;
     //    @NonColumn
@@ -100,5 +96,9 @@ public class Person extends AbsRecord {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getExtName() {
+        return name;
     }
 }

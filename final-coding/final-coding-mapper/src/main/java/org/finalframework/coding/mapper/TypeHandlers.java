@@ -8,7 +8,7 @@ import org.finalframework.data.annotation.FunctionColumn;
 import org.finalframework.data.annotation.JsonColumn;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.finalframework.data.entity.enums.IEnum;
+import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
@@ -86,9 +86,16 @@ public final class TypeHandlers {
     }
 
     public TypeElement getTypeHandler(Property property) {
-        if (property.hasAnnotation(JsonColumn.class) || typeElements.isObject(property.getElement())) {
-            JsonColumn jsonColumn = property.getAnnotation(JsonColumn.class);
-            PersistentType persistentType = jsonColumn == null ? JSON : jsonColumn.persistentType();
+        if (property.isMap() || typeElements.isObject(property.getElement())) {
+            PersistentType persistentType = JSON;
+            switch (persistentType) {
+                case JSON:
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
+                case BLOB:
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
+            }
+        } else if (property.isCollection()) {
+            PersistentType persistentType = JSON;
             if (property.isList()) {
                 switch (persistentType) {
                     case JSON:
@@ -107,28 +114,18 @@ public final class TypeHandlers {
                     default:
                         return getTypeElement(typeHandlerRegistry.getSetTypeHandler());
                 }
-            } else if (property.isMap()) {
-                switch (persistentType) {
-                    case JSON:
-                        return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
-                    case BLOB:
-                        return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
-                }
-            } else if (jsonColumn != null) {
-                switch (persistentType) {
-                    case JSON:
-                        return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
-                    case BLOB:
-                        return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
-                }
             }
-        }
-
-        if (property.isEnum()) {
+        } else if (property.hasAnnotation(JsonColumn.class)) {
+            PersistentType persistentType = JSON;
+            switch (persistentType) {
+                case JSON:
+                    return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
+                case BLOB:
+                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
+            }
+        } else if (property.isEnum()) {
             return getTypeElement(typeHandlerRegistry.getEnumTypeHandler());
-        }
-
-        if (typeElements.isSameType(property.getElement(), LocalDateTime.class)) {
+        } else if (typeElements.isSameType(property.getElement(), LocalDateTime.class)) {
             return getTypeElement(LocalDateTimeTypeHandler.class);
         }
 
@@ -137,7 +134,7 @@ public final class TypeHandlers {
 
 
     public String formatPropertyValues(@Nullable Property referenceProperty, @NonNull Property property, String value) {
-        final TypeElement javaType = property.getMetaTypeElement();
+        final TypeElement javaType = property.getJavaTypeElement();
         final TypeElement typeHandler = getTypeHandler(property);
         final StringBuilder builder = new StringBuilder();
 

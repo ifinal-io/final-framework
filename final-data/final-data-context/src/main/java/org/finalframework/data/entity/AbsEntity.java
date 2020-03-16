@@ -1,6 +1,7 @@
 package org.finalframework.data.entity;
 
 import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.Default;
 import org.finalframework.data.entity.enums.YN;
 
 import java.time.LocalDateTime;
@@ -40,7 +41,8 @@ public abstract class AbsEntity implements IEntity<Long> {
     /**
      * 有效标记
      */
-    @Column(insertable = false)
+    @Default
+    @Column
     private YN yn;
 
     @Override

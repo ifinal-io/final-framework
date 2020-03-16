@@ -1,7 +1,6 @@
 package org.finalframework.coding.entity;
 
-import com.sun.tools.javac.code.Type;
-import org.finalframework.coding.utils.PrimitiveTypeKinds;
+import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.*;
@@ -9,15 +8,20 @@ import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.util.Lazy;
+import org.springframework.data.util.Optionals;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
-import javax.tools.Diagnostic;
+import javax.lang.model.type.*;
+import javax.lang.model.util.ElementFilter;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.SimpleTypeVisitor8;
+import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -26,105 +30,151 @@ import java.util.*;
  * @since 1.0
  */
 public class AnnotationProperty implements Property {
-
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
-
-    private final Entity entity;
     private final ProcessingEnvironment processEnv;
-    private final Element element;
+    private final Elements elements;
+    private final Types types;
     private final TypeElements typeElements;
-    private PrimaryKeyType primaryKeyType;
+    private final Lazy<Element> element;
     private final List<TypeElement> views = new ArrayList<>();
-
-    private final String name;
     private TypeElement javaTypeElement;
     private TypeElement metaTypeElement;
-    private String table;
-    private String column;
+    private final Optional<VariableElement> field;
+    private final Optional<PropertyDescriptor> descriptor;
+    private final Optional<ExecutableElement> readMethod;
+    private final Optional<ExecutableElement> writeMethod;
+    private final Lazy<String> name;
+    private final Lazy<String> column;
+    private final Lazy<TypeMirror> type;
     private PersistentType persistentType = PersistentType.AUTO;
     private boolean unique = false;
     private boolean nonnull = true;
     private boolean updatable = true;
-    private final String type;
-    private final String componentType;
-    private final String mapKeyType;
-    private final String mapValueType;
-    private final Lazy<Boolean> isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
-    private final Lazy<Boolean> isReference = Lazy.of(!isTransient() && hasAnnotation(ReferenceColumn.class));
-    private final Lazy<Boolean> isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
-    private final Lazy<Boolean> isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnlyColumn.class));
-    private final Lazy<Boolean> isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnlyColumn.class));
-
-    private final boolean isCollection;
-    private final boolean isList;
-    private final boolean isSet;
-    private final boolean isMap;
+    private final String componentType = null;
+    private final String mapKeyType = null;
+    private final String mapValueType = null;
+    private final Lazy<Boolean> isIdProperty;
+    private final Lazy<Boolean> isReference;
+    private final Lazy<Boolean> isVersion;
+    private final Lazy<Boolean> isWritable;
+    private final Lazy<Boolean> isReadable;
+    private final Lazy<Boolean> isTransient;
+    private final Lazy<Boolean> isPrimitive;
+    private final Lazy<Boolean> isEnum;
+    private final Lazy<Boolean> isArray;
+    private final Lazy<Boolean> isCollection;
+    private final Lazy<Boolean> isList;
+    private final Lazy<Boolean> isSet;
+    private final Lazy<Boolean> isMap;
+    private PrimaryKeyType primaryKeyType = PrimaryKeyType.AUTO_INC;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
     private Map<String, String> referenceColumns;
 
-    public AnnotationProperty(Entity entity, ProcessingEnvironment processEnv, Element element) {
-        this.entity = entity;
+    public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field, Optional<PropertyDescriptor> descriptor) {
         this.processEnv = processEnv;
+        this.elements = processEnv.getElementUtils();
+        this.types = processEnv.getTypeUtils();
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
-        this.element = element;
-        processEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, element.toString());
-        this.name = getElementName(element);
-        TypeMirror typeMirror = element.asType();
-        TypeMirror realTypeMirror = getRealTypeMirror(typeMirror);
-        this.javaTypeElement = (TypeElement) ((Type) typeMirror).asElement();
-        this.metaTypeElement = (TypeElement) ((Type) typeMirror).asElement();
+        this.field = field;
+        this.descriptor = descriptor;
 
-        final TypeKind kind = typeMirror.getKind();
-        if (kind.isPrimitive()) {
-            Class<?> clazz = PrimitiveTypeKinds.getPrimitiveTypeKind(kind);
-            if (clazz != null) {
-                this.metaTypeElement = typeElements.getTypeElement(clazz);
-            }
-        }
-
-        this.type = processEnv.getTypeUtils().erasure(typeMirror).toString();
-
-        if (element.getKind().isField()) {
-            this.isCollection = typeElements.isCollection(element);
-            this.isList = typeElements.isList(element);
-            this.isSet = typeElements.isSet(element);
-            this.isMap = typeElements.isMap(element);
-
-            if (isList || isSet) {
-                TypeMirror metaType = ((DeclaredType) typeMirror).getTypeArguments().get(0);
-                this.metaTypeElement = (TypeElement) ((DeclaredType) metaType).asElement();
-                componentType = metaType.toString();
-            } else {
-                componentType = null;
-            }
-
-            if (isMap) {
-                List<? extends TypeMirror> arguments = ((DeclaredType) typeMirror).getTypeArguments();
-                this.mapKeyType = arguments.get(0).toString();
-                this.mapValueType = arguments.get(1).toString();
-                this.metaTypeElement = typeElements.getTypeElement(Map.class);
-            } else {
-                mapKeyType = null;
-                mapValueType = null;
-            }
+        if (descriptor.isPresent()) {
+            this.readMethod = descriptor.get().getGetter();
+            this.writeMethod = descriptor.get().getSetter();
         } else {
-            this.componentType = null;
-            this.mapKeyType = null;
-            this.mapValueType = null;
-            this.isCollection = false;
-            this.isList = false;
-            this.isSet = false;
-            this.isMap = false;
+            this.readMethod = Optional.empty();
+            this.writeMethod = Optional.empty();
         }
 
+        this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
+        this.name = Lazy.of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
+        this.column = Lazy.of(this::initColumn);
+
+        this.type = Lazy.of(() ->
+                withFieldOrMethod(
+                        Element::asType,
+                        setter -> setter.getParameters().get(0).asType(),
+                        ExecutableElement::getReturnType
+                )
+        );
+
+        this.isPrimitive = Lazy.of(getType() instanceof PrimitiveType);
+        this.isEnum = Lazy.of(() -> isEnum(getType()));
+        this.isArray = Lazy.of(getType() instanceof ArrayType);
+        this.isCollection = Lazy.of(() -> isCollection(getType()));
+        this.isList = Lazy.of(() -> isList(getType()));
+        this.isSet = Lazy.of(() -> isSet(getType()));
+        this.isMap = Lazy.of(() -> isMap(getType()));
+
+        this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
+        this.isReference = Lazy.of(!isTransient() && hasAnnotation(ReferenceColumn.class));
+        this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
+        this.isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnly.class));
+        this.isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnlyColumn.class));
+        this.isTransient = Lazy.of(() -> hasAnnotation(Transient.class));
+
+        PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
+        this.javaTypeElement = getType().accept(propertyJavaTypeVisitor, this);
+
+
+        if (isReference()) {
+            initReferenceColumn(getAnnotation(ReferenceColumn.class));
+        }
         initColumnView();
 
-        if (Assert.isBlank(this.column)) {
-            this.column = this.name;
+        System.out.println("=================================================" + getName() + "=================================================");
+        System.out.println("name：" + getName());
+        System.out.println("column：" + getColumn());
+        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
+        System.out.println("isPrimitive：" + isPrimitive());
+        System.out.println("isEnum：" + isEnum());
+        System.out.println("isArray：" + isArray());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isList：" + isList());
+        System.out.println("isSet：" + isSet());
+        System.out.println("isMap：" + isMap());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isIdProperty：" + isIdProperty());
+        System.out.println("isVersion：" + isVersion());
+        System.out.println("isReference：" + isReference());
+        System.out.println("===================================================================================================================");
+
+
+    }
+
+    private String initColumn() {
+        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
+        TypeElement column = typeElements.getTypeElement(Column.class);
+        for (AnnotationMirror annotationMirror : annotationMirrors) {
+            DeclaredType annotationType = annotationMirror.getAnnotationType();
+            if (typeElements.isSameType(annotationType, column.asType())) {
+                return getColumnValue(annotationMirror);
+            } else if (annotationType.getAnnotation(Column.class) != null) {
+                return getColumnValue(annotationMirror);
+            }
         }
 
+        return getName();
+    }
+
+    private String getColumnValue(AnnotationMirror annotation) {
+        DeclaredType annotationType = annotation.getAnnotationType();
+        Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotation.getElementValues();
+        String column = "";
+        String value = "";
+        System.out.println(annotationType.toString() + "sdfasdfajhwehfas===================");
+        for (ExecutableElement method : elementValues.keySet()) {
+            System.out.println(annotationType.toString() + ":" + method.getSimpleName().toString() + ":" + elementValues.get(method));
+            if ("name".equals(method.getSimpleName().toString())) {
+                column = (String) elementValues.get(method).getValue();
+            } else if ("value".equals(method.getSimpleName().toString())) {
+                value = (String) elementValues.get(method).getValue();
+            }
+        }
+
+        return Stream.of(value, column).filter(Assert::nonBlank).findFirst().orElse(getName());
     }
 
 
@@ -133,10 +183,11 @@ public class AnnotationProperty implements Property {
     }
 
     private void initColumnView() {
-        List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
+        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
         TypeElement columnView = typeElements.getTypeElement(ColumnView.class);
         for (AnnotationMirror annotationMirror : annotationMirrors) {
-            if (typeElements.isSameType(annotationMirror.getAnnotationType(), columnView.asType())) {
+            DeclaredType annotationType = annotationMirror.getAnnotationType();
+            if (typeElements.isSameType(annotationType, columnView.asType())) {
                 Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
                 columnView.getEnclosedElements().stream()
                         .map(it -> (ExecutableElement) it)
@@ -149,13 +200,6 @@ public class AnnotationProperty implements Property {
         }
     }
 
-    private TypeMirror getRealTypeMirror(TypeMirror typeMirror) {
-        if (typeMirror instanceof Type.AnnotatedType) {
-            return ((Type.AnnotatedType) typeMirror).unannotatedType();
-        }
-
-        return typeMirror;
-    }
 
     private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
         this.referenceMode = mode;
@@ -192,22 +236,32 @@ public class AnnotationProperty implements Property {
 
     @Override
     public Element getElement() {
-        return element;
+        return this.element.get();
     }
 
     @Override
-    public String getTable() {
-        return table;
+    public VariableElement getField() {
+        return field.orElse(null);
+    }
+
+    @Override
+    public ExecutableElement getWriteMethod() {
+        return writeMethod.orElse(null);
+    }
+
+    @Override
+    public ExecutableElement getReadMethod() {
+        return readMethod.orElse(null);
     }
 
     @Override
     public String getName() {
-        return name;
+        return name.get();
     }
 
     @Override
     public String getColumn() {
-        return column;
+        return column.get();
     }
 
     @Override
@@ -236,7 +290,7 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean isWriteable() {
+    public boolean isWriteOnly() {
         return isWritable.get();
     }
 
@@ -246,7 +300,7 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean isReadable() {
+    public boolean isReadOnly() {
         return isReadable.get();
     }
 
@@ -256,10 +310,9 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public String getType() {
-        return type;
+    public TypeMirror getType() {
+        return type.get();
     }
-
 
     @Override
     public TypeElement getJavaTypeElement() {
@@ -297,28 +350,38 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
+    public boolean isPrimitive() {
+        return isPrimitive.get();
+    }
+
+    @Override
+    public boolean isEnum() {
+        return isEnum.get();
+    }
+
+    @Override
     public boolean isCollection() {
-        return isCollection;
+        return isCollection.get();
     }
 
     @Override
     public boolean isList() {
-        return isList;
+        return isList.get();
     }
 
     @Override
     public boolean isSet() {
-        return isSet;
+        return isSet.get();
     }
 
     @Override
     public boolean isMap() {
-        return isMap;
+        return isMap.get();
     }
 
     @Override
     public boolean isArray() {
-        return false;
+        return isArray.get();
     }
 
     @Override
@@ -343,12 +406,12 @@ public class AnnotationProperty implements Property {
 
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-        return element.getAnnotation(annotationType);
+        return getElement().getAnnotation(annotationType);
     }
 
     @Override
     public Entity toEntity() {
-        return EntityFactory.create(processEnv, processEnv.getElementUtils().getTypeElement(element.asType().toString()));
+        return EntityFactory.create(processEnv, getJavaTypeElement());
     }
 
     @Override
@@ -365,52 +428,158 @@ public class AnnotationProperty implements Property {
 
     @Override
     public boolean isTransient() {
-        return hasAnnotation(Transient.class);
+        return isTransient != null && Boolean.TRUE.equals(isTransient.get());
     }
 
-    private static final class BuilderImpl implements Builder {
-        private Boolean primitive;
-        private Boolean array;
-        private Boolean collection;
-        private Boolean list;
-        private Boolean set;
-        private Boolean map;
+    private <T> T withFieldOrDescriptor(Function<? super VariableElement, T> field,
+                                        Function<? super PropertyDescriptor, T> descriptor) {
 
+        return Optionals.firstNonEmpty(//
+                () -> this.field.map(field), //
+                () -> this.descriptor.map(descriptor))//
+                .orElseThrow(() -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+    }
+
+    private <T> T withFieldOrMethod(Function<? super VariableElement, T> field,
+                                    Function<? super ExecutableElement, T> setter,
+                                    Function<? super ExecutableElement, T> getter
+    ) {
+
+        return Optionals.firstNonEmpty(//
+                () -> this.field.map(field), //
+                () -> this.writeMethod.map(setter),
+                () -> this.readMethod.map(getter))//
+                .orElseThrow(() -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+    }
+
+    private boolean isEnum(TypeMirror type) {
+        return types.isAssignable(types.erasure(type), getTypeElement(IEnum.class).asType());
+    }
+
+    private boolean isCollection(TypeMirror type) {
+        return types.isAssignable(types.erasure(type), getTypeElement(Collection.class).asType());
+    }
+
+    private boolean isList(TypeMirror type) {
+        return types.isAssignable(types.erasure(type), getTypeElement(List.class).asType());
+    }
+
+    private boolean isSet(TypeMirror type) {
+        return types.isAssignable(types.erasure(type), getTypeElement(Set.class).asType());
+    }
+
+    private boolean isMap(TypeMirror type) {
+        return types.isAssignable(types.erasure(type), getTypeElement(Map.class).asType());
+    }
+
+
+    private TypeElement getPrimitiveTypeElement(TypeKind kind) {
+        switch (kind) {
+            case BOOLEAN:
+                return getTypeElement(Boolean.class);
+            case BYTE:
+                return getTypeElement(Byte.class);
+            case SHORT:
+                return getTypeElement(Short.class);
+            case INT:
+                return getTypeElement(Integer.class);
+            case LONG:
+                return getTypeElement(Long.class);
+            case CHAR:
+                return getTypeElement(Character.class);
+            case FLOAT:
+                return getTypeElement(Float.class);
+            case DOUBLE:
+                return getTypeElement(Double.class);
+        }
+
+        throw new IllegalArgumentException("不支持的类型：" + kind);
+    }
+
+
+    private TypeElement getTypeElement(Class<?> type) {
+        return elements.getTypeElement(type.getCanonicalName());
+    }
+
+
+    private static final class PropertyJavaTypeVisitor extends SimpleTypeVisitor8<TypeElement, AnnotationProperty> {
+        @NonNull
+        private final ProcessingEnvironment pv;
+        @NonNull
+        private final Elements elements;
+        @NonNull
+        private final Types types;
+
+        public PropertyJavaTypeVisitor(@NonNull ProcessingEnvironment pv) {
+            this.pv = pv;
+            this.elements = pv.getElementUtils();
+            this.types = pv.getTypeUtils();
+        }
+
+
+        /**
+         * Represents a primitive type.  These include
+         * {@code boolean}, {@code byte}, {@code short}, {@code int},
+         * {@code long}, {@code char}, {@code float}, and {@code double}.
+         *
+         * @return
+         */
         @Override
-        public Builder primitive(boolean primitive) {
-            this.primitive = primitive;
-            return this;
+        public TypeElement visitPrimitive(PrimitiveType type, AnnotationProperty property) {
+            return property.getPrimitiveTypeElement(type.getKind());
         }
 
         @Override
-        public Builder array(boolean array) {
-            this.array = array;
-            return this;
+        public TypeElement visitArray(ArrayType array, AnnotationProperty property) {
+            TypeMirror type = array.getComponentType();
+            TypeKind kind = type.getKind();
+            if (kind.isPrimitive()) {
+                return property.getPrimitiveTypeElement(kind);
+            }
+
+            if (type instanceof ArrayType || property.isCollection(type)) {
+                throw new IllegalArgumentException("不支持的Array类型：[]" + type.toString());
+            }
+
+            if (type instanceof DeclaredType) {
+                DeclaredType declaredType = (DeclaredType) type;
+                Element element = declaredType.asElement();
+                if (element instanceof TypeElement) {
+                    return (TypeElement) element;
+                }
+            }
+
+
+            throw new IllegalArgumentException("不支持的Array类型：[]" + type.toString());
         }
 
         @Override
-        public Builder collection(boolean collection) {
-            return null;
+        public TypeElement visitDeclared(DeclaredType type, AnnotationProperty property) {
+            if (property.isMap()) {
+                return property.getTypeElement(Map.class);
+            }
+
+            if (property.isCollection()) {
+                TypeMirror elementType = type.getTypeArguments().get(0);
+                TypeKind kind = elementType.getKind();
+                if (kind.isPrimitive()) return property.getPrimitiveTypeElement(kind);
+                if (TypeKind.DECLARED == kind && !property.isCollection(elementType)) {
+                    DeclaredType declaredType = (DeclaredType) elementType;
+                    Element element = declaredType.asElement();
+                    if (element instanceof TypeElement) {
+                        return (TypeElement) element;
+                    }
+                }
+
+            }
+
+            Element element = type.asElement();
+            if (element instanceof TypeElement) {
+                return (TypeElement) element;
+            }
+
+            throw new IllegalArgumentException("不支持的Array类型：[]" + type.toString());
         }
 
-        @Override
-        public Builder list(boolean list) {
-            return null;
-        }
-
-        @Override
-        public Builder set(boolean set) {
-            return null;
-        }
-
-        @Override
-        public Builder map(boolean map) {
-            return null;
-        }
-
-        @Override
-        public Property build() {
-            return null;//new AnnotationProperty(this);
-        }
     }
 }

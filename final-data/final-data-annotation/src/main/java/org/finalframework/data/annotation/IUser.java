@@ -1,4 +1,6 @@
-package org.finalframework.data.entity;
+package org.finalframework.data.annotation;
+
+import org.finalframework.data.annotation.IEntity;
 
 import java.io.Serializable;
 

@@ -1,5 +1,7 @@
 package org.finalframework.data.entity.enums;
 
+import org.finalframework.data.annotation.IEnum;
+
 import java.io.Serializable;
 
 /**

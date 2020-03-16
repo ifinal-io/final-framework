@@ -1,4 +1,4 @@
-package org.finalframework.data.entity.enums;
+package org.finalframework.data.annotation;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

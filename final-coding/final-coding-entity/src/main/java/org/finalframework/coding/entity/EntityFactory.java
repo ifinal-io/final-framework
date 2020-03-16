@@ -1,18 +1,17 @@
 package org.finalframework.coding.entity;
 
-import org.finalframework.coding.entity.vistor.PropertyElementVisitor;
-import org.finalframework.data.annotation.Column;
+import org.finalframework.coding.beans.Bean;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -35,32 +34,25 @@ public final class EntityFactory {
         final BaseEntity result = new BaseEntity(processEnv, typeElement);
 
         while (typeElement != null) {
-            typeElement
-                    .getEnclosedElements()
-                    .stream()
-                    .filter(it -> (
-                                    it.getKind().isField() && !it
-                                            .getModifiers()
-                                            .contains(Modifier.STATIC) && !"serialVersionUID".equalsIgnoreCase(it
-                                            .getSimpleName()
-                                            .toString()
-                                    )
-                                            ||
-                                            (
-                                                    it.getKind() == ElementKind.METHOD && it.getAnnotation(Column.class) != null && !it.getModifiers().contains(Modifier.STATIC)
-                                            )
 
-                            )
+            Bean.from(processEnv, typeElement).stream()
+//                    .filter(property -> property.getField().isPresent())
+                    .filter(property -> {
+                                if (property.getField().isPresent()) {
+                                    return property.getField().map(field ->
+                                            !(field.getModifiers().contains(Modifier.FINAL) || field.getModifiers().contains(Modifier.STATIC)))
+                                            .orElse(true);
+                                } else if (property.getGetter().isPresent()) {
+                                    return property.getGetter().map(method ->
+                                            !(method.getModifiers().contains(Modifier.FINAL) || method.getModifiers().contains(Modifier.STATIC))).orElse(true);
+                                }
 
+                                return false;
+                            }
                     )
-                    .peek(it -> ((Element) it).accept(new PropertyElementVisitor(processEnv), null))
-                    .map(it -> new AnnotationProperty(result, processEnv, it))
-//                    .peek(it -> {
-//                        logger.info("name={},rawType={},type={},,isCollection={},componentType={},isMap={},keyType={},valueType={}", it
-//                                .getName(), it.getRawType(), it.getType(), it.isCollection(), it.getComponentType(), it.isMap(), it
-//                                .getMapKeyType(), it.getMapValueType());
-//                    })
+                    .map(property -> new AnnotationProperty(processEnv, property.getField(), Optional.of(property)))
                     .forEach(result::addProperty);
+
             TypeMirror superclass = typeElement.getSuperclass();
             if (superclass != null) {
                 if (superclass.getKind() == TypeKind.NONE) {

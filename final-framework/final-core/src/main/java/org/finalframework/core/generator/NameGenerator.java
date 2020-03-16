@@ -33,6 +33,6 @@ public interface NameGenerator {
     }
 
     static String decapitalize(String name, String prefix) {
-        return name.substring(prefix.length());
+        return decapitalize(name.substring(prefix.length()));
     }
 }

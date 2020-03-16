@@ -31,7 +31,7 @@ public class Result implements Element {
     public static Result from(Property referenceProperty, Property property, TypeHandlers typeHandlers) {
         return new Builder(property.getName(),
                 typeHandlers.formatPropertyWriteColumn(referenceProperty, property))
-                .javaType(property.getMetaTypeElement())
+                .javaType(property.getJavaTypeElement())
                 .typeHandler(typeHandlers.getTypeHandler(property))
                 .idResult(property.hasAnnotation(PrimaryKey.class))
                 .build();

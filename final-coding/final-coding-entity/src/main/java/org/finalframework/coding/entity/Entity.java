@@ -85,7 +85,7 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
     Property getVersionProperty();
 
     default PrimaryKeyType getPrimaryKeyType() {
-        return getIdProperty() == null ? null : getIdProperty().getPrimaryKeyType();
+        return getIdProperty() == null ? PrimaryKeyType.AUTO_INC : getIdProperty().getPrimaryKeyType();
     }
 
     <A extends Annotation> A getAnnotation(Class<A> annotationType);

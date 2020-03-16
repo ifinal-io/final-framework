@@ -1,7 +1,7 @@
 package org.finalframework.data.user;
 
 
-import org.finalframework.data.entity.IUser;
+import org.finalframework.data.annotation.IUser;
 
 /**
  * @author likly
