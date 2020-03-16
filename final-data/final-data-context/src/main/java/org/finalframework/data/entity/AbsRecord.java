@@ -1,7 +1,7 @@
 package org.finalframework.data.entity;
 
 
-import org.finalframework.data.annotation.ReferenceColumn;
+import org.finalframework.data.annotation.Reference;
 
 /**
  * @author likly
@@ -10,9 +10,10 @@ import org.finalframework.data.annotation.ReferenceColumn;
  * @since 1.0
  */
 public class AbsRecord extends AbsEntity implements IRecord<Long, AbsUser> {
-    @ReferenceColumn(properties = {"id", "name"})
+
+    @Reference(properties = {"id", "name"})
     private AbsUser creator;
-    @ReferenceColumn(properties = {"id", "name"})
+    @Reference(properties = {"id", "name"})
     private AbsUser lastModifier;
 
     @Override

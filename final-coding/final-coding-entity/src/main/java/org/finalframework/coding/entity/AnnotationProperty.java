@@ -1,26 +1,51 @@
 package org.finalframework.coding.entity;
 
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.ArrayType;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.SimpleTypeVisitor8;
+import javax.lang.model.util.Types;
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.Column;
+import org.finalframework.data.annotation.ColumnView;
+import org.finalframework.data.annotation.Default;
+import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.PrimaryKey;
+import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.Reference;
+import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.annotation.Version;
+import org.finalframework.data.annotation.WriteOnly;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 import org.springframework.lang.NonNull;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.*;
-import javax.lang.model.type.*;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.SimpleTypeVisitor8;
-import javax.lang.model.util.Types;
-import java.lang.annotation.Annotation;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -110,7 +135,7 @@ public class AnnotationProperty implements Property {
         this.isMap = Lazy.of(() -> isMap(getType()));
 
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
-        this.isReference = Lazy.of(!isTransient() && hasAnnotation(ReferenceColumn.class));
+        this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
         this.isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnly.class));
@@ -122,7 +147,7 @@ public class AnnotationProperty implements Property {
 
 
         if (isReference()) {
-            initReferenceColumn(getAnnotation(ReferenceColumn.class));
+            initReferenceColumn(getAnnotation(Reference.class));
         }
         initColumnView();
 
@@ -180,7 +205,7 @@ public class AnnotationProperty implements Property {
     }
 
 
-    private void initReferenceColumn(ReferenceColumn ann) {
+    private void initReferenceColumn(Reference ann) {
         initReference(ann.mode(), ann.properties(), ann.delimiter());
     }
 

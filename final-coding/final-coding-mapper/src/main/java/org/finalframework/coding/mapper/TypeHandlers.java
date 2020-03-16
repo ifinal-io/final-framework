@@ -1,27 +1,26 @@
 package org.finalframework.coding.mapper;
 
-import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.handler.TypeHandlerRegistry;
-import org.finalframework.coding.utils.TypeElements;
-import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.FunctionColumn;
-import org.finalframework.data.annotation.JsonColumn;
-import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 
+import java.time.LocalDateTime;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import java.time.LocalDateTime;
-
-import static org.finalframework.data.annotation.enums.PersistentType.JSON;
+import org.finalframework.coding.entity.Property;
+import org.finalframework.coding.mapper.handler.TypeHandlerRegistry;
+import org.finalframework.coding.utils.TypeElements;
+import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.Function;
+import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.JsonColumn;
+import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -62,8 +61,8 @@ public final class TypeHandlers {
     @NonNull
     public String formatPropertyReadColumn(@Nullable Property referenceProperty, @NonNull Property property) {
         String column = formatPropertyColumn(referenceProperty, property);
-        if (property.hasAnnotation(FunctionColumn.class)) {
-            FunctionColumn annotation = (FunctionColumn) property.getAnnotation(FunctionColumn.class);
+        if (property.hasAnnotation(Function.class)) {
+            Function annotation = (Function) property.getAnnotation(Function.class);
             String reader = annotation.reader();
             return String.format("%s AS %s", reader, column);
         }
