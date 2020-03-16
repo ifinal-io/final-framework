@@ -5,26 +5,30 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
 /**
- * Marked the element is a {@literal virtual}.
+ * Mark the element of {@link Field} or {@link Method} is persistent to {@literal json}. By Default, the type of
+ * collection like {@link List},{@link Set} and {@link Map} will be persistent to {@literal json} by default.
  *
  * @author likly
  * @version 1.0
- * @date 2020-03-16 22:59
+ * @date 2018-10-15 15:14
  * @see Column
- * @see ReadOnly
  * @since 1.0
  */
 @Documented
 @Persistent
 @Column
-@ReadOnly
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface VirtualColumn {
+public @interface Json {
 
   @AliasFor("name")
   String value() default "";

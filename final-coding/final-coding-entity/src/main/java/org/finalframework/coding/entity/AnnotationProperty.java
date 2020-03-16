@@ -31,7 +31,6 @@ import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.ColumnView;
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.PrimaryKey;
@@ -39,6 +38,7 @@ import org.finalframework.data.annotation.ReadOnly;
 import org.finalframework.data.annotation.Reference;
 import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.annotation.Version;
+import org.finalframework.data.annotation.View;
 import org.finalframework.data.annotation.WriteOnly;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
@@ -211,7 +211,7 @@ public class AnnotationProperty implements Property {
 
     private void initColumnView() {
         List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
-        TypeElement columnView = typeElements.getTypeElement(ColumnView.class);
+        TypeElement columnView = typeElements.getTypeElement(View.class);
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, columnView.asType())) {

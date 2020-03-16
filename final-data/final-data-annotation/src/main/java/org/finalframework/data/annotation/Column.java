@@ -15,7 +15,7 @@ import org.springframework.data.annotation.Persistent;
  * @version 1.0
  * @date 2018-10-15 15:14
  * @see Reference
- * @see JsonColumn
+ * @see Json
  * @see Virtual
  * @see Created
  * @see Creator

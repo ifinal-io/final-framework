@@ -14,7 +14,7 @@ import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.Function;
 import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.JsonColumn;
+import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -114,7 +114,7 @@ public final class TypeHandlers {
                         return getTypeElement(typeHandlerRegistry.getSetTypeHandler());
                 }
             }
-        } else if (property.hasAnnotation(JsonColumn.class)) {
+        } else if (property.hasAnnotation(Json.class)) {
             PersistentType persistentType = JSON;
             switch (persistentType) {
                 case JSON:
