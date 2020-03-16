@@ -3,7 +3,8 @@ package org.finalframework.data.annotation;
 import java.lang.annotation.*;
 
 /**
- * The property annotated by {@link WriteOnlyColumn} will not be selected.
+ * The property annotated by {@link WriteOnly} will not be selected.
+ * 被标记的对象不会生成 {@literal select}
  *
  * @author likly
  * @version 1.0
@@ -12,8 +13,8 @@ import java.lang.annotation.*;
  */
 @Column
 @Documented
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WriteOnlyColumn {
+public @interface WriteOnly {
 
 }

@@ -100,6 +100,11 @@
             <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework.data</groupId>
+                <artifactId>final-data</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.data</groupId>
                 <artifactId>final-data-annotation</artifactId>
                 <version>${final.version}</version>
             </dependency>
@@ -111,6 +116,11 @@
             <!-- ==================================================================================================== -->
             <!-- ============================================ final-coding ============================================ -->
             <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.coding</groupId>
+                <artifactId>final-coding</artifactId>
+                <version>${final.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.finalframework.coding</groupId>
                 <artifactId>final-coding-core</artifactId>

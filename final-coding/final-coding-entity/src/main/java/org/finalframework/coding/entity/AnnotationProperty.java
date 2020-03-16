@@ -14,7 +14,6 @@ import org.springframework.lang.NonNull;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
 import javax.lang.model.type.*;
-import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
@@ -56,6 +55,8 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isIdProperty;
     private final Lazy<Boolean> isReference;
     private final Lazy<Boolean> isVersion;
+
+    private final Lazy<Boolean> isDefault;
     private final Lazy<Boolean> isWritable;
     private final Lazy<Boolean> isReadable;
     private final Lazy<Boolean> isTransient;
@@ -111,8 +112,9 @@ public class AnnotationProperty implements Property {
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(ReferenceColumn.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
+        this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
         this.isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnly.class));
-        this.isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnlyColumn.class));
+        this.isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnly.class));
         this.isTransient = Lazy.of(() -> hasAnnotation(Transient.class));
 
         PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
@@ -287,6 +289,11 @@ public class AnnotationProperty implements Property {
     @Override
     public boolean nonnull() {
         return nonnull;
+    }
+
+    @Override
+    public boolean isDefault() {
+        return isDefault.get();
     }
 
     @Override

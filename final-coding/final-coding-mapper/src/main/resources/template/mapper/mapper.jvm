@@ -6,16 +6,18 @@ import ${mapper.entity.name};
 
 import javax.annotation.Generated;
 
+#set($idJavaType = $mapper.entity.idProperty.getJavaTypeElement().getQualifiedName().toString().replace("java.lang.",""))
+
 #if($mapper.inner)
 @Mapper
 @Generated("org.finalframework.coding.mapper.MapperGenerator")
-interface $!{mapper.simpleName} extends AbsMapper<${mapper.entity.idProperty.type.replace("java.lang.","")},${mapper.entity.simpleName}>{
+interface $!{mapper.simpleName} extends AbsMapper<${idJavaType},${mapper.entity.simpleName}>{
 
 }
 #else
 @Mapper
 @Generated("org.finalframework.coding.mapper.MapperGenerator")
-public interface $!{mapper.simpleName} extends AbsMapper<${mapper.entity.idProperty.type.replace("java.lang.","")},${mapper.entity.simpleName}>{
+public interface $!{mapper.simpleName} extends AbsMapper<${idJavaType},${mapper.entity.simpleName}>{
 
 }
 #end

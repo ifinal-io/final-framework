@@ -51,6 +51,8 @@ public interface Property {
 
     boolean nonnull();
 
+    boolean isDefault();
+
     boolean isWriteOnly();
 
     boolean updatable();

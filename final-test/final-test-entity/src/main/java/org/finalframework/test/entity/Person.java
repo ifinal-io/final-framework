@@ -98,6 +98,7 @@ public class Person extends AbsRecord {
         this.date = date;
     }
 
+    @WriteOnly
     public String getExtName() {
         return name;
     }

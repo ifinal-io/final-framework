@@ -138,7 +138,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final List<String> columns = new ArrayList<>();
         entity.stream()
-                .filter(it -> !it.isTransient() && it.isWriteOnly())
+                .filter(it -> !it.isDefault() || !it.isReadOnly())
                 .filter(it -> {
                     if (view == null) {
                         if (it.hasAnnotation(ReadOnly.class)) {
@@ -214,7 +214,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
-                .filter(it -> !it.isTransient() && it.isWriteOnly())
+                .filter(it -> !it.isDefault() || !it.isReadOnly())
                 .filter(it -> {
                     if (view == null) {
                         if (it.hasAnnotation(ReadOnly.class)) {

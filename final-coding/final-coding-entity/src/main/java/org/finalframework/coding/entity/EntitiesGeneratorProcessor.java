@@ -3,6 +3,7 @@ package org.finalframework.coding.entity;
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.Coder;
 import org.finalframework.core.configuration.Configuration;
+import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import javax.annotation.processing.*;
@@ -55,6 +56,7 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         } else {
             ElementFilter.typesIn(roundEnv.getRootElements())
                     .stream()
+                    .filter(it -> it.getAnnotation(Transient.class) == null)
                     .filter(entityFilter::matches)
                     .forEach(entities::add);
         }

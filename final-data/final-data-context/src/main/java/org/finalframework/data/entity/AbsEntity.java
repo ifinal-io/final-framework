@@ -21,21 +21,26 @@ public abstract class AbsEntity implements IEntity<Long> {
     /**
      * 主键，流水号
      */
+    @Default
     @PrimaryKey
     private Long id;
     /**
      * 版本号，在使用 {@link org.finalframework.data.repository.Repository#update} 方法更新时，会插入 {@code version += version}。
      */
+    @Default
+    @ReadOnly
     @Version
     private Long version;
     /**
      * 创建时间
      */
+    @Default
     @Created
     private LocalDateTime created;
     /**
      * 最后修改时间
      */
+    @ReadOnly
     @LastModified
     private LocalDateTime lastModified;
     /**

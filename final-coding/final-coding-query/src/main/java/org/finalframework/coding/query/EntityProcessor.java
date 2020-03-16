@@ -1,7 +1,6 @@
 package org.finalframework.coding.query;
 
 import com.google.auto.service.AutoService;
-import org.finalframework.coding.beans.Bean;
 import org.finalframework.coding.entity.Entities;
 import org.finalframework.coding.entity.EntitiesHelper;
 import org.finalframework.coding.mapper.TypeHandlers;
@@ -16,7 +15,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import javax.tools.Diagnostic;
 import java.util.Set;
 
 /**
