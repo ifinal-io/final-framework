@@ -14,9 +14,8 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
 /**
- * Mark the element of {@link Field} or {@link Method} is persistent to {@literal json}. By Default,
- * the type of collection like {@link List},{@link Set} and {@link Map} will be persistent to
- * {@literal json}.
+ * Mark the element of {@link Field} or {@link Method} is persistent to {@literal json}. By Default, the type of
+ * collection like {@link List},{@link Set} and {@link Map} will be persistent to {@literal json} by default.
  *
  * @author likly
  * @version 1.0

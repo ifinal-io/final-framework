@@ -1,12 +1,14 @@
 package org.finalframework.data.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
-import java.lang.annotation.*;
-
 /**
- * The property annotated by {@link ReadOnly} will not be updated.
- * 被标记的对象不会生成 {@literal insert} 和 {@literal update}
+ * Marked the element is {@literal readonly}, it will not be {@literal insert} and {@literal update}.
  *
  * @author likly
  * @version 1.0
@@ -18,7 +20,7 @@ import java.lang.annotation.*;
 @Column
 @Documented
 @ReadOnlyProperty
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReadOnly {
 
