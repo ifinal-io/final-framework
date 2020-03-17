@@ -17,7 +17,6 @@ import java.lang.annotation.*;
  * @since 1.0
  */
 @Column
-@Default
 @Documented
 @Index(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})

@@ -78,6 +78,7 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isVersion;
 
     private final Lazy<Boolean> isDefault;
+    private final Lazy<Boolean> isFinal;
     private final Lazy<Boolean> isVirtual;
     private final Lazy<Boolean> isWritable;
     private final Lazy<Boolean> isReadable;
@@ -131,12 +132,13 @@ public class AnnotationProperty implements Property {
         this.isMap = Lazy.of(() -> isMap(getType()));
 
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
+        this.isFinal = Lazy.of(!isTransient() && hasAnnotation(Final.class));
         this.isVirtual = Lazy.of(!isTransient() && hasAnnotation(Virtual.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
-        this.isWritable = Lazy.of(() -> !isTransient() && !hasAnnotation(ReadOnly.class));
-        this.isReadable = Lazy.of(() -> !isTransient() && !hasAnnotation(WriteOnly.class));
+        this.isWritable = Lazy.of(() -> !isTransient() && !isVirtual() && !hasAnnotation(ReadOnly.class));
+        this.isReadable = Lazy.of(() -> !isTransient() && !isVirtual() && !hasAnnotation(WriteOnly.class));
         this.isTransient = Lazy.of(() -> hasAnnotation(Transient.class));
 
         PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
@@ -321,22 +323,27 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
+    public boolean isFinal() {
+        return isFinal.get();
+    }
+
+    @Override
     public boolean isVirtual() {
         return isVirtual.get();
     }
 
     @Override
-    public boolean isWriteOnly() {
+    public boolean isWritable() {
         return isWritable.get();
     }
 
     @Override
     public boolean updatable() {
-        return !isVirtual() && !isReadOnly();
+        return !isVirtual() && !isFinal();
     }
 
     @Override
-    public boolean isReadOnly() {
+    public boolean isReadable() {
         return isReadable.get();
     }
 

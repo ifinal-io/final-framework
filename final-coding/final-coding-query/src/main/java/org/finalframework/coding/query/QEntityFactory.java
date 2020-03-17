@@ -55,9 +55,9 @@ public class QEntityFactory {
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
                     .persistentType(property.getPersistentType())
-                    .insertable(property.isWriteOnly())
+                    .insertable(property.isWritable())
                     .updatable(property.updatable())
-                    .selectable(property.isReadOnly())
+                    .selectable(property.isReadable())
                     .build();
         } else {
             System.out.println("2:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
@@ -69,9 +69,9 @@ public class QEntityFactory {
                     .typeHandler(typeHandlers.getTypeHandler(property))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
-                    .insertable(referenceProperty.isWriteOnly())
+                    .insertable(referenceProperty.isWritable())
                     .updatable(referenceProperty.updatable())
-                    .selectable(referenceProperty.isReadOnly())
+                    .selectable(referenceProperty.isReadable())
                     .build();
         }
 

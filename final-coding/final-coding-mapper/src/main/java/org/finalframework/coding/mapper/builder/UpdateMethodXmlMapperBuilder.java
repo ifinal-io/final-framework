@@ -185,7 +185,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         whenOrOtherwise.setAttribute("test", test);
 
         entity.stream()
-                .filter(it -> !it.isTransient() && it.updatable() && (view == null || it.hasView(view)))
+                .filter(it -> it.isWritable() && !it.isFinal() && (view == null || it.hasView(view)))
                 .forEach(property -> {
                     if (property.isReference()) {
                         /**
@@ -250,7 +250,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         final Element whenUpdateNotNull = document.createElement("when");
         whenUpdateNotNull.setAttribute("test", "update != null");
 
-        entity.stream().filter(Property::updatable)
+        entity.stream().filter(it -> it.isWritable() && !it.isFinal())
                 .forEach(property -> {
 
                     /*

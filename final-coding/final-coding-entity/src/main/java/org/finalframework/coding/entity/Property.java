@@ -53,13 +53,15 @@ public interface Property {
 
     boolean isDefault();
 
+    boolean isFinal();
+
     boolean isVirtual();
 
-    boolean isWriteOnly();
+    boolean isWritable();
 
     boolean updatable();
 
-    boolean isReadOnly();
+    boolean isReadable();
 
     boolean placeholder();
 
