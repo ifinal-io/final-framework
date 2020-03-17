@@ -23,13 +23,13 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>com.sun</groupId>
-            <artifactId>tools</artifactId>
-            <version>${java.version}</version>
-            <scope>system</scope>
-            <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.sun</groupId>-->
+        <!--            <artifactId>tools</artifactId>-->
+        <!--            <version>${java.version}</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>

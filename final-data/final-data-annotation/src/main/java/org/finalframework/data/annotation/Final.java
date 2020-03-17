@@ -1,10 +1,13 @@
 package org.finalframework.data.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * The property annotated by {@link Final} will not be update.
- * 被标记的对象不会生成 {@literal update}
  *
  * @author likly
  * @version 1.0
@@ -13,7 +16,7 @@ import java.lang.annotation.*;
  */
 @Column
 @Documented
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Final {
 

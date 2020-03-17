@@ -1,17 +1,26 @@
 package org.finalframework.coding.entity;
 
 import com.google.auto.service.AutoService;
-import org.finalframework.coding.Coder;
-import org.finalframework.core.configuration.Configuration;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.mapping.converter.NameConverterRegistry;
-
-import javax.annotation.processing.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.ElementVisitor;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
-import java.util.HashSet;
-import java.util.Set;
+import org.finalframework.coding.Coder;
+import org.finalframework.coding.entity.validator.EnumValidator;
+import org.finalframework.core.configuration.Configuration;
+import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 /**
  * QEntity 代码生成处理器
@@ -26,10 +35,13 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class EntitiesGeneratorProcessor extends AbstractProcessor {
+
     private Coder coder = Coder.getDefaultCoder();
     private Set<TypeElement> entities = new HashSet<>(128);
     private EntityFilter entityFilter;
     private EntitiesHelper entitiesHelper;
+
+    private List<ElementVisitor<?, ?>> elementVisitors = new ArrayList<>(8);
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -38,10 +50,15 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         NameConverterRegistry.getInstance().reload();
         this.entityFilter = new EntityFilter(processingEnv);
         this.entitiesHelper = new EntitiesHelper(processingEnv);
+        this.elementVisitors.add(new EnumValidator(processingEnv, IEnum.class));
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        roundEnv.getRootElements().forEach(it -> {
+            elementVisitors.forEach(elementVisitor -> it.accept(elementVisitor, null));
+        });
+
         if (roundEnv.processingOver()) {
 
 //            entities.forEach(entity -> {
@@ -55,10 +72,10 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
             coding(Entities.builder().addEntities(entities).build());
         } else {
             ElementFilter.typesIn(roundEnv.getRootElements())
-                    .stream()
-                    .filter(it -> it.getAnnotation(Transient.class) == null)
-                    .filter(entityFilter::matches)
-                    .forEach(entities::add);
+                .stream()
+                .filter(it -> it.getAnnotation(Transient.class) == null)
+                .filter(entityFilter::matches)
+                .forEach(entities::add);
         }
         return false;
     }

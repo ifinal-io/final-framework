@@ -1,9 +1,12 @@
 package org.finalframework.data.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
-
-import java.lang.annotation.*;
 
 /**
  * 创建时间
@@ -17,6 +20,7 @@ import java.lang.annotation.*;
  */
 @Column
 @Default
+@ReadOnly
 @CreatedDate
 @Documented
 @Index(Integer.MAX_VALUE - 100)

@@ -7,7 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marked the element is not need to {@literal insert}. The element has a default value.
+ * Marked the element is not need to {@literal insert}. The element has a default value. Such as a {@link Created}
+ * column when it default {@literal now()}.
  *
  * @author likly
  * @version 1.0
