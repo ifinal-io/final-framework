@@ -332,7 +332,7 @@ public class AnnotationProperty implements Property {
 
     @Override
     public boolean updatable() {
-        return updatable;
+        return !isVirtual() && !isReadOnly();
     }
 
     @Override

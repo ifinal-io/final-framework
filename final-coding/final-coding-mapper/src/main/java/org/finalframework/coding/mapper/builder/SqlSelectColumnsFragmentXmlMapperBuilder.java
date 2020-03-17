@@ -46,7 +46,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
 
     private Element whenViewSelectColumns(@NonNull Document document, @NonNull Entity entity, @Nullable TypeElement view) {
         final List<String> columns = new ArrayList<>();
-        entity.stream().filter(it -> !it.isTransient() && it.isReadOnly())
+        entity.stream().filter(it -> !it.isTransient() && it.isReadOnly() && !it.isVirtual())
                 .filter(it -> {
                     if (view == null) {
                         if (it.hasAnnotation(ReadOnly.class)) {
@@ -59,7 +59,6 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
                 })
                 .forEach(property -> {
                     if (property.isReference()) {
-                        final TypeElement multiType = property.getJavaTypeElement();
                         final Entity multiEntity = property.toEntity();
                         List<String> referenceProperties = property.referenceProperties();
                         referenceProperties.stream()
