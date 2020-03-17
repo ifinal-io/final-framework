@@ -1,6 +1,7 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 **/target/
+**/.DS_Store
 /logs/
 *.versionsBackup
 */.sass-cache

@@ -21,16 +21,16 @@ public class Person extends AbsRecord {
 //    private Long id;
     @JsonView(Person.class)
     @NotNull
-    @ColumnView(Person.class)
+    @View(Person.class)
     private String name;
     @JsonView(Person.class)
     private int age;
     @ReadOnly
-    @FunctionColumn(reader = "MAX(age)")
-    @ColumnView(Person.class)
+    @Function(reader = "MAX(age)")
+    @View(Person.class)
     private int maxAge;
-    @ColumnView(Person.class)
-    @JsonColumn("jsonList")
+    @View(Person.class)
+    @Json("jsonList")
     private List<String> stringList;
     @Column
     private List<Integer> intList;
