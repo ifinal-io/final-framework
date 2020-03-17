@@ -16,8 +16,10 @@ import javax.lang.model.element.ElementVisitor;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import org.finalframework.coding.Coder;
+import org.finalframework.coding.entity.validator.EntityValidator;
 import org.finalframework.coding.entity.validator.EnumValidator;
 import org.finalframework.core.configuration.Configuration;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -50,7 +52,9 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         NameConverterRegistry.getInstance().reload();
         this.entityFilter = new EntityFilter(processingEnv);
         this.entitiesHelper = new EntitiesHelper(processingEnv);
+
         this.elementVisitors.add(new EnumValidator(processingEnv, IEnum.class));
+        this.elementVisitors.add(new EntityValidator(processingEnv, IEntity.class));
     }
 
     @Override
