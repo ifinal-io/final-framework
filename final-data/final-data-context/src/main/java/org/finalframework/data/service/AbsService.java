@@ -25,6 +25,11 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
+    default int replace(String tableName, Class<?> view, Collection<T> entities) {
+        return getRepository().replace(tableName, view, entities);
+    }
+
+    @Override
     default int update(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query) {
         return getRepository().update(tableName, view, entity, update, selective, ids, query);
     }

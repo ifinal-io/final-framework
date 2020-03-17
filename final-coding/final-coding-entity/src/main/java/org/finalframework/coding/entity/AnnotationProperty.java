@@ -27,19 +27,11 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Reference;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.annotation.Version;
-import org.finalframework.data.annotation.View;
-import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
@@ -55,6 +47,10 @@ import org.springframework.lang.NonNull;
  */
 public class AnnotationProperty implements Property {
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
+    /**
+     * 虚拟列前缀
+     */
+    private static final String VIRTUAL_PREFIX = "v_";
     private final ProcessingEnvironment processEnv;
     private final Elements elements;
     private final Types types;
@@ -82,6 +78,7 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isVersion;
 
     private final Lazy<Boolean> isDefault;
+    private final Lazy<Boolean> isVirtual;
     private final Lazy<Boolean> isWritable;
     private final Lazy<Boolean> isReadable;
     private final Lazy<Boolean> isTransient;
@@ -116,7 +113,6 @@ public class AnnotationProperty implements Property {
 
         this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
         this.name = Lazy.of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
-        this.column = Lazy.of(this::initColumn);
 
         this.type = Lazy.of(() ->
                 withFieldOrMethod(
@@ -135,6 +131,7 @@ public class AnnotationProperty implements Property {
         this.isMap = Lazy.of(() -> isMap(getType()));
 
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
+        this.isVirtual = Lazy.of(!isTransient() && hasAnnotation(Virtual.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
@@ -150,6 +147,8 @@ public class AnnotationProperty implements Property {
             initReferenceColumn(getAnnotation(Reference.class));
         }
         initColumnView();
+
+        this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
         System.out.println("=================================================" + getName() + "=================================================");
         System.out.println("name：" + getName());
@@ -319,6 +318,11 @@ public class AnnotationProperty implements Property {
     @Override
     public boolean isDefault() {
         return isDefault.get();
+    }
+
+    @Override
+    public boolean isVirtual() {
+        return isVirtual.get();
     }
 
     @Override

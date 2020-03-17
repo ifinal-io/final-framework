@@ -10,8 +10,7 @@ import org.w3c.dom.Element;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,9 @@ import static org.finalframework.data.annotation.enums.PrimaryKeyType.UUID;
  */
 public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
-    private static final String INSERT_METHOD_NAME = "insert";
+    private static final String METHOD_INSERT = "insert";
+    private static final String METHOD_REPLACE = "replace";
+    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE));
 
     public InsertMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
         super(typeHandlers);
@@ -33,15 +34,16 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     @Override
     public boolean supports(ExecutableElement method) {
-        return !method.isDefault() && INSERT_METHOD_NAME.equals(method.getSimpleName().toString());
+        return !method.isDefault() && methods.contains(method.getSimpleName().toString());
     }
 
 
     @Override
     public Element buildMethodElement(ExecutableElement method, Document document, Entity entity) {
         final Element insert = document.createElement("insert");
+        String methodName = method.getSimpleName().toString();
+        insert.setAttribute("id", methodName);
 
-        insert.setAttribute("id", "insert");
         switch (entity.getPrimaryKeyType()) {
             case AUTO_INC:
                 /*
@@ -57,26 +59,28 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                 break;
             case UUID:
             case UUID_MD5:
-                /*
-                 * <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
-                 *     SELECT REPLACE(UUID(), '-', '') FROM dual
-                 * </selectKey>
-                 */
-                final Element selectKey = document.createElement("selectKey");
-                selectKey.setAttribute("keyProperty", entity.getRequiredIdProperty().getName());
-                selectKey.setAttribute("resultType", String.class.getCanonicalName());
-                selectKey.setAttribute("order", "BEFORE");
+                if (METHOD_INSERT.equals(methodName)) {
+                    /*
+                     * <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+                     *     SELECT REPLACE(UUID(), '-', '') FROM dual
+                     * </selectKey>
+                     */
+                    final Element selectKey = document.createElement("selectKey");
+                    selectKey.setAttribute("keyProperty", entity.getRequiredIdProperty().getName());
+                    selectKey.setAttribute("resultType", String.class.getCanonicalName());
+                    selectKey.setAttribute("order", "BEFORE");
 
-                Element trim = document.createElement("trim");
-                trim.setAttribute("prefix", "SELECT");
-                trim.setAttribute("suffix", "FROM dual");
-                trim.appendChild(textNode(document, UUID == entity.getPrimaryKeyType() ? "REPLACE(UUID(), '-', '')" : "MD5(REPLACE(UUID(), '-', ''))"));
+                    Element trim = document.createElement("trim");
+                    trim.setAttribute("prefix", "SELECT");
+                    trim.setAttribute("suffix", "FROM dual");
+                    trim.appendChild(textNode(document, UUID == entity.getPrimaryKeyType() ? "REPLACE(UUID(), '-', '')" : "MD5(REPLACE(UUID(), '-', ''))"));
 
-                selectKey.appendChild(trim);
+                    selectKey.appendChild(trim);
 //                final Text selectKeyText = document.createTextNode(UUID == entity.getPrimaryKeyType() ?
 //                        "SELECT REPLACE(UUID(), '-', '') FROM dual" : "SELECT MD5(REPLACE(UUID(), '-', '')) FROM dual");
 //                selectKey.appendChild(selectKeyText);
-                insert.appendChild(selectKey);
+                    insert.appendChild(selectKey);
+                }
                 break;
         }
 
@@ -95,7 +99,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //        insert.appendChild(include(document, SQL_TABLE));
 
         Element insertInto = document.createElement("trim");
-        insertInto.setAttribute("prefix", "INSERT INTO");
+        insertInto.setAttribute("prefix", methodName.toUpperCase() + " INTO");
         insertInto.appendChild(include(document, SQL_TABLES));
         insert.appendChild(insertInto);
 

@@ -111,6 +111,46 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     @Deprecated
     int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
+    /*=========================================== REPLACE ===========================================*/
+    default int replace(T... entities) {
+        return insert(Arrays.asList(entities));
+    }
+
+    default int replace(Collection<T> entities) {
+        return insert(null, null, entities);
+    }
+
+    default int replace(String tableName, T... entities) {
+        return insert(tableName, Arrays.asList(entities));
+    }
+
+    default int replace(String tableName, Collection<T> entities) {
+        return insert(tableName, null, entities);
+    }
+
+    default int replace(Class<?> view, T... entities) {
+        return insert(view, Arrays.asList(entities));
+    }
+
+    default int replace(Class<?> view, Collection<T> entities) {
+        return insert(null, view, entities);
+    }
+
+    default int replace(String tableName, Class<?> view, T... entities) {
+        return insert(tableName, view, Arrays.asList(entities));
+    }
+
+    /**
+     * 批量插入数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entities  实体集
+     * @return 指插入数据所影响的行数
+     */
+    @Deprecated
+    int replace(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+
     /*=========================================== UPDATE ===========================================*/
 
     default int update(T entity) {

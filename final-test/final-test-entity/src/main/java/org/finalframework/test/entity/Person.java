@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -40,7 +41,6 @@ public class Person extends AbsRecord {
     private Date date = new Date();
 
 //    private YN yn;
-
 
     public String getName() {
         return name;
@@ -101,5 +101,10 @@ public class Person extends AbsRecord {
     @WriteOnly
     public String getExtName() {
         return name;
+    }
+
+    @Virtual
+    public Integer getExtAge() {
+        return 1;
     }
 }

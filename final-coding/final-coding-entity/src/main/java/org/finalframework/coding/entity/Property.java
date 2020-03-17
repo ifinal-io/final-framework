@@ -53,6 +53,8 @@ public interface Property {
 
     boolean isDefault();
 
+    boolean isVirtual();
+
     boolean isWriteOnly();
 
     boolean updatable();
