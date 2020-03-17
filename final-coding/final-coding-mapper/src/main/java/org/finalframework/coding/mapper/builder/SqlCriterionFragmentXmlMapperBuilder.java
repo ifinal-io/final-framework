@@ -42,8 +42,8 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
                 singleWhenElement(document, CriterionOperator.LESS_THAN, "${criterion.criterionTarget} < ${criterion.criterionValue}"),
                 singleWhenElement(document, CriterionOperator.LESS_THAN_EQUAL, "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
 
-                betweenWhenElement(document, CriterionOperator.BETWEEN, "${criterion.criterionTarget} BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
-                betweenWhenElement(document, CriterionOperator.NOT_BETWEEN, "${criterion.criterionTarget} NOT BETWEEN ${criterion.functionMin} AND ${criterion.functionMax}"),
+                betweenWhenElement(document, CriterionOperator.BETWEEN, "${criterion.criterionTarget} BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
+                betweenWhenElement(document, CriterionOperator.NOT_BETWEEN, "${criterion.criterionTarget} NOT BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
 
                 singleWhenElement(document, CriterionOperator.LIKE, "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
                 singleWhenElement(document, CriterionOperator.NOT_LIKE, "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
