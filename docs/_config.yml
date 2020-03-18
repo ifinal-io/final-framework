@@ -53,8 +53,11 @@ plugins:
   - jekyll-readme-index
   - jekyll-titles-from-headings
   - jekyll-relative-links
+#data_dir: datas
 collections_dir: pages
 collections:
+  data:
+    output: true
   framework:
     output: true
   monitor:

@@ -10,7 +10,7 @@
                 module: "{{module}}",
                 menus: {{ page.menus | jsonify }}
             },
-            modules: {{ site.data.modules | jsonify }},
+            modules: {{ site.datas.modules | jsonify }},
             {% if module == 'cache' %}
             sidebar: {{ site.data.sidebar.cache | jsonify }}
             {% elsif module == 'monitor' %}

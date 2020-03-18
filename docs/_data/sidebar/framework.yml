@@ -29,10 +29,14 @@ menus:
     name: Data
     icon: table_chart
     menus:
-      - id: annotation
-        link: /framework/data/annotation
-        mini: AN
-        name: Annotation
+      - id: orm
+        name: 对象映射
+        mini: ORM
+        menus:
+          - id: annotation
+            link: /framework/data/orm/annotation
+            mini: ANN
+            name: Annotation
       - id: result
         link: /framework/data/result
         mini: RST
