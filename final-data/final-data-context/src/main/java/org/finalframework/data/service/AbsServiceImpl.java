@@ -8,8 +8,10 @@ import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Listener;
 import org.finalframework.data.repository.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,6 +28,13 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public abstract class AbsServiceImpl<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> implements AbsService<ID, T, R> {
+
+    private final R repository;
+
+    public AbsServiceImpl(@Autowired @NonNull R repository) {
+        this.repository = repository;
+    }
+
     /*=========================================== INSERT ===========================================*/
     @Override
     public final int insert(T... entities) {
@@ -855,6 +864,11 @@ public abstract class AbsServiceImpl<ID extends Serializable, T extends IEntity<
     @Override
     public final void truncate() {
         truncate(null);
+    }
+
+    @Override
+    public final R getRepository() {
+        return repository;
     }
 
     /*=========================================== Overridable ===========================================*/
