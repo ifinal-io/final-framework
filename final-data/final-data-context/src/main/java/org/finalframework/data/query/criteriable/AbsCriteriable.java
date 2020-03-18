@@ -147,13 +147,13 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
 
     @Override
-    public FunctionCriteriable<V, Criterion> extract(String path) {
+    public FunctionCriteriable<V, Criterion> jsonExtract(String path) {
         this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
         return this;
     }
 
     @Override
-    public FunctionCriteriable<V, Criterion> unquote() {
+    public FunctionCriteriable<V, Criterion> jsonUnquote() {
         this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
         return this;
     }

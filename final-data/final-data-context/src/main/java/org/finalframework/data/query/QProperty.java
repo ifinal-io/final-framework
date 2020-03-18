@@ -134,12 +134,12 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
 
     @Override
-    default FunctionCriteriable<Object, Criterion> extract(String path) {
+    default FunctionCriteriable<Object, Criterion> jsonExtract(String path) {
         return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
     }
 
     @Override
-    default FunctionCriteriable<Object, Criterion> unquote() {
+    default FunctionCriteriable<Object, Criterion> jsonUnquote() {
         return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
     }
 

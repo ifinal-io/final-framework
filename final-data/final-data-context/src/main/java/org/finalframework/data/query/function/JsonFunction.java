@@ -14,10 +14,10 @@ public interface JsonFunction<V, R> extends Function {
      *
      * @param path 指定的属性路径，以$开关
      */
-    R extract(@NonNull String path);
+    R jsonExtract(@NonNull String path);
 
     /**
      * 去掉查询结果中首尾的双引号
      */
-    R unquote();
+    R jsonUnquote();
 }
