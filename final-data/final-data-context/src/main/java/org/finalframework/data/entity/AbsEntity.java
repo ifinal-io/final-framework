@@ -1,10 +1,16 @@
 package org.finalframework.data.entity;
 
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.entity.enums.YN;
-
 import java.time.LocalDateTime;
+import org.finalframework.data.annotation.Column;
+import org.finalframework.data.annotation.Created;
+import org.finalframework.data.annotation.Default;
+import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.annotation.LastModified;
+import org.finalframework.data.annotation.PrimaryKey;
+import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.Version;
+import org.finalframework.data.annotation.View;
+import org.finalframework.data.entity.enums.YN;
 
 /**
  * 抽象的基础实现模型，包含数据表记录的基础属性如：{@link #id}
@@ -23,6 +29,7 @@ public abstract class AbsEntity implements IEntity<Long> {
      */
     @Default
     @PrimaryKey
+    @View(View.class)
     private Long id;
     /**
      * 版本号，在使用 {@link org.finalframework.data.repository.Repository#update} 方法更新时，会插入 {@code version += version}。
@@ -30,24 +37,28 @@ public abstract class AbsEntity implements IEntity<Long> {
     @Default
     @ReadOnly
     @Version
+    @View(View.class)
     private Long version;
     /**
      * 创建时间
      */
     @Default
     @Created
+    @View(View.class)
     private LocalDateTime created;
     /**
      * 最后修改时间
      */
     @ReadOnly
     @LastModified
+    @View(View.class)
     private LocalDateTime lastModified;
     /**
      * 有效标记
      */
     @Default
     @Column
+    @View(View.class)
     private YN yn;
 
     @Override
