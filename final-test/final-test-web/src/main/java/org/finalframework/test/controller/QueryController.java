@@ -29,7 +29,7 @@ public class QueryController {
 
     @GetMapping
     @JsonView(Person.class)
-    public Object query() {
+    public Object query(Long id) {
 //        Query query = new Query();
 
 

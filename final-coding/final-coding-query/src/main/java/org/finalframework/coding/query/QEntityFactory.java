@@ -48,7 +48,7 @@ public class QEntityFactory {
 
     private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property, TypeHandlers typeHandlers) {
         if (referenceProperty == null) {
-            System.out.println("1:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
+//            System.out.println("1:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .type(property.getJavaTypeElement())
                     .typeHandler(typeHandlers.getTypeHandler(property))
@@ -60,7 +60,7 @@ public class QEntityFactory {
                     .selectable(property.isReadable())
                     .build();
         } else {
-            System.out.println("2:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
+//            System.out.println("2:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             final String path = referenceProperty.getName() + "." + property.getName();
             final String name = Utils.formatPropertyName(referenceProperty, property);
             return QProperty.builder(path, name)

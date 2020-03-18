@@ -4,7 +4,9 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.SimpleElementVisitor8;
+import javax.lang.model.util.Types;
 import javax.tools.Diagnostic.Kind;
+
 import org.finalframework.core.filter.Filter;
 import org.finalframework.core.validator.ValidatorVisitor;
 
@@ -15,8 +17,8 @@ import org.finalframework.core.validator.ValidatorVisitor;
  * @since 1.0
  */
 public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
-    ValidatorVisitor<Void, TypeElement, Class<?>>,
-    Filter<TypeElement> {
+        ValidatorVisitor<Void, TypeElement, Class<?>>,
+        Filter<TypeElement> {
 
     private final ProcessingEnvironment processingEnvironment;
     private final Class<?> enumInterface;
@@ -41,14 +43,18 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
 
     @Override
     public Void validate(TypeElement typeElement, Class<?> enumInterface) {
-        boolean assignable = processingEnvironment.getTypeUtils().isAssignable(typeElement.asType(),
-            processingEnvironment.getElementUtils().getTypeElement(enumInterface.getCanonicalName()).asType());
 
-        if (!assignable) {
+        if (!isAssignable(typeElement, enumInterface)) {
             processingEnvironment.getMessager()
-                .printMessage(Kind.ERROR,
-                    "the enum type must be implements the interface of " + enumInterface.getCanonicalName());
+                    .printMessage(Kind.ERROR,
+                            "the enum type of " + typeElement.getQualifiedName().toString() + " must be implements the interface of " + enumInterface.getCanonicalName());
         }
         return null;
+    }
+
+    private boolean isAssignable(TypeElement element, Class<?> clazz) {
+        Types typeUtils = processingEnvironment.getTypeUtils();
+        TypeElement typeElement = processingEnvironment.getElementUtils().getTypeElement(clazz.getCanonicalName());
+        return typeUtils.isSubtype(typeUtils.erasure(element.asType()), typeUtils.erasure(typeElement.asType()));
     }
 }
