@@ -68,10 +68,10 @@ public class Configuration {
         try {
             FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             properties.load(resource.openInputStream());
-            System.out.println("======" + resource.toUri().toString());
-            for (Object key : properties.keySet()) {
-                System.out.println(String.format("%s=%s", key, getString(key.toString(), null)));
-            }
+//            System.out.println("======" + resource.toUri().toString());
+//            for (Object key : properties.keySet()) {
+//                System.out.println(String.format("%s=%s", key, getString(key.toString(), null)));
+//            }
         } catch (Exception e) {
             // ignore
         }

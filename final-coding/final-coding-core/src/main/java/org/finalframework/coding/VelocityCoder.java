@@ -1,10 +1,14 @@
 package org.finalframework.coding;
 
+import ch.qos.logback.classic.Level;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.tools.generic.DateTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Writer;
 import java.util.Date;
@@ -26,6 +30,13 @@ public class VelocityCoder implements Coder {
         properties.setProperty("runtime.log.invalid.references", "false");
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("output.encoding", "UTF-8");
+        properties.setProperty("log4j.logger.org.apache.velocity", "ERROR");
+
+
+        Logger logger = LoggerFactory.getLogger(RuntimeConstants.DEFAULT_RUNTIME_LOG_NAME);
+        if (logger instanceof ch.qos.logback.classic.Logger) {
+            ((ch.qos.logback.classic.Logger) logger).setLevel(Level.ERROR);
+        }
 
         Velocity.init(properties);
     }
@@ -44,9 +55,9 @@ public class VelocityCoder implements Coder {
     private Context buildContext(Object model) {
         VelocityContext context = new VelocityContext();
         context.put("date", new DateTool());
-        context.put("version","1.0");
-        context.put("user","likly");
-        context.put("created",new Date());
+        context.put("version", "1.0");
+        context.put("user", "likly");
+        context.put("created", new Date());
         String name = model.getClass().getSimpleName();
         name = name.substring(0, 1).toLowerCase() + name.substring(1);
         context.put(name, model);
