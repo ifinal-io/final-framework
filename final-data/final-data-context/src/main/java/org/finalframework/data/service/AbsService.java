@@ -20,8 +20,13 @@ import java.util.List;
 public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> extends Repository<ID, T> {
 
     @Override
-    default int insert(String tableName, Class<?> view, Collection<T> entities) {
-        return getRepository().insert(tableName, view, entities);
+    default int save(String tableName, Class<?> view, Collection<T> entities) {
+        return getRepository().save(tableName, view, entities);
+    }
+
+    @Override
+    default int insert(String tableName, Class<?> view, boolean ignore, Collection<T> entities) {
+        return getRepository().insert(tableName, view, ignore, entities);
     }
 
     @Override

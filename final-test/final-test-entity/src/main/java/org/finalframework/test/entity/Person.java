@@ -24,6 +24,7 @@ public class Person extends AbsRecord {
     @NotNull
     @View(Person.class)
     private String name;
+    @Final
     @JsonView(Person.class)
     private int age;
     @ReadOnly

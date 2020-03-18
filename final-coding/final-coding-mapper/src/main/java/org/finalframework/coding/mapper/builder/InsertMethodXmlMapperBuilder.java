@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -26,7 +27,8 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
     private static final String METHOD_INSERT = "insert";
     private static final String METHOD_REPLACE = "replace";
-    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE));
+    private static final String METHOD_SAVE = "save";
+    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE, METHOD_SAVE));
 
     public InsertMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
         super(typeHandlers);
@@ -98,10 +100,21 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //        insert.appendChild(textNode(document, "\n\t\tINSERT INTO\n"));
 //        insert.appendChild(include(document, SQL_TABLE));
 
-        Element insertInto = document.createElement("trim");
-        insertInto.setAttribute("prefix", methodName.toUpperCase() + " INTO");
-        insertInto.appendChild(include(document, SQL_TABLES));
-        insert.appendChild(insertInto);
+        Element trim = document.createElement("trim");
+        if (METHOD_SAVE.equalsIgnoreCase(methodName)) {
+            trim.setAttribute("prefix", "INSERT INTO");
+        } else if (METHOD_REPLACE.equalsIgnoreCase(methodName)) {
+            trim.setAttribute("prefix", "REPLACE INTO");
+        } else {
+            trim.setAttribute("prefix", "INSERT");
+            trim.appendChild(choose(document, Arrays.asList(
+                    whenOrOtherwise(document, "ignore == true", textNode(document, " IGNORE INTO")),
+                    whenOrOtherwise(document, null, textNode(document, "INTO"))
+            )));
+
+        }
+        trim.appendChild(include(document, SQL_TABLES));
+        insert.appendChild(trim);
 
         insert.appendChild(insertColumnsElement(document, entity));
 
@@ -109,6 +122,41 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         values.setAttribute("prefix", "VALUES");
         values.appendChild(insertValuesElement(document, entity));
         insert.appendChild(values);
+
+        // save
+
+        if (METHOD_SAVE.equals(methodName)) {
+            Element onDuplicateKeyUpdate = document.createElement("trim");
+            onDuplicateKeyUpdate.setAttribute("prefix", " ON DUPLICATE KEY UPDATE ");
+
+            final List<String> columns = new ArrayList<>();
+
+            entity.stream()
+                    .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isFinal())
+                    .forEach(property -> {
+                        if (property.isReference()) {
+                            final Entity multiEntity = property.toEntity();
+                            List<String> properties = property.referenceProperties();
+                            properties.stream()
+                                    .map(multiEntity::getProperty)
+                                    .map(multiProperty -> {
+//                                    final String table = property.getTable();
+//                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
+                                        return TypeHandlers.formatPropertyColumn(property, multiProperty);
+                                    })
+                                    .forEach(columns::add);
+                        } else {
+                            String column = TypeHandlers.formatPropertyColumn(null, property);
+                            columns.add(column);
+                        }
+                    });
+
+            onDuplicateKeyUpdate.appendChild(textNode(document, columns.stream().map(column -> String.format("%s = values(%s)", column, column)).collect(Collectors.joining(","))));
+
+
+            insert.appendChild(onDuplicateKeyUpdate);
+
+        }
 
 
 //        insert.appendChild(include(document, SQL_QUERY));

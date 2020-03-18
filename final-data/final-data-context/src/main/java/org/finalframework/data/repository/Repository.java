@@ -25,119 +25,104 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unused", "unchecked"})
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
-    /*=========================================== SAVE ===========================================*/
-
-    default int save(@NonNull T entity) {
-        return save((String) null, entity);
-    }
-
-    default int save(@NonNull T entity, @Nullable Queryable query) {
-        return save((String) null, entity, query == null ? null : query.convert());
-    }
-
-    default int save(@Nullable Class<?> view, @NonNull T entity) {
-        return save(null, view, entity);
-    }
-
-    default int save(@Nullable String table, @NonNull T entity) {
-        return save(table, null, entity);
-    }
-
-    default int save(@Nullable Class<?> view, @NonNull T entity, @Nullable Queryable query) {
-        return save(null, view, entity, query == null ? null : query.convert());
-    }
-
-
-    default int save(@Nullable String table, @NonNull T entity, @Nullable Queryable query) {
-        return save(table, null, entity, query == null ? null : query.convert());
-    }
-
-    default int save(@Nullable String table, @Nullable Class<?> view, @NonNull T entity) {
-        return save(table, view, entity, null);
-    }
-
-    default int save(@Nullable String tableName, @Nullable Class<?> view, @NonNull T entity, @Nullable Query query) {
-        if (query == null && entity.getId() == null) {
-            return insert(tableName, view, entity);
-        }
-
-        long count = query == null ? selectCount(tableName, entity.getId()) : selectCount(tableName, query);
-        if (count > 1) {
-            throw new BadRequestException("expect one result but found " + count);
-        }
-        if (count == 1) {
-            return update(tableName, view, entity, query);
-        }
-        return insert(tableName, view, entity);
-    }
-
     /*=========================================== INSERT ===========================================*/
     default int insert(T... entities) {
         return insert(Arrays.asList(entities));
     }
 
-    default int insert(Collection<T> entities) {
-        return insert(null, null, entities);
+    default int insert(boolean ignore, T... entities) {
+        return insert(ignore, Arrays.asList(entities));
     }
+
+    default int insert(Collection<T> entities) {
+        return insert(null, null, false, entities);
+    }
+
+    default int insert(boolean ignore, Collection<T> entities) {
+        return insert(null, null, ignore, entities);
+    }
+
 
     default int insert(String tableName, T... entities) {
         return insert(tableName, Arrays.asList(entities));
     }
 
+    default int insert(String tableName, boolean ignore, T... entities) {
+        return insert(tableName, ignore, Arrays.asList(entities));
+    }
+
     default int insert(String tableName, Collection<T> entities) {
-        return insert(tableName, null, entities);
+        return insert(tableName, null, false, entities);
+    }
+
+    default int insert(String tableName, boolean ignore, Collection<T> entities) {
+        return insert(tableName, null, ignore, entities);
     }
 
     default int insert(Class<?> view, T... entities) {
         return insert(view, Arrays.asList(entities));
     }
 
+    default int insert(Class<?> view, boolean ignore, T... entities) {
+        return insert(view, ignore, Arrays.asList(entities));
+    }
+
     default int insert(Class<?> view, Collection<T> entities) {
-        return insert(null, view, entities);
+        return insert(null, view, false, entities);
+    }
+
+    default int insert(Class<?> view, boolean ignore, Collection<T> entities) {
+        return insert(null, view, ignore, entities);
     }
 
     default int insert(String tableName, Class<?> view, T... entities) {
-        return insert(tableName, view, Arrays.asList(entities));
+        return insert(tableName, view, false, Arrays.asList(entities));
     }
+
+    default int insert(String tableName, Class<?> view, boolean ignore, T... entities) {
+        return insert(tableName, view, ignore, Arrays.asList(entities));
+    }
+
 
     /**
      * 批量插入数据并返回影响的行数
      *
      * @param tableName 表名
      * @param view      视图
+     * @param ignore    是否忽略重复和数据
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
     @Deprecated
-    int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ignore") boolean ignore, @Param("list") Collection<T> entities);
 
     /*=========================================== REPLACE ===========================================*/
     default int replace(T... entities) {
-        return insert(Arrays.asList(entities));
+        return replace(Arrays.asList(entities));
     }
 
     default int replace(Collection<T> entities) {
-        return insert(null, null, entities);
+        return replace(null, null, entities);
     }
 
     default int replace(String tableName, T... entities) {
-        return insert(tableName, Arrays.asList(entities));
+        return replace(tableName, Arrays.asList(entities));
     }
 
     default int replace(String tableName, Collection<T> entities) {
-        return insert(tableName, null, entities);
+        return replace(tableName, null, entities);
     }
 
     default int replace(Class<?> view, T... entities) {
-        return insert(view, Arrays.asList(entities));
+        return replace(view, Arrays.asList(entities));
     }
 
     default int replace(Class<?> view, Collection<T> entities) {
-        return insert(null, view, entities);
+        return replace(null, view, entities);
     }
 
     default int replace(String tableName, Class<?> view, T... entities) {
-        return insert(tableName, view, Arrays.asList(entities));
+        return replace(tableName, view, Arrays.asList(entities));
     }
 
     /**
@@ -150,6 +135,48 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     @Deprecated
     int replace(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+
+    /*=========================================== SAVE ===========================================*/
+    default int save(T... entities) {
+        return save(Arrays.asList(entities));
+    }
+
+    default int save(Collection<T> entities) {
+        return save(null, null, entities);
+    }
+
+    default int save(String tableName, T... entities) {
+        return save(tableName, Arrays.asList(entities));
+    }
+
+    default int save(String tableName, Collection<T> entities) {
+        return save(tableName, null, entities);
+    }
+
+    default int save(Class<?> view, T... entities) {
+        return save(view, Arrays.asList(entities));
+    }
+
+    default int save(Class<?> view, Collection<T> entities) {
+        return save(null, view, entities);
+    }
+
+    default int save(String tableName, Class<?> view, T... entities) {
+        return save(tableName, view, Arrays.asList(entities));
+    }
+
+    /**
+     * 批量插入数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图
+     * @param entities  实体集
+     * @return 指插入数据所影响的行数
+     */
+    @Deprecated
+    int save(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+
+
 
     /*=========================================== UPDATE ===========================================*/
 

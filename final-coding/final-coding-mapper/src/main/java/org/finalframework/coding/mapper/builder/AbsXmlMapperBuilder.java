@@ -135,7 +135,7 @@ public abstract class AbsXmlMapperBuilder {
         return element;
     }
 
-    protected Element choose(@NonNull Document document, @NonNull Collection<Element> whenAndOtherWises) {
+    protected Element choose(@NonNull Document document, @NonNull Collection<? extends Node> whenAndOtherWises) {
         final Element choose = document.createElement("choose");
         whenAndOtherWises.forEach(choose::appendChild);
         return choose;
