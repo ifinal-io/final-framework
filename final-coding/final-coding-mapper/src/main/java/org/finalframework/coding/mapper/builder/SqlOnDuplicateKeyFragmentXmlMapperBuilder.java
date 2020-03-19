@@ -37,7 +37,7 @@ public class SqlOnDuplicateKeyFragmentXmlMapperBuilder extends AbsSqlFragmentXml
         final List<String> columns = new ArrayList<>();
 
         entity.stream()
-            .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isSharding()
+            .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isShardable()
                 && !(it.hasAnnotation(Function.class) && it.hasAnnotation(ReadOnly.class)))
             .forEach(property -> {
                 if (property.isReference()) {
@@ -45,7 +45,7 @@ public class SqlOnDuplicateKeyFragmentXmlMapperBuilder extends AbsSqlFragmentXml
                     List<String> properties = property.referenceProperties();
                     properties.stream()
                         .map(multiEntity::getProperty)
-                        .filter(it -> !it.isSharding())
+                        .filter(it -> !it.isShardable())
                         .forEach(multiProperty -> {
                             String column = TypeHandlers.formatPropertyColumn(property, multiProperty);
                             if (property.isVersion()) {

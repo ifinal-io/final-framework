@@ -91,7 +91,7 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isDefault;
     private final Lazy<Boolean> isFinal;
     private final Lazy<Boolean> isVirtual;
-    private final Lazy<Boolean> isSharing;
+    private final Lazy<Boolean> isSharding;
     private final Lazy<Boolean> isWritable;
     private final Lazy<Boolean> isReadable;
     private final Lazy<Boolean> isTransient;
@@ -146,7 +146,7 @@ public class AnnotationProperty implements Property {
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
         this.isFinal = Lazy.of(!isTransient() && hasAnnotation(Final.class));
         this.isVirtual = Lazy.of(!isTransient() && hasAnnotation(Virtual.class));
-        this.isSharing = Lazy.of(!isTransient() && hasAnnotation(Sharding.class));
+        this.isSharding = Lazy.of(!isTransient() && hasAnnotation(Sharding.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
@@ -346,8 +346,8 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean isSharding() {
-        return isSharing.get();
+    public boolean isShardable() {
+        return isSharding.get();
     }
 
     @Override
