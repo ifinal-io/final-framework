@@ -1,16 +1,15 @@
-package org.finalframework.json.jackson.serializer;
+package org.finalframework.json.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.finalframework.core.Assert;
-import org.finalframework.core.formatter.LocalDateTimeFormatters;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import org.finalframework.core.Assert;
+import org.finalframework.core.formatter.LocalDateTimeFormatters;
 
 /**
  * @author likly
@@ -32,10 +31,7 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
             return LocalDateTime.ofInstant(instant, zone);
         }
 
-        LocalDateTime localDateTime = dateTimeFormatters.parse(value);
-        if (localDateTime != null) return localDateTime;
-
-        return null;
+        return dateTimeFormatters.parse(value);
 
     }
 }

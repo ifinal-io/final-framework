@@ -1,18 +1,17 @@
 package org.finalframework.mybatis.handler.sharing;
 
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.DateTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.finalframework.core.converter.Converter;
-
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.DateTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.finalframework.core.converter.Converter;
+import org.finalframework.util.Dates;
 
 /**
  * 解决{@linkplain Sharding-JDBC}不支持JAVA8时间问题
@@ -23,12 +22,14 @@ import java.util.Date;
  * @since 1.0
  */
 public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> implements Converter<Date, LocalDateTime> {
+
     private static final DateTypeHandler DATE_TYPE_HANDLER = new DateTypeHandler();
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, LocalDateTime parameter, JdbcType jdbcType)
-            throws SQLException {
-        DATE_TYPE_HANDLER.setParameter(ps, i, Date.from(parameter.atZone(ZoneId.systemDefault()).toInstant()), jdbcType);
+        throws SQLException {
+        DATE_TYPE_HANDLER
+            .setParameter(ps, i, Dates.from(parameter), jdbcType);
     }
 
     @Override
@@ -48,8 +49,7 @@ public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> imp
 
     @Override
     public LocalDateTime convert(Date date) {
-        if (date == null) return null;
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return Dates.to(date);
 
     }
 }

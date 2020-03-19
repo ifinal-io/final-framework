@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
  * @author likly
  * @version 1.0
  * @date 2019-10-11 15:48:11
+ * @see SqlOnDuplicateKeyFragmentXmlMapperBuilder
  * @since 1.0
  */
 public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
