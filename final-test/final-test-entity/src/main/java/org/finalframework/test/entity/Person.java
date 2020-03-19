@@ -2,6 +2,7 @@ package org.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.enums.Sharding;
 import org.finalframework.data.entity.AbsRecord;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class Person extends AbsRecord {
     @NotNull
     @View(Person.class)
     private String name;
-    @Final
+    @Sharding
     @JsonView(Person.class)
     private int age;
     @ReadOnly

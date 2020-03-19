@@ -57,6 +57,8 @@ public interface Property {
 
     boolean isVirtual();
 
+    boolean isSharding();
+
     boolean isWritable();
 
     boolean updatable();
