@@ -1,16 +1,14 @@
 package org.finalframework.coding.mapper.builder;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.finalframework.coding.entity.Entity;
-import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -36,6 +34,7 @@ public abstract class AbsXmlMapperBuilder {
     protected static final String SQL_ORDER = "sql-order";
     protected static final String SQL_LIMIT = "sql-limit";
     protected static final String SQL_SELECT_COLUMNS = "sql-select-columns";
+    protected static final String SQL_ON_DUPLICATE_KEY = "sql-on-duplicate-key";
 
     protected final TypeHandlers typeHandlers;
 
@@ -56,10 +55,6 @@ public abstract class AbsXmlMapperBuilder {
      *         </choose>
      *     </sql>
      * </pre>
-     *
-     * @param document
-     * @param entity
-     * @return
      */
     protected Element table(@NonNull Document document, @NonNull Entity entity) {
         //  <sql id="id">
@@ -110,10 +105,6 @@ public abstract class AbsXmlMapperBuilder {
      * <when test=""/>
      * <when test=""/>
      * </choose>
-     *
-     * @param document
-     * @param when
-     * @return
      */
     protected Element where(@NonNull Document document, @NonNull Element... when) {
         final Element choose = document.createElement("choose");
@@ -174,31 +165,27 @@ public abstract class AbsXmlMapperBuilder {
      * AND column = #{entity.property}
      * </if>
      * </when>
-     *
-     * @param document
-     * @param entity
-     * @return
      */
     @Deprecated
     protected Element whenEntityNotNull(@NonNull Document document, Entity entity) {
         final Element whenEntityNotNull = document.createElement("when");
         whenEntityNotNull.setAttribute("test", "entity != null");
         entity.stream()
-                .filter(it -> !it.isTransient())
-                .forEach(property -> {
-                    if (property.isReference()) {
+            .filter(it -> !it.isTransient())
+            .forEach(property -> {
+                if (property.isReference()) {
 
-                    } else {
-                        Element ifPropertyNotNull = document.createElement("if");
-                        ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
+                } else {
+                    Element ifPropertyNotNull = document.createElement("if");
+                    ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
 
-                        final String column = typeHandlers.formatPropertyColumn(null, property);
-                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
+                    final String column = typeHandlers.formatPropertyColumn(null, property);
+                    final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
-                        ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));
-                        whenEntityNotNull.appendChild(ifPropertyNotNull);
-                    }
-                });
+                    ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));
+                    whenEntityNotNull.appendChild(ifPropertyNotNull);
+                }
+            });
         return whenEntityNotNull;
     }
 }

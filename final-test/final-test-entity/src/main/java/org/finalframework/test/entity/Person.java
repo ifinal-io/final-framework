@@ -1,15 +1,20 @@
 package org.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.enums.Sharding;
-import org.finalframework.data.entity.AbsRecord;
-
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import javax.validation.constraints.NotNull;
+import org.finalframework.data.annotation.Column;
+import org.finalframework.data.annotation.Function;
+import org.finalframework.data.annotation.Json;
+import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.Sharding;
+import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.annotation.View;
+import org.finalframework.data.annotation.Virtual;
+import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.entity.AbsRecord;
 
 /**
  * @author likly
