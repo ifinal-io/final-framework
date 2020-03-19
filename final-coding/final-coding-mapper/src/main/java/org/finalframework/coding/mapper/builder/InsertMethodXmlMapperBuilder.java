@@ -142,13 +142,17 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                             List<String> properties = property.referenceProperties();
                             properties.stream()
                                     .map(multiEntity::getProperty)
-                                    .map(multiProperty -> {
-//                                    final String table = property.getTable();
-//                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
-                                        return TypeHandlers.formatPropertyColumn(property, multiProperty);
-                                    })
-                                    .map(column -> String.format("%s = values(%s)", column, column))
-                                    .forEach(columns::add);
+                                    .filter(it -> !it.isSharding())
+                                    .forEach(multiProperty -> {
+                                        String column = TypeHandlers.formatPropertyColumn(property, multiProperty);
+                                        if (property.isVersion()) {
+                                            columns.add(String.format("%s = values(%s) + 1", column, column));
+                                        } else if (property.hasAnnotation(LastModified.class)) {
+                                            columns.add(String.format("%s = NOW()", column));
+                                        } else {
+                                            columns.add(String.format("%s = values(%s)", column, column));
+                                        }
+                                    });
                         } else {
                             String column = TypeHandlers.formatPropertyColumn(null, property);
                             if (property.isVersion()) {
