@@ -9,6 +9,7 @@ import org.finalframework.json.Json;
  * @date 2018-09-26 23:48
  * @since 1.0
  */
+@Deprecated
 public class JsonObjectBlobTypeHandler<T> extends StringBlobTypeHandler<T> {
     private final Class<T> type;
 

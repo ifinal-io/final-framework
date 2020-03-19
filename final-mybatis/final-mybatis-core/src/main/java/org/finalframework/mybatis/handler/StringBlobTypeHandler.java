@@ -1,14 +1,14 @@
 package org.finalframework.mybatis.handler;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.finalframework.json.Json;
-
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -16,8 +16,10 @@ import java.sql.SQLException;
  * @date 2018-09-26 23:48
  * @since 1.0
  */
+@Deprecated
 public abstract class StringBlobTypeHandler<T> extends BaseTypeHandler<T> {
-    private final Charset UTF8 = Charset.forName("utf-8");
+
+    private final Charset UTF8 = StandardCharsets.UTF_8;
 
     @Override
     public final void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
