@@ -1,9 +1,9 @@
 package org.finalframework.data.query.criteriable;
 
-import org.finalframework.data.query.function.BitFunction;
-import org.finalframework.data.query.function.DateFunction;
-import org.finalframework.data.query.function.JsonFunction;
-import org.finalframework.data.query.function.MathFunction;
+import org.finalframework.data.query.criterion.function.BitFunction;
+import org.finalframework.data.query.criterion.function.DateFunction;
+import org.finalframework.data.query.criterion.function.JsonFunction;
+import org.finalframework.data.query.criterion.function.MathFunction;
 
 /**
  * @author likly

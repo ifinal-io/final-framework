@@ -1,6 +1,5 @@
 package org.finalframework.data.query.criterion;
 
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
 
 import java.util.Arrays;
 import java.util.HashSet;

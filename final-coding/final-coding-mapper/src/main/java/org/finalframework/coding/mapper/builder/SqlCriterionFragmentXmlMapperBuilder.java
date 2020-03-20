@@ -1,14 +1,12 @@
 package org.finalframework.coding.mapper.builder;
 
 
+import java.util.Arrays;
 import org.finalframework.coding.entity.Entity;
-import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
+import org.finalframework.data.query.criterion.CriterionOperator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.util.Arrays;
 
 /**
  * @author likly
@@ -32,24 +30,34 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         Element sql = sql(document, id());
 
         sql.appendChild(choose(document, Arrays.asList(
-                singleWhenElement(document, CriterionOperator.NULL, "${criterion.criterionTarget} IS NULL"),
-                singleWhenElement(document, CriterionOperator.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
+            singleWhenElement(document, CriterionOperator.NULL, "${criterion.criterionTarget} IS NULL"),
+            singleWhenElement(document, CriterionOperator.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
 
-                singleWhenElement(document, CriterionOperator.EQUAL, "${criterion.criterionTarget} = ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.NOT_EQUAL, "${criterion.criterionTarget} != ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.GREATER_THAN, "${criterion.criterionTarget} > ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.GREATER_THAN_EQUAL, "${criterion.criterionTarget} >= ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.LESS_THAN, "${criterion.criterionTarget} < ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.LESS_THAN_EQUAL, "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.EQUAL,
+                "${criterion.criterionTarget} = ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.NOT_EQUAL,
+                "${criterion.criterionTarget} != ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.GREAT_THAN,
+                "${criterion.criterionTarget} > ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.GREAT_THAN_EQUAL,
+                "${criterion.criterionTarget} >= ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.LESS_THAN,
+                "${criterion.criterionTarget} < ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.LESS_THAN_EQUAL,
+                "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
 
-                betweenWhenElement(document, CriterionOperator.BETWEEN, "${criterion.criterionTarget} BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
-                betweenWhenElement(document, CriterionOperator.NOT_BETWEEN, "${criterion.criterionTarget} NOT BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
+            betweenWhenElement(document, CriterionOperator.BETWEEN,
+                "${criterion.criterionTarget} BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
+            betweenWhenElement(document, CriterionOperator.NOT_BETWEEN,
+                "${criterion.criterionTarget} NOT BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
 
-                singleWhenElement(document, CriterionOperator.LIKE, "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
-                singleWhenElement(document, CriterionOperator.NOT_LIKE, "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.LIKE,
+                "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
+            singleWhenElement(document, CriterionOperator.NOT_LIKE,
+                "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
 
-                collectionWhenElement(document, CriterionOperator.IN, "%s IN"),
-                collectionWhenElement(document, CriterionOperator.NOT_IN, "%s NOT IN")
+            collectionWhenElement(document, CriterionOperator.IN, "%s IN"),
+            collectionWhenElement(document, CriterionOperator.NOT_IN, "%s NOT IN")
         )));
 
         return sql;
@@ -57,13 +65,13 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
     private Element singleWhenElement(Document document, CriterionOperator operator, String expression) {
         return whenOrOtherwise(document, test(operator),
-                cdata(document, expression)
+            cdata(document, expression)
         );
     }
 
     private Element betweenWhenElement(Document document, CriterionOperator operator, String expression) {
         return whenOrOtherwise(document, test(operator),
-                cdata(document, expression)
+            cdata(document, expression)
         );
     }
 
@@ -89,7 +97,7 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
     }
 
     private String test(CriterionOperator operator) {
-        return String.format("'%s' == criterion.operator.name", operator.getName());
+        return String.format("'%s' == criterion.operator.name()", operator.name());
     }
 
 }

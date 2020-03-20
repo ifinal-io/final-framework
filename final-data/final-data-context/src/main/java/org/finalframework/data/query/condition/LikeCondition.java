@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-11-24 00:24:29
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public interface LikeCondition<R> extends Condition {
     default R startWith(@NonNull String value) {
         return like(null, value, "%");

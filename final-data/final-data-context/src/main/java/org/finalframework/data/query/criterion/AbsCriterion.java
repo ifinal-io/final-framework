@@ -1,9 +1,8 @@
 package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
-import org.finalframework.data.query.function.annotation.FunctionOperator;
-import org.finalframework.data.query.function.operation.*;
+import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.criterion.function.operation.*;
 
 import java.util.*;
 

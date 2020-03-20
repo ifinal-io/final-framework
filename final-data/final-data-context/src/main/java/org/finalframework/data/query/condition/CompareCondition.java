@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
  * @date 2019-11-24 00:21:27
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public interface CompareCondition<V, R> extends Condition {
     R eq(@NonNull V value);
 

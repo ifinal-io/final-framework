@@ -8,6 +8,10 @@ package org.finalframework.data.query.criterion;
  * @since 1.0
  */
 public interface ICriterion {
+
+    /**
+     * @see org.finalframework.data.query.Criteria
+     */
     boolean isChain();
 }
 

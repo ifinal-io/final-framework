@@ -11,6 +11,7 @@ import java.util.Collection;
  * @date 2019-11-24 00:21:43
  * @since 1.0
  */
+@SuppressWarnings("all")
 public interface InCondition<V, R> extends Condition {
 
     default R in(@NonNull V... values) {

@@ -2,7 +2,7 @@ package org.finalframework.data.query.criterion;
 
 
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.function.operation.FunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 
 import java.util.Collection;
 

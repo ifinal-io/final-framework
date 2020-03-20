@@ -3,13 +3,13 @@ package org.finalframework.data.query.criteriable;
 
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.CriterionOperator;
 import org.finalframework.data.query.criterion.*;
-import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
-import org.finalframework.data.query.function.operation.FunctionOperation;
-import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.function.operation.SingleFunctionOperation;
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
-import org.finalframework.data.query.function.annotation.FunctionOperator;
+import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -81,12 +81,12 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public Criterion gt(V value) {
-        return buildSingleCriterion(CriterionOperator.GREATER_THAN, value);
+        return buildSingleCriterion(CriterionOperator.GREAT_THAN, value);
     }
 
     @Override
     public Criterion gte(V value) {
-        return buildSingleCriterion(CriterionOperator.GREATER_THAN_EQUAL, value);
+        return buildSingleCriterion(CriterionOperator.GREAT_THAN_EQUAL, value);
     }
 
     @Override

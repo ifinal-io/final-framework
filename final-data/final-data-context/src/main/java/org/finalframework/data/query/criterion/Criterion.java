@@ -2,9 +2,8 @@ package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.operator.CriterionOperator;
-import org.finalframework.data.query.function.Executable;
-import org.finalframework.data.query.function.operation.FunctionOperation;
+import org.finalframework.data.query.criterion.function.Executable;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

@@ -5,7 +5,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.SqlKeyWords;
-import org.finalframework.data.query.function.operation.*;
+import org.finalframework.data.query.criterion.function.operation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;

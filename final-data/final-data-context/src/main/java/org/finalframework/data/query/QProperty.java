@@ -1,17 +1,19 @@
 package org.finalframework.data.query;
 
+import java.util.Collection;
+import javax.validation.constraints.NotNull;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
-import org.finalframework.data.query.criteriable.*;
+import org.finalframework.data.query.criteriable.AbsCriteriable;
+import org.finalframework.data.query.criteriable.Criteriable;
+import org.finalframework.data.query.criteriable.ExecuteCriteriable;
+import org.finalframework.data.query.criteriable.FunctionCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
-import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.function.operation.SingleFunctionOperation;
-import org.finalframework.data.query.function.annotation.FunctionOperator;
+import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
 import org.springframework.lang.NonNull;
-
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -19,13 +21,14 @@ import java.util.Collection;
  * @date 2018-10-25 13:36
  * @since 1.0
  */
-public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>, ExecuteCriteriable<Object, Criterion> {
+public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>,
+    ExecuteCriteriable<Object, Criterion> {
 
-    static <T, E extends QEntity> QProperty.Builder<T> builder(E entity, Class<T> type) {
+    static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Class<T> type) {
         return new QPropertyImpl.BuilderImpl<>(entity, type);
     }
 
-    <E extends QEntity> E getEntity();
+    <E extends QEntity<?, ?>> E getEntity();
 
     Class<T> getType();
 
@@ -49,20 +52,12 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     /**
      * Returns whether the property is an array.
-     *
-     * @return
      */
     boolean isArray();
 
     boolean unique();
 
     boolean nonnull();
-
-    boolean isInsertable();
-
-    boolean isUpdatable();
-
-    boolean isSelectable();
 
     @Override
     default Criterion isNull() {
@@ -137,17 +132,17 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonExtract(String path) {
-        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(SupportFunctions.JSON_EXTRACT, path));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonContains(@NotNull Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path));
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(SupportFunctions.JSON_CONTAINS, value, path));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonUnquote() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(SupportFunctions.JSON_UNQUOTE));
     }
 
     @Override

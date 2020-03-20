@@ -9,7 +9,7 @@ import org.finalframework.data.annotation.enums.PersistentType;
  * @date 2019-10-21 10:27:10
  * @since 1.0
  */
-public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
+public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
 
     private final E entity;
     private final Class<T> type;
@@ -103,20 +103,7 @@ public class QPropertyImpl<T, E extends QEntity> implements QProperty<T> {
         return false;
     }
 
-    @Override
-    public boolean isInsertable() {
-        return insertable;
-    }
 
-    @Override
-    public boolean isUpdatable() {
-        return updatable;
-    }
-
-    @Override
-    public boolean isSelectable() {
-        return selectable;
-    }
 
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
         private final E entity;

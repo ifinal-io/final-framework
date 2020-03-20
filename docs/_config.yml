@@ -47,7 +47,7 @@ plugins:
   - jekyll-coffeescript
   #  - jekyll-default-layout
   - jekyll-gist
-  - jekyll-github-metadata
+#  - jekyll-github-metadata
   - jekyll-optional-front-matter
   - jekyll-paginate
   - jekyll-readme-index
