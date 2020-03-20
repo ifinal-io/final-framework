@@ -1,6 +1,7 @@
 package org.finalframework.mybatis.handler;
 
 import lombok.NonNull;
+import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -19,6 +20,6 @@ public class JsonObjectBlobTypeHandler<T> extends StringBlobTypeHandler<T> {
     @Override
     protected T getNullableResult(String string) {
         if (string == null || string.isEmpty()) return null;
-        return MybatisJson.toObject(string, type);
+        return Json.toObject(string, type);
     }
 }

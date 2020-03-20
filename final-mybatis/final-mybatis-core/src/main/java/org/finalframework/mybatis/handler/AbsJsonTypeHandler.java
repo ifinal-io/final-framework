@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -46,7 +47,7 @@ public abstract class AbsJsonTypeHandler<T> extends BaseTypeHandler<T> {
 
 
     protected String setNonNullParameter(T parameter) {
-        return MybatisJson.toJson(parameter);
+        return Json.toJson(parameter);
     }
 
     protected abstract T getNullableResult(String json);

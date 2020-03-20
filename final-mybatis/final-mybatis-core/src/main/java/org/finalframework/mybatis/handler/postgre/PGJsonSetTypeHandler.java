@@ -2,7 +2,7 @@ package org.finalframework.mybatis.handler.postgre;
 
 
 import java.util.Set;
-import org.finalframework.mybatis.handler.MybatisJson;
+import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -20,6 +20,6 @@ public class PGJsonSetTypeHandler<T> extends PGJsonCollectionTypeHandler<T, Set<
 
     @Override
     protected Set<T> getResult(String value, Class type) {
-        return MybatisJson.toCollection(value, Set.class, type);
+        return Json.toCollection(value, Set.class, type);
     }
 }

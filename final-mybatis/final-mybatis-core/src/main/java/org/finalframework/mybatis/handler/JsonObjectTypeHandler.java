@@ -1,5 +1,6 @@
 package org.finalframework.mybatis.handler;
 
+import org.finalframework.json.Json;
 import org.springframework.lang.NonNull;
 
 /**
@@ -17,6 +18,6 @@ public class JsonObjectTypeHandler<T> extends AbsJsonTypeHandler<T> {
 
     @Override
     protected T getNullableResult(String json) {
-        return MybatisJson.toObject(json, type);
+        return Json.toObject(json, type);
     }
 }

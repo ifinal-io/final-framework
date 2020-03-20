@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.finalframework.mybatis.handler.MybatisJson;
+import org.finalframework.json.Json;
 import org.postgresql.util.PGobject;
 
 /**
@@ -27,7 +27,7 @@ public class PGJsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
     public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
         PGobject object = new PGobject();
         object.setType("json");
-        object.setValue(MybatisJson.toJson(parameter));
+        object.setValue(Json.toJson(parameter));
         ps.setObject(i, object);
     }
 
@@ -35,20 +35,20 @@ public class PGJsonObjectTypeHandler<T> extends BaseTypeHandler<T> {
     public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String json = rs.getString(columnName);
         if (json == null || json.trim().isEmpty()) return null;
-        return MybatisJson.toObject(json, type);
+        return Json.toObject(json, type);
     }
 
     @Override
     public T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String json = rs.getString(columnIndex);
         if (json == null || json.trim().isEmpty()) return null;
-        return MybatisJson.toObject(json, type);
+        return Json.toObject(json, type);
     }
 
     @Override
     public T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String json = cs.getString(columnIndex);
         if (json == null || json.trim().isEmpty()) return null;
-        return MybatisJson.toObject(json, type);
+        return Json.toObject(json, type);
     }
 }

@@ -1,6 +1,7 @@
 package org.finalframework.mybatis.handler;
 
 import java.util.Set;
+import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -18,6 +19,6 @@ public class JsonSetBlobTypeHandler<E> extends StringBlobTypeHandler<Set<E>> {
 
     @Override
     protected Set<E> getNullableResult(String string) {
-        return MybatisJson.toSet(string, type);
+        return Json.toSet(string, type);
     }
 }

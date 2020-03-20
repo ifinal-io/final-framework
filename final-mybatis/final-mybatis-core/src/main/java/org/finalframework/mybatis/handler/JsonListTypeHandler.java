@@ -2,6 +2,7 @@ package org.finalframework.mybatis.handler;
 
 
 import java.util.List;
+import org.finalframework.json.Json;
 import org.springframework.lang.NonNull;
 
 /**
@@ -19,6 +20,6 @@ public class JsonListTypeHandler<T> extends AbsJsonTypeHandler<List<T>> {
 
     @Override
     protected List<T> getNullableResult(String json) {
-        return MybatisJson.toList(json, type);
+        return Json.toList(json, type);
     }
 }
