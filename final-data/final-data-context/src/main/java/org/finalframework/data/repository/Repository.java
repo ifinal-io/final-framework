@@ -1,20 +1,17 @@
 package org.finalframework.data.repository;
 
-import org.apache.ibatis.annotations.Param;
-import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.exception.BadRequestException;
-import org.finalframework.data.query.Query;
-import org.finalframework.data.query.Queryable;
-import org.finalframework.data.query.Update;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.ibatis.annotations.Param;
+import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.query.Query;
+import org.finalframework.data.query.Queryable;
+import org.finalframework.data.query.Update;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -88,9 +85,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * 批量插入数据并返回影响的行数
      *
      * @param tableName 表名
-     * @param view      视图
-     * @param ignore    是否忽略重复和数据
-     * @param entities  实体集
+     * @param view 视图
+     * @param ignore 是否忽略重复数据
+     * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
     @Deprecated
