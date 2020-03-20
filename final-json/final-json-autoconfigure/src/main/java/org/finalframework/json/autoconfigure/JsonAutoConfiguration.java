@@ -1,6 +1,8 @@
 package org.finalframework.json.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import org.finalframework.json.JsonRegistry;
 import org.finalframework.json.JsonService;
 import org.finalframework.json.jackson.JacksonJsonService;
@@ -8,9 +10,6 @@ import org.finalframework.json.jackson.ObjectMapperFactory;
 import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * @author likly
@@ -33,6 +32,7 @@ public class JsonAutoConfiguration {
 
     @PostConstruct
     public void initObjectMapper() {
+
         new ObjectMapperFactory(objectMapper);
     }
 
