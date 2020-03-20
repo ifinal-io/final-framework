@@ -1,18 +1,16 @@
 package org.finalframework.json;
 
-import lombok.NonNull;
-
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import lombok.NonNull;
 
 /**
- * 统一的Json调用入口
- * 为常用的Json序列化与反序列化提供统一的入口。
+ * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  * <ul>
  * <li>序列化 {@link #toJson(Object)} 实现将任何对象序列化为Json字符串。</li>
- * <li>反序列化 {@link #parse(String, Class)}和{@link #toCollection(String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection< Object>}</li>
+ * <li>反序列化 {@link #toObject(String, Class)} (String, Class)}和{@link #toCollection(String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection< Object>}</li>
  * </ul>
  *
  * @author likly
