@@ -29,11 +29,17 @@ public class JsonIgnoreInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        boolean ignoreChanged = false;
         try {
-            JsonContextHolder.setIgnore(true, true);
+            if (!JsonContextHolder.isIgnore()) {
+                JsonContextHolder.setIgnore(true, true);
+                ignoreChanged = true;
+            }
             return invocation.proceed();
         } finally {
-            JsonContextHolder.setIgnore(false, false);
+            if (ignoreChanged) {
+                JsonContextHolder.setIgnore(false, false);
+            }
         }
     }
 
