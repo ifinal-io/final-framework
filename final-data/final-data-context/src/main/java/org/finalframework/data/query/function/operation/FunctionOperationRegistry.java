@@ -42,6 +42,7 @@ public class FunctionOperationRegistry {
         registerCriterionOperation(new ConcatFunctionOperationExpression<>());
 
         registerCriterionOperation(new JsonExtractFunctionOperationExpression<>());
+        registerCriterionOperation(new JsonContainsFunctionOperationExpression<>());
         registerCriterionOperation(new JsonUnquoteFunctionOperationExpression<>());
     }
 

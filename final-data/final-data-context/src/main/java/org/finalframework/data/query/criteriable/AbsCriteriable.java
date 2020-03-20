@@ -4,12 +4,14 @@ package org.finalframework.data.query.criteriable;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
+import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.function.operation.FunctionOperation;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.criterion.operator.CriterionOperator;
 import org.finalframework.data.query.function.annotation.FunctionOperator;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -149,6 +151,12 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     @Override
     public FunctionCriteriable<V, Criterion> jsonExtract(String path) {
         this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> jsonContains(@NotNull Object value, String path) {
+        this.addFunctionCriterion(new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path));
         return this;
     }
 

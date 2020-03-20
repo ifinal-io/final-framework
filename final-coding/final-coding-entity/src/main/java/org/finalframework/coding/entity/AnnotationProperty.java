@@ -27,6 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
@@ -150,9 +151,9 @@ public class AnnotationProperty implements Property {
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
-        this.isWritable = Lazy.of(() -> !isTransient() && !isVirtual() && !hasAnnotation(ReadOnly.class));
-        this.isReadable = Lazy.of(() -> !isTransient() && !isVirtual() && !hasAnnotation(WriteOnly.class));
-        this.isTransient = Lazy.of(() -> hasAnnotation(Transient.class));
+        this.isWritable = Lazy.of(!isTransient() && !isVirtual() && !hasAnnotation(ReadOnly.class));
+        this.isReadable = Lazy.of(!isTransient() && !isVirtual() && !hasAnnotation(WriteOnly.class));
+        this.isTransient = Lazy.of(hasAnnotation(Transient.class));
 
         PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
         this.javaTypeElement = getType().accept(propertyJavaTypeVisitor, this);
@@ -346,7 +347,7 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean isShardable() {
+    public boolean isSharding() {
         return isSharding.get();
     }
 

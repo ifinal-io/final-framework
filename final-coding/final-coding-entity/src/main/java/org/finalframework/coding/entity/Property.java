@@ -92,7 +92,7 @@ public interface Property {
     /**
      * @see Sharding
      */
-    boolean isShardable();
+    boolean isSharding();
 
     /**
      * @see ReadOnly

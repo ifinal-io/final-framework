@@ -4,11 +4,13 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.criteriable.*;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.function.annotation.FunctionOperator;
 import org.springframework.lang.NonNull;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 /**
@@ -136,6 +138,11 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     @Override
     default FunctionCriteriable<Object, Criterion> jsonExtract(String path) {
         return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> jsonContains(@NotNull Object value, String path) {
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path));
     }
 
     @Override

@@ -90,6 +90,8 @@ public @interface FunctionOperator {
      * @see JsonExtractFunctionOperationExpression
      */
     String JSON_EXTRACT = "JSON_EXTRACT";
+
+    String JSON_CONTAINS = "JSON_CATIONS";
     /**
      * JSON_UNQUOTE(value)
      *

@@ -46,7 +46,7 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
     public static ResultMap from(Entity entity, TypeHandlers typeHandlers) {
         ResultMap.Builder builder = new ResultMap.Builder(entity.getSimpleName() + SUFFIX, entity.getElement());
         entity.stream()
-                .filter(Property::isReadable)
+                .filter(it -> !it.isTransient() && it.isReadable() && !it.isVirtual())
                 .forEach(property -> {
                     if (property.isReference()) {
                         builder.addAssociation(Association.from(property, property.toEntity(), typeHandlers));
