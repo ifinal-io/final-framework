@@ -1,9 +1,8 @@
 package org.finalframework.mybatis.handler.postgre;
 
 
-import org.finalframework.json.Json;
-
 import java.util.Collection;
+import org.finalframework.mybatis.handler.MybatisJson;
 
 /**
  * @author likly
@@ -19,6 +18,6 @@ public abstract class PGJsonCollectionTypeHandler<E, T extends Collection<E>> ex
 
     @Override
     protected String setParameter(T parameter) {
-        return Json.toJson(parameter);
+        return MybatisJson.toJson(parameter);
     }
 }

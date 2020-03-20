@@ -1,6 +1,8 @@
 package org.finalframework.json.jackson;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.finalframework.core.Factory;
@@ -25,11 +27,17 @@ public class ObjectMapperFactory implements Factory {
     public ObjectMapperFactory(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
         objectMapper.registerModule(new FinalJacksonModule(objectMapper));
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanDatePropertySerializerModifier()));
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDatePropertySerializerModifier()));
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDateTimePropertySerializerModifier()));
+        objectMapper.setSerializerFactory(
+            objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
+        objectMapper.setSerializerFactory(
+            objectMapper.getSerializerFactory().withSerializerModifier(new BeanDatePropertySerializerModifier()));
+        objectMapper.setSerializerFactory(
+            objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDatePropertySerializerModifier()));
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory()
+            .withSerializerModifier(new BeanLocalDateTimePropertySerializerModifier()));
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setSerializationInclusion(Include.NON_NULL);
     }
 
     public ObjectMapper create() {

@@ -1,7 +1,6 @@
 package org.finalframework.mybatis.handler;
 
 import java.util.List;
-import org.finalframework.json.Json;
 
 /**
  * @author likly
@@ -18,7 +17,7 @@ public class JsonListBlobTypeHandler<E> extends StringBlobTypeHandler<List<E>> {
 
     @Override
     protected List<E> getNullableResult(String string) {
-        return Json.toList(string, type);
+        return MybatisJson.toList(string, type);
     }
 
 }

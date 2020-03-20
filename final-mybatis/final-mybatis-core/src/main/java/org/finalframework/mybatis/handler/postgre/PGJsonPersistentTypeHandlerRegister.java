@@ -1,11 +1,10 @@
 package org.finalframework.mybatis.handler.postgre;
 
-import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.mybatis.handler.PersistentTypeHandlerRegister;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.mybatis.handler.PersistentTypeHandlerRegister;
 
 /**
  * @author likly

@@ -1,8 +1,6 @@
 package org.finalframework.mybatis.handler;
 
 
-import org.finalframework.json.Json;
-
 import java.util.Set;
 
 /**
@@ -22,6 +20,6 @@ public class JsonSetTypeHandler<T> extends AbsJsonTypeHandler<Set<T>> {
 
     @Override
     protected Set<T> getNullableResult(String json) {
-        return Json.toSet(json, type);
+        return MybatisJson.toSet(json, type);
     }
 }
