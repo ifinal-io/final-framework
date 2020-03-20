@@ -9,7 +9,7 @@ import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criteriable.FunctionCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.FunctionOperator;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
@@ -132,17 +132,24 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonExtract(String path) {
-        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(SupportFunctions.JSON_EXTRACT, path));
+        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
     }
 
     @Override
-    default FunctionCriteriable<Object, Criterion> jsonContains(@NotNull Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(SupportFunctions.JSON_CONTAINS, value, path));
+    default Criterion jsonContains(@NotNull Object value, String path) {
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+            .eq(true);
+    }
+
+    @Override
+    default Criterion notJsonContains(Object value, String path) {
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+            .neq(true);
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonUnquote() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(SupportFunctions.JSON_UNQUOTE));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
     }
 
     @Override
