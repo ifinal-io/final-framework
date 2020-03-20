@@ -35,8 +35,8 @@ public enum CriterionOperator implements IEnum<String> {
     IN("in", "IN", "在...之间"),
     NOT_IN("nin", "NOT IN", "在不...之间"),
 
-    JSON_CONTAINS("jsonContains", "JSON_CONTAINS", "JSON 包含"),
-    NOT_JSON_CONTAINS("notJsonContains", "", "JSON 不包含"),
+    ASSERT_TRUE("assert", "ASSERT", "断言"),
+    ASSERT_FALSE("assert", "ASSERT", "断言"),
     ;
 
     /**

@@ -48,7 +48,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     @Override
     public Criterion isNull() {
         return SingleCriterion.builder()
-            .property(this.property)
+            .property(this.property, this.functions)
             .operator(CriterionOperator.NULL)
             .build();
     }
@@ -56,7 +56,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     @Override
     public Criterion isNotNull() {
         return SingleCriterion.builder()
-            .property(this.property)
+            .property(this.property, this.functions)
             .operator(CriterionOperator.NOT_NULL)
             .build();
     }
