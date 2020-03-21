@@ -322,16 +322,6 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean unique() {
-        return unique;
-    }
-
-    @Override
-    public boolean nonnull() {
-        return nonnull;
-    }
-
-    @Override
     public boolean isDefault() {
         return isDefault.get();
     }
@@ -352,17 +342,12 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public boolean isWritable() {
+    public boolean isReadOnly() {
         return isWritable.get();
     }
 
     @Override
-    public boolean updatable() {
-        return !isVirtual() && !isFinal();
-    }
-
-    @Override
-    public boolean isReadable() {
+    public boolean isWriteOnly() {
         return isReadable.get();
     }
 

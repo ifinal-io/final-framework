@@ -69,10 +69,6 @@ public interface Property {
 
     boolean hasView(@NonNull Class<?> view);
 
-    boolean unique();
-
-    boolean nonnull();
-
     /**
      * @return true if don't have {@link Transient} annotation and have {@link Default} annotaion.
      * @see Default
@@ -97,15 +93,13 @@ public interface Property {
     /**
      * @see ReadOnly
      */
-    boolean isWritable();
+    boolean isReadOnly();
 
-
-    boolean updatable();
 
     /**
      * @see WriteOnly
      */
-    boolean isReadable();
+    boolean isWriteOnly();
 
     boolean placeholder();
 

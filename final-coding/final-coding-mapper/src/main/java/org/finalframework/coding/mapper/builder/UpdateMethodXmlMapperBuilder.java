@@ -144,7 +144,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         Property versionProperty = entity.getVersionProperty();
 
-        if (versionProperty != null && !versionProperty.updatable()) {
+        if (versionProperty != null && !versionProperty.isTransient() && !versionProperty.isReadOnly() && !versionProperty.isFinal() && !versionProperty.isVirtual()) {
             Element trim = document.createElement("trim");
             String column = typeHandlers.formatPropertyColumn(null, versionProperty);
             trim.setAttribute("suffix", String.format("%s = %s + 1", column, column));
@@ -185,7 +185,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         whenOrOtherwise.setAttribute("test", test);
 
         entity.stream()
-                .filter(it -> it.isWritable() && !it.isFinal() && (view == null || it.hasView(view)))
+                .filter(it -> it.isReadOnly() && !it.isFinal() && (view == null || it.hasView(view)))
                 .forEach(property -> {
                     if (property.isReference()) {
                         /**
@@ -250,7 +250,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         final Element whenUpdateNotNull = document.createElement("when");
         whenUpdateNotNull.setAttribute("test", "update != null");
 
-        entity.stream().filter(it -> it.isWritable() && !it.isFinal())
+        entity.stream().filter(it -> it.isReadOnly() && !it.isFinal())
                 .forEach(property -> {
 
                     /*

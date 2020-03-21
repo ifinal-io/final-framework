@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
  * @date 2019-10-11 15:21:50
  * @since 1.0
  */
-public abstract class AbsXmlMapperBuilder {
+public class AbsXmlMapperBuilder {
 
     protected static final String GENERATED_TAG = "GENERATED-BY-FINAL-FRAMEWORK";
 
