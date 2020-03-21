@@ -8,7 +8,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.Pageable;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.criterion.ICriterion;
+import org.finalframework.data.query.criterion.Criterion;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +30,7 @@ public class QuerySerializer extends JsonSerializer<Query> {
     public void serialize(Query query, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
         writePageable(query, gen, serializers);
-        List<ICriterion> criteria = query.getCriteria();
+        List<Criterion> criteria = query.getCriteria();
         if (Assert.nonEmpty(criteria)) {
             gen.writeFieldName("where");
             criteriaJsonSerializer.serialize(Criteria.where(criteria), gen, serializers);

@@ -1,7 +1,7 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.converter.Convertible;
-import org.finalframework.data.query.criterion.ICriterion;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.*;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<Criteria> {
     private final AndOr andOr;
-    private final List<ICriterion> criteria = new ArrayList<>();
+    private final List<Criterion> criteria = new ArrayList<>();
 
     protected AbsCriteria() {
         this(AndOr.AND, Collections.emptyList());
@@ -25,7 +25,7 @@ public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<
         this(andOr, Collections.emptyList());
     }
 
-    protected AbsCriteria(AndOr andOr, Collection<? extends ICriterion> criteria) {
+    protected AbsCriteria(AndOr andOr, Collection<? extends Criterion> criteria) {
         this.andOr = andOr;
         this.criteria.addAll(criteria);
     }
@@ -34,11 +34,11 @@ public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<
         return !criteria.isEmpty();
     }
 
-    public T add(ICriterion... criterion) {
+    public T add(Criterion... criterion) {
         return add(Arrays.asList(criterion));
     }
 
-    public T add(Collection<ICriterion> criterion) {
+    public T add(Collection<Criterion> criterion) {
         this.criteria.addAll(criterion);
         return (T) this;
     }

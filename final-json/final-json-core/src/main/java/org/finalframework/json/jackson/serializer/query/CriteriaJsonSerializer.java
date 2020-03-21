@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.Criteria;
+import org.finalframework.data.query.criterion.SimpleCriterion;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.ICriterion;
 
 import java.io.IOException;
 
@@ -27,11 +27,11 @@ public class CriteriaJsonSerializer extends JsonSerializer<Criteria> {
             switch (criteria.andOr()) {
                 case AND:
                     gen.writeStartArray();
-                    for (ICriterion criterion : criteria) {
+                    for (Criterion criterion : criteria) {
                         if (criterion.isChain()) {
                             serialize((Criteria) criterion, gen, serializers);
                         } else {
-                            criterionSerializer.serialize((Criterion) criterion, gen, serializers);
+                            criterionSerializer.serialize((SimpleCriterion) criterion, gen, serializers);
                         }
                     }
                     gen.writeEndArray();
@@ -40,11 +40,11 @@ public class CriteriaJsonSerializer extends JsonSerializer<Criteria> {
                     gen.writeStartObject();
                     gen.writeFieldName(criteria.andOr().name());
                     gen.writeStartArray();
-                    for (ICriterion criterion : criteria) {
+                    for (Criterion criterion : criteria) {
                         if (criterion.isChain()) {
                             serialize((Criteria) criterion, gen, serializers);
                         } else {
-                            criterionSerializer.serialize((Criterion) criterion, gen, serializers);
+                            criterionSerializer.serialize((SimpleCriterion) criterion, gen, serializers);
                         }
                     }
                     gen.writeEndArray();

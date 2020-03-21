@@ -5,7 +5,7 @@ import lombok.NonNull;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
-import org.finalframework.data.query.criterion.ICriterion;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.Direction;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<ICriterion>, Serializable, Pageable, Queryable, Sql<Query> {
+public class Query implements Streamable<Criterion>, Serializable, Pageable, Queryable, Sql<Query> {
 
     /**
      * 页码，第一页从1开始
@@ -39,7 +39,7 @@ public class Query implements Streamable<ICriterion>, Serializable, Pageable, Qu
     @Getter
     private Boolean count = Boolean.TRUE;
     @Getter
-    private List<ICriterion> criteria = new ArrayList<>();
+    private List<Criterion> criteria = new ArrayList<>();
     @Getter
     private Group group;
     @Getter
@@ -68,11 +68,11 @@ public class Query implements Streamable<ICriterion>, Serializable, Pageable, Qu
         return this;
     }
 
-    public Query where(@NonNull ICriterion... criteria) {
+    public Query where(@NonNull Criterion... criteria) {
         return where(Arrays.asList(criteria));
     }
 
-    public Query where(@NonNull Collection<ICriterion> criteria) {
+    public Query where(@NonNull Collection<Criterion> criteria) {
         this.criteria.addAll(criteria);
         return this;
     }
@@ -127,7 +127,7 @@ public class Query implements Streamable<ICriterion>, Serializable, Pageable, Qu
     }
 
     @Override
-    public Stream<ICriterion> stream() {
+    public Stream<Criterion> stream() {
         return criteria.stream();
     }
 

@@ -14,31 +14,31 @@ import org.finalframework.data.annotation.IEnum;
  */
 public enum FunctionOperator implements IEnum<String> {
 
-    DATE("date", "DATE()", ""),
+    DATE("DATE", "DATE()", ""),
 
-    MIN("date", "DATE()", ""),
-    MAX("date", "DATE()", ""),
-    SUM("date", "DATE()", ""),
-    AVG("date", "DATE()", ""),
+    MIN("MIN", "DATE()", ""),
+    MAX("MAX", "DATE()", ""),
+    SUM("SUM", "DATE()", ""),
+    AVG("AVG", "DATE()", ""),
 
-    AND("date", "DATE()", ""),
-    OR("date", "DATE()", ""),
-    NOT("date", "DATE()", ""),
-    XOR("date", "DATE()", ""),
+    AND("AND", "DATE()", ""),
+    OR("OR", "DATE()", ""),
+    NOT("NOT", "DATE()", ""),
+    XOR("XOR", "DATE()", ""),
 
-    JSON_EXTRACT("date", "JSON_EXTRACT()", ""),
-    JSON_CONTAINS("date", "JSON_CONTAINS()", ""),
-    JSON_UNQUOTE("date", "JSON_UNQUOTE()", ""),
+    JSON_EXTRACT("JSON_EXTRACT", "JSON_EXTRACT()", ""),
+    JSON_CONTAINS("JSON_CONTAINS", "JSON_CONTAINS()", ""),
+    JSON_UNQUOTE("JSON_UNQUOTE", "JSON_UNQUOTE()", ""),
 
-    CONCAT("concat", "CONCAT()", "");
+    CONCAT("CONCAT", "CONCAT()", "");
     /**
      * 枚举码
      */
     private final String code;
     private final String operator;
     private static final Map<String, FunctionOperator> cache = Arrays.stream(values())
-        .collect(Collectors.toMap(FunctionOperator::getCode, Function
-            .identity()));
+            .collect(Collectors.toMap(FunctionOperator::getCode, Function
+                    .identity()));
 
     private final String description;
 

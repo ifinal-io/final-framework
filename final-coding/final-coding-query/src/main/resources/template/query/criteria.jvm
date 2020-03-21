@@ -9,7 +9,6 @@ package ${package};
 
 import org.finalframework.data.query.AbsCriteria;
 import org.finalframework.data.query.Criteria;
-import org.finalframework.data.query.criterion.ICriterion;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
 
@@ -19,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+
 
 #parse("/template/parse/header.vm")
 @Generated("org.finalframework.coding.query.CriteriaGenerator")
@@ -32,7 +32,7 @@ public final class ${criteria} extends AbsCriteria<${criteria}>{
         super(andOr, Collections.emptyList());
     }
 
-    protected ${criteria}(AndOr andOr, Collection<? extends ICriterion> criteria) {
+    protected ${criteria}(AndOr andOr, Collection<? extends Criterion> criteria) {
         super(andOr, criteria);
     }
 

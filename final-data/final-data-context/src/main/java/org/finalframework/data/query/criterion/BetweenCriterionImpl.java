@@ -6,7 +6,7 @@ package org.finalframework.data.query.criterion;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class BetweenCriterionImpl<T> extends AbsCriterion<T> implements BetweenCriterion<T> {
+public class BetweenCriterionImpl<T> extends SimpleCriterionImpl<T> implements BetweenCriterion<T> {
     private final T min;
     private final T max;
 

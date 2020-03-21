@@ -12,7 +12,7 @@ import java.util.*;
  * @date 2019-01-18 13:42:22
  * @since 1.0
  */
-public abstract class AbsCriterion<T> implements Criterion {
+public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     private final CriterionValue<?> target;
     private final Collection<FunctionOperation> functions = new ArrayList<>();
@@ -20,7 +20,7 @@ public abstract class AbsCriterion<T> implements Criterion {
     private Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
-    public AbsCriterion(AbsBuilder builder) {
+    public SimpleCriterionImpl(AbsBuilder builder) {
         this.target = builder.target;
         this.operator = builder.operator;
         this.typeHandler = builder.typeHandler;
@@ -42,7 +42,7 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @Override
-    public Criterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler) {
+    public SimpleCriterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler) {
         this.typeHandler = typeHandler;
         return this;
     }
@@ -57,13 +57,13 @@ public abstract class AbsCriterion<T> implements Criterion {
     }
 
     @Override
-    public Criterion contact(String prefix, String suffix) {
+    public SimpleCriterion contact(String prefix, String suffix) {
         this.functions.add(new DoubleFunctionOperation<>(FunctionOperator.CONCAT, prefix, suffix));
         return this;
     }
 
     @Override
-    public Criterion date() {
+    public SimpleCriterion date() {
         this.functions.add(new SimpleFunctionOperation(FunctionOperator.DATE));
         return this;
     }

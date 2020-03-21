@@ -2,10 +2,12 @@ package org.finalframework.data.query.criterion;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 import org.finalframework.data.annotation.IEnum;
 
 /**
@@ -35,8 +37,8 @@ public enum CriterionOperator implements IEnum<String> {
     IN("in", "IN", "在...之间"),
     NOT_IN("nin", "NOT IN", "在不...之间"),
 
-    ASSERT_TRUE("assert", "ASSERT", "断言"),
-    ASSERT_FALSE("assert", "ASSERT", "断言"),
+    ASSERT_TRUE("assertTrue", "ASSERT", "断言"),
+    ASSERT_FALSE("assertFalse", "ASSERT", "断言"),
     ;
 
     /**
@@ -45,8 +47,7 @@ public enum CriterionOperator implements IEnum<String> {
     private final String code;
     private final String operator;
     private static final Map<String, CriterionOperator> cache = Arrays.stream(values())
-        .collect(Collectors.toMap(CriterionOperator::getCode, Function
-            .identity()));
+            .collect(Collectors.toMap(CriterionOperator::getCode, Function.identity()));
 
     private final String description;
 

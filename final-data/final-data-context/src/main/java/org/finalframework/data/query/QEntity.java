@@ -16,9 +16,9 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
 
     Class<T> getType();
 
-    QProperty<?> getProperty(String path);
+    QProperty getProperty(String path);
 
-    default QProperty<?> getRequiredProperty(String path) {
+    default QProperty getRequiredProperty(String path) {
         QProperty<?> property = getProperty(path);
 
         if (property != null) {

@@ -6,7 +6,10 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.*;
+import org.finalframework.data.query.criterion.BetweenCriterion;
+import org.finalframework.data.query.criterion.SimpleCriterion;
+import org.finalframework.data.query.criterion.CriterionValue;
+import org.finalframework.data.query.criterion.SingleCriterion;
 
 import java.io.IOException;
 
@@ -16,24 +19,24 @@ import java.io.IOException;
  * @date 2020-03-06 23:25:17
  * @since 1.0
  */
-public class CriterionSerializer extends JsonSerializer<Criterion> {
+public class CriterionSerializer extends JsonSerializer<SimpleCriterion> {
     @Override
-    public void serialize(Criterion criterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(SimpleCriterion simpleCriterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
-        if (criterion instanceof SingleCriterion) {
-            serialize((SingleCriterion<?>) criterion, gen, serializers);
-        } else if (criterion instanceof BetweenCriterion) {
-            serialize((BetweenCriterion<?>) criterion, gen, serializers);
+        if (simpleCriterion instanceof SingleCriterion) {
+            serialize((SingleCriterion<?>) simpleCriterion, gen, serializers);
+        } else if (simpleCriterion instanceof BetweenCriterion) {
+            serialize((BetweenCriterion<?>) simpleCriterion, gen, serializers);
         }
         gen.writeEndObject();
     }
 
     private void serialize(SingleCriterion<?> criterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        switch (criterion.getOperator().getName()) {
-            case "IN":
-            case "NOT_IN":
+        switch (criterion.getOperator()) {
+            case IN:
+            case NOT_IN:
                 break;
-            case "EQUAL":
+            case EQUAL:
 
                 CriterionValue<?> target = criterion.getTarget();
                 Object value = criterion.getValue();

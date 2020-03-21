@@ -15,7 +15,7 @@
     <parent>
         <artifactId>final-framework-parent</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.4.4-SNAPSHOT</version>
+        <version>0.4.5-SNAPSHOT</version>
 
     </parent>
 </project>

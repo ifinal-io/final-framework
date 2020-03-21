@@ -1,7 +1,5 @@
 package org.finalframework.data.query;
 
-import java.util.Collection;
-import javax.validation.constraints.NotNull;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.criteriable.AbsCriteriable;
@@ -15,6 +13,9 @@ import org.finalframework.data.query.criterion.function.operation.SimpleFunction
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
 import org.springframework.lang.NonNull;
 
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+
 /**
  * @author likly
  * @version 1.0
@@ -22,7 +23,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>,
-    ExecuteCriteriable<Object, Criterion> {
+        ExecuteCriteriable<Object, Criterion> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Class<T> type) {
         return new QPropertyImpl.BuilderImpl<>(entity, type);

@@ -11,7 +11,7 @@ import java.util.Set;
  * @date 2019-01-18 14:49:06
  * @since 1.0
  */
-public class SingleCriterionImpl<T> extends AbsCriterion<T> implements SingleCriterion<T> {
+public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements SingleCriterion<T> {
 
     private static final Set<CriterionOperator> OPERATOR_IN = new HashSet<>(Arrays.asList(
             CriterionOperator.IN,

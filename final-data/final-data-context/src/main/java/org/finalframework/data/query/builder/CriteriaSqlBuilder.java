@@ -3,7 +3,7 @@ package org.finalframework.data.query.builder;
 
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.SimpleCriterion;
 import org.finalframework.data.query.enums.AndOr;
 
 import java.util.Collection;
@@ -52,7 +52,7 @@ public class CriteriaSqlBuilder implements SqlBuilder<Criteria> {
         return sb.toString();
     }
 
-    private String joinCriteriaSet(Collection<Criterion> criteriaSets, AndOr andOr) {
+    private String joinCriteriaSet(Collection<SimpleCriterion> criteriaSets, AndOr andOr) {
         final StringBuilder sb = new StringBuilder();
 
         if (criteriaSets.size() > 1) {

@@ -6,7 +6,7 @@ package org.finalframework.data.query.criterion;
  * @date 2019-02-19 20:52:10
  * @since 1.0
  */
-public interface BetweenCriterion<T> extends Criterion {
+public interface BetweenCriterion<T> extends SimpleCriterion {
 
     static <T> Builder<T> builder() {
         return BetweenCriterionImpl.builder();
@@ -16,7 +16,7 @@ public interface BetweenCriterion<T> extends Criterion {
 
     T max();
 
-    interface Builder<T> extends Criterion.Builder<BetweenCriterion<T>, Builder<T>> {
+    interface Builder<T> extends SimpleCriterion.Builder<BetweenCriterion<T>, Builder<T>> {
 
         Builder<T> between(T min, T max);
     }
