@@ -1,8 +1,5 @@
 #* @formatter:off *#
-#set($dataSource = $dataSourceAutoConfiguration)
-## 数据源列表
-#set($dataSources = $dataSource.dataSources)
-package ${dataSource.packageName};
+package ${packageName};
 ## import
 import org.finalframework.data.datasource.DataSourceAutoConfigurationProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -17,18 +14,18 @@ import java.sql.SQLException;
 ## 类声明
 @Configuration
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
-public class ${dataSource.simpleName} {
+public class ${simpleName} {
 
 
     @Bean
-    @ConfigurationProperties(prefix = "${dataSource.prefix}")
-    public DataSourceAutoConfigurationProperties ${dataSource.dataSource}AutoConfigurationProperties(){
+    @ConfigurationProperties(prefix = "${prefix}")
+    public DataSourceAutoConfigurationProperties ${dataSource}AutoConfigurationProperties(){
         return new DataSourceAutoConfigurationProperties();
     }
 
     @Bean
-    public DataSource ${dataSource.dataSource}() throws SQLException {
-        return ${dataSource.dataSource}AutoConfigurationProperties().build();
+    public DataSource ${dataSource}() throws SQLException {
+        return ${dataSource}AutoConfigurationProperties().build();
     }
 
 }
