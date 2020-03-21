@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 import org.finalframework.data.annotation.IEnum;
 
 /**
@@ -29,6 +30,9 @@ public enum FunctionOperator implements IEnum<String> {
     JSON_EXTRACT("JSON_EXTRACT", "JSON_EXTRACT()", ""),
     JSON_CONTAINS("JSON_CONTAINS", "JSON_CONTAINS()", ""),
     JSON_UNQUOTE("JSON_UNQUOTE", "JSON_UNQUOTE()", ""),
+    JSON_KEYS("JSON_KEYS", "JSON_KEYS()", ""),
+    JSON_DEPTH("JSON_DEPTH", "JSON_DEPTH()", ""),
+    JSON_LENGTH("JSON_LENGTH", "JSON_LENGTH()", ""),
 
     CONCAT("CONCAT", "CONCAT()", "");
     /**

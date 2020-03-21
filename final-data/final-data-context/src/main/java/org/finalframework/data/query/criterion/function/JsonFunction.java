@@ -16,6 +16,12 @@ public interface JsonFunction<V, R> extends Function {
      */
     R jsonExtract(@NonNull String path);
 
+    R jsonKeys();
+
+    R jsonLength();
+
+    R jsonDepth();
+
     /**
      * 去掉查询结果中首尾的双引号
      */

@@ -79,7 +79,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                     trim.setAttribute("prefix", "SELECT");
                     trim.setAttribute("suffix", "FROM dual");
                     trim.appendChild(textNode(document, UUID == entity.getPrimaryKeyType() ? "REPLACE(UUID(), '-', '')"
-                        : "MD5(REPLACE(UUID(), '-', ''))"));
+                            : "MD5(REPLACE(UUID(), '-', ''))"));
 
                     selectKey.appendChild(trim);
 //                final Text selectKeyText = document.createTextNode(UUID == entity.getPrimaryKeyType() ?
@@ -112,8 +112,8 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         } else {
             trim.setAttribute("prefix", "INSERT");
             trim.appendChild(choose(document, Arrays.asList(
-                whenOrOtherwise(document, "ignore == true", textNode(document, " IGNORE INTO")),
-                whenOrOtherwise(document, null, textNode(document, "INTO"))
+                    whenOrOtherwise(document, "ignore == true", textNode(document, " IGNORE INTO")),
+                    whenOrOtherwise(document, null, textNode(document, "INTO"))
             )));
 
         }
@@ -150,48 +150,48 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final Element insertColumns = document.createElement("choose");
         entity.getViews().stream().map(view -> buildInsertColumnsElement(document, entity, view))
-            .forEach(insertColumns::appendChild);
+                .forEach(insertColumns::appendChild);
         insertColumns.appendChild(buildInsertColumnsElement(document, entity, null));
 
         return insertColumns;
     }
 
     private Element buildInsertColumnsElement(@NonNull Document document, @NonNull Entity entity,
-        @Nullable TypeElement view) {
+                                              @Nullable TypeElement view) {
 
         final String test = view == null ? "view == null" : String
-            .format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
+                .format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
 
         final List<String> columns = new ArrayList<>();
         entity.stream()
-            .filter(it -> it.isWritable() && !it.isDefault())
-            .filter(it -> {
-                if (view == null) {
-                    return !it.hasAnnotation(ReadOnly.class);
-                } else {
-                    return it.hasView(view);
-                }
-            })
-            .forEach(property -> {
-                if (property.isReference()) {
-                    final Entity multiEntity = property.toEntity();
-                    List<String> properties = property.referenceProperties();
-                    properties.stream()
-                        .map(multiEntity::getProperty)
-                        .map(multiProperty -> {
+                .filter(it -> !it.isTransient() && it.isWritable() && !it.isDefault())
+                .filter(it -> {
+                    if (view == null) {
+                        return !it.hasAnnotation(ReadOnly.class);
+                    } else {
+                        return it.hasView(view);
+                    }
+                })
+                .forEach(property -> {
+                    if (property.isReference()) {
+                        final Entity multiEntity = property.toEntity();
+                        List<String> properties = property.referenceProperties();
+                        properties.stream()
+                                .map(multiEntity::getProperty)
+                                .map(multiProperty -> {
 //                                    final String table = property.getTable();
 //                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
-                            return typeHandlers.formatPropertyWriteColumn(property, multiProperty);
-                        })
-                        .forEach(columns::add);
-                } else {
-                    columns.add(typeHandlers.formatPropertyWriteColumn(null, property));
+                                    return typeHandlers.formatPropertyWriteColumn(property, multiProperty);
+                                })
+                                .forEach(columns::add);
+                    } else {
+                        columns.add(typeHandlers.formatPropertyWriteColumn(null, property));
 //                        ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        columns.add(columnGenerator.generateWriteColumn(property.getTable(), null, property));
-                }
-            });
+                    }
+                });
         return whenOrOtherwise(document, test,
-            textNode(document, columns.stream().collect(Collectors.joining(",", "(", ")"))));
+                textNode(document, columns.stream().collect(Collectors.joining(",", "(", ")"))));
     }
 
 
@@ -225,83 +225,83 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final Element insertValues = document.createElement("choose");
         entity.getViews().stream().map(it -> buildInsertValuesElement(document, entity, it))
-            .forEach(insertValues::appendChild);
+                .forEach(insertValues::appendChild);
         insertValues.appendChild(buildInsertValuesElement(document, entity, null));
         foreach.appendChild(insertValues);
         return foreach;
     }
 
     private Element buildInsertValuesElement(@NonNull Document document, @NonNull Entity entity,
-        @Nullable TypeElement view) {
+                                             @Nullable TypeElement view) {
 
         final Element insertValues = document.createElement("when");
         final String test = view == null ? "view == null" : String
-            .format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
+                .format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
         insertValues.setAttribute("test", test);
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
-            .filter(it -> it.isWritable() && !it.isDefault())
-            .filter(it -> {
-                if (view == null) {
-                    return !it.hasAnnotation(ReadOnly.class);
-                } else {
-                    return it.hasView(view);
-                }
-            })
-            .forEach(property -> {
-                if (property.isReference()) {
-                    final Entity multiEntity = property.toEntity();
+                .filter(it -> !it.isTransient() && it.isWritable() && !it.isDefault())
+                .filter(it -> {
+                    if (view == null) {
+                        return !it.hasAnnotation(ReadOnly.class);
+                    } else {
+                        return it.hasView(view);
+                    }
+                })
+                .forEach(property -> {
+                    if (property.isReference()) {
+                        final Entity multiEntity = property.toEntity();
 
-                    final Element choose = document.createElement("choose");
-                    final Element when = document.createElement("when");
+                        final Element choose = document.createElement("choose");
+                        final Element when = document.createElement("when");
 //                        final String whenTest = String.format("list[index].%s != null", property.getName());
-                    final String whenTest = String.format("entity.%s != null", property.getName());
-                    when.setAttribute("test", whenTest);
-                    List<String> properties = property.referenceProperties();
-                    final String insertMultiValues = properties.stream()
-                        .map(multiEntity::getProperty)
-                        .map(multiProperty -> {
+                        final String whenTest = String.format("entity.%s != null", property.getName());
+                        when.setAttribute("test", whenTest);
+                        List<String> properties = property.referenceProperties();
+                        final String insertMultiValues = properties.stream()
+                                .map(multiEntity::getProperty)
+                                .map(multiProperty -> {
 //                                    final Class javaType = Utils.getPropertyJavaType(multiProperty);
-                            //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
+                                    //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
 //                                    final String item = property.placeholder() ? "list[${index}]" : "item";
 //                                    final String item = property.placeholder() ? "list[${index}]" : "item";
 //                                    ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(multiProperty);
 //                                    return columnGenerator.generateWriteValue(property, multiProperty, value);
 
-                            return typeHandlers.formatPropertyValues(property, multiProperty, "entity");
-                        })
-                        .collect(Collectors.joining(",\n"));
-                    when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
-                    choose.appendChild(when);
-                    final Element otherwise = document.createElement("otherwise");
-                    final List<String> nullValues = new ArrayList<>();
-                    for (int i = 0; i < property.referenceProperties().size(); i++) {
-                        nullValues.add("null");
-                    }
-                    final String otherWiseText =
-                        first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
-                    otherwise.appendChild(textNode(document, otherWiseText));
-                    choose.appendChild(otherwise);
-                    first.set(false);
-                    insertValues.appendChild(choose);
-                } else {
+                                    return typeHandlers.formatPropertyValues(property, multiProperty, "entity");
+                                })
+                                .collect(Collectors.joining(",\n"));
+                        when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
+                        choose.appendChild(when);
+                        final Element otherwise = document.createElement("otherwise");
+                        final List<String> nullValues = new ArrayList<>();
+                        for (int i = 0; i < property.referenceProperties().size(); i++) {
+                            nullValues.add("null");
+                        }
+                        final String otherWiseText =
+                                first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
+                        otherwise.appendChild(textNode(document, otherWiseText));
+                        choose.appendChild(otherwise);
+                        first.set(false);
+                        insertValues.appendChild(choose);
+                    } else {
 //                        //#{list[${index}].property,javaType=%s,typeHandler=%s}
 //                        final Class javaType = Utils.getPropertyJavaType(property);
-                    StringBuilder builder = new StringBuilder();
+                        StringBuilder builder = new StringBuilder();
 //
-                    if (!first.get()) {
-                        builder.append(",");
-                    }
+                        if (!first.get()) {
+                            builder.append(",");
+                        }
 //                        final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        final String item = property.placeholder() ? "list[${index}]" : "item";
 //                        final String value = columnGenerator.generateWriteValue(null, property, item);
-                    final String value = typeHandlers.formatPropertyValues(null, property, "entity");
-                    builder.append(value);
-                    first.set(false);
-                    insertValues.appendChild(textNode(document, builder.toString()));
-                }
-            });
+                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
+                        builder.append(value);
+                        first.set(false);
+                        insertValues.appendChild(textNode(document, builder.toString()));
+                    }
+                });
         insertValues.appendChild(textNode(document, ")"));
         return insertValues;
     }

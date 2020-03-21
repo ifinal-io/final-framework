@@ -137,21 +137,39 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
     }
 
     @Override
-    default Criterion jsonContains(@NotNull Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
-            .eq(true);
+    default FunctionCriteriable<Object, Criterion> jsonKeys() {
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_KEYS));
+
     }
 
     @Override
-    default Criterion notJsonContains(Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
-            .neq(true);
+    default FunctionCriteriable<Object, Criterion> jsonLength() {
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_LENGTH));
+
+    }
+
+    @Override
+    default FunctionCriteriable<Object, Criterion> jsonDepth() {
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_DEPTH));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonUnquote() {
         return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
     }
+
+    @Override
+    default Criterion jsonContains(@NotNull Object value, String path) {
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+                .eq(true);
+    }
+
+    @Override
+    default Criterion notJsonContains(Object value, String path) {
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+                .neq(true);
+    }
+
 
     @Override
     default FunctionCriteriable<Object, Criterion> and(Object value) {

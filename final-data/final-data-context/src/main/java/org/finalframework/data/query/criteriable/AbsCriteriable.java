@@ -4,6 +4,7 @@ package org.finalframework.data.query.criteriable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.validation.constraints.NotNull;
+
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.*;
@@ -45,17 +46,17 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     @Override
     public Criterion isNull() {
         return SingleCriterion.builder()
-            .property(this.property, this.functions)
-            .operator(CriterionOperator.NULL)
-            .build();
+                .property(this.property, this.functions)
+                .operator(CriterionOperator.NULL)
+                .build();
     }
 
     @Override
     public Criterion isNotNull() {
         return SingleCriterion.builder()
-            .property(this.property, this.functions)
-            .operator(CriterionOperator.NOT_NULL)
-            .build();
+                .property(this.property, this.functions)
+                .operator(CriterionOperator.NOT_NULL)
+                .build();
     }
 
     @Override
@@ -121,35 +122,53 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     private Criterion buildSingleCriterion(CriterionOperator operator, Object value) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
-            .property(this.property, this.functions)
-            .operator(operator)
-            .value(value)
-            .build();
+                .property(this.property, this.functions)
+                .operator(operator)
+                .value(value)
+                .build();
     }
 
     private Criterion buildLikeCriterion(CriterionOperator operator, String prefix, String value, String suffix) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
-            .property(this.property, this.functions)
-            .operator(operator)
-            .value(value)
-            .build().contact(prefix, suffix);
+                .property(this.property, this.functions)
+                .operator(operator)
+                .value(value)
+                .build().contact(prefix, suffix);
     }
 
     private Criterion buildBetweenCriterion(CriterionOperator operator, Object min, Object max) {
         Assert.isNull(min, "min is null");
         Assert.isNull(max, "max is null");
         return BetweenCriterion.builder()
-            .property(this.property, this.functions)
-            .operator(operator)
-            .between(min, max)
-            .build();
+                .property(this.property, this.functions)
+                .operator(operator)
+                .between(min, max)
+                .build();
     }
 
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonExtract(String path) {
         this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> jsonKeys() {
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_KEYS));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> jsonLength() {
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_LENGTH));
+        return this;
+    }
+
+    @Override
+    public FunctionCriteriable<V, Criterion> jsonDepth() {
+        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_DEPTH));
         return this;
     }
 
