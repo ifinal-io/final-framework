@@ -1,5 +1,6 @@
+#* @formatter:off *#
 #if($entities)
-    #foreach($!{item} in $!{entities.entities})
-        ${item}
+    #foreach($!{item} in $!{entities})
+${item}
     #end
 #end

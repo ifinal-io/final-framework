@@ -1,10 +1,5 @@
-#set($package = $qEntity.packageName)
-#set($idProperty = $qEntity.idProperty)
-#set($entity = $qEntity.entity)
-#set($simpleName = $qEntity.simpleName)
-#set($properties = $qEntity.properties)
 #* @formatter:off *#
-package ${package};
+package ${packageName};
 
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.query.QProperty;

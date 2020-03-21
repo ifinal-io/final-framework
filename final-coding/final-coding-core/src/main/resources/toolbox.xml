@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tools>
+    <toolbox scope="coding">
+        <!-- <tool key="map" class="java.util.HashMap"/> -->
+        <tool key="coding" class="org.finalframework.coding.tool.JavaTool"/>
+        <tool key="date" class="org.apache.velocity.tools.generic.DateTool"/>
+    </toolbox>
+</tools>

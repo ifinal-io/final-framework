@@ -1,23 +1,23 @@
-package $!{mapper.packageName};
+package $!{packageName};
     #* @formatter:off *#
 import org.apache.ibatis.annotations.Mapper;
 import org.finalframework.mybatis.mapper.AbsMapper;
-import ${mapper.entity.name};
+import ${entity.name};
 
 import javax.annotation.Generated;
 
-#set($idJavaType = $mapper.entity.idProperty.getJavaTypeElement().getQualifiedName().toString().replace("java.lang.",""))
+#set($idJavaType = $entity.idProperty.getJavaTypeElement().getQualifiedName().toString().replace("java.lang.",""))
 
-#if($mapper.inner)
+#if($inner)
 @Mapper
 @Generated("org.finalframework.coding.mapper.MapperGenerator")
-interface $!{mapper.simpleName} extends AbsMapper<${idJavaType},${mapper.entity.simpleName}>{
+interface $!{simpleName} extends AbsMapper<${idJavaType},${entity.simpleName}>{
 
 }
 #else
 @Mapper
 @Generated("org.finalframework.coding.mapper.MapperGenerator")
-public interface $!{mapper.simpleName} extends AbsMapper<${idJavaType},${mapper.entity.simpleName}>{
+public interface $!{simpleName} extends AbsMapper<${idJavaType},${entity.simpleName}>{
 
 }
 #end

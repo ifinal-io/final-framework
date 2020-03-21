@@ -64,15 +64,6 @@ public class EntitiesGeneratorProcessor extends AbstractProcessor {
         });
 
         if (roundEnv.processingOver()) {
-
-//            entities.forEach(entity -> {
-//                Bean.from(processingEnv, entity)
-//                        .forEach(property -> {
-//                            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, property.toString());
-//                        });
-//
-//            });
-
             coding(Entities.builder().addEntities(entities).build());
         } else {
             ElementFilter.typesIn(roundEnv.getRootElements())

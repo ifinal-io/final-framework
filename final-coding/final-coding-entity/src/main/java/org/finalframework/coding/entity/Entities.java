@@ -16,20 +16,15 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @Template("entity/final.entities.vm")
-public class Entities implements Streamable<TypeElement>,Iterable<TypeElement>, Serializable {
+public class Entities implements Streamable<TypeElement>, Iterable<TypeElement>, Serializable {
     private final Set<TypeElement> entities;
 
     private Entities(Builder builder) {
-        builder.entities.sort(new Comparator<TypeElement>() {
-            @Override
-            public int compare(TypeElement o1, TypeElement o2) {
-                return o1.getQualifiedName().toString().compareTo(o2.getQualifiedName().toString());
-            }
-        });
+        builder.entities.sort(Comparator.comparing(o -> o.getQualifiedName().toString()));
         entities = new HashSet<>(builder.entities);
     }
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -51,7 +46,9 @@ public class Entities implements Streamable<TypeElement>,Iterable<TypeElement>, 
         private final List<TypeElement> entities = new ArrayList<>(128);
 
         public Builder addEntity(TypeElement entity) {
-            this.entities.add(entity);
+            if (entity != null) {
+                this.entities.add(entity);
+            }
             return this;
         }
 

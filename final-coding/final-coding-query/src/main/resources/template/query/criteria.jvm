@@ -1,11 +1,9 @@
-#set($package = $criteria.packageName)
-#set($simpleName = $criteria.simpleName)
-#set($properties = $criteria.entity.properties)
-#set($qentity = $criteria.entity.simpleName)
-#set($prefix = $criteria.prefix)
-#set($criteria = $criteria.simpleName)
+#set($properties = $entity.properties)
+#set($qentity = $entity.simpleName)
+#set($prefix = $prefix)
+#set($criteria = $simpleName)
 #* @formatter:off *#
-package ${package};
+package ${packageName};
 
 import org.finalframework.data.query.AbsCriteria;
 import org.finalframework.data.query.Criteria;

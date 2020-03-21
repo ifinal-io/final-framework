@@ -1,11 +1,10 @@
-#set($package = $query.packageName)
-#set($name = $query.simpleName)
-#set($properties = $query.entity.properties)
-#set($qentity = $query.entity.simpleName)
-#set($criteria = $query.criteria)
+#set($name = $simpleName)
+#set($properties = $entity.properties)
+#set($qentity = $entity.simpleName)
+#set($criteria = $criteria)
 
 #* @formatter:off *#
-package ${package};
+package ${packageName};
 
 import org.finalframework.data.query.AbsQuery;
 import org.finalframework.data.query.enums.AndOr;
