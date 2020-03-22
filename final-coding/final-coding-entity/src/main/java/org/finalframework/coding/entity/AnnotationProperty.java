@@ -31,19 +31,7 @@ import javax.lang.model.util.Types;
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.Final;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Reference;
-import org.finalframework.data.annotation.Sharding;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.annotation.Version;
-import org.finalframework.data.annotation.View;
-import org.finalframework.data.annotation.Virtual;
-import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
@@ -68,6 +56,7 @@ public class AnnotationProperty implements Property {
     private final Types types;
     private final TypeElements typeElements;
     private final Lazy<Element> element;
+    private final Lazy<TypeElement> typeHandler;
     private final List<TypeElement> views = new ArrayList<>();
     private TypeElement javaTypeElement;
     private TypeElement metaTypeElement;
@@ -126,6 +115,7 @@ public class AnnotationProperty implements Property {
         }
 
         this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
+        this.typeHandler = Lazy.of(this::initTypeHandler);
         this.name = Lazy.of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
 
         this.type = Lazy.of(() ->
@@ -219,6 +209,25 @@ public class AnnotationProperty implements Property {
         return Stream.of(value, column).filter(Assert::nonBlank).findFirst().orElse(getName());
     }
 
+    private TypeElement initTypeHandler() {
+        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
+        TypeElement typeHandler = typeElements.getTypeElement(TypeHandler.class);
+        for (AnnotationMirror annotationMirror : annotationMirrors) {
+            DeclaredType annotationType = annotationMirror.getAnnotationType();
+            if (typeElements.isSameType(annotationType, typeHandler.asType())) {
+                for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : annotationMirror.getElementValues().entrySet()) {
+                    if (entry.getKey().getSimpleName().toString().equals("value")) {
+                        /**
+                         * {@link TypeHandler#value()}
+                         */
+                        return (TypeElement) ((DeclaredType) entry.getValue().getValue()).asElement();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 
     private void initReferenceColumn(Reference ann) {
         initReference(ann.mode(), ann.properties(), ann.delimiter());
@@ -279,6 +288,11 @@ public class AnnotationProperty implements Property {
     @Override
     public Element getElement() {
         return this.element.get();
+    }
+
+    @Override
+    public TypeElement getTypeHandler() {
+        return this.typeHandler.orElse(null);
     }
 
     @Override

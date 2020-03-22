@@ -36,6 +36,9 @@ public interface Property {
     Element getElement();
 
     @Nullable
+    TypeElement getTypeHandler();
+
+    @Nullable
     VariableElement getField();
 
     @Nullable

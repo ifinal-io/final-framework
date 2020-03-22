@@ -3,7 +3,9 @@ package org.finalframework.coding.mapper;
 import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -15,6 +17,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.Function;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Json;
+import org.finalframework.data.annotation.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -85,6 +88,13 @@ public final class TypeHandlers {
     }
 
     public TypeElement getTypeHandler(Property property) {
+
+        if (property.hasAnnotation(TypeHandler.class)) {
+            List<? extends AnnotationMirror> annotationMirrors = property.getElement().getAnnotationMirrors();
+
+        }
+
+
         if (property.isMap() || typeElements.isObject(property.getElement())) {
             PersistentType persistentType = JSON;
             switch (persistentType) {

@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -51,7 +52,7 @@ public class QEntityFactory {
 //            System.out.println("1:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .type(property.getJavaTypeElement())
-                    .typeHandler(typeHandlers.getTypeHandler(property))
+                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
                     .persistentType(property.getPersistentType())
@@ -66,7 +67,7 @@ public class QEntityFactory {
             return QProperty.builder(path, name)
                     .column(Utils.formatPropertyColumn(referenceProperty, property))
                     .type(property.getJavaTypeElement())
-                    .typeHandler(typeHandlers.getTypeHandler(property))
+                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
                     .insertable(!property.isTransient() && !property.isReadOnly() && !property.isVirtual())

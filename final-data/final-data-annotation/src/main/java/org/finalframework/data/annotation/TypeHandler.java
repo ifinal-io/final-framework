@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TypeHandler {
-    Class<? extends org.apache.ibatis.type.TypeHandler> value();
+    Class<? extends org.apache.ibatis.type.TypeHandler<?>> value();
 }
