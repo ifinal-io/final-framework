@@ -1,4 +1,4 @@
-#foreach($entry in ${springFactories.springFactories.entrySet()})
+#foreach($entry in ${springFactories.entrySet()})
     #set($key = $entry.key)
     #set($list = $entry.value)
     #if($list)

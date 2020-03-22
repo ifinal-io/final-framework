@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.finalframework.data.entity.enums.YN;
 import org.finalframework.json.Json;
 import org.finalframework.json.JsonRegistry;
+import org.finalframework.json.context.JsonContextHolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +41,8 @@ public class JacksonJsonServiceTest {
         JacksonBean bean = new JacksonBean();
         bean.setCreated(LocalDateTime.now());
         bean.setYn(YN.YES);
+        JsonContextHolder.setIgnore(false, false);
+
         System.out.println(Json.toJson(bean));
     }
 

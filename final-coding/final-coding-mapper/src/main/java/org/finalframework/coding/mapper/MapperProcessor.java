@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper;
 
 import com.google.auto.service.AutoService;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
 import org.dom4j.io.OutputFormat;
@@ -311,6 +312,8 @@ public class MapperProcessor extends AbstractProcessor {
             } catch (Exception e) {
                 System.err.println("XML.toString(Document): " + e);
             }
+
+            DefaultResultSetHandler m;
         }
 
         return result;

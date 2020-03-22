@@ -8,6 +8,7 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.finalframework.json.context.JsonContextHolder;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,10 +20,11 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings({"rawtypes"})
 @Intercepts(
-    {
-        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
-    }
+        {
+                @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
+        }
 )
+@SpringComponent
 public class JsonIgnoreInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonIgnoreInterceptor.class);

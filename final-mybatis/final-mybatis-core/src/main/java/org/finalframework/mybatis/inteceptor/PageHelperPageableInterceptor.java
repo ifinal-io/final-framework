@@ -12,6 +12,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.Pageable;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,7 @@ import org.slf4j.LoggerFactory;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
+@SpringComponent
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);
