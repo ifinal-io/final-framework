@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
  * </pre>
  * <a href="https://final.ilikly.com/mybatis/mapper/fragment/table">table</a>
  **/
-final class SqlTablesFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
+public final class SqlTablesFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
     public SqlTablesFragmentXmlMapperBuilder(TypeHandlers typeHandlers) {
         super(typeHandlers);
     }
