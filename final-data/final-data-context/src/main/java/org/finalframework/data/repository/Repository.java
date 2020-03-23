@@ -85,9 +85,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * 批量插入数据并返回影响的行数
      *
      * @param tableName 表名
-     * @param view 视图
-     * @param ignore 是否忽略重复数据
-     * @param entities 实体集
+     * @param view      视图,
+     * @param ignore    是否忽略重复数据,{@literal INSERT IGNORE}
+     * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
     @Deprecated

@@ -93,6 +93,8 @@ readme_index:
 relative_links:
   enabled:     true
   collections: true
+include:
+  - data
 toc:
   enable: true
   min_level: 2

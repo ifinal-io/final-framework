@@ -1,3 +1,24 @@
 default:
   logo: /assets/img/modules/mayi.png
   name: Final Framework
+menus:
+  - id: index
+    name: README
+    icon: dashboard
+    link: /
+  - id: data
+    name: Data
+    icon: table_chart
+    menus:
+      - id: enum
+        link: /data/enum
+        mini: EM
+        name: Enum
+      - id: repository
+        link: /data/repository
+        mini: CURD
+        name: Repository
+      - id: criterion
+        link: /data/criterion
+        mini: CTN
+        name: Criterion

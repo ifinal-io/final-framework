@@ -34,7 +34,7 @@ version: 1.0
 
 提供了以下**ORM**注释，可通过不同的组合，实现多样的功能。
 
-{% include framework/data/annotations.html %}
+{% include data/annotations.html %}
 
 ### @Table
 
