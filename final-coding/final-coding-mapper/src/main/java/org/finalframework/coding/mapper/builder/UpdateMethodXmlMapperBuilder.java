@@ -236,7 +236,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                             ifPropertyNotNull.appendChild(textNode(document, String.format("%s = %s,", column, value)));
                             whenOrOtherwise.appendChild(ifPropertyNotNull);
                         } else {
-                            whenOrOtherwise.appendChild(textNode(document, String.format("%s = %s", column, value)));
+                            whenOrOtherwise.appendChild(textNode(document, String.format("%s = %s,", column, value)));
                         }
                     }
 
