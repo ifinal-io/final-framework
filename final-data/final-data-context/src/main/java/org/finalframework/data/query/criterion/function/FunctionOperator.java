@@ -4,11 +4,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.finalframework.data.annotation.IEnum;
 
 /**
- * @author sli
+ * @author likly
  * @version 1.0
  * @date 2020-03-20 21:08:37
  * @since 1.0

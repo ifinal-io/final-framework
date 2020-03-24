@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import org.apache.ibatis.type.BaseTypeHandler;
 
 /**
- * @author sli
+ * @author likly
  * @version 1.0
  * @date 2020-03-24 20:17:38
  * @since 1.0

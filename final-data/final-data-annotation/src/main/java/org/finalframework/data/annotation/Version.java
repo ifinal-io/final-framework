@@ -25,9 +25,9 @@ import org.springframework.core.annotation.AliasFor;
 @org.springframework.data.annotation.Version
 public @interface Version {
 
-  @AliasFor("name")
-  String value() default "";
+    @AliasFor(annotation = Column.class, value = "name")
+    String value() default "";
 
-  @AliasFor("value")
-  String name() default "";
+    @AliasFor(annotation = Column.class, value = "value")
+    String name() default "";
 }

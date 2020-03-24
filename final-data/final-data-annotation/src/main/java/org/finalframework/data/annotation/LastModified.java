@@ -1,9 +1,12 @@
 package org.finalframework.data.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.lang.annotation.*;
 
 /**
  * 最后更新时间
@@ -14,6 +17,7 @@ import java.lang.annotation.*;
  * @see Created
  * @since 1.0
  */
+@ReadOnly
 @Column
 @Documented
 @LastModifiedDate
@@ -21,6 +25,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModified {
+
     @AliasFor("name")
     String value() default "";
 
