@@ -4,23 +4,7 @@ import java.util.Arrays;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.query.criterion.function.FunctionOperator;
 import org.finalframework.data.query.criterion.function.SupportFunctions;
-import org.finalframework.data.query.criterion.function.expression.AvgFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.ConcatFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.DateFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.IEnumAndFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.IEnumNotFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.IEnumOrFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.IEnumXorFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.JsonContainsFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.JsonExtractFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.JsonUnquoteFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.MaxFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.MinFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.NumberAndFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.NumberNotFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.NumberOrFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.NumberXorFunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.expression.SumFunctionOperationExpression;
+import org.finalframework.data.query.criterion.function.expression.*;
 import org.finalframework.util.LinkedMultiKeyMap;
 import org.finalframework.util.MultiKeyMap;
 
@@ -58,7 +42,9 @@ public class FunctionOperationRegistry {
         registerCriterionOperation(new ConcatFunctionOperationExpression<>());
 
         registerCriterionOperation(new JsonExtractFunctionOperationExpression<>());
-        registerCriterionOperation(new JsonContainsFunctionOperationExpression<>());
+        registerCriterionOperation(new JsonLengthFunctionOperationExpression<>());
+        registerCriterionOperation(new JsonKeysFunctionOperationExpression<>());
+        registerCriterionOperation(new JsonDepthFunctionOperationExpression<>());
         registerCriterionOperation(new JsonUnquoteFunctionOperationExpression<>());
     }
 
