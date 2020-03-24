@@ -11,7 +11,15 @@ import org.finalframework.data.query.enums.AndOr;
 
 import javax.annotation.Generated;
 
-#parse("/template/parse/header.vm")
+/**
+ * Please don't use this more, it will be removed at the feature version, such as 1.0.
+ * Please use {@link org.finalframework.data.query.Query}
+ * @author ${user}
+ * @version ${version}
+ * @date ${date.format("YYYY-MM-dd HH:mm",$created)}
+ * @since 1.0
+ */
+@Deprecated
 @Generated("org.finalframework.coding.query.QueryGenerator")
 public final class ${name} extends AbsQuery<${criteria},${name}>{
 
