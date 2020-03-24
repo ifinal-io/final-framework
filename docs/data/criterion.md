@@ -16,6 +16,9 @@ version: 1.0
 
 ## Null
 
+* `isNull()`: 判断值是否为`NULL`,`column IS NULL`
+* `isNotNull()`: 判断值是否为`NOT NULL`,`column IS NOT NULL`
+
 ## Compare
 
 ## Between
@@ -23,3 +26,5 @@ version: 1.0
 ## Like
 
 ## Json
+
+{% include data/criterion.html %}

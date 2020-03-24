@@ -11,10 +11,7 @@ import org.w3c.dom.Element;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -265,7 +262,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 .map(multiEntity::getProperty)
                                 .map(multiProperty -> {
                                     final TypeElement javaType = multiProperty.getJavaTypeElement();
-                                    final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
+                                    final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
 
                                     final Element ifUpdateContains = document.createElement("if");
 
@@ -308,7 +305,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
                     } else {
                         final TypeElement javaType = property.getJavaTypeElement();
-                        final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
+                        final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
                         final Element ifUpdateContains = document.createElement("if");
                         final String updatePath = property.getName();
                         final String ifTest = String.format("update['%s'] != null", updatePath);

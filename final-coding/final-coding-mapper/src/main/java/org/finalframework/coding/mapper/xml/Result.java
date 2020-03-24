@@ -5,6 +5,7 @@ import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.PrimaryKey;
 
 import javax.lang.model.element.TypeElement;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -29,10 +30,9 @@ public class Result implements Element {
     }
 
     public static Result from(Property referenceProperty, Property property, TypeHandlers typeHandlers) {
-        return new Builder(property.getName(),
-                typeHandlers.formatPropertyWriteColumn(referenceProperty, property))
+        return new Builder(property.getName(), typeHandlers.formatPropertyWriteColumn(referenceProperty, property))
                 .javaType(property.getJavaTypeElement())
-                .typeHandler(typeHandlers.getTypeHandler(property))
+                .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                 .idResult(property.hasAnnotation(PrimaryKey.class))
                 .build();
     }

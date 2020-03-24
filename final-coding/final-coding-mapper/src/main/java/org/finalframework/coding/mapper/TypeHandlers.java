@@ -4,6 +4,7 @@ import static org.finalframework.data.annotation.enums.PersistentType.JSON;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -144,7 +145,7 @@ public final class TypeHandlers {
 
     public String formatPropertyValues(@Nullable Property referenceProperty, @NonNull Property property, String value) {
         final TypeElement javaType = property.getJavaTypeElement();
-        final TypeElement typeHandler = getTypeHandler(property);
+        final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(getTypeHandler(property));
         final StringBuilder builder = new StringBuilder();
 
         builder.append(property.placeholder() ? "#{" : "${").append(value);
