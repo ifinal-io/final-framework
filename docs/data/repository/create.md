@@ -81,3 +81,31 @@ public interface Repository {
     int replace(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 }
 ```
+
+
+## Save
+
+`save`实现当数据不存在时**新增（`insert`）**，否则**更新（`update`）**，基于`SQL`中的`INSERT INTO ON DUPLICATE KEY UPDATE`实现，为*原子操作*。参数如下：
+
+|    参数     |  含义  |                         说明                         |
+| :---------: | :----: | :--------------------------------------------------: |
+| `tableName` |  表名  |                     要插入的表名                     |
+|   `view`    |  视图  |                可根据视图插入不同的列                |
+| `entities`  | 实体集 |                        实体集                        |
+
+
+
+方法原型定义如下，提供了以上参数的多种重载函数：
+```java
+public interface Repository {
+    /**
+     * 批量插入数据并返回影响的行数
+     *
+     * @param tableName 表名
+     * @param view      视图,
+     * @param entities  实体集
+     * @return 指插入数据所影响的行数
+     */
+    int save(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+}
+```
