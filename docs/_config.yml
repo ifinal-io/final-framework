@@ -28,7 +28,7 @@ git:
   url: https://github.com/likly/final-framework
   domain: Github
 final:
-  version: 0.4.7-SNAPSHOT
+  version: 0.4.8-SNAPSHOT
   entities: META-INF/final.entities
 # Build settings
 markdown: kramdown

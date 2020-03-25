@@ -31,7 +31,7 @@ public class BeanEnumValuePropertySerializerModifier extends AbsBeanPropertySeri
 
     @Override
     public boolean support(BeanPropertyDefinition property) {
-        return property.getField().hasAnnotation(EnumValue.class);
+        return property.getField() != null && property.getField().hasAnnotation(EnumValue.class);
     }
 
     @Override

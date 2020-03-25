@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-test</artifactId>
         <groupId>org.finalframework.test</groupId>
-        <version>0.4.7-SNAPSHOT</version>
+        <version>0.4.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>org.finalframework.test</groupId>
             <artifactId>final-test-entity</artifactId>
-            <version>0.4.7-SNAPSHOT</version>
+            <version>0.4.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.finalframework.boot</groupId>
