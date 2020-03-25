@@ -49,12 +49,12 @@ public enum CriterionOperator implements IEnum<String> {
     private static final Map<String, CriterionOperator> cache = Arrays.stream(values())
             .collect(Collectors.toMap(CriterionOperator::getCode, Function.identity()));
 
-    private final String description;
+    private final String desc;
 
-    CriterionOperator(String code, String operator, String description) {
+    CriterionOperator(String code, String operator, String desc) {
         this.code = code;
         this.operator = operator;
-        this.description = description;
+        this.desc = desc;
     }
 
 
@@ -74,7 +74,7 @@ public enum CriterionOperator implements IEnum<String> {
     }
 
     @Override
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 }

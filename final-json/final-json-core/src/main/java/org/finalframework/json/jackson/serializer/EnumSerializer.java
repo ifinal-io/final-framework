@@ -39,7 +39,7 @@ public class EnumSerializer extends JsonSerializer<IEnum> {
             gen.writeObject(((Enum) value).name());
         }
         gen.writeFieldName("description");
-        gen.writeObject(value.getDescription());
+        gen.writeObject(value.getDesc());
         gen.writeEndObject();
     }
 }

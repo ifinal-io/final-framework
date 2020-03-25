@@ -4,6 +4,7 @@ package org.finalframework.json.jackson;
 import lombok.Data;
 import org.finalframework.data.entity.AbsEntity;
 import org.finalframework.data.entity.enums.YN;
+import org.finalframework.data.annotation.EnumValue;
 
 /**
  * @author likly
@@ -14,5 +15,9 @@ import org.finalframework.data.entity.enums.YN;
 @Data
 public class JacksonBean extends AbsEntity {
     private YN[] yns = YN.values();
+
+    @EnumValue(value = YN.class)
+    private Integer ynTest;
+
 }
 

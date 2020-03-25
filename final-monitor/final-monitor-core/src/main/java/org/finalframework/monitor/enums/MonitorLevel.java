@@ -50,7 +50,7 @@ public enum MonitorLevel implements IEnum<Integer> {
 
     @Override
     @SuppressWarnings("unused")
-    public String getDescription() {
+    public String getDesc() {
         return description;
     }
 }

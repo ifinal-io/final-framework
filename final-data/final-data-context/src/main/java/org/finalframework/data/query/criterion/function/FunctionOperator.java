@@ -61,7 +61,7 @@ public enum FunctionOperator implements IEnum<String> {
     }
 
     @Override
-    public String getDescription() {
+    public String getDesc() {
         return description;
     }
 }

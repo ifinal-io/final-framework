@@ -18,7 +18,7 @@ public class EnumBean<T> implements Serializable {
     }
 
     public EnumBean(IEnum<T> iEnum) {
-        this(iEnum.getCode(), iEnum.getDescription());
+        this(iEnum.getCode(), iEnum.getDesc());
     }
 
     public EnumBean(T code, String name) {

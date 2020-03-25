@@ -42,6 +42,7 @@ public class JacksonJsonServiceTest {
         bean.setCreated(LocalDateTime.now());
         bean.setYn(YN.YES);
 //        JsonContextHolder.setIgnore(false, false);
+        bean.setYnTest(1);
 
         System.out.println(Json.toJson(bean));
     }

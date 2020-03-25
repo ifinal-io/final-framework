@@ -28,7 +28,7 @@ public class EnumsJsonSerializer extends JsonSerializer<Collection<IEnum>> {
             gen.writeFieldName("code");
             gen.writeObject(item.getCode());
             gen.writeFieldName("name");
-            gen.writeObject(item.getDescription());
+            gen.writeObject(item.getDesc());
             gen.writeEndObject();
         }
 

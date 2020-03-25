@@ -38,16 +38,16 @@ public enum YN implements IEnum<Integer> {
     private final Integer code;
     private static final Map<Integer, YN> cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
 
-    private final String description;
+    private final String desc;
 
-    YN(Integer code, String description) {
+    YN(Integer code, String desc) {
         this.code = code;
-        this.description = description;
+        this.desc = desc;
     }
 
 
     @JsonCreator
-    public static YN valueOf(int value) {
+    public static YN valueOf(Integer value) {
         return cache.get(value);
     }
 
@@ -58,8 +58,8 @@ public enum YN implements IEnum<Integer> {
     }
 
     @Override
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
 
