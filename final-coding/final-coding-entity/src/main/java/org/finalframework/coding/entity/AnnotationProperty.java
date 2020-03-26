@@ -27,11 +27,23 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
-
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.Column;
+import org.finalframework.data.annotation.Default;
+import org.finalframework.data.annotation.Final;
+import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.PrimaryKey;
+import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.Reference;
+import org.finalframework.data.annotation.Sharding;
+import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.annotation.TypeHandler;
+import org.finalframework.data.annotation.Version;
+import org.finalframework.data.annotation.View;
+import org.finalframework.data.annotation.Virtual;
+import org.finalframework.data.annotation.WriteOnly;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
@@ -46,6 +58,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public class AnnotationProperty implements Property {
+
     private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
     /**
      * 虚拟列前缀
@@ -67,7 +80,7 @@ public class AnnotationProperty implements Property {
     private final Lazy<String> name;
     private final Lazy<String> column;
     private final Lazy<TypeMirror> type;
-    private PersistentType persistentType = PersistentType.AUTO;
+    private final Lazy<PersistentType> persistentType;
     private boolean unique = false;
     private boolean nonnull = true;
     private boolean updatable = true;
@@ -92,13 +105,14 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isList;
     private final Lazy<Boolean> isSet;
     private final Lazy<Boolean> isMap;
-    private PrimaryKeyType primaryKeyType = PrimaryKeyType.AUTO_INC;
+    private Lazy<PrimaryKeyType> primaryKeyType;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
     private Map<String, String> referenceColumns;
 
-    public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field, Optional<PropertyDescriptor> descriptor) {
+    public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field,
+        Optional<PropertyDescriptor> descriptor) {
         this.processEnv = processEnv;
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
@@ -116,14 +130,15 @@ public class AnnotationProperty implements Property {
 
         this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
         this.typeHandler = Lazy.of(this::initTypeHandler);
-        this.name = Lazy.of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
+        this.name = Lazy
+            .of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
 
         this.type = Lazy.of(() ->
-                withFieldOrMethod(
-                        Element::asType,
-                        setter -> setter.getParameters().get(0).asType(),
-                        ExecutableElement::getReturnType
-                )
+            withFieldOrMethod(
+                Element::asType,
+                setter -> setter.getParameters().get(0).asType(),
+                ExecutableElement::getReturnType
+            )
         );
 
         this.isPrimitive = Lazy.of(getType() instanceof PrimitiveType);
@@ -145,9 +160,18 @@ public class AnnotationProperty implements Property {
         this.isReadable = Lazy.of(!isTransient() && !isVirtual() && !hasAnnotation(WriteOnly.class));
         this.isTransient = Lazy.of(hasAnnotation(Transient.class));
 
+        this.primaryKeyType = Lazy.of(() -> {
+            if (isIdProperty()) {
+                return getAnnotation(PrimaryKey.class).type();
+            }
+
+            return PrimaryKeyType.AUTO_INC;
+        });
+
+        this.persistentType = Lazy.of(PersistentType.AUTO);
+
         PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
         this.javaTypeElement = getType().accept(propertyJavaTypeVisitor, this);
-
 
         if (isReference()) {
             initReferenceColumn(getAnnotation(Reference.class));
@@ -173,7 +197,6 @@ public class AnnotationProperty implements Property {
 //        System.out.println("isReference：" + isReference());
 //        System.out.println("===================================================================================================================");
 
-
     }
 
     private String initColumn() {
@@ -196,9 +219,9 @@ public class AnnotationProperty implements Property {
         Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotation.getElementValues();
         String column = "";
         String value = "";
-        System.out.println(annotationType.toString() + "sdfasdfajhwehfas===================");
         for (ExecutableElement method : elementValues.keySet()) {
-            System.out.println(annotationType.toString() + ":" + method.getSimpleName().toString() + ":" + elementValues.get(method));
+            System.out.println(
+                annotationType.toString() + ":" + method.getSimpleName().toString() + ":" + elementValues.get(method));
             if ("name".equals(method.getSimpleName().toString())) {
                 column = (String) elementValues.get(method).getValue();
             } else if ("value".equals(method.getSimpleName().toString())) {
@@ -215,7 +238,8 @@ public class AnnotationProperty implements Property {
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, typeHandler.asType())) {
-                for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : annotationMirror.getElementValues().entrySet()) {
+                for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : annotationMirror
+                    .getElementValues().entrySet()) {
                     if (entry.getKey().getSimpleName().toString().equals("value")) {
                         /**
                          * {@link TypeHandler#value()}
@@ -239,13 +263,15 @@ public class AnnotationProperty implements Property {
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, columnView.asType())) {
-                Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+                Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
+                    .getElementValues();
                 columnView.getEnclosedElements().stream()
-                        .map(it -> (ExecutableElement) it)
-                        .forEach(method -> {
-                            List<AnnotationValue> views = (List<AnnotationValue>) elementValues.get(method).getValue();
-                            views.stream().map(AnnotationValue::getValue).map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
-                        });
+                    .map(it -> (ExecutableElement) it)
+                    .forEach(method -> {
+                        List<AnnotationValue> views = (List<AnnotationValue>) elementValues.get(method).getValue();
+                        views.stream().map(AnnotationValue::getValue)
+                            .map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
+                    });
 
             }
         }
@@ -322,7 +348,7 @@ public class AnnotationProperty implements Property {
 
     @Override
     public PersistentType getPersistentType() {
-        return persistentType;
+        return this.persistentType.get();
     }
 
     @Override
@@ -407,7 +433,7 @@ public class AnnotationProperty implements Property {
 
     @Override
     public PrimaryKeyType getPrimaryKeyType() {
-        return primaryKeyType;
+        return this.primaryKeyType.get();
     }
 
     @Override
@@ -493,24 +519,26 @@ public class AnnotationProperty implements Property {
     }
 
     private <T> T withFieldOrDescriptor(Function<? super VariableElement, T> field,
-                                        Function<? super PropertyDescriptor, T> descriptor) {
+        Function<? super PropertyDescriptor, T> descriptor) {
 
         return Optionals.firstNonEmpty(//
-                () -> this.field.map(field), //
-                () -> this.descriptor.map(descriptor))//
-                .orElseThrow(() -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+            () -> this.field.map(field), //
+            () -> this.descriptor.map(descriptor))//
+            .orElseThrow(
+                () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
     private <T> T withFieldOrMethod(Function<? super VariableElement, T> field,
-                                    Function<? super ExecutableElement, T> setter,
-                                    Function<? super ExecutableElement, T> getter
+        Function<? super ExecutableElement, T> setter,
+        Function<? super ExecutableElement, T> getter
     ) {
 
         return Optionals.firstNonEmpty(//
-                () -> this.field.map(field), //
-                () -> this.writeMethod.map(setter),
-                () -> this.readMethod.map(getter))//
-                .orElseThrow(() -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+            () -> this.field.map(field), //
+            () -> this.writeMethod.map(setter),
+            () -> this.readMethod.map(getter))//
+            .orElseThrow(
+                () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
     private boolean isEnum(TypeMirror type) {
@@ -564,6 +592,7 @@ public class AnnotationProperty implements Property {
 
 
     private static final class PropertyJavaTypeVisitor extends SimpleTypeVisitor8<TypeElement, AnnotationProperty> {
+
         @NonNull
         private final ProcessingEnvironment pv;
         @NonNull
@@ -579,11 +608,8 @@ public class AnnotationProperty implements Property {
 
 
         /**
-         * Represents a primitive type.  These include
-         * {@code boolean}, {@code byte}, {@code short}, {@code int},
-         * {@code long}, {@code char}, {@code float}, and {@code double}.
-         *
-         * @return
+         * Represents a primitive type.  These include {@code boolean}, {@code byte}, {@code short}, {@code int}, {@code
+         * long}, {@code char}, {@code float}, and {@code double}.
          */
         @Override
         public TypeElement visitPrimitive(PrimitiveType type, AnnotationProperty property) {
@@ -610,7 +636,6 @@ public class AnnotationProperty implements Property {
                 }
             }
 
-
             throw new IllegalArgumentException("不支持的Array类型：[]" + type.toString());
         }
 
@@ -623,7 +648,9 @@ public class AnnotationProperty implements Property {
             if (property.isCollection()) {
                 TypeMirror elementType = type.getTypeArguments().get(0);
                 TypeKind kind = elementType.getKind();
-                if (kind.isPrimitive()) return property.getPrimitiveTypeElement(kind);
+                if (kind.isPrimitive()) {
+                    return property.getPrimitiveTypeElement(kind);
+                }
                 if (TypeKind.DECLARED == kind && !property.isCollection(elementType)) {
                     DeclaredType declaredType = (DeclaredType) elementType;
                     Element element = declaredType.asElement();
