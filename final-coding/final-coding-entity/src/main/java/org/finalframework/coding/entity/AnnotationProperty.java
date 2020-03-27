@@ -44,9 +44,11 @@ import org.finalframework.data.annotation.Version;
 import org.finalframework.data.annotation.View;
 import org.finalframework.data.annotation.Virtual;
 import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.annotation.enums.Keyword;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.data.query.SqlKeyWords;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 import org.springframework.lang.NonNull;
@@ -87,6 +89,7 @@ public class AnnotationProperty implements Property {
     private final String componentType = null;
     private final String mapKeyType = null;
     private final String mapValueType = null;
+    private final Lazy<Boolean> isKeyword;
     private final Lazy<Boolean> isIdProperty;
     private final Lazy<Boolean> isReference;
     private final Lazy<Boolean> isVersion;
@@ -179,6 +182,8 @@ public class AnnotationProperty implements Property {
         initColumnView();
 
         this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
+
+        this.isKeyword = Lazy.of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
 //        System.out.println("=================================================" + getName() + "=================================================");
 //        System.out.println("name：" + getName());
@@ -419,6 +424,11 @@ public class AnnotationProperty implements Property {
     @Override
     public String getMapValueType() {
         return mapValueType;
+    }
+
+    @Override
+    public boolean isKeyword() {
+        return isKeyword.get();
     }
 
     @Override

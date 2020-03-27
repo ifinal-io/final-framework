@@ -9,6 +9,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.PrimaryKey;
@@ -111,6 +112,13 @@ public interface Property {
     String getMapKeyType();
 
     String getMapValueType();
+
+    /**
+     * @return
+     * @see org.finalframework.data.annotation.enums.Keyword
+     * @see org.finalframework.data.query.SqlKeyWords
+     */
+    boolean isKeyword();
 
     /**
      * @see PrimaryKey

@@ -30,6 +30,10 @@ public interface Utils {
         String column = null;
         if (referenceProperty == null) {
             column = property.getColumn();
+            if (property.isKeyword()) {
+                column = String.format("`%s`", column);
+            }
+
         } else {
             final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
                     referenceProperty.referenceColumn(property.getName()) : property.getColumn();

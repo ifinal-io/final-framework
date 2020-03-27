@@ -2,7 +2,6 @@ package org.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +43,7 @@ public class Person extends AbsRecord {
     private Date date = new Date();
     @TypeHandler(LocalDateTimeTypeHandler.class)
     private Object myDate;
+    private Integer source;
 
 //    private YN yn;
 
@@ -119,5 +119,13 @@ public class Person extends AbsRecord {
 
     public void setMyDate(Object myDate) {
         this.myDate = myDate;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
     }
 }

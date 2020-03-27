@@ -41,6 +41,7 @@ public class VelocityCoder implements Coder {
         properties.setProperty("input.encoding", "UTF-8");
         properties.setProperty("output.encoding", "UTF-8");
         properties.setProperty("log4j.logger.org.apache.velocity", "ERROR");
+        properties.setProperty("log4j.logger.root", "ERROR");
 
 
         Logger logger = LoggerFactory.getLogger(RuntimeConstants.DEFAULT_RUNTIME_LOG_NAME);

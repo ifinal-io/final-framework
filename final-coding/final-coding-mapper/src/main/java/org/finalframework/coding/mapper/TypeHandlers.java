@@ -19,9 +19,11 @@ import org.finalframework.data.annotation.Function;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.TypeHandler;
+import org.finalframework.data.annotation.enums.Keyword;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.finalframework.data.query.SqlKeyWords;
 import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -63,21 +65,16 @@ public final class TypeHandlers {
     }
 
     @NonNull
-    public String formatPropertyReadColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        String column = formatPropertyColumn(referenceProperty, property);
-        if (property.hasAnnotation(Function.class)) {
-            Function annotation = (Function) property.getAnnotation(Function.class);
-            String reader = annotation.reader();
-            return String.format("%s AS %s", reader, column);
-        }
-        return column;
-    }
-
-    @NonNull
     public static String formatPropertyColumn(@Nullable Property referenceProperty, @NonNull Property property) {
         String column = null;
         if (referenceProperty == null) {
             column = property.getColumn();
+
+            if (property.isKeyword()) {
+                column = String.format("`%s`", column);
+            }
+
+
         } else {
             final String referenceColumn = referenceProperty.referenceColumn(property.getName()) != null ?
                     referenceProperty.referenceColumn(property.getName()) : property.getColumn();
@@ -86,6 +83,17 @@ public final class TypeHandlers {
         }
 
         return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+    }
+
+    @NonNull
+    public String formatPropertyReadColumn(@Nullable Property referenceProperty, @NonNull Property property) {
+        String column = formatPropertyColumn(referenceProperty, property);
+        if (property.hasAnnotation(Function.class)) {
+            Function annotation = property.getAnnotation(Function.class);
+            String reader = annotation.reader();
+            return String.format("%s AS %s", reader, column);
+        }
+        return column;
     }
 
     public TypeElement getTypeHandler(Property property) {
