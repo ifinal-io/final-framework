@@ -9,6 +9,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.tools.Scope;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
+import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.apache.velocity.tools.generic.DateTool;
 import org.finalframework.core.beans.Beans;
 import org.slf4j.Logger;
@@ -52,7 +53,7 @@ public class VelocityCoder implements Coder {
             Scope.add("coding");
         }
         Velocity.init(properties);
-        toolManager.configure("toolbox.xml");
+        toolManager.configure(ConfigurationUtils.getDefaultTools());
         toolManager.setVelocityEngine(new VelocityEngine());
     }
 
@@ -74,7 +75,7 @@ public class VelocityCoder implements Coder {
 
     public Context buildContext(Object model) {
         ToolContext context = toolManager.createContext();
-        context.addToolbox(toolManager.getToolboxFactory().createToolbox("coding"));
+        context.addToolbox(toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION));
         context.put("version", "1.0");
         context.put("user", "likly");
         context.put("created", new Date());
