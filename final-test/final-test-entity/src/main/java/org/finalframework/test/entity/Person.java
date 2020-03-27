@@ -1,15 +1,12 @@
 package org.finalframework.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import javax.validation.constraints.NotNull;
-
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.AbsRecord;
-import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author likly
@@ -38,14 +35,6 @@ public class Person extends AbsRecord {
     @Column
     private List<Integer> intList;
     private Map<String, Object> properties;
-    //    @NonColumn
-    @Transient
-    private Date date = new Date();
-    @TypeHandler(LocalDateTimeTypeHandler.class)
-    private Object myDate;
-    private Integer source;
-
-//    private YN yn;
 
     public String getName() {
         return name;
@@ -95,37 +84,4 @@ public class Person extends AbsRecord {
         this.properties = properties;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @WriteOnly
-    public String getExtName() {
-        return name;
-    }
-
-    @Virtual
-    public Integer getExtAge() {
-        return 1;
-    }
-
-    public Object getMyDate() {
-        return myDate;
-    }
-
-    public void setMyDate(Object myDate) {
-        this.myDate = myDate;
-    }
-
-    public Integer getSource() {
-        return source;
-    }
-
-    public void setSource(Integer source) {
-        this.source = source;
-    }
 }

@@ -71,6 +71,7 @@ public class QueryController {
 //                .addIdEqual(1L)
 //                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
+        query.page(1, 1);
         return personMapper.select(query);
 //        return null;
     }

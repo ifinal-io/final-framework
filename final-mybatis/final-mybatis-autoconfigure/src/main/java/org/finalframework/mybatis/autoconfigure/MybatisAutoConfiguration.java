@@ -38,9 +38,9 @@ public class MybatisAutoConfiguration implements ApplicationContextAware, Initia
     public void afterPropertiesSet() throws Exception {
         Map<String, SqlSessionFactory> beansOfType = applicationContext.getBeansOfType(SqlSessionFactory.class);
         if (Assert.isEmpty(beansOfType)) return;
-        PageableInterceptor pageableInterceptor = new PageHelperPageableInterceptor();
+//        PageableInterceptor pageableInterceptor = new PageHelperPageableInterceptor();
         for (SqlSessionFactory sessionFactory : beansOfType.values()) {
-            sessionFactory.getConfiguration().addInterceptor(pageableInterceptor);
+//            sessionFactory.getConfiguration().addInterceptor(pageableInterceptor);
             final TypeHandlerRegistry registry = sessionFactory.getConfiguration().getTypeHandlerRegistry();
             registry.setDefaultEnumTypeHandler(EnumTypeHandler.class);
             registry.register(LocalDateTime.class, new LocalDateTimeTypeHandler());

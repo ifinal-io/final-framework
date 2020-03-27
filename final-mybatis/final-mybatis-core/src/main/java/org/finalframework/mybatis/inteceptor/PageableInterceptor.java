@@ -33,6 +33,7 @@ import java.util.Properties;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
+
 public abstract class PageableInterceptor implements Interceptor {
 
     private static final String PAGE_PARAMETER = "page";
