@@ -2,7 +2,7 @@
 title: action
 subtitle: 日志组件 
 description: 简化日志记录与埋点
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

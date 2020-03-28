@@ -2,7 +2,7 @@
 title: Cache
 subtitle: 基于注解的缓存框架
 description: 缓存不是业务，它的存在是提高业务，不要让模板代码成为你工作效率的中硌脚石。
-layout: post
+layout: page
 permalink: /cache/index.html
 menus:
     - index

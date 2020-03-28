@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Fianl Mybatis Spring Boot Starter
 subtitle: mybaits
 categories: []

@@ -2,7 +2,7 @@
 post: post
 title: 对象枚举属性序列化修改器
 subtitle: 对对象的枚举属性进行序列化增强
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

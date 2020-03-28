@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: SeletCount
 subtitle: select-count
 categories: []

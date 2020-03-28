@@ -3,7 +3,7 @@ post: post
 title: ExceptionHandler
 subtitle: 异常处理器
 description: 简化项目中的异常处理，包含程序异常和业务异常。
-layout: post
+layout: page
 categories: [spring]
 tags: [web,exception]
 menus:

@@ -4,7 +4,7 @@ title: RequestJsonParam
 subtitle: 表单形式的Json格式
 description: “前端”同学不直接传Json到后端，哎，你们高兴就好！
 categories: []
-layout: post
+layout: page
 menus:
     - web
     - resolver

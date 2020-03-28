@@ -2,7 +2,7 @@
 title: Annotation
 subtitle: ORM映射
 description: 使用Annotation构建实现与数据库的映射关系
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

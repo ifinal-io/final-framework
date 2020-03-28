@@ -2,7 +2,7 @@
 title: table
 subtitle: table
 description: table
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

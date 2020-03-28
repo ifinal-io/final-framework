@@ -3,7 +3,7 @@ post: post
 title: GlobalExceptionHandler
 subtitle: 全局异常处理器
 description: 全局异常处理机制。
-layout: post
+layout: page
 categories: [spring]
 tags: [web,exception]
 menus:

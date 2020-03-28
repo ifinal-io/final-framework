@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+{% include head.html %}
+
+<body data-offset="100" data-spy="scroll" data-target="#toc">
+<!-- Extra details for Live View on GitHub Pages -->
+<div class="wrapper ">
+    {% include sidebar/sidebar.html %}
+    <div class="main-panel">
+        <!-- Navbar -->
+        {% include navbar.html %}
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card" style="margin-top: 80px">
+                    <div class="card-header card-header-success " style="margin-top: -80px">
+                        <div class="row">
+                            <div class="col-lg-8 col-sm-12 offset-lg-2 offset-sm-0">
+                                {% assign title = page.title %}
+                                {% if page.subtitle %}
+                                {% assign title = page.title | append: '——' | append: page.subtitle %}
+                                {% endif %}
+                                <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}">
+                                    <h1 class="card-title post-title">{{ title | markdownify }}</h1>
+                                </a>
+                                <div class="category">
+                                    {{ page.description | markdownify }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid content markdown">
+                            <div class="row flex-md-nowrap">
+                                <div class="d-none d-lg-block col-lg-2 sticky-top">
+                                </div>
+                                <main class="col-lg-8 col-sm-12 offset-sm-0" role="main">
+                                    <article class="post-content">
+                                        {{ content }}
+                                    </article>
+                                </main>
+
+                                <div class="d-none d-lg-block col-lg-2 sticky-top flex-order-2">
+                                    <div class="toc" id="toc">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% include footer.html %}
+    </div>
+</div>
+{% include plugins/fixed.html %}
+<script>
+    $(document).ready(function () {
+
+            $().ready(function () {
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+                    // $('.fixed-plugin .background-color .badge').click(function () {
+                    //     $(this).siblings().removeClass('active');
+                    //     $(this).addClass('active');
+                    //
+                    //     var new_color = $(this).data('background-color');
+                    //
+                    //     if ($sidebar.length != 0) {
+                    //         $sidebar.attr('data-background-color', new_color);
+                    //     }
+                    // });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                }
+            );
+        }
+    );
+</script>
+</body>
+{% include plugins/toc.html container="#toc" %}
+{% include jekyll/format-href.jekyll %}
+</html>

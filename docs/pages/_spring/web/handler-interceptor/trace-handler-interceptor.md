@@ -2,7 +2,7 @@
 post: post
 title: TraceHandlerInterceptor
 subtitle: Trace处理器拦截器
-layout: post
+layout: page
 categories: []
 tags: []
 author: likly

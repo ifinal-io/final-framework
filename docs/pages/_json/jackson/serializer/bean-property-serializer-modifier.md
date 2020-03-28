@@ -2,7 +2,7 @@
 post: post
 title: 对象序列化修改器
 subtitle: 对对象的属性进行修饰或修改
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

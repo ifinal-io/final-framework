@@ -2,7 +2,7 @@
 title: Json
 subtitle: 轻量的Json序列化与反序列化接口。
 description: json
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

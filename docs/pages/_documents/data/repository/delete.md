@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Delete
 subtitle: Delete
 categories: [data,repository]

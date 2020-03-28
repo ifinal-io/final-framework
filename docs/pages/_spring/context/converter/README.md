@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Converter
 subtitle: CATB（Convert A To B）的功能接口。
 description: 转换器`Converter` 提供了统一的`CATB`的接口，实现

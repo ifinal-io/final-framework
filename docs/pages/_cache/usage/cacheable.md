@@ -3,7 +3,7 @@ title: Cacheable
 subtitle: 缓存获取与设置
 description: 通过简单的声明，即可增强目标方法，实现缓存的设置与获取。
 categories: [redis]
-layout: post
+layout: page
 menus:
     - usage
     - cacheable

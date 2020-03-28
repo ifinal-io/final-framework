@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: DataSource
 subtitle: 数据源配置
 description: 快速实现多数据源配置，同时支持`application`配置提示。

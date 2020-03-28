@@ -1,7 +1,7 @@
 ---
 title: CacheDel
 subtitle: 缓存删除
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

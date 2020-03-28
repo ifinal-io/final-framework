@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: QEntity
 subtitle: QEntity
 categories: []

@@ -2,7 +2,7 @@
 post: post
 title: EnumConverter
 subtitle: 枚举转换器
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

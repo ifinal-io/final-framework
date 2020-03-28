@@ -2,7 +2,7 @@
 title: Monitor
 subtitle: index
 description: index
-layout: post
+layout: page
 categories: []
 tags: []
 menus:

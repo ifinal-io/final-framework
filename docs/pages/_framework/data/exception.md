@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Exception
 subtitle: Exception
 description: 异常描述性接口和全局的异常处理机制。

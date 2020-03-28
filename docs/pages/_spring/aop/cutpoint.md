@@ -2,7 +2,7 @@
 post: post
 title: CutPoint
 subtitle: 切点
-layout: post
+layout: page
 categories: [spring]
 tags: [aop]
 menus:

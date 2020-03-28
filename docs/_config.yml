@@ -56,6 +56,8 @@ plugins:
 #data_dir: datas
 collections_dir: pages
 collections:
+  documents:
+    output: true
   framework:
     output: true
   monitor:

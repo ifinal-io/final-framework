@@ -2,7 +2,7 @@
 title: README
 subtitle: Action 概述
 description: 简述 action 
-layout: post
+layout: page
 categories: []
 tags: []
 menus:
