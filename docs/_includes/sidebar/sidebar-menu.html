@@ -32,10 +32,30 @@
                             <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id ? 'active' : ''"
                                 class="nav-item"
                                 v-for="menu3 in menu2.menus">
-                                <a :href="menu3.link" class="nav-link">
+                                <a :href="menu3.link" class="nav-link" v-if="menu3.menus == null">
                                     <span class="sidebar-mini" v-html="menu3.mini"> E </span>
                                     <span class="sidebar-normal" v-html="menu3.name"> Example </span>
                                 </a>
+                                <a :href="'#menu3' + menu3.id" aria-expanded="true" class="nav-link"
+                                   data-toggle="collapse"
+                                   v-if="menu3.menus">
+                                    <span class="sidebar-mini" v-html="menu3.mini"> MLT </span>
+                                    <span class="sidebar-normal"> <span v-html="menu3.name"></span><b class="caret"></b></span>
+                                </a>
+                                <div :class="page.menus[2] == menu3.id ? 'show' : ''" :id="'menu3' + menu3.id"
+                                     class="collapse"
+                                     v-if="menu3.menus">
+                                    <ul class="nav">
+                                        <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id && page.menus[3] == menu4.id ? 'active' : ''"
+                                            class="nav-item"
+                                            v-for="menu4 in menu3.menus">
+                                            <a :href="menu4.link" class="nav-link">
+                                                <span class="sidebar-mini" v-html="menu4.mini"> E </span>
+                                                <span class="sidebar-normal" v-html="menu4.name"> Example </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>

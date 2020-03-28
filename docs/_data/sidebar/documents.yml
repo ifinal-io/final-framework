@@ -54,3 +54,11 @@ menus:
             link: /documents/data/query/criteria
             mini: CTA
             name: Criteria
+          - id: function
+            mini: FUN
+            name: Function
+            menus:
+              - id: math
+                link: /documents/data/query/function/math
+                mini: MTH
+                name: Math
