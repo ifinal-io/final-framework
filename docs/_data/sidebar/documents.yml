@@ -62,3 +62,7 @@ menus:
                 link: /documents/data/query/function/math
                 mini: MTH
                 name: Math
+              - id: json
+                link: /documents/data/query/function/json
+                mini: JSON
+                name: Json

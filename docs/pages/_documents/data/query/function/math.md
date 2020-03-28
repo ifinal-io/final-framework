@@ -10,7 +10,7 @@ menus:
     - function
     - math
 author: likly
-date: 2020-03-23 09:22:38 +800
+date: 2020-03-28 09:22:38 +800
 version: 1.0
 ---
 
