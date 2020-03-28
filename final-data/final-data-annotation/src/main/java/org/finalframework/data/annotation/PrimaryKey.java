@@ -19,6 +19,7 @@ import org.springframework.core.annotation.AliasFor;
  * @see IEntity
  * @since 1.0
  */
+@Final
 @Column
 @Default
 @Documented

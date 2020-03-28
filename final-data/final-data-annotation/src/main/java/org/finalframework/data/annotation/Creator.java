@@ -5,7 +5,7 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
- * 创建时间
+ * 创建人
  *
  * @author likly
  * @version 1.0
@@ -14,8 +14,10 @@ import java.lang.annotation.*;
  * @see Created
  * @see LastModifier
  * @see LastModified
+ * @see IUser
  * @since 1.0
  */
+@Final
 @Column
 @Documented
 @Index(Integer.MAX_VALUE - 100)
