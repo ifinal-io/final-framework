@@ -26,6 +26,18 @@ menus:
             link: /spring/annotation/factory/handler-interceptor
             name: SpringHandlerInterceptor
             mini: SHI
+  - id: beans
+    icon: image
+    name: Beans
+    menus:
+      - id: factory
+        name: Factory
+        mini: FTY
+        menus:
+          - id: object-provider
+            link: /spring/beans/factory/object-provider
+            name: ObjectProvider
+            mini: OPD
   - id: context
     icon: image
     name: Context

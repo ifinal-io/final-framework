@@ -17,7 +17,7 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * @since 1.0
  */
 @SpringFactory(ApplicationContextInitializer.class)
-public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer {
+public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     private static final Logger logger = LoggerFactory.getLogger(SpringFactoryApplicationContextInitializer.class);
 
     @Override
@@ -27,7 +27,7 @@ public class SpringFactoryApplicationContextInitializer implements ApplicationCo
             try {
                 Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}", factoryClass.getCanonicalName());
-                applicationContext.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor(factoryClass));
+                applicationContext.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

@@ -3,6 +3,7 @@ package org.finalframework.spring.web.exception.result;
 import org.finalframework.data.exception.result.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /**
@@ -14,7 +15,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  * @see MissingServletRequestParameterException
  * @since 1.0
  */
-@org.finalframework.data.exception.annotation.ResultExceptionHandler
+@SpringComponent
 public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
     @Override
     public boolean supports(Throwable throwable) {
@@ -22,7 +23,7 @@ public class MissingServletParameterResultExceptionHandler implements ResultExce
     }
 
     @Override
-    public Result handle(MissingServletRequestParameterException throwable) {
+    public Result<?> handle(MissingServletRequestParameterException throwable) {
         MissingServletRequestParameterException e = throwable;
         return R.failure(400, e.getMessage());
     }

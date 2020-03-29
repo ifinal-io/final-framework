@@ -1,9 +1,9 @@
 package org.finalframework.data.exception.result;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.exception.annotation.ResultExceptionHandler;
 import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -15,8 +15,8 @@ import org.springframework.core.annotation.Order;
  * @since 1.0
  */
 @Order
-@ResultExceptionHandler
-public class UnCatchResultExceptionHandler implements org.finalframework.data.exception.result.ResultExceptionHandler<Throwable> {
+@SpringComponent
+public class UnCatchResultExceptionHandler implements ResultExceptionHandler<Throwable> {
 
     private static final Logger logger = LoggerFactory.getLogger(UnCatchResultExceptionHandler.class);
 

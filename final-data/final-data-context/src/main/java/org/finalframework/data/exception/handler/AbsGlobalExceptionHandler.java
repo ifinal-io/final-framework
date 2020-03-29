@@ -32,9 +32,9 @@ public class AbsGlobalExceptionHandler<T> implements GlobalExceptionHandler<T> {
     }
 
     @Override
-    public void registerExceptionHandler(ExceptionHandler<Throwable, T> handler) {
+    public void registerExceptionHandler(ExceptionHandler<? extends Throwable, T> handler) {
         Order order = handler.getClass().getAnnotation(Order.class);
-        this.exceptionHandlerBeans.add(new ExceptionHandlerBean<>(order == null ? 0 : order.value(), handler));
+        this.exceptionHandlerBeans.add(new ExceptionHandlerBean(order == null ? 0 : order.value(), handler));
         Collections.sort(exceptionHandlerBeans);
     }
 

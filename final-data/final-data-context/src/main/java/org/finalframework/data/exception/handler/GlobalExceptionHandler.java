@@ -21,7 +21,7 @@ public interface GlobalExceptionHandler<T> {
      *
      * @param handler 异常处理器
      */
-    void registerExceptionHandler(@NonNull ExceptionHandler<Throwable, T> handler);
+    void registerExceptionHandler(@NonNull ExceptionHandler<? extends Throwable, T> handler);
 
     /**
      * 设置未捕获的异常处理器

@@ -65,7 +65,7 @@ public final class Result<T> implements Responsible, Serializable {
 
     private Class<?> view;
 
-    private Class<Throwable> exception;
+    private Class<? extends Throwable> exception;
 
     public Result() {
     }
@@ -175,11 +175,11 @@ public final class Result<T> implements Responsible, Serializable {
         this.view = view;
     }
 
-    public Class<Throwable> getException() {
+    public Class<? extends Throwable> getException() {
         return exception;
     }
 
-    public void setException(Class<Throwable> exception) {
+    public void setException(Class<? extends Throwable> exception) {
         this.exception = exception;
     }
 
