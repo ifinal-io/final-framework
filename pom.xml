@@ -249,12 +249,6 @@
                 <artifactId>final-mybatis-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.finalframework.mybatis</groupId>
-                <artifactId>final-mybatis-autoconfigure</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-
             <!-- ==================================================================================================== -->
             <!-- ========================================== final-spring ============================================ -->
             <!-- ==================================================================================================== -->

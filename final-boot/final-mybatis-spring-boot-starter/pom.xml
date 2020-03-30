@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework.mybatis</groupId>
-            <artifactId>final-mybatis-autoconfigure</artifactId>
+            <artifactId>final-mybatis-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.coding</groupId>
