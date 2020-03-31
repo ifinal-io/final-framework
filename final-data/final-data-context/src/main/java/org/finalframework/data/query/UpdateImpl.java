@@ -41,27 +41,27 @@ class UpdateImpl implements Update, Map<String, UpdateSet> {
     }
 
 
-    public UpdateImpl set(@NonNull QProperty property, @NonNull Object value) {
+    public UpdateImpl set(@NonNull QProperty<?> property, @NonNull Object value) {
         modifierOps.put(property.getName(), new UpdateSet(property, UpdateOperation.EQUAL, value));
         return this;
     }
 
-    public UpdateImpl inc(@NonNull QProperty property) {
+    public UpdateImpl inc(@NonNull QProperty<?> property) {
         modifierOps.put(property.getName(), new UpdateSet(property, UpdateOperation.INC, 1));
         return this;
     }
 
-    public UpdateImpl incr(@NonNull QProperty property, @NonNull Number value) {
+    public UpdateImpl incr(@NonNull QProperty<?> property, @NonNull Number value) {
         modifierOps.put(property.getName(), new UpdateSet(property, UpdateOperation.INCR, value));
         return this;
     }
 
-    public UpdateImpl dec(@NonNull QProperty property) {
+    public UpdateImpl dec(@NonNull QProperty<?> property) {
         modifierOps.put(property.getName(), new UpdateSet(property, UpdateOperation.DEC, 1));
         return this;
     }
 
-    public UpdateImpl decr(@NonNull QProperty property, @NonNull Number value) {
+    public UpdateImpl decr(@NonNull QProperty<?> property, @NonNull Number value) {
         modifierOps.put(property.getName(), new UpdateSet(property, UpdateOperation.DECR, value));
         return this;
     }

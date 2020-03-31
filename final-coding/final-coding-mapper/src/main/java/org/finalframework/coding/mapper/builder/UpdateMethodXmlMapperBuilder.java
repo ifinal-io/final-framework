@@ -13,6 +13,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -144,7 +145,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         if (versionProperty != null && !versionProperty.isTransient() && !versionProperty.isReadOnly() && !versionProperty.isFinal() && !versionProperty.isVirtual()) {
             Element trim = document.createElement("trim");
             String column = typeHandlers.formatPropertyColumn(null, versionProperty);
-            trim.setAttribute("suffix", String.format("%s = %s + 1", column, column));
+            trim.setAttribute("suffix", String.format(",%s = %s + 1", column, column));
             trim.appendChild(choose);
             set.appendChild(trim);
         } else {
@@ -247,104 +248,129 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         final Element whenUpdateNotNull = document.createElement("when");
         whenUpdateNotNull.setAttribute("test", "update != null");
 
-        entity.stream().filter(Property::isModifiable)
-                .forEach(property -> {
 
-                    /*
-                     * <if test="update.contains('property') and update['property'].value.property != null">
-                     *      column = #{update[property].value.property,javaType=,typeHandler=}
-                     * </if>
-                     */
-                    if (property.isReference()) {
-                        final Entity multiEntity = property.toEntity();
-                        List<String> properties = property.referenceProperties();
-                        properties.stream()
-                                .map(multiEntity::getProperty)
-                                .map(multiProperty -> {
-                                    final TypeElement javaType = multiProperty.getJavaTypeElement();
-                                    final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
+        final Element foreach = document.createElement("foreach");
 
-                                    final Element ifUpdateContains = document.createElement("if");
+        foreach.setAttribute("collection", "update");
+        foreach.setAttribute("item", "item");
+        foreach.setAttribute("separator", ",");
 
-                                    final String name = multiProperty.isIdProperty() ? property.getName()
-                                            : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
 
-                                    final String column = typeHandlers.formatPropertyWriteColumn(property, multiProperty);
-                                    final String ifTest = String.format("update['%s'] != null", name);
-                                    ifUpdateContains.setAttribute("test", ifTest);
+        final Element choose = document.createElement("choose");
 
-                                    List<Element> whenElements = Arrays.stream(UpdateOperation.values())
-                                            .map(operation -> {
-                                                final String whenTest = String.format("update['%s'].operation.name() == '%s'", name, operation.name());
-                                                String updateSql = null;
-                                                switch (operation) {
-                                                    case EQUAL:
-                                                        updateSql = typeHandler == null ?
-                                                                String.format("%s = #{update[%s].value},", column, name)
-                                                                : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
-                                                                column, name, javaType.getQualifiedName().toString(), typeHandler.getQualifiedName().toString());
-                                                        break;
-                                                    case INC:
-                                                        updateSql = String.format("%s = %s + 1,", column, column);
-                                                        break;
-                                                    case INCR:
-                                                        updateSql = String.format("%s = %s + #{update[%s].value},", column, column, name);
-                                                        break;
-                                                    case DEC:
-                                                        updateSql = String.format("%s = %s - 1,", column, column);
-                                                        break;
-                                                    case DECR:
-                                                        updateSql = String.format("%s = %s - #{update[%s].value},", column, column, name);
-                                                        break;
-                                                }
-                                                return whenOrOtherwise(document, whenTest, textNode(document, updateSql));
-                                            }).collect(Collectors.toList());
-                                    ifUpdateContains.appendChild(choose(document, whenElements));
-                                    return ifUpdateContains;
-                                }).forEach(whenUpdateNotNull::appendChild);
+        Stream.of(
+                whenOrOtherwise(document, "item.operation.name() == 'EQUAL'", textNode(document, "${item.updateTarget} = ${item.updateValue}")),
+                whenOrOtherwise(document, "item.operation.name() == 'INC'", textNode(document, "${item.updateTarget} = ${item.updateTarget} + 1")),
+                whenOrOtherwise(document, "item.operation.name() == 'INCR'", textNode(document, "${item.updateTarget} = ${item.updateTarget} + ${item.updateValue}")),
+                whenOrOtherwise(document, "item.operation.name() == 'DEC'", textNode(document, "${item.updateTarget} = ${item.updateTarget} - 1")),
+                whenOrOtherwise(document, "item.operation.name() == 'DECR'", textNode(document, "${item.updateTarget} = ${item.updateTarget} - ${item.updateValue}"))
+        ).forEach(choose::appendChild);
 
-                    } else {
-                        final TypeElement javaType = property.getJavaTypeElement();
-                        final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
-                        final Element ifUpdateContains = document.createElement("if");
-                        final String updatePath = property.getName();
-                        final String ifTest = String.format("update['%s'] != null", updatePath);
-                        ifUpdateContains.setAttribute("test", ifTest);
 
-                        ifUpdateContains.setAttribute("test", ifTest);
-                        final String multiColumn = typeHandlers.formatPropertyWriteColumn(null, property);
+        foreach.appendChild(choose);
 
-                        List<Element> whenElements = Arrays.stream(UpdateOperation.values())
-                                .map(operation -> {
-                                    final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
-                                    String updateSql = null;
-                                    switch (operation) {
-                                        case EQUAL:
-                                            updateSql = typeHandler == null ?
-                                                    String.format("%s = #{update[%s].value},", multiColumn, updatePath)
-                                                    : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
-                                                    multiColumn, updatePath, javaType.getQualifiedName().toString(), typeHandler.getQualifiedName().toString());
-                                            break;
-                                        case INC:
-                                            updateSql = String.format("%s = %s + 1,", multiColumn, multiColumn);
-                                            break;
-                                        case INCR:
-                                            updateSql = String.format("%s = %s + #{update[%s].value},", multiColumn, multiColumn, updatePath);
-                                            break;
-                                        case DEC:
-                                            updateSql = String.format("%s = %s - 1,", multiColumn, multiColumn);
-                                            break;
-                                        case DECR:
-                                            updateSql = String.format("%s = %s - #{update[%s].value},", multiColumn, multiColumn, updatePath);
-                                            break;
-                                    }
-                                    return whenOrOtherwise(document, whenTest, textNode(document, updateSql));
-                                }).collect(Collectors.toList());
-                        ifUpdateContains.appendChild(choose(document, whenElements));
 
-                        whenUpdateNotNull.appendChild(ifUpdateContains);
-                    }
-                });
+        whenUpdateNotNull.appendChild(foreach);
+
+
+//        entity.stream().filter(Property::isModifiable)
+//                .forEach(property -> {
+//
+//                    /*
+//                     * <if test="update.contains('property') and update['property'].value.property != null">
+//                     *      column = #{update[property].value.property,javaType=,typeHandler=}
+//                     * </if>
+//                     */
+//                    if (property.isReference()) {
+//                        final Entity multiEntity = property.toEntity();
+//                        List<String> properties = property.referenceProperties();
+//                        properties.stream()
+//                                .map(multiEntity::getProperty)
+//                                .map(multiProperty -> {
+//                                    final TypeElement javaType = multiProperty.getJavaTypeElement();
+//                                    final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
+//
+//                                    final Element ifUpdateContains = document.createElement("if");
+//
+//                                    final String name = multiProperty.isIdProperty() ? property.getName()
+//                                            : property.getName() + multiProperty.getName().substring(0, 1).toUpperCase() + multiProperty.getName().substring(1);
+//
+//                                    final String column = typeHandlers.formatPropertyWriteColumn(property, multiProperty);
+//                                    final String ifTest = String.format("update['%s'] != null", name);
+//                                    ifUpdateContains.setAttribute("test", ifTest);
+//
+//                                    List<Element> whenElements = Arrays.stream(UpdateOperation.values())
+//                                            .map(operation -> {
+//                                                final String whenTest = String.format("update['%s'].operation.name() == '%s'", name, operation.name());
+//                                                String updateSql = null;
+//                                                switch (operation) {
+//                                                    case EQUAL:
+//                                                        updateSql = typeHandler == null ?
+//                                                                String.format("%s = #{update[%s].value},", column, name)
+//                                                                : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
+//                                                                column, name, javaType.getQualifiedName().toString(), typeHandler.getQualifiedName().toString());
+//                                                        break;
+//                                                    case INC:
+//                                                        updateSql = String.format("%s = %s + 1,", column, column);
+//                                                        break;
+//                                                    case INCR:
+//                                                        updateSql = String.format("%s = %s + #{update[%s].value},", column, column, name);
+//                                                        break;
+//                                                    case DEC:
+//                                                        updateSql = String.format("%s = %s - 1,", column, column);
+//                                                        break;
+//                                                    case DECR:
+//                                                        updateSql = String.format("%s = %s - #{update[%s].value},", column, column, name);
+//                                                        break;
+//                                                }
+//                                                return whenOrOtherwise(document, whenTest, textNode(document, updateSql));
+//                                            }).collect(Collectors.toList());
+//                                    ifUpdateContains.appendChild(choose(document, whenElements));
+//                                    return ifUpdateContains;
+//                                }).forEach(whenUpdateNotNull::appendChild);
+//
+//                    } else {
+//                        final TypeElement javaType = property.getJavaTypeElement();
+//                        final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property));
+//                        final Element ifUpdateContains = document.createElement("if");
+//                        final String updatePath = property.getName();
+//                        final String ifTest = String.format("update['%s'] != null", updatePath);
+//                        ifUpdateContains.setAttribute("test", ifTest);
+//
+//                        ifUpdateContains.setAttribute("test", ifTest);
+//                        final String multiColumn = typeHandlers.formatPropertyWriteColumn(null, property);
+//
+//                        List<Element> whenElements = Arrays.stream(UpdateOperation.values())
+//                                .map(operation -> {
+//                                    final String whenTest = String.format("update['%s'].operation.name() == '%s'", updatePath, operation.name());
+//                                    String updateSql = null;
+//                                    switch (operation) {
+//                                        case EQUAL:
+//                                            updateSql = typeHandler == null ?
+//                                                    String.format("%s = #{update[%s].value},", multiColumn, updatePath)
+//                                                    : String.format("%s = #{update[%s].value,javaType=%s,typeHandler=%s},",
+//                                                    multiColumn, updatePath, javaType.getQualifiedName().toString(), typeHandler.getQualifiedName().toString());
+//                                            break;
+//                                        case INC:
+//                                            updateSql = String.format("%s = %s + 1,", multiColumn, multiColumn);
+//                                            break;
+//                                        case INCR:
+//                                            updateSql = String.format("%s = %s + #{update[%s].value},", multiColumn, multiColumn, updatePath);
+//                                            break;
+//                                        case DEC:
+//                                            updateSql = String.format("%s = %s - 1,", multiColumn, multiColumn);
+//                                            break;
+//                                        case DECR:
+//                                            updateSql = String.format("%s = %s - #{update[%s].value},", multiColumn, multiColumn, updatePath);
+//                                            break;
+//                                    }
+//                                    return whenOrOtherwise(document, whenTest, textNode(document, updateSql));
+//                                }).collect(Collectors.toList());
+//                        ifUpdateContains.appendChild(choose(document, whenElements));
+//
+//                        whenUpdateNotNull.appendChild(ifUpdateContains);
+//                    }
+//                });
         //        </when>
         return whenUpdateNotNull;
     }

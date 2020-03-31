@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.enums.UpdateOperation;
 
 /**
@@ -12,11 +13,11 @@ import org.finalframework.data.query.enums.UpdateOperation;
  */
 @Getter
 public class UpdateSet {
-    private final QProperty property;
+    private final QProperty<?> property;
     private final UpdateOperation operation;
     private final Object value;
 
-    public UpdateSet(@NonNull QProperty property, @NonNull UpdateOperation operation, @NonNull Object value) {
+    public UpdateSet(@NonNull QProperty<?> property, @NonNull UpdateOperation operation, @NonNull Object value) {
         this.property = property;
         this.operation = operation;
         this.value = value;
@@ -26,7 +27,7 @@ public class UpdateSet {
         return null == value;
     }
 
-    public QProperty getProperty() {
+    public QProperty<?> getProperty() {
         return property;
     }
 
@@ -36,5 +37,21 @@ public class UpdateSet {
 
     public Object getValue() {
         return value;
+    }
+
+    public String getUpdateTarget() {
+        return property.getColumn();
+    }
+
+    public String getUpdateValue() {
+        final Class<?> javaType = property.getType();
+        final Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
+
+        if (typeHandler != null) {
+            return String.format("#{item.value,javaType=%s,typeHandler=%s}", javaType.getCanonicalName(), typeHandler.getCanonicalName());
+        }
+
+        return "#{item.value}";
+
     }
 }

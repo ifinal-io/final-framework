@@ -27,15 +27,15 @@ public interface Update extends Streamable<UpdateSet>, Iterable<UpdateSet> {
         return UpdateImpl.update(updateSets);
     }
 
-    Update set(@NonNull QProperty property, @NonNull Object value);
+    Update set(@NonNull QProperty<?> property, @NonNull Object value);
 
-    Update inc(@NonNull QProperty property);
+    Update inc(@NonNull QProperty<?> property);
 
-    Update incr(@NonNull QProperty property, @NonNull Number value);
+    Update incr(@NonNull QProperty<?> property, @NonNull Number value);
 
-    Update dec(@NonNull QProperty property);
+    Update dec(@NonNull QProperty<?> property);
 
-    Update decr(@NonNull QProperty property, @NonNull Number value);
+    Update decr(@NonNull QProperty<?> property, @NonNull Number value);
 
 
 }

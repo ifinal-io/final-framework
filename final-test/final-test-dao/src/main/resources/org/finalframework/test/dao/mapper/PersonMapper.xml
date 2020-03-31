@@ -4,5 +4,8 @@
 
     <sql id="test">
         SELECT
+        <foreach collection="update" item="item" separator=",">
+
+        </foreach>
     </sql>
 </mapper>

@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 /**
  * @author likly
@@ -17,9 +16,6 @@ import java.util.TimeZone;
  * @since 1.0
  */
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-
-    private static final int ZONE_OFFSET = TimeZone.getDefault().getRawOffset() / 3600 / 1000;
-    private static final String ZONE_OFFSET_ID = ZONE_OFFSET > 0 ? "+" + ZONE_OFFSET : "-" + ZONE_OFFSET;
 
     private DateTimeFormatter formatter;
 
@@ -30,11 +26,6 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         this.formatter = formatter;
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(LocalDateTime.now().toInstant(ZoneOffset.of(ZONE_OFFSET_ID)).toEpochMilli());
-
-    }
 
     @Override
     public void serialize(LocalDateTime localDateTime, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -43,7 +34,7 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         if (formatter != null) {
             gen.writeString(localDateTime.format(formatter));
         } else {
-            gen.writeNumber(localDateTime.toInstant(ZoneOffset.of(ZONE_OFFSET_ID)).toEpochMilli());
+            gen.writeNumber(localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         }
     }
 }

@@ -29,7 +29,6 @@ public class QueryController {
     private PersonMapper personMapper;
 
     @GetMapping
-    @JsonView(Person.class)
     public Object query(Long id) {
 //        Query query = new Query();
 
@@ -44,7 +43,7 @@ public class QueryController {
 //        query.orCriteria().addIdEqual(1L).addIdIsNull();
 //        query.andCriteria().addIdGreaterThan(2L);
 
-        query.andCriteria().addAgeEqual(20);
+//        query.andCriteria().addAgeEqual(20);
 
 //        personMapper.delete(new Query().limit(1), new Listener<Void, Integer>() {
 //            @Override
@@ -71,7 +70,7 @@ public class QueryController {
 //                .addIdEqual(1L)
 //                .addNameContains("1");
 //                .addCreatedDateEqual(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli());
-        query.page(1, 1);
+//        query.page(1, 1);
         return personMapper.select(query);
 //        return null;
     }

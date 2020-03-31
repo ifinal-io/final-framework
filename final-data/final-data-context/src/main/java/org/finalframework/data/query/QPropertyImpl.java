@@ -84,7 +84,7 @@ public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
     }
 
     @Override
-    public Class<? extends org.apache.ibatis.type.TypeHandler> getTypeHandler() {
+    public Class<? extends TypeHandler> getTypeHandler() {
         return this.typeHandler;
     }
 
