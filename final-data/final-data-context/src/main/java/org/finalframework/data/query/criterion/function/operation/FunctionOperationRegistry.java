@@ -46,6 +46,7 @@ public class FunctionOperationRegistry {
         registerCriterionOperation(new JsonKeysFunctionOperationExpression<>());
         registerCriterionOperation(new JsonDepthFunctionOperationExpression<>());
         registerCriterionOperation(new JsonUnquoteFunctionOperationExpression<>());
+        registerCriterionOperation(new JsonContainsFunctionOperationExpression<>());
     }
 
     private FunctionOperationRegistry() {
