@@ -304,22 +304,6 @@ public class AnnotationProperty implements Property {
         this.referenceColumns = referenceColumns;
     }
 
-    private String getElementName(Element element) {
-        if (element.getKind().isField()) {
-            return element.getSimpleName().toString();
-        }
-
-        final String elementName = element.getSimpleName().toString();
-
-        for (String prefix : GETTER_PREFIX) {
-            if (elementName.startsWith(prefix)) {
-                String name = elementName.substring(prefix.length());
-                return name.substring(0, 1).toLowerCase() + name.substring(1);
-            }
-        }
-        return elementName;
-    }
-
     @Override
     public Element getElement() {
         return this.element.get();
