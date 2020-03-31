@@ -1,6 +1,6 @@
 package org.finalframework.data.query.criterion.function.operation;
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -11,8 +11,8 @@ import org.finalframework.data.query.criterion.function.FunctionOperator;
 public class SingleFunctionOperation<T> extends SimpleFunctionOperation {
     private final T value;
 
-    public SingleFunctionOperation(FunctionOperator operator, T value) {
-        super(operator);
+    public SingleFunctionOperation(Operation operation, T value) {
+        super(operation);
         this.value = value;
     }
 

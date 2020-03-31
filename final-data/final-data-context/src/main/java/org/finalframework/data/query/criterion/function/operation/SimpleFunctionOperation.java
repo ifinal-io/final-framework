@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.function.operation;
 
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -10,14 +10,14 @@ import org.finalframework.data.query.criterion.function.FunctionOperator;
  * @since 1.0
  */
 public class SimpleFunctionOperation implements FunctionOperation {
-    private final FunctionOperator operator;
+    private final Operation operation;
 
-    public SimpleFunctionOperation(FunctionOperator operator) {
-        this.operator = operator;
+    public SimpleFunctionOperation(Operation operation) {
+        this.operation = operation;
     }
 
     @Override
-    public FunctionOperator operator() {
-        return operator;
+    public Operation operation() {
+        return operation;
     }
 }

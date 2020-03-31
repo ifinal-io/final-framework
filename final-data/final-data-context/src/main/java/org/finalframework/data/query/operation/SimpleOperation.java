@@ -18,5 +18,13 @@ public class SimpleOperation implements Operation {
     public String name() {
         return this.operation;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SimpleOperation) {
+            return operation.equals(((SimpleOperation) obj).name());
+        }
+        return false;
+    }
 }
 

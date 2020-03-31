@@ -1,10 +1,11 @@
 package org.finalframework.data.query.criterion.function.expression;
 
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
-import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.SupportTypes;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperationExpression;
+import org.finalframework.data.query.operation.Operation;
+import org.finalframework.data.query.operation.StringOperation;
 
 /**
  * @author likly
@@ -12,8 +13,13 @@ import org.finalframework.data.query.criterion.function.operation.FunctionOperat
  * @date 2019-03-28 21:11:49
  * @since 1.0
  */
-@SupportFunctions(value = FunctionOperator.CONCAT)
+@SupportTypes
 public class ConcatFunctionOperationExpression<T> implements FunctionOperationExpression<DoubleFunctionOperation<T>> {
+
+    @Override
+    public Operation operation() {
+        return StringOperation.CONCAT;
+    }
 
     @Override
     public String expression(String target, DoubleFunctionOperation<T> criterion) {

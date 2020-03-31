@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
  * @date 2019-11-24 13:21:41
  * @since 1.0
  */
-public interface BitFunction<V, R> extends Function {
+public interface LogicFunction<V, R> extends Function {
 
     R and(@NonNull V value);
 

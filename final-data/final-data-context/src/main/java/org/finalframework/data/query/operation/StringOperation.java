@@ -7,7 +7,7 @@ package org.finalframework.data.query.operation;
  * @date 2020-03-31 20:29:21
  * @since 1.0
  */
-public interface FunctionOperation extends Operation {
-
+public interface StringOperation extends Operation {
+    Operation CONCAT = new SimpleOperation("CONCAT");
 }
 

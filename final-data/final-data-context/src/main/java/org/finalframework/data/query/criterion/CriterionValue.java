@@ -91,7 +91,7 @@ public class CriterionValue<T> {
         if (Assert.nonEmpty(functions)) {
             for (FunctionOperation function : functions) {
                 Class<?> type = getFunctionOperationType(function);
-                FunctionOperationExpression functionOperationExpression = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operator(), type);
+                FunctionOperationExpression functionOperationExpression = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operation(), type);
                 value = functionOperationExpression.expression(value, function);
             }
         }

@@ -1,10 +1,11 @@
 package org.finalframework.data.query.criterion.function.expression;
 
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
-import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.SupportTypes;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperationExpression;
+import org.finalframework.data.query.operation.JsonOperation;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -12,8 +13,13 @@ import org.finalframework.data.query.criterion.function.operation.FunctionOperat
  * @date 2020-03-20 21:11:49
  * @since 1.0
  */
-@SupportFunctions(FunctionOperator.JSON_CONTAINS)
+@SupportTypes
 public class JsonContainsFunctionOperationExpression<T> implements FunctionOperationExpression<DoubleFunctionOperation<T>> {
+
+    @Override
+    public Operation operation() {
+        return JsonOperation.JSON_CONTAINS;
+    }
 
     @Override
     public String expression(String target, DoubleFunctionOperation<T> criterion) {

@@ -1,6 +1,5 @@
 package org.finalframework.data.query.condition;
 
-import org.finalframework.data.query.criterion.CriterionOperator;
 import org.springframework.lang.NonNull;
 
 /**
@@ -15,14 +14,12 @@ public interface BetweenCondition<V, R> extends Condition {
     /**
      * @param min 下限值
      * @param max 上限值
-     * @see CriterionOperator#BETWEEN
      */
     R between(@NonNull V min, @NonNull V max);
 
     /**
      * @param min 下限值
      * @param max 上限值
-     * @see CriterionOperator#NOT_BETWEEN
      */
     R notBetween(@NonNull V min, @NonNull V max);
 }

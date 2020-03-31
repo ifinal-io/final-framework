@@ -4,6 +4,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.function.Executable;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -42,7 +43,7 @@ public interface SimpleCriterion extends Criterion, Executable<Object, SimpleCri
     Collection<FunctionOperation> getFunctions();
 
     @NonNull
-    CriterionOperator getOperator();
+    Operation getOperation();
 
     @Nullable
     Class<? extends TypeHandler<?>> getTypeHandler();
@@ -65,7 +66,7 @@ public interface SimpleCriterion extends Criterion, Executable<Object, SimpleCri
         }
 
         @NonNull
-        R operator(@NonNull CriterionOperator operator);
+        R operation(@NonNull Operation operation);
 
         @NonNull
         R typeHandler(@NonNull Class<? extends TypeHandler<?>> typeHandler);

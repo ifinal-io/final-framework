@@ -7,7 +7,7 @@ package org.finalframework.data.query.operation;
  * @date 2020-03-31 20:29:21
  * @since 1.0
  */
-public interface JsonFunctionOperation extends FunctionOperation {
+public interface JsonOperation extends Operation {
     Operation JSON_EXTRACT = new SimpleOperation("JSON_EXTRACT");
     Operation JSON_CONTAINS = new SimpleOperation("JSON_CONTAINS");
     Operation JSON_UNQUOTE = new SimpleOperation("JSON_UNQUOTE");

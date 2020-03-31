@@ -1,10 +1,15 @@
 package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.criterion.function.FunctionOperator;
-import org.finalframework.data.query.criterion.function.operation.*;
+import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.operation.DateOperation;
+import org.finalframework.data.query.operation.Operation;
+import org.finalframework.data.query.operation.StringOperation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -16,13 +21,13 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     private final CriterionValue<?> target;
     private final Collection<FunctionOperation> functions = new ArrayList<>();
-    private final CriterionOperator operator;
+    private final Operation operation;
     private Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
     public SimpleCriterionImpl(AbsBuilder builder) {
         this.target = builder.target;
-        this.operator = builder.operator;
+        this.operation = builder.operation;
         this.typeHandler = builder.typeHandler;
     }
 
@@ -37,8 +42,8 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     }
 
     @Override
-    public CriterionOperator getOperator() {
-        return this.operator;
+    public Operation getOperation() {
+        return this.operation;
     }
 
     @Override
@@ -58,13 +63,13 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     @Override
     public SimpleCriterion contact(String prefix, String suffix) {
-        this.functions.add(new DoubleFunctionOperation<>(FunctionOperator.CONCAT, prefix, suffix));
+        this.functions.add(new DoubleFunctionOperation<>(StringOperation.CONCAT, prefix, suffix));
         return this;
     }
 
     @Override
     public SimpleCriterion date() {
-        this.functions.add(new SimpleFunctionOperation(FunctionOperator.DATE));
+        this.functions.add(new SimpleFunctionOperation(DateOperation.DATE));
         return this;
     }
 
@@ -72,7 +77,7 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
         private CriterionValue<?> target;
         private Collection<FunctionOperation> functions = new ArrayList<>();
-        private CriterionOperator operator;
+        private Operation operation;
         private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
@@ -83,8 +88,8 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
 
         @Override
-        public R operator(CriterionOperator operator) {
-            this.operator = operator;
+        public R operation(Operation operation) {
+            this.operation = operation;
             return (R) this;
         }
 

@@ -7,10 +7,10 @@ import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criteriable.FunctionCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.function.FunctionOperator;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
+import org.finalframework.data.query.operation.JsonOperation;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
@@ -133,40 +133,40 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonExtract(String path) {
-        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+        return new AbsCriteriable<>(this, new SingleFunctionOperation<>(JsonOperation.JSON_EXTRACT, path));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonKeys() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_KEYS));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(JsonOperation.JSON_KEYS));
 
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonLength() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_LENGTH));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(JsonOperation.JSON_LENGTH));
 
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonDepth() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_DEPTH));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(JsonOperation.JSON_DEPTH));
     }
 
     @Override
     default FunctionCriteriable<Object, Criterion> jsonUnquote() {
-        return new AbsCriteriable<>(this, new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
+        return new AbsCriteriable<>(this, new SimpleFunctionOperation(JsonOperation.JSON_UNQUOTE));
     }
 
     @Override
     default Criterion jsonContains(@NotNull Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
                 .eq(true);
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path))
+        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
                 .neq(true);
     }
 

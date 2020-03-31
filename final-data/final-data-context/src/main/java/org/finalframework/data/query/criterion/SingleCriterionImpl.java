@@ -1,6 +1,9 @@
 package org.finalframework.data.query.criterion;
 
 
+import org.finalframework.data.query.operation.CompareOperation;
+import org.finalframework.data.query.operation.Operation;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +16,9 @@ import java.util.Set;
  */
 public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements SingleCriterion<T> {
 
-    private static final Set<CriterionOperator> OPERATOR_IN = new HashSet<>(Arrays.asList(
-            CriterionOperator.IN,
-            CriterionOperator.NOT_IN
+    private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
+            CompareOperation.IN,
+            CompareOperation.NOT_IN
     ));
 
     private final T value;
@@ -35,7 +38,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements Si
     }
 
     public String getCriterionValue() {
-        String expression = OPERATOR_IN.contains(getOperator()) ? "value" : "criterion.value";
+        String expression = OPERATOR_IN.contains(getOperation()) ? "value" : "criterion.value";
         return CriterionValue.builder(value)
                 .functions(getFunctions())
                 .typeHandler(getTypeHandler())

@@ -1,18 +1,20 @@
 package org.finalframework.data.query.criteriable;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.validation.constraints.NotNull;
-
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.*;
-import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.criterion.BetweenCriterion;
+import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.data.query.criterion.SingleCriterion;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
+import org.finalframework.data.query.operation.*;
+
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -47,7 +49,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     public Criterion isNull() {
         return SingleCriterion.builder()
                 .property(this.property, this.functions)
-                .operator(CriterionOperator.NULL)
+                .operation(CompareOperation.NULL)
                 .build();
     }
 
@@ -55,94 +57,94 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
     public Criterion isNotNull() {
         return SingleCriterion.builder()
                 .property(this.property, this.functions)
-                .operator(CriterionOperator.NOT_NULL)
+                .operation(CompareOperation.NOT_NULL)
                 .build();
     }
 
     @Override
     public Criterion between(V min, V max) {
-        return buildBetweenCriterion(CriterionOperator.BETWEEN, min, max);
+        return buildBetweenCriterion(CompareOperation.BETWEEN, min, max);
     }
 
     @Override
     public Criterion notBetween(V min, V max) {
-        return buildBetweenCriterion(CriterionOperator.NOT_BETWEEN, min, max);
+        return buildBetweenCriterion(CompareOperation.NOT_BETWEEN, min, max);
     }
 
     @Override
     public Criterion eq(V value) {
-        return buildSingleCriterion(CriterionOperator.EQUAL, value);
+        return buildSingleCriterion(CompareOperation.EQUAL, value);
     }
 
     @Override
     public Criterion neq(V value) {
-        return buildSingleCriterion(CriterionOperator.NOT_EQUAL, value);
+        return buildSingleCriterion(CompareOperation.NOT_EQUAL, value);
     }
 
     @Override
     public Criterion gt(V value) {
-        return buildSingleCriterion(CriterionOperator.GREAT_THAN, value);
+        return buildSingleCriterion(CompareOperation.GREAT_THAN, value);
     }
 
     @Override
     public Criterion gte(V value) {
-        return buildSingleCriterion(CriterionOperator.GREAT_THAN_EQUAL, value);
+        return buildSingleCriterion(CompareOperation.GREAT_THAN_EQUAL, value);
     }
 
     @Override
     public Criterion lt(V value) {
-        return buildSingleCriterion(CriterionOperator.LESS_THAN, value);
+        return buildSingleCriterion(CompareOperation.LESS_THAN, value);
     }
 
     @Override
     public Criterion lte(V value) {
-        return buildSingleCriterion(CriterionOperator.LESS_THAN_EQUAL, value);
+        return buildSingleCriterion(CompareOperation.LESS_THAN_EQUAL, value);
     }
 
     @Override
     public Criterion in(Collection<V> values) {
-        return buildSingleCriterion(CriterionOperator.IN, values);
+        return buildSingleCriterion(CompareOperation.IN, values);
     }
 
     @Override
     public Criterion nin(Collection<V> values) {
-        return buildSingleCriterion(CriterionOperator.NOT_IN, values);
+        return buildSingleCriterion(CompareOperation.NOT_IN, values);
     }
 
     @Override
     public Criterion like(String prefix, String value, String suffix) {
-        return buildLikeCriterion(CriterionOperator.LIKE, prefix, value, suffix);
+        return buildLikeCriterion(CompareOperation.LIKE, prefix, value, suffix);
     }
 
     @Override
     public Criterion notLike(String prefix, String value, String suffix) {
-        return buildLikeCriterion(CriterionOperator.NOT_LIKE, prefix, value, suffix);
+        return buildLikeCriterion(CompareOperation.NOT_LIKE, prefix, value, suffix);
     }
 
-    private Criterion buildSingleCriterion(CriterionOperator operator, Object value) {
+    private Criterion buildSingleCriterion(Operation operation, Object value) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
                 .property(this.property, this.functions)
-                .operator(operator)
+                .operation(operation)
                 .value(value)
                 .build();
     }
 
-    private Criterion buildLikeCriterion(CriterionOperator operator, String prefix, String value, String suffix) {
+    private Criterion buildLikeCriterion(Operation operation, String prefix, String value, String suffix) {
         Assert.isNull(value, "value is null");
         return SingleCriterion.builder()
                 .property(this.property, this.functions)
-                .operator(operator)
+                .operation(operation)
                 .value(value)
                 .build().contact(prefix, suffix);
     }
 
-    private Criterion buildBetweenCriterion(CriterionOperator operator, Object min, Object max) {
+    private Criterion buildBetweenCriterion(Operation operation, Object min, Object max) {
         Assert.isNull(min, "min is null");
         Assert.isNull(max, "max is null");
         return BetweenCriterion.builder()
                 .property(this.property, this.functions)
-                .operator(operator)
+                .operation(operation)
                 .between(min, max)
                 .build();
     }
@@ -150,99 +152,99 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonExtract(String path) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.JSON_EXTRACT, path));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(JsonOperation.JSON_EXTRACT, path));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonKeys() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_KEYS));
+        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_KEYS));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonLength() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_LENGTH));
+        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_LENGTH));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonDepth() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_DEPTH));
+        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_DEPTH));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonUnquote() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.JSON_UNQUOTE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_UNQUOTE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> and(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.AND, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.AND, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> or(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.OR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.OR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> xor(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(FunctionOperator.XOR, value));
+        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.XOR, value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> not() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.NOT));
+        this.addFunctionCriterion(new SimpleFunctionOperation(LogicOperation.NOT));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> date() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.DATE));
+        this.addFunctionCriterion(new SimpleFunctionOperation(DateOperation.DATE));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> min() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.MIN));
+        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.MIN));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> max() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.MAX));
+        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.MAX));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> sum() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.SUM));
+        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.SUM));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> avg() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(FunctionOperator.AVG));
+        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.AVG));
         return this;
     }
 
 
     @Override
     public Criterion jsonContains(@NotNull Object value, String path) {
-        this.addFunctionCriterion(new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path));
-        return buildSingleCriterion(CriterionOperator.EQUAL, true);
+        this.addFunctionCriterion(new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path));
+        return buildSingleCriterion(CompareOperation.EQUAL, true);
     }
 
     @Override
     public Criterion notJsonContains(Object value, String path) {
-        this.addFunctionCriterion(new DoubleFunctionOperation<>(FunctionOperator.JSON_CONTAINS, value, path));
-        return buildSingleCriterion(CriterionOperator.NOT_EQUAL, true);
+        this.addFunctionCriterion(new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path));
+        return buildSingleCriterion(CompareOperation.NOT_EQUAL, true);
     }
 
 }

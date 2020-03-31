@@ -1,12 +1,13 @@
 package org.finalframework.data.query.criterion.function.operation;
 
-import java.util.Arrays;
 import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.query.criterion.function.FunctionOperator;
-import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.SupportTypes;
 import org.finalframework.data.query.criterion.function.expression.*;
+import org.finalframework.data.query.operation.Operation;
 import org.finalframework.util.LinkedMultiKeyMap;
 import org.finalframework.util.MultiKeyMap;
+
+import java.util.Arrays;
 
 /**
  * @author likly
@@ -19,7 +20,10 @@ public class FunctionOperationRegistry {
 
     private static final FunctionOperationRegistry INSTANCE = new FunctionOperationRegistry();
 
-    private final MultiKeyMap<FunctionOperator, Class<?>, FunctionOperationExpression<? extends FunctionOperation>> operations = new LinkedMultiKeyMap<>();
+    /**
+     * 函数运算表达式
+     */
+    private final MultiKeyMap<Operation, Class<?>, FunctionOperationExpression<? extends FunctionOperation>> operationExpressions = new LinkedMultiKeyMap<>();
 
     {
         registerCriterionOperation(new DateFunctionOperationExpression());
@@ -60,28 +64,27 @@ public class FunctionOperationRegistry {
         new FunctionOperationRegistry();
     }
 
-    public <T> void registerCriterionOperation(FunctionOperator operator, Class<T> type,
-        FunctionOperationExpression<? extends FunctionOperation> operation) {
-        operations.add(operator, type, operation);
+    public <T> void registerCriterionOperation(Class<T> type,
+                                               FunctionOperationExpression<? extends FunctionOperation> expression) {
+        operationExpressions.add(expression.operation(), type, expression);
     }
 
     public <T> void registerCriterionOperation(FunctionOperationExpression<? extends FunctionOperation> criterionOperation) {
-        SupportFunctions supportFunctions = criterionOperation.getClass().getAnnotation(SupportFunctions.class);
-        if (supportFunctions == null) {
+        SupportTypes supportTypes = criterionOperation.getClass().getAnnotation(SupportTypes.class);
+        if (supportTypes == null) {
             throw new IllegalArgumentException();
         }
 
-        FunctionOperator operator = supportFunctions.value();
-        Class<?>[] types = supportFunctions.types();
+        Class<?>[] types = supportTypes.types();
 
-        Arrays.stream(types).forEach(type -> registerCriterionOperation(operator, type, criterionOperation));
+        Arrays.stream(types).forEach(type -> registerCriterionOperation(type, criterionOperation));
 
 
     }
 
     @SuppressWarnings("unchecked")
-    public <T> FunctionOperationExpression<? extends FunctionOperation> getCriterionOperation(FunctionOperator operator,
-        Class<T> type) {
+    public <T> FunctionOperationExpression<? extends FunctionOperation> getCriterionOperation(Operation operation,
+                                                                                              Class<T> type) {
         Class<?> key = type;
         if (type.isEnum()) {
             if (IEnum.class.isAssignableFrom(type)) {
@@ -89,16 +92,16 @@ public class FunctionOperationRegistry {
             }
         }
 
-        FunctionOperationExpression<? extends FunctionOperation> functionOperationExpression = operations
-            .get(operator, key);
+        FunctionOperationExpression<? extends FunctionOperation> functionOperationExpression = operationExpressions
+                .get(operation, key);
 
         if (functionOperationExpression == null) {
-            functionOperationExpression = operations.get(operator, Object.class);
+            functionOperationExpression = operationExpressions.get(operation, Object.class);
         }
 
 
         if (functionOperationExpression == null) {
-            throw new IllegalArgumentException(String.format("not found criterion operator of operator = %s and type = %s", operator, type.getCanonicalName()));
+            throw new IllegalArgumentException(String.format("not found criterion operation of operation = %s and type = %s", operation, type.getCanonicalName()));
         }
         return functionOperationExpression;
     }

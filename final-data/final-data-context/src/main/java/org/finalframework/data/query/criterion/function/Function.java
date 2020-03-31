@@ -5,7 +5,7 @@ package org.finalframework.data.query.criterion.function;
  * @version 1.0
  * @date 2019-11-24 13:20:06
  * @see DateFunction
- * @see BitFunction
+ * @see LogicFunction
  * @since 1.0
  */
 public interface Function {

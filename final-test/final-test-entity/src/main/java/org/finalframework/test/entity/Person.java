@@ -30,7 +30,7 @@ public class Person extends AbsRecord {
     @View(Person.class)
     private int maxAge;
     @View(Person.class)
-    @Json("jsonList")
+    @Json
     private List<String> stringList;
     @Column
     private List<Integer> intList;

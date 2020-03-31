@@ -1,10 +1,11 @@
 package org.finalframework.data.query.criterion.function.expression;
 
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
-import org.finalframework.data.query.criterion.function.SupportFunctions;
+import org.finalframework.data.query.criterion.function.SupportTypes;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperationExpression;
+import org.finalframework.data.query.operation.LogicOperation;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -13,18 +14,21 @@ import org.finalframework.data.query.criterion.function.operation.FunctionOperat
  * @since 1.0
  */
 
-@SupportFunctions(
-        value = FunctionOperator.NOT,
-        types = {
-                byte.class, Byte.class,
-                short.class, Short.class,
-                int.class, Integer.class,
-                long.class, Long.class,
-                float.class, Float.class,
-                double.class, Double.class
-        }
+@SupportTypes(types = {
+        byte.class, Byte.class,
+        short.class, Short.class,
+        int.class, Integer.class,
+        long.class, Long.class,
+        float.class, Float.class,
+        double.class, Double.class
+}
 )
 public class NumberNotFunctionOperationExpression<T extends Number> implements FunctionOperationExpression<FunctionOperation> {
+
+    @Override
+    public Operation operation() {
+        return LogicOperation.NOT;
+    }
 
     @Override
     public String expression(String target, FunctionOperation criterion) {

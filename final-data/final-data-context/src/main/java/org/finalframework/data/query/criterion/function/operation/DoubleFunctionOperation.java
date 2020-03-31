@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion.function.operation;
 
 
-import org.finalframework.data.query.criterion.function.FunctionOperator;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -13,8 +13,8 @@ public class DoubleFunctionOperation<T> extends SimpleFunctionOperation {
     private final T firstValue;
     private final T secondValue;
 
-    public DoubleFunctionOperation(FunctionOperator operator, T firstValue, T secondValue) {
-        super(operator);
+    public DoubleFunctionOperation(Operation operation, T firstValue, T secondValue) {
+        super(operation);
         this.firstValue = firstValue;
         this.secondValue = secondValue;
     }
