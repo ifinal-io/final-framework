@@ -2,16 +2,14 @@ package org.finalframework.coding.mapper.builder;
 
 import static org.finalframework.data.annotation.enums.PrimaryKeyType.UUID;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+
 import org.finalframework.coding.entity.Entity;
+import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.ReadOnly;
 import org.springframework.lang.NonNull;
@@ -24,6 +22,9 @@ import org.w3c.dom.Element;
  * @version 1.0
  * @date 2019-10-11 15:48:11
  * @see SqlOnDuplicateKeyFragmentXmlMapperBuilder
+ * @see org.finalframework.data.repository.Repository#insert(String, Class, boolean, Collection)
+ * @see org.finalframework.data.repository.Repository#replace(String, Class, Collection)
+ * @see org.finalframework.data.repository.Repository#save(String, Class, Collection)
  * @since 1.0
  */
 public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
@@ -164,7 +165,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         final List<String> columns = new ArrayList<>();
         entity.stream()
-                .filter(this::isWriteable)
+                .filter(Property::isWriteable)
                 .filter(it -> {
                     if (view == null) {
                         return !it.hasAnnotation(ReadOnly.class);
@@ -241,7 +242,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
-                .filter(this::isWriteable)
+                .filter(Property::isWriteable)
                 .filter(it -> {
                     if (view == null) {
                         return !it.hasAnnotation(ReadOnly.class);

@@ -56,8 +56,8 @@ public class QEntityFactory {
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
                     .persistentType(property.getPersistentType())
-                    .insertable(!property.isTransient() && !property.isReadOnly() && !property.isVirtual())
-                    .updatable(!property.isTransient() && !property.isReadOnly() && !property.isVirtual() && !property.isFinal())
+                    .insertable(property.isWriteable())
+                    .updatable(property.isModifiable())
                     .selectable(!property.isTransient() && !property.isWriteOnly() && !property.isVirtual())
                     .build();
         } else {
@@ -70,8 +70,8 @@ public class QEntityFactory {
                     .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
-                    .insertable(!property.isTransient() && !property.isReadOnly() && !property.isVirtual())
-                    .updatable(!property.isTransient() && !property.isReadOnly() && !property.isVirtual() && !property.isFinal())
+                    .insertable(property.isWriteable())
+                    .updatable(property.isModifiable())
                     .selectable(!referenceProperty.isTransient() && !referenceProperty.isWriteOnly() && !referenceProperty.isVirtual())
                     .build();
         }

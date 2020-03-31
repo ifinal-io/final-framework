@@ -34,6 +34,7 @@ public class Person extends AbsRecord {
     private List<String> stringList;
     @Column
     private List<Integer> intList;
+    @Transient
     private Map<String, Object> properties;
 
     public String getName() {

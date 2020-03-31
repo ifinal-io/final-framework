@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 被 {@link EnumValue} 标记的属性 {@link java.lang.reflect.Field} 在使用 {@literal json} 序列化时，会额外地序列化两个扩展属性 {@literal xxxName} 和 {@literal xxxDesc}。
+ *
  * @author likly
  * @version 1.0
  * @date 2020-03-25 10:03:14

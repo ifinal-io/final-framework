@@ -74,12 +74,4 @@ public abstract class AbsMethodXmlMapperBuilder extends AbsXmlMapperBuilder impl
 
 
     protected abstract Element buildMethodElement(ExecutableElement method, Document document, Entity entity);
-
-    protected boolean isWriteable(Property property) {
-        return !property.isVirtual() && !property.isReadOnly() && !property.isDefault();
-    }
-
-    protected boolean isModifiable(Property property) {
-        return !property.isVirtual() && !property.isFinal() && !property.isReadOnly();
-    }
 }

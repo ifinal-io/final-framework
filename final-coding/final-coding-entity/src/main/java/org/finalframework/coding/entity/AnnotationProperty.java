@@ -27,6 +27,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
+
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
@@ -185,22 +187,22 @@ public class AnnotationProperty implements Property {
 
         this.isKeyword = Lazy.of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
-//        System.out.println("=================================================" + getName() + "=================================================");
-//        System.out.println("name：" + getName());
-//        System.out.println("column：" + getColumn());
-//        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
-//        System.out.println("isPrimitive：" + isPrimitive());
-//        System.out.println("isEnum：" + isEnum());
-//        System.out.println("isArray：" + isArray());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isList：" + isList());
-//        System.out.println("isSet：" + isSet());
-//        System.out.println("isMap：" + isMap());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isIdProperty：" + isIdProperty());
-//        System.out.println("isVersion：" + isVersion());
-//        System.out.println("isReference：" + isReference());
-//        System.out.println("===================================================================================================================");
+        System.out.println("=================================================" + getName() + "=================================================");
+        System.out.println("name：" + getName());
+        System.out.println("column：" + getColumn());
+        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
+        System.out.println("isPrimitive：" + isPrimitive());
+        System.out.println("isEnum：" + isEnum());
+        System.out.println("isArray：" + isArray());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isList：" + isList());
+        System.out.println("isSet：" + isSet());
+        System.out.println("isMap：" + isMap());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isIdProperty：" + isIdProperty());
+        System.out.println("isVersion：" + isVersion());
+        System.out.println("isReference：" + isReference());
+        System.out.println("===================================================================================================================");
 
     }
 
@@ -210,8 +212,10 @@ public class AnnotationProperty implements Property {
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, column.asType())) {
+//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,annotationType.toString()+":isColumn:" + true);
                 return getColumnValue(annotationMirror);
-            } else if (annotationType.getAnnotation(Column.class) != null) {
+            } else if (annotationType.asElement().getAnnotation(Column.class) != null) {
+//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,annotationType.toString()+":hasColumn:" + true);
                 return getColumnValue(annotationMirror);
             }
         }
@@ -225,8 +229,8 @@ public class AnnotationProperty implements Property {
         String column = "";
         String value = "";
         for (ExecutableElement method : elementValues.keySet()) {
-            System.out.println(
-                annotationType.toString() + ":" + method.getSimpleName().toString() + ":" + elementValues.get(method));
+//            final String message = annotationType.toString() + ":===========" + method.getSimpleName().toString() + ":" + elementValues.get(method);
+//            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,message);
             if ("name".equals(method.getSimpleName().toString())) {
                 column = (String) elementValues.get(method).getValue();
             } else if ("value".equals(method.getSimpleName().toString())) {

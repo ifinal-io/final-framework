@@ -105,6 +105,15 @@ public interface Property {
      */
     boolean isWriteOnly();
 
+    default boolean isWriteable() {
+        return !isTransient() && !isVirtual() && !isReadOnly() && !isDefault();
+    }
+
+    default boolean isModifiable() {
+        return !isTransient() && !isVirtual() && !isReadOnly() && !isFinal();
+    }
+
+
     boolean placeholder();
 
     TypeMirror getType();

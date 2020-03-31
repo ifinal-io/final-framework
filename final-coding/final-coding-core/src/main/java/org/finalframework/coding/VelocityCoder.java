@@ -45,6 +45,11 @@ public class VelocityCoder implements Coder {
         properties.setProperty("log4j.logger.root", "ERROR");
 
 
+        final Logger apacheLogger = LoggerFactory.getLogger("org.apache");
+        if (apacheLogger instanceof ch.qos.logback.classic.Logger) {
+            ((ch.qos.logback.classic.Logger) apacheLogger).setLevel(Level.ERROR);
+        }
+
         Logger logger = LoggerFactory.getLogger(RuntimeConstants.DEFAULT_RUNTIME_LOG_NAME);
         if (logger instanceof ch.qos.logback.classic.Logger) {
             ((ch.qos.logback.classic.Logger) logger).setLevel(Level.ERROR);
