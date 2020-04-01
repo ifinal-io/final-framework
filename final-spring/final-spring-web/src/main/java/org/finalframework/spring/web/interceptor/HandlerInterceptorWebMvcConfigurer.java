@@ -49,7 +49,7 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
                 interceptorRegistration.order(handlerInterceptor.getOrder());
 
 
-            } else {
+            } else if (annotation != null) {
                 if (annotation.includes().length > 0) {
                     interceptorRegistration.addPathPatterns(annotation.includes());
                 }

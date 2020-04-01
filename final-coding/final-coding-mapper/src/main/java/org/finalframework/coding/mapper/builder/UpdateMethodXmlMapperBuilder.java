@@ -145,6 +145,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         if (versionProperty != null && !versionProperty.isTransient() && !versionProperty.isReadOnly() && !versionProperty.isFinal() && !versionProperty.isVirtual()) {
             Element trim = document.createElement("trim");
             String column = typeHandlers.formatPropertyColumn(null, versionProperty);
+            trim.setAttribute("suffixOverrides", ",");
             trim.setAttribute("suffix", String.format(",%s = %s + 1", column, column));
             trim.appendChild(choose);
             set.appendChild(trim);

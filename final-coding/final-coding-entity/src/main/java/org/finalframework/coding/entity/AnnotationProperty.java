@@ -186,23 +186,23 @@ public class AnnotationProperty implements Property {
         this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
         this.isKeyword = Lazy.of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
-
-        System.out.println("=================================================" + getName() + "=================================================");
-        System.out.println("name：" + getName());
-        System.out.println("column：" + getColumn());
-        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
-        System.out.println("isPrimitive：" + isPrimitive());
-        System.out.println("isEnum：" + isEnum());
-        System.out.println("isArray：" + isArray());
-        System.out.println("isCollection：" + isCollection());
-        System.out.println("isList：" + isList());
-        System.out.println("isSet：" + isSet());
-        System.out.println("isMap：" + isMap());
-        System.out.println("isCollection：" + isCollection());
-        System.out.println("isIdProperty：" + isIdProperty());
-        System.out.println("isVersion：" + isVersion());
-        System.out.println("isReference：" + isReference());
-        System.out.println("===================================================================================================================");
+//
+//        System.out.println("=================================================" + getName() + "=================================================");
+//        System.out.println("name：" + getName());
+//        System.out.println("column：" + getColumn());
+//        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
+//        System.out.println("isPrimitive：" + isPrimitive());
+//        System.out.println("isEnum：" + isEnum());
+//        System.out.println("isArray：" + isArray());
+//        System.out.println("isCollection：" + isCollection());
+//        System.out.println("isList：" + isList());
+//        System.out.println("isSet：" + isSet());
+//        System.out.println("isMap：" + isMap());
+//        System.out.println("isCollection：" + isCollection());
+//        System.out.println("isIdProperty：" + isIdProperty());
+//        System.out.println("isVersion：" + isVersion());
+//        System.out.println("isReference：" + isReference());
+//        System.out.println("===================================================================================================================");
 
     }
 
