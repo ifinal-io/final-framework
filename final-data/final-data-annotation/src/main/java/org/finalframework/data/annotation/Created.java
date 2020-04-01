@@ -20,6 +20,7 @@ import org.springframework.data.annotation.CreatedDate;
  */
 @Column
 @Default
+@Final
 @ReadOnly
 @CreatedDate
 @Documented

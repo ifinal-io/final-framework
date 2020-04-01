@@ -20,6 +20,10 @@
             <groupId>org.finalframework.data</groupId>
             <artifactId>final-data-context</artifactId>
         </dependency>
+        <dependency>
+            <artifactId>final-core</artifactId>
+            <groupId>org.finalframework</groupId>
+        </dependency>
     </dependencies>
 
 

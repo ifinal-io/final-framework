@@ -2,10 +2,8 @@ package org.finalframework.coding.entity;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,8 +25,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
-
 import org.finalframework.coding.beans.PropertyDescriptor;
+import org.finalframework.coding.utils.Annotations;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.Column;
@@ -62,7 +60,6 @@ import org.springframework.lang.NonNull;
  */
 public class AnnotationProperty implements Property {
 
-    private static final Set<String> GETTER_PREFIX = new HashSet<>(Arrays.asList("is", "get"));
     /**
      * 虚拟列前缀
      */
@@ -70,6 +67,7 @@ public class AnnotationProperty implements Property {
     private final ProcessingEnvironment processEnv;
     private final Elements elements;
     private final Types types;
+    private final Annotations annotations;
     private final TypeElements typeElements;
     private final Lazy<Element> element;
     private final Lazy<TypeElement> typeHandler;
@@ -120,6 +118,7 @@ public class AnnotationProperty implements Property {
         this.processEnv = processEnv;
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
+        this.annotations = new Annotations(processEnv);
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
         this.field = field;
         this.descriptor = descriptor;
@@ -155,14 +154,14 @@ public class AnnotationProperty implements Property {
 
         this.isTransient = Lazy.of(hasAnnotation(Transient.class));
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
-        this.isFinal = Lazy.of(!isTransient() && hasAnnotation(Final.class));
-        this.isVirtual = Lazy.of(!isTransient() && hasAnnotation(Virtual.class));
+        this.isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
+        this.isVirtual = Lazy.of(!isTransient() && isAnnotationPresent(Virtual.class));
         this.isSharding = Lazy.of(!isTransient() && hasAnnotation(Sharding.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
-        this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
-        this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
-        this.isWriteOnly = Lazy.of(!isTransient() && !isVirtual() && hasAnnotation(WriteOnly.class));
-        this.isReadOnly = Lazy.of(!isTransient() && !isVirtual() && hasAnnotation(ReadOnly.class));
+        this.isVersion = Lazy.of(!isTransient() && isAnnotationPresent(Version.class));
+        this.isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
+        this.isWriteOnly = Lazy.of(!isTransient() && !isVirtual() && isAnnotationPresent(WriteOnly.class));
+        this.isReadOnly = Lazy.of(!isTransient() && !isVirtual() && isAnnotationPresent(ReadOnly.class));
 
         this.primaryKeyType = Lazy.of(() -> {
             if (isIdProperty()) {
@@ -184,24 +183,31 @@ public class AnnotationProperty implements Property {
 
         this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
-        this.isKeyword = Lazy.of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
-//
-//        System.out.println("=================================================" + getName() + "=================================================");
-//        System.out.println("name：" + getName());
-//        System.out.println("column：" + getColumn());
-//        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
-//        System.out.println("isPrimitive：" + isPrimitive());
-//        System.out.println("isEnum：" + isEnum());
-//        System.out.println("isArray：" + isArray());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isList：" + isList());
-//        System.out.println("isSet：" + isSet());
-//        System.out.println("isMap：" + isMap());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isIdProperty：" + isIdProperty());
-//        System.out.println("isVersion：" + isVersion());
-//        System.out.println("isReference：" + isReference());
-//        System.out.println("===================================================================================================================");
+        this.isKeyword = Lazy
+            .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
+
+        System.out.println("=================================================" + getName()
+            + "=================================================");
+        System.out.println("name：" + getName());
+        System.out.println("column：" + getColumn());
+        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
+        System.out.println("isPrimitive：" + isPrimitive());
+        System.out.println("isEnum：" + isEnum());
+        System.out.println("isArray：" + isArray());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isList：" + isList());
+        System.out.println("isSet：" + isSet());
+        System.out.println("isMap：" + isMap());
+        System.out.println("isCollection：" + isCollection());
+        System.out.println("isIdProperty：" + isIdProperty());
+        System.out.println("isVersion：" + isVersion());
+        System.out.println("isReference：" + isReference());
+        System.out.println("isDefault：" + isDefault());
+        System.out.println("isFinal：" + isFinal());
+        System.out.println("isReadOnly：" + isReadOnly());
+        System.out.println("isWriteOnly：" + isWriteOnly());
+        System.out.println(
+            "===================================================================================================================");
 
     }
 
@@ -494,6 +500,11 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
+    public boolean isAnnotationPresent(Class<? extends Annotation> annotationType) {
+        return Annotations.isAnnotationPresent(getElement(), annotationType);
+    }
+
+    @Override
     public Entity toEntity() {
         return EntityFactory.create(processEnv, getJavaTypeElement());
     }
@@ -502,7 +513,8 @@ public class AnnotationProperty implements Property {
     public boolean hasView(TypeElement view) {
 
         for (TypeElement typeElement : views) {
-            if (typeElements.isAssignable(view.asType(), typeElement.asType()) || typeElements.isSameType(view.asType(), typeElement.asType())) {
+            if (typeElements.isAssignable(view.asType(), typeElement.asType()) || typeElements
+                .isSameType(view.asType(), typeElement.asType())) {
                 return true;
             }
         }

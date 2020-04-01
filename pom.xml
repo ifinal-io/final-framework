@@ -94,6 +94,11 @@
                 <artifactId>final-auth</artifactId>
                 <version>${final.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>final-util</artifactId>
+                <groupId>org.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
 
             <!-- ==================================================================================================== -->
             <!-- ============================================ final-data ============================================ -->

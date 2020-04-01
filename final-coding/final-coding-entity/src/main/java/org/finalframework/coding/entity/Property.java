@@ -9,7 +9,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.PrimaryKey;
@@ -187,6 +186,8 @@ public interface Property {
     default <A extends Annotation> boolean hasAnnotation(Class<A> annotationType) {
         return getAnnotation(annotationType) != null;
     }
+
+    boolean isAnnotationPresent(Class<? extends Annotation> annotationType);
 
     Entity toEntity();
 
