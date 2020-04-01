@@ -27,7 +27,6 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
-import javax.tools.Diagnostic;
 
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.TypeElements;
@@ -100,8 +99,8 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isFinal;
     private final Lazy<Boolean> isVirtual;
     private final Lazy<Boolean> isSharding;
-    private final Lazy<Boolean> isWritable;
-    private final Lazy<Boolean> isReadable;
+    private final Lazy<Boolean> isWriteOnly;
+    private final Lazy<Boolean> isReadOnly;
     private final Lazy<Boolean> isTransient;
     private final Lazy<Boolean> isPrimitive;
     private final Lazy<Boolean> isEnum;
@@ -154,6 +153,7 @@ public class AnnotationProperty implements Property {
         this.isSet = Lazy.of(() -> isSet(getType()));
         this.isMap = Lazy.of(() -> isMap(getType()));
 
+        this.isTransient = Lazy.of(hasAnnotation(Transient.class));
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
         this.isFinal = Lazy.of(!isTransient() && hasAnnotation(Final.class));
         this.isVirtual = Lazy.of(!isTransient() && hasAnnotation(Virtual.class));
@@ -161,9 +161,8 @@ public class AnnotationProperty implements Property {
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && hasAnnotation(Version.class));
         this.isDefault = Lazy.of(!isTransient() && hasAnnotation(Default.class));
-        this.isWritable = Lazy.of(!isTransient() && !isVirtual() && !hasAnnotation(ReadOnly.class));
-        this.isReadable = Lazy.of(!isTransient() && !isVirtual() && !hasAnnotation(WriteOnly.class));
-        this.isTransient = Lazy.of(hasAnnotation(Transient.class));
+        this.isWriteOnly = Lazy.of(!isTransient() && !isVirtual() && hasAnnotation(WriteOnly.class));
+        this.isReadOnly = Lazy.of(!isTransient() && !isVirtual() && hasAnnotation(ReadOnly.class));
 
         this.primaryKeyType = Lazy.of(() -> {
             if (isIdProperty()) {
@@ -376,12 +375,12 @@ public class AnnotationProperty implements Property {
 
     @Override
     public boolean isReadOnly() {
-        return isWritable.get();
+        return isReadOnly.get();
     }
 
     @Override
     public boolean isWriteOnly() {
-        return isReadable.get();
+        return isWriteOnly.get();
     }
 
     @Override
@@ -503,7 +502,7 @@ public class AnnotationProperty implements Property {
     public boolean hasView(TypeElement view) {
 
         for (TypeElement typeElement : views) {
-            if (typeElements.isAssignable(view.asType(), typeElement.asType())) {
+            if (typeElements.isAssignable(view.asType(), typeElement.asType()) || typeElements.isSameType(view.asType(), typeElement.asType())) {
                 return true;
             }
         }

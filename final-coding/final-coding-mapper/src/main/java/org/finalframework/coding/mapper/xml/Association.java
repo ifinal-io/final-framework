@@ -75,7 +75,7 @@ public final class Association implements Element, Streamable<Element>, Iterable
         builder.javaType(entity.getElement());
 
         entity.stream()
-                .filter(Property::isWriteOnly)
+                .filter(it -> !it.isVirtual() && !it.isWriteOnly())
                 .forEach(property -> {
                     if (property.isReference()) {
 //                        builder.addAssociation(Association.from(property,property.toEntity()));

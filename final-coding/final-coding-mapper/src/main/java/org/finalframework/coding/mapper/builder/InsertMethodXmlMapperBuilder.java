@@ -166,13 +166,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         final List<String> columns = new ArrayList<>();
         entity.stream()
                 .filter(Property::isWriteable)
-                .filter(it -> {
-                    if (view == null) {
-                        return !it.hasAnnotation(ReadOnly.class);
-                    } else {
-                        return it.hasView(view);
-                    }
-                })
+                .filter(it -> view == null || it.hasView(view))
                 .forEach(property -> {
                     if (property.isReference()) {
                         final Entity multiEntity = property.toEntity();
@@ -243,13 +237,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         AtomicBoolean first = new AtomicBoolean(true);
         entity.stream()
                 .filter(Property::isWriteable)
-                .filter(it -> {
-                    if (view == null) {
-                        return !it.hasAnnotation(ReadOnly.class);
-                    } else {
-                        return it.hasView(view);
-                    }
-                })
+                .filter(it -> view == null || it.hasView(view))
                 .forEach(property -> {
                     if (property.isReference()) {
                         final Entity multiEntity = property.toEntity();
