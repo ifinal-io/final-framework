@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
  * @date 2018-10-15 15:14
  * @see PrimaryKey
  * @see Creator
+ * @see ReadOnly
  * @since 1.0
  */
 @Column
