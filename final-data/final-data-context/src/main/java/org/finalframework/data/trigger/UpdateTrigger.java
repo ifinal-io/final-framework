@@ -1,7 +1,8 @@
-package org.finalframework.data.repository.trigger;
+package org.finalframework.data.trigger;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
@@ -14,8 +15,8 @@ import org.finalframework.data.query.Update;
  */
 public interface UpdateTrigger<ID extends Serializable, T extends IEntity<ID>> {
 
-    void beforeUpdate(T entity, Update update, Collection<ID> ids, Query query);
+    void beforeUpdate(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query);
 
-    void afterUpdate(T entity, Update update, Collection<ID> ids, Query query);
+    void afterUpdate(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query, int rows);
 
 }

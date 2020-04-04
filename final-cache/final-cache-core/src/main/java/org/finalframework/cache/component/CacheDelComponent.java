@@ -5,7 +5,8 @@ import org.finalframework.cache.annotation.CacheDel;
 import org.finalframework.cache.builder.CacheDelAnnotationBuilder;
 import org.finalframework.cache.handler.CacheDelOperationHandler;
 import org.finalframework.cache.invocation.CacheDelInvocation;
-import org.finalframework.spring.aop.annotation.OperationComponent;
+import org.finalframework.spring.annotation.factory.SpringComponent;
+import org.finalframework.spring.aop.OperationComponent;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -15,11 +16,13 @@ import org.springframework.core.annotation.Order;
  * @since 1.0
  */
 @Order(CacheOrder.CACHE_DEL)
-@OperationComponent(
-        annotation = CacheDel.class,
-        builder = CacheDelAnnotationBuilder.class,
-        handler = CacheDelOperationHandler.class,
-        invocation = CacheDelInvocation.class
-)
-public final class CacheDelComponent {
+@SpringComponent
+public final class CacheDelComponent extends OperationComponent {
+    protected CacheDelComponent() {
+        super(OperationComponent.builder()
+                .annotation(CacheDel.class)
+                .builder(CacheDelAnnotationBuilder.class)
+                .handler(CacheDelOperationHandler.class)
+                .invocation(CacheDelInvocation.class));
+    }
 }

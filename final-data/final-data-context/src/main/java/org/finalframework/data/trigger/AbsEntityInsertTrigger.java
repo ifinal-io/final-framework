@@ -1,7 +1,9 @@
-package org.finalframework.data.repository.trigger;
+package org.finalframework.data.trigger;
+
+import org.finalframework.data.entity.AbsEntity;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 
 import java.util.Collection;
-import org.finalframework.data.entity.AbsEntity;
 
 /**
  * @author sli
@@ -9,6 +11,7 @@ import org.finalframework.data.entity.AbsEntity;
  * @date 2020-04-02 23:47:00
  * @since 1.0
  */
+@SpringComponent
 public class AbsEntityInsertTrigger implements InsertTrigger<Long, AbsEntity> {
 
     @Override

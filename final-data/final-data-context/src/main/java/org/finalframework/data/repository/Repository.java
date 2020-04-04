@@ -1,17 +1,19 @@
 package org.finalframework.data.repository;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.trigger.annotation.TriggerPoint;
 import org.springframework.lang.NonNull;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -90,7 +92,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    @Deprecated
+    @TriggerPoint
     int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ignore") boolean ignore, @Param("list") Collection<T> entities);
 
     /*=========================================== REPLACE ===========================================*/
@@ -130,7 +132,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    @Deprecated
+    @TriggerPoint
     int replace(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
     /*=========================================== SAVE ===========================================*/
@@ -170,7 +172,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    @Deprecated
+    @TriggerPoint
     int save(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
 
@@ -404,6 +406,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     更新条件
      * @return 更新数据后影响的行数
      */
+    @TriggerPoint
     int update(@Param("tableName") String tableName, @Param("view") Class<?> view,
                @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
                @Param("ids") Collection<ID> ids, @Param("query") Query query);
@@ -466,6 +469,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     条件
      * @return 删除符合条件的数据所影响的行数
      */
+    @TriggerPoint
     int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
     default <PARAM> void delete(Query query, Listener<PARAM, Integer> listener) {
@@ -578,6 +582,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param ids       要查询的IDS
      * @param query     查询条件
      */
+    @TriggerPoint
     List<T> select(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 
 
@@ -641,6 +646,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     query
      * @return 符合查询 {@link ID} 或 {@link Query} 的一个结果
      */
+    @TriggerPoint
     T selectOne(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
 
     /*=========================================== SCANNER ===========================================*/

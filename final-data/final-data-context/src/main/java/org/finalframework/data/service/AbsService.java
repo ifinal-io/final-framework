@@ -3,10 +3,13 @@ package org.finalframework.data.service;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
+import org.finalframework.data.trigger.Triggerable;
+import org.finalframework.data.trigger.annotation.TriggerPoint;
 import org.springframework.lang.NonNull;
 
 /**
@@ -17,38 +20,44 @@ import org.springframework.lang.NonNull;
  */
 @SuppressWarnings("unused")
 public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> extends Repository<ID, T> {
-
     @Override
+//    @TriggerPoint
     default int save(String tableName, Class<?> view, Collection<T> entities) {
         return getRepository().save(tableName, view, entities);
     }
 
     @Override
+//    @TriggerPoint
     default int insert(String tableName, Class<?> view, boolean ignore, Collection<T> entities) {
         return getRepository().insert(tableName, view, ignore, entities);
     }
 
     @Override
+//    @TriggerPoint
     default int replace(String tableName, Class<?> view, Collection<T> entities) {
         return getRepository().replace(tableName, view, entities);
     }
 
     @Override
+//    @TriggerPoint
     default int update(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query) {
         return getRepository().update(tableName, view, entity, update, selective, ids, query);
     }
 
     @Override
+//    @TriggerPoint
     default int delete(String tableName, Collection<ID> ids, Query query) {
         return getRepository().delete(tableName, ids, query);
     }
 
     @Override
+//    @TriggerPoint
     default List<T> select(String tableName, Class<?> view, Collection<ID> ids, Query query) {
         return getRepository().select(tableName, view, ids, query);
     }
 
     @Override
+//    @TriggerPoint
     default T selectOne(String tableName, Class<?> view, ID id, Query query) {
         return getRepository().selectOne(tableName, view, id, query);
     }

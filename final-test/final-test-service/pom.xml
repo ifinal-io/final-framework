@@ -17,6 +17,10 @@
             <artifactId>final-test-dao</artifactId>
             <version>${final.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-cache-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
 

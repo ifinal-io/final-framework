@@ -1,4 +1,4 @@
-package org.finalframework.data.repository.trigger;
+package org.finalframework.data.trigger;
 
 import java.io.Serializable;
 import java.util.Collection;

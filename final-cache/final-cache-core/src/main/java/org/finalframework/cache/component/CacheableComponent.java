@@ -5,7 +5,8 @@ import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.builder.CacheableAnnotationBuilder;
 import org.finalframework.cache.handler.CacheableOperationHandler;
 import org.finalframework.cache.invocation.CacheableInvocation;
-import org.finalframework.spring.aop.annotation.OperationComponent;
+import org.finalframework.spring.annotation.factory.SpringComponent;
+import org.finalframework.spring.aop.OperationComponent;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -15,11 +16,13 @@ import org.springframework.core.annotation.Order;
  * @since 1.0
  */
 @Order(CacheOrder.CACHE_ABLE)
-@OperationComponent(
-        annotation = Cacheable.class,
-        builder = CacheableAnnotationBuilder.class,
-        handler = CacheableOperationHandler.class,
-        invocation = CacheableInvocation.class
-)
-public final class CacheableComponent {
+@SpringComponent
+public final class CacheableComponent extends OperationComponent {
+    protected CacheableComponent() {
+        super(OperationComponent.builder()
+                .annotation(Cacheable.class)
+                .builder(CacheableAnnotationBuilder.class)
+                .handler(CacheableOperationHandler.class)
+                .invocation(CacheableInvocation.class));
+    }
 }

@@ -17,7 +17,7 @@ public class OperationComponent implements Comparable<OperationComponent> {
     private final Invocation invocation;
     private final Integer order;
 
-    private OperationComponent(Builder builder) {
+    protected OperationComponent(Builder builder) {
         try {
             this.annotation = builder.annotation;
             this.builder = builder.builder.newInstance();

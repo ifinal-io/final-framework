@@ -8,10 +8,9 @@ import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Listener;
 import org.finalframework.data.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,8 +30,8 @@ public abstract class AbsServiceImpl<ID extends Serializable, T extends IEntity<
 
     private final R repository;
 
-    public AbsServiceImpl(@Autowired @NonNull R repository) {
-        this.repository = repository;
+    public AbsServiceImpl(ObjectProvider<R> repositoryProvider) {
+        this.repository = repositoryProvider.getIfAvailable();
     }
 
     /*=========================================== INSERT ===========================================*/
@@ -874,56 +873,6 @@ public abstract class AbsServiceImpl<ID extends Serializable, T extends IEntity<
     /*=========================================== Overridable ===========================================*/
 
 
-    @Override
-    public int insert(String tableName, Class<?> view, boolean ignore, Collection<T> entities) {
-        return getRepository().insert(tableName, view, ignore, entities);
-    }
 
-    @Override
-    public int replace(String tableName, Class<?> view, Collection<T> entities) {
-        return getRepository().replace(tableName, view, entities);
-    }
-
-
-    @Override
-    public int save(String tableName, Class<?> view, Collection<T> entities) {
-        return getRepository().save(tableName, view, entities);
-    }
-
-    @Override
-    public int update(String tableName, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query) {
-        return getRepository().update(tableName, view, entity, update, selective, ids, query);
-    }
-
-    @Override
-    public int delete(String tableName, Collection<ID> ids, Query query) {
-        return getRepository().delete(tableName, ids, query);
-    }
-
-    @Override
-    public List<T> select(String tableName, Class<?> view, Collection<ID> ids, Query query) {
-        return getRepository().select(tableName, view, ids, query);
-    }
-
-    @Override
-    public T selectOne(String tableName, Class<?> view, ID id, Query query) {
-        return getRepository().selectOne(tableName, view, id, query);
-    }
-
-    @Override
-    public List<ID> selectIds(String tableName, Query query) {
-        return getRepository().selectIds(tableName, query);
-    }
-
-
-    @Override
-    public long selectCount(String tableName, Collection<ID> ids, Query query) {
-        return getRepository().selectCount(tableName, ids, query);
-    }
-
-    @Override
-    public void truncate(String tableName) {
-        getRepository().truncate(tableName);
-    }
 }
 
