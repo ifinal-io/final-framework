@@ -3,6 +3,7 @@ package org.finalframework.monitor.builder;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.annotation.MonitorAlert;
 import org.finalframework.monitor.operation.AlertOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
 
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
  * @date 2019-07-10 16:56
  * @since 1.0
  */
+@SpringComponent
 public class AlertOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAlert, AlertOperation> {
 
     public AlertOperation build(Method method, MonitorAlert ann) {

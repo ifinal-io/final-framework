@@ -6,6 +6,8 @@ import org.finalframework.cache.handler.CacheLockOperationHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationHandler;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -19,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class CacheLockOperation implements Operation {
     private static final String DELIMITER = ":";
     private final String name;
@@ -27,6 +30,7 @@ public class CacheLockOperation implements Operation {
     private final String delimiter;
     private final String condition;
     private final String expire;
+    private final int order;
     private final Long ttl;
     private final TimeUnit timeUnit;
     private final Integer retry;
@@ -40,6 +44,7 @@ public class CacheLockOperation implements Operation {
         this.value = Assert.isBlank(builder.value) ? null : builder.value;
         this.delimiter = Assert.isBlank(builder.delimiter) ? DELIMITER : builder.delimiter;
         this.condition = Assert.isBlank(builder.condition) ? null : builder.condition;
+        this.order = builder.order;
         this.expire = Assert.isBlank(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
@@ -76,6 +81,11 @@ public class CacheLockOperation implements Operation {
     @Nullable
     public String condition() {
         return condition;
+    }
+
+    @Override
+    public int order() {
+        return order;
     }
 
     @Nullable
@@ -117,8 +127,10 @@ public class CacheLockOperation implements Operation {
         private String value;
         private String delimiter;
         private String condition;
+        private int order;
         private String expire;
         private Long ttl;
+
         private TimeUnit timeUnit;
         private Integer retry;
         private Long sleep;
@@ -150,6 +162,11 @@ public class CacheLockOperation implements Operation {
 
         public Builder condition(String condition) {
             this.condition = condition;
+            return this;
+        }
+
+        public Builder order(int order) {
+            this.order = order;
             return this;
         }
 

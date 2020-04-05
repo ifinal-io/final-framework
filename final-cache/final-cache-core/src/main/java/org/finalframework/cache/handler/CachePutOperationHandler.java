@@ -5,6 +5,7 @@ import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.core.Assert;
 import org.finalframework.json.Json;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @see Cacheable
  * @since 1.0
  */
+@SpringComponent
 public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CachePutOperation> {
 
     @Override

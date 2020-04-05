@@ -9,7 +9,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author likly
@@ -18,21 +17,22 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0
  */
 @SuppressWarnings("all")
-public class BaseOperationAnnotationParser<O extends Operation> implements OperationAnnotationParser<O> {
-
+public class BaseOperationAnnotationParser implements OperationAnnotationParser {
+    private final Set<Class<? extends Annotation>> annoTypes = new HashSet<>();
     private final OperationConfiguration configuration;
-    private final Map<Class<? extends Annotation>, OperationAnnotationFinder> annotationFinders = new ConcurrentHashMap<>(8);
 
-    public BaseOperationAnnotationParser(OperationConfiguration configuration) {
+
+    public BaseOperationAnnotationParser(Collection<Class<? extends Annotation>> annoTypes, OperationConfiguration configuration) {
+        this.annoTypes.addAll(annoTypes);
         this.configuration = configuration;
     }
 
     @Override
-    public Collection<O> parseOperationAnnotation(Class<?> type) {
-        final Set<Class<? extends Annotation>> operationAnnotations = configuration.getOperationAnnotations();
+    public Collection<? extends Operation> parseOperationAnnotation(Class<?> type) {
+
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : operationAnnotations) {
-            final OperationAnnotationFinder<? extends Annotation> finder = getOperationAnnotationFinder(annotation);
+        for (Class<? extends Annotation> annotation : annoTypes) {
+            final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(type);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
                 anns.addAll(operationAnnotation);
@@ -42,47 +42,41 @@ public class BaseOperationAnnotationParser<O extends Operation> implements Opera
         if (Assert.isEmpty(anns)) {
             return null;
         }
-        final Collection<O> ops = new ArrayList<>(1);
+        final Collection<Operation> ops = new ArrayList<>(1);
 
-        operationAnnotations.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, O> builder = configuration.getOperationAnnotationBuilder(an);
+        annoTypes.forEach(an -> {
+            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
-                    .forEach(ann -> ops.add(builder.build(type, ann)));
+                    .map(ann -> builder.build(type, ann))
+                    .filter(Objects::nonNull)
+                    .forEach(ops::add);
+
+
         });
 
         return ops;
+
+
     }
 
     @Override
-    public Collection<O> parseOperationAnnotation(Method method) {
-        final Collection<O> ops = new ArrayList<>(1);
-        final Collection<O> methodOperationAnnotations = parseMethodOperationAnnotations(method);
+    public Collection<? extends Operation> parseOperationAnnotation(Method method) {
+        final Collection<Operation> ops = new ArrayList<>(1);
+        final Collection<Operation> methodOperationAnnotations = parseMethodOperationAnnotations(method);
         if (Assert.nonEmpty(methodOperationAnnotations)) {
             ops.addAll(methodOperationAnnotations);
         }
-        final Collection<O> parameterOperationAnnotations = parseMethodParameterOperationAnnotations(method);
+        final Collection<Operation> parameterOperationAnnotations = parseMethodParameterOperationAnnotations(method);
         if (Assert.nonEmpty(parameterOperationAnnotations)) {
             ops.addAll(parameterOperationAnnotations);
         }
         return ops;
     }
 
-    @SuppressWarnings("unchecked")
-    private <A extends Annotation> OperationAnnotationFinder<A> getOperationAnnotationFinder(Class<A> ann) {
-        OperationAnnotationFinder finder = annotationFinders.get(ann);
-        if (finder == null) {
-            finder = new BaseOperationAnnotationFinder(ann);
-            annotationFinders.put(ann, finder);
-        }
-        return finder;
-    }
-
-
-    private Collection<O> parseMethodOperationAnnotations(Method method) {
-        final Set<Class<? extends Annotation>> operationAnnotations = configuration.getOperationAnnotations();
+    private Collection<Operation> parseMethodOperationAnnotations(Method method) {
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : operationAnnotations) {
-            final OperationAnnotationFinder<? extends Annotation> finder = getOperationAnnotationFinder(annotation);
+        for (Class<? extends Annotation> annotation : annoTypes) {
+            final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(method);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
                 anns.addAll(operationAnnotation);
@@ -92,24 +86,26 @@ public class BaseOperationAnnotationParser<O extends Operation> implements Opera
         if (Assert.isEmpty(anns)) {
             return null;
         }
-        final Collection<O> ops = new ArrayList<>(1);
+        final Collection<Operation> ops = new ArrayList<>(1);
 
-        operationAnnotations.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, O> builder = configuration.getOperationAnnotationBuilder(an);
+        annoTypes.forEach(an -> {
+            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
-                    .forEach(ann -> ops.add(builder.build(method, ann)));
+                    .map(ann -> builder.build(method, ann))
+                    .filter(Objects::nonNull)
+                    .forEach(ops::add);
         });
 
         return ops;
     }
 
 
-    private Collection<O> parseMethodParameterOperationAnnotations(Method method) {
-        final List<O> ops = new ArrayList<>();
+    private Collection<Operation> parseMethodParameterOperationAnnotations(Method method) {
+        final List<Operation> ops = new ArrayList<>();
         final Parameter[] parameters = method.getParameters();
         final Type[] genericParameterTypes = method.getGenericParameterTypes();
         for (int i = 0; i < parameters.length; i++) {
-            final Collection<O> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i]);
+            final Collection<Operation> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i]);
             if (cacheOperations != null) {
                 ops.addAll(cacheOperations);
             }
@@ -118,12 +114,10 @@ public class BaseOperationAnnotationParser<O extends Operation> implements Opera
     }
 
 
-    private Collection<O> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType) {
-
-        final Set<Class<? extends Annotation>> operationAnnotations = configuration.getOperationAnnotations();
+    private Collection<Operation> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType) {
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : operationAnnotations) {
-            final OperationAnnotationFinder<? extends Annotation> finder = getOperationAnnotationFinder(annotation);
+        for (Class<? extends Annotation> annotation : annoTypes) {
+            final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(parameter);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
                 anns.addAll(operationAnnotation);
@@ -133,12 +127,13 @@ public class BaseOperationAnnotationParser<O extends Operation> implements Opera
         if (Assert.isEmpty(anns)) {
             return null;
         }
-        final Collection<O> ops = new ArrayList<>(1);
+        final Collection<Operation> ops = new ArrayList<>(1);
 
-        operationAnnotations.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, O> builder = configuration.getOperationAnnotationBuilder(an);
+        annoTypes.forEach(an -> {
+            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
-                    .forEach(ann -> ops.add(builder.build(index, parameter, parameterType, ann)));
+                    .map(ann -> builder.build(index, parameter, parameterType, ann))
+                    .forEach(ops::add);
         });
 
         return ops;

@@ -54,7 +54,9 @@ final:
     global-exception-handler: org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler
 logging:
   level:
-    org.finalframework.test.dao.mapper: DEBUG
+    org.springframework: warn
+    org.finalframework: debug
+    org.finalframework.test.dao.mapper: debug
 mybatis:
   configuration:
     default-enum-type-handler: org.finalframework.mybatis.handler.EnumTypeHandler

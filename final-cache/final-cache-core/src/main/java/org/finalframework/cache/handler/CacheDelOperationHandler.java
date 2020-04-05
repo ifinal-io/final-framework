@@ -3,6 +3,7 @@ package org.finalframework.cache.handler;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.cache.operation.CacheDelOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.OperationMetadata;
@@ -17,6 +18,7 @@ import org.springframework.expression.EvaluationContext;
  * @date 2018-11-23 21:15:34
  * @since 1.0
  */
+@SpringComponent
 public class CacheDelOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheDelOperation> {
 
     @Override

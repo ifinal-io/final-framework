@@ -3,10 +3,11 @@ package org.finalframework.cache.annotation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.builder.CacheLockAnnotationBuilder;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
-import org.finalframework.cache.invocation.CacheLockInvocation;
 import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -33,9 +34,9 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLockOperation
  * @see CacheLockAnnotationBuilder
  * @see CacheLockOperationHandler
- * @see CacheLockInvocation
  * @since 1.0
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -62,6 +63,8 @@ public @interface CacheLock {
     long ttl() default -1L;
 
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
+
+    int order() default Ordered.HIGHEST_PRECEDENCE;
 
     /**
      * 重试次数

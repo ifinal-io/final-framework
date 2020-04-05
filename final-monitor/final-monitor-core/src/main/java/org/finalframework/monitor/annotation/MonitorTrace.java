@@ -4,7 +4,7 @@ import org.finalframework.monitor.executor.Tracer;
 import org.finalframework.monitor.handler.TraceOperationHandler;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;
-import org.finalframework.spring.aop.annotation.AopAnnotation;
+import org.finalframework.spring.aop.annotation.AdviceAnnotation;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -17,7 +17,7 @@ import java.lang.annotation.*;
  * @date 2019-07-01 13:10:18
  * @since 1.0
  */
-@AopAnnotation
+@AdviceAnnotation
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

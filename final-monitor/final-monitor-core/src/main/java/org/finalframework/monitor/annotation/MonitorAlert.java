@@ -4,7 +4,7 @@ import org.finalframework.monitor.enums.MonitorLevel;
 import org.finalframework.monitor.executor.Alerter;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;
-import org.finalframework.spring.aop.annotation.AopAnnotation;
+import org.finalframework.spring.aop.annotation.AdviceAnnotation;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
 import org.springframework.core.annotation.AliasFor;
@@ -17,7 +17,7 @@ import java.lang.annotation.*;
  * @date 2019-07-10 10:33
  * @since 1.0
  */
-@AopAnnotation
+@AdviceAnnotation
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

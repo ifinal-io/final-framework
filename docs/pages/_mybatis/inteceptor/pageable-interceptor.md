@@ -30,10 +30,10 @@ version: 1.0
 public abstract class PageableInterceptor implements Interceptor {
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(Invocation operationInvocationHandler) throws Throwable {
 
         try {
-            Object[] args = invocation.getArgs();
+            Object[] args = operationInvocationHandler.getArgs();
             MappedStatement ms = (MappedStatement) args[0];
             Object parameter = args[1];
             if (!ms.getId().contains("selectCount") && !ms.getId().contains("selectOne") && parameter != null) {
@@ -42,18 +42,18 @@ public abstract class PageableInterceptor implements Interceptor {
                     for (Object item : map.values()) {
                         if (item instanceof Pageable) {
                             startPage((Pageable) item);
-                            return invocation.proceed();
+                            return operationInvocationHandler.proceed();
                         }
                     }
                 } else if (parameter instanceof Pageable) {
                     startPage((Pageable) parameter);
-                    return invocation.proceed();
+                    return operationInvocationHandler.proceed();
                 }
             }
-            return invocation.proceed();
+            return operationInvocationHandler.proceed();
 
         } catch (Exception e) {
-            return invocation.proceed();
+            return operationInvocationHandler.proceed();
         }
 
     }

@@ -2,6 +2,7 @@ package org.finalframework.monitor.builder;
 
 import org.finalframework.monitor.annotation.MonitorTrace;
 import org.finalframework.monitor.operation.TraceOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
@@ -13,6 +14,7 @@ import java.lang.reflect.Method;
  * @date 2019-07-09 17:38
  * @since 1.0
  */
+@SpringComponent
 public class TraceOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorTrace, TraceOperation> {
 
     @Override

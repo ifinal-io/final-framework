@@ -1,5 +1,6 @@
 package org.finalframework.spring.aop;
 
+import org.finalframework.core.Assert;
 import org.springframework.core.MethodClassKey;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -13,13 +14,17 @@ import java.util.Collection;
  * @date 2019-03-26 10:00:25
  * @since 1.0
  */
-public interface OperationSource<O extends Operation> {
+public interface OperationSource {
+
+    default boolean matches(Method method, @Nullable Class<?> targetClass) {
+        return Assert.nonEmpty(getOperations(method, targetClass));
+    }
+
     @Nullable
-    Collection<O> getOperations(Method method, @Nullable Class<?> targetClass);
+    Collection<? extends Operation> getOperations(Method method, @Nullable Class<?> targetClass);
 
     @NonNull
     default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {
-//        Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
         return new MethodClassKey(method, targetClass);
     }
 

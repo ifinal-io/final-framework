@@ -4,6 +4,7 @@ package org.finalframework.monitor.builder;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.annotation.OperationAction;
 import org.finalframework.monitor.operation.ActionOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
 
@@ -15,6 +16,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-27 23:06:28
  * @since 1.0
  */
+@SpringComponent
 public class ActionOperationAnnotationBuilder implements OperationAnnotationBuilder<OperationAction, ActionOperation> {
     @Override
     public ActionOperation build(Method method, OperationAction ann) {

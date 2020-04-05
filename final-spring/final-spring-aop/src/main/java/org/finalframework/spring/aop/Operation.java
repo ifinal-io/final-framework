@@ -1,5 +1,6 @@
 package org.finalframework.spring.aop;
 
+import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
 
 /**
@@ -18,6 +19,10 @@ public interface Operation {
     @NonNull
     String name();
 
+    default int order() {
+        return Ordered.LOWEST_PRECEDENCE;
+    }
+
     /**
      * 调用者
      */
@@ -26,4 +31,5 @@ public interface Operation {
 
     @NonNull
     Class<? extends Executor> executor();
+
 }

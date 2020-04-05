@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.SOURCE)
-public @interface AopAnnotation {
+public @interface AdviceAnnotation {
 }

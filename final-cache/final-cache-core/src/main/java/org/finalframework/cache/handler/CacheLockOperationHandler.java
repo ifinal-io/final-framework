@@ -5,6 +5,7 @@ import org.finalframework.cache.CacheLockException;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.core.Assert;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
+@SpringComponent
 public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheLockOperation> {
 
     private static final String KEY = "key";

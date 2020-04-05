@@ -4,6 +4,7 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CacheValueOperation;
 import org.finalframework.json.Json;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @SuppressWarnings("all")
+@SpringComponent
 public class CacheValueOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheValueOperation> {
 
     @Override

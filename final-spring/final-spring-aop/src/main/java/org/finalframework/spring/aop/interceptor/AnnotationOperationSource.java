@@ -6,6 +6,7 @@ import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationAnnotationParser;
 import org.finalframework.spring.aop.OperationConfiguration;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -15,23 +16,23 @@ import java.util.Collection;
  * @date 2019-03-26 10:01:35
  * @since 1.0
  */
-public class AnnotationOperationSource<O extends Operation> extends AbsOperationSource<O> {
+public class AnnotationOperationSource extends AbsOperationSource {
 
-    private final OperationAnnotationParser<O> operationAnnotationParser;
+    private final OperationAnnotationParser parser;
 
-    public AnnotationOperationSource(OperationConfiguration configuration) {
-        this.operationAnnotationParser = new BaseOperationAnnotationParser<>(configuration);
+    public AnnotationOperationSource(Collection<Class<? extends Annotation>> annoTypes, OperationConfiguration configuration) {
+        this.parser = new BaseOperationAnnotationParser(annoTypes, configuration);
     }
 
     @Override
-    protected Collection<O> findOperations(Method method) {
-        final Collection<O> collection = operationAnnotationParser.parseOperationAnnotation(method);
+    protected Collection<? extends Operation> findOperations(Method method) {
+        final Collection<? extends Operation> collection = parser.parseOperationAnnotation(method);
         return Assert.isEmpty(collection) ? null : collection;
     }
 
     @Override
-    protected Collection<O> findOperations(Class<?> clazz) {
-        final Collection<O> collection = operationAnnotationParser.parseOperationAnnotation(clazz);
+    protected Collection<? extends Operation> findOperations(Class<?> clazz) {
+        final Collection<? extends Operation> collection = parser.parseOperationAnnotation(clazz);
         return Assert.isEmpty(collection) ? null : collection;
     }
 }

@@ -3,6 +3,7 @@ package org.finalframework.cache.builder;
 
 import org.finalframework.cache.annotation.CacheIncrement;
 import org.finalframework.cache.operation.CacheIncrementOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-22 22:54:34
  * @since 1.0
  */
+@SpringComponent
 public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheIncrement, CacheIncrementOperation> {
 
     @Override
