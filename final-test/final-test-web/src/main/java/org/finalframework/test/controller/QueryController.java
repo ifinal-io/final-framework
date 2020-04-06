@@ -1,5 +1,6 @@
 package org.finalframework.test.controller;
 
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class QueryController {
     private PersonService personService;
 
     @GetMapping
+    @MonitorAction(name = "查询Person", target = "{#id}")
     public Object query(Long id) {
         return personService.findById(id);
     }

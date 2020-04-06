@@ -2,6 +2,7 @@ package org.finalframework.test.service;
 
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.data.service.AbsService;
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 
@@ -15,6 +16,7 @@ public interface PersonService extends AbsService<Long, Person, PersonMapper> {
 
     @Cacheable(key = "person:{#id}")
 
+    @MonitorAction(name = "查询Person", target = "{#id}")
     default Person findById(Long id) {
         return selectOne(id);
     }

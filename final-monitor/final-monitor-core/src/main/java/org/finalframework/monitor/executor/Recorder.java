@@ -1,6 +1,6 @@
 package org.finalframework.monitor.executor;
 
-import org.finalframework.monitor.context.ActionContext;
+import org.finalframework.monitor.action.Action;
 import org.finalframework.spring.aop.Executor;
 
 /**
@@ -11,6 +11,6 @@ import org.finalframework.spring.aop.Executor;
  */
 public interface Recorder<T> extends Executor {
 
-    void record(ActionContext<T> context);
+    void record(Action<? extends T> context);
 
 }

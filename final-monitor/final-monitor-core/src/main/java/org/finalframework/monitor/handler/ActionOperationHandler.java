@@ -4,7 +4,7 @@ package org.finalframework.monitor.handler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.exception.IException;
 import org.finalframework.monitor.MonitorException;
-import org.finalframework.monitor.context.ActionContext;
+import org.finalframework.monitor.action.Action;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.monitor.operation.ActionOperation;
 import org.finalframework.spring.annotation.factory.SpringComponent;
@@ -61,7 +61,7 @@ public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport
         final OperationMetadata<ActionOperation> metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
 
-        final ActionContext.Builder<T> builder = ActionContext.builder();
+        final Action.Builder<T> builder = Action.builder();
         builder.name(generateName(operation.name(), metadata, evaluationContext))
                 .type(operation.type())
                 .action(operation.action())

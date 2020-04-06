@@ -1,4 +1,4 @@
-package org.finalframework.monitor.context;
+package org.finalframework.monitor.action;
 
 import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.OperatorContext;
@@ -13,9 +13,10 @@ import java.util.Map;
  * @author likly
  * @version 1.0
  * @date 2019-03-27 23:56:52
+ * @see org.finalframework.monitor.annotation.MonitorAction
  * @since 1.0
  */
-public class ActionContext<T> {
+public class Action<T> {
     /**
      * 名称
      */
@@ -57,7 +58,7 @@ public class ActionContext<T> {
      */
     private final Long timestamp;
 
-    private ActionContext(Builder<T> builder) {
+    private Action(Builder<T> builder) {
         this.name = builder.name;
         this.type = builder.type;
         this.action = builder.action;
@@ -114,7 +115,7 @@ public class ActionContext<T> {
         return timestamp;
     }
 
-    public static class Builder<T> implements org.finalframework.core.Builder<ActionContext<T>> {
+    public static class Builder<T> implements org.finalframework.core.Builder<Action<T>> {
         private String name;
         private int type;
         private int action;
@@ -182,8 +183,8 @@ public class ActionContext<T> {
 
 
         @Override
-        public ActionContext<T> build() {
-            return new ActionContext<>(this);
+        public Action<T> build() {
+            return new Action<>(this);
         }
     }
 }
