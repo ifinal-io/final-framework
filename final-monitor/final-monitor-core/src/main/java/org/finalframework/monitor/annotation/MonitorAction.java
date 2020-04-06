@@ -1,6 +1,5 @@
 package org.finalframework.monitor.annotation;
 
-import org.finalframework.monitor.enums.MonitorLevel;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.spring.aop.Executor;
 import org.finalframework.spring.aop.OperationHandler;

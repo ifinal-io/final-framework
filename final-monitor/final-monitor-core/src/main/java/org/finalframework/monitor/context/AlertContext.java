@@ -2,7 +2,7 @@ package org.finalframework.monitor.context;
 
 import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.OperatorContext;
-import org.finalframework.monitor.enums.MonitorLevel;
+import org.finalframework.monitor.annotation.MonitorLevel;
 
 import java.util.HashMap;
 import java.util.Map;

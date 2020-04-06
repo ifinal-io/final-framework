@@ -3,7 +3,7 @@ package org.finalframework.monitor.operation;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.annotation.MonitorAction;
-import org.finalframework.monitor.enums.MonitorLevel;
+import org.finalframework.monitor.annotation.MonitorLevel;
 import org.finalframework.monitor.executor.Alerter;
 import org.finalframework.monitor.handler.AlertOperationHandler;
 import org.finalframework.spring.aop.Executor;

@@ -1,4 +1,4 @@
-package org.finalframework.monitor.enums;
+package org.finalframework.monitor.annotation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

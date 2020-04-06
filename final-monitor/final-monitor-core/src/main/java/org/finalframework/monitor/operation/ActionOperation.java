@@ -5,7 +5,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.action.ActionContextHandler;
 import org.finalframework.monitor.annotation.MonitorAction;
-import org.finalframework.monitor.enums.MonitorLevel;
+import org.finalframework.monitor.annotation.MonitorLevel;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.monitor.handler.ActionOperationHandler;
 import org.finalframework.spring.aop.Executor;
