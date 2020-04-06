@@ -28,6 +28,11 @@
             <groupId>org.finalframework</groupId>
             <artifactId>final-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-util</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -49,14 +54,9 @@
             <groupId>org.finalframework.coding</groupId>
             <artifactId>final-coding-spring</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

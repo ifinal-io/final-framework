@@ -36,7 +36,6 @@ public class SelectOneTriggerInterceptor implements TriggerInterceptor {
     private static Class<?> findRepositoryEntity(Class<? extends Repository<?, ?>> repository) {
         Type[] genericInterfaces = repository.getGenericInterfaces();
         for (Type type : genericInterfaces) {
-
             if (type instanceof ParameterizedType && Repository.class
                     .isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
                 Type typeArgument = ((ParameterizedType) type).getActualTypeArguments()[1];
