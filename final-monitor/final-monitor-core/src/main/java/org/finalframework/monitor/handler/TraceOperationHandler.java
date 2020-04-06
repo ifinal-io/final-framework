@@ -3,6 +3,7 @@ package org.finalframework.monitor.handler;
 import org.finalframework.monitor.context.TraceContext;
 import org.finalframework.monitor.executor.Tracer;
 import org.finalframework.monitor.operation.TraceOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 
@@ -12,6 +13,7 @@ import org.finalframework.spring.aop.OperationHandler;
  * @date 2019-07-09 17:42
  * @since 1.0
  */
+@SpringComponent
 public class TraceOperationHandler implements OperationHandler<Tracer, TraceOperation> {
 
     private static final String TRACE_CONTEXT = "traceContext";

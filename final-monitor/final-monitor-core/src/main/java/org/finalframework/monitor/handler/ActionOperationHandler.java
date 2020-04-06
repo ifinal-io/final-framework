@@ -7,6 +7,7 @@ import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.context.ActionContext;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.monitor.operation.ActionOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.OperationMetadata;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @date 2019-03-28 12:20:29
  * @since 1.0
  */
+@SpringComponent
 public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Recorder<T>, ActionOperation> {
 
     @Override

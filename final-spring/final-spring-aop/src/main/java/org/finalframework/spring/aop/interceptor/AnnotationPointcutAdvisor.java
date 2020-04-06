@@ -3,16 +3,11 @@ package org.finalframework.spring.aop.interceptor;
 
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationConfiguration;
-import org.finalframework.spring.aop.OperationSource;
-import org.finalframework.spring.aop.OperationSourcePointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 import org.springframework.data.util.Lazy;
-
-import java.lang.annotation.Annotation;
-import java.util.Set;
 
 /**
  * @author likly
@@ -26,12 +21,8 @@ public class AnnotationPointcutAdvisor extends AbstractBeanFactoryPointcutAdviso
     private final Lazy<Pointcut> pointcut;
 
     protected AnnotationPointcutAdvisor(OperationConfiguration configuration) {
-        final Set<Class<? extends Annotation>> annoTypes = configuration.getOperationAnnotations();
-        final BaseOperationInvocationHandler handler = new BaseOperationInvocationHandler(configuration);
-        final OperationSource source = new AnnotationOperationSource(annoTypes, configuration);
-        this.setAdvice(new OperationInterceptor(source, handler));
-        this.pointcut = Lazy.of(new OperationSourcePointcut(source));
-        logger.debug("AnnotationPointcutAdvisor: {}", annoTypes);
+        this.setAdvice(configuration.getInterceptor());
+        this.pointcut = Lazy.of(configuration.getPointcut());
     }
 
     @Override

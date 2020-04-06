@@ -4,7 +4,7 @@ package org.finalframework.monitor.operation;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.action.ActionContextHandler;
-import org.finalframework.monitor.annotation.OperationAction;
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.enums.MonitorLevel;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.monitor.handler.ActionOperationHandler;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @author likly
  * @version 1.0
  * @date 2019-03-27 23:03:18
- * @see OperationAction
+ * @see MonitorAction
  * @see ActionContextHandler
  * @since 1.0
  */
@@ -38,11 +38,11 @@ public class ActionOperation implements Operation {
      */
     private final int action;
     /**
-     * 操作者，优先取 {@link OperationAction#operator()} 表达式的值，当表达式的值为 {@code null}时，再取 {@link OperatorContext#get()}。
+     * 操作者，优先取 {@link MonitorAction#operator()} 表达式的值，当表达式的值为 {@code null}时，再取 {@link OperatorContext#get()}。
      */
     private final String operator;
     /**
-     * 操作目标，取值为 {@link OperationAction#target()} 表达式的值。
+     * 操作目标，取值为 {@link MonitorAction#target()} 表达式的值。
      */
     private final String target;
     /**

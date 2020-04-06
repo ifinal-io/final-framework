@@ -2,7 +2,7 @@ package org.finalframework.monitor.operation;
 
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.OperatorContext;
-import org.finalframework.monitor.annotation.OperationAction;
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.enums.MonitorLevel;
 import org.finalframework.monitor.executor.Alerter;
 import org.finalframework.monitor.handler.AlertOperationHandler;
@@ -30,11 +30,11 @@ public class AlertOperation implements Operation {
     private final String message;
 
     /**
-     * 操作者，优先取 {@link OperationAction#operator()} 表达式的值，当表达式的值为 {@code null}时，再取 {@link OperatorContext#get()}。
+     * 操作者，优先取 {@link MonitorAction#operator()} 表达式的值，当表达式的值为 {@code null}时，再取 {@link OperatorContext#get()}。
      */
     private final String operator;
     /**
-     * 操作目标，取值为 {@link OperationAction#target()} 表达式的值。
+     * 操作目标，取值为 {@link MonitorAction#target()} 表达式的值。
      */
     private final String target;
     /**

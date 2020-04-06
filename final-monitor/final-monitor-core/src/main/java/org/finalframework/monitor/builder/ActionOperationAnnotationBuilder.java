@@ -2,9 +2,8 @@ package org.finalframework.monitor.builder;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.monitor.annotation.OperationAction;
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.operation.ActionOperation;
-import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
 
@@ -16,10 +15,10 @@ import java.lang.reflect.Method;
  * @date 2019-03-27 23:06:28
  * @since 1.0
  */
-@SpringComponent
-public class ActionOperationAnnotationBuilder implements OperationAnnotationBuilder<OperationAction, ActionOperation> {
+//@SpringComponent
+public class ActionOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAction, ActionOperation> {
     @Override
-    public ActionOperation build(Method method, OperationAction ann) {
+    public ActionOperation build(Method method, MonitorAction ann) {
         final String name = Assert.isBlank(ann.name()) ? method.getDeclaringClass().getSimpleName() + "#" + method.getName() : ann.name();
         final ActionOperation.Builder builder = ActionOperation.builder()
                 .name(name)

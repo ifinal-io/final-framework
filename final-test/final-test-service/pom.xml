@@ -21,6 +21,10 @@
             <groupId>org.finalframework.boot</groupId>
             <artifactId>final-cache-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-monitor-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
 

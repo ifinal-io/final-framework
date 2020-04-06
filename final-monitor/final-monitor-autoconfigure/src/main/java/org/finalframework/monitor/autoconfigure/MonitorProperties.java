@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MonitorProperties {
     static final String MONITOR_PREFIX = "final.monitor";
 
-    private ActionProperties action;
+    private ActionProperties action = new ActionProperties();
 
     public ActionProperties getAction() {
         return action;

@@ -14,6 +14,7 @@ import org.finalframework.test.entity.Person;
 public interface PersonService extends AbsService<Long, Person, PersonMapper> {
 
     @Cacheable(key = "person:{#id}")
+
     default Person findById(Long id) {
         return selectOne(id);
     }

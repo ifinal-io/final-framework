@@ -18,10 +18,10 @@ import java.lang.annotation.*;
  */
 
 @Documented
-@Repeatable(OperationAction.List.class)
+@Repeatable(MonitorAction.List.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OperationAction {
+public @interface MonitorAction {
 
     /**
      * 操作名称
@@ -80,6 +80,6 @@ public @interface OperationAction {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
-        OperationAction[] value();
+        MonitorAction[] value();
     }
 }

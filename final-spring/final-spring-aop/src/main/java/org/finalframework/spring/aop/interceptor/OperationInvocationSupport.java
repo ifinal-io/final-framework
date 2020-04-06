@@ -1,7 +1,6 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.aopalliance.intercept.MethodInvocation;
 import org.finalframework.core.Assert;
 import org.finalframework.spring.aop.*;
 import org.springframework.aop.framework.AopProxyUtils;
@@ -21,17 +20,15 @@ import java.util.stream.Collectors;
  */
 public class OperationInvocationSupport {
     private final Map<OperationCacheKey<Operation>, OperationMetadata<Operation>> metadataCache = new ConcurrentHashMap<>(1024);
-    private final OperationSource source;
-    private final OperationInvocationHandler handler;
+    private final OperationConfiguration configuration;
 
-    public OperationInvocationSupport(OperationSource source, OperationInvocationHandler handler) {
-        this.source = source;
-        this.handler = handler;
+    public OperationInvocationSupport(OperationConfiguration configuration) {
+        this.configuration = configuration;
     }
 
-    private List<OperationContext<Operation>> getOperationContexts(Object target, Method method, Object[] args) {
+    protected List<OperationContext<Operation>> getOperationContexts(Object target, Method method, Object[] args) {
         final Class<?> targetClass = getTargetClass(target);
-        final Collection<? extends Operation> operations = source.getOperations(method, targetClass);
+        final Collection<? extends Operation> operations = configuration.getOperationSource().getOperations(method, targetClass);
         if (Assert.nonEmpty(operations)) {
             return operations.stream()
                     .map(operation -> getOperationContext(operation, method, args, target, targetClass))
@@ -57,49 +54,6 @@ public class OperationInvocationSupport {
 
     private Class<?> getTargetClass(Object target) {
         return AopProxyUtils.ultimateTargetClass(target);
-    }
-
-    protected Object execute(MethodInvocation invocation) throws Throwable {
-        final List<OperationContext<Operation>> contexts = getOperationContexts(invocation.getThis(), invocation.getMethod(), invocation.getArguments());
-        if (Assert.isEmpty(contexts)) {
-            return invocation.proceed();
-        }
-        return execute(invocation, contexts);
-    }
-
-    private Object execute(MethodInvocation invoker, List<OperationContext<Operation>> contexts) throws Throwable {
-        Object operationValue = handler.handleBefore(contexts);
-        if (operationValue != null) {
-            return operationValue;
-        }
-
-
-        Object returnValue = null;
-        Throwable throwable = null;
-
-        try {
-            returnValue = invoker.proceed();
-        } catch (Throwable e) {
-            throwable = e;
-        }
-
-        if (throwable == null) {
-            handler.handleAfterReturning(contexts, returnValue);
-        } else {
-            handler.handleAfterThrowing(contexts, throwable);
-        }
-
-        handler.handleAfter(contexts, returnValue, throwable);
-
-        if (throwable != null) {
-            if (throwable instanceof OperationException) {
-                throw ((OperationException) throwable).getOriginal();
-            }
-            throw throwable;
-        }
-
-        return returnValue;
-
     }
 
 }

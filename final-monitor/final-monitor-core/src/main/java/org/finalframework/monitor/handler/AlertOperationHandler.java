@@ -6,6 +6,7 @@ import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.context.AlertContext;
 import org.finalframework.monitor.executor.Alerter;
 import org.finalframework.monitor.operation.AlertOperation;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.OperationMetadata;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @date 2019-07-10 18:16
  * @since 1.0
  */
+@SpringComponent
 public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter<T>, AlertOperation> {
 
     @Override
