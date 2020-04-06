@@ -1,7 +1,6 @@
 package org.finalframework.monitor.action;
 
 import org.finalframework.monitor.MonitorException;
-import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.annotation.MonitorLevel;
 
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class Action<T> {
      */
     private final MonitorLevel level;
     /**
-     * 操作者 {@link OperatorContext#get()}
+     * 操作者
      */
     private final T operator;
     /**

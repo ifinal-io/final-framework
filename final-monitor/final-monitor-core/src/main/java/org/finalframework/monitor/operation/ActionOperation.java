@@ -2,7 +2,6 @@ package org.finalframework.monitor.operation;
 
 
 import org.finalframework.core.Assert;
-import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.annotation.MonitorLevel;
@@ -38,7 +37,7 @@ public class ActionOperation implements Operation {
      */
     private final int action;
     /**
-     * 操作者，优先取 {@link MonitorAction#operator()} 表达式的值，当表达式的值为 {@code null}时，再取 {@link OperatorContext#get()}。
+     * 操作者，优先取 {@link MonitorAction#operator()} 表达式的值，当表达式的值为 {@code null}
      */
     private final String operator;
     /**

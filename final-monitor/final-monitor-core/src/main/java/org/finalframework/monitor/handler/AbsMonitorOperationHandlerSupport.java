@@ -2,9 +2,9 @@ package org.finalframework.monitor.handler;
 
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.user.UserContextHolder;
 import org.finalframework.monitor.MonitorOperationExpressionEvaluator;
 import org.finalframework.monitor.MonitorOperationHandlerSupport;
-import org.finalframework.monitor.OperatorContext;
 import org.finalframework.monitor.interceptor.DefaultMonitorOperationExpressionEvaluator;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationMetadata;
@@ -47,7 +47,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
             return operator;
         }
 
-        return OperatorContext.get();
+        return UserContextHolder.getUser();
     }
 
     @Override
