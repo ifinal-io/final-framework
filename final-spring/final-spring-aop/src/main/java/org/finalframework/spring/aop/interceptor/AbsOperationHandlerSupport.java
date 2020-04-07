@@ -10,6 +10,11 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author likly
  * @version 1.0
@@ -27,6 +32,10 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
      */
     private static final String EXPRESSION_SUFFIX = "}";
 
+
+    private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\{(#*\\w*#*)+\\}");
+
+
     private final OperationExpressionEvaluator evaluator;
 
     public AbsOperationHandlerSupport(OperationExpressionEvaluator evaluator) {
@@ -38,6 +47,32 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
                 context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
 
+    }
+
+    public static void main(String[] args) {
+        String str = "select * from order where createdUser = ${#1currentUser1} and  depart = ${currentOrg} and status = 'VALID'";
+        Matcher matcher = EXPRESSION_PATTEN.matcher(str);// 指定要匹配的字符串
+
+        List<String> matchStrs = new ArrayList<>();
+
+        while (matcher.find()) { //此处find（）每次被调用后，会偏移到下一个匹配
+            matchStrs.add(matcher.group());//获取当前匹配的值
+        }
+
+        for (int i = 0; i < matchStrs.size(); i++) {
+            System.out.println(matchStrs.get(i));
+        }
+
+    }
+
+    @Override
+    public List<String> findExpressions(String expression) {
+        Matcher matcher = EXPRESSION_PATTEN.matcher(expression);// 指定要匹配的字符串
+        List<String> matchStrs = new ArrayList<>();
+        while (matcher.find()) { //此处find（）每次被调用后，会偏移到下一个匹配
+            matchStrs.add(matcher.group());//获取当前匹配的值
+        }
+        return matchStrs;
     }
 
     /**

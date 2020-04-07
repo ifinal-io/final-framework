@@ -4,6 +4,8 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.util.List;
+
 /**
  * 调用支持库
  *
@@ -23,6 +25,9 @@ public interface OperationHandlerSupport {
      */
     @NonNull
     EvaluationContext createEvaluationContext(@NonNull OperationContext context, @Nullable Object result, @Nullable Throwable e);
+
+    List<String> findExpressions(String expression);
+
 
     /**
      * 返回指定的字符串是否为一个表达式

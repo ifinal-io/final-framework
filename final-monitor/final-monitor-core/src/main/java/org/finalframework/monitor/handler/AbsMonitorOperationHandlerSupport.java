@@ -11,6 +11,8 @@ import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.interceptor.AbsOperationHandlerSupport;
 import org.springframework.expression.EvaluationContext;
 
+import java.util.List;
+
 /**
  * @author likly
  * @version 1.0
@@ -32,8 +34,15 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     @Override
     public String generateName(String name, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
         if (Assert.isBlank(name)) return null;
+
+
         if (isExpression(name)) {
             return evaluator.name(generateExpression(name), metadata.getMethodKey(), evaluationContext);
+        } else {
+            for (String expression : findExpressions(name)) {
+                final String value = evaluator.name(generateExpression(expression), metadata.getMethodKey(), evaluationContext);
+                name = name.replace(expression, value);
+            }
         }
         return name;
     }

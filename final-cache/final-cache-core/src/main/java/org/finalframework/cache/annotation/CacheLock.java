@@ -7,7 +7,6 @@ import org.finalframework.cache.operation.CacheLockOperation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -36,7 +35,6 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLockOperationHandler
  * @since 1.0
  */
-@Order(Ordered.HIGHEST_PRECEDENCE)
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -6,6 +6,8 @@ import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.test.dao.mapper.PersonMapper;
 import org.finalframework.test.entity.Person;
 
+import java.util.Collection;
+
 /**
  * @author likly
  * @version 1.0
@@ -15,9 +17,13 @@ import org.finalframework.test.entity.Person;
 public interface PersonService extends AbsService<Long, Person, PersonMapper> {
 
     @Cacheable(key = "person:{#id}")
-
     @MonitorAction(name = "查询Person", target = "{#id}")
     default Person findById(Long id) {
         return selectOne(id);
+    }
+
+    @Override
+    default int save(String tableName, Class<?> view, Collection<Person> entities) {
+        return 0;
     }
 }
