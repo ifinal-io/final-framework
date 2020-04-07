@@ -33,7 +33,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
     private static final String EXPRESSION_SUFFIX = "}";
 
 
-    private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\{(#*\\w*#*)+\\}");
+    private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\{[^\\{\\}]*\\}");
 
 
     private final OperationExpressionEvaluator evaluator;
@@ -50,7 +50,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
     }
 
     public static void main(String[] args) {
-        String str = "select * from order where createdUser = ${#1currentUser1} and  depart = ${currentOrg} and status = 'VALID'";
+        String str = "select * from order where createdUser = ${#1currentUser1} and  depart = ${'currentOrg' + #id} and status = 'VALID'";
         Matcher matcher = EXPRESSION_PATTEN.matcher(str);// 指定要匹配的字符串
 
         List<String> matchStrs = new ArrayList<>();
