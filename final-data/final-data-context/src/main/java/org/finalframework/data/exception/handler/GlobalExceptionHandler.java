@@ -10,25 +10,11 @@ import org.springframework.lang.Nullable;
  * @author likly
  * @version 1.0
  * @date 2019-03-24 16:00:13
- * @see AbsGlobalExceptionHandler
  * @see ResultGlobalResultExceptionHandler
  * @since 1.0
  */
 public interface GlobalExceptionHandler<T> {
 
-    /**
-     * 注册异常处理器
-     *
-     * @param handler 异常处理器
-     */
-    void registerExceptionHandler(@NonNull ExceptionHandler<? extends Throwable, T> handler);
-
-    /**
-     * 设置未捕获的异常处理器
-     *
-     * @param handler 未捕获的异常处理器
-     */
-    void setUnCatchExceptionHandler(@NonNull ExceptionHandler<Throwable, T> handler);
 
     /**
      * 将异常 {@link Throwable} 转化为可读的结果 {@link T}

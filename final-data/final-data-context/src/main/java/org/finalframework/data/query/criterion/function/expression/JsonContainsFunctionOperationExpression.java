@@ -23,11 +23,22 @@ public class JsonContainsFunctionOperationExpression<T> implements FunctionOpera
 
     @Override
     public String expression(String target, DoubleFunctionOperation<T> criterion) {
+
+        if (criterion.getFirstValue() instanceof String) {
+            if (criterion.getSecondValue() == null) {
+                return String.format("JSON_CONTAINS(%s,'\"%s\"')", target, criterion.getFirstValue().toString());
+            } else {
+                return String.format("JSON_CONTAINS(%s,'\"%s\"','%s')", target, criterion.getFirstValue().toString(), criterion.getSecondValue().toString());
+            }
+        }
+
         if (criterion.getSecondValue() == null) {
             return String.format("JSON_CONTAINS(%s,'%s')", target, criterion.getFirstValue().toString());
         } else {
             return String.format("JSON_CONTAINS(%s,'%s','%s')", target, criterion.getFirstValue().toString(), criterion.getSecondValue().toString());
         }
+
+
     }
 
 }

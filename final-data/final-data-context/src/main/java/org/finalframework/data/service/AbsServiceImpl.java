@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -28,10 +29,11 @@ import java.util.stream.Collectors;
  */
 public abstract class AbsServiceImpl<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> implements AbsService<ID, T, R> {
 
+    @NonNull
     private final R repository;
 
     public AbsServiceImpl(ObjectProvider<R> repositoryProvider) {
-        this.repository = repositoryProvider.getIfAvailable();
+        this.repository = Objects.requireNonNull(repositoryProvider.getIfAvailable());
     }
 
     /*=========================================== INSERT ===========================================*/
