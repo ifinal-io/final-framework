@@ -25,6 +25,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+
 import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.Annotations;
 import org.finalframework.coding.utils.TypeElements;
@@ -114,7 +115,7 @@ public class AnnotationProperty implements Property {
     private Map<String, String> referenceColumns;
 
     public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field,
-        Optional<PropertyDescriptor> descriptor) {
+                              Optional<PropertyDescriptor> descriptor) {
         this.processEnv = processEnv;
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
@@ -134,14 +135,14 @@ public class AnnotationProperty implements Property {
         this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
         this.typeHandler = Lazy.of(this::initTypeHandler);
         this.name = Lazy
-            .of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
+                .of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
 
         this.type = Lazy.of(() ->
-            withFieldOrMethod(
-                Element::asType,
-                setter -> setter.getParameters().get(0).asType(),
-                ExecutableElement::getReturnType
-            )
+                withFieldOrMethod(
+                        Element::asType,
+                        setter -> setter.getParameters().get(0).asType(),
+                        ExecutableElement::getReturnType
+                )
         );
 
         this.isPrimitive = Lazy.of(getType() instanceof PrimitiveType);
@@ -184,30 +185,30 @@ public class AnnotationProperty implements Property {
         this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
         this.isKeyword = Lazy
-            .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
+                .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
-        System.out.println("=================================================" + getName()
-            + "=================================================");
-        System.out.println("name：" + getName());
-        System.out.println("column：" + getColumn());
-        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
-        System.out.println("isPrimitive：" + isPrimitive());
-        System.out.println("isEnum：" + isEnum());
-        System.out.println("isArray：" + isArray());
-        System.out.println("isCollection：" + isCollection());
-        System.out.println("isList：" + isList());
-        System.out.println("isSet：" + isSet());
-        System.out.println("isMap：" + isMap());
-        System.out.println("isCollection：" + isCollection());
-        System.out.println("isIdProperty：" + isIdProperty());
-        System.out.println("isVersion：" + isVersion());
-        System.out.println("isReference：" + isReference());
-        System.out.println("isDefault：" + isDefault());
-        System.out.println("isFinal：" + isFinal());
-        System.out.println("isReadOnly：" + isReadOnly());
-        System.out.println("isWriteOnly：" + isWriteOnly());
-        System.out.println(
-            "===================================================================================================================");
+//        System.out.println("=================================================" + getName()
+//            + "=================================================");
+//        System.out.println("name：" + getName());
+//        System.out.println("column：" + getColumn());
+//        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
+//        System.out.println("isPrimitive：" + isPrimitive());
+//        System.out.println("isEnum：" + isEnum());
+//        System.out.println("isArray：" + isArray());
+//        System.out.println("isCollection：" + isCollection());
+//        System.out.println("isList：" + isList());
+//        System.out.println("isSet：" + isSet());
+//        System.out.println("isMap：" + isMap());
+//        System.out.println("isCollection：" + isCollection());
+//        System.out.println("isIdProperty：" + isIdProperty());
+//        System.out.println("isVersion：" + isVersion());
+//        System.out.println("isReference：" + isReference());
+//        System.out.println("isDefault：" + isDefault());
+//        System.out.println("isFinal：" + isFinal());
+//        System.out.println("isReadOnly：" + isReadOnly());
+//        System.out.println("isWriteOnly：" + isWriteOnly());
+//        System.out.println(
+//            "===================================================================================================================");
 
     }
 
@@ -253,7 +254,7 @@ public class AnnotationProperty implements Property {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, typeHandler.asType())) {
                 for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : annotationMirror
-                    .getElementValues().entrySet()) {
+                        .getElementValues().entrySet()) {
                     if (entry.getKey().getSimpleName().toString().equals("value")) {
                         /**
                          * {@link TypeHandler#value()}
@@ -278,14 +279,14 @@ public class AnnotationProperty implements Property {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, columnView.asType())) {
                 Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
-                    .getElementValues();
+                        .getElementValues();
                 columnView.getEnclosedElements().stream()
-                    .map(it -> (ExecutableElement) it)
-                    .forEach(method -> {
-                        List<AnnotationValue> views = (List<AnnotationValue>) elementValues.get(method).getValue();
-                        views.stream().map(AnnotationValue::getValue)
-                            .map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
-                    });
+                        .map(it -> (ExecutableElement) it)
+                        .forEach(method -> {
+                            List<AnnotationValue> views = (List<AnnotationValue>) elementValues.get(method).getValue();
+                            views.stream().map(AnnotationValue::getValue)
+                                    .map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
+                        });
 
             }
         }
@@ -514,7 +515,7 @@ public class AnnotationProperty implements Property {
 
         for (TypeElement typeElement : views) {
             if (typeElements.isAssignable(view.asType(), typeElement.asType()) || typeElements
-                .isSameType(view.asType(), typeElement.asType())) {
+                    .isSameType(view.asType(), typeElement.asType())) {
                 return true;
             }
         }
@@ -528,26 +529,26 @@ public class AnnotationProperty implements Property {
     }
 
     private <T> T withFieldOrDescriptor(Function<? super VariableElement, T> field,
-        Function<? super PropertyDescriptor, T> descriptor) {
+                                        Function<? super PropertyDescriptor, T> descriptor) {
 
         return Optionals.firstNonEmpty(//
-            () -> this.field.map(field), //
-            () -> this.descriptor.map(descriptor))//
-            .orElseThrow(
-                () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+                () -> this.field.map(field), //
+                () -> this.descriptor.map(descriptor))//
+                .orElseThrow(
+                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
     private <T> T withFieldOrMethod(Function<? super VariableElement, T> field,
-        Function<? super ExecutableElement, T> setter,
-        Function<? super ExecutableElement, T> getter
+                                    Function<? super ExecutableElement, T> setter,
+                                    Function<? super ExecutableElement, T> getter
     ) {
 
         return Optionals.firstNonEmpty(//
-            () -> this.field.map(field), //
-            () -> this.writeMethod.map(setter),
-            () -> this.readMethod.map(getter))//
-            .orElseThrow(
-                () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+                () -> this.field.map(field), //
+                () -> this.writeMethod.map(setter),
+                () -> this.readMethod.map(getter))//
+                .orElseThrow(
+                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
     private boolean isEnum(TypeMirror type) {

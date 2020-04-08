@@ -1,6 +1,7 @@
 package org.finalframework.data.repository;
 
 
+import org.finalframework.data.service.AbsService;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.beans.factory.ObjectProvider;
 
@@ -21,6 +22,7 @@ public class RepositoryManager {
 
     public RepositoryManager(ObjectProvider<Repository<?, ?>> repositories) {
         repositories.stream()
+                .filter(it -> !(it instanceof AbsService))
                 .map(RepositoryHolder::from)
                 .filter(Objects::nonNull)
                 .forEach(it -> repositoryHolders.put(it.getRepositoryClass(), it));
