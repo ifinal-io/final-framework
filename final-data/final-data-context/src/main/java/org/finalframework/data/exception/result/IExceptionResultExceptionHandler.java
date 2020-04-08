@@ -15,15 +15,27 @@ import org.slf4j.LoggerFactory;
  * @since 1.0
  */
 @SpringComponent
-public class IExceptionResultExceptionHandler {
+public class IExceptionResultExceptionHandler implements ResultExceptionHandler<IException> {
 
     private static final Logger logger = LoggerFactory.getLogger(IExceptionResultExceptionHandler.class);
+
+
+    @Override
+    public boolean supports(Throwable throwable) {
+        return throwable instanceof IException;
+    }
+
 
     public Result<?> handle(ServiceException e) {
         return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage());
     }
 
+    @Override
     public Result<?> handle(IException e) {
-        return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
+        if (e instanceof ServiceException) {
+            return handle((ServiceException) e);
+        } else {
+            return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
+        }
     }
 }

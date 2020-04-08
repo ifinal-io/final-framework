@@ -11,8 +11,6 @@ import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.interceptor.AbsOperationHandlerSupport;
 import org.springframework.expression.EvaluationContext;
 
-import java.util.List;
-
 /**
  * @author likly
  * @version 1.0

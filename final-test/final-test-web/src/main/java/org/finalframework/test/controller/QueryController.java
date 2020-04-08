@@ -28,7 +28,7 @@ public class QueryController {
     private PersonService personService;
 
     @GetMapping
-    @MonitorAction(name = "查询Person:{#id}", target = "{#id}")
+    @MonitorAction(name = "查询Person:{#id}:{#id + 'haha'}", target = "{#id}")
     public Object query(Long id) {
         return personService.findById(id);
     }
