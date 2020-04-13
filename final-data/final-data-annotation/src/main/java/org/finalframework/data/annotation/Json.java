@@ -30,9 +30,9 @@ import org.springframework.data.annotation.Persistent;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Json {
 
-  @AliasFor("name")
-  String value() default "";
+    @AliasFor(annotation = Column.class, value = "name")
+    String value() default "";
 
-  @AliasFor("value")
-  String name() default "";
+    @AliasFor(annotation = Column.class, value = "value")
+    String name() default "";
 }

@@ -28,8 +28,9 @@ import org.springframework.data.annotation.CreatedDate;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {
-    @AliasFor("name")
+    @AliasFor(annotation = Column.class, value = "name")
     String value() default "";
-    @AliasFor("value")
+
+    @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
 }

@@ -1,8 +1,11 @@
 package org.finalframework.data.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
-
-import java.lang.annotation.*;
 
 /**
  * 最后更新时间
@@ -18,9 +21,10 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModifier {
-    @AliasFor("name")
+
+    @AliasFor(annotation = Column.class, value = "name")
     String value() default "";
 
-    @AliasFor("value")
+    @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
 }

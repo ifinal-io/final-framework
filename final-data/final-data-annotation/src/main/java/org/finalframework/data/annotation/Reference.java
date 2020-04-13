@@ -28,10 +28,10 @@ import org.springframework.data.annotation.Persistent;
 @org.springframework.data.annotation.Reference
 public @interface Reference {
 
-    @AliasFor("name")
+    @AliasFor(annotation = Column.class, value = "name")
     String value() default "";
 
-    @AliasFor("value")
+    @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
 
     ReferenceMode mode() default ReferenceMode.SIMPLE;

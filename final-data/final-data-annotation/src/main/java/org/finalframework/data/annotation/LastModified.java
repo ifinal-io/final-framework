@@ -26,9 +26,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModified {
 
-    @AliasFor("name")
+    @AliasFor(annotation = Column.class, value = "name")
     String value() default "";
 
-    @AliasFor("value")
+    @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
 }
