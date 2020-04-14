@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.util.Messages;
 
 import java.io.IOException;
 
@@ -21,6 +22,6 @@ public class EnumDescSerializer extends JsonSerializer<IEnum> {
 
     @Override
     public void serialize(IEnum value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        gen.writeString(value.getDesc());
+        gen.writeString(Messages.getMessage(value.getClass().getCanonicalName() + "." + value.getCode().toString(), value.getDesc()));
     }
 }

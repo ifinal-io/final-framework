@@ -14,6 +14,10 @@ public abstract class TypeReferenceTypeHandler<T> extends BaseTypeHandler<T> {
 
     private final Type type;
 
+    public TypeReferenceTypeHandler(Type type) {
+        this.type = type;
+    }
+
     public TypeReferenceTypeHandler() {
         this.type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }

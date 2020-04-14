@@ -30,6 +30,7 @@ public class QueryController {
     @GetMapping
     @MonitorAction(name = "查询Person:{#id}:{#id + 'haha'}", target = "{#id}")
     public Object query(Long id) {
+        System.out.println(personService.selectCount());
         return personService.findById(id);
     }
 

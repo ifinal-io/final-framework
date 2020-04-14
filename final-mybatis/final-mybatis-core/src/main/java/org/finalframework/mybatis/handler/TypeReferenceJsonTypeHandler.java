@@ -1,5 +1,6 @@
 package org.finalframework.mybatis.handler;
 
+import java.lang.reflect.Type;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,12 @@ import org.finalframework.json.Json;
  * @since 1.0
  */
 public class TypeReferenceJsonTypeHandler<T> extends TypeReferenceTypeHandler<T> {
+    public TypeReferenceJsonTypeHandler(Type type) {
+        super(type);
+    }
+
+    public TypeReferenceJsonTypeHandler() {
+    }
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {

@@ -38,6 +38,7 @@ import org.springframework.core.annotation.Order;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
+@Order(0)
 @SpringComponent
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 

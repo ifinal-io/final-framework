@@ -1,6 +1,10 @@
 package org.finalframework.test;
 
 
+import org.apache.ibatis.session.Configuration;
+import org.finalframework.data.mapping.Entity;
+import org.finalframework.mybatis.resumtmap.ResultMapHolder;
+import org.finalframework.test.entity.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,6 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestApplication {
 
     public static void main(String[] args) {
+        final ResultMapHolder resultMapHolder = new ResultMapHolder(new Configuration(), Entity.from(Person.class));
+
         SpringApplication.run(TestApplication.class);
     }
 }

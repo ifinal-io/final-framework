@@ -62,8 +62,8 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     private Property buildProperty(Class entityClass, PropertyDescriptor descriptor) {
         final Field field = getField(descriptor.getName(), entityClass);
         return field == null
-                ? new BaseProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), descriptor), this, SimpleTypeHolder.DEFAULT)
-                : new BaseProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), field, descriptor), this, SimpleTypeHolder.DEFAULT);
+                ? new AnnotationProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), descriptor), this, SimpleTypeHolder.DEFAULT)
+                : new AnnotationProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), field, descriptor), this, SimpleTypeHolder.DEFAULT);
     }
 
     private Field getField(String name, Class target) {
