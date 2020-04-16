@@ -10,15 +10,15 @@ import org.apache.ibatis.type.BaseTypeHandler;
  * @date 2020-03-24 20:17:38
  * @since 1.0
  */
-public abstract class TypeReferenceTypeHandler<T> extends BaseTypeHandler<T> {
+public abstract class BaseTypeReferenceTypeHandler<T> extends BaseTypeHandler<T> {
 
     private final Type type;
 
-    public TypeReferenceTypeHandler(Type type) {
+    public BaseTypeReferenceTypeHandler(Type type) {
         this.type = type;
     }
 
-    public TypeReferenceTypeHandler() {
+    public BaseTypeReferenceTypeHandler() {
         this.type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 

@@ -1,6 +1,11 @@
 package org.finalframework.mybatis.resumtmap;
 
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.apache.ibatis.mapping.ResultFlag;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
@@ -11,13 +16,7 @@ import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.entity.AbsEntity;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
-import org.finalframework.mybatis.handler.TypeReferenceJsonTypeHandler;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import org.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 
 /**
  * @author likly
@@ -116,7 +115,7 @@ public class ResultMapHolder {
     private TypeHandler<?> findTypeHandler(Property property) {
 
         if (property.isCollectionLike() || property.isMap()) {
-            return new TypeReferenceJsonTypeHandler<>(property.getField().getGenericType());
+            return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
         }
 
         return configuration.getTypeHandlerRegistry().getTypeHandler(property.getType());

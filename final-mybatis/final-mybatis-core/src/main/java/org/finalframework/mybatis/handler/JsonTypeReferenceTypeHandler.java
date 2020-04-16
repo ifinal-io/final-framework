@@ -14,12 +14,14 @@ import org.finalframework.json.Json;
  * @date 2020-03-24 20:20:43
  * @since 1.0
  */
-public class TypeReferenceJsonTypeHandler<T> extends TypeReferenceTypeHandler<T> {
-    public TypeReferenceJsonTypeHandler(Type type) {
+public class JsonTypeReferenceTypeHandler<T> extends BaseTypeReferenceTypeHandler<T> {
+
+    public JsonTypeReferenceTypeHandler(Type type) {
         super(type);
     }
 
-    public TypeReferenceJsonTypeHandler() {
+    public JsonTypeReferenceTypeHandler() {
+        super();
     }
 
     @Override
