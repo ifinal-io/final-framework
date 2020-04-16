@@ -1,10 +1,12 @@
 package org.finalframework.spring.web.response.advice;
 
 import org.finalframework.data.result.Result;
+import org.finalframework.data.user.UserContextHolder;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.finalframework.spring.web.converter.Object2ResultConverter;
 import org.finalframework.spring.web.interceptor.DurationHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.trace.TraceHandlerInterceptor;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -29,16 +31,26 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+        ServerHttpResponse response) {
         final Result<?> result = object2ResultConverter.convert(body);
-        if (result == null) return null;
+        if (result == null) {
+            return null;
+        }
+
+        result.setLocale(LocaleContextHolder.getLocale());
+        result.setTimeZone(LocaleContextHolder.getTimeZone());
+        result.setOperator(UserContextHolder.getUser());
 
         if (request instanceof ServletServerHttpRequest) {
-            Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
+            Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()
+                .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
                 result.setDuration(System.currentTimeMillis() - durationStart);
             }
-            String trace = (String) ((ServletServerHttpRequest) request).getServletRequest().getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
+            String trace = (String) ((ServletServerHttpRequest) request).getServletRequest()
+                .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
         return result;

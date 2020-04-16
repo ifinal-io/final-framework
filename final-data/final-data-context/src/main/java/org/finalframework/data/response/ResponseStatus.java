@@ -1,7 +1,5 @@
 package org.finalframework.data.response;
 
-import lombok.Getter;
-
 /**
  * @author likly
  * @version 1.0
@@ -15,9 +13,7 @@ public enum ResponseStatus {
     NOT_FOUND(404, "Not Found"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
     ;
-    @Getter
     private final Integer code;
-    @Getter
     private final String message;
 
     ResponseStatus(Integer code, String message) {
@@ -25,7 +21,13 @@ public enum ResponseStatus {
         this.message = message;
     }
 
+    public Integer getCode() {
+        return code;
+    }
 
+    public String getMessage() {
+        return message;
+    }
 }
 
 

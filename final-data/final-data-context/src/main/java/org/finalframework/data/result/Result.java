@@ -1,10 +1,12 @@
 package org.finalframework.data.result;
 
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.TimeZone;
+import org.finalframework.data.annotation.IUser;
 import org.finalframework.data.entity.PageInfo;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
-
-import java.io.Serializable;
 
 /**
  * 业务数据返回结果封装，统一业务返回的数据结构。
@@ -62,6 +64,10 @@ public final class Result<T> implements Responsible, Serializable {
      * 执行时长
      */
     private Long duration;
+
+    private Locale locale;
+    private TimeZone timeZone;
+    private IUser<?> operator;
 
     private Class<?> view;
 
@@ -167,6 +173,31 @@ public final class Result<T> implements Responsible, Serializable {
         this.duration = duration;
     }
 
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public IUser<?> getOperator() {
+        return operator;
+    }
+
+    public void setOperator(IUser<?> operator) {
+        this.operator = operator;
+    }
+
     public Class<?> getView() {
         return view;
     }
@@ -186,5 +217,6 @@ public final class Result<T> implements Responsible, Serializable {
     public boolean isSuccess() {
         return ResponseStatus.SUCCESS.getCode().equals(status);
     }
+
 
 }
