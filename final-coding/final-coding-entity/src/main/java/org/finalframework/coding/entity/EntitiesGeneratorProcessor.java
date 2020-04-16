@@ -38,12 +38,12 @@ import org.finalframework.data.mapping.converter.NameConverterRegistry;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class EntitiesGeneratorProcessor extends AbstractProcessor {
 
-    private Coder coder = Coder.getDefaultCoder();
-    private Set<TypeElement> entities = new HashSet<>(128);
+    private final Coder coder = Coder.getDefaultCoder();
+    private final Set<TypeElement> entities = new HashSet<>(128);
     private EntityFilter entityFilter;
     private EntitiesHelper entitiesHelper;
 
-    private List<ElementVisitor<?, ?>> elementVisitors = new ArrayList<>(8);
+    private final List<ElementVisitor<?, ?>> elementVisitors = new ArrayList<>(8);
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
