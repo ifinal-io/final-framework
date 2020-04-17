@@ -24,11 +24,11 @@ public class Person extends AbsRecord {
     private String name;
     @Sharding
     @JsonView(Person.class)
-    private int age;
+    private Integer age;
     @ReadOnly
     @Function(reader = "MAX(age)")
     @View(Person.class)
-    private int maxAge;
+    private Integer maxAge;
     @View(Person.class)
     @Json
     private List<String> stringList;
@@ -45,19 +45,19 @@ public class Person extends AbsRecord {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getMaxAge() {
+    public Integer getMaxAge() {
         return maxAge;
     }
 
-    public void setMaxAge(int maxAge) {
+    public void setMaxAge(Integer maxAge) {
         this.maxAge = maxAge;
     }
 

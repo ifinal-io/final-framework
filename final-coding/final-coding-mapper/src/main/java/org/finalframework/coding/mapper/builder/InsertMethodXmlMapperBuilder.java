@@ -235,6 +235,10 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         insertValues.setAttribute("test", test);
         insertValues.appendChild(textNode(document, "("));
         AtomicBoolean first = new AtomicBoolean(true);
+
+
+        List<String> values = new ArrayList<>();
+
         entity.stream()
                 .filter(Property::isWriteable)
                 .filter(it -> view == null || it.hasView(view))
@@ -242,13 +246,14 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                     if (property.isReference()) {
                         final Entity multiEntity = property.toEntity();
 
-                        final Element choose = document.createElement("choose");
-                        final Element when = document.createElement("when");
-//                        final String whenTest = String.format("list[index].%s != null", property.getName());
-                        final String whenTest = String.format("entity.%s != null", property.getName());
-                        when.setAttribute("test", whenTest);
+//                        final Element choose = document.createElement("choose");
+//                        final Element when = document.createElement("when");
+                        final String whenTest = String.format("list[index].%s != null", property.getName());
+//                        final String whenTest = String.format("entity.%s != null", property.getName());
+//                        when.setAttribute("test", whenTest);
                         List<String> properties = property.referenceProperties();
-                        final String insertMultiValues = properties.stream()
+//                        final String insertMultiValues = properties.stream()
+                        properties.stream()
                                 .map(multiEntity::getProperty)
                                 .map(multiProperty -> {
 //                                    final Class javaType = Utils.getPropertyJavaType(multiProperty);
@@ -260,37 +265,40 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
                                     return typeHandlers.formatPropertyValues(property, multiProperty, "entity");
                                 })
-                                .collect(Collectors.joining(",\n"));
-                        when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
-                        choose.appendChild(when);
-                        final Element otherwise = document.createElement("otherwise");
-                        final List<String> nullValues = new ArrayList<>();
-                        for (int i = 0; i < property.referenceProperties().size(); i++) {
-                            nullValues.add("null");
-                        }
-                        final String otherWiseText =
-                                first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
-                        otherwise.appendChild(textNode(document, otherWiseText));
-                        choose.appendChild(otherwise);
-                        first.set(false);
-                        insertValues.appendChild(choose);
+                                .forEach(values::add);
+//                                .collect(Collectors.joining(",\n"));
+//                        when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
+//                        choose.appendChild(when);
+//                        final Element otherwise = document.createElement("otherwise");
+//                        final List<String> nullValues = new ArrayList<>();
+//                        for (int i = 0; i < property.referenceProperties().size(); i++) {
+//                            nullValues.add("null");
+//                        }
+//                        final String otherWiseText =
+//                                first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
+//                        otherwise.appendChild(textNode(document, otherWiseText));
+//                        choose.appendChild(otherwise);
+//                        first.set(false);
+//                        insertValues.appendChild(choose);
                     } else {
 //                        //#{list[${index}].property,javaType=%s,typeHandler=%s}
 //                        final Class javaType = Utils.getPropertyJavaType(property);
-                        StringBuilder builder = new StringBuilder();
+//                        StringBuilder builder = new StringBuilder();
 //
-                        if (!first.get()) {
-                            builder.append(",");
-                        }
+//                        if (!first.get()) {
+//                            builder.append(",");
+//                        }
 //                        final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        final String item = property.placeholder() ? "list[${index}]" : "item";
 //                        final String value = columnGenerator.generateWriteValue(null, property, item);
-                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
-                        builder.append(value);
-                        first.set(false);
-                        insertValues.appendChild(textNode(document, builder.toString()));
+//                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
+//                        builder.append(value);
+//                        first.set(false);
+//                        insertValues.appendChild(textNode(document, builder.toString()));
+                        values.add(typeHandlers.formatPropertyValues(null, property, "entity"));
                     }
                 });
+        insertValues.appendChild(cdata(document, String.join(",", values)));
         insertValues.appendChild(textNode(document, ")"));
         return insertValues;
     }

@@ -1,5 +1,8 @@
 package org.finalframework.data.query;
 
+import org.finalframework.data.mapping.Entity;
+import org.finalframework.data.mapping.MappingUtils;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
@@ -29,7 +32,40 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     }
 
     protected void initProperties() {
+        Entity.from(type)
+                .stream()
+                .filter(it -> !it.isTransient())
+                .forEach(property -> {
+                    if (property.isReference()) {
 
+                        final Entity<?> referenceEntity = Entity.from(property.getType());
+
+                        property.getReferenceProperties()
+                                .stream()
+                                .map(referenceEntity::getRequiredPersistentProperty)
+                                .forEach(referenceProperty -> {
+                                    addProperty(
+                                            QProperty.builder(this, referenceProperty)
+                                                    .path(property.getName() + "." + referenceProperty.getName())
+                                                    .name(MappingUtils.formatPropertyName(property, referenceProperty))
+                                                    .column(MappingUtils.formatColumn(property, referenceProperty))
+//                                                    .idProperty(property.isIdProperty())
+                                                    .build()
+                                    );
+                                });
+
+
+                    } else {
+                        addProperty(
+                                QProperty.builder(this, property)
+                                        .path(property.getName())
+                                        .name(property.getName())
+                                        .column(MappingUtils.formatColumn(null, property))
+                                        .idProperty(property.isIdProperty())
+                                        .build()
+                        );
+                    }
+                });
     }
 
     public void addProperty(QProperty<?> property) {

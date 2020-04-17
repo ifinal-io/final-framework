@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public interface QEntity<ID extends Serializable, T> extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
 
+    static QEntity<?, ?> from(Class<?> entity) {
+        return new AbsQEntity<>(entity);
+    }
+
+
     String getTable();
 
     Class<T> getType();

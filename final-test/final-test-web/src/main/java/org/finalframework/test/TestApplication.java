@@ -1,9 +1,11 @@
 package org.finalframework.test;
 
 
+import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.data.mapping.Entity;
-import org.finalframework.mybatis.resumtmap.ResultMapHolder;
+import org.finalframework.data.query.QEntity;
+import org.finalframework.mybatis.resumtmap.ResultMapFactory;
+import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +20,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestApplication {
 
     public static void main(String[] args) {
-        final ResultMapHolder resultMapHolder = new ResultMapHolder(new Configuration(), Entity.from(Person.class));
-
+        final QEntity<?, ?> entity = QEntity.from(Person.class);
+        final QPerson person = QPerson.Person;
+        final ResultMap resultMap = ResultMapFactory.from(new Configuration(), Person.class);
         SpringApplication.run(TestApplication.class);
     }
 }

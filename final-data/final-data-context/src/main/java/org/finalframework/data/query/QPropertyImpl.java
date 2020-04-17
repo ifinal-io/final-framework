@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.mapping.Property;
 
 /**
  * @author likly
@@ -9,10 +10,10 @@ import org.finalframework.data.annotation.enums.PersistentType;
  * @date 2019-10-21 10:27:10
  * @since 1.0
  */
-public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
+public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final E entity;
-    private final Class<T> type;
+    private final Property property;
     private final String path;
     private final String name;
     private final String column;
@@ -29,7 +30,7 @@ public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
     public QPropertyImpl(BuilderImpl<T, E> builder) {
 //        super(null);
         this.entity = builder.entity;
-        this.type = builder.type;
+        this.property = builder.property;
         this.path = builder.path;
         this.name = builder.name;
         this.column = builder.column;
@@ -49,8 +50,8 @@ public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
     }
 
     @Override
-    public Class<T> getType() {
-        return this.type;
+    public Property getProperty() {
+        return this.property;
     }
 
     @Override
@@ -103,11 +104,18 @@ public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "path=" + path +
+                ",name=" + name +
+                ",column=" + column +
+                ",javaType=" + getType().getCanonicalName();
+    }
 
 
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
         private final E entity;
-        private final Class<T> type;
+        private final Property property;
         private String path;
         private String name;
         private String column;
@@ -121,9 +129,9 @@ public class QPropertyImpl<T, E extends QEntity<?,?>> implements QProperty<T> {
         private boolean updatable = true;
         private boolean selectable = true;
 
-        public BuilderImpl(E entity, Class<T> type) {
+        public BuilderImpl(E entity, Property property) {
             this.entity = entity;
-            this.type = type;
+            this.property = property;
         }
 
         @Override

@@ -3,6 +3,7 @@ package org.finalframework.mybatis.handler;
 import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.PrimaryTypes;
 import org.finalframework.data.annotation.IEnum;
 

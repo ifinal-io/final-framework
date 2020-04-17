@@ -19,11 +19,9 @@ import org.finalframework.data.annotation.Function;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.TypeHandler;
-import org.finalframework.data.annotation.enums.Keyword;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.finalframework.data.query.SqlKeyWords;
 import org.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -156,12 +154,16 @@ public final class TypeHandlers {
         final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(getTypeHandler(property));
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(property.placeholder() ? "#{" : "${").append(value);
+        builder.append(property.placeholder() ? "#{" : "${");//.append(value);
 
         if (Assert.nonNull(referenceProperty)) {
-            builder.append(".").append(referenceProperty.getName());
+            // entity.path != null ? entity.path.path : null
+            builder.append(value).append(".").append(referenceProperty.getName()).append(" != null ? ")
+                    .append(value).append(".").append(referenceProperty.getName()).append(".").append(property.getName())
+                    .append(" : null");
+        } else {
+            builder.append(value).append(".").append(property.getName());
         }
-        builder.append(".").append(property.getName());
 
         if (typeHandler != null && javaType != null) {
             builder.append(",javaType=").append(javaType.getQualifiedName().toString());

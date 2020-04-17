@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.annotation.CreatedBy;
 
 /**
  * 创建人
@@ -23,6 +24,7 @@ import org.springframework.core.annotation.AliasFor;
 @Final
 @Column
 @Documented
+@CreatedBy
 @Index(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

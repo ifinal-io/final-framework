@@ -9,15 +9,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.Final;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Sharding;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.annotation.Version;
-import org.finalframework.data.annotation.Virtual;
-import org.finalframework.data.annotation.WriteOnly;
+
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
@@ -123,7 +116,7 @@ public interface Property {
 
     /**
      * @return
-     * @see org.finalframework.data.annotation.enums.Keyword
+     * @see Keyword
      * @see org.finalframework.data.query.SqlKeyWords
      */
     boolean isKeyword();

@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.criteriable.AbsCriteriable;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
@@ -25,14 +26,21 @@ import java.util.Collection;
 public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>,
         ExecuteCriteriable<Object, Criterion> {
 
-    static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Class<T> type) {
-        return new QPropertyImpl.BuilderImpl<>(entity, type);
+    static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
+        return new QPropertyImpl.BuilderImpl<>(entity, property);
     }
 
     <E extends QEntity<?, ?>> E getEntity();
 
-    Class<T> getType();
+    @NonNull
+    Property getProperty();
 
+    @NonNull
+    default Class<T> getType() {
+        return (Class<T>) getProperty().getJavaType();
+    }
+
+    @NonNull
     String getPath();
 
     @NonNull

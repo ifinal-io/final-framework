@@ -7,21 +7,17 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.plugin.*;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.Entity;
-import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Pageable;
-import org.finalframework.mybatis.resumtmap.ResultMapHolder;
+import org.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.finalframework.spring.annotation.factory.SpringComponent;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -109,7 +105,7 @@ public class InlineSelectInterceptor implements Interceptor {
         builder.parameterMap(ms.getParameterMap());
         //count查询返回值int
         List<ResultMap> resultMaps = new ArrayList<>();
-        final ResultMap resultMap = new ResultMapHolder(ms.getConfiguration(), Entity.from(ms.getResultMaps().get(0).getType())).getResultMap();
+        final ResultMap resultMap = ResultMapFactory.from(ms.getConfiguration(), ms.getResultMaps().get(0).getType());
         resultMaps.add(resultMap);
         builder.resultMaps(resultMaps);
         builder.resultSetType(ms.getResultSetType());

@@ -44,7 +44,7 @@ import org.finalframework.data.annotation.Version;
 import org.finalframework.data.annotation.View;
 import org.finalframework.data.annotation.Virtual;
 import org.finalframework.data.annotation.WriteOnly;
-import org.finalframework.data.annotation.enums.Keyword;
+import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;

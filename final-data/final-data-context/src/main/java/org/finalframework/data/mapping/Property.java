@@ -1,7 +1,14 @@
 package org.finalframework.data.mapping;
 
-import java.lang.annotation.Annotation;
+import org.finalframework.data.annotation.*;
+import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.springframework.data.mapping.PersistentProperty;
+
 import javax.validation.constraints.NotNull;
+import java.lang.annotation.Annotation;
+import java.util.Set;
+import javax.validation.constraints.NotNull;
+
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.ReadOnly;
@@ -38,6 +45,8 @@ public interface Property extends PersistentProperty<Property> {
      */
     boolean isFinal();
 
+    boolean isReference();
+
     /**
      * @return {@code true} if the {@link Property} annotated by {@link Virtual} annotation.
      * @see Virtual
@@ -63,6 +72,9 @@ public interface Property extends PersistentProperty<Property> {
      */
     boolean isWriteOnly();
 
+    boolean isKeyword();
+
+
     default boolean isWriteable() {
         return !isTransient() && !isVirtual() && !isReadOnly() && !isDefault();
     }
@@ -70,6 +82,15 @@ public interface Property extends PersistentProperty<Property> {
     default boolean isModifiable() {
         return !isTransient() && !isVirtual() && !isReadOnly() && !isFinal();
     }
+
+
+    ReferenceMode getReferenceMode();
+
+    Set<String> getReferenceProperties();
+
+    String getReferenceColumn(Property property);
+
+    Class<?> getJavaType();
 
     default Object get(@NotNull Object target) {
         try {
