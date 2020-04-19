@@ -3,6 +3,7 @@ package org.finalframework.mybatis.configuration;
 
 import org.apache.ibatis.session.Configuration;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
+import org.finalframework.mybatis.lang.FinalXMLLanguageDriver;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
@@ -24,6 +25,9 @@ public class EnumTypeHandlerConfigurationCustomizer implements ConfigurationCust
     public void customize(Configuration configuration) {
         logger.info("setDefaultEnumTypeHandler:{}", EnumTypeHandler.class.getCanonicalName());
         configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
+//        configuration.getTypeAliasRegistry().registerAlias("XML",FinalXMLLanguageDriver.class);
+//        configuration.getTypeAliasRegistry().registerAlias("RAW",FinalXMLLanguageDriver.class);
+        configuration.getLanguageRegistry().setDefaultDriverClass(FinalXMLLanguageDriver.class);
     }
 }
 

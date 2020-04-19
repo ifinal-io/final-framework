@@ -11,6 +11,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.handler.TypeHandlerRegistry;
 import org.finalframework.coding.utils.TypeElements;
@@ -149,21 +150,24 @@ public final class TypeHandlers {
     }
 
 
-    public String formatPropertyValues(@Nullable Property referenceProperty, @NonNull Property property, String value) {
-        final TypeElement javaType = property.getJavaTypeElement();
-        final TypeElement typeHandler = Optional.ofNullable(property.getTypeHandler()).orElse(getTypeHandler(property));
+    public String formatPropertyValues(@Nullable Property property, @NonNull Property referenceProperty, String value) {
+        final TypeElement javaType = referenceProperty.getJavaTypeElement();
+        final TypeElement typeHandler = Optional.ofNullable(referenceProperty.getTypeHandler()).orElse(getTypeHandler(referenceProperty));
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(property.placeholder() ? "#{" : "${");//.append(value);
+        builder.append(referenceProperty.placeholder() ? "#{" : "${");//.append(value);
 
-        if (Assert.nonNull(referenceProperty)) {
+        if (Assert.nonNull(property)) {
             // entity.path != null ? entity.path.path : null
-            builder.append(value).append(".").append(referenceProperty.getName()).append(" != null ? ")
-                    .append(value).append(".").append(referenceProperty.getName()).append(".").append(property.getName())
-                    .append(" : null");
+//            builder.append(value).append(".").append(property.getName()).append(" != null ? ")
+//                    .append(value).append(".").append(property.getName()).append(".").append(referenceProperty.getName())
+//                    .append(" : null");
+
+            builder.append(value).append(".").append(property.getName()).append(".").append(referenceProperty.getName());
         } else {
-            builder.append(value).append(".").append(property.getName());
+            builder.append(value).append(".").append(referenceProperty.getName());
         }
+
 
         if (typeHandler != null && javaType != null) {
             builder.append(",javaType=").append(javaType.getQualifiedName().toString());

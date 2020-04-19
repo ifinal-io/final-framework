@@ -12,6 +12,7 @@ import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -32,7 +33,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     private static final String METHOD_INSERT = "insert";
     private static final String METHOD_REPLACE = "replace";
     private static final String METHOD_SAVE = "save";
-    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE, METHOD_SAVE));
+    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE));
 
     public InsertMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
         super(typeHandlers);
@@ -218,88 +219,114 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
         foreach.setAttribute("item", "entity");
         foreach.setAttribute("separator", ",");
 
+        entity.stream()
+                .filter(Property::isWriteable)
+                .forEach(property -> {
+                    if (property.isReference()) {
+                        final Entity multiEntity = property.toEntity();
+                        property.referenceProperties()
+                                .stream()
+                                .map(multiEntity::getRequiredProperty)
+                                .forEach(referenceProperty -> {
+                                    String name = referenceProperty.isIdProperty() && ReferenceMode.SIMPLE == property.referenceMode()
+                                            ? property.getName()
+                                            : property.getName() + referenceProperty.getColumn().substring(0, 1).toUpperCase() + referenceProperty.getColumn().substring(1);
+                                    String value = String.format("entity.%s != null ? entity.%s.%s : null", property.getName(), property.getName(), referenceProperty.getName());
+                                    final Element bind = bind(document, name, value);
+
+                                    foreach.appendChild(bind);
+
+                                });
+                    } else {
+                        foreach.appendChild(bind(document, property.getName(), "entity." + property.getName()));
+                    }
+                });
+
+
+        Element trim = document.createElement("trim");
+        trim.setAttribute("prefix", "(");
+        trim.setAttribute("suffix", ")");
+        trim.setAttribute("suffixOverrides", ",");
         final Element insertValues = document.createElement("choose");
+
+
         entity.getViews().stream().map(it -> buildInsertValuesElement(document, entity, it))
                 .forEach(insertValues::appendChild);
         insertValues.appendChild(buildInsertValuesElement(document, entity, null));
-        foreach.appendChild(insertValues);
+        trim.appendChild(insertValues);
+        foreach.appendChild(trim);
         return foreach;
     }
 
     private Element buildInsertValuesElement(@NonNull Document document, @NonNull Entity entity,
                                              @Nullable TypeElement view) {
 
+
         final Element insertValues = document.createElement("when");
         final String test = view == null ? "view == null" : String
                 .format("view != null and view.getCanonicalName() == '%s'.toString()", view.getQualifiedName().toString());
         insertValues.setAttribute("test", test);
-        insertValues.appendChild(textNode(document, "("));
-        AtomicBoolean first = new AtomicBoolean(true);
-
-
-        List<String> values = new ArrayList<>();
-
+//        insertValues.appendChild(textNode(document, "("));
         entity.stream()
                 .filter(Property::isWriteable)
                 .filter(it -> view == null || it.hasView(view))
                 .forEach(property -> {
                     if (property.isReference()) {
+
                         final Entity multiEntity = property.toEntity();
+                        property.referenceProperties()
+                                .stream()
+                                .map(multiEntity::getRequiredProperty)
+                                .forEach(referenceProperty -> {
+                                    String name = referenceProperty.isIdProperty() && ReferenceMode.SIMPLE == property.referenceMode()
+                                            ? property.getName()
+                                            : property.getName() + referenceProperty.getColumn().substring(0, 1).toUpperCase() + referenceProperty.getColumn().substring(1);
+//                                    String value = String.format("entity.%s != null ? entity.%s.%s : null", property.getName(), property.getName(), referenceProperty.getName());
+//                                    final Element bind = bind(document, name, value);
+//                                    bind.appendChild(textNode(document, String.format("#{%s},", name)));
+//                                    insertValues.appendChild(bind);
+//                                    insertValues.appendChild(textNode(document, ","));
 
-//                        final Element choose = document.createElement("choose");
-//                        final Element when = document.createElement("when");
-                        final String whenTest = String.format("list[index].%s != null", property.getName());
-//                        final String whenTest = String.format("entity.%s != null", property.getName());
-//                        when.setAttribute("test", whenTest);
-                        List<String> properties = property.referenceProperties();
-//                        final String insertMultiValues = properties.stream()
-                        properties.stream()
-                                .map(multiEntity::getProperty)
-                                .map(multiProperty -> {
-//                                    final Class javaType = Utils.getPropertyJavaType(multiProperty);
-                                    //#{list[${index}].multi.property,javaType=%s,typeHandler=%s}
-//                                    final String item = property.placeholder() ? "list[${index}]" : "item";
-//                                    final String item = property.placeholder() ? "list[${index}]" : "item";
-//                                    ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(multiProperty);
-//                                    return columnGenerator.generateWriteValue(property, multiProperty, value);
+                                    final StringBuilder builder = new StringBuilder();
+                                    builder.append("#{");
 
-                                    return typeHandlers.formatPropertyValues(property, multiProperty, "entity");
-                                })
-                                .forEach(values::add);
-//                                .collect(Collectors.joining(",\n"));
-//                        when.appendChild(textNode(document, first.get() ? insertMultiValues : "," + insertMultiValues));
-//                        choose.appendChild(when);
-//                        final Element otherwise = document.createElement("otherwise");
-//                        final List<String> nullValues = new ArrayList<>();
-//                        for (int i = 0; i < property.referenceProperties().size(); i++) {
-//                            nullValues.add("null");
-//                        }
-//                        final String otherWiseText =
-//                                first.get() ? String.join(",", nullValues) : "," + String.join(",", nullValues);
-//                        otherwise.appendChild(textNode(document, otherWiseText));
-//                        choose.appendChild(otherwise);
-//                        first.set(false);
-//                        insertValues.appendChild(choose);
+                                    builder.append(name);
+
+                                    final TypeElement javaType = referenceProperty.getJavaTypeElement();
+                                    builder.append(",javaType=").append(javaType.getQualifiedName().toString());
+
+                                    final TypeElement typeHandler = typeHandlers.getTypeHandler(referenceProperty);
+                                    if (typeHandler != null) {
+                                        builder.append(",typeHandler=").append(typeHandler.getQualifiedName().toString());
+                                    }
+
+                                    builder.append("},");
+
+                                    insertValues.appendChild(textNode(document, builder.toString()));
+
+                                });
+
                     } else {
 //                        //#{list[${index}].property,javaType=%s,typeHandler=%s}
-//                        final Class javaType = Utils.getPropertyJavaType(property);
-//                        StringBuilder builder = new StringBuilder();
-//
-//                        if (!first.get()) {
-//                            builder.append(",");
-//                        }
-//                        final ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
-//                        final String item = property.placeholder() ? "list[${index}]" : "item";
-//                        final String value = columnGenerator.generateWriteValue(null, property, item);
-//                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
-//                        builder.append(value);
-//                        first.set(false);
-//                        insertValues.appendChild(textNode(document, builder.toString()));
-                        values.add(typeHandlers.formatPropertyValues(null, property, "entity"));
+                        final StringBuilder builder = new StringBuilder();
+                        builder.append("#{");
+
+                        builder.append(property.getName());
+
+                        final TypeElement javaType = property.getJavaTypeElement();
+                        builder.append(",javaType=").append(javaType.getQualifiedName().toString());
+
+                        final TypeElement typeHandler = typeHandlers.getTypeHandler(property);
+                        if (typeHandler != null) {
+                            builder.append(",typeHandler=").append(typeHandler.getQualifiedName().toString());
+                        }
+
+                        builder.append("},");
+
+                        insertValues.appendChild(textNode(document, builder.toString()));
                     }
                 });
-        insertValues.appendChild(cdata(document, String.join(",", values)));
-        insertValues.appendChild(textNode(document, ")"));
+//        insertValues.appendChild(textNode(document, ")"));
         return insertValues;
     }
 }

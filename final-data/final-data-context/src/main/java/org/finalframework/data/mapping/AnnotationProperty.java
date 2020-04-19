@@ -24,6 +24,13 @@ import java.util.Set;
  */
 public class AnnotationProperty extends AnnotationBasedPersistentProperty<Property> implements Property {
 
+
+    private final Lazy<String> column = Lazy.of(() -> {
+        final Column annotation = findAnnotation(Column.class);
+        if (annotation == null || Assert.isBlank(annotation.name())) return getName();
+        return annotation.name();
+    });
+
     private final Lazy<Boolean> isTransient = Lazy.of(isAnnotationPresent(Transient.class) || super.isTransient());
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
@@ -54,11 +61,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
-    private final Lazy<String> column = Lazy.of(() -> {
-        final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.name())) return getName();
-        return annotation.name();
-    });
 
     private final Lazy<Class<?>> javaType = Lazy.of(() -> {
         if (isMap()) {
