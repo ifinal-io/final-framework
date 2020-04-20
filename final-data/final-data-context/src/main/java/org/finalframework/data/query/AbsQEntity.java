@@ -1,7 +1,9 @@
 package org.finalframework.data.query;
 
+import org.finalframework.data.annotation.Table;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.MappingUtils;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +24,11 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final String table;
 
     public AbsQEntity(Class<T> type) {
-        this(type, null);
+        this(type, NameConverterRegistry.getInstance().getTableNameConverter().convert(
+                type.getAnnotation(Table.class) == null || type.getAnnotation(Table.class).value().isEmpty()
+                        ? type.getSimpleName()
+                        : type.getAnnotation(Table.class).value()
+        ));
     }
 
     public AbsQEntity(Class<T> type, String table) {

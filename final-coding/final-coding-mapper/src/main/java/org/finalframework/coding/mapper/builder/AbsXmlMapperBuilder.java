@@ -46,11 +46,11 @@ public class AbsXmlMapperBuilder {
      * <pre>
      *     <sql id="id">
      *         <choose>
-     *             <when test="tableName != null">
-     *                 ${tableName}
+     *             <when test="table != null">
+     *                 ${table}
      *             </when>
      *             <otherwise>
-     *                 tableName
+     *                 table
      *             </otherwise>
      *         </choose>
      *     </sql>
@@ -62,16 +62,16 @@ public class AbsXmlMapperBuilder {
         sql.setAttribute("id", SQL_TABLES);
         //      <choose>
         final Element choose = document.createElement("choose");
-        //              <when test="tableName != null">
+        //              <when test="table != null">
         final Element whenTableNameNotNull = document.createElement("when");
-        whenTableNameNotNull.setAttribute("test", "tableName != null");
-        //                  ${tableName}
-        whenTableNameNotNull.appendChild(textNode(document, "${tableName}"));
+        whenTableNameNotNull.setAttribute("test", "table != null");
+        //                  ${table}
+        whenTableNameNotNull.appendChild(textNode(document, "${table}"));
         //              </when>
         choose.appendChild(whenTableNameNotNull);
         //              <otherwise>
         final Element otherwise = document.createElement("otherwise");
-        //                  tableName
+        //                  table
         otherwise.appendChild(textNode(document, entity.getTable()));
         //              </otherwise>
         choose.appendChild(otherwise);

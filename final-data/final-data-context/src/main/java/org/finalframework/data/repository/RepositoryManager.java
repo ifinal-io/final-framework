@@ -18,7 +18,7 @@ import java.util.Objects;
 @SpringComponent
 public class RepositoryManager {
 
-    private Map<Class<? extends Repository>, RepositoryHolder> repositoryHolders = new HashMap();
+    private static Map<Class<? extends Repository>, RepositoryHolder> repositoryHolders = new HashMap();
 
     public RepositoryManager(ObjectProvider<Repository<?, ?>> repositories) {
         repositories.stream()
@@ -30,5 +30,10 @@ public class RepositoryManager {
 
         System.out.println();
     }
+
+    public static RepositoryHolder from(Class<? extends Repository> repository) {
+        return repositoryHolders.get(repository);
+    }
+
 }
 

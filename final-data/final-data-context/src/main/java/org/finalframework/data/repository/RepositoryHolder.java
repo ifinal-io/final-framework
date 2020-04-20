@@ -42,7 +42,7 @@ public class RepositoryHolder {
     }
 
     @SuppressWarnings("unchecked")
-    public static <ID extends Serializable, T extends IEntity<ID>> RepositoryHolder from(@NonNull Repository<ID, T> repository) {
+    public static <ID extends Serializable, T extends IEntity<ID>> RepositoryHolder from(@NonNull Repository repository) {
         final Class<? extends Repository> repositoryClass = (Class<? extends Repository>) ProxyUtils.targetClass(repository);
         if (repositoryClass == null) return null;
 

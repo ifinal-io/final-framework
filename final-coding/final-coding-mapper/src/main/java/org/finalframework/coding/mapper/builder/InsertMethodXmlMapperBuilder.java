@@ -33,7 +33,7 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
     private static final String METHOD_INSERT = "insert";
     private static final String METHOD_REPLACE = "replace";
     private static final String METHOD_SAVE = "save";
-    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE));
+    private static final Set<String> methods = new HashSet<>(Arrays.asList(METHOD_INSERT, METHOD_REPLACE, METHOD_SAVE));
 
     public InsertMethodXmlMapperBuilder(TypeHandlers typeHandlers) {
         super(typeHandlers);
