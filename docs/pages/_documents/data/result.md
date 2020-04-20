@@ -33,6 +33,9 @@ version: 1.0
 |   `trace`   | String  |  Y   |   链路   | 链路追踪，方便日志查询 |
 | duration |  Long   |  Y   |  执行时长  | 执行用时(ms) |
 | timestamp |  Long   |  Y   |  时间戳  | 响应时间戳 |
+| locale |  Locale   |  Y   |  地区  |  |
+| timeZone |  Timezone   |  Y   |  时区  |  |
+| operator |  IUser   |  N   |  操作人  |  |
 | view |  Class  |  N  |  视图  | 结果视图 |
 | `success` |  Boolean  |  Y   |  业务状态  | 响应时间戳 |
 
