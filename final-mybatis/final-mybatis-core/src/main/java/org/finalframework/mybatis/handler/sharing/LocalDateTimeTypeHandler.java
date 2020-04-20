@@ -29,7 +29,7 @@ public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> imp
     public void setNonNullParameter(PreparedStatement ps, int i, LocalDateTime parameter, JdbcType jdbcType)
         throws SQLException {
         DATE_TYPE_HANDLER
-            .setParameter(ps, i, Dates.from(parameter), jdbcType);
+                .setParameter(ps, i, Dates.to(parameter), jdbcType);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> imp
 
     @Override
     public LocalDateTime convert(Date date) {
-        return Dates.to(date);
+        return Dates.from(date);
 
     }
 }
