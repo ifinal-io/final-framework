@@ -7,6 +7,8 @@ import org.finalframework.data.annotation.IUser;
 import org.finalframework.data.entity.PageInfo;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
+import org.finalframework.data.user.UserContextHolder;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * 业务数据返回结果封装，统一业务返回的数据结构。
@@ -64,9 +66,23 @@ public final class Result<T> implements Responsible, Serializable {
      * 执行时长
      */
     private Long duration;
-
+    /**
+     * 国际化
+     *
+     * @see LocaleContextHolder#getLocale()
+     */
     private Locale locale;
+    /**
+     * 时区
+     *
+     * @see LocaleContextHolder#getTimeZone()
+     */
     private TimeZone timeZone;
+    /**
+     * 操作者
+     *
+     * @see UserContextHolder#getUser()
+     */
     private IUser<?> operator;
 
     private Class<?> view;

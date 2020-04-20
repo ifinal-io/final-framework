@@ -1,14 +1,8 @@
 package org.finalframework.data.mapping;
 
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.springframework.data.mapping.PersistentProperty;
-
-import javax.validation.constraints.NotNull;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
-
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.ReadOnly;
@@ -16,6 +10,7 @@ import org.finalframework.data.annotation.Sharding;
 import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.annotation.Virtual;
 import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.data.mapping.PersistentProperty;
 
 
