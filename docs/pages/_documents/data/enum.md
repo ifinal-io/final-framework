@@ -27,7 +27,7 @@ version: 1.0
 
 ## IEnum
 
-[IEnum](/org/finalframework/data/annotation/IEnum.java) 是实现上述方式的一个桥梁，
+[IEnum](/final-data/final-data-annotation/src/main/java/org/finalframework/data/annotation/IEnum.java) 是实现上述方式的一个桥梁，
 项目中的`Enum`只要实现了该接口，即可看到`Enum`在 `在 `API<->Project<->DB` 之间进行着优雅的传递。
 
 其定义如下：
@@ -48,10 +48,18 @@ public interface IEnum<T> {
 
 }
 ```
+## I18N
+
+实现了`IEnum`接口的`Enum`类在返回前端的时候，会进行国际化处理，其国际化描述信息需要放在对应语言的`messages.perperties`中，
+`key`的格式为：
+
+```java
+{Enum.class.getCanonicalName()}.{Enum.name().toLowerCase(Locale.ENGLISH)}
+```
 
 ## YN
 
-[YN](/org/finalframework/data/entity/enums/YN.java)表示`YES`和`NO`,
+[YN](/final-data/final-data-annotation/src/main/java/org/finalframework/data/entity/enums/YN.java)表示`YES`和`NO`,
 用于标记数据的有效性，其实现了`IEnum`接口。
 
 定义如下：
@@ -101,4 +109,21 @@ public enum YN implements IEnum<Integer> {
         return description;
     }
 }
+```
+
+### I18N描述 
+
+* messages.properties
+
+```properties
+org.finalframework.data.entity.enums.YN.yes=有效
+org.finalframework.data.entity.enums.YN.no=无效
+```
+
+
+* messages_en_US.properties
+
+```properties
+org.finalframework.data.entity.enums.YN.yes=YES
+org.finalframework.data.entity.enums.YN.no=NO
 ```
