@@ -4,7 +4,7 @@ title: Result
 subtitle: 统一的结果集封装
 description: 全局统一的结果集对象。
 categories: []
-tags: []
+tags: [data,result]
 menus:
     - data
     - result
