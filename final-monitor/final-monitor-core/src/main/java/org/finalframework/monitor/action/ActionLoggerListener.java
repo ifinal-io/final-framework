@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
  * @since 1.0
  */
 @SpringComponent
-public class ActionLoggerListener implements ActionListener<Object> {
+public class ActionLoggerListener implements ActionListener {
 
     private static final Logger logger = LoggerFactory.getLogger(ActionLoggerListener.class);
 
     @Override
-    public void handle(Action<Object> action) {
+    public void handle(Action<?> action) {
         logger.info("==> action handler: {}", Json.toJson(action));
     }
 }

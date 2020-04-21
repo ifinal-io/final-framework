@@ -8,8 +8,9 @@ package org.finalframework.monitor.action;
  * @see Action
  * @since 1.0
  */
-public interface ActionListener<T> {
+@FunctionalInterface
+public interface ActionListener {
 
-    void handle(Action<T> action);
+    void handle(Action<?> action);
 
 }

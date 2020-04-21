@@ -1,16 +1,15 @@
 package org.finalframework.monitor.interceptor;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import org.finalframework.core.Assert;
-import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.action.Action;
+import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Primary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author likly
@@ -20,22 +19,24 @@ import java.util.List;
  */
 @Primary
 @SpringComponent
-public class ActionRecorder implements Recorder {
-    private final List<ActionListener<?>> handlers = new ArrayList<>();
+public class ActionRecorder implements Recorder<Object> {
+
+    private final List<ActionListener<?>> listeners = new ArrayList<>();
 
     public ActionRecorder(ObjectProvider<List<ActionListener<?>>> handlerProvider) {
         final List<ActionListener<?>> handlers = handlerProvider.getIfAvailable();
         if (Assert.nonEmpty(handlers)) {
-            this.handlers.addAll(handlers);
+            this.listeners.addAll(handlers);
         }
     }
 
     @Override
-    public void record(Action context) {
-        if (Assert.nonEmpty(handlers)) {
-            for (ActionListener<?> handler : handlers) {
-                handler.handle(context);
+    public void record(Action<?> action) {
+        if (Assert.nonEmpty(listeners)) {
+            for (ActionListener<?> listener : listeners) {
+                listener.handle(action);
             }
         }
     }
+
 }

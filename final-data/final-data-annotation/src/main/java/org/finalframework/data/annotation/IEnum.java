@@ -33,5 +33,8 @@ public interface IEnum<T> {
         return getDesc();
     }
 
+    /**
+     * 返回对该枚举常量的描述信息
+     */
     String getDesc();
 }
