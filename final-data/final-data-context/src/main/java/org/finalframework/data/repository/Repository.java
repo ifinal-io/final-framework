@@ -26,11 +26,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== INSERT ===========================================*/
 
-    int insert(T... entities);
+//    int insert(T... entities);
 
-//    default int insert(T... entities) {
-//        return insert(Arrays.asList(entities));
-//    }
+    default int insert(T... entities) {
+        return insert(Arrays.asList(entities));
+    }
 
     default int insert(boolean ignore, T... entities) {
         return insert(ignore, Arrays.asList(entities));

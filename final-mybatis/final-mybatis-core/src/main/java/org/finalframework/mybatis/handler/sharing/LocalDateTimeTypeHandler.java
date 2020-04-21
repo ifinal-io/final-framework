@@ -11,6 +11,7 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.DateTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.finalframework.core.converter.Converter;
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.util.Dates;
 
 /**
@@ -21,6 +22,7 @@ import org.finalframework.util.Dates;
  * @date 2020-03-13 17:06:25
  * @since 1.0
  */
+@SpringComponent
 public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> implements Converter<Date, LocalDateTime> {
 
     private static final DateTypeHandler DATE_TYPE_HANDLER = new DateTypeHandler();

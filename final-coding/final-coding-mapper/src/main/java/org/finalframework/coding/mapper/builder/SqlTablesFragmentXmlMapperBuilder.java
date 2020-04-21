@@ -56,9 +56,9 @@ public final class SqlTablesFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMa
         final Element choose = document.createElement("choose");
         //              <when test="tableName != null">
         final Element whenTableNameNotNull = document.createElement("when");
-        whenTableNameNotNull.setAttribute("test", "tableName != null");
+        whenTableNameNotNull.setAttribute("test", "table != null");
         //                  ${tableName}
-        whenTableNameNotNull.appendChild(textNode(document, "${tableName}"));
+        whenTableNameNotNull.appendChild(textNode(document, "${table}"));
         //              </when>
         choose.appendChild(whenTableNameNotNull);
         //              <otherwise>

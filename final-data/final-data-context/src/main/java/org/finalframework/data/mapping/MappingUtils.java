@@ -38,6 +38,10 @@ public interface MappingUtils {
                     property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
+        if (property == null && referenceProperty.isVirtual()) {
+            column = "v_" + column;
+        }
+
         return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
     }
 }
