@@ -18,7 +18,7 @@ public class ActionLoggerListener implements ActionListener<Object> {
     private static final Logger logger = LoggerFactory.getLogger(ActionLoggerListener.class);
 
     @Override
-    public void handle(Action<Object> context) {
-        logger.info("==> action handler: {}", Json.toJson(context));
+    public void handle(Action<Object> action) {
+        logger.info("==> action handler: {}", Json.toJson(action));
     }
 }

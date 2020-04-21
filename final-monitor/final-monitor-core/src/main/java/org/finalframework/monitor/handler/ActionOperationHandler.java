@@ -1,6 +1,7 @@
 package org.finalframework.monitor.handler;
 
 
+import java.util.Map;
 import org.finalframework.core.Assert;
 import org.finalframework.data.exception.IException;
 import org.finalframework.monitor.MonitorException;
@@ -14,8 +15,6 @@ import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.annotation.CutPoint;
 import org.slf4j.MDC;
 import org.springframework.expression.EvaluationContext;
-
-import java.util.Map;
 
 /**
  * @author likly
@@ -63,10 +62,10 @@ public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport
 
         final Action.Builder<T> builder = Action.builder();
         builder.name(generateName(operation.name(), metadata, evaluationContext))
-                .type(operation.type())
-                .action(operation.action())
-                .level(operation.level())
-                .operator(generateOperator(operation.operator(), metadata, evaluationContext))
+            .type(operation.type())
+            .action(operation.action())
+            .level(operation.level())
+            .operator((T) generateOperator(operation.operator(), metadata, evaluationContext))
                 .target(generateTarget(operation.target(), metadata, evaluationContext))
                 .trace(MDC.get("trace"))
                 .timestamp(System.currentTimeMillis());

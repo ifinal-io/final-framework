@@ -1,10 +1,9 @@
 package org.finalframework.monitor.action;
 
-import org.finalframework.monitor.MonitorException;
-import org.finalframework.monitor.annotation.MonitorLevel;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.finalframework.monitor.MonitorException;
+import org.finalframework.monitor.annotation.MonitorLevel;
 
 /**
  * Action 上下文，描述一个 Action 的动作
@@ -129,53 +128,53 @@ public class Action<T> {
         private Builder() {
         }
 
-        public Builder name(String name) {
+        public Builder<T> name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder type(int type) {
+        public Builder<T> type(int type) {
             this.type = type;
             return this;
         }
 
-        public Builder action(int action) {
+        public Builder<T> action(int action) {
             this.action = action;
             return this;
         }
 
-        public Builder level(MonitorLevel level) {
+        public Builder<T> level(MonitorLevel level) {
             this.level = level;
             return this;
         }
 
-        public Builder trace(String trace) {
+        public Builder<T> trace(String trace) {
             this.trace = trace;
             return this;
         }
 
-        public Builder operator(T operator) {
+        public Builder<T> operator(T operator) {
             this.operator = operator;
             return this;
         }
 
 
-        public Builder addAttribute(String name, Object value) {
+        public Builder<T> addAttribute(String name, Object value) {
             this.attributes.put(name, value);
             return this;
         }
 
-        public Builder exception(MonitorException exception) {
+        public Builder<T> exception(MonitorException exception) {
             this.exception = exception;
             return this;
         }
 
-        public Builder target(Object target) {
+        public Builder<T> target(Object target) {
             this.target = target;
             return this;
         }
 
-        public Builder timestamp(Long timestamp) {
+        public Builder<T> timestamp(Long timestamp) {
             this.timestamp = timestamp;
             return this;
         }

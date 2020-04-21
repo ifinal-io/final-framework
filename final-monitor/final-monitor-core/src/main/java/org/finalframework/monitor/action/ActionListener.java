@@ -10,6 +10,6 @@ package org.finalframework.monitor.action;
  */
 public interface ActionListener<T> {
 
-    void handle(Action<T> context);
+    void handle(Action<T> action);
 
 }
