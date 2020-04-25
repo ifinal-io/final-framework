@@ -1,15 +1,14 @@
 package org.finalframework.test.controller;
 
-import org.finalframework.test.dao.mapper.PersonMapper;
+import org.finalframework.data.query.Query;
 import org.finalframework.test.entity.Person;
+import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -24,18 +23,24 @@ public class PersonController {
     public static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @Resource
-    private PersonMapper personMapper;
+    private PersonService personService;
+
+    @GetMapping
+    public List<Person> query() {
+        return personService.select(new Query().page(1, 2));
+    }
 
     @PostMapping
     public Person insert(Person person, @RequestParam(required = false, defaultValue = "false") boolean ignore) {
-        int save = personMapper.insert(ignore, person);
+        int save = personService.insert(ignore, person);
         logger.info("save={}", save);
         return person;
     }
 
+
     @PostMapping("/save")
     public Person save(Person person) {
-        int save = personMapper.save(person);
+        int save = personService.save(person);
         logger.info("save={}", save);
         return person;
     }

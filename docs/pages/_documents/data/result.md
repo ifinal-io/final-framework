@@ -37,7 +37,7 @@ version: 1.0
 | timeZone |  Timezone   |  Y   |  时区  |  |
 | operator |  IUser   |  N   |  操作人  |  |
 | view |  Class  |  N  |  视图  | 结果视图 |
-| `success` |  Boolean  |  Y   |  业务状态  | 响应时间戳 |
+| `success` |  Boolean  |  Y   |  业务状态  | 是否成功，status == 0 |
 
 
 ### Page
@@ -58,32 +58,57 @@ version: 1.0
 {
     "status": 0,
     "description": "success",
-    "code": 0,
+    "code": "0",
     "message": "success",
-    "toast": null,
     "data": [
         {
-            "name": "11",
-            "age": 12
+            "id": 5,
+            "created": 1584508874000,
+            "createdFormat": "2020-03-18 13:21:14",
+            "yn": 1,
+            "ynName": "YES",
+            "ynDesc": "有效",
+            "ynDescription": "有效",
+            "creator": {
+                "id": 6,
+                "name": "123"
+            },
+            "name": "haha123",
+            "age": 100
         },
         {
-            "name": "31",
-            "age": 21
+            "id": 29,
+            "created": 1587313688000,
+            "createdFormat": "2020-04-20 00:28:08",
+            "yn": 1,
+            "ynName": "YES",
+            "ynDesc": "有效",
+            "ynDescription": "有效",
+            "creator": {
+                "id": 1234
+            },
+            "name": "xiaoming2",
+            "age": 12,
+            "stringList": [
+                "[qwe",
+                "123",
+                "3321]"
+            ]
         }
     ],
     "page": {
         "page": 1,
-        "size": 20,
+        "size": 2,
         "pages": 1,
         "total": 2,
         "firstPage": true,
         "lastPage": true
     },
-    "trace": "fb540274-6808-4b54-8e57-f4db258a67e2",
-    "timestamp": 1575861197838,
-    "duration": 3772,
-    "view": "org.finalframework.test.entity.Person",
-    "exception": null,
+    "trace": "946b3418-0f2d-4876-bd36-6cdf1dc88951",
+    "timestamp": 1587792197996,
+    "duration": 623,
+    "locale": "zh_CN",
+    "timeZone": "Asia/Shanghai",
     "success": true
 }
 ```

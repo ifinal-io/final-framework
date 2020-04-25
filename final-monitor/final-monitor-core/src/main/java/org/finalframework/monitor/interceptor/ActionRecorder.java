@@ -21,10 +21,10 @@ import org.springframework.context.annotation.Primary;
 @SpringComponent
 public class ActionRecorder implements Recorder<Object> {
 
-    private final List<ActionListener<?>> listeners = new ArrayList<>();
+    private final List<ActionListener> listeners = new ArrayList<>();
 
-    public ActionRecorder(ObjectProvider<List<ActionListener<?>>> handlerProvider) {
-        final List<ActionListener<?>> handlers = handlerProvider.getIfAvailable();
+    public ActionRecorder(ObjectProvider<List<ActionListener>> handlerProvider) {
+        final List<ActionListener> handlers = handlerProvider.getIfAvailable();
         if (Assert.nonEmpty(handlers)) {
             this.listeners.addAll(handlers);
         }
@@ -33,7 +33,7 @@ public class ActionRecorder implements Recorder<Object> {
     @Override
     public void record(Action<?> action) {
         if (Assert.nonEmpty(listeners)) {
-            for (ActionListener<?> listener : listeners) {
+            for (ActionListener listener : listeners) {
                 listener.handle(action);
             }
         }

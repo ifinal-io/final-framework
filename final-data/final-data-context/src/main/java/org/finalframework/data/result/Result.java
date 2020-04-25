@@ -85,6 +85,9 @@ public final class Result<T> implements Responsible, Serializable {
      */
     private IUser<?> operator;
 
+    /**
+     * @see com.fasterxml.jackson.annotation.JsonView
+     */
     private Class<?> view;
 
     private Class<? extends Throwable> exception;
