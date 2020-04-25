@@ -1,5 +1,6 @@
 package org.finalframework.redis.serializer;
 
+import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
  * @date 2019-01-10 14:25:08
  * @since 1.0
  */
+@SpringComponent
 public class Object2StringRedisSerializer implements RedisSerializer<Object> {
     public static final Object2StringRedisSerializer UTF_8 = new Object2StringRedisSerializer(StandardCharsets.UTF_8);
     private final Charset charset;

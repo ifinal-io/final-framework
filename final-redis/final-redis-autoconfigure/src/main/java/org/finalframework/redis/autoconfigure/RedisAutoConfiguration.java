@@ -50,16 +50,6 @@ public class RedisAutoConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public Object2StringRedisSerializer object2StringRedisSerializer() {
-        return Object2StringRedisSerializer.UTF_8;
-    }
-
-    @Bean
-    public Object2JsonRedisSerializer object2JsonRedisSerializer() {
-        return Object2JsonRedisSerializer.UTF_8;
-    }
-
-    @Bean
     public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new FinalJacksonModule(objectMapper));
