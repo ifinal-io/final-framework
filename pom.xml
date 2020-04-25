@@ -16,6 +16,7 @@
         <module>final-spring</module>
         <module>final-mybatis</module>
         <module>final-monitor</module>
+        <module>final-retrofit</module>
         <module>final-coding</module>
         <module>final-ui</module>
         <module>final-boot</module>
@@ -41,6 +42,8 @@
         <mybatis.version>3.5.4</mybatis.version>
         <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
         <sharding.version>4.0.0</sharding.version>
+        <retrofit.version>2.8.1</retrofit.version>
+        <okhttp.version>3.14.7</okhttp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -97,11 +100,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-auth</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-util</artifactId>
-                <groupId>org.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
 
@@ -352,6 +350,11 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-retrofit-spring-boot-starter</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
                 <artifactId>final-cache-spring-boot-starter</artifactId>
                 <version>${final.version}</version>
             </dependency>
@@ -410,6 +413,18 @@
                 <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-transaction-core</artifactId>
                 <version>${sharding.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
 
         </dependencies>

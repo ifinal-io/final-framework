@@ -21,6 +21,7 @@
         <module>final-monitor-spring-boot-starter</module>
         <module>final-redis-spring-boot-starter</module>
         <module>final-cache-spring-boot-starter</module>
+        <module>final-retrofit-spring-boot-starter</module>
     </modules>
 
 </project>

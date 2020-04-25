@@ -3,34 +3,29 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-test</artifactId>
-        <groupId>org.finalframework.test</groupId>
+        <artifactId>final-retrofit</artifactId>
+        <groupId>org.finalframework.retrofit</groupId>
         <version>0.5.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-test-service</artifactId>
+    <artifactId>final-retrofit-autoconfigure</artifactId>
+
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework.test</groupId>
-            <artifactId>final-test-dao</artifactId>
-            <version>${final.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework.boot</groupId>
-            <artifactId>final-cache-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework.boot</groupId>
-            <artifactId>final-monitor-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.retrofit</groupId>
             <artifactId>final-retrofit-core</artifactId>
             <version>0.5.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework.spring</groupId>
+            <artifactId>final-spring-annotation</artifactId>
+        </dependency>
     </dependencies>
-
 
 </project>

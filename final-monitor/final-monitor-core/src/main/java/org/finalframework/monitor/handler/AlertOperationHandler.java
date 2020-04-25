@@ -23,10 +23,10 @@ import java.util.Map;
  * @since 1.0
  */
 @SpringComponent
-public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter<T>, AlertOperation> {
+public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter, AlertOperation> {
 
     @Override
-    public Object before(Alerter<T> executor, OperationContext<AlertOperation> context) {
+    public Object before(Alerter executor, OperationContext<AlertOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
             alert(executor, context, null, null);
         }
@@ -34,27 +34,27 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
     }
 
     @Override
-    public void afterReturning(Alerter<T> executor, OperationContext<AlertOperation> context, Object result) {
+    public void afterReturning(Alerter executor, OperationContext<AlertOperation> context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             alert(executor, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Alerter<T> executor, OperationContext<AlertOperation> context, Throwable throwable) {
+    public void afterThrowing(Alerter executor, OperationContext<AlertOperation> context, Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.operation().point()) {
             alert(executor, context, null, throwable);
         }
     }
 
     @Override
-    public void after(Alerter<T> executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
+    public void after(Alerter executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.operation().point()) {
             alert(executor, context, result, throwable);
         }
     }
 
-    private void alert(Alerter<T> executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
+    private void alert(Alerter executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
         final AlertOperation operation = context.operation();
         final OperationMetadata<AlertOperation> metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.inteceptor;
+package org.finalframework.mybatis.interceptor;
 
 import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.cache.CacheKey;
@@ -10,7 +10,6 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.query.Pageable;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.finalframework.spring.annotation.factory.SpringComponent;

@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.inteceptor;
+package org.finalframework.mybatis.interceptor;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -15,7 +15,6 @@ import org.finalframework.data.query.Pageable;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**

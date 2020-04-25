@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.inteceptor;
+package org.finalframework.mybatis.interceptor;
 
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;

@@ -20,7 +20,6 @@ final:
         generator: org.finalframework.core.generator.UUIDTraceGenerator
         exclude-path-patterns:
         path-patterns:
-
   sharding:
     datasource:
       ds0:
@@ -52,6 +51,13 @@ final:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   exception:
     global-exception-handler: org.finalframework.data.exception.result.ResultGlobalResultExceptionHandler
+  retrofit:
+    base-url: http://localhost:8080
+    ok-http:
+      connect-timeout: 5000
+      read-timeout: 2000
+      write-time: 2000
+
 logging:
   level:
     org.springframework: warn

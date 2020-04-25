@@ -1,4 +1,4 @@
-package org.finalframework.mybatis.inteceptor;
+package org.finalframework.mybatis.interceptor;
 
 
 import com.github.pagehelper.PageInterceptor;
