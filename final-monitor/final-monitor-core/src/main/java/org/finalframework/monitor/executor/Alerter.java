@@ -9,6 +9,6 @@ import org.finalframework.spring.aop.Executor;
  * @date 2019-07-10 18:17
  * @since 1.0
  */
-public interface Alerter<T> extends Executor {
-    void alert(AlertContext<T> context);
+public interface Alerter extends Executor {
+    void alert(AlertContext<?> context);
 }

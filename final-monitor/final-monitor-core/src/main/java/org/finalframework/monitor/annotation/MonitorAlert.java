@@ -42,7 +42,7 @@ public @interface MonitorAlert {
     @AliasFor("condition")
     String when() default "";
 
-    CutPoint point() default CutPoint.AFTER_RETURNING;
+    CutPoint point() default CutPoint.AFTER_THROWING;
 
     Class<? extends OperationHandler> handler() default OperationHandler.class;
 
