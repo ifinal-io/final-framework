@@ -27,7 +27,6 @@ import java.util.List;
 
 public class RetrofitAutoConfiguredScannerRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
     private static final Logger logger = LoggerFactory.getLogger(RetrofitAutoConfiguredScannerRegistrar.class);
-    private retrofit2.Retrofit retrofit;
     private BeanFactory beanFactory;
     private ResourceLoader resourceLoader;
 
@@ -45,7 +44,6 @@ public class RetrofitAutoConfiguredScannerRegistrar implements BeanFactoryAware,
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         logger.debug("Searching for retrofits annotated with @Retrofit");
         final ClassPathRetrofitScanner scanner = new ClassPathRetrofitScanner(registry);
-        scanner.setRetrofitBeanName("retrofit");
 
         try {
             if (this.resourceLoader != null) {
@@ -58,7 +56,6 @@ public class RetrofitAutoConfiguredScannerRegistrar implements BeanFactoryAware,
                     logger.debug("Using auto-configuration base package '{}'", pkg);
                 }
             }
-            scanner.setRetrofit(retrofit);
             scanner.setAnnotationClass(Retrofit.class);
             scanner.doScan(StringUtils.toStringArray(packages));
         } catch (IllegalStateException ex) {

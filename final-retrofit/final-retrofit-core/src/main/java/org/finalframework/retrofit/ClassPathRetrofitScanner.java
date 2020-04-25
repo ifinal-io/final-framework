@@ -2,6 +2,7 @@ package org.finalframework.retrofit;
 
 
 import lombok.Setter;
+import org.finalframework.retrofit.annotation.Retrofit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
@@ -17,7 +18,6 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.StringUtils;
-import retrofit2.Retrofit;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -32,10 +32,9 @@ import java.util.Set;
  */
 public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     private static final Logger logger = LoggerFactory.getLogger(ClassPathRetrofitScanner.class);
-    @Setter
-    private Retrofit retrofit;
-    @Setter
-    private String retrofitBeanName;
+
+    private static final String DEFAULT_RETROFIT_BEAN_NAME = "retrofit";
+
     @Setter
     private Class<? extends Annotation> annotationClass;
     @Setter
@@ -53,7 +52,7 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 
         if (beanDefinitions.isEmpty()) {
-            logger.warn("No MyBatis mapper was found in '" + Arrays.toString(basePackages) + "' package. Please check your configuration.");
+            logger.warn("No Retrofit service was found in '" + Arrays.toString(basePackages) + "' package. Please check your configuration.");
         } else {
             processBeanDefinitions(beanDefinitions);
         }
@@ -64,38 +63,38 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
         GenericBeanDefinition definition;
         for (BeanDefinitionHolder holder : beanDefinitions) {
-            definition = (GenericBeanDefinition) holder.getBeanDefinition();
 
-            if (logger.isDebugEnabled()) {
-                logger.debug("Creating MapperFactoryBean with name '" + holder.getBeanName()
-                        + "' and '" + definition.getBeanClassName() + "' mapperInterface");
-            }
+            try {
+                definition = (GenericBeanDefinition) holder.getBeanDefinition();
 
-            // the mapper interface is the original class of the bean
-            // but, the actual class of the bean is MapperFactoryBean
-            definition.getConstructorArgumentValues().addGenericArgumentValue(definition.getBeanClassName()); // issue #59
-            definition.setBeanClass(this.retrofitFactoryBean.getClass());
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Creating RetrofitFactoryBean with name '" + holder.getBeanName()
+                            + "' and '" + definition.getBeanClassName() + "' retrofitInterface");
+                }
 
-            logger.debug("register retrofit: {}", definition.getBeanClassName());
+                final Class<?> retrofitService = Class.forName(definition.getBeanClassName());
+                final Retrofit retrofit = retrofitService.getAnnotation(Retrofit.class);
+                final String retrofitBeanName = StringUtils.hasText(retrofit.value()) ? retrofit.value() : DEFAULT_RETROFIT_BEAN_NAME;
 
-            boolean explicitFactoryUsed = false;
-            if (StringUtils.hasText(this.retrofitBeanName)) {
-                definition.getPropertyValues().add("retrofit", new RuntimeBeanReference(this.retrofitBeanName));
-                explicitFactoryUsed = true;
-            } else if (this.retrofit != null) {
-                definition.getPropertyValues().add("retrofit", this.retrofit);
-                explicitFactoryUsed = true;
-            }
+                // the mapper interface is the original class of the bean
+                // but, the actual class of the bean is MapperFactoryBean
+                definition.getConstructorArgumentValues().addGenericArgumentValue(definition.getBeanClassName()); // issue #59
+                definition.setBeanClass(this.retrofitFactoryBean.getClass());
 
-            if (!explicitFactoryUsed) {
+                logger.debug("register retrofit: {}", definition.getBeanClassName());
+
+                definition.getPropertyValues().add("retrofit", new RuntimeBeanReference(retrofitBeanName));
+
                 if (logger.isDebugEnabled()) {
                     logger.debug("Enabling autowire by type for RetrofitFactoryBean with name '" + holder.getBeanName() + "'.");
                 }
                 definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
+            } catch (Exception e) {
+
             }
 
-
         }
+
     }
 
     @Override
@@ -125,21 +124,13 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
 
         if (acceptAllInterfaces) {
             // default include filter that accepts all classes
-            addIncludeFilter(new TypeFilter() {
-                @Override
-                public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
-                    return true;
-                }
-            });
+            addIncludeFilter((metadataReader, metadataReaderFactory) -> true);
         }
 
         // exclude package-info.java
-        addExcludeFilter(new TypeFilter() {
-            @Override
-            public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
-                String className = metadataReader.getClassMetadata().getClassName();
-                return className.endsWith("package-info");
-            }
+        addExcludeFilter((metadataReader, metadataReaderFactory) -> {
+            String className = metadataReader.getClassMetadata().getClassName();
+            return className.endsWith("package-info");
         });
     }
 
