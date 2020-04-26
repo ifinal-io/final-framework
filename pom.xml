@@ -5,8 +5,8 @@
 
     <groupId>org.finalframework</groupId>
     <artifactId>final-framework-parent</artifactId>
-    <version>0.5.2-SNAPSHOT</version>
-    <!--<version>0.5.2-SNAPSHOT</version>-->
+    <version>0.5.3-SNAPSHOT</version>
+    <!--<version>0.5.3-SNAPSHOT</version>-->
     <modules>
         <module>final-framework</module>
         <module>final-data</module>
@@ -35,7 +35,7 @@
     </parent>
 
     <properties>
-        <final.version>0.5.2-SNAPSHOT</final.version>
+        <final.version>0.5.3-SNAPSHOT</final.version>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
@@ -56,7 +56,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <final.version>0.5.2-SNAPSHOT.RELEASE</final.version>
+                <final.version>0.5.3-SNAPSHOT.RELEASE</final.version>
             </properties>
         </profile>
     </profiles>
