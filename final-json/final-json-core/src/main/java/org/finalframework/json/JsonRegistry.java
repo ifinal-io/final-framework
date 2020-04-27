@@ -11,7 +11,8 @@ import org.finalframework.core.Assert;
  * @date 2018-09-26 21:27
  * @since 1.0
  */
-public final class JsonRegistry {
+public class JsonRegistry {
+
     private static final JsonRegistry instance = new JsonRegistry();
     private static final String DEFAULT_JSON_SERVICE = "org.finalframework.json.jackson.JacksonJsonService";
     private JsonService jsonService;

@@ -1,12 +1,11 @@
 package org.finalframework.monitor.builder;
 
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import org.finalframework.monitor.annotation.MonitorTrace;
 import org.finalframework.monitor.operation.TraceOperation;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
-
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -15,6 +14,7 @@ import java.lang.reflect.Method;
  * @since 1.0
  */
 @SpringComponent
+@SuppressWarnings("unused")
 public class TraceOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorTrace, TraceOperation> {
 
     @Override

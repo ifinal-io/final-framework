@@ -1,14 +1,13 @@
 package org.finalframework.monitor.builder;
 
 
+import java.lang.reflect.Method;
 import org.finalframework.core.Assert;
 import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.operation.ActionOperation;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
-
-import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -17,6 +16,7 @@ import java.lang.reflect.Method;
  * @since 1.0
  */
 @SpringComponent
+@SuppressWarnings("unused")
 public class ActionOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAction, ActionOperation> {
     @Override
     public ActionOperation build(Method method, MonitorAction ann) {
