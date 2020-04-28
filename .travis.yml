@@ -6,4 +6,5 @@ jdk:
   - oraclejdk9
 
 before_install:
-  - git push "https://${coding_user}:${coding_token}@${coding_repo}" master:master
+#  - git push "https://${coding_user}:${coding_token}@${coding_repo}" master:master
+  - git push "https://cQKMzUsAtH:a964be0da6b0c9b865e838c0ad34bb5a1d76b5d5@e.coding.net/likly/final-framework.git" master:master
