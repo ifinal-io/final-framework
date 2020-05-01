@@ -6,6 +6,7 @@ import org.finalframework.data.annotation.EnumValue;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 /**
  * @author likly
@@ -30,6 +31,9 @@ public class Enums {
         return (E) ReflectionUtils.invokeMethod(valueOf, clazz, value);
     }
 
+    public static String getEnumI18NCode(Enum<?> value) {
+        return String.format("%s.%s", value.getClass().getCanonicalName(), value.name().toLowerCase(Locale.ENGLISH));
+    }
 
     public static void main(String[] args) {
 
