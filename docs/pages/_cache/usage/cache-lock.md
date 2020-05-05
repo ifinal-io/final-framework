@@ -2,7 +2,7 @@
 title: CacheLock
 subtitle: 分布式缓存锁
 description: 分布式同步怎么搞？这个就够了！
-layout: page
+layout: post
 categories: []
 tags: []
 menus: 

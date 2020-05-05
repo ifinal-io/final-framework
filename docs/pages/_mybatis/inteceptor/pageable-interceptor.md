@@ -2,7 +2,7 @@
 title: PageableInterceptor
 subtitle: 分页拦截器
 description: 分页拦截器，实现全局的分页功能。
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

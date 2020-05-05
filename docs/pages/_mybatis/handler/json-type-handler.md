@@ -2,7 +2,7 @@
 title: JsonTypeHandler
 subtitle: json-type-handler
 description: json-type-handler
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

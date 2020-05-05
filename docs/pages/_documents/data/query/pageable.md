@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Pageable
 subtitle: 统一的分页处理
 categories: [data,query]

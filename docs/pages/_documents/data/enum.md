@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Enum
 subtitle: 优雅的使用枚举
 categories: [data]

@@ -2,7 +2,7 @@
 post: post
 title: EnumTypeHandler
 subtitle: 枚举类型处理器
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

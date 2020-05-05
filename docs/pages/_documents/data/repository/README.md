@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Repository
 subtitle: 简单实用的CRUD
 categories: [data]

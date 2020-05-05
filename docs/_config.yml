@@ -58,6 +58,8 @@ collections_dir: pages
 collections:
   documents:
     output: true
+  resume:
+    output: true
   framework:
     output: true
   monitor:

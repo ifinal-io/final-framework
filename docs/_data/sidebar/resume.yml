@@ -1,0 +1,16 @@
+default:
+  logo: /assets/img/modules/mayi.png
+  name: Final Framework
+menus:
+  - id: index
+    name: Profife
+    icon: dashboard
+    link: /resume
+  - id: work-experiences
+    name: 工作经验
+    icon: wokr
+    link: /resume/work-experiences
+  - id: project-experiences
+    name: 项目经验
+    icon: project
+    link: /resume/project-experiences

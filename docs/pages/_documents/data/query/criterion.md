@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Criterion
 subtitle: 丰富的查询准则
 categories: [data,query]

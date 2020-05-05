@@ -3,7 +3,7 @@ title: Json
 subtitle: 数据传输的载体
 categories: [json]
 tags: [json]
-layout: page
+layout: post
 permalink: /json/
 menus:
     - index

@@ -8,7 +8,7 @@ tags: []
 permalink: /mybatis/
 menus:
     - index
-layout: page
+layout: post
 author: likly
 date: 2019-03-16 18:36:54 +800
 version: 1.0

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Math
 subtitle: 常用的数据函数
 categories: [data,query,function]

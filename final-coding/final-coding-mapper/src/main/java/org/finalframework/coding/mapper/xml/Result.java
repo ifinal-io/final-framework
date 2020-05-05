@@ -13,6 +13,7 @@ import java.util.Optional;
  * @date 2019-10-10 19:10:44
  * @since 1.0
  */
+
 public class Result implements Element {
 
     private final String property;

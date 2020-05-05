@@ -17,6 +17,8 @@
             sidebar: {{ site.data.sidebar.monitor | jsonify }}
             {% elsif module == 'documents' %}
             sidebar: {{ site.data.sidebar.documents | jsonify }}
+            {% elsif module == 'resume' %}
+            sidebar: {{ site.data.sidebar.resume | jsonify }}
             {% elsif module == 'spring' %}
             sidebar: {{ site.data.sidebar.spring | jsonify }}
             {% elsif module == 'mybatis' %}

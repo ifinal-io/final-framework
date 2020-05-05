@@ -3,7 +3,7 @@ post: post
 title: DateConverter
 subtitle: 日期转换器
 description: 接口调试日期格式难？常见的日期格式随心传，不出意外，我都认识！
-layout: page
+layout: post
 menus:
     - context
     - converter

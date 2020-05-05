@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Order
 subtitle: order
 categories: []

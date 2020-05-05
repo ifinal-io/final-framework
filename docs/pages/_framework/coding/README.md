@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: README.md
 subtitle: README.md
 permalink: /framework/coding/index.html

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: SpringApplicationListener
 subtitle: Spring Factory Application Listener 扩展
 description: 自动生成`spring.factories`文件，提高开发效率

@@ -2,7 +2,7 @@
 post: post
 title: JsonExceptionHandler
 subtitle: Json异常处理器
-layout: page
+layout: post
 categories: [spring]
 tags: [web,exception]
 menus:

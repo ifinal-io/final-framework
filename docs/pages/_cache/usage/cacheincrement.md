@@ -2,7 +2,7 @@
 post: post
 title: CacheIncrement
 subtitle: 缓存统计
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Json
 subtitle: Json 函数支持
 categories: [data,query,function]

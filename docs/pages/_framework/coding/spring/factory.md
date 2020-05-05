@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: SpringFactory
 subtitle: Spring SPI 机制
 categories: [coding]

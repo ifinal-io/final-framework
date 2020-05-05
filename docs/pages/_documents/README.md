@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Final
 subtitle: 以简化开发为目标
 categories: []

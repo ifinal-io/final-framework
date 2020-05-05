@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: object-provider
 subtitle: object-provider
 categories: [spring]

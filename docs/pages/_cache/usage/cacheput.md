@@ -2,7 +2,7 @@
 post: post
 title: CachePut
 subtitle: 缓存设置
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

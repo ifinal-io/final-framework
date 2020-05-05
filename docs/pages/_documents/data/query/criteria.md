@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Criteria
 subtitle: 简单易用的组合
 categories: [data,query]

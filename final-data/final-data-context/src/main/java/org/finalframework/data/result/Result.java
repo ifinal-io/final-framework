@@ -1,14 +1,16 @@
 package org.finalframework.data.result;
 
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.TimeZone;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.finalframework.data.annotation.IUser;
 import org.finalframework.data.entity.PageInfo;
 import org.finalframework.data.response.ResponseStatus;
 import org.finalframework.data.response.Responsible;
 import org.finalframework.data.user.UserContextHolder;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * 业务数据返回结果封装，统一业务返回的数据结构。
@@ -19,6 +21,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @see Page
  * @since 1.0
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Result<T> implements Responsible, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;

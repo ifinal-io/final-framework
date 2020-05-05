@@ -2,7 +2,7 @@
 post: post
 title: HandlerInterceptor
 subtitle: 处理器拦截器
-layout: page
+layout: post
 categories: [spring]
 tags: [web,handler-interceptor]
 permalink: /spring/web/handler-interceptor/

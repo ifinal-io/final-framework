@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Create
 subtitle: 简单的Create
 categories: [data,repository]

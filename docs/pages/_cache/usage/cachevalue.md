@@ -1,7 +1,7 @@
 ---
 title: CacheValue
 subtitle: 把缓存中的值注入到参数中
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: README
 subtitle: README
 categories: []

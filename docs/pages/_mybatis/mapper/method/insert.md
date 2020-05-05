@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Insert
 subtitle: 满足你的日常插入操作
 description: 简单的数据Insert操作，支持分表、批量插入

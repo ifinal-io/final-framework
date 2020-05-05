@@ -2,7 +2,6 @@
 <html lang="zh">
 
 {% include head.html %}
-
 <body data-offset="100" data-spy="scroll" data-target="#toc">
 <!-- Extra details for Live View on GitHub Pages -->
 <div class="wrapper ">
@@ -13,52 +12,7 @@
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
-
-            <div class="card" style="margin-top: 80px">
-                    <div class="card-header card-header-success " style="margin-top: -80px">
-                        <div class="row">
-                            <div class="col-lg-8 col-sm-12 offset-lg-2 offset-sm-0">
-                                {% assign title = page.title %}
-                                {% if page.subtitle %}
-                                {% assign title = page.title | append: '——' | append: page.subtitle %}
-                                {% endif %}
-                                <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}">
-                                    <h1 class="card-title post-title">{{ title | markdownify }}</h1>
-                                </a>
-                                <div class="category">
-                                    {{ page.description | markdownify }}
-
-                                </div>
-                                <div>
-                                    {% for tag in page.tags %}
-                                    <span class="badge badge-primary">{{tag}}</span>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="container-fluid content markdown">
-                            <div class="row flex-md-nowrap">
-                                <div class="d-none d-lg-block col-lg-2 sticky-top">
-                                </div>
-                                <main class="col-lg-8 col-sm-12 offset-sm-0" role="main">
-                                    <article class="post-content">
-                                        {{ content }}
-                                    </article>
-                                </main>
-
-                                <div class="d-none d-lg-block col-lg-2 sticky-top flex-order-2">
-                                    <div class="toc" id="toc">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+                {{ content }}
             </div>
         </div>
         {% include footer.html %}

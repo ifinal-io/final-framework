@@ -2,7 +2,7 @@
 title: ActionContext
 subtitle: Action 上下文
 description: 记录一次Action的操作内容。
-layout: page
+layout: post
 categories: []
 tags: []
 menus:

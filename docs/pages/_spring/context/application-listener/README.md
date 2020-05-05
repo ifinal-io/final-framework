@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: ApplicationListener
 subtitle: Spring Observer Design Pattern
 description: fd

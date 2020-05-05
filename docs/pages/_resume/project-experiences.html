@@ -1,0 +1,58 @@
+---
+layout: page
+title: Work Experience
+subtitle: 工作经验
+categories: []
+tags: []
+menus:
+- project-experiences
+author: likly
+date: 2020-05-01 21:30:09 +800
+version: 1.0
+---
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-timeline card-plain">
+            <div class="card-body">
+                <ul class="timeline">
+                    {% for item in site.data.resume.project-experiences %}
+                    {% assign loopindex = forloop.index | modulo: 2 %}
+                    {% if loopindex == 1 %}
+                    <li class="timeline-inverted">
+                        {% else %}
+                    <li>
+                        {% endif %}
+                        <div class="timeline-badge {{item.color}}">
+                            <i class="material-icons">{{ item.icon }}</i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-title">
+                                <h3>{{ item.title }}</h3>
+
+                            </div>
+                            <div class="timeline-heading">
+
+                                <span class="badge badge-pill badge-{{item.color}}">version:{{ item.version }}</span>
+                                <span class="badge badge-pill badge-{{item.color}}">{{ item.timeline }}</span>
+                                {% for post in item.posts %}
+                                <span class="badge badge-pill badge-{{item.color}}">{{ post }}</span>
+                                {% endfor %}
+                                <blockquote class="blockquote">
+                                    {{ item.description }}
+                                </blockquote>
+                            </div>
+                            <div class="timeline-body">
+                                <p></p>
+                            </div>
+                            <h6>
+                                <i class="ti-time"></i> 11 hours ago via Twitter
+                            </h6>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

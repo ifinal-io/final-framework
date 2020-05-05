@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Retrieve
 subtitle: 丰富的Query方法
 categories: [data,repository]

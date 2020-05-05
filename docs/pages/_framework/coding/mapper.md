@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Mapper
 subtitle: 编译时生成Mapper及mapper.xml
 categories: []

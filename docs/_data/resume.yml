@@ -1,0 +1,36 @@
+# 工作经验
+work-experiences:
+  - icon: keyboard
+    color: danger
+    company:
+      name: 多点生活（成都）科技有限公司
+      address: 中国（四川）成都高新区天府大道中段666号2栋8楼801号
+      phone: 028-65787089
+    timeline: 2018.3~至今
+    posts: [研发工程师]
+  - icon: computer
+    color: info
+    company:
+      name: 成都品胜软件科技有限公司
+    timeline: 2016.2~2018.3
+    posts: [Android工程师,Java工程师]
+  - icon: android
+    color: success
+    company:
+      name: 成都威威赛网络科技有限公司
+    timeline: 2015.7~2016.2
+    posts: [Android工程师]
+# 项目经验
+project-experiences:
+  - icon: local_offer
+    color: primary
+    title: 门店价格标签系统
+    description: >-
+      价格标签系统是门店作业的重要系统之一，系统结合了商品系统、促销系统、陈列系统及订单系统，为门店价签作业提供了一套完整的服务，
+      为电子价签、纸质价签和电子称提供数据服务。
+    version: 2.0
+    timeline: 2018年~至今
+  - icon: keyboard
+    color: primary
+    title: 离线推送服务平台
+    version: 1.5

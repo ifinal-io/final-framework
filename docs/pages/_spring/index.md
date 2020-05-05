@@ -3,7 +3,7 @@ post: post
 title: index
 subtitle: index
 categories: []
-layout: page
+layout: post
 menus:
     - index
 tags: []
