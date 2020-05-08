@@ -8,6 +8,8 @@ package org.finalframework.core;
  */
 public interface Traceable {
 
+    void setTrace(String trace);
+
     String getTrace();
 
 }

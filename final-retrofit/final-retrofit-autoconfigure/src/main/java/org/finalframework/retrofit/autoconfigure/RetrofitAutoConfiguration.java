@@ -7,7 +7,6 @@ import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +29,6 @@ import java.util.List;
 @Configuration
 @SpringConfiguration
 @ConditionalOnMissingBean(Retrofit.class)
-@ConditionalOnClass(Retrofit.class)
 @EnableConfigurationProperties(RetrofitProperties.class)
 public class RetrofitAutoConfiguration implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(RetrofitAutoConfiguration.class);
