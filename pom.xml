@@ -407,20 +407,6 @@
                 <version>${spring.boot.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/io.shardingsphere/sharding-jdbc-core -->
-            <dependency>
-                <groupId>io.shardingsphere</groupId>
-                <artifactId>sharding-jdbc-core</artifactId>
-                <version>${sharding.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/io.shardingsphere/sharding-transaction-core -->
-            <dependency>
-                <groupId>io.shardingsphere</groupId>
-                <artifactId>sharding-transaction-core</artifactId>
-                <version>${sharding.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>retrofit</artifactId>
