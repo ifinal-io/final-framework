@@ -12,6 +12,7 @@ author: likly
 date: 2020-05-08 18:32:32 +800
 version: 1.0
 ---
+
 # EnumConverter
 [EnumConverter](/final-data/final-data-context/src/main/java/org/finalframework/data/converter/EnumConverter.java)
 定义了`Json`序列化时`Enum`的转换接口，开发者可以根据业务需求自定义转换规则。
