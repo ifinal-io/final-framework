@@ -58,7 +58,6 @@ public interface IEnum<T> {
 ```
 
 ## YN
-
 [YN](/final-data/final-data-annotation/src/main/java/org/finalframework/data/entity/enums/YN.java)表示`YES`和`NO`,
 用于标记数据的有效性，其实现了`IEnum`接口。
 

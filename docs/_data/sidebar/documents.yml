@@ -18,6 +18,14 @@ menus:
         link: /documents/data/result
         mini: RST
         name: Result
+      - id: converter
+        mini: CVT
+        name: Converter
+        menus:
+          - id: enum-converter
+            name: EnumConverter
+            link: /documents/data/converter/enum-converter
+            mini: EC
       - id: repository
         mini: CURD
         name: Repository

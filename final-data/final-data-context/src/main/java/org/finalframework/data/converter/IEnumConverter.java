@@ -4,6 +4,8 @@ import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.util.Enums;
 import org.finalframework.data.util.Messages;
 import org.finalframework.spring.annotation.factory.SpringComponent;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.Map;
  * @date 2020-05-08 14:34:47
  * @since 1.0
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @EnumTarget(Enum.class)
 @SpringComponent
 public class IEnumConverter<T extends Enum<T>> implements EnumConverter<T> {
