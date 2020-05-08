@@ -7,6 +7,7 @@ import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.Reference;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.Entity;
@@ -14,6 +15,8 @@ import org.finalframework.data.mapping.Property;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
 import org.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.util.*;
@@ -27,6 +30,8 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class ResultMapFactory {
+
+    private static final Logger logger = LoggerFactory.getLogger(ResultMapFactory.class);
 
     private static final Map<Class<?>, ResultMap> resultMaps = new ConcurrentHashMap<>();
 
@@ -121,7 +126,17 @@ public class ResultMapFactory {
 
 
     private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
-        if (property.isCollectionLike() || property.isMap()) {
+
+        if (property.hasAnnotation(org.finalframework.data.annotation.TypeHandler.class)) {
+            try {
+                return property.getRequiredAnnotation(org.finalframework.data.annotation.TypeHandler.class).value().newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        if (property.hasAnnotation(Json.class) || property.isCollectionLike() || property.isMap()) {
             return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
         }
         if (property.isEnum()) {
