@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.autoconfigure;
+package org.finalframework.spring.web.autoconfiguration;
 
 
 import lombok.Data;

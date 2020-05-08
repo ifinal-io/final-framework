@@ -1,4 +1,4 @@
-package org.finalframework.spring.web.autoconfigure;
+package org.finalframework.spring.web.autoconfiguration;
 
 import org.finalframework.spring.annotation.factory.SpringConfiguration;
 import org.springframework.beans.BeansException;

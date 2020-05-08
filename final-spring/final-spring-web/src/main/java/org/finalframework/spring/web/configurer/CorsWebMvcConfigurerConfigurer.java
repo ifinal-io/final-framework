@@ -1,7 +1,7 @@
 package org.finalframework.spring.web.configurer;
 
 import org.finalframework.spring.annotation.factory.SpringWebMvcConfigurer;
-import org.finalframework.spring.web.autoconfigure.CorsProperties;
+import org.finalframework.spring.web.autoconfiguration.CorsProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
