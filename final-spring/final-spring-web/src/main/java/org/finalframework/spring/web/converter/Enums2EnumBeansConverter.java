@@ -26,6 +26,8 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
 
     @Override
     public boolean matches(Object enums) {
+
+
         if (Assert.isNull(enums)) return false;
 
         if (enums.getClass().isArray()) {
@@ -43,6 +45,10 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
             return ((Set<?>) enums).toArray()[0] instanceof IEnum;
         }
 
+        if (enums instanceof Class && IEnum.class.isAssignableFrom((Class<?>) enums)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -56,6 +62,11 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
         } else if (body.getClass().isArray()) {
             IEnum<?>[] enums = (IEnum<?>[]) body;
             return Arrays.stream(enums).map(this::buildEnumBean).collect(Collectors.toList());
+        } else if (body instanceof Class && IEnum.class.isAssignableFrom((Class<?>) body)) {
+            final Class<Enum> enumClass = (Class<Enum>) body;
+            return Arrays.stream(enumClass.getEnumConstants())
+                    .map(ienum -> this.buildEnumBean((IEnum<?>) ienum))
+                    .collect(Collectors.toList());
         }
 
         throw new IllegalArgumentException("不支持的数据类型：" + body.getClass());

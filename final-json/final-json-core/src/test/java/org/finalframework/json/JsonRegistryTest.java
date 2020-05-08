@@ -3,6 +3,7 @@ package org.finalframework.json;
 import static org.mockito.Mockito.when;
 
 import junit.framework.TestCase;
+import org.finalframework.data.entity.enums.YN;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,7 @@ public class JsonRegistryTest extends TestCase {
         when(jsonRegistry.getJsonService()).thenReturn(new JacksonJsonService());
         //then
         JsonService jsonService = jsonRegistry.getJsonService();
+        System.out.println(Json.toJson(YN.class));
         System.out.printf("");
 //        assertEquals();
     }

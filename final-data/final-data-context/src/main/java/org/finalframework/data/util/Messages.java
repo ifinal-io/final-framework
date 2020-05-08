@@ -30,7 +30,7 @@ public class Messages {
 
     public static String getMessage(String code, String defaultMessage, Object... args) {
         if (messageSource == null) {
-            return MessageFormatter.arrayFormat(code, args).getMessage();
+            return defaultMessage != null ? defaultMessage : MessageFormatter.arrayFormat(code, args).getMessage();
         }
         try {
             return messageSource.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());

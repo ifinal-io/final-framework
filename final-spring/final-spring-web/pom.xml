@@ -59,5 +59,6 @@
             <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
         </dependency>
+
     </dependencies>
 </project>

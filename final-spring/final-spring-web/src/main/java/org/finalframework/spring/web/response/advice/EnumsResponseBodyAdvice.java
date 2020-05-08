@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @see Enums2EnumBeansConverter
  * @since 1.0
  */
-@SpringResponseBodyAdvice
-@Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
-@RestControllerAdvice
+//@SpringResponseBodyAdvice
+//@Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
+//@RestControllerAdvice
 public class EnumsResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Enums2EnumBeansConverter enums2EnumBeansConverter = new Enums2EnumBeansConverter();
