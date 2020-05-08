@@ -29,7 +29,7 @@ version: 1.0
 
 ### Enum
 
-1. 对于实现了[IEnum](pages/_documents/data/enum.md)的`Enum`，在`Json`序列化的时候，会增加扩展属性`name`和`desc`来增强对`code`的描述，极大的减少沟通的成本。
+1. 对于实现了[IEnum](data/enum.md)的`Enum`，在`Json`序列化的时候，会增加扩展属性`name`和`desc`来增强对`code`的描述，极大的减少沟通的成本。
 2. 在序列化枚举`Class`时，序列化为枚举常量集的对象描述，更多请查看[EnumConverter](data/converter/enum-converter.md)
     ```json
     [
