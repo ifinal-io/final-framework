@@ -1,5 +1,7 @@
 package org.finalframework.data.query.enums;
 
+import org.finalframework.data.annotation.Transient;
+
 /**
  * 方向
  *
@@ -8,6 +10,7 @@ package org.finalframework.data.query.enums;
  * @date 2018-10-15 21:17
  * @since 1.0
  */
+@Transient
 public enum Direction {
     /**
      * 正序

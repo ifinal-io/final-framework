@@ -1,5 +1,7 @@
 package org.finalframework.data.query.enums;
 
+import org.finalframework.data.annotation.Transient;
+
 /**
  * SQL 元素
  *
@@ -8,6 +10,7 @@ package org.finalframework.data.query.enums;
  * @date 2018-10-12 16:37
  * @since 1.0
  */
+@Transient
 public enum AndOr {
     /**
      * AND

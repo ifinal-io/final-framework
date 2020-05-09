@@ -3,6 +3,7 @@ package org.finalframework.coding.spring.factory;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import org.finalframework.data.annotation.Transient;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -35,6 +36,11 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
     private TypeElement springFactoryListTypeElement;
     private Map<String, ExecutableElement> springFactoryListExecutableElements;
+
+    /**
+     * @see Enum
+     */
+    private TypeElement enumTypeElement;
     /**
      * @see SpringFactory#value()
      */
@@ -48,6 +54,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         this.springFactoriesGenerator = new SpringFactoriesGenerator(processingEnv);
+
+        this.enumTypeElement = processingEnv.getElementUtils().getTypeElement(Enum.class.getCanonicalName());
 
         this.springFactoryTypeElement = processingEnv.getElementUtils().getTypeElement(SpringFactory.class.getCanonicalName());
         this.springFactoryExecutableElements = this.springFactoryTypeElement.getEnclosedElements()
@@ -75,6 +83,9 @@ public class SpringFactoryProcessor extends AbstractProcessor {
             roundEnv.getRootElements()
                     .forEach(element -> {
                         switch (element.getKind()) {
+                            case ENUM:
+                                processEnumTypeElement((TypeElement) element);
+                                break;
                             case CLASS:
                                 processClassTypeElement((TypeElement) element);
                                 break;
@@ -90,6 +101,12 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
 
         return false;
+    }
+
+    private void processEnumTypeElement(TypeElement element) {
+        if (!isTransient(element)) {
+            springFactories.addSpringFactory(enumTypeElement, element);
+        }
     }
 
     private void processClassTypeElement(TypeElement element) {
@@ -132,13 +149,13 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     private void processPackageElement(PackageElement element, RoundEnvironment roundEnv) {
         for (AnnotationMirror annotationMirror : ((Element) element).getAnnotationMirrors()) {
             if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
-                processPackageSpringFactory(annotationMirror, roundEnv);
+                processPackageSpringFactory(element, annotationMirror, roundEnv);
             } else if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.List.class.getCanonicalName())) {
                 // 在包元素上声明了多个 SpringFactory 注解
                 AnnotationValue annotationValue = annotationMirror.getElementValues().get(this.springFactoryListExecutableElements.get("value"));
                 List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
                 for (AnnotationMirror springFactory : springFactories) {
-                    processPackageSpringFactory(springFactory, roundEnv);
+                    processPackageSpringFactory(element, springFactory, roundEnv);
                 }
 
             } else {
@@ -146,14 +163,23 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
                 for (AnnotationMirror mirror : mirrors) {
                     if (mirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
-                        processPackageSpringFactory(mirror, roundEnv);
+                        processPackageSpringFactory(element, mirror, roundEnv);
+                    } else if (mirror.getAnnotationType().toString().equals(SpringFactory.List.class.getCanonicalName())) {
+                        /**
+                         * 在注解元素{@link AnnotationMirror}上声明了多个 {@link SpringFactory}注释
+                         */
+                        AnnotationValue annotationValue = mirror.getElementValues().get(this.springFactoryListExecutableElements.get("value"));
+                        List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
+                        for (AnnotationMirror springFactory : springFactories) {
+                            processPackageSpringFactory(element, springFactory, roundEnv);
+                        }
                     }
                 }
             }
         }
     }
 
-    private void processPackageSpringFactory(AnnotationMirror springFactory, RoundEnvironment roundEnv) {
+    private void processPackageSpringFactory(PackageElement packageElement, AnnotationMirror springFactory, RoundEnvironment roundEnv) {
         // 直接在类上声明的 SpringFactory 注解
         Map<? extends ExecutableElement, ? extends AnnotationValue> springFactoryElementValues = springFactory.getElementValues();
         DeclaredType value = (DeclaredType) springFactoryElementValues.get(springFactoryValue).getValue();
@@ -162,9 +188,14 @@ public class SpringFactoryProcessor extends AbstractProcessor {
             springFactories.addSpringFactory(springFactoryTypeElement, (TypeElement) value.asElement());
         }
         TypeElement annotation = (TypeElement) value.asElement();
-        for (Element item : roundEnv.getElementsAnnotatedWith(annotation)) {
-            springFactories.addSpringFactory(annotation, (TypeElement) item);
-        }
+        roundEnv.getElementsAnnotatedWith(annotation)
+                .stream()
+                .filter(it -> processingEnv.getElementUtils().getPackageOf(it).getQualifiedName().toString().startsWith(packageElement.getQualifiedName().toString()))
+                .forEach(item -> springFactories.addSpringFactory(annotation, (TypeElement) item));
+    }
+
+    private boolean isTransient(Element element) {
+        return element.getAnnotation(Transient.class) != null;
     }
 
 }

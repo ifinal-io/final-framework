@@ -2,6 +2,7 @@ package org.finalframework.coding.spring.factory.annotation;
 
 import java.lang.annotation.*;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.PACKAGE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -37,7 +38,7 @@ public @interface SpringFactory {
      */
     boolean expand() default false;
 
-    @Target({PACKAGE})
+    @Target({PACKAGE, ANNOTATION_TYPE})
     @Retention(RUNTIME)
     @Documented
     @interface List {

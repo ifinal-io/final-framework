@@ -1,11 +1,14 @@
 package org.finalframework.data.query.enums;
 
+import org.finalframework.data.annotation.Transient;
+
 /**
  * @author likly
  * @version 1.0
  * @date 2019-02-12 20:38:00
  * @since 1.0
  */
+@Transient
 public enum QueryType {
     SELECT("select"),
     SELECT_ONE("select"),

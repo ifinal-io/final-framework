@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.Transient;
 
 /**
  * @author likly
@@ -12,6 +13,7 @@ import org.finalframework.data.annotation.IEnum;
  * @date 2020-03-20 21:08:37
  * @since 1.0
  */
+@Transient
 public enum FunctionOperator implements IEnum<String> {
 
     DATE("DATE", "DATE()", ""),

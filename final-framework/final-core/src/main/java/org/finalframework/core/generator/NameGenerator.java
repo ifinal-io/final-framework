@@ -29,7 +29,17 @@ public interface NameGenerator {
         if (name == null || name.length() == 0) {
             return name;
         }
-        return name.substring(0, 1).toLowerCase(ENGLISH) + name.substring(1);
+
+        int pos = 0;
+        for (int i = 0; i < name.length(); i++) {
+            if (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z') {
+                pos++;
+            } else {
+                break;
+            }
+        }
+
+        return name.substring(0, pos).toLowerCase(ENGLISH) + name.substring(pos);
     }
 
     static String decapitalize(String name, String prefix) {

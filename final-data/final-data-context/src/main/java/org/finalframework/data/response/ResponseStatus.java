@@ -1,11 +1,14 @@
 package org.finalframework.data.response;
 
+import org.finalframework.data.annotation.Transient;
+
 /**
  * @author likly
  * @version 1.0
  * @date 2019-01-15 20:50:00
  * @since 1.0
  */
+@Transient
 public enum ResponseStatus {
     SUCCESS(0, "Success"),
     BAD_REQUEST(400, "Bad Request"),

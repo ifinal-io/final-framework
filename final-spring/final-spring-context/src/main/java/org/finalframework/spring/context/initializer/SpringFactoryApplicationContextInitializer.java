@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
 
 /**
  * @author likly
@@ -23,7 +26,7 @@ public class SpringFactoryApplicationContextInitializer implements ApplicationCo
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
 
-        for (String annotationName : SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader())) {
+        for (String annotationName : new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()))) {
             try {
                 Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}", factoryClass.getCanonicalName());

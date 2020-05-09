@@ -3,6 +3,7 @@ package org.finalframework.monitor.annotation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.finalframework.data.annotation.IEnum;
+import org.finalframework.data.annotation.Transient;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * @date 2019-03-29 17:15:11
  * @since 1.0
  */
+@Transient
 public enum MonitorLevel implements IEnum<Integer> {
     TRACE(1, "TRACE"),
     DEBUG(2, "DEBUG"),
