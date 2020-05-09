@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UIHandlerInterceptor extends HandlerInterceptor {
     @Override
-    default public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    default void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if (handler instanceof HandlerMethod && modelAndView != null) {
             Page page;
             if (modelAndView.getModel().containsKey("page")) {
