@@ -1,8 +1,10 @@
 package org.finalframework.data.mapping;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.annotation.NonCompare;
+import org.finalframework.data.serializer.EntityJsonSerializer;
 import org.springframework.data.mapping.PersistentEntity;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
  * @date 2018-10-17 10:52
  * @since 1.0
  */
+@JsonSerialize(using = EntityJsonSerializer.class)
 public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Property>, Iterable<Property> {
 
     static <T> Entity<T> from(Class<T> entityClass) {

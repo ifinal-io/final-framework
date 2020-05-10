@@ -6,20 +6,14 @@
         <artifactId>final-framework-parent</artifactId>
         <groupId>org.finalframework</groupId>
         <version>0.5.3-SNAPSHOT</version>
-
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.finalframework.spring</groupId>
-    <artifactId>final-spring</artifactId>
-    <packaging>pom</packaging>
 
+    <artifactId>final-document</artifactId>
+    <packaging>pom</packaging>
     <modules>
-        <module>final-spring-annotation</module>
-        <module>final-spring-context</module>
-        <module>final-spring-aop</module>
-        <module>final-spring-expression</module>
-        <module>final-spring-web</module>
-        <module>final-spring-dashboard</module>
+        <module>final-document-annotation</module>
     </modules>
+
 
 </project>

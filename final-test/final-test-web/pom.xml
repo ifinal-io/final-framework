@@ -37,6 +37,11 @@
             <version>0.5.3-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-spring-dashboard</artifactId>
+            <version>0.5.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.redis</groupId>
             <artifactId>final-redis-admin</artifactId>
             <version>0.5.3-SNAPSHOT</version>

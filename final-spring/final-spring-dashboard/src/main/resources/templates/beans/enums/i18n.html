@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="layout/admin.html"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="enums" layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">I18N</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Message</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(message,index) in enums">
+                                    <th class="text-center" v-html="index +1">#</th>
+                                    <td v-html="message">simpleName</td>
+                                    <td class="td-actions text-right">
+                                        <button class="btn btn-info" data-original-title="" rel="tooltip" title=""
+                                                type="button">
+                                            <i class="material-icons">person</i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var enums = new Vue({
+            el: '#enums',
+            data: {
+                url: {
+                    i18n: '/api/enums/i18n'
+                },
+                enums: [],
+                name: $.query.string('name'),
+            },
+            mounted: function () {
+                let _this = this;
+                _this.query();
+            },
+            methods: {
+                query: function () {
+                    let _this = this;
+                    let url = _this.url.i18n;
+
+                    if (_this.name) {
+                        url = url + '/' + _this.name;
+                    }
+
+                    $.http.get({
+                        url: url,
+                        data: {},
+                        callback: function (result) {
+                            if (result.success) {
+                                _this.enums = result.data;
+                            }
+                        }
+                    })
+                }
+            }
+        });
+
+    </script>
+</div>
+</body>
+</html>

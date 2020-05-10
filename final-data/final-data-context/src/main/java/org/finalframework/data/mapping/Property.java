@@ -3,6 +3,8 @@ package org.finalframework.data.mapping;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.ReadOnly;
@@ -11,6 +13,7 @@ import org.finalframework.data.annotation.Transient;
 import org.finalframework.data.annotation.Virtual;
 import org.finalframework.data.annotation.WriteOnly;
 import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.data.mapping.PersistentProperty;
 
 
@@ -20,6 +23,7 @@ import org.springframework.data.mapping.PersistentProperty;
  * @date 2018-10-17 10:52
  * @since 1.0
  */
+@JsonSerialize(using = PropertyJsonSerializer.class)
 public interface Property extends PersistentProperty<Property> {
 
     default boolean isEnum() {

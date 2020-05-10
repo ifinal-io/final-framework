@@ -4,7 +4,6 @@ import org.finalframework.core.generator.NameGenerator;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.util.Enums;
 import org.finalframework.data.util.Messages;
-import org.finalframework.spring.annotation.factory.SpringController;
 import org.finalframework.util.Classes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +26,8 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/enums")
-public class ApiEnumController {
-    public static final Logger logger = LoggerFactory.getLogger(ApiEnumController.class);
+public class EnumApiController {
+    public static final Logger logger = LoggerFactory.getLogger(EnumApiController.class);
 
     private final Map<String, Class<?>> enums = SpringFactoriesLoader.loadFactoryNames(Enum.class, getClass().getClassLoader())
             .stream()

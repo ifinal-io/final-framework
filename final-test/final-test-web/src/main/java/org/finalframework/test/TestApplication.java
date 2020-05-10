@@ -3,7 +3,9 @@ package org.finalframework.test;
 
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.session.Configuration;
+import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.query.QEntity;
+import org.finalframework.json.Json;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
@@ -23,7 +25,11 @@ public class TestApplication {
         final QEntity<?, ?> entity = QEntity.from(Person.class);
         final QPerson person = QPerson.Person;
         final ResultMap resultMap = ResultMapFactory.from(new Configuration(), Person.class);
-        SpringApplication.run(TestApplication.class);
+
+        final Entity<Person> properties = Entity.from(Person.class);
+        System.out.println(Json.toJson(properties));
+
+//        SpringApplication.run(TestApplication.class);
     }
 }
 

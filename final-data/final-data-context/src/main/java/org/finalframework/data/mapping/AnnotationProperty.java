@@ -4,6 +4,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.query.SqlKeyWords;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
@@ -97,7 +98,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     @Override
     public String getColumn() {
-        return column.get();
+        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column.get());
     }
 
     @Override

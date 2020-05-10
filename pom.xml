@@ -21,6 +21,7 @@
         <module>final-ui</module>
         <module>final-boot</module>
         <module>final-test</module>
+        <module>final-document</module>
     </modules>
     <packaging>pom</packaging>
 

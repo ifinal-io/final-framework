@@ -28,7 +28,7 @@ public class ClassJsonSerializer extends JsonSerializer<Class> {
         if (value.isEnum() && enumClassConverter != null) {
             gen.writeObject(enumClassConverter.convert((Class<Enum<?>>) value));
         } else {
-            gen.writeObject(value);
+            gen.writeString(value.getCanonicalName());
         }
 
     }

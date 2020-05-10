@@ -89,85 +89,86 @@
         </div>
     </div>
 
-    <script>
-        var value = new Vue({
-            el: '#value',
-            data: {
-                page: {},
-                modules: [],
-                urls: {
-                    values: '/api/redis/values',
-                    keys: '/api/redis/keys',
-                    ttl: '/api/redis/keys/ttl'
-                },
-                form: {
-                    action: null,
-                    method: null
-                },
-                data: {
-                    key: null,
-                    value: null,
-                    ttl: null
-                },
-                result: null
-            },
-            mounted: function () {
-                var _this = this;
-                var page = $('#page').text();
-                console.log(page);
-            },
-            methods: {
-                get: function (method, action, data) {
-                    var _this = this;
-                    _this.form.method = method;
-                    _this.form.action = action;
-                    $.http.get({
-                        url: action,
-                        data: data,
-                        callback: function (result) {
-                            _this.result = result;
-                            if (result.success) {
-                                _this.data.value = result.data;
-                            } else {
-
-                            }
-                        }
-                    });
-                },
-                ttl: function (method, action, data) {
-                    var _this = this;
-                    _this.form.method = method;
-                    _this.form.action = action;
-                    $.http.get({
-                        url: action,
-                        data: data,
-                        callback: function (result) {
-                            _this.result = result;
-                            if (result.success) {
-                                _this.data.ttl = result.data;
-                            }
-                        }
-                    })
-                },
-                set: function (method, action, data) {
-                    var _this = this;
-                    _this.form.method = method;
-                    _this.form.action = action;
-                    $.http.post({
-                        url: action,
-                        data: data,
-                        callback: function (result) {
-                            _this.result = result;
-                        }
-                    })
-                },
-                delete: function () {
-
-                }
-            }
-        });
-
-    </script>
 </div>
+<script>
+    var value = new Vue({
+        el: '#value',
+        data: {
+            page: {},
+            modules: [],
+            urls: {
+                values: '/api/redis/values',
+                keys: '/api/redis/keys',
+                ttl: '/api/redis/keys/ttl'
+            },
+            form: {
+                action: null,
+                method: null
+            },
+            data: {
+                key: null,
+                value: null,
+                ttl: null
+            },
+            result: null
+        },
+        mounted: function () {
+            var _this = this;
+            var page = $('#page').text();
+            console.log(page);
+        },
+        methods: {
+            get: function (method, action, data) {
+                var _this = this;
+                _this.form.method = method;
+                _this.form.action = action;
+                $.http.get({
+                    url: action,
+                    data: data,
+                    callback: function (result) {
+                        _this.result = result;
+                        if (result.success) {
+                            _this.data.value = result.data;
+                        } else {
+
+                        }
+                    }
+                });
+            },
+            ttl: function (method, action, data) {
+                var _this = this;
+                _this.form.method = method;
+                _this.form.action = action;
+                $.http.get({
+                    url: action,
+                    data: data,
+                    callback: function (result) {
+                        _this.result = result;
+                        if (result.success) {
+                            _this.data.ttl = result.data;
+                        }
+                    }
+                })
+            },
+            set: function (method, action, data) {
+                var _this = this;
+                _this.form.method = method;
+                _this.form.action = action;
+                $.http.post({
+                    url: action,
+                    data: data,
+                    callback: function (result) {
+                        _this.result = result;
+                    }
+                })
+            },
+            delete: function () {
+
+            }
+        }
+    });
+
+</script>
+
 </body>
 </html>

@@ -10,6 +10,7 @@
     <modules>
         <module>final-data-annotation</module>
         <module>final-data-context</module>
+        <module>final-data-api</module>
     </modules>
 
     <parent>
