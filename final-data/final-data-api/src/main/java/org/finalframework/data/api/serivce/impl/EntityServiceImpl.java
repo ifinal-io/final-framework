@@ -4,6 +4,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.api.serivce.EntityService;
 import org.finalframework.data.api.serivce.query.EntityQuery;
+import org.finalframework.data.mapping.Entity;
 import org.finalframework.util.Classes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,11 @@ public class EntityServiceImpl implements EntityService {
                 .collect(Collectors.toList());
 
 
+    }
+
+    @Override
+    public Entity<?> entity(Class<?> entity) {
+        return Entity.from(entity);
     }
 }
 
