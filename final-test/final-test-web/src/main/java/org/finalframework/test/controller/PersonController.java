@@ -1,5 +1,6 @@
 package org.finalframework.test.controller;
 
+import org.finalframework.data.api.service.EntityService;
 import org.finalframework.data.query.Query;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
@@ -24,6 +25,8 @@ public class PersonController {
 
     @Resource
     private PersonService personService;
+    @Resource
+    private EntityService entityService;
 
     @GetMapping
     public List<Person> query() {

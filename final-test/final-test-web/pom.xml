@@ -59,6 +59,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework.data</groupId>
+            <artifactId>final-data-api</artifactId>
+            <version>0.5.3-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

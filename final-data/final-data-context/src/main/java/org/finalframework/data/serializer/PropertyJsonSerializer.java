@@ -4,6 +4,7 @@ package org.finalframework.data.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.finalframework.data.annotation.Json;
 import org.finalframework.data.mapping.Property;
 
 import java.io.IOException;
@@ -36,9 +37,10 @@ public class PropertyJsonSerializer extends JsonSerializer<Property> {
 
         gen.writeBooleanField("isIdProperty", property.isIdProperty());
         gen.writeBooleanField("isEnum", property.isEnum());
+        gen.writeBooleanField("isReference", property.isReference());
+        gen.writeBooleanField("isJson", property.hasAnnotation(Json.class));
         gen.writeBooleanField("isTransient", property.isTransient());
         gen.writeBooleanField("isVirtual", property.isVirtual());
-        gen.writeBooleanField("isReference", property.isReference());
         gen.writeBooleanField("isReadOnly", property.isReadOnly());
         gen.writeBooleanField("isWriteOnly", property.isWriteOnly());
 

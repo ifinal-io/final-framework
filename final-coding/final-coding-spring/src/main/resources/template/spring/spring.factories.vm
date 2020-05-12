@@ -1,14 +1,15 @@
+#* @formatter:off *#
 #foreach($entry in ${springFactories.entrySet()})
     #set($key = $entry.key)
     #set($list = $entry.value)
     #if($list)
-    # ${key}
-        ${key}=\
+# ${key}
+${key}=\
         #foreach($!{item} in $!{list})
             #if($foreach.hasNext)
-                ${item},\
+${item},\
             #else
-                ${item}
+${item}
             #end
         #end
     #end

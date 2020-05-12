@@ -29,7 +29,7 @@ public class TestApplication {
         final Entity<Person> properties = Entity.from(Person.class);
         System.out.println(Json.toJson(properties));
 
-//        SpringApplication.run(TestApplication.class);
+        SpringApplication.run(TestApplication.class);
     }
 }
 

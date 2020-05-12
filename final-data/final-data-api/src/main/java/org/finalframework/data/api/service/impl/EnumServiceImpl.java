@@ -1,8 +1,8 @@
-package org.finalframework.data.api.serivce.impl;
+package org.finalframework.data.api.service.impl;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.api.serivce.EnumService;
-import org.finalframework.data.api.serivce.query.EnumQuery;
+import org.finalframework.data.api.service.EnumService;
+import org.finalframework.data.api.service.query.EnumQuery;
 import org.finalframework.util.Classes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

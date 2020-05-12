@@ -48,7 +48,7 @@ import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.finalframework.data.query.SqlKeyWords;
+import org.finalframework.data.annotation.SqlKeyWords;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 import org.springframework.lang.NonNull;

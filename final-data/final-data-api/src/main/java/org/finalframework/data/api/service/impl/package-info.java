@@ -5,7 +5,7 @@
  * @since 1.0
  */
 @SpringFactory(value = Service.class, expand = true)
-package org.finalframework.data.api.serivce.impl;
+package org.finalframework.data.api.service.impl;
 
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
 import org.springframework.stereotype.Service;

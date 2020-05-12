@@ -1,0 +1,85 @@
+---
+layout: page
+title: Entity列表
+subtitle:
+categories: []
+tags: []
+permalink: /dashboard/entities
+menus:
+- entities
+- index
+author: likly
+date: 2020-03-22 21:30:09 +800
+version: 1.0
+---
+
+<div id="entities">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">Simple Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(entity,index) in entities">
+                                    <td v-html="index +1">simpleName</td>
+                                    <td v-html="entity">Name</td>
+                                    <td class="td-actions text-right">
+                                        <a :href="'entities/entity?entity=' + entity" class="btn btn-info"
+                                           data-original-title="" rel="tooltip" title="" type="button">
+                                            <i class="material-icons">language</i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var entities = new Vue({
+            el: '#entities',
+            data: {
+                entities: {}
+            },
+            mounted: function () {
+                let _this = this;
+                _this.query();
+            },
+            methods: {
+                query: function () {
+                    let _this = this;
+                    $.http.get({
+                        url: 'http://localhost:8080/api/entities',
+                        data: {},
+                        callback: function (result) {
+                            if (result.success) {
+                                _this.entities = result.data;
+                            }
+                        }
+                    })
+                }
+            }
+        });
+
+    </script>
+</div>

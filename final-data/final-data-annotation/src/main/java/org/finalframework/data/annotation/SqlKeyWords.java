@@ -1,4 +1,4 @@
-package org.finalframework.data.query;
+package org.finalframework.data.annotation;
 
 
 import org.springframework.lang.NonNull;

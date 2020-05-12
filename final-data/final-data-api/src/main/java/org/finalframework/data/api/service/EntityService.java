@@ -1,7 +1,7 @@
-package org.finalframework.data.api.serivce;
+package org.finalframework.data.api.service;
 
 import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.api.serivce.query.EntityQuery;
+import org.finalframework.data.api.service.query.EntityQuery;
 import org.finalframework.data.mapping.Entity;
 
 import java.util.List;

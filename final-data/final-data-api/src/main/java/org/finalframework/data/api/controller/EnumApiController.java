@@ -1,7 +1,7 @@
 package org.finalframework.data.api.controller;
 
-import org.finalframework.data.api.serivce.EnumService;
-import org.finalframework.data.api.serivce.query.EnumQuery;
+import org.finalframework.data.api.service.EnumService;
+import org.finalframework.data.api.service.query.EnumQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;

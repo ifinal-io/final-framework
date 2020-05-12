@@ -51,10 +51,6 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework.coding</groupId>
-            <artifactId>final-coding-spring</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
         </dependency>

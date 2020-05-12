@@ -1,16 +1,8 @@
 package org.finalframework.data.entity;
 
 import java.time.LocalDateTime;
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.Created;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.annotation.IView;
-import org.finalframework.data.annotation.LastModified;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Version;
-import org.finalframework.data.annotation.View;
+
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.enums.YN;
 
 /**
@@ -21,6 +13,7 @@ import org.finalframework.data.entity.enums.YN;
  * @date 2018-10-20 17:17
  * @since 1.0
  */
+@Transient
 public class AbsEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;

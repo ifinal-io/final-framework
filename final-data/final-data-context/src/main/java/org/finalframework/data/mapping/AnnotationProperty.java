@@ -5,7 +5,7 @@ import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.finalframework.data.query.SqlKeyWords;
+import org.finalframework.data.annotation.SqlKeyWords;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;

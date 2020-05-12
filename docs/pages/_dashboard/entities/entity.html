@@ -1,0 +1,123 @@
+---
+layout: page
+title: Entity列表
+subtitle:
+categories: []
+tags: []
+menus:
+- entities
+- entity
+author: likly
+date: 2020-03-22 21:30:09 +800
+version: 1.0
+---
+
+<div id="entity">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title" v-html="entity['@class']">Simple Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Column</th>
+                                    <th>Type</th>
+                                    <th>Tags</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(property,index) in entity.properties">
+                                    <td v-html="property.name">Property</td>
+                                    <td v-html="property.column">Name</td>
+                                    <td>
+                                        <!--java.lang-->
+                                        <span class="badge badge-default" style="text-transform: none"
+                                              v-html="property.type.replace('java.lang.','')"
+                                              v-if="property.type.startsWith('java.lang')">Primary Key</span>
+                                        <!--java.util-->
+                                        <span class="badge badge-default" style="text-transform: none"
+                                              v-else-if="property.type.startsWith('java.util')"
+                                              v-html="property.type.replace('java.util.','')">Reference</span>
+                                        <span class="badge badge-success" style="text-transform: none"
+                                              v-else-if="property.properties.isReference"
+                                              v-html="property.type">Reference</span>
+                                        <span class="badge badge-primary" style="text-transform: none"
+                                              v-else=""
+                                              v-html="property.type">Type</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-primary" style="text-transform: none"
+                                              v-if="property.properties.isIdProperty">Primary Key</span>
+                                        <span class="badge badge-success" style="text-transform: none"
+                                              v-if="property.properties.isReference">Reference</span>
+                                        <span class="badge badge-info" style="text-transform: none"
+                                              v-if="property.properties.isEnum">Enum</span>
+                                        <span class="badge badge-default" style="text-transform: none"
+                                              v-if="property.properties.isTransient">Transient</span>
+                                        <span class="badge badge-info" style="text-transform: none"
+                                              v-if="property.properties.isReadOnly">ReadOnly</span>
+                                        <span class="badge badge-info" style="text-transform: none"
+                                              v-if="property.properties.isWriteOnly">WriteOnly</span>
+                                        <span class="badge badge-info" style="text-transform: none"
+                                              v-if="property.properties.isVirtual">Virtual</span>
+                                        <span class="badge badge-success" style="text-transform: none"
+                                              v-if="property.properties.isDefault">Default</span>
+                                        <span class="badge badge-success" style="text-transform: none"
+                                              v-if="property.properties.isJson">Json</span>
+                                    </td>
+                                    <td class="td-actions text-right">
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var entity = new Vue({
+            el: '#entity',
+            data: {
+                param: {
+                    entity: $.query.string('entity')
+                },
+                entity: {
+                    properties: []
+                }
+            },
+            mounted: function () {
+                let _this = this;
+                _this.query();
+            },
+            methods: {
+                query: function () {
+                    let _this = this;
+                    $.http.get({
+                        url: 'http://localhost:8080/api/entity?entity=' + _this.param.entity,
+                        data: {},
+                        callback: function (result) {
+                            if (result.success) {
+                                _this.entity = result.data;
+                            }
+                        }
+                    })
+                }
+            }
+        });
+
+    </script>
+</div>

@@ -26,7 +26,8 @@ public class SpringFactoryApplicationContextInitializer implements ApplicationCo
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
 
-        for (String annotationName : new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()))) {
+        final HashSet<String> springFactories = new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
+        for (String annotationName : springFactories) {
             try {
                 Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}", factoryClass.getCanonicalName());

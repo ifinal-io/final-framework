@@ -1,4 +1,4 @@
-package org.finalframework.data.api.serivce.query;
+package org.finalframework.data.api.service.query;
 
 
 import lombok.Data;

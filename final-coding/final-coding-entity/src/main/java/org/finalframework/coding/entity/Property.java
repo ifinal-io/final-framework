@@ -117,7 +117,7 @@ public interface Property {
     /**
      * @return
      * @see Keyword
-     * @see org.finalframework.data.query.SqlKeyWords
+     * @see SqlKeyWords
      */
     boolean isKeyword();
 

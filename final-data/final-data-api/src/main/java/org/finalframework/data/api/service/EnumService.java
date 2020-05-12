@@ -1,6 +1,6 @@
-package org.finalframework.data.api.serivce;
+package org.finalframework.data.api.service;
 
-import org.finalframework.data.api.serivce.query.EnumQuery;
+import org.finalframework.data.api.service.query.EnumQuery;
 
 import java.util.List;
 

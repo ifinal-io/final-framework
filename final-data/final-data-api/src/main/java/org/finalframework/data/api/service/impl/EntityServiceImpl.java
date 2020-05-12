@@ -1,9 +1,9 @@
-package org.finalframework.data.api.serivce.impl;
+package org.finalframework.data.api.service.impl;
 
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.api.serivce.EntityService;
-import org.finalframework.data.api.serivce.query.EntityQuery;
+import org.finalframework.data.api.service.EntityService;
+import org.finalframework.data.api.service.query.EntityQuery;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.util.Classes;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;

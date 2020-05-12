@@ -3,6 +3,7 @@ package org.finalframework.coding.spring.factory;
 
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.annotation.Transient;
 
 import javax.annotation.processing.*;
@@ -28,6 +29,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
     private final SpringFactories springFactories = new SpringFactories();
     private SpringFactoriesGenerator springFactoriesGenerator;
+    private EntityFilter entityFilter;
     /**
      * @see SpringFactory
      */
@@ -54,6 +56,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         this.springFactoriesGenerator = new SpringFactoriesGenerator(processingEnv);
+        this.entityFilter = new EntityFilter(processingEnv);
 
         this.enumTypeElement = processingEnv.getElementUtils().getTypeElement(Enum.class.getCanonicalName());
 
@@ -82,6 +85,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         } else {
             roundEnv.getRootElements()
                     .forEach(element -> {
+
+
                         switch (element.getKind()) {
                             case ENUM:
                                 processEnumTypeElement((TypeElement) element);
@@ -109,7 +114,14 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
+    private void processEntityTypeElement(TypeElement element) {
+        if (!isTransient(element) && entityFilter.matches(element)) {
+            springFactories.addSpringFactory(IEntity.class.getCanonicalName(), element.getQualifiedName().toString());
+        }
+    }
+
     private void processClassTypeElement(TypeElement element) {
+        processEntityTypeElement(element);
         List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
