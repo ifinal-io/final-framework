@@ -1,12 +1,13 @@
 (function (jq) {
 
     var DEFAULT_OPTIONS = {
-        dataType: 'json'
+        dataType: 'json',
+        host: ''
     };
 
     var ajax = function (options) {
         $.ajax({
-            url: options.url,
+            url: options.host + options.url,
             dataType: options.dataType,
             data: options.data,
             xhrFields: {

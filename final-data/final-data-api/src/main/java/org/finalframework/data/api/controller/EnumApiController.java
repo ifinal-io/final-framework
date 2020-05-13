@@ -1,14 +1,19 @@
 package org.finalframework.data.api.controller;
 
+import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.api.service.EnumService;
 import org.finalframework.data.api.service.query.EnumQuery;
+import org.finalframework.data.util.Enums;
+import org.finalframework.data.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,12 +30,17 @@ public class EnumApiController {
     @Resource
     private EnumService enumService;
 
-    public List<Class<?>> query(EnumQuery query) {
-        return enumService.query(query);
+    @GetMapping
+    public List<String> query(EnumQuery query) {
+        return enumService.query(query).stream().map(Class::getCanonicalName).collect(Collectors.toList());
     }
 
+    @GetMapping("enum")
+    public Class<?> query(@RequestParam("enum") Class<?> clazz) {
+        return clazz;
+    }
 //
-//    @GetMapping({"/i18n/{name}", "/i18n"})
+//    @GetMapping("/i18n")
 //    public List<String> i18n(@PathVariable(value = "name", required = false) String name) {
 //
 //        final List<String> messages = new ArrayList<>();

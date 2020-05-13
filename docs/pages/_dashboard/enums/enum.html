@@ -4,16 +4,15 @@ title: Entity列表
 subtitle:
 categories: []
 tags: []
-permalink: /dashboard/entities
 menus:
-- entities
-- index
+- enums
+- enum
 author: likly
 date: 2020-03-22 21:30:09 +800
 version: 1.0
 ---
 
-<div id="entities">
+<div id="enumpage">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -29,23 +28,33 @@ version: 1.0
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Ordinal</th>
+                                    <th>Code</th>
                                     <th>Name</th>
+                                    <th>Desc</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(entity,index) in entities">
-                                    <td v-html="index +1">simpleName</td>
-                                    <td v-html="entity">Name</td>
+                                <tr v-for="(item,index) in enums">
+                                    <td v-html="item.ordinal">ordinal</td>
+                                    <td>
+                                        <span class="badge badge-primary" style="text-transform: none"
+                                              v-html="item.code"
+                                        >Primary Key</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success" style="text-transform: none"
+                                              v-html="item.name"
+                                        >Primary Key</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-info" style="text-transform: none"
+                                              v-html="item.desc"
+                                        >Primary Key</span></td>
                                     <td class="td-actions text-right">
-                                        <a :href="'entity?entity=' + entity" class="btn btn-info"
-                                           data-original-title="" rel="tooltip" title="" type="button">
-                                            <i class="material-icons">language</i>
-                                        </a>
                                     </td>
                                 </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -56,10 +65,13 @@ version: 1.0
     </div>
 
     <script>
-        var entities = new Vue({
-            el: '#entities',
+        var enumpage = new Vue({
+            el: '#enumpage',
             data: {
-                entities: {}
+                param: {
+                    name: $.query.string('enum')
+                },
+                enums: []
             },
             mounted: function () {
                 let _this = this;
@@ -70,11 +82,11 @@ version: 1.0
                     let _this = this;
                     $.http.get({
                         host: 'http://localhost:8080',
-                        url: '/api/entities',
+                        url: '/api/enums/enum?enum=' + _this.param.name,
                         data: {},
                         callback: function (result) {
                             if (result.success) {
-                                _this.entities = result.data;
+                                _this.enums = result.data;
                             }
                         }
                     })

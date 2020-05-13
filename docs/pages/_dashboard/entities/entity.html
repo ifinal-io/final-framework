@@ -107,7 +107,8 @@ version: 1.0
                 query: function () {
                     let _this = this;
                     $.http.get({
-                        url: 'http://localhost:8080/api/entity?entity=' + _this.param.entity,
+                        host: 'http://localhost:8080',
+                        url: '/api/entity?entity=' + _this.param.entity,
                         data: {},
                         callback: function (result) {
                             if (result.success) {

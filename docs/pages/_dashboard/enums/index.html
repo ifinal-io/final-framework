@@ -4,9 +4,9 @@ title: Entity列表
 subtitle:
 categories: []
 tags: []
-permalink: /dashboard/entities
+permalink: /dashboard/enums
 menus:
-- entities
+- enums
 - index
 author: likly
 date: 2020-03-22 21:30:09 +800
@@ -39,7 +39,7 @@ version: 1.0
                                     <td v-html="index +1">simpleName</td>
                                     <td v-html="entity">Name</td>
                                     <td class="td-actions text-right">
-                                        <a :href="'entity?entity=' + entity" class="btn btn-info"
+                                        <a :href="'enum?enum=' + entity" class="btn btn-info"
                                            data-original-title="" rel="tooltip" title="" type="button">
                                             <i class="material-icons">language</i>
                                         </a>
@@ -70,7 +70,7 @@ version: 1.0
                     let _this = this;
                     $.http.get({
                         host: 'http://localhost:8080',
-                        url: '/api/entities',
+                        url: '/api/enums',
                         data: {},
                         callback: function (result) {
                             if (result.success) {
