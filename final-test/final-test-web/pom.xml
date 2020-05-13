@@ -37,7 +37,7 @@
             <version>0.5.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-dashboard</artifactId>
             <version>0.5.3-SNAPSHOT</version>
         </dependency>

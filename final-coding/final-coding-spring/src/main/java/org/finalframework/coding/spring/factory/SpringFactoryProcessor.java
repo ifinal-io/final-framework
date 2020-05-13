@@ -2,19 +2,29 @@ package org.finalframework.coding.spring.factory;
 
 
 import com.google.auto.service.AutoService;
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.annotation.Transient;
-
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
-import javax.lang.model.type.DeclaredType;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.annotation.Transient;
+import org.finalframework.spring.annotation.factory.SpringFactory;
 
 /**
  * @author likly

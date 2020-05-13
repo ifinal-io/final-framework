@@ -25,6 +25,14 @@
             <groupId>org.finalframework.data</groupId>
             <artifactId>final-data-annotation</artifactId>
         </dependency>
+        <dependency>
+            <artifactId>final-spring-annotation</artifactId>
+            <groupId>org.finalframework.spring</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-spring-annotation</artifactId>
+            <groupId>org.finalframework.spring</groupId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,7 +1,5 @@
 package org.finalframework.spring.annotation.factory;
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

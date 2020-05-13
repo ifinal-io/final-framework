@@ -25,9 +25,6 @@ public interface Json {
 
     /**
      * 将对象转化为 json 串
-     *
-     * @param object
-     * @return
      */
     static String toJson(Object object) {
         try {
@@ -59,7 +56,16 @@ public interface Json {
         }
     }
 
+    static Object toObject(@NonNull String json) {
+        return toObject(json, Object.class);
+    }
+
     static <T> T toObject(@NonNull String json, @NonNull Class<T> classOfT) {
+
+        if (String.class.equals(classOfT)) {
+            return (T) json;
+        }
+
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT);
         } catch (Throwable e) {
@@ -129,7 +135,8 @@ public interface Json {
         }
     }
 
-    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) {
+    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
+        @NonNull Class<E> elementClass) {
         try {
             return JsonRegistry.getInstance().getJsonService().toCollection(json, collectionClass, elementClass);
         } catch (Throwable e) {
@@ -140,7 +147,8 @@ public interface Json {
         }
     }
 
-    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass, @NonNull Class<?> view) {
+    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
+        @NonNull Class<E> elementClass, @NonNull Class<?> view) {
         try {
             return JsonRegistry.getInstance().getJsonService().toCollection(json, collectionClass, elementClass, view);
         } catch (Throwable e) {

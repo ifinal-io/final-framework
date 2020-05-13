@@ -26,7 +26,7 @@ version: 1.0
 ```java
 package org.finalframework.spring.annotation.factory;
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import org.finalframework.spring.annotation.factory.SpringFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationListener;
 

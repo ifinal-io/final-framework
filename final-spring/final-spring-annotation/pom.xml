@@ -17,10 +17,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework.coding</groupId>
-            <artifactId>final-coding-spring</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

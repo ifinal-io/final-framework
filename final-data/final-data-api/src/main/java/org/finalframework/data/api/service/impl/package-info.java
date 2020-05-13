@@ -7,5 +7,5 @@
 @SpringFactory(value = Service.class, expand = true)
 package org.finalframework.data.api.service.impl;
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import org.finalframework.spring.annotation.factory.SpringFactory;
 import org.springframework.stereotype.Service;

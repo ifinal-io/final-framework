@@ -1,7 +1,7 @@
 package org.finalframework.data.util;
 
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import org.finalframework.spring.annotation.factory.SpringFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;

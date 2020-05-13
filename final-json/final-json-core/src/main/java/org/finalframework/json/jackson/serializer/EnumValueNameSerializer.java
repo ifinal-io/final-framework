@@ -4,10 +4,9 @@ package org.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.data.util.Enums;
-import org.finalframework.data.annotation.EnumValue;
-
 import java.io.IOException;
+import org.finalframework.data.annotation.EnumValue;
+import org.finalframework.data.util.Enums;
 
 /**
  * @author likly
@@ -29,7 +28,7 @@ public class EnumValueNameSerializer extends JsonSerializer<Object> {
             gen.writeNull();
             return;
         }
-        Enum anEnum = Enums.findEnum(enumValue, value);
+        Enum<?> anEnum = Enums.findEnum(enumValue, value);
         gen.writeString(anEnum.name());
     }
 }

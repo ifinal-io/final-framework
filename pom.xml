@@ -20,8 +20,8 @@
         <module>final-coding</module>
         <module>final-ui</module>
         <module>final-boot</module>
-        <module>final-test</module>
         <module>final-document</module>
+        <module>final-test</module>
     </modules>
     <packaging>pom</packaging>
 

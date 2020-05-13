@@ -1,16 +1,14 @@
 package org.finalframework.spring.context.initializer;
 
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
+import java.util.HashSet;
+import org.finalframework.spring.annotation.factory.SpringFactory;
 import org.finalframework.spring.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
-
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
 
 /**

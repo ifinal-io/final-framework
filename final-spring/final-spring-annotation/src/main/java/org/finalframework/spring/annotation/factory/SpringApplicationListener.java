@@ -1,13 +1,11 @@
 package org.finalframework.spring.annotation.factory;
 
-import org.finalframework.coding.spring.factory.annotation.SpringFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationListener;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationListener;
 
 /**
  * Mark the target type is a spring application listener

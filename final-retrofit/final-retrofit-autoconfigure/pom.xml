@@ -18,6 +18,10 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
         <dependency>
+            <artifactId>final-core</artifactId>
+            <groupId>org.finalframework</groupId>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.retrofit</groupId>
             <artifactId>final-retrofit-core</artifactId>
             <version>0.5.3-SNAPSHOT</version>
