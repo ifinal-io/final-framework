@@ -1,16 +1,15 @@
-package org.finalframework.data.api.controller;
+package org.finalframework.document.api.controller;
 
-import org.finalframework.data.api.service.EntityService;
-import org.finalframework.data.api.service.query.EntityQuery;
+import java.util.List;
+import javax.annotation.Resource;
 import org.finalframework.data.mapping.Entity;
+import org.finalframework.document.api.service.EntityService;
+import org.finalframework.document.api.service.query.EntityQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 
 /**

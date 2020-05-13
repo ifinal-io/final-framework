@@ -5,6 +5,6 @@
  * @since 1.0
  */
 @SpringController
-package org.finalframework.data.api.controller;
+package org.finalframework.document.api.controller;
 
 import org.finalframework.spring.annotation.factory.SpringController;

@@ -1,15 +1,18 @@
 package org.finalframework.test.controller;
 
-import org.finalframework.data.api.service.EntityService;
+import java.util.List;
+import javax.annotation.Resource;
 import org.finalframework.data.query.Query;
+import org.finalframework.document.api.service.EntityService;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**

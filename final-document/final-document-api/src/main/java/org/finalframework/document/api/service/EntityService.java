@@ -1,10 +1,9 @@
-package org.finalframework.data.api.service;
-
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.api.service.query.EntityQuery;
-import org.finalframework.data.mapping.Entity;
+package org.finalframework.document.api.service;
 
 import java.util.List;
+import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.mapping.Entity;
+import org.finalframework.document.api.service.query.EntityQuery;
 
 /**
  * @author likly
@@ -13,6 +12,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface EntityService {
+
     /**
      * return the {@link Class} which is a {@link IEntity}
      *
@@ -21,5 +21,10 @@ public interface EntityService {
      */
     List<Class<?>> query(EntityQuery query);
 
+    /**
+     * return the {@link Entity} of the {@code entity}.
+     *
+     * @param entity the {@link Class<?>} of entity
+     */
     Entity<?> entity(Class<?> entity);
 }

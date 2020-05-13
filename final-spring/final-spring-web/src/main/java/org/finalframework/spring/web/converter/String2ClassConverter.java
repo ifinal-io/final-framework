@@ -5,10 +5,11 @@ import org.finalframework.data.exception.NotFoundException;
 import org.finalframework.spring.annotation.factory.SpringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 
 /**
+ * convert the name to a {@link Class<?>}, throw a {@link NotFoundException} if the {@link Class} of name is not found.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-05-11 09:59:53
@@ -24,7 +25,7 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
         try {
             return Class.forName(source);
         } catch (ClassNotFoundException e) {
-            throw new NotFoundException("Class Not Found for clazz=%s", source);
+            throw new NotFoundException(e.getMessage());
         }
     }
 }

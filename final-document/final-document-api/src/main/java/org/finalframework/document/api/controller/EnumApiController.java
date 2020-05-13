@@ -1,19 +1,16 @@
-package org.finalframework.data.api.controller;
+package org.finalframework.document.api.controller;
 
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.api.service.EnumService;
-import org.finalframework.data.api.service.query.EnumQuery;
-import org.finalframework.data.util.Enums;
-import org.finalframework.data.util.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import org.finalframework.document.api.service.EnumService;
+import org.finalframework.document.api.service.query.EnumQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**

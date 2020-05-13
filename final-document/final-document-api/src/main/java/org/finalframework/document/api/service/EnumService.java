@@ -1,8 +1,7 @@
-package org.finalframework.data.api.service;
-
-import org.finalframework.data.api.service.query.EnumQuery;
+package org.finalframework.document.api.service;
 
 import java.util.List;
+import org.finalframework.document.api.service.query.EnumQuery;
 
 /**
  * @author likly
