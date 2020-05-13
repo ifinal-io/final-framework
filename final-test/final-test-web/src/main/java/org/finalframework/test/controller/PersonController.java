@@ -3,7 +3,6 @@ package org.finalframework.test.controller;
 import java.util.List;
 import javax.annotation.Resource;
 import org.finalframework.data.query.Query;
-import org.finalframework.document.api.service.EntityService;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ public class PersonController {
 
     @Resource
     private PersonService personService;
-    @Resource
-    private EntityService entityService;
 
     @GetMapping
     public List<Person> query() {

@@ -25,6 +25,10 @@
             <artifactId>final-spring-annotation</artifactId>
         </dependency>
         <dependency>
+            <artifactId>final-coding-spring</artifactId>
+            <groupId>org.finalframework.coding</groupId>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.json</groupId>
             <artifactId>final-json-core</artifactId>
         </dependency>

@@ -7,9 +7,11 @@ import org.finalframework.document.api.service.EntityService;
 import org.finalframework.document.api.service.query.EntityQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 
 /**
@@ -20,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class EntityApiController {
+public class EntityApiController implements InitializingBean {
+
     public static final Logger logger = LoggerFactory.getLogger(EntityApiController.class);
     @Resource
     private EntityService entityService;
-
+    @Resource
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @GetMapping("/entities")
     public List<Class<?>> query(EntityQuery query) {
@@ -36,5 +40,10 @@ public class EntityApiController {
         return entityService.entity(entity);
     }
 
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println();
+    }
 }
 
