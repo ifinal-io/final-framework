@@ -52,6 +52,12 @@
                     DEFAULT_OPTIONS,
                     ops);
                 ajax(options);
+            },
+            send: function (ops) {
+                var options = $.extend({},
+                    DEFAULT_OPTIONS,
+                    ops);
+                ajax(options);
             }
         },
         query: {

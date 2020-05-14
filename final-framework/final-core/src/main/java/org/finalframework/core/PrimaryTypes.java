@@ -38,7 +38,7 @@ public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
             char.class, Character.class, boolean.class, Boolean.class,
             int.class, Integer.class, long.class, Long.class,
             float.class, Float.class, double.class, Double.class,
-            String.class);
+            String.class, Class.class);
     private final Set<Class> types = new HashSet<>();
 
     private PrimaryTypes(Class<?>... classes) {
@@ -79,6 +79,10 @@ public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
 
     public static boolean isString(Class clazz) {
         return STRING.types.contains(clazz);
+    }
+
+    public static boolean isPrimary(Class<?> clazz) {
+        return ALL.types.contains(clazz);
     }
 
     @Override

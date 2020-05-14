@@ -2,6 +2,7 @@ package org.finalframework.coding.spring.factory;
 
 
 import com.google.auto.service.AutoService;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,9 +23,11 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
+
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.annotation.Transient;
 import org.finalframework.spring.annotation.factory.SpringFactory;
+import org.mockito.Mock;
 
 /**
  * @author likly
@@ -148,8 +151,28 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
                 for (AnnotationMirror mirror : mirrors) {
                     if (mirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
-                        DeclaredType value = (DeclaredType) mirror.getElementValues().get(springFactoryValue).getValue();
-                        springFactories.addSpringFactory((TypeElement) value.asElement(), element);
+
+                        TypeElement springFactory = null;
+                        Boolean expand = null;
+                        for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirror.getElementValues().entrySet()) {
+                            final String methodName = entry.getKey().getSimpleName().toString();
+                            if ("value".equals(methodName)) {
+                                DeclaredType value = (DeclaredType) entry.getValue().getValue();
+                                springFactory = (TypeElement) value.asElement();
+                            } else if ("expand".equals(methodName)) {
+                                expand = (Boolean) entry.getValue().getValue();
+
+                            }
+
+                        }
+                        if (springFactory != null) {
+                            springFactories.addSpringFactory(springFactory, element);
+                            if (Boolean.TRUE.equals(expand)) {
+                                springFactories.addSpringFactory(SpringFactory.class.getCanonicalName(), springFactory.getQualifiedName().toString());
+                            }
+                        }
+
+
                     }
                 }
             }

@@ -67,7 +67,7 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     }
 
     private Field getField(String name, Class target) {
-        if (target == Object.class)
+        if (target == null || target == Object.class)
             return null;
         try {
             return target.getDeclaredField(name);

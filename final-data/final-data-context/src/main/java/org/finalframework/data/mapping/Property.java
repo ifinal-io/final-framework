@@ -1,6 +1,7 @@
 package org.finalframework.data.mapping;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,7 @@ import org.springframework.data.mapping.PersistentProperty;
  */
 @JsonSerialize(using = PropertyJsonSerializer.class)
 public interface Property extends PersistentProperty<Property> {
+
 
     default boolean isEnum() {
         return getType().isEnum();
