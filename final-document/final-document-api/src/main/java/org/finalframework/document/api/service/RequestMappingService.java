@@ -1,7 +1,8 @@
 package org.finalframework.document.api.service;
 
 import org.finalframework.document.api.entity.RequestMapping;
-import org.finalframework.document.api.service.query.RequestMappingQuery;
+import org.finalframework.document.api.entity.RequestPattern;
+import org.finalframework.document.api.service.query.RequestPatternQuery;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface RequestMappingService {
-    List<RequestMapping> query(RequestMappingQuery query);
+    List<RequestPattern> query(RequestPatternQuery query);
 
     RequestMapping find(String pattern, RequestMethod method);
 }

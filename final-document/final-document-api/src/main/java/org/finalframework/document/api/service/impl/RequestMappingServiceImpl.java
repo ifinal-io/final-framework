@@ -1,12 +1,14 @@
 package org.finalframework.document.api.service.impl;
 
+import org.finalframework.core.Assert;
 import org.finalframework.core.PrimaryTypes;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
-import org.finalframework.document.api.entity.ResultMapping;
 import org.finalframework.document.api.entity.RequestMapping;
+import org.finalframework.document.api.entity.RequestPattern;
+import org.finalframework.document.api.entity.ResultMapping;
 import org.finalframework.document.api.service.RequestMappingService;
-import org.finalframework.document.api.service.query.RequestMappingQuery;
+import org.finalframework.document.api.service.query.RequestPatternQuery;
 import org.finalframework.util.LinkedMultiKeyMap;
 import org.finalframework.util.MultiKeyMap;
 import org.slf4j.Logger;
@@ -22,9 +24,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -41,7 +43,7 @@ public class RequestMappingServiceImpl implements RequestMappingService {
      * the key is {@link RequestMappingInfo#getPatternsCondition}
      */
     private final MultiKeyMap<String, RequestMethod, RequestMapping> requestMappingMap = new LinkedMultiKeyMap<>();
-    private final List<RequestMapping> requestMappings = new ArrayList<>();
+    private final List<RequestPattern> requestPatterns = new ArrayList<>();
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
@@ -49,7 +51,7 @@ public class RequestMappingServiceImpl implements RequestMappingService {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
         this.init();
 
-        Collections.sort(requestMappings);
+        Collections.sort(requestPatterns);
     }
 
 
@@ -59,13 +61,15 @@ public class RequestMappingServiceImpl implements RequestMappingService {
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : this.requestMappingHandlerMapping.getHandlerMethods().entrySet()) {
             final RequestMappingInfo requestMappingInfo = entry.getKey();
             final HandlerMethod handlerMethod = entry.getValue();
+            final String name = requestMappingInfo.getName();
             for (String pattern : requestMappingInfo.getPatternsCondition().getPatterns()) {
                 for (RequestMethod method : requestMappingInfo.getMethodsCondition().getMethods()) {
                     final RequestMapping requestMapping = new RequestMapping();
-
-                    requestMapping.setName(requestMappingInfo.getName());
+                    requestMapping.setName(name);
                     requestMapping.setPattern(pattern);
                     requestMapping.setMethod(method);
+
+                    requestPatterns.add(new RequestPattern(name, method, pattern));
 
                     final List<ResultMapping> parameterMappings = new ArrayList<>();
                     final MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
@@ -153,7 +157,6 @@ public class RequestMappingServiceImpl implements RequestMappingService {
                     requestMapping.setResultMappings(resultMappings);
 
 
-                    requestMappings.add(requestMapping);
                     requestMappingMap.add(pattern, method, requestMapping);
 
                 }
@@ -166,8 +169,11 @@ public class RequestMappingServiceImpl implements RequestMappingService {
     }
 
     @Override
-    public List<RequestMapping> query(RequestMappingQuery query) {
-        return requestMappings;
+    public List<RequestPattern> query(RequestPatternQuery query) {
+        return requestPatterns.stream().filter(requestPattern -> {
+            if (query.getMethod() != null && requestPattern.getMethod() != query.getMethod()) return false;
+            return !Assert.nonEmpty(query.getPattern()) || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase());
+        }).collect(Collectors.toList());
     }
 
     @Override

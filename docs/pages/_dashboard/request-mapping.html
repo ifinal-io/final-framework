@@ -1,0 +1,317 @@
+---
+layout: dashboard
+title: RequestMapping
+---
+<style>
+    #dashboard {
+        width: 100% !important;
+    }
+
+    div.main-panel {
+        height: 100% !important;
+    }
+
+    div.content {
+        height: 100% !important;
+    }
+</style>
+<div class="card">
+    <div class="card-header card-header-tabs card-header-info">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title"></span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#requestHeader">
+                            <i class="material-icons">bug_report</i> Header
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  active show" data-toggle="tab" href="#urlParams">
+                            <i class="material-icons">code</i> Url Params
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#request-body">
+                            <i class="material-icons">local_post_office</i> Body
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="tab-content">
+            <div class="tab-pane " id="requestHeader">
+            </div>
+            <div class="tab-pane  active show" id="urlParams">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th style="min-width: 200px">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(parameter,index) in requestMapping.parameterMappings">
+                            <td class="text-center" v-html="index + 1">1</td>
+
+                            <td>
+                                <span v-html="parameter.name">Parameter Name</span>
+                                <span class="text-danger" v-show="parameter.required">*</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-primary" style="text-transform: none"
+                                      v-html="parameter.type">Parameter Type</span>
+                            </td>
+                            <td style="min-width: 200px">
+                                <div v-show="parameter.options">
+                                    <select data-live-search="true" data-size="7"
+                                            data-style="btn btn-primary"
+                                            style="width: 100%" tabindex="-98"
+                                            title="Single Select" v-model="parameter.value"
+                                            v-show="parameter.options">
+                                        <option :value="option" v-for="option in parameter.options"
+                                                v-html="option">
+                                        </option>
+                                    </select>
+                                </div>
+                                <input style="width: 100%" type="text" v-model="parameter.value"
+                                       v-show="!parameter.options">
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+    </div>
+    <div class="card-footer request">
+        <div class="form-group bmd-form-group" style="width: calc(100% - 100px);margin: 8px 20px 0 20px; ">
+            <label for="url"></label>
+            <input :value="request.host + request.pattern" class="form-control" id="url" minlength="5" name="url"
+                   style="font-weight: bold;font-family: 'Cascadia Code',Monospaced; padding: 0;"
+                   type="text"
+            >
+        </div>
+        <button @click="send" class="btn btn-primary" type="button">
+            <i class="material-icons">send</i>
+            <span v-html="request.method"></span>
+        </button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header card-header-tabs card-header-success">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title"></span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#request">
+                            <i class="material-icons">bug_report</i> Request
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  active show" data-toggle="tab" href="#response">
+                            <i class="material-icons">code</i> Response
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="min-height: 40%">
+        <div class="tab-content">
+            <div class="tab-pane " id="request">
+            </div>
+            <div class="tab-pane  active show" id="response">
+
+                <div id="json-target"
+                     style="height: 500px;  overflow-y: auto;border: 1px salmon solid">
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var dashboard = new Vue({
+        el: '#dashboard',
+        data: {
+            modules: [
+                {
+                    id: 'documents',
+                    link: '/documents',
+                    logo: '/assets/img/modules/json.png',
+                    name: 'Final Framework',
+                    subtitle: 'Final Framework',
+                    description: '站在巨人的肩膀上，视野更宽广。'
+                }
+            ],
+            sidebar: {
+
+                menus: [
+                    {
+                        id: 'request',
+                        name: 'RequestMappings',
+                        icon: 'table_chart',
+                        link: '/dashboard/request/mappings'
+                    }
+                ],
+
+            },
+            page: {
+                menus: [],
+                module: 'documents'
+            },
+            host: 'http://localhost:8080',
+            patterns: [],
+            tab: '#patterns',
+            requestMethods: ['GET', 'POST', 'DELETE'],
+            request: {
+                host: '',
+                method: 'GET',
+                pattern: '/',
+            },
+            parameters: {
+                method: '',
+                pattern: null
+            },
+            requestMapping: {},
+            result: {},
+            path: '$.data'
+        },
+        mounted: function () {
+            let _this = this;
+            _this.request.host = $.query.string('host');
+            _this.request.method = $.query.string('method');
+            _this.request.pattern = $.query.string('pattern');
+            console.log(JSON.stringify(_this.request));
+            _this.initMenus();
+            _this.page.menus = [_this.request.method + '-' + _this.request.pattern];
+            _this.mapping({method: _this.request.method, pattern: _this.request.pattern})
+        },
+        methods: {
+            initMenus: function () {
+                let _this = this;
+                let url = '/api/request/patterns';
+                $.http.get({
+                    url: _this.request.host + url,
+                    data: _this.parameters,
+                    callback: function (result) {
+                        if (result.success) {
+                            _this.patterns = result.data;
+
+                            let menus = [];
+
+                            for (let i in result.data) {
+                                let pattern = result.data[i];
+
+                                menus.push({
+                                    id: pattern.method + '-' + pattern.pattern,
+                                    name: pattern.pattern,
+                                    icon: 'table_chart',
+                                    link: 'request-mapping?method=' + pattern.method + '&pattern=' + pattern.pattern + '&host=' + _this.request.host,
+                                    badge: pattern.method,
+                                    badgeClass: 'badge-' + _this.badgeColor(pattern)
+                                })
+
+                            }
+
+
+                            _this.sidebar.menus = menus;
+
+
+                        }
+                    }
+                });
+            },
+            badgeColor: function (pattern) {
+                switch (pattern.method) {
+                    case 'DELETE':
+                        return 'danger';
+                    case 'GET':
+                        return 'success';
+                    case 'POST':
+                        return 'primary';
+                    default:
+                        return 'default'
+                }
+            },
+            mapping: function (pattern) {
+
+                let _this = this;
+                _this.tab = '#mapping';
+                let url = '/api/request/mapping';
+                $.http.get({
+                    url: _this.request.host + url,
+                    data: pattern,
+                    callback: function (result) {
+                        if (result.success) {
+                            _this.requestMapping = result.data;
+
+                            for (let i in _this.requestMapping.parameterMappings) {
+                                let parameterMapping = _this.requestMapping[i];
+                                parameterMapping['value'] = '';
+                            }
+
+
+                            $('#tabs a[href="#mapping"]').tab('show');
+                        }
+                    }
+                });
+                // window.location = 'mapping?pattern=' + pattern.pattern + '&method=' + pattern.method;
+            },
+
+            send: function () {
+                let _this = this;
+                let host = 'http://localhost:8080';
+                let url = _this.requestMapping.pattern;
+
+                let parameters = {};
+
+                for (let i in _this.requestMapping.parameterMappings) {
+                    let parameter = _this.requestMapping.parameterMappings[i];
+                    parameters[parameter.name] = parameter.value;
+                    url = url.replace('{' + parameter.name + '}', parameter.value);
+                }
+
+
+                $.http.send({
+                    method: _this.method,
+                    url: host + url,
+                    data: parameters,
+                    callback: function (result) {
+                        _this.result = result;
+
+                        let json = new JSONFormat(JSON.stringify(_this.jsonValue(result, '$')), 4).toString();
+                        $('#json-target').html(json);
+                    }
+                })
+            },
+            jsonValue: function (json, path) {
+
+                if (path == '$') return json;
+                let value = jsonPath(json, path);
+                if (value.length == 1) {
+                    return value[0];
+                }
+                return value;
+            }
+        }
+    });
+
+
+</script>

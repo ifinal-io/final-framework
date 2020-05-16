@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+{% include head.html %}
+<body data-offset="100" data-spy="scroll" data-target="#toc">
+<!-- Extra details for Live View on GitHub Pages -->
+<div class="wrapper " id="dashboard">
+    <div class="sidebar" data-background-color="black" data-color="green"
+         data-image="/assets/img/sidebar-1.jpg" id="sidebar">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+            <a class="simple-text logo-mini" href="{{ site.url }}">
+                FFW
+            </a>
+            <a class="simple-text logo-normal" href="{{ site.url }}">
+                Final Framework
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <div class="user">
+                <div class="photo">
+                    <img :src="sidebar.logo"/>
+                </div>
+                <div class="user-info">
+                    <a class="username" data-toggle="collapse" href="#collapseExample">
+              <span>
+                <span v-html="sidebar.name"></span>
+                <b class="caret"></b>
+              </span>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="nav">
+                            <li class="nav-item" v-for="module in modules">
+                                <a :href="module.link" class="nav-link" v-if="module.id != page.module">
+                        <span class="sidebar-mini">
+                                    <img :src="module.logo"/>
+                        </span>
+                                    <span class="sidebar-normal" v-html="module.name">  </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav">
+                <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="menu1 in sidebar.menus">
+                    <a :href="menu1.link" class="nav-link" v-if="menu1.menus == null">
+                        <!--                        <i class="material-icons" v-html="menu1.icon"></i>-->
+                        <p>
+                            <span :class="menu1.badgeClass" class="badge" v-html="menu1.badge"
+                                  v-if="menu1.badge"></span>
+                            <span style="text-transform: none;font-family: Monospaced; font-weight: bold"
+                                  v-html="menu1.name"></span>
+                        </p>
+                    </a>
+                    <a :class="page.menus[0] == menu1.id ? '' : 'collapsed'" :href="'#' + menu1.id" class="nav-link"
+                       data-toggle="collapse" v-if="menu1.menus">
+                        <!--                        <i class="material-icons" v-html="menu1.icon"></i>-->
+                        <p>
+                            <span :class="menu1.badgeClass" class="badge" v-html="menu1.badge"
+                                  v-if="menu1.badge"></span>
+                            <span style="text-transform: none" v-html="menu1.name"></span>
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div :class="page.menus[0] == menu1.id ? 'show' : ''" :id="menu1.id" class="collapse"
+                         v-if="menu1.menus">
+                        <ul class="nav">
+                            <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id ? 'active' : ''"
+                                class="nav-item "
+                                v-for="menu2 in menu1.menus">
+                                <a :href="menu2.link" class="nav-link" v-if="menu2.menus == null">
+                                    <span class="sidebar-mini" v-html="menu2.mini"> P </span>
+                                    <span class="sidebar-normal" v-html="menu2.name"> Pricing </span>
+                                </a>
+                                <a :href="'#' + menu1.id +'@'+ menu2.id" aria-expanded="true" class="nav-link"
+                                   data-toggle="collapse"
+                                   v-if="menu2.menus">
+                                    <span class="sidebar-mini" v-html="menu2.mini"> MLT </span>
+                                    <span class="sidebar-normal"> <span v-html="menu2.name"></span><b class="caret"></b></span>
+                                </a>
+                                <div :class="page.menus[1] == menu2.id ? 'show' : ''" :id="menu1.id +'@' + menu2.id"
+                                     class="collapse"
+                                     v-if="menu2.menus">
+                                    <ul class="nav">
+                                        <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id ? 'active' : ''"
+                                            class="nav-item"
+                                            v-for="menu3 in menu2.menus">
+                                            <a :href="menu3.link" class="nav-link" v-if="menu3.menus == null">
+                                                <span class="sidebar-mini" v-html="menu3.mini"> E </span>
+                                                <span class="sidebar-normal" v-html="menu3.name"> Example </span>
+                                            </a>
+                                            <a :href="'#' + menu1.id +'@' + menu2.id +'@' + menu3.id"
+                                               aria-expanded="true"
+                                               class="nav-link"
+                                               data-toggle="collapse"
+                                               v-if="menu3.menus">
+                                                <span class="sidebar-mini" v-html="menu3.mini"> MLT </span>
+                                                <span class="sidebar-normal"> <span v-html="menu3.name"></span><b
+                                                        class="caret"></b></span>
+                                            </a>
+                                            <div :class="page.menus[2] == menu3.id ? 'show' : ''"
+                                                 :id="menu1.id +'@' + menu2.id +'@' + menu3.id"
+                                                 class="collapse"
+                                                 v-if="menu3.menus">
+                                                <ul class="nav">
+                                                    <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id && page.menus[3] == menu4.id ? 'active' : ''"
+                                                        class="nav-item"
+                                                        v-for="menu4 in menu3.menus">
+                                                        <a :href="menu4.link" class="nav-link">
+                                                            <span class="sidebar-mini" v-html="menu4.mini"> E </span>
+                                                            <span class="sidebar-normal"
+                                                                  v-html="menu4.name"> Example </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel" style="height: 100%">
+        <!-- Navbar -->
+        {% include navbar.html %}
+        <!-- End Navbar -->
+        <div class="content" style="height: calc(100% - 100px)">
+            <div class="container-fluid" style="height: 100%">
+                {{ content }}
+            </div>
+        </div>
+        {% include footer.html %}
+    </div>
+</div>
+{% include plugins/fixed.html %}
+<script>
+    $(document).ready(function () {
+
+            $().ready(function () {
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+                    // $('.fixed-plugin .background-color .badge').click(function () {
+                    //     $(this).siblings().removeClass('active');
+                    //     $(this).addClass('active');
+                    //
+                    //     var new_color = $(this).data('background-color');
+                    //
+                    //     if ($sidebar.length != 0) {
+                    //         $sidebar.attr('data-background-color', new_color);
+                    //     }
+                    // });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                }
+            );
+        }
+    );
+</script>
+</body>
+{% include plugins/toc.html container="#toc" %}
+{% include jekyll/format-href.jekyll %}
+</html>

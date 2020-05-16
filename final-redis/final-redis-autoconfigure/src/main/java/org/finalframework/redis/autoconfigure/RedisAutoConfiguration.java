@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
@@ -25,6 +26,7 @@ import javax.annotation.Resource;
  * @date 2018-11-22 14:10:58
  * @since 1.0
  */
+@Configuration
 @SpringConfiguration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisAutoConfiguration implements ApplicationContextAware {

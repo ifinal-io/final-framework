@@ -165,13 +165,10 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                             }
 
                         }
-                        if (springFactory != null) {
-                            springFactories.addSpringFactory(springFactory, element);
-                            if (Boolean.TRUE.equals(expand)) {
-                                springFactories.addSpringFactory(SpringFactory.class.getCanonicalName(), springFactory.getQualifiedName().toString());
-                            }
+                        springFactories.addSpringFactory(springFactory, element);
+                        if (Boolean.TRUE.equals(expand)) {
+                            springFactories.addSpringFactory(SpringFactory.class.getCanonicalName(), springFactory.getQualifiedName().toString());
                         }
-
 
                     }
                 }
