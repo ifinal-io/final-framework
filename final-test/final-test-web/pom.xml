@@ -60,13 +60,13 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <artifactId>final-document-api</artifactId>
-            <groupId>org.finalframework.document</groupId>
+            <artifactId>final-spiriter-api</artifactId>
+            <groupId>org.finalframework.spiriter</groupId>
             <version>0.5.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <artifactId>final-document-api</artifactId>
-            <groupId>org.finalframework.document</groupId>
+            <artifactId>final-spiriter-api</artifactId>
+            <groupId>org.finalframework.spiriter</groupId>
             <scope>compile</scope>
             <version>0.5.3-SNAPSHOT</version>
         </dependency>

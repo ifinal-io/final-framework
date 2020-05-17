@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 import org.finalframework.core.Assert;
 import org.finalframework.document.api.service.EnumService;
 import org.finalframework.document.api.service.query.EnumQuery;

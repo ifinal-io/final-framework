@@ -1,6 +1,7 @@
 package org.finalframework.document.api.service;
 
 import java.util.List;
+
 import org.finalframework.document.api.service.query.EnumQuery;
 
 /**

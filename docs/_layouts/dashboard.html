@@ -36,10 +36,10 @@
                         <ul class="nav">
                             <li class="nav-item" v-for="module in modules">
                                 <a :href="module.link" class="nav-link" v-if="module.id != page.module">
-                        <span class="sidebar-mini">
-                                    <img :src="module.logo"/>
-                        </span>
-                                    <span class="sidebar-normal" v-html="module.name">  </span>
+                                    <span class="sidebar-mini">
+                                        <img :src="module.logo"/>
+                                    </span>
+                                    <span class="sidebar-normal" v-html="module.name"></span>
                                 </a>
                             </li>
                         </ul>

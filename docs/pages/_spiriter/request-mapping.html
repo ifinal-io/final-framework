@@ -17,6 +17,15 @@ title: RequestMapping
 </style>
 <div class="card">
     <div class="card-header card-header-tabs card-header-info">
+        <div class="card-title">
+            <span class="badge badge-success" v-html="request.method"></span>
+            <span class="badge badge-rose" style="text-transform: none;font-family: Monospaced; font-weight: bold"
+                  v-html="request.host"></span>
+            <span style="text-transform: none;font-family: Monospaced; font-weight: bold"
+                  v-html="request.pattern"></span>
+        </div>
+        <hr/>
+
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <span class="nav-tabs-title"></span>
@@ -39,6 +48,7 @@ title: RequestMapping
                 </ul>
             </div>
         </div>
+
     </div>
     <div class="card-body">
         <div class="tab-content">
@@ -46,7 +56,7 @@ title: RequestMapping
             </div>
             <div class="tab-pane  active show" id="urlParams">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped border border-info rounded ">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
@@ -60,7 +70,8 @@ title: RequestMapping
                             <td class="text-center" v-html="index + 1">1</td>
 
                             <td>
-                                <span v-html="parameter.name">Parameter Name</span>
+                                <span style="font-family: 'Cascadia Code' Monospaced; font-weight: bold"
+                                      v-html="parameter.name">Parameter Name</span>
                                 <span class="text-danger" v-show="parameter.required">*</span>
                             </td>
                             <td>
@@ -161,10 +172,11 @@ title: RequestMapping
                 }
             ],
             sidebar: {
-
+                logo: '/assets/img/modules/json.png',
+                name: 'RequestMapping',
                 menus: [
                     {
-                        id: 'request',
+                        id: 'requestMapping',
                         name: 'RequestMappings',
                         icon: 'table_chart',
                         link: '/dashboard/request/mappings'
@@ -174,7 +186,7 @@ title: RequestMapping
             },
             page: {
                 menus: [],
-                module: 'documents'
+                module: 'requestMapping'
             },
             host: 'http://localhost:8080',
             patterns: [],

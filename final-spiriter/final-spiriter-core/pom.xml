@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>final-document-api</artifactId>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-spiriter-api</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>final-document-annotation</artifactId>
-            <groupId>org.finalframework.document</groupId>
+            <artifactId>final-spiriter-annotation</artifactId>
+            <groupId>org.finalframework.spiriter</groupId>
         </dependency>
         <dependency>
             <artifactId>final-spring-web</artifactId>
@@ -21,8 +21,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>final-document</artifactId>
-        <groupId>org.finalframework.document</groupId>
+        <artifactId>final-spiriter</artifactId>
+        <groupId>org.finalframework.spiriter</groupId>
         <version>0.5.3-SNAPSHOT</version>
     </parent>
 

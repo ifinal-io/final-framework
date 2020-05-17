@@ -20,7 +20,7 @@
         <module>final-coding</module>
         <module>final-ui</module>
         <module>final-boot</module>
-        <module>final-document</module>
+        <module>final-spiriter</module>
         <module>final-test</module>
     </modules>
     <packaging>pom</packaging>
@@ -126,21 +126,21 @@
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
-            <!-- ============================================ final-document ============================================ -->
+            <!-- ============================================ final-spiriter ============================================ -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <artifactId>final-document</artifactId>
-                <groupId>org.finalframework.document</groupId>
+                <artifactId>final-spiriter</artifactId>
+                <groupId>org.finalframework.spiriter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-document-annotation</artifactId>
-                <groupId>org.finalframework.document</groupId>
+                <artifactId>final-spiriter-annotation</artifactId>
+                <groupId>org.finalframework.spiriter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-document-api</artifactId>
-                <groupId>org.finalframework.document</groupId>
+                <artifactId>final-spiriter-api</artifactId>
+                <groupId>org.finalframework.spiriter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->

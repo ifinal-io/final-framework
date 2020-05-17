@@ -58,7 +58,7 @@ collections_dir: pages
 collections:
   documents:
     output: true
-  dashboard:
+  spiriter:
     output: true
   resume:
     output: true

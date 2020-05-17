@@ -2,6 +2,7 @@ package org.finalframework.document.api.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.document.api.service.EntityService;
 import org.finalframework.document.api.service.query.EntityQuery;
