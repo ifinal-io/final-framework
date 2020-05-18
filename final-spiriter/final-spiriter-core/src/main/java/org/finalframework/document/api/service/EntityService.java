@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.Entity;
+import org.finalframework.document.api.entity.EntityHolder;
 import org.finalframework.document.api.service.query.EntityQuery;
 
 /**
@@ -20,7 +21,7 @@ public interface EntityService {
      * @param query the entity query
      * @return the {@link Class} which is a {@link IEntity}
      */
-    List<Class<?>> query(EntityQuery query);
+    List<EntityHolder> query(EntityQuery query);
 
     /**
      * return the {@link Entity} of the {@code entity}.

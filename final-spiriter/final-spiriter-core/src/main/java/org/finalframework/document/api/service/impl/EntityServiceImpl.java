@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.Entity;
+import org.finalframework.document.api.entity.EntityHolder;
 import org.finalframework.document.api.service.EntityService;
 import org.finalframework.document.api.service.query.EntityQuery;
 import org.finalframework.util.Classes;
@@ -31,7 +32,7 @@ public class EntityServiceImpl implements EntityService {
             .collect(Collectors.toMap(Function.identity(), Classes::forName));
 
     @Override
-    public List<Class<?>> query(EntityQuery query) {
+    public List<EntityHolder> query(EntityQuery query) {
 
         return entitiesMap.values()
                 .stream()
@@ -43,6 +44,12 @@ public class EntityServiceImpl implements EntityService {
                     }
 
 
+                })
+                .map(entity -> {
+                    final EntityHolder holder = new EntityHolder();
+                    holder.setName(entity.getSimpleName());
+                    holder.setEntity(entity);
+                    return holder;
                 })
                 .collect(Collectors.toList());
 

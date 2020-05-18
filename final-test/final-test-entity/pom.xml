@@ -18,6 +18,10 @@
             <artifactId>final-coding-entity</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.finalframework.coding</groupId>
+            <artifactId>final-coding-spring</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.mybatis</groupId>
             <artifactId>final-mybatis-core</artifactId>
             <scope>provided</scope>

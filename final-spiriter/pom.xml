@@ -15,6 +15,7 @@
     <modules>
         <module>final-spiriter-annotation</module>
         <module>final-spiriter-core</module>
+        <module>final-spiriter-redis</module>
     </modules>
 
 

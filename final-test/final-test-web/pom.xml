@@ -60,12 +60,12 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <artifactId>final-spiriter-api</artifactId>
+            <artifactId>final-spiriter-core</artifactId>
             <groupId>org.finalframework.spiriter</groupId>
             <version>0.5.3-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <artifactId>final-spiriter-api</artifactId>
+            <artifactId>final-spiriter-redis</artifactId>
             <groupId>org.finalframework.spiriter</groupId>
             <scope>compile</scope>
             <version>0.5.3-SNAPSHOT</version>

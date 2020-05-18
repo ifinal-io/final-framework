@@ -3,32 +3,27 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-redis</artifactId>
-        <groupId>org.finalframework.redis</groupId>
+        <artifactId>final-spiriter</artifactId>
+        <groupId>org.finalframework.spiriter</groupId>
         <version>0.5.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-redis-api</artifactId>
+    <artifactId>final-spiriter-redis</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework.redis</groupId>
-            <artifactId>final-redis-core</artifactId>
+            <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-redis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.finalframework.spring</groupId>
+            <artifactId>final-spring-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.coding</groupId>
             <artifactId>final-coding-spring</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework.spring</groupId>
-            <artifactId>final-spring-annotation</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>

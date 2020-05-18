@@ -9,10 +9,12 @@ import org.finalframework.document.api.entity.RequestPattern;
 import org.finalframework.document.api.entity.ResultMapping;
 import org.finalframework.document.api.service.RequestMappingService;
 import org.finalframework.document.api.service.query.RequestPatternQuery;
+import org.finalframework.json.Json;
 import org.finalframework.util.LinkedMultiKeyMap;
 import org.finalframework.util.MultiKeyMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -36,7 +39,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Service
-public class RequestMappingServiceImpl implements RequestMappingService {
+public class RequestMappingServiceImpl implements RequestMappingService, InitializingBean {
     public static final Logger logger = LoggerFactory.getLogger(RequestMappingServiceImpl.class);
     private final ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
     /**
@@ -49,13 +52,23 @@ public class RequestMappingServiceImpl implements RequestMappingService {
 
     public RequestMappingServiceImpl(RequestMappingHandlerMapping requestMappingHandlerMapping) {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
-        this.init();
-
-        Collections.sort(requestPatterns);
     }
 
+    @Override
+    public List<RequestPattern> query(RequestPatternQuery query) {
+        return requestPatterns.stream().filter(requestPattern -> {
+            if (query.getMethod() != null && requestPattern.getMethod() != query.getMethod()) return false;
+            return !Assert.nonEmpty(query.getPattern()) || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase());
+        }).collect(Collectors.toList());
+    }
 
-    private void init() {
+    @Override
+    public RequestMapping find(String pattern, RequestMethod method) {
+        return requestMappingMap.get(pattern, method);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
         this.requestMappingHandlerMapping.getHandlerMethods().keySet().forEach(it -> logger.info(it.toString()));
 
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : this.requestMappingHandlerMapping.getHandlerMethods().entrySet()) {
@@ -82,47 +95,60 @@ public class RequestMappingServiceImpl implements RequestMappingService {
 
 
                         if (methodParameter.hasParameterAnnotation(RequestParam.class)) {
-                            final ResultMapping resultMapping = new ResultMapping();
-                            resultMapping.setName(parameterName);
-                            resultMapping.setType(parameterType);
-                            resultMapping.setGenericType(genericParameterType);
-                            resultMapping.setRequired(Objects.requireNonNull(methodParameter.getParameterAnnotation(RequestParam.class)).required());
-                            parameterMappings.add(resultMapping);
+                            final RequestParam requestParam = Objects.requireNonNull(methodParameter.getParameterAnnotation(RequestParam.class));
+                            final ResultMapping parameterMapping = new ResultMapping();
+                            parameterMapping.setName(parameterName);
+                            parameterMapping.setType(parameterType);
+                            parameterMapping.setGenericType(genericParameterType);
+                            parameterMapping.setRequired(requestParam.required());
+
+                            if (!ValueConstants.DEFAULT_NONE.equals(requestParam.defaultValue())) {
+                                if (parameterType.isEnum()) {
+                                    Enum<?> value = Enum.valueOf((Class<? extends Enum>) parameterType, requestParam.defaultValue());
+                                    parameterMapping.setValue(value);
+                                } else if (!"*".equals(requestParam.defaultValue())) {
+                                    parameterMapping.setValue(Json.toObject(requestParam.defaultValue(), genericParameterType));
+                                } else {
+                                    parameterMapping.setValue(requestParam.defaultValue());
+                                }
+                            }
+
+                            parameterMappings.add(parameterMapping);
 
                         } else if (methodParameter.hasParameterAnnotation(PathVariable.class)) {
-                            final ResultMapping resultMapping = new ResultMapping();
-                            resultMapping.setName(parameterName);
-                            resultMapping.setType(parameterType);
-                            resultMapping.setGenericType(genericParameterType);
-                            resultMapping.setRequired(Objects.requireNonNull(methodParameter.getParameterAnnotation(PathVariable.class)).required());
-                            parameterMappings.add(resultMapping);
+                            final ResultMapping parameterMapping = new ResultMapping();
+                            parameterMapping.setName(parameterName);
+                            parameterMapping.setType(parameterType);
+                            parameterMapping.setGenericType(genericParameterType);
+                            parameterMapping.setRequired(Objects.requireNonNull(methodParameter.getParameterAnnotation(PathVariable.class)).required());
+                            parameterMappings.add(parameterMapping);
 
                         } else if (PrimaryTypes.isPrimary(parameterType)) {
-                            final ResultMapping resultMapping = new ResultMapping();
-                            resultMapping.setName(parameterName);
-                            resultMapping.setType(parameterType);
-                            resultMapping.setGenericType(genericParameterType);
-                            parameterMappings.add(resultMapping);
+                            final ResultMapping parameterMapping = new ResultMapping();
+                            parameterMapping.setName(parameterName);
+                            parameterMapping.setType(parameterType);
+                            parameterMapping.setGenericType(genericParameterType);
+                            parameterMappings.add(parameterMapping);
 
                         } else if (parameterType.isEnum()) {
-                            final ResultMapping resultMapping = new ResultMapping();
-                            resultMapping.setName(parameterName);
-                            resultMapping.setType(parameterType);
-                            resultMapping.setGenericType(genericParameterType);
-                            resultMapping.setOptions(Arrays.asList(parameterType.getEnumConstants()));
-                            parameterMappings.add(resultMapping);
+                            final ResultMapping parameterMapping = new ResultMapping();
+                            parameterMapping.setName(parameterName);
+                            parameterMapping.setType(parameterType);
+                            parameterMapping.setGenericType(genericParameterType);
+                            parameterMapping.setOptions(Arrays.asList(parameterType.getEnumConstants()));
+                            parameterMappings.add(parameterMapping);
                         } else if (!Collection.class.isAssignableFrom(parameterType)) {
                             // maybe a java bean
                             final Entity<?> entity = Entity.from(parameterType);
                             for (Property property : entity) {
-                                final ResultMapping resultMapping = new ResultMapping();
-                                resultMapping.setName(property.getName());
-                                resultMapping.setType(property.getType());
-//                                resultMapping.setGenericType(Optional.ofNullable(property.getField()).map(Field::getGenericType)
+                                final ResultMapping parameterMapping = new ResultMapping();
+                                parameterMapping.setName(property.getName());
+                                parameterMapping.setType(property.getType());
+//                                parameterMapping.setGenericType(Optional.ofNullable(property.getField()).map(Field::getGenericType)
 //                                        .orElse(property.getRequiredGetter().getGenericReturnType()));
 
 
-                                parameterMappings.add(resultMapping);
+                                parameterMappings.add(parameterMapping);
 
                             }
 
@@ -147,10 +173,10 @@ public class RequestMappingServiceImpl implements RequestMappingService {
                             final ResultMapping resultMapping = new ResultMapping();
                             resultMapping.setName(property.getName());
                             resultMapping.setType(property.getType());
-//                            resultMapping.setGenericType(Optional.ofNullable(property.getField()).map(Field::getGenericType)
+//                            parameterMapping.setGenericType(Optional.ofNullable(property.getField()).map(Field::getGenericType)
 //                                    .orElse(property.getRequiredGetter().getGenericReturnType()));
 
-                            resultMappings.add(resultMapping);
+                            parameterMappings.add(resultMapping);
                         }
                     }
 
@@ -166,19 +192,7 @@ public class RequestMappingServiceImpl implements RequestMappingService {
         }
 
 
-    }
-
-    @Override
-    public List<RequestPattern> query(RequestPatternQuery query) {
-        return requestPatterns.stream().filter(requestPattern -> {
-            if (query.getMethod() != null && requestPattern.getMethod() != query.getMethod()) return false;
-            return !Assert.nonEmpty(query.getPattern()) || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase());
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public RequestMapping find(String pattern, RequestMethod method) {
-        return requestMappingMap.get(pattern, method);
+        Collections.sort(requestPatterns);
     }
 }
 

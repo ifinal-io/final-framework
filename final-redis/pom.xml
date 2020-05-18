@@ -18,7 +18,6 @@
     <modules>
         <module>final-redis-core</module>
         <module>final-redis-autoconfigure</module>
-        <module>final-redis-api</module>
         <module>final-redis-admin</module>
     </modules>
 

@@ -16,10 +16,6 @@
             <groupId>org.finalframework.ui</groupId>
             <artifactId>final-ui-admin</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework.redis</groupId>
-            <artifactId>final-redis-api</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

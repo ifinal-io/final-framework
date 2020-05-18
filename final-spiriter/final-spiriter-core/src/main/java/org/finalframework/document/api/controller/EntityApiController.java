@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.finalframework.data.mapping.Entity;
+import org.finalframework.document.api.entity.EntityHolder;
 import org.finalframework.document.api.service.EntityService;
 import org.finalframework.document.api.service.query.EntityQuery;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class EntityApiController implements InitializingBean {
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @GetMapping("/entities")
-    public List<Class<?>> query(EntityQuery query) {
+    public List<EntityHolder> query(EntityQuery query) {
         return entityService.query(query);
     }
 
