@@ -12,6 +12,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,10 +25,10 @@ import java.util.List;
 @ConditionalOnMissingBean(GlobalExceptionHandler.class)
 public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandler<Result<?>> {
     private static final Logger logger = LoggerFactory.getLogger(ResultGlobalResultExceptionHandler.class);
-    private List<ResultExceptionHandler<Throwable>> resultExceptionHandlers;
+    private List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
 
-    public ResultGlobalResultExceptionHandler(ObjectProvider<List<ResultExceptionHandler<Throwable>>> resultExceptionHandlerObjectProvider) {
-        this.resultExceptionHandlers = resultExceptionHandlerObjectProvider.getIfAvailable();
+    public ResultGlobalResultExceptionHandler(ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
+        this.resultExceptionHandlers.addAll(resultExceptionHandlerObjectProvider.getIfAvailable());
     }
 
     @Override
@@ -40,9 +41,9 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
             logger.error("==> ", throwable);
         }
 
-        for (ResultExceptionHandler<Throwable> resultExceptionHandler : resultExceptionHandlers) {
+        for (ResultExceptionHandler<?> resultExceptionHandler : resultExceptionHandlers) {
             if (resultExceptionHandler.supports(throwable)) {
-                final Result<?> result = resultExceptionHandler.handle(throwable);
+                final Result<?> result = ((ResultExceptionHandler<Throwable>) resultExceptionHandler).handle(throwable);
                 result.setTrace(MDC.get("trace"));
                 result.setTimestamp(System.currentTimeMillis());
                 result.setException(throwable.getClass());

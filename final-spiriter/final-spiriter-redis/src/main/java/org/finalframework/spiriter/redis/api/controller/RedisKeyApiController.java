@@ -5,10 +5,7 @@ import org.finalframework.spiriter.redis.api.model.RedisKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.DataType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +23,14 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class RedisKeyApiController {
     public static final Logger logger = LoggerFactory.getLogger(RedisKeyApiController.class);
+
+
+    @DeleteMapping
+    public Long delete(Collection<String> keys) {
+        final Long count = Redis.key().delete(keys);
+        logger.debug("redis delete keys: {},count={}", keys, count);
+        return count;
+    }
 
     @GetMapping("/keys")
     public List<RedisKey> keys(@RequestParam("pattern") String pattern) {
