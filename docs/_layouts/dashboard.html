@@ -27,10 +27,7 @@
                 </div>
                 <div class="user-info">
                     <a class="username" data-toggle="collapse" href="#collapseExample">
-              <span>
-                <span v-html="sidebar.name"></span>
-                <b class="caret"></b>
-              </span>
+                        <span><span v-html="sidebar.name"></span><b class="caret"></b></span>
                     </a>
                     <div class="collapse" id="collapseExample">
                         <ul class="nav">
@@ -46,9 +43,20 @@
                     </div>
                 </div>
             </div>
+            <div class="user">
+                <div style="padding: 0 30px">
+                    <div class="input-group no-border text-primary">
+                        <input class="form-control text-primary" placeholder="Filter... "
+                               style="font-weight: bold;font-family: 'Cascadia Code' Monospaced" type="text"
+                               v-model="filter" value="">
+                    </div>
+                </div>
+
+            </div>
             <ul class="nav">
                 <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="menu1 in sidebar.menus">
-                    <a :href="menu1.link" class="nav-link" v-if="menu1.menus == null">
+                    <a :href="menu1.link" @click="onMenuClick(menu1)" class="nav-link"
+                       v-if="menu1.menus == null && (filter == '' || (filter != '' && menu1.id.indexOf(filter) != -1))">
                         <!--                        <i class="material-icons" v-html="menu1.icon"></i>-->
                         <p>
                             <span :class="menu1.badgeClass" class="badge" v-html="menu1.badge"

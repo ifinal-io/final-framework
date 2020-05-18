@@ -1,6 +1,7 @@
 ---
 layout: dashboard
 title: RequestMapping
+subtitle: Spiriter
 ---
 <style>
     #dashboard {
@@ -171,6 +172,7 @@ title: RequestMapping
                     description: '站在巨人的肩膀上，视野更宽广。'
                 }
             ],
+            filter: '',
             sidebar: {
                 logo: '/assets/img/modules/json.png',
                 name: 'RequestMapping',
@@ -235,9 +237,11 @@ title: RequestMapping
                                     id: pattern.method + '-' + pattern.pattern,
                                     name: pattern.pattern,
                                     icon: 'table_chart',
-                                    link: 'request-mapping?method=' + pattern.method + '&pattern=' + pattern.pattern + '&host=' + _this.request.host,
+                                    // link: 'request-mapping?method=' + pattern.method + '&pattern=' + pattern.pattern + '&host=' + _this.request.host,
+                                    link: 'javascript:void(0);',
                                     badge: pattern.method,
                                     badgeClass: 'badge-' + _this.badgeColor(pattern)
+
                                 })
 
                             }
@@ -321,6 +325,13 @@ title: RequestMapping
                     return value[0];
                 }
                 return value;
+            },
+            onMenuClick: function (menu) {
+                let _this = this;
+                _this.page.menus = [menu.id];
+                _this.request.method = menu.badge;
+                _this.request.pattern = menu.name;
+                _this.mapping(_this.request);
             }
         }
     });

@@ -24,6 +24,10 @@ public final class RedisRegistry {
         this.redisTemplate = redisTemplate;
     }
 
+    public RedisTemplate<?, ?> template() {
+        return redisTemplate;
+    }
+
     public RedisOperations key() {
         return redisTemplate;
     }

@@ -16,6 +16,10 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unchecked")
 public interface Redis {
 
+    static RedisTemplate<?, ?> template() {
+        return RedisRegistry.getInstance().template();
+    }
+
     @NonNull
     static RedisOperations key() {
         return RedisRegistry.getInstance().key();
