@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-test</artifactId>
         <groupId>org.finalframework.test</groupId>
-        <version>0.5.3-SNAPSHOT</version>
+        <version>0.5.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.finalframework.retrofit</groupId>
             <artifactId>final-retrofit-core</artifactId>
-            <version>0.5.3-SNAPSHOT</version>
+            <version>0.5.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
