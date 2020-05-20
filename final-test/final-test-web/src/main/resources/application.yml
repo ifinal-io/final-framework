@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
     password: Aa000000
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,28 +23,23 @@ final:
   sharding:
     datasource:
       ds0:
-        url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: Aa000000
-        driver-class-name: com.mysql.cj.jdbc.Driver
-      ds1:
-        url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
-        username: root
-        password: Aa000000
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${spring.datasource.url}
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        driver-class-name: ${spring.datasource.driver-class-name}
     sharding-rule:
       tables:
         person:
           logic-table: person
-          actual-data-nodes: ds${0..1}.person_0${0..9},ds${0..1}.person_${10..99}
+          actual-data-nodes: ds0.person_00${0..9},ds0.person_0${10..99}
           table-sharding-strategy:
             inline:
               sharding-column: age
-              algorithm-expression: person_${String.format("%2d",age % 100)}
-          database-sharding-strategy:
-            inline:
-              sharding-column: age
-              algorithm-expression: ds${age % 2}
+              algorithm-expression: person_${String.format("%03d",age % 100)}
+      #          database-sharding-strategy:
+      #            inline:
+      #              sharding-column: age
+      #              algorithm-expression: ds${age % 2}
       binding-tables: []
       broadcast-tables: []
   json:

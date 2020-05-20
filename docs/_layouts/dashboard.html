@@ -57,7 +57,7 @@
                 <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="menu1 in sidebar.menus">
                     <a :href="menu1.link" @click="onMenuClick(menu1)" class="nav-link"
                        v-if="menu1.menus == null && (filter == '' || (filter != '' && menu1.id.indexOf(filter) != -1))">
-                        <!--                        <i class="material-icons" v-html="menu1.icon"></i>-->
+                        <i class="material-icons" v-html="menu1.icon" v-if="menu1.icon"></i>
                         <p>
                             <span :class="menu1.badgeClass" class="badge" v-html="menu1.badge"
                                   v-if="menu1.badge"></span>
@@ -67,7 +67,7 @@
                     </a>
                     <a :class="page.menus[0] == menu1.id ? '' : 'collapsed'" :href="'#' + menu1.id" class="nav-link"
                        data-toggle="collapse" v-if="menu1.menus">
-                        <!--                        <i class="material-icons" v-html="menu1.icon"></i>-->
+                        <i class="material-icons" v-html="menu1.icon" v-if="menu1.icon"></i>
                         <p>
                             <span :class="menu1.badgeClass" class="badge" v-html="menu1.badge"
                                   v-if="menu1.badge"></span>

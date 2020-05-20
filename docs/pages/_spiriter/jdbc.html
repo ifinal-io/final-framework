@@ -1,0 +1,126 @@
+---
+layout: dashboard
+title: RequestMapping
+subtitle: Spiriter
+---
+
+<!--Sql And Query-->
+
+<div class="card">
+    <div class="card-header card-header-tabs card-header-info">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title"></span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="tab" href="#sql">
+                            <i class="material-icons">bug_report</i> Sql
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " data-toggle="tab" href="#query">
+                            <i class="material-icons">code</i> Query
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="min-height: 40%">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="sql">
+                        <div class="from-group">
+                            <textarea class=form-control" id="sqlTextArea" rows="10l" style="width: 100%"
+                                      v-model="sql"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="query">
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-right">
+        <div class="form-check mr-auto">
+
+        </div>
+        <button @click="execute" class="btn btn-rose" type="submit">Execute</button>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header card-header-tabs card-header-success">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title"></span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link  active show" data-toggle="tab" href="#console">
+                            <i class="material-icons">code</i> Console
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#resultSets">
+                            <i class="material-icons">code</i> Response
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="min-height: 40%">
+        <div class="tab-content">
+            <div class="tab-pane  active show" id="console">
+                <p v-for="logger in loggers" v-html="logger"></p>
+            </div>
+            <div class="tab-pane" id="resultSets">
+                <ul class="nav nav-pills nav-pills-primary" role="tablist">
+                    <li class="nav-item" v-for="(resultSet,index) in resultSets">
+                        <a :href="'#resultSet[' + index + ']'" aria-expanded="true" class="nav-link" data-toggle="tab"
+                           role="tablist" v-html="'resultSet[' + index + ']'">
+
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="tab-content tab-space">
+                    <div :id="'resultSet[' + index + ']'" aria-expanded="true" class="tab-pane"
+                         v-for="(resultSet,index) in resultSets">
+                        <table class="table table-striped table-bordered table-responsive ">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th v-for="meta in resultSet.metaData" v-html="meta.name">Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(row,index) in resultSet.rowData">
+                                <td class="text-center" v-html="index + 1">1</td>
+
+                                <td v-for="meta in resultSet.metaData">
+                                    <span v-html="formatDate('yyyy-MM-dd HH:mm:ss',row[meta.name])"
+                                          v-if="meta.typeName == 'DATETIME'"></span>
+                                    <span v-else="" v-html="row[meta.name]"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{{site.baseurl}}/assets/js/jdbc.js"></script>

@@ -1,6 +1,7 @@
 package org.finalframework.test.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.finalframework.spiriter.jdbc.model.ResultSets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,11 +44,7 @@ public class SqlController {
         final ResultSetMetaData metaData = showTables.getMetaData();
 
         final ResultSet resultSet = statement.executeQuery("select * from person");
-        final ResultSetMetaData metaData1 = resultSet.getMetaData();
-        for (int i = 1; i <= metaData1.getColumnCount(); i++) {
-            logger.info("index={},name={},label={},type={},typeName={}", i, metaData1.getColumnName(i),
-                    metaData1.getColumnLabel(i), metaData1.getColumnType(i), metaData1.getColumnTypeName(i));
-        }
+        final ResultSets resultSets = ResultSets.from(resultSet);
 
         System.out.println();
     }

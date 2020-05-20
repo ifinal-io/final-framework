@@ -27,6 +27,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -107,7 +108,7 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
                                     Enum<?> value = Enum.valueOf((Class<? extends Enum>) parameterType, requestParam.defaultValue());
                                     parameterMapping.setValue(value);
                                 } else if (!"*".equals(requestParam.defaultValue())) {
-                                    parameterMapping.setValue(Json.toObject(requestParam.defaultValue(), genericParameterType));
+                                    parameterMapping.setValue(Json.toObject(requestParam.defaultValue(), parameterType));
                                 } else {
                                     parameterMapping.setValue(requestParam.defaultValue());
                                 }

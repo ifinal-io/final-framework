@@ -12,6 +12,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -26,7 +27,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public static final Logger logger = LoggerFactory.getLogger(DatabaseServiceImpl.class);
 
     private static final String ACTUAL_SEPARATOR = "_";
-    private static final String ACTUAL_SUFFIX = "_(\\d)+$";
+    private static final Pattern PATTERN = Pattern.compile("_\\d+$");
 
 
     @Override
@@ -36,7 +37,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
         while (showTables.next()) {
             final String table = showTables.getString(1);
-            if (Assert.matches(table, ACTUAL_SUFFIX)) {
+            if (PATTERN.matcher(table).find()) {
                 final String logicTable = table.substring(0, table.lastIndexOf(ACTUAL_SEPARATOR));
                 final Set<String> actualTables = shardingTables.computeIfAbsent(logicTable, key -> new HashSet<>());
                 actualTables.add(table);
