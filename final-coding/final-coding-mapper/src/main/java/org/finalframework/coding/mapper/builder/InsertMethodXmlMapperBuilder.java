@@ -1,22 +1,20 @@
 package org.finalframework.coding.mapper.builder;
 
-import static org.finalframework.data.annotation.enums.PrimaryKeyType.UUID;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.annotation.ReadOnly;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.finalframework.data.annotation.enums.PrimaryKeyType.UUID;
 
 /**
  * @author likly
@@ -177,11 +175,11 @@ public class InsertMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
                                 .map(multiProperty -> {
 //                                    final String table = property.getTable();
 //                                    return columnGenerator.generateWriteColumn(table, property, multiProperty);
-                                    return typeHandlers.formatPropertyWriteColumn(property, multiProperty);
+                                    return typeHandlers.formatPropertyWriteColumn(entity, property, multiProperty);
                                 })
                                 .forEach(columns::add);
                     } else {
-                        columns.add(typeHandlers.formatPropertyWriteColumn(null, property));
+                        columns.add(typeHandlers.formatPropertyWriteColumn(entity, null, property));
 //                        ColumnGenerator columnGenerator = Utils.getPropertyColumnGenerator(property);
 //                        columns.add(columnGenerator.generateWriteColumn(property.getTable(), null, property));
                     }

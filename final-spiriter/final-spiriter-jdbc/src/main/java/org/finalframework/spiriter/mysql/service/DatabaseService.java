@@ -1,7 +1,7 @@
-package org.finalframework.spiriter.jdbc.service;
+package org.finalframework.spiriter.mysql.service;
 
 
-import org.finalframework.spiriter.jdbc.model.Table;
+import org.finalframework.spiriter.mysql.model.Table;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

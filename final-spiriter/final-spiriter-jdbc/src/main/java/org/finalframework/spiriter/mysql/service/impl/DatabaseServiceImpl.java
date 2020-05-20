@@ -1,14 +1,12 @@
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.finalframework.spiriter.mysql.service.impl;
 
-import org.finalframework.core.Assert;
-import org.finalframework.spiriter.jdbc.model.Table;
-import org.finalframework.spiriter.jdbc.service.DatabaseService;
+import org.finalframework.spiriter.mysql.model.Table;
+import org.finalframework.spiriter.mysql.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -51,7 +49,7 @@ public class DatabaseServiceImpl implements DatabaseService {
                 .map(entry -> {
                     final Table result = new Table();
                     result.setLogicTable(entry.getKey());
-                    result.setActualTables(entry.getValue());
+                    result.setActualTables(entry.getValue().stream().sorted().collect(Collectors.toList()));
                     return result;
                 }).collect(Collectors.toList());
 

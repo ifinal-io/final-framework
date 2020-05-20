@@ -43,7 +43,7 @@ public class SqlWhereIdFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperB
         Element sql = sql(document, id());
         Element where = document.createElement("where");
         Element trim = document.createElement("trim");
-        trim.setAttribute("prefix", String.format("%s =", typeHandlers.formatPropertyColumn(null, entity.getRequiredIdProperty())));
+        trim.setAttribute("prefix", String.format("%s =", typeHandlers.formatPropertyColumn(entity, null, entity.getRequiredIdProperty())));
         trim.appendChild(textNode(document, "#{id}"));
         where.appendChild(trim);
         sql.appendChild(where);

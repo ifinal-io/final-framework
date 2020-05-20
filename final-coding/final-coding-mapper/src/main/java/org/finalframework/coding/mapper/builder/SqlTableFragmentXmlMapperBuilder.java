@@ -6,6 +6,8 @@ import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.Optional;
+
 /**
  * <pre>
  *     <code>
@@ -37,7 +39,8 @@ public final class SqlTableFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMap
     @Override
     public Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = sql(document, id());
-        sql.appendChild(textNode(document, entity.getTable()));
+        final String schema = Optional.ofNullable(entity.getSchema()).map(value -> value + ".").orElse("");
+        sql.appendChild(textNode(document, schema + entity.getTable()));
         return sql;
     }
 }

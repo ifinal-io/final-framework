@@ -65,10 +65,10 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
                                 .map(multiEntity::getProperty)
                                 .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isWriteOnly())
                                 .forEach(multiProperty -> {
-                                    columns.add(typeHandlers.formatPropertyReadColumn(property, multiProperty));
+                                    columns.add(typeHandlers.formatPropertyReadColumn(entity, property, multiProperty));
                                 });
                     } else {
-                        columns.add(typeHandlers.formatPropertyReadColumn(null, property));
+                        columns.add(typeHandlers.formatPropertyReadColumn(entity, null, property));
                     }
                 });
 

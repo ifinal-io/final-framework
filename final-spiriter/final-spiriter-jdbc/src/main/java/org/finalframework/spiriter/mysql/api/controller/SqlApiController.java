@@ -1,7 +1,7 @@
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.finalframework.spiriter.mysql.api.controller;
 
-import org.finalframework.spiriter.jdbc.model.ResultSets;
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.finalframework.spiriter.mysql.model.ResultSets;
+import org.finalframework.spiriter.mysql.service.DataSourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;

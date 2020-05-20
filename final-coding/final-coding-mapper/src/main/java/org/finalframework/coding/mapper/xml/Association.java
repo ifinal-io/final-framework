@@ -80,7 +80,7 @@ public final class Association implements Element, Streamable<Element>, Iterable
                     if (property.isReference()) {
 //                        builder.addAssociation(Association.from(property,property.toEntity()));
                     } else {
-                        builder.addResult(Result.from(referenceProperty, property, typeHandlers));
+                        builder.addResult(Result.from(entity, referenceProperty, property, typeHandlers));
                     }
                 });
 

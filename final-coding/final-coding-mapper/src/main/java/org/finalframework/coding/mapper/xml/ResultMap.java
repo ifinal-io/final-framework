@@ -50,7 +50,7 @@ public class ResultMap implements Element, Streamable<Element>, Iterable<Element
                     if (property.isReference()) {
                         builder.addAssociation(Association.from(property, property.toEntity(), typeHandlers));
                     } else {
-                        builder.addResult(Result.from(null, property, typeHandlers));
+                        builder.addResult(Result.from(entity, null, property, typeHandlers));
                     }
                 });
 //

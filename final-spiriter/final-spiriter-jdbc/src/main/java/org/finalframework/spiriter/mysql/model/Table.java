@@ -1,9 +1,9 @@
-package org.finalframework.spiriter.jdbc.model;
+package org.finalframework.spiriter.mysql.model;
 
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author likly
@@ -14,6 +14,6 @@ import java.util.Set;
 @Data
 public class Table {
     private String logicTable;
-    private Set<String> actualTables;
+    private List<String> actualTables;
 }
 

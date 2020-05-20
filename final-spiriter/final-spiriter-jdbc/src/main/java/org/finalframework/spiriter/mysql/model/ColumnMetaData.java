@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.model;
+package org.finalframework.spiriter.mysql.model;
 
 
 import lombok.Data;

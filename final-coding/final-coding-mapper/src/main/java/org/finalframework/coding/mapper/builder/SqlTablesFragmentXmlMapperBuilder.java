@@ -6,6 +6,8 @@ import org.finalframework.coding.mapper.TypeHandlers;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.Optional;
+
 /**
  * <pre>
  *     <code>
@@ -56,15 +58,18 @@ public final class SqlTablesFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMa
         final Element choose = document.createElement("choose");
         //              <when test="tableName != null">
         final Element whenTableNameNotNull = document.createElement("when");
+
+        final String schema = Optional.ofNullable(entity.getSchema()).map(value -> value + ".").orElse("");
+
         whenTableNameNotNull.setAttribute("test", "table != null");
         //                  ${tableName}
-        whenTableNameNotNull.appendChild(textNode(document, "${table}"));
+        whenTableNameNotNull.appendChild(textNode(document, schema + "${table}"));
         //              </when>
         choose.appendChild(whenTableNameNotNull);
         //              <otherwise>
         final Element otherwise = document.createElement("otherwise");
         //                  tableName
-        otherwise.appendChild(textNode(document, entity.getTable()));
+        otherwise.appendChild(textNode(document, schema + entity.getTable()));
         //              </otherwise>
         choose.appendChild(otherwise);
         //      </choose>

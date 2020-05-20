@@ -1,6 +1,6 @@
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.finalframework.spiriter.mysql.service.impl;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.finalframework.spiriter.mysql.service.DataSourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

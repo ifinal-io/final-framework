@@ -31,6 +31,12 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
      */
     String getName();
 
+    /**
+     * @return
+     * @see org.finalframework.data.annotation.Schema
+     */
+    String getSchema();
+
     String getTable();
 
     /**

@@ -95,8 +95,10 @@ let JDBC = new Vue({
         // });
 
         _this.sqlEditor = sqlEditor;
-
-
+        let pageMenus = [];
+        pageMenus.push($.query.string('logicTable'));
+        pageMenus.push($.query.string('actualTable'));
+        _this.page.menus = pageMenus;
         this.loadTables('dataSource');
     },
     methods: {
@@ -112,16 +114,35 @@ let JDBC = new Vue({
 
                     for (let i in result.data) {
                         let table = result.data[i];
-                        menus.push({
+
+                        let submenus = [];
+
+                        for (let i in table.actualTables) {
+                            let actualTable = table.actualTables[i];
+                            submenus.push({
+                                id: actualTable,
+                                name: actualTable,
+                                // link: 'javascript:void(0);',
+                                link: 'jdbc?logicTable=' + table.logicTable + '&actualTable=' + actualTable,
+                                mini: actualTable.replace(table.logicTable + '_', '')
+                            })
+                        }
+
+
+                        let menu = {
                             id: table.logicTable,
                             name: table.logicTable,
                             icon: 'table_chart',
                             // link: 'request-mapping?method=' + pattern.method + '&pattern=' + pattern.pattern + '&host=' + _this.request.host,
                             link: 'javascript:void(0);',
                             badge: table.actualTables.length,
-                            badgeClass: 'badge-success'
+                            badgeClass: 'badge-success',
+                            menus: submenus
 
-                        })
+                        }
+
+
+                        menus.push(menu)
 
                     }
 

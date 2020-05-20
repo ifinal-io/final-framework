@@ -179,7 +179,7 @@ public class AbsXmlMapperBuilder {
                     Element ifPropertyNotNull = document.createElement("if");
                     ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
 
-                    final String column = typeHandlers.formatPropertyColumn(null, property);
+                    final String column = typeHandlers.formatPropertyColumn(entity, null, property);
                     final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
                     ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));

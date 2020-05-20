@@ -5,7 +5,7 @@
  * @since 1.0
  */
 @SpringFactory(value = Service.class, expand = true)
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.finalframework.spiriter.mysql.service.impl;
 
 import org.finalframework.spring.annotation.factory.SpringFactory;
 import org.springframework.stereotype.Service;

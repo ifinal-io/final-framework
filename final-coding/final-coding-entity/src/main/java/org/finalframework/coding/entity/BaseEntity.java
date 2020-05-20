@@ -1,6 +1,7 @@
 package org.finalframework.coding.entity;
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.Schema;
 import org.finalframework.data.annotation.Table;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
@@ -27,6 +28,7 @@ public class BaseEntity implements MutableEntity {
     private final String packageName;
     private final String simpleName;
     private final String name;
+    private final String schema;
     private final String table;
     private final String type;
     private final List<Property> properties = new LinkedList<>();
@@ -42,6 +44,7 @@ public class BaseEntity implements MutableEntity {
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
         this.name = typeElement.getQualifiedName().toString();
+        this.schema = Optional.ofNullable(typeElement.getAnnotation(Schema.class)).map(Schema::value).orElse(null);
         this.table = NameConverterRegistry.getInstance().getTableNameConverter().convert(initTable());
         this.simpleName = typeElement.getSimpleName().toString();
         this.type = types.erasure(typeElement.asType()).toString();
@@ -88,6 +91,11 @@ public class BaseEntity implements MutableEntity {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getSchema() {
+        return schema;
     }
 
     @Override

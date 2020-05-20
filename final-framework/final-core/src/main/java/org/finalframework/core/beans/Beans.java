@@ -32,10 +32,12 @@ public abstract class Beans {
     public static Map<String, Object> toMap(Object bean) {
         BeanInfo beanInfo = from(bean.getClass());
         return Arrays.stream(beanInfo.getPropertyDescriptors())
+//                .filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
                 .collect(Collectors.toMap(PropertyDescriptor::getName, (property) -> {
                     try {
                         return property.getReadMethod().invoke(bean);
                     } catch (Exception e) {
+                        System.out.println("=============================" + e.getMessage());
                         throw new RuntimeException(e);
                     }
                 }));

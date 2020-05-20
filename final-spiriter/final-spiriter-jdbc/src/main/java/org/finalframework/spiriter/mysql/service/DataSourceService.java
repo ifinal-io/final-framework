@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.service;
+package org.finalframework.spiriter.mysql.service;
 
 import org.springframework.lang.Nullable;
 

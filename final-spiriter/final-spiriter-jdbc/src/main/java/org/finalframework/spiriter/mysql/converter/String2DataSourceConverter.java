@@ -1,6 +1,6 @@
-package org.finalframework.spiriter.jdbc.converter;
+package org.finalframework.spiriter.mysql.converter;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.finalframework.spiriter.mysql.service.DataSourceService;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

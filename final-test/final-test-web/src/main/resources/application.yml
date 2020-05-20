@@ -27,6 +27,11 @@ final:
         username: ${spring.datasource.username}
         password: ${spring.datasource.password}
         driver-class-name: ${spring.datasource.driver-class-name}
+      ds1:
+        url: ${spring.datasource.url}
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        driver-class-name: ${spring.datasource.driver-class-name}
     sharding-rule:
       tables:
         person:
@@ -60,4 +65,5 @@ logging:
     org.finalframework.test.dao.mapper: debug
 mybatis:
   configuration:
+
     default-enum-type-handler: org.finalframework.mybatis.handler.EnumTypeHandler

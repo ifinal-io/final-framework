@@ -12,14 +12,12 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
+import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.handler.TypeHandlerRegistry;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.Function;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.Json;
-import org.finalframework.data.annotation.TypeHandler;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -59,12 +57,12 @@ public final class TypeHandlers {
     }
 
     @NonNull
-    public String formatPropertyWriteColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        return formatPropertyColumn(referenceProperty, property);
+    public String formatPropertyWriteColumn(@NonNull Entity entity, @Nullable Property referenceProperty, @NonNull Property property) {
+        return formatPropertyColumn(entity, referenceProperty, property);
     }
 
     @NonNull
-    public static String formatPropertyColumn(@Nullable Property referenceProperty, @NonNull Property property) {
+    public String formatPropertyColumn(@NonNull Entity entity, @Nullable Property referenceProperty, @NonNull Property property) {
         String column = null;
         if (referenceProperty == null) {
             column = property.getColumn();
@@ -81,12 +79,16 @@ public final class TypeHandlers {
                     referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
-        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        if (Optional.ofNullable(referenceProperty).orElse(property).hasAnnotation(UpperCase.class) || entity.hasAnnotation(UpperCase.class)) {
+            column = column.toUpperCase();
+        }
+        return column;
     }
 
     @NonNull
-    public String formatPropertyReadColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        String column = formatPropertyColumn(referenceProperty, property);
+    public String formatPropertyReadColumn(@NonNull Entity entity, @Nullable Property referenceProperty, @NonNull Property property) {
+        String column = formatPropertyColumn(entity, referenceProperty, property);
         if (property.hasAnnotation(Function.class)) {
             Function annotation = property.getAnnotation(Function.class);
             String reader = annotation.reader();

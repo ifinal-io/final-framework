@@ -144,7 +144,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 
         if (versionProperty != null && !versionProperty.isTransient() && !versionProperty.isReadOnly() && !versionProperty.isFinal() && !versionProperty.isVirtual()) {
             Element trim = document.createElement("trim");
-            String column = typeHandlers.formatPropertyColumn(null, versionProperty);
+            String column = typeHandlers.formatPropertyColumn(entity, null, versionProperty);
             trim.setAttribute("suffixOverrides", ",");
             trim.setAttribute("suffix", String.format(",%s = %s + 1", column, column));
             trim.appendChild(choose);
@@ -203,7 +203,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                                    final String column = columnGenerator.generateWriteColumn(property.getTable(), property, multiProperty);
 //                                    final String value = columnGenerator.generateWriteValue(property, multiProperty, "entity");
 
-                                    final String column = typeHandlers.formatPropertyWriteColumn(property, multiProperty);
+                                    final String column = typeHandlers.formatPropertyWriteColumn(entity, property, multiProperty);
                                     final String value = typeHandlers.formatPropertyValues(property, multiProperty, "entity");
 
 
@@ -225,7 +225,7 @@ public class UpdateMethodXmlMapperBuilder extends AbsMethodXmlMapperBuilder {
 //                        final String column = columnGenerator.generateWriteColumn(property.getTable(), null, property);
 //                        final String value = columnGenerator.generateWriteValue(null, property, "entity");
 
-                        final String column = typeHandlers.formatPropertyWriteColumn(null, property);
+                        final String column = typeHandlers.formatPropertyWriteColumn(entity, null, property);
                         final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
                         if (selective) {

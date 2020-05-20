@@ -1,8 +1,10 @@
 package org.finalframework.coding.mapper.xml;
 
+import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.PrimaryKey;
+import org.finalframework.data.annotation.UpperCase;
 
 import javax.lang.model.element.TypeElement;
 import java.util.Optional;
@@ -30,8 +32,9 @@ public class Result implements Element {
         this.idResult = builder.idResult;
     }
 
-    public static Result from(Property referenceProperty, Property property, TypeHandlers typeHandlers) {
-        return new Builder(property.getName(), typeHandlers.formatPropertyWriteColumn(referenceProperty, property))
+    public static Result from(Entity entity, Property referenceProperty, Property property, TypeHandlers typeHandlers) {
+        final String column = typeHandlers.formatPropertyColumn(entity, referenceProperty, property);
+        return new Builder(property.getName(), column)
                 .javaType(property.getJavaTypeElement())
                 .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                 .idResult(property.hasAnnotation(PrimaryKey.class))

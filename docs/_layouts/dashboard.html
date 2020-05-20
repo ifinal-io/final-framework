@@ -54,7 +54,8 @@
 
             </div>
             <ul class="nav">
-                <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="menu1 in sidebar.menus">
+                <li :class="page.menus[0] == menu1.id ? 'active' : ''" :data-menu-id="menu1.id" class="nav-item "
+                    v-for="menu1 in sidebar.menus">
                     <a :href="menu1.link" @click="onMenuClick(menu1)" class="nav-link"
                        v-if="menu1.menus == null && (filter == '' || (filter != '' && menu1.id.indexOf(filter) != -1))">
                         <i class="material-icons" v-html="menu1.icon" v-if="menu1.icon"></i>
@@ -79,7 +80,7 @@
                          v-if="menu1.menus">
                         <ul class="nav">
                             <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id ? 'active' : ''"
-                                class="nav-item "
+                                :data-menu-id="menu2.id" class="nav-item "
                                 v-for="menu2 in menu1.menus">
                                 <a :href="menu2.link" class="nav-link" v-if="menu2.menus == null">
                                     <span class="sidebar-mini" v-html="menu2.mini"> P </span>

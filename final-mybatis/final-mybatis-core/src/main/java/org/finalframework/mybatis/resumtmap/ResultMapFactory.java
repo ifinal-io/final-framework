@@ -1,13 +1,10 @@
 package org.finalframework.mybatis.resumtmap;
 
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
 import org.apache.ibatis.mapping.ResultFlag;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
@@ -16,6 +13,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.Reference;
+import org.finalframework.data.annotation.UpperCase;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
@@ -64,7 +62,7 @@ public class ResultMapFactory {
                                 .map(referenceProperty -> {
 
                                     final String name = referenceProperty.getName();
-                                    final String column = formatColumn(property, referenceProperty);
+                                    String column = formatColumn(entity, property, referenceProperty);
                                     final TypeHandler<?> typeHandler = findTypeHandler(configuration, referenceProperty);
 
                                     return new ResultMapping.Builder(configuration, name, column, type)
@@ -78,7 +76,7 @@ public class ResultMapFactory {
 
                         final String name = property.getName();
                         return new ResultMapping.Builder(configuration, name)
-                                .column(formatColumn(null, property))
+                                .column(formatColumn(entity, null, property))
                                 .javaType(type)
                                 .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
                                 .composites(composites)
@@ -90,7 +88,8 @@ public class ResultMapFactory {
 
                     } else {
                         final String name = property.getName();
-                        final String column = formatColumn(null, property);
+                        final String column = formatColumn(entity, null, property);
+
                         final TypeHandler<?> typeHandler = findTypeHandler(configuration, property);
 
                         return new ResultMapping.Builder(configuration, name, column, type)
@@ -110,7 +109,7 @@ public class ResultMapFactory {
 
     }
 
-    private static String formatColumn(Property property, Property referenceProperty) {
+    private static String formatColumn(Entity entity, Property property, Property referenceProperty) {
         String column = null;
         if (property == null) {
             column = referenceProperty.getColumn();
@@ -123,8 +122,11 @@ public class ResultMapFactory {
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
                     property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
-
-        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        if (Optional.ofNullable(property).orElse(referenceProperty).hasAnnotation(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {
+            column = column.toUpperCase();
+        }
+        return column;
     }
 
 
