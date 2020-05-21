@@ -37,8 +37,10 @@ version: 1.0
 | timeZone |  Timezone   |  Y   |  时区  |  |
 | operator |  IUser   |  N   |  操作人  |  |
 | view |  Class  |  N  |  视图  | 结果视图 |
-| `success` |  Boolean  |  Y   |  业务状态  | 是否成功，status == 0 |
+| `success` |  Boolean  |  Y   |  业务状态  | 是否成功 |
 
+
+> `Result#isSuccess()`方法描述该业务是否执行成功，`true`表示成功，否则表示失败。
 
 ### Page
 
@@ -52,7 +54,27 @@ version: 1.0
 | lastPage  | Boolean |  Y   | 是否尾页 |      |
 
 
-### Example
+## Usage
+
+### Define RestController
+
+```java
+@RestController
+@RequestMapping("/person")
+public class PersonController {
+    public static final Logger logger = LoggerFactory.getLogger(PersonController.class);
+
+    @Resource
+    private PersonService personService;
+
+    @GetMapping
+    public List<Person> query(PageQuery query) {
+        return personService.select(new Query().page(query.getPage(), query.getSize()));
+    }
+}
+```
+
+### Request the Url
 
 ```json
 {
@@ -62,69 +84,67 @@ version: 1.0
     "message": "success",
     "data": [
         {
-            "id": 5,
-            "created": 1584508874000,
-            "createdFormat": "2020-03-18 13:21:14",
+            "id": 1,
+            "created": 1589928637000,
+            "createdFormat": "2020-05-20 06:50:37",
             "yn": 1,
             "ynName": "YES",
             "ynDesc": "有效",
             "ynDescription": "有效",
-            "creator": {
-                "id": 6,
-                "name": "123"
-            },
-            "name": "haha123",
-            "age": 100
+            "name": "xiaomin1",
+            "age": 1
         },
         {
-            "id": 29,
-            "created": 1587313688000,
-            "createdFormat": "2020-04-20 00:28:08",
+            "id": 2,
+            "created": 1589939202000,
+            "createdFormat": "2020-05-20 09:46:42",
             "yn": 1,
             "ynName": "YES",
             "ynDesc": "有效",
             "ynDescription": "有效",
-            "creator": {
-                "id": 1234
-            },
-            "name": "xiaoming2",
-            "age": 12,
+            "name": "haha3",
+            "age": 101,
             "stringList": [
-                "[qwe",
-                "123",
-                "3321]"
-            ]
+                "aaa",
+                "bbb"
+            ],
+            "intList": [
+                1,
+                2,
+                3
+            ],
+            "properties": {
+                "int": 1,
+                "string": "String"
+            }
+        },
+        {
+            "id": 2,
+            "created": 1590088701000,
+            "createdFormat": "2020-05-22 03:18:21",
+            "yn": 1,
+            "ynName": "YES",
+            "ynDesc": "有效",
+            "ynDescription": "有效",
+            "name": "2222",
+            "age": 102
         }
     ],
     "page": {
         "page": 1,
-        "size": 2,
+        "size": 20,
         "pages": 1,
-        "total": 2,
+        "total": 3,
         "firstPage": true,
         "lastPage": true
     },
-    "trace": "946b3418-0f2d-4876-bd36-6cdf1dc88951",
-    "timestamp": 1587792197996,
-    "duration": 623,
+    "trace": "78bae3ec-5c36-4822-b11d-2a68fae4a251",
+    "timestamp": 1590043632804,
+    "duration": 61,
     "locale": "zh_CN",
     "timeZone": "Asia/Shanghai",
     "success": true
 }
 ```
 
-## Usage
-
-```java
-public T getRemoteData(Param param){
-    Result<T> result = getRemoteResult(param);
-    if(result.isSuccess(){
-        return result.getData();
-    }else{
-        throw new ServiceException(result.getStatus(),result.getMessage());
-    }
-}
-```
-
-> `Result#isSuccess()`方法描述该业务是否执行成功，`true`表示成功，否则表示失败。
 

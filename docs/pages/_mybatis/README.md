@@ -24,7 +24,13 @@ version: 1.0
 
 * 你是为查询过大的数据量为实现分页功能而焦头烂额?
 
-* 。。。
+* 你是否在为使用`Enum`和`Json`而烦恼？
+
+* 你是否在为根据业务场景需要查询不同的列而烦忧？
+
+* 你是否在为限制某些字段的插入或修改而痛苦？
+
+* 你是否。。。
 
 ## What
 
@@ -55,18 +61,18 @@ version: 1.0
         <version>YOUR_ENTITY_VERSION</version>
     </dependency>
     <dependency>
-        <groupId>org.finalframework</groupId>
+        <groupId>org.finalframework.boot</groupId>
         <artifactId>final-mybatis-spring-boot-starter</artifactId>
         <version>{{site.final.version}}</version>
     </dependency>
     <dependency>
-        <groupId>org.finalframework</groupId>
+        <groupId>org.finalframework.coding</groupId>
         <artifactId>final-coding-query</artifactId>
         <version>{{site.final.version}}</version>
         <scope>provided</scope>
     </dependency>
     <dependency>
-        <groupId>org.finalframework</groupId>
+        <groupId>org.finalframework.coding</groupId>
         <artifactId>final-coding-mapper</artifactId>
         <version>{{site.final.version}}</version>
         <scope>provided</scope>
@@ -81,3 +87,7 @@ version: 1.0
 ```shell
 mvn clean compile
 ```
+
+## Show
+
+[Example](mapper/example.md)

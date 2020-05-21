@@ -14,7 +14,7 @@ version: 1.0
 
 # Enum
 
-## 前言
+## Why
 
 在项目开发中，经常会使用到`Enum`来约束一些行为，或者限制数值的范围。
 但是，这些`Enum`常量在`API`的提供中，又常常需要转换为其对应的`code`或`key`，持久化到数据库亦然。
@@ -25,7 +25,9 @@ version: 1.0
 
 答案是肯定的！！！
 
-## IEnum
+## What
+
+### IEnum
 
 [IEnum](/final-data/final-data-annotation/src/main/java/org/finalframework/data/annotation/IEnum.java) 是实现上述方式的一个桥梁，
 项目中的`Enum`只要实现了该接口，即可看到`Enum`在 `在 `API<->Project<->DB` 之间进行着优雅的传递。
@@ -44,11 +46,10 @@ public interface IEnum<T> {
     /**
      * 返回对该枚举常量的描述信息
      */
-    String getDescription();
-
+    String getDesc();
 }
 ```
-## I18N
+### I18N
 
 实现了`IEnum`接口的`Enum`类在返回前端的时候，会进行国际化处理，其国际化描述信息需要放在对应语言的`messages.perperties`中，
 `key`的格式为：
@@ -57,14 +58,15 @@ public interface IEnum<T> {
 {Enum.class.getCanonicalName()}.{Enum.name().toLowerCase(Locale.ENGLISH)}
 ```
 
-## YN
-[YN](/final-data/final-data-annotation/src/main/java/org/finalframework/data/entity/enums/YN.java)表示`YES`和`NO`,
+## Usage
+
+### YN
+[YN](/final-data/final-data-context/src/main/java/org/finalframework/data/entity/enums/YN.java)表示`YES`和`NO`,
 用于标记数据的有效性，其实现了`IEnum`接口。
 
 定义如下：
 
 ```java
-
 public enum YN implements IEnum<Integer> {
     /**
      * 有效
@@ -84,16 +86,16 @@ public enum YN implements IEnum<Integer> {
     private final Integer code;
     private static final Map<Integer, YN> cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
 
-    private final String description;
+    private final String desc;
 
-    YN(Integer code, String description) {
+    YN(Integer code, String desc) {
         this.code = code;
-        this.description = description;
+        this.desc = desc;
     }
 
 
     @JsonCreator
-    public static YN valueOf(int value) {
+    public static YN valueOf(Integer value) {
         return cache.get(value);
     }
 
@@ -104,13 +106,16 @@ public enum YN implements IEnum<Integer> {
     }
 
     @Override
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
+
+
 }
+
 ```
 
-### I18N描述 
+### I18N 
 
 * messages.properties
 

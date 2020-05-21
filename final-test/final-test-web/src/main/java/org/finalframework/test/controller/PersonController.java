@@ -2,6 +2,8 @@ package org.finalframework.test.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
@@ -29,8 +31,8 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping
-    public List<Person> query() {
-        return personService.select(new Query().page(1, 2));
+    public List<Person> query(PageQuery query) {
+        return personService.select(new Query().page(query.getPage(), query.getSize()));
     }
 
     @PostMapping
