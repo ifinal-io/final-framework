@@ -32,7 +32,7 @@ version: 1.0
 
 |    参数     |  含义  |                         说明                         |
 | :---------: | :----: | :--------------------------------------------------: |
-| `tableName` |  表名  |                     要插入的表名                     |
+| `table` |  表名  |                     要插入的表名                     |
 |   `view`    |  视图  |                可根据视图插入不同的列                |
 |  `ignore`   |  忽略  | 当`ignore=true`时，生成的`SQL`为`INSERT IGNORE INTO` |
 | `entities`  | 实体集 |                        实体集                        |
@@ -43,13 +43,13 @@ public interface Repository {
     /**
      * 批量插入数据并返回影响的行数
      *
-     * @param tableName 表名
+     * @param table 表名
      * @param view      视图,
      * @param ignore    是否忽略重复数据,{@literal INSERT IGNORE}
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    int insert(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("ignore") boolean ignore, @Param("list") Collection<T> entities);
+    int insert(@Param("table") String table, @Param("view") Class<?> view, @Param("ignore") boolean ignore, @Param("list") Collection<T> entities);
 }
 ```
 
@@ -59,7 +59,7 @@ public interface Repository {
 
 |    参数     |  含义  |                         说明                         |
 | :---------: | :----: | :--------------------------------------------------: |
-| `tableName` |  表名  |                     要插入的表名                     |
+| `table` |  表名  |                     要插入的表名                     |
 |   `view`    |  视图  |                可根据视图插入不同的列                |
 | `entities`  | 实体集 |                        实体集                        |
 
@@ -73,12 +73,12 @@ public interface Repository {
     /**
      * 批量插入数据并返回影响的行数
      *
-     * @param tableName 表名
+     * @param table 表名
      * @param view      视图,
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    int replace(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int replace(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 }
 ```
 
@@ -89,7 +89,7 @@ public interface Repository {
 
 |    参数     |  含义  |                         说明                         |
 | :---------: | :----: | :--------------------------------------------------: |
-| `tableName` |  表名  |                     要插入的表名                     |
+| `table` |  表名  |                     要插入的表名                     |
 |   `view`    |  视图  |                可根据视图插入不同的列                |
 | `entities`  | 实体集 |                        实体集                        |
 
@@ -101,11 +101,11 @@ public interface Repository {
     /**
      * 批量插入数据并返回影响的行数
      *
-     * @param tableName 表名
+     * @param table 表名
      * @param view      视图,
      * @param entities  实体集
      * @return 指插入数据所影响的行数
      */
-    int save(@Param("tableName") String tableName, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int save(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 }
 ```
