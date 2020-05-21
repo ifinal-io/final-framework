@@ -21,7 +21,7 @@ version: 1.0
 
 |    参数     |  含义  |                         说明                         |
 | :---------: | :----: | :--------------------------------------------------: |
-| `tableName` |  表名  |                     要删除的表名                     |
+| `table` |  表名  |                     要删除的表名                     |
 |   `ids`    |  ID信息  |                要删除的主键集合              |
 | `query`  | Query |                        删除的条件                        |
 
@@ -35,11 +35,11 @@ public interface Repository {
 /**
      * 删除符合条件的数据并返回影响的行数
      *
-     * @param tableName 表名
+     * @param table 表名
      * @param ids       IDS
      * @param query     条件
      * @return 删除符合条件的数据所影响的行数
      */
-    int delete(@Param("tableName") String tableName, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+    int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 }
 ```

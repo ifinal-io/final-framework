@@ -715,6 +715,13 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectIds(table, query.convert());
     }
 
+    /**
+     * 返回符合查询条件 {@link Query} 的主键集合 {@link ID}
+     *
+     * @param table 表名
+     * @param query query
+     * @return 符合查询条件 {@link Query} 的主键集合 {@link ID}
+     */
     List<ID> selectIds(@Param("table") String table, @Param("query") Query query);
 
 
