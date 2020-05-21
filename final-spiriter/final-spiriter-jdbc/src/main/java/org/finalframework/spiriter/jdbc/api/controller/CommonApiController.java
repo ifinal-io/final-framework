@@ -1,5 +1,7 @@
 package org.finalframework.spiriter.jdbc.api.controller;
 
+import java.util.List;
+import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
 import org.slf4j.Logger;
@@ -9,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import java.util.List;
-
 
 /**
  * @author likly
@@ -20,8 +19,9 @@ import java.util.List;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/api/mysql")
+@RequestMapping("/api/jdbc")
 public class CommonApiController implements InitializingBean {
+
     public static final Logger logger = LoggerFactory.getLogger(CommonApiController.class);
 
     @Resource
@@ -36,17 +36,23 @@ public class CommonApiController implements InitializingBean {
 
     @GetMapping("/database")
     public String database() {
-        return commonMapper.database();
+        return commonMapper.selectDatabase();
     }
 
     @GetMapping("/version")
     public String version() {
-        return commonMapper.version();
+        return commonMapper.selectVersion();
+    }
+
+    @GetMapping("/showTables")
+    public List<String> showTables() {
+        return commonMapper.showTables();
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        this.commonMapper = sqlSessionFactory.getConfiguration().getMapper(CommonMapper.class, sqlSessionFactory.openSession());
+        this.commonMapper = sqlSessionFactory.getConfiguration()
+            .getMapper(CommonMapper.class, sqlSessionFactory.openSession());
 
     }
 }

@@ -1,9 +1,8 @@
 package org.finalframework.spiriter.jdbc.dao.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 /**
  * @author likly
@@ -18,10 +17,13 @@ public interface CommonMapper {
     List<String> showDatabases();
 
     @Select("select database()")
-    String database();
+    String selectDatabase();
 
     @Select("select version()")
-    String version();
+    String selectVersion();
+
+    @Select("show tables")
+    List<String> showTables();
 
 
 }

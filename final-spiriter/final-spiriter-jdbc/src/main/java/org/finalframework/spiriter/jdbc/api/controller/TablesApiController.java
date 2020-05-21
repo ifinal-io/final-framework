@@ -1,7 +1,11 @@
 package org.finalframework.spiriter.jdbc.api.controller;
 
+import java.util.List;
+import java.util.Optional;
+import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.finalframework.data.query.Query;
+import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
 import org.finalframework.spiriter.jdbc.dao.mapper.TablesMapper;
 import org.finalframework.spiriter.jdbc.dao.query.QTables;
 import org.finalframework.spiriter.jdbc.entity.Tables;
@@ -13,9 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import java.util.List;
-
 
 /**
  * @author likly
@@ -26,22 +27,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/jdbc/tables")
 public class TablesApiController implements InitializingBean {
+
     public static final Logger logger = LoggerFactory.getLogger(TablesApiController.class);
 
     @Resource
     private SqlSessionFactory sqlSessionFactory;
 
+    private CommonMapper commonMapper;
     private TablesMapper tablesMapper;
 
     @GetMapping
     public List<Tables> tables(TablesQuery query) {
-        return tablesMapper.select(new Query().where(QTables.schema.eq(query.getSchema())));
+        String schema = Optional.ofNullable(query.getSchema()).orElse(commonMapper.selectDatabase());
+        return tablesMapper.select(new Query()
+            .where(QTables.schema.eq(schema)));
     }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        this.tablesMapper = sqlSessionFactory.getConfiguration().getMapper(TablesMapper.class, sqlSessionFactory.openSession());
+        this.commonMapper = sqlSessionFactory.getConfiguration()
+            .getMapper(CommonMapper.class, sqlSessionFactory.openSession());
+        this.tablesMapper = sqlSessionFactory.getConfiguration()
+            .getMapper(TablesMapper.class, sqlSessionFactory.openSession());
     }
 }
 
