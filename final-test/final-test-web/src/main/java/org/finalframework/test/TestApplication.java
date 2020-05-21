@@ -7,7 +7,7 @@ import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.json.Json;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
-import org.finalframework.spiriter.mysql.entity.Columns;
+import org.finalframework.spiriter.jdbc.entity.Columns;
 import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
 import org.springframework.boot.SpringApplication;

@@ -1,0 +1,70 @@
+---
+layout: dashboard
+title: Tables
+subtitle: Spiriter
+---
+
+<div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+        <div class="card-icon">
+            <i class="material-icons">assignment</i>
+        </div>
+        <h4 class="card-title">Striped Table</h4>
+        <div id="toolbar"></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table
+                    data-classed="table table-bordered table-hover table-dark"
+                    data-height="500"
+                    data-pagination="true"
+                    data-show-columns="true"
+                    data-toggle="table"
+                    data-toolbar="#toolbar">
+                <thead style="display: none">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Comment</th>
+                    <th>Engine</th>
+                    <th>Version</th>
+                    <th>Rows</th>
+                    <th>Collation</th>
+                    <th>CreateTime</th>
+                    <th>UpdateTime</th>
+                    <th>CheckTime</th>
+                    <th class="td-actions text-right">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(table,index) in tables">
+                    <td class="text-center" v-html="index + 1">1</td>
+                    <td>
+
+                    </td>
+                    <td v-html="table.name">Name</td>
+                    <td v-html="table.comment">Comment</td>
+                    <td v-html="table.engine">Engine</td>
+                    <td v-html="table.version">Version</td>
+                    <td v-html="table.rows">Rows</td>
+                    <td v-html="table.collation">Collation</td>
+                    <td v-html="table.createTimeFormat">CreateTime</td>
+                    <td v-html="table.updateTimeFormat">UpdateTime</td>
+                    <td v-html="table.checkTimeFormat">CheckTime</td>
+                    <td class="td-actions text-right">
+                        <button class="btn btn-warning" data-original-title="" rel="tooltip" title="" type="button">
+                            <i class="material-icons">file_copy</i>
+                        </button>
+                        <button class="btn btn-danger" data-original-title="" rel="tooltip" title="" type="button">
+                            <i class="material-icons">remove</i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="{{site.baseurl}}/assets/spiriter/jdbc/js/tables.js"></script>

@@ -1,7 +1,7 @@
 package org.finalframework.test.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.spiriter.mysql.model.ResultSets;
+import org.finalframework.spiriter.jdbc.model.ResultSets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
