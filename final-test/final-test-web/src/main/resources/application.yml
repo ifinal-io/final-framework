@@ -47,6 +47,8 @@ final:
       #              algorithm-expression: ds${age % 2}
       binding-tables: []
       broadcast-tables: []
+    properties:
+      sql.show: true
   json:
     json-service: org.finalframework.json.jackson.JacksonJsonService
   exception:

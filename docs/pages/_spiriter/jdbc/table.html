@@ -1,0 +1,87 @@
+---
+layout: dashboard
+title: Table
+subtitle: Spiriter
+---
+
+<div class="card">
+    <div class="card-header card-header-tabs card-header-info">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <span class="nav-tabs-title"></span>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-toggle="tab" href="#view">
+                                    <i class="material-icons">visibility</i> View
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " data-toggle="tab" href="#sql">
+                                    <i class="material-icons">code</i> Sql
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div id="toolbar2"></div>
+                <div id="toolbar">
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body" style="min-height: 40%">
+        <div class="tab-content">
+            <div class="tab-pane active show" id="view">
+                <div>
+                    <table data-classes="table table-sm table-striped table-bordered table-hover" data-height="800"
+                           data-pageSize="1"
+                           data-pagination="true"
+                           data-show-columns="true"
+                           data-side-pagination="server"
+                           data-thead-classes="thead-dark"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-total="100"
+                           data-total-rows="100"
+                           data-totalRows="100"
+                           id="tables"
+                           v-if="resultSet"
+                    >
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th v-for="meta in resultSet.metaData" v-html="meta.name">Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(row,index) in resultSet.rowData">
+                            <td class="text-center" v-html="index + 1">1</td>
+
+                            <td v-for="meta in resultSet.metaData">
+                                    <span v-html="formatDate('yyyy-MM-dd HH:mm:ss',row[meta.name])"
+                                          v-if="meta.typeName == 'DATETIME'"></span>
+                                <span v-else="" v-html="row[meta.name]"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="sql">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{{site.baseurl}}/assets/spiriter/jdbc/js/table.js"></script>

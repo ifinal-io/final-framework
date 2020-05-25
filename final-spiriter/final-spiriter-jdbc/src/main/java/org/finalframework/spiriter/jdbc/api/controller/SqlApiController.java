@@ -57,42 +57,6 @@ public class SqlApiController {
 
     }
 
-    private ResultSet getFirstResult(Statement stmt) throws SQLException {
-        ResultSet rs = stmt.getResultSet();
-        while (rs == null) {
-            // move forward to get the first resultset in case the driver
-            // doesn't return the resultset as the first result (HSQLDB 2.1)
-            if (stmt.getMoreResults()) {
-                rs = stmt.getResultSet();
-            } else {
-                if (stmt.getUpdateCount() == -1) {
-                    // no more results. Must be no resultset
-                    break;
-                }
-            }
-        }
-        return rs;
-    }
-
-    private ResultSet getNextResultSet(Statement stmt) throws SQLException {
-        // Making this method tolerant of bad JDBC drivers
-        try {
-            if (stmt.getConnection().getMetaData().supportsMultipleResultSets()) {
-                // Crazy Standard JDBC way of determining if there are more results
-                if (!(!stmt.getMoreResults() && stmt.getUpdateCount() == -1)) {
-                    ResultSet rs = stmt.getResultSet();
-                    if (rs == null) {
-                        return getNextResultSet(stmt);
-                    } else {
-                        return rs;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Intentionally ignored.
-        }
-        return null;
-    }
 
 }
 

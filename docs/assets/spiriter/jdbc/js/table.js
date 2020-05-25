@@ -19,7 +19,7 @@ Date.prototype.format = function (fmt) { //author: meizz
 }
 
 
-let JDBC = new Vue({
+let Table = new Vue({
     el: '#dashboard',
     data: {
         modules: [
@@ -54,33 +54,33 @@ let JDBC = new Vue({
         sql: '',
         loggers: [],
         sqlEditor: null,
-        resultSets: []
+        resultSet: null
     },
     mounted: function () {
         let _this = this;
-        let sqlEditor = CodeMirror.fromTextArea(document.getElementById('sqlTextArea', {
-            lineNumbers: true,
-            theme: 'solarized dark',
-            mode: {name: "text/x-mysql"},
-            extraKeys: {
-                "Ctrl-Enter": "autocomplete",
-            },
-            hint: CodeMirror.hint.sql,
-            hintOptions: {
-                tables: {
-                    person: ['id', 'name', 'age']
-                }
-            }
-        }));
-        sqlEditor.setOption("theme", 'solarized dark');
-        sqlEditor.setOption("lineNumbers", true);
-        sqlEditor.setOption("mode", {name: "text/x-mysql"});
-        // sqlEditor.setOption("hint", CodeMirror.hint.sql);
-        sqlEditor.setOption("hintOptions", {
-            tables: {
-                person: ['id', 'name', 'age']
-            }
-        });
+        // let sqlEditor = CodeMirror.fromTextArea(document.getElementById('sqlTextArea', {
+        //     lineNumbers: true,
+        //     theme: 'solarized dark',
+        //     mode: {name: "text/x-mysql"},
+        //     extraKeys: {
+        //         "Ctrl-Enter": "autocomplete",
+        //     },
+        //     hint: CodeMirror.hint.sql,
+        //     hintOptions: {
+        //         tables: {
+        //             person: ['id', 'name', 'age']
+        //         }
+        //     }
+        // }));
+        // sqlEditor.setOption("theme", 'solarized dark');
+        // sqlEditor.setOption("lineNumbers", true);
+        // sqlEditor.setOption("mode", {name: "text/x-mysql"});
+        // // sqlEditor.setOption("hint", CodeMirror.hint.sql);
+        // sqlEditor.setOption("hintOptions", {
+        //     tables: {
+        //         person: ['id', 'name', 'age']
+        //     }
+        // });
 
 
         // sqlEditor.on("cursorActivity", function (editor, change) {
@@ -94,12 +94,13 @@ let JDBC = new Vue({
         //     editor.showHint();
         // });
 
-        _this.sqlEditor = sqlEditor;
-        let pageMenus = [];
-        pageMenus.push($.query.string('logicTable'));
-        pageMenus.push($.query.string('actualTable'));
-        _this.page.menus = pageMenus;
-        this.loadTables('dataSource');
+        // _this.sqlEditor = sqlEditor;
+        // let pageMenus = [];
+        // pageMenus.push($.query.string('logicTable'));
+        // pageMenus.push($.query.string('actualTable'));
+        // _this.page.menus = pageMenus;
+        _this.loadTables('dataSource');
+        _this.execute();
     },
     methods: {
         loadTables: function (datasource) {
@@ -157,7 +158,8 @@ let JDBC = new Vue({
         },
         execute: function () {
             let _this = this;
-            let sql = _this.sqlEditor.getValue();
+            // let sql = _this.sqlEditor.getValue();
+            let sql = 'select * from person';
             _this.loggers.push("-->  " + sql);
             $.http.post({
                 url: _this.host + '/api/jdbc/execute',
@@ -167,8 +169,9 @@ let JDBC = new Vue({
                 callback: function (result) {
 
                     if (result.success) {
-                        _this.resultSets = result.data;
-                        $('#resultSets a[href="#resultSet[0]"]').tab('show');
+                        _this.resultSet = result.data[0];
+                        $('#tables').BootstrapTable.refresh();
+                        // alert($('#tables').bootstrapTable('getOptions').totalRows);
                     } else {
                         swal({
                             title: 'SQL Exception',

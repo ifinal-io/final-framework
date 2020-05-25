@@ -4809,6 +4809,8 @@
 							});
 						}
 					}
+					// $('#toolbar2').html(this.$toolbar);
+					// $(opts.toolbar).html(this.$toolbar);
 				}
 			}, {
 				key: "onSearch",

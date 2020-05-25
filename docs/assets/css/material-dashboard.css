@@ -18905,7 +18905,8 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 
 table.dataTable {
     clear: both;
-    margin-top: 6px !important;
+    /*margin-top: 6px !important;*/
+    margin-top: 6px;
     margin-bottom: 6px !important;
     max-width: none !important;
     border-collapse: separate !important;
