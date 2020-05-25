@@ -55,12 +55,12 @@ public class RedisKeyApiController {
      *
      * @param key
      * @param timeout
-     * @param timeUnit
+     * @param unit
      * @return
      */
     @PostMapping("expire")
-    public Boolean expire(String key, Long timeout, @RequestParam(value = "timeUnit", required = false, defaultValue = "MILLISECONDS") TimeUnit timeUnit) {
-        return Redis.key().expire(key, timeout, timeUnit);
+    public Boolean expire(String key, Long timeout, @RequestParam(value = "unit", required = false, defaultValue = "MILLISECONDS") TimeUnit unit) {
+        return Redis.key().expire(key, timeout, unit);
     }
 
     /**
@@ -104,12 +104,12 @@ public class RedisKeyApiController {
      * <a href="http://doc.redisfans.com/key/ttl.html">TTL</a>
      *
      * @param key
-     * @param timeUnit
+     * @param unit
      * @return
      */
     @GetMapping("ttl")
-    public Long ttl(@RequestParam("key") String key, @RequestParam(value = "timeUnit", required = false, defaultValue = "MILLISECONDS") TimeUnit timeUnit) {
-        return Redis.key().getExpire(key, timeUnit);
+    public Long ttl(@RequestParam("key") String key, @RequestParam(value = "unit", required = false, defaultValue = "MILLISECONDS") TimeUnit unit) {
+        return Redis.key().getExpire(key, unit);
     }
 
     /**
