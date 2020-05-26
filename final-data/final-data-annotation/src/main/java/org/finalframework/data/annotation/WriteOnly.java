@@ -3,8 +3,7 @@ package org.finalframework.data.annotation;
 import java.lang.annotation.*;
 
 /**
- * The property annotated by {@link WriteOnly} will not be selected.
- * 被标记的对象不会生成 {@literal select}
+ * Mark the element is a {@link WriteOnly} property which will not be generated {@literal select}.
  *
  * @author likly
  * @version 1.0
