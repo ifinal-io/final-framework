@@ -15,7 +15,7 @@ import org.springframework.data.annotation.Persistent;
  * {@linkplain Virtual} column is normal annotated on a {@linkplain Method getter} method.
  *
  * <p>
- * <pre>
+ *      <pre>
  *         <code>
  *             ALTER TABLE {tableName} ADD {virtual column name} {virtual column type} GENERATED ALWAYS AS JSON_UNQUOTE({column}->{path});
  *         </code>

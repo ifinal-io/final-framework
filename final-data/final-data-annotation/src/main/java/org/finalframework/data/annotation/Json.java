@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
@@ -30,9 +31,9 @@ import org.springframework.data.annotation.Persistent;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Json {
 
-    @AliasFor(annotation = Column.class, value = "name")
+    @AliasFor(annotation = Column.class)
     String value() default "";
 
-    @AliasFor(annotation = Column.class, value = "value")
+    @AliasFor(annotation = Column.class)
     String name() default "";
 }
