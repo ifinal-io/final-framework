@@ -69,6 +69,12 @@ public final class Result<T> implements Responsible, Serializable {
      * 执行时长
      */
     private Long duration;
+
+    /**
+     * 服务地址
+     */
+    private String address;
+
     /**
      * 国际化
      *
@@ -193,6 +199,14 @@ public final class Result<T> implements Responsible, Serializable {
 
     public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Locale getLocale() {

@@ -30,27 +30,29 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
 
+
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-        ServerHttpResponse response) {
+                                  Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+                                  ServerHttpResponse response) {
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
             return null;
         }
-
+        // set address
+        result.setAddress(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(), request.getLocalAddress().getPort()));
         result.setLocale(LocaleContextHolder.getLocale());
         result.setTimeZone(LocaleContextHolder.getTimeZone());
         result.setOperator(UserContextHolder.getUser());
 
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()
-                .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
+                    .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
                 result.setDuration(System.currentTimeMillis() - durationStart);
             }
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest()
-                .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
+                    .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
         return result;
