@@ -53,6 +53,7 @@ let Table = new Vue({
         host: 'http://localhost:8080',
         sql: '',
         loggers: [],
+        columns: [],
         sqlEditor: null,
         resultSet: null
     },
@@ -100,6 +101,7 @@ let Table = new Vue({
         // pageMenus.push($.query.string('actualTable'));
         // _this.page.menus = pageMenus;
         _this.loadTables('dataSource');
+        _this.loadColumns();
         _this.execute();
     },
     methods: {
@@ -149,6 +151,21 @@ let Table = new Vue({
 
 
                     _this.sidebar.menus = menus;
+                }
+            })
+        },
+        loadColumns: function () {
+            let _this = this;
+            $.http.get({
+                url: _this.host + '/api/jdbc/columns',
+                data: {
+                    schema: 'test',
+                    table: 'person_000'
+                },
+                callback: function (result) {
+                    if (result.success) {
+                        _this.columns = result.data;
+                    }
                 }
             })
         },

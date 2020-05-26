@@ -74,7 +74,7 @@ public final class BinaryUtils {
 
     public static void main(String[] args) {
         System.out.println(BinaryUtils.merge(Arrays.asList(1, 2, 4, 4)));
-        System.out.println(BinaryUtils.flat(7));
+        System.out.println("7168=" + BinaryUtils.flat(7168));
     }
 
 }

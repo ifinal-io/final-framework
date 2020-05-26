@@ -22,6 +22,11 @@ subtitle: Spiriter
                                     <i class="material-icons">code</i> Sql
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " data-toggle="tab" href="#columns">
+                                    <i class="material-icons">code</i> Columns
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -39,45 +44,71 @@ subtitle: Spiriter
     <div class="card-body" style="min-height: 40%">
         <div class="tab-content">
             <div class="tab-pane active show" id="view">
-                <div>
-                    <table data-classes="table table-sm table-striped table-bordered table-hover" data-height="800"
-                           data-pageSize="1"
-                           data-pagination="true"
-                           data-show-columns="true"
-                           data-side-pagination="server"
-                           data-thead-classes="thead-dark"
-                           data-toggle="table"
-                           data-toolbar="#toolbar"
-                           data-total="100"
-                           data-total-rows="100"
-                           data-totalRows="100"
-                           id="tables"
-                           v-if="resultSet"
-                    >
-                        <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th v-for="meta in resultSet.metaData" v-html="meta.name">Name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(row,index) in resultSet.rowData">
-                            <td class="text-center" v-html="index + 1">1</td>
+                <table data-classes="table table-sm table-striped table-bordered table-hover" data-height="800"
+                       data-pageSize="1"
+                       data-pagination="true"
+                       data-show-columns="true"
+                       data-side-pagination="server"
+                       data-thead-classes="thead-dark"
+                       data-toggle="table"
+                       data-toolbar="#toolbar"
+                       data-total="100"
+                       data-total-rows="100"
+                       data-totalRows="100"
+                       id="tables"
+                       v-if="resultSet"
+                >
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th v-for="meta in resultSet.metaData" v-html="meta.name">Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(row,index) in resultSet.rowData">
+                        <td class="text-center" v-html="index + 1">1</td>
 
-                            <td v-for="meta in resultSet.metaData">
+                        <td v-for="meta in resultSet.metaData">
                                     <span v-html="formatDate('yyyy-MM-dd HH:mm:ss',row[meta.name])"
                                           v-if="meta.typeName == 'DATETIME'"></span>
-                                <span v-else="" v-html="row[meta.name]"></span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+                            <span v-else="" v-html="row[meta.name]"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
             <div class="tab-pane" id="sql">
 
 
+            </div>
+
+            <div class="tab-pane" id="columns">
+                <table data-classes="table table-sm table-striped table-bordered table-hover" data-height="800"
+                       data-thead-classes="thead-dark"
+                >
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Key</th>
+                        <th class="text-center">Comment</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(column,index) in columns">
+                        <td class="text-center" v-html="index + 1">1</td>
+                        <td class="text-center" v-html="column.name">Name</td>
+                        <td class="text-center">
+                            <span class="badge badge-info" style="text-transform: none" v-html="column.type">Type</span>
+                        </td>
+                        <td class="text-center" v-html="column.key">Key</td>
+                        <td class="text-center" v-html="column.comment">Comment</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
