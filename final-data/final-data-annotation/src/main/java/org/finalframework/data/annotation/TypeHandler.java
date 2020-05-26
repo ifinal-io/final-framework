@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Custom the {@link org.apache.ibatis.type.TypeHandler} for mybatis.
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-26 09:31:58

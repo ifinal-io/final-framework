@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 
 /**
+ * mark the {@link Class} or {@link java.lang.reflect.Field} use {@link String#toUpperCase()}.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-05-20 22:00:28

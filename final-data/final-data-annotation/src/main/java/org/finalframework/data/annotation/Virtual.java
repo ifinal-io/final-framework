@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
+
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
@@ -34,9 +35,9 @@ import org.springframework.data.annotation.Persistent;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Virtual {
 
-    @AliasFor("name")
+    @AliasFor(annotation = Column.class)
     String value() default "";
 
-    @AliasFor("value")
+    @AliasFor(annotation = Column.class)
     String name() default "";
 }

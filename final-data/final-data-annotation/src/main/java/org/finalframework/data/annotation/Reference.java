@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
@@ -28,10 +29,10 @@ import org.springframework.data.annotation.Persistent;
 @org.springframework.data.annotation.Reference
 public @interface Reference {
 
-    @AliasFor(annotation = Column.class, value = "name")
+    @AliasFor(annotation = Column.class)
     String value() default "";
 
-    @AliasFor(annotation = Column.class, value = "value")
+    @AliasFor(annotation = Column.class)
     String name() default "";
 
     ReferenceMode mode() default ReferenceMode.SIMPLE;

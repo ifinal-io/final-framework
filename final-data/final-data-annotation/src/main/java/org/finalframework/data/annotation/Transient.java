@@ -10,8 +10,7 @@ import java.lang.reflect.Method;
 import javax.annotation.processing.Processor;
 
 /**
- * The marked element of {@link Field}、 {@link Method} or {@link Class} is not passed by {@link
- * Processor}
+ * The marked element of {@link Field}、 {@link Method} or {@link Class} is not passed by {@link Processor}
  *
  * @author likly
  * @version 1.0
