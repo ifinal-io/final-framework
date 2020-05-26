@@ -4,7 +4,6 @@ package org.finalframework.data.query.criterion.function.expression;
 import org.finalframework.data.query.criterion.function.SupportTypes;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperationExpression;
-import org.finalframework.data.query.operation.MathOperation;
 import org.finalframework.data.query.operation.Operation;
 
 /**
@@ -18,7 +17,7 @@ public class MaxFunctionOperationExpression implements FunctionOperationExpressi
 
     @Override
     public Operation operation() {
-        return MathOperation.MAX;
+        return Operation.MathOperation.MAX;
     }
 
     @Override

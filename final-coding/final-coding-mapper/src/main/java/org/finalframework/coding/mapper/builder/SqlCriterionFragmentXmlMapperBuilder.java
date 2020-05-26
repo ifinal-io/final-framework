@@ -3,7 +3,6 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.query.operation.CompareOperation;
 import org.finalframework.data.query.operation.Operation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,34 +31,34 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         Element sql = sql(document, id());
 
         sql.appendChild(choose(document, Arrays.asList(
-                singleWhenElement(document, CompareOperation.NULL, "${criterion.criterionTarget} IS NULL"),
-                singleWhenElement(document, CompareOperation.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
+                singleWhenElement(document, Operation.CompareOperation.NULL, "${criterion.criterionTarget} IS NULL"),
+                singleWhenElement(document, Operation.CompareOperation.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
 
-                singleWhenElement(document, CompareOperation.EQUAL,
+                singleWhenElement(document, Operation.CompareOperation.EQUAL,
                         "${criterion.criterionTarget} = ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.NOT_EQUAL,
+                singleWhenElement(document, Operation.CompareOperation.NOT_EQUAL,
                         "${criterion.criterionTarget} != ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.GREAT_THAN,
+                singleWhenElement(document, Operation.CompareOperation.GREAT_THAN,
                         "${criterion.criterionTarget} > ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.GREAT_THAN_EQUAL,
+                singleWhenElement(document, Operation.CompareOperation.GREAT_THAN_EQUAL,
                         "${criterion.criterionTarget} >= ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.LESS_THAN,
+                singleWhenElement(document, Operation.CompareOperation.LESS_THAN,
                         "${criterion.criterionTarget} < ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.LESS_THAN_EQUAL,
+                singleWhenElement(document, Operation.CompareOperation.LESS_THAN_EQUAL,
                         "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
 
-                betweenWhenElement(document, CompareOperation.BETWEEN,
+                betweenWhenElement(document, Operation.CompareOperation.BETWEEN,
                         "${criterion.criterionTarget} BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
-                betweenWhenElement(document, CompareOperation.NOT_BETWEEN,
+                betweenWhenElement(document, Operation.CompareOperation.NOT_BETWEEN,
                         "${criterion.criterionTarget} NOT BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
 
-                singleWhenElement(document, CompareOperation.LIKE,
+                singleWhenElement(document, Operation.CompareOperation.LIKE,
                         "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
-                singleWhenElement(document, CompareOperation.NOT_LIKE,
+                singleWhenElement(document, Operation.CompareOperation.NOT_LIKE,
                         "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
 
-                collectionWhenElement(document, CompareOperation.IN, "%s IN"),
-                collectionWhenElement(document, CompareOperation.NOT_IN, "%s NOT IN")
+                collectionWhenElement(document, Operation.CompareOperation.IN, "%s IN"),
+                collectionWhenElement(document, Operation.CompareOperation.NOT_IN, "%s NOT IN")
         )));
 
         return sql;

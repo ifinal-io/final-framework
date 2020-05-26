@@ -11,6 +11,8 @@ import org.finalframework.data.query.criterion.function.operation.FunctionOperat
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.operation.*;
+import org.finalframework.data.query.operation.Operation.CompareOperation;
+import org.finalframework.data.query.operation.Operation.MathOperation;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -152,55 +154,55 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonExtract(String path) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(JsonOperation.JSON_EXTRACT, path));
+        this.addFunctionCriterion(JsonOperation.extract(path));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonKeys() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_KEYS));
+        this.addFunctionCriterion(JsonOperation.keys());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonLength() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_LENGTH));
+        this.addFunctionCriterion(JsonOperation.length());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonDepth() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_DEPTH));
+        this.addFunctionCriterion(JsonOperation.depth());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> jsonUnquote() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(JsonOperation.JSON_UNQUOTE));
+        this.addFunctionCriterion(JsonOperation.unquote());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> and(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.AND, value));
+        this.addFunctionCriterion(LogicOperation.and(value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> or(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.OR, value));
+        this.addFunctionCriterion(LogicOperation.or(value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> xor(V value) {
-        this.addFunctionCriterion(new SingleFunctionOperation<>(LogicOperation.XOR, value));
+        this.addFunctionCriterion(LogicOperation.xor(value));
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> not() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(LogicOperation.NOT));
+        this.addFunctionCriterion(LogicOperation.not());
         return this;
     }
 
@@ -212,25 +214,25 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> min() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.MIN));
+        this.addFunctionCriterion(MathOperation.min());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> max() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.MAX));
+        this.addFunctionCriterion(MathOperation.max());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> sum() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.SUM));
+        this.addFunctionCriterion(MathOperation.sum());
         return this;
     }
 
     @Override
     public FunctionCriteriable<V, Criterion> avg() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(MathOperation.AVG));
+        this.addFunctionCriterion(MathOperation.avg());
         return this;
     }
 

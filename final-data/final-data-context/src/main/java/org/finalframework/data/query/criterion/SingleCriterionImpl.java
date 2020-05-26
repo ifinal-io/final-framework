@@ -1,7 +1,6 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.data.query.operation.CompareOperation;
 import org.finalframework.data.query.operation.Operation;
 
 import java.util.Arrays;
@@ -17,8 +16,8 @@ import java.util.Set;
 public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements SingleCriterion<T> {
 
     private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
-            CompareOperation.IN,
-            CompareOperation.NOT_IN
+            Operation.CompareOperation.IN,
+            Operation.CompareOperation.NOT_IN
     ));
 
     private final T value;
