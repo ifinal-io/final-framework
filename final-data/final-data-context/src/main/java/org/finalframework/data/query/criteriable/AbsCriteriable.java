@@ -8,9 +8,10 @@ import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.SingleCriterion;
 import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
-import org.finalframework.data.query.operation.*;
+import org.finalframework.data.query.operation.DateOperation;
+import org.finalframework.data.query.operation.JsonOperation;
+import org.finalframework.data.query.operation.LogicOperation;
+import org.finalframework.data.query.operation.Operation;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
 import org.finalframework.data.query.operation.Operation.MathOperation;
 
@@ -208,7 +209,7 @@ public class AbsCriteriable<T, V> implements Criteriable<V, Criterion>, Function
 
     @Override
     public FunctionCriteriable<V, Criterion> date() {
-        this.addFunctionCriterion(new SimpleFunctionOperation(DateOperation.DATE));
+        this.addFunctionCriterion(DateOperation.date());
         return this;
     }
 
