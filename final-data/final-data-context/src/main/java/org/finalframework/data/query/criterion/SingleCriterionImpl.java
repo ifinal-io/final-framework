@@ -38,10 +38,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements Si
 
     public String getCriterionValue() {
         String expression = OPERATOR_IN.contains(getOperation()) ? "value" : "criterion.value";
-        return CriterionValue.builder(value)
-                .functions(getFunctions())
-                .typeHandler(getTypeHandler())
-                .build().getSqlExpression(expression);
+        return ((CriterionValueImpl) CriterionValue.from(value)).getSqlExpression(expression);
     }
 
     private static class BuilderImpl<T> extends AbsBuilder<SingleCriterion<T>, SingleCriterion.Builder<T>>

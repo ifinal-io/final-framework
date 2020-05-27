@@ -31,18 +31,12 @@ public class BetweenCriterionImpl<T> extends SimpleCriterionImpl<T> implements B
     }
 
     public String getCriterionMin() {
-        return CriterionValue.builder(min)
-                .functions(getFunctions())
-                .typeHandler(getTypeHandler())
-                .build().getSqlExpression("criterion.min");
+        return ((CriterionValueImpl) CriterionValue.from(min)).getSqlExpression("criterion.min");
     }
 
 
     public String getCriterionMax() {
-        return CriterionValue.builder(max)
-                .functions(getFunctions())
-                .typeHandler(getTypeHandler())
-                .build().getSqlExpression("criterion.max");
+        return ((CriterionValueImpl) CriterionValue.from(max)).getSqlExpression("criterion.max");
     }
 
 

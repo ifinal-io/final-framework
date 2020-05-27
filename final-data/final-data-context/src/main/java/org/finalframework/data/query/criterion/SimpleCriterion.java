@@ -1,6 +1,6 @@
 package org.finalframework.data.query.criterion;
 
-import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.function.Executable;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
@@ -29,7 +29,7 @@ import java.util.Collection;
  * @see BetweenCriterion
  * @since 1.0
  */
-public interface SimpleCriterion extends Criterion, Executable<Object, SimpleCriterion> {
+public interface SimpleCriterion<T> extends Criterion, Executable<Object, SimpleCriterion> {
 
     @Override
     default boolean isChain() {
@@ -37,23 +37,15 @@ public interface SimpleCriterion extends Criterion, Executable<Object, SimpleCri
     }
 
     @NonNull
-    CriterionValue<?> getTarget();
-
-    @Nullable
-    Collection<FunctionOperation> getFunctions();
+    CriterionTarget<?, ?> getTarget();
 
     @NonNull
     Operation getOperation();
 
-    @Nullable
-    Class<? extends TypeHandler<?>> getTypeHandler();
-
-    SimpleCriterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler);
-
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
 
         @NonNull
-        R target(CriterionValue<?> target);
+        R target(CriterionTarget<?, ?> target);
 
         @NonNull
         default R property(@NonNull QProperty<?> property) {
@@ -62,14 +54,15 @@ public interface SimpleCriterion extends Criterion, Executable<Object, SimpleCri
 
         @NonNull
         default R property(@NonNull QProperty<?> property, @Nullable Collection<FunctionOperation> functions) {
-            return target(CriterionValue.builder(property).functions(functions).build());
+            final CriterionTarget<? extends QProperty<?>, ?> target = CriterionTarget.from(property);
+            if (Assert.nonEmpty(functions)) {
+                functions.forEach(it -> target.apply(() -> it));
+            }
+            return target(target);
         }
 
         @NonNull
         R operation(@NonNull Operation operation);
-
-        @NonNull
-        R typeHandler(@NonNull Class<? extends TypeHandler<?>> typeHandler);
 
     }
 

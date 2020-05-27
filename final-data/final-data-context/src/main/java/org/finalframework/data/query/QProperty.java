@@ -8,7 +8,7 @@ import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criteriable.FunctionCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
+import org.finalframework.data.query.criterion.CriterionTarget;
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
 import org.finalframework.data.query.operation.JsonOperation;
@@ -70,72 +70,72 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default Criterion isNull() {
-        return new AbsCriteriable<>(this).isNull();
+        return CriterionTarget.from(this).isNull();
     }
 
     @Override
     default Criterion isNotNull() {
-        return new AbsCriteriable<>(this).isNotNull();
+        return CriterionTarget.from(this).isNotNull();
     }
 
     @Override
     default Criterion between(T min, T max) {
-        return new AbsCriteriable<>(this).between(min, max);
+        return CriterionTarget.from(this).between(min, max);
     }
 
     @Override
     default Criterion notBetween(T min, T max) {
-        return new AbsCriteriable<>(this).notBetween(min, max);
+        return CriterionTarget.from(this).notBetween(min, max);
     }
 
     @Override
     default Criterion eq(T value) {
-        return new AbsCriteriable<>(this).eq(value);
+        return CriterionTarget.from(this).eq(value);
     }
 
     @Override
     default Criterion neq(T value) {
-        return new AbsCriteriable<>(this).neq(value);
+        return CriterionTarget.from(this).neq(value);
     }
 
     @Override
     default Criterion gt(T value) {
-        return new AbsCriteriable<>(this).gt(value);
+        return CriterionTarget.from(this).gt(value);
     }
 
     @Override
     default Criterion gte(T value) {
-        return new AbsCriteriable<>(this).gte(value);
+        return CriterionTarget.from(this).gte(value);
     }
 
     @Override
     default Criterion lt(T value) {
-        return new AbsCriteriable<>(this).lt(value);
+        return CriterionTarget.from(this).lt(value);
     }
 
     @Override
     default Criterion lte(T value) {
-        return new AbsCriteriable<>(this).lte(value);
+        return CriterionTarget.from(this).lte(value);
     }
 
     @Override
     default Criterion in(Collection<T> values) {
-        return new AbsCriteriable<>(this).in((Collection) values);
+        return CriterionTarget.from(this).in((Collection) values);
     }
 
     @Override
     default Criterion nin(Collection<T> values) {
-        return new AbsCriteriable<>(this).nin((Collection) values);
+        return CriterionTarget.from(this).nin((Collection) values);
     }
 
     @Override
     default Criterion like(String prefix, String value, String suffix) {
-        return new AbsCriteriable<>(this).like(prefix, value, suffix);
+        return CriterionTarget.from(this).like(prefix, value, suffix);
     }
 
     @Override
     default Criterion notLike(String prefix, String value, String suffix) {
-        return new AbsCriteriable<>(this).notLike(prefix, value, suffix);
+        return CriterionTarget.from(this).notLike(prefix, value, suffix);
     }
 
 
@@ -168,14 +168,16 @@ public interface QProperty<T> extends Criteriable<T, Criterion>, Sortable<Order>
 
     @Override
     default Criterion jsonContains(@NotNull Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
-                .eq(true);
+        return CriterionTarget.from(this).jsonContains(value, path);
+//        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
+//                .eq(true);
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
-                .neq(true);
+        return CriterionTarget.from(this).notJsonContains(value, path);
+//        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
+//                .neq(true);
     }
 
 

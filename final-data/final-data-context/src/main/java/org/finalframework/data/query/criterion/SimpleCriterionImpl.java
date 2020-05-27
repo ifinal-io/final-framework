@@ -1,7 +1,6 @@
 package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
 import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
 import org.finalframework.data.query.operation.DateOperation;
@@ -19,46 +18,28 @@ import java.util.Collection;
  */
 public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
-    private final CriterionValue<?> target;
-    private final Collection<FunctionOperation> functions = new ArrayList<>();
+    private final CriterionTarget<?, ?> target;
     private final Operation operation;
-    private Class<? extends TypeHandler<?>> typeHandler;
 
     @SuppressWarnings("unchecked")
     public SimpleCriterionImpl(AbsBuilder builder) {
         this.target = builder.target;
         this.operation = builder.operation;
-        this.typeHandler = builder.typeHandler;
     }
 
     @Override
-    public CriterionValue<?> getTarget() {
+    public CriterionTarget<?, ?> getTarget() {
         return this.target;
     }
 
-    @Override
-    public Collection<FunctionOperation> getFunctions() {
-        return this.functions;
-    }
 
     @Override
     public Operation getOperation() {
         return this.operation;
     }
 
-    @Override
-    public SimpleCriterion setTypeHandler(Class<? extends TypeHandler<?>> typeHandler) {
-        this.typeHandler = typeHandler;
-        return this;
-    }
-
-    @Override
-    public Class<? extends TypeHandler<?>> getTypeHandler() {
-        return this.typeHandler;
-    }
-
     public String getCriterionTarget() {
-        return getTarget().getSql();
+        return ((CriterionValueImpl) getTarget()).getSql();
     }
 
     @Override
@@ -75,13 +56,13 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     @SuppressWarnings("unchecked")
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
-        private CriterionValue<?> target;
+        private CriterionTarget<?, ?> target;
         private Collection<FunctionOperation> functions = new ArrayList<>();
         private Operation operation;
         private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R target(CriterionValue<?> target) {
+        public R target(CriterionTarget<?, ?> target) {
             this.target = target;
             return (R) this;
         }
@@ -93,10 +74,5 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
             return (R) this;
         }
 
-        @Override
-        public R typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
-            this.typeHandler = typeHandler;
-            return (R) this;
-        }
     }
 }
