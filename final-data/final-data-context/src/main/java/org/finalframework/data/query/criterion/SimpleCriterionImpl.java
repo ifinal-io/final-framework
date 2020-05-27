@@ -63,7 +63,7 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     @Override
     public SimpleCriterion contact(String prefix, String suffix) {
-        this.functions.add(new DoubleFunctionOperation<>(StringOperation.CONCAT, prefix, suffix));
+        this.functions.add(StringOperation.concat(prefix, suffix));
         return this;
     }
 
