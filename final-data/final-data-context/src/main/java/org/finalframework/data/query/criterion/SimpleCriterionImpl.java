@@ -18,7 +18,7 @@ import java.util.Collection;
  */
 public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
-    private final CriterionTarget<?, ?> target;
+    private final CriterionValue<?, ?> target;
     private final Operation operation;
 
     @SuppressWarnings("unchecked")
@@ -28,7 +28,7 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     }
 
     @Override
-    public CriterionTarget<?, ?> getTarget() {
+    public CriterionValue<?, ?> getTarget() {
         return this.target;
     }
 
@@ -44,25 +44,23 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
     @Override
     public SimpleCriterion contact(String prefix, String suffix) {
-        this.functions.add(StringOperation.concat(prefix, suffix));
         return this;
     }
 
     @Override
     public SimpleCriterion date() {
-        this.functions.add(new SimpleFunctionOperation(DateOperation.DATE));
         return this;
     }
 
     @SuppressWarnings("unchecked")
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
-        private CriterionTarget<?, ?> target;
+        private CriterionValue<?, ?> target;
         private Collection<FunctionOperation> functions = new ArrayList<>();
         private Operation operation;
         private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R target(CriterionTarget<?, ?> target) {
+        public R target(CriterionValue<?, ?> target) {
             this.target = target;
             return (R) this;
         }

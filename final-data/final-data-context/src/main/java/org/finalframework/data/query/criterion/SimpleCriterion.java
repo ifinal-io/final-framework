@@ -37,7 +37,7 @@ public interface SimpleCriterion<T> extends Criterion, Executable<Object, Simple
     }
 
     @NonNull
-    CriterionTarget<?, ?> getTarget();
+    CriterionValue<?, ?> getTarget();
 
     @NonNull
     Operation getOperation();
@@ -45,7 +45,7 @@ public interface SimpleCriterion<T> extends Criterion, Executable<Object, Simple
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
 
         @NonNull
-        R target(CriterionTarget<?, ?> target);
+        R target(CriterionValue<?, ?> target);
 
         @NonNull
         default R property(@NonNull QProperty<?> property) {

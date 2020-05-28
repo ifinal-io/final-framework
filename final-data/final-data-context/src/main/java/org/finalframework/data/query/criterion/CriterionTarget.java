@@ -13,14 +13,19 @@ import java.util.Collection;
  * @date 2020-05-27 16:31:17
  * @since 1.0
  */
-public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget<T, V>>, Criteriable<V, Criterion> {
+public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget<T, V>>, Criteriable<Object, Criterion> {
 
-    static <V> CriterionTarget<QProperty<V>, V> from(QProperty<V> property) {
+    static <V> CriterionTarget<QProperty<V>, Object> from(QProperty<V> property) {
         return new CriterionValueImpl<>(property);
     }
 
+    static <T> CriterionTarget<QProperty<T>, Object> from(QProperty<T> property, CriterionFunction function) {
+        final CriterionValueImpl<QProperty<T>, Object> criterionValue = new CriterionValueImpl<>(property);
+        return criterionValue.apply(function);
+    }
+
     @Override
-    default Criterion between(V min, V max) {
+    default Criterion between(Object min, Object max) {
         return BetweenCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.BETWEEN)
@@ -29,7 +34,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion notBetween(V min, V max) {
+    default Criterion notBetween(Object min, Object max) {
         return BetweenCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.NOT_BETWEEN)
@@ -38,7 +43,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion eq(V value) {
+    default Criterion eq(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.EQUAL)
@@ -47,7 +52,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion neq(V value) {
+    default Criterion neq(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.NOT_EQUAL)
@@ -56,7 +61,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion gt(V value) {
+    default Criterion gt(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.GREAT_THAN)
@@ -65,7 +70,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion gte(V value) {
+    default Criterion gte(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.GREAT_THAN_EQUAL)
@@ -74,7 +79,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion lt(V value) {
+    default Criterion lt(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.LESS_THAN)
@@ -83,7 +88,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion lte(V value) {
+    default Criterion lte(Object value) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.LESS_THAN_EQUAL)
@@ -92,7 +97,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion in(Collection<V> values) {
+    default Criterion in(Collection<Object> values) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.IN)
@@ -101,7 +106,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     }
 
     @Override
-    default Criterion nin(Collection<V> values) {
+    default Criterion nin(Collection<Object> values) {
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.NOT_IN)

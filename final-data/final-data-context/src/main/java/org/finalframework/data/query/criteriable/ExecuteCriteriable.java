@@ -1,5 +1,7 @@
 package org.finalframework.data.query.criteriable;
 
+import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.criterion.CriterionTarget;
 import org.finalframework.data.query.criterion.function.LogicFunction;
 import org.finalframework.data.query.criterion.function.DateFunction;
 import org.finalframework.data.query.criterion.function.JsonFunction;
@@ -12,8 +14,8 @@ import org.finalframework.data.query.criterion.function.MathFunction;
  * @since 1.0
  */
 public interface ExecuteCriteriable<V, R> extends
-        DateFunction<FunctionCriteriable<V, R>>,
-        MathFunction<V, FunctionCriteriable<V, R>>,
-        LogicFunction<V, FunctionCriteriable<V, R>>,
-        JsonFunction<V, FunctionCriteriable<V, R>> {
+        DateFunction<CriterionTarget<QProperty<V>, Object>>,
+        MathFunction<V, CriterionTarget<QProperty<V>, Object>>,
+        LogicFunction<V, CriterionTarget<QProperty<V>, Object>>,
+        JsonFunction<V, CriterionTarget<QProperty<V>, Object>> {
 }
