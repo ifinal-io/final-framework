@@ -14,8 +14,7 @@ import org.finalframework.data.query.operation.Operation;
  * @date 2019-12-17 16:06:50
  * @since 1.0
  */
-@SupportTypes(types = {IEnum.class}
-)
+@SupportTypes(types = {IEnum.class})
 public class IEnumAndFunctionOperationExpression<T extends IEnum> implements FunctionOperationExpression<SingleFunctionOperation<T>> {
     @Override
     public Operation operation() {
