@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.BetweenCriterion;
-import org.finalframework.data.query.criterion.SimpleCriterion;
-import org.finalframework.data.query.criterion.CriterionValue;
-import org.finalframework.data.query.criterion.SingleCriterion;
+import org.finalframework.data.query.criterion.*;
 
 import java.io.IOException;
 
@@ -33,7 +30,7 @@ public class CriterionSerializer extends JsonSerializer<SimpleCriterion> {
 
     private void serialize(SingleCriterion<?> criterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
-        CriterionValue<?, ?> target = criterion.getTarget();
+        CriterionValue<?, ?> target = CriterionTarget.from(criterion.getTarget());
         CriterionValue<?, ?> value = CriterionValue.from(criterion.getValue());
         if (target.getValue() instanceof QProperty) {
             gen.writeFieldName(((QProperty<?>) target.getValue()).getName());

@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
  * @date 2019-12-16 17:47:00
  * @since 1.0
  */
-public interface JsonFunction<V, R> extends Function {
+public interface JsonFunction<V, R> {
     /**
      * 获取 JSON 字符串中指定的属性值
      *

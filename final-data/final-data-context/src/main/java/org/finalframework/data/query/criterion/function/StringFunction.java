@@ -6,7 +6,7 @@ package org.finalframework.data.query.criterion.function;
  * @date 2019-12-25 13:03:52
  * @since 1.0
  */
-public interface StringFunction<V, R> extends Function {
+public interface StringFunction<V, R> {
     /**
      * 为目标添加上前缀 {@code prefix} 和 后缀 {@code suffix}
      *

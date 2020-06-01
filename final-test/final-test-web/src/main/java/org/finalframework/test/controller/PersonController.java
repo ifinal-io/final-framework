@@ -1,19 +1,18 @@
 package org.finalframework.test.controller;
 
-import java.util.List;
-import javax.annotation.Resource;
-
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.criterion.CriterionValue;
+import org.finalframework.data.query.operation.JsonOperation;
+import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -32,7 +31,13 @@ public class PersonController {
 
     @GetMapping
     public List<Person> query(PageQuery query) {
-        return personService.select(new Query().page(query.getPage(), query.getSize()));
+        return personService.select(new Query().where(
+                QPerson.age.eq(101),
+                QPerson.intList.jsonContains(
+                        CriterionValue.from(1).apply(JsonOperation.array()),
+                        "$"
+                )));
+//        return personService.select(new Query().page(query.getPage(), query.getSize()));
     }
 
     @PostMapping

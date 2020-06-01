@@ -1,9 +1,11 @@
 package org.finalframework.data.query.operation;
 
 
-import org.finalframework.data.query.criterion.function.operation.DoubleFunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
+import org.finalframework.data.query.operation.function.ConcatFunctionOperation;
+import org.finalframework.data.query.operation.function.LowerFunctionOperation;
+import org.finalframework.data.query.operation.function.UpperFunctionOperation;
+
 
 /**
  * @author likly
@@ -14,16 +16,16 @@ import org.finalframework.data.query.criterion.function.operation.SimpleFunction
 public enum StringOperation implements Operation {
     CONCAT, LOWER, UPPER;
 
-    public static FunctionOperation concat(String prefix, String suffix) {
-        return new DoubleFunctionOperation<>(CONCAT, prefix, suffix);
+    public static Function concat(String prefix, String suffix) {
+        return new ConcatFunctionOperation(prefix, suffix);
     }
 
-    public static FunctionOperation lower() {
-        return new SimpleFunctionOperation(LOWER);
+    public static Function lower() {
+        return new LowerFunctionOperation();
     }
 
-    public static FunctionOperation upper() {
-        return new SimpleFunctionOperation(UPPER);
+    public static Function upper() {
+        return new UpperFunctionOperation();
     }
 
 }

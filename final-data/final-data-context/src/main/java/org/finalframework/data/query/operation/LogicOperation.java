@@ -1,8 +1,10 @@
 package org.finalframework.data.query.operation;
 
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
+import org.finalframework.data.query.operation.function.AndFunctionOperation;
+import org.finalframework.data.query.operation.function.NotFunctionOperation;
+import org.finalframework.data.query.operation.function.OrFunctionOperation;
+import org.finalframework.data.query.operation.function.XorFunctionOperation;
 
 /**
  * 逻辑运算符
@@ -15,20 +17,20 @@ import org.finalframework.data.query.criterion.function.operation.SingleFunction
 public enum LogicOperation implements Operation {
     AND, OR, NOT, XOR;
 
-    public static <T> FunctionOperation and(T value) {
-        return new SingleFunctionOperation<>(AND, value);
+    public static <T> Function and(T value) {
+        return new AndFunctionOperation(value);
     }
 
-    public static <T> FunctionOperation or(T value) {
-        return new SingleFunctionOperation<>(OR, value);
+    public static <T> Function or(T value) {
+        return new OrFunctionOperation(value);
     }
 
-    public static FunctionOperation not() {
-        return new SimpleFunctionOperation(NOT);
+    public static Function not() {
+        return new NotFunctionOperation();
     }
 
-    public static <T> FunctionOperation xor(T value) {
-        return new SingleFunctionOperation<>(XOR, value);
+    public static <T> Function xor(T value) {
+        return new XorFunctionOperation(value);
     }
 
 

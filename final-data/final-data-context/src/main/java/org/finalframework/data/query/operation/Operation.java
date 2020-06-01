@@ -1,7 +1,10 @@
 package org.finalframework.data.query.operation;
 
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
+import org.finalframework.data.query.operation.function.AvgFunctionOperation;
+import org.finalframework.data.query.operation.function.MaxFunctionOperation;
+import org.finalframework.data.query.operation.function.MinFunctionOperation;
+import org.finalframework.data.query.operation.function.SumFunctionOperation;
 
 /**
  * @author likly
@@ -41,20 +44,20 @@ public interface Operation {
 
         MIN, MAX, SUM, AVG;
 
-        public static FunctionOperation min() {
-            return new SimpleFunctionOperation(MathOperation.MIN);
+        public static Function min() {
+            return new MinFunctionOperation();
         }
 
-        public static FunctionOperation max() {
-            return new SimpleFunctionOperation(MathOperation.MAX);
+        public static Function max() {
+            return new MaxFunctionOperation();
         }
 
-        public static FunctionOperation sum() {
-            return new SimpleFunctionOperation(MathOperation.SUM);
+        public static Function sum() {
+            return new SumFunctionOperation();
         }
 
-        public static FunctionOperation avg() {
-            return new SimpleFunctionOperation(MathOperation.AVG);
+        public static Function avg() {
+            return new AvgFunctionOperation();
         }
 
 

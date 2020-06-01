@@ -3,6 +3,7 @@ package org.finalframework.coding.mapper.builder;
 
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.TypeHandlers;
+import org.finalframework.data.query.operation.JsonOperation;
 import org.finalframework.data.query.operation.Operation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,7 +59,10 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
                         "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
 
                 collectionWhenElement(document, Operation.CompareOperation.IN, "%s IN"),
-                collectionWhenElement(document, Operation.CompareOperation.NOT_IN, "%s NOT IN")
+                collectionWhenElement(document, Operation.CompareOperation.NOT_IN, "%s NOT IN"),
+
+                singleWhenElement(document, JsonOperation.JSON_CONTAINS, "JSON_CONTAINS(${criterion.criterionTarget},${criterion.criterionValue},#{criterion.path})"),
+                singleWhenElement(document, JsonOperation.NOT_JSON_CONTAINS, "!JSON_CONTAINS(${criterion.criterionTarget},${criterion.criterionValue},#{criterion.path})")
         )));
 
         return sql;

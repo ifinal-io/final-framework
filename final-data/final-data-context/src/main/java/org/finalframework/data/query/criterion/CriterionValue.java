@@ -2,7 +2,7 @@ package org.finalframework.data.query.criterion;
 
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
 
 import java.util.Collection;
 
@@ -23,7 +23,7 @@ public interface CriterionValue<V, R extends CriterionValue<?, ?>> {
 
     R typeHandler(Class<? extends TypeHandler<?>> typeHandler);
 
-    R apply(CriterionFunction function);
+    R apply(Function function);
 
     V getValue();
 
@@ -31,7 +31,7 @@ public interface CriterionValue<V, R extends CriterionValue<?, ?>> {
 
     Class<? extends TypeHandler<?>> getTypeHandler();
 
-    Collection<FunctionOperation> getFunctions();
+    Collection<Function> getFunctions();
 
 }
 

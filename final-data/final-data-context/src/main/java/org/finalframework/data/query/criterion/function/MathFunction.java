@@ -6,7 +6,7 @@ package org.finalframework.data.query.criterion.function;
  * @date 2019-12-09 16:48:54
  * @since 1.0
  */
-public interface MathFunction<V, R> extends Function {
+public interface MathFunction<V, R> {
 
     R min();
 

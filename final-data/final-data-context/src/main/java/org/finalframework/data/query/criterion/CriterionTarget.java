@@ -4,6 +4,7 @@ import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
 import org.finalframework.data.query.operation.StringOperation;
+import org.finalframework.data.query.operation.function.Function;
 
 import java.util.Collection;
 
@@ -15,11 +16,15 @@ import java.util.Collection;
  */
 public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget<T, V>>, Criteriable<Object, Criterion> {
 
+    static <V> CriterionTarget<Object, Object> from(Object target) {
+        return target instanceof CriterionTarget ? (CriterionTarget<Object, Object>) target : new CriterionValueImpl<>(target);
+    }
+
     static <V> CriterionTarget<QProperty<V>, Object> from(QProperty<V> property) {
         return new CriterionValueImpl<>(property);
     }
 
-    static <T> CriterionTarget<QProperty<T>, Object> from(QProperty<T> property, CriterionFunction function) {
+    static <T> CriterionTarget<QProperty<T>, Object> from(QProperty<T> property, Function function) {
         final CriterionValueImpl<QProperty<T>, Object> criterionValue = new CriterionValueImpl<>(property);
         return criterionValue.apply(function);
     }
@@ -116,12 +121,24 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
 
     @Override
     default Criterion jsonContains(Object value, String path) {
-        return null;
+        return JsonContainsCriterion.contains(this, value, path);
+
+
+//        return SingleCriterion.builder()
+//                .target(this.apply(JsonOperation.contains(value, path)))
+//                .operation(CompareOperation.EQUAL)
+//                .value(true)
+//                .build();
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return null;
+        return JsonContainsCriterion.contains(this, value, path);
+//        return SingleCriterion.builder()
+//                .target(this.apply(JsonOperation.contains(value, path)))
+//                .operation(CompareOperation.NOT_BETWEEN)
+//                .value(false)
+//                .build();
     }
 
     @Override
@@ -129,7 +146,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.LIKE)
-                .value(CriterionValue.from(value).apply(() -> StringOperation.concat(prefix, suffix)))
+                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
                 .build();
     }
 
@@ -138,7 +155,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
         return SingleCriterion.builder()
                 .target(this)
                 .operation(CompareOperation.NOT_LIKE)
-                .value(CriterionValue.from(value).apply(() -> StringOperation.concat(prefix, suffix)))
+                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
                 .build();
     }
 

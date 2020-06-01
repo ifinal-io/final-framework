@@ -2,8 +2,7 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.core.Assert;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.function.Executable;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
 import org.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -29,7 +28,7 @@ import java.util.Collection;
  * @see BetweenCriterion
  * @since 1.0
  */
-public interface SimpleCriterion<T> extends Criterion, Executable<Object, SimpleCriterion> {
+public interface SimpleCriterion<T> extends Criterion {
 
     @Override
     default boolean isChain() {
@@ -37,7 +36,7 @@ public interface SimpleCriterion<T> extends Criterion, Executable<Object, Simple
     }
 
     @NonNull
-    CriterionValue<?, ?> getTarget();
+    Object getTarget();
 
     @NonNull
     Operation getOperation();
@@ -45,7 +44,7 @@ public interface SimpleCriterion<T> extends Criterion, Executable<Object, Simple
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
 
         @NonNull
-        R target(CriterionValue<?, ?> target);
+        R target(Object target);
 
         @NonNull
         default R property(@NonNull QProperty<?> property) {
@@ -53,10 +52,10 @@ public interface SimpleCriterion<T> extends Criterion, Executable<Object, Simple
         }
 
         @NonNull
-        default R property(@NonNull QProperty<?> property, @Nullable Collection<FunctionOperation> functions) {
+        default R property(@NonNull QProperty<?> property, @Nullable Collection<Function> functions) {
             final CriterionTarget<? extends QProperty<?>, ?> target = CriterionTarget.from(property);
             if (Assert.nonEmpty(functions)) {
-                functions.forEach(it -> target.apply(() -> it));
+                functions.forEach(target::apply);
             }
             return target(target);
         }

@@ -1,9 +1,7 @@
 package org.finalframework.data.query.operation;
 
 
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
+import org.finalframework.data.query.operation.function.*;
 import org.springframework.lang.NonNull;
 
 /**
@@ -15,32 +13,49 @@ import org.springframework.lang.NonNull;
 public enum JsonOperation implements Operation {
     JSON_EXTRACT,
     JSON_CONTAINS,
+    NOT_JSON_CONTAINS,
     JSON_UNQUOTE,
     JSON_KEYS,
     JSON_DEPTH,
-    JSON_LENGTH;
+    JSON_LENGTH,
+    JSON_OBJECT,
+    JSON_ARRAY,
 
-    public static FunctionOperation extract(@NonNull String path) {
-        return new SingleFunctionOperation<>(JSON_EXTRACT, path);
+    ;
+
+    public static Function contains(@NonNull Object value, @NonNull String path) {
+        return new JsonContainsFunctionOperation(value, path);
     }
 
-    public static FunctionOperation unquote() {
-        return new SimpleFunctionOperation(JSON_UNQUOTE);
+    public static Function extract(@NonNull String path) {
+        return new JsonExtractFunctionOperation(path);
+    }
+
+    public static Function unquote() {
+        return new JsonUnquoteFunctionOperation();
     }
 
 
-    public static FunctionOperation keys() {
-        return new SimpleFunctionOperation(JSON_KEYS);
+    public static Function keys() {
+        return new JsonKeysFunctionOperation();
     }
 
 
-    public static FunctionOperation depth() {
-        return new SimpleFunctionOperation(JSON_DEPTH);
+    public static Function depth() {
+        return new JsonDepthFunctionOperation();
     }
 
 
-    public static FunctionOperation length() {
-        return new SimpleFunctionOperation(JSON_LENGTH);
+    public static Function length() {
+        return new JsonLengthFunctionOperation();
+    }
+
+    public static Function object() {
+        return new JsonObjectFunctionOperation();
+    }
+
+    public static Function array() {
+        return new JsonArrayFunctionOperation();
     }
 
 

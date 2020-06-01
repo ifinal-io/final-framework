@@ -17,8 +17,8 @@ import java.sql.SQLException;
  * @date 2020-05-19 17:26:59
  * @since 1.0
  */
-@Configuration
-@AutoConfigureBefore(DataSourceAutoConfiguration.class)
+//@Configuration
+//@AutoConfigureBefore(DataSourceAutoConfiguration.class)
 public class ShardingDataSourceAutoConfiguration {
 
     @Bean

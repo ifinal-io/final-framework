@@ -1,14 +1,7 @@
 package org.finalframework.data.query.criterion;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.SimpleFunctionOperation;
-import org.finalframework.data.query.operation.DateOperation;
 import org.finalframework.data.query.operation.Operation;
-import org.finalframework.data.query.operation.StringOperation;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -18,7 +11,7 @@ import java.util.Collection;
  */
 public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
 
-    private final CriterionValue<?, ?> target;
+    private final Object target;
     private final Operation operation;
 
     @SuppressWarnings("unchecked")
@@ -28,7 +21,7 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     }
 
     @Override
-    public CriterionValue<?, ?> getTarget() {
+    public Object getTarget() {
         return this.target;
     }
 
@@ -42,25 +35,15 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
         return ((CriterionValueImpl) getTarget()).getSql();
     }
 
-    @Override
-    public SimpleCriterion contact(String prefix, String suffix) {
-        return this;
-    }
-
-    @Override
-    public SimpleCriterion date() {
-        return this;
-    }
 
     @SuppressWarnings("unchecked")
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
-        private CriterionValue<?, ?> target;
-        private Collection<FunctionOperation> functions = new ArrayList<>();
+        private Object target;
         private Operation operation;
         private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R target(CriterionValue<?, ?> target) {
+        public R target(Object target) {
             this.target = target;
             return (R) this;
         }

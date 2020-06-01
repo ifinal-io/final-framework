@@ -6,6 +6,6 @@ package org.finalframework.data.query.criterion.function;
  * @date 2019-11-24 13:20:30
  * @since 1.0
  */
-public interface DateFunction<R> extends Function {
+public interface DateFunction<R> {
     R date();
 }

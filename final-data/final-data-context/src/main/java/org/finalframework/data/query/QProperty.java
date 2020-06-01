@@ -1,14 +1,13 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.Json;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.query.criterion.CriterionFunction;
 import org.finalframework.data.query.criterion.CriterionTarget;
+import org.finalframework.data.query.operation.function.Function;
 import org.finalframework.data.query.operation.DateOperation;
 import org.finalframework.data.query.operation.JsonOperation;
 import org.finalframework.data.query.operation.LogicOperation;
@@ -70,7 +69,7 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     boolean nonnull();
 
-    default CriterionTarget<QProperty<T>, Object> apply(CriterionFunction function) {
+    default CriterionTarget<QProperty<T>, Object> apply(Function function) {
         return CriterionTarget.from(this).apply(function);
     }
 
@@ -161,72 +160,72 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     @Override
     default CriterionTarget<QProperty<T>, Object> date() {
-        return apply(DateOperation::date);
+        return apply(DateOperation.date());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> jsonExtract(String path) {
-        return apply(() -> JsonOperation.extract(path));
+        return apply(JsonOperation.extract(path));
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> jsonKeys() {
-        return apply(JsonOperation::keys);
+        return apply(JsonOperation.keys());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> jsonLength() {
-        return apply(JsonOperation::length);
+        return apply(JsonOperation.length());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> jsonDepth() {
-        return apply(JsonOperation::depth);
+        return apply(JsonOperation.depth());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> jsonUnquote() {
-        return apply(JsonOperation::unquote);
+        return apply(JsonOperation.unquote());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> and(Object value) {
-        return apply(() -> LogicOperation.and(value));
+        return apply(LogicOperation.and(value));
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> or(Object value) {
-        return apply(() -> LogicOperation.or(value));
+        return apply(LogicOperation.or(value));
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> xor(Object value) {
-        return apply(() -> LogicOperation.xor(value));
+        return apply(LogicOperation.xor(value));
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> not() {
-        return apply(LogicOperation::not);
+        return apply(LogicOperation.not());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> min() {
-        return apply(MathOperation::min);
+        return apply(MathOperation.min());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> max() {
-        return apply(MathOperation::max);
+        return apply(MathOperation.max());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> sum() {
-        return apply(MathOperation::sum);
+        return apply(MathOperation.sum());
     }
 
     @Override
     default CriterionTarget<QProperty<T>, Object> avg() {
-        return apply(MathOperation::avg);
+        return apply(MathOperation.avg());
     }
 
     @Override

@@ -6,14 +6,11 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.SqlKeyWords;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperation;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperationExpression;
-import org.finalframework.data.query.criterion.function.operation.FunctionOperationRegistry;
-import org.finalframework.data.query.criterion.function.operation.SingleFunctionOperation;
+import org.finalframework.data.query.operation.function.Function;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author likly
@@ -22,9 +19,10 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class CriterionValueImpl<T, V> implements CriterionTarget<T, V> {
+public class CriterionValueImpl<T, V> implements CriterionTarget<T, V>, Serializable {
+    private static final long serialVersionUID = -5904183635896162713L;
     private final T value;
-    private final Collection<FunctionOperation> functions = new ArrayList<>();
+    private final Collection<Function> functions = new ArrayList<>();
     private Class<?> javaType;
     private Class<? extends TypeHandler<?>> typeHandler;
 
@@ -45,8 +43,8 @@ public class CriterionValueImpl<T, V> implements CriterionTarget<T, V> {
     }
 
     @Override
-    public CriterionTarget<T, V> apply(CriterionFunction function) {
-        this.functions.add(function.apply());
+    public CriterionTarget<T, V> apply(Function function) {
+        this.functions.add(function);
         return this;
     }
 
@@ -67,7 +65,7 @@ public class CriterionValueImpl<T, V> implements CriterionTarget<T, V> {
             value = SqlKeyWords.contains(property.getColumn().toLowerCase()) ?
                     String.format("`%s`", property.getColumn()) : property.getColumn();
         } else {
-            value = this.value.toString();
+            value = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
         }
 
         if (Assert.nonNull(expression)) {
@@ -88,29 +86,16 @@ public class CriterionValueImpl<T, V> implements CriterionTarget<T, V> {
         }
 
         if (Assert.nonEmpty(functions)) {
-            for (FunctionOperation function : functions) {
-                Class<?> type = getFunctionOperationType(function);
-                FunctionOperationExpression functionOperationExpression = FunctionOperationRegistry.getInstance().getCriterionOperation(function.operation(), type);
-                value = functionOperationExpression.expression(value, function);
+            for (Function function : functions) {
+                value = function.apply(value);
             }
         }
         return value;
     }
 
-
-    private Class<?> getFunctionOperationType(FunctionOperation operation) {
-        if (operation instanceof SingleFunctionOperation) {
-            SingleFunctionOperation singleFunctionOperation = (SingleFunctionOperation) operation;
-            Object value = singleFunctionOperation.value();
-
-            if (value instanceof List) {
-                return ((List) value).get(0).getClass();
-            } else {
-                return value.getClass();
-            }
-        }
-
-        return Object.class;
+    @Override
+    public String toString() {
+        return getSql();
     }
 
 }
