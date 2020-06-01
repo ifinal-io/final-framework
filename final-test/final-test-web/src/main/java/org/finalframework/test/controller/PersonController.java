@@ -31,12 +31,7 @@ public class PersonController {
 
     @GetMapping
     public List<Person> query(PageQuery query) {
-        return personService.select(new Query().where(
-                QPerson.age.eq(101),
-                QPerson.intList.jsonContains(
-                        CriterionValue.from(1).apply(JsonOperation.array()),
-                        "$"
-                )));
+        return personService.select(new Query().where(QPerson.age.eq(101)));
 //        return personService.select(new Query().page(query.getPage(), query.getSize()));
     }
 

@@ -62,7 +62,7 @@ final:
 
 logging:
   level:
-    org.springframework: warn
+    org.springframework: trace
     org.finalframework: debug
     org.finalframework.test.dao.mapper: debug
 mybatis:

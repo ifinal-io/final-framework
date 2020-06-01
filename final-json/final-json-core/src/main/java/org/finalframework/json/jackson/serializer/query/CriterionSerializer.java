@@ -30,14 +30,14 @@ public class CriterionSerializer extends JsonSerializer<SimpleCriterion> {
 
     private void serialize(SingleCriterion<?> criterion, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
-        CriterionValue<?, ?> target = CriterionTarget.from(criterion.getTarget());
-        CriterionValue<?, ?> value = CriterionValue.from(criterion.getValue());
-        if (target.getValue() instanceof QProperty) {
-            gen.writeFieldName(((QProperty<?>) target.getValue()).getName());
-        }
-        if (Assert.isEmpty(target.getFunctions()) && Assert.isEmpty(value.getFunctions())) {
-            gen.writeObject(value);
-        }
+//        CriterionValue<?, ?> target = CriterionTarget.from(criterion.getTarget());
+//        CriterionValue<?, ?> value = CriterionValue.from(criterion.getValue());
+//        if (target.getValue() instanceof QProperty) {
+//            gen.writeFieldName(((QProperty<?>) target.getValue()).getName());
+//        }
+//        if (Assert.isEmpty(target.getFunctions()) && Assert.isEmpty(value.getFunctions())) {
+//            gen.writeObject(value);
+//        }
 
     }
 

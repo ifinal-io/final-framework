@@ -1,13 +1,7 @@
 package org.finalframework.data.query.criterion;
 
-import org.finalframework.core.Assert;
-import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.operation.function.Function;
 import org.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
-import java.util.Collection;
 
 /**
  * [标准，准则，规范，准据] 条件
@@ -45,20 +39,6 @@ public interface SimpleCriterion<T> extends Criterion {
 
         @NonNull
         R target(Object target);
-
-        @NonNull
-        default R property(@NonNull QProperty<?> property) {
-            return property(property, null);
-        }
-
-        @NonNull
-        default R property(@NonNull QProperty<?> property, @Nullable Collection<Function> functions) {
-            final CriterionTarget<? extends QProperty<?>, ?> target = CriterionTarget.from(property);
-            if (Assert.nonEmpty(functions)) {
-                functions.forEach(target::apply);
-            }
-            return target(target);
-        }
 
         @NonNull
         R operation(@NonNull Operation operation);

@@ -9,31 +9,4 @@
         </foreach>
     </sql>
 
-    <sql id="sql-functions">
-        <trim prefix="DATE(" suffix=")">
-
-        </trim>
-    </sql>
-
-    <sql id="sql-function">
-        <choose>
-            <when test="'DATE' == function.name">
-                <trim prefix="DATE(" suffix=")">
-                    <include refid="sql-function"/>
-                </trim>
-            </when>
-            <when test="'AND' == function.name()">
-
-            </when>
-        </choose>
-    </sql>
-
-
-    <sql id="sql-value">
-        <choose>
-            <when test="value is collection">
-                <foreach collection=""
-            </when>
-        </choose>
-    </sql>
 </mapper>

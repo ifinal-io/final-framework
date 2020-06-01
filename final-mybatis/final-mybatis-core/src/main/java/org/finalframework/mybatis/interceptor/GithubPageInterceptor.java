@@ -27,7 +27,7 @@ import org.springframework.core.annotation.Order;
         }
 )
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@SpringComponent
+//@SpringComponent
 public class GithubPageInterceptor extends PageInterceptor {
 }
 

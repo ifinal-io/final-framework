@@ -2,8 +2,8 @@ package org.finalframework.coding.mapper.builder;
 
 
 import org.finalframework.coding.entity.Entity;
+import org.finalframework.coding.mapper.SQLConstants;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.query.operation.JsonOperation;
 import org.finalframework.data.query.operation.Operation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,44 +29,83 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
     @Override
     protected Element buildSqlFragment(Document document, Entity entity) {
+
         Element sql = sql(document, id());
 
         sql.appendChild(choose(document, Arrays.asList(
-                singleWhenElement(document, Operation.CompareOperation.NULL, "${criterion.criterionTarget} IS NULL"),
-                singleWhenElement(document, Operation.CompareOperation.NOT_NULL, "${criterion.criterionTarget} IS NOT NULL"),
 
-                singleWhenElement(document, Operation.CompareOperation.EQUAL,
-                        "${criterion.criterionTarget} = ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.NOT_EQUAL,
-                        "${criterion.criterionTarget} != ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.GREAT_THAN,
-                        "${criterion.criterionTarget} > ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.GREAT_THAN_EQUAL,
-                        "${criterion.criterionTarget} >= ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.LESS_THAN,
-                        "${criterion.criterionTarget} < ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.LESS_THAN_EQUAL,
-                        "${criterion.criterionTarget} <= ${criterion.criterionValue}"),
+                isNull(document, Operation.CompareOperation.NULL),
+                isNotNull(document, Operation.CompareOperation.NOT_NULL),
 
-                betweenWhenElement(document, Operation.CompareOperation.BETWEEN,
-                        "${criterion.criterionTarget} BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
-                betweenWhenElement(document, Operation.CompareOperation.NOT_BETWEEN,
-                        "${criterion.criterionTarget} NOT BETWEEN ${criterion.criterionMin} AND ${criterion.criterionMax}"),
+                compare(document, Operation.CompareOperation.EQUAL, "="),
+                compare(document, Operation.CompareOperation.NOT_EQUAL, "!="),
+                compare(document, Operation.CompareOperation.GREAT_THAN, ">"),
+                compare(document, Operation.CompareOperation.GREAT_THAN_EQUAL, ">="),
+                compare(document, Operation.CompareOperation.LESS_THAN, "<"),
+                compare(document, Operation.CompareOperation.LESS_THAN_EQUAL, "<="),
 
-                singleWhenElement(document, Operation.CompareOperation.LIKE,
-                        "${criterion.criterionTarget} LIKE ${criterion.criterionValue}"),
-                singleWhenElement(document, Operation.CompareOperation.NOT_LIKE,
-                        "${criterion.criterionTarget} NOT LIKE ${criterion.criterionValue}"),
+                in(document, Operation.CompareOperation.IN, "IN"),
+                in(document, Operation.CompareOperation.NOT_IN, "NOT IN"),
 
-                collectionWhenElement(document, Operation.CompareOperation.IN, "%s IN"),
-                collectionWhenElement(document, Operation.CompareOperation.NOT_IN, "%s NOT IN"),
+                between(document, Operation.CompareOperation.BETWEEN, "BETWEEN"),
+                between(document, Operation.CompareOperation.NOT_BETWEEN, "NOT BETWEEN")
 
-                singleWhenElement(document, JsonOperation.JSON_CONTAINS, "JSON_CONTAINS(${criterion.criterionTarget},${criterion.criterionValue},#{criterion.path})"),
-                singleWhenElement(document, JsonOperation.NOT_JSON_CONTAINS, "!JSON_CONTAINS(${criterion.criterionTarget},${criterion.criterionValue},#{criterion.path})")
         )));
 
         return sql;
     }
+
+    private Element isNull(Document document, Operation operation) {
+        final Element trim = document.createElement("trim");
+        trim.setAttribute("suffix", " IS NULL");
+        trim.appendChild(include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
+        return whenOrOtherwise(document, test(operation), trim);
+    }
+
+    private Element isNotNull(Document document, Operation operation) {
+        final Element trim = document.createElement("trim");
+        trim.setAttribute("suffix", " IS NOT NULL");
+        trim.appendChild(include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
+        return whenOrOtherwise(document, test(operation), trim);
+    }
+
+
+    private Element compare(Document document, Operation operation, String operator) {
+        return whenOrOtherwise(document, test(operation),
+                bind(document, "value", "criterion.target"),
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
+                cdata(document, operator),
+                bind(document, "value", "criterion.value"),
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value"))
+        );
+    }
+
+    private Element in(Document document, Operation operation, String operator) {
+
+        final Element in = document.createElement("trim");
+        in.setAttribute("prefix", operator + '(');
+        in.setAttribute("suffix", ")");
+        in.appendChild(include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value")));
+
+        return whenOrOtherwise(document, test(operation),
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
+                in
+        );
+
+    }
+
+    private Element between(Document document, Operation operation, String prefix) {
+        final Element between = document.createElement("trim");
+        between.setAttribute("prefix", prefix);
+        between.appendChild(include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.min")));
+
+        final Element and = document.createElement("trim");
+        and.setAttribute("prefix", " AND ");
+        and.appendChild(include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.max")));
+
+        return whenOrOtherwise(document, test(operation), between, and);
+    }
+
 
     private Element singleWhenElement(Document document, Operation operation, String expression) {
         return whenOrOtherwise(document, test(operation),

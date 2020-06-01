@@ -1,3 +1,4 @@
+
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
@@ -69,8 +70,9 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     boolean nonnull();
 
-    default CriterionTarget<QProperty<T>, Object> apply(Function function) {
-        return CriterionTarget.from(this).apply(function);
+    default CriterionTarget<QProperty<T>> apply(Function function) {
+//        return CriterionTarget.from(this).apply(function);
+        return null;
     }
 
     @Override
@@ -159,72 +161,72 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> date() {
+    default CriterionTarget<QProperty<T>> date() {
         return apply(DateOperation.date());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> jsonExtract(String path) {
+    default CriterionTarget<QProperty<T>> jsonExtract(String path) {
         return apply(JsonOperation.extract(path));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> jsonKeys() {
+    default CriterionTarget<QProperty<T>> jsonKeys() {
         return apply(JsonOperation.keys());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> jsonLength() {
+    default CriterionTarget<QProperty<T>> jsonLength() {
         return apply(JsonOperation.length());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> jsonDepth() {
+    default CriterionTarget<QProperty<T>> jsonDepth() {
         return apply(JsonOperation.depth());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> jsonUnquote() {
+    default CriterionTarget<QProperty<T>> jsonUnquote() {
         return apply(JsonOperation.unquote());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> and(Object value) {
+    default CriterionTarget<QProperty<T>> and(Object value) {
         return apply(LogicOperation.and(value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> or(Object value) {
+    default CriterionTarget<QProperty<T>> or(Object value) {
         return apply(LogicOperation.or(value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> xor(Object value) {
+    default CriterionTarget<QProperty<T>> xor(Object value) {
         return apply(LogicOperation.xor(value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> not() {
+    default CriterionTarget<QProperty<T>> not() {
         return apply(LogicOperation.not());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> min() {
+    default CriterionTarget<QProperty<T>> min() {
         return apply(MathOperation.min());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> max() {
+    default CriterionTarget<QProperty<T>> max() {
         return apply(MathOperation.max());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> sum() {
+    default CriterionTarget<QProperty<T>> sum() {
         return apply(MathOperation.sum());
     }
 
     @Override
-    default CriterionTarget<QProperty<T>, Object> avg() {
+    default CriterionTarget<QProperty<T>> avg() {
         return apply(MathOperation.avg());
     }
 

@@ -14,8 +14,8 @@ import org.finalframework.data.query.criterion.function.MathFunction;
  * @since 1.0
  */
 public interface ExecuteCriteriable<V, R> extends
-        DateFunction<CriterionTarget<QProperty<V>, Object>>,
-        MathFunction<V, CriterionTarget<QProperty<V>, Object>>,
-        LogicFunction<V, CriterionTarget<QProperty<V>, Object>>,
-        JsonFunction<V, CriterionTarget<QProperty<V>, Object>> {
+        DateFunction<CriterionTarget<QProperty<V>>>,
+        MathFunction<V, CriterionTarget<QProperty<V>>>,
+        LogicFunction<V, CriterionTarget<QProperty<V>>>,
+        JsonFunction<V, CriterionTarget<QProperty<V>>> {
 }

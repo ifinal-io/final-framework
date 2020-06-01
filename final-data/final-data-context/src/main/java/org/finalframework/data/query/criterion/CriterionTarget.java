@@ -2,11 +2,11 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criteriable.Criteriable;
+import org.finalframework.data.query.criterion.function.CriterionFunction;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
-import org.finalframework.data.query.operation.StringOperation;
-import org.finalframework.data.query.operation.function.Function;
 
 import java.util.Collection;
+import java.util.function.Function;
 
 /**
  * @author likly
@@ -14,25 +14,34 @@ import java.util.Collection;
  * @date 2020-05-27 16:31:17
  * @since 1.0
  */
-public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget<T, V>>, Criteriable<Object, Criterion> {
+public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
-    static <V> CriterionTarget<Object, Object> from(Object target) {
-        return target instanceof CriterionTarget ? (CriterionTarget<Object, Object>) target : new CriterionValueImpl<>(target);
+    static <T> CriterionTarget<T> from(T target) {
+        return target instanceof CriterionTarget ? (CriterionTarget<T>) target : new CriterionTargetImpl<>(target);
     }
 
-    static <V> CriterionTarget<QProperty<V>, Object> from(QProperty<V> property) {
-        return new CriterionValueImpl<>(property);
+    T getTarget();
+
+    default CriterionType getType() {
+        if (getTarget() instanceof CriterionFunction) {
+            return CriterionType.FUNCTION;
+        }
+
+        if (getTarget() instanceof QProperty) {
+            return CriterionType.PROPERTY;
+        }
+
+        return CriterionType.VALUE;
     }
 
-    static <T> CriterionTarget<QProperty<T>, Object> from(QProperty<T> property, Function function) {
-        final CriterionValueImpl<QProperty<T>, Object> criterionValue = new CriterionValueImpl<>(property);
-        return criterionValue.apply(function);
+    default CriterionTarget<CriterionFunction> apply(Function<T, CriterionFunction> mapper) {
+        return from(mapper.apply(getTarget()));
     }
 
     @Override
     default Criterion between(Object min, Object max) {
         return BetweenCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.BETWEEN)
                 .between(min, max)
                 .build();
@@ -41,7 +50,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion notBetween(Object min, Object max) {
         return BetweenCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NOT_BETWEEN)
                 .between(min, max)
                 .build();
@@ -50,7 +59,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion eq(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.EQUAL)
                 .value(value)
                 .build();
@@ -59,7 +68,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion neq(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NOT_EQUAL)
                 .value(value)
                 .build();
@@ -68,7 +77,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion gt(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.GREAT_THAN)
                 .value(value)
                 .build();
@@ -77,7 +86,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion gte(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.GREAT_THAN_EQUAL)
                 .value(value)
                 .build();
@@ -86,7 +95,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion lt(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.LESS_THAN)
                 .value(value)
                 .build();
@@ -95,7 +104,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion lte(Object value) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.LESS_THAN_EQUAL)
                 .value(value)
                 .build();
@@ -104,7 +113,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion in(Collection<Object> values) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.IN)
                 .value(values)
                 .build();
@@ -113,7 +122,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion nin(Collection<Object> values) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NOT_IN)
                 .value(values)
                 .build();
@@ -121,7 +130,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
 
     @Override
     default Criterion jsonContains(Object value, String path) {
-        return JsonContainsCriterion.contains(this, value, path);
+        return JsonContainsCriterion.contains(getTarget(), value, path);
 
 
 //        return SingleCriterion.builder()
@@ -133,7 +142,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return JsonContainsCriterion.contains(this, value, path);
+        return JsonContainsCriterion.contains(getTarget(), value, path);
 //        return SingleCriterion.builder()
 //                .target(this.apply(JsonOperation.contains(value, path)))
 //                .operation(CompareOperation.NOT_BETWEEN)
@@ -144,25 +153,25 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion like(String prefix, String value, String suffix) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.LIKE)
-                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
+//                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
                 .build();
     }
 
     @Override
     default Criterion notLike(String prefix, String value, String suffix) {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NOT_LIKE)
-                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
+//                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
                 .build();
     }
 
     @Override
     default Criterion isNull() {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NULL)
                 .build();
     }
@@ -170,7 +179,7 @@ public interface CriterionTarget<T, V> extends CriterionValue<T, CriterionTarget
     @Override
     default Criterion isNotNull() {
         return SingleCriterion.builder()
-                .target(this)
+                .target(getTarget())
                 .operation(CompareOperation.NOT_NULL)
                 .build();
     }

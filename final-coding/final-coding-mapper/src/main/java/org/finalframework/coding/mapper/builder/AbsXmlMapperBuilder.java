@@ -2,8 +2,10 @@ package org.finalframework.coding.mapper.builder;
 
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.TypeHandlers;
+import org.finalframework.core.Assert;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -93,9 +95,23 @@ public class AbsXmlMapperBuilder {
         return bind;
     }
 
-    protected Element include(@NonNull Document document, @NonNull String refid) {
+    protected Element property(@NonNull Document document, @NonNull String name, @NonNull String value) {
+        Element property = document.createElement("property");
+        property.setAttribute("name", name);
+        property.setAttribute("value", value);
+        return property;
+    }
+
+    protected Element include(@NonNull Document document, @NonNull String refid, Node... properties) {
         final Element include = document.createElement("include");
         include.setAttribute("refid", refid);
+
+        if (Assert.nonEmpty(properties)) {
+            for (Node property : properties) {
+                include.appendChild(property);
+            }
+        }
+
         return include;
     }
 
@@ -171,21 +187,21 @@ public class AbsXmlMapperBuilder {
         final Element whenEntityNotNull = document.createElement("when");
         whenEntityNotNull.setAttribute("test", "entity != null");
         entity.stream()
-            .filter(it -> !it.isTransient())
-            .forEach(property -> {
-                if (property.isReference()) {
+                .filter(it -> !it.isTransient())
+                .forEach(property -> {
+                    if (property.isReference()) {
 
-                } else {
-                    Element ifPropertyNotNull = document.createElement("if");
-                    ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
+                    } else {
+                        Element ifPropertyNotNull = document.createElement("if");
+                        ifPropertyNotNull.setAttribute("test", String.format("entity.%s != null", property.getName()));
 
-                    final String column = typeHandlers.formatPropertyColumn(entity, null, property);
-                    final String value = typeHandlers.formatPropertyValues(null, property, "entity");
+                        final String column = typeHandlers.formatPropertyColumn(entity, null, property);
+                        final String value = typeHandlers.formatPropertyValues(null, property, "entity");
 
-                    ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));
-                    whenEntityNotNull.appendChild(ifPropertyNotNull);
-                }
-            });
+                        ifPropertyNotNull.appendChild(textNode(document, String.format("AND %s = %s", column, value)));
+                        whenEntityNotNull.appendChild(ifPropertyNotNull);
+                    }
+                });
         return whenEntityNotNull;
     }
 }

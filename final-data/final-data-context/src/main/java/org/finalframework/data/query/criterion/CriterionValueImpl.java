@@ -6,11 +6,8 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.SqlKeyWords;
 import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.operation.function.Function;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -19,10 +16,9 @@ import java.util.Collection;
  * @since 1.0
  */
 @Data
-public class CriterionValueImpl<T, V> implements CriterionTarget<T, V>, Serializable {
+public class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
     private static final long serialVersionUID = -5904183635896162713L;
     private final T value;
-    private final Collection<Function> functions = new ArrayList<>();
     private Class<?> javaType;
     private Class<? extends TypeHandler<?>> typeHandler;
 
@@ -31,20 +27,14 @@ public class CriterionValueImpl<T, V> implements CriterionTarget<T, V>, Serializ
     }
 
     @Override
-    public CriterionTarget<T, V> javaType(Class<?> javaType) {
+    public CriterionValue<T> javaType(Class<?> javaType) {
         this.javaType = javaType;
         return this;
     }
 
     @Override
-    public CriterionTarget<T, V> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
+    public CriterionValue<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
         this.typeHandler = typeHandler;
-        return this;
-    }
-
-    @Override
-    public CriterionTarget<T, V> apply(Function function) {
-        this.functions.add(function);
         return this;
     }
 
@@ -85,11 +75,6 @@ public class CriterionValueImpl<T, V> implements CriterionTarget<T, V>, Serializ
             value = sb.toString();
         }
 
-        if (Assert.nonEmpty(functions)) {
-            for (Function function : functions) {
-                value = function.apply(value);
-            }
-        }
         return value;
     }
 

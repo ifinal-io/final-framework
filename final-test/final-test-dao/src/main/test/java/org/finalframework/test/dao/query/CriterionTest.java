@@ -16,12 +16,12 @@ import org.junit.jupiter.api.Test;
 public class CriterionTest {
     @Test
     public void testEqual() {
-        System.out.println(QPerson.name.eq(CriterionValue.from("haha").apply(StringOperation.concat("sa", "sb"))));
-        System.out.println(QPerson.created.apply(DateOperation.date()).eq(CriterionValue.from("haha").apply(StringOperation.concat("sa", "sb"))));
+//        System.out.println(QPerson.name.eq(CriterionValue.from("haha").apply(StringOperation.concat("sa", "sb"))));
+//        System.out.println(QPerson.created.apply(DateOperation.date()).eq(CriterionValue.from("haha").apply(StringOperation.concat("sa", "sb"))));
 
-        System.out.println(QPerson.stringList.notJsonContains(
-                CriterionValue.from("[a,b]").apply(JsonOperation.array()),
-                "$"));
+//        System.out.println(QPerson.stringList.notJsonContains(
+//                CriterionValue.from("[a,b]").apply(JsonOperation.array()),
+//                "$"));
     }
 }
 

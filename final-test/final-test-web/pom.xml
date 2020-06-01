@@ -70,12 +70,12 @@
             <scope>compile</scope>
             <version>0.5.4-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <artifactId>final-spiriter-jdbc</artifactId>
-            <groupId>org.finalframework.spiriter</groupId>
-            <scope>compile</scope>
-            <version>0.5.4-SNAPSHOT</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <artifactId>final-spiriter-jdbc</artifactId>-->
+        <!--            <groupId>org.finalframework.spiriter</groupId>-->
+        <!--            <scope>compile</scope>-->
+        <!--            <version>0.5.4-SNAPSHOT</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

@@ -38,7 +38,7 @@ import org.springframework.core.annotation.Order;
         }
 )
 @Order(0)
-@SpringComponent
+//@SpringComponent
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);
