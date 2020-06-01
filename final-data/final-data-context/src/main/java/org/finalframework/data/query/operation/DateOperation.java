@@ -1,8 +1,7 @@
 package org.finalframework.data.query.operation;
 
 
-import org.finalframework.data.query.operation.function.Function;
-import org.finalframework.data.query.operation.function.DateFunctionOperation;
+import org.finalframework.data.query.criterion.function.CriterionFunction;
 
 /**
  * @author likly
@@ -13,8 +12,8 @@ import org.finalframework.data.query.operation.function.DateFunctionOperation;
 public enum DateOperation implements Operation {
     DATE;
 
-    public static Function date() {
-        return new DateFunctionOperation();
+    public static CriterionFunction date() {
+        return null;
     }
 }
 

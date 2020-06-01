@@ -1,14 +1,12 @@
 package org.finalframework.coding.mapper.builder;
 
 
+import java.util.Arrays;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.SQLConstants;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.query.criterion.CriterionType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.util.Arrays;
 
 /**
  * @author likly
@@ -29,14 +27,14 @@ public class SqlCriterionValueFragmentXmlMapperBuilder extends AbsSqlFragmentXml
     @Override
     protected Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = sql(document, id());
-
+        sql.appendChild(bind(document, "value", "${value}"));
         final Element whenProperty = document.createElement("when");
-        whenProperty.setAttribute("test", String.format("'%s' == value.type.name()", CriterionType.PROPERTY));
+        whenProperty.setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isProperty(value)");
         whenProperty.appendChild(cdata(document, "${value.column}"));
 
-
         final Element whenCollection = document.createElement("when");
-        whenCollection.setAttribute("test", String.format("'%s' == value.type.name()", CriterionType.COLLECTION));
+        whenCollection
+            .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isCollection(value)");
 
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "value");
@@ -46,13 +44,15 @@ public class SqlCriterionValueFragmentXmlMapperBuilder extends AbsSqlFragmentXml
         whenCollection.appendChild(foreach);
 
         final Element whenFunction = document.createElement("when");
-        whenFunction.setAttribute("test", String.format("'%s' == value.type.name()", CriterionType.FUNCTION));
+        whenFunction.setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isFunction(value)");
         if (loop < MAX_LOOP) {
-            whenFunction.appendChild(include(document, SQLConstants.SQL_CRITERION_FUNCTION + (loop == 0 ? "" : "-" + loop), property(document, "function", "value")));
+            whenFunction.appendChild(
+                include(document, SQLConstants.SQL_CRITERION_FUNCTION + (loop == 0 ? "" : "-" + loop),
+                    property(document, "function", "value")));
         }
         sql.appendChild(choose(document, Arrays.asList(
-//                whenProperty, whenFunction, whenCollection,
-                whenOrOtherwise(document, null, cdata(document, "#{value}"))
+            whenProperty, whenFunction, whenCollection,
+            whenOrOtherwise(document, null, cdata(document, "#{${value}}"))
         )));
 
         return sql;

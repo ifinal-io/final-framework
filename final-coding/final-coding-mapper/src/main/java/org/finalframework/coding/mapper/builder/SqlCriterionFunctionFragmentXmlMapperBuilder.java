@@ -1,6 +1,7 @@
 package org.finalframework.coding.mapper.builder;
 
 
+import java.util.Arrays;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.SQLConstants;
 import org.finalframework.coding.mapper.TypeHandlers;
@@ -8,8 +9,6 @@ import org.finalframework.data.query.operation.DateOperation;
 import org.finalframework.data.query.operation.StringOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.util.Arrays;
 
 /**
  * @author likly
@@ -28,10 +27,12 @@ public class SqlCriterionFunctionFragmentXmlMapperBuilder extends AbsSqlFragment
     @Override
     protected Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = sql(document, id());
+        sql.appendChild(bind(document, "function", "${function}"));
         sql.appendChild(choose(document, Arrays.asList(
-                whenOrOtherwise(document, String.format("'%s' == function.name()", "NOW"), cdata(document, "NOW()")),
-                whenOrOtherwise(document, String.format("'%s' == function.name()", DateOperation.DATE), date(document)),
-                whenOrOtherwise(document, String.format("'%s' == function.name()", StringOperation.CONCAT), concat(document))
+            whenOrOtherwise(document, String.format("'%s' == function.name()", "NOW"), cdata(document, "NOW()")),
+            whenOrOtherwise(document, String.format("'%s' == function.name()", DateOperation.DATE), date(document)),
+            whenOrOtherwise(document, String.format("'%s' == function.name()", StringOperation.CONCAT),
+                concat(document))
         )));
         return sql;
     }

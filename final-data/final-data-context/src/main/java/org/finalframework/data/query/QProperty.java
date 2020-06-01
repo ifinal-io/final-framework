@@ -1,6 +1,9 @@
 
 package org.finalframework.data.query;
 
+import java.util.Collection;
+import java.util.function.Function;
+import javax.validation.constraints.NotNull;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
@@ -8,16 +11,14 @@ import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.CriterionTarget;
-import org.finalframework.data.query.operation.function.Function;
+import org.finalframework.data.query.criterion.function.CriterionFunction;
+import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
+import org.finalframework.data.query.criterion.function.SingleCriterionFunction;
 import org.finalframework.data.query.operation.DateOperation;
 import org.finalframework.data.query.operation.JsonOperation;
 import org.finalframework.data.query.operation.LogicOperation;
+import org.finalframework.data.query.operation.Operation.MathOperation;
 import org.springframework.lang.NonNull;
-
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
-
-import static org.finalframework.data.query.operation.Operation.MathOperation;
 
 /**
  * @author likly
@@ -26,7 +27,7 @@ import static org.finalframework.data.query.operation.Operation.MathOperation;
  * @since 1.0
  */
 public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<Order>,
-        ExecuteCriteriable<T, Criterion> {
+    ExecuteCriteriable<T, Criterion> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);
@@ -70,9 +71,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     boolean nonnull();
 
-    default CriterionTarget<QProperty<T>> apply(Function function) {
-//        return CriterionTarget.from(this).apply(function);
-        return null;
+    default CriterionTarget<CriterionFunction> apply(Function<QProperty<T>, CriterionFunction> mapper) {
+        return CriterionTarget.from(mapper.apply(this));
     }
 
     @Override
@@ -161,73 +161,73 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
 
     @Override
-    default CriterionTarget<QProperty<T>> date() {
-        return apply(DateOperation.date());
+    default CriterionTarget<CriterionFunction> date() {
+        return apply(value -> new SimpleCriterionFunction(value, DateOperation.DATE));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> jsonExtract(String path) {
-        return apply(JsonOperation.extract(path));
+    default CriterionTarget<CriterionFunction> jsonExtract(String path) {
+        return apply(value -> new SingleCriterionFunction(value, JsonOperation.JSON_EXTRACT, path));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> jsonKeys() {
-        return apply(JsonOperation.keys());
+    default CriterionTarget<CriterionFunction> jsonKeys() {
+        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_KEYS));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> jsonLength() {
-        return apply(JsonOperation.length());
+    default CriterionTarget<CriterionFunction> jsonLength() {
+        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_LENGTH));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> jsonDepth() {
-        return apply(JsonOperation.depth());
+    default CriterionTarget<CriterionFunction> jsonDepth() {
+        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_DEPTH));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> jsonUnquote() {
-        return apply(JsonOperation.unquote());
+    default CriterionTarget<CriterionFunction> jsonUnquote() {
+        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_UNQUOTE));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> and(Object value) {
-        return apply(LogicOperation.and(value));
+    default CriterionTarget<CriterionFunction> and(Object value) {
+        return apply(property -> new SingleCriterionFunction(property, LogicOperation.AND, value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> or(Object value) {
-        return apply(LogicOperation.or(value));
+    default CriterionTarget<CriterionFunction> or(Object value) {
+        return apply(property -> new SingleCriterionFunction(property, LogicOperation.OR, value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> xor(Object value) {
-        return apply(LogicOperation.xor(value));
+    default CriterionTarget<CriterionFunction> xor(Object value) {
+        return apply(property -> new SingleCriterionFunction(property, LogicOperation.XOR, value));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> not() {
-        return apply(LogicOperation.not());
+    default CriterionTarget<CriterionFunction> not() {
+        return apply(value -> new SimpleCriterionFunction(value, LogicOperation.NOT));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> min() {
-        return apply(MathOperation.min());
+    default CriterionTarget<CriterionFunction> min() {
+        return apply(value -> new SimpleCriterionFunction(value, MathOperation.MIN));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> max() {
-        return apply(MathOperation.max());
+    default CriterionTarget<CriterionFunction> max() {
+        return apply(value -> new SimpleCriterionFunction(value, MathOperation.MAX));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> sum() {
-        return apply(MathOperation.sum());
+    default CriterionTarget<CriterionFunction> sum() {
+        return apply(value -> new SimpleCriterionFunction(value, MathOperation.SUM));
     }
 
     @Override
-    default CriterionTarget<QProperty<T>> avg() {
-        return apply(MathOperation.avg());
+    default CriterionTarget<CriterionFunction> avg() {
+        return apply(value -> new SimpleCriterionFunction(value, MathOperation.AVG));
     }
 
     @Override
