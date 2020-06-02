@@ -41,7 +41,7 @@ public class SqlCriterionFunctionFragmentXmlMapperBuilder extends AbsSqlFragment
         final Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "DATE(");
         trim.setAttribute("suffix", ")");
-        trim.appendChild(include(document, getValueRefId(), property(document, "value", "function.target")));
+        trim.appendChild(include(document, getValueRefId(), property(document, "value", "function.value")));
         return trim;
     }
 

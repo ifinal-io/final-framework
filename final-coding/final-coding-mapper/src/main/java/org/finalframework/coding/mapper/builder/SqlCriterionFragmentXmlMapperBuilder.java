@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper.builder;
 
 
 import java.util.Arrays;
+
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.SQLConstants;
 import org.finalframework.coding.mapper.TypeHandlers;
@@ -33,21 +34,24 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 //        sql.appendChild(bind(document, "criterion", "${criterion}"));
         sql.appendChild(choose(document, Arrays.asList(
 
-            isNull(document, Operation.CompareOperation.NULL),
-            isNotNull(document, Operation.CompareOperation.NOT_NULL),
+                isNull(document, Operation.CompareOperation.NULL),
+                isNotNull(document, Operation.CompareOperation.NOT_NULL),
 
-            compare(document, Operation.CompareOperation.EQUAL, "="),
-            compare(document, Operation.CompareOperation.NOT_EQUAL, "!="),
-            compare(document, Operation.CompareOperation.GREAT_THAN, ">"),
-            compare(document, Operation.CompareOperation.GREAT_THAN_EQUAL, ">="),
-            compare(document, Operation.CompareOperation.LESS_THAN, "<"),
-            compare(document, Operation.CompareOperation.LESS_THAN_EQUAL, "<="),
+                compare(document, Operation.CompareOperation.EQUAL, "="),
+                compare(document, Operation.CompareOperation.NOT_EQUAL, "!="),
+                compare(document, Operation.CompareOperation.GREAT_THAN, ">"),
+                compare(document, Operation.CompareOperation.GREAT_THAN_EQUAL, ">="),
+                compare(document, Operation.CompareOperation.LESS_THAN, "<"),
+                compare(document, Operation.CompareOperation.LESS_THAN_EQUAL, "<="),
 
-            in(document, Operation.CompareOperation.IN, "IN"),
-            in(document, Operation.CompareOperation.NOT_IN, "NOT IN"),
+                like(document, Operation.CompareOperation.LIKE, " LIKE "),
+                like(document, Operation.CompareOperation.NOT_LIKE, " NOT LIKE "),
 
-            between(document, Operation.CompareOperation.BETWEEN, "BETWEEN"),
-            between(document, Operation.CompareOperation.NOT_BETWEEN, "NOT BETWEEN")
+                in(document, Operation.CompareOperation.IN, "IN"),
+                in(document, Operation.CompareOperation.NOT_IN, "NOT IN"),
+
+                between(document, Operation.CompareOperation.BETWEEN, "BETWEEN"),
+                between(document, Operation.CompareOperation.NOT_BETWEEN, "NOT BETWEEN")
 
         )));
 
@@ -58,7 +62,7 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         final Element trim = document.createElement("trim");
         trim.setAttribute("suffix", " IS NULL");
         trim.appendChild(
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
         return whenOrOtherwise(document, test(operation), trim);
     }
 
@@ -66,16 +70,16 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         final Element trim = document.createElement("trim");
         trim.setAttribute("suffix", " IS NOT NULL");
         trim.appendChild(
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
         return whenOrOtherwise(document, test(operation), trim);
     }
 
 
     private Element compare(Document document, Operation operation, String operator) {
         return whenOrOtherwise(document, test(operation),
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
-            cdata(document, operator),
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value"))
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
+                cdata(document, operator),
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value"))
         );
     }
 
@@ -85,11 +89,25 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         in.setAttribute("prefix", operator + '(');
         in.setAttribute("suffix", ")");
         in.appendChild(
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value")));
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value")));
 
         return whenOrOtherwise(document, test(operation),
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
-            in
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")),
+                in
+        );
+
+    }
+
+
+    private Element like(Document document, Operation operation, String suffix) {
+        final Element trim = document.createElement("trim");
+        trim.setAttribute("suffix", suffix);
+        trim.appendChild(
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.target")));
+
+        return whenOrOtherwise(document, test(operation),
+                trim,
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.value"))
         );
 
     }
@@ -98,12 +116,12 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
         final Element between = document.createElement("trim");
         between.setAttribute("prefix", prefix);
         between.appendChild(
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.min")));
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.min")));
 
         final Element and = document.createElement("trim");
         and.setAttribute("prefix", " AND ");
         and.appendChild(
-            include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.max")));
+                include(document, SQLConstants.SQL_CRITERION_VALUE, property(document, "value", "criterion.max")));
 
         return whenOrOtherwise(document, test(operation), between, and);
     }
@@ -111,13 +129,13 @@ public class SqlCriterionFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMappe
 
     private Element singleWhenElement(Document document, Operation operation, String expression) {
         return whenOrOtherwise(document, test(operation),
-            cdata(document, expression)
+                cdata(document, expression)
         );
     }
 
     private Element betweenWhenElement(Document document, Operation operation, String expression) {
         return whenOrOtherwise(document, test(operation),
-            cdata(document, expression)
+                cdata(document, expression)
         );
     }
 

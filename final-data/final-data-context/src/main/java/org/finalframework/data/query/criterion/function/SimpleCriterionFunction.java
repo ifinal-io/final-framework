@@ -14,7 +14,7 @@ import org.finalframework.data.query.operation.Operation;
 @Getter
 @AllArgsConstructor
 public class SimpleCriterionFunction implements CriterionFunction {
-    private final Object target;
+    private final Object value;
     private final Operation operation;
 }
 

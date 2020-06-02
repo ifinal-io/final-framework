@@ -1,8 +1,8 @@
 package org.finalframework.data.query.criterion.function;
 
-import java.util.function.Function;
-import org.finalframework.data.query.criterion.CriterionType;
 import org.finalframework.data.query.operation.Operation;
+
+import java.util.function.Function;
 
 /**
  * @author likly
@@ -11,10 +11,6 @@ import org.finalframework.data.query.operation.Operation;
  * @since 1.0
  */
 public interface CriterionFunction extends Operation {
-
-    default CriterionType getType() {
-        return CriterionType.FUNCTION;
-    }
 
     default String name() {
         return getOperation().name();
