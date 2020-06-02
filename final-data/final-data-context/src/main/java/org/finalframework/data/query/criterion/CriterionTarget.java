@@ -1,20 +1,16 @@
 package org.finalframework.data.query.criterion;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
 import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
 import org.finalframework.data.query.operation.StringOperation;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -150,11 +146,12 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
     default Criterion like(String prefix, String value, String suffix) {
         final List<String> values = Stream.of(prefix, value, suffix).filter(Objects::nonNull).collect(Collectors.toList());
         return SingleCriterion.builder()
-                .target(getTarget())
-                .operation(CompareOperation.LIKE)
-                .value(CriterionValue.from(values).apply(item -> new SimpleCriterionFunction(item, StringOperation.CONCAT)))
+            .target(getTarget())
+            .operation(CompareOperation.LIKE)
+            .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
+//                .value(CriterionValue.from(values).apply(item -> new SimpleCriterionFunction(item, StringOperation.CONCAT)))
 //                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
-                .build();
+            .build();
     }
 
     @Override

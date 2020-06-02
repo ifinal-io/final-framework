@@ -2,6 +2,8 @@ package org.finalframework.data.query.criterion;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Properties;
+import org.finalframework.core.parser.xml.PropertyParser;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
 import org.springframework.lang.NonNull;
@@ -28,6 +30,16 @@ public abstract class CriterionTypes {
 
     public static boolean isArray(@NonNull Object value) {
         return value instanceof Array;
+    }
+
+    public static boolean isValue(@NonNull Object value) {
+        return value instanceof CriterionValue;
+    }
+
+    public static void main(String[] args) {
+        Properties properties = new Properties();
+        properties.put("value", "criterion.value");
+        System.out.println(PropertyParser.parse("\\${${value}.column}", properties));
     }
 
 

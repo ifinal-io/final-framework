@@ -27,11 +27,10 @@ public class SqlCriterionFunctionFragmentXmlMapperBuilder extends AbsSqlFragment
     @Override
     protected Element buildSqlFragment(Document document, Entity entity) {
         final Element sql = sql(document, id());
-        sql.appendChild(bind(document, "function", "${function}"));
         sql.appendChild(choose(document, Arrays.asList(
-            whenOrOtherwise(document, String.format("'%s' == function.name()", "NOW"), cdata(document, "NOW()")),
-            whenOrOtherwise(document, String.format("'%s' == function.name()", DateOperation.DATE), date(document)),
-            whenOrOtherwise(document, String.format("'%s' == function.name()", StringOperation.CONCAT),
+            whenOrOtherwise(document, String.format("'%s' == ${function}.name()", "NOW"), cdata(document, "NOW()")),
+            whenOrOtherwise(document, String.format("'%s' == ${function}.name()", DateOperation.DATE), date(document)),
+            whenOrOtherwise(document, String.format("'%s' == ${function}.name()", StringOperation.CONCAT),
                 concat(document))
         )));
         return sql;
@@ -41,7 +40,7 @@ public class SqlCriterionFunctionFragmentXmlMapperBuilder extends AbsSqlFragment
         final Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "DATE(");
         trim.setAttribute("suffix", ")");
-        trim.appendChild(include(document, getValueRefId(), property(document, "value", "function.value")));
+        trim.appendChild(include(document, getValueRefId(), property(document, "value", "${function}.value")));
         return trim;
     }
 
@@ -49,12 +48,7 @@ public class SqlCriterionFunctionFragmentXmlMapperBuilder extends AbsSqlFragment
         final Element trim = document.createElement("trim");
         trim.setAttribute("prefix", "CONCAT(");
         trim.setAttribute("suffix", ")");
-        final Element foreach = document.createElement("foreach");
-        foreach.setAttribute("collection", "function.value");
-        foreach.setAttribute("item", "item");
-        foreach.setAttribute("separator", ",");
-        foreach.appendChild(include(document, getValueRefId(), property(document, "value", "item")));
-        trim.appendChild(foreach);
+        trim.appendChild(include(document, getValueRefId(), property(document, "value", "${function}.value")));
         return trim;
     }
 
