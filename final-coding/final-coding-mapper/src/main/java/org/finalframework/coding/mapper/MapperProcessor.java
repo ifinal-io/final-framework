@@ -2,6 +2,7 @@ package org.finalframework.coding.mapper;
 
 import com.google.auto.service.AutoService;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.builder.xml.XMLMapperEntityResolver;
 import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
@@ -80,14 +81,17 @@ public class MapperProcessor extends AbstractProcessor {
     private MappersHelper mappersHelper;
     private TypeHandlers typeHandlers;
 
-    private EntityResolver entityResolver = new EntityResolver() {
-        InputSource source = new InputSource(new StringBufferInputStream("<?xml version='1.0' encoding='UTF-8'?>"));
+    private EntityResolver entityResolver = new XMLMapperEntityResolver();
 
-        @Override
-        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-            return source;
-        }
-    };
+
+//            new EntityResolver() {
+//        InputSource source = new InputSource(new StringBufferInputStream("<?xml version='1.0' encoding='UTF-8'?>"));
+//
+//        @Override
+//        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+//            return source;
+//        }
+//    };
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
