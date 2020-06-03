@@ -1,6 +1,7 @@
 package org.finalframework.data.query;
 
 import org.finalframework.data.annotation.Table;
+import org.finalframework.data.annotation.View;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.MappingUtils;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -42,6 +43,9 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                 .stream()
                 .filter(it -> !it.isTransient())
                 .forEach(property -> {
+
+                    final View view = property.findAnnotation(View.class);
+                    final List<Class<?>> views = Optional.ofNullable(view).map(value -> Arrays.asList(value.value())).orElse(null);
                     if (property.isReference()) {
 
                         final Entity<?> referenceEntity = Entity.from(property.getType());
@@ -55,6 +59,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                                     .path(property.getName() + "." + referenceProperty.getName())
                                                     .name(MappingUtils.formatPropertyName(property, referenceProperty))
                                                     .column(MappingUtils.formatColumn(property, referenceProperty))
+                                                    .views(views)
 //                                                    .idProperty(property.isIdProperty())
                                                     .build()
                                     );
@@ -68,6 +73,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                         .name(property.getName())
                                         .column(MappingUtils.formatColumn(null, property))
                                         .idProperty(property.isIdProperty())
+                                        .views(views)
                                         .build()
                         );
                     }

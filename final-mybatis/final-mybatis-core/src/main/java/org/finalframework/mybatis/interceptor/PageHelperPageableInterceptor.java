@@ -15,6 +15,7 @@ import org.finalframework.data.query.Pageable;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -37,8 +38,8 @@ import org.springframework.core.annotation.Order;
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
-@Order(0)
-//@SpringComponent
+@Order(Ordered.HIGHEST_PRECEDENCE + 100)
+@SpringComponent
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);

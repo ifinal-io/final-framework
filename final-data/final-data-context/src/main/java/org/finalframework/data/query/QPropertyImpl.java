@@ -1,8 +1,12 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author likly
@@ -23,6 +27,8 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final Class<? extends TypeHandler> typeHandler;
 
+    private final List<Class<?>> views;
+
     private final boolean insertable;
     private final boolean updatable;
     private final boolean selectable;
@@ -38,6 +44,8 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         this.persistentType = builder.persistentType;
 
         this.typeHandler = builder.typeHandler;
+
+        this.views = Assert.isEmpty(builder.views) ? new ArrayList<>() : builder.views;
 
         this.insertable = builder.insertable;
         this.updatable = builder.updatable;
@@ -95,6 +103,15 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     }
 
     @Override
+    public boolean hasView(Class<?> view) {
+        if (view == null) return true;
+        for (Class<?> item : views) {
+            if (item.isAssignableFrom(view)) return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean unique() {
         return false;
     }
@@ -124,7 +141,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private PersistentType persistentType;
 
         private Class<? extends TypeHandler> typeHandler;
-
+        private List<Class<?>> views;
         private boolean insertable = true;
         private boolean updatable = true;
         private boolean selectable = true;
@@ -167,6 +184,12 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         @Override
         public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
             this.typeHandler = typeHandler;
+            return this;
+        }
+
+        @Override
+        public Builder<T> views(List<Class<?>> views) {
+            this.views = views;
             return this;
         }
 

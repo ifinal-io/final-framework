@@ -2,8 +2,10 @@
 package org.finalframework.data.query;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import javax.validation.constraints.NotNull;
+
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
@@ -19,6 +21,7 @@ import org.finalframework.data.query.operation.JsonOperation;
 import org.finalframework.data.query.operation.LogicOperation;
 import org.finalframework.data.query.operation.Operation.MathOperation;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -27,7 +30,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<Order>,
-    ExecuteCriteriable<T, Criterion> {
+        ExecuteCriteriable<T, Criterion> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);
@@ -66,6 +69,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
      * Returns whether the property is an array.
      */
     boolean isArray();
+
+    boolean hasView(@Nullable Class<?> view);
 
     boolean unique();
 
@@ -254,6 +259,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
         Builder<T> persistentType(PersistentType persistentType);
 
         Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler);
+
+        Builder<T> views(List<Class<?>> views);
 
         Builder<T> insertable(boolean insertable);
 

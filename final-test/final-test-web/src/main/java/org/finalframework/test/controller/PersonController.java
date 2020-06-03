@@ -3,6 +3,8 @@ package org.finalframework.test.controller;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.finalframework.data.annotation.IView;
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
 import org.finalframework.test.dao.query.QPerson;
@@ -36,7 +38,7 @@ public class PersonController {
 
 //        return Arrays.asList(personService.selectOne1());
 
-        return personService.select(new Query()
+        return personService.select(IView.class, new Query()
                         .where(
 //                        QPerson.age.eq(101),
 //                        QPerson.created.date().gt("2020-01-01 00:00:00"),

@@ -40,7 +40,7 @@ import java.util.Properties;
         }
 )
 @Order(0)
-//@SpringComponent
+@SpringComponent
 public class InlineSelectInterceptor implements Interceptor {
 
     /**
