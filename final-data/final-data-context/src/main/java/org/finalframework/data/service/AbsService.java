@@ -69,6 +69,11 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
         getRepository().truncate(table);
     }
 
+    @Override
+    default T selectOne1() {
+        return getRepository().selectOne1();
+    }
+
     @NonNull
     R getRepository();
 

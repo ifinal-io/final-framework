@@ -1,6 +1,7 @@
 package org.finalframework.data.repository;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
@@ -816,6 +817,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param table 表名
      */
     void truncate(@Param("table") String table);
+
+
+    @Select("SELECT * FROM person LIMIT 1")
+    T selectOne1();
 
 
 }

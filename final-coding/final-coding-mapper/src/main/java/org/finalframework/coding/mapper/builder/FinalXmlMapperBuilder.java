@@ -68,13 +68,13 @@ public class FinalXmlMapperBuilder implements XmlMapperBuilder {
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 1));
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 2));
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 3));
-        sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 4));
-        sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 5));
+//        sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 4));
+//        sqlFragmentXmlMapperBuilders.add(new SqlCriterionValueFragmentXmlMapperBuilder(typeHandlers, 5));
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 0));
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 1));
         sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 2));
-        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 3));
-        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 4));
+//        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 3));
+//        sqlFragmentXmlMapperBuilders.add(new SqlCriterionFunctionFragmentXmlMapperBuilder(typeHandlers, 4));
 
         sqlFragmentXmlMapperBuilders.add(new SqlGroupFragmentXmlMapperBuilder(typeHandlers));
         sqlFragmentXmlMapperBuilders.add(new SqlOrderFragmentXmlMapperBuilder(typeHandlers));

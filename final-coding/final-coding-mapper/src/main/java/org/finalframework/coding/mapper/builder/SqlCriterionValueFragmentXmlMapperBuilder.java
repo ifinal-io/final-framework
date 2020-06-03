@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
  */
 public class SqlCriterionValueFragmentXmlMapperBuilder extends AbsSqlFragmentXmlMapperBuilder {
 
-    private static final Integer MAX_LOOP = 5;
+    private static final Integer MAX_LOOP = 3;
     private final Integer loop;
 
     public SqlCriterionValueFragmentXmlMapperBuilder(TypeHandlers typeHandlers, Integer loop) {
