@@ -8,11 +8,15 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.finalframework.data.annotation.Final;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.data.repository.RepositoryHolder;
 import org.finalframework.data.repository.RepositoryManager;
 import org.finalframework.spring.annotation.factory.SpringComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import java.util.Map;
@@ -30,14 +34,14 @@ import java.util.Properties;
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
+                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
 @Order
 @SpringComponent
 public class ParameterInjectionInterceptor implements Interceptor {
-
+    private static final Logger logger = LoggerFactory.getLogger(ParameterInjectionInterceptor.class);
     /**
      * @see MapperBuilderAssistant#getStatementResultMaps(String, Class, String)
      */
@@ -49,10 +53,12 @@ public class ParameterInjectionInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
 
+        Object[] args = invocation.getArgs();
+        MappedStatement ms = (MappedStatement) args[0];
+        final String id = ms.getId();
+        logger.debug("Inject Parameter start...:{}", id);
         try {
-            Object[] args = invocation.getArgs();
-            MappedStatement ms = (MappedStatement) args[0];
-            final String id = ms.getId();
+
             final String mapperName = id.substring(0, id.lastIndexOf("."));
             final Class<?> mapper = Class.forName(mapperName);
             Object parameter = args[1];
@@ -74,6 +80,8 @@ public class ParameterInjectionInterceptor implements Interceptor {
 
         } catch (Exception e) {
             return invocation.proceed();
+        } finally {
+            logger.debug("Inject Parameter Finish...:{}", id);
         }
 
     }

@@ -25,7 +25,7 @@ import org.springframework.data.annotation.CreatedBy;
 @Column
 @Documented
 @CreatedBy
-@Index(Integer.MAX_VALUE - 100)
+@Order(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Creator {

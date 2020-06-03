@@ -23,7 +23,7 @@ import org.springframework.core.annotation.AliasFor;
 @Column
 @Default
 @Documented
-@Index(Integer.MIN_VALUE)
+@Order(Integer.MIN_VALUE)
 @org.springframework.data.annotation.Id
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

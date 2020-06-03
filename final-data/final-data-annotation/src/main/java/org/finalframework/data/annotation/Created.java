@@ -27,7 +27,7 @@ import org.springframework.data.annotation.CreatedDate;
 @ReadOnly
 @CreatedDate
 @Documented
-@Index(Integer.MAX_VALUE - 100)
+@Order(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {

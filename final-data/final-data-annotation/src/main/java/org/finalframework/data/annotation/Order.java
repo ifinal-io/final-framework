@@ -1,5 +1,7 @@
 package org.finalframework.data.annotation;
 
+import org.springframework.core.annotation.AliasFor;
+
 import java.lang.annotation.*;
 
 /**
@@ -8,9 +10,11 @@ import java.lang.annotation.*;
  * @date 2018-10-15 15:14
  * @since 1.0
  */
+@org.springframework.core.annotation.Order
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Index {
+public @interface Order {
+    @AliasFor(annotation = org.springframework.core.annotation.Order.class)
     int value();
 }
