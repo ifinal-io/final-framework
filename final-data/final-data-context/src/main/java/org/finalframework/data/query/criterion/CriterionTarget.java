@@ -1,16 +1,21 @@
 package org.finalframework.data.query.criterion;
 
+import org.finalframework.data.query.QProperty;
+import org.finalframework.data.query.SqlNode;
+import org.finalframework.data.query.criteriable.Criteriable;
+import org.finalframework.data.query.criterion.function.CriterionFunction;
+import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
+import org.finalframework.data.query.operation.Operation.CompareOperation;
+import org.finalframework.data.query.operation.StringOperation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.finalframework.data.query.criteriable.Criteriable;
-import org.finalframework.data.query.criterion.function.CriterionFunction;
-import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
-import org.finalframework.data.query.operation.Operation.CompareOperation;
-import org.finalframework.data.query.operation.StringOperation;
 
 /**
  * @author likly
@@ -18,7 +23,7 @@ import org.finalframework.data.query.operation.StringOperation;
  * @date 2020-05-27 16:31:17
  * @since 1.0
  */
-public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
+public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlNode {
 
     static <T> CriterionTarget<T> from(T target) {
         return target instanceof CriterionTarget ? (CriterionTarget<T>) target : new CriterionTargetImpl<>(target);
@@ -31,26 +36,42 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
     }
 
     @Override
+    default void apply(Node parent, String expression) {
+        final Document document = parent.getOwnerDocument();
+        final T target = this.getTarget();
+        if (target instanceof SqlNode) {
+            ((SqlNode) target).apply(parent, String.format("%s.target", expression));
+        }
+        if (target instanceof QProperty) {
+            parent.appendChild(document.createTextNode(String.format("${%s.target.column}", expression)));
+//            parent.appendChild(document.createTextNode(((QProperty) target).getColumn()));
+        } else {
+            parent.appendChild(document.createTextNode(target.toString()));
+        }
+    }
+
+    @Override
     default Criterion between(Object min, Object max) {
-        return BetweenCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.BETWEEN)
-                .between(min, max)
+                .min(min).max(max)
                 .build();
+
     }
 
     @Override
     default Criterion notBetween(Object min, Object max) {
-        return BetweenCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_BETWEEN)
-                .between(min, max)
+                .min(min).max(max)
                 .build();
     }
 
     @Override
     default Criterion eq(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.EQUAL)
                 .value(value)
@@ -59,7 +80,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion neq(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_EQUAL)
                 .value(value)
@@ -68,7 +89,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion gt(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.GREAT_THAN)
                 .value(value)
@@ -77,7 +98,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion gte(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.GREAT_THAN_EQUAL)
                 .value(value)
@@ -86,7 +107,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion lt(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.LESS_THAN)
                 .value(value)
@@ -95,7 +116,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion lte(Object value) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.LESS_THAN_EQUAL)
                 .value(value)
@@ -104,7 +125,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion in(Collection<Object> values) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.IN)
                 .value(values)
@@ -113,7 +134,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion nin(Collection<Object> values) {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_IN)
                 .value(values)
@@ -145,27 +166,27 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
     @Override
     default Criterion like(String prefix, String value, String suffix) {
         final List<String> values = Stream.of(prefix, value, suffix).filter(Objects::nonNull).collect(Collectors.toList());
-        return SingleCriterion.builder()
-            .target(getTarget())
-            .operation(CompareOperation.LIKE)
-            .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
-//                .value(CriterionValue.from(values).apply(item -> new SimpleCriterionFunction(item, StringOperation.CONCAT)))
-//                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
-            .build();
+        return CompareCriterionOperation.builder()
+                .target(getTarget())
+                .operation(CompareOperation.LIKE)
+                .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
+                .build();
+
     }
 
     @Override
     default Criterion notLike(String prefix, String value, String suffix) {
-        return SingleCriterion.builder()
+        final List<String> values = Stream.of(prefix, value, suffix).filter(Objects::nonNull).collect(Collectors.toList());
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_LIKE)
-//                .value(CriterionValue.from(value).apply(StringOperation.concat(prefix, suffix)))
+                .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
                 .build();
     }
 
     @Override
     default Criterion isNull() {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NULL)
                 .build();
@@ -173,7 +194,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion> {
 
     @Override
     default Criterion isNotNull() {
-        return SingleCriterion.builder()
+        return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_NULL)
                 .build();

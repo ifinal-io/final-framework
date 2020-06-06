@@ -4,14 +4,12 @@ package org.finalframework.coding.query;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.EntityFactory;
 import org.finalframework.coding.entity.Property;
-import org.finalframework.coding.mapper.TypeHandlers;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author likly
@@ -21,7 +19,7 @@ import java.util.Optional;
  */
 public class QEntityFactory {
 
-    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity entity, TypeHandlers typeHandlers) {
+    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity entity) {
         final String entityName = entity.getSimpleName();
         final QEntity.Builder builder = new QEntity.Builder(entity);
         builder.packageName(packageName)
@@ -35,10 +33,10 @@ public class QEntityFactory {
                         @SuppressWarnings("unchecked") final List<String> properties = property.referenceProperties();
                         properties.stream()
                                 .map(multiEntity::getRequiredProperty)
-                                .map(multiProperty -> buildProperty(property, multiProperty, typeHandlers))
+                                .map(multiProperty -> buildProperty(property, multiProperty))
                                 .forEach(builder::addProperty);
                     } else {
-                        builder.addProperty(buildProperty(null, property, typeHandlers));
+                        builder.addProperty(buildProperty(null, property));
                     }
 
                 });
@@ -47,12 +45,12 @@ public class QEntityFactory {
     }
 
 
-    private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property, TypeHandlers typeHandlers) {
+    private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property) {
         if (referenceProperty == null) {
 //            System.out.println("1:" + property.getName() + ":isReference" + property.isReference() + ":column=" + property.getColumn() + ":isIdProperty=" + property.isIdProperty());
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .type(property.getJavaTypeElement())
-                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
+//                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
                     .persistentType(property.getPersistentType())
@@ -67,7 +65,7 @@ public class QEntityFactory {
             return QProperty.builder(path, name)
                     .column(Utils.formatPropertyColumn(referenceProperty, property))
                     .type(property.getJavaTypeElement())
-                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
+//                    .typeHandler(Optional.ofNullable(property.getTypeHandler()).orElse(typeHandlers.getTypeHandler(property)))
                     .idProperty(false)
                     .persistentType(property.getPersistentType())
                     .insertable(property.isWriteable())

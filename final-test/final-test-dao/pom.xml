@@ -21,6 +21,12 @@
         <dependency>
             <groupId>org.finalframework.boot</groupId>
             <artifactId>final-mybatis-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.finalframework.coding</groupId>
+                    <artifactId>final-coding-mapper</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.finalframework.coding</groupId>
@@ -32,11 +38,11 @@
             <artifactId>final-coding-datasource</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.finalframework.coding</groupId>
-            <artifactId>final-coding-mapper</artifactId>
-            <scope>compile</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.finalframework.coding</groupId>-->
+        <!--            <artifactId>final-coding-mapper</artifactId>-->
+        <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-core</artifactId>

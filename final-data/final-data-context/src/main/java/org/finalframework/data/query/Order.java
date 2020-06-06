@@ -1,6 +1,8 @@
 package org.finalframework.data.query;
 
 import org.finalframework.data.query.enums.Direction;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -8,13 +10,10 @@ import org.finalframework.data.query.enums.Direction;
  * @date 2018-10-25 11:15
  * @since 1.0
  */
-public interface Order {
-    static Order order(QProperty property, Direction direction) {
-        return order(property.getTable(), property, direction);
-    }
+public interface Order extends SqlNode {
 
-    static Order order(String table, QProperty property, Direction direction) {
-        return new OrderImpl(table, property, direction);
+    static Order order(QProperty property, Direction direction) {
+        return new OrderImpl(property, direction);
     }
 
     static Order asc(QProperty property) {
@@ -25,11 +24,13 @@ public interface Order {
         return order(property, Direction.DESC);
     }
 
-    String getTable();
-
     QProperty getProperty();
 
     Direction getDirection();
 
-
+    @Override
+    default void apply(Node parent, String value) {
+        final Document document = parent.getOwnerDocument();
+        parent.appendChild(document.createTextNode(String.format("%s %s,", getProperty().getColumn(), getDirection())));
+    }
 }

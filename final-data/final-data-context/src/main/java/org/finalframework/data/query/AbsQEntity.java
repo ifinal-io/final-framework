@@ -96,8 +96,9 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     }
 
     @Override
-    public QProperty<?> getProperty(String path) {
-        return pathProperties.get(path);
+    @SuppressWarnings("unchecked")
+    public <E> QProperty<E> getProperty(String path) {
+        return (QProperty<E>) pathProperties.get(path);
     }
 
     @Override

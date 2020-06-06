@@ -7,6 +7,9 @@ import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.Direction;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<Criterion>, Serializable, Pageable, Queryable, Sql<Query> {
+public class Query implements Streamable<Criterion>, Serializable, Pageable, Queryable, Sql<Query>, SqlNode {
 
     /**
      * 页码，第一页从1开始
@@ -139,5 +142,32 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
     @Override
     public Query convert() {
         return this;
+    }
+
+    @Override
+    public void apply(Node parent, String value) {
+        final Document document = parent.getOwnerDocument();
+
+        if (Assert.nonEmpty(this.criteria)) {
+            final Element where = document.createElement("where");
+            for (int i = 0; i < this.criteria.size(); i++) {
+                final Criterion criterion = this.criteria.get(i);
+                final Element trim = document.createElement("trim");
+                trim.setAttribute("prefix", " AND ");
+                criterion.apply(trim, String.format("%s.criteria[%s]", value, i));
+                where.appendChild(trim);
+            }
+            parent.appendChild(where);
+        }
+
+        if (Assert.nonNull(this.sort)) {
+            this.sort.apply(parent, String.format("%s.sort", value));
+        }
+
+        if (this.limit != null) {
+            limit.apply(parent, String.format("%s.limit", value));
+        }
+
+
     }
 }

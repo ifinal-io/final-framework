@@ -32,15 +32,15 @@ public class SortImpl extends ArrayList<Order> implements Sort, Sql<Sort> {
         return new SortImpl(orders);
     }
 
-    public static Sort asc(QProperty... property) {
+    public static Sort asc(QProperty<?>... property) {
         return sort(Direction.ASC, property);
     }
 
-    public static Sort desc(QProperty... property) {
+    public static Sort desc(QProperty<?>... property) {
         return sort(Direction.DESC, property);
     }
 
-    static Sort sort(Direction direction, QProperty... properties) {
+    static Sort sort(Direction direction, QProperty<?>... properties) {
         Assert.isEmpty(properties, "properties must be not empty!");
         return new SortImpl(Arrays.stream(properties).map(it -> Order.order(it, direction)).collect(Collectors.toList()));
     }

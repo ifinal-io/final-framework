@@ -2,15 +2,92 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.finalframework.mybatis.mapper.AbsMapper">
 
+    <insert id="insert"></insert>
+    <insert id="replace"></insert>
+    <insert id="save"></insert>
+    <update id="update"></update>
+    <delete id="delete"></delete>
+    <select id="selectOne"></select>
 
-    <sql id="sel-select">
+    <select id="selectCount" resultType="java.lang.Long">
+        <trim prefix="SELECT COUNT(*) FROM">
+            <include refid="sql-table"/>
+        </trim>
+    </select>
+
+    <sql id="sql-select">
         <trim prefix="SELECT">
+            <foreach collection="properties" item="property" separator=",">${property.column}</foreach>
+        </trim>
+        <trim prefix="FROM">
+            <include refid="sql-table"/>
+        </trim>
+        <where>
+            <choose>
+                <when test="ids != null">
+                    ${properties.idProperty.column}
+                    <trim prefix="IN" suffixOverrides="," prefixOverrides="AND | OR ">
+                        <foreach collection="ids" item="id" separator="," open="(" close=")">#{id}</foreach>
+                    </trim>
+                </when>
+                <when test="query != null">
+                    <if test="query.criteria != null">
+                        <foreach collection="query.criteria" item="criterion" separator=" AND " open="(" close=")">
+                            <choose>
+                                <when test="criterion.chain">
 
+                                </when>
+                                <otherwise>
+                                    <choose>
+                                        <when test=""></when>
+                                    </choose>
+                                </otherwise>
+                            </choose>
+                        </foreach>
+                    </if>
+                    <if test="query.sort != null">
+                        <foreach collection="sort" item="order" open="ORDER BY" separator=",">
+                            ${order.property.column} ${order.direction.name()}
+                        </foreach>
+                    </if>
+                    <if test="query.limit != null">
+                        <trim prefix="LIMIT">
+                            <if test="query.limit.offset != null">
+                                #{query.limit.offset},
+                            </if>
+                            #{query.limit.limit}
+                        </trim>
+                    </if>
+                </when>
+            </choose>
+        </where>
+    </sql>
+
+    <sql id="sql-function-single">
+        <trim prefix="${prefix}" suffix="${suffix}">
+            <include refid="${value}"/>
         </trim>
     </sql>
 
-    <sql id="sql-select-columns">
+    <sql id="sql-sort">
+        <if test="${sort} != null">
+            <foreach collection="${sort}" item="order" open="ORDER BY" separator=",">
+                \\${order.property.column} \\${order.direction.name()}
+            </foreach>
+        </if>
+    </sql>
 
+    <sql id="sql-limit">
+        <if test="${limit} != null">
+            <trim prefix="LIMIT">
+                <if test="${limit}.offset != null">
+                    #{${limit}.offset},
+                </if>
+                <if test="${limit}.limit != null">
+                    #{${limit}.limit}
+                </if>
+            </trim>
+        </if>
     </sql>
 
 </mapper>

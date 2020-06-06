@@ -4,6 +4,7 @@ package org.finalframework.data.query.criterion.function;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.finalframework.data.query.operation.Operation;
+import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -17,5 +18,10 @@ public class SingleCriterionFunction implements CriterionFunction {
     private final Object target;
     private final Operation operation;
     private final Object value;
+
+    @Override
+    public void apply(Node parent, String expression) {
+
+    }
 }
 

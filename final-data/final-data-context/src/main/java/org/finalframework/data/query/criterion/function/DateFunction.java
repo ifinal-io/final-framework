@@ -8,4 +8,5 @@ package org.finalframework.data.query.criterion.function;
  */
 public interface DateFunction<R> {
     R date();
+
 }

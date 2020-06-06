@@ -3,6 +3,9 @@ package org.finalframework.data.query;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.enums.AndOr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,7 +16,7 @@ import java.util.Collection;
  * @date 2018-10-25 11:34
  * @since 1.0
  */
-public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Criterion> {
+public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Criterion>, SqlNode {
 
     static Criteria where(Criterion... criterion) {
         return and(criterion);
@@ -56,4 +59,27 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
 
     Criteria or(Criteria... criteria);
 
+    @Override
+    default void apply(Node parent, String value) {
+
+        final Document document = parent.getOwnerDocument();
+        int index = 0;
+
+        final Element criteria = document.createElement("trim");
+        criteria.setAttribute("prefix", "(");
+        criteria.setAttribute("prefixOverrides", "AND |OR ");
+        criteria.setAttribute("suffix", ")");
+
+        for (Criterion criterion : this) {
+            final Element trim = document.createElement("trim");
+            trim.setAttribute("prefix", String.format(" %s ", andOr().name()));
+            criterion.apply(trim, String.format("%s.criteria[%d]", value, index));
+            criteria.appendChild(trim);
+            index++;
+        }
+
+
+        parent.appendChild(criteria);
+
+    }
 }

@@ -3,7 +3,6 @@ package org.finalframework.coding.query;
 import com.google.auto.service.AutoService;
 import org.finalframework.coding.entity.Entities;
 import org.finalframework.coding.entity.EntitiesHelper;
-import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.configuration.Configuration;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -50,7 +49,6 @@ public class EntityProcessor extends AbstractProcessor {
 
     private boolean entitiesProcessed = false;
     private EntitiesHelper entitiesHelper;
-    private TypeHandlers typeHandlers;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -62,10 +60,9 @@ public class EntityProcessor extends AbstractProcessor {
         Configuration.getInstance().load(processingEnv);
         NameConverterRegistry.getInstance().reload();
         this.entitiesHelper = new EntitiesHelper(processingEnv);
-        this.typeHandlers = new TypeHandlers(processingEnv);
-        entityGenerator = new QEntityGenerator(processingEnv, typeHandlers);
-        queryGenerator = new QueryGenerator(processingEnv, typeHandlers);
-        criteriaGenerator = new CriteriaGenerator(processingEnv, typeHandlers);
+        entityGenerator = new QEntityGenerator(processingEnv);
+        queryGenerator = new QueryGenerator(processingEnv);
+        criteriaGenerator = new CriteriaGenerator(processingEnv);
     }
 
     private void initLombokProcessor() {

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework.coding</groupId>
-            <artifactId>final-coding-mapper</artifactId>
+            <artifactId>final-coding-entity</artifactId>
         </dependency>
     </dependencies>
 

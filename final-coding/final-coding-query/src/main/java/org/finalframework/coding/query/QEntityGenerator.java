@@ -1,6 +1,5 @@
 package org.finalframework.coding.query;
 
-import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.core.configuration.Configuration;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -17,8 +16,8 @@ public class QEntityGenerator extends AbsEntityGenerator<QEntity> {
 
     private static final String QUERY_PACKAGE_PATH = "dao.query";
 
-    public QEntityGenerator(ProcessingEnvironment processEnv, TypeHandlers typeHandlers) {
-        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH), typeHandlers);
+    public QEntityGenerator(ProcessingEnvironment processEnv) {
+        super(processEnv, Configuration.getInstance().getString("final.coding.query.path", QUERY_PACKAGE_PATH));
     }
 
     @Override

@@ -9,20 +9,14 @@ import org.finalframework.data.query.enums.Direction;
  * @since 1.0
  */
 public class OrderImpl implements Order {
-    private final String table;
     private final QProperty property;
     private final Direction direction;
 
-    OrderImpl(String table, QProperty property, Direction direction) {
-        this.table = table;
+    OrderImpl(QProperty property, Direction direction) {
         this.property = property;
         this.direction = direction;
     }
 
-    @Override
-    public String getTable() {
-        return table;
-    }
 
     @Override
     public QProperty getProperty() {
@@ -34,12 +28,5 @@ public class OrderImpl implements Order {
         return direction;
     }
 
-    @Override
-    public String toString() {
-        return this.table.equals(property.getTable())
-                ? property.getColumn() + " " + direction.name()
-                : String.format("%s.%s %s",table,property.getColumn(),direction.name());
-
-    }
 
 }

@@ -2,6 +2,8 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * [标准，准则，规范，准据] 条件
@@ -34,6 +36,18 @@ public interface SimpleCriterion<T> extends Criterion {
 
     @NonNull
     Operation getOperation();
+
+    @Override
+    default void apply(Node parent, String value) {
+        final Document document = parent.getOwnerDocument();
+        if (getTarget() instanceof CriterionTarget) {
+            this.apply(parent, String.format("%s.target", value));
+        }
+
+        parent.appendChild(document.createCDATASection(" = "));
+
+
+    }
 
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
 
