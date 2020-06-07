@@ -12,7 +12,8 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
+@Criterion("NOT_EQUAL")
 public @interface NotEqual {
 
 }

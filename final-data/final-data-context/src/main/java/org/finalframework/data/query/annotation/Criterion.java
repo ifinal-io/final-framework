@@ -8,11 +8,12 @@ import java.lang.annotation.Target;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
+ * @date 2019-02-20 09:25:43
  * @since 1.0
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Size {
-    String value() default "";
+public @interface Criterion {
+
+    String value();
 }

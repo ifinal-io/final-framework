@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.CLASS)
-@CriterionAnnotation("EQUAL")
+@Retention(RetentionPolicy.RUNTIME)
+@Criterion("EQUAL")
 public @interface Equal {
     String value() default "";
 }

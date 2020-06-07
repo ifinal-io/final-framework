@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Page {
     String value() default "";
 }

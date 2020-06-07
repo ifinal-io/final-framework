@@ -5,14 +5,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
+ * @date 2020-06-07 00:30:22
  * @since 1.0
  */
-@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Size {
-    String value() default "";
+@Target(ElementType.TYPE)
+public @interface Or {
 }

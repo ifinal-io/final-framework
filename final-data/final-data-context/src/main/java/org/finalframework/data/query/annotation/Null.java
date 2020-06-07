@@ -5,14 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-20 09:25:43
+ * @date 2020-06-06 23:25:58
  * @since 1.0
  */
-@Target(ElementType.ANNOTATION_TYPE)
-@Retention(RetentionPolicy.CLASS)
-public @interface CriterionAnnotation {
-    String value();
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+@Criterion("Null")
+public @interface Null {
 }
