@@ -12,38 +12,31 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("unused")
 public interface LikeCondition<R> extends Condition {
     default R startWith(@NonNull String value) {
-        return like(null, value, "%");
+        return like("%" + value);
     }
 
     default R notStartWith(@NonNull String value) {
-        return notLike(null, value, "%s");
+        return notLike("%" + value);
     }
 
     default R endWith(@NonNull String value) {
-        return like("%", value, null);
+        return like(value + "%");
     }
 
     default R notEndWith(@NonNull String value) {
-        return notLike("%", value, null);
+        return notLike(value + "%");
     }
 
     default R contains(@NonNull String value) {
-        return like("%", value, "%");
+        return like("%" + value + "%");
     }
 
     default R notContains(@NonNull String value) {
-        return notLike("%", value, "%");
+        return notLike("%" + value + "%");
     }
 
-    default R like(@NonNull String value) {
-        return contains(value);
-    }
+    R like(@NonNull String value);
 
-    default R notLike(@NonNull String value) {
-        return notContains(value);
-    }
+    R notLike(@NonNull String value);
 
-    R like(@Nullable String prefix, @NonNull String value, @Nullable String suffix);
-
-    R notLike(@Nullable String prefix, @NonNull String value, @Nullable String suffix);
 }

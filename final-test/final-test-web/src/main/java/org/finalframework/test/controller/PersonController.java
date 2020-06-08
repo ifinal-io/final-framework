@@ -37,7 +37,7 @@ public class PersonController {
     public List<Person> query(PageQuery query) {
 
 //        return Arrays.asList(personService.selectOne1());
-
+        final long count = personService.selectCount(1L);
         return personService.select(IView.class, new Query()
                         .where(
 //                        QPerson.age.eq(101),
@@ -51,8 +51,9 @@ public class PersonController {
     }
 
     @PostMapping
-    public Person insert(Person person, @RequestParam(required = false, defaultValue = "false") boolean ignore) {
-        int save = personService.insert(ignore, person);
+    public Person insert(Person person, @RequestParam(required = false, defaultValue = "false") boolean ignore,
+                         @RequestParam(value = "view", required = false) Class<?> view) {
+        int save = personService.insert(view, ignore, person);
         logger.info("save={}", save);
         return person;
     }

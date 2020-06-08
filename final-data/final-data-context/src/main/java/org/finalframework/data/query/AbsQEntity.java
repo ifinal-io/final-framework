@@ -24,6 +24,8 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final Class<T> type;
     private final String table;
 
+    private QProperty<?> idProperty;
+
     public AbsQEntity(Class<T> type) {
         this(type, NameConverterRegistry.getInstance().getTableNameConverter().convert(
                 type.getAnnotation(Table.class) == null || type.getAnnotation(Table.class).value().isEmpty()
@@ -60,7 +62,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                                     .name(MappingUtils.formatPropertyName(property, referenceProperty))
                                                     .column(MappingUtils.formatColumn(property, referenceProperty))
                                                     .views(views)
-//                                                    .idProperty(property.isIdProperty())
+                                                    .writeable(property.isWriteable())
                                                     .build()
                                     );
                                 });
@@ -73,6 +75,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                         .name(property.getName())
                                         .column(MappingUtils.formatColumn(null, property))
                                         .idProperty(property.isIdProperty())
+                                        .writeable(property.isWriteable())
                                         .views(views)
                                         .build()
                         );
@@ -83,6 +86,9 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     public void addProperty(QProperty<?> property) {
         this.properties.add(property);
         this.pathProperties.put(property.getPath(), property);
+        if (property.isIdProperty()) {
+            this.idProperty = property;
+        }
     }
 
     @Override
@@ -93,6 +99,11 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     @Override
     public Class<T> getType() {
         return this.type;
+    }
+
+    @Override
+    public QProperty<ID> getIdProperty() {
+        return (QProperty<ID>) this.idProperty;
     }
 
     @Override

@@ -53,6 +53,33 @@ public interface Repository {
 }
 ```
 
+```xml
+<script>
+    <trim prefix="INSERT">
+        <if test="ignore">
+            IGNORE
+        </if>
+        <trim prefix="INTO">
+            ${table}
+        </trim>
+    </trim>
+    <foreach collection="properties" item="property" open="(" separator="," close=")">
+        <if test="property.hasView(view)">
+            ${property.column}
+        </if>
+    </foreach>
+    <trim prefix="VALUES">
+        <foreach collection="list" item="entity" separator=",">
+            <foreach collection="properties" item="property" open="(" separator="," close=")">
+                <if test="property.hasView(view)">
+                        #{entity.name}
+                </if>
+            </foreach>
+        </foreach>
+    </trim>
+</script>
+```
+
 ## Replace
 
 `replace`实现当数据不存在时**新增（`insert`）**，否则**替换（`replace`）**，基于`SQL`中的`REPLACE INTO`实现，为*原子操作*。参数如下：

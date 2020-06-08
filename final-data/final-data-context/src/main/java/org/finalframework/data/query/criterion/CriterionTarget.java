@@ -164,23 +164,21 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     }
 
     @Override
-    default Criterion like(String prefix, String value, String suffix) {
-        final List<String> values = Stream.of(prefix, value, suffix).filter(Objects::nonNull).collect(Collectors.toList());
+    default Criterion like(String value) {
         return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.LIKE)
-                .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
+                .value(value)
                 .build();
 
     }
 
     @Override
-    default Criterion notLike(String prefix, String value, String suffix) {
-        final List<String> values = Stream.of(prefix, value, suffix).filter(Objects::nonNull).collect(Collectors.toList());
+    default Criterion notLike(String value) {
         return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.NOT_LIKE)
-                .value(new SimpleCriterionFunction(values, StringOperation.CONCAT))
+                .value(value)
                 .build();
     }
 

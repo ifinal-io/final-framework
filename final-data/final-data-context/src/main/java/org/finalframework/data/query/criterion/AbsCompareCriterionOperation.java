@@ -73,6 +73,7 @@ public class AbsCompareCriterionOperation implements CompareCriterionOperation {
                 applyValueCriterion(document, parent, value, " <= ", null, expression + ".value");
                 break;
             case LIKE:
+                applyValueCriterion(document, parent, target, null, null, expression + ".target");
                 applyValueCriterion(document, parent, value, " LIKE ", null, expression + ".value");
                 break;
             case NOT_LIKE:

@@ -16,6 +16,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.Duration;
+
 /**
  * @author likly
  * @version 1.0
@@ -49,7 +51,7 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()
                     .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
-                result.setDuration(System.currentTimeMillis() - durationStart);
+                result.setDuration(Duration.ofMillis(System.currentTimeMillis() - durationStart));
             }
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest()
                     .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);

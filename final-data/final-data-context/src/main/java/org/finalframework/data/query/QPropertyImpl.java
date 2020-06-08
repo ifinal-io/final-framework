@@ -23,9 +23,10 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final String column;
 
     private final boolean idProperty;
+    private final boolean writeable;
     private final PersistentType persistentType;
 
-    private final Class<? extends TypeHandler> typeHandler;
+    private final Class<? extends TypeHandler<?>> typeHandler;
 
     private final List<Class<?>> views;
 
@@ -41,6 +42,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         this.name = builder.name;
         this.column = builder.column;
         this.idProperty = builder.idProperty;
+        this.writeable = builder.isWriteable;
         this.persistentType = builder.persistentType;
 
         this.typeHandler = builder.typeHandler;
@@ -88,18 +90,23 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     }
 
     @Override
+    public boolean isWriteable() {
+        return this.writeable;
+    }
+
+    @Override
     public PersistentType getPersistentType() {
         return this.persistentType;
     }
 
     @Override
-    public Class<? extends TypeHandler> getTypeHandler() {
+    public Class<? extends TypeHandler<?>> getTypeHandler() {
         return this.typeHandler;
     }
 
     @Override
     public boolean isArray() {
-        return false;
+        return property.isArray();
     }
 
     @Override
@@ -138,9 +145,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private String column;
 
         private boolean idProperty = false;
+        private boolean isWriteable = true;
+
         private PersistentType persistentType;
 
-        private Class<? extends TypeHandler> typeHandler;
+        private Class<? extends TypeHandler<?>> typeHandler;
         private List<Class<?>> views;
         private boolean insertable = true;
         private boolean updatable = true;
@@ -176,13 +185,19 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         }
 
         @Override
+        public Builder<T> writeable(boolean writeable) {
+            this.isWriteable = writeable;
+            return this;
+        }
+
+        @Override
         public Builder<T> persistentType(PersistentType persistentType) {
             this.persistentType = persistentType;
             return this;
         }
 
         @Override
-        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
+        public Builder<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
             this.typeHandler = typeHandler;
             return this;
         }

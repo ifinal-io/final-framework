@@ -1,9 +1,13 @@
-package org.finalframework.mybatis.sql;
+package org.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
+import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
+import org.apache.ibatis.session.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -31,6 +35,13 @@ public interface ScriptSqlProvider extends SqlProvider {
             for (String item : sqls) {
                 logger.debug(item);
             }
+
+            final XMLLanguageDriver driver = new XMLLanguageDriver();
+            final SqlSource sqlSource = driver.createSqlSource(new Configuration(), script, null);
+            final BoundSql boundSql = sqlSource.getBoundSql(parameters);
+            logger.debug("sql ==> {}", boundSql.getSql());
+
+
         }
         return sql;
     }

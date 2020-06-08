@@ -9,6 +9,7 @@ import org.finalframework.data.user.UserContextHolder;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -68,7 +69,7 @@ public final class Result<T> implements Responsible, Serializable {
     /**
      * 执行时长
      */
-    private Long duration;
+    private Duration duration;
 
     /**
      * 服务地址
@@ -193,11 +194,11 @@ public final class Result<T> implements Responsible, Serializable {
         this.timestamp = timestamp;
     }
 
-    public Long getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(Long duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 

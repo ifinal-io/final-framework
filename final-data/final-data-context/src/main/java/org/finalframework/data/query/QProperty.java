@@ -1,11 +1,6 @@
 
 package org.finalframework.data.query;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Function;
-import javax.validation.constraints.NotNull;
-
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
@@ -22,6 +17,11 @@ import org.finalframework.data.query.operation.LogicOperation;
 import org.finalframework.data.query.operation.Operation.MathOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author likly
@@ -60,10 +60,12 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     boolean isIdProperty();
 
+    boolean isWriteable();
+
     @NonNull
     PersistentType getPersistentType();
 
-    Class<? extends TypeHandler> getTypeHandler();
+    Class<? extends TypeHandler<?>> getTypeHandler();
 
     /**
      * Returns whether the property is an array.
@@ -141,13 +143,13 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
     }
 
     @Override
-    default Criterion like(String prefix, String value, String suffix) {
-        return CriterionTarget.from(this).like(prefix, value, suffix);
+    default Criterion like(String value) {
+        return CriterionTarget.from(this).like(value);
     }
 
     @Override
-    default Criterion notLike(String prefix, String value, String suffix) {
-        return CriterionTarget.from(this).notLike(prefix, value, suffix);
+    default Criterion notLike(String value) {
+        return CriterionTarget.from(this).notLike(value);
     }
 
     @Override
@@ -256,9 +258,11 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
         Builder<T> idProperty(boolean idProperty);
 
+        Builder<T> writeable(boolean writeable);
+
         Builder<T> persistentType(PersistentType persistentType);
 
-        Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler);
+        Builder<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler);
 
         Builder<T> views(List<Class<?>> views);
 
