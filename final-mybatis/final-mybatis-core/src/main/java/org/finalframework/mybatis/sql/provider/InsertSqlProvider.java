@@ -46,14 +46,32 @@ import java.util.stream.Collectors;
  */
 public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
+    /**
+     * @param context
+     * @param parameters
+     * @return
+     * @see org.finalframework.mybatis.mapper.AbsMapper#insert(String, Class, boolean, Collection)
+     */
     public String insert(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }
 
+    /**
+     * @param context
+     * @param parameters
+     * @return
+     * @see org.finalframework.mybatis.mapper.AbsMapper#replace(String, Class, Collection)
+     */
     public String replace(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }
 
+    /**
+     * @param context
+     * @param parameters
+     * @return
+     * @see org.finalframework.mybatis.mapper.AbsMapper#save(String, Class, Collection)
+     */
     public String save(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }
@@ -135,12 +153,13 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
     private String getInsertPrefix(Method method, boolean ignore) {
-        if (method.getName().equals("insert")) {
-            return ignore ? "INSERT IGNORE INTO" : "INSERT INTO";
-        } else if (method.getName().equals("replace")) {
-            return "REPLACE INTO";
-        } else if (method.getName().equals("save")) {
-            return "INSERT INFO";
+        switch (method.getName()) {
+            case "insert":
+                return ignore ? "INSERT IGNORE INTO" : "INSERT INTO";
+            case "replace":
+                return "REPLACE INTO";
+            case "save":
+                return "INSERT INFO";
         }
         throw new IllegalArgumentException();
     }

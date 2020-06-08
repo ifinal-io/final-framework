@@ -23,6 +23,12 @@ import java.util.Map;
  */
 public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
+    /**
+     * @param context
+     * @param parameters
+     * @return
+     * @see org.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, Query)
+     */
     public String update(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }
