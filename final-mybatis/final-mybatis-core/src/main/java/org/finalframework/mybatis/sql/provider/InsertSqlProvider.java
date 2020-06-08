@@ -28,8 +28,15 @@ import org.w3c.dom.Node;
  *                  columns
  *             </trim>
  *             <foreach collection="list" item="entity" open="VALUES">
- *
+ *                  <trim prefix="(" suffix=")">
+ *                      values
+ *                  </trim>
  *             </foreach>
+ *             <trim prefix="ON DUPLICATE KEY UPDATE">
+ *                  column = values(column),
+ *                  version = version + 1,
+ *                  last_modified = NOW()
+ *             </trim>
  *         </script>
  *     </code>
  * </pre>
