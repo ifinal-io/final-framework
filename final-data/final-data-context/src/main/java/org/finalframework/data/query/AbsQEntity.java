@@ -79,7 +79,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                         QProperty.builder(this, property)
                             .path(property.getName())
                             .name(property.getName())
-                            .column(MappingUtils.formatColumn(entity, null, property))
+                            .column(MappingUtils.formatColumn(entity, property, null))
                             .idProperty(property.isIdProperty())
                             .writeable(property.isWriteable())
                             .views(views)

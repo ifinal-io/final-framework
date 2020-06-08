@@ -16,21 +16,22 @@ import org.springframework.lang.Nullable;
 public interface MappingUtils {
 
 
-    static String formatPropertyName(@Nullable Property property, @NonNull Property referenceProperty) {
-        if (property == null) {
-            return referenceProperty.getName();
+    static String formatPropertyName(@NonNull Property property, @Nullable Property referenceProperty) {
+        if (referenceProperty == null) {
+            return property.getName();
         }
 
         return referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
-                ? property.getName()
-                : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty.getName().substring(1);
+            ? property.getName()
+            : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty
+                .getName().substring(1);
     }
 
-    static String formatColumn(Entity<?> entity, @Nullable Property property, @NonNull Property referenceProperty) {
+    static String formatColumn(Entity<?> entity, @NonNull Property property, @Nullable Property referenceProperty) {
         String column = null;
-        if (property == null) {
-            column = referenceProperty.getColumn();
-            if (referenceProperty.isKeyword()) {
+        if (referenceProperty == null) {
+            column = property.getColumn();
+            if (property.isKeyword()) {
                 column = String.format("`%s`", column);
             }
 
@@ -41,7 +42,7 @@ public interface MappingUtils {
                 : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
-        if (property == null && referenceProperty.isVirtual()) {
+        if (property.isVirtual()) {
             column = "v_" + column;
         }
 
