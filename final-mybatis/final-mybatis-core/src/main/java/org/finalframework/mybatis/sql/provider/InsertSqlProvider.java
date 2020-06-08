@@ -51,14 +51,16 @@ import org.w3c.dom.Node;
  */
 public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
-    public static final String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
     public static final String METHOD_INSERT = "insert";
     public static final String METHOD_REPLACE = "replace";
     public static final String METHOD_SAVE = "save";
+
     private static final String INSERT_INTO = "INSERT INTO";
     private static final String INSERT_IGNORE_INTO = "INSERT IGNORE INTO";
     private static final String REPLACE_INTO = "REPLACE INTO";
     private static final String VALUES = "VALUES";
+    public static final String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
+
 
     /**
      * @see org.finalframework.mybatis.mapper.AbsMapper#insert(String, Class, boolean, Collection)
