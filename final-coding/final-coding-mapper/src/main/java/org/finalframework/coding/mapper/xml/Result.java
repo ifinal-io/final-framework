@@ -1,13 +1,11 @@
 package org.finalframework.coding.mapper.xml;
 
+import java.util.Optional;
+import javax.lang.model.element.TypeElement;
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.UpperCase;
-
-import javax.lang.model.element.TypeElement;
-import java.util.Optional;
 
 /**
  * @author likly

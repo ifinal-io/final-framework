@@ -1,5 +1,7 @@
 package org.finalframework.data.mapping;
 
+import java.util.Optional;
+import org.finalframework.data.annotation.UpperCase;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.lang.NonNull;
@@ -24,7 +26,7 @@ public interface MappingUtils {
                 : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty.getName().substring(1);
     }
 
-    static String formatColumn(@Nullable Property property, @NonNull Property referenceProperty) {
+    static String formatColumn(Entity<?> entity, @Nullable Property property, @NonNull Property referenceProperty) {
         String column = null;
         if (property == null) {
             column = referenceProperty.getColumn();
@@ -35,13 +37,20 @@ public interface MappingUtils {
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
-                    property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+                property.getColumn()
+                : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
         if (property == null && referenceProperty.isVirtual()) {
             column = "v_" + column;
         }
 
-        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+
+        if (Optional.ofNullable(referenceProperty).orElse(property).hasAnnotation(UpperCase.class) || entity
+            .isAnnotationPresent(UpperCase.class)) {
+            column = column.toUpperCase();
+        }
+        return column;
     }
 }

@@ -39,10 +39,8 @@ import org.w3c.dom.Node;
 public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
     /**
-     * @param context
-     * @param parameters
-     * @return
-     * @see org.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, Query)
+     * @see org.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection,
+     * Query)
      */
     public String update(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
@@ -52,27 +50,24 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     @Override
     public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
 
-        Object ids = parameters.get("ids");
-        Object query = parameters.get("query");
+        final Object ids = parameters.get("ids");
+        final Object query = parameters.get("query");
 
         final ScriptMapperHelper helper = new ScriptMapperHelper(document);
 
-        final Element select = helper.trim().prefix("SELECT").build();
+        final Element update = helper.trim().prefix("UPDATE").build();
+        update.appendChild(helper.cdata("${table}"));
+        script.appendChild(update);
 
-        final Element foreach = helper.foreach().collection("properties").item("property").separator(",").build();
+        Element set = document.createElement("set");
 
-        final Element ifHasView = document.createElement("if");
-        ifHasView.setAttribute("test", "property.hasView(view)");
-        ifHasView.appendChild(helper.cdata("${property.column}"));
-        foreach.appendChild(ifHasView);
+        if (parameters.containsKey("entity") && parameters.get("entity") != null) {
 
-//        foreach.appendChild();
-        select.appendChild(foreach);
+        } else if (parameters.containsKey("update") && parameters.get("update") != null) {
 
-        script.appendChild(select);
-        final Node from = helper.trim().prefix("FROM").build();
-        from.appendChild(helper.cdata("${table}"));
-        script.appendChild(from);
+        }
+
+        script.appendChild(set);
 
         if (ids != null) {
             script.appendChild(where(document, whereIdsNotNull(document)));
