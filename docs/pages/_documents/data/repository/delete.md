@@ -43,3 +43,25 @@ public interface Repository {
     int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") Query query);
 }
 ```
+
+* xml
+
+* DELETE FROM 
+
+```xml
+   <trim prefix="DELETE FROM">
+       ${table}
+   </trim>
+```
+   
+* WHERE IDS
+
+```xml
+    <where>
+        <foreach collection="ids" item="id" open="id IN(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </where>
+```
+
+* WHERE QUERY

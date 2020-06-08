@@ -1,6 +1,8 @@
 package org.finalframework.mybatis.sql.provider;
 
 
+import java.util.Collection;
+import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
@@ -11,10 +13,23 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import java.util.Collection;
-import java.util.Map;
-
 /**
+ * <pre>
+ *     <code>
+ *         <script>
+ *             <trim prefix="UPDATE">
+ *                  ${table}
+ *             </trim>
+ *             <set>
+ *
+ *             </set>
+ *             <where>
+ *
+ *             </where>
+ *         </script>
+ *     </code>
+ * </pre>
+ *
  * @author likly
  * @version 1.0
  * @date 2020-04-15 00:23:52
