@@ -1,5 +1,10 @@
 package org.finalframework.data.repository;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.finalframework.core.Assert;
@@ -9,12 +14,6 @@ import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.trigger.annotation.TriggerPoint;
 import org.springframework.lang.NonNull;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -176,7 +175,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
-    @TriggerPoint
+//    @TriggerPoint
     int save(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
 

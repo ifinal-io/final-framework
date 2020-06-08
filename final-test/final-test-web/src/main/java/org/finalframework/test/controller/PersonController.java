@@ -1,9 +1,7 @@
 package org.finalframework.test.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
-
 import org.finalframework.data.annotation.IView;
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
