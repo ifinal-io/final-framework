@@ -33,6 +33,10 @@ public class ScriptMapperHelper {
         return new ForeachSqlNodeBuilder(document);
     }
 
+    public Node table() {
+        return cdata("${table}");
+    }
+
     public Node cdata(String data) {
         return document.createCDATASection(data);
     }
@@ -63,6 +67,35 @@ public class ScriptMapperHelper {
             return String.format("%s ? null : %s.%s", isNull, prefix, path);
         }
         return String.format("%s.%s", prefix, path);
+    }
+
+    public String formatTest(String prefix, String path, boolean selective) {
+
+        if (path.contains(".")) {
+            final String[] paths = path.split("\\.");
+            List<String> notNulls = new ArrayList<>(paths.length);
+
+            final StringBuilder builder = new StringBuilder();
+            builder.append(prefix);
+
+            for (int i = 0; i < paths.length; i++) {
+                String item = paths[i];
+                if (!selective && i != paths.length - 1) {
+                    continue;
+                }
+                builder.append(".").append(item);
+                notNulls.add(builder.toString());
+            }
+            return notNulls.stream().map(item -> String.format("%s != null", item))
+                    .collect(Collectors.joining(" and "));
+        } else {
+            if (selective) {
+                return String.format("%s.%s != null", prefix, path);
+            } else {
+                return null;
+            }
+        }
+
     }
 
 }

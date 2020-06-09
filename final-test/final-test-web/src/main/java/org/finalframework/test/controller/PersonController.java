@@ -2,6 +2,7 @@ package org.finalframework.test.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.finalframework.data.annotation.IView;
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
@@ -62,6 +63,11 @@ public class PersonController {
         int save = personService.save(person);
         logger.info("save={}", save);
         return person;
+    }
+
+    @PostMapping("/update")
+    public int update(Person person) {
+        return personService.update(person);
     }
 }
 

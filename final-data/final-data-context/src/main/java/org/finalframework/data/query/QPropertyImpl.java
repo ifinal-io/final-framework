@@ -24,6 +24,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final boolean idProperty;
     private final boolean writeable;
+    private final boolean modifiable;
     private final PersistentType persistentType;
 
     private final Class<? extends TypeHandler<?>> typeHandler;
@@ -43,6 +44,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         this.column = builder.column;
         this.idProperty = builder.idProperty;
         this.writeable = builder.isWriteable;
+        this.modifiable = builder.isModifiable;
         this.persistentType = builder.persistentType;
 
         this.typeHandler = builder.typeHandler;
@@ -92,6 +94,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public boolean isWriteable() {
         return this.writeable;
+    }
+
+    @Override
+    public boolean isModifiable() {
+        return this.modifiable;
     }
 
     @Override
@@ -146,6 +153,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
         private boolean idProperty = false;
         private boolean isWriteable = true;
+        private boolean isModifiable = true;
 
         private PersistentType persistentType;
 
@@ -187,6 +195,12 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         @Override
         public Builder<T> writeable(boolean writeable) {
             this.isWriteable = writeable;
+            return this;
+        }
+
+        @Override
+        public Builder<T> modifiable(boolean modifiable) {
+            this.isModifiable = isModifiable;
             return this;
         }
 

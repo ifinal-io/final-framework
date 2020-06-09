@@ -3,10 +3,15 @@ package org.finalframework.mybatis.sql.provider;
 
 import java.util.Collection;
 import java.util.Map;
+
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.annotation.Version;
+import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
+import org.finalframework.mybatis.scripting.builder.TrimNodeBuilder;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.w3c.dom.Document;
@@ -52,20 +57,70 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         final Object ids = parameters.get("ids");
         final Object query = parameters.get("query");
+        final Class<?> view = (Class<?>) parameters.get("view");
+        final boolean selective = Boolean.TRUE.equals(parameters.get("selective"));
+
+        final Class<?> entity = getEntityClass(context.getMapperType());
+        final QEntity<?, ?> properties = QEntity.from(entity);
 
         final ScriptMapperHelper helper = new ScriptMapperHelper(document);
 
+        /*
+         * <trim prefix="UPDATE">
+         *      ${table}
+         * </trim>
+         */
         final Element update = helper.trim().prefix("UPDATE").build();
-        update.appendChild(helper.cdata("${table}"));
+        update.appendChild(helper.table());
         script.appendChild(update);
 
         Element set = document.createElement("set");
 
         if (parameters.containsKey("entity") && parameters.get("entity") != null) {
+            properties.stream()
+                    .filter(property -> property.isWriteable() && property.hasView(view))
+                    .forEach(property -> {
 
+                        final StringBuilder builder = new StringBuilder();
+                        builder.append(property.getColumn()).append(" = ");
+                        builder.append("#{entity.").append(property.getPath());
+
+                        builder.append(",javaType=").append(property.getType().getCanonicalName());
+
+                        final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
+                        if (typeHandler != null) {
+                            builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
+                        }
+
+                        builder.append("},");
+                        final Node value = helper.cdata(builder.toString());
+
+                        final String test = helper.formatTest("entity", property.getPath(), selective);
+                        final Element trim = helper.trim().build();
+
+                        if (test == null) {
+                            trim.appendChild(value);
+                        } else {
+                            final Element ifNotNull = document.createElement("if");
+                            ifNotNull.setAttribute("test", test);
+                            ifNotNull.appendChild(value);
+                            trim.appendChild(ifNotNull);
+                        }
+                        set.appendChild(trim);
+
+                    });
         } else if (parameters.containsKey("update") && parameters.get("update") != null) {
 
         }
+
+        properties.stream()
+                .filter(property -> property.getProperty().hasAnnotation(Version.class))
+                .findFirst()
+                .ifPresent(property -> {
+                    final Node version = helper.trim().build();
+                    version.appendChild(helper.cdata(String.format("%s = %s + 1", property.getColumn(), property.getColumn())));
+                    set.appendChild(version);
+                });
 
         script.appendChild(set);
 
@@ -77,5 +132,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
     }
+
+
 }
 

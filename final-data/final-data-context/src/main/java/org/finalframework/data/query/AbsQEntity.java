@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import org.finalframework.data.annotation.Table;
 import org.finalframework.data.annotation.View;
 import org.finalframework.data.mapping.Entity;
@@ -33,9 +34,9 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
     public AbsQEntity(Class<T> type) {
         this(type, NameConverterRegistry.getInstance().getTableNameConverter().convert(
-            type.getAnnotation(Table.class) == null || type.getAnnotation(Table.class).value().isEmpty()
-                ? type.getSimpleName()
-                : type.getAnnotation(Table.class).value()
+                type.getAnnotation(Table.class) == null || type.getAnnotation(Table.class).value().isEmpty()
+                        ? type.getSimpleName()
+                        : type.getAnnotation(Table.class).value()
         ));
     }
 
@@ -48,45 +49,47 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     protected void initProperties() {
         Entity<T> entity = Entity.from(type);
         entity.stream()
-            .filter(it -> !it.isTransient())
-            .forEach(property -> {
+                .filter(it -> !it.isTransient())
+                .forEach(property -> {
 
-                final View view = property.findAnnotation(View.class);
-                final List<Class<?>> views = Optional.ofNullable(view).map(value -> Arrays.asList(value.value()))
-                    .orElse(null);
-                if (property.isReference()) {
+                    final View view = property.findAnnotation(View.class);
+                    final List<Class<?>> views = Optional.ofNullable(view).map(value -> Arrays.asList(value.value()))
+                            .orElse(null);
+                    if (property.isReference()) {
 
-                    final Entity<?> referenceEntity = Entity.from(property.getType());
+                        final Entity<?> referenceEntity = Entity.from(property.getType());
 
-                    property.getReferenceProperties()
-                        .stream()
-                        .map(referenceEntity::getRequiredPersistentProperty)
-                        .forEach(referenceProperty -> {
-                            addProperty(
-                                QProperty.builder(this, referenceProperty)
-                                    .path(property.getName() + "." + referenceProperty.getName())
-                                    .name(MappingUtils.formatPropertyName(property, referenceProperty))
-                                    .column(MappingUtils.formatColumn(entity, property, referenceProperty))
-                                    .views(views)
-                                    .writeable(property.isWriteable())
-                                    .build()
-                            );
-                        });
+                        property.getReferenceProperties()
+                                .stream()
+                                .map(referenceEntity::getRequiredPersistentProperty)
+                                .forEach(referenceProperty -> {
+                                    addProperty(
+                                            QProperty.builder(this, referenceProperty)
+                                                    .path(property.getName() + "." + referenceProperty.getName())
+                                                    .name(MappingUtils.formatPropertyName(property, referenceProperty))
+                                                    .column(MappingUtils.formatColumn(entity, property, referenceProperty))
+                                                    .views(views)
+                                                    .writeable(property.isWriteable())
+                                                    .modifiable(property.isModifiable())
+                                                    .build()
+                                    );
+                                });
 
 
-                } else {
-                    addProperty(
-                        QProperty.builder(this, property)
-                            .path(property.getName())
-                            .name(property.getName())
-                            .column(MappingUtils.formatColumn(entity, property, null))
-                            .idProperty(property.isIdProperty())
-                            .writeable(property.isWriteable())
-                            .views(views)
-                            .build()
-                    );
-                }
-            });
+                    } else {
+                        addProperty(
+                                QProperty.builder(this, property)
+                                        .path(property.getName())
+                                        .name(property.getName())
+                                        .column(MappingUtils.formatColumn(entity, property, null))
+                                        .idProperty(property.isIdProperty())
+                                        .writeable(property.isWriteable())
+                                        .modifiable(property.isModifiable())
+                                        .views(views)
+                                        .build()
+                        );
+                    }
+                });
     }
 
     public void addProperty(QProperty<?> property) {

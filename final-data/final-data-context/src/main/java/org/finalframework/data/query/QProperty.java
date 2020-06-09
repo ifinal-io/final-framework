@@ -2,6 +2,7 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.core.Builder;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.criteriable.Criteriable;
@@ -60,7 +61,17 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     boolean isIdProperty();
 
+    /**
+     * @return
+     * @see Property#isWriteable()
+     */
     boolean isWriteable();
+
+    /**
+     * @return
+     * @see Property#isModifiable()
+     */
+    boolean isModifiable();
 
     @NonNull
     PersistentType getPersistentType();
@@ -259,6 +270,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
         Builder<T> idProperty(boolean idProperty);
 
         Builder<T> writeable(boolean writeable);
+
+        Builder<T> modifiable(boolean modifiable);
 
         Builder<T> persistentType(PersistentType persistentType);
 

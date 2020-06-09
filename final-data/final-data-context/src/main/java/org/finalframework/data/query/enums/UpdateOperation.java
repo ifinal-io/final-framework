@@ -1,6 +1,7 @@
 package org.finalframework.data.query.enums;
 
 import org.finalframework.data.annotation.Transient;
+import org.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -9,7 +10,7 @@ import org.finalframework.data.annotation.Transient;
  * @since 1.0
  */
 @Transient
-public enum UpdateOperation {
+public enum UpdateOperation implements Operation {
 
     EQUAL,
     INC,
