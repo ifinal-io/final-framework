@@ -29,7 +29,8 @@ import org.w3c.dom.Node;
  *
  *             </set>
  *             <where>
- *
+ *                 id in
+ *                 <foreach collections="ids" item="id" open="(" close=")>#{id}</foreach>"
  *             </where>
  *         </script>
  *     </code>
