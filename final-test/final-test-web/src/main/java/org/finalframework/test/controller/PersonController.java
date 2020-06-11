@@ -1,11 +1,14 @@
 package org.finalframework.test.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
 
+import org.finalframework.coding.query.QProperty;
 import org.finalframework.data.annotation.IView;
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.Update;
 import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
@@ -67,6 +70,14 @@ public class PersonController {
 
     @PostMapping("/update")
     public int update(Person person) {
+
+        final Update update = Update.update()
+                .set(QPerson.name, person.getName())
+                .set(QPerson.intList, Arrays.asList(1, 23, 4, 56));
+
+        final int rows = personService.update(update, person.getId());
+
+
         return personService.update(person);
     }
 }

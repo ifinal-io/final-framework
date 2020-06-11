@@ -2,9 +2,7 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
-import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.enums.UpdateOperation;
-import org.finalframework.data.query.operation.Operation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -59,6 +57,11 @@ public class SimpleUpdateSetOperation implements UpdateSetOperation {
                 // column = #{expression.value,javaType=?,typeHandler=?}
                 builder.append(" = ").append("#{").append(expression).append(".value");
 
+                builder.append(",javaType=").append(property.getType().getCanonicalName());
+
+                if (property.getTypeHandler() != null) {
+                    builder.append(",typeHandler=").append(property.getTypeHandler().getCanonicalName());
+                }
 
                 builder.append("},");
 
@@ -84,4 +87,5 @@ public class SimpleUpdateSetOperation implements UpdateSetOperation {
 
 
     }
+
 }

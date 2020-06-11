@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.finalframework.data.annotation.Table;
+import org.finalframework.data.annotation.TypeHandler;
 import org.finalframework.data.annotation.View;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.MappingUtils;
@@ -71,6 +72,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                                     .views(views)
                                                     .writeable(property.isWriteable())
                                                     .modifiable(property.isModifiable())
+                                                    .typeHandler(referenceProperty.getTypeHandler())
                                                     .build()
                                     );
                                 });
@@ -85,6 +87,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                         .idProperty(property.isIdProperty())
                                         .writeable(property.isWriteable())
                                         .modifiable(property.isModifiable())
+                                        .typeHandler(property.getTypeHandler())
                                         .views(views)
                                         .build()
                         );

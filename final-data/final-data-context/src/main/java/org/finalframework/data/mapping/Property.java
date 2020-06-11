@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.Default;
 import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.ReadOnly;
@@ -112,4 +113,6 @@ public interface Property extends PersistentProperty<Property> {
     default <A extends Annotation> boolean hasAnnotation(Class<A> ann) {
         return findAnnotation(ann) != null;
     }
+
+    Class<? extends TypeHandler<?>> getTypeHandler();
 }

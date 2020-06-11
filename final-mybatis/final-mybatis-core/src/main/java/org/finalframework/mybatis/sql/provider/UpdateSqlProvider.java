@@ -11,6 +11,7 @@ import org.finalframework.data.annotation.Version;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.query.UpdateSetOperation;
 import org.finalframework.mybatis.scripting.builder.TrimNodeBuilder;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
@@ -111,7 +112,11 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
                     });
         } else if (parameters.containsKey("update") && parameters.get("update") != null) {
-
+            final Update updates = (Update) parameters.get("update");
+            int index = 0;
+            for (UpdateSetOperation updateSetOperation : updates) {
+                updateSetOperation.apply(set, String.format("update[%d]", index++));
+            }
         }
 
         properties.stream()

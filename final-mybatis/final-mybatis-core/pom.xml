@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-mybatis</artifactId>
         <groupId>org.finalframework.mybatis</groupId>
-        <version>0.5.4-SNAPSHOT</version>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

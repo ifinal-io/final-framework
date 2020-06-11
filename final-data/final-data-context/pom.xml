@@ -5,35 +5,17 @@
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.finalframework.data</groupId>
-        <version>0.5.4-SNAPSHOT</version>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>final-data-context</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>${spring.boot.version}</version>
-<!--            <scope>provided</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-core</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>org.finalframework.data</groupId>
+            <artifactId>final-data-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -49,6 +31,10 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.finalframework.json</groupId>
+            <artifactId>final-json-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.spring</groupId>
             <artifactId>final-spring-annotation</artifactId>
         </dependency>
@@ -59,12 +45,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>${sharding.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

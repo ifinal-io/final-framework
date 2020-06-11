@@ -1,11 +1,13 @@
 package org.finalframework.data.mapping;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.annotation.SqlKeyWords;
+import org.finalframework.data.query.type.JsonTypeHandler;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
@@ -62,7 +64,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
-
     private final Lazy<Class<?>> javaType = Lazy.of(() -> {
         if (isMap()) {
             return Map.class;
@@ -71,6 +72,23 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
             return getComponentType();
         }
         return getType();
+    });
+
+    private final Lazy<Class<? extends TypeHandler<?>>> typeHandler = Lazy.of(() -> {
+        if (isAnnotationPresent(org.finalframework.data.annotation.TypeHandler.class)) {
+            return getRequiredAnnotation(org.finalframework.data.annotation.TypeHandler.class).value();
+        }
+
+        if (isAnnotationPresent(Json.class)) {
+            return JsonTypeHandler.class;
+        }
+
+        if (isCollectionLike()) {
+            return JsonTypeHandler.class;
+        }
+
+        return null;
+
     });
 
 
@@ -159,5 +177,10 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @Override
     public Class<?> getJavaType() {
         return javaType.get();
+    }
+
+    @Override
+    public Class<? extends TypeHandler<?>> getTypeHandler() {
+        return typeHandler.getNullable();
     }
 }

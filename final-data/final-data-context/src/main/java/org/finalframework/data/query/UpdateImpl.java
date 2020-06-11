@@ -14,16 +14,15 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 @SuppressWarnings("unused")
-class UpdateImpl implements Update {
-    private final List<UpdateSetOperation> modifierOps;
-
+class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
     private UpdateImpl() {
-        this.modifierOps = new ArrayList<>(16);
+        super(16);
     }
 
     private UpdateImpl(Collection<UpdateSetOperation> updateSets) {
-        this.modifierOps = Assert.isEmpty(updateSets) ? new ArrayList<>() : new ArrayList<>(updateSets);
-
+        if (Assert.nonEmpty(updateSets)) {
+            this.addAll(updateSets);
+        }
     }
 
     public static UpdateImpl update() {
@@ -40,39 +39,33 @@ class UpdateImpl implements Update {
 
 
     public UpdateImpl set(@NonNull QProperty<?> property, @NonNull Object value) {
-        modifierOps.add(new SimpleUpdateSetOperation(property, UpdateOperation.EQUAL, value));
+        this.add(new SimpleUpdateSetOperation(property, UpdateOperation.EQUAL, value));
         return this;
     }
 
     public UpdateImpl inc(@NonNull QProperty<?> property) {
-        modifierOps.add(new SimpleUpdateSetOperation(property, UpdateOperation.INC, 1));
+        this.add(new SimpleUpdateSetOperation(property, UpdateOperation.INC, 1));
         return this;
     }
 
     public UpdateImpl incr(@NonNull QProperty<?> property, @NonNull Number value) {
-        modifierOps.add(new SimpleUpdateSetOperation(property, UpdateOperation.INCR, value));
+        this.add(new SimpleUpdateSetOperation(property, UpdateOperation.INCR, value));
         return this;
     }
 
     public UpdateImpl dec(@NonNull QProperty<?> property) {
-        modifierOps.add(new SimpleUpdateSetOperation(property, UpdateOperation.DEC, 1));
+        this.add(new SimpleUpdateSetOperation(property, UpdateOperation.DEC, 1));
         return this;
     }
 
     public UpdateImpl decr(@NonNull QProperty<?> property, @NonNull Number value) {
-        modifierOps.add(new SimpleUpdateSetOperation(property, UpdateOperation.DECR, value));
+        this.add(new SimpleUpdateSetOperation(property, UpdateOperation.DECR, value));
         return this;
     }
 
+
     @Override
     public Stream<UpdateSetOperation> stream() {
-        return modifierOps.stream();
+        return super.stream();
     }
-
-    @Override
-    public Iterator<UpdateSetOperation> iterator() {
-        return modifierOps.iterator();
-    }
-
-
 }
