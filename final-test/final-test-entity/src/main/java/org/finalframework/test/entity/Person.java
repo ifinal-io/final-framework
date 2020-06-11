@@ -7,6 +7,7 @@ import org.finalframework.data.entity.AbsRecord;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -83,6 +84,11 @@ public class Person extends AbsRecord {
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    @Virtual
+    public String getString2() {
+        return Optional.ofNullable(this.stringList).map(list -> list.get(0)).orElse(null);
     }
 
 }

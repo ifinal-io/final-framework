@@ -1,6 +1,8 @@
 package org.finalframework.test;
 
 
+import org.finalframework.data.query.QEntity;
+import org.finalframework.test.entity.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,7 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TestApplication {
 
+
     public static void main(String[] args) {
+        final QEntity<?, ?> properties = QEntity.from(Person.class);
         SpringApplication.run(TestApplication.class);
     }
 }

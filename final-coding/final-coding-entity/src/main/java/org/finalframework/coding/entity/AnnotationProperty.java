@@ -30,25 +30,10 @@ import org.finalframework.coding.beans.PropertyDescriptor;
 import org.finalframework.coding.utils.Annotations;
 import org.finalframework.coding.utils.TypeElements;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.Final;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.PrimaryKey;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Reference;
-import org.finalframework.data.annotation.Sharding;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.annotation.TypeHandler;
-import org.finalframework.data.annotation.Version;
-import org.finalframework.data.annotation.View;
-import org.finalframework.data.annotation.Virtual;
-import org.finalframework.data.annotation.WriteOnly;
-import org.finalframework.data.annotation.Keyword;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.annotation.enums.PrimaryKeyType;
 import org.finalframework.data.annotation.enums.ReferenceMode;
-import org.finalframework.data.annotation.SqlKeyWords;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 import org.springframework.lang.NonNull;
@@ -182,7 +167,7 @@ public class AnnotationProperty implements Property {
         }
         initColumnView();
 
-        this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
+        this.column = Lazy.of(() -> isAnnotationPresent(Prefix.class) ? getAnnotation(Prefix.class).value() + initColumn() : initColumn());
 
         this.isKeyword = Lazy
                 .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
