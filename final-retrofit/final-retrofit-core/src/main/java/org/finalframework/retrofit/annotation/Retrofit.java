@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * <a href="https://square.github.io/retrofit/">A type-safe HTTP client for Android and Java.</a>
+ *
  * @author likly
  * @version 1.0
  * @date 2020-04-25 14:42:30
