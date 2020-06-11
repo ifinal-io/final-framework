@@ -34,8 +34,8 @@ public class EntityProcessor extends AbstractProcessor {
     private Types typeUtils;
 
     private QEntityGenerator entityGenerator;
-    private QueryGenerator queryGenerator;
-    private CriteriaGenerator criteriaGenerator;
+//    private QueryGenerator queryGenerator;
+//    private CriteriaGenerator criteriaGenerator;
 
     /**
      * @see IEntity
@@ -61,8 +61,8 @@ public class EntityProcessor extends AbstractProcessor {
         NameConverterRegistry.getInstance().reload();
         this.entitiesHelper = new EntitiesHelper(processingEnv);
         entityGenerator = new QEntityGenerator(processingEnv);
-        queryGenerator = new QueryGenerator(processingEnv);
-        criteriaGenerator = new CriteriaGenerator(processingEnv);
+//        queryGenerator = new QueryGenerator(processingEnv);
+//        criteriaGenerator = new CriteriaGenerator(processingEnv);
     }
 
     private void initLombokProcessor() {
@@ -99,8 +99,8 @@ public class EntityProcessor extends AbstractProcessor {
 
 
         entityGenerator.generate(entity);
-        queryGenerator.generate(entity);
-        criteriaGenerator.generate(entity);
+//        queryGenerator.generate(entity);
+//        criteriaGenerator.generate(entity);
     }
 
     private void processEntities() {
