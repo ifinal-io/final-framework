@@ -1,12 +1,9 @@
 package org.finalframework.data.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedBy;
+
+import java.lang.annotation.*;
 
 /**
  * 创建人
@@ -30,9 +27,9 @@ import org.springframework.data.annotation.CreatedBy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Creator {
 
-    @AliasFor(annotation = Column.class, value = "name")
+    @AliasFor(annotation = Column.class)
     String value() default "";
 
-    @AliasFor(annotation = Column.class, value = "value")
+    @AliasFor(annotation = Column.class)
     String name() default "";
 }

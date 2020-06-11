@@ -167,7 +167,7 @@ public class AnnotationProperty implements Property {
         }
         initColumnView();
 
-        this.column = Lazy.of(() -> isAnnotationPresent(Prefix.class) ? getAnnotation(Prefix.class).value() + initColumn() : initColumn());
+        this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
         this.isKeyword = Lazy
                 .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));

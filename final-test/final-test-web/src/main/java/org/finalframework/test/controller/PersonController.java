@@ -39,13 +39,13 @@ public class PersonController {
     public List<Person> query(PageQuery query) {
 
 //        return Arrays.asList(personService.selectOne1());
-        final long count = personService.selectCount(1L);
-        return personService.select(IView.class, new Query()
+//        final long count = personService.selectCount(1L);
+        return personService.select(new Query()
                         .where(
 //                        QPerson.age.eq(101),
 //                        QPerson.created.date().gt("2020-01-01 00:00:00"),
 //                        QPerson.name.eq("haha"),
-//                        QPerson.intList.jsonExtract("$[1]").eq(2),
+//                        QPerson.intList.jsonExtract("$[1]").eq(2),t
                                 QPerson.name.contains("ah")
                         )
         );

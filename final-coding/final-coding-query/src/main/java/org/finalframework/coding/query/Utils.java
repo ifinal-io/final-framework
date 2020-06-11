@@ -41,6 +41,9 @@ public interface Utils {
                     referenceProperty.getColumn() : referenceProperty.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
-        return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+        column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
+
+
+        return column;
     }
 }

@@ -2,7 +2,7 @@ package org.finalframework.json.jackson.view;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.finalframework.data.annotation.Viewable;
+import org.finalframework.data.view.Viewable;
 
 import java.io.Serializable;
 

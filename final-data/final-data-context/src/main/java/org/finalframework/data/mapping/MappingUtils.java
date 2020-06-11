@@ -1,6 +1,8 @@
 package org.finalframework.data.mapping;
 
 import java.util.Optional;
+
+import org.finalframework.data.annotation.Prefix;
 import org.finalframework.data.annotation.UpperCase;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -22,8 +24,8 @@ public interface MappingUtils {
         }
 
         return referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
-            ? property.getName()
-            : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty
+                ? property.getName()
+                : property.getName() + referenceProperty.getName().substring(0, 1).toUpperCase() + referenceProperty
                 .getName().substring(1);
     }
 
@@ -38,18 +40,18 @@ public interface MappingUtils {
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
-                property.getColumn()
-                : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+                    property.getColumn()
+                    : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
-        if (property.isVirtual()) {
-            column = "v_" + column;
+        if (property.isAnnotationPresent(Prefix.class)) {
+            column = property.getRequiredAnnotation(Prefix.class).value() + column;
         }
 
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
 
         if (Optional.ofNullable(referenceProperty).orElse(property).hasAnnotation(UpperCase.class) || entity
-            .isAnnotationPresent(UpperCase.class)) {
+                .isAnnotationPresent(UpperCase.class)) {
             column = column.toUpperCase();
         }
         return column;

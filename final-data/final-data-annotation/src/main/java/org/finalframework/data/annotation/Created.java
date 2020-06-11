@@ -1,13 +1,9 @@
 package org.finalframework.data.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
+
+import java.lang.annotation.*;
 
 /**
  * Mark the {@link java.lang.reflect.Field} is a created column which is have a {@link Default} value and it is {@link Final} and {@link ReadOnly}.
@@ -31,9 +27,9 @@ import org.springframework.data.annotation.CreatedDate;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {
-    @AliasFor(annotation = Column.class, value = "name")
+    @AliasFor(annotation = Column.class)
     String value() default "";
 
-    @AliasFor(annotation = Column.class, value = "value")
+    @AliasFor(annotation = Column.class)
     String name() default "";
 }

@@ -11,13 +11,15 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Pageable;
+import org.finalframework.data.query.Query;
+import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.core.annotation.Order;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.io.Serializable;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * 分页拦截器
@@ -45,8 +47,11 @@ public class InlineSelectInterceptor implements Interceptor {
 
     /**
      * @see MapperBuilderAssistant#getStatementResultMaps(java.lang.String, java.lang.Class, java.lang.String)
+     * @see AbsMapper#select(String, Class, Collection, Query)
+     * @see AbsMapper#selectOne(String, Class, Serializable, Query)
      */
-    private static final String INLINE_RESULT_MAP_SUFFIX = "-Inline";
+    private static final Pattern PATTERN = Pattern.compile("(\\.select|\\.selectOne|-Inline)$");
+
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -58,12 +63,14 @@ public class InlineSelectInterceptor implements Interceptor {
             Object param = args[1];
             RowBounds rowBounds = (RowBounds) args[2];
             ResultHandler resultHandler = (ResultHandler) args[3];
+            final String id = ms.getId();
+            final String methodName = id.substring(id.lastIndexOf(".") + 1);
 
             final List<ResultMap> resultMaps = ms.getResultMaps();
 
-            if (resultMaps.size() == 1 && resultMaps.get(0).getId().endsWith(INLINE_RESULT_MAP_SUFFIX)
+            if (resultMaps.size() == 1 && PATTERN.matcher(id).find()
                     && IEntity.class.isAssignableFrom(resultMaps.get(0).getType())) {
-                final MappedStatement mappedStatement = newCountMappedStatement(ms, ms.getId().replace(INLINE_RESULT_MAP_SUFFIX, ""));
+                final MappedStatement mappedStatement = newCountMappedStatement(ms, id + "-final");
                 return executor.query(mappedStatement, param, rowBounds, resultHandler);
             }
 
