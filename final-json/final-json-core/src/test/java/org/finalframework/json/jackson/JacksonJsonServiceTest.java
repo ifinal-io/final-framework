@@ -1,10 +1,8 @@
 package org.finalframework.json.jackson;
 
-import com.alibaba.fastjson.JSONObject;
 import org.finalframework.data.entity.enums.YN;
 import org.finalframework.json.Json;
 import org.finalframework.json.JsonRegistry;
-import org.finalframework.json.context.JsonContextHolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,10 +54,5 @@ public class JacksonJsonServiceTest {
         System.out.println(Json.toObject("[\"a\",\"2\"]", Object.class));
     }
 
-    @Test
-    public void toJSONObject() {
-        JSONObject jsonObject = Json.toObject(json, JSONObject.class);
-        assert jsonObject.getString("name").equals("XiaoMing");
-    }
 
 }
