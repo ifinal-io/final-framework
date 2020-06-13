@@ -21,7 +21,6 @@
     * [`final-coding-spring`](final-coding/final-coding-spring/README.md): 提供`SpringFactory`注解，实现将其写入`META-INF/spring.factories`文件，可由`spring`IOC管理。
 * [`final-json`](final-json/README.md)：定义统一的`Json`操作[`API`](final-json/final-json-core/src/main/java/com/ilikly/finalframework/json/JsonService.java)，支持多种`Json`库，如`jackson`、`fastjson`、`gson`,可自定义`Json`库。
     * [`final-json-core`](final-json/final-json-core/README.md)
-    * [`final-json-jackson`](final-json/final-json-jackson/README.md)
     * [`final-json-autoconfigure`](final-json/final-json-autoconfigure/README.md)
 * [`final-redis`](final-redis/README.md)：定义统一的`Redis`操作`API`，支持注解声明式缓存，默认基于`spring-boot-starter-data-redis`实现，可定义义实现。
     * [`final-redis-core`](final-redis/final-redis-core/README.md)

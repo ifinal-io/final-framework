@@ -16,6 +16,7 @@
     <modules>
         <module>final-sharding-autoconfigure</module>
         <module>final-sharding-spring-boot-starter</module>
+        <module>final-sharding-core</module>
     </modules>
 
 

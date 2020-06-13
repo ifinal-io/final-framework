@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author likly
  * @version 1.0
  * @date 2020-01-17 23:01:38
+ * @see org.apache.shardingsphere.core.strategy.route.inline.InlineShardingStrategy
  * @since 1.0
  */
 public class InlineShardingStrategyProperties implements Serializable {
