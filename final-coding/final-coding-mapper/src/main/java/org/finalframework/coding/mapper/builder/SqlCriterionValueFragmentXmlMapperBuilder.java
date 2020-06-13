@@ -1,7 +1,25 @@
+/*
+ * Copyright (c) 2018-2020.  the original author or authors.
+ *  <p>
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  <p>
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  <p>
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package org.finalframework.coding.mapper.builder;
 
 
 import java.util.Arrays;
+
 import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.mapper.SQLConstants;
 import org.finalframework.coding.mapper.TypeHandlers;
@@ -29,12 +47,12 @@ public class SqlCriterionValueFragmentXmlMapperBuilder extends AbsSqlFragmentXml
         final Element sql = sql(document, id());
         final Element whenProperty = document.createElement("when");
         whenProperty
-            .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isProperty(${value})");
+                .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isProperty(${value})");
         whenProperty.appendChild(cdata(document, "\\${${value}.column}"));
 
         final Element whenCollection = document.createElement("when");
         whenCollection
-            .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isCollection(${value})");
+                .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isCollection(${value})");
 
         Element foreach = document.createElement("foreach");
         foreach.setAttribute("collection", "${value}");
@@ -53,15 +71,15 @@ public class SqlCriterionValueFragmentXmlMapperBuilder extends AbsSqlFragmentXml
         }
         final Element whenFunction = document.createElement("when");
         whenFunction
-            .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isFunction(${value})");
+                .setAttribute("test", "@org.finalframework.data.query.criterion.CriterionTypes@isFunction(${value})");
         if (loop < MAX_LOOP) {
             whenFunction.appendChild(
-                include(document, SQLConstants.SQL_CRITERION_FUNCTION + (loop == 0 ? "" : "-" + loop),
-                    property(document, "function", "${value}")));
+                    include(document, SQLConstants.SQL_CRITERION_FUNCTION + (loop == 0 ? "" : "-" + loop),
+                            property(document, "function", "${value}")));
         }
         sql.appendChild(choose(document, Arrays.asList(
-            whenProperty, whenFunction, whenCollection, whenValue,
-            whenOrOtherwise(document, null, cdata(document, "#{${value}}"))
+                whenProperty, whenFunction, whenCollection, whenValue,
+                whenOrOtherwise(document, null, cdata(document, "#{${value}}"))
         )));
 
         return sql;

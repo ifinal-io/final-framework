@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2018-2020.  the original author or authors.
+ *  <p>
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  <p>
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  <p>
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package org.finalframework.mybatis.sql.provider;
 
 
@@ -5,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.annotation.LastModified;
@@ -86,7 +104,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     @Override
     public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
         final String insertPrefix = getInsertPrefix(context.getMapperMethod(),
-            parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
+                parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
 
         Class<?> view = (Class<?>) parameters.get("view");
 
@@ -111,43 +129,43 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
          */
         final Element columns = helper.trim().prefix("(").suffix(")").build();
         columns.appendChild(helper.cdata(
-            properties.stream()
-                .filter(property -> property.isWriteable() && property.hasView(view))
-                .map(QProperty::getColumn)
-                .collect(Collectors.joining(","))
+                properties.stream()
+                        .filter(property -> property.isWriteable() && property.hasView(view))
+                        .map(QProperty::getColumn)
+                        .collect(Collectors.joining(","))
         ));
         script.appendChild(columns);
 
         final Element foreach = helper.foreach().collection("list").item("entity").open(VALUES).build();
 
         properties.stream()
-            .filter(property -> property.isWriteable() && property.hasView(view))
-            .forEach(property -> {
-                foreach
-                    .appendChild(helper.bind(property.getName(), helper.formatBindValue("entity", property.getPath())));
-            });
+                .filter(property -> property.isWriteable() && property.hasView(view))
+                .forEach(property -> {
+                    foreach
+                            .appendChild(helper.bind(property.getName(), helper.formatBindValue("entity", property.getPath())));
+                });
 
         final Element values = helper.trim().prefix("(").suffix(")").build();
 
         values.appendChild(helper.cdata(
-            properties.stream()
-                .filter(property -> property.isWriteable() && property.hasView(view))
-                .map(property -> {
-                    final StringBuilder builder = new StringBuilder();
+                properties.stream()
+                        .filter(property -> property.isWriteable() && property.hasView(view))
+                        .map(property -> {
+                            final StringBuilder builder = new StringBuilder();
 
-                    builder.append("#{").append(property.getName());
-                    // javaType
-                    builder.append(",javaType=").append(property.getType().getCanonicalName());
-                    // typeHandler
-                    final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
-                    if (typeHandler != null) {
-                        builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
-                    }
-                    builder.append("}");
+                            builder.append("#{").append(property.getName());
+                            // javaType
+                            builder.append(",javaType=").append(property.getType().getCanonicalName());
+                            // typeHandler
+                            final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
+                            if (typeHandler != null) {
+                                builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
+                            }
+                            builder.append("}");
 
-                    return builder.toString();
-                })
-                .collect(Collectors.joining(","))));
+                            return builder.toString();
+                        })
+                        .collect(Collectors.joining(","))));
 
         foreach.appendChild(values);
 
@@ -157,21 +175,21 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             Element onDuplicateKeyUpdate = helper.trim().prefix(ON_DUPLICATE_KEY_UPDATE).build();
 
             onDuplicateKeyUpdate.appendChild(helper.cdata(
-                properties.stream()
-                    .filter(property -> (property.isWriteable() && property.hasView(view))
-                        || property.getProperty().hasAnnotation(Version.class)
-                        || property.getProperty().hasAnnotation(LastModified.class))
-                    .map(property -> {
-                        String column = property.getColumn();
-                        if (property.getProperty().hasAnnotation(Version.class)) {
-                            return String.format("%s = %s + 1", column, column);
-                        } else if (property.getProperty().hasAnnotation(LastModified.class)) {
-                            return String.format("%s = NOW()", column);
-                        } else {
-                            return String.format("%s = values(%s)", column, column);
-                        }
-                    })
-                    .collect(Collectors.joining(","))
+                    properties.stream()
+                            .filter(property -> (property.isWriteable() && property.hasView(view))
+                                    || property.getProperty().hasAnnotation(Version.class)
+                                    || property.getProperty().hasAnnotation(LastModified.class))
+                            .map(property -> {
+                                String column = property.getColumn();
+                                if (property.getProperty().hasAnnotation(Version.class)) {
+                                    return String.format("%s = %s + 1", column, column);
+                                } else if (property.getProperty().hasAnnotation(LastModified.class)) {
+                                    return String.format("%s = NOW()", column);
+                                } else {
+                                    return String.format("%s = values(%s)", column, column);
+                                }
+                            })
+                            .collect(Collectors.joining(","))
             ));
 
             script.appendChild(onDuplicateKeyUpdate);

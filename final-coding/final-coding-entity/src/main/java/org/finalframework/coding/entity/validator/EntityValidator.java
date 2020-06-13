@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2018-2020.  the original author or authors.
+ *  <p>
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  <p>
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  <p>
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package org.finalframework.coding.entity.validator;
 
 import java.io.Serializable;
@@ -23,8 +40,8 @@ import org.finalframework.core.validator.ValidatorVisitor;
  * @since 1.0
  */
 public class EntityValidator extends SimpleElementVisitor8<Void, Void>
-    implements ValidatorVisitor<Void, TypeElement, Class<?>>,
-    FilterVisitor<TypeElement, Class<?>>, Serializable {
+        implements ValidatorVisitor<Void, TypeElement, Class<?>>,
+        FilterVisitor<TypeElement, Class<?>>, Serializable {
 
     private static final long serialVersionUID = -4327677763778937375L;
 
@@ -59,20 +76,20 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
 
         if (!isAssignable(data, Serializable.class)) {
             error("The entity of " + data.getQualifiedName().toString() + " must be implements the interface of "
-                + Serializable.class.getSimpleName());
+                    + Serializable.class.getSimpleName());
         }
 
         Optional<VariableElement> optional = ElementFilter.fieldsIn(data.getEnclosedElements())
-            .stream()
-            .filter(it -> it.getModifiers().containsAll(modifiers)
-                && it.getSimpleName().toString().equals(SERIAL_VERSION_UID_NAME)
-                && it.asType().getKind() == TypeKind.LONG)
-            .findFirst();
+                .stream()
+                .filter(it -> it.getModifiers().containsAll(modifiers)
+                        && it.getSimpleName().toString().equals(SERIAL_VERSION_UID_NAME)
+                        && it.asType().getKind() == TypeKind.LONG)
+                .findFirst();
 
         if (!optional.isPresent()) {
             error("The entity of " + data.getQualifiedName().toString() + " must be have a long type field named "
-                + SERIAL_VERSION_UID_NAME
-                + " and modified with 'private','static' and 'final'.");
+                    + SERIAL_VERSION_UID_NAME
+                    + " and modified with 'private','static' and 'final'.");
         }
 
         return null;
