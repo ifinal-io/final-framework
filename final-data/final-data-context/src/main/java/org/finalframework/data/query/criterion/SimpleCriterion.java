@@ -38,7 +38,6 @@ import org.w3c.dom.Node;
  * @version 1.0
  * @date 2019-01-18 12:19:55
  * @see SingleCriterion
- * @see BetweenCriterion
  * @since 1.0
  */
 public interface SimpleCriterion<T> extends Criterion {

@@ -24,7 +24,7 @@ import org.finalframework.data.annotation.Keyword;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.annotation.SqlKeyWords;
-import org.finalframework.data.query.type.JsonTypeHandler;
+import org.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
@@ -97,11 +97,11 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         }
 
         if (isAnnotationPresent(Json.class)) {
-            return JsonTypeHandler.class;
+            return JsonParameterTypeHandler.class;
         }
 
         if (isCollectionLike()) {
-            return JsonTypeHandler.class;
+            return JsonParameterTypeHandler.class;
         }
 
         return null;

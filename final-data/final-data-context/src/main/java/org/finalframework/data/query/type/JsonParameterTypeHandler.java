@@ -25,6 +25,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * Converter the parameter to a {@code json} String.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-06-11 10:02:27
