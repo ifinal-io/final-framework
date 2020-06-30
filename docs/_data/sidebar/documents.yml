@@ -78,3 +78,7 @@ menus:
                 link: /documents/data/query/function/json
                 mini: JSON
                 name: Json
+  - id: starter
+    name: Starter
+    icon: dashboard
+    link: /documents/start
