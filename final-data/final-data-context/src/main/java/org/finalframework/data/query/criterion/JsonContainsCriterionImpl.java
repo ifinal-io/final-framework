@@ -19,6 +19,7 @@ package org.finalframework.data.query.criterion;
 
 
 import lombok.Getter;
+import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.operation.JsonOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -95,8 +96,13 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
 
         trim.setAttribute("suffix", ")");
 
-        applyValueCriterion(document, parent, target, null, null, expression + ".target");
-        applyValueCriterion(document, parent, value, ",", null, expression + ".value");
+        applyValueCriterion(document, trim, target, null, null, expression + ".target");
+//        if(value instanceof String) {
+//            applyValueCriterion(document, trim, value, ",'\"", "\"'", expression + ".value");
+//        }else {
+        applyValueCriterion(document, trim, value, ",", "", expression + ".value");
+//        }
+
 
         final Element ifPathNotNull = document.createElement("if");
         ifPathNotNull.setAttribute("test", String.format("%s.path != null", expression));
