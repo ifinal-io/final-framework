@@ -18,6 +18,7 @@
 package org.finalframework.data.query.criterion;
 
 
+import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.operation.JsonOperation;
 
 /**
@@ -26,7 +27,7 @@ import org.finalframework.data.query.operation.JsonOperation;
  * @date 2020-05-30 14:35:49
  * @since 1.0
  */
-public interface JsonContainsCriterion extends SingleCriterion<Object> {
+public interface JsonContainsCriterion extends SingleCriterion<Object>, SqlNode {
 
     static JsonContainsCriterion contains(Object target, Object value, String path) {
         return new JsonContainsCriterionImpl(target, JsonOperation.JSON_CONTAINS, value, path);

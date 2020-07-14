@@ -18,8 +18,11 @@
 package org.finalframework.data.query.criterion;
 
 
+import lombok.Getter;
 import org.finalframework.data.query.operation.JsonOperation;
-import org.finalframework.data.query.operation.Operation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -27,38 +30,22 @@ import org.finalframework.data.query.operation.Operation;
  * @date 2020-05-30 14:41:35
  * @since 1.0
  */
-public class JsonContainsCriterionImpl implements JsonContainsCriterion {
+class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCriterion {
 
+    @Getter
     private final Object target;
-    private final Operation operation;
+    @Getter
+    private final JsonOperation operation;
+    @Getter
     private final Object value;
+    @Getter
     private final String path;
 
-    JsonContainsCriterionImpl(Object target, Operation operation, Object value, String path) {
+    JsonContainsCriterionImpl(Object target, JsonOperation operation, Object value, String path) {
         this.target = target;
         this.operation = operation;
         this.value = value;
         this.path = path;
-    }
-
-    @Override
-    public String getPath() {
-        return this.path;
-    }
-
-    @Override
-    public Object getValue() {
-        return this.value;
-    }
-
-    @Override
-    public Object getTarget() {
-        return this.target;
-    }
-
-    @Override
-    public Operation getOperation() {
-        return this.operation;
     }
 
     public String getCriterionTarget() {
@@ -68,6 +55,56 @@ public class JsonContainsCriterionImpl implements JsonContainsCriterion {
     public String getCriterionValue() {
         final String value = this.value instanceof CriterionValue ? "criterion.value.value" : "criterion.value";
         return ((CriterionValueImpl) CriterionValue.from(this.value)).getSqlExpression(value);
+    }
+
+    /**
+     * <pre>
+     *     <code>
+     *         <trim prefix="JSON_CONTAINS(" suffix=")">
+     *              property,
+     *              #{value},
+     *              <if test="path != null">
+     *                  #{path}
+     *              </if>
+     *         </trim>
+     *     </code>
+     * </pre>
+     *
+     * @param parent
+     * @param expression
+     */
+
+    @Override
+    public void apply(Node parent, String expression) {
+
+        final Document document = parent.getOwnerDocument();
+        final Element trim = document.createElement("trim");
+
+        switch (operation) {
+            case JSON_CONTAINS:
+                trim.setAttribute("prefix", "JSON_CONTAINS(");
+                break;
+
+            case NOT_JSON_CONTAINS:
+                trim.setAttribute("prefix", "!JSON_CONTAINS(");
+                break;
+
+            default:
+                throw new IllegalArgumentException("JsonContains not support operation of " + operation.name());
+        }
+
+        trim.setAttribute("suffix", ")");
+
+        applyValueCriterion(document, parent, target, null, null, expression + ".target");
+        applyValueCriterion(document, parent, value, ",", null, expression + ".value");
+
+        final Element ifPathNotNull = document.createElement("if");
+        ifPathNotNull.setAttribute("test", String.format("%s.path != null", expression));
+        ifPathNotNull.appendChild(document.createTextNode(String.format(",#{%s.path}", expression)));
+        trim.appendChild(ifPathNotNull);
+
+
+        parent.appendChild(trim);
     }
 
     @Override

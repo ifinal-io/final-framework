@@ -19,16 +19,12 @@ package org.finalframework.data.query.criterion;
 
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
-import org.finalframework.data.query.operation.function.FunctionOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 

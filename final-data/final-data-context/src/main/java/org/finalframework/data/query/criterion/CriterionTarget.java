@@ -21,18 +21,12 @@ import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
-import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
-import org.finalframework.data.query.operation.StringOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -161,23 +155,11 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     @Override
     default Criterion jsonContains(Object value, String path) {
         return JsonContainsCriterion.contains(getTarget(), value, path);
-
-
-//        return SingleCriterion.builder()
-//                .target(this.apply(JsonOperation.contains(value, path)))
-//                .operation(CompareOperation.EQUAL)
-//                .value(true)
-//                .build();
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return JsonContainsCriterion.contains(getTarget(), value, path);
-//        return SingleCriterion.builder()
-//                .target(this.apply(JsonOperation.contains(value, path)))
-//                .operation(CompareOperation.NOT_BETWEEN)
-//                .value(false)
-//                .build();
+        return JsonContainsCriterion.notContains(getTarget(), value, path);
     }
 
     @Override

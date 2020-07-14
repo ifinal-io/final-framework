@@ -24,7 +24,6 @@ version: 1.0
   ~  limitations under the License.
   ~
   -->
-
 <div id="starter">
 
 
@@ -40,32 +39,30 @@ version: 1.0
                         </h3>
                     </div>
                     <div class="wizard-navigation">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item" style="width: 33.3333%;">
-                                <a class="nav-link active" data-toggle="tab" href="#about" role="tab">
+                        <ul class="starter nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#project" role="tab">
                                     Project
                                 </a>
                             </li>
-                            <li class="nav-item" style="width: 33.3333%;">
-                                <a class="nav-link" data-toggle="tab" href="#account" role="tab">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#metadata" role="tab">
                                     Metadata
                                 </a>
                             </li>
-                            <li class="nav-item" style="width: 33.3333%;">
-                                <a class="nav-link" data-toggle="tab" href="#address" role="tab">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#dependencies" role="tab">
                                     Dependencies
                                 </a>
                             </li>
                         </ul>
-                        <div class="moving-tab"
-                             style="width: 158.885px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1) 0s;">
-                            About
-                        </div>
+
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="about">
-                                <form class="form-horizontal">
+                            <div class="tab-pane active" id="project">
+
+                                <form action="/" class="form-horizontal" method="get">
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label label-checkbox">Project</label>
                                         <div class="col-sm-10 checkbox-radios">
@@ -147,7 +144,7 @@ version: 1.0
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" id="java14"
                                                            name="inlineRadioOptions" type="radio"
-                                                           v-model="project.javaVersion"> 14
+                                                           v-model="project.javaVersion" value="14"> 14
                                                     <span class="circle"><span class="check"></span></span>
                                                 </label>
                                             </div>
@@ -155,7 +152,7 @@ version: 1.0
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" id="java11"
                                                            name="inlineRadioOptions" type="radio"
-                                                           v-model="project.javaVersion"> 11
+                                                           v-model="project.javaVersion" value="11"> 11
                                                     <span class="circle"><span class="check"></span></span>
                                                 </label>
                                             </div>
@@ -177,94 +174,90 @@ version: 1.0
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox"
-                                                           v-model="entity.enable"> Entity
+                                                           v-model="modules.entity.enable"> Entity
                                                     <span class="form-check-sign"><span class="check"></span></span>
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox"
-                                                           v-model="dao.enable"> Dao
+                                                           v-model="modules.dao.enable"> Dao
                                                     <span class="form-check-sign"><span class="check"></span></span>
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox"
-                                                           v-model="service.enable"> Service
-                                                    <span class="form-check-sign"><span class="check"></span></span>
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox"
-                                                           v-model="web.enable"> Web
+                                                           v-model="modules.service.enable"> Service
                                                     <span class="form-check-sign"><span class="check"></span></span>
                                                 </label>
                                             </div>
 
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           v-model="modules.web.enable"> Web
+                                                    <span class="form-check-sign"><span class="check"></span></span>
+                                                </label>
+                                            </div>
+
 
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox"
-                                                           v-model="man.enable"> Man
+                                                           v-model="modules.man.enable"> Man
                                                     <span class="form-check-sign"><span class="check"></span></span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="tab-pane" id="account">
+
                                 <form class="form-horizontal">
 
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="metadata">
+                                <form class="form-horizontal">
 
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Group</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="required"
                                                        required="true" type="text"
                                                        v-model="project.group">
+                                                <span class="bmd-help">A block of help text that breaks onto a new line.</span>
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
-
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Artifact</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="required"
                                                        required="true" type="text"
                                                        v-model="project.artifact">
+                                                <span class="bmd-help">A block of help text that breaks onto a new line.</span>
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
-
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="required"
                                                        required="true" type="text"
                                                        v-model="project.name">
+                                                <span class="bmd-help">A block of help text that breaks onto a new line.</span>
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
+
 
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Description</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="description"
                                                        required="true"
@@ -272,44 +265,61 @@ version: 1.0
                                                        v-model="project.description">
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
 
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Packaging</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="required"
                                                        required="true" type="text"
                                                        v-model="project.packaging">
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
 
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Version</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-10">
                                             <div class="form-group bmd-form-group">
                                                 <input aria-required="true" class="form-control" name="required"
                                                        required="true" type="text"
                                                        v-model="project.version">
                                             </div>
                                         </div>
-                                        <label class="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
                                     </div>
 
                                 </form>
 
                             </div>
-                            <div class="tab-pane" id="address">
-
+                            <div class="tab-pane" id="dependencies">
+                                <div id="accordion" role="tablist">
+                                    <div class="card-collapse" v-for="(dependencies,group) in dependenciesGroup">
+                                        <div :id="'heading-'+group" class="card-header" role="tab">
+                                            <h5 class="mb-0">
+                                                <a :href="'#collapse-'+group" aria-controls="collapseOne"
+                                                   aria-expanded="false" class="collapsed" data-toggle="collapse">
+                                                    <span class="badge badge-success" v-html="dependencies.name"></span>
+                                                    <i class="material-icons">keyboard_arrow_down</i>
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div :id="'collapse-'+group" aria-labelledby="headingOne" class="collapse"
+                                             data-parent="#accordion" role="tabpanel" style="">
+                                            <div class="card-body">
+                                                <div class="form-check"
+                                                     v-for="(dependency,key) in dependencies.dependencies">
+                                                    <i class="material-icons"
+                                                       v-html="dependency.checked ? 'check_box' : 'check_box_outline_blank'"></i>
+                                                    <label @click="onDependencyClick(dependency)"
+                                                           class="form-check-label">
+                                                        <i v-html="dependency.name"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -341,12 +351,12 @@ version: 1.0
                             <span class="nav-tabs-title"></span>
                             <ul class="nav nav-tabs" data-tabs="tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active show" data-toggle="tab" href="#view">
+                                    <a class="nav-link active show" data-toggle="tab" href="#root">
                                         <i class="material-icons">code</i> <i v-html="project.name"></i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  " data-toggle="tab" href="#sql">
+                                    <a class="nav-link  " data-toggle="tab" href="#entity">
                                         <i class="material-icons">code</i>Entity
                                     </a>
                                 </li>
@@ -377,326 +387,54 @@ version: 1.0
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div id="toolbar2"></div>
-                    <div id="toolbar">
-
-                    </div>
-
-                </div>
             </div>
 
         </div>
         <div class="card-body" style="min-height: 40%">
             <div class="tab-content">
-                <div class="tab-pane active show" id="view">
+                <div class="tab-pane active show" id="root">
                     <pre>
                         <code v-html="escapeXml(rootPom())">
-
                         </code>
                     </pre>
                 </div>
-
-                <div class="tab-pane" id="sql">
-
+                <div class="tab-pane" id="entity">
+                    <pre>
+                        <code v-html="escapeXml(modulePom(modules.entity,[]))">
+                        </code>
+                    </pre>
 
                 </div>
-
-                <div class="tab-pane" id="columns">
-
+                <div class="tab-pane" id="dao">
+                    <pre>
+                        <code v-html="escapeXml(modulePom(modules.dao,[modules.entity]))">
+                        </code>
+                    </pre>
+                </div>
+                <div class="tab-pane" id="service">
+                    <pre>
+                        <code v-html="escapeXml(modulePom(modules.service,[modules.dao]))">
+                        </code>
+                    </pre>
+                </div>
+                <div class="tab-pane" id="web">
+                    <pre>
+                        <code v-html="escapeXml(modulePom(modules.web,[modules.service]))">
+                        </code>
+                    </pre>
+                </div>
+                <div class="tab-pane" id="man">
+                    <pre>
+                        <code v-html="escapeXml(modulePom(modules.man,[modules.service]))">
+                        </code>
+                    </pre>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-
-<script>
-    //格式化代码函数,已经用原生方式写好了不需要改动,直接引用就好
-    String.prototype.removeLineEnd = function () {
-        return this.replace(/(<.+?\s+?)(?:\n\s*?(.+?=".*?"))/g, '$1 $2')
-    }
-    var starter = new Vue({
-            el: '#starter',
-            data: {
-                final: {
-                    group: 'org.finalframework',
-                    artifact: 'final-framework-parent',
-                    version: '0.6.0-SNAPSHOT',
-                    pom: ''
-                },
-                project: {
-                    type: 'maven',
-                    language: 'java',
-                    finalBootVersion: '0.6.0-SNAPSHOT',
-                    group: 'org.finalframework.starter',
-                    artifact: 'final-starter',
-                    name: "demo",
-                    description: '',
-                    packageName: '',
-                    packaging: 'pom',
-                    version: '1.0.0-SNAPSHOT',
-                    pom: '',
-                    javaVersion: '1.8'
-                },
-                entity: {
-                    enable: true
-                },
-                dao: {
-                    enable: true
-                },
-                service: {
-                    enable: true
-                },
-                web: {
-                    enable: true
-                },
-                man: {
-                    enable: false
-                }
-
-
-            },
-            mounted: function () {
-                let _this = this;
-// Wizard Initialization
-                $('.card-wizard').bootstrapWizard({
-                    'tabClass': 'nav nav-pills',
-                    'nextSelector': '.btn-next',
-                    'previousSelector': '.btn-previous',
-
-                    onNext: function (tab, navigation, index) {
-                        var $valid = $('.card-wizard form').valid();
-                        if (!$valid) {
-                            $validator.focusInvalid();
-                            return false;
-                        }
-                    },
-
-                    onInit: function (tab, navigation, index) {
-                        //check number of tabs and fill the entire row
-                        var $total = navigation.find('li').length;
-                        var $wizard = navigation.closest('.card-wizard');
-
-                        $first_li = navigation.find('li:first-child a').html();
-                        $moving_div = $('<div class="moving-tab">' + $first_li + '</div>');
-                        $('.card-wizard .wizard-navigation').append($moving_div);
-
-                        _this.refreshAnimation($wizard, index);
-
-                        $('.moving-tab').css('transition', 'transform 0s');
-                    },
-
-                    onTabClick: function (tab, navigation, index) {
-                        var $valid = $('.card-wizard form').valid();
-
-                        if (!$valid) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    },
-
-                    onTabShow: function (tab, navigation, index) {
-                        var $total = navigation.find('li').length;
-                        var $current = index + 1;
-
-                        var $wizard = navigation.closest('.card-wizard');
-
-                        // If it's the last tab then hide the last button and show the finish instead
-                        if ($current >= $total) {
-                            $($wizard).find('.btn-next').hide();
-                            $($wizard).find('.btn-finish').show();
-                        } else {
-                            $($wizard).find('.btn-next').show();
-                            $($wizard).find('.btn-finish').hide();
-                        }
-
-                        button_text = navigation.find('li:nth-child(' + $current + ') a').html();
-
-                        setTimeout(function () {
-                            $('.moving-tab').text(button_text);
-                        }, 150);
-
-                        var checkbox = $('.footer-checkbox');
-
-                        if (!index == 0) {
-                            $(checkbox).css({
-                                'opacity': '0',
-                                'visibility': 'hidden',
-                                'position': 'absolute'
-                            });
-                        } else {
-                            $(checkbox).css({
-                                'opacity': '1',
-                                'visibility': 'visible'
-                            });
-                        }
-
-                        _this.refreshAnimation($wizard, index);
-                    },
-
-                });
-                // alert(_this.root.pom);
-            },
-            methods: {
-                refreshAnimation: function ($wizard, index) {
-                    $total = $wizard.find('.nav li').length;
-                    $li_width = 100 / $total;
-
-                    total_steps = $wizard.find('.nav li').length;
-                    move_distance = $wizard.width() / total_steps;
-                    index_temp = index;
-                    vertical_level = 0;
-
-                    mobile_device = $(document).width() < 600 && $total > 3;
-
-                    if (mobile_device) {
-                        move_distance = $wizard.width() / 2;
-                        index_temp = index % 2;
-                        $li_width = 50;
-                    }
-
-                    $wizard.find('.nav li').css('width', $li_width + '%');
-
-                    step_width = move_distance;
-                    move_distance = move_distance * index_temp;
-
-                    $current = index + 1;
-
-                    if ($current == 1 || (mobile_device == true && (index % 2 == 0))) {
-                        move_distance -= 8;
-                    } else if ($current == total_steps || (mobile_device == true && (index % 2 == 1))) {
-                        move_distance += 8;
-                    }
-
-                    if (mobile_device) {
-                        vertical_level = parseInt(index / 2);
-                        vertical_level = vertical_level * 38;
-                    }
-
-                    $wizard.find('.moving-tab').css('width', step_width);
-                    $('.moving-tab').css({
-                        'transform': 'translate3d(' + move_distance + 'px, ' + vertical_level + 'px, 0)',
-                        'transition': 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
-
-                    });
-                },
-                formatXml: function (xml, tab) {
-                    var formatted = '', indent = '';
-                    tab = tab || '    ';
-                    xml.split(/>\s*</).forEach(function (node) {
-                        if (node.match(/^\/\w/)) indent = indent.substring(tab.length);
-                        formatted += indent + '<' + node + '>\r\n';
-                        if (node.match(/^<?\w[^>]*[^\/]$/)) indent += tab;
-                    });
-                    return formatted.substring(1, formatted.length - 3);
-                },
-                escapeXml: function (unsafe) {
-                    return unsafe.replace(/[<>&'"]/g, function (c) {
-                        switch (c) {
-                            case '<':
-                                return '&lt;';
-                            case '>':
-                                return '&gt;';
-                            case '&':
-                                return '&amp;';
-                            case '\'':
-                                return '&apos;';
-                            case '"':
-                                return '&quot;';
-                        }
-                    });
-                },
-                rootPom: function () {
-
-                    let _this = this;
-
-                    var pom = `<?xml version="1.0" encoding="UTF-8"?>
-                               <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                        xmlns="http://maven.apache.org/POM/4.0.0"
-                                        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-                                   <parent>
-                                       <artifactId>${_this.final.artifact}</artifactId>
-                                       <groupId>${_this.final.group}</groupId>
-                                       <version>${_this.final.version}</version>
-                                   </parent>
-                                   <modelVersion>4.0.0</modelVersion>
-                                   <groupId>org.finalframework.test</groupId>
-                                   <artifactId>${_this.project.artifact}</artifactId>
-                                   <version>${_this.project.version}</version>
-                                   <name>${_this.project.name}</name>
-                                   <description>${_this.project.description}</description>
-                                   <packaging>pom</packaging>
-                                   <modules>
-                                   ${_this.entity.enable ? `<module>${_this.project.artifact}-entity</module>` : ''}
-                                   ${_this.dao.enable ? `<module>${_this.project.artifact}-dao</module>` : ''}
-                                   ${_this.service.enable ? `<module>${_this.project.artifact}-service</module>` : ''}
-                                   ${_this.web.enable ? `<module>${_this.project.artifact}-web</module>` : ''}
-                                   ${_this.man.enable ? `<module>${_this.project.artifact}-man</module>` : ''}
-                                   </modules>
-
-                                   <properties>
-                                        <java.version>${_this.project.javaVersion}</java.version>
-                                        <final.version>${_this.final.version}</final.version>
-                                        <${_this.project.name}.version>${_this.project.version}</${_this.project.name}.version>
-                                   </properties>
-
-                                   <dependencyManagement>
-                                        <dependencies>
-                                            ${_this.entity.enable ? `<dependency>
-                                                <groupId>${_this.project.group}</groupId>
-                                                <artifactId>${_this.project.artifact}-entity</artifactId>
-                                                <version>\${${_this.project.name}.version}</version>
-                                            </dependency>` : ''}
-                                            ${_this.dao.enable ? `<dependency>
-                                                <groupId>${_this.project.group}</groupId>
-                                                <artifactId>${_this.project.artifact}-dao</artifactId>
-                                                <version>\${${_this.project.name}.version}</version>
-                                            </dependency>` : ''}
-                                            ${_this.service.enable ? `<dependency>
-                                                <groupId>${_this.project.group}</groupId>
-                                                <artifactId>${_this.project.artifact}-service</artifactId>
-                                                <version>\${${_this.project.name}.version}</version>
-                                            </dependency>` : ''}
-                                            ${_this.web.enable ? `<dependency>
-                                                <groupId>${_this.project.group}</groupId>
-                                                <artifactId>${_this.project.artifact}-web</artifactId>
-                                                <version>\${${_this.project.name}.version}</version>
-                                            </dependency>` : ''}
-                                            ${_this.man.enable ? `<dependency>
-                                                <groupId>${_this.project.group}</groupId>
-                                                <artifactId>${_this.project.artifact}-man</artifactId>
-                                                <version>\${${_this.project.name}.version}</version>
-                                            </dependency>` : ''}
-                                        </dependencies>
-                                    </dependencyManagement>
-
-                               </project>`,
-                        xmlDoc = $.parseXML(pom),
-                        $pom = $(xmlDoc);
-
-
-                    let $modules = $pom.find("modules");
-
-
-                    return _this.formatXml((new XMLSerializer()).serializeToString(xmlDoc));
-                },
-                download: function () {
-                    var zip = new JSZip();
-                    zip.file("Hello.txt", "Hello World\n");
-                    // var img = zip.folder("images");
-                    // img.file("smile.gif", imgData, {base64: true});
-                    zip.generateAsync({type: "blob"})
-                        .then(function (content) {
-                            // see FileSaver.js
-                            // saveAs(content, "example.zip");
-                        });
-                }
-            }
-        })
-    ;
-</script>
+<script src="{{site.baseurl}}/assets/js/starter.js"></script>
 
 
 

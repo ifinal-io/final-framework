@@ -21,6 +21,7 @@ import org.finalframework.coding.entity.Entity;
 import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
 import org.finalframework.data.annotation.ReadOnly;
+import org.finalframework.data.annotation.WriteOnly;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.w3c.dom.Document;
@@ -66,10 +67,7 @@ public class SqlSelectColumnsFragmentXmlMapperBuilder extends AbsSqlFragmentXmlM
         entity.stream().filter(it -> !it.isTransient() && !it.isWriteOnly() && !it.isVirtual())
                 .filter(it -> {
                     if (view == null) {
-                        if (it.hasAnnotation(ReadOnly.class)) {
-                            return false;
-                        }
-                        return true;
+                        return !it.hasAnnotation(WriteOnly.class);
                     } else {
                         return it.hasView(view);
                     }

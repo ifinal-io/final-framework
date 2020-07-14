@@ -35,7 +35,7 @@ import java.lang.reflect.Array;
  * @since 1.0
  */
 @Getter
-public class AbsCompareCriterionOperation implements CompareCriterionOperation {
+public class AbsCompareCriterionOperation extends BaseCriterion implements CompareCriterionOperation {
 
     private final Object target;
     private final CompareOperation operation;
@@ -121,29 +121,7 @@ public class AbsCompareCriterionOperation implements CompareCriterionOperation {
 
     }
 
-    private void applyValueCriterion(@NonNull Document document, @NonNull Node parent, Object value, String prefix, String suffix, String expression) {
-        final Element trim = document.createElement("trim");
-        if (prefix != null) {
-            trim.setAttribute("prefix", prefix);
-        }
-        if (suffix != null) {
-            trim.setAttribute("suffix", suffix);
-        }
 
-
-        if (value instanceof SqlNode) {
-            ((SqlNode) value).apply(trim, expression);
-        } else if (value instanceof QProperty) {
-//            trim.appendChild(document.createTextNode(((QProperty) target).getColumn()));
-            trim.appendChild(document.createTextNode(String.format("${%s.column}", expression)));
-        } else if (value instanceof Iterable || value instanceof Array) {
-
-        } else {
-            trim.appendChild(document.createTextNode(String.format("#{%s}", expression)));
-        }
-
-        parent.appendChild(trim);
-    }
 
     private static class AbsCompareCriterionOperationBuilder implements CompareCriterionOperation.CompareCriterionOperationBuilder {
         private Object target;

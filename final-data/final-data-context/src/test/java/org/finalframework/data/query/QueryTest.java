@@ -61,6 +61,7 @@ class QueryTest {
                 name.apply(value -> new SimpleCriterionFunction(value, DateOperation.DATE)).eq(2),
                 name.isNull(),
                 name.isNotNull(),
+                name.jsonContains(1, "$.a"),
                 age.gt(CriterionValue.from(12)),
                 Criteria.or(name.eq("haha"),
                         age.gt(12)));

@@ -33,7 +33,7 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Data
-public class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
+class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
     private static final long serialVersionUID = -5904183635896162713L;
     private final T value;
     private Class<?> javaType;

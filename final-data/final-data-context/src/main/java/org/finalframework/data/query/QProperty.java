@@ -18,7 +18,6 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.core.Builder;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.criteriable.Criteriable;
@@ -26,12 +25,10 @@ import org.finalframework.data.query.criteriable.ExecuteCriteriable;
 import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.CriterionTarget;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
-import org.finalframework.data.query.criterion.function.SimpleCriterionFunction;
-import org.finalframework.data.query.criterion.function.SingleCriterionFunction;
 import org.finalframework.data.query.operation.DateOperation;
 import org.finalframework.data.query.operation.JsonOperation;
-import org.finalframework.data.query.operation.LogicOperation;
-import org.finalframework.data.query.operation.Operation.MathOperation;
+import org.finalframework.data.query.operation.LogicOperations;
+import org.finalframework.data.query.operation.MathOperations;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -181,87 +178,83 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     @Override
     default Criterion jsonContains(@NotNull Object value, String path) {
-        return CriterionTarget.from(this).jsonContains(value, path);
-//        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
-//                .eq(true);
+        return JsonOperation.contains(this, value, path);
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return CriterionTarget.from(this).notJsonContains(value, path);
-//        return new AbsCriteriable<>(this, new DoubleFunctionOperation<>(JsonOperation.JSON_CONTAINS, value, path))
-//                .neq(true);
+        return JsonOperation.notContains(this, value, path);
     }
 
 
     @Override
     default CriterionTarget<CriterionFunction> date() {
-        return apply(value -> new SimpleCriterionFunction(value, DateOperation.DATE));
+        return apply(value -> DateOperation.date(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonExtract(String path) {
-        return apply(value -> new SingleCriterionFunction(value, JsonOperation.JSON_EXTRACT, path));
+        return apply(value -> JsonOperation.extract(this, path));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonKeys() {
-        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_KEYS));
+        return apply(value -> JsonOperation.keys(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonLength() {
-        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_LENGTH));
+        return apply(value -> JsonOperation.length(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonDepth() {
-        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_DEPTH));
+        return apply(value -> JsonOperation.depth(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonUnquote() {
-        return apply(value -> new SimpleCriterionFunction(value, JsonOperation.JSON_UNQUOTE));
+        return apply(value -> JsonOperation.unquote(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> and(Object value) {
-        return apply(property -> new SingleCriterionFunction(property, LogicOperation.AND, value));
+        return apply(property -> LogicOperations.and(this, value));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> or(Object value) {
-        return apply(property -> new SingleCriterionFunction(property, LogicOperation.OR, value));
+        return apply(property -> LogicOperations.or(this, value));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> xor(Object value) {
-        return apply(property -> new SingleCriterionFunction(property, LogicOperation.XOR, value));
+        return apply(property -> LogicOperations.xor(this, value));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> not() {
-        return apply(value -> new SimpleCriterionFunction(value, LogicOperation.NOT));
+        return apply(value -> LogicOperations.not(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> min() {
-        return apply(value -> new SimpleCriterionFunction(value, MathOperation.MIN));
+        return apply(value -> MathOperations.min(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> max() {
-        return apply(value -> new SimpleCriterionFunction(value, MathOperation.MAX));
+        return apply(value -> MathOperations.max(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> sum() {
-        return apply(value -> new SimpleCriterionFunction(value, MathOperation.SUM));
+        return apply(value -> MathOperations.sum(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> avg() {
-        return apply(value -> new SimpleCriterionFunction(value, MathOperation.AVG));
+        return apply(value -> MathOperations.avg(this));
     }
 
     @Override

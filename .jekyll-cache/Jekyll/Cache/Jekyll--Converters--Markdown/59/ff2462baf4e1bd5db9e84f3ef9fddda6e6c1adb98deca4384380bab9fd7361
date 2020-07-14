@@ -1,0 +1,53 @@
+I"�<h1 id="final">Final</h1>
+
+<h2 id="whats-final">What’s Final</h2>
+
+<p><strong>Final</strong> 是对项目中常用到的<em>库</em>一次简单的封装，在此基础上，再提供<strong>简单而又实用</strong>的功能，从而达到更<strong>高效</strong>的开发。</p>
+
+<h2 id="whats-final-do">What’s Final Do</h2>
+
+<h2 id="stronger-json">Stronger Json</h2>
+
+<p><code class="highlighter-rouge">Json</code>在默认的实现之上，增强了对一些特殊类型的处理，如<code class="highlighter-rouge">Enum</code>和<code class="highlighter-rouge">Date</code>，<code class="highlighter-rouge">Json</code>在序列化的时候，不仅序列了其原有的属性，还为其增加了扩展属性，
+从而更好的来描述<code class="highlighter-rouge">Enum</code>和<code class="highlighter-rouge">Date</code>等。</p>
+
+<h3 id="enum">Enum</h3>
+
+<p>对于实现了<a href="pages/_documents/data/enum.md">IEnum</a>的<code class="highlighter-rouge">Enum</code>，在<code class="highlighter-rouge">Json</code>序列化的时候，会增加扩展属性<code class="highlighter-rouge">name</code>和<code class="highlighter-rouge">description</code>来增强对<code class="highlighter-rouge">code</code>的描述，极大的减少沟通的成本。</p>
+
+<h3 id="date">Date</h3>
+
+<p>对于<code class="highlighter-rouge">Date</code>类型的属性，如<code class="highlighter-rouge">java.util.Date</code>和<code class="highlighter-rouge">java.time.LocalDateTime</code>，<code class="highlighter-rouge">Json</code>的序列化时，除了会序列会其对应的<strong>时间戳</strong>，
+还是为其扩展一个后缀<code class="highlighter-rouge">format</code>的属性，其值为<code class="highlighter-rouge">date</code>的<code class="highlighter-rouge">yyyy-MM-dd hh:mm:ss</code>格式化后的值。</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="mi">1584885769474</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdFormat"</span><span class="p">:</span><span class="s2">"2020-03-22 22:02:49"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"yn"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ynName"</span><span class="p">:</span><span class="s2">"YES"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ynDescription"</span><span class="p">:</span><span class="s2">"有效"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="simple-repository">Simple Repository</h2>
+
+<p><code class="highlighter-rouge">Final</code> 提供了强大的<code class="highlighter-rouge">Data Access Object</code> 数据访问接口对象<a href="/final-data/final-data-context/src/main/java/org/finalframework/data/repository/Repository.java">Repository</a> 
+包含了大量<strong>简单又实用</strong>的<code class="highlighter-rouge">CURD</code>入口。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">insert</code>:</li>
+  <li><code class="highlighter-rouge">replace</code>:</li>
+  <li><code class="highlighter-rouge">save</code>:</li>
+  <li><code class="highlighter-rouge">update</code>:</li>
+  <li><code class="highlighter-rouge">delete</code>:</li>
+  <li><code class="highlighter-rouge">select</code>:</li>
+  <li><code class="highlighter-rouge">selectOne</code>:</li>
+  <li><code class="highlighter-rouge">selectIds</code>:</li>
+  <li><code class="highlighter-rouge">selectCount</code>:</li>
+  <li><code class="highlighter-rouge">isExists</code>:</li>
+</ul>
+
+<h2 id="powerful-criterion">Powerful Criterion</h2>
+
+<p><a href="pages/_documents/data/criterion.md">Criterion</a>提供了丰富了查询标准，除了常用的<code class="highlighter-rouge">null</code>，<code class="highlighter-rouge">comptare</code>,<code class="highlighter-rouge">between</code>,<code class="highlighter-rouge">in</code>和<code class="highlighter-rouge">like</code>，还加入了对<code class="highlighter-rouge">json</code>的支持。</p>
+:ET
