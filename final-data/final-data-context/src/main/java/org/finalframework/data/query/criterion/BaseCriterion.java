@@ -52,7 +52,15 @@ public class BaseCriterion implements Serializable {
             trim.appendChild(document.createTextNode(((QProperty<?>) value).getColumn()));
 //            trim.appendChild(document.createTextNode(String.format("${%s.column}", expression)));
         } else if (value instanceof Iterable || value instanceof Array) {
+            final Element foreach = document.createElement("foreach");
 
+            foreach.setAttribute("collection", String.format("%s.value", expression));
+            foreach.setAttribute("item", "item");
+            foreach.setAttribute("separator", ",");
+
+            foreach.appendChild(document.createTextNode("#{item}"));
+
+            trim.appendChild(foreach);
         } else {
             trim.appendChild(document.createTextNode(String.format("#{%s}", expression)));
         }

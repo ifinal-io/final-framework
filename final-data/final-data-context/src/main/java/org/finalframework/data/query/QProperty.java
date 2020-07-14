@@ -26,7 +26,7 @@ import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.query.criterion.CriterionTarget;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
 import org.finalframework.data.query.operation.DateOperation;
-import org.finalframework.data.query.operation.JsonOperation;
+import org.finalframework.data.query.operation.JsonOperations;
 import org.finalframework.data.query.operation.LogicOperations;
 import org.finalframework.data.query.operation.MathOperations;
 import org.springframework.lang.NonNull;
@@ -178,12 +178,12 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     @Override
     default Criterion jsonContains(@NotNull Object value, String path) {
-        return JsonOperation.contains(this, value, path);
+        return JsonOperations.contains(this, value, path);
     }
 
     @Override
     default Criterion notJsonContains(Object value, String path) {
-        return JsonOperation.notContains(this, value, path);
+        return JsonOperations.notContains(this, value, path);
     }
 
 
@@ -194,27 +194,27 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
 
     @Override
     default CriterionTarget<CriterionFunction> jsonExtract(String path) {
-        return apply(value -> JsonOperation.extract(this, path));
+        return apply(value -> JsonOperations.extract(this, path));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonKeys() {
-        return apply(value -> JsonOperation.keys(this));
+        return apply(value -> JsonOperations.keys(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonLength() {
-        return apply(value -> JsonOperation.length(this));
+        return apply(value -> JsonOperations.length(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonDepth() {
-        return apply(value -> JsonOperation.depth(this));
+        return apply(value -> JsonOperations.depth(this));
     }
 
     @Override
     default CriterionTarget<CriterionFunction> jsonUnquote() {
-        return apply(value -> JsonOperation.unquote(this));
+        return apply(value -> JsonOperations.unquote(this));
     }
 
     @Override

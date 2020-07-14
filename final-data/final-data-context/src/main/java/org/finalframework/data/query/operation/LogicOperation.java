@@ -27,6 +27,4 @@ package org.finalframework.data.query.operation;
  */
 public enum LogicOperation implements Operation {
     AND, OR, NOT, XOR;
-
-
 }
