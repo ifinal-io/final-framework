@@ -15,23 +15,33 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.spring.expression;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import org.springframework.expression.Expression;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-20 09:25:43
+ * @date 2020-07-17 09:56:29
  * @since 1.0
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Criterion {
+public class Spel {
 
-    String value();
+    private final SpelExpressionParser parser;
+
+    public Spel() {
+        this(new SpelExpressionParser());
+    }
+
+    public Spel(SpelExpressionParser parser) {
+        this.parser = parser;
+    }
+
+    public Expression expression(String expression) {
+        return this.parser.parseExpression(expression);
+    }
 
 }
+

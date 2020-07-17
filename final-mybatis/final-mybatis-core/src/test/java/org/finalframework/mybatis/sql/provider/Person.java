@@ -15,34 +15,36 @@
  *
  */
 
-package org.finalframework.data.query;
+package org.finalframework.mybatis.sql.provider;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import org.finalframework.data.annotation.Geometry;
-import org.finalframework.data.annotation.Json;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.entity.AbsEntity;
+import org.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
-
-import java.util.List;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2020-06-05 23:06:16
+ * @date 2020-07-17 14:06:19
  * @since 1.0
  */
-@Setter
-@Getter
-public class QueryEntity extends AbsEntity {
-
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Transient
+public class Person extends AbsEntity {
+    //    @Virtual
+    public String vcolumn;
     private String name;
     private Integer age;
-    @Json
-    private List<Integer> intList;
-
+    @TypeHandler(PointTypeHandler.class)
     @Geometry
     private Point point;
+    @Function(reader = "MAX(age) as ${column}")
+    private Integer maxAge;
 }
 

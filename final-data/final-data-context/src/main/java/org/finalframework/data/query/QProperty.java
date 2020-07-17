@@ -69,10 +69,22 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
     @NonNull
     String getName();
 
+    @Nullable
+    default String getWriter() {
+        return this.getProperty().getWriter();
+    }
+
+    @Nullable
+    default String getReader() {
+        return this.getProperty().getReader();
+    }
+
     @NonNull
     String getColumn();
 
     boolean isIdProperty();
+
+    boolean isReadable();
 
     /**
      * @return
@@ -277,6 +289,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
         Builder<T> column(String column);
 
         Builder<T> idProperty(boolean idProperty);
+
+        Builder<T> readable(boolean readable);
 
         Builder<T> writeable(boolean writeable);
 

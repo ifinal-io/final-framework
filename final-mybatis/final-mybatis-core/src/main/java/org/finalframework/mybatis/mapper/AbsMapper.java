@@ -17,28 +17,18 @@
 
 package org.finalframework.mybatis.mapper;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
-import org.finalframework.mybatis.sql.provider.DeleteSqlProvider;
-import org.finalframework.mybatis.sql.provider.InsertSqlProvider;
-import org.finalframework.mybatis.sql.provider.SelectCountSqlProvider;
-import org.finalframework.mybatis.sql.provider.SelectOneSqlProvider;
-import org.finalframework.mybatis.sql.provider.SelectSqlProvider;
-import org.finalframework.mybatis.sql.provider.UpdateSqlProvider;
+import org.finalframework.mybatis.sql.provider.*;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author likly
@@ -101,8 +91,8 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
                    @Param("query") Query query);
 
     @Override
-    @SelectProvider(SelectOneSqlProvider.class)
-    T selectOne(@Param("table") String table, @Param("view") Class<?> view, ID id, @Param("query") Query query);
+    @SelectProvider(SelectSqlProvider.class)
+    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
 
     @Override
     @SelectProvider(SelectCountSqlProvider.class)

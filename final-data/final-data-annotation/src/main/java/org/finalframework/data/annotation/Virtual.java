@@ -49,7 +49,7 @@ import org.springframework.data.annotation.Persistent;
 @Documented
 @Persistent
 @Column
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Virtual {
 

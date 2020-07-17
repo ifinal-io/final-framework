@@ -47,6 +47,9 @@ public interface ScriptSqlProvider extends SqlProvider {
         final XNode script = parser.evalNode("//script");
         doProvide(script.getNode(), script.getNode().getOwnerDocument(), parameters, context);
         final String sql = script.toString();
+
+        logger.debug("script sql ==> \n{}", sql);
+
         if (logger.isDebugEnabled()) {
             final String[] sqls = sql.split("\n");
             for (String item : sqls) {

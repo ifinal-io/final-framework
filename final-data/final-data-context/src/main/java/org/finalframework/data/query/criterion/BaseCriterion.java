@@ -54,7 +54,7 @@ public class BaseCriterion implements Serializable {
         } else if (value instanceof Iterable || value instanceof Array) {
             final Element foreach = document.createElement("foreach");
 
-            foreach.setAttribute("collection", String.format("%s.value", expression));
+            foreach.setAttribute("collection", expression);
             foreach.setAttribute("item", "item");
             foreach.setAttribute("separator", ",");
 

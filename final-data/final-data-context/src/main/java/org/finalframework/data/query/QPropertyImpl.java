@@ -22,6 +22,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final String column;
 
     private final boolean idProperty;
+    private final boolean readable;
     private final boolean writeable;
     private final boolean modifiable;
     private final PersistentType persistentType;
@@ -59,7 +61,9 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         this.path = builder.path;
         this.name = builder.name;
         this.column = builder.column;
+
         this.idProperty = builder.idProperty;
+        this.readable = builder.isReadable;
         this.writeable = builder.isWriteable;
         this.modifiable = builder.isModifiable;
         this.persistentType = builder.persistentType;
@@ -98,6 +102,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.name;
     }
 
+
     @Override
     public String getColumn() {
         return this.column;
@@ -106,6 +111,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public boolean isIdProperty() {
         return idProperty;
+    }
+
+    @Override
+    public boolean isReadable() {
+        return this.readable;
     }
 
     @Override
@@ -169,6 +179,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private String column;
 
         private boolean idProperty = false;
+        private boolean isReadable = true;
         private boolean isWriteable = true;
         private boolean isModifiable = true;
 
@@ -210,6 +221,12 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         }
 
         @Override
+        public Builder<T> readable(boolean readable) {
+            this.isReadable = readable;
+            return this;
+        }
+
+        @Override
         public Builder<T> writeable(boolean writeable) {
             this.isWriteable = writeable;
             return this;
@@ -217,7 +234,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
         @Override
         public Builder<T> modifiable(boolean modifiable) {
-            this.isModifiable = isModifiable;
+            this.isModifiable = modifiable;
             return this;
         }
 

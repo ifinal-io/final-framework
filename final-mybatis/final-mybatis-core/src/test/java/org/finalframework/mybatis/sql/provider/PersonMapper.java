@@ -15,23 +15,15 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.mybatis.sql.provider;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.finalframework.mybatis.mapper.AbsMapper;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-20 09:25:43
+ * @date 2020-07-17 14:08:30
  * @since 1.0
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Criterion {
-
-    String value();
-
+public interface PersonMapper extends AbsMapper<Long, Person> {
 }

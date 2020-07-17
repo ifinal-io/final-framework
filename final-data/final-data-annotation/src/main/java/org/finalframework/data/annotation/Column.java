@@ -53,4 +53,8 @@ public @interface Column {
 
     @AliasFor("value")
     String name() default "";
+
+    String writer() default "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end #if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
+
+    String reader() default "${column}";
 }

@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion("EQUAL")
+@Criterion(value = "EQUAL")
 public @interface Equal {
-    String value() default "";
+    String[] value() default "<if test=\"${value} != null\">${column} = #{${value}}</if>";
 }

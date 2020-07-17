@@ -18,22 +18,24 @@
 package org.finalframework.mybatis.sql.provider;
 
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.LastModified;
+import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.annotation.Version;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -78,6 +80,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private static final String REPLACE_INTO = "REPLACE INTO";
     private static final String VALUES = "VALUES";
     public static final String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
+
+    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
 
     /**
@@ -151,21 +155,37 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                 properties.stream()
                         .filter(property -> property.isWriteable() && property.hasView(view))
                         .map(property -> {
-                            final StringBuilder builder = new StringBuilder();
 
-                            builder.append("#{").append(property.getName());
-                            // javaType
-                            builder.append(",javaType=").append(property.getType().getCanonicalName());
-                            // typeHandler
-                            final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
-                            if (typeHandler != null) {
-                                builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
-                            }
-                            builder.append("}");
+                            final Metadata metadata = new Metadata();
 
-                            return builder.toString();
+                            metadata.setProperty(property.getName());
+                            metadata.setColumn(property.getColumn());
+                            metadata.setValue(property.getName());
+                            metadata.setJavaType(property.getType());
+                            metadata.setTypeHandler(property.getTypeHandler());
+
+                            final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+
+
+                            final String value = Velocities.getValue(writer, metadata);
+
+                            return value;
+//
+//                            final StringBuilder builder = new StringBuilder();
+//
+//                            builder.append("#{").append(property.getName());
+//                            // javaType
+//                            builder.append(",javaType=").append(property.getType().getCanonicalName());
+//                            // typeHandler
+//                            final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
+//                            if (typeHandler != null) {
+//                                builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
+//                            }
+//                            builder.append("}");
+
+//                            return builder.toString();
                         })
-                        .collect(Collectors.joining(","))));
+                        .collect(Collectors.joining("\n,"))));
 
         foreach.appendChild(values);
 

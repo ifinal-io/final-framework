@@ -31,6 +31,8 @@ import org.finalframework.data.query.operation.DateOperation;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +56,7 @@ class QueryTest {
         final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
+        QProperty<Integer> intList = entity.getProperty("intList");
 
         final Query query = new Query();
         query.where(

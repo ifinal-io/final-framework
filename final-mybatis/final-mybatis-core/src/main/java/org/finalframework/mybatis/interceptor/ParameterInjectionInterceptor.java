@@ -26,16 +26,23 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.annotation.Final;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.data.repository.RepositoryHolder;
 import org.finalframework.data.repository.RepositoryManager;
+import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.spring.annotation.factory.SpringComponent;
+import org.finalframework.util.ProxyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Properties;
 
@@ -67,6 +74,21 @@ public class ParameterInjectionInterceptor implements Interceptor {
     private static final String TABLE_PARAMETER_NAME = "table";
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
+    public static <ID extends Serializable, T extends IEntity<ID>> Class<T> from(@NonNull Class<? extends AbsMapper> mapper) {
+
+        Type[] genericInterfaces = mapper.getGenericInterfaces();
+        for (Type type : genericInterfaces) {
+            if (type instanceof ParameterizedType && Repository.class
+                    .isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
+                Class<ID> id = (Class<ID>) ((ParameterizedType) type).getActualTypeArguments()[0];
+                Class<T> entity = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[1];
+                return entity;
+
+            }
+        }
+        return null;
+    }
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
 
@@ -80,16 +102,18 @@ public class ParameterInjectionInterceptor implements Interceptor {
             final Class<?> mapper = Class.forName(mapperName);
             Object parameter = args[1];
 
-            if (parameter instanceof Map && Repository.class.isAssignableFrom(mapper)) {
+            if (parameter instanceof Map && AbsMapper.class.isAssignableFrom(mapper)) {
                 Map<String, Object> parameters = (Map<String, Object>) parameter;
-                final RepositoryHolder holder = RepositoryManager.from((Class<? extends Repository>) mapper);
-                if (holder != null) {
-//                    Entity.from(holder.getEntity())
-                    final QEntity<?, ?> entity = QEntity.from(holder.getEntity());
-                    parameters.computeIfAbsent(TABLE_PARAMETER_NAME, k -> entity.getTable());
-                    parameters.putIfAbsent(PROPERTIES_PARAMETER_NAME, entity);
 
-                }
+                final Class<IEntity<Serializable>> entityClass = from((Class<? extends AbsMapper>) mapper);
+//                final RepositoryHolder holder = RepositoryManager.from((Class<? extends Repository>) mapper);
+//                if (holder != null) {
+//                    Entity.from(holder.getEntity())
+                final QEntity<?, ?> entity = QEntity.from(entityClass);
+                parameters.computeIfAbsent(TABLE_PARAMETER_NAME, k -> entity.getTable());
+                parameters.putIfAbsent(PROPERTIES_PARAMETER_NAME, entity);
+
+//                }
             }
 
 
@@ -102,6 +126,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
         }
 
     }
+
 
     @Override
     public Object plugin(Object target) {

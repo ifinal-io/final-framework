@@ -24,13 +24,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.Default;
-import org.finalframework.data.annotation.Final;
-import org.finalframework.data.annotation.ReadOnly;
-import org.finalframework.data.annotation.Sharding;
-import org.finalframework.data.annotation.Transient;
-import org.finalframework.data.annotation.Virtual;
-import org.finalframework.data.annotation.WriteOnly;
+import org.finalframework.data.annotation.*;
 import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.data.mapping.PersistentProperty;
@@ -50,7 +44,24 @@ public interface Property extends PersistentProperty<Property> {
         return getType().isEnum();
     }
 
+    /**
+     * @return
+     * @see Column#name()
+     * @see Column#value()
+     */
     String getColumn();
+
+    /**
+     * @return
+     * @see Column#writer()
+     */
+    String getWriter();
+
+    /**
+     * @return
+     * @see Column#reader()
+     */
+    String getReader();
 
     /**
      * @return true if don't have {@link Transient} annotation and have {@link Default} annotation.

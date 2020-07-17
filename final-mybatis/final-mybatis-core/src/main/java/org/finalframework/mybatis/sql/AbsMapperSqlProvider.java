@@ -137,6 +137,19 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         return when;
     }
 
+    default Node whereIdNotNull(Document document) {
+        final Element when = document.createElement("when");
+        when.setAttribute("test", "ids != null");
+        when.appendChild(text(document, "${properties.idProperty.column}"));
+        final Element ifIdPropertyNotNull = document.createElement("if");
+        ifIdPropertyNotNull.setAttribute("test", "properties.idProperty != null");
+        ifIdPropertyNotNull.appendChild(text(document, "${properties.idProperty.column} = #{id}"));
+        when.appendChild(ifIdPropertyNotNull);
+
+
+        return when;
+    }
+
 
 }
 

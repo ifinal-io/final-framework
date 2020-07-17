@@ -18,6 +18,8 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.query.annotation.Page;
+import org.finalframework.data.query.annotation.Size;
 
 import java.io.Serializable;
 
@@ -44,10 +46,12 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
     /**
      * 分页页面
      */
+    @Page
     private Integer page = DEFAULT_PAGE;
     /**
      * 页面宅师
      */
+    @Size
     private Integer size = DEFAULT_SIZE;
     /**
      * 是否启用Count统计

@@ -24,6 +24,7 @@ import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 
 /**
  * @author likly
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory;
  * @date 2018-10-31 11:40
  * @since 1.0
  */
+@Order(0)
 @SpringComponent
 public class IExceptionResultExceptionHandler implements ResultExceptionHandler<IException> {
 

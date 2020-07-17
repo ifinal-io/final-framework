@@ -15,23 +15,26 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.data.query.sql;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import org.finalframework.data.mapping.Entity;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-20 09:25:43
+ * @date 2020-07-14 18:05:29
  * @since 1.0
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Criterion {
+public class QuerySqlNode {
+    public void apply(Node parent, String expression, Object query) {
+        final Document document = parent.getOwnerDocument();
 
-    String value();
+        final Entity<?> entity = Entity.from(query.getClass());
 
+
+    }
 }
+

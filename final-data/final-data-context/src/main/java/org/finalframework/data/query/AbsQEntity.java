@@ -87,6 +87,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                                     .name(MappingUtils.formatPropertyName(property, referenceProperty))
                                                     .column(MappingUtils.formatColumn(entity, property, referenceProperty))
                                                     .views(views)
+                                                    .readable(true)
                                                     .writeable(property.isWriteable())
                                                     .modifiable(property.isModifiable())
                                                     .typeHandler(referenceProperty.getTypeHandler())
@@ -96,12 +97,14 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
 
                     } else {
+
                         addProperty(
                                 QProperty.builder(this, property)
                                         .path(property.getName())
                                         .name(property.getName())
                                         .column(MappingUtils.formatColumn(entity, property, null))
                                         .idProperty(property.isIdProperty())
+                                        .readable(!property.isTransient() && !property.isVirtual() && !property.isWriteOnly())
                                         .writeable(property.isWriteable())
                                         .modifiable(property.isModifiable())
                                         .typeHandler(property.getTypeHandler())

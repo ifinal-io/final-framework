@@ -23,12 +23,15 @@ import java.util.Map;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
+import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.annotation.Version;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.query.UpdateSetOperation;
+import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.scripting.builder.TrimNodeBuilder;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
@@ -61,6 +64,7 @@ import org.w3c.dom.Node;
  * @since 1.0
  */
 public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
+    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     /**
      * @see org.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection,
@@ -100,19 +104,30 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                     .filter(property -> property.isWriteable() && property.hasView(view))
                     .forEach(property -> {
 
-                        final StringBuilder builder = new StringBuilder();
-                        builder.append(property.getColumn()).append(" = ");
-                        builder.append("#{entity.").append(property.getPath());
 
-                        builder.append(",javaType=").append(property.getType().getCanonicalName());
+                        final Metadata metadata = new Metadata();
 
-                        final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
-                        if (typeHandler != null) {
-                            builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
-                        }
+                        metadata.setProperty(property.getName());
+                        metadata.setColumn(property.getColumn());
+                        metadata.setValue(property.getName());
+                        metadata.setJavaType(property.getType());
+                        metadata.setTypeHandler(property.getTypeHandler());
 
-                        builder.append("},");
-                        final Node value = helper.cdata(builder.toString());
+                        final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+
+//                        final StringBuilder builder = new StringBuilder();
+//                        builder.append(property.getColumn()).append(" = ");
+//                        builder.append("#{entity.").append(property.getPath());
+//
+//                        builder.append(",javaType=").append(property.getType().getCanonicalName());
+//
+//                        final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
+//                        if (typeHandler != null) {
+//                            builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
+//                        }
+//
+//                        builder.append("},");
+                        final Node value = helper.cdata(Velocities.getValue(writer, metadata));
 
                         final String test = helper.formatTest("entity", property.getPath(), selective);
                         final Element trim = helper.trim().build();

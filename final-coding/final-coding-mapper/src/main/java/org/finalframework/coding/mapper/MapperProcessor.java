@@ -74,7 +74,7 @@ import java.util.stream.Collectors;
  * @see MapperXml
  * @since 1.0
  */
-@AutoService(Processor.class)
+//@AutoService(Processor.class)
 @SupportedAnnotationTypes("*")
 @SuppressWarnings("unused")
 public class MapperProcessor extends AbstractProcessor {

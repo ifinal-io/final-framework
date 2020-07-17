@@ -22,6 +22,7 @@ import org.finalframework.data.result.R;
 import org.finalframework.data.result.Result;
 import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.core.annotation.Order;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -62,6 +63,7 @@ import java.util.stream.Collectors;
  * @see javax.validation.Valid
  * @since 1.0
  */
+@Order(0)
 @SpringComponent
 @ConditionalOnClass(ConstraintViolationException.class)
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {

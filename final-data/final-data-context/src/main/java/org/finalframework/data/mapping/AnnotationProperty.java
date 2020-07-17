@@ -51,6 +51,19 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return annotation.name();
     });
 
+    private final Lazy<String> writer = Lazy.of(() -> {
+        final Column annotation = findAnnotation(Column.class);
+        if (annotation == null || Assert.isBlank(annotation.writer())) return null;
+        return annotation.writer();
+    });
+
+
+    private final Lazy<String> reader = Lazy.of(() -> {
+        final Column annotation = findAnnotation(Column.class);
+        if (annotation == null || Assert.isBlank(annotation.reader())) return null;
+        return annotation.reader();
+    });
+
     private final Lazy<Boolean> isTransient = Lazy.of(isAnnotationPresent(Transient.class) || super.isTransient());
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
@@ -134,6 +147,16 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @Override
     public String getColumn() {
         return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column.get());
+    }
+
+    @Override
+    public String getWriter() {
+        return this.writer.getNullable();
+    }
+
+    @Override
+    public String getReader() {
+        return this.reader.getNullable();
     }
 
     @Override

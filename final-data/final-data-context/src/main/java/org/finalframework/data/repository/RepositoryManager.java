@@ -23,6 +23,7 @@ import org.finalframework.spring.annotation.factory.SpringComponent;
 import org.springframework.beans.factory.ObjectProvider;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -37,8 +38,9 @@ public class RepositoryManager {
 
     private static Map<Class<? extends Repository>, RepositoryHolder> repositoryHolders = new HashMap();
 
-    public RepositoryManager(ObjectProvider<Repository<?, ?>> repositories) {
-        repositories.stream()
+    public RepositoryManager(ObjectProvider<List<Repository<?, ?>>> repositories) {
+        final List<Repository<?, ?>> list = repositories.getIfAvailable();
+        list.stream()
                 .filter(it -> !(it instanceof AbsService))
                 .map(RepositoryHolder::from)
                 .filter(Objects::nonNull)
