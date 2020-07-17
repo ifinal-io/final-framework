@@ -21,7 +21,7 @@ package org.finalframework.data.query.builder;
 import org.finalframework.data.query.Criteria;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.criterion.SimpleCriterion;
-import org.finalframework.data.query.enums.AndOr;
+import org.finalframework.data.annotation.query.AndOr;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

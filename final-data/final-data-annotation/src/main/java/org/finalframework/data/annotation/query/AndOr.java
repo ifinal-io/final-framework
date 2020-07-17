@@ -15,21 +15,26 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.data.annotation.query;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
+import org.finalframework.data.annotation.Transient;
 
 /**
+ * SQL 元素
+ *
  * @author likly
  * @version 1.0
- * @date 2020-06-07 00:30:09
+ * @date 2018-10-12 16:37
  * @since 1.0
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface And {
+@Transient
+public enum AndOr {
+    /**
+     * AND
+     */
+    AND,
+    /**
+     * OR
+     */
+    OR;
 }

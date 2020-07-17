@@ -19,9 +19,8 @@ package org.finalframework.coding.mapper.builder;
 
 
 import org.finalframework.coding.entity.Entity;
-import org.finalframework.coding.entity.Property;
 import org.finalframework.coding.mapper.TypeHandlers;
-import org.finalframework.data.query.enums.AndOr;
+import org.finalframework.data.annotation.query.AndOr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

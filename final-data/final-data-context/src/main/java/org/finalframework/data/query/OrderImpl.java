@@ -17,7 +17,7 @@
 
 package org.finalframework.data.query;
 
-import org.finalframework.data.query.enums.Direction;
+import org.finalframework.data.annotation.query.Direction;
 
 /**
  * @author likly

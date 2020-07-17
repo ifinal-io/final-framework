@@ -15,23 +15,26 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.data.query.sql;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import lombok.Data;
+import org.finalframework.data.annotation.query.EQUAL;
+import org.finalframework.data.annotation.query.NOT_EQUAL;
+import org.finalframework.data.annotation.query.OR;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-20 09:25:43
+ * @date 2020-07-17 18:02:52
  * @since 1.0
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Criterion {
-
-    String value();
-
+@Data
+@OR
+public class MyQuery {
+    @EQUAL
+    private String name;
+    @NOT_EQUAL
+    private Integer age;
 }
+

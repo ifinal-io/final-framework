@@ -23,6 +23,7 @@ import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.sql.QuerySqlNode;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
@@ -60,7 +61,6 @@ public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     @Override
     public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
 
-        Object id = parameters.get("id");
         Object query = parameters.get("query");
 
         Class<?> view = (Class<?>) parameters.get("view");
@@ -118,6 +118,8 @@ public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             script.appendChild(where(document, whereIdsNotNull(document)));
         } else if (query instanceof Query) {
             ((Query) query).apply(script, "query");
+        } else {
+            new QuerySqlNode().apply(script, "query", entity, query.getClass());
         }
 
     }

@@ -56,8 +56,8 @@ class SelectSqlProviderTest {
 
         parameters.put("table", "person");
         parameters.put("view", null);
-        parameters.put("id", 1L);
-        parameters.put("query", null);
+        parameters.put("id", null);
+        parameters.put("query", new PersonQuery());
 
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
 

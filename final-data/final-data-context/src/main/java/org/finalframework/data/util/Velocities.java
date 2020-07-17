@@ -18,15 +18,19 @@
 package org.finalframework.data.util;
 
 
+import ch.qos.logback.classic.Level;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.tools.Scope;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.finalframework.core.Assert;
 import org.finalframework.data.velocity.StringTemplateResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -48,17 +52,30 @@ public final class Velocities {
     private static ToolManager toolManager;
 
     static {
+
+        final Logger apacheLogger = LoggerFactory.getLogger("org.apache");
+        if (apacheLogger instanceof ch.qos.logback.classic.Logger) {
+            ((ch.qos.logback.classic.Logger) apacheLogger).setLevel(Level.ERROR);
+        }
+
+        Logger logger = LoggerFactory.getLogger(RuntimeConstants.DEFAULT_RUNTIME_LOG_NAME);
+        if (logger instanceof ch.qos.logback.classic.Logger) {
+            ((ch.qos.logback.classic.Logger) logger).setLevel(Level.ERROR);
+        }
         //加载器名称
         p.setProperty("resource.loader", "template");
         //配置加载器实现类
         p.setProperty("template.resource.loader.class", StringTemplateResourceLoader.class.getCanonicalName());
         p.setProperty("input.encoding", "UTF-8");
         p.setProperty("output.encoding", "UTF-8");
+        p.setProperty("log4j.logger.org.apache", "ERROR");
         p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogChute");
         ve.init(p);
         if (!Scope.exists("coding")) {
             Scope.add("coding");
         }
+
+
         toolManager = new ToolManager();
         toolManager.setVelocityEngine(ve);
         toolManager.configure(ConfigurationUtils.getDefaultTools());

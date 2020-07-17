@@ -15,21 +15,35 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.mybatis.sql.provider;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import lombok.Data;
+import org.finalframework.data.annotation.query.*;
+
+import java.util.List;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
+ * @date 2020-07-17 22:33:00
  * @since 1.0
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Page {
-    String value() default "";
+@Data
+public class PersonQuery {
+    @BETWEEN("age")
+    BetweenValue<Integer> ageBetween;
+    @NOT_BETWEEN("age")
+    BetweenValue<Integer> ageNotBetween;
+    @EQUAL
+    private String name;
+    @NOT_EQUAL
+    private Integer age;
+    @IS_NOT_NULL("name")
+    private String nameIsNotNull;
+    @IS_NULL("name")
+    private String nameIsNull;
+    @IN("age")
+    private List<Integer> ages;
 }
+

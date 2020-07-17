@@ -15,21 +15,36 @@
  *
  */
 
-package org.finalframework.data.query.annotation;
+package org.finalframework.data.annotation.query;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.finalframework.data.annotation.Transient;
 
 /**
+ * 方向
+ *
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
+ * @date 2018-10-15 21:17
  * @since 1.0
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Size {
-    String value() default "";
+@Transient
+public enum Direction {
+    /**
+     * 正序
+     */
+    ASC("ASC"),
+    /**
+     * 倒序
+     */
+    DESC("DESC");
+
+    private final String value;
+
+    Direction(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

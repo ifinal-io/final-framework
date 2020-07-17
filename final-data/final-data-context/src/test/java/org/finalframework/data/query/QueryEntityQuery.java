@@ -19,8 +19,8 @@ package org.finalframework.data.query;
 
 
 import lombok.Data;
-import org.finalframework.data.query.annotation.Equal;
-import org.finalframework.data.query.annotation.Or;
+import org.finalframework.data.annotation.query.EQUAL;
+import org.finalframework.data.annotation.query.OR;
 
 /**
  * @author likly
@@ -29,11 +29,11 @@ import org.finalframework.data.query.annotation.Or;
  * @since 1.0
  */
 @Data
-@Or
+@OR
 public class QueryEntityQuery {
-    @Equal
+    @EQUAL
     private String name;
-    @Equal
+    @EQUAL
     private Integer age;
 }
 

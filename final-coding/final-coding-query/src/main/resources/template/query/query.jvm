@@ -6,9 +6,6 @@
 #* @formatter:off *#
 package ${packageName};
 
-import org.finalframework.data.query.AbsQuery;
-import org.finalframework.data.query.enums.AndOr;
-
 import javax.annotation.Generated;
 
 /**

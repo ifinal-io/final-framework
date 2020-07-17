@@ -18,7 +18,7 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
-import org.finalframework.data.query.enums.Direction;
+import org.finalframework.data.annotation.query.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;

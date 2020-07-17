@@ -18,6 +18,7 @@
 package org.finalframework.mybatis.sql.script;
 
 
+import org.finalframework.data.annotation.query.Direction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -38,7 +39,7 @@ import org.w3c.dom.Node;
  * @date 2020-06-05 21:58:29
  * @see org.finalframework.data.query.Sort
  * @see org.finalframework.data.query.Order
- * @see org.finalframework.data.query.enums.Direction
+ * @see Direction
  * @since 1.0
  */
 public class OrderSqlNodeBuilder implements ScriptSqlNodeBuilder {
