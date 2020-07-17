@@ -37,7 +37,7 @@ import java.sql.SQLException;
  * @see java.util.Set
  * @since 1.0
  */
-public class JsonTypeHandler extends ParameterTypeHandler<Object> {
+public class JsonParameterTypeHandler extends ParameterTypeHandler<Object> {
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException {
         ps.setString(i, Json.toJson(parameter));

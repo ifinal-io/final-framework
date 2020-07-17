@@ -15,26 +15,26 @@
  *
  */
 
-package org.finalframework.data.query.operation.function;
+package org.finalframework.data.annotation;
 
 
-import org.finalframework.data.query.operation.Operation;
+import lombok.Data;
+import org.apache.ibatis.type.TypeHandler;
+
+import java.io.Serializable;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2020-05-30 12:54:36
+ * @date 2020-07-17 14:31:00
  * @since 1.0
  */
-public class AvgFunctionOperation implements FunctionOperation {
-    @Override
-    public Operation operation() {
-        return MathOperation.AVG;
-    }
-
-    @Override
-    public String apply(Object value) {
-        return String.format("AVG(%s)", value);
-    }
+@Data
+public class Metadata implements Serializable {
+    private String property;
+    private String column;
+    private String value;
+    private Class<?> javaType;
+    private Class<? extends TypeHandler<?>> typeHandler;
 }
 
