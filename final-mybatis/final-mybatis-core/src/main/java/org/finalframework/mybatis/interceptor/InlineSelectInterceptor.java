@@ -27,7 +27,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.query.Pageable;
+import org.finalframework.data.annotation.query.Pageable;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;

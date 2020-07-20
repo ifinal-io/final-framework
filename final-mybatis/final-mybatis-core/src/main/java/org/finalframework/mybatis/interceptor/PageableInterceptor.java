@@ -25,7 +25,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.data.query.PageQuery;
-import org.finalframework.data.query.Pageable;
+import org.finalframework.data.annotation.query.Pageable;
 
 import java.util.Map;
 import java.util.Properties;

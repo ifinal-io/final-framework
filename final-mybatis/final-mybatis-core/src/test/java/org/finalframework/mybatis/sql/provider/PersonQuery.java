@@ -31,19 +31,25 @@ import java.util.List;
  */
 @Data
 public class PersonQuery {
-    @BETWEEN("age")
+    @BETWEEN(property = "age")
     BetweenValue<Integer> ageBetween;
-    @NOT_BETWEEN("age")
+    @NOT_BETWEEN(property = "age")
     BetweenValue<Integer> ageNotBetween;
     @EQUAL
     private String name;
     @NOT_EQUAL
     private Integer age;
-    @IS_NOT_NULL("name")
+    @IS_NOT_NULL(property = "name")
     private String nameIsNotNull;
-    @IS_NULL("name")
+    @IS_NULL(property = "name")
     private String nameIsNull;
-    @IN("age")
+    @IN(property = "age")
     private List<Integer> ages;
+    @JSON_CONTAINS(property = "name", attributes = @Criterion.Attribute(name = "path", value = "$.name"))
+    private String jsonContains;
+    @Offset
+    private Integer offset;
+    @Limit
+    private Integer limit;
 }
 

@@ -15,7 +15,7 @@
  *
  */
 
-package org.finalframework.data.query;
+package org.finalframework.data.annotation.query;
 
 import org.springframework.lang.Nullable;
 
@@ -27,7 +27,7 @@ import org.springframework.lang.Nullable;
  * @date 2019-02-18 19:21:21
  * @since 1.0
  */
-public interface Pageable {
+public interface Pageable extends IQuery {
     /**
      * 返回分页页码
      *

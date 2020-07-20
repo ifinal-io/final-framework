@@ -19,6 +19,7 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.parsing.XNode;
@@ -36,6 +37,7 @@ import java.util.Map;
  * @author likly
  * @version 1.0
  * @date 2020-06-03 21:42:15
+ * @see ProviderSqlSource
  * @since 1.0
  */
 public interface ScriptSqlProvider extends SqlProvider {

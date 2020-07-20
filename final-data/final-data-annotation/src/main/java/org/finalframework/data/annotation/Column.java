@@ -23,6 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.finalframework.data.annotation.query.ColumnHandler;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
@@ -65,4 +66,6 @@ public @interface Column {
      * @see Metadata
      */
     String reader() default "${column}";
+
+    Class<? extends ColumnHandler> handler() default ColumnHandler.class;
 }

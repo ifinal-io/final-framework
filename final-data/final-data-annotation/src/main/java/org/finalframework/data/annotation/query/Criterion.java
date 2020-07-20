@@ -23,9 +23,31 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * The meta annotation for criterion.
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-20 09:25:43
+ * @see MeteData
+ * @see CriterionHandler
+ * @see EQUAL
+ * @see NOT_EQUAL
+ * @see GREAT_THAN
+ * @see GREAT_THAN_EQUAL
+ * @see LESS_THAN
+ * @see LESS_THAN_EQUAL
+ * @see LIKE
+ * @see NOT_LIKE
+ * @see CONTAINS
+ * @see NOT_CONTAINS
+ * @see START_WITH
+ * @see NOT_START_WITH
+ * @see END_WITH
+ * @see NOT_END_WITH
+ * @see IN
+ * @see NOT_IN
+ * @see BETWEEN
+ * @see NOT_BETWEEN
  * @since 1.0
  */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
@@ -34,8 +56,18 @@ public @interface Criterion {
 
     String property() default "";
 
-    String[] value();
+    String[] value() default {};
 
     Class<?> javaType() default Object.class;
+
+    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
+
+    Attribute[] attributes() default {};
+
+    @interface Attribute {
+        String name();
+
+        String value();
+    }
 
 }

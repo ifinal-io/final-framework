@@ -32,18 +32,17 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion(
-        value = {
-                "<script>",
-                "   <if test=\"${value} != null\">",
-                "       <foreach collection=\"${value}\" item=\"item\" open=\"${andOr} ${column} IN (\" close=\")\" separator=\",\">#{item}</foreach>",
-                "   </if>",
-                "</script>"
-        }
-)
+@Criterion
 public @interface IN {
     @AliasFor(annotation = Criterion.class, attribute = "property")
-    String value() default "";
+    String property() default "";
+
+    @AliasFor(annotation = Criterion.class, attribute = "value")
+    String[] value() default {
+            "<if test=\"${value} != null\">",
+            "    <foreach collection=\"${value}\" item=\"item\" open=\"${andOr} ${column} IN (\" close=\")\" separator=\",\">#{item}</foreach>",
+            "</if>"
+    };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;

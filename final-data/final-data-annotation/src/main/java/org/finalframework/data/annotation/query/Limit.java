@@ -15,13 +15,27 @@
  *
  */
 
-package org.finalframework.data.query;
+package org.finalframework.data.annotation.query;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-12 12:41:09
+ * @date 2020-07-20 11:13:36
+ * @see Offset
  * @since 1.0
  */
-public interface IQuery {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Limit {
+    String[] value() default {
+            "<if test=\"${value} != null\">",
+            "   #{value}",
+            "</if>"
+    };
 }

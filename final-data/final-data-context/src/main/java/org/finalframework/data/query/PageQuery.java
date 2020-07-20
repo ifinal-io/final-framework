@@ -18,7 +18,9 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.query.IQuery;
 import org.finalframework.data.annotation.query.Page;
+import org.finalframework.data.annotation.query.Pageable;
 import org.finalframework.data.annotation.query.Size;
 
 import java.io.Serializable;

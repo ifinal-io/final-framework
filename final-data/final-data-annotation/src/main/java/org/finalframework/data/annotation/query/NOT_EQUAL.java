@@ -32,18 +32,17 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion(
-        value = {
-                "<script>",
-                "<if test=\"${value} != null\">",
-                "<![CDATA[${andOr} ${column} != #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
-                "</if>",
-                "</script>"
-        }
-)
+@Criterion
 public @interface NOT_EQUAL {
     @AliasFor(annotation = Criterion.class, attribute = "property")
-    String value() default "";
+    String property() default "";
+
+    @AliasFor(annotation = Criterion.class, attribute = "value")
+    String[] value() default {
+            "<if test=\"${value} != null\">",
+            "   <![CDATA[${andOr} ${column} != #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
+            "</if>"
+    };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;

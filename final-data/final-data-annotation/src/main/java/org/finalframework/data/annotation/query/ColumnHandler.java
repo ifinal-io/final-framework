@@ -15,29 +15,20 @@
  *
  */
 
-package org.finalframework.data.annotation;
+package org.finalframework.data.annotation.query;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.finalframework.data.annotation.Column;
+import org.springframework.lang.NonNull;
 
 /**
- * Mark the {@linkplain java.lang.reflect.Field property} annotated by {@link Final} is {@literal final} which can not be update.
- *
  * @author likly
  * @version 1.0
- * @date 2018-10-15 15:14
- * @see PrimaryKey
- * @see Creator
- * @see ReadOnly
+ * @date 2020-07-20 09:43:59
  * @since 1.0
  */
-@Column
-@Documented
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Final {
+public interface ColumnHandler {
 
+    String handleWriter(@NonNull Column column, @NonNull MeteData meteData);
+
+    String handleReader(@NonNull Column column, @NonNull MeteData meteData);
 }

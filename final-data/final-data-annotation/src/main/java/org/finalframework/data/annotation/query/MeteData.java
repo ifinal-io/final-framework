@@ -20,8 +20,10 @@ package org.finalframework.data.annotation.query;
 
 import lombok.Builder;
 import lombok.Data;
+import org.finalframework.data.annotation.TypeHandler;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author likly
@@ -37,5 +39,7 @@ public class MeteData implements Serializable {
     private String value;
     private String path;
     private Class<?> javaType;
+    private Class<? extends TypeHandler> typeHandler;
+    private Map<String, String> attributes;
 }
 

@@ -32,18 +32,17 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion(
-        value = {
-                "<script>",
-                "<if test=\"${value} != null\">",
-                "<![CDATA[${andOr} ${column} IS NOT NULL]]>",
-                "</if>",
-                "</script>"
-        }
-)
+@Criterion
 public @interface IS_NOT_NULL {
     @AliasFor(annotation = Criterion.class, attribute = "property")
-    String value() default "";
+    String property() default "";
+
+    @AliasFor(annotation = Criterion.class, attribute = "value")
+    String[] value() default {
+            "<if test=\"${value} != null\">",
+            "<![CDATA[${andOr} ${column} IS NOT NULL]]>",
+            "</if>"
+    };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;

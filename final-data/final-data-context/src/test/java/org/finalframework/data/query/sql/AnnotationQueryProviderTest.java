@@ -23,8 +23,6 @@ import org.apache.ibatis.parsing.XPathParser;
 import org.finalframework.data.query.QueryEntity;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author likly
  * @version 1.0
@@ -32,20 +30,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 1.0
  */
 @Slf4j
-class QuerySqlNodeTest {
+class AnnotationQueryProviderTest {
 
     @Test
     void apply() {
 
-        final XPathParser parser = new XPathParser("<script></script>");
+
+        final AnnotationQueryProvider annotationQueryProvider = new AnnotationQueryProvider();
+        final String query = annotationQueryProvider.provide("query", QueryEntity.class, MyQuery.class);
+        final String value = String.join("", "<script>", query, "</script>");
+        final XPathParser parser = new XPathParser(value);
         final XNode script = parser.evalNode("//script");
-
-        final QuerySqlNode querySqlNode = new QuerySqlNode();
-        querySqlNode.apply(script.getNode(), "query", QueryEntity.class, MyQuery.class);
-
-
         final String sql = script.toString();
-        logger.info("sql ==> \n{}", sql);
+        logger.info("query ==> \n{}", sql);
         if (logger.isDebugEnabled()) {
             final String[] sqls = sql.split("\n");
             for (String item : sqls) {

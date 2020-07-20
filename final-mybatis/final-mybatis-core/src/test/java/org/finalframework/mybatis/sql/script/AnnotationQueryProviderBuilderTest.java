@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @date 2020-06-05 22:32:18
  * @since 1.0
  */
-class QuerySqlNodeBuilderTest {
+class AnnotationQueryProviderBuilderTest {
 
     private static final Logger logger = LoggerFactory.getLogger(LimitSqlNodeBuilderTest.class);
 

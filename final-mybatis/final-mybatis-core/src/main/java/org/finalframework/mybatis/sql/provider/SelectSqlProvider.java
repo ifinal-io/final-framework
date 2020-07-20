@@ -20,16 +20,19 @@ package org.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.core.Assert;
+import org.finalframework.core.parser.xml.XNode;
+import org.finalframework.core.parser.xml.XPathParser;
 import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
-import org.finalframework.data.query.sql.QuerySqlNode;
+import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 
 import java.util.Collection;
 import java.util.Map;
@@ -119,7 +122,12 @@ public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         } else if (query instanceof Query) {
             ((Query) query).apply(script, "query");
         } else {
-            new QuerySqlNode().apply(script, "query", entity, query.getClass());
+            final String provide = new AnnotationQueryProvider().provide("query", entity, query.getClass());
+            final XPathParser parser = new XPathParser(String.join("", "<script>", provide, "</script>"));
+            final XNode evalNode = parser.evalNode("//script");
+            for (XNode child : evalNode.getChildren()) {
+                script.appendChild(script.getOwnerDocument().importNode(child.getNode(), true));
+            }
         }
 
     }

@@ -15,29 +15,14 @@
  *
  */
 
-package org.finalframework.data.annotation;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.finalframework.data.annotation.query;
 
 /**
- * Mark the {@linkplain java.lang.reflect.Field property} annotated by {@link Final} is {@literal final} which can not be update.
  *
  * @author likly
  * @version 1.0
- * @date 2018-10-15 15:14
- * @see PrimaryKey
- * @see Creator
- * @see ReadOnly
+ * @date 2019-02-12 12:41:09
  * @since 1.0
  */
-@Column
-@Documented
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Final {
-
+public interface IQuery {
 }
