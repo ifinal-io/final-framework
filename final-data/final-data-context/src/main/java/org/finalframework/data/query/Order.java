@@ -46,8 +46,7 @@ public interface Order extends SqlNode {
     Direction getDirection();
 
     @Override
-    default void apply(Node parent, String value) {
-        final Document document = parent.getOwnerDocument();
-        parent.appendChild(document.createTextNode(String.format("%s %s,", getProperty().getColumn(), getDirection())));
+    default void apply(StringBuilder sql, String value) {
+        sql.append(String.format("%s %s,", getProperty().getColumn(), getDirection()));
     }
 }

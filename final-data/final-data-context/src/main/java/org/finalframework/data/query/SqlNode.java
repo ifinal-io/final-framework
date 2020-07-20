@@ -17,7 +17,6 @@
 
 package org.finalframework.data.query;
 
-import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -26,5 +25,5 @@ import org.w3c.dom.Node;
  * @since 1.0
  */
 public interface SqlNode {
-    void apply(Node parent, String expression);
+    void apply(StringBuilder sql, String expression);
 }

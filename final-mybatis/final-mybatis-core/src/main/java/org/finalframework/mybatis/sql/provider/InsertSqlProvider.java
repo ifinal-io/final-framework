@@ -105,8 +105,10 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         return provide(context, parameters);
     }
 
+
     @Override
-    public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
+    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+
         final String insertPrefix = getInsertPrefix(context.getMapperMethod(),
                 parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
 
@@ -115,104 +117,99 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
 
-        final ScriptMapperHelper helper = new ScriptMapperHelper(document);
 
         /*
          *  <trim prefix="INSERT INFO | INSERT IGNORE INTO | REPLACE INTO">
          *      ${table}
          *  </trim>
          */
-        final Element insert = helper.trim().prefix(insertPrefix).build();
-        insert.appendChild(helper.cdata("${table}"));
-        script.appendChild(insert);
 
+        sql.append("<trim prefix=\"").append(insertPrefix).append("\">")
+                .append(ScriptMapperHelper.table())
+                .append("</trim>");
         /*
          * <trim prefix="(" suffix=")">
          *      columns
          * </trim>
          */
-        final Element columns = helper.trim().prefix("(").suffix(")").build();
-        columns.appendChild(helper.cdata(
+
+        sql.append("<trim prefix=\"(\" suffix=\")\">");
+        sql.append(ScriptMapperHelper.cdata(
                 properties.stream()
                         .filter(property -> property.isWriteable() && property.hasView(view))
                         .map(QProperty::getColumn)
                         .collect(Collectors.joining(","))
         ));
-        script.appendChild(columns);
+        sql.append("</trim>");
 
-        final Element foreach = helper.foreach().collection("list").item("entity").open(VALUES).build();
+        /**
+         * <foreach collection="list" item="entity" open="VALUES">
+         *      <trim prefix="(" suffix=")">
+         *          values
+         *      </trim>
+         * </foreach>
+         */
+
+        sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\">");
 
         properties.stream()
                 .filter(property -> property.isWriteable() && property.hasView(view))
-                .forEach(property -> {
-                    foreach
-                            .appendChild(helper.bind(property.getName(), helper.formatBindValue("entity", property.getPath())));
-                });
+                .forEach(property -> sql.append(ScriptMapperHelper.bind(property.getName(), ScriptMapperHelper.formatBindValue("entity", property.getPath()))));
 
-        final Element values = helper.trim().prefix("(").suffix(")").build();
+        sql.append("<trim prefix=\"(\" suffix=\")\">");
+        final String values = properties.stream()
+                .filter(property -> property.isWriteable() && property.hasView(view))
+                .map(property -> {
+                    final Metadata metadata = new Metadata();
+                    metadata.setProperty(property.getName());
+                    metadata.setColumn(property.getColumn());
+                    metadata.setValue(property.getName());
+                    metadata.setJavaType(property.getType());
+                    metadata.setTypeHandler(property.getTypeHandler());
 
-        values.appendChild(helper.cdata(
-                properties.stream()
-                        .filter(property -> property.isWriteable() && property.hasView(view))
-                        .map(property -> {
+                    final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                    final String value = Velocities.getValue(writer, metadata);
+                    return value;
+                })
+                .collect(Collectors.joining("\n,"));
 
-                            final Metadata metadata = new Metadata();
+        sql.append(values);
 
-                            metadata.setProperty(property.getName());
-                            metadata.setColumn(property.getColumn());
-                            metadata.setValue(property.getName());
-                            metadata.setJavaType(property.getType());
-                            metadata.setTypeHandler(property.getTypeHandler());
+        sql.append("</trim>");
 
-                            final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+        sql.append("</foreach>");
 
-
-                            final String value = Velocities.getValue(writer, metadata);
-
-                            return value;
-//
-//                            final StringBuilder builder = new StringBuilder();
-//
-//                            builder.append("#{").append(property.getName());
-//                            // javaType
-//                            builder.append(",javaType=").append(property.getType().getCanonicalName());
-//                            // typeHandler
-//                            final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
-//                            if (typeHandler != null) {
-//                                builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
-//                            }
-//                            builder.append("}");
-
-//                            return builder.toString();
-                        })
-                        .collect(Collectors.joining("\n,"))));
-
-        foreach.appendChild(values);
-
-        script.appendChild(foreach);
 
         if (METHOD_SAVE.equals(context.getMapperMethod().getName())) {
-            Element onDuplicateKeyUpdate = helper.trim().prefix(ON_DUPLICATE_KEY_UPDATE).build();
 
-            onDuplicateKeyUpdate.appendChild(helper.cdata(
-                    properties.stream()
-                            .filter(property -> (property.isWriteable() && property.hasView(view))
-                                    || property.getProperty().hasAnnotation(Version.class)
-                                    || property.getProperty().hasAnnotation(LastModified.class))
-                            .map(property -> {
-                                String column = property.getColumn();
-                                if (property.getProperty().hasAnnotation(Version.class)) {
-                                    return String.format("%s = %s + 1", column, column);
-                                } else if (property.getProperty().hasAnnotation(LastModified.class)) {
-                                    return String.format("%s = NOW()", column);
-                                } else {
-                                    return String.format("%s = values(%s)", column, column);
-                                }
-                            })
-                            .collect(Collectors.joining(","))
-            ));
+            /**
+             * <trim prefix="ON DUPLICATE KEY UPDATE">
+             *
+             * </trim>
+             */
 
-            script.appendChild(onDuplicateKeyUpdate);
+
+            final String onDuplicateKeyUpdate = properties.stream()
+                    .filter(property -> (property.isWriteable() && property.hasView(view))
+                            || property.getProperty().hasAnnotation(Version.class)
+                            || property.getProperty().hasAnnotation(LastModified.class))
+                    .map(property -> {
+                        String column = property.getColumn();
+                        if (property.getProperty().hasAnnotation(Version.class)) {
+                            return String.format("%s = %s + 1", column, column);
+                        } else if (property.getProperty().hasAnnotation(LastModified.class)) {
+                            return String.format("%s = NOW()", column);
+                        } else {
+                            return String.format("%s = values(%s)", column, column);
+                        }
+                    }).collect(Collectors.joining(","));
+
+            sql.append("<trim prefix=\"ON DUPLICATE KEY UPDATE\">");
+
+            sql.append(ScriptMapperHelper.cdata(onDuplicateKeyUpdate));
+
+            sql.append("</trim>");
+
         }
 
     }

@@ -18,11 +18,8 @@
 package org.finalframework.data.query;
 
 import org.finalframework.core.Streamable;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.annotation.query.AndOr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import org.finalframework.data.query.criterion.Criterion;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -77,26 +74,21 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
     Criteria or(Criteria... criteria);
 
     @Override
-    default void apply(Node parent, String value) {
+    default void apply(StringBuilder sql, String value) {
 
-        final Document document = parent.getOwnerDocument();
+
+        sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
         int index = 0;
 
-        final Element criteria = document.createElement("trim");
-        criteria.setAttribute("prefix", "(");
-        criteria.setAttribute("prefixOverrides", "AND |OR ");
-        criteria.setAttribute("suffix", ")");
-
         for (Criterion criterion : this) {
-            final Element trim = document.createElement("trim");
-            trim.setAttribute("prefix", String.format(" %s ", andOr().name()));
-            criterion.apply(trim, String.format("%s.criteria[%d]", value, index));
-            criteria.appendChild(trim);
+            sql.append(String.format("<trim prefix=\"%s\">", andOr().name()))
+                    .append(String.format("%s.criteria[%d]", value, index))
+                    .append("</trim>");
             index++;
         }
 
+        sql.append("</trim>");
 
-        parent.appendChild(criteria);
 
     }
 }

@@ -27,6 +27,7 @@ import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -57,7 +58,10 @@ class SelectSqlProviderTest {
         parameters.put("table", "person");
         parameters.put("view", null);
         parameters.put("id", null);
-        parameters.put("query", new PersonQuery());
+        final PersonQuery query = new PersonQuery();
+        query.setLocation(new Point());
+        query.setDistance(1L);
+        parameters.put("query", query);
 
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
 

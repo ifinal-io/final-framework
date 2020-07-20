@@ -36,36 +36,32 @@ import java.lang.reflect.Array;
  */
 public class BaseCriterion implements Serializable {
 
-    protected void applyValueCriterion(@NonNull Document document, @NonNull Node parent, Object value, String prefix, String suffix, String expression) {
-        final Element trim = document.createElement("trim");
+    protected void applyValueCriterion(@NonNull StringBuilder sql, Object value, String prefix, String suffix, String expression) {
+
+        sql.append("<trim");
+
         if (prefix != null) {
-            trim.setAttribute("prefix", prefix);
-        }
-        if (suffix != null) {
-            trim.setAttribute("suffix", suffix);
+            sql.append(" prefix=\"").append(prefix).append("\"");
         }
 
+        if (suffix != null) {
+            sql.append(" suffix=\"").append(suffix).append("\"");
+        }
+
+        sql.append(">");
 
         if (value instanceof SqlNode) {
-            ((SqlNode) value).apply(trim, expression);
+            ((SqlNode) value).apply(sql, expression);
         } else if (value instanceof QProperty) {
-            trim.appendChild(document.createTextNode(((QProperty<?>) value).getColumn()));
-//            trim.appendChild(document.createTextNode(String.format("${%s.column}", expression)));
+            sql.append(((QProperty<?>) value).getColumn());
         } else if (value instanceof Iterable || value instanceof Array) {
-            final Element foreach = document.createElement("foreach");
-
-            foreach.setAttribute("collection", expression);
-            foreach.setAttribute("item", "item");
-            foreach.setAttribute("separator", ",");
-
-            foreach.appendChild(document.createTextNode("#{item}"));
-
-            trim.appendChild(foreach);
+            sql.append("<foreach collection=\"").append(expression).append("\" item=\"item\" separator=\",\">#{item}</foreach>");
         } else {
-            trim.appendChild(document.createTextNode(String.format("#{%s}", expression)));
+            sql.append("#{").append(expression).append("}");
         }
 
-        parent.appendChild(trim);
+        sql.append("</trim>");
+
     }
 }
 

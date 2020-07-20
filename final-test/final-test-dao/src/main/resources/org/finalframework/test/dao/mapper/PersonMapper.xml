@@ -20,15 +20,44 @@
 <mapper namespace="org.finalframework.test.dao.mapper.PersonMapper">
 
     <sql id="test">
-        SELECT
-        <foreach collection="update" item="item" separator=",">
-
-        </foreach>
         <trim prefix="SELECT">age,created,id,last_modified,MAX(age) as max_age,name,ST_ASTEXT(point) as
             point,vcolumn,version,yn
         </trim>
         <trim prefix="FROM">${table}</trim>
-        <where>ST_Distance(name,ST_GeomFromText(#{query.distance.location})) &a #{query.distance.distance}</where>
+        <where>
+            <if test="query.distance != null">
+                <![CDATA[AND ST_Distance(name,ST_GeomFromText(#{query.location})) < #{query.distance}]]></if>
+            <if test="query.name != null"><![CDATA[AND DATE(name,4) = #{query.name}]]></if>
+        </where>
+        <trim prefix="INSERT INTO">${table}</trim>
+        <trim prefix="(" suffix=")">
+            <![CDATA[age,creator_name,creator,int_list,last_modifier_name,last_modifier,name,properties,string_list]]>
+        </trim>
+        <foreach collection="list" item="entity" open="VALUES">
+            <bind name="age" value="entity.age"/>
+            <bind name="creatorName"
+                  value="entity.creator == null || entity.creator.name == null ? null : entity.creator.name"/>
+            <bind name="creator"
+                  value="entity.creator == null || entity.creator.id == null ? null : entity.creator.id"/>
+            <bind name="intList" value="entity.intList"/>
+            <bind name="lastModifierName"
+                  value="entity.lastModifier == null || entity.lastModifier.name == null ? null : entity.lastModifier.name"/>
+            <bind name="lastModifier"
+                  value="entity.lastModifier == null || entity.lastModifier.id == null ? null : entity.lastModifier.id"/>
+            <bind name="name" value="entity.name"/>
+            <bind name="properties" value="entity.properties"/>
+            <bind name="stringList" value="entity.stringList"/>
+            <trim prefix="(" suffix=")">#{age,javaType=java.lang.Integer}
+                ,#{creatorName,javaType=java.lang.String}
+                ,#{creator,javaType=java.lang.Long}
+                ,#{intList,javaType=java.lang.Integer,typeHandler=org.finalframework.data.query.type.JsonParameterTypeHandler}
+                ,#{lastModifierName,javaType=java.lang.String}
+                ,#{lastModifier,javaType=java.lang.Long}
+                ,#{name,javaType=java.lang.String}
+                ,#{properties,javaType=java.util.Map,typeHandler=org.finalframework.data.query.type.JsonParameterTypeHandler}
+                ,#{stringList,javaType=java.lang.String,typeHandler=org.finalframework.data.query.type.JsonParameterTypeHandler}
+            </trim>
+        </foreach>
     </sql>
 
 </mapper>

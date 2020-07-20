@@ -17,9 +17,8 @@
 
 package org.finalframework.data.query;
 
-import org.finalframework.data.query.builder.CriteriaSqlBuilder;
-import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.data.annotation.query.AndOr;
+import org.finalframework.data.query.criterion.Criterion;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -30,7 +29,7 @@ import java.util.stream.Stream;
  * @date 2019-01-18 16:03:52
  * @since 1.0
  */
-public class CriteriaImpl implements Criteria, Sql<Criteria> {
+public class CriteriaImpl implements Criteria {
     private final AndOr andOr;
     private final Collection<Criterion> criteria;
 
@@ -86,9 +85,5 @@ public class CriteriaImpl implements Criteria, Sql<Criteria> {
         return criteria.iterator();
     }
 
-    @Override
-    public String getSql() {
-        return new CriteriaSqlBuilder(this).build();
-    }
 
 }

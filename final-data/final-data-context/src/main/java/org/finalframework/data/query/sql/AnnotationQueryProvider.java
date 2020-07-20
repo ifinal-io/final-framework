@@ -40,6 +40,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AnnotationQueryProvider implements QueryProvider {
 
+    public static final AnnotationQueryProvider INSTANCE = new AnnotationQueryProvider();
+
+    private AnnotationQueryProvider() {
+    }
+
     @Override
     public String provide(String expression, Class<?> entity, Class<?> query) {
 
@@ -60,7 +65,8 @@ public class AnnotationQueryProvider implements QueryProvider {
                 final String path = Assert.isBlank(criterion.property()) ? property.getName() : criterion.property();
                 // format the column with function
 
-                final MeteData meteData = MeteData.builder().andOr(andOr)
+                final Metadata metadata = Metadata.builder().andOr(andOr)
+                        .query(expression)
                         .column(properties.getProperty(path).getColumn())
                         .value(String.format("%s.%s", expression, property.getName()))
                         .path(String.format("%s.%s", expression, property.getName()))
@@ -70,10 +76,10 @@ public class AnnotationQueryProvider implements QueryProvider {
 
                 if (property.isAnnotationPresent(Function.class)) {
                     final Function function = property.getRequiredAnnotation(Function.class);
-                    meteData.setColumn(FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, meteData));
+                    metadata.setColumn(FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, metadata));
                 }
 
-                final String value = CriterionHandlerRegistry.getInstance().get(criterion.handler()).handle(criterion, meteData);
+                final String value = CriterionHandlerRegistry.getInstance().get(criterion.handler()).handle(criterion, metadata);
                 if (property.isAnnotationPresent(Offset.class)) {
                     offset = value;
                 } else if (property.isAnnotationPresent(Limit.class)) {
@@ -83,19 +89,19 @@ public class AnnotationQueryProvider implements QueryProvider {
                 }
             } else if (property.isAnnotationPresent(Offset.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim).collect(Collectors.joining());
-                final MeteData meteData = MeteData.builder()
+                final Metadata metadata = Metadata.builder()
                         .value(String.format("%s.%s", expression, property.getName()))
                         .path(String.format("%s.%s", expression, property.getName()))
                         .build();
-                offset = Velocities.getValue(xml, meteData);
+                offset = Velocities.getValue(xml, metadata);
             } else if (property.isAnnotationPresent(Limit.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim).collect(Collectors.joining());
 
-                final MeteData meteData = MeteData.builder()
+                final Metadata metadata = Metadata.builder()
                         .value(String.format("%s.%s", expression, property.getName()))
                         .path(String.format("%s.%s", expression, property.getName()))
                         .build();
-                limit = Velocities.getValue(xml, meteData);
+                limit = Velocities.getValue(xml, metadata);
             } else if (property.isAnnotationPresent(Criteria.class)) {
 
             }

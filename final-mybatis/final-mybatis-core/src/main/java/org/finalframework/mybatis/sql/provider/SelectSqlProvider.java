@@ -20,19 +20,12 @@ package org.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.core.Assert;
-import org.finalframework.core.parser.xml.XNode;
-import org.finalframework.core.parser.xml.XPathParser;
 import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
-import org.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.Text;
 
 import java.util.Collection;
 import java.util.Map;
@@ -45,7 +38,8 @@ import java.util.stream.Collectors;
  * @see org.finalframework.mybatis.mapper.AbsMapper#select(String, Class, Collection, Query)
  * @since 1.0
  */
-public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
+@SuppressWarnings("unused")
+public class SelectSqlProvider implements AbsMapperSqlProvider {
 
     private static final String SELECT_METHOD_NAME = "select";
     private static final String SELECT_ONE_METHOD_NAME = "selectOne";
@@ -62,78 +56,77 @@ public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
     @Override
-    public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
+    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
 
         Object query = parameters.get("query");
-
         Class<?> view = (Class<?>) parameters.get("view");
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
 
-        final ScriptMapperHelper helper = new ScriptMapperHelper(document);
+        /*
+         * <trim prefix="SELECT">
+         *      columns
+         * </trim>
+         */
+        sql.append("<trim prefix=\"SELECT\">");
+        final String columns = properties.stream()
+                .filter(property -> property.isReadable() && property.hasView(view))
+                .map(property -> {
 
-        final Element select = helper.trim().prefix("SELECT").build();
+                    final Metadata metadata = new Metadata();
 
+                    metadata.setProperty(property.getName());
+                    metadata.setColumn(property.getColumn());
+                    metadata.setValue(property.getName());
+                    metadata.setJavaType(property.getType());
+                    metadata.setTypeHandler(property.getTypeHandler());
 
-        select.appendChild(helper.cdata(
-                properties.stream()
-                        .filter(property -> property.isReadable() && property.hasView(view))
-                        .map(property -> {
+                    final String reader = Assert.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
 
-                            final Metadata metadata = new Metadata();
+                    return Velocities.getValue(reader, metadata);
+                }).collect(Collectors.joining(","));
 
-                            metadata.setProperty(property.getName());
-                            metadata.setColumn(property.getColumn());
-                            metadata.setValue(property.getName());
-                            metadata.setJavaType(property.getType());
-                            metadata.setTypeHandler(property.getTypeHandler());
+        sql.append(columns);
 
-                            final String reader = Assert.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
-
-                            final String value = Velocities.getValue(reader, metadata);
-
-                            return value;
-//
-                        }).collect(Collectors.joining(","))
-        ));
-
-
-//        final Element foreach = helper.foreach().collection("properties").item("property").separator(",").build();
-//
-//        final Element ifHasView = document.createElement("if");
-//        ifHasView.setAttribute("test", "property.hasView(view)");
-//        ifHasView.appendChild(helper.cdata("${property.column}"));
-//        foreach.appendChild(ifHasView);
-//
-////        foreach.appendChild();
-//        select.appendChild(foreach);
-
-        script.appendChild(select);
-        final Node from = helper.trim().prefix("FROM").build();
-        from.appendChild(helper.cdata("${table}"));
-        script.appendChild(from);
+        sql.append("</trim>");
+        /*
+         * <trim prefix="FROM">
+         *     ${table}
+         * </trim>
+         */
+        sql.append("<trim prefix=\"FROM\">")
+                .append("${table}")
+                .append("</trim>");
 
 
         if (SELECT_ONE_METHOD_NAME.equals(context.getMapperMethod().getName()) && parameters.get("id") != null) {
-            script.appendChild(where(document, whereIdNotNull(document)));
+            // WHERE id = #{id}
+            // <where> id = #{id} </where>
+            sql.append("<where>${properties.idProperty.column} = #{id}</where>");
         } else if (SELECT_METHOD_NAME.equals(context.getMapperMethod().getName()) && parameters.get("ids") != null) {
-            script.appendChild(where(document, whereIdsNotNull(document)));
+            // WHERE id in #{ids}
+            /*
+             * <where>
+             *     id
+             *     <foreach collection="ids" item="id" open="IN (" separator="," close=")">
+             *         #{id}
+             *     </foreach>
+             * </where>
+             */
+            sql.append("<where>${properties.idProperty.column}")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("</where>");
         } else if (query instanceof Query) {
-            ((Query) query).apply(script, "query");
+//            ((Query) query).apply(script, "query");
         } else {
-            final String provide = new AnnotationQueryProvider().provide("query", entity, query.getClass());
-
-//            script.appendChild(document.createCDATASection(provide));
-
-
-            final XPathParser parser = new XPathParser(String.join("", "<script>", provide, "</script>"));
-            final XNode evalNode = parser.evalNode("//script");
-            for (XNode child : evalNode.getChildren()) {
-                script.appendChild(script.getOwnerDocument().importNode(child.getNode(), true));
-            }
+            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", entity, query.getClass()));
         }
 
+
     }
+
+
+
 }
 

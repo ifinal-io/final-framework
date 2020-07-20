@@ -17,10 +17,6 @@
 
 package org.finalframework.data.query;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 /**
  * @author likly
  * @version 1.0
@@ -54,26 +50,20 @@ public interface Limit extends SqlNode {
      *     </code>
      * </pre>
      *
-     * @param parent
+     * @param sql
      * @param expression
      */
     @Override
-    default void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
-        final Element limit = document.createElement("trim");
-        limit.setAttribute("prefix", "LIMIT");
+    default void apply(StringBuilder sql, String expression) {
 
-        final Element ifOffsetNotNull = document.createElement("if");
-        ifOffsetNotNull.setAttribute("test", String.format("%s.offset != null", expression));
-        ifOffsetNotNull.appendChild(document.createTextNode(String.format("#{%s.offset},", expression)));
-        limit.appendChild(ifOffsetNotNull);
+        sql.append("<trim prefix=\"LIMIT\">")
+                .append(String.format("<if test=\"%s.offset != null\">", expression))
+                .append(String.format("#{%s.offset},", expression))
+                .append("</if>")
+                .append(String.format("<if test=\"%s.limit != null\">", expression))
+                .append(String.format("#{%s.limit}", expression))
+                .append("</if>")
+                .append("</trim>");
 
-        final Element ifLimitNotNull = document.createElement("if");
-        ifLimitNotNull.setAttribute("test", String.format("%s.limit != null", expression));
-        ifLimitNotNull.appendChild(document.createTextNode(String.format("#{%s.limit}", expression)));
-        limit.appendChild(ifLimitNotNull);
-
-
-        parent.appendChild(limit);
     }
 }

@@ -19,9 +19,6 @@ package org.finalframework.data.query;
 
 import org.finalframework.core.Streamable;
 import org.finalframework.data.annotation.query.Direction;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -57,15 +54,16 @@ public interface Sort extends Streamable<Order>, Iterable<Order>, SqlNode {
     Sort and(Sort sort);
 
     @Override
-    default void apply(Node parent, String value) {
-        final Document document = parent.getOwnerDocument();
-        final Element sort = document.createElement("trim");
-        sort.setAttribute("prefix", "ORDER BY");
-        sort.setAttribute("suffixOverrides", ",");
+    default void apply(StringBuilder sql, String value) {
+
+        sql.append("<trim prefix=\"ORDER BY\" suffixOverrides=\",\">");
+
         int index = 0;
         for (Order order : this) {
-            order.apply(sort, String.format("value[%d]", index));
+            order.apply(sql, String.format("value[%d]", index));
         }
-        parent.appendChild(sort);
+
+        sql.append("</trim>");
+
     }
 }

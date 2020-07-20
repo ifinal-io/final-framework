@@ -18,26 +18,20 @@
 package org.finalframework.mybatis.sql.provider;
 
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.core.Assert;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.annotation.Metadata;
-import org.finalframework.data.annotation.Version;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.query.UpdateSetOperation;
 import org.finalframework.data.util.Velocities;
-import org.finalframework.mybatis.scripting.builder.TrimNodeBuilder;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * <pre>
@@ -76,7 +70,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
     @Override
-    public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
+    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
 
         final Object ids = parameters.get("ids");
         final Object query = parameters.get("query");
@@ -86,24 +80,20 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
 
-        final ScriptMapperHelper helper = new ScriptMapperHelper(document);
-
         /*
          * <trim prefix="UPDATE">
          *      ${table}
          * </trim>
          */
-        final Element update = helper.trim().prefix("UPDATE").build();
-        update.appendChild(helper.table());
-        script.appendChild(update);
+        sql.append("<trim prefix=\"UPDATE\">").append("${table}").append("</trim>");
 
-        Element set = document.createElement("set");
+
+        sql.append("<set>");
 
         if (parameters.containsKey("entity") && parameters.get("entity") != null) {
             properties.stream()
                     .filter(property -> property.isWriteable() && property.hasView(view))
                     .forEach(property -> {
-
 
                         final Metadata metadata = new Metadata();
 
@@ -114,58 +104,39 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                        final String value = Velocities.getValue(writer, metadata);
 
-//                        final StringBuilder builder = new StringBuilder();
-//                        builder.append(property.getColumn()).append(" = ");
-//                        builder.append("#{entity.").append(property.getPath());
-//
-//                        builder.append(",javaType=").append(property.getType().getCanonicalName());
-//
-//                        final Class<? extends TypeHandler> typeHandler = getTypeHandler(property);
-//                        if (typeHandler != null) {
-//                            builder.append(",typeHandler=").append(typeHandler.getCanonicalName());
-//                        }
-//
-//                        builder.append("},");
-                        final Node value = helper.cdata(Velocities.getValue(writer, metadata));
-
-                        final String test = helper.formatTest("entity", property.getPath(), selective);
-                        final Element trim = helper.trim().build();
+                        final String test = ScriptMapperHelper.formatTest("entity", property.getPath(), selective);
 
                         if (test == null) {
-                            trim.appendChild(value);
+                            sql.append(value);
                         } else {
-                            final Element ifNotNull = document.createElement("if");
-                            ifNotNull.setAttribute("test", test);
-                            ifNotNull.appendChild(value);
-                            trim.appendChild(ifNotNull);
+
+                            sql.append("<if test=\"").append(test).append("\">");
+                            sql.append(value);
+                            sql.append("</if>");
+
                         }
-                        set.appendChild(trim);
+
 
                     });
         } else if (parameters.containsKey("update") && parameters.get("update") != null) {
             final Update updates = (Update) parameters.get("update");
             int index = 0;
             for (UpdateSetOperation updateSetOperation : updates) {
-                updateSetOperation.apply(set, String.format("update[%d]", index++));
+                updateSetOperation.apply(sql, String.format("update[%d]", index++));
             }
         }
 
-        properties.stream()
-                .filter(property -> property.getProperty().hasAnnotation(Version.class))
-                .findFirst()
-                .ifPresent(property -> {
-                    final Node version = helper.trim().build();
-                    version.appendChild(helper.cdata(String.format("%s = %s + 1", property.getColumn(), property.getColumn())));
-                    set.appendChild(version);
-                });
 
-        script.appendChild(set);
+        sql.append("</set>");
 
         if (ids != null) {
-            script.appendChild(where(document, whereIdsNotNull(document)));
+            sql.append("<where>${properties.idProperty.column}")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("</where>");
         } else if (query instanceof Query) {
-            ((Query) query).apply(script, "query");
+            ((Query) query).apply(sql, "query");
         }
 
 

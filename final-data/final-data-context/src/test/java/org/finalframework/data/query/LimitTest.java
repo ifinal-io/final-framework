@@ -17,13 +17,9 @@
 
 package org.finalframework.data.query;
 
-import org.apache.ibatis.parsing.XNode;
-import org.apache.ibatis.parsing.XPathParser;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author likly
@@ -38,12 +34,11 @@ class LimitTest {
     @Test
     void apply() {
 
-        final XPathParser parser = new XPathParser("<script></script>");
-        final XNode script = parser.evalNode("//script");
+        final StringBuilder builder = new StringBuilder();
 
-        Limit.limit(20L, 20L).apply(script.getNode(), "query.limit");
+        Limit.limit(20L, 20L).apply(builder, "query.limit");
 
-        logger.info(script.toString());
+        logger.info(builder.toString());
 
     }
 }

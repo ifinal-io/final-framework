@@ -24,9 +24,6 @@ import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.criterion.BaseCriterion;
 import org.finalframework.data.query.operation.Operation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * @author likly
@@ -41,24 +38,18 @@ public class SimpleCriterionFunction extends BaseCriterion implements CriterionF
     private final Operation operation;
 
     @Override
-    public void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
+    public void apply(StringBuilder sql, String expression) {
 
-        final Element trim = document.createElement("trim");
-        trim.setAttribute("prefix", name() + "(");
-        trim.setAttribute("suffix", ")");
+        sql.append(String.format("<trim prefix=\"%s(\" suffix=\")\">", name()));
 
         if (value instanceof SqlNode) {
-            ((SqlNode) value).apply(trim, String.format("%s.value", expression));
+            ((SqlNode) value).apply(sql, String.format("%s.value", expression));
         } else if (value instanceof QProperty) {
-            trim.appendChild(document.createCDATASection(String.format("${%s.value.column}", expression)));
+            sql.append(String.format("${%s.value.column}", expression));
         } else {
-            trim.appendChild(document.createCDATASection(String.format("#{%s.value}", expression)));
+            sql.append(String.format("#{%s.value}", expression));
         }
-
-        parent.appendChild(trim);
-
-
+        sql.append("</trim>");
     }
 }
 

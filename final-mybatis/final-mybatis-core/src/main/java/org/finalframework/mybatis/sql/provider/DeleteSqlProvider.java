@@ -21,10 +21,6 @@ package org.finalframework.mybatis.sql.provider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
-import org.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.util.Collection;
 import java.util.Map;
@@ -58,24 +54,20 @@ public class DeleteSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         return provide(context, parameters);
     }
 
-
     @Override
-    public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
+    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
 
         Object ids = parameters.get("ids");
         Object query = parameters.get("query");
 
-        final ScriptMapperHelper helper = new ScriptMapperHelper(document);
-
-        final Element delete = helper.trim().prefix("DELETE FROM").build();
-        delete.appendChild(helper.cdata("${table}"));
-
-        script.appendChild(delete);
+        sql.append("<trim prefix=\"DELETE FROM\">").append("${table}").append("</trim>");
 
         if (ids != null) {
-            script.appendChild(where(document, whereIdsNotNull(document)));
+            sql.append("<where>${properties.idProperty.column}")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("</where>");
         } else if (query instanceof Query) {
-            ((Query) query).apply(script, "query");
+            ((Query) query).apply(sql, "query");
         }
 
 

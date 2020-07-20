@@ -22,8 +22,6 @@ import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
 import org.finalframework.data.query.operation.Operation.CompareOperation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 import java.util.Collection;
 import java.util.function.Function;
@@ -47,17 +45,15 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     }
 
     @Override
-    default void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
+    default void apply(StringBuilder parent, String expression) {
         final T target = this.getTarget();
         if (target instanceof SqlNode) {
             ((SqlNode) target).apply(parent, String.format("%s.target", expression));
         }
         if (target instanceof QProperty) {
-            parent.appendChild(document.createTextNode(String.format("${%s.target.column}", expression)));
-//            parent.appendChild(document.createTextNode(((QProperty) target).getColumn()));
+            parent.append(String.format("${%s.target.column}", expression));
         } else {
-            parent.appendChild(document.createTextNode(target.toString()));
+            parent.append("${target}");
         }
     }
 

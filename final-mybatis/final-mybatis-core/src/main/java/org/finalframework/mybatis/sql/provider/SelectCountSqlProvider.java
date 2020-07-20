@@ -21,10 +21,6 @@ package org.finalframework.mybatis.sql.provider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
-import org.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.util.Collection;
 import java.util.Map;
@@ -44,24 +40,25 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
 
 
     @Override
-    public void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context) {
+    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+
 
         Object ids = parameters.get("ids");
         Object query = parameters.get("query");
 
-        final ScriptMapperHelper helper = new ScriptMapperHelper(document);
+        sql.append("<trim prefix=\"SELECT COUNT(*) FROM\">${table}</trim>");
 
-        final Element select = helper.trim().prefix("SELECT COUNT(*) FROM").build();
-        select.appendChild(helper.cdata("${table}"));
-        script.appendChild(select);
 
         if (ids != null) {
-            script.appendChild(where(document, whereIdsNotNull(document)));
+            sql.append("<where>${properties.idProperty.column}")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("</where>");
         } else if (query instanceof Query) {
-            ((Query) query).apply(script, "query");
+            ((Query) query).apply(sql, "query");
         }
 
 
     }
+
 }
 

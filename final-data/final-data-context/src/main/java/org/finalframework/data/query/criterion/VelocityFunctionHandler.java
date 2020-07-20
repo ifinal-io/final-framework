@@ -19,7 +19,7 @@ package org.finalframework.data.query.criterion;
 
 
 import org.finalframework.data.annotation.query.Function;
-import org.finalframework.data.annotation.query.MeteData;
+import org.finalframework.data.annotation.query.Metadata;
 import org.finalframework.data.util.Velocities;
 
 /**
@@ -30,7 +30,7 @@ import org.finalframework.data.util.Velocities;
  */
 public class VelocityFunctionHandler implements Function.FunctionHandler {
     @Override
-    public String handle(Function function, MeteData metadata) {
+    public String handle(Function function, Metadata metadata) {
         return Velocities.getValue(function.value(), metadata);
     }
 }

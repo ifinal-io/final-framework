@@ -37,7 +37,7 @@ public class SingleCriterionFunction implements CriterionFunction {
     private final Object value;
 
     @Override
-    public void apply(Node parent, String expression) {
+    public void apply(StringBuilder sql, String expression) {
 
     }
 }

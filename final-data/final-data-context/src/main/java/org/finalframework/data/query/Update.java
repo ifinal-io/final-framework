@@ -59,10 +59,9 @@ public interface Update extends Streamable<UpdateSetOperation>, Iterable<UpdateS
 
 
     @Override
-    default void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
-        final Element set = document.createElement("set");
-        this.forEach(item -> item.apply(set, expression));
-        parent.appendChild(set);
+    default void apply(StringBuilder sql, String expression) {
+        sql.append("<set>");
+        this.forEach(item -> item.apply(sql, expression));
+        sql.append("</set>");
     }
 }

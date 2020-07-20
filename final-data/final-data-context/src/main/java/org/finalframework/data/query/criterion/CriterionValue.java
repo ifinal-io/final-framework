@@ -21,9 +21,6 @@ package org.finalframework.data.query.criterion;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.criterion.function.CriterionFunction;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,31 +54,25 @@ public interface CriterionValue<V> extends SqlNode {
     Class<? extends TypeHandler<?>> getTypeHandler();
 
     @Override
-    default void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
+    default void apply(StringBuilder parent, String expression) {
 
         final V value = getValue();
 
         if (value instanceof SqlNode) {
             ((SqlNode) value).apply(parent, String.format("%s.value", expression));
         } else if (value instanceof Iterable) {
-            final Element foreach = document.createElement("foreach");
-
-            parent.appendChild(foreach);
         } else {
-            final StringBuilder builder = new StringBuilder();
-            builder.append("#{").append(expression).append(".value");
+            parent.append("#{").append(expression).append(".value");
 
             if (getJavaType() != null) {
-                builder.append(",javaType=").append(Optional.ofNullable(getJavaType()).map(Class::getCanonicalName).orElse(""));
+                parent.append(",javaType=").append(Optional.ofNullable(getJavaType()).map(Class::getCanonicalName).orElse(""));
             }
 
             if (getTypeHandler() != null) {
-                builder.append(",typeHandler=").append(Optional.ofNullable(getTypeHandler()).map(Class::getCanonicalName).orElse(""));
+                parent.append(",typeHandler=").append(Optional.ofNullable(getTypeHandler()).map(Class::getCanonicalName).orElse(""));
             }
 
-            builder.append("}");
-            parent.appendChild(document.createCDATASection(builder.toString()));
+            parent.append("}");
         }
 
 

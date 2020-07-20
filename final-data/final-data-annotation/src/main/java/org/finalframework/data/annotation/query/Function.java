@@ -42,7 +42,7 @@ public @interface Function {
 
     @FunctionalInterface
     interface FunctionHandler {
-        String handle(@NonNull Function function, @NonNull MeteData metadata);
+        String handle(@NonNull Function function, @NonNull Metadata metadata);
     }
 
 }

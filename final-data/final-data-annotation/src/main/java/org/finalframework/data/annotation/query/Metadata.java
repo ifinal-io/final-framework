@@ -33,8 +33,9 @@ import java.util.Map;
  */
 @Data
 @Builder
-public class MeteData implements Serializable {
+public class Metadata implements Serializable {
     private AndOr andOr;
+    private String query;
     private String column;
     private String value;
     private String path;

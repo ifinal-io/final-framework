@@ -53,18 +53,6 @@ public interface SimpleCriterion<T> extends Criterion {
     @NonNull
     Operation getOperation();
 
-    @Override
-    default void apply(Node parent, String value) {
-        final Document document = parent.getOwnerDocument();
-        if (getTarget() instanceof CriterionTarget) {
-            this.apply(parent, String.format("%s.target", value));
-        }
-
-        parent.appendChild(document.createCDATASection(" = "));
-
-
-    }
-
     interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
 
         @NonNull

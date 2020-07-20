@@ -41,33 +41,7 @@ public interface SingleCriterion<T> extends SimpleCriterion {
     T getValue();
 
     @Override
-    default void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
-        final Object target = getTarget();
-        final T value = getValue();
-
-        final Element targetElement = document.createElement("trim");
-
-        if (target instanceof CriterionTarget) {
-            ((CriterionTarget) target).apply(targetElement, String.format("%s.target", expression));
-        } else if (target instanceof QProperty) {
-            targetElement.appendChild(document.createTextNode(((QProperty) target).getColumn()));
-        }
-
-        parent.appendChild(targetElement);
-
-        final Element valueElement = document.createElement("trim");
-        valueElement.setAttribute("prefix", " = ");
-
-        if (value instanceof SqlNode) {
-            ((SqlNode) value).apply(valueElement, String.format("%s.value", expression));
-        } else if (value instanceof Iterable || value instanceof Array) {
-
-        } else {
-            valueElement.appendChild(document.createTextNode(String.format("#{%s.value}", expression)));
-        }
-
-        parent.appendChild(valueElement);
+    default void apply(StringBuilder parent, String expression) {
 
     }
 

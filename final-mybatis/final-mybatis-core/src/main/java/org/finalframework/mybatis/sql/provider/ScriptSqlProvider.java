@@ -18,18 +18,11 @@
 package org.finalframework.mybatis.sql.provider;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
-import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.mapping.SqlSource;
-import org.apache.ibatis.parsing.XNode;
-import org.apache.ibatis.parsing.XPathParser;
-import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
-import org.apache.ibatis.session.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 import java.util.Map;
 
@@ -44,31 +37,16 @@ public interface ScriptSqlProvider extends SqlProvider {
 
     @Override
     default String provide(ProviderContext context, Map<String, Object> parameters) {
-        final Logger logger = LoggerFactory.getLogger(context.getMapperType().getCanonicalName() + "." + context.getMapperMethod().getName());
-        final XPathParser parser = new XPathParser("<script></script>");
-        final XNode script = parser.evalNode("//script");
-        doProvide(script.getNode(), script.getNode().getOwnerDocument(), parameters, context);
-        final String sql = script.toString();
-
-        logger.debug("script sql ==> \n{}", sql);
-
-        if (logger.isDebugEnabled()) {
-            final String[] sqls = sql.split("\n");
-            for (String item : sqls) {
-                logger.debug(item);
-            }
-
-            final XMLLanguageDriver driver = new XMLLanguageDriver();
-            final SqlSource sqlSource = driver.createSqlSource(new Configuration(), script, null);
-            final BoundSql boundSql = sqlSource.getBoundSql(parameters);
-            logger.debug("sql ==> {}", boundSql.getSql());
-
-
-        }
-        return sql;
+        final Logger logger = LoggerFactory.getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
+        final StringBuilder sql = new StringBuilder();
+        sql.append("<script>");
+        doProvide(sql, context, parameters);
+        sql.append("</script>");
+        logger.info("sql ==> {}", sql.toString());
+        return sql.toString();
     }
 
-    void doProvide(Node script, Document document, Map<String, Object> parameters, ProviderContext context);
+    void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters);
 
 
 }

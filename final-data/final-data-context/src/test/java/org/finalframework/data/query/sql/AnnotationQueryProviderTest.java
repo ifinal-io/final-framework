@@ -36,7 +36,7 @@ class AnnotationQueryProviderTest {
     void apply() {
 
 
-        final AnnotationQueryProvider annotationQueryProvider = new AnnotationQueryProvider();
+        final AnnotationQueryProvider annotationQueryProvider = AnnotationQueryProvider.INSTANCE;
         final String query = annotationQueryProvider.provide("query", QueryEntity.class, MyQuery.class);
         final String value = String.join("", "<script>", query, "</script>");
         final XPathParser parser = new XPathParser(value);

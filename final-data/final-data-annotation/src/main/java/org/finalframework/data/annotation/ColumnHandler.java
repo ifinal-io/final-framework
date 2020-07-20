@@ -17,8 +17,7 @@
 
 package org.finalframework.data.annotation;
 
-import org.finalframework.data.annotation.Column;
-import org.finalframework.data.annotation.query.MeteData;
+import org.finalframework.data.annotation.query.Metadata;
 import org.springframework.lang.NonNull;
 
 /**
@@ -29,7 +28,7 @@ import org.springframework.lang.NonNull;
  */
 public interface ColumnHandler {
 
-    String handleWriter(@NonNull Column column, @NonNull MeteData meteData);
+    String handleWriter(@NonNull Column column, @NonNull Metadata metadata);
 
-    String handleReader(@NonNull Column column, @NonNull MeteData meteData);
+    String handleReader(@NonNull Column column, @NonNull Metadata metadata);
 }

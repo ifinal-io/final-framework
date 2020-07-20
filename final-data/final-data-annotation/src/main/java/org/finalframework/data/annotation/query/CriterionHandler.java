@@ -24,5 +24,5 @@ package org.finalframework.data.annotation.query;
  * @since 1.0
  */
 public interface CriterionHandler {
-    String handle(Criterion criterion, MeteData meteData);
+    String handle(Criterion criterion, Metadata metadata);
 }

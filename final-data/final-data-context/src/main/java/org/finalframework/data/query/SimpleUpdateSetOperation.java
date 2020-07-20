@@ -60,48 +60,41 @@ public class SimpleUpdateSetOperation implements UpdateSetOperation {
 
 
     @Override
-    public void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
+    public void apply(StringBuilder sql, String expression) {
 
-        final Element trim = document.createElement("trim");
-
-        final StringBuilder builder = new StringBuilder();
-        builder.append(property.getColumn());
+        sql.append("<trim>");
+        sql.append(property.getColumn());
 
 
         switch (operation) {
             case EQUAL:
                 // column = #{expression.value,javaType=?,typeHandler=?}
-                builder.append(" = ").append("#{").append(expression).append(".value");
+                sql.append(" = ").append("#{").append(expression).append(".value");
 
-                builder.append(",javaType=").append(property.getType().getCanonicalName());
+                sql.append(",javaType=").append(property.getType().getCanonicalName());
 
                 if (property.getTypeHandler() != null) {
-                    builder.append(",typeHandler=").append(property.getTypeHandler().getCanonicalName());
+                    sql.append(",typeHandler=").append(property.getTypeHandler().getCanonicalName());
                 }
 
-                builder.append("},");
+                sql.append("},");
 
                 break;
 
             case INC:
             case INCR:
                 // column = column + #{expression.value}
-                builder.append(" = ").append(property.getColumn()).append(" + #{").append(expression).append(".value},");
+                sql.append(" = ").append(property.getColumn()).append(" + #{").append(expression).append(".value},");
                 break;
 
             case DEC:
             case DECR:
                 // column = column - #{expression.value}
-                builder.append(" = ").append(property.getColumn()).append(" - #{").append(expression).append(".value},");
+                sql.append(" = ").append(property.getColumn()).append(" - #{").append(expression).append(".value},");
                 break;
         }
 
-        trim.appendChild(document.createCDATASection(builder.toString()));
-
-
-        parent.appendChild(trim);
-
+        sql.append("</trim>");
 
     }
 

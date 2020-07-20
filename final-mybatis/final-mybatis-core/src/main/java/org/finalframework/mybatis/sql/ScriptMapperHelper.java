@@ -18,14 +18,7 @@
 package org.finalframework.mybatis.sql;
 
 
-import org.finalframework.mybatis.scripting.builder.ForeachSqlNodeBuilder;
-import org.finalframework.mybatis.scripting.builder.TrimNodeBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,37 +29,21 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class ScriptMapperHelper {
-    private final Document document;
 
-    public ScriptMapperHelper(Document document) {
-        this.document = document;
+    public static String table() {
+        return "${table}";
     }
 
-    public TrimNodeBuilder trim() {
-        return new TrimNodeBuilder(document);
+    public static String cdata(String data) {
+        return String.format("<![CDATA[%s]]>", data);
     }
 
-    public ForeachSqlNodeBuilder foreach() {
-        return new ForeachSqlNodeBuilder(document);
-    }
-
-    public Node table() {
-        return cdata("${table}");
-    }
-
-    public Node cdata(String data) {
-        return document.createCDATASection(data);
-    }
-
-    public Node bind(String name, String value) {
-        final Element bind = document.createElement("bind");
-        bind.setAttribute("name", name);
-        bind.setAttribute("value", value);
-        return bind;
+    public static String bind(String name, String value) {
+        return String.format("<bind name=\"%s\" value=\"%s\"/>", name, value);
     }
 
 
-    public String formatBindValue(String prefix, String path) {
+    public static String formatBindValue(String prefix, String path) {
         if (path.contains(".")) {
             final String[] paths = path.split("\\.");
             List<String> isNulls = new ArrayList<>(paths.length);
@@ -86,7 +63,7 @@ public class ScriptMapperHelper {
         return String.format("%s.%s", prefix, path);
     }
 
-    public String formatTest(String prefix, String path, boolean selective) {
+    public static String formatTest(String prefix, String path, boolean selective) {
 
         if (path.contains(".")) {
             final String[] paths = path.split("\\.");

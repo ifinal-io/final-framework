@@ -20,7 +20,7 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.annotation.query.Criterion;
 import org.finalframework.data.annotation.query.CriterionHandler;
-import org.finalframework.data.annotation.query.MeteData;
+import org.finalframework.data.annotation.query.Metadata;
 import org.finalframework.data.util.Velocities;
 
 import java.util.Arrays;
@@ -34,9 +34,9 @@ import java.util.stream.Collectors;
  */
 public class VelocityCriterionHandler implements CriterionHandler {
     @Override
-    public String handle(Criterion criterion, MeteData meteData) {
+    public String handle(Criterion criterion, Metadata metadata) {
         final String value = Arrays.stream(criterion.value()).map(String::trim).collect(Collectors.joining());
-        return Velocities.getValue(value, meteData);
+        return Velocities.getValue(value, metadata);
     }
 }
 

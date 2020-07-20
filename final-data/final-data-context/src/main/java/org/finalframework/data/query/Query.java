@@ -21,13 +21,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
+import org.finalframework.data.annotation.query.Direction;
 import org.finalframework.data.annotation.query.Pageable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.annotation.query.Direction;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -163,20 +160,18 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
     }
 
     @Override
-    public void apply(Node parent, String value) {
-        final Document document = parent.getOwnerDocument();
+    public void apply(StringBuilder parent, String value) {
 
-        if (Assert.nonEmpty(this.criteria)) {
-            final Element where = document.createElement("where");
-            for (int i = 0; i < this.criteria.size(); i++) {
-                final Criterion criterion = this.criteria.get(i);
-                final Element trim = document.createElement("trim");
-                trim.setAttribute("prefix", " AND ");
-                criterion.apply(trim, String.format("%s.criteria[%s]", value, i));
-                where.appendChild(trim);
-            }
-            parent.appendChild(where);
+        parent.append("<where>");
+
+        for (int i = 0; i < this.criteria.size(); i++) {
+            final Criterion criterion = this.criteria.get(i);
+            parent.append("<trim prefix=\"AND\"");
+            criterion.apply(parent, String.format("%s.criteria[%s]", value, i));
+            parent.append("</trim>");
         }
+
+        parent.append("</where>");
 
         if (Assert.nonNull(this.sort)) {
             this.sort.apply(parent, String.format("%s.sort", value));

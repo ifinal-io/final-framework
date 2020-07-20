@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * @author likly
  * @version 1.0
  * @date 2019-02-20 09:25:43
- * @see MeteData
+ * @see Metadata
  * @see CriterionHandler
  * @see EQUAL
  * @see NOT_EQUAL

@@ -19,6 +19,7 @@ package org.finalframework.data.query.criterion;
 
 
 import lombok.Getter;
+import org.finalframework.data.query.Sql;
 import org.finalframework.data.query.SqlNode;
 import org.finalframework.data.query.operation.JsonOperation;
 import org.w3c.dom.Document;
@@ -71,46 +72,35 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
      *     </code>
      * </pre>
      *
-     * @param parent
+     * @param sql
      * @param expression
      */
 
     @Override
-    public void apply(Node parent, String expression) {
+    public void apply(StringBuilder sql, String expression) {
 
-        final Document document = parent.getOwnerDocument();
-        final Element trim = document.createElement("trim");
-
+        sql.append("<trim prefix=\"");
         switch (operation) {
             case JSON_CONTAINS:
-                trim.setAttribute("prefix", "JSON_CONTAINS(");
+                sql.append("JSON_CONTAINS(");
                 break;
 
             case NOT_JSON_CONTAINS:
-                trim.setAttribute("prefix", "!JSON_CONTAINS(");
+                sql.append("!JSON_CONTAINS(");
                 break;
 
             default:
                 throw new IllegalArgumentException("JsonContains not support operation of " + operation.name());
         }
+        applyValueCriterion(sql, target, null, null, expression + ".target");
+        applyValueCriterion(sql, value, ",", "", expression + ".target");
 
-        trim.setAttribute("suffix", ")");
+        sql.append(String.format("<if test=\"%s.path != null\">", expression))
+                .append(",#{").append(expression).append(".path}")
+                .append("</trim>");
 
-        applyValueCriterion(document, trim, target, null, null, expression + ".target");
-//        if(value instanceof String) {
-//            applyValueCriterion(document, trim, value, ",'\"", "\"'", expression + ".value");
-//        }else {
-        applyValueCriterion(document, trim, value, ",", "", expression + ".value");
-//        }
+        sql.append("\" suffix=\")\">");
 
-
-        final Element ifPathNotNull = document.createElement("if");
-        ifPathNotNull.setAttribute("test", String.format("%s.path != null", expression));
-        ifPathNotNull.appendChild(document.createTextNode(String.format(",#{%s.path}", expression)));
-        trim.appendChild(ifPathNotNull);
-
-
-        parent.appendChild(trim);
     }
 
     @Override

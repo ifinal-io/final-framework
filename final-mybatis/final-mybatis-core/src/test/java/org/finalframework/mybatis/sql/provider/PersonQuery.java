@@ -50,13 +50,19 @@ public class PersonQuery {
 //    @JSON_CONTAINS(property = "name", attributes = @Attribute(name = "path", value = "$.name"))
 //    private String jsonContains;
 
-    @DistanceIn(property = "name")
+//    @DistanceIn(property = "name")
 //    @LESS_THAN(property = "name",value = {
 //            "<if test=\"${value} != null and ${value}.location != null and ${value}.distance != null\">",
 //            "   <![CDATA[ST_Distance(${column},ST_GeomFromText(#{${value}.location})) &lt; #{${value}.distance}]]>",
 //            "</if>"
 //    })
-    private DistanceValue distance;
+//    private DistanceValue distance;
+
+
+    private Point location;
+    @Function("ST_Distance(${column},ST_GeomFromText(#{${query}.location}))")
+    @LESS_THAN(property = "name")
+    private Long distance;
 
 //    @Offset
 //    private Integer offset;

@@ -50,8 +50,9 @@ class QueryTest {
 
     @Test
     void apply() {
-        final XPathParser parser = new XPathParser("<script></script>");
-        final XNode script = parser.evalNode("//script");
+
+
+        final StringBuilder builder = new StringBuilder();
 
         final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
@@ -72,8 +73,11 @@ class QueryTest {
 
         query.limit(20L, 100L);
 
-        query.apply(script.getNode(), "query");
+        query.apply(builder, "query");
 
+
+        final XPathParser parser = new XPathParser(String.join("", "<script>", builder.toString(), "</script>"));
+        final XNode script = parser.evalNode("//script");
         final String sql = script.toString();
         if (logger.isDebugEnabled()) {
             final String[] sqls = sql.split("\n");

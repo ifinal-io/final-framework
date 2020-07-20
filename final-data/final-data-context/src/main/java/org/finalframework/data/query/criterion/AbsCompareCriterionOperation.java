@@ -19,14 +19,6 @@ package org.finalframework.data.query.criterion;
 
 
 import lombok.Getter;
-import org.finalframework.data.query.QProperty;
-import org.finalframework.data.query.SqlNode;
-import org.springframework.lang.NonNull;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import java.lang.reflect.Array;
 
 /**
  * @author likly
@@ -56,64 +48,63 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
     }
 
     @Override
-    public void apply(Node parent, String expression) {
-        final Document document = parent.getOwnerDocument();
+    public void apply(StringBuilder parent, String expression) {
         switch (operation) {
             case NULL:
-                applyValueCriterion(document, parent, target, null, "IS NULL", expression + ".target");
+                applyValueCriterion(parent, target, null, "IS NULL", expression + ".target");
                 break;
             case NOT_NULL:
-                applyValueCriterion(document, parent, target, null, "IS NOT NULL", expression + ".target");
+                applyValueCriterion(parent, target, null, "IS NOT NULL", expression + ".target");
                 break;
             case EQUAL:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " = ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " = ", null, expression + ".value");
                 break;
             case NOT_EQUAL:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " != ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " != ", null, expression + ".value");
                 break;
             case GREAT_THAN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " > ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " > ", null, expression + ".value");
                 break;
             case GREAT_THAN_EQUAL:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " >= ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " >= ", null, expression + ".value");
                 break;
             case LESS_THAN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " < ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " < ", null, expression + ".value");
                 break;
             case LESS_THAN_EQUAL:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " <= ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " <= ", null, expression + ".value");
                 break;
             case LIKE:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " LIKE ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " LIKE ", null, expression + ".value");
                 break;
             case NOT_LIKE:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " NOT LIKE ", null, expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " NOT LIKE ", null, expression + ".value");
                 break;
             case IN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " IN (", ")", expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " IN (", ")", expression + ".value");
                 break;
             case NOT_IN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " NOT IN (", ")", expression + ".value");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " NOT IN (", ")", expression + ".value");
                 break;
             case BETWEEN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " BETWEEN ", null, expression + ".min");
-                applyValueCriterion(document, parent, value, " AND ", null, expression + ".max");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " BETWEEN ", null, expression + ".min");
+                applyValueCriterion(parent, value, " AND ", null, expression + ".max");
                 break;
             case NOT_BETWEEN:
-                applyValueCriterion(document, parent, target, null, null, expression + ".target");
-                applyValueCriterion(document, parent, value, " NOT BETWEEN ", null, expression + ".min");
-                applyValueCriterion(document, parent, value, " AND ", null, expression + ".max");
+                applyValueCriterion(parent, target, null, null, expression + ".target");
+                applyValueCriterion(parent, value, " NOT BETWEEN ", null, expression + ".min");
+                applyValueCriterion(parent, value, " AND ", null, expression + ".max");
                 break;
 
         }
