@@ -15,8 +15,11 @@
  *
  */
 
-package org.finalframework.data.annotation.query;
+package org.finalframework.mybatis.sql.provider;
 
+import org.finalframework.data.annotation.query.Criterion;
+import org.finalframework.data.annotation.query.Function;
+import org.finalframework.data.annotation.query.LESS_THAN;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -24,33 +27,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
- * @see NOT_EQUAL
+ * @date 2020-07-20 14:36:23
  * @since 1.0
  */
-@Target(ElementType.FIELD)
+@Criterion(value = {
+        "<if test=\"${value} != null and ${value}.location != null and ${value}.distance != null\">",
+        "   <![CDATA[ST_Distance(${column},ST_GeomFromText(#{${value}.location})) &lt; #{${value}.distance}]]>",
+        "</if>"
+})
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
-public @interface EQUAL {
+@Target(ElementType.FIELD)
+public @interface DistanceIn {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
-    @AliasFor(annotation = Criterion.class, attribute = "value")
-    String[] value() default {
-            "   <if test=\"${value} != null\">",
-            Constants.EQUAL,
-            "   </if>"
-    };
-
-    @AliasFor(annotation = Criterion.class, attribute = "javaType")
-    Class<?> javaType() default Object.class;
-
-    @AliasFor(annotation = Criterion.class, attribute = "handler")
-    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
-
-    @AliasFor(annotation = Criterion.class, attribute = "attributes")
-    Attribute[] attributes() default {};
 }

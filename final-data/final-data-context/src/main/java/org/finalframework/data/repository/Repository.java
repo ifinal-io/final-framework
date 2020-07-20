@@ -447,7 +447,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default int delete(String table, @NonNull List<T> entities) {
-        return delete(entities.stream().map(IEntity::getId).collect(Collectors.toList()));
+        return delete(table, entities.stream().map(IEntity::getId).collect(Collectors.toList()));
     }
 
     default int delete(ID... ids) {

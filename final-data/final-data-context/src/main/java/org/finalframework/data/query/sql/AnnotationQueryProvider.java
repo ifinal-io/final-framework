@@ -24,6 +24,8 @@ import org.finalframework.data.annotation.query.*;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;
+import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
+import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
 
 import java.util.Arrays;
@@ -54,21 +56,24 @@ public class AnnotationQueryProvider implements QueryProvider {
         for (Property property : queryEntity) {
 
             if (property.isAnnotationPresent(Criterion.class)) {
-                final Criterion criterion = property.findAnnotation(Criterion.class);
-                final String xml = Arrays.stream(criterion.value()).map(String::trim).collect(Collectors.joining());
-
+                final Criterion criterion = property.getRequiredAnnotation(Criterion.class);
                 final String path = Assert.isBlank(criterion.property()) ? property.getName() : criterion.property();
+                // format the column with function
 
                 final MeteData meteData = MeteData.builder().andOr(andOr)
                         .column(properties.getProperty(path).getColumn())
                         .value(String.format("%s.%s", expression, property.getName()))
                         .path(String.format("%s.%s", expression, property.getName()))
                         .attributes(Arrays.stream(criterion.attributes())
-                                .collect(Collectors.toMap(Criterion.Attribute::name, Criterion.Attribute::value)))
+                                .collect(Collectors.toMap(Attribute::name, Attribute::value)))
                         .build();
-                final String value = Velocities.getValue(xml, meteData);
 
+                if (property.isAnnotationPresent(Function.class)) {
+                    final Function function = property.getRequiredAnnotation(Function.class);
+                    meteData.setColumn(FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, meteData));
+                }
 
+                final String value = CriterionHandlerRegistry.getInstance().get(criterion.handler()).handle(criterion, meteData);
                 if (property.isAnnotationPresent(Offset.class)) {
                     offset = value;
                 } else if (property.isAnnotationPresent(Limit.class)) {
@@ -112,5 +117,6 @@ public class AnnotationQueryProvider implements QueryProvider {
 
         return builder.toString();
     }
+
 }
 

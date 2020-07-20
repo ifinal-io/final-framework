@@ -123,6 +123,10 @@ public class SelectSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             ((Query) query).apply(script, "query");
         } else {
             final String provide = new AnnotationQueryProvider().provide("query", entity, query.getClass());
+
+//            script.appendChild(document.createCDATASection(provide));
+
+
             final XPathParser parser = new XPathParser(String.join("", "<script>", provide, "</script>"));
             final XNode evalNode = parser.evalNode("//script");
             for (XNode child : evalNode.getChildren()) {

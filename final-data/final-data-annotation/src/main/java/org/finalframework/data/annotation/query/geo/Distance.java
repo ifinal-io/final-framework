@@ -15,8 +15,11 @@
  *
  */
 
-package org.finalframework.data.annotation.query;
+package org.finalframework.data.annotation.query.geo;
 
+import org.finalframework.data.annotation.query.Attribute;
+import org.finalframework.data.annotation.query.Criterion;
+import org.finalframework.data.annotation.query.CriterionHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -24,25 +27,26 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-11 11:29:16
- * @see NOT_EQUAL
+ * @date 2020-07-20 13:15:11
+ * @see <a href="https://dev.mysql.com/doc/refman/8.0/en/spatial-relation-functions-object-shapes.html#function_st-distance">ST_Distance</a>
  * @since 1.0
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
 @Criterion
-public @interface EQUAL {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Distance {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
-            "   <if test=\"${value} != null\">",
-            Constants.EQUAL,
-            "   </if>"
+            "<if test=\"${value} != null\">",
+            "   <![CDATA[${andOr} ST_Distance(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($attributes['unit']),'${attributes['unit']}'#end) > ]]>",
+            "</if>"
     };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")

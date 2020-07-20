@@ -49,5 +49,5 @@ public @interface JSON_CONTAINS {
 
 
     @AliasFor(annotation = Criterion.class, attribute = "attributes")
-    Criterion.Attribute[] attributes() default {};
+    Attribute[] attributes() default {};
 }

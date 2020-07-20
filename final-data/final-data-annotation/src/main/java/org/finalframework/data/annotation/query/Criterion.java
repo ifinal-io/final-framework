@@ -64,10 +64,4 @@ public @interface Criterion {
 
     Attribute[] attributes() default {};
 
-    @interface Attribute {
-        String name();
-
-        String value();
-    }
-
 }
