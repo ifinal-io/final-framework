@@ -18,7 +18,6 @@
 package org.finalframework.mybatis.sql.provider;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.slf4j.Logger;
