@@ -40,7 +40,7 @@ import java.lang.annotation.*;
 @ReadOnly
 @CreatedDate
 @Documented
-@Order(Integer.MAX_VALUE - 100)
+@Order(Integer.MAX_VALUE - 120)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {

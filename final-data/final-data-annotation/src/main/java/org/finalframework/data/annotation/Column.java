@@ -54,6 +54,7 @@ public @interface Column {
     @AliasFor("value")
     String name() default "";
 
+
     /**
      * @return
      * @see Metadata

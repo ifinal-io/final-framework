@@ -27,6 +27,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.io.Serializable;
 import java.time.Duration;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -67,6 +68,10 @@ public final class Result<T> implements Responsible, Serializable {
      * 业务状态描述
      */
     private String message;
+    /**
+     * 元数据
+     */
+    private List<Metadata> metadata;
     /**
      * 业务数据
      */
@@ -177,6 +182,14 @@ public final class Result<T> implements Responsible, Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<Metadata> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(List<Metadata> metadata) {
+        this.metadata = metadata;
     }
 
     public T getData() {

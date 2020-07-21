@@ -39,7 +39,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Column
 @Documented
 @LastModifiedDate
-@Order(Integer.MAX_VALUE - 99)
+@Order(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModified {

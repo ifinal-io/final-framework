@@ -63,7 +63,7 @@ public class PersonController {
 //                        QPerson.created.date().gt("2020-01-01 00:00:00"),
 //                        QPerson.name.eq("haha"),
 //                        QPerson.intList.jsonExtract("$[1]").eq(2),t
-                                QPerson.properties.jsonContains("[1,2]", "$.int"),
+//                                QPerson.properties.jsonContains("[1,2]", "$.int"),
                                 QPerson.properties.jsonContains("\"aaa\"", "$.string")
                         )
         );

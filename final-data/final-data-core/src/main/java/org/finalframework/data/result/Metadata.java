@@ -15,38 +15,23 @@
  *
  */
 
-package org.finalframework.data.annotation;
+package org.finalframework.data.result;
 
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.CreatedBy;
 
-import java.lang.annotation.*;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
- * 创建人
- *
  * @author likly
  * @version 1.0
- * @date 2018-10-15 15:14
- * @see Column
- * @see Created
- * @see LastModifier
- * @see LastModified
- * @see IUser
+ * @date 2020-07-21 17:16:24
  * @since 1.0
  */
-@Final
-@Column
-@Documented
-@CreatedBy
-@Order(Integer.MAX_VALUE - 130)
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Creator {
-
-    @AliasFor(annotation = Column.class)
-    String value() default "";
-
-    @AliasFor(annotation = Column.class)
-    String name() default "";
+@Data
+public class Metadata implements Serializable {
+    private String name;
+    private String path;
+    private String header;
 }
+

@@ -166,7 +166,7 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
 
         for (int i = 0; i < this.criteria.size(); i++) {
             final Criterion criterion = this.criteria.get(i);
-            parent.append("<trim prefix=\"AND\"");
+            parent.append("<trim prefix=\"AND\">");
             criterion.apply(parent, String.format("%s.criteria[%s]", value, i));
             parent.append("</trim>");
         }

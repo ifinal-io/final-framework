@@ -36,6 +36,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final E entity;
     private final Property property;
+    private final Integer order;
     private final String path;
     private final String name;
     private final String column;
@@ -58,6 +59,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 //        super(null);
         this.entity = builder.entity;
         this.property = builder.property;
+        this.order = builder.order;
         this.path = builder.path;
         this.name = builder.name;
         this.column = builder.column;
@@ -85,6 +87,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public Property getProperty() {
         return this.property;
+    }
+
+    @Override
+    public Integer getOrder() {
+        return this.order;
     }
 
     @Override
@@ -174,6 +181,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
         private final E entity;
         private final Property property;
+        private Integer order = 0;
         private String path;
         private String name;
         private String column;
@@ -194,6 +202,12 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         public BuilderImpl(E entity, Property property) {
             this.entity = entity;
             this.property = property;
+        }
+
+        @Override
+        public Builder<T> order(Integer order) {
+            this.order = order;
+            return this;
         }
 
         @Override

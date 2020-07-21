@@ -18,6 +18,8 @@
 package org.finalframework.data.entity;
 
 
+import org.finalframework.data.annotation.Creator;
+import org.finalframework.data.annotation.LastModifier;
 import org.finalframework.data.annotation.Reference;
 import org.finalframework.data.annotation.Transient;
 
@@ -30,8 +32,10 @@ import org.finalframework.data.annotation.Transient;
 @Transient
 public class AbsRecord extends AbsEntity implements IRecord<Long, AbsUser> {
 
+    @Creator
     @Reference(properties = {"id", "name"})
     private AbsUser creator;
+    @LastModifier
     @Reference(properties = {"id", "name"})
     private AbsUser lastModifier;
 

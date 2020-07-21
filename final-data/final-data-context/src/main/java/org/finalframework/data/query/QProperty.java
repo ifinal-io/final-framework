@@ -43,7 +43,7 @@ import java.util.function.Function;
  * @date 2018-10-25 13:36
  * @since 1.0
  */
-public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<Order>,
+public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Object, Criterion>, Sortable<Order>,
         ExecuteCriteriable<T, Criterion> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
@@ -59,6 +59,8 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
     default Class<T> getType() {
         return (Class<T>) getProperty().getJavaType();
     }
+
+    Integer getOrder();
 
     @NonNull
     String getPath();
@@ -279,8 +281,14 @@ public interface QProperty<T> extends Criteriable<Object, Criterion>, Sortable<O
         return Order.desc(this);
     }
 
+    @Override
+    default int compareTo(QProperty<T> o) {
+        return Integer.compare(this.getOrder(), o.getOrder());
+    }
 
     interface Builder<T> extends org.finalframework.core.Builder<QProperty<T>> {
+
+        Builder<T> order(Integer order);
 
         Builder<T> path(String path);
 

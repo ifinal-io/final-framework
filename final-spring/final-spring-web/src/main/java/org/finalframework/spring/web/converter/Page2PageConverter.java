@@ -29,6 +29,7 @@ import org.finalframework.core.converter.Converter;
  * @date 2019-09-24 23:52:24
  * @since 1.0
  */
+@Deprecated
 public class Page2PageConverter implements Converter<Page<?>, org.finalframework.data.result.Page<?>> {
     @Override
     public org.finalframework.data.result.Page<?> convert(Page<?> source) {

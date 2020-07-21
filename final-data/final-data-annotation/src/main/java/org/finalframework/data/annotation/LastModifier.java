@@ -35,7 +35,7 @@ import org.springframework.core.annotation.AliasFor;
  */
 @Column
 @Documented
-@Order(Integer.MAX_VALUE - 99)
+@Order(Integer.MAX_VALUE - 110)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModifier {

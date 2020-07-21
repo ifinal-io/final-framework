@@ -18,17 +18,12 @@
 package org.finalframework.data.query;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.finalframework.data.annotation.Order;
 import org.finalframework.data.annotation.Table;
-import org.finalframework.data.annotation.TypeHandler;
 import org.finalframework.data.annotation.View;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.MappingUtils;
@@ -73,9 +68,12 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                     final View view = property.findAnnotation(View.class);
                     final List<Class<?>> views = Optional.ofNullable(view).map(value -> Arrays.asList(value.value()))
                             .orElse(null);
+                    final int order = property.isAnnotationPresent(Order.class) ? property.getRequiredAnnotation(Order.class).value() : 0;
                     if (property.isReference()) {
 
                         final Entity<?> referenceEntity = Entity.from(property.getType());
+
+                        AtomicInteger index = new AtomicInteger();
 
                         property.getReferenceProperties()
                                 .stream()
@@ -83,6 +81,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                 .forEach(referenceProperty -> {
                                     addProperty(
                                             QProperty.builder(this, referenceProperty)
+                                                    .order(order + index.getAndIncrement())
                                                     .path(property.getName() + "." + referenceProperty.getName())
                                                     .name(MappingUtils.formatPropertyName(property, referenceProperty))
                                                     .column(MappingUtils.formatColumn(entity, property, referenceProperty))
@@ -100,6 +99,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
                         addProperty(
                                 QProperty.builder(this, property)
+                                        .order(order)
                                         .path(property.getName())
                                         .name(property.getName())
                                         .column(MappingUtils.formatColumn(entity, property, null))
@@ -113,6 +113,8 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                         );
                     }
                 });
+
+
     }
 
     public void addProperty(QProperty<?> property) {

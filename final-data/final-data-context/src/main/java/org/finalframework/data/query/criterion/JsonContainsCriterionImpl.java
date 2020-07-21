@@ -92,14 +92,18 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
             default:
                 throw new IllegalArgumentException("JsonContains not support operation of " + operation.name());
         }
+        sql.append("\" suffix=\")\">");
+
+
         applyValueCriterion(sql, target, null, null, expression + ".target");
-        applyValueCriterion(sql, value, ",", "", expression + ".target");
+        applyValueCriterion(sql, value, ",", "", expression + ".value");
 
         sql.append(String.format("<if test=\"%s.path != null\">", expression))
                 .append(",#{").append(expression).append(".path}")
-                .append("</trim>");
+                .append("</if>");
 
-        sql.append("\" suffix=\")\">");
+        sql.append("</trim>");
+
 
     }
 
