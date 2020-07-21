@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 public @interface Criteria {
     AndOr value() default AndOr.AND;
 }

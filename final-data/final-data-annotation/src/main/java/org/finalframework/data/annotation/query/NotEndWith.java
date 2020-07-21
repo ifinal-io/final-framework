@@ -28,19 +28,20 @@ import java.lang.annotation.Target;
  * @author likly
  * @version 1.0
  * @date 2019-02-11 11:29:16
+ * @see Like
  * @since 1.0
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Criterion
-public @interface LIKE {
+public @interface NotEndWith {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} LIKE #{value} ",
+            "    ${column} NOT LIKE CONCAT(#{value},'%') ",
             "</if>"
     };
 

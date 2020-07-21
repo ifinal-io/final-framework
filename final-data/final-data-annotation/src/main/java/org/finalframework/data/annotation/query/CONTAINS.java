@@ -38,13 +38,13 @@ import java.lang.annotation.Target;
  * @author likly
  * @version 1.0
  * @date 2019-02-11 11:29:16
- * @see NOT_CONTAINS
- * @see START_WITH
- * @see NOT_START_WITH
- * @see END_WITH
- * @see NOT_END_WITH
- * @see LIKE
- * @see NOT_LIKE
+ * @see NotContains
+ * @see StartWith
+ * @see NotStartWith
+ * @see EndWith
+ * @see NotEndWith
+ * @see Like
+ * @see NotLike
  * @since 1.0
  */
 @Target(ElementType.FIELD)

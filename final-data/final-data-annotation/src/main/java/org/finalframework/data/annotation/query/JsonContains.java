@@ -33,17 +33,21 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Criterion
-public @interface IS_NULL {
+public @interface JsonContains {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
-            "<if test=\"${value} != null\">",
-            "<![CDATA[${andOr} ${column} IS NULL]]>",
-            "</if>"
+            "   <if test=\"${value} != null\">",
+            "       <![CDATA[${andOr} JSON_CONTAINS(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($attributes['path']),'${attributes['path']}'#end)]]>",
+            "   </if>"
     };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
+
+
+    @AliasFor(annotation = Criterion.class, attribute = "attributes")
+    Attribute[] attributes() default {};
 }

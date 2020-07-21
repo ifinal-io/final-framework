@@ -25,11 +25,11 @@ import org.apache.ibatis.parsing.XPathParser;
 import org.apache.ibatis.scripting.xmltags.OgnlCache;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.data.annotation.query.EQUAL;
-import org.finalframework.data.annotation.query.OR;
+import org.finalframework.data.annotation.query.AndOr;
+import org.finalframework.data.annotation.query.Criteria;
+import org.finalframework.data.annotation.query.Equal;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
-import org.finalframework.data.annotation.query.AndOr;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +65,10 @@ class IQueryTest {
         final Element where = document.createElement("where");
 
 
-        final AndOr andOr = properties.isAnnotationPresent(OR.class) ? AndOr.OR : AndOr.AND;
+        final AndOr andOr = properties.isAnnotationPresent(Criteria.class) ? properties.getRequiredAnnotation(Criteria.class).value() : AndOr.AND;
 
         for (Property property : properties) {
-            if (property.hasAnnotation(EQUAL.class)) {
+            if (property.hasAnnotation(Equal.class)) {
                 final Element element = document.createElement("if");
                 element.setAttribute("test", String.format("%s.%s != null", "query", property.getName()));
                 element.appendChild(document.createCDATASection(String.format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query", property.getName())));

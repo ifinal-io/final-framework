@@ -15,11 +15,8 @@
  *
  */
 
-package org.finalframework.data.annotation.query.geo;
+package org.finalframework.data.annotation.query;
 
-import org.finalframework.data.annotation.query.Attribute;
-import org.finalframework.data.annotation.query.Criterion;
-import org.finalframework.data.annotation.query.CriterionHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -27,34 +24,26 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
 /**
  * @author likly
  * @version 1.0
- * @date 2020-07-20 13:15:11
- * @see <a href="https://dev.mysql.com/doc/refman/8.0/en/spatial-relation-functions-object-shapes.html#function_st-distance">ST_Distance</a>
+ * @date 2019-02-11 11:29:16
  * @since 1.0
  */
-@Criterion
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Distance {
+@Retention(RetentionPolicy.RUNTIME)
+@Criterion
+public @interface NotLike {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
-            "<if test=\"${value} != null\">",
-            "   <![CDATA[${andOr} ST_Distance(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($attributes['unit']),'${attributes['unit']}'#end) > ]]>",
-            "</if>"
+            "   <if test=\"${value} != null and ${value} != ''\">",
+            "       ${column} NOT LIKE #{value} ",
+            "   </if>"
     };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
-
-    @AliasFor(annotation = Criterion.class, attribute = "handler")
-    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
-
-    @AliasFor(annotation = Criterion.class, attribute = "attributes")
-    Attribute[] attributes() default {};
 }

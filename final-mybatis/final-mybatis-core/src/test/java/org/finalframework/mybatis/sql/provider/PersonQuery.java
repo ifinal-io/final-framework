@@ -22,7 +22,6 @@ import lombok.Data;
 import org.finalframework.data.annotation.query.*;
 
 import java.awt.*;
-import java.util.List;
 
 /**
  * @author likly
@@ -37,7 +36,7 @@ public class PersonQuery {
 //    @NOT_BETWEEN(property = "age")
 //    BetweenValue<Integer> ageNotBetween;
     @Function("DATE(${column},4)")
-    @EQUAL
+    @Equal
     private String name;
 //    @NOT_EQUAL
 //    private Integer age;
@@ -61,7 +60,7 @@ public class PersonQuery {
 
     private Point location;
     @Function("ST_Distance(${column},ST_GeomFromText(#{${query}.location}))")
-    @LESS_THAN(property = "name")
+    @LessThan(property = "name")
     private Long distance;
 
 //    @Offset

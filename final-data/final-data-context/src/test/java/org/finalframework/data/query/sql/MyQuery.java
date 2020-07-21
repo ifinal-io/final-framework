@@ -19,9 +19,10 @@ package org.finalframework.data.query.sql;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.query.EQUAL;
-import org.finalframework.data.annotation.query.NOT_EQUAL;
-import org.finalframework.data.annotation.query.OR;
+import org.finalframework.data.annotation.query.AndOr;
+import org.finalframework.data.annotation.query.Criteria;
+import org.finalframework.data.annotation.query.Equal;
+import org.finalframework.data.annotation.query.NotEqual;
 
 /**
  * @author likly
@@ -30,11 +31,11 @@ import org.finalframework.data.annotation.query.OR;
  * @since 1.0
  */
 @Data
-@OR
+@Criteria(AndOr.OR)
 public class MyQuery {
-    @EQUAL
+    @Equal
     private String name;
-    @NOT_EQUAL
+    @NotEqual
     private Integer age;
 }
 

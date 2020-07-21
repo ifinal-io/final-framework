@@ -27,6 +27,7 @@ import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -56,7 +57,8 @@ public class AnnotationQueryProvider implements QueryProvider {
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        AndOr andOr = entity.isAnnotationPresent(OR.class) ? AndOr.OR : AndOr.AND;
+        final Criteria criteria = AnnotationUtils.findAnnotation(query, Criteria.class);
+        AndOr andOr = criteria != null ? criteria.value() : AndOr.AND;
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
 

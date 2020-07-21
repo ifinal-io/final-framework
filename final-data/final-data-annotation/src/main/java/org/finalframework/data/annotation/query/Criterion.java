@@ -30,24 +30,24 @@ import java.lang.annotation.Target;
  * @date 2019-02-20 09:25:43
  * @see Metadata
  * @see CriterionHandler
- * @see EQUAL
- * @see NOT_EQUAL
- * @see GREAT_THAN
- * @see GREAT_THAN_EQUAL
- * @see LESS_THAN
- * @see LESS_THAN_EQUAL
- * @see LIKE
- * @see NOT_LIKE
+ * @see Equal
+ * @see NotEqual
+ * @see GreatThan
+ * @see GreatThanEqual
+ * @see LessThan
+ * @see LessThanEqual
+ * @see Like
+ * @see NotLike
  * @see CONTAINS
- * @see NOT_CONTAINS
- * @see START_WITH
- * @see NOT_START_WITH
- * @see END_WITH
- * @see NOT_END_WITH
- * @see IN
- * @see NOT_IN
- * @see BETWEEN
- * @see NOT_BETWEEN
+ * @see NotContains
+ * @see StartWith
+ * @see NotStartWith
+ * @see EndWith
+ * @see NotEndWith
+ * @see In
+ * @see NotIn
+ * @see Between
+ * @see NotBetween
  * @since 1.0
  */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})

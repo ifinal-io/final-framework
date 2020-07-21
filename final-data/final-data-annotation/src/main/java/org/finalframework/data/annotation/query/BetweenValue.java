@@ -26,8 +26,8 @@ import java.io.Serializable;
  * @author likly
  * @version 1.0
  * @date 2020-06-06 23:58:57
- * @see BETWEEN
- * @see NOT_BETWEEN
+ * @see Between
+ * @see NotBetween
  * @since 1.0
  */
 @Data

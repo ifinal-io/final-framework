@@ -18,8 +18,6 @@
 package org.finalframework.mybatis.sql.provider;
 
 import org.finalframework.data.annotation.query.Criterion;
-import org.finalframework.data.annotation.query.Function;
-import org.finalframework.data.annotation.query.LESS_THAN;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;

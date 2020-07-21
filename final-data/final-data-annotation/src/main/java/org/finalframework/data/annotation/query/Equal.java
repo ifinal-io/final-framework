@@ -28,25 +28,28 @@ import java.lang.annotation.Target;
  * @author likly
  * @version 1.0
  * @date 2019-02-11 11:29:16
+ * @see NotEqual
  * @since 1.0
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Criterion
-public @interface JSON_CONTAINS {
+public @interface Equal {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null\">",
-            "       <![CDATA[${andOr} JSON_CONTAINS(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($attributes['path']),'${attributes['path']}'#end)]]>",
+            Constants.EQUAL,
             "   </if>"
     };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
 
+    @AliasFor(annotation = Criterion.class, attribute = "handler")
+    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
 
     @AliasFor(annotation = Criterion.class, attribute = "attributes")
     Attribute[] attributes() default {};
