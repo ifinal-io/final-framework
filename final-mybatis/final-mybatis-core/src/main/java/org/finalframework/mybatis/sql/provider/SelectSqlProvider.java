@@ -20,6 +20,7 @@ package org.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.core.Assert;
+import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
@@ -118,9 +119,9 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
                     .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
                     .append("</where>");
         } else if (query instanceof Query) {
-//            ((Query) query).apply(script, "query");
+            ((Query) query).apply(sql, "query");
         } else {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
 

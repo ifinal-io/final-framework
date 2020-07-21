@@ -15,20 +15,16 @@
  *
  */
 
-package org.finalframework.data.annotation.query;
-
-import org.finalframework.data.annotation.IEntity;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+package org.finalframework.data.annotation;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2020-07-20 10:08:38
+ * @date 2020-07-21 16:26:01
  * @since 1.0
  */
-@FunctionalInterface
-public interface QueryProvider {
-    @NonNull
-    String provide(@Nullable String expression, @NonNull Class<? extends IEntity<?>> entity, @NonNull Class<?> query);
+public interface SqlBuilder {
+
+    SqlBuilder append(String fragment);
+
 }
