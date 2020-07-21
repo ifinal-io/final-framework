@@ -61,6 +61,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
 
     protected void initProperties() {
         Entity<T> entity = Entity.from(type);
+
         entity.stream()
                 .filter(it -> !it.isTransient())
                 .forEach(property -> {
@@ -68,7 +69,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                     final View view = property.findAnnotation(View.class);
                     final List<Class<?>> views = Optional.ofNullable(view).map(value -> Arrays.asList(value.value()))
                             .orElse(null);
-                    final int order = property.isAnnotationPresent(Order.class) ? property.getRequiredAnnotation(Order.class).value() : 0;
+                    final int order = property.getOrder();
                     if (property.isReference()) {
 
                         final Entity<?> referenceEntity = Entity.from(property.getType());
@@ -79,6 +80,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                                 .stream()
                                 .map(referenceEntity::getRequiredPersistentProperty)
                                 .forEach(referenceProperty -> {
+
                                     addProperty(
                                             QProperty.builder(this, referenceProperty)
                                                     .order(order + index.getAndIncrement())
@@ -113,11 +115,10 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
                         );
                     }
                 });
-
-
+        this.properties.sort(Comparator.comparing(QProperty::getOrder));
     }
 
-    public void addProperty(QProperty<?> property) {
+    private void addProperty(QProperty<?> property) {
         this.properties.add(property);
         this.pathProperties.put(property.getPath(), property);
         if (property.isIdProperty()) {

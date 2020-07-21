@@ -64,6 +64,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return annotation.reader();
     });
 
+
+    private final Lazy<Integer> order = Lazy.of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
     private final Lazy<Boolean> isTransient = Lazy.of(isAnnotationPresent(Transient.class) || super.isTransient());
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
@@ -142,6 +144,11 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @Override
     public boolean isTransient() {
         return isTransient.get();
+    }
+
+    @Override
+    public Integer getOrder() {
+        return order.get();
     }
 
     @Override

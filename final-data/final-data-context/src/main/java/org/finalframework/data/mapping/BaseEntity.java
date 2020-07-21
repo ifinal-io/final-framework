@@ -70,6 +70,8 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
                         properties.add(it);
                     });
 
+            this.properties.sort(Comparator.comparing(Property::getOrder));
+
 
         } catch (IntrospectionException e) {
             logger.error("", e);

@@ -39,6 +39,7 @@ import org.springframework.data.mapping.PersistentProperty;
 @JsonSerialize(using = PropertyJsonSerializer.class)
 public interface Property extends PersistentProperty<Property> {
 
+    Integer getOrder();
 
     default boolean isEnum() {
         return getType().isEnum();
