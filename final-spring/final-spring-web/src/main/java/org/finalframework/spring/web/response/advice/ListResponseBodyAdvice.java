@@ -18,7 +18,6 @@
 package org.finalframework.spring.web.response.advice;
 
 
-import org.finalframework.data.result.R;
 import org.finalframework.spring.annotation.factory.SpringResponseBodyAdvice;
 import org.finalframework.spring.web.converter.List2ResultConverter;
 import org.springframework.core.MethodParameter;
@@ -40,7 +39,7 @@ import java.util.List;
 @SpringResponseBodyAdvice
 @Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
 @RestControllerAdvice
-public class List2ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
+public class ListResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private final List2ResultConverter list2ResultConverter = new List2ResultConverter();
 
@@ -49,7 +48,7 @@ public class List2ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object
         if (body instanceof List) {
             return list2ResultConverter.convert((List) body);
         }
-        return R.success(body);
+        return body;
     }
 }
 
