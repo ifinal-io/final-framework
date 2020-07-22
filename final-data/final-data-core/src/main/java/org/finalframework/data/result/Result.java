@@ -68,10 +68,10 @@ public final class Result<T> implements Responsible, Serializable {
      * 业务状态描述
      */
     private String message;
-    /**
-     * 元数据
-     */
-    private List<Metadata> metadata;
+//    /**
+//     * 元数据
+//     */
+//    private List<Metadata> metadata;
     /**
      * 业务数据
      */
@@ -184,13 +184,13 @@ public final class Result<T> implements Responsible, Serializable {
         this.message = message;
     }
 
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(List<Metadata> metadata) {
-        this.metadata = metadata;
-    }
+//    public List<Metadata> getMetadata() {
+//        return metadata;
+//    }
+//
+//    public void setMetadata(List<Metadata> metadata) {
+//        this.metadata = metadata;
+//    }
 
     public T getData() {
         return data;

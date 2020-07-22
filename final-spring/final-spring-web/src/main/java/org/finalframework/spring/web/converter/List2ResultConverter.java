@@ -57,22 +57,22 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<List<T
         if (Assert.nonEmpty(list)) {
             final T entity = list.get(0);
 
-            if (entity instanceof IEntity) {
-                final QEntity<?, ?> properties = QEntity.from(entity.getClass());
-                result.setMetadata(
-                        properties.stream()
-                                .sorted()
-                                .map(property -> {
-                                    final Metadata metadata = new Metadata();
-
-                                    metadata.setName(property.getName());
-                                    metadata.setPath(property.getPath());
-                                    metadata.setHeader(property.getName());
-
-                                    return metadata;
-                                }).collect(Collectors.toList())
-                );
-            }
+//            if (entity instanceof IEntity) {
+//                final QEntity<?, ?> properties = QEntity.from(entity.getClass());
+//                result.setMetadata(
+//                        properties.stream()
+//                                .sorted()
+//                                .map(property -> {
+//                                    final Metadata metadata = new Metadata();
+//
+//                                    metadata.setName(property.getName());
+//                                    metadata.setPath(property.getPath());
+//                                    metadata.setHeader(property.getName());
+//
+//                                    return metadata;
+//                                }).collect(Collectors.toList())
+//                );
+//            }
 
 
         }
