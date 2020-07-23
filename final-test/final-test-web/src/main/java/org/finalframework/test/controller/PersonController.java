@@ -26,6 +26,7 @@ import org.finalframework.data.annotation.IView;
 import org.finalframework.data.query.PageQuery;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.query.criterion.Criterion;
 import org.finalframework.test.dao.query.QPerson;
 import org.finalframework.test.entity.Person;
 import org.finalframework.test.service.PersonService;
@@ -64,7 +65,14 @@ public class PersonController {
 //                        QPerson.name.eq("haha"),
 //                        QPerson.intList.jsonExtract("$[1]").eq(2),t
 //                                QPerson.properties.jsonContains("[1,2]", "$.int"),
-                                QPerson.properties.jsonContains("\"aaa\"", "$.string")
+                                QPerson.properties.jsonContains("\"aaa\"", "$.string"),
+                                new Criterion() {
+
+                                    @Override
+                                    public void apply(StringBuilder sql, String expression) {
+                                        sql.append(" id > 1");
+                                    }
+                                }
                         )
         );
 //        return personService.select(new Query().page(query.getPage(), query.getSize()));

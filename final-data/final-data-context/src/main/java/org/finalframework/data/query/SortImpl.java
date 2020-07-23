@@ -32,7 +32,7 @@ import java.util.stream.Stream;
  * @date 2019-01-08 15:22:08
  * @since 1.0
  */
-public class SortImpl extends ArrayList<Order> implements Sort, Sql<Sort> {
+public class SortImpl extends ArrayList<Order> implements Sort {
 
 //    private final List<Order> orders;
 
@@ -83,9 +83,4 @@ public class SortImpl extends ArrayList<Order> implements Sort, Sql<Sort> {
         return isEmpty() ? "" : stream().map(Order::toString).collect(Collectors.joining(","));
     }
 
-    @Override
-    public String getSql() {
-        return toString();
-//        return new SortSqlBuilder(this).build();
-    }
 }

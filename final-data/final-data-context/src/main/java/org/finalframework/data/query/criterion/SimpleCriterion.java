@@ -19,8 +19,6 @@ package org.finalframework.data.query.criterion;
 
 import org.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 /**
  * [标准，准则，规范，准据] 条件
@@ -41,11 +39,6 @@ import org.w3c.dom.Node;
  * @since 1.0
  */
 public interface SimpleCriterion<T> extends Criterion {
-
-    @Override
-    default boolean isChain() {
-        return false;
-    }
 
     @NonNull
     Object getTarget();

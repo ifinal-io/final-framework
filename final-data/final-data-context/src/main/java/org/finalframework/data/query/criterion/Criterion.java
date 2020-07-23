@@ -28,9 +28,5 @@ import org.finalframework.data.query.SqlNode;
  */
 public interface Criterion extends SqlNode {
 
-    /**
-     * @see org.finalframework.data.query.Criteria
-     */
-    boolean isChain();
 }
 

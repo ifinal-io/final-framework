@@ -47,7 +47,9 @@ public enum YN implements IEnum<Integer> {
     NO(0, "无效"),
     /**
      * 删除
+     * Note: Don't use more, it would be remove in future.
      */
+    @Deprecated
     DELETED(-1, "删除");
     /**
      * 枚举码

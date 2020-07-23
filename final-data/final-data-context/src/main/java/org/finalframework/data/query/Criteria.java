@@ -58,11 +58,6 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
 
     AndOr andOr();
 
-    @Override
-    default boolean isChain() {
-        return true;
-    }
-
     default Criteria add(Criterion... criterion) {
         return add(Arrays.asList(criterion));
     }
@@ -73,17 +68,32 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
 
     Criteria or(Criteria... criteria);
 
+
+    /**
+     * <pre>
+     *     <code>
+     *         <trim prefix="(" prefixOverrides="AND |OR " suffix=")">
+     *
+     *              <trim prefix="AND|OR">
+     *                  ${criterion}
+     *              </trim>
+     *
+     *         </trim>
+     *     </code>
+     * </pre>
+     *
+     * @param sql
+     * @param value
+     */
     @Override
     default void apply(StringBuilder sql, String value) {
-
-
         sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
         int index = 0;
 
         for (Criterion criterion : this) {
-            sql.append(String.format("<trim prefix=\"%s\">", andOr().name()))
-                    .append(String.format("%s.criteria[%d]", value, index))
-                    .append("</trim>");
+            sql.append(String.format("<trim prefix=\"%s\">", andOr().name()));
+            criterion.apply(sql, String.format("%s.criteria[%d]", value, index));
+            sql.append("</trim>");
             index++;
         }
 

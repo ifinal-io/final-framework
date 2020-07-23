@@ -28,10 +28,6 @@ import org.springframework.lang.NonNull;
  * @since 1.0
  */
 public interface CriterionOperation extends Criterion, Operation, SqlNode {
-    @Override
-    default boolean isChain() {
-        return false;
-    }
 
     @Override
     default String name() {
