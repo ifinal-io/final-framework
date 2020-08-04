@@ -90,8 +90,13 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
         sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
         int index = 0;
 
+        /*
+         * <trim prefix="AND|OR">
+         *      ${criterion}
+         * </trim>
+         */
         for (Criterion criterion : this) {
-            sql.append(String.format("<trim prefix=\"%s\">", andOr().name()));
+            sql.append(String.format("<trim prefix=\" %s \">", andOr().name()));
             criterion.apply(sql, String.format("%s.criteria[%d]", value, index));
             sql.append("</trim>");
             index++;

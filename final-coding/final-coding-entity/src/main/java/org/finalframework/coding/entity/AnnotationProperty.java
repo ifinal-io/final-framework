@@ -616,6 +616,7 @@ public class AnnotationProperty implements Property {
             this.pv = pv;
             this.elements = pv.getElementUtils();
             this.types = pv.getTypeUtils();
+
         }
 
 

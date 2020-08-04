@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
  *             <trim prefix="(" suffix=")">
  *                  columns
  *             </trim>
- *             <foreach collection="list" item="entity" open="VALUES">
+ *             <foreach collection="list" item="entity" open="VALUES" separator=",">
  *                  <trim prefix="(" suffix=")">
  *                      values
  *                  </trim>
@@ -143,14 +143,14 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("</trim>");
 
         /**
-         * <foreach collection="list" item="entity" open="VALUES">
+         * <foreach collection="list" item="entity" open="VALUES" separator=",">
          *      <trim prefix="(" suffix=")">
          *          values
          *      </trim>
          * </foreach>
          */
 
-        sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\">");
+        sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\" separator=\",\">");
 
         properties.stream()
                 .filter(property -> property.isWriteable() && property.hasView(view))

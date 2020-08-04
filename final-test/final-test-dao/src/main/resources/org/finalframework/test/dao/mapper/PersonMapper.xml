@@ -33,7 +33,7 @@
         <trim prefix="(" suffix=")">
             <![CDATA[age,creator_name,creator,int_list,last_modifier_name,last_modifier,name,properties,string_list]]>
         </trim>
-        <foreach collection="list" item="entity" open="VALUES">
+        <foreach collection="list" item="entity" open="VALUES" separator=",">
             <bind name="age" value="entity.age"/>
             <bind name="creatorName"
                   value="entity.creator == null || entity.creator.name == null ? null : entity.creator.name"/>
