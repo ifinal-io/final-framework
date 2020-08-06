@@ -99,7 +99,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
                         metadata.setProperty(property.getName());
                         metadata.setColumn(property.getColumn());
-                        metadata.setValue(property.getName());
+                        metadata.setValue("entity." + property.getName());
                         metadata.setJavaType(property.getType());
                         metadata.setTypeHandler(property.getTypeHandler());
 
@@ -109,11 +109,20 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         final String test = ScriptMapperHelper.formatTest("entity", property.getPath(), selective);
 
                         if (test == null) {
-                            sql.append(value);
+                            /*
+                              ${column} = #{value}
+                             */
+                            sql.append(property.getColumn()).append(" = ").append(value);
                         } else {
 
+                            /*
+                              <if test="${test}">
+                                   ${column} = #{value}
+                              </if>
+                             */
+
                             sql.append("<if test=\"").append(test).append("\">");
-                            sql.append(value);
+                            sql.append(property.getColumn()).append(" = ").append(value);
                             sql.append("</if>");
 
                         }
@@ -132,8 +141,16 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("</set>");
 
         if (ids != null) {
+            /**
+             * <where>
+             *     ${properties.idProperty.column}
+             *     <foreach collection="ids" item="id" open=" IN (" separator="," close=")">
+             *         #{id}
+             *     </foreach>
+             * </where>
+             */
             sql.append("<where>${properties.idProperty.column}")
-                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach>")
                     .append("</where>");
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");

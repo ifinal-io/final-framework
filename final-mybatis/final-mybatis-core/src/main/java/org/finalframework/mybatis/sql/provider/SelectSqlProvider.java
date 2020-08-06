@@ -116,7 +116,7 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
              * </where>
              */
             sql.append("<where>${properties.idProperty.column}")
-                    .append("<foreach collection=\"ids\" item=\"id\" open=\"IN (\" separator=\",\" close=\")\">#{id}</foreach>")
+                    .append("<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach>")
                     .append("</where>");
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");

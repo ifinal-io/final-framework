@@ -15,25 +15,26 @@
  *
  */
 
-package org.finalframework.core;
-
-
-import org.junit.jupiter.api.Assertions;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-02-26 15:57:32
+ * @date 2020-08-04 17:59:04
  * @since 1.0
  */
-public class AssertTest {
-
+@Slf4j
+public class ClassLoaderTest {
 
     @Test
-    public void nonEmpty() {
+    public void test() {
+        ClassLoader loader = ClassLoaderTest.class.getClassLoader();
 
-        Assertions.assertFalse(Assert.nonEmpty("ys"), "ys in notEmpty ");
+        while (loader != null) {
+            logger.info(loader.toString());
+            loader = loader.getParent();
+        }
     }
 }
+
