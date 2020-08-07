@@ -45,6 +45,13 @@
 
     <name>final-framework</name>
     <description>final framework for a simple restful api server</description>
+    <developers>
+        <developer>
+            <name>likly</name>
+            <email>likly@ilikly.com</email>
+            <timezone>Asia/ShangHai</timezone>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -162,11 +169,6 @@
                 <groupId>org.finalframework.spiriter</groupId>
                 <version>${final.version}</version>
             </dependency>
-            <dependency>
-                <artifactId>final-spiriter-api</artifactId>
-                <groupId>org.finalframework.spiriter</groupId>
-                <version>${final.version}</version>
-            </dependency>
             <!-- ==================================================================================================== -->
             <!-- ============================================ final-coding ============================================ -->
             <!-- ==================================================================================================== -->
@@ -265,16 +267,6 @@
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-data ============================================= -->
             <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-data-annotation</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-data-context</artifactId>
-                <version>${final.version}</version>
-            </dependency>
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-mybatis ============================================= -->
             <!-- ==================================================================================================== -->
@@ -330,11 +322,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-util</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-data</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
@@ -502,13 +489,4 @@
         <!--        </repository>-->
 
     </distributionManagement>
-
-    <repositories>
-        <!--        <repository>-->
-        <!--            <id>spring-milestones</id>-->
-        <!--            <name>Spring Milestones</name>-->
-        <!--            <url>https://repo.spring.io/milestone</url>-->
-        <!--        </repository>-->
-    </repositories>
-
 </project>
