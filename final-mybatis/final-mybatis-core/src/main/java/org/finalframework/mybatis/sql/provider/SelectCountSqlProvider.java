@@ -26,6 +26,18 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
+ * <pre>
+ *     <code>
+ *         <trim prefix="SELECT COUNT(*) FROM ">
+ *              ${table}
+ *         </trim>
+ *         <where>
+ *             id <foreach collection="ids" item="id" open=" IN (" separator="," close=")">#{id}</foreach>
+ *         </where>
+ *         ${query}
+ *     </code>
+ * </pre>
+ *
  * @author likly
  * @version 1.0
  * @date 2020-04-15 00:23:52
