@@ -33,6 +33,27 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * <pre>
+ *     <code>
+ *         <trim prefix="SELECT">
+ *              ${columns}
+ *         </trim>
+ *         <trim prefix="FROM">
+ *              ${table}
+ *         </trim>
+ *         <where>
+ *             id = #{id}
+ *         </where>
+ *         <where>
+ *             id in
+ *             <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+ *         </where>
+ *         <where>
+ *
+ *         </where>
+ *     </code>
+ * </pre>
+ *
  * @author likly
  * @version 1.0
  * @date 2020-04-15 00:23:52

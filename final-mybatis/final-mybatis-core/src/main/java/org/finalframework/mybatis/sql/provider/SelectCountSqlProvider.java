@@ -32,8 +32,10 @@ import java.util.Map;
  * @see org.finalframework.mybatis.mapper.AbsMapper#selectCount(String, Collection, Query)
  * @since 1.0
  */
+
 public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
+    @SuppressWarnings("unused")
     public String selectCount(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }

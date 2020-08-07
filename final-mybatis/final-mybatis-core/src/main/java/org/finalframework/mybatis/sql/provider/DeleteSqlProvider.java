@@ -36,7 +36,7 @@ import java.util.Map;
  *                 <trim>
  *                     ${properties.idProperty.column}
  *                 </trim>
- *                 <foreach collection="ids" item="id" open="IN(" close=")" separator=",">#{id}</foreach>
+ *                 <foreach collection="ids" item="id" open=" IN (" close=")" separator=",">#{id}</foreach>
  *             </where>
  *         </script>
  *     </code>
@@ -50,6 +50,7 @@ import java.util.Map;
  */
 public class DeleteSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
+    @SuppressWarnings("unused")
     public String delete(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }

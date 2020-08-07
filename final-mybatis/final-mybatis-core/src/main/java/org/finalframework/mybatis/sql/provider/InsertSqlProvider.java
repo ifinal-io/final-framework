@@ -28,9 +28,6 @@ import org.finalframework.data.query.QProperty;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -69,6 +66,7 @@ import java.util.stream.Collectors;
  * @see org.finalframework.mybatis.mapper.AbsMapper#save(String, Class, Collection)
  * @since 1.0
  */
+@SuppressWarnings("unused")
 public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
     public static final String METHOD_INSERT = "insert";
@@ -118,20 +116,54 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         final QEntity<?, ?> properties = QEntity.from(entity);
 
 
-        /*
-         *  <trim prefix="INSERT INFO | INSERT IGNORE INTO | REPLACE INTO">
-         *      ${table}
-         *  </trim>
-         */
+        appendInsertOrReplaceOrSave(sql, insertPrefix);
+        appendColumns(sql, properties, view);
+        appendValues(sql, properties, view);
+        if (METHOD_SAVE.equals(context.getMapperMethod().getName())) {
+            appendOnDuplicateKeyUpdate(sql, properties, view);
+        }
 
+    }
+
+
+    private String getInsertPrefix(Method method, boolean ignore) {
+        switch (method.getName()) {
+            case METHOD_INSERT:
+                return ignore ? INSERT_IGNORE_INTO : INSERT_INTO;
+            case METHOD_REPLACE:
+                return REPLACE_INTO;
+            case METHOD_SAVE:
+                return INSERT_INTO;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * <trim prefix="INSERT INTO | INSERT IGNORE INTO | REPLACE INTO">
+     * ${table}
+     * </trim>
+     */
+    private void appendInsertOrReplaceOrSave(StringBuilder sql, String insertPrefix) {
         sql.append("<trim prefix=\"").append(insertPrefix).append("\">")
                 .append(ScriptMapperHelper.table())
                 .append("</trim>");
-        /*
-         * <trim prefix="(" suffix=")">
-         *      columns
-         * </trim>
-         */
+    }
+
+    /**
+     * <pre>
+     *     <code>
+     *         <trim prefix="(" suffix=")">
+     *              ${columns}
+     *         </trim>
+     *     </code>
+     * </pre>
+     *
+     * @param sql        sql
+     * @param properties properties
+     * @param view       view
+     */
+    private void appendColumns(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
 
         sql.append("<trim prefix=\"(\" suffix=\")\">");
         sql.append(ScriptMapperHelper.cdata(
@@ -141,15 +173,24 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         .collect(Collectors.joining(","))
         ));
         sql.append("</trim>");
+    }
 
-        /**
-         * <foreach collection="list" item="entity" open="VALUES" separator=",">
-         *      <trim prefix="(" suffix=")">
-         *          values
-         *      </trim>
-         * </foreach>
-         */
-
+    /**
+     * <pre>
+     *     <code>
+     *         <foreach collection="list" item="entity" open="VALUES" separator=",">
+     *              <trim prefix="(" suffix=")">
+     *                  values
+     *              </trim>
+     *         </foreach>
+     *     </code>
+     * </pre>
+     *
+     * @param sql        sql
+     * @param properties properties
+     * @param view       view
+     */
+    private void appendValues(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
         sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\" separator=\",\">");
 
         properties.stream()
@@ -168,8 +209,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                     metadata.setTypeHandler(property.getTypeHandler());
 
                     final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                    final String value = Velocities.getValue(writer, metadata);
-                    return value;
+                    return Velocities.getValue(writer, metadata);
                 })
                 .collect(Collectors.joining("\n,"));
 
@@ -178,57 +218,41 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("</trim>");
 
         sql.append("</foreach>");
-
-
-        if (METHOD_SAVE.equals(context.getMapperMethod().getName())) {
-
-            /**
-             * <trim prefix="ON DUPLICATE KEY UPDATE">
-             *
-             * </trim>
-             */
-
-
-            final String onDuplicateKeyUpdate = properties.stream()
-                    .filter(property -> (property.isWriteable() && property.hasView(view))
-                            || property.getProperty().hasAnnotation(Version.class)
-                            || property.getProperty().hasAnnotation(LastModified.class))
-                    .map(property -> {
-                        String column = property.getColumn();
-                        if (property.getProperty().hasAnnotation(Version.class)) {
-                            return String.format("%s = %s + 1", column, column);
-                        } else if (property.getProperty().hasAnnotation(LastModified.class)) {
-                            return String.format("%s = NOW()", column);
-                        } else {
-                            return String.format("%s = values(%s)", column, column);
-                        }
-                    }).collect(Collectors.joining(","));
-
-            sql.append("<trim prefix=\"ON DUPLICATE KEY UPDATE\">");
-
-            sql.append(ScriptMapperHelper.cdata(onDuplicateKeyUpdate));
-
-            sql.append("</trim>");
-
-        }
-
-    }
-
-    private boolean filterInsertProperties(QProperty property, Class<?> view) {
-        return property.isWriteable() && property.hasView(view);
     }
 
 
-    private String getInsertPrefix(Method method, boolean ignore) {
-        switch (method.getName()) {
-            case METHOD_INSERT:
-                return ignore ? INSERT_IGNORE_INTO : INSERT_INTO;
-            case METHOD_REPLACE:
-                return REPLACE_INTO;
-            case METHOD_SAVE:
-                return INSERT_INTO;
-        }
-        throw new IllegalArgumentException();
+    /**
+     * <trim prefix="ON DUPLICATE KEY UPDATE">
+     * ${column} = value(${column}),
+     * version = version + 1,
+     * lastModified = NOW()
+     * </trim>
+     *
+     * @param sql        sql
+     * @param properties properties
+     * @param view       view
+     */
+    private void appendOnDuplicateKeyUpdate(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
+        final String onDuplicateKeyUpdate = properties.stream()
+                .filter(property -> (property.isWriteable() && property.hasView(view))
+                        || property.getProperty().hasAnnotation(Version.class)
+                        || property.getProperty().hasAnnotation(LastModified.class))
+                .map(property -> {
+                    String column = property.getColumn();
+                    if (property.getProperty().hasAnnotation(Version.class)) {
+                        return String.format("%s = %s + 1", column, column);
+                    } else if (property.getProperty().hasAnnotation(LastModified.class)) {
+                        return String.format("%s = NOW()", column);
+                    } else {
+                        return String.format("%s = values(%s)", column, column);
+                    }
+                }).collect(Collectors.joining(","));
+
+        sql.append("<trim prefix=\"ON DUPLICATE KEY UPDATE\">");
+
+        sql.append(ScriptMapperHelper.cdata(onDuplicateKeyUpdate));
+
+        sql.append("</trim>");
     }
 
 
