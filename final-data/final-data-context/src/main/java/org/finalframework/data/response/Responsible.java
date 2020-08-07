@@ -27,13 +27,19 @@ import org.springframework.lang.NonNull;
  */
 public interface Responsible {
     /**
-     * 响应状态码
+     * return the response code
      *
+     * @return the response code
      * @see ResponseStatus#getCode()
      */
     @NonNull
     Integer getStatus();
 
+    /**
+     * return the response description
+     *
+     * @return the response description
+     */
     String getDescription();
 
 }
