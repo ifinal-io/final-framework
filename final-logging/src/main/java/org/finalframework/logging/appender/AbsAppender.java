@@ -24,7 +24,7 @@ import org.finalframework.logging.entity.LoggingEvent;
 
 /**
  * @author likly
- * @version 1.0
+ * @version 1.0AppenderBase
  * @date 2019-01-16 21:17:21
  * @since 1.0
  */
