@@ -112,7 +112,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                             /*
                               ${column} = #{value}
                              */
-                            sql.append(property.getColumn()).append(" = ").append(value);
+                            sql.append(property.getColumn()).append(" = ").append(value).append(",");
                         } else {
 
                             /*
@@ -122,7 +122,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                              */
 
                             sql.append("<if test=\"").append(test).append("\">");
-                            sql.append(property.getColumn()).append(" = ").append(value);
+                            sql.append(property.getColumn()).append(" = ").append(value).append(",");
                             sql.append("</if>");
 
                         }

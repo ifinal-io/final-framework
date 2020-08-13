@@ -141,7 +141,7 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
                     .append("</where>");
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");
-        } else {
+        } else if (query != null) {
             sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 

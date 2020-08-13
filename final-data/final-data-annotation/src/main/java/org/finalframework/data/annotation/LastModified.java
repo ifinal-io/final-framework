@@ -33,6 +33,7 @@ import org.springframework.data.annotation.LastModifiedDate;
  * @version 1.0
  * @date 2018-10-15 15:14
  * @see Created
+ * @see LastModifier
  * @since 1.0
  */
 @ReadOnly
@@ -40,7 +41,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Documented
 @LastModifiedDate
 @Order(Integer.MAX_VALUE - 100)
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModified {
 
