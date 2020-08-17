@@ -107,6 +107,13 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         return where;
     }
 
+    default String whereIdNotNull() {
+        return "<where>${properties.idProperty.column} = #{id}</where>";
+    }
+
+    default String whereIdsNotNull() {
+        return "<where>${properties.idProperty.column}<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach></where>";
+    }
 
 
 }

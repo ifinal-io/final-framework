@@ -64,9 +64,7 @@ public class DeleteSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("<trim prefix=\"DELETE FROM\">").append("${table}").append("</trim>");
 
         if (ids != null) {
-            sql.append("<where>${properties.idProperty.column}")
-                    .append("<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach>")
-                    .append("</where>");
+            sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");
         }
