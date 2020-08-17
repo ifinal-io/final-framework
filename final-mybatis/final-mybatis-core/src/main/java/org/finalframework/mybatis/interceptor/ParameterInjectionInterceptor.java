@@ -25,18 +25,13 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.data.annotation.Final;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.repository.Repository;
-import org.finalframework.data.repository.RepositoryHolder;
-import org.finalframework.data.repository.RepositoryManager;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.spring.annotation.factory.SpringComponent;
-import org.finalframework.util.ProxyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 

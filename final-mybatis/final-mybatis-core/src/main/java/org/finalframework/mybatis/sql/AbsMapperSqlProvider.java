@@ -24,9 +24,7 @@ import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.repository.Repository;
-import org.finalframework.data.repository.RepositoryHolder;
 import org.finalframework.mybatis.handler.JsonObjectTypeHandler;
-import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.mybatis.sql.provider.ScriptSqlProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -109,46 +107,6 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         return where;
     }
 
-    default Node whereIdsNotNull(Document document) {
-        final Element when = document.createElement("when");
-        when.setAttribute("test", "ids != null");
-        when.appendChild(text(document, "${properties.idProperty.column}"));
-        final Element ifIdPropertyNotNull = document.createElement("if");
-        ifIdPropertyNotNull.setAttribute("test", "properties.idProperty != null");
-        ifIdPropertyNotNull.appendChild(text(document, "${properties.idProperty.column}"));
-        when.appendChild(ifIdPropertyNotNull);
-
-
-        final Node in = trim(document, "IN", null);
-//        in.appendChild(text(document, "${properties.idProperty.column}"));
-
-        final Element foreach = document.createElement("foreach");
-
-        foreach.setAttribute("collection", "ids");
-        foreach.setAttribute("item", "id");
-        foreach.setAttribute("open", "(");
-        foreach.setAttribute("close", ")");
-        foreach.appendChild(cdata(document, "#{id}"));
-
-        in.appendChild(foreach);
-
-        when.appendChild(in);
-
-        return when;
-    }
-
-    default Node whereIdNotNull(Document document) {
-        final Element when = document.createElement("when");
-        when.setAttribute("test", "ids != null");
-        when.appendChild(text(document, "${properties.idProperty.column}"));
-        final Element ifIdPropertyNotNull = document.createElement("if");
-        ifIdPropertyNotNull.setAttribute("test", "properties.idProperty != null");
-        ifIdPropertyNotNull.appendChild(text(document, "${properties.idProperty.column} = #{id}"));
-        when.appendChild(ifIdPropertyNotNull);
-
-
-        return when;
-    }
 
 
 }
