@@ -18,6 +18,12 @@
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author likly
  * @version 1.0
@@ -26,6 +32,9 @@ import org.junit.jupiter.api.Test;
  */
 @Slf4j
 public class ClassLoaderTest {
+    private static final String JS_ENGINE_NAME = "nashorn";
+    private final ScriptEngineManager sem = new ScriptEngineManager();
+    private final ScriptEngine engine = sem.getEngineByName(JS_ENGINE_NAME);
 
     @Test
     public void test() {
@@ -35,6 +44,64 @@ public class ClassLoaderTest {
             logger.info(loader.toString());
             loader = loader.getParent();
         }
+    }
+
+    @Test
+    public void test2() {
+        invokeFunctionDemo();
+    }
+
+    public boolean invokeFunctionDemo() {
+        logger.info("---          invokeFunction         ---");
+        boolean result = true;
+        try {
+            engine.put("msg", "hello world!");
+            String str = "var user = {name:'张三',age:18,city:['陕西','台湾']};";
+            engine.eval(str);
+
+            logger.info("Get msg={}", engine.get("msg"));
+            //获取变量
+            engine.eval("var sum = eval('1 + 2 + 3*4');");
+            //调用js的eval的方法完成运算
+            logger.info("get sum={}", engine.get("sum"));
+
+            Map<String, Object> msg = new HashMap<>();
+            msg.put("temperature", 125);
+            msg.put("humidity", 20);
+            msg.put("voltage", 220);
+            msg.put("electricity", 13);
+
+            Map<String, Object> metadata = new HashMap<>();
+            metadata.put("deviceName", "空气质量检测器01");
+            metadata.put("contacts", "张三");
+
+            Map<String, Object> msgType = new HashMap<>();
+            //msgType.put("type", "deviceTelemetryData");
+            msgType.put("type", "deviceTelemetryData1");
+
+            //定义函数
+            String func = "var result = true; \r\n" +
+                    "if (msgType.type = 'deviceTelemetryData') { \r\n" +
+                    "   if (msg.temperature >0 && msg.temperature < 33) { \n       result = true ;}  \n" +
+                    "   else { \n       result = false;}  \n" +
+                    "} else { \n     result = false;  \n" +
+                    "     var errorMsg = msgType.type + ' is not deviceTelemetryData';  \n" +
+                    "     print(msgType.type) \n } \n\n" +
+                    "return result";
+            logger.info("func = {}", func);
+            engine.eval("function filter(msg, metadata, msgType){ " + func + "}");
+            // 执行js函数
+            Invocable jsInvoke = (Invocable) engine;
+            Object obj = jsInvoke.invokeFunction("filter", msg, metadata, msgType);
+            //方法的名字，参数
+            logger.info("function result={}", obj);
+            result = (Boolean) obj;
+        } catch (Exception ex) {
+            logger.warn("exception", ex);
+            result = false;
+        }
+
+        return result;
     }
 }
 

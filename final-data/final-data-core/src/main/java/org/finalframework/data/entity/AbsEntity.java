@@ -43,7 +43,7 @@ public class AbsEntity implements IEntity<Long> {
     @View(IView.class)
     private Long id;
     /**
-     * 版本号，在使用 {@link org.finalframework.data.repository.Repository#update} 方法更新时，会插入 {@code version += version}。
+     * 版本号
      */
     @Default
     @ReadOnly
