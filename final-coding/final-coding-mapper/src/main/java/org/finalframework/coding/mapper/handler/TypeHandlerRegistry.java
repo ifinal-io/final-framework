@@ -34,16 +34,12 @@ public class TypeHandlerRegistry {
     private static final String JSON_OBJECT_TYPE_HANDLER = "final.mybatis.type-handler.json-type-handlers.object";
     private static final String JSON_LIST_TYPE_HANDLER = "final.mybatis.type-handler.json-type-handlers.list";
     private static final String JSON_SET_TYPE_HANDLER = "final.mybatis.type-handler.json-type-handlers.set";
-    private static final String JSON_OBJECT_BLOB_TYPE_HANDLER = "final.mybatis.type-handler.json-blob-type-handlers.object";
-    private static final String JSON_LIST_BLOB_TYPE_HANDLER = "final.mybatis.type-handler.json-blob-type-handlers.list";
-    private static final String JSON_SET_BLOB_TYPE_HANDLER = "final.mybatis.type-handler.json-blob-type-handlers.set";
     private static final TypeHandlerRegistry instance = new TypeHandlerRegistry();
 
     private final String enumTypeHandler;
     private final String listTypeHandler;
     private final String setTypeHandler;
     private final JsonTypeHandlers jsonTypesHandlers;
-    private final JsonTypeHandlers jsonBlobTypeHandlers;
 
     private TypeHandlerRegistry() {
         Configuration configuration = Configuration.getInstance();
@@ -58,11 +54,6 @@ public class TypeHandlerRegistry {
                 configuration.getString(JSON_SET_TYPE_HANDLER, JsonSetTypeHandler.class.getCanonicalName())
         );
 
-        this.jsonBlobTypeHandlers = new JsonTypeHandlers(
-                configuration.getString(JSON_OBJECT_BLOB_TYPE_HANDLER, JsonObjectTypeHandler.class.getCanonicalName()),
-                configuration.getString(JSON_LIST_BLOB_TYPE_HANDLER, JsonListBlobTypeHandler.class.getCanonicalName()),
-                configuration.getString(JSON_SET_BLOB_TYPE_HANDLER, JsonSetBlobTypeHandler.class.getCanonicalName())
-        );
 
     }
 
@@ -86,9 +77,6 @@ public class TypeHandlerRegistry {
         return jsonTypesHandlers;
     }
 
-    public JsonTypeHandlers getJsonBlobTypeHandlers() {
-        return jsonBlobTypeHandlers;
-    }
 
     public static class JsonTypeHandlers {
         private final String object;

@@ -127,8 +127,6 @@ public final class TypeHandlers {
             switch (persistentType) {
                 case JSON:
                     return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
-                case BLOB:
-                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
             }
         } else if (property.isCollection()) {
             PersistentType persistentType = JSON;
@@ -136,8 +134,6 @@ public final class TypeHandlers {
                 switch (persistentType) {
                     case JSON:
                         return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getList());
-                    case BLOB:
-                        return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getList());
                     default:
                         return getTypeElement(typeHandlerRegistry.getListTypeHandler());
                 }
@@ -145,8 +141,6 @@ public final class TypeHandlers {
                 switch (persistentType) {
                     case JSON:
                         return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getSet());
-                    case BLOB:
-                        return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getSet());
                     default:
                         return getTypeElement(typeHandlerRegistry.getSetTypeHandler());
                 }
@@ -156,8 +150,6 @@ public final class TypeHandlers {
             switch (persistentType) {
                 case JSON:
                     return getTypeElement(typeHandlerRegistry.getJsonTypesHandlers().getObject());
-                case BLOB:
-                    return getTypeElement(typeHandlerRegistry.getJsonBlobTypeHandlers().getObject());
             }
         } else if (property.isEnum()) {
             return getTypeElement(typeHandlerRegistry.getEnumTypeHandler());
