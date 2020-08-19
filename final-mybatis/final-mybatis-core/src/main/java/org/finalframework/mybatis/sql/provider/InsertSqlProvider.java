@@ -76,10 +76,10 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private static final String INSERT_INTO = "INSERT INTO";
     private static final String INSERT_IGNORE_INTO = "INSERT IGNORE INTO";
     private static final String REPLACE_INTO = "REPLACE INTO";
-    private static final String VALUES = "VALUES";
     public static final String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
 
     private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
+    public static final String TRIM_END = "</trim>";
 
 
     /**
@@ -147,7 +147,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private void appendInsertOrReplaceOrSave(StringBuilder sql, String insertPrefix) {
         sql.append("<trim prefix=\"").append(insertPrefix).append("\">")
                 .append(ScriptMapperHelper.table())
-                .append("</trim>");
+                .append(TRIM_END);
     }
 
     /**
@@ -172,7 +172,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         .map(QProperty::getColumn)
                         .collect(Collectors.joining(","))
         ));
-        sql.append("</trim>");
+        sql.append(TRIM_END);
     }
 
     /**
@@ -215,7 +215,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         sql.append(values);
 
-        sql.append("</trim>");
+        sql.append(TRIM_END);
 
         sql.append("</foreach>");
     }
@@ -252,7 +252,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         sql.append(ScriptMapperHelper.cdata(onDuplicateKeyUpdate));
 
-        sql.append("</trim>");
+        sql.append(TRIM_END);
     }
 
 

@@ -44,6 +44,7 @@ public interface IEnum<T> {
      * 返回对该枚举常量的描述信息
      *
      * @see #getDesc()
+     * @deprecated 已过期
      */
     @Deprecated
     default String getDescription() {

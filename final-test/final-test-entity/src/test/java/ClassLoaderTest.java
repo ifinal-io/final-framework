@@ -36,6 +36,7 @@ public class ClassLoaderTest {
     private final ScriptEngineManager sem = new ScriptEngineManager();
     private final ScriptEngine engine = sem.getEngineByName(JS_ENGINE_NAME);
 
+
     @Test
     public void test() {
         ClassLoader loader = ClassLoaderTest.class.getClassLoader();
