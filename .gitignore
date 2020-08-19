@@ -6,6 +6,7 @@
 *.versionsBackup
 */.sass-cache
 */_site
+.jekyll-cache/
 ### STS ###
 .apt_generated
 .classpath
