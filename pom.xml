@@ -21,11 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.finalframework</groupId>
-    <artifactId>final-framework-parent</artifactId>
-    <version>0.6.0-SNAPSHOT</version>
-    <!--<version>0.6.0-SNAPSHOT</version>-->
+    <artifactId>final-framework</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <!--<version>1.0.0-SNAPSHOT</version>-->
     <modules>
-        <module>final-framework</module>
+        <module>final-core</module>
+        <module>final-auth</module>
+        <module>final-util</module>
         <module>final-data</module>
         <module>final-json</module>
         <module>final-redis</module>
@@ -61,7 +63,7 @@
     </parent>
 
     <properties>
-        <final.version>0.6.0-SNAPSHOT</final.version>
+        <final.version>1.0.0-SNAPSHOT</final.version>
         <spring.version>5.2.6.RELEASE</spring.version>
         <spring.boot.version>2.3.0.RELEASE</spring.boot.version>
         <!--<spring-cloud.version>Greenwich.RC2</spring-cloud.version>-->
@@ -83,7 +85,7 @@
         <profile>
             <id>release</id>
             <properties>
-                <final.version>0.6.0-SNAPSHOT.RELEASE</final.version>
+                <final.version>1.0.0-SNAPSHOT.RELEASE</final.version>
             </properties>
         </profile>
     </profiles>

@@ -24,14 +24,14 @@ var starter = new Vue({
         data: {
             final: {
                 group: 'org.finalframework',
-                artifact: 'final-framework-parent',
-                version: '0.6.0-SNAPSHOT',
+                artifact: 'final-framework',
+                version: '1.0.0-SNAPSHOT',
                 pom: ''
             },
             project: {
                 type: 'maven',
                 language: 'java',
-                finalBootVersion: '0.6.0-SNAPSHOT',
+                finalBootVersion: '1.0.0-SNAPSHOT',
                 group: 'org.finalframework.starter',
                 artifact: 'final-starter',
                 name: "demo",

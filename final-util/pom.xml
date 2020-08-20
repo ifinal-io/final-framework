@@ -22,18 +22,18 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.finalframework</groupId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-core</artifactId>
+    <artifactId>final-util</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -50,6 +50,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

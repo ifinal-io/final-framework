@@ -19,6 +19,7 @@ package org.finalframework.coding.generator;
 
 
 import org.finalframework.core.Assert;
+import org.finalframework.core.generator.Generator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.PackageElement;
