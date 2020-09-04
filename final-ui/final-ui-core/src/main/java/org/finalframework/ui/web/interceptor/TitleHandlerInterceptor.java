@@ -1,0 +1,48 @@
+/*
+ * Copyright (c) 2018-2020.  the original author or authors.
+ *  <p>
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  <p>
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  <p>
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+package org.finalframework.ui.web.interceptor;
+
+
+import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.ui.annotation.Title;
+import org.finalframework.ui.model.Page;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author likly
+ * @version 1.0
+ * @date 2019-11-09 14:20:32
+ * @since 1.0
+ */
+@SpringHandlerInterceptor
+public class TitleHandlerInterceptor extends AnnotationUiHandlerInterceptor<Title> {
+
+    public TitleHandlerInterceptor() {
+        super(Title.class);
+    }
+
+    @Override
+    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Title ann, ModelAndView modelAndView) {
+        page.setTitle(ann.value());
+    }
+}
+

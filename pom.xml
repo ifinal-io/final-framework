@@ -2,10 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.3.RELEASE</version>
+        <groupId>org.finalframework.parent</groupId>
+        <artifactId>final-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.finalframework</groupId>
@@ -14,36 +16,183 @@
     <name>final-framework</name>
     <description>Demo project for Spring Boot</description>
 
+
+    <modules>
+        <module>final-annotation</module>
+        <module>final-beans</module>
+        <module>final-cache-core</module>
+        <module>final-context</module>
+        <module>final-core</module>
+        <module>final-dubbo</module>
+        <module>final-data-annotation</module>
+        <module>final-data-context</module>
+        <module>final-json</module>
+        <module>final-monitor</module>
+        <module>final-mybatis</module>
+        <module>final-redis</module>
+        <module>final-retrofit</module>
+        <module>final-spring-aop</module>
+        <module>final-spring-expression</module>
+        <module>final-util</module>
+        <module>final-web</module>
+        <module>final-zookeeper</module>
+    </modules>
     <properties>
         <java.version>1.8</java.version>
+        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
+        <final.version>1.0.0-SNAPSHOT</final.version>
+        <mybatis.version>3.5.4</mybatis.version>
+        <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
+        <dubbo.boot.version>2.7.8</dubbo.boot.version>
+        <sharding.version>4.1.1</sharding.version>
+        <retrofit.version>2.8.1</retrofit.version>
+        <okhttp.version>3.14.7</okhttp.version>
+        <velocity.core.version>2.1</velocity.core.version>
+        <velocity.tool.version>3.0</velocity.tool.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.finalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-    <build>
-        <plugins>
-            <plugin>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-beans</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-dubbo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-data-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-cache-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-data-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-retrofit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-spring-aop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-spring-expression</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.8</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

@@ -1,0 +1,26 @@
+{
+  "page": 1,
+  "size": 2,
+  "where": {
+    "andOr": "and",
+    "criterion": [
+      {
+        "property": "name",
+        "operator": "eq",
+        "value": 1
+      }
+    ]
+  },
+  "order": [
+    {
+      "name": "desc"
+    },
+    {
+      "age": "aes"
+    }
+  ],
+  "group": [
+    "name",
+    "age"
+  ]
+}

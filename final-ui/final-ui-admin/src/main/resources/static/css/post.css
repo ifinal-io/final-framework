@@ -1,0 +1,339 @@
+body {
+    background: url(/assets/img/background/body.jpg) repeat;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #404040;
+}
+
+.sidebar .sidebar-mini img {
+    width: 24px;
+    height: 24px;
+    margin: -8px 0;
+    border-radius: 50%;
+}
+
+.navbar .notification {
+    position: absolute;
+    border: 1px solid #FFF;
+    right: 10px;
+    font-size: 9px;
+    background: #9c27b0;
+    color: #FFFFFF;
+    min-width: 20px;
+    padding: 0px 5px;
+    height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 19px;
+    vertical-align: middle;
+    display: block;
+}
+
+.post-header {
+    position: relative;
+    margin: 0;
+}
+
+.post-image {
+}
+
+.post-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.post-container {
+
+}
+
+.post-header h1 {
+    font-weight: 500;
+    /*font-size: 55px;*/
+    color: whitesmoke;
+}
+
+.post-header h2 {
+    font-weight: 400;
+    color: whitesmoke;
+}
+
+.post-header h4 {
+    color: snow;
+    font-weight: 400;
+}
+
+.post-logo {
+    max-width: 200px;
+}
+
+.post-header .container {
+    /*margin-top: -370px;*/
+    background-color: rgba(0, 0, 0, 0.15);
+    /*margin-top: 150px;*/
+    vertical-align: center !important;
+    padding: 50px 0;
+    margin: auto;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+!important;
+    /*background-color: #0a6ebd;*/
+    /*z-index: 9999;*/
+}
+
+.post-meta {
+    color: #FFF;
+}
+
+.post-meta .list-inline {
+    display: inline-block;
+}
+
+.post-meta a {
+    color: white;
+}
+
+.post-tag {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 999em;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+    margin: 0 1px;
+    margin-bottom: 6px;
+}
+
+.post-tag:hover {
+    border-color: #9c27b0;
+}
+
+.post-date {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 999em;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+    margin: 0 1px;
+    margin-bottom: 6px;
+}
+
+.post-meta a:hover {
+    color: #9c27b0;
+}
+
+/*.material-icons {*/
+/*position: relative;*/
+/*display: inline-block;*/
+/*top: 0;*/
+/*margin-top: -1em;*/
+/*margin-bottom: -1em;*/
+/*font-size: 1.1rem;*/
+/*vertical-align: middle;*/
+/*}*/
+
+.post-content {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #404040;
+    font-weight: 400;
+}
+
+.post-content img {
+    display: block;
+    margin: 0 auto;
+}
+
+.post-content .btn:hover {
+    color: #9c27b0;
+}
+
+div.content {
+    /*margin-top: 0px !important;*/
+    min-height: calc(100vh - 418px) !important
+}
+
+.main-panel > .content {
+    min-height: calc(100vh - 158px);
+}
+
+
+.disabled {
+    pointer-events: none;
+    color: #AAA !important;
+    cursor: not-allowed !important;
+}
+
+
+.blur {
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+}
+
+.post-list {
+    list-style: none;
+}
+
+
+.post-list .card-header {
+    border-left: 6px solid #9c27b0 !important;
+}
+
+.entry {
+    width: 100%;
+    color: #7E7E7E;
+    margin: 32px 0 0;
+    padding: 15px;
+    display: inline-block;
+    position: relative;
+}
+
+.entry-head {
+    border-left: 6px solid #9c27b0 !important;
+    padding-left: 9px;
+    margin: 8px 0 18px;
+}
+
+.entry-title {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.entry-cat {
+    margin: 4px 0 5px;
+    color: #A8A8A8;
+}
+
+.entry-update-summary {
+    display: inline-block;
+    padding: 2px 7px;
+    margin: 4px 10px 0 0;
+    background: #EC5B48;
+    color: #FFF;
+    border-radius: 3px;
+}
+
+.entry-banner {
+    margin: 10px 0;
+    clear: both;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.entry-banner, .entry-banner a {
+    height: 130px;
+    border-radius: 8px;
+}
+
+.entry-meta {
+    clear: both;
+    margin: 20px 0 0;
+    color: #b5b5b5;
+}
+
+.entry-meta-box {
+    display: inline-block;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-right: 5px;
+}
+
+
+.entry-meta-right {
+    float: right;
+    margin-right: 8px;
+    color: #8a8a8a;
+}
+
+.card-background .card-body {
+    max-width: 80%;
+}
+
+/*.card-profile {*/
+/*margin-top: 80px;*/
+/*}*/
+
+.card-profile .card-avatar {
+    width: 100px;
+    height: 100px;
+}
+
+.card-footer a {
+    z-index: 2;
+}
+
+
+/** 3Dæ ‡ç­¾ **/
+#tag_cloud_widget {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    margin: 10px auto 10px;
+}
+
+#tag_cloud_widget a {
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    top: 0px;
+    left: 0px;
+    padding: 3px 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+#tag_cloud_widget a:hover {
+    background: #d02f53;
+    display: block;
+}
+
+#tag_cloud_widget a:nth-child(n) {
+    background: #666;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 18px;
+    margin: 0 10px 15px 0;
+}
+
+#tag_cloud_widget a:nth-child(n) {
+    white-space: nowrap;
+    _white-space: normal;
+    *white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#tag_cloud_widget a:nth-child(2n) {
+    background: #d1a601;
+}
+
+#tag_cloud_widget a:nth-child(3n) {
+    background: #286c4a;
+}
+
+#tag_cloud_widget a:nth-child(5n) {
+    background: #518ab2;
+}
+
+#tag_cloud_widget a:nth-child(4n) {
+    background: #c91d13;
+}
+
+#tag_cloud_widget a {
+    line-height: 15px;
+    background: #999;
+}
