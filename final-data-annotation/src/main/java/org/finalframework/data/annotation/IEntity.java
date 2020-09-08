@@ -20,6 +20,8 @@ package org.finalframework.data.annotation;
 import java.io.Serializable;
 
 /**
+ * The interface of Entity which must be impls.
+ *
  * @author likly
  * @version 1.0
  * @date 2018-09-26 21:06
@@ -28,7 +30,17 @@ import java.io.Serializable;
  */
 public interface IEntity<ID extends Serializable> extends Serializable {
 
-  ID getId();
+    /**
+     * return the entity id.
+     *
+     * @return the entity id.
+     */
+    ID getId();
 
-  void setId(ID id);
+    /**
+     * set id to this entity.
+     *
+     * @param id id
+     */
+    void setId(ID id);
 }

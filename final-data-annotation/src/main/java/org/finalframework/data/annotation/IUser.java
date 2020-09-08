@@ -28,7 +28,16 @@ import java.io.Serializable;
  * @since 1.0
  */
 public interface IUser<ID extends Serializable> extends IEntity<ID> {
+    /**
+     * return user name.
+     *
+     * @return user name.
+     */
     String getName();
 
+    /**
+     * set user name.
+     * @param name user name.
+     */
     void setName(String name);
 }

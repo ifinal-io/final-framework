@@ -17,7 +17,8 @@
 
 package org.finalframework.core.exception;
 
-import lombok.NonNull;
+
+import org.springframework.lang.NonNull;
 
 /**
  *

@@ -17,19 +17,14 @@
 
 package org.finalframework.data.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
+
+import java.lang.annotation.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.Persistent;
 
 /**
  * Mark the element of {@link Field} or {@link Method} is persistent to {@literal json}. By Default, the type of
@@ -41,9 +36,8 @@ import org.springframework.data.annotation.Persistent;
  * @see Column
  * @since 1.0
  */
-@Documented
-@Persistent
 @Column
+@Documented
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Json {

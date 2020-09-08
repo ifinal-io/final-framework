@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
 
 
 /**
+ * Annotation the property which have a {@linkplain Prefix#value() prefix} value.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-06-11 15:36:18
