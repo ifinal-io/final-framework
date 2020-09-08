@@ -43,9 +43,19 @@ public interface IResult<T> {
     @Nullable
     String getMessage();
 
+    /**
+     * return the data of this response.
+     *
+     * @return the data of this response.
+     */
     @Nullable
     T getData();
 
+    /**
+     * return the {@linkplain IPagination pagination}
+     *
+     * @return the {@linkplain IPagination pagination}.
+     */
     @Nullable
     IPagination getPagination();
 
@@ -59,6 +69,11 @@ public interface IResult<T> {
         return ResponseStatus.SUCCESS.getCode().equals(getStatus());
     }
 
+    /**
+     * return {@literal true} if has more data.
+     *
+     * @return {@literal true} if has more data.
+     */
     default boolean hasMore() {
         return getPagination() != null && !Boolean.TRUE.equals(getPagination().getLastPage());
     }
