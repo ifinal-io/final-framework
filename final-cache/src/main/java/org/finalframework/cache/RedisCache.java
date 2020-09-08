@@ -17,9 +17,9 @@
 
 package org.finalframework.cache;
 
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.json.Json;
 import org.finalframework.redis.Redis;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.context.annotation.Primary;
 
 import java.lang.reflect.Type;

@@ -18,48 +18,46 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.annotation.CachePut;
-import org.finalframework.cache.operation.CachePutOperation;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.cache.annotation.CacheValue;
+import org.finalframework.cache.operation.CacheValueOperation;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2019-03-11 09:26:21
+ * @date 2019-03-22 14:26:21
  * @since 1.0
  */
 @SpringComponent
-public class CachePutAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CachePut, CachePutOperation> {
-
+public class CacheValueAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheValue, CacheValueOperation> {
     @Override
-    public CachePutOperation build(Class<?> type, CachePut ann) {
-        return build((AnnotatedElement) type, ann);
+    public CacheValueOperation build(Class<?> type, CacheValue ann) {
+        return null;
     }
 
     @Override
-    public CachePutOperation build(Method method, CachePut ann) {
-        return build((AnnotatedElement) method, ann);
+    public CacheValueOperation build(Method method, CacheValue ann) {
+        return null;
     }
 
-    private CachePutOperation build(AnnotatedElement ae, CachePut ann) {
-        return CachePutOperation.builder()
-                .name(ae.toString())
+    @Override
+    public CacheValueOperation build(Integer index, Parameter parameter, Type parameterType, CacheValue ann) {
+        return CacheValueOperation.builder()
+                .name(parameter.toString())
+                .index(index)
+                .parameter(parameter)
+                .parameterType(parameterType)
                 .key(parse(ann.key(), ann.delimiter()))
                 .field(parse(ann.field(), ann.delimiter()))
                 .delimiter(ann.delimiter())
-                .value(ann.value())
                 .condition(ann.condition())
-                .point(ann.point())
-                .ttl(ann.ttl())
-                .expire(ann.expire())
-                .timeunit(ann.timeunit())
                 .handler(ann.handler())
                 .executor(ann.executor())
                 .build();
-
     }
 }

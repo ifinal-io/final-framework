@@ -17,10 +17,10 @@
 
 package org.finalframework.cache.handler;
 
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
 import org.finalframework.cache.operation.CacheDelOperation;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.OperationMetadata;

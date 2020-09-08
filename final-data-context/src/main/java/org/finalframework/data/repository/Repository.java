@@ -38,12 +38,10 @@ import java.util.stream.Collectors;
  * @date 2018-10-12 13:27
  * @since 1.0
  */
-@SuppressWarnings({"unused", "unchecked"})
+@SuppressWarnings("unchecked")
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     /*=========================================== INSERT ===========================================*/
-
-//    int insert(T... entities);
 
     default int insert(T... entities) {
         return insert(Arrays.asList(entities));
@@ -505,8 +503,12 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         listener.onStart(param);
         while (true) {
             int rows = delete(table, query);
-            if (!listener.onListening(offset, param, rows)) break;
-            if (rows < limit) break;
+            if (!listener.onListening(offset, param, rows)) {
+                break;
+            }
+            if (rows < limit) {
+                break;
+            }
         }
         listener.onFinish(param);
     }
@@ -712,8 +714,12 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
             query.page(index + offset);
             List<T> list = select(table, view, query);
             offset++;
-            if (!listener.onListening(offset, param, list)) break;
-            if (Asserts.isEmpty(list) || list.size() < query.getSize()) break;
+            if (!listener.onListening(offset, param, list)) {
+                break;
+            }
+            if (Asserts.isEmpty(list) || list.size() < query.getSize()) {
+                break;
+            }
         }
         listener.onFinish(param);
     }

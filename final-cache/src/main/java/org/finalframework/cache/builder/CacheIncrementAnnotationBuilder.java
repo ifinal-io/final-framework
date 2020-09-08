@@ -18,9 +18,9 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.cache.annotation.Cacheable;
-import org.finalframework.cache.operation.CacheableOperation;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.cache.annotation.CacheIncrement;
+import org.finalframework.cache.operation.CacheIncrementOperation;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
@@ -29,30 +29,33 @@ import java.lang.reflect.Method;
 /**
  * @author likly
  * @version 1.0
- * @date 2019-03-11 09:26:21
+ * @date 2019-03-22 22:54:34
  * @since 1.0
  */
 @SpringComponent
-public class CacheableAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<Cacheable, CacheableOperation> {
+public class CacheIncrementAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheIncrement, CacheIncrementOperation> {
 
     @Override
-    public CacheableOperation build(Class<?> type, Cacheable ann) {
+    public CacheIncrementOperation build(Class<?> type, CacheIncrement ann) {
         return build((AnnotatedElement) type, ann);
     }
 
     @Override
-    public CacheableOperation build(Method method, Cacheable ann) {
+    public CacheIncrementOperation build(Method method, CacheIncrement ann) {
         return build((AnnotatedElement) method, ann);
     }
 
-    private CacheableOperation build(AnnotatedElement ae, Cacheable ann) {
+    private CacheIncrementOperation build(AnnotatedElement ae, CacheIncrement ann) {
         final String delimiter = getDelimiter(ann.delimiter());
-        return CacheableOperation.builder()
+        return CacheIncrementOperation.builder()
                 .name(ae.toString())
                 .key(parse(ann.key(), delimiter))
                 .field(parse(ann.field(), delimiter))
                 .delimiter(delimiter)
                 .condition(ann.condition())
+                .point(ann.point())
+                .value(ann.value())
+                .type(ann.type())
                 .ttl(ann.ttl())
                 .expire(ann.expire())
                 .timeunit(ann.timeunit())
