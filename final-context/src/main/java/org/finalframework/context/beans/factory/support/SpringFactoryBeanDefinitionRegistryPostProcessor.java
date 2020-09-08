@@ -15,7 +15,7 @@
  *
  */
 
-package org.finalframework.beans.factory.support;
+package org.finalframework.context.beans.factory.support;
 
 
 import org.springframework.beans.BeansException;

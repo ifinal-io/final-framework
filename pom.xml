@@ -19,9 +19,8 @@
 
     <modules>
         <module>final-annotation</module>
-        <module>final-beans</module>
-        <module>final-cache-core</module>
         <module>final-context</module>
+        <module>final-cache-core</module>
         <module>final-core</module>
         <module>final-dubbo</module>
         <module>final-data-context</module>

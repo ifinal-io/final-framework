@@ -20,7 +20,7 @@ package org.finalframework.context.initializer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.auto.spring.factory.annotation.SpringFactory;
-import org.finalframework.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
+import org.finalframework.context.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
