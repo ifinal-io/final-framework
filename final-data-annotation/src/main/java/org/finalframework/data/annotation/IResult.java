@@ -1,6 +1,5 @@
 package org.finalframework.data.annotation;
 
-import org.finalframework.data.IException;
 import org.finalframework.data.annotation.result.ResponseStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

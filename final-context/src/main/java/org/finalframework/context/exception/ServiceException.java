@@ -18,7 +18,7 @@
 package org.finalframework.context.exception;
 
 import org.finalframework.context.util.Messages;
-import org.finalframework.data.IException;
+import org.finalframework.data.annotation.IException;
 import org.finalframework.data.annotation.result.Responsible;
 
 /**
