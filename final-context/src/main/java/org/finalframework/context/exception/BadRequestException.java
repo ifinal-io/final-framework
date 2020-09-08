@@ -32,7 +32,7 @@ import org.finalframework.data.annotation.result.ResponseStatus;
  */
 public class BadRequestException extends ServiceException {
 
-    public static final BadRequestException DEFAULT = new BadRequestException(ResponseStatus.BAD_REQUEST.getMessage());
+    public static final BadRequestException DEFAULT = new BadRequestException(ResponseStatus.BAD_REQUEST.getDesc());
 
     public BadRequestException(String message, Object... args) {
         this(ResponseStatus.BAD_REQUEST.getCode(), message, args);
@@ -47,7 +47,7 @@ public class BadRequestException extends ServiceException {
     }
 
     public BadRequestException(String code, String message, Object... args) {
-        super(ResponseStatus.BAD_REQUEST.getCode(), ResponseStatus.BAD_REQUEST.getMessage(), code, message, args);
+        super(ResponseStatus.BAD_REQUEST.getCode(), ResponseStatus.BAD_REQUEST.getDesc(), code, message, args);
     }
 
 }

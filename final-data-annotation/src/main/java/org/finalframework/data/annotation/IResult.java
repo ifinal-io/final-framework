@@ -16,10 +16,19 @@ public interface IResult<T> {
      * return the status of this response.
      *
      * @return the status of this response.
-     * @see ResponseStatus
+     * @see ResponseStatus#getCode()
      */
     @NonNull
     Integer getStatus();
+
+    /**
+     * return the description of status.
+     *
+     * @return the description of status.
+     * @see ResponseStatus#getDesc()
+     */
+    @NonNull
+    String getDescription();
 
 
     /**

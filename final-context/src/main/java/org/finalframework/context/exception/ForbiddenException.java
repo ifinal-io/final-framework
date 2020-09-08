@@ -28,7 +28,7 @@ import org.finalframework.data.annotation.result.ResponseStatus;
  */
 public class ForbiddenException extends ServiceException {
 
-    public static final ForbiddenException DEFAULT = new ForbiddenException(ResponseStatus.FORBIDDEN.getMessage());
+    public static final ForbiddenException DEFAULT = new ForbiddenException(ResponseStatus.FORBIDDEN.getDesc());
 
 
     public ForbiddenException(String message, Object... args) {
@@ -44,7 +44,7 @@ public class ForbiddenException extends ServiceException {
     }
 
     public ForbiddenException(String code, String message, Object... args) {
-        super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getMessage(), code, message, args);
+        super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
     }
 
 

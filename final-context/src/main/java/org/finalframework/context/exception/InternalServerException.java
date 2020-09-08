@@ -33,7 +33,7 @@ import org.finalframework.data.annotation.result.ResponseStatus;
  */
 public class InternalServerException extends ServiceException {
 
-    public static final InternalServerException DEFAULT = new InternalServerException(ResponseStatus.INTERNAL_SERVER_ERROR.getMessage());
+    public static final InternalServerException DEFAULT = new InternalServerException(ResponseStatus.INTERNAL_SERVER_ERROR.getDesc());
 
 
     public InternalServerException(String message, Object... args) {
@@ -49,7 +49,7 @@ public class InternalServerException extends ServiceException {
     }
 
     public InternalServerException(String code, String message, Object... args) {
-        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getMessage(), code, message, args);
+        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getDesc(), code, message, args);
     }
 
 }

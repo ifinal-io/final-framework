@@ -60,10 +60,6 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
      * 业务状态描述
      */
     private String message;
-//    /**
-//     * 元数据
-//     */
-//    private List<Metadata> metadata;
     /**
      * 业务数据
      */

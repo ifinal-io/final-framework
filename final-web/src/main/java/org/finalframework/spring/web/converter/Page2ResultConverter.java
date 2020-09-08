@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -36,20 +36,19 @@ import java.util.List;
  * @date 2020-07-21 17:25:31
  * @since 1.0
  */
-public class Page2ResultConverter<T extends Serializable> implements Converter<Page<T>, Result<List<T>>> {
+public class Page2ResultConverter<T extends Serializable> implements Converter<Page<T>, Result<ArrayList<T>>> {
 
     public static final Logger logger = LoggerFactory.getLogger(Page2ResultConverter.class);
 
     @Override
-    public Result<List<T>> convert(Page<T> source) {
-        final Result<List<T>> result = R.success(source.getResult());
+    public Result<ArrayList<T>> convert(Page<T> source) {
+        final Result<ArrayList<T>> result = R.success(new ArrayList<>(source.getResult()));
         result.setPagination(buildPageInfo(source));
         return result;
     }
 
     private Pagination buildPageInfo(Page<T> page) {
         final PageInfo<T> pageInfo = page.toPageInfo();
-
         final Pagination result = new Pagination();
         result.setPage(pageInfo.getPageNum());
         result.setSize(pageInfo.getSize());

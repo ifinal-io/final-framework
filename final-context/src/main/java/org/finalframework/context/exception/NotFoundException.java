@@ -30,7 +30,7 @@ import org.finalframework.data.annotation.result.ResponseStatus;
  * @since 1.0
  */
 public class NotFoundException extends ServiceException {
-    public static final NotFoundException DEFAULT = new NotFoundException(ResponseStatus.NOT_FOUND.getMessage());
+    public static final NotFoundException DEFAULT = new NotFoundException(ResponseStatus.NOT_FOUND.getDesc());
 
     public NotFoundException(String message, Object... args) {
         this(ResponseStatus.NOT_FOUND.getCode(), message, args);
@@ -45,7 +45,7 @@ public class NotFoundException extends ServiceException {
     }
 
     public NotFoundException(String code, String message, Object... args) {
-        super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getMessage(), code, message, args);
+        super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getDesc(), code, message, args);
     }
 
 

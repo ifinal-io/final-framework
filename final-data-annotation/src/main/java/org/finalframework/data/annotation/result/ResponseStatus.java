@@ -17,6 +17,9 @@
 
 package org.finalframework.data.annotation.result;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.finalframework.data.annotation.IEnum;
 import org.finalframework.data.annotation.Transient;
 
 /**
@@ -26,7 +29,9 @@ import org.finalframework.data.annotation.Transient;
  * @since 1.0
  */
 @Transient
-public enum ResponseStatus {
+@Getter
+@AllArgsConstructor
+public enum ResponseStatus implements IEnum<Integer> {
     SUCCESS(0, "Success"),
     BAD_REQUEST(400, "Bad Request"),
     FORBIDDEN(403, "Forbidden"),
@@ -34,20 +39,8 @@ public enum ResponseStatus {
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
     ;
     private final Integer code;
-    private final String message;
+    private final String desc;
 
-    ResponseStatus(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }
 
 

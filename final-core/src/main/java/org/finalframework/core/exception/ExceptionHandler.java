@@ -28,7 +28,6 @@ import org.springframework.lang.NonNull;
  * @date 2018-10-31 11:40
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public interface ExceptionHandler<E, R> {
 
     /**
