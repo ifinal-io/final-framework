@@ -17,7 +17,7 @@
 
 package org.finalframework.core.formatter;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +57,7 @@ public class DateFormatter implements Formatter<Date> {
     @Override
     public Date parse(String source) {
         try {
-            return Assert.isEmpty(source) ? null : new SimpleDateFormat(pattern).parse(source);
+            return Asserts.isEmpty(source) ? null : new SimpleDateFormat(pattern).parse(source);
         } catch (ParseException e) {
             return null;
         }

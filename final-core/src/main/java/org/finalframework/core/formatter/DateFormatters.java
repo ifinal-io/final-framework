@@ -17,7 +17,7 @@
 
 package org.finalframework.core.formatter;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class DateFormatters implements Formatters<Date> {
 
     @Override
     public Date parse(String source) {
-        if (Assert.isEmpty(source)) {
+        if (Asserts.isEmpty(source)) {
             return null;
         }
         for (DateFormatter formatter : dateFormatters) {

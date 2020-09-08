@@ -29,7 +29,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.query.Pageable;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -63,7 +63,8 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     @Override
     protected void startPage(Pageable pageable) {
-        if (Assert.isNull(pageable) || Assert.isNull(pageable.getPage()) || Assert.isNull(pageable.getSize())) return;
+        if (Asserts.isNull(pageable) || Asserts.isNull(pageable.getPage()) || Asserts.isNull(pageable.getSize()))
+            return;
         startPage(pageable.getPage(), pageable.getSize(), Boolean.TRUE.equals(pageable.getCount()), false, false);
     }
 

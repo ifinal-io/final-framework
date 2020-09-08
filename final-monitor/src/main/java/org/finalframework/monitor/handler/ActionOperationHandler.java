@@ -20,7 +20,7 @@ package org.finalframework.monitor.handler;
 
 import org.finalframework.annotation.IException;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.action.Action;
 import org.finalframework.monitor.executor.Recorder;
@@ -97,7 +97,7 @@ public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport
 
 
         final Map<String, String> attributes = operation.attributes();
-        if (Assert.nonEmpty(attributes)) {
+        if (Asserts.nonEmpty(attributes)) {
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
                 builder.addAttribute(entry.getKey(), generateAttribute(entry.getValue(), metadata, evaluationContext));
             }

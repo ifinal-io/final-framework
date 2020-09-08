@@ -21,7 +21,7 @@ import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
 import org.finalframework.context.exception.InvokeExceptionWrapper;
 import org.finalframework.context.exception.handler.GlobalExceptionHandler;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.slf4j.MDC;
 
 import java.io.Serializable;
@@ -49,7 +49,7 @@ public abstract class ResultInvokeExceptionWrapper<T extends Serializable> imple
     @SuppressWarnings("unchecked")
     public final Result<T> invoke() {
         String trace = MDC.get("trace");
-        if (Assert.isBlank(trace)) {
+        if (Asserts.isBlank(trace)) {
             trace = UUID.randomUUID().toString();
             MDC.put("trace", trace);
         }

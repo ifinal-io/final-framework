@@ -19,7 +19,7 @@ package org.finalframework.data.mapping;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.*;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.springframework.data.mapping.Association;
@@ -44,7 +44,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     private final Lazy<String> column = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.name())) {
+        if (annotation == null || Asserts.isBlank(annotation.name())) {
             return getName();
         }
         return annotation.name();
@@ -52,7 +52,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     private final Lazy<String> writer = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.writer())) {
+        if (annotation == null || Asserts.isBlank(annotation.writer())) {
             return null;
         }
         return annotation.writer();
@@ -61,7 +61,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     private final Lazy<String> reader = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.reader())) {
+        if (annotation == null || Asserts.isBlank(annotation.reader())) {
             return null;
         }
         return annotation.reader();

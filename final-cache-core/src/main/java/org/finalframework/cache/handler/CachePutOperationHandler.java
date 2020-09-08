@@ -17,12 +17,12 @@
 
 package org.finalframework.cache.handler;
 
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CachePutOperation;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.json.Json;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -84,7 +84,7 @@ public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport im
         final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
         Object cacheValue = result;
 
-        if (Assert.nonBlank(operation.value())) {
+        if (Asserts.nonBlank(operation.value())) {
             cacheValue = generateValue(operation.value(), context.metadata(), evaluationContext);
         }
 

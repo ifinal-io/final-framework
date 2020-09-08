@@ -18,7 +18,7 @@
 package org.finalframework.spring.web.i18n;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,13 +47,13 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
         Locale locale = null;
 
         String lang = request.getParameter(paramName);
-        if (Assert.nonBlank(lang)) {
+        if (Asserts.nonBlank(lang)) {
             locale = Locale.forLanguageTag(lang);
         }
 
-        if (locale == null && Assert.nonBlank(headerName)) {
+        if (locale == null && Asserts.nonBlank(headerName)) {
             String header = request.getHeader(headerName);
-            if (Assert.nonBlank(header)) {
+            if (Asserts.nonBlank(header)) {
                 locale = Locale.forLanguageTag(header);
             }
         }

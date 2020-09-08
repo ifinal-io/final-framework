@@ -27,7 +27,7 @@ import org.apache.velocity.tools.Scope;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.velocity.StringTemplateResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +84,7 @@ public final class Velocities {
 
     public static String getValue(String express, Object params) {
         Template template = ve.getTemplate(express, "UTF-8");
-        if (null == params || Assert.isBlank(express)) {
+        if (null == params || Asserts.isBlank(express)) {
             return "";
         }
         //反射param设置key，value

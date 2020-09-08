@@ -18,7 +18,7 @@
 package org.finalframework.data.query;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +43,7 @@ public class GroupImpl extends ArrayList<QProperty<?>> implements Group {
 
     @Override
     public Group and(Group group) {
-        Assert.isNull(group, "Sort must not be null!");
+        Asserts.isNull(group, "Sort must not be null!");
         ArrayList<QProperty<?>> these = new ArrayList<>(this);
 
         for (QProperty<?> order : group) {

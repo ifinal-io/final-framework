@@ -20,7 +20,7 @@ package org.finalframework.spring.aop;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.interceptor.BaseOperationInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class OperationInterceptor implements MethodInterceptor, Serializable {
     public final Object invoke(OperationInvocation invocation) throws Throwable {
         final Collection<OperationContext<Operation>> contexts = invocation.getOperationContexts();
 
-        if (Assert.isEmpty(contexts)) {
+        if (Asserts.isEmpty(contexts)) {
             return invocation.proceed();
         }
         final OperationInvocationHandler handler = configuration.getInvocationHandler();

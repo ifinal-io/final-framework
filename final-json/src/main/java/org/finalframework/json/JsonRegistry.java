@@ -18,7 +18,7 @@
 package org.finalframework.json;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 /**
  * Json service register.
@@ -49,7 +49,7 @@ public class JsonRegistry {
         if (jsonService == null && !initDefaulted) {
             initDefaultJsonService();
         }
-        Assert.isNull(jsonService, "json service is not registered!!!");
+        Asserts.isNull(jsonService, "json service is not registered!!!");
         return jsonService;
     }
 
@@ -66,7 +66,7 @@ public class JsonRegistry {
     }
 
     public synchronized void register(JsonService jsonService) {
-        Assert.isNull(jsonService, "json service can not be null");
+        Asserts.isNull(jsonService, "json service can not be null");
         this.jsonService = jsonService;
     }
 }

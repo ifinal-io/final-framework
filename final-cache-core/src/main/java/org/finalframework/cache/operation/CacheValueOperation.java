@@ -20,7 +20,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.cache.handler.CacheValueOperationHandler;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.springframework.lang.NonNull;
@@ -53,16 +53,16 @@ public class CacheValueOperation implements Operation {
     private final Class<? extends Cache> executor;
 
     private CacheValueOperation(Builder builder) {
-        this.name = Assert.isBlank(builder.name) ? getClass().getSimpleName() : builder.name;
+        this.name = Asserts.isBlank(builder.name) ? getClass().getSimpleName() : builder.name;
         this.index = builder.index;
         this.parameter = builder.parameter;
         this.parameterType = builder.parameterType;
-        this.key = Assert.isEmpty(builder.key) ? null : builder.key;
-        this.field = Assert.isEmpty(builder.field) ? null : builder.field;
-        this.delimiter = Assert.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
-        this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
-        this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : null;
-        this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
+        this.key = Asserts.isEmpty(builder.key) ? null : builder.key;
+        this.field = Asserts.isEmpty(builder.field) ? null : builder.field;
+        this.delimiter = Asserts.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.condition = Asserts.isEmpty(builder.condition) ? null : builder.condition;
+        this.retry = Asserts.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : null;
+        this.sleep = Asserts.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.handler = builder.handler;
         this.executor = builder.executor;
     }

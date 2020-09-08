@@ -17,7 +17,7 @@
 
 package org.finalframework.spring.aop;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.springframework.core.MethodClassKey;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -34,7 +34,7 @@ import java.util.Collection;
 public interface OperationSource {
 
     default boolean matches(Method method, @Nullable Class<?> targetClass) {
-        return Assert.nonEmpty(getOperations(method, targetClass));
+        return Asserts.nonEmpty(getOperations(method, targetClass));
     }
 
     @Nullable

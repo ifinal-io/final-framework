@@ -19,7 +19,7 @@ package org.finalframework.json.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.json.JsonException;
 import org.finalframework.json.JsonService;
 
@@ -53,7 +53,9 @@ public class JacksonJsonService implements JsonService {
 
     @Override
     public String toJson(Object object, Class<?> view) throws Throwable {
-        if (Assert.isNull(view)) return toJson(object);
+        if (Asserts.isNull(view)) {
+            return toJson(object);
+        }
         return objectMapper.writerWithView(view).writeValueAsString(object);
     }
 

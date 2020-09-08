@@ -17,7 +17,7 @@
 
 package org.finalframework.document.api.service.impl;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.PrimaryTypes;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
@@ -76,7 +76,7 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
     public List<RequestPattern> query(RequestPatternQuery query) {
         return requestPatterns.stream().filter(requestPattern -> {
             if (query.getMethod() != null && requestPattern.getMethod() != query.getMethod()) return false;
-            return !Assert.nonEmpty(query.getPattern()) || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase());
+            return !Asserts.nonEmpty(query.getPattern()) || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase());
         }).collect(Collectors.toList());
     }
 

@@ -18,8 +18,8 @@
 package org.finalframework.monitor.handler;
 
 
-import org.finalframework.core.Assert;
 import org.finalframework.context.user.UserContextHolder;
+import org.finalframework.core.Asserts;
 import org.finalframework.monitor.MonitorOperationExpressionEvaluator;
 import org.finalframework.monitor.MonitorOperationHandlerSupport;
 import org.finalframework.monitor.interceptor.DefaultMonitorOperationExpressionEvaluator;
@@ -48,7 +48,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
 
     @Override
     public String generateName(String name, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.isBlank(name)) return null;
+        if (Asserts.isBlank(name)) return null;
 
 
         if (isExpression(name)) {
@@ -64,7 +64,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
 
     @Override
     public Object generateOperator(String operator, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.nonBlank(operator)) {
+        if (Asserts.nonBlank(operator)) {
             if (isExpression(operator)) {
                 return evaluator.operator(generateExpression(operator), metadata.getMethodKey(), evaluationContext);
             }
@@ -76,7 +76,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
 
     @Override
     public Object generateTarget(String target, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.isBlank(target)) return null;
+        if (Asserts.isBlank(target)) return null;
         if (isExpression(target)) {
             return evaluator.target(generateExpression(target), metadata.getMethodKey(), evaluationContext);
         }
@@ -85,7 +85,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
 
     @Override
     public Object generateAttribute(String attribute, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.nonBlank(attribute) && isExpression(attribute)) {
+        if (Asserts.nonBlank(attribute) && isExpression(attribute)) {
             return evaluator.attribute(generateExpression(attribute), metadata.getMethodKey(), evaluationContext);
         }
         return attribute;

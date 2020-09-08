@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.document.api.service.EnumService;
 import org.finalframework.document.api.service.query.EnumQuery;
 import org.finalframework.util.Classes;
@@ -51,7 +51,7 @@ public class EnumServiceImpl implements EnumService {
         return enums.values()
                 .stream()
                 .filter(clazz -> {
-                    if (Assert.nonEmpty(query.getName())) {
+                    if (Asserts.nonEmpty(query.getName())) {
                         return clazz.getCanonicalName().toUpperCase().contains(query.getName().toUpperCase());
                     } else {
                         return true;

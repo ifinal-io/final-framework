@@ -19,7 +19,7 @@ package org.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.finalframework.annotation.data.NonCompare;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.serializer.EntityJsonSerializer;
 import org.springframework.data.mapping.PersistentEntity;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Property>, Iterable<Property> {
 
     static <T> Entity<T> from(Class<T> entityClass) {
-        Assert.isNull(entityClass, "entityClass must not be null!");
+        Asserts.isNull(entityClass, "entityClass must not be null!");
         return EntityCache.getInstance().get(entityClass);
     }
 

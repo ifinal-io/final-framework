@@ -18,7 +18,7 @@
 package org.finalframework.data.query;
 
 import lombok.NonNull;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.enums.UpdateOperation;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
     }
 
     private UpdateImpl(Collection<UpdateSetOperation> updateSets) {
-        if (Assert.nonEmpty(updateSets)) {
+        if (Asserts.nonEmpty(updateSets)) {
             this.addAll(updateSets);
         }
     }

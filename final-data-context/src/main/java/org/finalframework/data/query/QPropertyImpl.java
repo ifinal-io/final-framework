@@ -19,7 +19,7 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.PersistentType;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.Property;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
         this.typeHandler = builder.typeHandler;
 
-        this.views = Assert.isEmpty(builder.views) ? new ArrayList<>() : builder.views;
+        this.views = Asserts.isEmpty(builder.views) ? new ArrayList<>() : builder.views;
 
         this.insertable = builder.insertable;
         this.updatable = builder.updatable;

@@ -17,10 +17,10 @@
 
 package org.finalframework.spring.web.resolver;
 
-import org.finalframework.core.Assert;
-import org.finalframework.context.exception.BadRequestException;
-import org.finalframework.json.Json;
 import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
+import org.finalframework.context.exception.BadRequestException;
+import org.finalframework.core.Asserts;
+import org.finalframework.json.Json;
 import org.finalframework.spring.web.resolver.annotation.RequestJsonParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,20 +61,20 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         RequestJsonParam requestJsonParam = parameter.getParameterAnnotation(RequestJsonParam.class);
-        if (Assert.isNull(requestJsonParam)) {
+        if (Asserts.isNull(requestJsonParam)) {
             // it can not enter
             throw new NullPointerException("requestJsonParam annotation is null");
         }
 
         final String contentType = webRequest.getHeader("content-type");
-        if (Assert.nonEmpty(contentType) && contentType.startsWith("application/json")) {
+        if (Asserts.nonEmpty(contentType) && contentType.startsWith("application/json")) {
 
             final Object nativeRequest = webRequest.getNativeRequest();
             if (nativeRequest instanceof HttpServletRequest) {
                 ServletServerHttpRequest inputMessage = new ServletServerHttpRequest((HttpServletRequest) nativeRequest);
                 Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
                 final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
-                if (Assert.nonEmpty(body)) {
+                if (Asserts.nonEmpty(body)) {
                     logger.debug("==> jsonBody: {}", body);
                     return parseJson(body, parameter);
                 }
@@ -85,15 +85,17 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         } else {
             final String parameterName = getParameterName(requestJsonParam, parameter);
             String value = webRequest.getParameter(parameterName);
-            if (Assert.isBlank(value) && requestJsonParam.required()) {
+            if (Asserts.isBlank(value) && requestJsonParam.required()) {
                 throw new BadRequestException(String.format("parameter %s is required", parameterName));
             }
 
-            if (Assert.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+            if (Asserts.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
                 value = requestJsonParam.defaultValue();
             }
 
-            if (Assert.isBlank(value)) return null;
+            if (Asserts.isBlank(value)) {
+                return null;
+            }
             logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
             return parseJson(value, parameter);
         }
@@ -113,7 +115,7 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
      * 获取指定的参数名，如果{@link RequestJsonParam#value()}未指定，则使用{@link MethodParameter#getParameterName()}。
      */
     private String getParameterName(RequestJsonParam requestJsonParam, MethodParameter parameter) {
-        return Assert.isEmpty(requestJsonParam.value()) ? parameter.getParameterName() : requestJsonParam.value().trim();
+        return Asserts.isEmpty(requestJsonParam.value()) ? parameter.getParameterName() : requestJsonParam.value().trim();
     }
 
     private Charset getContentTypeCharset(@Nullable MediaType contentType) {

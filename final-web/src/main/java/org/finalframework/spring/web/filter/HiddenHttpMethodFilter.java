@@ -18,8 +18,8 @@
 package org.finalframework.spring.web.filter;
 
 
+import org.finalframework.core.Asserts;
 import org.springframework.http.HttpMethod;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -60,7 +60,7 @@ public class HiddenHttpMethodFilter extends OncePerRequestFilter {
      * @see #DEFAULT_METHOD_HEADER
      */
     public void setMethodHeader(String methodHeader) {
-        Assert.hasText(methodHeader, "'methodHeader' must not be empty");
+        Asserts.isEmpty(methodHeader, "'methodHeader' must not be empty");
         this.methodHeader = methodHeader;
     }
 

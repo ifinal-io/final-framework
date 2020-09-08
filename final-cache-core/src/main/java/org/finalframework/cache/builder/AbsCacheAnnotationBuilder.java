@@ -18,7 +18,7 @@
 package org.finalframework.cache.builder;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ public class AbsCacheAnnotationBuilder {
     private static final String DELIMITER = ":";
 
     protected static Collection<String> parse(String[] keyOrField, String delimiter) {
-        if (Assert.isEmpty(keyOrField)) {
+        if (Asserts.isEmpty(keyOrField)) {
             return null;
         }
         final String split = getDelimiter(delimiter);
@@ -47,7 +47,7 @@ public class AbsCacheAnnotationBuilder {
     }
 
     protected static String getDelimiter(String delimiter) {
-        return Assert.isBlank(delimiter) ? DELIMITER : delimiter.trim();
+        return Asserts.isBlank(delimiter) ? DELIMITER : delimiter.trim();
     }
 
 

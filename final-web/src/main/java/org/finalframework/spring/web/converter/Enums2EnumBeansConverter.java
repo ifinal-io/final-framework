@@ -20,7 +20,7 @@ package org.finalframework.spring.web.converter;
 import org.finalframework.annotation.Enums;
 import org.finalframework.annotation.IEnum;
 import org.finalframework.context.util.Messages;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.converter.Converter;
 import org.finalframework.core.filter.Filter;
 import org.finalframework.spring.web.response.advice.EnumsResponseBodyAdvice;
@@ -45,20 +45,20 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
     public boolean matches(Object enums) {
 
 
-        if (Assert.isNull(enums)) return false;
+        if (Asserts.isNull(enums)) return false;
 
         if (enums.getClass().isArray()) {
-            if (Assert.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) return false;
             return ((Object[]) enums)[0] instanceof IEnum;
         }
 
         if (enums instanceof List) {
-            if (Assert.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) return false;
             return ((List<?>) enums).get(0) instanceof IEnum;
         }
 
         if (enums instanceof Set) {
-            if (Assert.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) return false;
             return ((Set<?>) enums).toArray()[0] instanceof IEnum;
         }
 

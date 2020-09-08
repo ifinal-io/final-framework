@@ -21,6 +21,7 @@ package org.finalframework.spring.web.response.advice;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.Page;
 import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
+import org.finalframework.core.Asserts;
 import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.spring.web.response.view.PageJsonViewValue;
 import org.springframework.core.MethodParameter;
@@ -29,7 +30,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -62,7 +62,7 @@ public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private Class<?> getJsonView(MethodParameter returnType) {
         JsonView ann = returnType.getMethodAnnotation(JsonView.class);
-        Assert.state(ann != null, "No JsonView annotation");
+        Asserts.isNull(ann, "No JsonView annotation");
 
         Class<?>[] classes = ann.value();
         if (classes.length != 1) {

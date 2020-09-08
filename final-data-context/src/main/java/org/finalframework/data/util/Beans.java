@@ -17,7 +17,7 @@
 
 package org.finalframework.data.util;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 
@@ -45,13 +45,13 @@ public interface Beans {
     }
 
     static Stream<String> findAllBeans(ApplicationContext applicationContext) {
-        Assert.isNull(applicationContext, "applicationContext must be not null!");
+        Asserts.isNull(applicationContext, "applicationContext must be not null!");
         return Arrays.stream(BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class));
     }
 
     static Stream<Object> findAllBeansAnnotatedBy(ApplicationContext applicationContext, Class<? extends Annotation> annotationType) {
-        Assert.isNull(applicationContext, "applicationContext must be not null!");
-        Assert.isNull(annotationType, "annotationType must be not null!");
+        Asserts.isNull(applicationContext, "applicationContext must be not null!");
+        Asserts.isNull(annotationType, "annotationType must be not null!");
         return findAllBeans(applicationContext).filter(name -> applicationContext.findAnnotationOnBean(name, annotationType) != null)
                 .map(applicationContext::getBean);
     }

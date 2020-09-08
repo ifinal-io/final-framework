@@ -17,7 +17,8 @@
 
 package org.finalframework.core;
 
-import lombok.NonNull;
+
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,8 +31,7 @@ import java.util.Collection;
  * @date 2018-10-15 15:56
  * @since 1.0
  */
-@SuppressWarnings("unused")
-public interface Assert {
+public interface Asserts {
 
     /**
      * Check whether the given {@code bool} is true.
@@ -43,7 +43,14 @@ public interface Assert {
     }
 
 
-    static void isTrue(Boolean bool, String message, Object... args) {
+    /**
+     * check whether the given {@code bool} is true, if {@linkplain true} throw a {@link IllegalArgumentException} with {@code message}.
+     *
+     * @param bool    the candidate bool
+     * @param message the message
+     * @param args    the message args
+     */
+    static void isTrue(Boolean bool, @org.springframework.lang.NonNull String message, Object... args) {
         if (isTrue(bool)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -59,7 +66,9 @@ public interface Assert {
     }
 
     static void isFalse(Boolean bool, String message, Object... args) {
-        if (isFalse(bool)) throw new IllegalArgumentException(String.format(message, args));
+        if (isFalse(bool)) {
+            throw new IllegalArgumentException(String.format(message, args));
+        }
     }
 
     /**
@@ -72,7 +81,9 @@ public interface Assert {
     }
 
     static void isNull(Object obj, String message, Object... args) {
-        if (isNull(obj)) throw new NullPointerException(String.format(message, args));
+        if (isNull(obj)) {
+            throw new NullPointerException(String.format(message, args));
+        }
     }
 
     /**
@@ -85,7 +96,9 @@ public interface Assert {
     }
 
     static void nonNull(Object obj, String message, Object... args) {
-        if (nonNull(obj)) throw new NullPointerException(String.format(message, args));
+        if (nonNull(obj)) {
+            throw new NullPointerException(String.format(message, args));
+        }
     }
 
     /**
@@ -98,10 +111,18 @@ public interface Assert {
      * @see Collection#isEmpty()
      */
     static boolean isEmpty(Object obj) {
-        if (obj == null) return true;
-        if (obj instanceof String) return ((String) obj).isEmpty();
-        if (obj instanceof Object[]) return ((Object[]) obj).length == 0;
-        if (obj instanceof Collection) return ((Collection) obj).isEmpty();
+        if (obj == null) {
+            return true;
+        }
+        if (obj instanceof String) {
+            return ((String) obj).isEmpty();
+        }
+        if (obj instanceof Object[]) {
+            return ((Object[]) obj).length == 0;
+        }
+        if (obj instanceof Collection) {
+            return ((Collection) obj).isEmpty();
+        }
         return false;
     }
 
@@ -121,15 +142,25 @@ public interface Assert {
      * @see Collection#isEmpty()
      */
     static boolean nonEmpty(Object obj) {
-        if (obj == null) return false;
-        if (obj instanceof String) return !((String) obj).isEmpty();
-        if (obj instanceof Object[]) return ((Object[]) obj).length != 0;
-        if (obj instanceof Collection) return !((Collection) obj).isEmpty();
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof String) {
+            return !((String) obj).isEmpty();
+        }
+        if (obj instanceof Object[]) {
+            return ((Object[]) obj).length != 0;
+        }
+        if (obj instanceof Collection) {
+            return !((Collection) obj).isEmpty();
+        }
         return true;
     }
 
     static void nonEmpty(Object obj, String message, Object... args) {
-        if (nonEmpty(obj)) throw new IllegalArgumentException(String.format(message, args));
+        if (nonEmpty(obj)) {
+            throw new IllegalArgumentException(String.format(message, args));
+        }
     }
 
     /**
@@ -142,7 +173,9 @@ public interface Assert {
     }
 
     static void isBlank(String obj, String message, Object... args) {
-        if (isBlank(obj)) throw new IllegalArgumentException(String.format(message, args));
+        if (isBlank(obj)) {
+            throw new IllegalArgumentException(String.format(message, args));
+        }
     }
 
 

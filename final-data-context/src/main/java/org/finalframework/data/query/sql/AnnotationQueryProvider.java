@@ -21,7 +21,7 @@ package org.finalframework.data.query.sql;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.query.*;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;
@@ -95,7 +95,7 @@ public class AnnotationQueryProvider implements QueryProvider {
                 .forEach(property -> {
                     if (property.isAnnotationPresent(Criterion.class)) {
                         final Criterion criterion = property.getRequiredAnnotation(Criterion.class);
-                        final String path = Assert.isBlank(criterion.property()) ? property.getName() : criterion.property();
+                        final String path = Asserts.isBlank(criterion.property()) ? property.getName() : criterion.property();
                         // format the column with function
                         final Metadata metadata = Metadata.builder().andOr(andOr)
                                 .query(expression)

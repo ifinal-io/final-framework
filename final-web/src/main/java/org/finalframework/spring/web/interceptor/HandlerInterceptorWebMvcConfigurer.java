@@ -17,11 +17,9 @@
 
 package org.finalframework.spring.web.interceptor;
 
-import java.util.List;
-
-import org.finalframework.core.Assert;
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
 import org.finalframework.auto.spring.factory.annotation.SpringWebMvcConfigurer;
+import org.finalframework.core.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -33,6 +31,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * @author likly
@@ -62,10 +62,10 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
                     InterceptorRegistration interceptorRegistration = registry.addInterceptor(item);
                     if (item instanceof IHandlerInterceptor) {
                         IHandlerInterceptor handlerInterceptor = (IHandlerInterceptor) item;
-                        if (Assert.nonEmpty(handlerInterceptor.getPathPatterns())) {
+                        if (Asserts.nonEmpty(handlerInterceptor.getPathPatterns())) {
                             interceptorRegistration.addPathPatterns(handlerInterceptor.getPathPatterns());
                         }
-                        if (Assert.nonEmpty(handlerInterceptor.getExcludePathPatterns())) {
+                        if (Asserts.nonEmpty(handlerInterceptor.getExcludePathPatterns())) {
                             interceptorRegistration.excludePathPatterns(handlerInterceptor.getExcludePathPatterns());
                         }
                         interceptorRegistration.order(handlerInterceptor.getOrder());

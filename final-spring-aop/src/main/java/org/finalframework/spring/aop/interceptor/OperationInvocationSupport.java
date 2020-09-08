@@ -18,7 +18,7 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.*;
 import org.springframework.aop.framework.AopProxyUtils;
 
@@ -46,7 +46,7 @@ public class OperationInvocationSupport {
     protected List<OperationContext<Operation>> getOperationContexts(Object target, Method method, Object[] args) {
         final Class<?> targetClass = getTargetClass(target);
         final Collection<? extends Operation> operations = configuration.getOperationSource().getOperations(method, targetClass);
-        if (Assert.nonEmpty(operations)) {
+        if (Asserts.nonEmpty(operations)) {
             return operations.stream()
                     .map(operation -> getOperationContext(operation, method, args, target, targetClass))
                     .collect(Collectors.toList());

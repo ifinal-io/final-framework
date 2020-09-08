@@ -19,7 +19,7 @@ package org.finalframework.data.repository;
 
 import org.apache.ibatis.annotations.Param;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;
@@ -498,8 +498,8 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     default <PARAM> void delete(String table, @NonNull Query query, Listener<PARAM, Integer> listener) {
         Long limit = query.getLimit().getLimit();
-        Assert.isNull(limit, "limit is null");
-        Assert.isNull(listener, "listener is null");
+        Asserts.isNull(limit, "limit is null");
+        Asserts.isNull(listener, "listener is null");
         int offset = 0;
         PARAM param = listener.onInit();
         listener.onStart(param);
@@ -700,10 +700,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     default <PARAM> void scan(String table, Class<?> view, @NonNull Query query, Listener<PARAM, List<T>> listener) {
-        if (Assert.isNull(query.getPage()) || Assert.isNull(query.getSize())) {
+        if (Asserts.isNull(query.getPage()) || Asserts.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
-        Assert.isNull(listener, "listener is null");
+        Asserts.isNull(listener, "listener is null");
         int index = query.getPage();
         int offset = 0;
         PARAM param = listener.onInit();
@@ -713,7 +713,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
             List<T> list = select(table, view, query);
             offset++;
             if (!listener.onListening(offset, param, list)) break;
-            if (Assert.isEmpty(list) || list.size() < query.getSize()) break;
+            if (Asserts.isEmpty(list) || list.size() < query.getSize()) break;
         }
         listener.onFinish(param);
     }

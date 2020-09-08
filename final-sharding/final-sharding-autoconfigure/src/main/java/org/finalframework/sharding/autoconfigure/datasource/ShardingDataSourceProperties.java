@@ -27,7 +27,7 @@ import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStra
 import org.apache.shardingsphere.api.config.sharding.strategy.ShardingStrategyConfiguration;
 import org.apache.shardingsphere.shardingjdbc.api.MasterSlaveDataSourceFactory;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -96,7 +96,7 @@ public class ShardingDataSourceProperties implements Serializable {
     public DataSource build() throws SQLException {
         if (shardingRule != null) {
             ShardingRuleConfiguration configuration = new ShardingRuleConfiguration();
-            if (Assert.nonEmpty(shardingRule.getTables())) {
+            if (Asserts.nonEmpty(shardingRule.getTables())) {
                 List<TableRuleConfiguration> tableRuleConfigurations = shardingRule.getTables()
                         .values()
                         .stream()
@@ -113,15 +113,15 @@ public class ShardingDataSourceProperties implements Serializable {
                 configuration.getTableRuleConfigs().addAll(tableRuleConfigurations);
             }
 
-            if (Assert.nonEmpty(shardingRule.getBindingTables())) {
+            if (Asserts.nonEmpty(shardingRule.getBindingTables())) {
                 configuration.getBindingTableGroups().addAll(shardingRule.getBindingTables());
             }
 
-            if (Assert.nonEmpty(shardingRule.getBroadcastTables())) {
+            if (Asserts.nonEmpty(shardingRule.getBroadcastTables())) {
                 configuration.getBroadcastTables().addAll(shardingRule.getBroadcastTables());
             }
 
-            if (Assert.nonEmpty(shardingRule.getMasterSlaveRules())) {
+            if (Asserts.nonEmpty(shardingRule.getMasterSlaveRules())) {
                 List<MasterSlaveRuleConfiguration> masterSlaveRuleConfigurations = shardingRule.getMasterSlaveRules().values()
                         .stream()
                         .map(it -> new MasterSlaveRuleConfiguration(it.getName(), it.getMaster(), it.getSlaves()))

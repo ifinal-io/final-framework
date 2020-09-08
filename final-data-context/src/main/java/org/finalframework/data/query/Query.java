@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import org.finalframework.annotation.query.Direction;
 import org.finalframework.annotation.query.Pageable;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
@@ -100,7 +100,7 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
     }
 
     public Query group(Collection<QProperty<?>> properties) {
-        this.group = Assert.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
+        this.group = Asserts.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
         return this;
     }
 
@@ -173,7 +173,7 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
 
         parent.append("</where>");
 
-        if (Assert.nonNull(this.sort)) {
+        if (Asserts.nonNull(this.sort)) {
             this.sort.apply(parent, String.format("%s.sort", value));
         }
 

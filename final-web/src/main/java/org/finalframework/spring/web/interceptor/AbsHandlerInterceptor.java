@@ -18,8 +18,8 @@
 package org.finalframework.spring.web.interceptor;
 
 
-import org.finalframework.core.Assert;
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.core.Asserts;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -74,7 +74,7 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
     @Override
     public void setPathPatterns(List<String> patterns) {
         this.pathPatterns.clear();
-        if (Assert.nonEmpty(patterns)) {
+        if (Asserts.nonEmpty(patterns)) {
             this.pathPatterns.addAll(patterns);
         }
     }
@@ -87,7 +87,7 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
     @Override
     public void setExcludePathPatterns(List<String> patterns) {
         this.excludePathPatterns.clear();
-        if (Assert.nonEmpty(patterns)) {
+        if (Asserts.nonEmpty(patterns)) {
             this.excludePathPatterns.addAll(patterns);
         }
     }

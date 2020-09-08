@@ -17,16 +17,16 @@
 
 package org.finalframework.data.trigger;
 
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.core.Asserts;
+import org.springframework.beans.factory.ObjectProvider;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.finalframework.core.Assert;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.springframework.beans.factory.ObjectProvider;
 
 /**
  * @author sli
@@ -44,7 +44,7 @@ public class TriggerManager {
 
     public TriggerManager(ObjectProvider<List<Trigger>> triggerObjectProvider) {
         List<Trigger> triggers = triggerObjectProvider.getIfAvailable();
-        if (Assert.nonEmpty(triggers)) {
+        if (Asserts.nonEmpty(triggers)) {
             for (Trigger trigger : triggers) {
                 this.registerTrigger(trigger);
             }

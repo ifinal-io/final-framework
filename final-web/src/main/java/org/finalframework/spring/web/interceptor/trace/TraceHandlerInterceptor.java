@@ -18,10 +18,10 @@
 package org.finalframework.spring.web.interceptor.trace;
 
 import lombok.Setter;
-import org.finalframework.core.Assert;
+import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
-import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.AbsHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.HandlerInterceptorWebMvcConfigurer;
 import org.slf4j.Logger;
@@ -88,14 +88,14 @@ public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 获取 header 中是否有自定义的 trace
         String trace = null;
-        if (Assert.nonEmpty(paramName)) {
+        if (Asserts.nonEmpty(paramName)) {
             trace = request.getParameter(paramName);
         }
-        if (Assert.isNull(trace) && Assert.nonEmpty(headerName)) {
+        if (Asserts.isNull(trace) && Asserts.nonEmpty(headerName)) {
             trace = request.getHeader(headerName);
 
         }
-        if (Assert.isNull(trace)) {
+        if (Asserts.isNull(trace)) {
             // 如果 header 中没有 trace，则获取 Request 域中的 trace 属性
             trace = (String) request.getAttribute(TRACE_ATTRIBUTE);
         }

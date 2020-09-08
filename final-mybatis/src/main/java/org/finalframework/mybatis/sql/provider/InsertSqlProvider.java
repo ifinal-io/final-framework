@@ -22,7 +22,7 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.data.LastModified;
 import org.finalframework.annotation.data.Metadata;
 import org.finalframework.annotation.data.Version;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.util.Velocities;
@@ -208,7 +208,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                     metadata.setJavaType(property.getType());
                     metadata.setTypeHandler(property.getTypeHandler());
 
-                    final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                    final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
                     return Velocities.getValue(writer, metadata);
                 })
                 .collect(Collectors.joining("\n,"));

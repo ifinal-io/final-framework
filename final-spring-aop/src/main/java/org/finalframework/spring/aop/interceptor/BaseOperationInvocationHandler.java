@@ -18,7 +18,7 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.*;
 import org.springframework.lang.NonNull;
 
@@ -54,7 +54,7 @@ public class BaseOperationInvocationHandler implements OperationInvocationHandle
 
     @Override
     public void handleAfterReturning(Collection<OperationContext<Operation>> contexts, Object result) {
-        if (Assert.isEmpty(contexts)) {
+        if (Asserts.isEmpty(contexts)) {
             return;
         }
         for (OperationContext<? extends Operation> context : contexts) {
@@ -66,7 +66,7 @@ public class BaseOperationInvocationHandler implements OperationInvocationHandle
 
     @Override
     public void handleAfterThrowing(Collection<OperationContext<Operation>> contexts, Throwable throwable) {
-        if (Assert.isEmpty(contexts)) {
+        if (Asserts.isEmpty(contexts)) {
             return;
         }
         for (OperationContext<? extends Operation> context : contexts) {
@@ -78,7 +78,7 @@ public class BaseOperationInvocationHandler implements OperationInvocationHandle
 
     @Override
     public void handleAfter(Collection<OperationContext<Operation>> contexts, Object result, Throwable throwable) {
-        if (Assert.isEmpty(contexts)) {
+        if (Asserts.isEmpty(contexts)) {
             return;
         }
         for (OperationContext<? extends Operation> context : contexts) {

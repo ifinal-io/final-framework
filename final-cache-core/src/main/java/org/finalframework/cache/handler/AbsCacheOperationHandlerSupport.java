@@ -21,7 +21,7 @@ package org.finalframework.cache.handler;
 import org.finalframework.cache.CacheOperationExpressionEvaluator;
 import org.finalframework.cache.CacheOperationHandlerSupport;
 import org.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationMetadata;
 import org.finalframework.spring.aop.interceptor.AbsOperationHandlerSupport;
@@ -71,7 +71,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
 
     @Override
     public Object generateField(Collection<String> fields, String delimiter, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
-        if (Assert.isEmpty(fields)) {
+        if (Asserts.isEmpty(fields)) {
             return null;
         }
         List<String> fieldValues = fields.stream()

@@ -31,7 +31,6 @@ import java.lang.annotation.Target;
  * @date 2020-07-17 13:09:04
  * @since 1.0
  */
-@SuppressWarnings("all")
 @Column(
         writer = "ST_GeomFromText(#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end #if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}",
         reader = "ST_ASTEXT(${column}) as ${column}"

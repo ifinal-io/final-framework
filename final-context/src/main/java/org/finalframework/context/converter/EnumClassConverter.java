@@ -17,8 +17,8 @@
 
 package org.finalframework.context.converter;
 
-import org.finalframework.core.Assert;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.core.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<Stri
     public EnumClassConverter(ObjectProvider<List<EnumConverter<?>>> enumConvertersProvider) {
         final List<EnumConverter<?>> enumConverters = enumConvertersProvider == null ? null : enumConvertersProvider.getIfAvailable();
 
-        if (Assert.isEmpty(enumConverters)) {
+        if (Asserts.isEmpty(enumConverters)) {
             enumConverterMap.put(Enum.class, new IEnumConverter<>());
         } else {
             for (EnumConverter<?> enumConverter : enumConverters) {

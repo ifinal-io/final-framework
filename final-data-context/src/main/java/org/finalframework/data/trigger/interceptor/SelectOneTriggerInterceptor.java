@@ -18,7 +18,7 @@
 package org.finalframework.data.trigger.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.data.trigger.SelectTrigger;
@@ -67,7 +67,7 @@ public class SelectOneTriggerInterceptor implements TriggerInterceptor {
     public void before(Class<? extends Repository<?, ?>> repository, Method method, Object[] args) {
         final Class<?> entity = findRepositoryEntity(repository);
         final List<SelectTrigger<?, ?>> selectTriggers = triggerManager.getSelectTriggers(entity);
-        if (Assert.nonEmpty(selectTriggers)) {
+        if (Asserts.nonEmpty(selectTriggers)) {
             final String tableName = (String) args[0];
             final Class<?> view = (Class<?>) args[1];
             final Collection ids = Collections.singletonList(args[2]);
@@ -81,7 +81,7 @@ public class SelectOneTriggerInterceptor implements TriggerInterceptor {
     public void after(Class<? extends Repository<?, ?>> repository, Method method, Object[] args, Object result) {
         final Class<?> entity = findRepositoryEntity(repository);
         final List<SelectTrigger<?, ?>> selectTriggers = triggerManager.getSelectTriggers(entity);
-        if (Assert.nonEmpty(selectTriggers)) {
+        if (Asserts.nonEmpty(selectTriggers)) {
             final String tableName = (String) args[0];
             final Class<?> view = (Class<?>) args[1];
             final Collection ids = Collections.singletonList(args[2]);

@@ -20,7 +20,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheDel;
 import org.finalframework.cache.handler.CacheDelOperationHandler;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.finalframework.spring.aop.annotation.CutPoint;
@@ -50,14 +50,14 @@ public class CacheDelOperation implements Operation {
     private final Class<? extends Cache> executor;
 
     private CacheDelOperation(Builder builder) {
-        this.name = Assert.isBlank(builder.name) ? CacheDelOperation.class.getSimpleName() : builder.name;
-        this.key = Assert.isEmpty(builder.key) ? null : builder.key;
-        this.field = Assert.isEmpty(builder.field) ? null : builder.field;
-        this.delimiter = Assert.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
-        this.condition = Assert.isEmpty(builder.condition) ? null : builder.condition;
+        this.name = Asserts.isBlank(builder.name) ? CacheDelOperation.class.getSimpleName() : builder.name;
+        this.key = Asserts.isEmpty(builder.key) ? null : builder.key;
+        this.field = Asserts.isEmpty(builder.field) ? null : builder.field;
+        this.delimiter = Asserts.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.condition = Asserts.isEmpty(builder.condition) ? null : builder.condition;
         this.cutPoint = builder.cutPoint;
-        this.retry = Assert.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
-        this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
+        this.retry = Asserts.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;
+        this.sleep = Asserts.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.handler = builder.handler;
         this.executor = builder.executor;
     }

@@ -18,7 +18,7 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationExpressionEvaluator;
 import org.finalframework.spring.aop.OperationHandlerSupport;
@@ -104,7 +104,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
 
     @Override
     public String generateExpression(@NonNull String expression) {
-        Assert.isEmpty(expression, "expression is empty");
+        Asserts.isEmpty(expression, "expression is empty");
         return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
 }

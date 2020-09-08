@@ -18,7 +18,7 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationAnnotationParser;
 import org.finalframework.spring.aop.OperationConfiguration;
@@ -44,12 +44,12 @@ public class AnnotationOperationSource extends AbsOperationSource {
     @Override
     protected Collection<? extends Operation> findOperations(Method method) {
         final Collection<? extends Operation> collection = parser.parseOperationAnnotation(method);
-        return Assert.isEmpty(collection) ? null : collection;
+        return Asserts.isEmpty(collection) ? null : collection;
     }
 
     @Override
     protected Collection<? extends Operation> findOperations(Class<?> clazz) {
         final Collection<? extends Operation> collection = parser.parseOperationAnnotation(clazz);
-        return Assert.isEmpty(collection) ? null : collection;
+        return Asserts.isEmpty(collection) ? null : collection;
     }
 }

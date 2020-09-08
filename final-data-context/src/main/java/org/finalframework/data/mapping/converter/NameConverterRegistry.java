@@ -17,7 +17,7 @@
 
 package org.finalframework.data.mapping.converter;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.configuration.Configuration;
 import org.springframework.lang.Nullable;
 
@@ -50,7 +50,7 @@ public class NameConverterRegistry {
     }
 
     private void initTableConverter(@Nullable String tableNameConverter) {
-        if (Assert.isEmpty(tableNameConverter)) return;
+        if (Asserts.isEmpty(tableNameConverter)) return;
         try {
             this.tableNameConverter = (NameConverter) Class.forName(tableNameConverter).newInstance();
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class NameConverterRegistry {
 
 
     private void initNameConverter(@Nullable String columnNameConverter) {
-        if (Assert.isEmpty(columnNameConverter)) return;
+        if (Asserts.isEmpty(columnNameConverter)) return;
         try {
             this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).newInstance();
         } catch (Exception e) {

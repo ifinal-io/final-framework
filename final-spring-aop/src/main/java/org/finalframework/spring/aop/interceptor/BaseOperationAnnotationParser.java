@@ -18,7 +18,7 @@
 package org.finalframework.spring.aop.interceptor;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.*;
 
 import java.lang.annotation.Annotation;
@@ -56,7 +56,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
             }
         }
 
-        if (Assert.isEmpty(anns)) {
+        if (Asserts.isEmpty(anns)) {
             return null;
         }
         final Collection<Operation> ops = new ArrayList<>(1);
@@ -80,11 +80,11 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
     public Collection<? extends Operation> parseOperationAnnotation(Method method) {
         final Collection<Operation> ops = new ArrayList<>(1);
         final Collection<Operation> methodOperationAnnotations = parseMethodOperationAnnotations(method);
-        if (Assert.nonEmpty(methodOperationAnnotations)) {
+        if (Asserts.nonEmpty(methodOperationAnnotations)) {
             ops.addAll(methodOperationAnnotations);
         }
         final Collection<Operation> parameterOperationAnnotations = parseMethodParameterOperationAnnotations(method);
-        if (Assert.nonEmpty(parameterOperationAnnotations)) {
+        if (Asserts.nonEmpty(parameterOperationAnnotations)) {
             ops.addAll(parameterOperationAnnotations);
         }
         return ops;
@@ -100,7 +100,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
             }
         }
 
-        if (Assert.isEmpty(anns)) {
+        if (Asserts.isEmpty(anns)) {
             return null;
         }
         final Collection<Operation> ops = new ArrayList<>(1);
@@ -141,7 +141,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
             }
         }
 
-        if (Assert.isEmpty(anns)) {
+        if (Asserts.isEmpty(anns)) {
             return null;
         }
         final Collection<Operation> ops = new ArrayList<>(1);

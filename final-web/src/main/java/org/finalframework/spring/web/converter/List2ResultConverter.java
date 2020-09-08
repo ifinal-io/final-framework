@@ -22,7 +22,7 @@ import com.github.pagehelper.PageInfo;
 import org.finalframework.annotation.result.Pagination;
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.converter.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<List<T
             result.setPagination(buildPageInfo((Page<T>) source));
         }
 
-        if (Assert.nonEmpty(list)) {
+        if (Asserts.nonEmpty(list)) {
             final T entity = list.get(0);
 
 //            if (entity instanceof IEntity) {

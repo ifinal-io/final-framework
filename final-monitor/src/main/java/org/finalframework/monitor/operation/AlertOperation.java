@@ -17,7 +17,7 @@
 
 package org.finalframework.monitor.operation;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.annotation.MonitorLevel;
 import org.finalframework.monitor.executor.Alerter;
@@ -78,14 +78,14 @@ public class AlertOperation implements Operation {
         this.name = builder.name;
         this.key = builder.key;
         this.message = builder.message;
-        this.operator = Assert.isBlank(builder.operator) ? null : builder.operator;
+        this.operator = Asserts.isBlank(builder.operator) ? null : builder.operator;
         this.target = builder.target;
         this.condition = builder.condition;
         this.level = builder.level;
         this.point = builder.point;
         this.invocation = builder.invocation;
         this.executor = builder.executor;
-        this.attributes = Assert.isEmpty(builder.attributes) ? null : builder.attributes;
+        this.attributes = Asserts.isEmpty(builder.attributes) ? null : builder.attributes;
     }
 
     public static Builder builder() {

@@ -21,7 +21,7 @@ import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.query.Page;
 import org.finalframework.annotation.query.Pageable;
 import org.finalframework.annotation.query.Size;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.io.Serializable;
 
@@ -90,7 +90,7 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
     @Override
     public Query convert() {
         final Query query = new Query();
-        if (Assert.nonNull(page) && Assert.nonNull(size)) {
+        if (Asserts.nonNull(page) && Asserts.nonNull(size)) {
             query.page(page, size);
         }
         return query;

@@ -20,7 +20,7 @@ package org.finalframework.cache.operation;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.Operation;
 import org.finalframework.spring.aop.OperationHandler;
 import org.springframework.core.Ordered;
@@ -56,17 +56,17 @@ public class CacheLockOperation implements Operation {
     private final Class<? extends Cache> executor;
 
     private CacheLockOperation(Builder builder) {
-        this.name = Assert.isBlank(builder.name) ? CacheLockOperation.class.getSimpleName() : builder.name;
-        this.key = Assert.isEmpty(builder.key) ? null : builder.key;
-        this.value = Assert.isBlank(builder.value) ? null : builder.value;
-        this.delimiter = Assert.isBlank(builder.delimiter) ? DELIMITER : builder.delimiter;
-        this.condition = Assert.isBlank(builder.condition) ? null : builder.condition;
+        this.name = Asserts.isBlank(builder.name) ? CacheLockOperation.class.getSimpleName() : builder.name;
+        this.key = Asserts.isEmpty(builder.key) ? null : builder.key;
+        this.value = Asserts.isBlank(builder.value) ? null : builder.value;
+        this.delimiter = Asserts.isBlank(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.condition = Asserts.isBlank(builder.condition) ? null : builder.condition;
         this.order = builder.order;
-        this.expire = Assert.isBlank(builder.expire) ? null : builder.expire;
+        this.expire = Asserts.isBlank(builder.expire) ? null : builder.expire;
         this.ttl = builder.ttl;
         this.timeUnit = builder.timeUnit;
-        this.retry = Assert.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : 0;
-        this.sleep = Assert.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
+        this.retry = Asserts.nonNull(builder.retry) && builder.retry > 0 ? builder.retry : 0;
+        this.sleep = Asserts.nonNull(builder.sleep) && builder.sleep > 0L ? builder.sleep : null;
         this.handler = builder.handler;
         this.executor = builder.executor;
     }

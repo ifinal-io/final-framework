@@ -18,7 +18,7 @@
 package org.finalframework.monitor.operation;
 
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.annotation.MonitorLevel;
@@ -84,13 +84,13 @@ public class ActionOperation implements Operation {
         this.name = builder.name;
         this.type = builder.type;
         this.action = builder.action;
-        this.operator = Assert.isBlank(builder.operator) ? null : builder.operator;
+        this.operator = Asserts.isBlank(builder.operator) ? null : builder.operator;
         this.target = builder.target;
         this.level = builder.level;
         this.point = builder.point;
         this.handler = builder.handler;
         this.executor = builder.executor;
-        this.attributes = Assert.isEmpty(builder.attributes) ? null : builder.attributes;
+        this.attributes = Asserts.isEmpty(builder.attributes) ? null : builder.attributes;
     }
 
     public static Builder builder() {

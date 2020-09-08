@@ -22,14 +22,14 @@ import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.finalframework.core.Asserts;
+import org.finalframework.json.context.JsonContextHolder;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.finalframework.core.Assert;
-import org.finalframework.json.context.JsonContextHolder;
 
 /**
  * @author likly
@@ -56,7 +56,7 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
             if (support(property)) {
                 BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
                 Collection<BeanPropertyWriter> changeProperties = changeProperties(config, beanDesc, property, def);
-                if (Assert.nonEmpty(changeProperties)) {
+                if (Asserts.nonEmpty(changeProperties)) {
                     int index = beanProperties.indexOf(def);
                     if (index != -1) {
                         beanProperties.addAll(index + 1, changeProperties);

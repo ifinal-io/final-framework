@@ -21,13 +21,13 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.finalframework.core.Asserts;
+import org.finalframework.core.formatter.LocalDateTimeFormatters;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import org.finalframework.core.Assert;
-import org.finalframework.core.formatter.LocalDateTimeFormatters;
 
 /**
  * @author likly
@@ -41,7 +41,9 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
     @Override
     public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         String value = p.getValueAsString();
-        if (Assert.isEmpty(value)) return null;
+        if (Asserts.isEmpty(value)) {
+            return null;
+        }
         if (!p.isNaN()) {
             long timestamp = p.getValueAsLong();
             Instant instant = Instant.ofEpochMilli(timestamp);

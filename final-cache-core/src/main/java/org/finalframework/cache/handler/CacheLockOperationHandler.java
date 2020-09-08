@@ -17,12 +17,12 @@
 
 package org.finalframework.cache.handler;
 
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheLockException;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.operation.CacheLockOperation;
-import org.finalframework.core.Assert;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.aop.OperationContext;
 import org.finalframework.spring.aop.OperationHandler;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + operation);
         }
-        final Object value = Assert.isEmpty(operation.value()) ? key : generateValue(operation.value(), context.metadata(), evaluationContext);
+        final Object value = Asserts.isEmpty(operation.value()) ? key : generateValue(operation.value(), context.metadata(), evaluationContext);
 
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;

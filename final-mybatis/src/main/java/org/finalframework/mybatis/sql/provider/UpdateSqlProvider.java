@@ -21,7 +21,7 @@ package org.finalframework.mybatis.sql.provider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.data.Metadata;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
@@ -103,7 +103,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         metadata.setJavaType(property.getType());
                         metadata.setTypeHandler(property.getTypeHandler());
 
-                        final String writer = Assert.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
                         final String value = Velocities.getValue(writer, metadata);
 
                         final String test = ScriptMapperHelper.formatTest("entity", property.getPath(), selective);

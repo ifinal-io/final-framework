@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.document.api.entity.EntityHolder;
@@ -54,7 +54,7 @@ public class EntityServiceImpl implements EntityService {
         return entitiesMap.values()
                 .stream()
                 .filter(entity -> {
-                    if (Assert.nonEmpty(query.getName())) {
+                    if (Asserts.nonEmpty(query.getName())) {
                         return entity.getCanonicalName().toUpperCase().contains(query.getName().toUpperCase());
                     } else {
                         return true;

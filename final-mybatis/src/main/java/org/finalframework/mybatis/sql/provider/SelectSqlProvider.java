@@ -21,7 +21,7 @@ package org.finalframework.mybatis.sql.provider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.data.Metadata;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.sql.AnnotationQueryProvider;
@@ -104,7 +104,7 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
                     metadata.setJavaType(property.getType());
                     metadata.setTypeHandler(property.getTypeHandler());
 
-                    final String reader = Assert.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
+                    final String reader = Asserts.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
 
                     return Velocities.getValue(reader, metadata);
                 }).collect(Collectors.joining(","));

@@ -21,7 +21,7 @@ package org.finalframework.data.query.criterion;
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.SqlKeyWords;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QProperty;
 
 import java.io.Serializable;
@@ -65,7 +65,7 @@ class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
 
     public String getSqlExpression(String expression) {
         String value;
-        if (Assert.nonNull(expression)) {
+        if (Asserts.nonNull(expression)) {
             value = expression;
         } else if (isProperty()) {
             QProperty<?> property = (QProperty<?>) this.value;
@@ -75,15 +75,15 @@ class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
             value = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
         }
 
-        if (Assert.nonNull(expression)) {
+        if (Asserts.nonNull(expression)) {
             StringBuilder sb = new StringBuilder();
             sb.append("#{").append(value);
 
-            if (Assert.nonNull(javaType)) {
+            if (Asserts.nonNull(javaType)) {
                 sb.append(" ,javaType=").append(javaType.getCanonicalName());
             }
 
-            if (Assert.nonNull(typeHandler)) {
+            if (Asserts.nonNull(typeHandler)) {
                 sb.append(" ,typeHandler=").append(typeHandler.getCanonicalName());
             }
 

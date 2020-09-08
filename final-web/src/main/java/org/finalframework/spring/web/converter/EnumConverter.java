@@ -19,7 +19,7 @@ package org.finalframework.spring.web.converter;
 
 
 import org.finalframework.annotation.IEnum;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.Arrays;
@@ -47,7 +47,7 @@ public class EnumConverter<T extends IEnum> implements Converter<String, T> {
 
     @Override
     public T convert(String source) {
-        return Assert.isBlank(source) ? null : enumMap.get(source.trim());
+        return Asserts.isBlank(source) ? null : enumMap.get(source.trim());
     }
 
     @Override

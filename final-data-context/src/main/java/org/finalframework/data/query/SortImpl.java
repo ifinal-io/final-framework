@@ -18,7 +18,7 @@
 package org.finalframework.data.query;
 
 import org.finalframework.annotation.query.Direction;
-import org.finalframework.core.Assert;
+import org.finalframework.core.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,12 +58,12 @@ public class SortImpl extends ArrayList<Order> implements Sort {
     }
 
     static Sort sort(Direction direction, QProperty<?>... properties) {
-        Assert.isEmpty(properties, "properties must be not empty!");
+        Asserts.isEmpty(properties, "properties must be not empty!");
         return new SortImpl(Arrays.stream(properties).map(it -> Order.order(it, direction)).collect(Collectors.toList()));
     }
 
     public Sort and(Sort sort) {
-        Assert.isNull(sort, "Sort must not be null!");
+        Asserts.isNull(sort, "Sort must not be null!");
         ArrayList<Order> these = new ArrayList<>(this);
 
         for (Order order : sort) {

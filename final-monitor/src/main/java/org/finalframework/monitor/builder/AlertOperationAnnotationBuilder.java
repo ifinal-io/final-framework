@@ -17,14 +17,14 @@
 
 package org.finalframework.monitor.builder;
 
-import java.lang.reflect.Method;
-
-import org.finalframework.core.Assert;
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.core.Asserts;
 import org.finalframework.monitor.annotation.MonitorAlert;
 import org.finalframework.monitor.operation.AlertOperation;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.spring.aop.OperationAnnotationBuilder;
 import org.finalframework.spring.aop.annotation.OperationAttribute;
+
+import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -37,7 +37,7 @@ import org.finalframework.spring.aop.annotation.OperationAttribute;
 public class AlertOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAlert, AlertOperation> {
 
     public AlertOperation build(Method method, MonitorAlert ann) {
-        final String name = Assert.isBlank(ann.name()) ? method.getDeclaringClass().getSimpleName() + "#" + method.getName() : ann.name();
+        final String name = Asserts.isBlank(ann.name()) ? method.getDeclaringClass().getSimpleName() + "#" + method.getName() : ann.name();
         final AlertOperation.Builder builder = AlertOperation.builder()
                 .name(name)
                 .key(ann.key())
@@ -52,7 +52,7 @@ public class AlertOperationAnnotationBuilder implements OperationAnnotationBuild
 
         final OperationAttribute[] attributes = ann.attributes();
 
-        if (Assert.nonEmpty(attributes)) {
+        if (Asserts.nonEmpty(attributes)) {
             for (OperationAttribute attribute : attributes) {
                 builder.addAttribute(attribute.name(), attribute.value());
             }

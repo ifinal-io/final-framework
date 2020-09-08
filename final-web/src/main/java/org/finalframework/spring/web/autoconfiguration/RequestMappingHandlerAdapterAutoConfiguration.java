@@ -18,10 +18,10 @@
 package org.finalframework.spring.web.autoconfiguration;
 
 
-import org.finalframework.core.Assert;
-import org.finalframework.context.util.Beans;
 import org.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
 import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
+import org.finalframework.context.util.Beans;
+import org.finalframework.core.Asserts;
 import org.finalframework.spring.web.http.converter.JsonStringHttpMessageConverter;
 import org.finalframework.spring.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -93,14 +93,14 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
         final List<HandlerMethodArgumentResolver> customerArgumentResolvers = Beans.findBeansByAnnotation(context, SpringArgumentResolver.class);
-        if (Assert.nonEmpty(customerArgumentResolvers)) {
+        if (Asserts.nonEmpty(customerArgumentResolvers)) {
             //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
             argumentResolvers.addAll(customerArgumentResolvers);
         }
 
         // 获取默认的参数解析器
         final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
-        if (Assert.nonEmpty(defaultArgumentResolvers)) {
+        if (Asserts.nonEmpty(defaultArgumentResolvers)) {
 
 
             for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
@@ -121,7 +121,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
 
         List<HandlerMethodReturnValueHandler> defualtReturnValueHandlers = adapter.getReturnValueHandlers();
-        if (Assert.nonEmpty(defualtReturnValueHandlers)) {
+        if (Asserts.nonEmpty(defualtReturnValueHandlers)) {
 
 
             for (HandlerMethodReturnValueHandler returnValueHandler : defualtReturnValueHandlers) {
