@@ -17,7 +17,7 @@
 
 package org.finalframework.context.exception;
 
-import org.finalframework.core.exception.IException;
+import org.finalframework.data.IException;
 import org.finalframework.data.annotation.result.ResponseStatus;
 
 /**

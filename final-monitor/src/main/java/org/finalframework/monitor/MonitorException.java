@@ -18,7 +18,7 @@
 package org.finalframework.monitor;
 
 
-import org.finalframework.core.exception.IException;
+import org.finalframework.data.IException;
 
 /**
  * Action异常

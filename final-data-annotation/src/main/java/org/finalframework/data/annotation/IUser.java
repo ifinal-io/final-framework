@@ -37,6 +37,7 @@ public interface IUser<ID extends Serializable> extends IEntity<ID> {
 
     /**
      * set user name.
+     *
      * @param name user name.
      */
     void setName(String name);

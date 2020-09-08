@@ -15,7 +15,7 @@
  *
  */
 
-package org.finalframework.core.exception;
+package org.finalframework.data;
 
 
 import org.springframework.lang.NonNull;
@@ -25,7 +25,6 @@ import org.springframework.lang.NonNull;
  * @author likly
  * @version 1.0
  * @date 2018-09-26 20:57
- * @see ExceptionHandler
  * @since 1.0
  */
 public interface IException {

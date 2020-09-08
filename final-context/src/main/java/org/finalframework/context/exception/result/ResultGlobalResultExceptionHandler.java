@@ -18,11 +18,11 @@
 package org.finalframework.context.exception.result;
 
 
-import org.finalframework.core.exception.IException;
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.exception.UnCatchException;
 import org.finalframework.context.exception.handler.GlobalExceptionHandler;
+import org.finalframework.data.IException;
 import org.finalframework.data.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
