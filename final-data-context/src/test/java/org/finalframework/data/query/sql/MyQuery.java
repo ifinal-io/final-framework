@@ -19,10 +19,10 @@ package org.finalframework.data.query.sql;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.query.AndOr;
-import org.finalframework.data.annotation.query.Criteria;
-import org.finalframework.data.annotation.query.Equal;
-import org.finalframework.data.annotation.query.NotEqual;
+import org.finalframework.annotation.query.AndOr;
+import org.finalframework.annotation.query.Criteria;
+import org.finalframework.annotation.query.Equal;
+import org.finalframework.annotation.query.NotEqual;
 
 /**
  * @author likly

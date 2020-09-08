@@ -18,7 +18,7 @@
 package org.finalframework.mybatis.handler;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.annotation.data.PersistentType;
 
 import java.util.Collection;
 import java.util.Map;

@@ -17,7 +17,7 @@
 
 package org.finalframework.mybatis.handler.postgre;
 
-import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.annotation.data.PersistentType;
 import org.finalframework.mybatis.handler.PersistentTypeHandlerRegister;
 import org.finalframework.mybatis.handler.TypeHandlerModule;
 

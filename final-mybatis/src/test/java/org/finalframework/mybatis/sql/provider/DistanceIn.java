@@ -17,7 +17,7 @@
 
 package org.finalframework.mybatis.sql.provider;
 
-import org.finalframework.data.annotation.query.Criterion;
+import org.finalframework.annotation.query.Criterion;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;

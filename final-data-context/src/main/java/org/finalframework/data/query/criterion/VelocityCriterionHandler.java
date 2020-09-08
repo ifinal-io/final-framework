@@ -18,9 +18,9 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.data.annotation.query.Criterion;
-import org.finalframework.data.annotation.query.CriterionHandler;
-import org.finalframework.data.annotation.query.Metadata;
+import org.finalframework.annotation.query.Criterion;
+import org.finalframework.annotation.query.CriterionHandler;
+import org.finalframework.annotation.query.Metadata;
 import org.finalframework.data.util.Velocities;
 
 import java.util.Arrays;

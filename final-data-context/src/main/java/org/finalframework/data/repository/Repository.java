@@ -18,8 +18,8 @@
 package org.finalframework.data.repository;
 
 import org.apache.ibatis.annotations.Param;
+import org.finalframework.annotation.IEntity;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Queryable;
 import org.finalframework.data.query.Update;

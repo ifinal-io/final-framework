@@ -21,8 +21,8 @@ package org.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.data.annotation.EnumValue;
-import org.finalframework.data.annotation.Enums;
+import org.finalframework.annotation.Enums;
+import org.finalframework.annotation.data.EnumValue;
 
 import java.io.IOException;
 

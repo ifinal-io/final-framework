@@ -17,9 +17,9 @@
 
 package org.finalframework.data.query;
 
+import org.finalframework.annotation.query.AndOr;
 import org.finalframework.core.converter.Convertible;
 import org.finalframework.data.query.criterion.Criterion;
-import org.finalframework.data.annotation.query.AndOr;
 
 import java.util.*;
 import java.util.stream.Collectors;

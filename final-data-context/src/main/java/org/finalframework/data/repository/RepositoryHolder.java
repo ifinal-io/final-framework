@@ -19,7 +19,7 @@ package org.finalframework.data.repository;
 
 
 import org.apache.ibatis.binding.MapperProxy;
-import org.finalframework.data.annotation.IEntity;
+import org.finalframework.annotation.IEntity;
 import org.finalframework.util.ProxyUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;

@@ -17,7 +17,7 @@
 
 package org.finalframework.data.mapping;
 
-import org.finalframework.data.annotation.NonCompare;
+import org.finalframework.annotation.data.NonCompare;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -17,7 +17,7 @@
 
 package org.finalframework.data.response;
 
-import org.finalframework.data.annotation.Transient;
+import org.finalframework.annotation.data.Transient;
 
 /**
  * @author likly

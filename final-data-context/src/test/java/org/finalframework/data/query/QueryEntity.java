@@ -20,9 +20,9 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.finalframework.data.annotation.Geometry;
-import org.finalframework.data.annotation.Json;
-import org.finalframework.data.annotation.entity.AbsEntity;
+import org.finalframework.annotation.data.AbsEntity;
+import org.finalframework.annotation.data.Geometry;
+import org.finalframework.annotation.data.Json;
 import org.springframework.data.geo.Point;
 
 import java.util.List;

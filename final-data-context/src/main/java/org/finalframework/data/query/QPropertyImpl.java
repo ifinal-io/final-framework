@@ -18,8 +18,8 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.annotation.data.PersistentType;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.enums.PersistentType;
 import org.finalframework.data.mapping.Property;
 
 import java.util.ArrayList;

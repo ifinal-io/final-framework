@@ -17,7 +17,7 @@
 
 package org.finalframework.mybatis;
 
-import org.finalframework.data.annotation.IEntity;
+import org.finalframework.annotation.IEntity;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.mybatis.mapper.AbsMapper;
 

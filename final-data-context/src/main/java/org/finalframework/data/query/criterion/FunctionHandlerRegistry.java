@@ -18,7 +18,7 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.data.annotation.query.Function;
+import org.finalframework.annotation.query.Function;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

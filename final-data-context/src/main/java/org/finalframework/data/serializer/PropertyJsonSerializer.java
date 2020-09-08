@@ -21,7 +21,7 @@ package org.finalframework.data.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.data.annotation.Json;
+import org.finalframework.annotation.data.Json;
 import org.finalframework.data.mapping.Property;
 
 import java.io.IOException;

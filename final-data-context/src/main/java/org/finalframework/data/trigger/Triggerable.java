@@ -17,7 +17,7 @@
 
 package org.finalframework.data.trigger;
 
-import org.finalframework.data.annotation.IEntity;
+import org.finalframework.annotation.IEntity;
 
 import java.io.Serializable;
 

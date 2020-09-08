@@ -17,8 +17,8 @@
 
 package org.finalframework.data.query;
 
+import org.finalframework.annotation.query.Direction;
 import org.finalframework.core.Streamable;
-import org.finalframework.data.annotation.query.Direction;
 
 import java.util.Arrays;
 import java.util.Collection;

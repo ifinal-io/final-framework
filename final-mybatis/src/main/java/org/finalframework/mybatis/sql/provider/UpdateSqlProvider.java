@@ -19,9 +19,9 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.finalframework.annotation.IEntity;
+import org.finalframework.annotation.data.Metadata;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.annotation.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;

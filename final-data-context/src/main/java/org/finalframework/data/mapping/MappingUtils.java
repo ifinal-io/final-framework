@@ -17,14 +17,14 @@
 
 package org.finalframework.data.mapping;
 
-import java.util.Optional;
-
-import org.finalframework.data.annotation.Prefix;
-import org.finalframework.data.annotation.UpperCase;
-import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.annotation.data.Prefix;
+import org.finalframework.annotation.data.ReferenceMode;
+import org.finalframework.annotation.data.UpperCase;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import java.util.Optional;
 
 /**
  * @author likly

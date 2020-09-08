@@ -19,7 +19,9 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.query.*;
+import org.finalframework.annotation.query.Equal;
+import org.finalframework.annotation.query.Function;
+import org.finalframework.annotation.query.LessThan;
 
 import java.awt.*;
 

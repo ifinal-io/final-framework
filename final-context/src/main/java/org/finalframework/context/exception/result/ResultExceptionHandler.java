@@ -17,8 +17,8 @@
 
 package org.finalframework.context.exception.result;
 
+import org.finalframework.annotation.result.Result;
 import org.finalframework.core.exception.ExceptionHandler;
-import org.finalframework.data.annotation.result.Result;
 
 /**
  * {@link Result}异常处理器，将异常所携带的异常消息封装成 {@link Result}对象返回给调用方。

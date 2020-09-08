@@ -18,9 +18,9 @@
 package org.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.finalframework.annotation.data.NonCompare;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
-import org.finalframework.data.annotation.NonCompare;
 import org.finalframework.data.serializer.EntityJsonSerializer;
 import org.springframework.data.mapping.PersistentEntity;
 

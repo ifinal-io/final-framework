@@ -18,9 +18,9 @@
 package org.finalframework.spring.web.converter;
 
 
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.core.converter.Converter;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
 import org.finalframework.json.jackson.view.JsonViewValue;
 import org.finalframework.spring.web.response.view.PageJsonViewValue;
 

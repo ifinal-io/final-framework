@@ -17,10 +17,10 @@
 
 package org.finalframework.context.converter;
 
-import org.finalframework.data.annotation.IEnum;
+import org.finalframework.annotation.Enums;
+import org.finalframework.annotation.IEnum;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.util.Messages;
-import org.finalframework.data.annotation.Enums;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 

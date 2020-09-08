@@ -17,12 +17,12 @@
 
 package org.finalframework.spring.web.converter;
 
+import org.finalframework.annotation.Enums;
+import org.finalframework.annotation.IEnum;
+import org.finalframework.context.util.Messages;
 import org.finalframework.core.Assert;
 import org.finalframework.core.converter.Converter;
 import org.finalframework.core.filter.Filter;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.Enums;
-import org.finalframework.context.util.Messages;
 import org.finalframework.spring.web.response.advice.EnumsResponseBodyAdvice;
 
 import java.util.*;

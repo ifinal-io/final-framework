@@ -17,7 +17,7 @@
 
 package org.finalframework.data.service;
 
-import org.finalframework.data.annotation.IEntity;
+import org.finalframework.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;

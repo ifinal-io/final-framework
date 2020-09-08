@@ -17,11 +17,11 @@
 
 package org.finalframework.spring.web.exception.result;
 
-import org.finalframework.context.exception.result.ResultExceptionHandler;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
-import org.finalframework.json.JsonException;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.context.exception.result.ResultExceptionHandler;
+import org.finalframework.json.JsonException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.lang.NonNull;
 

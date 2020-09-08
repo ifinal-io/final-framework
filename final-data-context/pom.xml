@@ -29,19 +29,14 @@
     <artifactId>final-data-context</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-data-annotation</artifactId>
+            <artifactId>final-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-data-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -50,10 +45,6 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.auto</groupId>

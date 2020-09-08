@@ -17,9 +17,9 @@
 
 package org.finalframework.spring.web.response.advice;
 
-import org.finalframework.data.annotation.result.Result;
-import org.finalframework.context.user.UserContextHolder;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
+import org.finalframework.context.user.UserContextHolder;
 import org.finalframework.spring.web.converter.Object2ResultConverter;
 import org.finalframework.spring.web.interceptor.DurationHandlerInterceptor;
 import org.finalframework.spring.web.interceptor.trace.TraceHandlerInterceptor;

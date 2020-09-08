@@ -17,10 +17,10 @@
 
 package org.finalframework.context.exception.result;
 
-import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.core.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

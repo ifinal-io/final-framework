@@ -17,7 +17,7 @@
 
 package org.finalframework.spring.web.response.advice;
 
-import org.finalframework.data.annotation.result.Responsible;
+import org.finalframework.annotation.result.Responsible;
 import org.finalframework.auto.spring.factory.annotation.SpringFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;

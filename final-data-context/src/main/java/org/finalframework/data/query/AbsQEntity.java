@@ -17,17 +17,16 @@
 
 package org.finalframework.data.query;
 
+import org.finalframework.annotation.data.Table;
+import org.finalframework.annotation.data.View;
+import org.finalframework.data.mapping.Entity;
+import org.finalframework.data.mapping.MappingUtils;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
-
-import org.finalframework.data.annotation.Order;
-import org.finalframework.data.annotation.Table;
-import org.finalframework.data.annotation.View;
-import org.finalframework.data.mapping.Entity;
-import org.finalframework.data.mapping.MappingUtils;
-import org.finalframework.data.mapping.converter.NameConverterRegistry;
 
 /**
  * @author likly

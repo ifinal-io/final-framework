@@ -17,10 +17,10 @@
 
 package org.finalframework.data.trigger;
 
+import org.finalframework.annotation.IEntity;
+
 import java.io.Serializable;
 import java.util.Collection;
-
-import org.finalframework.data.annotation.IEntity;
 
 /**
  * @author sli

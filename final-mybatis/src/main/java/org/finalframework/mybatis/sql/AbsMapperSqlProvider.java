@@ -19,7 +19,7 @@ package org.finalframework.mybatis.sql;
 
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.Json;
+import org.finalframework.annotation.data.Json;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
@@ -59,8 +59,8 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         final Class<? extends TypeHandler<?>> typeHandler = property.getTypeHandler();
         if (typeHandler == null) {
             final Property propertyProperty = property.getProperty();
-            if (propertyProperty.hasAnnotation(org.finalframework.data.annotation.TypeHandler.class)) {
-                return propertyProperty.getRequiredAnnotation(org.finalframework.data.annotation.TypeHandler.class).value();
+            if (propertyProperty.hasAnnotation(org.finalframework.annotation.data.TypeHandler.class)) {
+                return propertyProperty.getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value();
             }
 
             if (propertyProperty.hasAnnotation(Json.class) || propertyProperty.isCollectionLike()) {

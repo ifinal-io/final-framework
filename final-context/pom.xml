@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-data-annotation</artifactId>
+            <artifactId>final-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.auto</groupId>

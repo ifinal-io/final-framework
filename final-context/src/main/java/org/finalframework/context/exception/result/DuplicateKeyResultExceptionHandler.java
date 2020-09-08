@@ -18,8 +18,8 @@
 package org.finalframework.context.exception.result;
 
 
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;

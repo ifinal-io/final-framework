@@ -18,8 +18,8 @@
 package org.finalframework.spring.web.converter;
 
 
+import org.finalframework.annotation.IEnum;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IEnum;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.Arrays;

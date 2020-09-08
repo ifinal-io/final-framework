@@ -19,9 +19,9 @@ package org.finalframework.data.query.sql;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.finalframework.annotation.IEntity;
+import org.finalframework.annotation.query.*;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.annotation.query.*;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;

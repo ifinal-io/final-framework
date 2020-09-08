@@ -17,7 +17,7 @@
 
 package org.finalframework.data.trigger;
 
-import org.finalframework.data.annotation.entity.AbsEntity;
+import org.finalframework.annotation.data.AbsEntity;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 
 import java.util.Collection;

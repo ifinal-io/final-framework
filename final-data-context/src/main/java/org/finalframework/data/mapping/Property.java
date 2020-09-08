@@ -17,16 +17,15 @@
 
 package org.finalframework.data.mapping;
 
-import java.lang.annotation.Annotation;
-import java.util.Set;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.annotation.data.*;
 import org.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.data.mapping.PersistentProperty;
+
+import javax.validation.constraints.NotNull;
+import java.lang.annotation.Annotation;
+import java.util.Set;
 
 
 /**

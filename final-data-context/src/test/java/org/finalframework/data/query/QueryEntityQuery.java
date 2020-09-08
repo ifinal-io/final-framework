@@ -19,8 +19,8 @@ package org.finalframework.data.query;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.query.Equal;
-import org.finalframework.data.annotation.query.OR;
+import org.finalframework.annotation.query.Equal;
+import org.finalframework.annotation.query.OR;
 
 /**
  * @author likly

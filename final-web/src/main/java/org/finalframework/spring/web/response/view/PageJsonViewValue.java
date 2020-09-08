@@ -20,7 +20,7 @@ package org.finalframework.spring.web.response.view;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.PageInfo;
-import org.finalframework.data.annotation.result.Page;
+import org.finalframework.annotation.result.Page;
 import org.finalframework.json.jackson.view.JsonViewValue;
 
 import java.io.Serializable;

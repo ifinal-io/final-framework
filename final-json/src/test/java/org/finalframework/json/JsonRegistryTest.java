@@ -18,7 +18,7 @@
 package org.finalframework.json;
 
 import junit.framework.TestCase;
-import org.finalframework.data.annotation.enums.YN;
+import org.finalframework.annotation.data.YN;
 import org.finalframework.json.jackson.JacksonJsonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

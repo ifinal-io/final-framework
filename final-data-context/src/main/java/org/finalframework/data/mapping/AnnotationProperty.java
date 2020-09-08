@@ -18,12 +18,9 @@
 package org.finalframework.data.mapping;
 
 import org.apache.ibatis.type.TypeHandler;
+import org.finalframework.annotation.data.*;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.Keyword;
-import org.finalframework.data.annotation.enums.ReferenceMode;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.finalframework.data.annotation.SqlKeyWords;
 import org.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
@@ -47,20 +44,26 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     private final Lazy<String> column = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.name())) return getName();
+        if (annotation == null || Assert.isBlank(annotation.name())) {
+            return getName();
+        }
         return annotation.name();
     });
 
     private final Lazy<String> writer = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.writer())) return null;
+        if (annotation == null || Assert.isBlank(annotation.writer())) {
+            return null;
+        }
         return annotation.writer();
     });
 
 
     private final Lazy<String> reader = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
-        if (annotation == null || Assert.isBlank(annotation.reader())) return null;
+        if (annotation == null || Assert.isBlank(annotation.reader())) {
+            return null;
+        }
         return annotation.reader();
     });
 
@@ -107,8 +110,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
     private final Lazy<Class<? extends TypeHandler<?>>> typeHandler = Lazy.of(() -> {
-        if (isAnnotationPresent(org.finalframework.data.annotation.TypeHandler.class)) {
-            return getRequiredAnnotation(org.finalframework.data.annotation.TypeHandler.class).value();
+        if (isAnnotationPresent(org.finalframework.annotation.data.TypeHandler.class)) {
+            return getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value();
         }
 
         if (isAnnotationPresent(Json.class)) {

@@ -18,10 +18,10 @@
 package org.finalframework.spring.web.exception.result;
 
 import io.lettuce.core.RedisConnectionException;
-import org.finalframework.context.exception.result.ResultExceptionHandler;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.finalframework.context.exception.result.ResultExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 /**

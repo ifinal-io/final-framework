@@ -19,10 +19,10 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
+import org.finalframework.annotation.query.Direction;
+import org.finalframework.annotation.query.Pageable;
 import org.finalframework.core.Assert;
 import org.finalframework.core.Streamable;
-import org.finalframework.data.annotation.query.Direction;
-import org.finalframework.data.annotation.query.Pageable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
 

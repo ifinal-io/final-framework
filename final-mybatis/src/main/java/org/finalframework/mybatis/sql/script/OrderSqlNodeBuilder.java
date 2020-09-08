@@ -18,7 +18,7 @@
 package org.finalframework.mybatis.sql.script;
 
 
-import org.finalframework.data.annotation.query.Direction;
+import org.finalframework.annotation.query.Direction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

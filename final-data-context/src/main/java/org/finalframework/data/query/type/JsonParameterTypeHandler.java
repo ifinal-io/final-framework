@@ -30,7 +30,7 @@ import java.sql.SQLException;
  * @author likly
  * @version 1.0
  * @date 2020-06-11 10:02:27
- * @see org.finalframework.data.annotation.Json
+ * @see org.finalframework.annotation.data.Json
  * @see java.util.Collection
  * @see java.util.Map
  * @see java.util.List

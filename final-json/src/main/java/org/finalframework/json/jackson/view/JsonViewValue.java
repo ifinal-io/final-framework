@@ -20,7 +20,7 @@ package org.finalframework.json.jackson.view;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
-import org.finalframework.data.annotation.Viewable;
+import org.finalframework.annotation.Viewable;
 
 import java.io.Serializable;
 

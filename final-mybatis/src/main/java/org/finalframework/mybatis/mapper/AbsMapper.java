@@ -19,7 +19,7 @@ package org.finalframework.mybatis.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.finalframework.data.annotation.IEntity;
+import org.finalframework.annotation.IEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;

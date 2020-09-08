@@ -18,7 +18,7 @@
 package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.enums.PersistentType;
+import org.finalframework.annotation.data.PersistentType;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.criteriable.Criteriable;
 import org.finalframework.data.query.criteriable.ExecuteCriteriable;

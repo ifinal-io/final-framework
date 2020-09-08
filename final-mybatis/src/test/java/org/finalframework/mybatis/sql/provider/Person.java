@@ -21,8 +21,7 @@ package org.finalframework.mybatis.sql.provider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.finalframework.data.annotation.*;
-import org.finalframework.data.annotation.entity.AbsEntity;
+import org.finalframework.annotation.data.*;
 import org.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
 

@@ -17,8 +17,8 @@
 
 package org.finalframework.context.exception;
 
-import org.finalframework.data.annotation.IException;
-import org.finalframework.data.annotation.result.ResponseStatus;
+import org.finalframework.annotation.IException;
+import org.finalframework.annotation.result.ResponseStatus;
 
 /**
  * 未找到异常，一般为要访问的数据或页面不存在。

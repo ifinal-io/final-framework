@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import org.finalframework.data.annotation.EnumValue;
+import org.finalframework.annotation.data.EnumValue;
 import org.finalframework.json.jackson.serializer.EnumValueDescSerializer;
 import org.finalframework.json.jackson.serializer.EnumValueNameSerializer;
 import org.slf4j.Logger;

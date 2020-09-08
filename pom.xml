@@ -24,7 +24,6 @@
         <module>final-context</module>
         <module>final-core</module>
         <module>final-dubbo</module>
-        <module>final-data-annotation</module>
         <module>final-data-context</module>
         <module>final-json</module>
         <module>final-monitor</module>
@@ -122,7 +121,7 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-data-annotation</artifactId>
+                <artifactId>final-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -18,20 +18,16 @@
 package org.finalframework.mybatis.resumtmap;
 
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
 import org.apache.ibatis.mapping.ResultFlag;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandler;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.Json;
-import org.finalframework.data.annotation.Reference;
-import org.finalframework.data.annotation.UpperCase;
-import org.finalframework.data.annotation.enums.ReferenceMode;
+import org.finalframework.annotation.IEnum;
+import org.finalframework.annotation.data.Json;
+import org.finalframework.annotation.data.Reference;
+import org.finalframework.annotation.data.ReferenceMode;
+import org.finalframework.annotation.data.UpperCase;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
@@ -40,6 +36,10 @@ import org.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -149,9 +149,9 @@ public class ResultMapFactory {
 
     private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
 
-        if (property.hasAnnotation(org.finalframework.data.annotation.TypeHandler.class)) {
+        if (property.hasAnnotation(org.finalframework.annotation.data.TypeHandler.class)) {
             try {
-                return property.getRequiredAnnotation(org.finalframework.data.annotation.TypeHandler.class).value().newInstance();
+                return property.getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value().newInstance();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

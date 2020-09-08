@@ -17,7 +17,7 @@
 
 package org.finalframework.spring.aop.annotation;
 
-import org.finalframework.data.annotation.Transient;
+import org.finalframework.annotation.data.Transient;
 
 /**
  * AOP切入点，用于描述缓存 {@link java.lang.annotation.Annotation} 的调用顺序。

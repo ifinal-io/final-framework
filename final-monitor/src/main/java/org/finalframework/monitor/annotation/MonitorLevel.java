@@ -19,8 +19,8 @@ package org.finalframework.monitor.annotation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.finalframework.data.annotation.IEnum;
-import org.finalframework.data.annotation.Transient;
+import org.finalframework.annotation.IEnum;
+import org.finalframework.annotation.data.Transient;
 
 import java.util.Arrays;
 import java.util.Map;

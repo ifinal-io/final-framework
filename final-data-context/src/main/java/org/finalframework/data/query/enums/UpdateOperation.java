@@ -17,7 +17,7 @@
 
 package org.finalframework.data.query.enums;
 
-import org.finalframework.data.annotation.Transient;
+import org.finalframework.annotation.data.Transient;
 import org.finalframework.data.query.operation.Operation;
 
 /**

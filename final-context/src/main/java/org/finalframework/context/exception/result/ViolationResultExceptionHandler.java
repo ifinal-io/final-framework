@@ -17,9 +17,9 @@
 
 package org.finalframework.context.exception.result;
 
-import org.finalframework.data.annotation.result.ResponseStatus;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.ResponseStatus;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.annotation.Order;

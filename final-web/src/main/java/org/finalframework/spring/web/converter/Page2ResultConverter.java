@@ -19,10 +19,10 @@ package org.finalframework.spring.web.converter;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.finalframework.annotation.result.Pagination;
+import org.finalframework.annotation.result.R;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.core.converter.Converter;
-import org.finalframework.data.annotation.result.Pagination;
-import org.finalframework.data.annotation.result.R;
-import org.finalframework.data.annotation.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

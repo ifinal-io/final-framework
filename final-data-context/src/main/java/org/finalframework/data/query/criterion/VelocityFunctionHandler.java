@@ -18,8 +18,8 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.data.annotation.query.Function;
-import org.finalframework.data.annotation.query.Metadata;
+import org.finalframework.annotation.query.Function;
+import org.finalframework.annotation.query.Metadata;
 import org.finalframework.data.util.Velocities;
 
 /**

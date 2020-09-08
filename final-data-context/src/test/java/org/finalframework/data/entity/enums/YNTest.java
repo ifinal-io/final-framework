@@ -18,7 +18,7 @@
 package org.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.finalframework.data.annotation.enums.YN;
+import org.finalframework.annotation.data.YN;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

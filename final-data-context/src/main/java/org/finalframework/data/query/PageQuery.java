@@ -17,11 +17,11 @@
 
 package org.finalframework.data.query;
 
+import org.finalframework.annotation.IQuery;
+import org.finalframework.annotation.query.Page;
+import org.finalframework.annotation.query.Pageable;
+import org.finalframework.annotation.query.Size;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.IQuery;
-import org.finalframework.data.annotation.query.Page;
-import org.finalframework.data.annotation.query.Pageable;
-import org.finalframework.data.annotation.query.Size;
 
 import java.io.Serializable;
 

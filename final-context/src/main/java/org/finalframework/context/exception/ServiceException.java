@@ -17,9 +17,9 @@
 
 package org.finalframework.context.exception;
 
+import org.finalframework.annotation.IException;
+import org.finalframework.annotation.result.Responsible;
 import org.finalframework.context.util.Messages;
-import org.finalframework.data.annotation.IException;
-import org.finalframework.data.annotation.result.Responsible;
 
 /**
  * 业务异常

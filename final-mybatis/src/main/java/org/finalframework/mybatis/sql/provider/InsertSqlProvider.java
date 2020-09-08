@@ -19,10 +19,10 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.finalframework.annotation.data.LastModified;
+import org.finalframework.annotation.data.Metadata;
+import org.finalframework.annotation.data.Version;
 import org.finalframework.core.Assert;
-import org.finalframework.data.annotation.LastModified;
-import org.finalframework.data.annotation.Metadata;
-import org.finalframework.data.annotation.Version;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.util.Velocities;

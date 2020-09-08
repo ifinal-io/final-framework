@@ -17,7 +17,7 @@
 
 package org.finalframework.json.jackson;
 
-import org.finalframework.data.annotation.result.Result;
+import org.finalframework.annotation.result.Result;
 import org.finalframework.context.user.UserContextHolder;
 import org.finalframework.json.Json;
 import org.junit.Test;

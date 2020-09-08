@@ -17,11 +17,11 @@
 
 package org.finalframework.data.trigger;
 
+import org.finalframework.annotation.IEntity;
+import org.finalframework.data.query.Query;
+
 import java.io.Serializable;
 import java.util.Collection;
-
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.query.Query;
 
 /**
  * @author sli

@@ -26,16 +26,19 @@ import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.data.annotation.IEntity;
-import org.finalframework.data.annotation.query.Pageable;
+import org.finalframework.annotation.IEntity;
+import org.finalframework.annotation.query.Pageable;
+import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.core.annotation.Order;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 /**
