@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
  * @date 2020-08-25 13:29:07
  * @since 1.0
  */
-public interface IResult<T> {
+public interface IResult<T> extends IData<T> {
 
     /**
      * return the status of this response.
@@ -50,14 +50,6 @@ public interface IResult<T> {
      */
     @Nullable
     String getMessage();
-
-    /**
-     * return the data of this response.
-     *
-     * @return the data of this response.
-     */
-    @Nullable
-    T getData();
 
     /**
      * return the {@linkplain IPagination pagination}

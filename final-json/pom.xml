@@ -31,14 +31,6 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-annotation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
-            <artifactId>final-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.finalframework</groupId>
             <artifactId>final-core</artifactId>
         </dependency>
         <dependency>
@@ -65,6 +57,14 @@
         <dependency>
             <groupId>org.finalframework</groupId>
             <artifactId>final-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-annotation</artifactId>
         </dependency>
     </dependencies>
 </project>

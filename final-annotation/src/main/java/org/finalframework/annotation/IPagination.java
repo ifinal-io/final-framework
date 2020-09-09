@@ -13,7 +13,6 @@ import java.io.Serializable;
  * @date 2020-09-01 19:37:19
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public interface IPagination extends Serializable {
 
     /**
