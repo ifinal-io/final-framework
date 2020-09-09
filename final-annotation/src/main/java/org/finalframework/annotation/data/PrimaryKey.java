@@ -5,6 +5,8 @@ package org.finalframework.annotation.data;
 import org.finalframework.annotation.IEntity;
 import org.springframework.core.annotation.AliasFor;
 
+import java.lang.annotation.*;
+
 /**
  * Marked the element is a primary key.
  *

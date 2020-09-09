@@ -4,6 +4,8 @@ package org.finalframework.annotation.data;
 
 import org.springframework.core.annotation.AliasFor;
 
+import java.lang.annotation.*;
+
 /**
  * Marked the element is a {@literal version} record, it's a {@link ReadOnly} column, it's value insert by {@link
  * Default}, and modified when {@literal update} whit {@literal column = column + 1}.

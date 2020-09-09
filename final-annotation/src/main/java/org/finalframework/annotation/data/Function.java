@@ -5,6 +5,8 @@ package org.finalframework.annotation.data;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
+import java.lang.annotation.*;
+
 /**
  * Mark the target is a function column.
  *

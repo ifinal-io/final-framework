@@ -4,6 +4,8 @@ package org.finalframework.annotation.data;
 
 import org.springframework.lang.NonNull;
 
+import java.lang.annotation.*;
+
 /**
  * mark the entity table name if the entity name if not match the database table name.
  *

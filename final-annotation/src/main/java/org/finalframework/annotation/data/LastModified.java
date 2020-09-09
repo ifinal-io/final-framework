@@ -5,6 +5,8 @@ package org.finalframework.annotation.data;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.lang.annotation.*;
+
 /**
  * 最后更新时间
  *

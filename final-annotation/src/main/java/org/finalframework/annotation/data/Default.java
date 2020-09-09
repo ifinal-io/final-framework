@@ -2,6 +2,8 @@
 
 package org.finalframework.annotation.data;
 
+import java.lang.annotation.*;
+
 /**
  * Marked the element is not need to {@literal insert}. The element has a default value. Such as a {@link Created}
  * column when it default {@literal now()}.

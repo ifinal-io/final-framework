@@ -5,8 +5,7 @@ package org.finalframework.data.query.sql;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.annotation.query.Limit;
-import org.finalframework.annotation.query.Offset;
+import org.finalframework.annotation.query.*;
 import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;

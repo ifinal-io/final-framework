@@ -9,6 +9,7 @@ import org.finalframework.annotation.IEnum;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +51,6 @@ public enum YN implements IEnum<Integer> {
 
 
     @JsonCreator
-    @SuppressWarnings("unused")
     public static YN valueOf(Integer value) {
         return cache.get(value);
     }

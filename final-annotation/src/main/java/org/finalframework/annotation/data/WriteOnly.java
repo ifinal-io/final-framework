@@ -2,6 +2,8 @@
 
 package org.finalframework.annotation.data;
 
+import java.lang.annotation.*;
+
 /**
  * Mark the element is a {@link WriteOnly} property which will not be generated {@literal select}.
  *

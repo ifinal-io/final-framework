@@ -6,6 +6,7 @@ import org.finalframework.annotation.IEntity;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
+import java.lang.annotation.*;
 import java.lang.reflect.Field;
 
 /**

@@ -4,6 +4,8 @@ package org.finalframework.annotation.data;
 
 import org.springframework.core.annotation.AliasFor;
 
+import java.lang.annotation.*;
+
 /**
  * @author likly
  * @version 1.0

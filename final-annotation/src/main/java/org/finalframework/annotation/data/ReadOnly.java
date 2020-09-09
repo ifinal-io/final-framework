@@ -4,6 +4,8 @@ package org.finalframework.annotation.data;
 
 import org.springframework.data.annotation.ReadOnlyProperty;
 
+import java.lang.annotation.*;
+
 /**
  * Marked the element is {@literal readonly}, it will not be {@literal insert} and {@literal update}. Such as a {@link
  * LastModified} column when it has a default value of {@literal NULL ON UPDATE NOW()}.

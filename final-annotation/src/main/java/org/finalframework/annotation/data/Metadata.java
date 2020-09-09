@@ -19,6 +19,6 @@ public class Metadata implements Serializable {
     private String column;
     private String value;
     private Class<?> javaType;
-    private Class<? extends TypeHandler<?>> typeHandler;
+    private Class<? extends org.apache.ibatis.type.TypeHandler<?>> typeHandler;
 }
 
