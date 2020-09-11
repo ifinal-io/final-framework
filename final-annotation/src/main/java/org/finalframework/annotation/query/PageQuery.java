@@ -1,12 +1,9 @@
 
 
-package org.finalframework.data.query;
+package org.finalframework.annotation.query;
 
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.Pageable;
-import org.finalframework.annotation.query.Page;
-import org.finalframework.annotation.query.Size;
-import org.finalframework.core.Asserts;
 
 import java.io.Serializable;
 
@@ -18,7 +15,7 @@ import java.io.Serializable;
  * @date 2019-02-12 12:41:24
  * @since 1.0
  */
-public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
+public class PageQuery implements IQuery, Pageable, Serializable {
 
     private static final long serialVersionUID = 4813020012879522797L;
     /**
@@ -72,12 +69,4 @@ public class PageQuery implements IQuery, Pageable, Queryable, Serializable {
         this.count = count;
     }
 
-    @Override
-    public Query convert() {
-        final Query query = new Query();
-        if (Asserts.nonNull(page) && Asserts.nonNull(size)) {
-            query.page(page, size);
-        }
-        return query;
-    }
 }

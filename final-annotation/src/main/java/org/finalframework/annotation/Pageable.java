@@ -5,34 +5,36 @@ package org.finalframework.annotation;
 import org.springframework.lang.Nullable;
 
 /**
- * 可分页的
+ * The interface for query with {@link Pageable}, do page query only when the {@linkplain #getPage() page} and {@linkplain #getSize()} are not null,
+ * and do count query only then the {@linkplain #getCount() count} is {@code true}.
  *
  * @author likly
  * @version 1.0
  * @date 2019-02-18 19:21:21
+ * @see org.finalframework.annotation.query.PageQuery
  * @since 1.0
  */
 public interface Pageable extends IQuery {
     /**
-     * 返回分页页码
+     * return the page number.
      *
-     * @return 分页页码
+     * @return the page number.
      */
     @Nullable
     Integer getPage();
 
     /**
-     * 返回页面容量
+     * return the page size.
      *
-     * @return 页面容量
+     * @return the page size.
      */
     @Nullable
     Integer getSize();
 
     /**
-     * 是否进行Count统计
+     * return {@code true} if need do count, otherwise {@code false}, default need count.
      *
-     * @return Count统计
+     * @return {@code true} if need do count, otherwise {@code false}.
      */
     @Nullable
     default Boolean getCount() {
