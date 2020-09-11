@@ -6,6 +6,8 @@ package org.finalframework.annotation;
 import org.springframework.lang.NonNull;
 
 /**
+ * The interface which a {@link Exception} should be impl.
+ *
  * @author likly
  * @version 1.0
  * @date 2018-09-26 20:57

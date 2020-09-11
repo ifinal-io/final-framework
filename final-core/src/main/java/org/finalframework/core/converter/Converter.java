@@ -13,7 +13,6 @@ import java.util.function.Function;
  * @since 1.0
  */
 @FunctionalInterface
-@SuppressWarnings("all")
 public interface Converter<T, R> extends Function<T, R>, org.springframework.core.convert.converter.Converter<T, R> {
     /**
      * Applies this function to the given argument.
