@@ -9,7 +9,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.annotation.query.Pageable;
+import org.finalframework.annotation.Pageable;
 import org.finalframework.data.query.PageQuery;
 
 import java.util.Map;

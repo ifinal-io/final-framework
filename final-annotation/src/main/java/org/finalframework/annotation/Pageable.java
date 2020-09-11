@@ -1,8 +1,7 @@
 
 
-package org.finalframework.annotation.query;
+package org.finalframework.annotation;
 
-import org.finalframework.annotation.IQuery;
 import org.springframework.lang.Nullable;
 
 /**

@@ -4,8 +4,8 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
+import org.finalframework.annotation.Pageable;
 import org.finalframework.annotation.query.Direction;
-import org.finalframework.annotation.query.Pageable;
 import org.finalframework.core.Asserts;
 import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;

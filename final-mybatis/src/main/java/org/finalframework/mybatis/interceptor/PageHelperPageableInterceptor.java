@@ -12,7 +12,7 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.annotation.query.Pageable;
+import org.finalframework.annotation.Pageable;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.core.Asserts;
 import org.slf4j.Logger;

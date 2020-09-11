@@ -3,8 +3,8 @@
 package org.finalframework.data.query;
 
 import org.finalframework.annotation.IQuery;
+import org.finalframework.annotation.Pageable;
 import org.finalframework.annotation.query.Page;
-import org.finalframework.annotation.query.Pageable;
 import org.finalframework.annotation.query.Size;
 import org.finalframework.core.Asserts;
 

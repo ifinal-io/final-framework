@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 
 /**
- * Pagination
+ * The interface of pagination info which query with {@link Pageable}.
  *
  * @author likly
  * @version 1.0
