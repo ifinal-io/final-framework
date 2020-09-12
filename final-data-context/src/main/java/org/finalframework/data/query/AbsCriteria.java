@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * @date 2019-01-18 16:03:52
  * @since 1.0
  */
+@Deprecated
 public abstract class AbsCriteria<T extends AbsCriteria> implements Convertible<Criteria> {
     private final AndOr andOr;
     private final List<Criterion> criteria = new ArrayList<>();
