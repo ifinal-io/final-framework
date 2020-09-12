@@ -15,12 +15,11 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public final class UserContextHolder {
-    private static final ThreadLocal<UserContext<? extends IUser<?>>> userContextHolder =
+    private static final ThreadLocal<UserContext<? extends IUser<?>>> USER_CONTEXT_HOLDER =
             new NamedThreadLocal<>("UserContext");
 
-    private static final ThreadLocal<UserContext<? extends IUser<?>>> inheritableUserContextHolder =
+    private static final ThreadLocal<UserContext<? extends IUser<?>>> INHERITABLE_USER_CONTEXT_HOLDER =
             new NamedInheritableThreadLocal<>("UserContext");
 
     private static IUser<?> defaultUser;
@@ -29,8 +28,8 @@ public final class UserContextHolder {
     }
 
     public static void reset() {
-        userContextHolder.remove();
-        inheritableUserContextHolder.remove();
+        USER_CONTEXT_HOLDER.remove();
+        INHERITABLE_USER_CONTEXT_HOLDER.remove();
     }
 
     public static void setUserContext(@Nullable UserContext<? extends IUser<?>> localeContext, boolean inheritable) {
@@ -38,11 +37,11 @@ public final class UserContextHolder {
             reset();
         } else {
             if (inheritable) {
-                inheritableUserContextHolder.set(localeContext);
-                userContextHolder.remove();
+                INHERITABLE_USER_CONTEXT_HOLDER.set(localeContext);
+                USER_CONTEXT_HOLDER.remove();
             } else {
-                userContextHolder.set(localeContext);
-                inheritableUserContextHolder.remove();
+                USER_CONTEXT_HOLDER.set(localeContext);
+                INHERITABLE_USER_CONTEXT_HOLDER.remove();
             }
         }
     }
@@ -50,9 +49,9 @@ public final class UserContextHolder {
     @Nullable
     @SuppressWarnings("unchecked")
     public static <T extends IUser<?>> UserContext<T> getUserContext() {
-        UserContext<? extends IUser<?>> userContext = userContextHolder.get();
+        UserContext<? extends IUser<?>> userContext = USER_CONTEXT_HOLDER.get();
         if (userContext == null) {
-            userContext = inheritableUserContextHolder.get();
+            userContext = INHERITABLE_USER_CONTEXT_HOLDER.get();
         }
         return (UserContext<T>) userContext;
     }
@@ -90,6 +89,15 @@ public final class UserContextHolder {
             }
         }
         return (T) defaultUser;
+    }
+
+    /**
+     * return {@code ture} if user have login, otherwise {@code false}.
+     *
+     * @return {@code ture} if user have login, otherwise {@code false}.
+     */
+    public static boolean isLogin() {
+        return getUser() != null;
     }
 
 }

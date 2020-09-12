@@ -11,7 +11,7 @@ import org.finalframework.annotation.IUser;
  * @date 2020-03-13 13:49:08
  * @since 1.0
  */
-public class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
+class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
     private final T user;
 
     public SimpleUserContext(T user) {
