@@ -9,19 +9,36 @@ import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
 
 /**
+ * The context holder of {@link UserContext} with {@link ThreadLocal}.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-03-13 13:32:34
  * @see org.springframework.context.i18n.LocaleContextHolder
  * @since 1.0
  */
+@SuppressWarnings("unchecked")
 public final class UserContextHolder {
+
+    /**
+     * the user context name.
+     */
+    private static final String USER_CONTEXT_NAME = "UserContext";
+    /**
+     * the user context in thread local.
+     */
     private static final ThreadLocal<UserContext<? extends IUser<?>>> USER_CONTEXT_HOLDER =
-            new NamedThreadLocal<>("UserContext");
-
+            new NamedThreadLocal<>(USER_CONTEXT_NAME);
+    /**
+     * the user context in inheritable thread local
+     */
     private static final ThreadLocal<UserContext<? extends IUser<?>>> INHERITABLE_USER_CONTEXT_HOLDER =
-            new NamedInheritableThreadLocal<>("UserContext");
+            new NamedInheritableThreadLocal<>(USER_CONTEXT_NAME);
 
+    /**
+     * the default user
+     */
+    @Nullable
     private static IUser<?> defaultUser;
 
     private UserContextHolder() {
@@ -47,7 +64,6 @@ public final class UserContextHolder {
     }
 
     @Nullable
-    @SuppressWarnings("unchecked")
     public static <T extends IUser<?>> UserContext<T> getUserContext() {
         UserContext<? extends IUser<?>> userContext = USER_CONTEXT_HOLDER.get();
         if (userContext == null) {
@@ -80,7 +96,6 @@ public final class UserContextHolder {
         setUser(user, false);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T extends IUser<?>> T getUser(@Nullable UserContext<? extends IUser<?>> localeContext) {
         if (localeContext != null) {
             IUser<?> locale = localeContext.getUser();
