@@ -5,6 +5,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
+ * The interface of response holder which impl the {@linkplain IData data} holder.  when {@link #isSuccess()} return {@code true}
+ * the response successful, otherwise use {@linkplain #getCode()} or {@linkplain #getMessage()} for more info. The code and message
+ * could be throw by a {@linkplain Exception exception} which impl the interface of {@link IException}.
+ *
  * @author likly
  * @version 1.0
  * @date 2020-08-25 13:29:07
@@ -52,9 +56,10 @@ public interface IResult<T> extends IData<T> {
     String getMessage();
 
     /**
-     * return the {@linkplain IPagination pagination}
+     * return the {@linkplain IPagination pagination} when query with {@linkplain Pageable page}.
      *
      * @return the {@linkplain IPagination pagination}.
+     * @see Pageable
      */
     @Nullable
     IPagination getPagination();
