@@ -1,11 +1,11 @@
 
 
-package org.finalframework.spring.web.interceptor.trace;
+package org.finalframework.spring.web.interceptor;
 
 
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
-import org.finalframework.spring.web.interceptor.HandlerInterceptorProperties;
+import org.finalframework.spring.web.interceptor.trace.HandlerInterceptorProperties;
 import org.slf4j.MDC;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.Ordered;

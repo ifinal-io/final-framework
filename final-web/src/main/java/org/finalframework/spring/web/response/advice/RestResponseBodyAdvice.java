@@ -11,10 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author likly
  * @version 1.0
  * @date 2019-12-10 14:11:02
- * @see EnumsResponseBodyAdvice
- * @see JsonViewResponseBodyAdvice
- * @see PageResponseBodyAdvice
- * @see ResponsibleResponseBodyAdvice
  * @see ResultResponseBodyAdvice
  * @since 1.0
  */

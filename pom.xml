@@ -20,19 +20,18 @@
     <modules>
         <module>final-annotation</module>
         <module>final-context</module>
+        <module>final-json</module>
+        <module>final-redis</module>
         <module>final-core</module>
         <module>final-cache</module>
         <module>final-dubbo</module>
         <module>final-data-context</module>
-        <module>final-json</module>
         <module>final-monitor</module>
         <module>final-mybatis</module>
-        <module>final-redis</module>
         <module>final-retrofit</module>
         <module>final-spring-aop</module>
         <module>final-spring-expression</module>
         <module>final-util</module>
-        <module>final-web</module>
         <module>final-zookeeper</module>
     </modules>
     <properties>

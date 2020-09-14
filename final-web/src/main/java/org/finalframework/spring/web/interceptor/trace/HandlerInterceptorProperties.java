@@ -1,6 +1,6 @@
 
 
-package org.finalframework.spring.web.interceptor;
+package org.finalframework.spring.web.interceptor.trace;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
