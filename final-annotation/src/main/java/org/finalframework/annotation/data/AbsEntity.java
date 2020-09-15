@@ -2,6 +2,7 @@
 
 package org.finalframework.annotation.data;
 
+import lombok.Data;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IView;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
  * @since 1.0
  */
 @Transient
+@Data
 public class AbsEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
@@ -58,47 +60,7 @@ public class AbsEntity implements IEntity<Long> {
     @View(IView.class)
     private YN yn;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(LocalDateTime lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public YN getYn() {
-        return yn;
-    }
-
-    public void setYn(YN yn) {
-        this.yn = yn;
-    }
 }
 
     

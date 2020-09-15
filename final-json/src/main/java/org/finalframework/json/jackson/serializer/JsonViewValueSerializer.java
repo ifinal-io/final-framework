@@ -6,7 +6,6 @@ package org.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.finalframework.json.jackson.view.JsonViewValue;
 
@@ -27,8 +26,10 @@ public class JsonViewValueSerializer extends JsonSerializer<JsonViewValue> {
 
     @Override
     public void serialize(JsonViewValue value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        ObjectWriter objectWriter = objectMapper.writerWithView(value.getView());
-        objectWriter.writeValue(gen, value.getValue());
+        gen.writeObject(value.getValue());
+//        SerializationConfig serializationConfig = serializers.getConfig().withView(value.getView());
+//        ObjectWriter objectWriter = objectMapper.writerWithView(value.getView());
+//        objectWriter.writeValue(gen, value.getValue());
     }
 }
 

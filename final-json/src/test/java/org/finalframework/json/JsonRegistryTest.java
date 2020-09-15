@@ -3,14 +3,15 @@
 package org.finalframework.json;
 
 import junit.framework.TestCase;
+import org.finalframework.annotation.IView;
+import org.finalframework.annotation.data.AbsEntity;
 import org.finalframework.annotation.data.YN;
-import org.finalframework.json.jackson.JacksonJsonService;
+import org.finalframework.json.jackson.view.JsonViewValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.when;
+import java.time.LocalDateTime;
 
 /**
  * @author sli
@@ -20,8 +21,6 @@ import static org.mockito.Mockito.when;
  */
  class JsonRegistryTest extends TestCase {
 
-    @Mock
-    private JsonRegistry jsonRegistry;
 
     @BeforeEach
     public void setUp() {
@@ -30,12 +29,14 @@ import static org.mockito.Mockito.when;
 
     @Test
     public void testGetJsonService() {
-        //given
-
-        //when
-        when(jsonRegistry.getJsonService()).thenReturn(new JacksonJsonService());
-        //then
         System.out.println(Json.toJson(YN.class));
-        System.out.printf("");
+
+
+        AbsEntity entity = new AbsEntity();
+        entity.setId(1L);
+        entity.setVersion(1L);
+        entity.setLastModified(LocalDateTime.now());
+        JsonViewValue jsonViewValue = new JsonViewValue(entity, IView.class);
+        System.out.println(Json.toJson(jsonViewValue));
     }
 }
