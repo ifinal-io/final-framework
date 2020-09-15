@@ -9,7 +9,8 @@ import org.finalframework.annotation.IView;
 import java.time.LocalDateTime;
 
 /**
- * 抽象的基础实现模型，包含数据表记录的基础属性如：{@link #id}
+ * The build-in base impl of {@linkplain IEntity entity} which have the common property.
+ * such as {@link #id}, {@link #version},{@link #created},{@link #lastModified},{@link #yn}.
  *
  * @author likly
  * @version 1.0
@@ -25,29 +26,25 @@ public class AbsEntity implements IEntity<Long> {
     /**
      * 主键，流水号
      */
-    @Default
+    @AutoInc
     @PrimaryKey
     @View(IView.class)
     private Long id;
     /**
      * 版本号
      */
-    @Default
-    @ReadOnly
     @Version
     @View(IView.class)
     private Long version;
     /**
      * 创建时间
      */
-    @Default
     @Created
     @View(IView.class)
     private LocalDateTime created;
     /**
      * 最后修改时间
      */
-    @ReadOnly
     @LastModified
     @View(IView.class)
     private LocalDateTime lastModified;

@@ -10,6 +10,7 @@ package org.finalframework.annotation.data;
  * @date 2018-10-17 16:02
  * @since 1.0
  */
+@Deprecated
 public enum PrimaryKeyType {
     /**
      * the primary key use auto incr.
