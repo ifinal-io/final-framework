@@ -14,7 +14,7 @@ import java.util.Set;
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  * <ul>
  * <li>序列化 {@link #toJson(Object)} 实现将任何对象序列化为Json字符串。</li>
- * <li>反序列化 {@link #toObject(String, Class)} (String, Class)}和{@link #toCollection(String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection<Object>}</li>
+ * <li>反序列化 {@link #toObject(String, Class)} (String, Class)}和{@link #toList(String, Class)} (String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection<Object>}</li>
  * </ul>
  *
  * @author likly
@@ -235,44 +235,4 @@ public interface Json {
             throw new JsonException(e);
         }
     }
-
-    /**
-     * return json {@linkplain Collection collection} of json {@linkplain String json}.
-     *
-     * @param json            json string
-     * @param collectionClass json collection type
-     * @param elementClass    json element value type
-     * @param <E>             json element type
-     * @param <T>             json type
-     * @return json collection
-     * @throws JsonException json exception
-     */
-    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
-                                                       @NonNull Class<E> elementClass) {
-        return toCollection(json, collectionClass, elementClass, null);
-    }
-
-    /**
-     * return json {@linkplain Collection collection} of json {@linkplain String json}.
-     *
-     * @param json            json string
-     * @param collectionClass json collection type
-     * @param elementClass    json element value type
-     * @param view            json view
-     * @param <E>             json element type
-     * @param <T>             json type
-     * @return json collection
-     * @throws JsonException json exception
-     */
-    static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
-                                                       @NonNull Class<E> elementClass, @Nullable Class<?> view) {
-        try {
-            return JsonRegistry.getInstance().getJsonService().toCollection(json, collectionClass, elementClass, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
-        }
-    }
-
 }
