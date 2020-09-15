@@ -17,9 +17,19 @@ import org.springframework.lang.Nullable;
  */
 public interface Viewable<T> {
 
+    /**
+     * return the {@linkplain Class view} of {@link JsonView#value()}
+     *
+     * @return the view
+     */
     @NonNull
     Class<?> getView();
 
+    /**
+     * return the value of this view.
+     *
+     * @return the value.
+     */
     @Nullable
     T getValue();
 

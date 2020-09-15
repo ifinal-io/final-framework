@@ -27,6 +27,9 @@ public final class PropertiesLoader {
 
     private static final Map<ClassLoader, MultiValueMap<String, String>> cache = new ConcurrentReferenceHashMap<>();
 
+    private PropertiesLoader() {
+    }
+
     public static List<String> loadPropertyValues(@NonNull String propertyKey, @NonNull String propertiesResourceLocation) {
         return loadPropertyValues(propertyKey, null, propertiesResourceLocation);
     }

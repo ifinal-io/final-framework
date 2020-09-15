@@ -2,7 +2,8 @@
 
 package org.finalframework.json;
 
-import lombok.NonNull;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import java.util.Set;
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  * <ul>
  * <li>序列化 {@link #toJson(Object)} 实现将任何对象序列化为Json字符串。</li>
- * <li>反序列化 {@link #toObject(String, Class)} (String, Class)}和{@link #toCollection(String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection< Object>}</li>
+ * <li>反序列化 {@link #toObject(String, Class)} (String, Class)}和{@link #toCollection(String, Class, Class)}分别实现将Json字符串反序列化为{@link Object}和{@link Collection<Object>}</li>
  * </ul>
  *
  * @author likly
@@ -23,141 +24,253 @@ import java.util.Set;
  * @see JsonRegistry
  * @since 1.0
  */
-@SuppressWarnings("all")
 public interface Json {
 
     /**
-     * 将对象转化为 json 串
+     * return the {@linkplain Object value} json string
+     *
+     * @param object the value
+     * @return the json string
+     * @throws JsonException json exception
      */
-    static String toJson(Object object) {
-        try {
-
-            if (object instanceof String) {
-                return (String) object;
-            }
-
-            return JsonRegistry.getInstance().getJsonService().toJson(object);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
-            throw new JsonException(e);
-        }
+    static String toJson(@Nullable Object object) {
+        return toJson(object, null);
     }
 
-    static String toJson(Object object, @NonNull Class<?> view) {
+    /**
+     * return json string of {@linkplain Object object} with the {@linkplain Class view}.
+     *
+     * @param object the object
+     * @param view   the view
+     * @return json string
+     * @throws JsonException json exception
+     */
+    static String toJson(@Nullable Object object, @Nullable Class<?> view) {
         try {
             if (object instanceof String) {
                 return (String) object;
             }
             return JsonRegistry.getInstance().getJsonService().toJson(object, view);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
             throw new JsonException(e);
         }
     }
 
-    static Object toObject(@NonNull String json) {
+
+    /**
+     * return json value of {@linkplain String json}
+     *
+     * @param json json string
+     * @return json value
+     * @throws JsonException json exception
+     */
+    static Object toObject(@Nullable String json) {
         return toObject(json, Object.class);
     }
 
-    static <T> T toObject(@NonNull String json, @NonNull Class<T> classOfT) {
-
-        if (String.class.equals(classOfT)) {
-            return (T) json;
-        }
-
-        try {
-            return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
-            throw new JsonException(e);
-        }
+    /**
+     * return the json value of {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json value type
+     * @param <T>      json type
+     * @return json value
+     */
+    static <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT) {
+        return toObject(json, classOfT, null);
     }
 
-    static <T> T toObject(@NonNull String json, @NonNull Class<T> classOfT, @NonNull Class<?> view) {
+    /**
+     * return json value of {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json value type
+     * @param view     json view
+     * @param <T>      json type
+     * @return json value
+     * @throws JsonException json exception
+     */
+    static <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT, @Nullable Class<?> view) {
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT, view);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
             throw new JsonException(e);
         }
     }
 
 
-    static <E> List<E> toList(@NonNull String json, @NonNull Class<E> classOfT) {
-        return toCollection(json, List.class, classOfT);
+    /**
+     * return json {@linkplain List list} of {@linkplain String json}.
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param <E>      json element type
+     * @return json list
+     * @throws JsonException json exception
+     */
+    static <E> List<E> toList(@Nullable String json, @NonNull Class<E> classOfT) {
+        return toList(json, classOfT, null);
     }
 
-    static <E> List<E> toList(@NonNull String json, @NonNull Class<E> classOfT, @NonNull Class<?> view) {
-        return toCollection(json, List.class, classOfT, view);
+    /**
+     * return json {@linkplain List list} of {@linkplain String json}.
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param view     json view
+     * @param <E>      json element type
+     * @return json list
+     * @throws JsonException json exception
+     */
+    static <E> List<E> toList(@Nullable String json, @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().toList(json, classOfT, view);
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JsonException(e);
+        }
     }
 
 
-    static <E> Set<E> toSet(@NonNull String json, @NonNull Class<E> classOfT) {
-        return toCollection(json, Set.class, classOfT);
+    /**
+     * return json {@linkplain Set set} of json {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param <E>      json element type
+     * @return json set
+     * @throws JsonException json exception
+     */
+    static <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> classOfT) {
+        return toSet(json, classOfT, null);
     }
 
-    static <E> Set<E> toSet(@NonNull String json, @NonNull Class<E> classOfT, @NonNull Class<?> view) {
-        return toCollection(json, Set.class, classOfT, view);
+    /**
+     * return json {@linkplain Set set} of json {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param view     json view
+     * @param <E>      json element type
+     * @return json set
+     * @throws JsonException json exception
+     */
+    static <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+        try {
+            return JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view);
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JsonException(e);
+        }
     }
 
+    /**
+     * return json {@linkplain Object value} of json {@linkplain String json}.
+     *
+     * @param json    json string
+     * @param typeOfT json value type
+     * @param <T>     json type
+     * @return json value
+     * @throws JsonException json exception
+     */
     static <T> T toObject(@NonNull String json, @NonNull TypeReference<T> typeOfT) {
         return toObject(json, typeOfT.getType());
     }
 
+    /**
+     * return json {@linkplain Object value} of json {@linkplain String json}.
+     *
+     * @param json    json string
+     * @param typeOfT json value type
+     * @param <T>     json type
+     * @return json value
+     * @throws JsonException json exception
+     */
     static <T> T toObject(@NonNull String json, @NonNull Type typeOfT) {
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
             throw new JsonException(e);
         }
     }
 
-    static <T> T toObject(@NonNull String json, @NonNull TypeReference<T> typeOfT, @NonNull Class<?> view) {
+    /**
+     * return json {@linkplain Object value} of json {@linkplain String json}.
+     *
+     * @param json    json string
+     * @param typeOfT json value type
+     * @param view    json view
+     * @param <T>     json type
+     * @return json value
+     * @throws JsonException json exception
+     */
+    static <T> T toObject(@NonNull String json, @NonNull TypeReference<T> typeOfT, @Nullable Class<?> view) {
         return toObject(json, typeOfT.getType(), view);
     }
 
-    static <T> T toObject(@NonNull String json, @NonNull Type typeOfT, @NonNull Class<?> view) {
+    /**
+     * return json {@linkplain Object value} of json {@linkplain String json}.
+     *
+     * @param json    json string
+     * @param typeOfT json value type
+     * @param view    json view
+     * @param <T>     json type
+     * @return json value
+     * @throws JsonException json exception
+     */
+    static <T> T toObject(@NonNull String json, @NonNull Type typeOfT, @Nullable Class<?> view) {
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT, view);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
             throw new JsonException(e);
         }
     }
 
+    /**
+     * return json {@linkplain Collection collection} of json {@linkplain String json}.
+     *
+     * @param json            json string
+     * @param collectionClass json collection type
+     * @param elementClass    json element value type
+     * @param <E>             json element type
+     * @param <T>             json type
+     * @return json collection
+     * @throws JsonException json exception
+     */
     static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
                                                        @NonNull Class<E> elementClass) {
-        try {
-            return JsonRegistry.getInstance().getJsonService().toCollection(json, collectionClass, elementClass);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
-            throw new JsonException(e);
-        }
+        return toCollection(json, collectionClass, elementClass, null);
     }
 
+    /**
+     * return json {@linkplain Collection collection} of json {@linkplain String json}.
+     *
+     * @param json            json string
+     * @param collectionClass json collection type
+     * @param elementClass    json element value type
+     * @param view            json view
+     * @param <E>             json element type
+     * @param <T>             json type
+     * @return json collection
+     * @throws JsonException json exception
+     */
     static <E, T extends Collection<E>> T toCollection(@NonNull String json, @NonNull Class<T> collectionClass,
-                                                       @NonNull Class<E> elementClass, @NonNull Class<?> view) {
+                                                       @NonNull Class<E> elementClass, @Nullable Class<?> view) {
         try {
             return JsonRegistry.getInstance().getJsonService().toCollection(json, collectionClass, elementClass, view);
-        } catch (Throwable e) {
-            if (e instanceof JsonException) {
-                throw (JsonException) e;
-            }
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
             throw new JsonException(e);
         }
     }
