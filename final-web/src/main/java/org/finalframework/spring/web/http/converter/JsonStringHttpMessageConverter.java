@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.http.converter;
 
 import org.finalframework.json.Json;

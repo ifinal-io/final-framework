@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation.data;
 
 import org.springframework.data.annotation.ReadOnlyProperty;

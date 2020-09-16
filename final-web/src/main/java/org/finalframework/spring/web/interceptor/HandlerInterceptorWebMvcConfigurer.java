@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.interceptor;
 
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;

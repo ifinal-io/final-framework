@@ -1,5 +1,3 @@
-
-
 package org.finalframework.document.annotation;
 
 import java.lang.annotation.ElementType;

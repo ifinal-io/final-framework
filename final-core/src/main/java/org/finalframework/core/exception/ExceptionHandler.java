@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.exception;
 
 import org.springframework.lang.NonNull;

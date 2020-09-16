@@ -1,5 +1,3 @@
-
-
 package org.finalframework.util;
 
 import org.junit.jupiter.api.Test;

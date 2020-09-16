@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.interceptor;
 
 import org.apache.ibatis.builder.MapperBuilderAssistant;

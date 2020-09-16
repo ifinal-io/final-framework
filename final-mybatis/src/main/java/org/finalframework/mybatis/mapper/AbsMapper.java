@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.mapper;
 
 import org.apache.ibatis.annotations.*;

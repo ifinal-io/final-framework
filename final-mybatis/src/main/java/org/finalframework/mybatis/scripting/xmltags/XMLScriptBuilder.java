@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.scripting.xmltags;
 
 import org.apache.ibatis.builder.BaseBuilder;

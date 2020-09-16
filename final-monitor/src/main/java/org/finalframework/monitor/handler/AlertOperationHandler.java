@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor.handler;
 
 import org.finalframework.annotation.IException;

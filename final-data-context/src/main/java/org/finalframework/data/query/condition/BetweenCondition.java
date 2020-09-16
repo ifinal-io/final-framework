@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query.condition;
 
 import org.springframework.lang.NonNull;

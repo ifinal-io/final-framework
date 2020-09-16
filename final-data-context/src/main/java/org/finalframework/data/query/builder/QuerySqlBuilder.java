@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query.builder;
 
 import org.finalframework.data.query.Query;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation.query;
 
 import org.springframework.lang.NonNull;

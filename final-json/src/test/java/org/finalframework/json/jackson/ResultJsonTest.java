@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

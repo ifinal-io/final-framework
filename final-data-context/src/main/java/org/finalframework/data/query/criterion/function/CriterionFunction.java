@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query.criterion.function;
 
 import org.finalframework.data.query.SqlNode;

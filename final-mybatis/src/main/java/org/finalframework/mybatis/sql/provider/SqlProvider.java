@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;

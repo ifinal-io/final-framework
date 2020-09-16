@@ -1,5 +1,3 @@
-
-
 package org.finalframework.context.listener;
 
 import org.finalframework.auto.spring.factory.annotation.SpringApplicationListener;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.dao.mapper;
 
 import java.util.List;

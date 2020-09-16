@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis;
 
 import org.apache.ibatis.parsing.XNode;

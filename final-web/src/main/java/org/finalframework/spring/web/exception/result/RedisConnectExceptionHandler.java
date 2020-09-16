@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.exception.result;
 
 import io.lettuce.core.RedisConnectionException;

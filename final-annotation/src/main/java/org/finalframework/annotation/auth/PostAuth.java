@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation.auth;
 
 import java.lang.annotation.ElementType;

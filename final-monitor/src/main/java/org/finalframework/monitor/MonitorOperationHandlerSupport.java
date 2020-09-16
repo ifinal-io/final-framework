@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor;
 
 import org.finalframework.spring.aop.Operation;

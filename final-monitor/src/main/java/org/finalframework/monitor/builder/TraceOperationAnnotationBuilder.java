@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor.builder;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;

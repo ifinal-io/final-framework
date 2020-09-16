@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.response.advice;
 
 import org.finalframework.core.filter.Filter;

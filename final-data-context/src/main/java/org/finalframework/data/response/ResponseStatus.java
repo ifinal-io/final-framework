@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.response;
 
 import org.finalframework.annotation.data.Transient;

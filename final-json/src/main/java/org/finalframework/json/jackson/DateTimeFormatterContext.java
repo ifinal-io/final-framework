@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson;
 
 import java.time.ZoneOffset;

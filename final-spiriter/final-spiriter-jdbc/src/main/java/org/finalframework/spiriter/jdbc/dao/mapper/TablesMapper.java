@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.dao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;

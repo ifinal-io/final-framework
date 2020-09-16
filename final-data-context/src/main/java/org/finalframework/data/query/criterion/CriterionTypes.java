@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query.criterion;
 
 import org.finalframework.core.parser.xml.PropertyParser;

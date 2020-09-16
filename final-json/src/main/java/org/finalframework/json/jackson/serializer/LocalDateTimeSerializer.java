@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;

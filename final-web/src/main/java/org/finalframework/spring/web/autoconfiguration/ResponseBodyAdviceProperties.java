@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.autoconfiguration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

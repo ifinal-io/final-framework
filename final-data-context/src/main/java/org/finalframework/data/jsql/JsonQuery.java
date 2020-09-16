@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.jsql;
 
 /**

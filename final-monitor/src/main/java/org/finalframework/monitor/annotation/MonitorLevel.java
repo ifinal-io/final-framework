@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor.annotation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

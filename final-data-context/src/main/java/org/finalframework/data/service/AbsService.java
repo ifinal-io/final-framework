@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.service;
 
 import org.finalframework.annotation.IEntity;

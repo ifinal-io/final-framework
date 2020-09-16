@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.sql.provider;
 
 import org.finalframework.annotation.query.Criterion;

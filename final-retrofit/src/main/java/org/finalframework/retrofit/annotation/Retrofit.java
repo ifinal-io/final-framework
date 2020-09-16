@@ -1,5 +1,3 @@
-
-
 package org.finalframework.retrofit.annotation;
 
 import java.lang.annotation.ElementType;

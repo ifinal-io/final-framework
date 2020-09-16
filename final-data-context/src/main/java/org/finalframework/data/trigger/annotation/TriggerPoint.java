@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.trigger.annotation;
 
 import java.lang.annotation.ElementType;

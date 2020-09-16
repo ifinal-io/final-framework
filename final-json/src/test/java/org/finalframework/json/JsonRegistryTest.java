@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json;
 
 import junit.framework.TestCase;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.util;
 
 import java.util.Arrays;

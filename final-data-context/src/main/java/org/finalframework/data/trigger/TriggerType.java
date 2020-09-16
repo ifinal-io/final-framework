@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.trigger;
 
 import org.finalframework.annotation.data.Transient;

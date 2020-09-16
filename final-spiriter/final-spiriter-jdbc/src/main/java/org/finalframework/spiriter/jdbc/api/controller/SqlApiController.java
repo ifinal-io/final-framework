@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.api.controller;
 
 import org.finalframework.spiriter.jdbc.model.ResultSets;

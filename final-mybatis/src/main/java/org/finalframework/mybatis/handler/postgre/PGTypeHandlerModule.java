@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.handler.postgre;
 
 import org.finalframework.annotation.data.PersistentType;

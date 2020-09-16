@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.annotation;
 
 import org.finalframework.annotation.data.Table;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.converter;
 
 import java.util.function.Function;

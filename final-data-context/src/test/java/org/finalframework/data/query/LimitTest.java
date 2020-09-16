@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query;
 
 import org.junit.jupiter.api.Test;

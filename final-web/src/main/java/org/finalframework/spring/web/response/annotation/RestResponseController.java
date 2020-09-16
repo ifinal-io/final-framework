@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.response.annotation;
 
 import org.springframework.core.annotation.AliasFor;

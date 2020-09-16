@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.repository;
 
 import java.util.List;

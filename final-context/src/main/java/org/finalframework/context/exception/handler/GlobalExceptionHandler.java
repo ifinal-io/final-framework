@@ -1,5 +1,3 @@
-
-
 package org.finalframework.context.exception.handler;
 
 import org.finalframework.context.exception.result.ResultGlobalResultExceptionHandler;

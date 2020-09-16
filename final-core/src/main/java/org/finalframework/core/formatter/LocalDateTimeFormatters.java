@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.formatter;
 
 import org.finalframework.core.Asserts;

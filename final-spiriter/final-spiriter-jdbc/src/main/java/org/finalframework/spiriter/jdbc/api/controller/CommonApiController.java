@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;

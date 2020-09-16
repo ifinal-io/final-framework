@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.exception;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;

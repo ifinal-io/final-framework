@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.configurer;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.ui.model;
 
 

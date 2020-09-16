@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.entity;
 
 import org.finalframework.data.query.QEntity;

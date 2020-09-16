@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.query.enums;
 
 import org.finalframework.annotation.data.Transient;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.filter;
 
 import java.util.function.Predicate;

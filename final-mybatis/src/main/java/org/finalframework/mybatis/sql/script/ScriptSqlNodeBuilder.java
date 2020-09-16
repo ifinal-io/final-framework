@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.sql.script;
 
 import org.springframework.lang.NonNull;

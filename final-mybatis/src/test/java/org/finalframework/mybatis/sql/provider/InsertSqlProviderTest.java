@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.sql.provider;
 
 import lombok.extern.slf4j.Slf4j;

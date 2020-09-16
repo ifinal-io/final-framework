@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.trigger;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation;
 
 import com.fasterxml.jackson.annotation.JsonValue;

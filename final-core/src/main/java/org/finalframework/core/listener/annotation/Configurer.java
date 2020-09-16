@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.listener.annotation;
 
 import org.springframework.stereotype.Component;

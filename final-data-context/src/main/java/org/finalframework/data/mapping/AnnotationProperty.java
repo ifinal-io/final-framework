@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.mapping;
 
 import org.apache.ibatis.type.TypeHandler;

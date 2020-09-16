@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json;
 
 import org.springframework.lang.NonNull;

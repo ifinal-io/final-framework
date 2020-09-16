@@ -1,5 +1,3 @@
-
-
 package org.finalframework.context.user;
 
 import org.finalframework.annotation.IUser;

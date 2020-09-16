@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json;
 
 import java.lang.reflect.ParameterizedType;

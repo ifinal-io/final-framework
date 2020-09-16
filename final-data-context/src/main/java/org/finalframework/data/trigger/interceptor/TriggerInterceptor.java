@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.trigger.interceptor;
 
 import org.finalframework.data.repository.Repository;

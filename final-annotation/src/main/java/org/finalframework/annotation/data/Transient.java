@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation.data;
 
 import javax.annotation.processing.Processor;

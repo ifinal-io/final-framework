@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson.view;
 
 import com.fasterxml.jackson.annotation.JsonView;

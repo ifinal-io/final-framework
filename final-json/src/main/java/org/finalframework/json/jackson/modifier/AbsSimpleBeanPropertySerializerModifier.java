@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson.modifier;
 
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;

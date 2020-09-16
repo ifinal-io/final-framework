@@ -1,5 +1,3 @@
-
-
 package org.finalframework.annotation;
 
 import org.springframework.lang.Nullable;

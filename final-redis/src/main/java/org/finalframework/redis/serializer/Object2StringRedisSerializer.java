@@ -1,5 +1,3 @@
-
-
 package org.finalframework.redis.serializer;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;

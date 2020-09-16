@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor.context;
 
 import org.finalframework.monitor.MonitorException;

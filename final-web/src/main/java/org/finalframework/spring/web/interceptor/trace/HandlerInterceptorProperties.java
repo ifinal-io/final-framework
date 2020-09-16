@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.web.interceptor.trace;
 
 import org.springframework.lang.NonNull;

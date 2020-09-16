@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

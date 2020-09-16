@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis.handler;
 
 import org.apache.ibatis.type.TypeHandler;

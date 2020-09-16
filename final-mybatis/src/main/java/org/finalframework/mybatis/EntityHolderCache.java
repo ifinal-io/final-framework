@@ -1,5 +1,3 @@
-
-
 package org.finalframework.mybatis;
 
 import org.finalframework.annotation.IEntity;

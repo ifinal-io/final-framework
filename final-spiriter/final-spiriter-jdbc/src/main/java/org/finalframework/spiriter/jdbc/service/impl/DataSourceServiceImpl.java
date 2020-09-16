@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spiriter.jdbc.service.impl;
 
 import org.finalframework.spiriter.jdbc.service.DataSourceService;

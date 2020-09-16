@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.util;
 
 import org.finalframework.core.Asserts;

@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

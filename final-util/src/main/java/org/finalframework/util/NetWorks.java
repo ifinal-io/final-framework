@@ -1,5 +1,3 @@
-
-
 package org.finalframework.util;
 
 import org.slf4j.Logger;

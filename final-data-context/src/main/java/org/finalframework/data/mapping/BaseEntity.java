@@ -1,5 +1,3 @@
-
-
 package org.finalframework.data.mapping;
 
 import org.slf4j.Logger;

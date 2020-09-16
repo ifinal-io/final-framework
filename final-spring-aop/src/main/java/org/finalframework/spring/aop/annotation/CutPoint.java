@@ -1,5 +1,3 @@
-
-
 package org.finalframework.spring.aop.annotation;
 
 import org.finalframework.annotation.data.Transient;

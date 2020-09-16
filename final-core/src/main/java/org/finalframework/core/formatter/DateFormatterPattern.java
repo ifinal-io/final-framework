@@ -1,5 +1,3 @@
-
-
 package org.finalframework.core.formatter;
 
 import lombok.Getter;

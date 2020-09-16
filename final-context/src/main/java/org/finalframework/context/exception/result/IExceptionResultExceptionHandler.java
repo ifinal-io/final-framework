@@ -1,5 +1,3 @@
-
-
 package org.finalframework.context.exception.result;
 
 import org.finalframework.annotation.IException;

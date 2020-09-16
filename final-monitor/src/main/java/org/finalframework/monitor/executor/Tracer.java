@@ -1,5 +1,3 @@
-
-
 package org.finalframework.monitor.executor;
 
 import org.finalframework.monitor.context.TraceContext;

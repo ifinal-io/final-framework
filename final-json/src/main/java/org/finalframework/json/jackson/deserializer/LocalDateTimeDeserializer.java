@@ -1,5 +1,3 @@
-
-
 package org.finalframework.json.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
