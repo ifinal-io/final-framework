@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Mark the element of {@link Field} or {@link Method} is persistent to {@literal json}. By Default, the type of
+ * Annotate the element of {@link Field} or {@link Method} is persistent to {@literal json}. The type of
  * collection like {@link List},{@link Set} and {@link Map} will be persistent to {@literal json} by default.
  *
  * @author likly

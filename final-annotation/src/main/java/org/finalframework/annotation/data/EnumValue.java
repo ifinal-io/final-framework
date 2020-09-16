@@ -8,11 +8,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 被 {@link EnumValue} 标记的属性 {@link java.lang.reflect.Field} 在使用 {@literal json} 序列化时，会额外地序列化两个扩展属性 {@literal xxxName} 和 {@literal xxxDesc}。
+ * Annotate the bean {@linkplain java.lang.reflect.Field property} is a {@link Enum} which will be serialized some ext property in json,
+ * such as {@literal xxxName} and {@literal xxxDesc}.
  *
  * @author likly
  * @version 1.0
  * @date 2020-03-25 10:03:14
+ * @see org.finalframework.annotation.IEnum
  * @since 1.0
  */
 @Target(ElementType.FIELD)
@@ -21,7 +23,8 @@ public @interface EnumValue {
     /**
      * 枚举类型
      */
-    Class<? extends Enum<?>> value();
+    @SuppressWarnings("rawtypes")
+    Class<? extends Enum> value();
 
     /**
      * 获取枚举实例的静态方法名称，有且只有一个参数，参数类型为 {@link #valueType()}

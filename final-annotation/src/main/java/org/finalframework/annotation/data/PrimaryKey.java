@@ -16,6 +16,7 @@ import java.lang.annotation.*;
  * @see org.springframework.data.annotation.Id
  * @see PrimaryKeyType
  * @see IEntity
+ * @see AutoInc
  * @since 1.0
  */
 @Final
@@ -28,11 +29,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrimaryKey {
 
-  @AliasFor(annotation = Column.class, value = "value")
-  String value() default "";
+    @AliasFor(annotation = Column.class, value = "value")
+    String value() default "";
 
-  @AliasFor(annotation = Column.class, value = "name")
-  String name() default "";
+    @AliasFor(annotation = Column.class, value = "name")
+    String name() default "";
 
-  PrimaryKeyType type() default PrimaryKeyType.AUTO_INC;
+    PrimaryKeyType type() default PrimaryKeyType.AUTO_INC;
 }

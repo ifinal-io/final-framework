@@ -3,6 +3,7 @@
 package org.finalframework.annotation;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.springframework.lang.NonNull;
 
 /**
  * 通用枚举接口，为实现在程序中使用枚举常量，而存储时使用枚举码{@link IEnum#getCode()}。
@@ -25,6 +26,7 @@ public interface IEnum<T> {
      * @return 枚举码
      */
     @JsonValue
+    @NonNull
     T getCode();
 
     /**
@@ -32,5 +34,6 @@ public interface IEnum<T> {
      *
      * @return 描述
      */
+    @NonNull
     String getDesc();
 }
