@@ -1,5 +1,7 @@
 package org.finalframework.data.mapping.converter;
 
+import org.finalframework.annotation.data.NameConverter;
+
 /**
  * @author likly
  * @version 1.0

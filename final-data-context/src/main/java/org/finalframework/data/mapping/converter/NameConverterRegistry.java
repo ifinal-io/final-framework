@@ -1,5 +1,6 @@
 package org.finalframework.data.mapping.converter;
 
+import org.finalframework.annotation.data.NameConverter;
 import org.finalframework.core.Asserts;
 import org.finalframework.core.configuration.Configuration;
 import org.springframework.lang.Nullable;

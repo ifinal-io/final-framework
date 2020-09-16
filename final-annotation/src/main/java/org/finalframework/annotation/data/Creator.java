@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import java.lang.annotation.*;
 
 /**
- * 创建人
+ * Annotate the {@linkplain java.lang.reflect.Field property} represent the {@linkplain IUser creator} which is {@linkplain Final}.
  *
  * @author likly
  * @version 1.0
