@@ -5,6 +5,8 @@ package org.finalframework.annotation.data;
  * @author likly
  * @version 1.0
  * @date 2019-01-09 13:15:52
+ * @see Table
+ * @see Column
  * @since 1.0
  */
 @FunctionalInterface
