@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Immutable;
 import java.lang.annotation.*;
 
 /**
- * Mark the {@linkplain java.lang.reflect.Field property} annotated by {@link Final} is {@literal final} which can not be update.
+ * Annotate the {@linkplain java.lang.reflect.Field property} is {@literal final} which can not be update.
  *
  * @author likly
  * @version 1.0

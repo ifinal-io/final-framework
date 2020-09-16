@@ -21,8 +21,8 @@ public interface Enums {
         return findEnum(ann.value(), ann.creator(), ann.valueType(), value);
     }
 
-    @SuppressWarnings("unchecked")
-    static <E extends Enum<E>> E findEnum(Class<? extends Enum<?>> clazz, String creator, Class<?> valueType, Object value) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    static <E extends Enum<E>> E findEnum(Class<? extends Enum> clazz, String creator, Class<?> valueType, Object value) {
         Method valueOf = ReflectionUtils.findMethod(clazz, creator, valueType);
 
         if (valueOf == null) {

@@ -27,12 +27,18 @@ public @interface EnumValue {
     Class<? extends Enum> value();
 
     /**
-     * 获取枚举实例的静态方法名称，有且只有一个参数，参数类型为 {@link #valueType()}
+     * return the static {@linkplain java.lang.reflect.Method creator} name of target {@link Enum}.
+     *
+     * @return the static creator method name.
+     * @see com.fasterxml.jackson.annotation.JsonCreator
      */
     String creator() default "valueOf";
 
     /**
-     * 获取枚举实例的参数类型
+     * return the {@linkplain Class parameter} type of the static {@linkplain java.lang.reflect.Method creator}.
+     *
+     * @return the parameter type.
+     * @see Class#getMethod(String, Class[])
      */
     Class<?> valueType() default Integer.class;
 
