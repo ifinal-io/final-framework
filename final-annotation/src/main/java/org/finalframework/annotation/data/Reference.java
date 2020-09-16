@@ -2,14 +2,13 @@ package org.finalframework.annotation.data;
 
 import org.finalframework.annotation.IEntity;
 import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.Persistent;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Field;
 
 /**
- * Marked the {@link Field} is a {@literal reference} column, and the {@linkplain Class type} of {@link Field} must
- * {@literal implements} the {@link IEntity interface}.
+ * Annotate the {@linkplain Field property} is a {@literal reference} column which mapping multi columns in datasource,
+ * and the {@linkplain Class type} of this {@linkplain Field property} must {@literal implements} the {@link IEntity entity} interface.
  *
  * @author likly
  * @version 1.0
@@ -18,7 +17,6 @@ import java.lang.reflect.Field;
  * @since 1.0
  */
 @Column
-@Persistent
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

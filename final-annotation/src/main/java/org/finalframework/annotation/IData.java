@@ -3,7 +3,7 @@ package org.finalframework.annotation;
 import org.springframework.lang.Nullable;
 
 /**
- * A interface for data holder should be impl.
+ * A interface for data holder should be impl which provide the method of {@link #getData()}/{@link #setData(Object)} to get/set the data.
  *
  * @author likly
  * @version 1.0
