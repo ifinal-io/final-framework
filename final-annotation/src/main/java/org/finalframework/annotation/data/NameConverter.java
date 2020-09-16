@@ -1,8 +1,6 @@
 package org.finalframework.annotation.data;
 
 
-import java.util.function.Function;
-
 /**
  * @author likly
  * @version 1.0
@@ -10,7 +8,7 @@ import java.util.function.Function;
  * @since 1.0
  */
 @FunctionalInterface
-public interface NameConverter extends Function<String, String> {
+public interface NameConverter {
 
     /**
      * return the mapping name of source name.
@@ -19,9 +17,4 @@ public interface NameConverter extends Function<String, String> {
      * @return mapping name
      */
     String convert(String name);
-
-    @Override
-    default String apply(String name) {
-        return convert(name);
-    }
 }
