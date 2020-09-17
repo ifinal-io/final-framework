@@ -8,13 +8,12 @@ import java.lang.annotation.*;
 /**
  * Annotate the {@linkplain IEntity entity} mapping a special table in datasource by {@link #value()}.
  *
- * <pre>
- *     <code>
- *         &#64;Table("t_person")
- *         public class Person extends AbsEntity{
+ * <p>Use example:</p>
+ * <pre class="code">
+ *     &#64;Table("t_person")
+ *     public class Person extends AbsEntity{
  *
- *         }
- *     </code>
+ *     }
  * </pre>
  *
  * @author likly

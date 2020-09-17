@@ -3,7 +3,7 @@ package org.finalframework.annotation;
 import java.io.Serializable;
 
 /**
- * The interface of Entity which must be impls.
+ * The interface of a entity which must be impls.
  *
  * @author likly
  * @version 1.0
