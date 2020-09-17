@@ -5,8 +5,8 @@ import org.springframework.data.annotation.ReadOnlyProperty;
 import java.lang.annotation.*;
 
 /**
- * Marked the element is {@literal readonly}, it will not be {@literal insert} and {@literal update}. Such as a {@link
- * LastModified} column when it has a default value of {@literal NULL ON UPDATE NOW()}.
+ * Annotate the element of {@link java.lang.reflect.Field} or {@link java.lang.reflect.Method} is a {@literal readonly} property,
+ * it will not be {@literal insert} and {@literal update}. Such as a {@link LastModified} column when it has a default value of {@literal NULL ON UPDATE NOW()}.
  *
  * @author likly
  * @version 1.0

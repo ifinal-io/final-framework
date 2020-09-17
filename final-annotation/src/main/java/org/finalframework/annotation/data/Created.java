@@ -4,9 +4,10 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.lang.annotation.*;
+import java.lang.reflect.Field;
 
 /**
- * Mark the {@link java.lang.reflect.Field} is a created column which is have a {@link Default} value and it is {@link Final} and {@link ReadOnly}.
+ * Annotate the {@link Field property} is a {@code created} column which is have a {@link Default} value of {@code NOW()} and it is {@link Final} and {@link ReadOnly}.
  *
  * @author likly
  * @version 1.0
