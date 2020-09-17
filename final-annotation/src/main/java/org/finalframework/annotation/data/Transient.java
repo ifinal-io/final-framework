@@ -1,12 +1,11 @@
 package org.finalframework.annotation.data;
 
-import javax.annotation.processing.Processor;
 import java.lang.annotation.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * The marked element of {@link Field}、 {@link Method} or {@link Class} is not passed by {@link Processor}
+ * Annotate the element of {@link Field},{@link Method},{@link Class} is {@link Transient}.
  *
  * @author likly
  * @version 1.0
