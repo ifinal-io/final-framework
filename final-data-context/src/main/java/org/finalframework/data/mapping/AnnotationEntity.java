@@ -21,17 +21,17 @@ import java.util.stream.Stream;
  * @date 2018-10-17 11:06
  * @since 1.0
  */
-public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
-    private static final Logger logger = LoggerFactory.getLogger(BaseEntity.class);
+public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> implements Entity<T> {
+    private static final Logger logger = LoggerFactory.getLogger(AnnotationEntity.class);
 
     private final List<Property> properties = new ArrayList<>();
     private final Set<Class<?>> views = new LinkedHashSet<>();
 
-    private BaseEntity(TypeInformation<T> information) {
+    private AnnotationEntity(TypeInformation<T> information) {
         super(information);
     }
 
-    public BaseEntity(Class<T> entityClass) {
+    public AnnotationEntity(Class<T> entityClass) {
         this(ClassTypeInformation.from(entityClass));
         init();
     }
@@ -40,7 +40,6 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
         initProperties();
     }
 
-    @SuppressWarnings("unchecked")
     private void initProperties() {
         try {
             final Class entityClass = getType();
@@ -69,8 +68,9 @@ public class BaseEntity<T> extends BasicPersistentEntity<T, Property> implements
     }
 
     private Field getField(String name, Class target) {
-        if (target == null || target == Object.class)
+        if (target == null || target == Object.class) {
             return null;
+        }
         try {
             return target.getDeclaredField(name);
         } catch (NoSuchFieldException e) {

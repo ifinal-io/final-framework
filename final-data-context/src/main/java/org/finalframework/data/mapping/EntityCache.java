@@ -24,7 +24,7 @@ final class EntityCache {
     public <T> Entity<T> get(Class<T> entity) {
         if (!cache.containsKey(entity)) {
             synchronized (EntityCache.class) {
-                cache.put(entity, new BaseEntity(entity));
+                cache.put(entity, new AnnotationEntity(entity));
             }
         }
 

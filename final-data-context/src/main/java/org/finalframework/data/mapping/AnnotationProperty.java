@@ -24,7 +24,10 @@ import java.util.Set;
  */
 public class AnnotationProperty extends AnnotationBasedPersistentProperty<Property> implements Property {
 
-
+    /**
+     * @see Column#value()
+     * @see Column#name()
+     */
     private final Lazy<String> column = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
         if (annotation == null || Asserts.isBlank(annotation.name())) {
@@ -33,6 +36,9 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return annotation.name();
     });
 
+    /**
+     * @see Column#writer()
+     */
     private final Lazy<String> writer = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
         if (annotation == null || Asserts.isBlank(annotation.writer())) {
@@ -42,6 +48,9 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
+    /**
+     * @see Column#reader()
+     */
     private final Lazy<String> reader = Lazy.of(() -> {
         final Column annotation = findAnnotation(Column.class);
         if (annotation == null || Asserts.isBlank(annotation.reader())) {
@@ -51,15 +60,45 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
+    /**
+     * @see Order
+     */
     private final Lazy<Integer> order = Lazy.of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
+    /**
+     * @see Transient
+     */
     private final Lazy<Boolean> isTransient = Lazy.of(isAnnotationPresent(Transient.class) || super.isTransient());
+    /**
+     * @see Default
+     */
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
+    /**
+     * @see Final
+     */
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
+    /**
+     * @see Reference
+     */
     private final Lazy<Boolean> isReference = Lazy.of(!isTransient() && isAnnotationPresent(Reference.class));
+    /**
+     * @see Virtual
+     */
     private final Lazy<Boolean> isVirtual = Lazy.of(!isTransient() && isAnnotationPresent(Virtual.class));
+    /**
+     * @see Sharding
+     */
     private final Lazy<Boolean> isSharding = Lazy.of(!isTransient() && isAnnotationPresent(Sharding.class));
+    /**
+     * @see ReadOnly
+     */
     private final Lazy<Boolean> isReadonly = Lazy.of(!isTransient() && isAnnotationPresent(ReadOnly.class));
+    /**
+     * @see WriteOnly
+     */
     private final Lazy<Boolean> isWriteOnly = Lazy.of(!isTransient() && isAnnotationPresent(WriteOnly.class));
+    /**
+     * @see Keyword
+     */
     private final Lazy<Boolean> isKeyword = Lazy.of(!isTransient() && (isAnnotationPresent(Keyword.class) || SqlKeyWords.contains(getColumn())));
     private final Lazy<ReferenceMode> referenceMode = Lazy.of(isReference() ? getRequiredAnnotation(Reference.class).mode() : ReferenceMode.SIMPLE);
     private final Lazy<Map<String, String>> referenceColumns = Lazy.of(() -> {

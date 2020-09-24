@@ -17,6 +17,7 @@ class ResultTest {
     void jsonTest() throws JsonProcessingException {
         Result<Object> result = new Result<>();
         System.out.println(new ObjectMapper().writeValueAsString(result));
+
     }
 
 }

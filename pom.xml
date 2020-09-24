@@ -33,6 +33,7 @@
         <module>final-spring-expression</module>
         <module>final-util</module>
         <module>final-zookeeper</module>
+        <module>final-selenium</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
