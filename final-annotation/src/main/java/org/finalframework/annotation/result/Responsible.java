@@ -17,6 +17,7 @@ public interface Responsible {
     @NonNull
     Integer getStatus();
 
+    @NonNull
     String getDescription();
 
 }

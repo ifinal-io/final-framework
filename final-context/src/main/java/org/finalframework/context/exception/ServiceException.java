@@ -3,6 +3,7 @@ package org.finalframework.context.exception;
 import org.finalframework.annotation.IException;
 import org.finalframework.annotation.result.Responsible;
 import org.finalframework.context.util.Messages;
+import org.springframework.lang.NonNull;
 
 /**
  * 业务异常
@@ -17,7 +18,6 @@ import org.finalframework.context.util.Messages;
  * @see UnCatchException
  * @since 1.0
  */
-@SuppressWarnings({"unused"})
 public class ServiceException extends RuntimeException implements Responsible, IException {
     /**
      * 状态
@@ -32,7 +32,7 @@ public class ServiceException extends RuntimeException implements Responsible, I
      */
     private final String code;
 
-    private final Object[] args;
+    private final transient Object[] args;
 
     private final String formatMessage;
 
@@ -53,21 +53,25 @@ public class ServiceException extends RuntimeException implements Responsible, I
         this.formatMessage = message == null ? null : String.format(message, args);
     }
 
+    @NonNull
     @Override
     public Integer getStatus() {
         return status;
     }
 
+    @NonNull
     @Override
     public String getDescription() {
         return description;
     }
 
+    @NonNull
     @Override
     public String getCode() {
         return this.code;
     }
 
+    @NonNull
     @Override
     public String getMessage() {
         return super.getMessage();
