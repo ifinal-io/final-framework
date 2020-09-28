@@ -4,12 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.lang.NonNull;
 
 /**
- * 通用枚举接口，为实现在程序中使用枚举常量，而存储时使用枚举码{@link IEnum#getCode()}。
- * <p/>
- * `final-json`会将实现该接口的{@link Enum}转化为对应的{@link IEnum#getCode()}的值，并且在Json序列化JavaBean对象时，对{@link IEnum}
- * 类型的属性，新加一个`xxxName`的属性，值为{@link IEnum#getDesc()}。
- * <p/>
- * 详情查看：<a href="https://final.ilikly.com/json/#stronger-enum">JSON枚举增强</a>
+ * The interface should be impl by the {@linkplain Enum enum}.
  *
  * @author likly
  * @version 1.0
@@ -19,18 +14,18 @@ import org.springframework.lang.NonNull;
 public interface IEnum<T> {
 
     /**
-     * 返回表示该枚举常量的code
+     * return the enum code, not the {@linkplain Enum#ordinal() ordinal}.
      *
-     * @return 枚举码
+     * @return enum code
      */
     @JsonValue
     @NonNull
     T getCode();
 
     /**
-     * 返回对该枚举常量的描述信息
+     * return the enum desc, not the {@linkplain Enum#name() name}.
      *
-     * @return 描述
+     * @return enum desc
      */
     @NonNull
     String getDesc();

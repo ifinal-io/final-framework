@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IEnum;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -27,18 +28,12 @@ public enum YN implements IEnum<Integer> {
     /**
      * 无效
      */
-    NO(0, "无效"),
-    /**
-     * 删除
-     * Note: Don't use more, it would be remove in future.
-     */
-    @Deprecated
-    DELETED(-1, "删除");
+    NO(0, "无效");
     /**
      * 枚举码
      */
     private final Integer code;
-    private static final Map<Integer, YN> cache = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
+    private static final Map<Integer, YN> CACHE = Arrays.stream(values()).collect(Collectors.toMap(YN::getCode, Function.identity()));
 
     private final String desc;
 
@@ -50,16 +45,18 @@ public enum YN implements IEnum<Integer> {
 
     @JsonCreator
     public static YN valueOf(Integer value) {
-        return cache.get(value);
+        return CACHE.get(value);
     }
 
     @Override
+    @NonNull
     @JsonValue
     public Integer getCode() {
         return code;
     }
 
     @Override
+    @NonNull
     public String getDesc() {
         return desc;
     }
