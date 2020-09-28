@@ -4,9 +4,15 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Field;
 
 /**
- * Annotation the {@link java.lang.reflect.Field property} is a sql keyword which should be warped like `{property}`.
+ * Annotate the {@link Field property} is a sql keyword which should be warped like `{property}`.
+ *
+ * <h4>Example:</h4>
+ * <ul>
+ *     <li>`order`</li>
+ * </ul>
  *
  * @author likly
  * @version 1.0
