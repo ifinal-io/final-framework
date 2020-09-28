@@ -4,6 +4,8 @@ import org.finalframework.annotation.result.ResponseStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
+
 /**
  * The interface of response data holder which impl the {@linkplain IData data} holder.  when {@link #isSuccess()} return {@code true}
  * the response successful, otherwise use {@linkplain #getCode()} or {@linkplain #getMessage()} for more info. The code and message
@@ -54,7 +56,7 @@ import org.springframework.lang.Nullable;
  * @see org.finalframework.annotation.result.Result
  * @since 1.0
  */
-public interface IResult<T> extends IData<T> {
+public interface IResult<T extends Serializable> extends IData<T> {
 
     /**
      * return the status of this response.

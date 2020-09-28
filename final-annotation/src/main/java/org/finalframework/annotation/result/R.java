@@ -3,6 +3,8 @@ package org.finalframework.annotation.result;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
+
 /**
  * @author likly
  * @version 1.0
@@ -14,15 +16,15 @@ public class R {
     private static final Integer SUCCESS_CODE = 0;
     private static final String SUCCESS_MESSAGE = "success";
 
-    public static <T> Result<T> success() {
+    public static <T extends Serializable> Result<T> success() {
         return success(null);
     }
 
-    public static <T> Result<T> success(T data) {
+    public static <T extends Serializable> Result<T> success(T data) {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 
-    public static <T> Result<T> success(@NonNull String code, @NonNull String message, @Nullable T data) {
+    public static <T extends Serializable> Result<T> success(@NonNull String code, @NonNull String message, @Nullable T data) {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
     }
 

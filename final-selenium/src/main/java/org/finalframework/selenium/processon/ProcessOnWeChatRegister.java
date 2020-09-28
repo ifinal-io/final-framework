@@ -32,7 +32,7 @@ public class ProcessOnWeChatRegister {
     public ProcessOnWeChatRegister() {
         driver.manage().window().setPosition(new Point(0, 0));
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public void login() {

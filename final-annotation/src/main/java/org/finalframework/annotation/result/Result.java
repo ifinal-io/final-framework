@@ -18,11 +18,12 @@ import java.util.TimeZone;
  * @version 1.0
  * @date 2018-09-26 21:08
  * @since 1.0
+ *
  */
 @Setter
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class Result<T> implements IResult<T>, Responsible, Serializable {
+public final class Result<T extends Serializable> implements IResult<T>, Responsible, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;
     /**
