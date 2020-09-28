@@ -1,9 +1,6 @@
 package org.finalframework.annotation.data;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 import java.lang.reflect.Field;
 
 
@@ -15,6 +12,7 @@ import java.lang.reflect.Field;
  * @date 2020-05-20 22:00:28
  * @since 1.0
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface UpperCase {
