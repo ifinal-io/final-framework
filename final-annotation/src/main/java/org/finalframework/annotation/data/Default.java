@@ -1,10 +1,12 @@
 package org.finalframework.annotation.data;
 
 import java.lang.annotation.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
- * Marked the element is not need to {@literal insert}. The element has a default value. Such as a {@link Created}
- * column when it default {@literal now()}.
+ * Annotate the element of {@linkplain Field field} or {@linkplain Method method} is not need to {@literal insert} which has a default value.
+ * Such as a {@link Created} column when it default {@literal NOW()}.
  *
  * @author likly
  * @version 1.0
