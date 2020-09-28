@@ -252,7 +252,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     }
 
     @Override
-    public Class<? extends TypeHandler<?>> getTypeHandler() {
+    @SuppressWarnings("rawtypes")
+    public Class<? extends TypeHandler> getTypeHandler() {
         return typeHandler.getNullable();
     }
 }

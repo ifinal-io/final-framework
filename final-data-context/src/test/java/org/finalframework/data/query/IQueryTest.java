@@ -9,6 +9,7 @@ import org.apache.ibatis.scripting.xmltags.OgnlCache;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
 import org.finalframework.annotation.query.AndOr;
+import org.finalframework.annotation.query.Criteria;
 import org.finalframework.annotation.query.Equal;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
@@ -50,7 +51,7 @@ class IQueryTest {
         final AndOr andOr = properties.isAnnotationPresent(Criteria.class) ? properties.getRequiredAnnotation(Criteria.class).value() : AndOr.AND;
 
         for (Property property : properties) {
-            if (property.hasAnnotation(Equal.class)) {
+            if (property.isAnnotationPresent(Equal.class)) {
                 final Element element = document.createElement("if");
                 element.setAttribute("test", String.format("%s.%s != null", "query", property.getName()));
                 element.appendChild(document.createCDATASection(String.format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query", property.getName())));

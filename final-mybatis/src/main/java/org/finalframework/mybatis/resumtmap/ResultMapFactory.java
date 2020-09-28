@@ -123,7 +123,7 @@ public class ResultMapFactory {
                     property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
-        if (Optional.ofNullable(property).orElse(referenceProperty).hasAnnotation(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {
+        if (Optional.ofNullable(property).orElse(referenceProperty).isAnnotationPresent(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {
             column = column.toUpperCase();
         }
         return column;
@@ -132,7 +132,7 @@ public class ResultMapFactory {
 
     private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
 
-        if (property.hasAnnotation(org.finalframework.annotation.data.TypeHandler.class)) {
+        if (property.isAnnotationPresent(org.finalframework.annotation.data.TypeHandler.class)) {
             try {
                 return property.getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value().newInstance();
             } catch (Exception e) {
@@ -141,7 +141,7 @@ public class ResultMapFactory {
         }
 
 
-        if (property.hasAnnotation(Json.class) || property.isCollectionLike() || property.isMap()) {
+        if (property.isAnnotationPresent(Json.class) || property.isCollectionLike() || property.isMap()) {
             return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
         }
         if (property.isEnum()) {

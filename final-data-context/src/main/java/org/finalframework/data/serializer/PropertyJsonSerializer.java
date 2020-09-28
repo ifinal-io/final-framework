@@ -38,7 +38,7 @@ public class PropertyJsonSerializer extends JsonSerializer<Property> {
         gen.writeBooleanField("isIdProperty", property.isIdProperty());
         gen.writeBooleanField("isEnum", property.isEnum());
         gen.writeBooleanField("isReference", property.isReference());
-        gen.writeBooleanField("isJson", property.hasAnnotation(Json.class));
+        gen.writeBooleanField("isJson", property.isAnnotationPresent(Json.class));
         gen.writeBooleanField("isTransient", property.isTransient());
         gen.writeBooleanField("isVirtual", property.isVirtual());
         gen.writeBooleanField("isReadOnly", property.isReadOnly());

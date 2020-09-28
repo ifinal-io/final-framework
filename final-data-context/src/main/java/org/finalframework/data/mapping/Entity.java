@@ -28,7 +28,7 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
     static <T> List<CompareProperty> compare(T before, T after) {
         Entity<T> entity = (Entity<T>) from(before.getClass());
         return entity.stream()
-                .filter(it -> !it.isTransient() && !it.hasAnnotation(NonCompare.class))
+                .filter(it -> !it.isTransient() && !it.isAnnotationPresent(NonCompare.class))
                 .map(property -> CompareProperty.builder()
                         .property(property)
                         .value(property.get(before), property.get(after))

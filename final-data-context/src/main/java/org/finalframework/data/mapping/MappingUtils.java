@@ -50,7 +50,7 @@ public interface MappingUtils {
 
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
 
-        if (Optional.ofNullable(referenceProperty).orElse(property).hasAnnotation(UpperCase.class) || entity
+        if (Optional.ofNullable(referenceProperty).orElse(property).isAnnotationPresent(UpperCase.class) || entity
                 .isAnnotationPresent(UpperCase.class)) {
             column = column.toUpperCase();
         }

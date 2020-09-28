@@ -218,13 +218,13 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private void appendOnDuplicateKeyUpdate(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
         final String onDuplicateKeyUpdate = properties.stream()
                 .filter(property -> (property.isWriteable() && property.hasView(view))
-                        || property.getProperty().hasAnnotation(Version.class)
-                        || property.getProperty().hasAnnotation(LastModified.class))
+                        || property.getProperty().isAnnotationPresent(Version.class)
+                        || property.getProperty().isAnnotationPresent(LastModified.class))
                 .map(property -> {
                     String column = property.getColumn();
-                    if (property.getProperty().hasAnnotation(Version.class)) {
+                    if (property.getProperty().isAnnotationPresent(Version.class)) {
                         return String.format("%s = %s + 1", column, column);
-                    } else if (property.getProperty().hasAnnotation(LastModified.class)) {
+                    } else if (property.getProperty().isAnnotationPresent(LastModified.class)) {
                         return String.format("%s = NOW()", column);
                     } else {
                         return String.format("%s = values(%s)", column, column);
