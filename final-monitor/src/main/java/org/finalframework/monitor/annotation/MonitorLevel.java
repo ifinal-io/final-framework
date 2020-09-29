@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.finalframework.annotation.IEnum;
 import org.finalframework.annotation.data.Transient;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -38,20 +39,20 @@ public enum MonitorLevel implements IEnum<Integer> {
     }
 
     @JsonCreator
-    @SuppressWarnings("unused")
     public static MonitorLevel valueOf(Integer code) {
         return cache.get(code);
     }
 
 
     @Override
+    @NonNull
     @JsonValue
     public Integer getCode() {
         return code;
     }
 
     @Override
-    @SuppressWarnings("unused")
+    @NonNull
     public String getDesc() {
         return description;
     }

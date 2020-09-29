@@ -1,6 +1,21 @@
 package org.finalframework.data.query;
 
+import org.springframework.lang.Nullable;
+
 /**
+ * The sql node of limit which would be append to sql like this.
+ *
+ * <pre class="code">
+ *      <trim prefix="LIMIT">
+ *          <if test="limit.offset != null">
+ *              #{limit.offset},
+ *          </if>
+ *          <if test="limit.limit != null">
+ *              #{limit.limit}
+ *          </if>
+ *      </trim>
+ * </pre>
+ *
  * @author likly
  * @version 1.0
  * @date 2019-10-12 17:11:43
@@ -8,17 +23,42 @@ package org.finalframework.data.query;
  */
 public interface Limit extends SqlNode {
 
-    static Limit limit(Long offset, Long limit) {
+    /**
+     * return a {@link Limit} with {@code offset} and {@code limit}.
+     *
+     * @param offset offset
+     * @param limit  limit
+     * @return a limit
+     */
+    static Limit limit(@Nullable Long offset, @Nullable Long limit) {
         return new LimitImpl(offset, limit);
     }
 
-    static Limit limit(Long limit) {
+    /**
+     * return a {@link Limit} with {@code limit}.
+     *
+     * @param limit limit
+     * @return limit
+     */
+    static Limit limit(@Nullable Long limit) {
         return limit(null, limit);
     }
 
 
+    /**
+     * return limit offset
+     *
+     * @return limit offset
+     */
+    @Nullable
     Long getOffset();
 
+    /**
+     * return limit limit
+     *
+     * @return limit limit
+     */
+    @Nullable
     Long getLimit();
 
     /**
@@ -33,8 +73,8 @@ public interface Limit extends SqlNode {
      *     </code>
      * </pre>
      *
-     * @param sql
-     * @param expression
+     * @param sql        sql
+     * @param expression expression
      */
     @Override
     default void apply(StringBuilder sql, String expression) {
