@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 final class EntityCache {
     private static final EntityCache ourInstance = new EntityCache();
-    private static final Map<Class, Entity> cache = new ConcurrentHashMap<>(1024);
+    private static final Map<Class<?>, Entity<?>> cache = new ConcurrentHashMap<>(1024);
 
     private EntityCache() {
     }
@@ -24,10 +24,10 @@ final class EntityCache {
     public <T> Entity<T> get(Class<T> entity) {
         if (!cache.containsKey(entity)) {
             synchronized (EntityCache.class) {
-                cache.put(entity, new AnnotationEntity(entity));
+                cache.put(entity, new AnnotationEntity<>(entity));
             }
         }
 
-        return cache.get(entity);
+        return (Entity<T>) cache.get(entity);
     }
 }

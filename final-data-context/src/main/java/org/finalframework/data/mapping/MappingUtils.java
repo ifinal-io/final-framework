@@ -17,7 +17,6 @@ import java.util.Optional;
  */
 public interface MappingUtils {
 
-
     static String formatPropertyName(@NonNull Property property, @Nullable Property referenceProperty) {
         if (referenceProperty == null) {
             return property.getName();

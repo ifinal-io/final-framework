@@ -1,5 +1,7 @@
 package org.finalframework.data.query.operation;
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0
@@ -8,6 +10,12 @@ package org.finalframework.data.query.operation;
  */
 public interface Operation {
 
+    /**
+     * return the name of {@link Operation}.
+     *
+     * @return operation name
+     */
+    @NonNull
     String name();
 
     /**

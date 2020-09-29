@@ -19,6 +19,13 @@ import java.util.stream.Collectors;
 @JsonSerialize(using = EntityJsonSerializer.class)
 public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Property>, Iterable<Property> {
 
+    /**
+     * return the entity from the {@link Class clazz}
+     *
+     * @param entityClass entity class
+     * @param <T>         entity type
+     * @return entity
+     */
     static <T> Entity<T> from(Class<T> entityClass) {
         Asserts.isNull(entityClass, "entityClass must not be null!");
         return EntityCache.getInstance().get(entityClass);
@@ -36,9 +43,14 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
                 .collect(Collectors.toList());
     }
 
+    /**
+     * return an instance of this entity
+     *
+     * @return an instance
+     */
     default T getInstance() {
         try {
-            return getType().newInstance();
+            return getType().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalStateException(String.format("the entity of %s must have no args constructor!", getType().getName()));
         }

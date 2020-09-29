@@ -45,7 +45,7 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
             final Class entityClass = getType();
             BeanInfo beanInfo = Introspector.getBeanInfo(entityClass);
             Arrays.stream(beanInfo.getPropertyDescriptors())
-                    .filter(it -> !it.getName().equals("class"))
+                    .filter(it -> !"class".equals(it.getName()))
                     .map(it -> buildProperty(entityClass, it))
                     .forEach(it -> {
                         addPersistentProperty(it);
