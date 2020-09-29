@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * @date 2019-01-18 16:03:52
  * @since 1.0
  */
-public class CriteriaImpl implements Criteria {
+final class CriteriaImpl implements Criteria {
     private final AndOr andOr;
     private final Collection<Criterion> criteria;
 

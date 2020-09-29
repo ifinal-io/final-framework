@@ -12,7 +12,6 @@ import java.util.Collection;
  * @date 2018-10-25 10:38
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public interface Update extends Streamable<UpdateSetOperation>, Iterable<UpdateSetOperation>, SqlNode {
 
     static Update update() {

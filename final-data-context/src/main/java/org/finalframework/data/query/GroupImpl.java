@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * @date 2019-11-22 16:01:19
  * @since 1.0
  */
-public class GroupImpl extends ArrayList<QProperty<?>> implements Group {
+final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
 
     private GroupImpl(Collection<QProperty<?>> properties) {
         this.addAll(properties);

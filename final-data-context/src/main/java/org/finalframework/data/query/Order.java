@@ -10,19 +10,19 @@ import org.finalframework.annotation.query.Direction;
  */
 public interface Order extends SqlNode {
 
-    static Order order(QProperty property, Direction direction) {
+    static Order order(QProperty<?> property, Direction direction) {
         return new OrderImpl(property, direction);
     }
 
-    static Order asc(QProperty property) {
+    static Order asc(QProperty<?> property) {
         return order(property, Direction.ASC);
     }
 
-    static Order desc(QProperty property) {
+    static Order desc(QProperty<?> property) {
         return order(property, Direction.DESC);
     }
 
-    QProperty getProperty();
+    QProperty<?> getProperty();
 
     Direction getDirection();
 

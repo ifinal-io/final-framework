@@ -8,18 +8,18 @@ import org.finalframework.annotation.query.Direction;
  * @date 2019-01-08 15:21:13
  * @since 1.0
  */
-public class OrderImpl implements Order {
-    private final QProperty property;
+final class OrderImpl implements Order {
+    private final QProperty<?> property;
     private final Direction direction;
 
-    OrderImpl(QProperty property, Direction direction) {
+    OrderImpl(QProperty<?> property, Direction direction) {
         this.property = property;
         this.direction = direction;
     }
 
 
     @Override
-    public QProperty getProperty() {
+    public QProperty<?> getProperty() {
         return property;
     }
 

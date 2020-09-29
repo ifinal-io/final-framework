@@ -15,13 +15,10 @@ import java.util.stream.Stream;
  * @date 2019-01-08 15:22:08
  * @since 1.0
  */
-public class SortImpl extends ArrayList<Order> implements Sort {
-
-//    private final List<Order> orders;
+final class SortImpl extends ArrayList<Order> implements Sort {
 
     private SortImpl(Collection<Order> orders) {
         this.addAll(orders);
-//        this.orders = new ArrayList<>(orders);
     }
 
     public static Sort by(Order... orders) {

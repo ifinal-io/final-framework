@@ -157,6 +157,5 @@ public interface Property extends PersistentProperty<Property> {
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    Class<? extends TypeHandler> getTypeHandler();
+    Class<? extends TypeHandler<?>> getTypeHandler();
 }
