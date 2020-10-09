@@ -28,5 +28,4 @@ public interface Responsible {
      */
     @NonNull
     String getDescription();
-
 }
