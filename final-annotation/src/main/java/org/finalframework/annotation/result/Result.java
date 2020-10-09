@@ -3,6 +3,8 @@ package org.finalframework.annotation.result;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.finalframework.annotation.IData;
+import org.finalframework.annotation.IException;
 import org.finalframework.annotation.IResult;
 import org.finalframework.annotation.IUser;
 
@@ -18,7 +20,6 @@ import java.util.TimeZone;
  * @version 1.0
  * @date 2018-09-26 21:08
  * @since 1.0
- *
  */
 @Setter
 @Getter
@@ -27,29 +28,33 @@ public final class Result<T extends Serializable> implements IResult<T>, Respons
 
     private static final long serialVersionUID = -2801752781032532754L;
     /**
-     * 状态码，描述一次请求的状态
+     * the result {@literal status}
+     *
+     * @see ResponseStatus#getCode()
      */
     private Integer status;
 
     /**
-     * 状态描述
+     * the result {@literal description}
+     *
+     * @see ResponseStatus#getDesc()
      */
     private String description;
 
     /**
-     * 业务状态码
+     * the result error {@linkplain IException#getCode() code}
      */
     private String code;
     /**
-     * 业务状态描述
+     * the result error {@linkplain IException#getMessage() message}
      */
     private String message;
     /**
-     * 业务数据
+     * the result {@linkplain IData#getData() data}
      */
     private T data;
     /**
-     * 分页信息
+     * the {@linkplain Pagination pagination}
      */
     private Pagination pagination;
     /**
