@@ -17,14 +17,14 @@ import java.io.Serializable;
 public interface IData<T> extends Serializable {
 
     /**
-     * set data
+     * set the data which could be {@literal null}
      *
      * @param data the data to hold.
      */
     void setData(@Nullable T data);
 
     /**
-     * return the data hold.
+     * return the data which may be {@literal null}.
      *
      * @return the data hold.
      */
