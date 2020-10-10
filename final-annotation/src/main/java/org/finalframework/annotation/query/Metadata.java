@@ -3,7 +3,7 @@ package org.finalframework.annotation.query;
 
 import lombok.Builder;
 import lombok.Data;
-import org.finalframework.annotation.data.TypeHandler;
+import org.apache.ibatis.type.TypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -31,8 +31,10 @@ public class Metadata implements Serializable {
     private String value;
     @NonNull
     private String path;
+    @Nullable
     private Class<?> javaType;
     @Nullable
+    @SuppressWarnings("rawtypes")
     private Class<? extends TypeHandler> typeHandler;
     private Map<String, String> attributes;
 }

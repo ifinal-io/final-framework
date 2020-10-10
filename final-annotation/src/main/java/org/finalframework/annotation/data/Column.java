@@ -1,12 +1,15 @@
 package org.finalframework.annotation.data;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.Persistent;
 
 import java.lang.annotation.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
- * Annotate a {@linkplain java.lang.reflect.Field property} or {@linkplain java.lang.reflect.Method property} mapping to a column of datasource.
+ * Annotate a property of {@linkplain Field field} or {@linkplain Method method} mapping to a column of data table.
  *
  * @author likly
  * @version 1.0
@@ -30,6 +33,8 @@ import java.lang.annotation.*;
 public @interface Column {
 
     /**
+     * return the column name of {@code property} mapped.
+     *
      * @return column name
      * @see #name()
      */
@@ -44,10 +49,10 @@ public @interface Column {
     String name() default "";
 
     /**
-     * <pre>
-     *     <code>
-     *          #{value,javaType=,typeHandler}
-     *     </code>
+     * return the column writer expression
+     *
+     * <pre class="code">
+     *      #{value,javaType=,typeHandler}
      * </pre>
      *
      * @return the column writer
@@ -55,10 +60,8 @@ public @interface Column {
     String writer() default "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     /**
-     * <pre>
-     *     <code>
-     *         column
-     *     </code>
+     * <pre class="code">
+     *      column
      * </pre>
      *
      * @return the column reader
@@ -66,4 +69,18 @@ public @interface Column {
     String reader() default "${column}";
 
     Class<? extends ColumnHandler> handler() default ColumnHandler.class;
+
+    /**
+     * return the property java type
+     *
+     * @return the property java type
+     */
+    Class<?> javaType() default Object.class;
+
+    /**
+     * return the property type handler
+     *
+     * @return the property type handler
+     */
+    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 }

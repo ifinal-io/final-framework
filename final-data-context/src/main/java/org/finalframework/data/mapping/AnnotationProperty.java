@@ -65,10 +65,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
      */
     private final Lazy<Integer> order = Lazy.of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
     /**
-     * @see Transient
-     */
-    private final Lazy<Boolean> isTransient = Lazy.of(isAnnotationPresent(Transient.class) || super.isTransient());
-    /**
      * @see Default
      */
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
@@ -76,10 +72,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
      * @see Final
      */
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
-    /**
-     * @see Reference
-     */
-    private final Lazy<Boolean> isReference = Lazy.of(!isTransient() && isAnnotationPresent(Reference.class));
     /**
      * @see Virtual
      */
@@ -131,9 +123,10 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return getType();
     });
 
-    private final Lazy<Class<? extends TypeHandler<?>>> typeHandler = Lazy.of(() -> {
-        if (isAnnotationPresent(org.finalframework.annotation.data.TypeHandler.class)) {
-            return getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value();
+    @SuppressWarnings("rawtypes")
+    private final Lazy<Class<? extends TypeHandler>> typeHandler = Lazy.of(() -> {
+        if (isAnnotationPresent(Column.class)) {
+            return getRequiredAnnotation(Column.class).typeHandler();
         }
 
         if (isAnnotationPresent(Json.class)) {
@@ -166,10 +159,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return new Association<>(this, null);
     }
 
-    @Override
-    public boolean isTransient() {
-        return isTransient.get();
-    }
 
     @Override
     public Integer getOrder() {
@@ -203,7 +192,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     @Override
     public boolean isReference() {
-        return isReference.get();
+        return isAssociation();
     }
 
     @Override
@@ -253,7 +242,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     @Override
     @SuppressWarnings("rawtypes")
-    public Class<? extends TypeHandler<?>> getTypeHandler() {
+    public Class<? extends TypeHandler> getTypeHandler() {
         return typeHandler.getNullable();
     }
 }
