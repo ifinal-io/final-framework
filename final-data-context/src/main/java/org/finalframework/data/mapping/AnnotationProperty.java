@@ -155,7 +155,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
 
     @Override
-    public Integer getOrder() {
+    public int getOrder() {
         return order.get();
     }
 

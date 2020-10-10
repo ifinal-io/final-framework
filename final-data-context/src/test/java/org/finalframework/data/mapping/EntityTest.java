@@ -15,8 +15,8 @@ class EntityTest {
     @Test
     void testPersonEntity() {
         Entity<Person> entity = Entity.from(Person.class);
-        entity.forEach(property -> {
-            logger.info("{}", property);
+        entity.stream().forEach(property -> {
+            logger.info("property={},column={},order={}", property.getName(), property.getColumn(), property.getOrder());
         });
     }
 }

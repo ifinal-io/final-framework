@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.*;
 import org.finalframework.data.serializer.PropertyJsonSerializer;
+import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.lang.Nullable;
 
@@ -19,14 +20,8 @@ import java.util.Set;
  * @since 1.0
  */
 @JsonSerialize(using = PropertyJsonSerializer.class)
-public interface Property extends PersistentProperty<Property> {
+public interface Property extends PersistentProperty<Property>, Ordered {
 
-    /**
-     * return the order value of {@link Order#value()}
-     *
-     * @return the order value
-     */
-    Integer getOrder();
 
     /**
      * return {@code true} if the {@linkplain #getType()} is a {@linkplain Enum enum}, otherwise {@code true}.

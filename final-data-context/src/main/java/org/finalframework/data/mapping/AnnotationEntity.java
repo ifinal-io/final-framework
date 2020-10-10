@@ -54,7 +54,6 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
 
             this.properties.sort(Comparator.comparing(Property::getOrder));
 
-
         } catch (IntrospectionException e) {
             logger.error("", e);
         }
@@ -77,7 +76,6 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
             return getField(name, target.getSuperclass());
         }
     }
-
 
     @Override
     public Stream<Property> stream() {
