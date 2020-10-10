@@ -86,7 +86,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     @NonNull
     PersistentType getPersistentType();
 
-    Class<? extends TypeHandler<?>> getTypeHandler();
+    Class<? extends TypeHandler> getTypeHandler();
 
     /**
      * Returns whether the property is an array.
@@ -289,7 +289,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
         Builder<T> persistentType(PersistentType persistentType);
 
-        Builder<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler);
+        Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler);
 
         Builder<T> views(List<Class<?>> views);
 

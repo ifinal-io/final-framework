@@ -5,8 +5,10 @@ import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.*;
 import org.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.data.mapping.PersistentProperty;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -139,7 +141,30 @@ public interface Property extends PersistentProperty<Property> {
 
     String getReferenceColumn(Property property);
 
-    Class<?> getJavaType();
+    /**
+     * return java type of this property.
+     * <ul>
+     *     <li>return {@link Map} if the property is {@linkplain #isMap() map};</li>
+     *     <li>return {@link #getComponentType()} if this property is {@linkplain #isCollectionLike() collection};</li>
+     *     <li>otherwise return {@link #getType()}.</li>
+     * </ul>
+     *
+     * @return the property java type
+     */
+    @Nullable
+    default Class<?> getJavaType() {
+        if (isMap()) {
+            return Map.class;
+        } else if (isCollectionLike()) {
+            return getComponentType();
+        } else {
+            return getType();
+        }
+    }
+
+    @Nullable
+    @SuppressWarnings("rawtypes")
+    Class<? extends TypeHandler> getTypeHandler();
 
     default Object get(@NotNull Object target) {
         try {
@@ -157,6 +182,4 @@ public interface Property extends PersistentProperty<Property> {
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    Class<? extends TypeHandler> getTypeHandler();
 }

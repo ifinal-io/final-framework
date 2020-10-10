@@ -9,6 +9,7 @@ import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.Lazy;
+import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +18,12 @@ import java.util.Set;
 
 
 /**
+ * Simple implementation of {@link Property}
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-17 11:03
+ * @see AnnotationBasedPersistentProperty
  * @since 1.0
  */
 public class AnnotationProperty extends AnnotationBasedPersistentProperty<Property> implements Property {
@@ -112,17 +116,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return map;
     });
 
-
-    private final Lazy<Class<?>> javaType = Lazy.of(() -> {
-        if (isMap()) {
-            return Map.class;
-        }
-        if (isCollectionLike()) {
-            return getComponentType();
-        }
-        return getType();
-    });
-
     @SuppressWarnings("rawtypes")
     private final Lazy<Class<? extends TypeHandler>> typeHandler = Lazy.of(() -> {
         if (isAnnotationPresent(Column.class)) {
@@ -155,6 +148,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
 
     @Override
+    @NonNull
     protected Association<Property> createAssociation() {
         return new Association<>(this, null);
     }
@@ -235,10 +229,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return Optional.ofNullable(referenceColumns.get().get(property.getName())).orElse(property.getColumn());
     }
 
-    @Override
-    public Class<?> getJavaType() {
-        return javaType.get();
-    }
 
     @Override
     @SuppressWarnings("rawtypes")

@@ -24,7 +24,7 @@ public class ResultJsonTest {
 
     @Test
     public void testResultJson() throws JsonProcessingException {
-        Result<Object> result = new Result<>();
+        Result<?> result = new Result<>();
         result.setLocale(LocaleContextHolder.getLocale());
         result.setTimeZone(LocaleContextHolder.getTimeZone());
         result.setOperator(UserContextHolder.getUser());
@@ -32,11 +32,6 @@ public class ResultJsonTest {
         AbsEntity entity = new AbsEntity();
         entity.setId(1L);
         entity.setVersion(1L);
-//        entity.setLastModified(LocalDateTime.now());
-        entity.setName("haha");
-//        JsonViewValue jsonViewValue = new JsonViewValue(entity, IView.class);
-//        result.setData(jsonViewValue);
-        result.setData(entity);
 
 
 //        logger.info(new ObjectMapper().writerWithView(IView.class).writeValueAsString(entity));

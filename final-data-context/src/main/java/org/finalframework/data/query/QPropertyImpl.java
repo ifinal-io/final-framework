@@ -29,7 +29,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final boolean modifiable;
     private final PersistentType persistentType;
 
-    private final Class<? extends TypeHandler<?>> typeHandler;
+    private final Class<? extends TypeHandler> typeHandler;
 
     private final List<Class<?>> views;
 
@@ -123,7 +123,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     }
 
     @Override
-    public Class<? extends TypeHandler<?>> getTypeHandler() {
+    public Class<? extends TypeHandler> getTypeHandler() {
         return this.typeHandler;
     }
 
@@ -175,7 +175,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
         private PersistentType persistentType;
 
-        private Class<? extends TypeHandler<?>> typeHandler;
+        private Class<? extends TypeHandler> typeHandler;
         private List<Class<?>> views;
         private boolean insertable = true;
         private boolean updatable = true;
@@ -241,7 +241,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         }
 
         @Override
-        public Builder<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
+        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
             this.typeHandler = typeHandler;
             return this;
         }
