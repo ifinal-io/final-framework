@@ -8,13 +8,11 @@ import java.lang.annotation.Target;
 /**
  * Annotate the {@link PrimaryKey} use auto incr.
  *
- * <pre>
- *     <code>
- *          public interface Mapper{
- *              &#64;Options(useGeneratedKeys=true,keyProperty="id",keyColumn="id")
- *              public int insert(IEntity entity)
- *          }
- *     </code>
+ * <pre class="code">
+ *      public interface Mapper{
+ *          &#64;Options(useGeneratedKeys=true,keyProperty="id",keyColumn="id")
+ *          public int insert(IEntity entity)
+ *      }
  * </pre>
  *
  * @author likly
