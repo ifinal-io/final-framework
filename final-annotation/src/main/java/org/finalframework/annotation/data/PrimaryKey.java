@@ -12,7 +12,6 @@ import java.lang.annotation.*;
  * @version 1.0
  * @date 2018-10-15 15:14
  * @see org.springframework.data.annotation.Id
- * @see PrimaryKeyType
  * @see IEntity
  * @see AutoInc
  * @since 1.0
@@ -32,6 +31,4 @@ public @interface PrimaryKey {
 
     @AliasFor(annotation = Column.class, value = "name")
     String name() default "";
-
-    PrimaryKeyType type() default PrimaryKeyType.AUTO_INC;
 }
