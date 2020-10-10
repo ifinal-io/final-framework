@@ -132,12 +132,13 @@ public class ResultMapFactory {
 
     private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
 
-        if (property.isAnnotationPresent(org.finalframework.annotation.data.TypeHandler.class)) {
-            try {
-                return property.getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value().newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        try {
+            Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
+            if (typeHandler != null && !TypeHandler.class.equals(typeHandler)) {
+                return typeHandler.newInstance();
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
 

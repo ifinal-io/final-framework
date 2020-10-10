@@ -1,5 +1,6 @@
 package org.finalframework.annotation.data;
 
+import org.apache.ibatis.type.TypeHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -27,5 +28,8 @@ public @interface Geometry {
 
     @AliasFor(annotation = Column.class)
     String name() default "";
+
+    @AliasFor(annotation = Column.class)
+    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 
 }

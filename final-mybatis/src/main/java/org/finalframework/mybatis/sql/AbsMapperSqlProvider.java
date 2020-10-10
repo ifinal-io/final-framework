@@ -39,12 +39,9 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
     }
 
     default Class<? extends TypeHandler> getTypeHandler(QProperty<?> property) {
-        final Class<? extends TypeHandler<?>> typeHandler = property.getTypeHandler();
+        final Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
         if (typeHandler == null) {
             final Property propertyProperty = property.getProperty();
-            if (propertyProperty.isAnnotationPresent(org.finalframework.annotation.data.TypeHandler.class)) {
-                return propertyProperty.getRequiredAnnotation(org.finalframework.annotation.data.TypeHandler.class).value();
-            }
 
             if (propertyProperty.isAnnotationPresent(Json.class) || propertyProperty.isCollectionLike()) {
                 return JsonObjectTypeHandler.class;

@@ -4,7 +4,10 @@ package org.finalframework.mybatis.sql.provider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.finalframework.annotation.data.*;
+import org.finalframework.annotation.data.AbsEntity;
+import org.finalframework.annotation.data.Function;
+import org.finalframework.annotation.data.Geometry;
+import org.finalframework.annotation.data.Transient;
 import org.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
 
@@ -23,8 +26,7 @@ public class Person extends AbsEntity {
     public String vcolumn;
     private String name;
     private Integer age;
-    @TypeHandler(PointTypeHandler.class)
-    @Geometry
+    @Geometry(typeHandler = PointTypeHandler.class)
     private Point point;
     @Function(reader = "MAX(age) as ${column}")
     private Integer maxAge;
