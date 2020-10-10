@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.finalframework.annotation.data.AbsEntity;
 
+import java.util.List;
+
 /**
  * @author likly
  * @version 1.0
@@ -14,7 +16,8 @@ import org.finalframework.annotation.data.AbsEntity;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-class Person extends AbsEntity {
+public class Person extends AbsEntity {
     private String name;
     private Integer age;
+    private List<Integer> intList;
 }

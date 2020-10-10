@@ -12,6 +12,7 @@ import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -31,7 +32,8 @@ public class AnnotationQueryProvider implements QueryProvider {
     }
 
     @Override
-    public String provide(String expression, Class<? extends IEntity<?>> entity, Class<?> query) {
+    @NonNull
+    public String provide(String expression, @NonNull Class<? extends IEntity<?>> entity, @NonNull Class<?> query) {
 
         final StringBuilder builder = new StringBuilder();
 

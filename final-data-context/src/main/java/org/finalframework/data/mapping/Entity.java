@@ -1,9 +1,12 @@
 package org.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.finalframework.annotation.data.NameConverter;
 import org.finalframework.annotation.data.NonCompare;
+import org.finalframework.annotation.data.Table;
 import org.finalframework.core.Asserts;
 import org.finalframework.core.Streamable;
+import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.serializer.EntityJsonSerializer;
 import org.springframework.data.mapping.PersistentEntity;
 
@@ -41,6 +44,22 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
                         .value(property.get(before), property.get(after))
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    default String getSimpleName() {
+        return getType().getSimpleName();
+    }
+
+    default String getTable() {
+        NameConverter nameConverter = NameConverterRegistry.getInstance().getTableNameConverter();
+        if (isAnnotationPresent(Table.class)) {
+            Table table = getRequiredAnnotation(Table.class);
+            if (Asserts.nonEmpty(table.value())) {
+                return nameConverter.convert(table.value());
+            }
+        }
+
+        return nameConverter.convert(getSimpleName());
     }
 
     /**

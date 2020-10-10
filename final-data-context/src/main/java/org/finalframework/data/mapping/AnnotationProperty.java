@@ -119,7 +119,10 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @SuppressWarnings("rawtypes")
     private final Lazy<Class<? extends TypeHandler>> typeHandler = Lazy.of(() -> {
         if (isAnnotationPresent(Column.class)) {
-            return getRequiredAnnotation(Column.class).typeHandler();
+            Class<? extends TypeHandler> handler = getRequiredAnnotation(Column.class).typeHandler();
+            if (TypeHandler.class != handler) {
+                return handler;
+            }
         }
 
         if (isAnnotationPresent(Json.class)) {

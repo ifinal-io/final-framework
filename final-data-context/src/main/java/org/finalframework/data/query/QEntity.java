@@ -16,10 +16,18 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
         return new AbsQEntity<>(entity);
     }
 
+    Class<T> getType();
+
+    default String getName() {
+        return getType().getName();
+    }
+
+    default String getSimpleName() {
+        return getType().getSimpleName();
+    }
 
     String getTable();
 
-    Class<T> getType();
 
     QProperty<ID> getIdProperty();
 
