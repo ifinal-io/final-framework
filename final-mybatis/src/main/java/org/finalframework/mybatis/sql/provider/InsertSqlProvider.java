@@ -187,7 +187,9 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
                     if (property.getPath().contains(".")) {
                         final StringBuilder value = new StringBuilder();
-                        value.append("<choose>")
+                        value
+                                .append("<trim suffix=\",\">")
+                                .append("<choose>")
                                 .append("<when test=\"")
                                 .append(ScriptMapperHelper.formatTest("entity", property.getPath(), false))
                                 .append("\">");
@@ -205,10 +207,15 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         value
                                 .append("</when>")
                                 .append("<otherwise>null</otherwise>")
-                                .append("</choose>");
+                                .append("</choose>")
+                                .append(TRIM_END);
                         return value.toString();
 
                     } else {
+
+                        final StringBuilder value = new StringBuilder();
+                        value.append("<trim suffix=\",\">");
+
                         final Metadata metadata = new Metadata();
                         metadata.setProperty(property.getName());
                         metadata.setColumn(property.getColumn());
@@ -217,12 +224,15 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                        return Velocities.getValue(writer, metadata);
+                        value.append(Velocities.getValue(writer, metadata));
+                        value.append(TRIM_END);
+
+                        return value.toString();
                     }
 
 
                 })
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining());
 
         sql.append(values);
 

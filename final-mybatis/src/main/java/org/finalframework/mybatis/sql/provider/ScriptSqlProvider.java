@@ -24,8 +24,9 @@ public interface ScriptSqlProvider extends SqlProvider {
         sql.append("<script>");
         doProvide(sql, context, parameters);
         sql.append("</script>");
-        logger.info("sql ==> {}", sql.toString());
-        return sql.toString();
+        String value = sql.toString();
+        logger.info("sql ==> {}", value);
+        return value;
     }
 
     void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters);
