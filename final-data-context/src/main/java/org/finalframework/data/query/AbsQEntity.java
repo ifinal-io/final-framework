@@ -26,6 +26,7 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     private final String table;
 
     private QProperty<?> idProperty;
+    private QProperty<?> versionProperty;
 
     public AbsQEntity(Class<T> type) {
         this(type, NameConverterRegistry.getInstance().getTableNameConverter().convert(
@@ -105,6 +106,8 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
         this.pathProperties.put(property.getPath(), property);
         if (property.isIdProperty()) {
             this.idProperty = property;
+        } else if (property.isVersionProperty()) {
+            this.versionProperty = property;
         }
     }
 
@@ -121,6 +124,11 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     @Override
     public QProperty<ID> getIdProperty() {
         return (QProperty<ID>) this.idProperty;
+    }
+
+    @Override
+    public QProperty getVersionProperty() {
+        return this.versionProperty;
     }
 
     @Override

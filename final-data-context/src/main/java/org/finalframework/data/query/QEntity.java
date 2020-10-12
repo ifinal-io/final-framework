@@ -31,6 +31,12 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
 
     QProperty<ID> getIdProperty();
 
+    QProperty getVersionProperty();
+
+    default boolean hasVersionProperty() {
+        return getVersionProperty() != null;
+    }
+
     <E> QProperty<E> getProperty(String path);
 
     default QProperty getRequiredProperty(String path) {

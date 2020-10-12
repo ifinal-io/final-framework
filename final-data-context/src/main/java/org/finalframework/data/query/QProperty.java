@@ -69,6 +69,10 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
     boolean isIdProperty();
 
+    default boolean isVersionProperty() {
+        return getProperty().isVersionProperty();
+    }
+
     boolean isReadable();
 
     /**

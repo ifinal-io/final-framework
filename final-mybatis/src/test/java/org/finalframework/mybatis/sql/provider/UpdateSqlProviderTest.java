@@ -7,13 +7,12 @@ import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.data.query.Query;
+import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,12 +29,12 @@ class UpdateSqlProviderTest {
     /**
      * @throws NoSuchMethodException
      * @see UpdateSqlProvider#update(ProviderContext, Map)
-     * @see AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, Query)
+     * @see AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
      */
     @Test
     void update() throws NoSuchMethodException {
 
-        final Method update = AbsMapper.class.getMethod("update", new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class});
+        final Method update = AbsMapper.class.getMethod("update", new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class});
         /**
          * @see ProviderSqlSource
          */
@@ -45,8 +44,12 @@ class UpdateSqlProviderTest {
         parameters.put("table", "person");
 //        parameters.put("view", IView.class);
         parameters.put("view", null);
-        parameters.put("ignore", false);
-        parameters.put("list", Arrays.asList(new Person()));
+        parameters.put("selective", false);
+        Person person = new Person();
+        person.setAge(12);
+        person.setName("haha");
+//        person.setCreator(person);
+        parameters.put("entity", person);
 
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
 

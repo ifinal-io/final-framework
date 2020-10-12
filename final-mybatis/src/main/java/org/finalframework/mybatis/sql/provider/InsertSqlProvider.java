@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * <pre>
+ * <pre class="code">
  *     <code>
  *         <script>
  *             <trim prefix="INSERT INFO | INSERT IGNORE INTO | REPLACE INTO">
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  *             </trim>
  *             <trim prefix="(" suffix=")" suffixOverrides=",">
  *                  <if test="entity.property.hasView(view)">
- *                      property.column,
+ *                      entity.property.column,
  *                  </if>
  *             </trim>
  *             <foreach collection="list" item="entity" open="VALUES" separator=",">
@@ -53,20 +53,19 @@ import java.util.stream.Collectors;
  * @see org.finalframework.mybatis.mapper.AbsMapper#save(String, Class, Collection)
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
-    public static final String METHOD_INSERT = "insert";
-    public static final String METHOD_REPLACE = "replace";
-    public static final String METHOD_SAVE = "save";
+    private static final String METHOD_INSERT = "insert";
+    private static final String METHOD_REPLACE = "replace";
+    private static final String METHOD_SAVE = "save";
 
     private static final String INSERT_INTO = "INSERT INTO";
     private static final String INSERT_IGNORE_INTO = "INSERT IGNORE INTO";
     private static final String REPLACE_INTO = "REPLACE INTO";
-    public static final String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
 
     private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
-    public static final String TRIM_END = "</trim>";
+
+    private static final String TRIM_END = "</trim>";
 
 
     /**
@@ -97,18 +96,16 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         final String insertPrefix = getInsertPrefix(context.getMapperMethod(),
                 parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
 
-        Class<?> view = (Class<?>) parameters.get("view");
-
-        final Class<?> entity = getEntityClass(context.getMapperType());
-        final QEntity<?, ?> properties = QEntity.from(entity);
-        parameters.put("entity", properties);
+        final Class<?> view = (Class<?>) parameters.get("view");
+        final QEntity<?, ?> entity = QEntity.from(getEntityClass(context.getMapperType()));
+        parameters.put("entity", entity);
 
 
         appendInsertOrReplaceOrSave(sql, insertPrefix);
-        appendColumns(sql, properties, view);
-        appendValues(sql, properties, view);
+        appendColumns(sql, entity, view);
+        appendValues(sql, entity, view);
         if (METHOD_SAVE.equals(context.getMapperMethod().getName())) {
-            appendOnDuplicateKeyUpdate(sql, properties, view);
+            appendOnDuplicateKeyUpdate(sql, entity, view);
         }
 
     }
@@ -153,25 +150,21 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      */
     private void appendColumns(StringBuilder sql, QEntity<?, ?> entity, Class<?> view) {
 
+        // <trim prefix="(" suffix=)"" suffixOverrides=",">
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
 
+        // <if test="entity.property.hasView(view)">
+        //      entity.property.column,
+        // </if>
         entity.stream()
                 .filter(QProperty::isWriteable)
-                .forEach(property -> {
-                    sql.append("<if test=\"entity.getRequiredProperty('")
-                            .append(property.getPath())
-                            .append("').hasView(view)\">")
-                            .append(property.getColumn())
-                            .append(",</if>");
-                });
-
-
-//        sql.append(ScriptMapperHelper.cdata(
-//                properties.stream()
-//                        .filter(property -> property.isWriteable() && property.hasView(view))
-//                        .map(QProperty::getColumn)
-//                        .collect(Collectors.joining(","))
-//        ));
+                .forEach(property ->
+                        sql.append("<if test=\"entity.getRequiredProperty('")
+                                .append(property.getPath())
+                                .append("').hasView(view)\">")
+                                .append(property.getColumn())
+                                .append(",</if>"));
+        // </trim>
         sql.append(TRIM_END);
     }
 
@@ -237,68 +230,12 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
                         value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, metadata) + ","));
                         sql.append(value.toString());
-//                        sql.append(",");
                     }
 
 
                     sql.append("</if>");
                 });
 
-
-//        final String values = entity.stream()
-//                .filter(property -> property.isWriteable() && property.hasView(view))
-//                .map(property -> {
-//
-//                    if (property.getPath().contains(".")) {
-//                        final StringBuilder value = new StringBuilder();
-//                        value
-//                                .append("<trim suffix=\",\">")
-//                                .append("<choose>")
-//                                .append("<when test=\"")
-//                                .append(ScriptMapperHelper.formatTest("item", property.getPath(), false))
-//                                .append("\">");
-//
-//                        final Metadata metadata = new Metadata();
-//                        metadata.setProperty(property.getName());
-//                        metadata.setColumn(property.getColumn());
-//                        metadata.setValue("item." + property.getName());
-//                        metadata.setJavaType(property.getType());
-//                        metadata.setTypeHandler(property.getTypeHandler());
-//
-//                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-//                        value.append(Velocities.getValue(writer, metadata));
-//
-//                        value
-//                                .append("</when>")
-//                                .append("<otherwise>null</otherwise>")
-//                                .append("</choose>")
-//                                .append(TRIM_END);
-//                        return value.toString();
-//
-//                    } else {
-//
-//                        final StringBuilder value = new StringBuilder();
-//                        value.append("<trim suffix=\",\">");
-//
-//                        final Metadata metadata = new Metadata();
-//                        metadata.setProperty(property.getName());
-//                        metadata.setColumn(property.getColumn());
-//                        metadata.setValue(property.getName());
-//                        metadata.setJavaType(property.getType());
-//                        metadata.setTypeHandler(property.getTypeHandler());
-//
-//                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-//                        value.append(Velocities.getValue(writer, metadata));
-//                        value.append(TRIM_END);
-//
-//                        return value.toString();
-//                    }
-//
-//
-//                })
-//                .collect(Collectors.joining());
-//
-//        sql.append(values);
 
         sql.append(TRIM_END);
 

@@ -38,7 +38,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final boolean selectable;
 
     public QPropertyImpl(BuilderImpl<T, E> builder) {
-//        super(null);
         this.entity = builder.entity;
         this.property = builder.property;
         this.order = builder.order;
@@ -134,7 +133,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     @Override
     public boolean hasView(Class<?> view) {
-        if (view == null) return true;
+        if (view == null || Asserts.isEmpty(views)) return true;
         for (Class<?> item : views) {
             if (item.isAssignableFrom(view) || item.equals(view)) return true;
         }

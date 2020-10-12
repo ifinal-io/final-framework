@@ -50,6 +50,20 @@
         </where>
     </sql>
 
+    <sql id="sql-update">
+        <trim prefix="UPDATE">%{table}</trim>
+        <set>
+            <if test="properties.property.hasView(view)">
+                <choose>
+                    <when test="selective == true and entity.property != null">
+                        ${entity.property.column} = ${entity.property.path}
+                    </when>
+                    <otherwise>${entity.property.column} = null,</otherwise>
+                </choose>
+            </if>
+        </set>
+    </sql>
+
     <sql id="sql-function-single">
         <trim prefix="${prefix}" suffix="${suffix}">
             <include refid="${value}"/>
