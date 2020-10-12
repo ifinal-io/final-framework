@@ -61,7 +61,7 @@ public class InlineSelectInterceptor implements Interceptor {
 
             if (resultMaps.size() == 1 && PATTERN.matcher(id).find()
                     && IEntity.class.isAssignableFrom(resultMaps.get(0).getType())) {
-                final MappedStatement mappedStatement = newCountMappedStatement(ms, id + "-final");
+                final MappedStatement mappedStatement = newFinalMappedStatement(ms, id + "-final");
                 return executor.query(mappedStatement, param, rowBounds, resultHandler);
             }
 
@@ -79,7 +79,7 @@ public class InlineSelectInterceptor implements Interceptor {
         return Plugin.wrap(target, this);
     }
 
-    public MappedStatement newCountMappedStatement(MappedStatement ms, String newMsId) {
+    public MappedStatement newFinalMappedStatement(MappedStatement ms, String newMsId) {
         MappedStatement.Builder builder = new MappedStatement.Builder(ms.getConfiguration(), newMsId, ms.getSqlSource(), ms.getSqlCommandType());
         builder.resource(ms.getResource());
         builder.fetchSize(ms.getFetchSize());
