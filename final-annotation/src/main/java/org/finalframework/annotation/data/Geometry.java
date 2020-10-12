@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * @since 1.0
  */
 @Column(
-        writer = "ST_GeomFromText(#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end #if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end})",
+        writer = "ST_GeomFromText(#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end})",
         reader = "ST_ASTEXT(${column}) as ${column}"
 )
 @Retention(RetentionPolicy.RUNTIME)

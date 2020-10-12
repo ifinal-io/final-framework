@@ -136,7 +136,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     public boolean hasView(Class<?> view) {
         if (view == null) return true;
         for (Class<?> item : views) {
-            if (item.isAssignableFrom(view)) return true;
+            if (item.isAssignableFrom(view) || item.equals(view)) return true;
         }
         return false;
     }

@@ -4,6 +4,7 @@ package org.finalframework.mybatis.sql.provider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.finalframework.annotation.IView;
 import org.finalframework.annotation.data.*;
 import org.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
@@ -21,6 +22,7 @@ import org.springframework.data.geo.Point;
 public class Person extends AbsEntity {
     @Virtual
     public String vcolumn;
+    @View(IView.class)
     private String name;
     private Integer age;
     @Geometry(typeHandler = PointTypeHandler.class)

@@ -6,6 +6,7 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
+import org.finalframework.annotation.IView;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
@@ -40,8 +41,7 @@ class InsertSqlProviderTest {
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
-        parameters.put("view", null);
-        parameters.put("view", null);
+        parameters.put("view", IView.class);
         parameters.put("ignore", false);
         parameters.put("list", Arrays.asList(new Person()));
 
@@ -52,11 +52,54 @@ class InsertSqlProviderTest {
 
     }
 
+    /**
+     * @throws NoSuchMethodException
+     * @see AbsMapper#replace(String, Class, Collection)
+     */
     @Test
-    void replace() {
+    void replace() throws NoSuchMethodException {
+
+        final Method replace = AbsMapper.class.getMethod("replace", new Class[]{String.class, Class.class, Collection.class});
+        /**
+         * @see ProviderSqlSource
+         */
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), replace.getAnnotation(InsertProvider.class), PersonMapper.class, replace);
+        final HashMap<String, Object> parameters = new HashMap<>();
+
+        parameters.put("table", "person");
+        parameters.put("view", null);
+        parameters.put("view", null);
+        parameters.put("ignore", false);
+        parameters.put("list", Arrays.asList(new Person()));
+
+        final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
+
+        final String sql = boundSql.getSql();
+        logger.info(sql);
     }
 
+    /**
+     * @throws NoSuchMethodException
+     * @see AbsMapper#save(String, Class, Collection)
+     */
     @Test
-    void save() {
+    void save() throws NoSuchMethodException {
+        final Method save = AbsMapper.class.getMethod("save", new Class[]{String.class, Class.class, Collection.class});
+        /**
+         * @see ProviderSqlSource
+         */
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), save.getAnnotation(InsertProvider.class), PersonMapper.class, save);
+        final HashMap<String, Object> parameters = new HashMap<>();
+
+        parameters.put("table", "person");
+        parameters.put("view", null);
+        parameters.put("view", null);
+        parameters.put("ignore", false);
+        parameters.put("list", Arrays.asList(new Person()));
+
+        final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
+
+        final String sql = boundSql.getSql();
+        logger.info(sql);
     }
 }

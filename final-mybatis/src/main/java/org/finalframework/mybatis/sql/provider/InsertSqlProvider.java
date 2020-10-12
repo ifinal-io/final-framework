@@ -24,12 +24,16 @@ import java.util.stream.Collectors;
  *             <trim prefix="INSERT INFO | INSERT IGNORE INTO | REPLACE INTO">
  *                 ${table}
  *             </trim>
- *             <trim prefix="(" suffix=")">
- *                  columns
+ *             <trim prefix="(" suffix=")" suffixOverrides=",">
+ *                  <if test="entity.property.hasView(view)">
+ *                      property.column,
+ *                  </if>
  *             </trim>
  *             <foreach collection="list" item="entity" open="VALUES" separator=",">
- *                  <trim prefix="(" suffix=")">
- *                      values
+ *                  <trim prefix="(" suffix=")" suffixOverrides=",">
+ *                      <if test="entity.property.hasView(view)">
+ *                          ${property.path,javaType=,typeHandler=},
+ *                      </if>
  *                  </trim>
  *             </foreach>
  *             <trim prefix="ON DUPLICATE KEY UPDATE">
@@ -97,6 +101,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
+        parameters.put("entity", properties);
 
 
         appendInsertOrReplaceOrSave(sql, insertPrefix);
@@ -142,19 +147,31 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      *     </code>
      * </pre>
      *
-     * @param sql        sql
-     * @param properties properties
-     * @param view       view
+     * @param sql    sql
+     * @param entity entity
+     * @param view   view
      */
-    private void appendColumns(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
+    private void appendColumns(StringBuilder sql, QEntity<?, ?> entity, Class<?> view) {
 
-        sql.append("<trim prefix=\"(\" suffix=\")\">");
-        sql.append(ScriptMapperHelper.cdata(
-                properties.stream()
-                        .filter(property -> property.isWriteable() && property.hasView(view))
-                        .map(QProperty::getColumn)
-                        .collect(Collectors.joining(","))
-        ));
+        sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
+
+        entity.stream()
+                .filter(QProperty::isWriteable)
+                .forEach(property -> {
+                    sql.append("<if test=\"entity.getRequiredProperty('")
+                            .append(property.getPath())
+                            .append("').hasView(view)\">")
+                            .append(property.getColumn())
+                            .append(",</if>");
+                });
+
+
+//        sql.append(ScriptMapperHelper.cdata(
+//                properties.stream()
+//                        .filter(property -> property.isWriteable() && property.hasView(view))
+//                        .map(QProperty::getColumn)
+//                        .collect(Collectors.joining(","))
+//        ));
         sql.append(TRIM_END);
     }
 
@@ -169,72 +186,119 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      *     </code>
      * </pre>
      *
-     * @param sql        sql
-     * @param properties properties
-     * @param view       view
+     * @param sql    sql
+     * @param entity entity
+     * @param view   view
      */
-    private void appendValues(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
-        sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\" separator=\",\">");
-
-//        properties.stream()
-//                .filter(property -> property.isWriteable() && property.hasView(view))
-//                .forEach(property -> sql.append(ScriptMapperHelper.bind(property.getName(), ScriptMapperHelper.formatBindValue("entity", property.getPath()))));
+    private void appendValues(StringBuilder sql, QEntity<?, ?> entity, Class<?> view) {
+        sql.append("<foreach collection=\"list\" item=\"item\" open=\"VALUES\" separator=\",\">");
 
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
-        final String values = properties.stream()
-                .filter(property -> property.isWriteable() && property.hasView(view))
-                .map(property -> {
+
+        entity.stream()
+                .filter(QProperty::isWriteable)
+                .forEach(property -> {
+                    sql.append("<if test=\"entity.getRequiredProperty('")
+                            .append(property.getPath())
+                            .append("').hasView(view)\">");
 
                     if (property.getPath().contains(".")) {
                         final StringBuilder value = new StringBuilder();
                         value
-                                .append("<trim suffix=\",\">")
                                 .append("<choose>")
                                 .append("<when test=\"")
-                                .append(ScriptMapperHelper.formatTest("entity", property.getPath(), false))
+                                .append(ScriptMapperHelper.formatTest("item", property.getPath(), false))
                                 .append("\">");
 
                         final Metadata metadata = new Metadata();
                         metadata.setProperty(property.getName());
                         metadata.setColumn(property.getColumn());
-                        metadata.setValue("entity." + property.getName());
+                        metadata.setValue("item." + property.getName());
                         metadata.setJavaType(property.getType());
                         metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                        value.append(Velocities.getValue(writer, metadata));
+                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, metadata) + ","));
 
                         value
                                 .append("</when>")
-                                .append("<otherwise>null</otherwise>")
-                                .append("</choose>")
-                                .append(TRIM_END);
-                        return value.toString();
-
+                                .append("<otherwise>null,</otherwise>")
+                                .append("</choose>");
+                        sql.append(value.toString());
                     } else {
-
                         final StringBuilder value = new StringBuilder();
-                        value.append("<trim suffix=\",\">");
-
                         final Metadata metadata = new Metadata();
                         metadata.setProperty(property.getName());
                         metadata.setColumn(property.getColumn());
-                        metadata.setValue(property.getName());
+                        metadata.setValue("item." + property.getName());
                         metadata.setJavaType(property.getType());
                         metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                        value.append(Velocities.getValue(writer, metadata));
-                        value.append(TRIM_END);
-
-                        return value.toString();
+                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, metadata) + ","));
+                        sql.append(value.toString());
+//                        sql.append(",");
                     }
 
 
-                })
-                .collect(Collectors.joining());
+                    sql.append("</if>");
+                });
 
-        sql.append(values);
+
+//        final String values = entity.stream()
+//                .filter(property -> property.isWriteable() && property.hasView(view))
+//                .map(property -> {
+//
+//                    if (property.getPath().contains(".")) {
+//                        final StringBuilder value = new StringBuilder();
+//                        value
+//                                .append("<trim suffix=\",\">")
+//                                .append("<choose>")
+//                                .append("<when test=\"")
+//                                .append(ScriptMapperHelper.formatTest("item", property.getPath(), false))
+//                                .append("\">");
+//
+//                        final Metadata metadata = new Metadata();
+//                        metadata.setProperty(property.getName());
+//                        metadata.setColumn(property.getColumn());
+//                        metadata.setValue("item." + property.getName());
+//                        metadata.setJavaType(property.getType());
+//                        metadata.setTypeHandler(property.getTypeHandler());
+//
+//                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+//                        value.append(Velocities.getValue(writer, metadata));
+//
+//                        value
+//                                .append("</when>")
+//                                .append("<otherwise>null</otherwise>")
+//                                .append("</choose>")
+//                                .append(TRIM_END);
+//                        return value.toString();
+//
+//                    } else {
+//
+//                        final StringBuilder value = new StringBuilder();
+//                        value.append("<trim suffix=\",\">");
+//
+//                        final Metadata metadata = new Metadata();
+//                        metadata.setProperty(property.getName());
+//                        metadata.setColumn(property.getColumn());
+//                        metadata.setValue(property.getName());
+//                        metadata.setJavaType(property.getType());
+//                        metadata.setTypeHandler(property.getTypeHandler());
+//
+//                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+//                        value.append(Velocities.getValue(writer, metadata));
+//                        value.append(TRIM_END);
+//
+//                        return value.toString();
+//                    }
+//
+//
+//                })
+//                .collect(Collectors.joining());
+//
+//        sql.append(values);
 
         sql.append(TRIM_END);
 
