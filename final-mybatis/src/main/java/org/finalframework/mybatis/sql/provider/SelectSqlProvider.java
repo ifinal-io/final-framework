@@ -6,20 +6,24 @@ import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.data.Metadata;
 import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
+import org.finalframework.data.query.QProperty;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <pre>
  *     <code>
- *         <trim prefix="SELECT">
- *              ${columns}
+ *         <trim prefix="SELECT" suffixOverrides=",">
+ *              <if test="entity.property.hasView(view)">
+ *                  property.column,
+ *              </if>
  *         </trim>
  *         <trim prefix="FROM">
  *              ${table}
@@ -68,31 +72,16 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
+        parameters.put("entity", properties);
 
         /*
          * <trim prefix="SELECT">
          *      columns
          * </trim>
          */
-        sql.append("<trim prefix=\"SELECT\">");
-        final String columns = properties.stream()
-                .filter(property -> property.isReadable() && property.hasView(view))
-                .map(property -> {
+        sql.append("<trim prefix=\"SELECT\" suffixOverrides=\",\">");
 
-                    final Metadata metadata = new Metadata();
-
-                    metadata.setProperty(property.getName());
-                    metadata.setColumn(property.getColumn());
-                    metadata.setValue(property.getName());
-                    metadata.setJavaType(property.getType());
-                    metadata.setTypeHandler(property.getTypeHandler());
-
-                    final String reader = Asserts.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
-
-                    return Velocities.getValue(reader, metadata);
-                }).collect(Collectors.joining(","));
-
-        sql.append(columns);
+        appendColumns(sql, properties, view);
 
         sql.append("</trim>");
         /*
@@ -129,6 +118,29 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
 
     }
 
+    private void appendColumns(@NonNull StringBuilder sql, @NonNull QEntity<?, ?> entity, @Nullable Class<?> view) {
+        entity.stream()
+                .filter(QProperty::isReadable)
+                .forEach(property -> {
+                    sql.append("<if test=\"entity.getRequiredProperty('")
+                            .append(property.getPath())
+                            .append("').hasView(view)\">");
+
+
+                    final Metadata metadata = new Metadata();
+
+                    metadata.setProperty(property.getName());
+                    metadata.setColumn(property.getColumn());
+                    metadata.setValue(property.getName());
+                    metadata.setJavaType(property.getType());
+                    metadata.setTypeHandler(property.getTypeHandler());
+
+                    final String reader = Asserts.isBlank(property.getReader()) ? DEFAULT_READER : property.getReader();
+
+                    sql.append(Velocities.getValue(reader, metadata));
+                    sql.append(",</if>");
+                });
+    }
 
 
 }

@@ -6,7 +6,6 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.annotation.IView;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +40,8 @@ class InsertSqlProviderTest {
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
-        parameters.put("view", IView.class);
+//        parameters.put("view", IView.class);
+        parameters.put("view", null);
         parameters.put("ignore", false);
         parameters.put("list", Arrays.asList(new Person()));
 
