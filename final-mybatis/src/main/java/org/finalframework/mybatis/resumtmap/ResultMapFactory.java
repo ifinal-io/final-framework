@@ -30,11 +30,14 @@ import java.util.stream.Collectors;
  * @date 2020-04-12 15:44:14
  * @since 1.0
  */
-public class ResultMapFactory {
+public final class ResultMapFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(ResultMapFactory.class);
 
     private static final Map<Class<?>, ResultMap> resultMaps = new ConcurrentHashMap<>();
+
+    private ResultMapFactory() {
+    }
 
     public static ResultMap from(@NonNull Configuration configuration, Class<?> entity) {
         return from(configuration, Entity.from(entity));
