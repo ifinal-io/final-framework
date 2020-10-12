@@ -11,10 +11,15 @@ import java.util.stream.Collectors;
  * @date 2020-06-05 17:04:05
  * @since 1.0
  */
-public class ScriptMapperHelper {
+public abstract class ScriptMapperHelper {
+
+    private static final String TABLE = "${table}";
+
+    private ScriptMapperHelper() {
+    }
 
     public static String table() {
-        return "${table}";
+        return TABLE;
     }
 
     public static String cdata(String data) {

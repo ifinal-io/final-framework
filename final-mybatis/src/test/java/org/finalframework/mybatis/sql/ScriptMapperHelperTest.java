@@ -16,10 +16,16 @@ class ScriptMapperHelperTest {
 
     @Test
     void formatTest() {
-
         String test = ScriptMapperHelper.formatTest("item", "creator.id", false);
         logger.info(test);
         assertEquals("item.creator != null", test);
+    }
 
+
+    @Test
+    void formatTest2() {
+        String test = ScriptMapperHelper.formatTest("item", "creator.id", true);
+        logger.info(test);
+        assertEquals("item.creator != null and item.creator.id != null", test);
     }
 }

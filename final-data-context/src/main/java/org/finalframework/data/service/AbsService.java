@@ -1,7 +1,7 @@
 package org.finalframework.data.service;
 
 import org.finalframework.annotation.IEntity;
-import org.finalframework.data.query.Query;
+import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
@@ -34,33 +34,33 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
-    default int update(String table, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, Query query) {
+    default int update(String table, Class<?> view, T entity, Update update, boolean selective, Collection<ID> ids, IQuery query) {
         return getRepository().update(table, view, entity, update, selective, ids, query);
     }
 
     @Override
-    default int delete(String table, Collection<ID> ids, Query query) {
+    default int delete(String table, Collection<ID> ids, IQuery query) {
         return getRepository().delete(table, ids, query);
     }
 
     @Override
-    default List<T> select(String table, Class<?> view, Collection<ID> ids, Query query) {
+    default List<T> select(String table, Class<?> view, Collection<ID> ids, IQuery query) {
         return getRepository().select(table, view, ids, query);
     }
 
     @Override
-    default T selectOne(String table, Class<?> view, ID id, Query query) {
+    default T selectOne(String table, Class<?> view, ID id, IQuery query) {
         return getRepository().selectOne(table, view, id, query);
     }
 
     @Override
-    default List<ID> selectIds(String table, Query query) {
+    default List<ID> selectIds(String table, IQuery query) {
         return getRepository().selectIds(table, query);
     }
 
 
     @Override
-    default long selectCount(String table, Collection<ID> ids, Query query) {
+    default long selectCount(String table, Collection<ID> ids, IQuery query) {
         return getRepository().selectCount(table, ids, query);
     }
 

@@ -3,7 +3,7 @@ package org.finalframework.mybatis.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.data.query.Query;
+import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.sql.provider.*;
@@ -62,22 +62,22 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     @UpdateProvider(UpdateSqlProvider.class)
     int update(@Param("table") String table, @Param("view") Class<?> view,
                @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
-               @Param("ids") Collection<ID> ids, @Param("query") Query query);
+               @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
 
     @Override
     @DeleteProvider(DeleteSqlProvider.class)
-    int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+    int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
     List<T> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids,
-                   @Param("query") Query query);
+                   @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
-    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") Query query);
+    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectCountSqlProvider.class)
-    long selectCount(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") Query query);
+    long selectCount(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
 }

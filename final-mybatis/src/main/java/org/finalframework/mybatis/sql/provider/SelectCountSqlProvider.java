@@ -2,7 +2,10 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.finalframework.annotation.IEntity;
+import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
+import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 
 import java.util.Collection;
@@ -43,6 +46,9 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
         Object ids = parameters.get("ids");
         Object query = parameters.get("query");
 
+        final Class<?> entity = getEntityClass(context.getMapperType());
+        final QEntity<?, ?> properties = QEntity.from(entity);
+
         sql.append("<trim prefix=\"SELECT COUNT(*) FROM\">${table}</trim>");
 
 
@@ -50,6 +56,8 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
             sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");
+        } else if (query != null) {
+            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
 

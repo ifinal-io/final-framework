@@ -9,6 +9,7 @@ import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.query.UpdateSetOperation;
+import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
@@ -135,6 +136,8 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, "query");
+        } else if (query != null) {
+            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
 

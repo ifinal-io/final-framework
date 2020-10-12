@@ -1,6 +1,6 @@
 package org.finalframework.annotation.query;
 
-import org.finalframework.annotation.IQuery;
+import lombok.Data;
 import org.finalframework.annotation.Pageable;
 
 import java.io.Serializable;
@@ -13,7 +13,8 @@ import java.io.Serializable;
  * @date 2019-02-12 12:41:24
  * @since 1.0
  */
-public class PageQuery implements IQuery, Pageable, Serializable {
+@Data
+public class PageQuery implements Pageable, Serializable {
 
     private static final long serialVersionUID = 4813020012879522797L;
     /**
@@ -39,32 +40,5 @@ public class PageQuery implements IQuery, Pageable, Serializable {
      * 是否启用Count统计
      */
     private Boolean count = Boolean.TRUE;
-
-    @Override
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    @Override
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    @Override
-    public Boolean getCount() {
-        return count;
-    }
-
-    public void setCount(Boolean count) {
-        this.count = count;
-    }
 
 }

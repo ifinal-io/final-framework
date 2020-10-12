@@ -2,6 +2,7 @@ package org.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.finalframework.annotation.Pageable;
 import org.finalframework.annotation.query.Direction;
 import org.finalframework.core.Asserts;
@@ -22,21 +23,24 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
-public class Query implements Streamable<Criterion>, Serializable, Pageable, Queryable, Sql<Query>, SqlNode {
+public class Query implements Streamable<Criterion>, Serializable, Pageable, Sql<Query>, SqlNode {
 
     /**
      * 页码，第一页从1开始
      */
     @Getter
+    @Setter
     private Integer page;
     /**
      * 页面容量
      */
+    @Setter
     @Getter
     private Integer size;
     /**
      * 是否进行Count查询
      */
+    @Setter
     @Getter
     private Boolean count = Boolean.TRUE;
     @Getter
@@ -135,11 +139,6 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Que
     @Override
     public String getSql() {
         return new QuerySqlBuilder(this).build();
-    }
-
-    @Override
-    public Query convert() {
-        return this;
     }
 
     @Override
