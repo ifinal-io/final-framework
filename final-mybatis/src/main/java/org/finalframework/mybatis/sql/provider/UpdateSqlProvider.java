@@ -120,8 +120,15 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * <pre class="code">
      *      <set>
      *          <if test="properties.property.hasView(view)">
-     *              <choose
-     *              properties.property.column = #{entity.property}
+     *              <choose>
+     *                  <when test="selective and entity.property != null">
+     *                      ${properties.property.column} = #{entity.property}
+     *                  </when>
+     *                  <when test="!selective and entity.property != null">
+     *                      ${properties.property.column} = #{entity.property}
+     *                  </when>
+     *                  <otherwise>${properties.property.column} = null,</otherwise>
+     *              </choose>
      *          </if>
      *      </set>
      * </pre>
