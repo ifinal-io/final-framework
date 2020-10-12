@@ -7,6 +7,7 @@ import org.finalframework.context.beans.factory.support.SpringFactoryBeanDefinit
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
+import org.springframework.lang.NonNull;
 
 import java.util.HashSet;
 
@@ -22,7 +23,7 @@ import java.util.HashSet;
 public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
-    public void initialize(ConfigurableApplicationContext applicationContext) {
+    public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
 
         final HashSet<String> springFactories = new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
         for (String annotationName : springFactories) {

@@ -162,7 +162,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * <pre>
      *     <code>
      *         <foreach collection="list" item="entity" open="VALUES" separator=",">
-     *              <trim prefix="(" suffix=")">
+     *              <trim prefix="(" suffix=")" suffixOverrides=",">
      *                  values
      *              </trim>
      *         </foreach>
@@ -176,25 +176,53 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private void appendValues(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
         sql.append("<foreach collection=\"list\" item=\"entity\" open=\"VALUES\" separator=\",\">");
 
-        properties.stream()
-                .filter(property -> property.isWriteable() && property.hasView(view))
-                .forEach(property -> sql.append(ScriptMapperHelper.bind(property.getName(), ScriptMapperHelper.formatBindValue("entity", property.getPath()))));
+//        properties.stream()
+//                .filter(property -> property.isWriteable() && property.hasView(view))
+//                .forEach(property -> sql.append(ScriptMapperHelper.bind(property.getName(), ScriptMapperHelper.formatBindValue("entity", property.getPath()))));
 
-        sql.append("<trim prefix=\"(\" suffix=\")\">");
+        sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
         final String values = properties.stream()
                 .filter(property -> property.isWriteable() && property.hasView(view))
                 .map(property -> {
-                    final Metadata metadata = new Metadata();
-                    metadata.setProperty(property.getName());
-                    metadata.setColumn(property.getColumn());
-                    metadata.setValue(property.getName());
-                    metadata.setJavaType(property.getType());
-                    metadata.setTypeHandler(property.getTypeHandler());
 
-                    final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                    return Velocities.getValue(writer, metadata);
+                    if (property.getPath().contains(".")) {
+                        final StringBuilder value = new StringBuilder();
+                        value.append("<choose>")
+                                .append("<when test=\"")
+                                .append(ScriptMapperHelper.formatTest("entity", property.getPath(), false))
+                                .append("\">");
+
+                        final Metadata metadata = new Metadata();
+                        metadata.setProperty(property.getName());
+                        metadata.setColumn(property.getColumn());
+                        metadata.setValue("entity." + property.getName());
+                        metadata.setJavaType(property.getType());
+                        metadata.setTypeHandler(property.getTypeHandler());
+
+                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                        value.append(Velocities.getValue(writer, metadata));
+
+                        value
+                                .append("</when>")
+                                .append("<otherwise>null</otherwise>")
+                                .append("</choose>");
+                        return value.toString();
+
+                    } else {
+                        final Metadata metadata = new Metadata();
+                        metadata.setProperty(property.getName());
+                        metadata.setColumn(property.getColumn());
+                        metadata.setValue(property.getName());
+                        metadata.setJavaType(property.getType());
+                        metadata.setTypeHandler(property.getTypeHandler());
+
+                        final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                        return Velocities.getValue(writer, metadata);
+                    }
+
+
                 })
-                .collect(Collectors.joining("\n,"));
+                .collect(Collectors.joining(","));
 
         sql.append(values);
 

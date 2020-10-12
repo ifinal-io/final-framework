@@ -10,7 +10,6 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.annotation.Pageable;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.mapper.AbsMapper;
@@ -21,23 +20,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Pattern;
 
 /**
- * 分页拦截器
- *
- * <ul>
- * <li>单一参数实现了 {@link Pageable} 接口</li>
- * <li>参数列表中有一个参数实现了 {@link Pageable} 接口</li>
- * </ul>
- *
  * @author likly
  * @version 1.0
  * @date 2019-01-15 21:58:13
  * @since 1.0
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
@@ -65,10 +55,8 @@ public class InlineSelectInterceptor implements Interceptor {
             MappedStatement ms = (MappedStatement) args[0];
             Object param = args[1];
             RowBounds rowBounds = (RowBounds) args[2];
-            ResultHandler resultHandler = (ResultHandler) args[3];
+            ResultHandler<?> resultHandler = (ResultHandler<?>) args[3];
             final String id = ms.getId();
-            final String methodName = id.substring(id.lastIndexOf(".") + 1);
-
             final List<ResultMap> resultMaps = ms.getResultMaps();
 
             if (resultMaps.size() == 1 && PATTERN.matcher(id).find()
@@ -89,11 +77,6 @@ public class InlineSelectInterceptor implements Interceptor {
     @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
-    }
-
-    @Override
-    public void setProperties(Properties properties) {
-
     }
 
     public MappedStatement newCountMappedStatement(MappedStatement ms, String newMsId) {

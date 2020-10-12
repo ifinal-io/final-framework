@@ -2,6 +2,7 @@ package org.finalframework.annotation.data;
 
 
 import lombok.Data;
+import org.apache.ibatis.type.TypeHandler;
 
 import java.io.Serializable;
 
@@ -17,6 +18,6 @@ public class Metadata implements Serializable {
     private String column;
     private String value;
     private Class<?> javaType;
-    private Class<? extends org.apache.ibatis.type.TypeHandler<?>> typeHandler;
+    private Class<? extends TypeHandler> typeHandler;
 }
 

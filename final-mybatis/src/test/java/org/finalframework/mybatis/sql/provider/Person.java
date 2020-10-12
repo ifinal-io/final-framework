@@ -4,10 +4,7 @@ package org.finalframework.mybatis.sql.provider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.finalframework.annotation.data.AbsEntity;
-import org.finalframework.annotation.data.Function;
-import org.finalframework.annotation.data.Geometry;
-import org.finalframework.annotation.data.Transient;
+import org.finalframework.annotation.data.*;
 import org.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
 
@@ -22,7 +19,7 @@ import org.springframework.data.geo.Point;
 @ToString(callSuper = true)
 @Transient
 public class Person extends AbsEntity {
-    //    @Virtual
+    @Virtual
     public String vcolumn;
     private String name;
     private Integer age;
@@ -30,5 +27,7 @@ public class Person extends AbsEntity {
     private Point point;
     @Function(reader = "MAX(age) as ${column}")
     private Integer maxAge;
+    @Reference(properties = {"id", "name"})
+    private Person creator;
 }
 
