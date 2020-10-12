@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
  * @date 2018-10-20 17:17
  * @since 1.0
  */
-@Transient
 @Data
+@Transient
 public class AbsEntity implements IEntity<Long> {
 
     private static final long serialVersionUID = -3500516904657883963L;
