@@ -80,9 +80,7 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
          * </trim>
          */
         sql.append("<trim prefix=\"SELECT\" suffixOverrides=\",\">");
-
         appendColumns(sql, properties, view);
-
         sql.append("</trim>");
         /*
          * <trim prefix="FROM">
