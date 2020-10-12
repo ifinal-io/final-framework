@@ -2,9 +2,7 @@ package org.finalframework.mybatis.sql.provider;
 
 
 import lombok.Data;
-import org.finalframework.annotation.query.Equal;
-import org.finalframework.annotation.query.Function;
-import org.finalframework.annotation.query.LessThan;
+import org.finalframework.annotation.query.*;
 
 import java.awt.*;
 
@@ -48,9 +46,9 @@ public class PersonQuery {
     @LessThan(property = "name")
     private Long distance;
 
-//    @Offset
-//    private Integer offset;
-//    @Limit
-//    private Integer limit;
+    @Offset
+    private Integer offset;
+    @Limit
+    private Integer limit;
 }
 

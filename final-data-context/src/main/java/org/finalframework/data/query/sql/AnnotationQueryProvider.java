@@ -53,10 +53,24 @@ public class AnnotationQueryProvider implements QueryProvider {
 
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
-            if (property.isAnnotationPresent(Limit.class)) {
+
+            if (property.isAnnotationPresent(Offset.class)) {
+                final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim).collect(Collectors.joining());
+                final Metadata metadata = Metadata.builder()
+                        .andOr(AndOr.AND)
+                        .query(expression)
+                        .column("")
+                        .value(String.format("%s.%s", expression, property.getName()))
+                        .path(String.format("%s.%s", expression, property.getName()))
+                        .build();
+                offset = Velocities.getValue(xml, metadata);
+            } else if (property.isAnnotationPresent(Limit.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim).collect(Collectors.joining());
 
                 final Metadata metadata = Metadata.builder()
+                        .andOr(AndOr.AND)
+                        .query(expression)
+                        .column("")
                         .value(String.format("%s.%s", expression, property.getName()))
                         .path(String.format("%s.%s", expression, property.getName()))
                         .build();

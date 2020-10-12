@@ -12,6 +12,7 @@ import org.finalframework.data.query.Update;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
@@ -50,6 +51,11 @@ class UpdateSqlProviderTest {
         person.setName("haha");
 //        person.setCreator(person);
         parameters.put("entity", person);
+
+        final PersonQuery query = new PersonQuery();
+        query.setLocation(new Point());
+        query.setDistance(1L);
+        parameters.put("query", query);
 
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
 
