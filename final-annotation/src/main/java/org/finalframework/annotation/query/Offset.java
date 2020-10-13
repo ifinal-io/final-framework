@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 public @interface Offset {
     String[] value() default {
             "<if test=\"${value} != null\">",
-            "   #{value},",
+            "   #{${value}},",
             "</if>"
     };
 }

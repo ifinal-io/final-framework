@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 public @interface Limit {
     String[] value() default {
             "<if test=\"${value} != null\">",
-            "   #{value}",
+            "   #{${value}}",
             "</if>"
     };
 }
