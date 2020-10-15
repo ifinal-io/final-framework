@@ -1,7 +1,7 @@
 package org.finalframework.cache;
 
+import org.finalframework.aop.Executor;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
-import org.finalframework.spring.aop.Executor;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

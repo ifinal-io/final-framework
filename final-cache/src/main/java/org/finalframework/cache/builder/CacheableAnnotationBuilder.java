@@ -1,10 +1,10 @@
 package org.finalframework.cache.builder;
 
 
+import org.finalframework.aop.OperationAnnotationBuilder;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CacheableOperation;
-import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;

@@ -1,11 +1,11 @@
 package org.finalframework.cache.operation;
 
+import org.finalframework.aop.Operation;
+import org.finalframework.aop.OperationHandler;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheValue;
 import org.finalframework.cache.handler.CacheValueOperationHandler;
 import org.finalframework.core.Asserts;
-import org.finalframework.spring.aop.Operation;
-import org.finalframework.spring.aop.OperationHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

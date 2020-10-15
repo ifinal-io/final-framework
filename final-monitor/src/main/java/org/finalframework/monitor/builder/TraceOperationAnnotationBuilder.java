@@ -1,9 +1,9 @@
 package org.finalframework.monitor.builder;
 
+import org.finalframework.aop.OperationAnnotationBuilder;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.annotation.MonitorTrace;
 import org.finalframework.monitor.operation.TraceOperation;
-import org.finalframework.spring.aop.OperationAnnotationBuilder;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;

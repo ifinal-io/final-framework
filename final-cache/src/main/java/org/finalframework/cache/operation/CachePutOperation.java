@@ -1,12 +1,12 @@
 package org.finalframework.cache.operation;
 
+import org.finalframework.aop.Operation;
+import org.finalframework.aop.OperationHandler;
+import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CachePut;
 import org.finalframework.cache.handler.CachePutOperationHandler;
 import org.finalframework.core.Asserts;
-import org.finalframework.spring.aop.Operation;
-import org.finalframework.spring.aop.OperationHandler;
-import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

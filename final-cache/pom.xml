@@ -17,11 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-expression</artifactId>
+            <artifactId>final-context</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-spring-aop</artifactId>
+            <artifactId>final-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

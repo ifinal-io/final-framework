@@ -29,8 +29,7 @@
         <module>final-monitor</module>
         <module>final-mybatis</module>
         <module>final-retrofit</module>
-        <module>final-spring-aop</module>
-        <module>final-spring-expression</module>
+        <module>final-aop</module>
         <module>final-util</module>
         <module>final-zookeeper</module>
         <module>final-selenium</module>
@@ -127,7 +126,7 @@
 
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-spring-aop</artifactId>
+                <artifactId>final-aop</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -136,15 +135,6 @@
                 <artifactId>final-context</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-spring-expression</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-
-
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>

@@ -1,6 +1,6 @@
 package org.finalframework.cache;
 
-import org.finalframework.spring.aop.OperationExpressionEvaluator;
+import org.finalframework.aop.OperationExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 

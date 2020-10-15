@@ -1,6 +1,6 @@
 package org.finalframework.cache.annotation;
 
-import org.finalframework.spring.aop.annotation.CutPoint;
+import org.finalframework.aop.annotation.CutPoint;
 
 import java.lang.annotation.*;
 

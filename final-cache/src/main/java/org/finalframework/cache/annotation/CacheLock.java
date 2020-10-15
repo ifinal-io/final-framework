@@ -1,11 +1,11 @@
 package org.finalframework.cache.annotation;
 
+import org.finalframework.aop.OperationHandler;
+import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.builder.CacheLockAnnotationBuilder;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
 import org.finalframework.cache.operation.CacheLockOperation;
-import org.finalframework.spring.aop.OperationHandler;
-import org.finalframework.spring.aop.annotation.CutPoint;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

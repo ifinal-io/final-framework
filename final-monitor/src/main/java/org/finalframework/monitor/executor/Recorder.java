@@ -1,7 +1,7 @@
 package org.finalframework.monitor.executor;
 
+import org.finalframework.aop.Executor;
 import org.finalframework.monitor.action.Action;
-import org.finalframework.spring.aop.Executor;
 
 /**
  * @author likly

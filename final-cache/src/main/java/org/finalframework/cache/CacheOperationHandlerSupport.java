@@ -1,9 +1,9 @@
 package org.finalframework.cache;
 
 
-import org.finalframework.spring.aop.Operation;
-import org.finalframework.spring.aop.OperationHandlerSupport;
-import org.finalframework.spring.aop.OperationMetadata;
+import org.finalframework.aop.Operation;
+import org.finalframework.aop.OperationHandlerSupport;
+import org.finalframework.aop.OperationMetadata;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
