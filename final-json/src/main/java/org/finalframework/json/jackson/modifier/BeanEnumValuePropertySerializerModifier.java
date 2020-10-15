@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.annotation.data.EnumValue;
+import org.finalframework.auto.service.AutoService;
 import org.finalframework.json.jackson.serializer.EnumValueDescSerializer;
 import org.finalframework.json.jackson.serializer.EnumValueNameSerializer;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import java.util.Collection;
  * @date 2020-03-25 10:30:16
  * @since 1.0
  */
+@AutoService(BeanSerializerModifier.class)
 public class BeanEnumValuePropertySerializerModifier extends AbsBeanPropertySerializerModifier {
     private static final Logger logger = LoggerFactory.getLogger(BeanEnumValuePropertySerializerModifier.class);
 

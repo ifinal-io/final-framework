@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.context.converter.EnumClassConverter;
+import org.finalframework.core.Asserts;
 import org.finalframework.core.Factory;
-import org.finalframework.json.jackson.modifier.*;
+
+import java.util.ServiceLoader;
 
 /**
  * @author likly
@@ -25,16 +28,16 @@ public class ObjectMapperFactory implements Factory {
     public ObjectMapperFactory(ObjectMapper objectMapper, EnumClassConverter enumClassConverter) {
         this.objectMapper = objectMapper;
         objectMapper.registerModule(new FinalJacksonModule(objectMapper, enumClassConverter));
-        objectMapper.setSerializerFactory(
-                objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumPropertySerializerModifier()));
-        objectMapper.setSerializerFactory(
-                objectMapper.getSerializerFactory().withSerializerModifier(new BeanEnumValuePropertySerializerModifier()));
-        objectMapper.setSerializerFactory(
-                objectMapper.getSerializerFactory().withSerializerModifier(new BeanDatePropertySerializerModifier()));
-        objectMapper.setSerializerFactory(
-                objectMapper.getSerializerFactory().withSerializerModifier(new BeanLocalDatePropertySerializerModifier()));
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory()
-                .withSerializerModifier(new BeanLocalDateTimePropertySerializerModifier()));
+
+        ServiceLoader<BeanSerializerModifier> beanSerializerModifiers = ServiceLoader.load(BeanSerializerModifier.class, getClass().getClassLoader());
+
+        if (Asserts.nonEmpty(beanSerializerModifiers)) {
+            beanSerializerModifiers.forEach(beanSerializerModifier -> objectMapper.setSerializerFactory(
+                    objectMapper.getSerializerFactory()
+                            .withSerializerModifier(beanSerializerModifier)
+            ));
+
+        }
 
 
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);

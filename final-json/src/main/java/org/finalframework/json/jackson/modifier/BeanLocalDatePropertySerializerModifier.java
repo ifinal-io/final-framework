@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.finalframework.auto.service.AutoService;
 import org.finalframework.json.jackson.serializer.LocalDateSerializer;
 
 import java.lang.reflect.Field;
@@ -19,6 +21,7 @@ import java.util.Collections;
  * @date 2019-11-25 19:01:18
  * @since 1.0
  */
+@AutoService(BeanSerializerModifier.class)
 public class BeanLocalDatePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<LocalDate> {
 
     @Override

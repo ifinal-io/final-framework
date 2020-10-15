@@ -8,7 +8,9 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.annotation.IEnum;
+import org.finalframework.auto.service.AutoService;
 import org.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.finalframework.json.jackson.serializer.EnumDescSerializer;
 import org.finalframework.json.jackson.serializer.EnumNameSerializer;
@@ -36,6 +38,7 @@ import java.util.Collection;
  * @see EnumDescSerializer
  * @since 1.0
  */
+@AutoService(BeanSerializerModifier.class)
 public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<IEnum> {
 
     private static final Logger logger = LoggerFactory.getLogger(BeanEnumPropertySerializerModifier.class);
