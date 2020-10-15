@@ -13,22 +13,26 @@ import org.springframework.lang.Nullable;
 public interface JsonCondition<V, R> extends ExecutableCondition {
 
     /**
+     *
      */
     default R jsonContains(@NonNull V value) {
         return jsonContains(value, null);
     }
 
     /**
+     *
      */
     R jsonContains(@NonNull V value, @Nullable String path);
 
     /**
+     *
      */
     default R notJsonContains(@NonNull V value) {
         return notJsonContains(value, null);
     }
 
     /**
+     *
      */
     R notJsonContains(@NonNull V value, @Nullable String path);
 

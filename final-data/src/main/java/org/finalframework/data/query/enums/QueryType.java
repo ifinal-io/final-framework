@@ -21,4 +21,5 @@ public enum QueryType {
 
     public String getTag() {
         return tag;
-    }}
+    }
+}

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.data.query.Query;
+import org.finalframework.annotation.IQuery;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +23,14 @@ import java.util.HashMap;
 @Slf4j
 class SelectSqlProviderTest {
 
+    /**
+     * @throws NoSuchMethodException
+     * @see AbsMapper#selectOne(String, Class, Serializable, IQuery)
+     */
     @Test
     void selectOne() throws NoSuchMethodException {
 
-        final Method selectOne = AbsMapper.class.getMethod("selectOne", String.class, Class.class, Serializable.class, Query.class);
+        final Method selectOne = AbsMapper.class.getMethod("selectOne", String.class, Class.class, Serializable.class, IQuery.class);
         /**
          * @see ProviderSqlSource
          */

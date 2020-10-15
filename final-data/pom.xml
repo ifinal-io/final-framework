@@ -11,7 +11,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-data-context</artifactId>
+    <artifactId>final-data</artifactId>
 
     <dependencies>
         <dependency>

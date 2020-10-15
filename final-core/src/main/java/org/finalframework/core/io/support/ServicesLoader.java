@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author likly
@@ -28,7 +25,9 @@ import java.util.Map;
 public final class ServicesLoader {
     private static final Map<ClassLoader, MultiValueMap<String, String>> cache = new ConcurrentReferenceHashMap<>();
 
-    private static final String META_INF = "/META-INF";
+    private static final String META_INF = "META-INF";
+    private static final String DELIMITER = "/";
+    private static final String DEFAULT_SERVICES_PATH = "services";
 
 
     private ServicesLoader() {
@@ -38,8 +37,16 @@ public final class ServicesLoader {
         return load(service.getCanonicalName());
     }
 
+    public static List<String> load(@NonNull Class<?> service, @NonNull ClassLoader classLoader) {
+        return load(service.getCanonicalName(), classLoader);
+    }
+
     public static List<String> load(@NonNull String service) {
-        return load(service, META_INF + "/services/" + service);
+        return load(service, String.join(DELIMITER, META_INF, DEFAULT_SERVICES_PATH, service));
+    }
+
+    public static List<String> load(@NonNull String service, @NonNull ClassLoader classLoader) {
+        return load(service, classLoader, String.join(DELIMITER, META_INF, DEFAULT_SERVICES_PATH, service));
     }
 
     public static List<String> load(@NonNull String service, @NonNull String serviceResourceLocation) {
@@ -87,7 +94,7 @@ public final class ServicesLoader {
                         propertiesResourceLocation + "]", ex);
             }
 
-            return services;
+            return new ArrayList<>(new HashSet<>(services));
         });
 
     }

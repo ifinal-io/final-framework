@@ -25,7 +25,7 @@
         <module>final-core</module>
         <module>final-cache</module>
         <module>final-dubbo</module>
-        <module>final-data-context</module>
+        <module>final-data</module>
         <module>final-monitor</module>
         <module>final-mybatis</module>
         <module>final-retrofit</module>
@@ -105,7 +105,7 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
-                <artifactId>final-data-context</artifactId>
+                <artifactId>final-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-data-context</artifactId>
+            <artifactId>final-data</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>

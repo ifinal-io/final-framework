@@ -33,6 +33,6 @@ public class AssertTest {
     @Test
     public void nonEmpty() {
 
-        Assertions.assertFalse(Asserts.nonEmpty("ys"), "ys in notEmpty ");
+        Assertions.assertTrue(Asserts.nonEmpty("ys"), "ys in notEmpty ");
     }
 }

@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Documented
 @Order(Integer.MIN_VALUE)
 @org.springframework.data.annotation.Id
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrimaryKey {
 
