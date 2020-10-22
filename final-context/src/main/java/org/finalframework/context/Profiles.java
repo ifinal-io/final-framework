@@ -1,4 +1,4 @@
-package org.finalframework.web.configurer;
+package org.finalframework.context;
 
 import org.springframework.context.annotation.Profile;
 

@@ -10,7 +10,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
  * @date 2020-07-17 09:56:29
  * @since 1.0
  */
-public class Spel {
+public final class Spel {
 
     private final SpelExpressionParser parser;
 

@@ -3,6 +3,7 @@ package org.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.finalframework.auto.service.AutoService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @date 2018-12-28 13:05:25
  * @since 1.0
  */
+@AutoService(JsonSerializer.class)
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
     private DateTimeFormatter formatter;

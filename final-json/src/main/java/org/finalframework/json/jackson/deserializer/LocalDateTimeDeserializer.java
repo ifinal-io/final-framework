@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.finalframework.auto.service.AutoService;
 import org.finalframework.core.Asserts;
 import org.finalframework.core.formatter.LocalDateTimeFormatters;
 
@@ -18,6 +19,7 @@ import java.time.ZoneId;
  * @date 2018-12-28 16:59:46
  * @since 1.0
  */
+@AutoService(JsonDeserializer.class)
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
     private LocalDateTimeFormatters dateTimeFormatters = LocalDateTimeFormatters.DEFAULT;
 
