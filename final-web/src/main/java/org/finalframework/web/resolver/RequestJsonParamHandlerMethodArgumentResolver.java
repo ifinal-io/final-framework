@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ValueConstants;
@@ -20,6 +21,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -30,27 +32,33 @@ import java.nio.charset.Charset;
  * @since 1.0
  */
 @SpringArgumentResolver
-public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public final class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
 
-    private Charset defaultCharset = Charset.defaultCharset();
+    @NonNull
+    private final Charset defaultCharset = Charset.defaultCharset();
 
+    /**
+     * return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam}, otherwise {@code false}.
+     *
+     * @param parameter the method parameter
+     * @return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam}, otherwise {@code false}.
+     */
     @Override
-    public boolean supportsParameter(MethodParameter parameter) {
+    public boolean supportsParameter(@NonNull MethodParameter parameter) {
+        // only support the method parameter annotated by @RequestJsonParam
         return parameter.hasParameterAnnotation(RequestJsonParam.class);
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        RequestJsonParam requestJsonParam = parameter.getParameterAnnotation(RequestJsonParam.class);
-        if (Asserts.isNull(requestJsonParam)) {
-            // it can not enter
-            throw new NullPointerException("requestJsonParam annotation is null");
-        }
+    public Object resolveArgument(@NonNull MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+                                  @NonNull NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+        // find the @RequestJsonParam annotation
+        final RequestJsonParam requestJsonParam = Objects.requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class), "requestJsonParam annotation is null");
 
         final String contentType = webRequest.getHeader("content-type");
-        if (Asserts.nonEmpty(contentType) && contentType.startsWith("application/json")) {
+        if (Objects.nonNull(contentType) && contentType.startsWith("application/json")) {
 
             final Object nativeRequest = webRequest.getNativeRequest();
             if (nativeRequest instanceof HttpServletRequest) {
@@ -105,12 +113,11 @@ public class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMet
         if (contentType != null && contentType.getCharset() != null) {
             return contentType.getCharset();
         } else {
-            Charset charset = getDefaultCharset();
-            org.springframework.util.Assert.state(charset != null, "No default charset");
-            return charset;
+            return getDefaultCharset();
         }
     }
 
+    @NonNull
     public Charset getDefaultCharset() {
         return this.defaultCharset;
     }

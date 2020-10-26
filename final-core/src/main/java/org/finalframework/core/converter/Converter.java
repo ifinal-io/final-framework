@@ -1,5 +1,7 @@
 package org.finalframework.core.converter;
 
+import org.springframework.lang.Nullable;
+
 import java.util.function.Function;
 
 /**
@@ -19,7 +21,7 @@ public interface Converter<T, R> extends Function<T, R>, org.springframework.cor
      * @return the function result
      */
     @Override
-    default R apply(T source) {
+    default R apply(@Nullable T source) {
         return convert(source);
     }
 
@@ -30,5 +32,5 @@ public interface Converter<T, R> extends Function<T, R>, org.springframework.cor
      * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
      */
     @Override
-    R convert(T source);
+    R convert(@Nullable T source);
 }

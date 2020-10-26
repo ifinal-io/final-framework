@@ -14,14 +14,17 @@ import java.util.Collection;
  * @date 2018-10-15 15:56
  * @since 1.0
  */
-public interface Asserts {
+public final class Asserts {
+
+    private Asserts() {
+    }
 
     /**
      * Check whether the given {@code bool} is true.
      *
      * @param bool the candidate bool
      */
-    static boolean isTrue(Boolean bool) {
+    public static boolean isTrue(Boolean bool) {
         return bool != null && bool;
     }
 
@@ -33,7 +36,7 @@ public interface Asserts {
      * @param message the message
      * @param args    the message args
      */
-    static void isTrue(Boolean bool, @org.springframework.lang.NonNull String message, Object... args) {
+    public static void isTrue(Boolean bool, @org.springframework.lang.NonNull String message, Object... args) {
         if (isTrue(bool)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -44,11 +47,11 @@ public interface Asserts {
      *
      * @param bool the candidate bool
      */
-    static boolean isFalse(Boolean bool) {
+    public static boolean isFalse(Boolean bool) {
         return bool != null && !bool;
     }
 
-    static void isFalse(Boolean bool, String message, Object... args) {
+    public static void isFalse(Boolean bool, String message, Object... args) {
         if (isFalse(bool)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -59,11 +62,14 @@ public interface Asserts {
      *
      * @param obj the candidate Object.
      */
-    static boolean isNull(Object obj) {
+    public static boolean isNull(Object obj) {
         return obj == null;
     }
 
-    static void isNull(Object obj, String message, Object... args) {
+    /**
+     * @throws NullPointerException if {@code obj} is {@code null}
+     */
+    public static void isNull(Object obj, String message, Object... args) {
         if (isNull(obj)) {
             throw new NullPointerException(String.format(message, args));
         }
@@ -74,11 +80,11 @@ public interface Asserts {
      *
      * @param obj the candidate Object.
      */
-    static boolean nonNull(Object obj) {
+    public static boolean nonNull(Object obj) {
         return obj != null;
     }
 
-    static void nonNull(Object obj, String message, Object... args) {
+    public static void nonNull(Object obj, String message, Object... args) {
         if (nonNull(obj)) {
             throw new NullPointerException(String.format(message, args));
         }
@@ -93,7 +99,7 @@ public interface Asserts {
      * @see String#isEmpty()
      * @see Collection#isEmpty()
      */
-    static boolean isEmpty(Object obj) {
+    public static boolean isEmpty(Object obj) {
         if (obj == null) {
             return true;
         }
@@ -109,7 +115,7 @@ public interface Asserts {
         return false;
     }
 
-    static void isEmpty(Object obj, String message, Object... args) {
+    public static void isEmpty(Object obj, String message, Object... args) {
         if (isEmpty(obj)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -124,7 +130,7 @@ public interface Asserts {
      * @see String#isEmpty()
      * @see Collection#isEmpty()
      */
-    static boolean nonEmpty(Object obj) {
+    public static boolean nonEmpty(Object obj) {
         if (obj == null) {
             return false;
         }
@@ -140,7 +146,7 @@ public interface Asserts {
         return true;
     }
 
-    static void nonEmpty(Object obj, String message, Object... args) {
+    public static void nonEmpty(Object obj, String message, Object... args) {
         if (nonEmpty(obj)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -151,11 +157,11 @@ public interface Asserts {
      *
      * @param text the candidate String.
      */
-    static boolean isBlank(String text) {
+    public static boolean isBlank(String text) {
         return text == null || text.trim().isEmpty();
     }
 
-    static void isBlank(String obj, String message, Object... args) {
+    public static void isBlank(String obj, String message, Object... args) {
         if (isBlank(obj)) {
             throw new IllegalArgumentException(String.format(message, args));
         }
@@ -167,62 +173,62 @@ public interface Asserts {
      *
      * @param text the candidate String.
      */
-    static boolean nonBlank(String text) {
+    public static boolean nonBlank(String text) {
         return text != null && !text.trim().isEmpty();
     }
 
-    static boolean isEqual(Object left, Object right) {
+    public static boolean isEqual(Object left, Object right) {
         return left != null && left.equals(right);
     }
 
-    static boolean nonEqual(Object left, Object right) {
+    public static boolean nonEqual(Object left, Object right) {
         return left != null && right != null && !left.equals(right);
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean isGreaterThan(T candidate, T target) {
+    public static <T extends Comparable> boolean isGreaterThan(T candidate, T target) {
         return candidate != null && target != null && candidate.compareTo(target) > 0;
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean isGreaterEqualThan(T candidate, T target) {
+    public static <T extends Comparable> boolean isGreaterEqualThan(T candidate, T target) {
         return candidate != null && target != null && candidate.compareTo(target) >= 0;
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean isLessThan(T candidate, T target) {
+    public static <T extends Comparable> boolean isLessThan(T candidate, T target) {
         return candidate != null && target != null && candidate.compareTo(target) < 0;
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean isLessEqualThan(T candidate, T target) {
+    public static <T extends Comparable> boolean isLessEqualThan(T candidate, T target) {
         return candidate != null && target != null && candidate.compareTo(target) <= 0;
     }
 
-    static boolean isIn(Object candidate, Object... target) {
+    public static boolean isIn(Object candidate, Object... target) {
         return isIn(candidate, Arrays.asList(target));
     }
 
-    static boolean isIn(Object candidate, Collection<?> target) {
+    public static boolean isIn(Object candidate, Collection<?> target) {
         return nonNull(candidate) && nonEmpty(target) && target.contains(candidate);
     }
 
-    static boolean nonIn(Object candidate, Object... target) {
+    public static boolean nonIn(Object candidate, Object... target) {
         return nonIn(candidate, Arrays.asList(target));
     }
 
-    static boolean nonIn(Object candidate, Collection<?> target) {
+    public static boolean nonIn(Object candidate, Collection<?> target) {
         return nonNull(candidate) && nonEmpty(target) && !target.contains(candidate);
     }
 
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean isBetween(@NonNull T obj, @NonNull T min, @NonNull T max) {
+    public static <T extends Comparable> boolean isBetween(@NonNull T obj, @NonNull T min, @NonNull T max) {
         return obj.compareTo(min) > 0 && obj.compareTo(max) < 0;
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends Comparable> boolean nonBetween(@NonNull T obj, @NonNull T min, @NonNull T max) {
+    public static <T extends Comparable> boolean nonBetween(@NonNull T obj, @NonNull T min, @NonNull T max) {
         return obj.compareTo(min) <= 0 || obj.compareTo(max) > 0;
     }
 
@@ -233,7 +239,7 @@ public interface Asserts {
      * @param text  the candidate String.
      * @param regex the regex String.
      */
-    static boolean matches(@NonNull String text, @NonNull String regex) {
+    public static boolean matches(@NonNull String text, @NonNull String regex) {
         return text.matches(regex);
     }
 
