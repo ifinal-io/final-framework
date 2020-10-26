@@ -1,7 +1,7 @@
 package org.finalframework.dubbo.annotation;
 
 import org.apache.dubbo.rpc.Filter;
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,9 +22,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
 public @interface AutoFilter {
-    /**
-     * @return
-     * @see AutoService#name()
-     */
     String value();
 }

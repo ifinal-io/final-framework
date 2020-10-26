@@ -97,6 +97,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
             }
         }
 
+
         adapter.setArgumentResolvers(argumentResolvers);
     }
 
