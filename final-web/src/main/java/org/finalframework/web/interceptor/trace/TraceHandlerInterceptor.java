@@ -6,7 +6,6 @@ import org.finalframework.core.Asserts;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.web.interceptor.AbsHandlerInterceptor;
-import org.finalframework.web.interceptor.HandlerInterceptorWebMvcConfigurer;
 import org.finalframework.web.interceptor.TraceHandlerInterceptorProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018-09-28 15:18
  * @see TraceGenerator
  * @see UUIDTraceGenerator
- * @see HandlerInterceptorWebMvcConfigurer
  * @since 1.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -55,21 +54,21 @@ public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
     @Setter
     private TraceGenerator generator;
 
-    public TraceHandlerInterceptor() {
-
-    }
-
     @Autowired
-    public TraceHandlerInterceptor(TraceHandlerInterceptorProperties properties) throws Exception {
+    public TraceHandlerInterceptor(TraceHandlerInterceptorProperties properties) {
         super(properties);
         this.setTraceName(properties.getTraceName());
         this.setParamName(properties.getParamName());
         this.setHeaderName(properties.getHeaderName());
-        this.setGenerator(properties.getGenerator().newInstance());
+        try {
+            this.setGenerator(properties.getGenerator().getConstructor().newInstance());
+        } catch (Exception e) {
+            //ignore
+        }
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         // 获取 header 中是否有自定义的 trace
         String trace = null;
         if (Asserts.nonEmpty(paramName)) {
@@ -94,7 +93,7 @@ public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
     }
 
     @Override
-    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public void afterConcurrentHandlingStarted(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         logger.info("remove trace from MDC context");
         MDC.remove(traceName);
     }

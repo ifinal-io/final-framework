@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.annotation.IEnum;
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 import org.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.finalframework.json.jackson.serializer.EnumDescSerializer;
 import org.finalframework.json.jackson.serializer.EnumNameSerializer;

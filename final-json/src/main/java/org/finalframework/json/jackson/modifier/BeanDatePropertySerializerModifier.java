@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 import org.finalframework.json.jackson.serializer.DateSerializer;
 
 import java.lang.reflect.Field;

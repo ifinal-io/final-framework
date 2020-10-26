@@ -13,7 +13,7 @@ import java.util.function.Function;
  * @since 1.0
  */
 @FunctionalInterface
-public interface Converter<T, R> extends Function<T, R>, org.springframework.core.convert.converter.Converter<T, R> {
+public interface Converter<T, R> extends Function<T, R> {
     /**
      * Applies this function to the given argument.
      *
@@ -21,6 +21,7 @@ public interface Converter<T, R> extends Function<T, R>, org.springframework.cor
      * @return the function result
      */
     @Override
+    @Nullable
     default R apply(@Nullable T source) {
         return convert(source);
     }
@@ -28,9 +29,9 @@ public interface Converter<T, R> extends Function<T, R>, org.springframework.cor
     /**
      * Convert the source object of type {@code S} to target type {@code T}.
      *
-     * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
+     * @param source the source object to convert, which must be an instance of {@code S} ({@code null})
      * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
      */
-    @Override
+    @Nullable
     R convert(@Nullable T source);
 }

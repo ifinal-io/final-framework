@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 import org.finalframework.core.Asserts;
 import org.finalframework.core.formatter.LocalDateTimeFormatters;
 

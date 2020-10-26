@@ -1,7 +1,7 @@
 package org.finalframework.dubbo.spi.dubbo;
 
 
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 
 /**
  * @author likly

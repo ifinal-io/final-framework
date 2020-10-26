@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.annotation.data.EnumValue;
-import org.finalframework.auto.service.AutoService;
+import org.finalframework.auto.service.annotation.AutoService;
 import org.finalframework.json.jackson.serializer.EnumValueDescSerializer;
 import org.finalframework.json.jackson.serializer.EnumValueNameSerializer;
 import org.slf4j.Logger;

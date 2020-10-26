@@ -2,9 +2,10 @@ package org.finalframework.web.converter;
 
 import org.finalframework.auto.spring.factory.annotation.SpringConverter;
 import org.finalframework.context.exception.NotFoundException;
-import org.finalframework.core.converter.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.NonNull;
 
 
 /**
@@ -21,7 +22,7 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
     public static final Logger logger = LoggerFactory.getLogger(String2ClassConverter.class);
 
     @Override
-    public Class<?> convert(String source) {
+    public Class<?> convert(@NonNull String source) {
         try {
             return Class.forName(source);
         } catch (ClassNotFoundException e) {
