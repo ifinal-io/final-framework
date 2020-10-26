@@ -11,14 +11,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.finalframework.sharding</groupId>
     <artifactId>final-sharding</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>final-sharding-autoconfigure</module>
-        <module>final-sharding-core</module>
-    </modules>
-
+    <packaging>jar</packaging>
 
 </project>

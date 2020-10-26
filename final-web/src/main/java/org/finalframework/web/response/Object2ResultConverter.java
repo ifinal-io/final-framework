@@ -5,6 +5,8 @@ import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
 import org.finalframework.core.converter.Converter;
 
+import java.io.Serializable;
+
 /**
  * @author likly
  * @version 1.0
@@ -22,8 +24,12 @@ public class Object2ResultConverter implements Converter<Object, Result<?>> {
             return (Result<?>) body;
         }
 
+        if (body instanceof Serializable) {
+            return R.success((Serializable) body);
+        }
 
-        return R.success(body);
+        throw new IllegalArgumentException(body.getClass() + " must impl Serializable");
+
     }
 }
 
