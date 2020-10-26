@@ -16,6 +16,9 @@ import java.util.HashSet;
  * @author likly
  * @version 1.0
  * @date 2019-11-06 19:39:47
+ * @see ApplicationContextInitializer
+ * @see SpringFactory
+ * @see SpringFactoryBeanDefinitionRegistryPostProcessor
  * @since 1.0
  */
 @Slf4j
@@ -23,18 +26,17 @@ import java.util.HashSet;
 public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
-    public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
+    public void initialize(@NonNull ConfigurableApplicationContext context) {
 
         final HashSet<String> springFactories = new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
         for (String annotationName : springFactories) {
             try {
                 Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}", factoryClass.getCanonicalName());
-                applicationContext.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
+                context.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
         }
 
     }
