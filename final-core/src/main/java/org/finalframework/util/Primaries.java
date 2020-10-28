@@ -32,26 +32,26 @@ import java.util.stream.Stream;
  * @date 2019-01-22 13:27:32
  * @since 1.0
  */
-@SuppressWarnings("all")
-public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
+@SuppressWarnings("rawtypes")
+public final class Primaries implements Streamable<Class>, Iterable<Class> {
 
-    public static final PrimaryTypes BYTE = new PrimaryTypes(byte.class, Byte.class);
-    public static final PrimaryTypes CHAR = new PrimaryTypes(char.class, Character.class);
-    public static final PrimaryTypes BOOLEAN = new PrimaryTypes(boolean.class, Boolean.class);
-    public static final PrimaryTypes SHORT = new PrimaryTypes(short.class, Short.class);
-    public static final PrimaryTypes INTEGER = new PrimaryTypes(int.class, Integer.class);
-    public static final PrimaryTypes LONG = new PrimaryTypes(long.class, Long.class);
-    public static final PrimaryTypes FLOAT = new PrimaryTypes(float.class, Float.class);
-    public static final PrimaryTypes DOUBLE = new PrimaryTypes(double.class, Double.class);
-    public static final PrimaryTypes STRING = new PrimaryTypes(String.class);
+    public static final Primaries BYTE = new Primaries(byte.class, Byte.class);
+    public static final Primaries CHAR = new Primaries(char.class, Character.class);
+    public static final Primaries BOOLEAN = new Primaries(boolean.class, Boolean.class);
+    public static final Primaries SHORT = new Primaries(short.class, Short.class);
+    public static final Primaries INTEGER = new Primaries(int.class, Integer.class);
+    public static final Primaries LONG = new Primaries(long.class, Long.class);
+    public static final Primaries FLOAT = new Primaries(float.class, Float.class);
+    public static final Primaries DOUBLE = new Primaries(double.class, Double.class);
+    public static final Primaries STRING = new Primaries(String.class);
 
-    public static final PrimaryTypes NUMBER = new PrimaryTypes(
+    public static final Primaries NUMBER = new Primaries(
             byte.class, Byte.class, short.class, Short.class,
             int.class, Integer.class, long.class, Long.class,
             float.class, Float.class, double.class, Double.class
     );
 
-    public static final PrimaryTypes ALL = new PrimaryTypes(
+    public static final Primaries ALL = new Primaries(
             byte.class, Byte.class, short.class, Short.class,
             char.class, Character.class, boolean.class, Boolean.class,
             int.class, Integer.class, long.class, Long.class,
@@ -59,7 +59,7 @@ public final class PrimaryTypes implements Streamable<Class>, Iterable<Class> {
             String.class, Class.class);
     private final Set<Class> types = new HashSet<>();
 
-    private PrimaryTypes(Class<?>... classes) {
+    private Primaries(Class<?>... classes) {
         this.types.addAll(Arrays.asList(classes));
     }
 

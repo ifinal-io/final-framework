@@ -3,7 +3,7 @@ package org.finalframework.data.repository;
 
 import org.apache.ibatis.binding.MapperProxy;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.util.ProxyUtils;
+import org.finalframework.util.Proxies;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 
@@ -43,7 +43,7 @@ public class RepositoryHolder {
 
     @SuppressWarnings("unchecked")
     public static <ID extends Serializable, T extends IEntity<ID>> RepositoryHolder from(@NonNull Repository repository) {
-        final Class<? extends Repository> repositoryClass = (Class<? extends Repository>) ProxyUtils.targetClass(repository);
+        final Class<? extends Repository> repositoryClass = (Class<? extends Repository>) Proxies.targetClass(repository);
         if (repositoryClass == null) return null;
 
         Type[] genericInterfaces = repositoryClass.getGenericInterfaces();

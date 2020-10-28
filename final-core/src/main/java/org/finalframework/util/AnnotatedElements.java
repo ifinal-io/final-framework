@@ -1,7 +1,7 @@
 package org.finalframework.util;
 
-import lombok.NonNull;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -17,6 +17,14 @@ import java.util.Collection;
 public final class AnnotatedElements {
 
     private AnnotatedElements() {
+    }
+
+    public boolean isAnnotated(@NonNull AnnotatedElement ae, @NonNull String annName) {
+        return AnnotatedElementUtils.isAnnotated(ae, annName);
+    }
+
+    public boolean isAnnotated(@NonNull AnnotatedElement ae, @NonNull Class<? extends Annotation> annType) {
+        return AnnotatedElementUtils.isAnnotated(ae, annType);
     }
 
     /**
@@ -40,5 +48,6 @@ public final class AnnotatedElements {
     public static <A extends Annotation> Collection<A> getAllLocalAnnotations(@NonNull AnnotatedElement ae, @NonNull Class<A> annType) {
         return AnnotatedElementUtils.getAllMergedAnnotations(ae, annType);
     }
+
 
 }

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.finalframework.annotation.IEnum;
-import org.finalframework.util.PrimaryTypes;
+import org.finalframework.util.Primaries;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -38,12 +38,12 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
         Class<?> codeType = getEnumEntityCodeType();
-        if (PrimaryTypes.isByte(codeType)) ps.setByte(i, (Byte) parameter.getCode());
-        if (PrimaryTypes.isShort(codeType)) ps.setShort(i, (Short) parameter.getCode());
-        if (PrimaryTypes.isInteger(codeType)) ps.setInt(i, (Integer) parameter.getCode());
-        if (PrimaryTypes.isLong(codeType)) ps.setLong(i, (Long) parameter.getCode());
-        if (PrimaryTypes.isBoolean(codeType)) ps.setBoolean(i, (Boolean) parameter.getCode());
-        if (PrimaryTypes.isString(codeType)) ps.setString(i, (String) parameter.getCode());
+        if (Primaries.isByte(codeType)) ps.setByte(i, (Byte) parameter.getCode());
+        if (Primaries.isShort(codeType)) ps.setShort(i, (Short) parameter.getCode());
+        if (Primaries.isInteger(codeType)) ps.setInt(i, (Integer) parameter.getCode());
+        if (Primaries.isLong(codeType)) ps.setLong(i, (Long) parameter.getCode());
+        if (Primaries.isBoolean(codeType)) ps.setBoolean(i, (Boolean) parameter.getCode());
+        if (Primaries.isString(codeType)) ps.setString(i, (String) parameter.getCode());
     }
 
     @Override
@@ -73,36 +73,36 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     @SuppressWarnings("all")
     private Object getCode(ResultSet rs, String columnName) throws SQLException {
         Class<?> codeType = getEnumEntityCodeType();
-        if (PrimaryTypes.isByte(codeType)) return rs.getByte(columnName);
-        if (PrimaryTypes.isShort(codeType)) return rs.getShort(columnName);
-        if (PrimaryTypes.isInteger(codeType)) return rs.getInt(columnName);
-        if (PrimaryTypes.isLong(codeType)) return rs.getLong(columnName);
-        if (PrimaryTypes.isBoolean(codeType)) return rs.getBoolean(columnName);
-        if (PrimaryTypes.isString(codeType)) return rs.getString(columnName);
+        if (Primaries.isByte(codeType)) return rs.getByte(columnName);
+        if (Primaries.isShort(codeType)) return rs.getShort(columnName);
+        if (Primaries.isInteger(codeType)) return rs.getInt(columnName);
+        if (Primaries.isLong(codeType)) return rs.getLong(columnName);
+        if (Primaries.isBoolean(codeType)) return rs.getBoolean(columnName);
+        if (Primaries.isString(codeType)) return rs.getString(columnName);
         throw new UnsupportedOperationException("");
     }
 
     @SuppressWarnings("all")
     private Object getCode(ResultSet rs, int columnIndex) throws SQLException {
         Class<?> codeType = getEnumEntityCodeType();
-        if (PrimaryTypes.isByte(codeType)) return rs.getByte(columnIndex);
-        if (PrimaryTypes.isShort(codeType)) return rs.getShort(columnIndex);
-        if (PrimaryTypes.isInteger(codeType)) return rs.getInt(columnIndex);
-        if (PrimaryTypes.isLong(codeType)) return rs.getLong(columnIndex);
-        if (PrimaryTypes.isBoolean(codeType)) return rs.getBoolean(columnIndex);
-        if (PrimaryTypes.isString(codeType)) return rs.getString(columnIndex);
+        if (Primaries.isByte(codeType)) return rs.getByte(columnIndex);
+        if (Primaries.isShort(codeType)) return rs.getShort(columnIndex);
+        if (Primaries.isInteger(codeType)) return rs.getInt(columnIndex);
+        if (Primaries.isLong(codeType)) return rs.getLong(columnIndex);
+        if (Primaries.isBoolean(codeType)) return rs.getBoolean(columnIndex);
+        if (Primaries.isString(codeType)) return rs.getString(columnIndex);
         throw new UnsupportedOperationException("");
     }
 
     @SuppressWarnings("all")
     private Object getCode(CallableStatement cs, int columnIndex) throws SQLException {
         Class<?> codeType = getEnumEntityCodeType();
-        if (PrimaryTypes.isByte(codeType)) return cs.getByte(columnIndex);
-        if (PrimaryTypes.isShort(codeType)) return cs.getShort(columnIndex);
-        if (PrimaryTypes.isInteger(codeType)) return cs.getInt(columnIndex);
-        if (PrimaryTypes.isLong(codeType)) return cs.getLong(columnIndex);
-        if (PrimaryTypes.isBoolean(codeType)) return cs.getBoolean(columnIndex);
-        if (PrimaryTypes.isString(codeType)) return cs.getString(columnIndex);
+        if (Primaries.isByte(codeType)) return cs.getByte(columnIndex);
+        if (Primaries.isShort(codeType)) return cs.getShort(columnIndex);
+        if (Primaries.isInteger(codeType)) return cs.getInt(columnIndex);
+        if (Primaries.isLong(codeType)) return cs.getLong(columnIndex);
+        if (Primaries.isBoolean(codeType)) return cs.getBoolean(columnIndex);
+        if (Primaries.isString(codeType)) return cs.getString(columnIndex);
         throw new UnsupportedOperationException("");
     }
 

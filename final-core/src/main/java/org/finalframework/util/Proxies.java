@@ -15,7 +15,10 @@ import java.lang.reflect.Proxy;
  * @date 2020-04-06 16:53:20
  * @since 1.0
  */
-public abstract class ProxyUtils {
+public final class Proxies {
+
+    private Proxies() {
+    }
 
     /**
      * @see org.apache.ibatis.binding.MapperProxy

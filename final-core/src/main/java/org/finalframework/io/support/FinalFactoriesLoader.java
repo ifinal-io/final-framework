@@ -31,6 +31,9 @@ import java.util.List;
 public final class FinalFactoriesLoader {
     private static final String FACTORIES_RESOURCE_LOCATION = "META-INF/final.factories";
 
+    private FinalFactoriesLoader() {
+    }
+
     public static List<String> loadPropertyValues(Class<?> factoryClass) {
         return loadPropertyValues(factoryClass, null, FACTORIES_RESOURCE_LOCATION);
     }

@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 日期格式化器，将{@link String}解析成{@link Date}或将{@link Date}格式化成指定的格式{@link DateFormatterPattern#pattern}
+ * 日期格式化器，将{@link String}解析成{@link Date}或将{@link Date}格式化成指定的格式{@link DateFormatterPattern#getPattern()}
  *
  * @author likly
  * @version 1.0

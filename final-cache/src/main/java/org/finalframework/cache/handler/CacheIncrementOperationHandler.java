@@ -7,7 +7,7 @@ import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.operation.CacheIncrementOperation;
-import org.finalframework.util.PrimaryTypes;
+import org.finalframework.util.Primaries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -67,7 +67,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
 
         final Class<? extends Number> type = operation.type();
         boolean incremented = false;
-        if (PrimaryTypes.isLong(type) || PrimaryTypes.isInteger(type)) {
+        if (Primaries.isLong(type) || Primaries.isInteger(type)) {
             final Long value = generateValue(operation.value(), context.metadata(), evaluationContext, Long.class);
             if (value == null) {
                 throw new NullPointerException("increment value is null");
@@ -76,7 +76,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
             final Long increment = cache.increment(key, field, value);
             incremented = increment != null;
             logger.info("<== result: {}", increment);
-        } else if (PrimaryTypes.isFloat(type) || PrimaryTypes.isDouble(type)) {
+        } else if (Primaries.isFloat(type) || Primaries.isDouble(type)) {
             final Double value = generateValue(operation.value(), context.metadata(), evaluationContext, Double.class);
             if (value == null) {
                 throw new NullPointerException("increment value is null");
