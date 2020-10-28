@@ -4,7 +4,7 @@ package org.finalframework.aop;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.finalframework.aop.interceptor.BaseOperationInvocation;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

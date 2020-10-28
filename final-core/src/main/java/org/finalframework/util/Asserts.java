@@ -1,6 +1,7 @@
-package org.finalframework.core;
+package org.finalframework.util;
 
 
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
@@ -8,11 +9,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * General utility methods that assists in validating arguments.
+ * General utility methods that asserts in validating arguments.
  *
  * @author likly
  * @version 1.0
  * @date 2018-10-15 15:56
+ * @see MessageFormatter#arrayFormat(String, Object[])
  * @since 1.0
  */
 @SuppressWarnings("rawtypes")
@@ -27,7 +29,7 @@ public final class Asserts {
      * @param bool the candidate bool
      */
     public static boolean isTrue(Boolean bool) {
-        return bool != null && bool;
+        return Boolean.TRUE.equals(bool);
     }
 
 
@@ -38,9 +40,9 @@ public final class Asserts {
      * @param message the message
      * @param args    the message args
      */
-    public static void isTrue(Boolean bool, @org.springframework.lang.NonNull String message, Object... args) {
+    public static void isTrue(Boolean bool, @NonNull String message, Object... args) {
         if (isTrue(bool)) {
-            throw new IllegalArgumentException(String.format(message, args));
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
@@ -50,12 +52,12 @@ public final class Asserts {
      * @param bool the candidate bool
      */
     public static boolean isFalse(Boolean bool) {
-        return bool != null && !bool;
+        return Boolean.FALSE.equals(bool);
     }
 
     public static void isFalse(Boolean bool, String message, Object... args) {
         if (isFalse(bool)) {
-            throw new IllegalArgumentException(String.format(message, args));
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
@@ -74,7 +76,7 @@ public final class Asserts {
      */
     public static void isNull(Object obj, String message, Object... args) {
         if (isNull(obj)) {
-            throw new NullPointerException(String.format(message, args));
+            throw new NullPointerException(formatMessage(message, args));
         }
     }
 
@@ -90,7 +92,7 @@ public final class Asserts {
 
     public static void nonNull(Object obj, String message, Object... args) {
         if (nonNull(obj)) {
-            throw new NullPointerException(String.format(message, args));
+            throw new NullPointerException(formatMessage(message, args));
         }
     }
 
@@ -121,7 +123,7 @@ public final class Asserts {
 
     public static void isEmpty(Object obj, String message, Object... args) {
         if (isEmpty(obj)) {
-            throw new IllegalArgumentException(String.format(message, args));
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
@@ -152,7 +154,7 @@ public final class Asserts {
 
     public static void nonEmpty(Object obj, String message, Object... args) {
         if (nonEmpty(obj)) {
-            throw new IllegalArgumentException(String.format(message, args));
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
@@ -167,7 +169,7 @@ public final class Asserts {
 
     public static void isBlank(String obj, String message, Object... args) {
         if (isBlank(obj)) {
-            throw new IllegalArgumentException(String.format(message, args));
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
@@ -245,6 +247,10 @@ public final class Asserts {
      */
     public static boolean matches(@NonNull String text, @NonNull String regex) {
         return text.matches(regex);
+    }
+
+    private static String formatMessage(String message, Object... args) {
+        return MessageFormatter.arrayFormat(message, args).getMessage();
     }
 
 

@@ -4,8 +4,8 @@ package org.finalframework.data.query.criterion;
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.SqlKeyWords;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.util.Asserts;
 
 import java.io.Serializable;
 

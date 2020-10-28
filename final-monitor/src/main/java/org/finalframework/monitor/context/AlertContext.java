@@ -93,7 +93,7 @@ public class AlertContext<T> {
         return timestamp;
     }
 
-    public static class Builder<T> implements org.finalframework.core.Builder<AlertContext<T>> {
+    public static class Builder<T> implements org.finalframework.util.Builder<AlertContext<T>> {
         private String name;
         private MonitorLevel level;
         private T operator;

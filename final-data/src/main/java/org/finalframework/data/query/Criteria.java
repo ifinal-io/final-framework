@@ -1,8 +1,8 @@
 package org.finalframework.data.query;
 
 import org.finalframework.annotation.query.AndOr;
-import org.finalframework.core.Streamable;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.util.stream.Streamable;
 
 import java.util.Arrays;
 import java.util.Collection;

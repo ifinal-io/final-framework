@@ -2,7 +2,7 @@ package org.finalframework.web.interceptor;
 
 
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.trace.HandlerInterceptorProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

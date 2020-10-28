@@ -5,7 +5,7 @@ import org.finalframework.aop.OperationHandler;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.handler.CacheableOperationHandler;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -112,7 +112,7 @@ public class CacheableOperation implements Operation {
         return this.executor;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<CacheableOperation> {
+    public static class Builder implements org.finalframework.util.Builder<CacheableOperation> {
         private String name;
         private Collection<String> key;
         private Collection<String> field;

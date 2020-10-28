@@ -4,7 +4,7 @@ package org.finalframework.web.autoconfiguration;
 import org.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
 import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
 import org.finalframework.context.util.Beans;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.finalframework.web.http.converter.JsonStringHttpMessageConverter;
 import org.finalframework.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.finalframework.web.resolver.annotation.RequestJsonParam;

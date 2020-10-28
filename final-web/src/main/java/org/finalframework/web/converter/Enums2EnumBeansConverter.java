@@ -3,7 +3,7 @@ package org.finalframework.web.converter;
 import org.finalframework.annotation.Enums;
 import org.finalframework.annotation.IEnum;
 import org.finalframework.context.util.Messages;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.finalframework.util.function.Converter;
 import org.finalframework.util.function.Filter;
 import org.finalframework.web.response.advice.EnumsResponseBodyAdvice;

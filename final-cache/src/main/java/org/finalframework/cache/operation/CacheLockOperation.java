@@ -5,7 +5,7 @@ import org.finalframework.aop.OperationHandler;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.handler.CacheLockOperationHandler;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
@@ -122,7 +122,7 @@ public class CacheLockOperation implements Operation {
         return this.executor;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<CacheLockOperation> {
+    public static class Builder implements org.finalframework.util.Builder<CacheLockOperation> {
         private String name;
         private Collection<String> key;
         private String value;

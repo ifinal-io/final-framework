@@ -2,9 +2,9 @@ package org.finalframework.data.mapping;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.*;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.query.type.JsonParameterTypeHandler;
+import org.finalframework.util.Asserts;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;

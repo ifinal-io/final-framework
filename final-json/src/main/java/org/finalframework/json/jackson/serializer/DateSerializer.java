@@ -3,7 +3,7 @@ package org.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.finalframework.core.formatter.DateFormatterPattern;
+import org.finalframework.util.format.DateFormatterPattern;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

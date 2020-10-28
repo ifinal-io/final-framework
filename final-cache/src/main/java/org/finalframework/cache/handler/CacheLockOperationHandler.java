@@ -7,7 +7,7 @@ import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheLockException;
 import org.finalframework.cache.annotation.CacheLock;
 import org.finalframework.cache.operation.CacheLockOperation;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;

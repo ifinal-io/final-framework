@@ -14,17 +14,16 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core;
-
-import java.util.stream.Stream;
+package org.finalframework.util;
 
 /**
+ * 构建者模式接口
+ *
  * @author likly
  * @version 1.0
- * @date 2018-10-25 10:31
+ * @date 2018-12-21 11:06:07
  * @since 1.0
  */
-@FunctionalInterface
-public interface Streamable<T> {
-    Stream<T> stream();
+public interface Builder<T> {
+    T build();
 }

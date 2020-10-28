@@ -16,19 +16,43 @@
  */
 package org.finalframework.util;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
+
 /**
  * @author likly
  * @version 1.0
  * @date 2020-05-09 11:25:00
+ * @see org.springframework.util.ClassUtils
  * @since 1.0
  */
-public interface Classes {
+public final class Classes {
 
-    static Class<?> forName(String className) {
-        try {
-            return Class.forName(className);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private Classes() {
     }
+
+    /**
+     * @param name class name
+     * @return class
+     * @throws ClassNotFoundException if the class was not found.
+     * @see ClassUtils#forName(String, ClassLoader)
+     */
+    static Class<?> forName(@NonNull String name) throws ClassNotFoundException {
+        return forName(name, null);
+    }
+
+    /**
+     * return the class of name
+     *
+     * @param name        class name
+     * @param classLoader class loader
+     * @return class
+     * @throws ClassNotFoundException if the class was not found
+     */
+    static Class<?> forName(@NonNull String name, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
+        return ClassUtils.forName(name, classLoader);
+    }
+
+
 }

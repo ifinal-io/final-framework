@@ -1,7 +1,7 @@
 package org.finalframework.data.query;
 
 import org.finalframework.annotation.query.Direction;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,7 +4,7 @@ import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
 import org.finalframework.context.exception.InvokeExceptionWrapper;
 import org.finalframework.context.exception.handler.GlobalExceptionHandler;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.slf4j.MDC;
 
 import java.io.Serializable;

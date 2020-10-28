@@ -49,7 +49,7 @@ public class TraceOperation implements Operation {
         return executor;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<TraceOperation> {
+    public static class Builder implements org.finalframework.util.Builder<TraceOperation> {
         private String name;
         private String trace;
         private Class<? extends OperationHandler> handler;

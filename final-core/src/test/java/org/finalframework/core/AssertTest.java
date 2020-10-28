@@ -17,6 +17,7 @@
 package org.finalframework.core;
 
 
+import org.finalframework.util.Asserts;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

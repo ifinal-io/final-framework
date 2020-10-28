@@ -2,8 +2,8 @@ package org.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.data.PersistentType;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.Property;
+import org.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.List;

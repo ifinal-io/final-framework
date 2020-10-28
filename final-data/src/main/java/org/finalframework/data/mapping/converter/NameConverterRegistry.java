@@ -2,7 +2,7 @@ package org.finalframework.data.mapping.converter;
 
 import org.finalframework.Configuration;
 import org.finalframework.annotation.data.NameConverter;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.Nullable;
 
 /**

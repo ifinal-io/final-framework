@@ -12,7 +12,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.Pageable;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;

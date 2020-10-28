@@ -1,6 +1,6 @@
 package org.finalframework.data.query;
 
-import org.finalframework.core.Streamable;
+import org.finalframework.util.stream.Streamable;
 
 import java.util.Arrays;
 import java.util.Collection;

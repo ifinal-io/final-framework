@@ -4,7 +4,7 @@ package org.finalframework.aop.interceptor;
 import org.finalframework.aop.Operation;
 import org.finalframework.aop.OperationAnnotationParser;
 import org.finalframework.aop.OperationConfiguration;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

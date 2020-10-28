@@ -3,7 +3,7 @@ package org.finalframework.context.exception.result;
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

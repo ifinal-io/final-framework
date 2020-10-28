@@ -1,6 +1,6 @@
-package org.finalframework.core.formatter;
+package org.finalframework.util.format;
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

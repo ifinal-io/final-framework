@@ -2,8 +2,8 @@ package org.finalframework.web.resolver;
 
 import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
 import org.finalframework.context.exception.BadRequestException;
-import org.finalframework.core.Asserts;
 import org.finalframework.json.Json;
+import org.finalframework.util.Asserts;
 import org.finalframework.web.resolver.annotation.RequestJsonParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

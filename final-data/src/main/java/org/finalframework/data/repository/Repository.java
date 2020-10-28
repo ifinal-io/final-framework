@@ -4,9 +4,9 @@ import org.apache.ibatis.annotations.Param;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.Pageable;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.trigger.annotation.TriggerPoint;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;

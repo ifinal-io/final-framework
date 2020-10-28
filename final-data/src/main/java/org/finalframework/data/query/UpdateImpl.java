@@ -1,8 +1,8 @@
 package org.finalframework.data.query;
 
 import lombok.NonNull;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.enums.UpdateOperation;
+import org.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;

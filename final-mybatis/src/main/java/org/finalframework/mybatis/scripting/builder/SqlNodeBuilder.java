@@ -1,7 +1,7 @@
 package org.finalframework.mybatis.scripting.builder;
 
 
-import org.finalframework.core.Builder;
+import org.finalframework.util.Builder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

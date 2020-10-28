@@ -6,7 +6,7 @@ import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CachePut;
 import org.finalframework.cache.handler.CachePutOperationHandler;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -127,7 +127,7 @@ public class CachePutOperation implements Operation {
         return this.executor;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<CachePutOperation> {
+    public static class Builder implements org.finalframework.util.Builder<CachePutOperation> {
         private String name;
         private Collection<String> key;
         private Collection<String> field;

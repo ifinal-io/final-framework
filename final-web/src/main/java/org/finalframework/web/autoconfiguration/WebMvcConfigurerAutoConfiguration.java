@@ -3,7 +3,7 @@ package org.finalframework.web.autoconfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
 import org.finalframework.auto.spring.factory.annotation.SpringWebMvcConfigurer;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.IHandlerInterceptor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.Ordered;

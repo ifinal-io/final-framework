@@ -3,7 +3,7 @@ package org.finalframework.web.converter;
 
 import org.finalframework.annotation.IEnum;
 import org.finalframework.auto.spring.factory.annotation.SpringFactory;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;

@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
+package org.finalframework.util.format;
 
 /**
  * @author likly

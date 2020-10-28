@@ -1,7 +1,7 @@
 package org.finalframework.context.converter;
 
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 
 import java.util.Arrays;

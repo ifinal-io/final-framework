@@ -10,8 +10,8 @@ import org.apache.velocity.tools.Scope;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.velocity.StringTemplateResourceLoader;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -4,13 +4,13 @@ package org.finalframework.data.query.sql;
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.query.*;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
+import org.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 

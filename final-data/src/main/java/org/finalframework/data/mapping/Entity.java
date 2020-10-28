@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.finalframework.annotation.data.NameConverter;
 import org.finalframework.annotation.data.NonCompare;
 import org.finalframework.annotation.data.Table;
-import org.finalframework.core.Asserts;
-import org.finalframework.core.Streamable;
 import org.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.finalframework.data.serializer.EntityJsonSerializer;
+import org.finalframework.util.Asserts;
+import org.finalframework.util.stream.Streamable;
 import org.springframework.data.mapping.PersistentEntity;
 
 import java.util.List;

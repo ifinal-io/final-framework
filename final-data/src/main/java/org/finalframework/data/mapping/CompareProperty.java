@@ -20,7 +20,7 @@ public interface CompareProperty {
 
     boolean equals();
 
-    interface Builder extends org.finalframework.core.Builder<CompareProperty> {
+    interface Builder extends org.finalframework.util.Builder<CompareProperty> {
         Builder property(Property property);
 
         Builder value(Object before, Object after);

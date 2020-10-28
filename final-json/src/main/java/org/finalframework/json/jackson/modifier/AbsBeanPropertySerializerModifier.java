@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import org.finalframework.core.Asserts;
 import org.finalframework.json.context.JsonContextHolder;
+import org.finalframework.util.Asserts;
 
 import java.util.Collection;
 import java.util.List;

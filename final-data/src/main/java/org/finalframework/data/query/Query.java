@@ -5,10 +5,10 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.finalframework.annotation.Pageable;
 import org.finalframework.annotation.query.Direction;
-import org.finalframework.core.Asserts;
-import org.finalframework.core.Streamable;
 import org.finalframework.data.query.builder.QuerySqlBuilder;
 import org.finalframework.data.query.criterion.Criterion;
+import org.finalframework.util.Asserts;
+import org.finalframework.util.stream.Streamable;
 
 import java.io.Serializable;
 import java.util.ArrayList;

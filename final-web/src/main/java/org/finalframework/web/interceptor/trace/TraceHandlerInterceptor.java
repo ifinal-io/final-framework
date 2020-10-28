@@ -2,9 +2,9 @@ package org.finalframework.web.interceptor.trace;
 
 import lombok.Setter;
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
-import org.finalframework.core.Asserts;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
+import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.AbsHandlerInterceptor;
 import org.finalframework.web.interceptor.TraceHandlerInterceptorProperties;
 import org.slf4j.Logger;

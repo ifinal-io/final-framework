@@ -14,16 +14,18 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core;
+package org.finalframework.util;
 
 /**
- * 构建者模式接口
- *
  * @author likly
  * @version 1.0
- * @date 2018-12-21 11:06:07
+ * @date 2018-12-11 10:22:10
  * @since 1.0
  */
-public interface Builder<T> {
-    T build();
+public interface Traceable {
+
+    void setTrace(String trace);
+
+    String getTrace();
+
 }

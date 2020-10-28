@@ -2,8 +2,8 @@ package org.finalframework.json.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
-import org.finalframework.core.Asserts;
 import org.finalframework.json.JsonService;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

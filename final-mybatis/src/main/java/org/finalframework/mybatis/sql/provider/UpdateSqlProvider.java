@@ -5,7 +5,6 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.data.Metadata;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.query.Update;
@@ -14,6 +13,7 @@ import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

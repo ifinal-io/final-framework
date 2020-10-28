@@ -1,7 +1,7 @@
 package org.finalframework.web.i18n;
 
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;

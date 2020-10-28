@@ -1,7 +1,7 @@
 package org.finalframework.data.query.builder;
 
-import org.finalframework.core.Builder;
 import org.finalframework.data.query.QProperty;
+import org.finalframework.util.Builder;
 
 /**
  * @author likly

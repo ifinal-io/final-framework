@@ -1,11 +1,11 @@
 package org.finalframework.data.trigger.interceptor;
 
 
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.Query;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.data.trigger.SelectTrigger;
 import org.finalframework.data.trigger.TriggerManager;
+import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

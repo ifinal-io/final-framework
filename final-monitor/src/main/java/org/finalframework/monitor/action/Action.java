@@ -114,7 +114,7 @@ public class Action<T> {
         return timestamp;
     }
 
-    public static class Builder<T> implements org.finalframework.core.Builder<Action<T>> {
+    public static class Builder<T> implements org.finalframework.util.Builder<Action<T>> {
         private String name;
         private int type;
         private int action;

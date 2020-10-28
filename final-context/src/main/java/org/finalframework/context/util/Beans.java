@@ -1,6 +1,6 @@
 package org.finalframework.context.util;
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 

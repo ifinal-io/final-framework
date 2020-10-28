@@ -29,7 +29,7 @@ public interface SimpleCriterion<T> extends Criterion {
     @NonNull
     Operation getOperation();
 
-    interface Builder<T, R extends Builder> extends org.finalframework.core.Builder<T> {
+    interface Builder<T, R extends Builder> extends org.finalframework.util.Builder<T> {
 
         @NonNull
         R target(Object target);

@@ -1,7 +1,7 @@
 package org.finalframework.json;
 
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 /**
  * Json service register.

@@ -273,7 +273,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
         return Integer.compare(this.getOrder(), o.getOrder());
     }
 
-    interface Builder<T> extends org.finalframework.core.Builder<QProperty<T>> {
+    interface Builder<T> extends org.finalframework.util.Builder<QProperty<T>> {
 
         Builder<T> order(Integer order);
 

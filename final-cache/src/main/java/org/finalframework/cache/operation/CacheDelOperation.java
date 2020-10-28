@@ -6,7 +6,7 @@ import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.CacheDel;
 import org.finalframework.cache.handler.CacheDelOperationHandler;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -100,7 +100,7 @@ public class CacheDelOperation implements Operation {
         return this.executor;
     }
 
-    public static class Builder implements org.finalframework.core.Builder<CacheDelOperation> {
+    public static class Builder implements org.finalframework.util.Builder<CacheDelOperation> {
         private String name;
         private Collection<String> key;
         private Collection<String> field;

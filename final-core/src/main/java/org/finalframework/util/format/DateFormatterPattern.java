@@ -1,4 +1,4 @@
-package org.finalframework.core.formatter;
+package org.finalframework.util.format;
 
 import lombok.Getter;
 

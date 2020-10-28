@@ -2,7 +2,7 @@ package org.finalframework.aop.interceptor;
 
 
 import org.finalframework.aop.*;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 
 import java.util.Collection;

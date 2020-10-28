@@ -1,7 +1,7 @@
 package org.finalframework.web.filter;
 
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;

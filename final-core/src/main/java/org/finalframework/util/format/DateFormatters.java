@@ -14,9 +14,9 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
+package org.finalframework.util.format;
 
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Arrays;

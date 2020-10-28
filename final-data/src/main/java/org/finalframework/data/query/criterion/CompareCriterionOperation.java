@@ -1,6 +1,6 @@
 package org.finalframework.data.query.criterion;
 
-import org.finalframework.core.Builder;
+import org.finalframework.util.Builder;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

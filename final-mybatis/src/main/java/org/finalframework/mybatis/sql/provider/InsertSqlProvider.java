@@ -5,12 +5,12 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.data.LastModified;
 import org.finalframework.annotation.data.Metadata;
 import org.finalframework.annotation.data.Version;
-import org.finalframework.core.Asserts;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.finalframework.mybatis.sql.ScriptMapperHelper;
+import org.finalframework.util.Asserts;
 
 import java.lang.reflect.Method;
 import java.util.Collection;

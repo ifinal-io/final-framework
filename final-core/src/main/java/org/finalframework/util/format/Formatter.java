@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
+package org.finalframework.util.format;
 
 import org.finalframework.util.function.Filter;
 

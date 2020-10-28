@@ -14,18 +14,17 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core;
+package org.finalframework.util.stream;
+
+import java.util.stream.Stream;
 
 /**
  * @author likly
  * @version 1.0
- * @date 2018-12-11 10:22:10
+ * @date 2018-10-25 10:31
  * @since 1.0
  */
-public interface Traceable {
-
-    void setTrace(String trace);
-
-    String getTrace();
-
+@FunctionalInterface
+public interface Streamable<T> {
+    Stream<T> stream();
 }

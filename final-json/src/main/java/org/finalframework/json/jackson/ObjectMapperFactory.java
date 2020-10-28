@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.context.converter.EnumClassConverter;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 
 import java.util.ServiceLoader;
 
