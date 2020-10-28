@@ -14,6 +14,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Duration;
@@ -34,17 +35,20 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-                                  Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-                                  ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
+                                  @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
             return null;
         }
         // set address
         result.setAddress(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(), request.getLocalAddress().getPort()));
+        // set locale
         result.setLocale(LocaleContextHolder.getLocale());
+        // set timeZone
         result.setTimeZone(LocaleContextHolder.getTimeZone());
+        // set operator
         result.setOperator(UserContextHolder.getUser());
 
         if (request instanceof ServletServerHttpRequest) {
@@ -59,5 +63,4 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
         }
         return result;
     }
-
 }

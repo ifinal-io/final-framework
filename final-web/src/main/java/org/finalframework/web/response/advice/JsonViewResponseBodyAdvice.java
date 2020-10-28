@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.Page;
 import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
 import org.finalframework.json.jackson.view.JsonViewValue;
-import org.finalframework.util.Asserts;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Objects;
 
 /**
  * @author likly
@@ -30,7 +32,9 @@ public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
+                                  @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         if (body == null) {
             return null;
         }
@@ -44,10 +48,8 @@ public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     }
 
-    private Class<?> getJsonView(MethodParameter returnType) {
-        JsonView ann = returnType.getMethodAnnotation(JsonView.class);
-        Asserts.isNull(ann, "No JsonView annotation");
-
+    private Class<?> getJsonView(@NonNull MethodParameter returnType) {
+        JsonView ann = Objects.requireNonNull(returnType.getMethodAnnotation(JsonView.class), "No JsonView annotation");
         Class<?>[] classes = ann.value();
         if (classes.length != 1) {
             throw new IllegalArgumentException(

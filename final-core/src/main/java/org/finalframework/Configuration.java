@@ -38,6 +38,7 @@ public class Configuration {
     private boolean isConfiguration;
 
     private Configuration() {
+
         ClassPathResource resource = new ClassPathResource("/" + PROPERTIES_PATH);
         if (resource.exists()) {
             try {

@@ -86,6 +86,7 @@ public final class UserContextHolder {
         UserContextHolder.defaultUser = user;
     }
 
+    @Nullable
     public static <T extends IUser<?>> T getUser() {
         return getUser(getUserContext());
     }

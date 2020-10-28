@@ -3,6 +3,7 @@ package org.finalframework.util;
 
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
+import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -75,9 +76,7 @@ public final class Asserts {
      * @throws NullPointerException if {@code obj} is {@code null}
      */
     public static void isNull(Object obj, String message, Object... args) {
-        if (isNull(obj)) {
-            throw new NullPointerException(formatMessage(message, args));
-        }
+        Assert.notNull(obj, formatMessage(message, args));
     }
 
     /**
