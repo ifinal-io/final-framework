@@ -7,7 +7,7 @@ import org.finalframework.aop.annotation.CutPoint;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.operation.CacheIncrementOperation;
-import org.finalframework.core.PrimaryTypes;
+import org.finalframework.util.PrimaryTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;

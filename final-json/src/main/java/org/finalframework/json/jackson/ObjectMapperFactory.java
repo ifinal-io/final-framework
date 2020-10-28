@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.finalframework.context.converter.EnumClassConverter;
 import org.finalframework.core.Asserts;
-import org.finalframework.core.Factory;
 
 import java.util.ServiceLoader;
 
@@ -18,7 +17,7 @@ import java.util.ServiceLoader;
  * @date 2020-02-16 22:42:29
  * @since 1.0
  */
-public class ObjectMapperFactory implements Factory {
+public class ObjectMapperFactory {
     private final ObjectMapper objectMapper;
 
     public ObjectMapperFactory() {

@@ -5,8 +5,8 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.DateTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.finalframework.auto.spring.factory.annotation.SpringComponent;
-import org.finalframework.core.converter.Converter;
 import org.finalframework.util.Dates;
+import org.finalframework.util.function.Converter;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

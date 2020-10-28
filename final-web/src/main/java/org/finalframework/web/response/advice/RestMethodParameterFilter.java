@@ -1,6 +1,6 @@
 package org.finalframework.web.response.advice;
 
-import org.finalframework.core.filter.Filter;
+import org.finalframework.util.function.Filter;
 import org.finalframework.web.response.annotation.ResponseIgnore;
 import org.finalframework.web.response.annotation.RestResponseController;
 import org.springframework.core.MethodParameter;

@@ -14,21 +14,26 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
+package org.finalframework.util.collection;
 
-import org.finalframework.util.function.Filter;
+import org.springframework.lang.Nullable;
+
+import java.util.Map;
 
 /**
- * 格式化接口
- *
  * @author likly
  * @version 1.0
- * @date 2019-02-15 21:43:32
+ * @date 2019-12-17 12:51:27
  * @since 1.0
  */
-public interface Formatter<T> extends Filter<String> {
+public interface MultiKeyMap<K1, K2, V> extends Map<K1, Map<K2, V>> {
 
-    T parse(String source);
+    void add(K1 key1, K2 key2, @Nullable V value);
 
-    String format(T target);
+    default V get(K1 key1, K2 key2) {
+        return getOrDefault(key1, key2, null);
+    }
+
+    V getOrDefault(K1 key1, K2 key2, V defValue);
+
 }

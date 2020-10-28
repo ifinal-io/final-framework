@@ -4,7 +4,7 @@ import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.finalframework.annotation.IEnum;
-import org.finalframework.core.PrimaryTypes;
+import org.finalframework.util.PrimaryTypes;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

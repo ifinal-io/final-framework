@@ -1,6 +1,6 @@
 package org.finalframework.mybatis.handler;
 
-import org.finalframework.core.PrimaryTypes;
+import org.finalframework.util.PrimaryTypes;
 
 import java.util.AbstractCollection;
 import java.util.Collection;

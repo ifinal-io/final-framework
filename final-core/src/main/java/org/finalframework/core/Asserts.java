@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * General utility methods that assists in validating arguments.
@@ -14,6 +15,7 @@ import java.util.Collection;
  * @date 2018-10-15 15:56
  * @since 1.0
  */
+@SuppressWarnings("rawtypes")
 public final class Asserts {
 
     private Asserts() {
@@ -61,9 +63,10 @@ public final class Asserts {
      * Check whether the given {@code obj} is null.
      *
      * @param obj the candidate Object.
+     * @see Objects#isNull(Object)
      */
     public static boolean isNull(Object obj) {
-        return obj == null;
+        return Objects.isNull(obj);
     }
 
     /**
@@ -79,9 +82,10 @@ public final class Asserts {
      * Check whether the given {@code obj} is not null.
      *
      * @param obj the candidate Object.
+     * @see Objects#nonNull(Object)
      */
     public static boolean nonNull(Object obj) {
-        return obj != null;
+        return Objects.nonNull(obj);
     }
 
     public static void nonNull(Object obj, String message, Object... args) {

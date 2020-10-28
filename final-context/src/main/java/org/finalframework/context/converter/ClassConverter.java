@@ -1,6 +1,6 @@
 package org.finalframework.context.converter;
 
-import org.finalframework.core.converter.Converter;
+import org.finalframework.util.function.Converter;
 
 /**
  * @author likly

@@ -14,21 +14,19 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
-
-import org.finalframework.util.function.Filter;
+package org.finalframework.util.function;
 
 /**
- * 格式化接口
- *
  * @author likly
  * @version 1.0
- * @date 2019-02-15 21:43:32
+ * @date 2019-01-08 13:22:13
  * @since 1.0
  */
-public interface Formatter<T> extends Filter<String> {
+@FunctionalInterface
+public interface Converter3<S1, S2, S3, TARGET> {
 
-    T parse(String source);
-
-    String format(T target);
+    /**
+     * convert to {@link TARGET} with {@link S1} , {@link S2} and {@link S3}
+     */
+    TARGET convert(S1 s1, S2 s2, S3 s3);
 }

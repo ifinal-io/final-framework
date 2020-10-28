@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import org.finalframework.annotation.result.Pagination;
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.core.converter.Converter;
+import org.finalframework.util.function.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

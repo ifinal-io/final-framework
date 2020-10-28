@@ -1,6 +1,6 @@
 package org.finalframework.web.resolver;
 
-import org.finalframework.core.converter.Converter;
+import org.finalframework.util.function.Converter;
 
 /**
  *

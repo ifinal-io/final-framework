@@ -4,8 +4,8 @@ import org.finalframework.annotation.Enums;
 import org.finalframework.annotation.IEnum;
 import org.finalframework.context.util.Messages;
 import org.finalframework.core.Asserts;
-import org.finalframework.core.converter.Converter;
-import org.finalframework.core.filter.Filter;
+import org.finalframework.util.function.Converter;
+import org.finalframework.util.function.Filter;
 import org.finalframework.web.response.advice.EnumsResponseBodyAdvice;
 
 import java.util.*;

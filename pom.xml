@@ -31,7 +31,6 @@
         <module>final-sharding</module>
         <module>final-retrofit</module>
         <module>final-aop</module>
-        <module>final-util</module>
         <module>final-zookeeper</module>
         <module>final-selenium</module>
         <module>final-web</module>
@@ -72,11 +71,6 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

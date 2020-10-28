@@ -1,6 +1,6 @@
 package org.finalframework.data.query;
 
-import org.finalframework.core.converter.Convertible;
+import org.finalframework.util.function.Convertible;
 
 /**
  * 可查询的对象,实现将自定义的查询对象转化为{@link Query}对象

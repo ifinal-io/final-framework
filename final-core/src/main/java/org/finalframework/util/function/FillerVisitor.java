@@ -14,21 +14,18 @@
  *  limitations under the License.
  *
  */
-package org.finalframework.core.formatter;
+package org.finalframework.util.function;
 
-import org.finalframework.util.function.Filter;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
- * 格式化接口
- *
  * @author likly
  * @version 1.0
- * @date 2019-02-15 21:43:32
+ * @date 2020-03-06 14:17:35
  * @since 1.0
  */
-public interface Formatter<T> extends Filter<String> {
+public interface FillerVisitor<H, P, R> {
 
-    T parse(String source);
-
-    String format(T target);
+    R fill(@NonNull H holder, @Nullable P param);
 }

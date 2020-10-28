@@ -3,7 +3,7 @@ package org.finalframework.web.response;
 
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.core.converter.Converter;
+import org.finalframework.util.function.Converter;
 
 import java.io.Serializable;
 
