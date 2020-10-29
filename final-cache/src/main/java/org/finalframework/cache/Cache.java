@@ -32,7 +32,7 @@ public interface Cache extends Executor {
      * @see CacheLockOperationHandler
      * @see #unlock(Object, Object)
      */
-    boolean lock(@NonNull Object key, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
+    boolean lock(@NonNull Object key, @NonNull Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
 
     /**
      * 释放缓存锁，当且仅当缓存 {@code key} 和 {@code value}。
@@ -45,7 +45,7 @@ public interface Cache extends Executor {
      * @see CacheLockOperationHandler
      * @see #lock(Object, Object, Long, TimeUnit)
      */
-    boolean unlock(@NonNull Object key, @Nullable Object value);
+    boolean unlock(@NonNull Object key, @NonNull Object value);
 
     /**
      * 检查指定的 {@code key} 和 {@code field} 是否存在

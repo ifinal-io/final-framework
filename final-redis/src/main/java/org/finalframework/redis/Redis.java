@@ -45,8 +45,15 @@ public interface Redis {
         return RedisRegistry.getInstance().zset();
     }
 
-    static boolean lock(Object key, Object value, long timeout, TimeUnit unit) {
-        return Boolean.TRUE.equals(value().setIfAbsent(key, value, timeout, unit));
+    static boolean lock(Object key, Object value, Long timeout, TimeUnit unit) {
+        if (timeout != null && unit != null) {
+            return Boolean.TRUE.equals(value().setIfAbsent(key, value, timeout, unit));
+        } else {
+            return Boolean.TRUE.equals(value().setIfAbsent(key, value));
+
+        }
+
+
     }
 
     static boolean unlock(Object key, Object value) {
