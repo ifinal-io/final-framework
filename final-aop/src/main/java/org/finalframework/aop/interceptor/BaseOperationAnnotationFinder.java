@@ -3,6 +3,7 @@ package org.finalframework.aop.interceptor;
 
 import org.finalframework.aop.OperationAnnotationFinder;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Repeatable;
@@ -22,6 +23,7 @@ public class BaseOperationAnnotationFinder<A extends Annotation> implements Oper
     private final Class<A> ann;
     private final boolean repeatable;
 
+    @SuppressWarnings("unused")
     private BaseOperationAnnotationFinder(Class<A> ann, boolean repeatable) {
         this.ann = ann;
         this.repeatable = repeatable;
@@ -33,17 +35,17 @@ public class BaseOperationAnnotationFinder<A extends Annotation> implements Oper
     }
 
     @Override
-    public Collection<A> findOperationAnnotation(Class<?> type) {
+    public Collection<A> findOperationAnnotation(@NonNull Class<?> type) {
         return findOperationAnnotation((AnnotatedElement) type);
     }
 
     @Override
-    public Collection<A> findOperationAnnotation(Method method) {
+    public Collection<A> findOperationAnnotation(@NonNull Method method) {
         return findOperationAnnotation((AnnotatedElement) method);
     }
 
     @Override
-    public Collection<A> findOperationAnnotation(Parameter parameter) {
+    public Collection<A> findOperationAnnotation(@NonNull Parameter parameter) {
         return findOperationAnnotation((AnnotatedElement) parameter);
     }
 

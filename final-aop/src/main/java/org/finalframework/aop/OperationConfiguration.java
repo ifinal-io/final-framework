@@ -29,7 +29,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @since 1.0
  */
 @SpringComponent
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked","rawtypes"})
 public class OperationConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OperationConfiguration.class);
     private static final Integer DEFAULT_INITIAL_SIZE = 8;
@@ -126,7 +126,7 @@ public class OperationConfiguration {
         return executors.get(operation.executor());
     }
 
-    public OperationAnnotationFinder<? extends Annotation> getOperationAnnotationFinder(Class<? extends Annotation> annotation) {
-        return finders.computeIfAbsent(annotation, key -> new BaseOperationAnnotationFinder<>(annotation));
+    public <T extends Annotation> OperationAnnotationFinder<T> getOperationAnnotationFinder(Class<T> annotation) {
+        return (OperationAnnotationFinder<T>) finders.computeIfAbsent(annotation, key -> new BaseOperationAnnotationFinder<>(annotation));
     }
 }
