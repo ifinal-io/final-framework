@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * @author likly
@@ -19,6 +20,11 @@ public class ApplicationContextTest {
     @PostConstruct
     public void init() {
         logger.info("{}#init()", getClass().getSimpleName());
+    }
+
+    @PreDestroy
+    public void destroy() {
+        logger.info("{}#destory()", getClass().getSimpleName());
     }
 
     @Test

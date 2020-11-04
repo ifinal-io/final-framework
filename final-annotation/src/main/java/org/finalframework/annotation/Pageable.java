@@ -14,7 +14,7 @@ import org.springframework.lang.Nullable;
  */
 public interface Pageable extends IQuery {
 
-    void setPage(Integer page);
+    void setPage(@Nullable Integer page);
 
     /**
      * return the page number.
@@ -24,7 +24,8 @@ public interface Pageable extends IQuery {
     @Nullable
     Integer getPage();
 
-    void setSize(Integer size);
+
+    void setSize(@Nullable Integer size);
 
     /**
      * return the page size.
@@ -34,7 +35,7 @@ public interface Pageable extends IQuery {
     @Nullable
     Integer getSize();
 
-    void setCount(Boolean count);
+    void setCount(@Nullable Boolean count);
 
     /**
      * return {@code true} if need do count, otherwise {@code false}, default need count.
