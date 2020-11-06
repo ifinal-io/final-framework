@@ -2,6 +2,7 @@ package org.finalframework.web.i18n;
 
 
 import org.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +20,13 @@ import java.util.Locale;
 public class I18NLocaleResolver extends CookieLocaleResolver {
 
     private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
-    private final List<Locale> supportedLocales = new ArrayList<Locale>(4);
+    private final List<Locale> supportedLocales = new ArrayList<>(4);
 
     private String paramName;
     private String headerName;
 
     @Override
-    public Locale resolveLocale(HttpServletRequest request) {
+    public Locale resolveLocale(@NonNull HttpServletRequest request) {
 
         Locale locale = null;
 
@@ -41,7 +42,7 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
             }
         }
 
-        if (locale == null && request.getHeader("Accept-Language") != null) {
+        if (locale == null && request.getHeader(ACCEPT_LANGUAGE_HEADER) != null) {
             locale = request.getLocale();
             if (!isSupportedLocale(locale)) {
                 locale = findSupportedLocale(request, locale);

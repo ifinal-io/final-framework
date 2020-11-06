@@ -2,6 +2,7 @@ package org.finalframework.context;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.annotation.PreDestroy;
  */
 
 @Slf4j
+@SpringBootApplication
 public class ApplicationContextTest {
 
     @PostConstruct
@@ -29,6 +31,7 @@ public class ApplicationContextTest {
 
     @Test
     public void test() {
+//        ConfigurableApplicationContext applicationContext = SpringApplication.run(ApplicationContextTest.class);
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationContextTest.class);
         ApplicationContextTest bean = applicationContext.getBean(ApplicationContextTest.class);
         System.out.println(bean);

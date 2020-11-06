@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotate the {@link PrimaryKey} use auto incr.
+ * A marker annotation to annotated the {@link PrimaryKey} use auto incr.
  *
  * <pre class="code">
  *      public interface Mapper{

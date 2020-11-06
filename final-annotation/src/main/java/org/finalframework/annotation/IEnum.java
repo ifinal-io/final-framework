@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.lang.NonNull;
 
 /**
- * The interface should be impl by the {@linkplain Enum enum} which want to be a stronger enum.
+ * A maker superinterface which the {@linkplain Enum enum} should be impl.
  *
  * @author likly
  * @version 1.0

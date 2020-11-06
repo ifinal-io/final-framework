@@ -11,8 +11,9 @@ import java.lang.annotation.*;
  * @author likly
  * @version 1.0
  * @date 2019-02-14 14:57:22
- * @since 1.0
  * @see RestController
+ * @see ResponseBody
+ * @since 1.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

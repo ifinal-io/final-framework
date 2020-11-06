@@ -5,9 +5,8 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,27 +29,29 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
     }
 
     @Override
-    public boolean canRead(Class<?> clazz, MediaType mediaType) {
+    public boolean canRead(@NonNull Class<?> clazz, MediaType mediaType) {
         return converter.canRead(clazz, mediaType);
     }
 
     @Override
-    public boolean canWrite(Class<?> clazz, MediaType mediaType) {
+    public boolean canWrite(@NonNull Class<?> clazz, MediaType mediaType) {
         return converter.canWrite(String.class, mediaType);
     }
 
+    @NonNull
     @Override
     public List<MediaType> getSupportedMediaTypes() {
         return converter.getSupportedMediaTypes();
     }
 
+    @NonNull
     @Override
-    public Object read(Class<?> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+    public Object read(@NonNull Class<?> clazz, @NonNull HttpInputMessage inputMessage) throws IOException {
         return converter.read(String.class, inputMessage);
     }
 
     @Override
-    public void write(Object o, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
+    public void write(@NonNull Object o, MediaType contentType, @NonNull HttpOutputMessage outputMessage) throws IOException {
         converter.write(Json.toJson(o), contentType, outputMessage);
     }
 }

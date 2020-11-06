@@ -20,7 +20,7 @@ import org.springframework.core.annotation.AnnotationUtils;
         SpringResourceConfigurer.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
 @SpringComponent
-public class SpringResourceConfigurer {
+public final class SpringResourceConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(SpringResourceConfigurer.class);
 
     static final String CLASS_PATH_SPRING_CONFIG_XML = "classpath:spring-config-*.xml";

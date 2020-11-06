@@ -1,9 +1,11 @@
 package org.finalframework.annotation;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serializable;
 
 /**
- * The interface of a entity which must be impls.
+ * A marker superinterface of a entity must be impls.
  *
  * @author likly
  * @version 1.0
@@ -18,6 +20,7 @@ public interface IEntity<ID extends Serializable> extends Serializable {
      *
      * @return the entity id.
      */
+    @Nullable
     ID getId();
 
     /**
@@ -25,5 +28,5 @@ public interface IEntity<ID extends Serializable> extends Serializable {
      *
      * @param id id
      */
-    void setId(ID id);
+    void setId(@Nullable ID id);
 }
