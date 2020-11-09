@@ -23,9 +23,9 @@ public interface JsonService {
      *
      * @param object 数据对象
      * @return json 串
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default String toJson(@Nullable Object object) throws Exception {
+    default String toJson(@Nullable Object object) {
         return toJson(object, null);
     }
 
@@ -35,9 +35,9 @@ public interface JsonService {
      * @param object the object
      * @param view   the view
      * @return the json string.
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    String toJson(@Nullable Object object, @Nullable Class<?> view) throws Exception;
+    String toJson(@Nullable Object object, @Nullable Class<?> view);
 
     /**
      * return json {@linkplain Object value} of json string
@@ -46,9 +46,9 @@ public interface JsonService {
      * @param classOfT value type
      * @param <T>      type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <T> T toObject(@Nullable String json, @Nullable Class<T> classOfT) throws Exception {
+    default <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT) {
         return toObject(json, classOfT, null);
     }
 
@@ -60,9 +60,9 @@ public interface JsonService {
      * @param view     json view
      * @param <T>      json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT, @Nullable Class<?> view) throws Exception;
+    <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT, @Nullable Class<?> view);
 
     /**
      * return json {@linkplain Object value} of json string
@@ -71,9 +71,9 @@ public interface JsonService {
      * @param typeOfT value type
      * @param <T>     json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <T> T toObject(@Nullable String json, @NonNull Type typeOfT) throws Exception {
+    default <T> T toObject(@Nullable String json, @NonNull Type typeOfT) {
         return toObject(json, typeOfT, null);
     }
 
@@ -85,9 +85,9 @@ public interface JsonService {
      * @param view    json view
      * @param <T>     json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    <T> T toObject(@Nullable String json, @NonNull Type typeOfT, @Nullable Class<?> view) throws Exception;
+    <T> T toObject(@Nullable String json, @NonNull Type typeOfT, @Nullable Class<?> view);
 
     /**
      * return json {@linkplain List value} of json string
@@ -96,9 +96,10 @@ public interface JsonService {
      * @param elementClass json element type
      * @param <E>          json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <E> List<E> toList(@Nullable String json, @Nullable Class<E> elementClass) throws Exception {
+    @SuppressWarnings("unchecked")
+    default <E> List<E> toList(@Nullable String json, @NonNull Class<E> elementClass) {
         return toCollection(json, List.class, elementClass, null);
     }
 
@@ -110,9 +111,10 @@ public interface JsonService {
      * @param view         json view
      * @param <E>          json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <E> List<E> toList(@Nullable String json, @Nullable Class<E> elementClass, @Nullable Class<?> view) throws Exception {
+    @SuppressWarnings("unchecked")
+    default <E> List<E> toList(@Nullable String json, @NonNull Class<E> elementClass, @Nullable Class<?> view) {
         return toCollection(json, List.class, elementClass, view);
     }
 
@@ -123,9 +125,10 @@ public interface JsonService {
      * @param elementClass json element type
      * @param <E>          json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <E> Set<E> toSet(@Nullable String json, @Nullable Class<E> elementClass) throws Exception {
+    @SuppressWarnings("unchecked")
+    default <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> elementClass) {
         return toCollection(json, Set.class, elementClass, null);
     }
 
@@ -137,9 +140,10 @@ public interface JsonService {
      * @param view         json view
      * @param <E>          json type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <E> Set<E> toSet(@Nullable String json, @Nullable Class<E> elementClass, @Nullable Class<?> view) throws Exception {
+    @SuppressWarnings("unchecked")
+    default <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> elementClass, @Nullable Class<?> view) {
         return toCollection(json, Set.class, elementClass, view);
     }
 
@@ -152,9 +156,9 @@ public interface JsonService {
      * @param <E>             json element type
      * @param <T>             json collection type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    default <E, T extends Collection<E>> T toCollection(@Nullable String json, @Nullable Class<T> collectionClass, @Nullable Class<E> elementClass) throws Exception {
+    default <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass) {
         return toCollection(json, collectionClass, elementClass, null);
     }
 
@@ -167,7 +171,7 @@ public interface JsonService {
      * @param <E>             json element type
      * @param <T>             json collection type
      * @return json value
-     * @throws Exception json exception
+     * @throws JsonException json JsonException
      */
-    <E, T extends Collection<E>> T toCollection(@Nullable String json, @Nullable Class<T> collectionClass, @Nullable Class<E> elementClass, @Nullable Class<?> view) throws Exception;
+    <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass, @Nullable Class<?> view);
 }

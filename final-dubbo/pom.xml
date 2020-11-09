@@ -32,6 +32,10 @@
             <groupId>org.finalframework.auto</groupId>
             <artifactId>final-auto-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-annotation</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
