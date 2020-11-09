@@ -6,13 +6,10 @@ import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
 import org.finalframework.context.util.Beans;
 import org.finalframework.util.Asserts;
 import org.finalframework.web.http.converter.JsonStringHttpMessageConverter;
-import org.finalframework.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
-import org.finalframework.web.resolver.annotation.RequestJsonParam;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -47,17 +44,17 @@ import java.util.stream.Collectors;
 @SuppressWarnings("all")
 public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
-    /**
-     * {@link RequestJsonParam} 参数注解解析器
-     *
-     * @return
-     * @see RequestJsonParam
-     * @see RequestJsonParamHandlerMethodArgumentResolver
-     */
-    @Bean
-    public RequestJsonParamHandlerMethodArgumentResolver requestJsonParamHandlerMethodArgumentResolver() {
-        return new RequestJsonParamHandlerMethodArgumentResolver();
-    }
+//    /**
+//     * {@link RequestJsonParam} 参数注解解析器
+//     *
+//     * @return
+//     * @see RequestJsonParam
+//     * @see RequestJsonParamHandlerMethodArgumentResolver
+//     */
+//    @Bean
+//    public RequestJsonParamHandlerMethodArgumentResolver requestJsonParamHandlerMethodArgumentResolver() {
+//        return new RequestJsonParamHandlerMethodArgumentResolver();
+//    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {

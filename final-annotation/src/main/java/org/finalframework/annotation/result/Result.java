@@ -24,7 +24,7 @@ import java.util.TimeZone;
 @Setter
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class Result<T extends Serializable> implements IResult<T>, Responsible, Serializable {
+public final class Result<T> implements IResult<T>, Responsible, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;
     /**
@@ -52,6 +52,7 @@ public final class Result<T extends Serializable> implements IResult<T>, Respons
     /**
      * the result {@linkplain IData#getData() data}
      */
+    @SuppressWarnings("all")
     private T data;
     /**
      * the {@linkplain Pagination pagination}
