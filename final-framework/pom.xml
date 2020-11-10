@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.finalframework.frameworks</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.finalframework</groupId>
+    <artifactId>final-framework</artifactId>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>final-annotation</module>
+        <module>final-context</module>
+        <module>final-json</module>
+        <module>final-redis</module>
+        <module>final-core</module>
+        <module>final-cache</module>
+        <module>final-dubbo</module>
+        <module>final-data</module>
+        <module>final-monitor</module>
+        <module>final-mybatis</module>
+        <module>final-sharding</module>
+        <module>final-retrofit</module>
+        <module>final-aop</module>
+        <module>final-zookeeper</module>
+        <module>final-selenium</module>
+        <module>final-web</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.finalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-dubbo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-retrofit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-aop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-context</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>converter-jackson</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

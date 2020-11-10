@@ -25,6 +25,21 @@ final-framework
 |                |                          |                                                              |
 |                |                          |                                                              |
 
+## 核心工程
+
+### final-framework
+
+`final-framework`用于封装常用的技术框架。
+
+### final-auto
+
+`final-auto`基于`APT（注解处理器）`技术，自动生成常用的配置文件或模板代码，提高开发效率。
+
+
+### final-boot
+
+`final-boot`基于`final-framework`，提供快速开始的`starters`。
+
 
 
 ## 代码规范

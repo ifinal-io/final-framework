@@ -3,8 +3,6 @@ package org.finalframework.dubbo.spi.dubbo;
 import org.apache.dubbo.common.extension.ExtensionLoader;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author likly
  * @version 1.0
