@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
     }
 
     @Override
-    public Result<?> handle(Throwable throwable) {
+    public Result<?> handle(@NonNull Throwable throwable) {
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
