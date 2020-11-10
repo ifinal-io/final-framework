@@ -1,9 +1,9 @@
 package org.finalframework.web.resolver;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
 import org.finalframework.cache.annotation.CacheValue;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -15,7 +15,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @date 2019-03-22 13:25:30
  * @since 1.0
  */
-@SpringArgumentResolver
+@Component
 public class CacheParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override

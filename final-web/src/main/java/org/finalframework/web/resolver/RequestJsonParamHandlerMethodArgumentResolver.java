@@ -1,6 +1,5 @@
 package org.finalframework.web.resolver;
 
-import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
 import org.finalframework.context.exception.BadRequestException;
 import org.finalframework.json.Json;
 import org.finalframework.util.Asserts;
@@ -12,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -31,7 +31,7 @@ import java.util.Objects;
  * @see RequestJsonParamHandler
  * @since 1.0
  */
-@SpringArgumentResolver
+@Component
 public final class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);

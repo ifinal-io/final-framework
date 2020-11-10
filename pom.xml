@@ -49,6 +49,14 @@
         <velocity.tool.version>3.0</velocity.tool.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
 
     <dependencyManagement>
         <dependencies>
