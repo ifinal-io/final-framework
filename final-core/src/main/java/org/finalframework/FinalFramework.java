@@ -8,6 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2020/11/10 15:51:24
  * @since 1.0
  */
-@ComponentScan(basePackageClasses = FinalFramework.class)
+@ComponentScan
 public class FinalFramework {
 }
