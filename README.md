@@ -1,5 +1,7 @@
 # final-frameworks
-Final-frameworks
+## 概述
+
+`final-frameworks`致力于提供简单、灵活且功能强大的`java`开发框架。
 
 ## 集成技术
 
@@ -92,6 +94,6 @@ Final-frameworks
 
 
 
-## 代码规范
+## 开发规范
 
 * [日志规范](docs/code-rules/logger.md)
