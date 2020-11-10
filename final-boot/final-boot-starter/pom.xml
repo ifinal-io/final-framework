@@ -11,5 +11,16 @@
 
     <artifactId>final-boot-starter</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
