@@ -1,5 +1,5 @@
-# final-framework
-final-framework
+# final-frameworks
+Final-frameworks
 
 ## 集成技术
 
@@ -31,14 +31,64 @@ final-framework
 
 `final-framework`用于封装常用的技术框架。
 
+|     artifactId     |                      描述                       |
+| :----------------: | :---------------------------------------------: |
+|    `final-core`    |                                                 |
+| `final-annotation` |   定义基本的`Annotation`，为框架解析提供基础    |
+|  `final-context`   |                                                 |
+|    `final-json`    |       定义统一的Json序列化与反序列化接口        |
+|   `final-redis`    |                                                 |
+|   `final-cache`    |              基于`AOP`的的缓存切面              |
+|  `final-mybatis`   |    定义通用的`Mapper`，提供强大的`CRUD`功能     |
+|    `final-web`     | 封装`springMvc`，提供增强的拦截器、异常处理机制 |
+|    `final-aop`     |                                                 |
+|    `final-data`    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+|                    |                                                 |
+
+
+
 ### final-auto
 
 `final-auto`基于`APT（注解处理器）`技术，自动生成常用的配置文件或模板代码，提高开发效率。
+
+|       artifactId        | 描述 |
+| :---------------------: | :--: |
+| `final-auto-annotation` |      |
+|  `final-auto-service`   |      |
+|   `final-auto-spring`   |      |
+|   `final-auto-coding`   |      |
+|    `final-auto-data`    |      |
+|   `final-auto-query`    |      |
+|  `final-auto-mybatis`   |      |
+|                         |      |
+|                         |      |
+
+
 
 
 ### final-boot
 
 `final-boot`基于`final-framework`，提供快速开始的`starters`。
+
+| artifactId | 描述 |
+| :--------: | :--: |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
+|            |      |
 
 
 

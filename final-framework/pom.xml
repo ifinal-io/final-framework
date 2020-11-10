@@ -48,6 +48,11 @@
             <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
                 <artifactId>final-framework</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -56,11 +61,7 @@
                 <artifactId>final-annotation</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.finalframework</groupId>
-                <artifactId>final-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-json</artifactId>

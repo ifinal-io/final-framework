@@ -19,6 +19,7 @@
     <modules>
         <module>final-framework</module>
         <module>final-auto</module>
+        <module>final-boot</module>
     </modules>
 
 
