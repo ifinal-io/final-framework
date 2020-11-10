@@ -10,9 +10,9 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -27,7 +27,7 @@ import org.springframework.core.annotation.Order;
         }
 )
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@SpringComponent
+@Component
 public class GithubPageInterceptor extends PageInterceptor {
 }
 

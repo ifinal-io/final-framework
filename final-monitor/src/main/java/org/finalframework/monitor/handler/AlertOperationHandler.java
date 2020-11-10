@@ -5,7 +5,6 @@ import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
 import org.finalframework.aop.OperationMetadata;
 import org.finalframework.aop.annotation.CutPoint;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.context.AlertContext;
 import org.finalframework.monitor.executor.Alerter;
@@ -13,6 +12,7 @@ import org.finalframework.monitor.operation.AlertOperation;
 import org.finalframework.util.Asserts;
 import org.slf4j.MDC;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
  * @date 2019-07-10 18:16
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter, AlertOperation> {
 
     @Override

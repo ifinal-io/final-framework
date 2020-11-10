@@ -1,11 +1,11 @@
 package org.finalframework.cache;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.json.Json;
 import org.finalframework.redis.Redis;
 import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unchecked")
 @Primary
-@SpringComponent
+@Component
 public class RedisCache implements Cache {
 
     private static final Long ONE = 1L;

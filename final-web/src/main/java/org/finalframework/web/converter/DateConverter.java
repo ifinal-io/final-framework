@@ -1,8 +1,8 @@
 package org.finalframework.web.converter;
 
-import org.finalframework.auto.spring.factory.annotation.SpringConverter;
 import org.finalframework.util.format.DateFormatters;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 2018-09-29 16:32
  * @since 1.0
  */
-@SpringConverter
+@Component
 public class DateConverter implements Converter<String, Date> {
 
     @Override

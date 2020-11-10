@@ -1,13 +1,13 @@
 package org.finalframework.monitor.interceptor;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.action.Action;
 import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.executor.Recorder;
 import org.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @Primary
-@SpringComponent
+@Component
 public class ActionRecorder implements Recorder<Object> {
 
     private final List<ActionListener> listeners = new ArrayList<>();

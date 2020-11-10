@@ -3,11 +3,11 @@ package org.finalframework.context.exception.result;
 import org.finalframework.annotation.IException;
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -16,7 +16,7 @@ import org.springframework.core.annotation.Order;
  * @since 1.0
  */
 @Order(0)
-@SpringComponent
+@Component
 public class IExceptionResultExceptionHandler implements ResultExceptionHandler<IException> {
 
     private static final Logger logger = LoggerFactory.getLogger(IExceptionResultExceptionHandler.class);

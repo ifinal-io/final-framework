@@ -9,7 +9,6 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.mapper.AbsMapper;
@@ -17,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -41,7 +41,7 @@ import java.util.Properties;
         }
 )
 @Order
-@SpringComponent
+@Component
 public class ParameterInjectionInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(ParameterInjectionInterceptor.class);
     /**

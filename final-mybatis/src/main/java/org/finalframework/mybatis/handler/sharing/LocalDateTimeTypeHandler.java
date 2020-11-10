@@ -4,9 +4,9 @@ package org.finalframework.mybatis.handler.sharing;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.DateTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.util.Dates;
 import org.finalframework.util.function.Converter;
+import org.springframework.stereotype.Component;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ import java.util.Date;
  * @date 2020-03-13 17:06:25
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> implements Converter<Date, LocalDateTime> {
 
     private static final DateTypeHandler DATE_TYPE_HANDLER = new DateTypeHandler();

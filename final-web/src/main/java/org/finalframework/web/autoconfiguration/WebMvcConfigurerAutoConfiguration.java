@@ -2,7 +2,6 @@ package org.finalframework.web.autoconfiguration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
-import org.finalframework.auto.spring.factory.annotation.SpringWebMvcConfigurer;
 import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.IHandlerInterceptor;
 import org.springframework.beans.factory.ObjectProvider;
@@ -30,7 +29,7 @@ import java.util.ServiceLoader;
  * @since 1.0
  */
 @Slf4j
-@SpringWebMvcConfigurer
+@Component
 @SuppressWarnings("rawtypes")
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 

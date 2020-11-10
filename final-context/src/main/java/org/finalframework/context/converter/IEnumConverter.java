@@ -2,10 +2,10 @@ package org.finalframework.context.converter;
 
 import org.finalframework.annotation.Enums;
 import org.finalframework.annotation.IEnum;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.util.Messages;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @EnumTarget(Enum.class)
-@SpringComponent
+@Component
 public class IEnumConverter<T extends Enum<T>> implements EnumConverter<T> {
 
     /**

@@ -1,10 +1,10 @@
 package org.finalframework.monitor.action;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @date 2019-03-28 14:12:03
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class ActionLoggerListener implements ActionListener {
 
     private static final Logger logger = LoggerFactory.getLogger(ActionLoggerListener.class);

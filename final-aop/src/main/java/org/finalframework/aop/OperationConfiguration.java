@@ -4,7 +4,6 @@ import org.aopalliance.intercept.Interceptor;
 import org.finalframework.aop.interceptor.AnnotationOperationSource;
 import org.finalframework.aop.interceptor.BaseOperationAnnotationFinder;
 import org.finalframework.aop.interceptor.BaseOperationInvocationHandler;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
@@ -13,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.data.util.Lazy;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -28,8 +28,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @date 2019-03-26 10:07:56
  * @since 1.0
  */
-@SpringComponent
-@SuppressWarnings({"unchecked","rawtypes"})
+@Component
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class OperationConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(OperationConfiguration.class);
     private static final Integer DEFAULT_INITIAL_SIZE = 8;

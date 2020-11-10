@@ -2,15 +2,12 @@ package org.finalframework.web.autoconfiguration;
 
 
 import org.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
-import org.finalframework.auto.spring.factory.annotation.SpringArgumentResolver;
-import org.finalframework.context.util.Beans;
 import org.finalframework.util.Asserts;
 import org.finalframework.web.http.converter.JsonStringHttpMessageConverter;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.ReflectionUtils;
@@ -25,6 +22,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -39,22 +37,8 @@ import java.util.stream.Collectors;
  * @date 2019-04-15 09:30:10
  * @since 1.0
  */
-@Configuration
 @SpringApplicationListener
-@SuppressWarnings("all")
 public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
-
-//    /**
-//     * {@link RequestJsonParam} 参数注解解析器
-//     *
-//     * @return
-//     * @see RequestJsonParam
-//     * @see RequestJsonParamHandlerMethodArgumentResolver
-//     */
-//    @Bean
-//    public RequestJsonParamHandlerMethodArgumentResolver requestJsonParamHandlerMethodArgumentResolver() {
-//        return new RequestJsonParamHandlerMethodArgumentResolver();
-//    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -73,11 +57,11 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
-        final List<HandlerMethodArgumentResolver> customerArgumentResolvers = Beans.findBeansByAnnotation(context, SpringArgumentResolver.class);
-        if (Asserts.nonEmpty(customerArgumentResolvers)) {
-            //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
-            argumentResolvers.addAll(customerArgumentResolvers);
-        }
+
+        //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
+        context.getBeanProvider(HandlerMethodArgumentResolver.class)
+                .stream()
+                .forEachOrdered(argumentResolvers::add);
 
         // 获取默认的参数解析器
         final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
@@ -86,9 +70,12 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
             for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
                 if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
-                    Field messageConverters = ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters");
-                    messageConverters.setAccessible(true);
-                    ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
+                    Optional.ofNullable(ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters"))
+                            .ifPresent(messageConverters -> {
+                                messageConverters.setAccessible(true);
+                                ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
+                            });
+
                 }
                 argumentResolvers.add(argumentResolver);
             }
@@ -104,7 +91,6 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
         List<HandlerMethodReturnValueHandler> defualtReturnValueHandlers = adapter.getReturnValueHandlers();
         if (Asserts.nonEmpty(defualtReturnValueHandlers)) {
-
 
             for (HandlerMethodReturnValueHandler returnValueHandler : defualtReturnValueHandlers) {
                 if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {

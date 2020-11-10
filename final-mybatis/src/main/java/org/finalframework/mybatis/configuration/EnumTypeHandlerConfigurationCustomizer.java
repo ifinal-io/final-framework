@@ -2,13 +2,13 @@ package org.finalframework.mybatis.configuration;
 
 
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.mybatis.handler.EnumTypeHandler;
 import org.finalframework.mybatis.lang.FinalXMLLanguageDriver;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * @see org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
  * @since 1.0
  */
-@SpringComponent
+@Component
 @SuppressWarnings("unused")
 public class EnumTypeHandlerConfigurationCustomizer implements ConfigurationCustomizer {
     private static final Logger logger = LoggerFactory.getLogger(EnumTypeHandlerConfigurationCustomizer.class);

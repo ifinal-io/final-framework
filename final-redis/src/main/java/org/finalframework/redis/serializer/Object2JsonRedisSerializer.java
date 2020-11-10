@@ -1,9 +1,10 @@
 package org.finalframework.redis.serializer;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.finalframework.json.Json;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +15,7 @@ import java.nio.charset.StandardCharsets;
  * @date 2019-01-10 14:25:08
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
     public static final Object2JsonRedisSerializer UTF_8 = new Object2JsonRedisSerializer(StandardCharsets.UTF_8);
     private final Charset charset;

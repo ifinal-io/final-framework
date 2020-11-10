@@ -3,7 +3,6 @@ package org.finalframework.web.response.advice;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.Page;
-import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
 import org.finalframework.json.jackson.view.JsonViewValue;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -24,7 +23,6 @@ import java.util.Objects;
  */
 @Order(RestAdviceOrdered.JSON_VIEW_PRECEDENCE)
 @RestControllerAdvice
-@SpringResponseBodyAdvice
 public class JsonViewResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

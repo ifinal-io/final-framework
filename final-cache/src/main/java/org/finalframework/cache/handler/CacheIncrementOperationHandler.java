@@ -4,13 +4,13 @@ package org.finalframework.cache.handler;
 import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
 import org.finalframework.aop.annotation.CutPoint;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.operation.CacheIncrementOperation;
 import org.finalframework.util.Primaries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-03-22 22:33:02
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrementOperation> {
 
     @Override

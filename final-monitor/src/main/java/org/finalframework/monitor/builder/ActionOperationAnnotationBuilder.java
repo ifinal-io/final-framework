@@ -3,10 +3,10 @@ package org.finalframework.monitor.builder;
 
 import org.finalframework.aop.OperationAnnotationBuilder;
 import org.finalframework.aop.annotation.OperationAttribute;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.annotation.MonitorAction;
 import org.finalframework.monitor.operation.ActionOperation;
 import org.finalframework.util.Asserts;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-27 23:06:28
  * @since 1.0
  */
-@SpringComponent
+@Component
 @SuppressWarnings("unused")
 public class ActionOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAction, ActionOperation> {
     @Override

@@ -1,7 +1,7 @@
 package org.finalframework.spiriter.jdbc.converter;
 
 import org.finalframework.spiriter.jdbc.service.DataSourceService;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.finalframework.core.converter.Converter;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * @date 2020-05-19 12:57:05
  * @since 1.0
  */
-@SpringComponent
+ @Component
 @Component
 public class String2DataSourceConverter implements Converter<String, DataSource> {
 

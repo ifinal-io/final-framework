@@ -2,10 +2,10 @@ package org.finalframework.monitor.builder;
 
 import org.finalframework.aop.OperationAnnotationBuilder;
 import org.finalframework.aop.annotation.OperationAttribute;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.annotation.MonitorAlert;
 import org.finalframework.monitor.operation.AlertOperation;
 import org.finalframework.util.Asserts;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * @date 2019-07-10 16:56
  * @since 1.0
  */
-@SpringComponent
+@Component
 @SuppressWarnings("unused")
 public class AlertOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAlert, AlertOperation> {
 

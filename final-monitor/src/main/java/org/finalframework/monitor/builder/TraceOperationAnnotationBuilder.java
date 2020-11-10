@@ -1,9 +1,9 @@
 package org.finalframework.monitor.builder;
 
 import org.finalframework.aop.OperationAnnotationBuilder;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.annotation.MonitorTrace;
 import org.finalframework.monitor.operation.TraceOperation;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @date 2019-07-09 17:38
  * @since 1.0
  */
-@SpringComponent
+@Component
 @SuppressWarnings("unused")
 public class TraceOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorTrace, TraceOperation> {
 

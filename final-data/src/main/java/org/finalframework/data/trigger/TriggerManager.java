@@ -1,8 +1,9 @@
 package org.finalframework.data.trigger;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @date 2020-04-02 22:21:28
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class TriggerManager {
 
     private Map<Class<?>, List<InsertTrigger<?, ?>>> insertTriggers = new LinkedHashMap<>(32);

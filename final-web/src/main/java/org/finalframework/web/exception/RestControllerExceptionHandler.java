@@ -1,6 +1,6 @@
 package org.finalframework.web.exception;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.finalframework.context.exception.handler.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @date 2018-09-29 15:49
  * @since 1.0
  */
-@SpringComponent
 @RestControllerAdvice
 @ConditionalOnBean(GlobalExceptionHandler.class)
 public class RestControllerExceptionHandler {

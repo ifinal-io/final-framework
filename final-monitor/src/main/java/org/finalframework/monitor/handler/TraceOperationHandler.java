@@ -2,10 +2,10 @@ package org.finalframework.monitor.handler;
 
 import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.monitor.context.TraceContext;
 import org.finalframework.monitor.executor.Tracer;
 import org.finalframework.monitor.operation.TraceOperation;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -13,7 +13,7 @@ import org.finalframework.monitor.operation.TraceOperation;
  * @date 2019-07-09 17:42
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class TraceOperationHandler implements OperationHandler<Tracer, TraceOperation> {
 
     private static final String TRACE_CONTEXT = "traceContext";

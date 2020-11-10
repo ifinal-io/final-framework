@@ -2,7 +2,6 @@ package org.finalframework.cache.handler;
 
 import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.CacheLockException;
 import org.finalframework.cache.annotation.CacheLock;
@@ -11,6 +10,7 @@ import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @see CacheLock
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheLockOperation> {
 
     private static final String KEY = "key";

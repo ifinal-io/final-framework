@@ -2,7 +2,6 @@ package org.finalframework.cache.handler;
 
 import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.Cache;
 import org.finalframework.cache.annotation.Cacheable;
 import org.finalframework.cache.operation.CacheableOperation;
@@ -10,6 +9,7 @@ import org.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @SuppressWarnings("all")
-@SpringComponent
+@Component
 public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheableOperation> {
     private static final String KEY = "key";
     private static final String FIELD = "field";

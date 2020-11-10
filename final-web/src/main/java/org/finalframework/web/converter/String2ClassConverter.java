@@ -1,11 +1,11 @@
 package org.finalframework.web.converter;
 
-import org.finalframework.auto.spring.factory.annotation.SpringConverter;
 import org.finalframework.context.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.lang.NonNull;
  * @date 2020-05-11 09:59:53
  * @since 1.0
  */
-@SpringConverter
+@Component
 public class String2ClassConverter implements Converter<String, Class<?>> {
 
     public static final Logger logger = LoggerFactory.getLogger(String2ClassConverter.class);

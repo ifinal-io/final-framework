@@ -11,12 +11,12 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.Pageable;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * 分页拦截器
@@ -39,7 +39,7 @@ import org.springframework.core.annotation.Order;
         }
 )
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
-@SpringComponent
+@Component
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);

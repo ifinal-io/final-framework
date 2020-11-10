@@ -10,11 +10,11 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.data.query.Query;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
         }
 )
 @Order(0)
-@SpringComponent
+@Component
 public class InlineSelectInterceptor implements Interceptor {
 
     /**

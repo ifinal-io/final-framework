@@ -1,7 +1,6 @@
 package org.finalframework.web.response.advice;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
 import org.finalframework.web.converter.List2ResultConverter;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -19,7 +18,6 @@ import java.util.List;
  * @date 2020-07-21 17:36:44
  * @since 1.0
  */
-@SpringResponseBodyAdvice
 @Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
 @RestControllerAdvice
 public class ListResponseBodyAdvice extends RestResponseBodyAdvice<Object> {

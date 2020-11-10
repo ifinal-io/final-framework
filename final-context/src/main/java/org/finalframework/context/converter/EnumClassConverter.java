@@ -1,8 +1,9 @@
 package org.finalframework.context.converter;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * @date 2020-05-08 15:44:33
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<String, Object>>> {
 
     private final Map<Class<?>, EnumConverter<?>> enumConverterMap = new HashMap<>();

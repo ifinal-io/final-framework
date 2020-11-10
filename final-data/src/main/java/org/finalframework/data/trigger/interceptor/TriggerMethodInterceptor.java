@@ -4,11 +4,11 @@ package org.finalframework.data.trigger.interceptor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.ibatis.binding.MapperProxy;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.data.trigger.TriggerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2020-04-03 14:52:03
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class TriggerMethodInterceptor implements MethodInterceptor, Serializable {
 
     private static final long serialVersionUID = -4987436811787244270L;

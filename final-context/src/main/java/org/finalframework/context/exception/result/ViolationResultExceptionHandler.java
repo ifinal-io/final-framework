@@ -3,9 +3,9 @@ package org.finalframework.context.exception.result;
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.ResponseStatus;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Order(0)
-@SpringComponent
+@Component
 @ConditionalOnClass(ConstraintViolationException.class)
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
     @Override

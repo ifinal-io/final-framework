@@ -1,9 +1,9 @@
 package org.finalframework.data.trigger.interceptor;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
  * @date 2020-04-03 15:38:22
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class TriggerPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
 

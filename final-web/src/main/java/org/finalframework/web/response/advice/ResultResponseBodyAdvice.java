@@ -1,7 +1,6 @@
 package org.finalframework.web.response.advice;
 
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringResponseBodyAdvice;
 import org.finalframework.context.user.UserContextHolder;
 import org.finalframework.web.interceptor.DurationHandlerInterceptor;
 import org.finalframework.web.interceptor.trace.TraceHandlerInterceptor;
@@ -28,7 +27,6 @@ import java.time.Duration;
  */
 @Order(RestAdviceOrdered.RESULT_PRECEDENCE)
 @RestControllerAdvice
-@SpringResponseBodyAdvice
 public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();

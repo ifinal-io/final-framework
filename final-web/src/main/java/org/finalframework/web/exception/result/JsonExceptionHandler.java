@@ -2,11 +2,11 @@ package org.finalframework.web.exception.result;
 
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.exception.result.ResultExceptionHandler;
 import org.finalframework.json.JsonException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 /**
  * Json 异常处理器，将业务层抛出的{@link JsonException}异常包装成 {@link Result}返回给前端。
@@ -17,7 +17,7 @@ import org.springframework.lang.NonNull;
  * @see JsonException
  * @since 1.0
  */
-@SpringComponent
+@Component
 @ConditionalOnClass(JsonException.class)
 public class JsonExceptionHandler implements ResultExceptionHandler<JsonException> {
     @Override

@@ -3,10 +3,10 @@ package org.finalframework.mybatis.interceptor;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.json.context.JsonContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
                 @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
         }
 )
-@SpringComponent
+@Component
 public class JsonIgnoreInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonIgnoreInterceptor.class);

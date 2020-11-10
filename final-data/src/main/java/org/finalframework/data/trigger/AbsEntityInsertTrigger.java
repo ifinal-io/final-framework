@@ -1,7 +1,7 @@
 package org.finalframework.data.trigger;
 
 import org.finalframework.annotation.data.AbsEntity;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
@@ -11,7 +11,7 @@ import java.util.Collection;
  * @date 2020-04-02 23:47:00
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class AbsEntityInsertTrigger implements InsertTrigger<Long, AbsEntity> {
 
     @Override

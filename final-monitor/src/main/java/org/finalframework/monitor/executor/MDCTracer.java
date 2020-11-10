@@ -1,6 +1,6 @@
 package org.finalframework.monitor.executor;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.monitor.context.TraceContext;
@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Primary;
  * @since 1.0
  */
 @Primary
-@SpringComponent
+@Component
 public class MDCTracer implements Tracer {
     private static final Logger logger = LoggerFactory.getLogger(MDCTracer.class);
     private static final String mdcTracer = "mdcTracer";

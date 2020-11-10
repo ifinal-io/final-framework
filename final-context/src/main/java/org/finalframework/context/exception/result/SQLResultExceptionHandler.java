@@ -3,8 +3,8 @@ package org.finalframework.context.exception.result;
 
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 
@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @since 1.0
  */
 @Order(0)
-@SpringComponent
+@Component
 public class SQLResultExceptionHandler implements ResultExceptionHandler<SQLException> {
     @Override
     public boolean supports(Throwable throwable) {

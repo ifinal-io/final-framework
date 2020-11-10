@@ -2,8 +2,8 @@ package org.finalframework.web.exception.result;
 
 import org.finalframework.annotation.result.R;
 import org.finalframework.annotation.result.Result;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.context.exception.result.ResultExceptionHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  * @see MissingServletRequestParameterException
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
     @Override
     public boolean supports(Throwable throwable) {

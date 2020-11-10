@@ -2,9 +2,9 @@ package org.finalframework.cache.builder;
 
 
 import org.finalframework.aop.OperationAnnotationBuilder;
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
 import org.finalframework.cache.annotation.CacheDel;
 import org.finalframework.cache.operation.CacheDelOperation;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * @date 2019-03-11 09:26:21
  * @since 1.0
  */
-@SpringComponent
+@Component
 public class CacheDelAnnotationBuilder extends AbsCacheAnnotationBuilder implements OperationAnnotationBuilder<CacheDel, CacheDelOperation> {
 
     @Override

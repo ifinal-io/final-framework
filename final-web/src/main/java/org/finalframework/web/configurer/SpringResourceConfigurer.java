@@ -1,10 +1,11 @@
 package org.finalframework.web.configurer;
 
-import org.finalframework.auto.spring.factory.annotation.SpringComponent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Component;
 
 /**
  * spring-config-*.xml 资源文件加载配置。
@@ -19,7 +20,7 @@ import org.springframework.core.annotation.AnnotationUtils;
         SpringResourceConfigurer.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
         SpringResourceConfigurer.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
-@SpringComponent
+@Component
 public final class SpringResourceConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(SpringResourceConfigurer.class);
 
