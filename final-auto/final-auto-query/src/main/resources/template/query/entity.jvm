@@ -1,0 +1,30 @@
+#* @formatter:off *#
+package ${packageName};
+
+import javax.annotation.Generated;
+
+import org.finalframework.data.query.AbsQEntity;
+import org.finalframework.data.query.QProperty;
+
+import  ${entity.package}.${entity.simpleName};
+
+#parse("/template/parse/header.vm")
+@Generated("org.finalframework.auto.query.processor.AutoQueryGeneratorProcessor")
+public final class ${simpleName} extends AbsQEntity<${idProperty.type.getQualifiedName().toString().replace("java.lang.","")},${entity.simpleName}>{
+
+    public ${simpleName}() {
+        super(${entity.simpleName}.class);
+    }
+
+    public ${simpleName}(String table) {
+        super(${entity.simpleName}.class, table);
+    }
+
+    public static final ${simpleName} ${entity.simpleName} = new ${simpleName}();
+
+    #foreach($property in $properties)
+    // path = ${property.path}, name = ${property.name}, column = ${property.column}
+    public static final QProperty<${property.type.getQualifiedName().toString().replace("java.lang.","")}> ${property.name} = ${entity.simpleName}.getRequiredProperty("${property.path}");
+    #end
+
+}
