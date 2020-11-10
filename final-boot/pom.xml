@@ -11,6 +11,66 @@
 
     <groupId>org.finalframework.boot</groupId>
     <artifactId>final-boot</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>final-boot-starter</module>
+        <module>final-boot-starter-data</module>
+        <module>final-boot-starter-redis</module>
+        <module>final-boot-starter-cache</module>
+        <module>final-boot-starter-monitor</module>
+        <module>final-boot-starter-web</module>
+        <module>final-boot-starter-mybatis</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-boot ============================================= -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-monitor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 </project>

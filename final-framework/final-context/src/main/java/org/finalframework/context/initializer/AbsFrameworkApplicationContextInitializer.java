@@ -29,6 +29,12 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
         BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework), getBeanDefinitionRegistry(context));
     }
 
+    /**
+     * find {@link BeanDefinitionRegistry} from {@link ConfigurableApplicationContext}.
+     *
+     * @param context the application context
+     * @return the {@linkplain BeanDefinitionRegistry registry}
+     */
     @NonNull
     private BeanDefinitionRegistry getBeanDefinitionRegistry(@NonNull C context) {
         if (context instanceof BeanDefinitionRegistry) {

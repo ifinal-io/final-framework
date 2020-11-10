@@ -80,17 +80,17 @@
 
 `final-boot`基于`final-framework`，提供快速开始的`starters`。
 
-| artifactId | 描述 |
-| :--------: | :--: |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
-|            |      |
+|          artifactId          | 描述 |
+| :--------------------------: | :--: |
+|     `final-boot-starter`     |      |
+|  `final-boot-starter-data`   |      |
+|  `final-boot-starter-cache`  |      |
+| `final-boot-starter-mybatis` |      |
+| `final-boot-starter-monitor` |      |
+|   `final-boot-starter-web`   |      |
+|                              |      |
+|                              |      |
+|                              |      |
 
 
 
