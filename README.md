@@ -5,7 +5,7 @@
 
 ## 概述
 
-`final-frameworks`致力于提供简单、灵活且功能强大的`java`开发框架。
+`final-frameworks`致力于提供简单、灵活且功能强大的`java`开发脚手架。
 
 ## 核心内容
 
