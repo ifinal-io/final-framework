@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
     @RequestMapping("/hello")
-    @MonitorAction("${'访问Hello ' + #word}")
+    @MonitorAction("${'{访问Hello} ' + #word}")
     public String hello(String word) {
         return "hello " + word + "!";
     }

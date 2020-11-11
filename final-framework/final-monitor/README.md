@@ -46,4 +46,7 @@ public interface ActionListener {
 }
 ```
 
-> @MonitorAction中的大部分属性都支持`SpEL`表达式。
+> `@MonitorAction`中的大部分属性都支持`SpEL`表达式。
+>
+> **Note**：老版本中以`{}`表示表达式，新版本中使用`${}`表示表达式。
+
