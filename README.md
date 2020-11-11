@@ -104,3 +104,7 @@
 ## 开发规范
 
 * [日志规范](docs/code-rules/logger.md)
+
+## 致谢
+
+* 感谢<a href=""><img src="https://www.jetbrains.com/apple-touch-icon.png" width="32" height="32">jetbrains</a>提供的免费授权。
