@@ -1,6 +1,7 @@
 package org.finalframework.web;
 
 import org.finalframework.annotation.data.YN;
+import org.finalframework.monitor.annotation.MonitorAction;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
     @RequestMapping("/hello")
+    @MonitorAction("访问HelloController")
     public String hello(String word) {
         return "hello " + word + "!";
     }
