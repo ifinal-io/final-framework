@@ -13,6 +13,125 @@
 
 
 
+### 增强的JSON
+
+#### 日期
+
+`final-json`对基本的日期类型进行了增强，对于原生日期类型属性，其默认序列化为其对应的时间戳，并为其增加格式为`***Format`的扩展属性，方便开发人员理解时间戳对应的值。
+
+定义如下的Bean：
+
+```java
+@Data
+public class DateBean {
+    private Date date;
+    private LocalDateTime localDateTime;
+}
+```
+
+序列化后为：
+
+```json
+{
+    "date":1605059845585,
+    "dateFormat":"2020-11-11 09:57:25",
+    "localDateTime":1605059845603,
+    "localDateTimeFormat":"2020-11-11 09:57:25"
+}
+```
+
+#### 枚举
+
+定义如下Bean：
+
+```java
+@Data
+static class EnumBean{
+    private YN yn = YN.YES;
+}
+```
+
+序列化后为：
+
+```json
+{
+    "yn":1,
+    "ynName":"YES",
+    "ynDesc":"有效"
+}
+```
+
+### 统一的结果集
+
+通过使用`@RestControllerAdvice`，将`@RestController`返回的结果进行统一的处理，实现结果集格式的统一。
+
+如在`HelloController`中定义如下的`hello`方法:
+
+```java
+@RestController
+public class HelloController {
+    @RequestMapping("/hello")
+    public String hello(String word) {
+        return "hello " + word + "!";
+    }
+}
+```
+
+当访问`/hello?word=final`时，得到的结果如下：
+
+```json
+{
+    "status":0,
+    "description":"success",
+    "code":"0",
+    "message":"success",
+    "data":"hello final!",
+    "trace":"7aba435f-69d2-4c44-a944-315107623a92",
+    "timestamp":1605063263491,
+    "duration":0.063,
+    "address":"127.0.0.1:80",
+    "locale":"en",
+    "timeZone":"Asia/Shanghai",
+    "success":true
+}
+```
+
+### 简化的操作日志
+
+通过在方法声明上添加`@MonitorAction`注解，即可快速加入操作日志。
+
+```java
+@RestController
+public class HelloController {
+    @RequestMapping("/hello")
+    @MonitorAction("${'访问Hello ' + #word}")
+    public String hello(String word) {
+        return "hello " + word + "!";
+    }
+}
+```
+
+访问`/hello?word=finalframework`时，可以看到有如下输出：
+
+```verilog
+2020-11-11 11:14:09.237  INFO 65380 --- [           main] o.f.monitor.action.ActionLoggerListener  : ==> action handler: {"name":"访问Hello finalframework","type":0,"action":0,"level":3,"levelName":"INFO","levelDesc":"INFO","attributes":{},"trace":"885dee93-8e90-4e61-afa9-b2a3b3bcbf39","timestamp":1605064449179}
+```
+
+默认情况下，操作日志仅以日志格式输出到文件中，开发人员可根据需求实现`ActionListener`接口将日志实现持久化等自定义操作。
+
+```java
+@FunctionalInterface
+public interface ActionListener {
+
+    void onAction(@NonNull Action<?> action);
+
+}
+```
+
+> `@MonitorAction`中的大部分属性都支持`SpEL`表达式。
+>
+> **Note**：老版本中以`{}`表示表达式，新版本中使用`${}`表示表达式。
+
 
 
 ## 集成技术
