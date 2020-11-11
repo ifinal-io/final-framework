@@ -156,70 +156,9 @@ public interface ActionListener {
 
 ## 核心工程
 
-### final-framework
-
-`final-framework`用于封装常用的技术框架。
-
-|                         artifactId                         |                        描述                        |
-| :--------------------------------------------------------: | :------------------------------------------------: |
-|                        `final-core`                        |                                                    |
-|                     `final-annotation`                     |     定义基本的`Annotation`，为框架解析提供基础     |
-|                      `final-context`                       |                                                    |
-|    [`final-json`](final-framework/final-json/README.md)    |         定义统一的Json序列化与反序列化接口         |
-|                       `final-redis`                        |                                                    |
-|                       `final-cache`                        |               基于`AOP`的的缓存切面                |
-| [`final-mybatis`](final-framework/final-mybatis/README.md) |      定义通用的`Mapper`，提供强大的`CRUD`功能      |
-|     [`final-web`](final-framework/final-web/README.md)     |  封装`springMvc`，提供增强的拦截器、异常处理机制   |
-|                        `final-aop`                         |                                                    |
-|                        `final-data`                        |                                                    |
-| [`final-monitor`](final-framework/final-monitor/README.md) | 提供丰富的切面监控，如**操作日志**，**链路追踪**等 |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-|                                                            |                                                    |
-
-
-
-### final-auto
-
-`final-auto`基于`APT（注解处理器）`技术，自动生成常用的配置文件或模板代码，提高开发效率。
-
-|       artifactId        |                             描述                             |
-| :---------------------: | :----------------------------------------------------------: |
-| `final-auto-annotation` |                                                              |
-|  `final-auto-service`   | 自动生成`META-INF/services`文件，支持JDK原生`SPI`及`Dubbo`扩展`SPI` |
-|   `final-auto-spring`   | 自动生成`META-INF/spring.factories`文件，支持对`SpringFactory`进行扩展 |
-|   `final-auto-coding`   |        使用`Velocity`模板引擎，提供模板代码生成的基础        |
-|    `final-auto-data`    | 1. 解析所有实现了`IEntity`接口的类，生成`META-INF/service/**.IEntity`文件，供其他组件使用 |
-|   `final-auto-query`    | 1. 解析`META-INF/service/**.IEntity`文件，自动生成`QEntity`源文件 |
-|  `final-auto-mybatis`   | 1. 解析`META-INF/service/**.IEntity`文件，自动生成`EntityMapper`源文件 |
-|                         |                                                              |
-
-
-
-
-### final-boot
-
-`final-boot`基于`final-framework`，提供快速开始的`starters`。
-
-|          artifactId          |      描述       |
-| :--------------------------: | :-------------: |
-|     `final-boot-starter`     |                 |
-|  `final-boot-starter-json`   |  json快速集成   |
-|  `final-boot-starter-data`   |                 |
-|  `final-boot-starter-cache`  |  cache快速集成  |
-| `final-boot-starter-mybatis` | mybatis快速集成 |
-| `final-boot-starter-monitor` | monitor快速集成 |
-|   `final-boot-starter-web`   |   web快速集成   |
-|                              |                 |
-|                              |                 |
-|                              |                 |
-
-
+* [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
+* [`final-auto`](final-auto/README.md)：基于`APT`生动化生成配置文件及模板代码，提升开发效率。
+* [`final-boot`](final-boot/README.md): 基于`Spring Boot`，提供开箱即用的`starters`。
 
 ## 开发规范
 
