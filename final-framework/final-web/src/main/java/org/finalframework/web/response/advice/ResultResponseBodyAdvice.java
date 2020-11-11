@@ -36,6 +36,7 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
                                   @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
             return null;

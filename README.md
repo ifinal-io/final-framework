@@ -3,6 +3,14 @@
 
 `final-frameworks`致力于提供简单、灵活且功能强大的`java`开发框架。
 
+
+
+## 核心内容
+
+
+
+
+
 ## 集成技术
 
 |      技术      |           说明           |                             官网                             |
@@ -33,27 +41,27 @@
 
 `final-framework`用于封装常用的技术框架。
 
-|     artifactId     |                      描述                       |
-| :----------------: | :---------------------------------------------: |
-|    `final-core`    |                                                 |
-| `final-annotation` |   定义基本的`Annotation`，为框架解析提供基础    |
-|  `final-context`   |                                                 |
-|    `final-json`    |       定义统一的Json序列化与反序列化接口        |
-|   `final-redis`    |                                                 |
-|   `final-cache`    |              基于`AOP`的的缓存切面              |
-|  `final-mybatis`   |    定义通用的`Mapper`，提供强大的`CRUD`功能     |
-|    `final-web`     | 封装`springMvc`，提供增强的拦截器、异常处理机制 |
-|    `final-aop`     |                                                 |
-|    `final-data`    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
-|                    |                                                 |
+|                      artifactId                      |                      描述                       |
+| :--------------------------------------------------: | :---------------------------------------------: |
+|                     `final-core`                     |                                                 |
+|                  `final-annotation`                  |   定义基本的`Annotation`，为框架解析提供基础    |
+|                   `final-context`                    |                                                 |
+| [`final-json`](final-framework/final-json/README.md) |       定义统一的Json序列化与反序列化接口        |
+|                    `final-redis`                     |                                                 |
+|                    `final-cache`                     |              基于`AOP`的的缓存切面              |
+|                   `final-mybatis`                    |    定义通用的`Mapper`，提供强大的`CRUD`功能     |
+|                     `final-web`                      | 封装`springMvc`，提供增强的拦截器、异常处理机制 |
+|                     `final-aop`                      |                                                 |
+|                     `final-data`                     |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
+|                                                      |                                                 |
 
 
 

@@ -1,0 +1,30 @@
+package org.finalframework.json;
+
+import lombok.Data;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+/**
+ * @author likly
+ * @version 1.0
+ * @date 2020/11/11 09:55:42
+ * @since 1.0
+ */
+class JsonTest {
+
+    @Data
+    static class DateBean {
+        private Date date;
+        private LocalDateTime localDateTime;
+    }
+
+    @Test
+    void jsonDate() {
+        DateBean dateBean = new DateBean();
+        dateBean.setDate(new Date());
+        dateBean.setLocalDateTime(LocalDateTime.now());
+        System.out.println(Json.toJson(dateBean));
+    }
+}

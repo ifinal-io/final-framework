@@ -18,8 +18,8 @@
         <module>final-boot-starter-redis</module>
         <module>final-boot-starter-cache</module>
         <module>final-boot-starter-monitor</module>
-        <module>final-boot-starter-web</module>
         <module>final-boot-starter-mybatis</module>
+        <module>final-boot-starter-web</module>
     </modules>
 
     <dependencyManagement>
