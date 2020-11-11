@@ -35,7 +35,7 @@ public class ActionRecorder implements Recorder<Object> {
     public void record(Action<?> action) {
         if (Asserts.nonEmpty(listeners)) {
             for (ActionListener listener : listeners) {
-                listener.handle(action);
+                listener.onAction(action);
             }
         }
     }

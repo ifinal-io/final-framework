@@ -1,6 +1,8 @@
 package org.finalframework.monitor.action;
 
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0
@@ -11,6 +13,6 @@ package org.finalframework.monitor.action;
 @FunctionalInterface
 public interface ActionListener {
 
-    void handle(Action<?> action);
+    void onAction(@NonNull Action<?> action);
 
 }

@@ -36,7 +36,7 @@ class MockMvcTest {
 
     @Test
     void hello() throws Exception {
-        this.mvc.perform(get("/hello?word=final"))
+        this.mvc.perform(get("/hello?word=finalframework"))
                 .andExpect(status().isOk())
                 .andExpect(new ResultMatcher() {
                     @Override
@@ -44,7 +44,7 @@ class MockMvcTest {
                         String json = result.getResponse().getContentAsString();
                         Result<String> value = Json.toObject(json, new TypeReference<Result<String>>() {
                         });
-                        assertEquals("", value.getData(), "hello final!");
+                        assertEquals("", value.getData(), "hello finalframework!");
                     }
                 })
                 .andDo(print());

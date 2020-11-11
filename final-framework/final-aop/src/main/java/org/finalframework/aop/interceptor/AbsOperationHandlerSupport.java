@@ -26,14 +26,14 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
     /**
      * 表达式的开头标记
      */
-    private static final String EXPRESSION_PREFIX = "{";
+    private static final String EXPRESSION_PREFIX = "${";
     /**
      * 表达式的结尾标记
      */
     private static final String EXPRESSION_SUFFIX = "}";
 
 
-    private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\{[^\\{\\}]*\\}");
+    private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\$\\{[^\\{\\}]*\\}");
 
 
     private final OperationExpressionEvaluator evaluator;

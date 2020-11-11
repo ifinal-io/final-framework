@@ -4,6 +4,7 @@ package org.finalframework.monitor.action;
 import org.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +19,7 @@ public class ActionLoggerListener implements ActionListener {
     private static final Logger logger = LoggerFactory.getLogger(ActionLoggerListener.class);
 
     @Override
-    public void handle(Action<?> action) {
+    public void onAction(@NonNull Action<?> action) {
         logger.info("==> action handler: {}", Json.toJson(action));
     }
 }
