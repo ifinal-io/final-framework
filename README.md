@@ -107,4 +107,4 @@
 
 ## 致谢
 
-* 感谢<a href=""><img src="https://www.jetbrains.com/apple-touch-icon.png" width="32" height="32">jetbrains</a>提供的免费授权。
+* 感谢<a href=""><img src="https://www.jetbrains.com/apple-touch-icon.png" width="64" height="64">jetbrains</a>提供的免费授权。
