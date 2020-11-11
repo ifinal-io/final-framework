@@ -51,6 +51,21 @@ class MockMvcTest {
     }
 
     @Test
+    void helloEx() throws Exception {
+        this.mvc.perform(get("/hello/ex?code=123&message=exception"))
+                .andExpect(new ResultMatcher() {
+                    @Override
+                    public void match(MvcResult result) throws Exception {
+                        String json = result.getResponse().getContentAsString();
+                        Result<Void> value = Json.toObject(json, new TypeReference<Result<Void>>() {
+                        });
+                        assertEquals("", value.getStatus(), 123);
+                    }
+                })
+                .andDo(print());
+    }
+
+    @Test
     void yn() throws Exception {
         this.mvc.perform(get("/enums/yn"))
 //                .andExpect(status().isOk())

@@ -10,14 +10,16 @@ date: 2020-11-11 15:46:17 +800
 version: 1.0
 ---
     
-# 统一的结果集  
+## 统一的结果集  
 
 你在`@RestController`中定义的方法：
 
 ```java
 @RestController
+@RequestMapping("/hello")
 public class HelloController {
-    @RequestMapping("/hello")
+    @RequestMapping
+    @MonitorAction("${'{访问Hello} ' + #word}")
     public String hello(String word) {
         return "hello " + word + "!";
     }
@@ -40,5 +42,44 @@ public class HelloController {
     "locale":"en",
     "timeZone":"Asia/Shanghai",
     "success":true
+}
+```
+
+## 全局异常处理
+
+你在系统中抛出的异常：
+
+```java
+@RestController
+@RequestMapping("/hello")
+public class HelloController {
+
+    @RequestMapping("/ex")
+    public void ex(Integer code, String message) {
+        throw new ServiceException(code, message);
+    }
+}
+```
+
+你在访问`/hello/ex?code=123&message=exception`时，得到的结果：
+
+```json
+{
+    "status":123,
+    "description":"exception",
+    "code":"123",
+    "message":"exception",
+    "data":null,
+    "pagination":null,
+    "trace":"75c4c483-f337-415c-94a8-1c039665034f",
+    "timestamp":1605081576013,
+    "duration":"PT0.138S",
+    "address":"127.0.0.1:80",
+    "locale":"en",
+    "timeZone":"Asia/Shanghai",
+    "operator":null,
+    "view":null,
+    "exception":"org.finalframework.context.exception.ServiceException",
+    "success":false
 }
 ```  
