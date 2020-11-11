@@ -7,10 +7,7 @@
 
 `final-frameworks`致力于提供简单、灵活且功能强大的`java`开发框架。
 
-
-
 ## 核心内容
-
 
 
 ### 增强的JSON
@@ -154,7 +151,7 @@ public interface ActionListener {
 |                |                          |                                                              |
 |                |                          |                                                              |
 
-## 核心工程
+## 工程概述
 
 * [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
 * [`final-auto`](final-auto/README.md)：基于`APT`生动化生成配置文件及模板代码，提升开发效率。
