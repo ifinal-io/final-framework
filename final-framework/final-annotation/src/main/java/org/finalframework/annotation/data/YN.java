@@ -1,7 +1,6 @@
 package org.finalframework.annotation.data;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IEnum;
 import org.springframework.lang.NonNull;
@@ -50,7 +49,7 @@ public enum YN implements IEnum<Integer> {
 
     @Override
     @NonNull
-    @JsonValue
+//    @JsonValue
     public Integer getCode() {
         return code;
     }

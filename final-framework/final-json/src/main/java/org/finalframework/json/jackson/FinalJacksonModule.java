@@ -3,9 +3,11 @@ package org.finalframework.json.jackson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.extern.slf4j.Slf4j;
+import org.finalframework.annotation.IEnum;
 import org.finalframework.context.converter.EnumClassConverter;
 import org.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.finalframework.json.jackson.serializer.ClassJsonSerializer;
+import org.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.finalframework.json.jackson.serializer.JsonViewValueSerializer;
 import org.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
 import org.finalframework.json.jackson.view.JsonViewValue;
@@ -37,6 +39,9 @@ public class FinalJacksonModule extends SimpleModule {
     }
 
     private void init() {
+
+        addSerializer(IEnum.class, EnumCodeSerializer.instance);
+
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         addSerializer(JsonViewValue.class, new JsonViewValueSerializer(objectMapper));

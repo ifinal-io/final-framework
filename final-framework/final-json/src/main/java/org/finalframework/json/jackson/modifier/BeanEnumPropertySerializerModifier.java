@@ -28,7 +28,6 @@ import java.util.Collection;
  * 1. 将该枚举属性序列化为{@link IEnum#getCode()}所对应的值。
  * 2. 增加"xxxName"属性，其值为{@link IEnum#getDesc()}所对应的值。
  * <p/>
- * <a href="https://final.ilikly.com/json/jackson/serializer/bean-enum-property-serializer-modifier">BeanEnumPropertySerializerModifier</a>
  *
  * @author likly
  * @version 1.0
@@ -45,7 +44,6 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     private static final String ENUM_NAME_PROPERTY_SUFFIX = "Name";
     private static final String ENUM_DESC_PROPERTY_SUFFIX = "Desc";
-    private static final String ENUM_DESCRIPTION_PROPERTY_SUFFIX = "Description";
 
     @Override
     public JsonSerializer<?> modifyEnumSerializer(SerializationConfig config, JavaType valueType, BeanDescription beanDesc, JsonSerializer<?> serializer) {
@@ -68,8 +66,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
         BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
         BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
-        BeanPropertyWriter enumDescriptionPropertyWriter = buildEnumDescriptionPropertyWriter(beanDesc, property, writer);
-        return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter, enumDescriptionPropertyWriter);
+        return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter);
     }
 
     private BeanPropertyWriter buildEnumNamePropertyWriter(BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
@@ -88,21 +85,6 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         return enumNamePropertyWriter;
     }
 
-    private BeanPropertyWriter buildEnumDescriptionPropertyWriter(BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
-        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
-                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-                EnumDescSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
-                writer.willSuppressNulls(), null, property.findViews());
-
-        try {
-            Field name = BeanPropertyWriter.class.getDeclaredField("_name");
-            name.setAccessible(true);
-            name.set(enumDescriptionPropertyWriter, new SerializedString(enumDescriptionPropertyWriter.getName() + ENUM_DESCRIPTION_PROPERTY_SUFFIX));
-        } catch (Exception e) {
-            logger.error("", e);
-        }
-        return enumDescriptionPropertyWriter;
-    }
 
     private BeanPropertyWriter buildEnumDescPropertyWriter(BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
         BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,

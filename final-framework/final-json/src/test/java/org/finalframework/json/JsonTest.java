@@ -1,6 +1,8 @@
 package org.finalframework.json;
 
 import lombok.Data;
+import org.finalframework.annotation.data.YN;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -26,5 +28,16 @@ class JsonTest {
         dateBean.setDate(new Date());
         dateBean.setLocalDateTime(LocalDateTime.now());
         System.out.println(Json.toJson(dateBean));
+    }
+
+    @Data
+    static class EnumBean {
+        private YN yn = YN.YES;
+    }
+
+    @Test
+    void jsonEnum() {
+        Assertions.assertEquals(YN.YES.getCode().toString(), Json.toJson(YN.YES));
+        System.out.println(Json.toJson(new EnumBean()));
     }
 }

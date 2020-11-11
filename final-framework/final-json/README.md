@@ -35,3 +35,22 @@ public class DateBean {
 
 ### 枚举
 
+定义如下Bean：
+
+```java
+@Data
+static class EnumBean{
+    private YN yn = YN.YES;
+}
+```
+
+序列化后为：
+
+```json
+{
+    "yn":1,
+    "ynName":"YES",
+    "ynDesc":"有效"
+}
+```
+

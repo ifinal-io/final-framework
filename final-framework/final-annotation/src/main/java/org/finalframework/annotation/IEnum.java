@@ -1,6 +1,5 @@
 package org.finalframework.annotation;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.lang.NonNull;
 
 /**
@@ -18,7 +17,7 @@ public interface IEnum<T> {
      *
      * @return enum code
      */
-    @JsonValue
+//    @JsonValue
     @NonNull
     T getCode();
 
