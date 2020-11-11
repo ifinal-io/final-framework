@@ -94,6 +94,7 @@
 |          artifactId          |      描述       |
 | :--------------------------: | :-------------: |
 |     `final-boot-starter`     |                 |
+|  `final-boot-starter-json`   |  json快速集成   |
 |  `final-boot-starter-data`   |                 |
 |  `final-boot-starter-cache`  |  cache快速集成  |
 | `final-boot-starter-mybatis` | mybatis快速集成 |

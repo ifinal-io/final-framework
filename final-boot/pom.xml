@@ -20,6 +20,7 @@
         <module>final-boot-starter-monitor</module>
         <module>final-boot-starter-mybatis</module>
         <module>final-boot-starter-web</module>
+        <module>final-boot-starter-json</module>
     </modules>
 
     <dependencyManagement>
@@ -37,6 +38,11 @@
             <dependency>
                 <groupId>org.finalframework.boot</groupId>
                 <artifactId>final-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
