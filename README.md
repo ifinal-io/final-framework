@@ -17,9 +17,7 @@
 
 #### 日期
 
-`final-json`对基本的日期类型进行了增强，对于原生日期类型属性，其默认序列化为其对应的时间戳，并为其增加格式为`***Format`的扩展属性，方便开发人员理解时间戳对应的值。
-
-定义如下的Bean：
+你定义包含日期类型的的Bean：
 
 ```java
 @Data
@@ -29,7 +27,7 @@ public class DateBean {
 }
 ```
 
-序列化后为：
+你得到序列化后的JSON：
 
 ```json
 {
@@ -42,7 +40,7 @@ public class DateBean {
 
 #### 枚举
 
-定义如下Bean：
+你定义包含**枚举类型的Bean：
 
 ```java
 @Data
@@ -51,7 +49,7 @@ static class EnumBean{
 }
 ```
 
-序列化后为：
+你得到序列化后的JSON：
 
 ```json
 {
@@ -63,9 +61,7 @@ static class EnumBean{
 
 ### 统一的结果集
 
-通过使用`@RestControllerAdvice`，将`@RestController`返回的结果进行统一的处理，实现结果集格式的统一。
-
-如在`HelloController`中定义如下的`hello`方法:
+你在`@RestController`中定义的方法：
 
 ```java
 @RestController
@@ -77,7 +73,7 @@ public class HelloController {
 }
 ```
 
-当访问`/hello?word=final`时，得到的结果如下：
+你在访问`/hello?word=final`时，得到的结果：
 
 ```json
 {
