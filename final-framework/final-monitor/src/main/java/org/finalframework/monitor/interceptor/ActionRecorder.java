@@ -1,6 +1,7 @@
 package org.finalframework.monitor.interceptor;
 
 
+import org.finalframework.annotation.IUser;
 import org.finalframework.monitor.action.Action;
 import org.finalframework.monitor.action.ActionListener;
 import org.finalframework.monitor.executor.Recorder;
@@ -20,7 +21,8 @@ import java.util.List;
  */
 @Primary
 @Component
-public class ActionRecorder implements Recorder<Object> {
+@SuppressWarnings("rawtypes")
+public class ActionRecorder implements Recorder<IUser> {
 
     private final List<ActionListener> listeners = new ArrayList<>();
 

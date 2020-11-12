@@ -2,6 +2,7 @@ package org.finalframework.monitor.handler;
 
 
 import org.finalframework.annotation.IException;
+import org.finalframework.annotation.IUser;
 import org.finalframework.aop.OperationContext;
 import org.finalframework.aop.OperationHandler;
 import org.finalframework.aop.OperationMetadata;
@@ -24,7 +25,7 @@ import java.util.Map;
  * @since 1.0
  */
 @Component
-public class ActionOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Recorder<T>, ActionOperation> {
+public class ActionOperationHandler<T extends IUser> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Recorder<T>, ActionOperation> {
 
     @Override
     public Object before(Recorder<T> executor, OperationContext<ActionOperation> context) {

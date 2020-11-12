@@ -1,5 +1,6 @@
 package org.finalframework.monitor.action;
 
+import org.finalframework.annotation.IUser;
 import org.finalframework.monitor.MonitorException;
 import org.finalframework.monitor.annotation.MonitorLevel;
 
@@ -15,7 +16,8 @@ import java.util.Map;
  * @see org.finalframework.monitor.annotation.MonitorAction
  * @since 1.0
  */
-public class Action<T> {
+@SuppressWarnings("rawtypes")
+public class Action<T extends IUser> {
     /**
      * 名称
      */
@@ -70,7 +72,7 @@ public class Action<T> {
         this.timestamp = builder.timestamp;
     }
 
-    public static <T> Builder<T> builder() {
+    public static <T extends IUser> Builder<T> builder() {
         return new Builder<>();
     }
 
@@ -114,7 +116,7 @@ public class Action<T> {
         return timestamp;
     }
 
-    public static class Builder<T> implements org.finalframework.util.Builder<Action<T>> {
+    public static class Builder<T extends IUser> implements org.finalframework.util.Builder<Action<T>> {
         private String name;
         private int type;
         private int action;

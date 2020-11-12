@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-boot</artifactId>
@@ -9,17 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-boot-starter-data</artifactId>
-
+    <artifactId>final-boot-starter-entity</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework.boot</groupId>
-            <artifactId>final-boot-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.finalframework</groupId>
-            <artifactId>final-data</artifactId>
+            <artifactId>final-annotation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.finalframework.auto</groupId>
