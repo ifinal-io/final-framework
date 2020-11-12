@@ -1,7 +1,6 @@
-package org.finalframework.auto.spring.factory.annotation;
+package org.finalframework.web.annotation;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,15 +18,14 @@ import java.util.List;
  * @version 1.0
  * @date 2018-09-28 15:15
  * @see InterceptorRegistration
- * @see HandlerInterceptor
+ * @see org.springframework.web.servlet.HandlerInterceptor
  * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
  * @since 1.0
  */
 @Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringFactory(value = HandlerInterceptor.class, extend = true)
-public @interface SpringHandlerInterceptor {
+public @interface HandlerInterceptor {
     /**
      * @return 拦截器包含的路径表达式
      * @see InterceptorRegistration#addPathPatterns(String...)

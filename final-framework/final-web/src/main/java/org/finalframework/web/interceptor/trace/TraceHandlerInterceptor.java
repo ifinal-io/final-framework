@@ -1,7 +1,7 @@
 package org.finalframework.web.interceptor.trace;
 
 import lombok.Setter;
-import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.web.annotation.HandlerInterceptor;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.util.Asserts;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@SpringHandlerInterceptor
+@HandlerInterceptor
 @EnableConfigurationProperties(TraceHandlerInterceptorProperties.class)
 public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);

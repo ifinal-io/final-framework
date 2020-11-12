@@ -1,6 +1,6 @@
 package org.finalframework.web.autoconfiguration;
 
-import org.finalframework.auto.spring.factory.annotation.SpringConfiguration;
+import org.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.0
  */
 @Configuration
-@SpringConfiguration
+@SpringAutoConfiguration
 @EnableConfigurationProperties(ResponseBodyAdviceProperties.class)
 public class RestResponseBodyAdviceAutoConfiguration implements ApplicationContextAware {
     private final ResponseBodyAdviceProperties properties;

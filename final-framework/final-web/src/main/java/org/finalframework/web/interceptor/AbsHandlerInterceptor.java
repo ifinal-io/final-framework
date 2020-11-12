@@ -1,7 +1,7 @@
 package org.finalframework.web.interceptor;
 
 
-import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.web.annotation.HandlerInterceptor;
 import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.trace.HandlerInterceptorProperties;
 import org.springframework.core.Ordered;
@@ -39,7 +39,7 @@ public class AbsHandlerInterceptor implements IHandlerInterceptor {
     }
 
     private void init() {
-        SpringHandlerInterceptor annotation = this.getClass().getAnnotation(SpringHandlerInterceptor.class);
+        HandlerInterceptor annotation = this.getClass().getAnnotation(HandlerInterceptor.class);
         if (annotation != null) {
             setPathPatterns(Arrays.asList(annotation.includes()));
             setExcludePathPatterns(Arrays.asList(annotation.excludes()));

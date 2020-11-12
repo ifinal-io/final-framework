@@ -1,7 +1,7 @@
 package org.finalframework.web.autoconfiguration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.auto.spring.factory.annotation.SpringHandlerInterceptor;
+import org.finalframework.web.annotation.HandlerInterceptor;
 import org.finalframework.util.Asserts;
 import org.finalframework.web.interceptor.IHandlerInterceptor;
 import org.springframework.beans.factory.ObjectProvider;
@@ -12,7 +12,6 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -25,7 +24,7 @@ import java.util.ServiceLoader;
  * @version 1.0
  * @date 2020/10/26 22:37:02
  * @see ConverterFactory
- * @see HandlerInterceptor
+ * @see org.springframework.web.servlet.HandlerInterceptor
  * @since 1.0
  */
 @Slf4j
@@ -34,11 +33,11 @@ import java.util.ServiceLoader;
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<ConverterFactory> converterFactories;
-    private final List<HandlerInterceptor> handlerInterceptors;
+    private final List<org.springframework.web.servlet.HandlerInterceptor> handlerInterceptors;
 
 
     public WebMvcConfigurerAutoConfiguration(ObjectProvider<List<ConverterFactory>> converterFactoriesProvider,
-                                             ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+                                             ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
     }
@@ -64,8 +63,8 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     }
 
-    private void addInterceptor(@NonNull InterceptorRegistry registry, @NonNull HandlerInterceptor item) {
-        SpringHandlerInterceptor annotation = item.getClass().getAnnotation(SpringHandlerInterceptor.class);
+    private void addInterceptor(@NonNull InterceptorRegistry registry, @NonNull org.springframework.web.servlet.HandlerInterceptor item) {
+        HandlerInterceptor annotation = item.getClass().getAnnotation(HandlerInterceptor.class);
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(item);
         if (item instanceof IHandlerInterceptor) {
             IHandlerInterceptor handlerInterceptor = (IHandlerInterceptor) item;
