@@ -1,6 +1,5 @@
 package org.finalframework.auto.mybatis.processor;
 
-
 import com.squareup.javapoet.*;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.auto.data.EntityFactory;
@@ -123,10 +122,10 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
                 .addAnnotation(JavaPoets.generated(AutoMapperGeneratorProcessor.class))
                 .addJavadoc(JavaPoets.JavaDoc.author())
                 .addJavadoc(JavaPoets.JavaDoc.version())
+                .addJavadoc(JavaPoets.JavaDoc.date())
                 .build();
 
-        return JavaFile.builder(mapper.getPackageName(), myMapper)
-                .build();
+        return JavaFile.builder(mapper.getPackageName(), myMapper).build();
 
     }
 
