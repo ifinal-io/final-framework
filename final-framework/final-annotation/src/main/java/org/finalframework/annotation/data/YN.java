@@ -3,6 +3,8 @@ package org.finalframework.annotation.data;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IEnum;
+import org.finalframework.auto.service.annotation.AutoService;
+import org.springframework.context.annotation.Description;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
  * @see IEntity
  * @since 1.0
  */
+@Description("有效标记")
+//@AutoService(IEnum.class)
 public enum YN implements IEnum<Integer> {
     /**
      * 有效
@@ -61,4 +65,8 @@ public enum YN implements IEnum<Integer> {
     }
 
 
+    @Override
+    public String toString() {
+        return getDesc();
+    }
 }

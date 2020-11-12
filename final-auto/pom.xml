@@ -23,10 +23,21 @@
         <module>final-auto-query</module>
         <module>final-auto-mybatis</module>
         <module>final-auto-demo</module>
+        <module>final-auto-processor</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!--            <dependency>-->
+            <!--                <groupId>org.finalframework</groupId>-->
+            <!--                <artifactId>final-framework</artifactId>-->
+            <!--                <version>${project.version}</version>-->
+            <!--                <type>pom</type>-->
+            <!--                <scope>import</scope>-->
+            <!--            </dependency>-->
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-auto ============================================= -->
+            <!-- ==================================================================================================== -->
             <dependency>
                 <groupId>org.finalframework.auto</groupId>
                 <artifactId>final-auto-annotation</artifactId>
@@ -35,6 +46,11 @@
             <dependency>
                 <groupId>org.finalframework.auto</groupId>
                 <artifactId>final-auto-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.auto</groupId>
+                <artifactId>final-auto-processor</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

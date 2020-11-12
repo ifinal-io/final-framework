@@ -1,19 +1,18 @@
-package org.finalframework.auto.data;
+package org.finalframework.auto.processor;
 
 
-import org.finalframework.annotation.IEntity;
-import org.finalframework.annotation.data.Transient;
 import org.finalframework.util.function.Filter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -24,24 +23,20 @@ import java.lang.annotation.Annotation;
 public class TypeElementFilter implements Filter<TypeElement> {
 
 
-    /**
-     * @see IEntity
-     */
     private final TypeElement entityTypeElement;
     private final Types typeUtils;
 
-    /**
-     * @see Transient
-     */
     @Nullable
-    private final Class<? extends Annotation> transientAnnotation;
+    private final TypeElement transientAnnotationTypeElement;
     private final Messager messager;
 
-    public TypeElementFilter(@NonNull ProcessingEnvironment processingEnvironment, @NonNull Class<?> entityClass, @Nullable Class<? extends Annotation> transientAnnotation) {
+    public TypeElementFilter(@NonNull ProcessingEnvironment processingEnvironment,
+                             @NonNull TypeElement entityTypeElement,
+                             @Nullable TypeElement transientAnnotationTypeElement) {
         this.typeUtils = processingEnvironment.getTypeUtils();
         this.messager = processingEnvironment.getMessager();
-        this.transientAnnotation = transientAnnotation;
-        this.entityTypeElement = processingEnvironment.getElementUtils().getTypeElement(entityClass.getCanonicalName());
+        this.transientAnnotationTypeElement = transientAnnotationTypeElement;
+        this.entityTypeElement = entityTypeElement;
     }
 
     @Override
@@ -51,7 +46,7 @@ public class TypeElementFilter implements Filter<TypeElement> {
             return false;
         }
         //忽略被注解不解析的类
-        if (transientAnnotation != null && typeElement.getAnnotation(transientAnnotation) != null) {
+        if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;
         }
 
@@ -62,6 +57,23 @@ public class TypeElementFilter implements Filter<TypeElement> {
             messager.printMessage(Diagnostic.Kind.NOTE, msg);
         }
         return subtype;
+    }
+
+    private boolean isAnnotated(@NonNull TypeElement element, @Nullable TypeElement annotationTypeElement) {
+        if (Objects.isNull(annotationTypeElement)) {
+            return false;
+        }
+
+        for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+            if (typeUtils.isSameType(annotationMirror.getAnnotationType(), annotationTypeElement.asType())) {
+                return true;
+            }
+        }
+
+
+        return false;
+
+
     }
 
 

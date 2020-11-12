@@ -1,9 +1,6 @@
-package org.finalframework.auto.data.processor;
+package org.finalframework.auto.processor;
 
 
-import org.finalframework.annotation.IEnum;
-import org.finalframework.annotation.data.Transient;
-import org.finalframework.auto.data.TypeElementFilter;
 import org.finalframework.auto.service.annotation.AutoProcessor;
 import org.finalframework.auto.service.processor.AbsServiceProcessor;
 
@@ -14,30 +11,40 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
+ * <pre class="code">
+ *     ServicesLoader.load(IEntity.class,getClass().getClassLoader())
+ * </pre>
+ *
  * @author likly
  * @version 1.0
  * @date 2020-08-31 15:46:02
- * @see IEnum
+ * @see java.util.ServiceLoader
  * @since 1.0
  */
 @AutoProcessor
 @SuppressWarnings("unused")
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class AutoEnumProcessor extends AbsServiceProcessor {
+public class AutoEntityProcessor extends AbsServiceProcessor {
+
+    private static final String IENTITY = "org.finalframework.annotation.IEntity";
+    private static final String TRANSIENT = "org.finalframework.annotation.data.Transient";
 
 
     private TypeElementFilter typeElementFilter;
     private TypeElement entityElement;
 
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeElementFilter = new TypeElementFilter(processingEnv, IEnum.class, Transient.class);
-        this.entityElement = processingEnv.getElementUtils().getTypeElement(IEnum.class.getCanonicalName());
+        this.entityElement = processingEnv.getElementUtils().getTypeElement(IENTITY);
+        this.typeElementFilter = new TypeElementFilter(processingEnv, entityElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
     @Override
@@ -46,10 +53,11 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
         ElementFilter.typesIn(roundEnv.getRootElements())
                 .stream()
                 .filter(typeElementFilter::matches)
-                .forEach(entity -> addService(entityElement, entity, null, "services"));
+                .forEach(entity -> addService(entityElement, entity));
 
 
         return false;
     }
+
 }
 
