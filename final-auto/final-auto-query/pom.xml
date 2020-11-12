@@ -25,6 +25,11 @@
             <artifactId>final-data</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-javapoets</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -55,6 +55,7 @@ public final class QEntityFactory {
     private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property) {
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
+                    .element(property.getElement())
                     .type(property.getJavaTypeElement())
                     .idProperty(property.isIdProperty())
                     .column(Utils.formatPropertyColumn(null, property))
@@ -67,6 +68,7 @@ public final class QEntityFactory {
             final String name = Utils.formatPropertyName(referenceProperty, property);
             return QProperty.builder(path, name)
                     .column(Utils.formatPropertyColumn(referenceProperty, property))
+                    .element(property.getElement())
                     .type(property.getJavaTypeElement())
                     .idProperty(false)
                     .insertable(property.isWriteable())

@@ -1,24 +1,32 @@
 package org.finalframework.auto.query.processor;
 
+import com.squareup.javapoet.*;
 import org.finalframework.annotation.IEntity;
-import org.finalframework.auto.coding.Coder;
 import org.finalframework.auto.data.EntityFactory;
 import org.finalframework.auto.query.annotation.AutoQuery;
 import org.finalframework.auto.service.annotation.AutoProcessor;
+import org.finalframework.data.query.AbsQEntity;
+import org.finalframework.data.query.QProperty;
 import org.finalframework.io.support.ServicesLoader;
+import org.finalframework.javapoets.JavaPoets;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
+import javax.tools.JavaFileObject;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * QEntity 代码生成处理器
@@ -36,8 +44,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
     private static final String DEFAULT_ENTITY_PATH = "entity";
     private static final String DEFAULT_QUERY_PATH = "dao.query";
-
-    private final Coder coder = Coder.getDefaultCoder();
 
     private Elements elementUtils;
     private Types typeUtils;
@@ -119,13 +125,77 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             String name = entity.getName();
             info("try to generator entity of " + name);
             TypeElement mapperElement = processingEnv.getElementUtils().getTypeElement(name);
+            final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(name);
             if (mapperElement == null) {
-                coder.coding(entity, processingEnv.getFiler().createSourceFile(name).openWriter());
+                try (Writer writer = sourceFile.openWriter()) {
+                    JavaFile javaFile = buildJavaFile(entity);
+                    javaFile.writeTo(writer);
+                    writer.flush();
+                }
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private JavaFile buildJavaFile(QEntity entity) {
+
+        // AbsQEntity<ID,IEntity>
+        ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
+                ClassName.get(AbsQEntity.class),
+                TypeName.get(entity.getEntity().getRequiredIdProperty().getType()),
+                ClassName.get(entity.getEntity().getElement())
+        );
+
+
+        MethodSpec defaultConstructor = MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("super($T.class)", entity.getEntity().getElement())
+                .build();
+
+        MethodSpec tableConstructor = MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(ParameterSpec.builder(ClassName.get(String.class), "table").build())
+                .addStatement("super($T.class, table)", entity.getEntity().getElement())
+                .build();
+
+        FieldSpec entityField = FieldSpec.builder(
+                ClassName.get(entity.getPackageName(), entity.getSimpleName()),
+//                ClassName.get(entity.getEntity().getElement()),
+                entity.getEntity().getSimpleName(),
+                Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL
+        ).initializer(String.format("new %s()", entity.getSimpleName()))
+                .build();
+
+
+        // public static final QProperty<T> {property} = ${entity.simpleName}.getRequiredProperty("{property.path}");
+        List<FieldSpec> fieldSpecs = entity.getProperties().stream()
+                .map(property -> FieldSpec.builder(
+                        ParameterizedTypeName.get(ClassName.get(QProperty.class), ClassName.get(property.getElement().asType()))
+                        , property.getName())
+                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                        .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())
+                        .addJavadoc("@see $L#$L", entity.getEntity().getSimpleName(), property.getPath().replaceAll("\\.", "#"))
+                        .build())
+                .collect(Collectors.toList());
+
+
+        TypeSpec clazz = TypeSpec.classBuilder(entity.getSimpleName())
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                .superclass(parameterizedTypeName)
+                .addMethod(defaultConstructor).addMethod(tableConstructor)
+                .addAnnotation(JavaPoets.generated(AutoQueryGeneratorProcessor.class))
+                .addJavadoc(JavaPoets.JavaDoc.author())
+                .addJavadoc(JavaPoets.JavaDoc.version())
+                .addJavadoc(JavaPoets.JavaDoc.date())
+                .addField(entityField)
+                .addFields(fieldSpecs)
+                .build();
+
+
+        return JavaFile.builder(entity.getPackageName(), clazz).indent("    ").build();
     }
 
 

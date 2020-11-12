@@ -1,6 +1,7 @@
 package org.finalframework.auto.query.processor;
 
 
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class QProperty implements Serializable {
     private final String path;
     private final String name;
     private final String column;
+    private final Element element;
     private final TypeElement type;
     private final TypeElement typeHandler;
     private final boolean idProperty;
@@ -39,6 +41,7 @@ public class QProperty implements Serializable {
         this.path = builder.path;
         this.name = builder.name;
         this.column = builder.column;
+        this.element = builder.element;
         this.type = builder.type;
         this.typeHandler = builder.typeHandler;
         this.idProperty = builder.idProperty;
@@ -65,6 +68,11 @@ public class QProperty implements Serializable {
 
     public boolean isIdProperty() {
         return idProperty;
+    }
+
+
+    public Element getElement() {
+        return element;
     }
 
     public TypeElement getType() {
@@ -96,6 +104,7 @@ public class QProperty implements Serializable {
         private final String path;
         private final String name;
         private String column;
+        private Element element;
         private TypeElement type;
         private TypeElement typeHandler;
         private boolean idProperty;
@@ -113,6 +122,12 @@ public class QProperty implements Serializable {
             this.column = column;
             return this;
         }
+
+        public Builder element(Element element) {
+            this.element = element;
+            return this;
+        }
+
 
         public Builder type(TypeElement type) {
             this.type = type;
