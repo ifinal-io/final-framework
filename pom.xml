@@ -36,6 +36,7 @@
         <okhttp.version>3.14.7</okhttp.version>
         <velocity.core.version>2.1</velocity.core.version>
         <velocity.tool.version>3.0</velocity.tool.version>
+        <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
     </properties>
 
 
@@ -73,6 +74,16 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.squareup</groupId>
+                <artifactId>javapoet</artifactId>
+                <version>${squareup.javapoet.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
     <!--    <dependencyManagement>-->

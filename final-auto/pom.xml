@@ -17,13 +17,12 @@
     <modules>
         <module>final-auto-annotation</module>
         <module>final-auto-service</module>
+        <module>final-auto-processor</module>
         <module>final-auto-spring</module>
         <module>final-auto-coding</module>
         <module>final-auto-data</module>
         <module>final-auto-query</module>
         <module>final-auto-mybatis</module>
-        <module>final-auto-demo</module>
-        <module>final-auto-processor</module>
     </modules>
 
     <dependencyManagement>

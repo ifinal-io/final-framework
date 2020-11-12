@@ -28,6 +28,7 @@
             <artifactId>velocity-tools-generic</artifactId>
             <version>${velocity.tool.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
