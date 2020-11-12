@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2020-04-03 14:52:03
  * @since 1.0
  */
-@Component
+//@Component
 public class TriggerMethodInterceptor implements MethodInterceptor, Serializable {
 
     private static final long serialVersionUID = -4987436811787244270L;

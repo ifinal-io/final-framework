@@ -1,12 +1,12 @@
 package org.finalframework.web.api.controller;
 
-import org.finalframework.annotation.IEnum;
-import org.finalframework.io.support.ServicesLoader;
+import org.finalframework.data.services.EnumServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author likly
@@ -20,6 +20,11 @@ public class EnumController {
 
     @GetMapping
     public List<String> enums() {
-        return ServicesLoader.load(IEnum.class);
+        return EnumServices.enums();
+    }
+
+    @GetMapping("/descriptions")
+    public Map<String, String> descriptions() throws Exception {
+        return EnumServices.descriptions();
     }
 }

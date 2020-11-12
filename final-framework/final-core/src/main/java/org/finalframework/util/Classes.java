@@ -38,7 +38,7 @@ public final class Classes {
      * @throws ClassNotFoundException if the class was not found.
      * @see ClassUtils#forName(String, ClassLoader)
      */
-    static Class<?> forName(@NonNull String name) throws ClassNotFoundException {
+    public static Class<?> forName(@NonNull String name) throws ClassNotFoundException {
         return forName(name, null);
     }
 
@@ -50,7 +50,7 @@ public final class Classes {
      * @return class
      * @throws ClassNotFoundException if the class was not found
      */
-    static Class<?> forName(@NonNull String name, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
+    public static Class<?> forName(@NonNull String name, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
         return ClassUtils.forName(name, classLoader);
     }
 

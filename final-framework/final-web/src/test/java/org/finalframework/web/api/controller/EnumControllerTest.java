@@ -36,4 +36,15 @@ class EnumControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+
+    /**
+     * @throws Exception
+     * @see EnumController#descriptions()
+     */
+    @Test
+    void description() throws Exception {
+        mvc.perform(get("/api/enums/descriptions"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 }
