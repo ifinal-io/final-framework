@@ -17,6 +17,7 @@ public interface JavaPoets {
 
     String LINE = "\n";
 
+
     static AnnotationSpec generated(@NonNull Class<?> generator) {
         return AnnotationSpec.builder(Generated.class)
                 .addMember("value", "$S", generator.getCanonicalName())

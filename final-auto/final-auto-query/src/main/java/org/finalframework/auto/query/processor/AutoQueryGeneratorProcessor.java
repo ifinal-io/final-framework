@@ -149,7 +149,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
                 ClassName.get(entity.getEntity().getElement())
         );
 
-
         MethodSpec defaultConstructor = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC)
                 .addStatement("super($T.class)", entity.getEntity().getElement())
