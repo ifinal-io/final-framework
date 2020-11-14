@@ -1,6 +1,5 @@
 package org.finalframework.data.repository;
 
-import org.apache.ibatis.annotations.Param;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.Pageable;
@@ -18,6 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * The superinterface of {@code CURD}.
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-12 13:27
@@ -94,7 +95,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 指插入数据所影响的行数
      */
     @TriggerPoint
-    int insert(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @Param("ignore") boolean ignore, @NonNull @Param("list") Collection<T> entities);
+    int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
 
     /*=========================================== REPLACE ===========================================*/
     default int replace(T... entities) {
@@ -134,7 +135,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 指插入数据所影响的行数
      */
     @TriggerPoint
-    int replace(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int replace(String table, Class<?> view, Collection<T> entities);
 
     /*=========================================== SAVE ===========================================*/
     default int save(T... entities) {
@@ -174,7 +175,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 指插入数据所影响的行数
      */
 //    @TriggerPoint
-    int save(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int save(String table, Class<?> view, Collection<T> entities);
 
 
 
@@ -383,9 +384,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 更新数据后影响的行数
      */
     @TriggerPoint
-    int update(@Param("table") String table, @Param("view") Class<?> view,
-               @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
-               @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+    int update(String table, Class<?> view,
+               T entity, Update update, boolean selective,
+               Collection<ID> ids, IQuery query);
 
     /*=========================================== DELETE ===========================================*/
 
@@ -440,7 +441,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 删除符合条件的数据所影响的行数
      */
     @TriggerPoint
-    int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+    int delete(String table, Collection<ID> ids, IQuery query);
 
     default <PARAM> void delete(IQuery query, Listener<PARAM, Integer> listener) {
         this.delete(null, query, listener);
@@ -540,7 +541,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query 查询条件
      */
     @TriggerPoint
-    List<T> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+    List<T> select(String table, Class<?> view, Collection<ID> ids, IQuery query);
 
 
     /*=========================================== SELECT ONE ===========================================*/
@@ -588,7 +589,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 符合查询 {@link ID} 或 {@link IQuery} 的一个结果
      */
     @TriggerPoint
-    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") IQuery query);
+    T selectOne(String table, Class<?> view, ID id, IQuery query);
 
     /*=========================================== SCANNER ===========================================*/
 
@@ -643,7 +644,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query query
      * @return 符合查询条件 {@link IQuery} 的主键集合 {@link ID}
      */
-    List<ID> selectIds(@Param("table") String table, @Param("query") IQuery query);
+    List<ID> selectIds(String table, IQuery query);
 
 
     /*=========================================== SELECT COUNT ===========================================*/
@@ -690,7 +691,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query query
      * @return 符合查询条件 {@link IQuery}的结果集的大小
      */
-    long selectCount(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<ID> ids, @Nullable @Param("query") IQuery query);
+    long selectCount(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);
 
     /*=========================================== IS EXISTS ===========================================*/
     default boolean isExists(ID id) {
@@ -722,6 +723,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      *
      * @param table 表名
      */
-    void truncate(@Param("table") String table);
+    void truncate(String table);
 
 }
