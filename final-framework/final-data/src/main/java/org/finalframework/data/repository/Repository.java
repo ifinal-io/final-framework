@@ -4,7 +4,6 @@ import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.Pageable;
 import org.finalframework.data.query.Update;
-import org.finalframework.data.trigger.annotation.TriggerPoint;
 import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -94,7 +93,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
-    @TriggerPoint
     int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
 
     /*=========================================== REPLACE ===========================================*/
@@ -134,7 +132,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
-    @TriggerPoint
     int replace(String table, Class<?> view, Collection<T> entities);
 
     /*=========================================== SAVE ===========================================*/
@@ -174,7 +171,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
-//    @TriggerPoint
     int save(String table, Class<?> view, Collection<T> entities);
 
 
@@ -383,7 +379,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query     更新条件
      * @return 更新数据后影响的行数
      */
-    @TriggerPoint
     int update(String table, Class<?> view,
                T entity, Update update, boolean selective,
                Collection<ID> ids, IQuery query);
@@ -440,7 +435,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query 条件
      * @return 删除符合条件的数据所影响的行数
      */
-    @TriggerPoint
     int delete(String table, Collection<ID> ids, IQuery query);
 
     default <PARAM> void delete(IQuery query, Listener<PARAM, Integer> listener) {
@@ -540,7 +534,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param ids   要查询的IDS
      * @param query 查询条件
      */
-    @TriggerPoint
     List<T> select(String table, Class<?> view, Collection<ID> ids, IQuery query);
 
 
@@ -588,7 +581,6 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query query
      * @return 符合查询 {@link ID} 或 {@link IQuery} 的一个结果
      */
-    @TriggerPoint
     T selectOne(String table, Class<?> view, ID id, IQuery query);
 
     /*=========================================== SCANNER ===========================================*/
@@ -617,18 +609,17 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         int offset = 0;
         PARAM param = listener.onInit();
         listener.onStart(param);
-        while (true) {
+
+        List<T> list;
+
+        do {
             query.setPage(index + offset);
-            List<T> list = select(table, view, query);
+            list = select(table, view, query);
             offset++;
             if (!listener.onListening(offset, param, list)) {
                 break;
             }
-            if (Asserts.isEmpty(list) || list.size() < query.getSize()) {
-                break;
-            }
-        }
-        listener.onFinish(param);
+        } while (Asserts.isEmpty(list) || list.size() < query.getSize());
     }
 
     /*=========================================== SELECT IDS===========================================*/
