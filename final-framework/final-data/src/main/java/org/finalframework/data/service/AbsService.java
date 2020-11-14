@@ -5,6 +5,7 @@ import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -24,7 +25,7 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
-    default int insert(String table, Class<?> view, boolean ignore, Collection<T> entities) {
+    default int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities) {
         return getRepository().insert(table, view, ignore, entities);
     }
 

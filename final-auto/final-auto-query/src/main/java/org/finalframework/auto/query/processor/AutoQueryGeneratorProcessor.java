@@ -70,7 +70,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
     private void initLombokProcessor() {
         try {
-            lombokProcessor = (Processor) Class.forName("lombok.core.AnnotationProcessor").newInstance();
+            lombokProcessor = (Processor) Class.forName("lombok.core.AnnotationProcessor").getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             // ignore
         }
@@ -95,7 +95,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
                         final AutoQuery autoQuery = packageElement.getAnnotation(AutoQuery.class);
 
                         Arrays.stream(autoQuery.value())
-                                .map(packageName -> ElementFilter.typesIn(processingEnv.getElementUtils().getPackageElement(packageName).getEnclosedElements()))
+                                .map(packageName -> ElementFilter.typesIn(elementUtils.getPackageElement(packageName).getEnclosedElements()))
                                 .forEach(entities -> entities.stream()
                                         .filter(this::isEntity)
                                         .forEach(entity -> this.generate(entity, autoQuery)));
@@ -172,11 +172,12 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
         // public static final QProperty<T> {property} = ${entity.simpleName}.getRequiredProperty("{property.path}");
         List<FieldSpec> fieldSpecs = entity.getProperties().stream()
                 .map(property -> FieldSpec.builder(
-                        ParameterizedTypeName.get(ClassName.get(QProperty.class), ClassName.get(property.getElement().asType()))
+                        ParameterizedTypeName.get(ClassName.get(QProperty.class), TypeName.get(property.getElement().asType()))
                         , property.getName())
                         .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                        // Entity.getRequiredProperty('path')
                         .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())
-                        .addJavadoc("@see $L#$L", entity.getEntity().getSimpleName(), property.getPath().replaceAll("\\.", "#"))
+                        .addJavadoc("@see $L#$L", entity.getEntity().getSimpleName(), property.getPath().replace("\\.", "#"))
                         .build())
                 .collect(Collectors.toList());
 

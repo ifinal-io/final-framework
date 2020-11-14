@@ -7,6 +7,8 @@ import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.repository.Repository;
 import org.finalframework.mybatis.sql.provider.*;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -23,21 +25,21 @@ import java.util.Map;
 public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> extends Repository<ID, T> {
 
     /**
-     * @param table 表名
-     * @param view 视图,
-     * @param ignore 是否忽略重复数据,{@literal INSERT IGNORE}
+     * @param table    表名
+     * @param view     视图,
+     * @param ignore   是否忽略重复数据,{@literal INSERT IGNORE}
      * @param entities 实体集
      * @see InsertSqlProvider#insert(ProviderContext, Map)
      */
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
-    int insert(@Param("table") String table, @Param("view") Class<?> view, @Param("ignore") boolean ignore,
-               @Param("list") Collection<T> entities);
+    int insert(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view,
+               @Param("ignore") boolean ignore, @NonNull @Param("list") Collection<T> entities);
 
     /**
-     * @param table 表名
-     * @param view 视图
+     * @param table    表名
+     * @param view     视图
      * @param entities 实体集
      * @see InsertSqlProvider#replace(ProviderContext, Map)
      */
@@ -47,8 +49,8 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     int replace(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
 
     /**
-     * @param table 表名
-     * @param view 视图
+     * @param table    表名
+     * @param view     视图
      * @param entities 实体集
      * @see InsertSqlProvider#save(ProviderContext, Map)
      */
