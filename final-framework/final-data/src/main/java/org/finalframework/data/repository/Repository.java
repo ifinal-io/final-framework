@@ -17,6 +17,18 @@ import java.util.stream.Collectors;
 /**
  * The superinterface of {@code CURD}.
  *
+ * <ul>
+ *     <li>insert the records call with {@link #insert(String, Class, boolean, Collection)};</li>
+ *     <li>replace the records when the record had exists call with {@link #replace(String, Class, Collection)};</li>
+ *     <li>insert the records when the record not exists and update the record when the record had exists call with {@link #save(String, Class, Collection)};</li>
+ *     <li>update the record call with {@link #update(String, Class, IEntity, Update, boolean, Collection, IQuery)}</li>
+ *     <li>select records call with {@link #select(String, Class, Collection, IQuery)}</li>
+ *     <li>select ont record call with {@link #selectOne(String, Class, Serializable, IQuery)}</li>
+ *     <li>count the records call with {@link #selectCount()};</li>
+ *     <li>check the record is exists call with {@link #isExists(String, Serializable)} or {@link #isExists(String, IQuery)};</li>
+ *     <li>truncate table call with {@link #truncate(String)};</li>
+ * </ul>
+ *
  * @author likly
  * @version 1.0
  * @date 2018-10-12 13:27
@@ -25,7 +37,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unused", "unchecked"})
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
+    /*==============================================================================================*/
     /*=========================================== INSERT ===========================================*/
+    /*==============================================================================================*/
     default int insert(@NonNull T... entities) {
         return insert(Arrays.asList(entities));
     }
@@ -94,7 +108,10 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
 
-    /*=========================================== REPLACE ===========================================*/
+    /*==============================================================================================*/
+    /*=========================================== REPLACE ==========================================*/
+    /*==============================================================================================*/
+
     default int replace(@NonNull T... entities) {
         return replace(Arrays.asList(entities));
     }
@@ -133,7 +150,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     int replace(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<T> entities);
 
-    /*=========================================== SAVE ===========================================*/
+    /*==============================================================================================*/
+    /*=========================================== SAVE =============================================*/
+    /*==============================================================================================*/
     default int save(@NonNull T... entities) {
         return save(Arrays.asList(entities));
     }
@@ -174,34 +193,36 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
 
 
+    /*==============================================================================================*/
     /*=========================================== UPDATE ===========================================*/
+    /*==============================================================================================*/
 
-    default int update(T entity) {
+    default int update(@NonNull T entity) {
         return update((String) null, entity);
     }
 
-    default int update(String table, T entity) {
+    default int update(@Nullable String table, @NonNull T entity) {
         return update(table, null, entity);
     }
 
-    default int update(Class<?> view, T entity) {
+    default int update(@Nullable Class<?> view, @NonNull T entity) {
         return update(null, view, entity);
     }
 
-    default int update(T entity, boolean selective) {
+    default int update(@NonNull T entity, boolean selective) {
         return update((String) null, entity, selective);
     }
 
-    default int update(T entity, ID... ids) {
+    default int update(@NonNull T entity, @NonNull ID... ids) {
         return update(entity, Arrays.asList(ids));
     }
 
-    default int update(T entity, Collection<ID> ids) {
+    default int update(@NonNull T entity, @NonNull Collection<ID> ids) {
         return update((String) null, entity, ids);
     }
 
 
-    default int update(T entity, IQuery query) {
+    default int update(@NonNull T entity, @NonNull IQuery query) {
         return update((String) null, entity, query);
     }
 
@@ -382,7 +403,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
                T entity, Update update, boolean selective,
                Collection<ID> ids, IQuery query);
 
+    /*==============================================================================================*/
     /*=========================================== DELETE ===========================================*/
+    /*==============================================================================================*/
 
     default int delete(@NonNull T... entities) {
         return delete(Arrays.asList(entities));
@@ -455,7 +478,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         listener.onFinish(param);
     }
 
+    /*==============================================================================================*/
     /*=========================================== SELECT ===========================================*/
+    /*==============================================================================================*/
 
     default List<T> select() {
         return select((IQuery) null);
@@ -536,7 +561,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<ID> ids, @Nullable IQuery query);
 
 
-    /*=========================================== SELECT ONE ===========================================*/
+    /*==============================================================================================*/
+    /*========================================= SELECT ONE =========================================*/
+    /*==============================================================================================*/
 
     default T selectOne(@NonNull ID id) {
         return selectOne(null, null, id, null);
@@ -582,7 +609,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     T selectOne(@Nullable String table, @Nullable Class<?> view, @Nullable ID id, @Nullable IQuery query);
 
-    /*=========================================== SCANNER ===========================================*/
+    /*==============================================================================================*/
+    /*=========================================== SCANNER ==========================================*/
+    /*==============================================================================================*/
 
 
     default <PARAM> void scan(Pageable query, Listener<PARAM, List<T>> listener) {
@@ -621,7 +650,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         } while (Asserts.isEmpty(list) || list.size() < query.getSize());
     }
 
-    /*=========================================== SELECT IDS===========================================*/
+    /*==============================================================================================*/
+    /*========================================= SELECT IDS =========================================*/
+    /*==============================================================================================*/
 
     default List<ID> selectIds(@NonNull IQuery query) {
         return selectIds(null, query);
@@ -637,7 +668,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     List<ID> selectIds(@Nullable String table, @NonNull IQuery query);
 
 
-    /*=========================================== SELECT COUNT ===========================================*/
+    /*==============================================================================================*/
+    /*======================================== SELECT COUNT ========================================*/
+    /*==============================================================================================*/
 
     default long selectCount() {
         return selectCount((String) null);
@@ -682,7 +715,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     long selectCount(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);
 
-    /*=========================================== IS EXISTS ===========================================*/
+    /*==============================================================================================*/
+    /*========================================== IS EXISTS =========================================*/
+    /*==============================================================================================*/
     default boolean isExists(@NonNull ID id) {
         return isExists(null, id);
     }
@@ -701,7 +736,9 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
 
-    /*=========================================== TRUNCATE ===========================================*/
+    /*==============================================================================================*/
+    /*========================================= TRUNCATE ===========================================*/
+    /*==============================================================================================*/
 
     default void truncate() {
         truncate(null);

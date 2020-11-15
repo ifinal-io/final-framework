@@ -15,7 +15,7 @@
     * [统一的结果集](docs/web.md#统一的结果集): 对`@RestController`的结果进行统一拦截封装
     * [全局异常处理](docs/web.md#全局异常处理)：对系统中抛出的`Exception`进行全局的拦截处理，转化为统一的结果集。
 * [极简的监控](docs/monitor.md)  
-    * 简单的操作日志
+    * [简单的操作日志](docs/monitor.md#简化的操作日志)
 
 
 
