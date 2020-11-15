@@ -14,8 +14,6 @@ version: 1.0
 
 ## insert
 
-
-
 ```java
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     /**
@@ -30,6 +28,20 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
 }
 ```
+
+## replace
+
+## save
+
+## update
+
+## delete
+
+## select
+
+## selectOne
+
+## selectIds
 
 ## selectCount
 
