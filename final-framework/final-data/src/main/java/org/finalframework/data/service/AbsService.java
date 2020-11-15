@@ -20,7 +20,7 @@ import java.util.List;
 @SuppressWarnings({"unused"})
 public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R extends Repository<ID, T>> extends Repository<ID, T> {
     @Override
-    default int save(String table, Class<?> view, Collection<T> entities) {
+    default int save(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<T> entities) {
         return getRepository().save(table, view, entities);
     }
 
@@ -30,7 +30,7 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
-    default int replace(String table, Class<?> view, Collection<T> entities) {
+    default int replace(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<T> entities) {
         return getRepository().replace(table, view, entities);
     }
 
@@ -55,7 +55,7 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
-    default List<ID> selectIds(String table, IQuery query) {
+    default List<ID> selectIds(@Nullable String table, @NonNull IQuery query) {
         return getRepository().selectIds(table, query);
     }
 
@@ -66,7 +66,7 @@ public interface AbsService<ID extends Serializable, T extends IEntity<ID>, R ex
     }
 
     @Override
-    default void truncate(String table) {
+    default void truncate(@Nullable String table) {
         getRepository().truncate(table);
     }
 

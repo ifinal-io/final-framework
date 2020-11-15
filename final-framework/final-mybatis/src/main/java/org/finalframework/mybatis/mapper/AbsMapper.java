@@ -19,6 +19,12 @@ import java.util.Map;
  * @author likly
  * @version 1.0
  * @date 2018-09-27 17:49
+ * @see InsertSqlProvider
+ * @see UpdateSqlProvider
+ * @see SelectSqlProvider
+ * @see SelectIdsSqlProvider
+ * @see SelectCountSqlProvider
+ * @see DeleteSqlProvider
  * @since 1.0
  */
 @SuppressWarnings("all")
@@ -46,7 +52,7 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
-    int replace(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int replace(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @NonNull @Param("list") Collection<T> entities);
 
     /**
      * @param table    表名
@@ -57,7 +63,7 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
-    int save(@Param("table") String table, @Param("view") Class<?> view, @Param("list") Collection<T> entities);
+    int save(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @NonNull @Param("list") Collection<T> entities);
 
 
     @Override
@@ -68,7 +74,7 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
 
     @Override
     @DeleteProvider(DeleteSqlProvider.class)
-    int delete(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+    int delete(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<ID> ids, @Nullable @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
@@ -80,6 +86,18 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") IQuery query);
 
     @Override
+    @SelectProvider(SelectIdsSqlProvider.class)
+    List<ID> selectIds(@Nullable @Param("table") String table, @NonNull @Param("query") IQuery query);
+
+
+    @Override
     @SelectProvider(SelectCountSqlProvider.class)
     long selectCount(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+
+
+    @Override
+    @UpdateProvider(TruncateSqlProvider.class)
+    void truncate(@Nullable @Param("table") String table);
+
+
 }

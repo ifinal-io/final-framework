@@ -3,6 +3,7 @@ package org.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.finalframework.annotation.IEntity;
+import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.data.Metadata;
 import org.finalframework.data.query.QEntity;
 import org.finalframework.data.query.QProperty;
@@ -14,6 +15,7 @@ import org.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -44,10 +46,10 @@ import java.util.Map;
  * @author likly
  * @version 1.0
  * @date 2020-04-15 00:23:52
- * @see org.finalframework.mybatis.mapper.AbsMapper#select(String, Class, Collection, Query)
+ * @see org.finalframework.mybatis.mapper.AbsMapper#select(String, Class, Collection, IQuery)
+ * @see org.finalframework.mybatis.mapper.AbsMapper#selectOne(String, Class, Serializable, IQuery)
  * @since 1.0
  */
-@SuppressWarnings("unused")
 public class SelectSqlProvider implements AbsMapperSqlProvider {
 
     private static final String SELECT_METHOD_NAME = "select";
