@@ -614,21 +614,21 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     /*==============================================================================================*/
 
 
-    default <PARAM> void scan(Pageable query, Listener<PARAM, List<T>> listener) {
+    default <PARAM> void scan(@NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
         scan(null, null, query, listener);
     }
 
 
-    default <PARAM> void scan(Class<?> view, @NonNull Pageable query, Listener<PARAM, List<T>> listener) {
+    default <PARAM> void scan(@Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
         scan(null, view, query, listener);
     }
 
 
-    default <PARAM> void scan(String table, Pageable query, Listener<PARAM, List<T>> listener) {
+    default <PARAM> void scan(@Nullable String table, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
         scan(table, null, query, listener);
     }
 
-    default <PARAM> void scan(String table, Class<?> view, @NonNull Pageable query, Listener<PARAM, List<T>> listener) {
+    default <PARAM> void scan(@Nullable String table, @Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
         if (Asserts.isNull(query.getPage()) || Asserts.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }

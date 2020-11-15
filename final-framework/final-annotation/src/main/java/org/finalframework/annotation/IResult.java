@@ -11,41 +11,37 @@ import org.springframework.lang.Nullable;
  *
  * <h4>Code Example</h4>
  *
- * <pre>
- *     <code>
- *         IResult result = getResult();
- *         if(result.isSuccess()){
- *              // deal data when success
- *             Object data = result.getData();
- *         }else{
- *             // deal message when failure
- *             logger.error("code={},message={}",result.getCode(),result.getMessage());
- *         }
- *     </code>
+ * <pre class="code">
+ *      IResult result = getResult();
+ *      if(result.isSuccess()){
+ *           // deal data when success
+ *          Object data = result.getData();
+ *      }else{
+ *          // deal message when failure
+ *          logger.error("code={},message={}",result.getCode(),result.getMessage());
+ *      }
  * </pre>
  *
  * <h4>Json Example</h4>
- * <pre>
- *     <code>
- *         {
- *              "status":null,
- *              "description":null,
- *              "code":null,
- *              "message":null,
- *              "data":null,
- *              "pagination":null,
- *              "trace":null,
- *              "timestamp":1600249564385,
- *              "duration":null,
- *              "address":null,
- *              "locale":null,
- *              "timeZone":null,
- *              "operator":null,
- *              "view":null,
- *              "exception":null,
- *              "success":false
- *          }
- *     </code>
+ * <pre class="code">
+ *      {
+ *           "status":null,
+ *           "description":null,
+ *           "code":null,
+ *           "message":null,
+ *           "data":null,
+ *           "pagination":null,
+ *           "trace":null,
+ *           "timestamp":1600249564385,
+ *           "duration":null,
+ *           "address":null,
+ *           "locale":null,
+ *           "timeZone":null,
+ *           "operator":null,
+ *           "view":null,
+ *           "exception":null,
+ *           "success":false
+ *      }
  * </pre>
  *
  * @author likly
@@ -120,7 +116,8 @@ public interface IResult<T> extends IData<T> {
      * @return {@literal true} if has more data.
      */
     default boolean hasMore() {
-        return getPagination() != null && !Boolean.TRUE.equals(getPagination().getLastPage());
+        IPagination pagination = getPagination();
+        return pagination != null && !Boolean.TRUE.equals(pagination.getLastPage());
     }
 
 }
