@@ -43,7 +43,7 @@
 |           [Dubbo](http://dubbo.apache.org/zh-cn/)            |      分布式RPC调用       |
 | [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |       分库分表组件       |
 |                          Zookeeper                           | 分布式注册中心、配置中心 |
-|       [`javapoet`](https://github.com/square/javapoet)       |      Java源代码生成      |
+|       [javapoet](https://github.com/square/javapoet)       |      Java源代码生成      |
 
 
 ## 致谢

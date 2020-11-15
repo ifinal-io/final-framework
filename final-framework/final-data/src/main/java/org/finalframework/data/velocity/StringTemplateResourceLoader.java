@@ -22,7 +22,7 @@ public class StringTemplateResourceLoader extends ResourceLoader {
     }
 
     @Override
-    public Reader getResourceReader(String source, String encoding) throws ResourceNotFoundException {
+    public Reader getResourceReader(String source, String encoding) {
         if (source == null || source.length() == 0) {
             throw new ResourceNotFoundException("Need to specify a template name!");
         }
