@@ -4,6 +4,7 @@ import org.aopalliance.intercept.Interceptor;
 import org.finalframework.aop.interceptor.AnnotationOperationSource;
 import org.finalframework.aop.interceptor.BaseOperationAnnotationFinder;
 import org.finalframework.aop.interceptor.BaseOperationInvocationHandler;
+import org.finalframework.util.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
@@ -15,8 +16,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -57,7 +56,7 @@ public class OperationConfiguration {
     }
 
     private void registerOperationAnnotationBuilder(OperationAnnotationBuilder<?, ?> builder) {
-        final Class<Annotation> ann = (Class<Annotation>) findInterfaceParameterTypeClass(builder.getClass(), OperationAnnotationBuilder.class, 0);
+        final Class<Annotation> ann = (Class<Annotation>) Reflections.findParameterizedInterfaceArgumentClass(builder.getClass(), OperationAnnotationBuilder.class, 0);
         logger.debug("find annotation builder: ann=@{},builder={}", ann.getSimpleName(), builder.getClass().getSimpleName());
         this.annotations.add(ann);
         this.builders.put(ann, builder);
@@ -67,18 +66,6 @@ public class OperationConfiguration {
         final Class<? extends OperationHandler> handlerClass = handler.getClass();
         logger.debug("find operation handler: {}", handlerClass.getSimpleName());
         operationHandlers.put(handlerClass, handler);
-    }
-
-    private Class<?> findInterfaceParameterTypeClass(Class<?> target, Class<?> parameterizedInterface, int index) {
-        final Type[] genericInterfaces = target.getGenericInterfaces();
-
-        for (Type type : genericInterfaces) {
-            if (type instanceof ParameterizedType && parameterizedInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
-                return (Class<? extends Annotation>) ((ParameterizedType) type).getActualTypeArguments()[index];
-            }
-        }
-
-        throw new IllegalArgumentException("");
     }
 
     private void registerExecutor(Executor executor) {
