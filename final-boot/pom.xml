@@ -13,6 +13,7 @@
     <artifactId>final-boot</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>final-boot-autoconfigure</module>
         <module>final-boot-starter</module>
         <module>final-boot-starter-entity</module>
         <module>final-boot-starter-data</module>
@@ -36,6 +37,11 @@
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-boot ============================================= -->
             <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.finalframework.boot</groupId>
                 <artifactId>final-boot-starter</artifactId>

@@ -3,7 +3,6 @@ package org.finalframework.redis.serializer;
 
 import org.finalframework.json.Json;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
@@ -29,12 +28,12 @@ public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
     }
 
     @Override
-    public byte[] serialize(Object o) throws SerializationException {
+    public byte[] serialize(Object o) {
         return o == null ? null : Json.toJson(o).getBytes(charset);
     }
 
     @Override
-    public Object deserialize(byte[] bytes) throws SerializationException {
+    public Object deserialize(byte[] bytes) {
         return (bytes == null ? null : new String(bytes, charset));
     }
 }
