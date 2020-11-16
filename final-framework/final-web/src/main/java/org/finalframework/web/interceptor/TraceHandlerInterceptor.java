@@ -1,20 +1,17 @@
-package org.finalframework.web.interceptor.trace;
+package org.finalframework.web.interceptor;
 
 import lombok.Setter;
-import org.finalframework.web.annotation.HandlerInterceptor;
 import org.finalframework.core.generator.TraceGenerator;
 import org.finalframework.core.generator.UUIDTraceGenerator;
 import org.finalframework.util.Asserts;
-import org.finalframework.web.interceptor.AbsHandlerInterceptor;
-import org.finalframework.web.interceptor.TraceHandlerInterceptorProperties;
+import org.finalframework.web.annotation.HandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,43 +26,31 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @HandlerInterceptor
-@EnableConfigurationProperties(TraceHandlerInterceptorProperties.class)
-public class TraceHandlerInterceptor extends AbsHandlerInterceptor {
+public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);
 
     public static final String TRACE_ATTRIBUTE = "org.finalframework.handler.trace";
+
+    private static final String TRACE = "trace";
 
     /**
      * TRACE 名称，放置到{@link MDC}中的KEY的名称
      */
     @Setter
-    private String traceName;
+    private String traceName = TRACE;
     /**
      * TRACE 参数名称
      */
     @Setter
-    private String paramName;
+    private String paramName = TRACE;
     /**
      * TRACE 请求头名称
      */
     @Setter
-    private String headerName;
+    private String headerName = TRACE;
 
     @Setter
-    private TraceGenerator generator;
-
-    @Autowired
-    public TraceHandlerInterceptor(TraceHandlerInterceptorProperties properties) {
-        super(properties);
-        this.setTraceName(properties.getTraceName());
-        this.setParamName(properties.getParamName());
-        this.setHeaderName(properties.getHeaderName());
-        try {
-            this.setGenerator(properties.getGenerator().getConstructor().newInstance());
-        } catch (Exception e) {
-            //ignore
-        }
-    }
+    private TraceGenerator generator = new UUIDTraceGenerator();
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {

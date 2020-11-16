@@ -3,7 +3,7 @@ package org.finalframework.web.response.advice;
 import org.finalframework.annotation.result.Result;
 import org.finalframework.context.user.UserContextHolder;
 import org.finalframework.web.interceptor.DurationHandlerInterceptor;
-import org.finalframework.web.interceptor.trace.TraceHandlerInterceptor;
+import org.finalframework.web.interceptor.TraceHandlerInterceptor;
 import org.finalframework.web.response.Object2ResultConverter;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.MethodParameter;

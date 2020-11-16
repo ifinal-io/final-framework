@@ -1,12 +1,11 @@
 package org.finalframework.web.autoconfiguration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.web.annotation.HandlerInterceptor;
 import org.finalframework.util.Asserts;
-import org.finalframework.web.interceptor.IHandlerInterceptor;
+import org.finalframework.web.annotation.HandlerInterceptor;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
@@ -29,7 +28,7 @@ import java.util.ServiceLoader;
  */
 @Slf4j
 @Component
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unused"})
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<ConverterFactory> converterFactories;
@@ -63,21 +62,10 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     }
 
-    private void addInterceptor(@NonNull InterceptorRegistry registry, @NonNull org.springframework.web.servlet.HandlerInterceptor item) {
-        HandlerInterceptor annotation = item.getClass().getAnnotation(HandlerInterceptor.class);
-        InterceptorRegistration interceptorRegistration = registry.addInterceptor(item);
-        if (item instanceof IHandlerInterceptor) {
-            IHandlerInterceptor handlerInterceptor = (IHandlerInterceptor) item;
-            if (Asserts.nonEmpty(handlerInterceptor.getPathPatterns())) {
-                interceptorRegistration.addPathPatterns(handlerInterceptor.getPathPatterns());
-            }
-            if (Asserts.nonEmpty(handlerInterceptor.getExcludePathPatterns())) {
-                interceptorRegistration.excludePathPatterns(handlerInterceptor.getExcludePathPatterns());
-            }
-            interceptorRegistration.order(handlerInterceptor.getOrder());
-
-
-        } else if (annotation != null) {
+    private void addInterceptor(@NonNull InterceptorRegistry registry, @NonNull org.springframework.web.servlet.HandlerInterceptor interceptor) {
+        final HandlerInterceptor annotation = AnnotationUtils.getAnnotation(interceptor.getClass(), HandlerInterceptor.class);
+        InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
+        if (annotation != null) {
             if (annotation.includes().length > 0) {
                 interceptorRegistration.addPathPatterns(annotation.includes());
             }
@@ -86,13 +74,10 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
             }
         }
 
-        Order order = item.getClass().getAnnotation(Order.class);
+        final Order order = AnnotationUtils.getAnnotation(interceptor.getClass(), Order.class);
         if (order != null) {
             interceptorRegistration.order(order.value());
-        } else {
-            interceptorRegistration.order(Ordered.LOWEST_PRECEDENCE);
         }
-
-        logger.info("==> add interceptor={}", item.getClass());
+        logger.info("==> add interceptor={}", interceptor.getClass());
     }
 }
