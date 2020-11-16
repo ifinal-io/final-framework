@@ -45,8 +45,7 @@ public class HelloController {
 }
 ```
 
-### 基于切面的操作日志
-
+### 基于注解的操作日志
 
 通过在方法声明上添加`@MonitorAction`注解，即可快速加入操作日志。
 
@@ -82,7 +81,7 @@ public interface ActionListener {
 >
 > **Note**：老版本中以`{}`表示表达式，新版本中使用`${}`表示表达式。
 
- 
+------ 
 
 
 
