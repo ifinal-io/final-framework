@@ -5,6 +5,7 @@ import org.finalframework.web.interceptor.TraceHandlerInterceptor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author likly
@@ -12,6 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @date 2020/11/16 18:06:26
  * @since 1.0
  */
+@Configuration
 @SpringAutoConfiguration
 @ConditionalOnBean(TraceHandlerInterceptor.class)
 @EnableConfigurationProperties(TraceProperties.class)

@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.boot</groupId>
             <artifactId>final-boot-starter</artifactId>
         </dependency>
         <dependency>

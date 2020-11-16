@@ -17,6 +17,7 @@
     <modules>
         <module>final-example-entity</module>
         <module>final-example-dao</module>
+        <module>final-example-web</module>
     </modules>
 
     <dependencyManagement>

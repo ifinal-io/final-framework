@@ -10,7 +10,7 @@ import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStra
 import org.apache.shardingsphere.api.config.sharding.strategy.ShardingStrategyConfiguration;
 import org.apache.shardingsphere.shardingjdbc.api.MasterSlaveDataSourceFactory;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
-import org.finalframework.core.Asserts;
+import org.finalframework.util.Asserts;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
  * @date 2020-01-18 12:33:26
  * @since 1.0
  */
-@ConfigurationProperties(prefix = "final.sharding")
 @Setter
 @Getter
+@ConfigurationProperties(prefix = "final.sharding")
 public class ShardingDataSourceProperties implements Serializable {
 
     /**
