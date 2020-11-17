@@ -24,6 +24,11 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework</groupId>
+            <artifactId>final-mybatis</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
             <artifactId>final-web</artifactId>
             <optional>true</optional>
         </dependency>
