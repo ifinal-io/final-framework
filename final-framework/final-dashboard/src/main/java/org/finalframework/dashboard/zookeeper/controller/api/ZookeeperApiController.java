@@ -1,4 +1,4 @@
-package org.finalframework.dashboard.api.controller;
+package org.finalframework.dashboard.zookeeper.controller.api;
 
 import org.finalframework.zookeeper.service.ZookeeperService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -22,10 +22,6 @@ public class ZookeeperApiController {
 
     @Resource
     private ZookeeperService zookeeperService;
-
-    public ZookeeperApiController() {
-        System.out.println();
-    }
 
     @RequestMapping("/ls")
     public List<String> ls(@RequestParam(value = "path", required = false, defaultValue = "/") String path) {

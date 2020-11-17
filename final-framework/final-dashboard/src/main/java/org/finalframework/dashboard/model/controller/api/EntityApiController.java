@@ -1,4 +1,4 @@
-package org.finalframework.web.api.controller;
+package org.finalframework.dashboard.model.controller.api;
 
 import org.finalframework.annotation.IEntity;
 import org.finalframework.io.support.ServicesLoader;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/entities")
-public class EntityController {
+public class EntityApiController {
     @GetMapping
     public List<String> entities() {
         return ServicesLoader.load(IEntity.class);
