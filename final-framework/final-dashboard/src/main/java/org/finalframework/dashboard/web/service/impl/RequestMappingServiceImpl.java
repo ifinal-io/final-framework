@@ -1,10 +1,10 @@
-package org.finalframework.dashboard.core.service.impl;
+package org.finalframework.dashboard.web.service.impl;
 
-import org.finalframework.dashboard.core.entity.RequestMapping;
-import org.finalframework.dashboard.core.entity.RequestPattern;
-import org.finalframework.dashboard.core.entity.ResultMapping;
-import org.finalframework.dashboard.core.service.RequestMappingService;
-import org.finalframework.dashboard.core.service.query.RequestPatternQuery;
+import org.finalframework.dashboard.web.entity.RequestHandler;
+import org.finalframework.dashboard.web.entity.RequestPattern;
+import org.finalframework.dashboard.web.entity.ResultMapping;
+import org.finalframework.dashboard.web.service.RequestMappingService;
+import org.finalframework.dashboard.web.service.query.RequestPatternQuery;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.finalframework.json.Json;
@@ -39,13 +39,13 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 @Service
-public class RequestMappingServiceImpl implements RequestMappingService, InitializingBean {
+class RequestMappingServiceImpl implements RequestMappingService, InitializingBean {
     public static final Logger logger = LoggerFactory.getLogger(RequestMappingServiceImpl.class);
     private final ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
     /**
      * the key is {@link RequestMappingInfo#getPatternsCondition}
      */
-    private final MultiKeyMap<String, RequestMethod, RequestMapping> requestMappingMap = new LinkedMultiKeyMap<>();
+    private final MultiKeyMap<String, RequestMethod, RequestHandler> requestMappingMap = new LinkedMultiKeyMap<>();
     private final List<RequestPattern> requestPatterns = new ArrayList<>();
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
@@ -63,7 +63,7 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
     }
 
     @Override
-    public RequestMapping find(String pattern, RequestMethod method) {
+    public RequestHandler find(String pattern, RequestMethod method) {
         return requestMappingMap.get(pattern, method);
     }
 
@@ -77,10 +77,10 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
             final String name = requestMappingInfo.getName();
             for (String pattern : requestMappingInfo.getPatternsCondition().getPatterns()) {
                 for (RequestMethod method : requestMappingInfo.getMethodsCondition().getMethods()) {
-                    final RequestMapping requestMapping = new RequestMapping();
-                    requestMapping.setName(name);
-                    requestMapping.setPattern(pattern);
-                    requestMapping.setMethod(method);
+                    final RequestHandler requestHandler = new RequestHandler();
+                    requestHandler.setName(name);
+                    requestHandler.setPattern(pattern);
+                    requestHandler.setMethod(method);
 
                     requestPatterns.add(new RequestPattern(name, method, pattern));
 
@@ -157,7 +157,7 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
 
 
                     }
-                    requestMapping.setParameterMappings(parameterMappings);
+                    requestHandler.setParameterMappings(parameterMappings);
 
                     final MethodParameter returnType = handlerMethod.getReturnType();
                     final Type genericParameterType = returnType.getGenericParameterType();
@@ -180,10 +180,10 @@ public class RequestMappingServiceImpl implements RequestMappingService, Initial
                         }
                     }
 
-                    requestMapping.setResultMappings(resultMappings);
+                    requestHandler.setResultMappings(resultMappings);
 
 
-                    requestMappingMap.add(pattern, method, requestMapping);
+                    requestMappingMap.add(pattern, method, requestHandler);
 
                 }
 

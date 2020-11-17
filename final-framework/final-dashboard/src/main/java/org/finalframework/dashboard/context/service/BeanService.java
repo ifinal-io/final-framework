@@ -1,6 +1,6 @@
-package org.finalframework.dashboard.core.service;
+package org.finalframework.dashboard.context.service;
 
-import org.finalframework.dashboard.core.service.query.BeanQuery;
+import org.finalframework.dashboard.context.service.query.BeanQuery;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

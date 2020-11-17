@@ -1,8 +1,8 @@
-package org.finalframework.dashboard.core.service.impl;
+package org.finalframework.dashboard.context.service.impl;
 
 import lombok.Setter;
-import org.finalframework.dashboard.core.service.BeanService;
-import org.finalframework.dashboard.core.service.query.BeanQuery;
+import org.finalframework.dashboard.context.service.BeanService;
+import org.finalframework.dashboard.context.service.query.BeanQuery;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

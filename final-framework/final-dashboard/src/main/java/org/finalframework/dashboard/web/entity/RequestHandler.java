@@ -1,4 +1,4 @@
-package org.finalframework.dashboard.core.entity;
+package org.finalframework.dashboard.web.entity;
 
 
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class RequestMapping implements Comparable<RequestMapping> {
+public class RequestHandler implements Comparable<RequestHandler> {
     /**
      * @see RequestMappingInfo#getName()
      */
@@ -29,7 +29,7 @@ public class RequestMapping implements Comparable<RequestMapping> {
     private List<ResultMapping> resultMappings;
 
     @Override
-    public int compareTo(RequestMapping o) {
+    public int compareTo(RequestHandler o) {
         return pattern.compareTo(o.pattern);
     }
 }

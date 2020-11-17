@@ -1,4 +1,4 @@
-package org.finalframework.dashboard.core.entity;
+package org.finalframework.dashboard.web.entity;
 
 
 import lombok.Data;

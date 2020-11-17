@@ -1,4 +1,4 @@
-package org.finalframework.dashboard.core.service.query;
+package org.finalframework.dashboard.context.service.query;
 
 import lombok.Data;
 

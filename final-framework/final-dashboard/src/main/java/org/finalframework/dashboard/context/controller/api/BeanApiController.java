@@ -1,7 +1,7 @@
-package org.finalframework.dashboard.core.controller.api;
+package org.finalframework.dashboard.context.controller.api;
 
-import org.finalframework.dashboard.core.service.BeanService;
-import org.finalframework.dashboard.core.service.query.BeanQuery;
+import org.finalframework.dashboard.context.service.BeanService;
+import org.finalframework.dashboard.context.service.query.BeanQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
