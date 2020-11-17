@@ -32,6 +32,7 @@
         <module>final-selenium</module>
         <module>final-web</module>
         <module>final-javapoets</module>
+        <module>final-dashboard</module>
     </modules>
 
     <dependencyManagement>
@@ -79,6 +80,11 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework</groupId>
+                <artifactId>final-zookeeper</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
                 <artifactId>final-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -100,6 +106,11 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-retrofit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-dashboard</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

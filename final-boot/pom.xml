@@ -23,6 +23,8 @@
         <module>final-boot-starter-mybatis</module>
         <module>final-boot-starter-web</module>
         <module>final-boot-starter-json</module>
+        <module>final-boot-starter-dashboard</module>
+        <module>final-boot-starter-zookeeper</module>
     </modules>
 
     <dependencyManagement>
@@ -85,6 +87,16 @@
             <dependency>
                 <groupId>org.finalframework.boot</groupId>
                 <artifactId>final-boot-starter-monitor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-zookeeper</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-dashboard</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

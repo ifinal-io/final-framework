@@ -25,6 +25,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-zookeeper</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.finalframework.auto</groupId>
             <artifactId>final-auto-spring</artifactId>
             <scope>provided</scope>

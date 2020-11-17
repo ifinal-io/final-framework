@@ -18,6 +18,7 @@
         <module>final-example-entity</module>
         <module>final-example-dao</module>
         <module>final-example-web</module>
+        <module>final-example-service</module>
     </modules>
 
     <dependencyManagement>
@@ -37,6 +38,11 @@
             <dependency>
                 <groupId>org.finalframework.example</groupId>
                 <artifactId>final-example-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.example</groupId>
+                <artifactId>final-example-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

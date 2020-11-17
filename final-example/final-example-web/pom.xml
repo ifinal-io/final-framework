@@ -15,6 +15,24 @@
         <dependency>
             <groupId>org.finalframework.boot</groupId>
             <artifactId>final-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-boot-starter-dashboard</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.boot</groupId>
+            <artifactId>final-boot-starter-zookeeper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.finalframework.example</groupId>
+            <artifactId>final-example-service</artifactId>
         </dependency>
     </dependencies>
 
