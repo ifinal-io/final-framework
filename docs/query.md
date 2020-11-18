@@ -26,13 +26,19 @@ version: 1.0
     }
 ```
 
-## AndQuery 
 
 
+## AnnotationQuery
+
+### AndQuery 
+
+当你需要定义如下的`sql`时：
 
 ```sql
 WHERE  a = ? AND b BETWEEN ? AND ? AND c NOT IN (?,?,?)
 ```
+
+定义如下的`Query`对象：
 
 ```java
 @Data
@@ -45,6 +51,8 @@ static class AndQuery implements IQuery {
     private List<String> c;
 }
 ```
+
+生成的`mapper`：
 
 ```xml
 <where>
@@ -61,9 +69,7 @@ static class AndQuery implements IQuery {
 
 ```
 
-
-
-## QueryAnnotation
+### QueryAnnotations
 
 |    Annotation     |                    SQL                     | 备注 |
 | :---------------: | :----------------------------------------: | :--: |
