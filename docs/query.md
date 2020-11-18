@@ -113,13 +113,13 @@ static class OrQuery implements IQuery {
 
 ### AndOrQuery
 
-
+当需要先使用`AND`嵌套`OR`对`sql`进行连接时：
 
 ```sql
 WHERE  a = ? AND (  b = ? OR c != ? )
 ```
 
-
+定义如下`Query`对象：
 
 ```java
 @Data
@@ -139,7 +139,7 @@ static class InnerQuery {
 }
 ```
 
-
+生成的`mapper`片段：
 
 ```xml
 <where>
@@ -164,13 +164,13 @@ static class InnerQuery {
 
 ### OrAndQuery
 
-
+当需要先使用OR嵌套`AND`对`sql`进行连接时：
 
 ```sql
-WHERE  a = ? OR (  b = ? OR c != ? )
+WHERE  a = ? OR (  b = ? AND c != ? )
 ```
 
-
+定义如下`Query`对象：
 
 ```java
 @Data
@@ -191,9 +191,7 @@ static class InnerQuery {
 }
 ```
 
-
-
-
+生成的`mapper`片段
 
 ```xml
 <where>
@@ -203,10 +201,10 @@ static class InnerQuery {
     <if test="query.innerQuery != null">
         <trim prefix=" OR (" suffix=")" prefixOverrides="AND |OR ">
             <if test="query.innerQuery.b != null">
-                <![CDATA[ OR b = #{query.innerQuery.b}]]>
+                <![CDATA[ AND b = #{query.innerQuery.b}]]>
             </if>
             <if test="query.innerQuery.c != null">
-                <![CDATA[ OR c != #{query.innerQuery.c}]]>
+                <![CDATA[ AND c != #{query.innerQuery.c}]]>
             </if>
         </trim>
     </if>
