@@ -6,6 +6,7 @@ import org.finalframework.mybatis.sql.provider.SqlProviderHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -23,7 +24,9 @@ class XmlMapperServiceImpl implements XmlMapperService {
             parameters.put(SqlProviderHelper.PARAMETER_NAME_TABLE, query.getTable());
             parameters.put(SqlProviderHelper.PARAMETER_NAME_IGNORE, query.isIgnore());
             parameters.put(SqlProviderHelper.PARAMETER_NAME_SELECTIVE, query.isSelective());
-            parameters.put(SqlProviderHelper.PARAMETER_NAME_QUERY, query.getQuery().getConstructor().newInstance());
+            if (Objects.nonNull(query.getQuery())) {
+                parameters.put(SqlProviderHelper.PARAMETER_NAME_QUERY, query.getQuery().getConstructor().newInstance());
+            }
 
             return SqlProviderHelper.xml(query.getMapper(), query.getMethod(), parameters);
         } catch (Exception e) {

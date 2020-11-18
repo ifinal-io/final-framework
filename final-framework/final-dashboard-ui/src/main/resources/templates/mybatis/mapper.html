@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="layout/admin.html" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title123</title>
+
+</head>
+<body>
+<div id="mapper" layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">contacts</i>
+                    </div>
+                    <h4 class="card-title">Horizontal Form</h4>
+                </div>
+                <div class="card-body ">
+                    <form class="form-horizontal">
+                        <!--Mapper-->
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">Mapper</label>
+                            <div class="col-md-11">
+                                <div class="form-group bmd-form-group">
+                                    <select class="selectpicker" data-live-search="true"
+                                            data-size="7" data-style="select-with-transition" data-width="100%"
+                                            id="mapper-select"
+                                            title="Choose Mapper"
+                                            v-model="mapperQuery.mapper">
+                                        <option :value="mapper" v-for="mapper in mappers"
+                                                v-html="mapper"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Method-->
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">Method</label>
+                            <div class="col-md-11">
+                                <div class="form-group bmd-form-group">
+                                    <div class="form-check form-check-radio form-check-inline"
+                                         v-for="method in methods">
+                                        <label class="form-check-label">
+                                            <input :value="method" class="form-check-input" id="inlineRadio1"
+                                                   name="inlineRadioOptions"
+                                                   type="radio" v-model="mapperQuery.method">
+                                            {{method}}
+                                            <span class="circle"><span class="check"></span> </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Table-->
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">Table</label>
+                            <div class="col-md-11">
+                                <div class="form-group has-default bmd-form-group">
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">View</label>
+                            <div class="col-md-11">
+                                <div class="form-group bmd-form-group">
+                                    <select class="selectpicker" data-live-search="true"
+                                            data-size="7" data-style="select-with-transition" data-width="100%"
+                                            title="Choose Query"
+                                            v-model="mapperQuery.view">
+                                        <option :value="view" v-for="view in views"
+                                                v-html="view"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">Query</label>
+                            <div class="col-md-11">
+                                <div class="form-group bmd-form-group">
+                                    <select class="selectpicker" data-live-search="true"
+                                            data-size="7" data-style="select-with-transition" data-width="100%"
+                                            id="query-select"
+                                            title="Choose Query" v-model="mapperQuery.query">
+                                        <option :value="query" v-for="query in queries"
+                                                v-html="query"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer ">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <button @click="xml" class="btn btn-fill btn-rose" type="button">XML</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#mapper',
+            data: {
+                mappers: [],
+                methods: ['insert', 'replace', 'save', 'update', 'delete', 'select', 'selectOne', 'selectIds', 'selectCount', 'truncate'],
+                views: [],
+                queries: [],
+
+                mapperQuery: {
+                    mapper: null,
+                    method: 'insert',
+                    table: null,
+                    view: null,
+                    query: null
+                }
+
+            },
+            mounted: function () {
+                // alert("mapper");
+                var self = this;
+                $.get("/api/mybatis/mappers", function (result) {
+                    self.mappers = JSON.parse(result).data;
+                    console.log(self.mappers);
+                    setTimeout(function () {
+                        $('#mapper-select').selectpicker('refresh');
+                    }, 500)
+                });
+                $.get("/api/models/query", function (result) {
+                    self.queries = JSON.parse(result).data;
+                    console.log(self.queries);
+                    setTimeout(function () {
+                        $('#query-select').selectpicker('refresh');
+                    }, 500)
+                })
+            },
+            methods: {
+                xml: function () {
+
+                    // swal({
+                    //     title: 'HTML example',
+                    //     buttonsStyling: false,
+                    //     confirmButtonClass: "btn btn-success",
+                    //     html: `<iframe src="/api/mybatis/xml?mapper=${this.mapperQuery.mapper}&method=${this.mapperQuery.method}"></iframe>`
+                    // }).catch(swal.noop)
+
+                    window.open(`/api/mybatis/xml?mapper=${this.mapperQuery.mapper}&method=${this.mapperQuery.method}&query=${this.mapperQuery.query}`, '_blank');
+
+                    // alert("xml");
+                    // $.get("/api/mybatis/xml", this.mapperQuery, function (result) {
+                    //     console.log(result)
+                    // })
+                }
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

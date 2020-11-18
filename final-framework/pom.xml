@@ -33,6 +33,7 @@
         <module>final-web</module>
         <module>final-javapoets</module>
         <module>final-dashboard</module>
+        <module>final-dashboard-ui</module>
     </modules>
 
     <dependencyManagement>
@@ -111,6 +112,11 @@
             <dependency>
                 <groupId>org.finalframework</groupId>
                 <artifactId>final-dashboard</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework</groupId>
+                <artifactId>final-dashboard-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

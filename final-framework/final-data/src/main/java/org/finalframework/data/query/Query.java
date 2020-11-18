@@ -23,6 +23,7 @@ import java.util.stream.Stream;
  * @date 2018-10-15 21:15
  * @since 1.0
  */
+//@Transient
 public class Query implements Streamable<Criterion>, Serializable, Pageable, Sql<Query>, SqlNode {
 
     /**

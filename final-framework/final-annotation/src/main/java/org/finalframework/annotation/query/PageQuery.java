@@ -2,6 +2,7 @@ package org.finalframework.annotation.query;
 
 import lombok.Data;
 import org.finalframework.annotation.Pageable;
+import org.finalframework.annotation.data.Transient;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Data
+@Transient
 public class PageQuery implements Pageable, Serializable {
 
     private static final long serialVersionUID = 4813020012879522797L;

@@ -14,34 +14,26 @@ import javax.lang.model.util.ElementFilter;
 import java.util.Set;
 
 /**
- * <pre class="code">
- *     ServicesLoader.load(IEntity.class,getClass().getClassLoader())
- * </pre>
- *
  * @author likly
  * @version 1.0
  * @date 2020-08-31 15:46:02
- * @see java.util.ServiceLoader
  * @since 1.0
  */
 @AutoProcessor
 @SuppressWarnings("unused")
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class AutoEntityProcessor extends AbsServiceProcessor {
-
-    private static final String IENTITY = "org.finalframework.annotation.IEntity";
+public class AutoQueryProcessor extends AbsServiceProcessor {
+    private static final String IENUM = "org.finalframework.annotation.IQuery";
     private static final String TRANSIENT = "org.finalframework.annotation.data.Transient";
-
 
     private TypeElementFilter typeElementFilter;
     private TypeElement typeElement;
 
-
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENTITY);
+        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENUM);
         this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
@@ -51,11 +43,14 @@ public class AutoEntityProcessor extends AbsServiceProcessor {
         ElementFilter.typesIn(roundEnv.getRootElements())
                 .stream()
                 .filter(typeElementFilter::matches)
-                .forEach(entity -> addService(typeElement, entity));
+                .forEach(entity -> {
+                    addService(typeElement, entity, null, "services");
+                });
 
 
         return false;
     }
+
 
 }
 

@@ -28,13 +28,13 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
     private static final String TRANSIENT = "org.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
-    private TypeElement entityElement;
+    private TypeElement typeElement;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.entityElement = processingEnv.getElementUtils().getTypeElement(IENUM);
-        this.typeElementFilter = new TypeElementFilter(processingEnv, entityElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
+        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENUM);
+        this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
                 .stream()
                 .filter(typeElementFilter::matches)
                 .forEach(entity -> {
-                    addService(entityElement, entity, null, "services");
+                    addService(typeElement, entity, null, "services");
                 });
 
 
