@@ -15,5 +15,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 public @interface Criteria {
-    AndOr value() default AndOr.AND;
 }

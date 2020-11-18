@@ -1,8 +1,8 @@
 ---
 layout: post
-title: annotation-query
-subtitle: annotation-query
-description: annotation-query
+title: query
+subtitle: query
+description: query
 tags: []
 menus:
     - annotation-query
@@ -10,20 +10,20 @@ date: 2020-11-18 21:21:53 +800
 version: 1.0
 ---
 
-# annotation-query    
+# Query   
 
 ## Bean
 
 ```java
-    @Data
-    static class Bean implements IEntity<Long> {
-        @AutoInc
-        @PrimaryKey
-        private Long id;
-        private String a;
-        private String b;
-        private String c;
-    }
+@Data
+static class Bean implements IEntity<Long> {
+    @AutoInc
+    @PrimaryKey
+    private Long id;
+    private String a;
+    private String b;
+    private String c;
+}
 ```
 
 
@@ -68,6 +68,155 @@ static class AndQuery implements IQuery {
 </where>
 
 ```
+
+### OrQuery
+
+​	当需要使用`OR`对`sql`进行连接时：
+
+```sql
+WHERE  a = ? OR b BETWEEN ? AND ? OR c NOT IN (?,?,?)
+```
+
+定义如下的`Query`对象：
+
+```java
+@Data
+@OR
+static class OrQuery implements IQuery {
+    @Equal
+    private String a;
+    @NotBetween
+    private BetweenValue<String> b;
+    @NotIn
+    private List<String> c;
+}
+```
+
+生成的`mapper`片段
+
+```xml
+<where>
+    <if test="query.a != null">
+        <![CDATA[ OR a = #{query.a}]]>
+    </if>
+    <if test="query.b != null and query.b.min != null and query.b.max != null">
+        <![CDATA[ OR b BETWEEN #{query.b.min} AND #{query.b.max}]]>
+    </if>
+    <if test="query.c != null">
+        <foreach collection="query.c" item="item" open=" OR c NOT IN (" close=")" separator=",">#{item}</foreach>
+    </if>
+</where>
+
+```
+
+
+
+### AndOrQuery
+
+
+
+```sql
+WHERE  a = ? AND (  b = ? OR c != ? )
+```
+
+
+
+```java
+@Data
+static class AndOrQuery implements IQuery {
+    @Equal
+    private String a;
+    @OR
+    private InnerQuery innerQuery;
+}
+
+@Data
+static class InnerQuery {
+    @Equal
+    private String b;
+    @NotEqual
+    private String c;
+}
+```
+
+
+
+```xml
+<where>
+    <if test="query.a != null">
+        <![CDATA[ AND a = #{query.a}]]>
+    </if>
+    <if test="query.innerQuery != null">
+        <trim prefix=" AND (" suffix=")" prefixOverrides="AND |OR ">
+            <if test="query.innerQuery.b != null">
+                <![CDATA[ OR b = #{query.innerQuery.b}]]>
+            </if>
+            <if test="query.innerQuery.c != null">
+                <![CDATA[ OR c != #{query.innerQuery.c}]]>
+            </if>
+        </trim>
+    </if>
+</where>
+
+```
+
+
+
+### OrAndQuery
+
+
+
+```sql
+WHERE  a = ? OR (  b = ? OR c != ? )
+```
+
+
+
+```java
+@Data
+@OR
+static class OrAndQuery implements IQuery{
+    @Equal
+    private String a;
+    @Criteria
+    private InnerQuery innerQuery;
+}
+
+@Data
+static class InnerQuery {
+    @Equal
+    private String b;
+    @NotEqual
+    private String c;
+}
+```
+
+
+
+
+
+```xml
+<where>
+    <if test="query.a != null">
+        <![CDATA[ OR a = #{query.a}]]>
+    </if>
+    <if test="query.innerQuery != null">
+        <trim prefix=" OR (" suffix=")" prefixOverrides="AND |OR ">
+            <if test="query.innerQuery.b != null">
+                <![CDATA[ OR b = #{query.innerQuery.b}]]>
+            </if>
+            <if test="query.innerQuery.c != null">
+                <![CDATA[ OR c != #{query.innerQuery.c}]]>
+            </if>
+        </trim>
+    </if>
+</where>
+
+```
+
+
+
+
 
 ### QueryAnnotations
 

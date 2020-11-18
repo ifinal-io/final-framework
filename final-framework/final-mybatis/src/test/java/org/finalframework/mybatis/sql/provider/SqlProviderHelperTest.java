@@ -6,10 +6,7 @@ import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.annotation.data.AutoInc;
 import org.finalframework.annotation.data.PrimaryKey;
-import org.finalframework.annotation.query.BetweenValue;
-import org.finalframework.annotation.query.Equal;
-import org.finalframework.annotation.query.NotBetween;
-import org.finalframework.annotation.query.NotIn;
+import org.finalframework.annotation.query.*;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Test;
 
@@ -32,6 +29,40 @@ class SqlProviderHelperTest {
         query.setA("a");
         query.setB(new BetweenValue<>("minB", "maxB"));
         query.setC(Arrays.asList("c1", "c2", "c3"));
+        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
+        logger.info(SqlProviderHelper.query(Bean.class, query));
+    }
+
+    @Test
+    void or() {
+        OrQuery query = new OrQuery();
+        query.setA("a");
+        query.setB(new BetweenValue<>("minB", "maxB"));
+        query.setC(Arrays.asList("c1", "c2", "c3"));
+        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
+        logger.info(SqlProviderHelper.query(Bean.class, query));
+    }
+
+    @Test
+    void andOr() {
+        AndOrQuery query = new AndOrQuery();
+        query.setA("a");
+        InnerQuery innerQuery = new InnerQuery();
+        innerQuery.setB("b");
+        innerQuery.setC("c");
+        query.setInnerQuery(innerQuery);
+        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
+        logger.info(SqlProviderHelper.query(Bean.class, query));
+    }
+
+    @Test
+    void orAnd() {
+        OrAndQuery query = new OrAndQuery();
+        query.setA("a");
+        InnerQuery innerQuery = new InnerQuery();
+        innerQuery.setB("b");
+        innerQuery.setC("c");
+        query.setInnerQuery(innerQuery);
         logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
         logger.info(SqlProviderHelper.query(Bean.class, query));
     }
@@ -59,5 +90,41 @@ class SqlProviderHelperTest {
         @NotIn
         private List<String> c;
 
+    }
+
+    @Data
+    @OR
+    static class OrQuery implements IQuery {
+        @Equal
+        private String a;
+        @NotBetween
+        private BetweenValue<String> b;
+        @NotIn
+        private List<String> c;
+    }
+
+    @Data
+    static class AndOrQuery implements IQuery {
+        @Equal
+        private String a;
+        @OR
+        private InnerQuery innerQuery;
+    }
+
+    @Data
+    @OR
+    static class OrAndQuery implements IQuery {
+        @Equal
+        private String a;
+        @Criteria
+        private InnerQuery innerQuery;
+    }
+
+    @Data
+    static class InnerQuery {
+        @Equal
+        private String b;
+        @NotEqual
+        private String c;
     }
 }

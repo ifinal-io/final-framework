@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
  * @date 2020-06-07 00:30:22
  * @since 1.0
  */
-@Criteria(AndOr.OR)
+@Criteria
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.FIELD})
 public @interface OR {
 }

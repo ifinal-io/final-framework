@@ -11,10 +11,10 @@ import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.util.Asserts;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -49,8 +49,7 @@ public class AnnotationQueryProvider implements QueryProvider {
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        Criteria criteria = query.getAnnotation(Criteria.class);
-        appendCriteria(builder, expression, properties, query, Objects.isNull(criteria) ? AndOr.AND : criteria.value());
+        appendCriteria(builder, expression, properties, query, AnnotatedElementUtils.isAnnotated(query, OR.class) ? AndOr.OR : AndOr.AND);
 
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
@@ -112,7 +111,7 @@ public class AnnotationQueryProvider implements QueryProvider {
                     } else if (property.isAnnotationPresent(Criteria.class)) {
                         sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
                         sql.append("<trim prefix=\" ").append(andOr.name()).append(" (\" suffix=\")\" prefixOverrides=\"AND |OR \">");
-                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.getRequiredAnnotation(Criteria.class).value());
+                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.isAnnotationPresent(OR.class) ? AndOr.OR : AndOr.AND);
                         sql.append("</trim>");
                         sql.append("</if>");
                     }
