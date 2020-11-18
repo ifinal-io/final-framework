@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @date 2019-02-11 11:29:16
  * @see Like
- * @see Constants
  * @since 1.0
  */
 @Target(ElementType.FIELD)

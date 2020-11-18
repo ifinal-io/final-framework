@@ -6,6 +6,10 @@ import org.finalframework.annotation.query.AndOr;
 import org.finalframework.annotation.query.Criteria;
 import org.finalframework.annotation.query.Equal;
 import org.finalframework.annotation.query.PageQuery;
+import org.finalframework.example.dao.mapper.AbsPersonMapper;
+import org.finalframework.mybatis.sql.provider.SqlProviderHelper;
+
+import java.util.HashMap;
 
 /**
  * @author likly
@@ -14,13 +18,12 @@ import org.finalframework.annotation.query.PageQuery;
  * @since 1.0
  */
 @Data
-@Criteria(AndOr.OR)
 @EqualsAndHashCode(callSuper = true)
 public class PersonQuery extends PageQuery {
     @Equal
     private String name;
 
-    @Criteria
+    @Criteria(AndOr.OR)
     private OrQuery orQuery;
 
     @Data
@@ -29,6 +32,18 @@ public class PersonQuery extends PageQuery {
         private String password;
         @Equal
         private Boolean admin;
+    }
+
+    public static void main(String[] args) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        PersonQuery query = new PersonQuery();
+        query.setName("name");
+        OrQuery orQuery = new OrQuery();
+        orQuery.setAdmin(false);
+        orQuery.setPassword("password");
+        query.setOrQuery(orQuery);
+        parameters.put(SqlProviderHelper.PARAMETER_NAME_QUERY, query);
+        System.out.println(SqlProviderHelper.sql(AbsPersonMapper.class, "selectIds", parameters));
     }
 
 }

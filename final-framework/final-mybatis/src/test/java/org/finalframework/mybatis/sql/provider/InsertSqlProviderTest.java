@@ -25,18 +25,12 @@ import java.util.Map;
 class InsertSqlProviderTest {
 
     /**
-     * @throws NoSuchMethodException
      * @see InsertSqlProvider#insert(ProviderContext, Map)
      * @see AbsMapper#insert(String, Class, boolean, Collection)
      */
     @Test
-    void insert() throws NoSuchMethodException {
+    void insert() {
 
-        final Method insert = AbsMapper.class.getMethod("insert", new Class[]{String.class, Class.class, boolean.class, Collection.class});
-        /**
-         * @see ProviderSqlSource
-         */
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), insert.getAnnotation(InsertProvider.class), PersonMapper.class, insert);
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
@@ -45,9 +39,7 @@ class InsertSqlProviderTest {
         parameters.put("ignore", false);
         parameters.put("list", Arrays.asList(new Person()));
 
-        final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
-
-        final String sql = boundSql.getSql();
+        final String sql = SqlProviderHelper.sql(PersonMapper.class, "insert", parameters);
         logger.info(sql);
 
     }
@@ -68,7 +60,6 @@ class InsertSqlProviderTest {
 
         parameters.put("table", "person");
         parameters.put("view", null);
-        parameters.put("view", null);
         parameters.put("ignore", false);
         parameters.put("list", Arrays.asList(new Person()));
 
@@ -76,6 +67,9 @@ class InsertSqlProviderTest {
 
         final String sql = boundSql.getSql();
         logger.info(sql);
+
+        logger.info(SqlProviderHelper.sql(PersonMapper.class, "replace", parameters));
+
     }
 
     /**

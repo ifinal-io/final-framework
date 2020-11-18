@@ -1,6 +1,12 @@
 package org.finalframework.mybatis.sql.provider;
 
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.builder.annotation.ProviderSqlSource;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.session.Configuration;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
@@ -8,6 +14,7 @@ import org.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -43,6 +50,7 @@ public final class SqlProviderHelper {
 
     private static final String TRUNCATE_METHOD_NAME = "truncate";
 
+    private static final Map<String, Class<? extends Annotation>> METHOD_ANNOTATIONS = new HashMap<>(8);
     private static final Map<String, Class<?>[]> METHOD_ARGS = new HashMap<>();
 
     private static final Map<String, SqlProvider> SQL_PROVIDERS = new HashMap<>();
@@ -50,6 +58,22 @@ public final class SqlProviderHelper {
     private static final Constructor<ProviderContext> PROVIDER_CONTEXT_CONSTRUCTOR;
 
     static {
+
+        METHOD_ANNOTATIONS.put(INSERT_METHOD_NAME, InsertProvider.class);
+        METHOD_ANNOTATIONS.put(REPLACE_METHOD_NAME, InsertProvider.class);
+        METHOD_ANNOTATIONS.put(SAVE_METHOD_NAME, InsertProvider.class);
+
+        METHOD_ANNOTATIONS.put(UPDATE_METHOD_NAME, InsertProvider.class);
+
+        METHOD_ANNOTATIONS.put(DELETE_METHOD_NAME, InsertProvider.class);
+
+        METHOD_ANNOTATIONS.put(SELECT_METHOD_NAME, SelectProvider.class);
+        METHOD_ANNOTATIONS.put(SELECT_ONE_METHOD_NAME, SelectProvider.class);
+        METHOD_ANNOTATIONS.put(SELECT_IDS_METHOD_NAME, SelectProvider.class);
+        METHOD_ANNOTATIONS.put(SELECT_COUNT_METHOD_NAME, SelectProvider.class);
+
+        METHOD_ANNOTATIONS.put(TRUNCATE_METHOD_NAME, UpdateProvider.class);
+
 
         /**
          * @see org.finalframework.mybatis.mapper.AbsMapper#insert(String, Class, boolean, Collection)
@@ -116,6 +140,13 @@ public final class SqlProviderHelper {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String sql(Class<? extends AbsMapper> mapper, String method, Map<String, Object> parameters) {
+        Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper, sqlMethod);
+        final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
+        return boundSql.getSql();
     }
 
 

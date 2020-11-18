@@ -111,7 +111,7 @@ public class AnnotationQueryProvider implements QueryProvider {
                         sql.append(value);
                     } else if (property.isAnnotationPresent(Criteria.class)) {
                         sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
-                        sql.append("<trim prefix=\"").append(andOr.name()).append(" (\" suffix=\")\" suffixOverrides=\" AND | OR \">");
+                        sql.append("<trim prefix=\" ").append(andOr.name()).append(" (\" suffix=\")\" prefixOverrides=\"AND |OR \">");
                         appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.getRequiredAnnotation(Criteria.class).value());
                         sql.append("</trim>");
                         sql.append("</if>");

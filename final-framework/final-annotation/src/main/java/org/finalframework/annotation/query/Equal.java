@@ -28,7 +28,7 @@ public @interface Equal {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null\">",
-            Constants.EQUAL,
+            "   <![CDATA[ ${andOr} ${column} = #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
             "   </if>"
     };
 
