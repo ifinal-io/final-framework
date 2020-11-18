@@ -1,5 +1,6 @@
 package org.finalframework.annotation;
 
+import org.finalframework.annotation.data.Transient;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @see IEnum
  * @since 1.0
  */
+@Transient
 public interface IEntity<ID extends Serializable> extends Serializable {
 
     /**

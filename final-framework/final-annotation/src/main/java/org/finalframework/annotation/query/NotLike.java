@@ -23,7 +23,7 @@ public @interface NotLike {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null and ${value} != ''\">",
-            "       ${column} NOT LIKE #{value} ",
+            "       ${column} NOT LIKE #{${value}} ",
             "   </if>"
     };
 

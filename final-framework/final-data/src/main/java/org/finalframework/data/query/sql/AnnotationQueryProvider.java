@@ -11,10 +11,10 @@ import org.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.util.Asserts;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -49,11 +49,11 @@ public class AnnotationQueryProvider implements QueryProvider {
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        appendCriteria(builder, expression, properties, query);
+        Criteria criteria = query.getAnnotation(Criteria.class);
+        appendCriteria(builder, expression, properties, query, Objects.isNull(criteria) ? AndOr.AND : criteria.value());
 
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
-
             if (property.isAnnotationPresent(Offset.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim).collect(Collectors.joining());
                 final Metadata metadata = Metadata.builder()
@@ -76,7 +76,6 @@ public class AnnotationQueryProvider implements QueryProvider {
                         .build();
                 limit = Velocities.getValue(xml, metadata);
             } else if (property.isAnnotationPresent(Criteria.class)) {
-
             }
         }
         builder.append("</where>");
@@ -87,9 +86,7 @@ public class AnnotationQueryProvider implements QueryProvider {
         return builder.toString();
     }
 
-    private void appendCriteria(StringBuilder sql, String expression, QEntity<?, ?> entity, Class<?> query) {
-        final Criteria criteria = AnnotationUtils.findAnnotation(query, Criteria.class);
-        AndOr andOr = criteria != null ? criteria.value() : AndOr.AND;
+    private void appendCriteria(StringBuilder sql, String expression, QEntity<?, ?> entity, Class<?> query, AndOr andOr) {
         Entity.from(query)
                 .forEach(property -> {
                     if (property.isAnnotationPresent(Criterion.class)) {
@@ -113,7 +110,11 @@ public class AnnotationQueryProvider implements QueryProvider {
                         final String value = CriterionHandlerRegistry.getInstance().get(criterion.handler()).handle(criterion, metadata);
                         sql.append(value);
                     } else if (property.isAnnotationPresent(Criteria.class)) {
-                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType());
+                        sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
+                        sql.append("<trim prefix=\"").append(andOr.name()).append(" (\" suffix=\")\" suffixOverrides=\" AND | OR \">");
+                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.getRequiredAnnotation(Criteria.class).value());
+                        sql.append("</trim>");
+                        sql.append("</if>");
                     }
                 });
     }

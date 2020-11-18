@@ -25,7 +25,7 @@ public @interface NotContains {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} NOT_LIKE CONCAT('%',#{value},'%') ",
+            "    ${column} NOT_LIKE CONCAT('%',#{${value}},'%') ",
             "</if>",
     };
 

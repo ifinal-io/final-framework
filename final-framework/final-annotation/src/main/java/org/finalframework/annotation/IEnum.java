@@ -1,5 +1,6 @@
 package org.finalframework.annotation;
 
+import org.finalframework.annotation.data.Transient;
 import org.springframework.lang.NonNull;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.lang.NonNull;
  * @date 2018-09-26 21:07
  * @since 1.0
  */
+@Transient
 public interface IEnum<T> {
 
     /**

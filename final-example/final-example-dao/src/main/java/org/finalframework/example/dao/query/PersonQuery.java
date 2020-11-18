@@ -2,7 +2,10 @@ package org.finalframework.example.dao.query;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.finalframework.annotation.query.*;
+import org.finalframework.annotation.query.AndOr;
+import org.finalframework.annotation.query.Criteria;
+import org.finalframework.annotation.query.Equal;
+import org.finalframework.annotation.query.PageQuery;
 
 /**
  * @author likly
@@ -11,12 +14,21 @@ import org.finalframework.annotation.query.*;
  * @since 1.0
  */
 @Data
+@Criteria(AndOr.OR)
 @EqualsAndHashCode(callSuper = true)
 public class PersonQuery extends PageQuery {
-    @Limit
-    public Integer limit;
-    @Like
+    @Equal
     private String name;
-    @Between
-    private BetweenValue<Integer> age;
+
+    @Criteria
+    private OrQuery orQuery;
+
+    @Data
+    static class OrQuery {
+        @Equal
+        private String password;
+        @Equal
+        private Boolean admin;
+    }
+
 }

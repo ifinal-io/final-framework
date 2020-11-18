@@ -2,6 +2,7 @@ package org.finalframework.annotation;
 
 import org.finalframework.annotation.data.Creator;
 import org.finalframework.annotation.data.LastModifier;
+import org.finalframework.annotation.data.Transient;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  * @see LastModifier
  * @since 1.0
  */
+@Transient
 public interface IUser<ID extends Serializable> extends IEntity<ID> {
     /**
      * return user name.

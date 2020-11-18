@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
         value = {
                 "<script>",
                 "   <if test=\"${value} != null and ${value} != ''\">",
-                "       ${column} LIKE CONCAT(#{value},'%') ",
+                "       ${column} LIKE CONCAT(#{${value}},'%') ",
                 "   </if>",
                 "</script>"
         }

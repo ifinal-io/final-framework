@@ -3,6 +3,7 @@ package org.finalframework.dashboard.model.controller.api;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IEnum;
 import org.finalframework.annotation.IQuery;
+import org.finalframework.annotation.IView;
 import org.finalframework.io.support.ServicesLoader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +35,10 @@ public class ModelApiController {
     public List<String> query() {
         return ServicesLoader.load(IQuery.class);
     }
+
+    @GetMapping("/view")
+    public List<String> view() {
+        return ServicesLoader.load(IView.class);
+    }
+
 }

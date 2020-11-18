@@ -1,5 +1,7 @@
 package org.finalframework.annotation;
 
+import org.finalframework.annotation.data.Transient;
+
 /**
  * The marked interface of {@code view}.
  *
@@ -9,5 +11,6 @@ package org.finalframework.annotation;
  * @see org.finalframework.annotation.data.View
  * @since 1.0
  */
+@Transient
 public interface IView {
 }

@@ -33,14 +33,14 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Criterion
-public @interface CONTAINS {
+public @interface Contains {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} LIKE CONCAT('%',#{value},'%') ",
+            "    ${column} LIKE CONCAT('%',#{${value}},'%') ",
             "</if>"
     };
 

@@ -8,7 +8,6 @@ import org.springframework.lang.Nullable;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
@@ -23,28 +22,27 @@ import java.util.Objects;
 public class TypeElementFilter implements Filter<TypeElement> {
 
 
-    private final TypeElement entityTypeElement;
     private final Types typeUtils;
-
-    @Nullable
-    private final TypeElement transientAnnotationTypeElement;
     private final Messager messager;
+
+    private final TypeElement entityTypeElement;
+    private final TypeElement transientAnnotationTypeElement;
 
     public TypeElementFilter(@NonNull ProcessingEnvironment processingEnvironment,
                              @NonNull TypeElement entityTypeElement,
                              @Nullable TypeElement transientAnnotationTypeElement) {
         this.typeUtils = processingEnvironment.getTypeUtils();
         this.messager = processingEnvironment.getMessager();
-        this.transientAnnotationTypeElement = transientAnnotationTypeElement;
         this.entityTypeElement = entityTypeElement;
+        this.transientAnnotationTypeElement = transientAnnotationTypeElement;
     }
 
     @Override
     public boolean matches(TypeElement typeElement) {
         // 忽略抽象的类
-        if (typeElement.getModifiers().contains(Modifier.ABSTRACT)) {
-            return false;
-        }
+//        if (typeElement.getModifiers().contains(Modifier.ABSTRACT)) {
+//            return false;
+//        }
         //忽略被注解不解析的类
         if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;

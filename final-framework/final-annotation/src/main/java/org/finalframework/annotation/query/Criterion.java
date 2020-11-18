@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
  * @see LessThanEqual
  * @see Like
  * @see NotLike
- * @see CONTAINS
+ * @see Contains
  * @see NotContains
  * @see StartWith
  * @see NotStartWith

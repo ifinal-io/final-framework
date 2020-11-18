@@ -68,7 +68,7 @@
                                 <div class="form-group bmd-form-group">
                                     <select class="selectpicker" data-live-search="true"
                                             data-size="7" data-style="select-with-transition" data-width="100%"
-                                            title="Choose Query"
+                                            id="view-select" title="Choose Query"
                                             v-model="mapperQuery.view">
                                         <option :value="view" v-for="view in views"
                                                 v-html="view"></option>
@@ -137,6 +137,13 @@
                     console.log(self.queries);
                     setTimeout(function () {
                         $('#query-select').selectpicker('refresh');
+                    }, 500)
+                });
+                $.get("/api/models/view", function (result) {
+                    self.views = JSON.parse(result).data;
+                    console.log(self.queries);
+                    setTimeout(function () {
+                        $('#view-select').selectpicker('refresh');
                     }, 500)
                 })
             },

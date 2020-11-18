@@ -1,5 +1,6 @@
 package org.finalframework.annotation;
 
+import org.finalframework.annotation.data.Transient;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @date 2020-03-13 13:10:25
  * @since 1.0
  */
+@Transient
 public interface IRecord<ID extends Serializable, USER extends IUser<ID>> extends IEntity<ID> {
 
     /**
