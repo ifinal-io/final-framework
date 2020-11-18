@@ -230,6 +230,8 @@ static class InnerQuery {
 | `@LessThanEqual`  |            `column <= #{value}`            |      |
 |       `@In`       |           `column IN (#{value})`           |      |
 |     `@NotIn`      |         `column NOT IN (#{value})`         |      |
+|    `@Between`     |     `column BETWEEN #{min} AND #{max}`     |      |
+|   `@NotBetween`   |   `column NOT BETWEEN #{min} AND #{max}`   |      |
 |      `@Like`      |           `column LIKE #{value}`           |      |
 |    `@NotLike`     |         `column NOT LIKE #{value}`         |      |
 |    `@Contains`    |   `column LIKE CONCAT('%',#{value},'%')`   |      |
