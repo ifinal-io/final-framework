@@ -8,6 +8,29 @@ import java.lang.annotation.Target;
 /**
  * The meta annotation for criterion.
  *
+ * <ul>
+ *     <li>use {@link IsNull} for `column IS NULL`</li>
+ *     <li>use {@link IsNotNull} for `column IS NOT NULL`</li>
+ *     <li>use {@link Equal} for `column = #{value}`</li>
+ *     <li>use {@link NotEqual} for `column != #{value}`</li>
+ *     <li>use {@link GreatThan} for `column > #{value}`</li>
+ *     <li>use {@link GreatThanEqual} for `column >= #{value}`</li>
+ *     <li>use {@link LessThan} for `column < #{value}`</li>
+ *     <li>use {@link LessThanEqual} for `column <= #{value}`</li>
+ *     <li>use {@link Between} for `column BETWEEN #{min} AND #{max}`</li>
+ *     <li>use {@link NotBetween} for `column NOT BETWEEN #{min} AND #{max}`</li>
+ *     <li>use {@link In} for `column IN (#{value})`</li>
+ *     <li>use {@link NotIn} for `column NOT IN (#{value})`</li>
+ *     <li>use {@link Like} for `column LIKE #{value}`</li>
+ *     <li>use {@link NotLike} for `column NOT LIKE #{value}`</li>
+ *     <li>use {@link Contains} for `column LIKE CONCAT('%',#{value},'%')`</li>
+ *     <li>use {@link NotContains} for `column NOT LIKE CONCAT('%',#{value},'%')`</li>
+ *     <li>use {@link StartWith} for `column LIKE CONCAT('%',#{value})`</li>
+ *     <li>use {@link NotStartWith} for `column NOT LIKE CONCAT('%',#{value})`</li>
+ *     <li>use {@link EndWith} for `column LIKE CONCAT(#{value},'%')`</li>
+ *     <li>use {@link NotEndWith} for `column NOT LIKE CONCAT(#{value},'%')`</li>
+ * </ul>
+ *
  * @author likly
  * @version 1.0
  * @date 2019-02-20 09:25:43
