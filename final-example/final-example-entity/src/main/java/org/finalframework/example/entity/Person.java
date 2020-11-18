@@ -16,9 +16,11 @@ import java.util.Map;
 @Data
 public class Person extends AbsEntity {
 
+    private String name;
+    private Integer age;
     private List<Integer> intList;
     private Map<String, String> map;
-    @Reference(properties = {"id", "intList"})
+    @Reference(properties = {"id", "intList", "name"})
     private Person creator;
 
 }

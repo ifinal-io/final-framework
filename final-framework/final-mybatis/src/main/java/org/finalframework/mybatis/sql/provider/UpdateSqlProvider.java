@@ -83,14 +83,14 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         sql.append("<set>");
 
-        if (parameters.containsKey(ENTITY_PARAMETER_NAME) && parameters.get(ENTITY_PARAMETER_NAME) != null) {
-            appendEntitySet(sql, properties, view, selective);
-        } else if (parameters.containsKey(UPDATE_PARAMETER_NAME) && parameters.get(UPDATE_PARAMETER_NAME) != null) {
+        if (parameters.containsKey(UPDATE_PARAMETER_NAME) && parameters.get(UPDATE_PARAMETER_NAME) != null) {
             final Update updates = (Update) parameters.get(UPDATE_PARAMETER_NAME);
             int index = 0;
             for (UpdateSetOperation updateSetOperation : updates) {
                 updateSetOperation.apply(sql, String.format("update[%d]", index++));
             }
+        } else {
+            appendEntitySet(sql, properties, view, selective);
         }
 
         appendVersionProperty(sql, properties);

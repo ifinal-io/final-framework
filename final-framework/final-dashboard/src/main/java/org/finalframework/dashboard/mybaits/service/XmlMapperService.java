@@ -10,10 +10,6 @@ import org.finalframework.dashboard.mybaits.service.query.XmlMapperQuery;
  */
 public interface XmlMapperService {
 
-    String insert(XmlMapperQuery query);
-
-    String replace(XmlMapperQuery query);
-
     String xml(XmlMapperQuery query);
 
 }

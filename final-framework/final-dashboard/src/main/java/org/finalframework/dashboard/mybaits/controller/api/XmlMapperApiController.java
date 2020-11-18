@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @since 1.0
  */
 @RestController
-@RequestMapping(value = "/api/mybatis/mapper", produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "/api/mybatis/xml", produces = MediaType.APPLICATION_XML_VALUE)
 @ResponseIgnore
 public class XmlMapperApiController {
 
@@ -24,15 +24,9 @@ public class XmlMapperApiController {
     private XmlMapperService xmlMapperService;
 
 
-    @RequestMapping("/insert")
-    public String insert(XmlMapperQuery query) {
-        return xmlMapperService.insert(query);
+    @RequestMapping
+    public String xml(XmlMapperQuery query) {
+        return xmlMapperService.xml(query);
     }
-
-    @RequestMapping("/replace")
-    public String replace(XmlMapperQuery query) {
-        return xmlMapperService.replace(query);
-    }
-
 
 }

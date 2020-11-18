@@ -14,7 +14,8 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Data
-public class BetweenValue<T extends Serializable> {
+public final class BetweenValue<T extends Serializable> implements Serializable {
+    private static final long serialVersionUID = 6194662646358531082L;
     T min;
     T max;
 }

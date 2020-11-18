@@ -4,8 +4,6 @@ import lombok.Data;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.mybatis.mapper.AbsMapper;
 
-import java.lang.reflect.Method;
-
 /**
  * @author likly
  * @version 1.0
@@ -15,6 +13,9 @@ import java.lang.reflect.Method;
 @Data
 public class XmlMapperQuery {
     private Class<? extends AbsMapper> mapper;
-    private Method method;
+    private String method;
+    private String table;
+    private boolean ignore;
+    private boolean selective = false;
     private Class<? extends IQuery> query;
 }

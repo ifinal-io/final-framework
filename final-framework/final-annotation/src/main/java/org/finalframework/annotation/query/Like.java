@@ -24,7 +24,7 @@ public @interface Like {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} LIKE #{value} ",
+            "    ${column} LIKE #{${value}} ",
             "</if>"
     };
 
