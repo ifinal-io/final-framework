@@ -23,7 +23,7 @@ public @interface NotIn {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null\">",
-            "       <foreach collection=\"${value}\" item=\"item\" open=\"${andOr} ${column} NOT IN (\" close=\")\" separator=\",\">#{item}</foreach>",
+            "       <foreach collection=\"${value}\" item=\"item\" open=\" ${andOr} ${column} NOT IN (\" close=\")\" separator=\",\">#{item}</foreach>",
             "   </if>"
     };
 

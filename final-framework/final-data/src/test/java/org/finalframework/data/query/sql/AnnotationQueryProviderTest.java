@@ -1,10 +1,6 @@
 package org.finalframework.data.query.sql;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.parsing.XNode;
-import org.apache.ibatis.parsing.XPathParser;
-import org.finalframework.data.query.QueryEntity;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author likly
@@ -15,22 +11,6 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class AnnotationQueryProviderTest {
 
-    @Test
-    void apply() {
 
 
-        final AnnotationQueryProvider annotationQueryProvider = AnnotationQueryProvider.INSTANCE;
-        final String query = annotationQueryProvider.provide("query", QueryEntity.class, MyQuery.class);
-        final String value = String.join("", "<script>", query, "</script>");
-        final XPathParser parser = new XPathParser(value);
-        final XNode script = parser.evalNode("//script");
-        final String sql = script.toString();
-        logger.info("query ==> \n{}", sql);
-        if (logger.isDebugEnabled()) {
-            final String[] sqls = sql.split("\n");
-            for (String item : sqls) {
-                logger.debug(item);
-            }
-        }
-    }
 }

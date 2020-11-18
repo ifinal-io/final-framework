@@ -6,10 +6,13 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.SqlSource;
+import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
+import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.util.ReflectionUtils;
 
@@ -146,6 +149,18 @@ public final class SqlProviderHelper {
         Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
         final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper, sqlMethod);
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
+        return boundSql.getSql();
+    }
+
+    public static String query(Class<? extends IEntity<?>> entity, Class<? extends IQuery> query) {
+        return AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query);
+    }
+
+    public static String query(Class<? extends IEntity<?>> entity, IQuery query) {
+        SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), String.join("", "<script>", query(entity, query.getClass()), "</script>"), Map.class);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put(PARAMETER_NAME_QUERY, query);
+        BoundSql boundSql = sqlSource.getBoundSql(parameters);
         return boundSql.getSql();
     }
 
