@@ -24,7 +24,7 @@ public @interface IsNull {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null\">",
-            "<![CDATA[${andOr} ${column} IS NULL]]>",
+            "<![CDATA[ ${andOr} ${column} IS NULL]]>",
             "</if>"
     };
 

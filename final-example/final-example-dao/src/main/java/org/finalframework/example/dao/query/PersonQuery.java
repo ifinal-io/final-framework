@@ -3,7 +3,7 @@ package org.finalframework.example.dao.query;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.finalframework.annotation.query.Equal;
-import org.finalframework.annotation.query.OR;
+import org.finalframework.annotation.query.Or;
 import org.finalframework.annotation.query.PageQuery;
 import org.finalframework.example.dao.mapper.AbsPersonMapper;
 import org.finalframework.mybatis.sql.provider.SqlProviderHelper;
@@ -22,7 +22,7 @@ public class PersonQuery extends PageQuery {
     @Equal
     private String name;
 
-    @OR
+    @Or
     private OrQuery orQuery;
 
     @Data

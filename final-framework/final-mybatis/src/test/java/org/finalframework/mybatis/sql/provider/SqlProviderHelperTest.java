@@ -93,7 +93,7 @@ class SqlProviderHelperTest {
     }
 
     @Data
-    @OR
+    @Or
     static class OrQuery implements IQuery {
         @Equal
         private String a;
@@ -107,12 +107,12 @@ class SqlProviderHelperTest {
     static class AndOrQuery implements IQuery {
         @Equal
         private String a;
-        @OR
+        @Or
         private InnerQuery innerQuery;
     }
 
     @Data
-    @OR
+    @Or
     static class OrAndQuery implements IQuery {
         @Equal
         private String a;

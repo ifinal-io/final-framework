@@ -30,7 +30,7 @@ public @interface StartWith {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} LIKE CONCAT('%',#{${value}}) ",
+            "     ${andOr} ${column} LIKE CONCAT('%',#{${value}}) ",
             "</if>"
     };
 

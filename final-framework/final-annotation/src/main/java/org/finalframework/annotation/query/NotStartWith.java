@@ -23,7 +23,7 @@ public @interface NotStartWith {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} NOT LIKE CONCAT('%',#{${value}}) ",
+            "     ${andOr} ${column} NOT LIKE CONCAT('%',#{${value}}) ",
             "</if>"
     };
 

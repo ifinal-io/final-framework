@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @Criteria
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
-public @interface OR {
+public @interface Or {
 }

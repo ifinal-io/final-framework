@@ -10,7 +10,7 @@ import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
 import org.finalframework.annotation.query.AndOr;
 import org.finalframework.annotation.query.Equal;
-import org.finalframework.annotation.query.OR;
+import org.finalframework.annotation.query.Or;
 import org.finalframework.data.mapping.Entity;
 import org.finalframework.data.mapping.Property;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ class IQueryTest {
         final Element where = document.createElement("where");
 
 
-        final AndOr andOr = properties.isAnnotationPresent(OR.class) ? AndOr.OR : AndOr.AND;
+        final AndOr andOr = properties.isAnnotationPresent(Or.class) ? AndOr.OR : AndOr.AND;
 
         for (Property property : properties) {
             if (property.isAnnotationPresent(Equal.class)) {

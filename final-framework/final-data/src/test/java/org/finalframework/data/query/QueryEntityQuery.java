@@ -3,7 +3,7 @@ package org.finalframework.data.query;
 
 import lombok.Data;
 import org.finalframework.annotation.query.Equal;
-import org.finalframework.annotation.query.OR;
+import org.finalframework.annotation.query.Or;
 
 /**
  * @author likly
@@ -12,7 +12,7 @@ import org.finalframework.annotation.query.OR;
  * @since 1.0
  */
 @Data
-@OR
+@Or
 public class QueryEntityQuery {
     @Equal
     private String name;

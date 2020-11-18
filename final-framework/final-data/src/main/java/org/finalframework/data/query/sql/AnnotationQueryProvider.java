@@ -49,7 +49,7 @@ public class AnnotationQueryProvider implements QueryProvider {
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        appendCriteria(builder, expression, properties, query, AnnotatedElementUtils.isAnnotated(query, OR.class) ? AndOr.OR : AndOr.AND);
+        appendCriteria(builder, expression, properties, query, AnnotatedElementUtils.isAnnotated(query, Or.class) ? AndOr.OR : AndOr.AND);
 
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
@@ -111,7 +111,7 @@ public class AnnotationQueryProvider implements QueryProvider {
                     } else if (property.isAnnotationPresent(Criteria.class)) {
                         sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
                         sql.append("<trim prefix=\" ").append(andOr.name()).append(" (\" suffix=\")\" prefixOverrides=\"AND |OR \">");
-                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.isAnnotationPresent(OR.class) ? AndOr.OR : AndOr.AND);
+                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.isAnnotationPresent(Or.class) ? AndOr.OR : AndOr.AND);
                         sql.append("</trim>");
                         sql.append("</if>");
                     }
