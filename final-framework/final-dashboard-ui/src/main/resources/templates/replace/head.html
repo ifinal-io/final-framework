@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8">
-    <!--/*@thymesVar id="page" type="org.finalframework.ui.model.Page"*/-->
-    <title th:text="${page.title}">Title</title>
+    <!--/*@thymesVar id="page" type="org.finalframework.dashboard.ui.model.Page"*/-->
+    <title th:text="${page.title} + ' | Dashboard'">Title</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Canonical SEO -->
     <!--  Social tags      -->
-    <meta content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 4 dashboard, bootstrap 4, css3 dashboard, bootstrap 4 admin, material dashboard bootstrap 4 dashboard, frontend, responsive bootstrap 4 dashboard, material design, material dashboard bootstrap 4 dashboard"
+    <meta content="final frameworks dashboard"
           name="keywords">
     <meta content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design."
           name="description">

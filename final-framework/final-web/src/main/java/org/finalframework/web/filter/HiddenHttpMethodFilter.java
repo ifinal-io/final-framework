@@ -3,6 +3,7 @@ package org.finalframework.web.filter;
 
 import org.finalframework.util.Asserts;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -24,7 +25,7 @@ import java.util.Locale;
  * @date 2019-12-28 14:24:28
  * @since 1.0
  */
-
+@Component
 public class HiddenHttpMethodFilter extends OncePerRequestFilter {
 
     /**

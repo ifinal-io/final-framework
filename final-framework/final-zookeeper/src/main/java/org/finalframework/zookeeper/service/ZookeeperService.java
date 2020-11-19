@@ -1,5 +1,7 @@
 package org.finalframework.zookeeper.service;
 
+import org.springframework.lang.NonNull;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,10 @@ import java.util.List;
  */
 public interface ZookeeperService {
 
+
     List<String> getChildren(String path);
+
+    void delete(@NonNull String path, int version);
+
 
 }

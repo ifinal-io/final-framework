@@ -3,6 +3,7 @@ package org.finalframework.zookeeper.service;
 import lombok.Setter;
 import org.apache.zookeeper.ZooKeeper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,10 +23,22 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Resource
     private ZooKeeper zooKeeper;
 
+
     @Override
     public List<String> getChildren(String path) {
         try {
-            return zooKeeper.getChildren(path, false);
+            List<String> children = zooKeeper.getChildren(path, false);
+            children.sort(String::compareTo);
+            return children;
+        } catch (Exception e) {
+            throw new ZookeeperException(e);
+        }
+    }
+
+    @Override
+    public void delete(@NonNull String path, int version) {
+        try {
+            zooKeeper.delete(path, version);
         } catch (Exception e) {
             throw new ZookeeperException(e);
         }

@@ -14,6 +14,7 @@
             },
             contentType: options.contentType,
             type: options.method,
+            headers: options.headers,
             cache: false,
             success: function (result) {
                 console.log(result);
@@ -27,7 +28,9 @@
                     message: "AJAX ERROR"
                 };
 
-                options.callback(error);
+                if (typeof options.callback == 'function') {
+                    options.callback(error);
+                }
             }
         });
     };
@@ -35,10 +38,13 @@
 
     jq.extend({
         http: {
-            "get": function (ops) {
+            "get": function (url, data, callback, ops) {
                 var options = $.extend({},
                     {
-                        method: 'GET'
+                        method: 'GET',
+                        url: url,
+                        data: data,
+                        callback: callback
                     },
                     DEFAULT_OPTIONS, ops);
                 ajax(options);
@@ -50,6 +56,19 @@
                     },
                     DEFAULT_OPTIONS,
                     ops);
+                ajax(options);
+            },
+            delete: function (url, data, callback, ops) {
+                var options = $.extend({
+                    method: 'POST',
+                    headers: {
+                        _method: 'delete'
+                    },
+                    url: url,
+                    data: data,
+                    callback: callback,
+
+                }, DEFAULT_OPTIONS, ops);
                 ajax(options);
             }
         },
