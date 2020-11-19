@@ -20,6 +20,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -86,16 +87,21 @@ public final class Velocities {
      */
     public static Context buildContext(Object param) {
         ToolContext context = toolManager.createContext();
-        try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
-            for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-                Method readMethod = propertyDescriptor.getReadMethod();
-                if (readMethod != null) {
-                    context.put(propertyDescriptor.getName(), readMethod.invoke(param));
+        if (param instanceof Map) {
+            context.putAll((Map) param);
+        } else {
+            try {
+
+                BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
+                for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+                    Method readMethod = propertyDescriptor.getReadMethod();
+                    if (readMethod != null) {
+                        context.put(propertyDescriptor.getName(), readMethod.invoke(param));
+                    }
                 }
+                context.put("record", param);
+            } catch (Exception e) {
             }
-            context.put("record", param);
-        } catch (Exception e) {
         }
         return context;
     }

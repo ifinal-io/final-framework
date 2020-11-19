@@ -1,12 +1,17 @@
 package org.finalframework.annotation.query;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * The meta annotation for criterion.
+ * The meta annotation to mark the {@link java.lang.annotation.Annotation} is a criterion annotation.
+ * The {@link java.lang.annotation.Annotation} of criterion must have
+ *
+ * <ul>
+ *     <li>a {@link String} attribute named `property`</li>
+ *     <li>a {@link String[]} attribute named `value`</li>
+ *     <li>a {@link Class} attribute named `javaType`</li>
+ * </ul>
+ *
  *
  * <ul>
  *     <li>use {@link IsNull} for `column IS NULL`</li>
@@ -58,18 +63,8 @@ import java.lang.annotation.Target;
  * @see NotBetween
  * @since 1.0
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD})
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Criterion {
-
-    String property() default "";
-
-    String[] value() default {};
-
-    Class<?> javaType() default Object.class;
-
-    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
-
-    Attribute[] attributes() default {};
-
+    Class<? extends Annotation> value();
 }

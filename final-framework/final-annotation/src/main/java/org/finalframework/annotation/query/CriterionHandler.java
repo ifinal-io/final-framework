@@ -1,5 +1,8 @@
 package org.finalframework.annotation.query;
 
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0
@@ -7,5 +10,5 @@ package org.finalframework.annotation.query;
  * @since 1.0
  */
 public interface CriterionHandler {
-    String handle(Criterion criterion, Metadata metadata);
+    String handle(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata);
 }

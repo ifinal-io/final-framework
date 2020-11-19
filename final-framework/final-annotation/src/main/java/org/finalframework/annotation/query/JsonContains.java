@@ -1,6 +1,6 @@
 package org.finalframework.annotation.query;
 
-import org.springframework.core.annotation.AliasFor;
+import org.apache.ibatis.type.TypeHandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,22 +15,18 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
+@Criterion(JsonContains.class)
 public @interface JsonContains {
-    @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
-    @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null\">",
-            "       <![CDATA[${andOr} JSON_CONTAINS(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($attributes['path']),'${attributes['path']}'#end)]]>",
+            "       <![CDATA[${andOr} JSON_CONTAINS(${column},#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}#if($path]),'${path}'#end)]]>",
             "   </if>"
     };
 
-    @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
 
+    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 
-    @AliasFor(annotation = Criterion.class, attribute = "attributes")
-    Attribute[] attributes() default {};
 }

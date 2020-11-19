@@ -1,7 +1,5 @@
 package org.finalframework.annotation.query;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,21 +17,18 @@ import java.lang.annotation.Target;
  * @see NotStartWith
  * @since 1.0
  */
-@Criterion
+@Criterion(StartWith.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StartWith {
-    @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
 
-    @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
             "     ${andOr} ${column} LIKE CONCAT('%',#{${value}}) ",
             "</if>"
     };
 
-    @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
 }

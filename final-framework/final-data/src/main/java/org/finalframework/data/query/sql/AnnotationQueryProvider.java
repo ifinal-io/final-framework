@@ -2,6 +2,7 @@ package org.finalframework.data.query.sql;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.query.*;
 import org.finalframework.data.mapping.Entity;
@@ -12,21 +13,34 @@ import org.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.finalframework.data.util.Velocities;
 import org.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
  * @version 1.0
  * @date 2020-07-14 18:05:29
+ * @see Criterion
  * @since 1.0
  */
 @Slf4j
 public class AnnotationQueryProvider implements QueryProvider {
 
     public static final AnnotationQueryProvider INSTANCE = new AnnotationQueryProvider();
+
+    private static final Set<String> IGNORE_ATTRIBUTES = Stream.of(
+            Metadata.ATTRIBUTE_NAME_PROPERTY,
+            Metadata.ATTRIBUTE_NAME_VALUE
+    ).collect(Collectors.toSet());
+
 
     private AnnotationQueryProvider() {
     }
@@ -55,24 +69,17 @@ public class AnnotationQueryProvider implements QueryProvider {
         for (Property property : queryEntity) {
             if (property.isAnnotationPresent(Offset.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim).collect(Collectors.joining());
-                final Metadata metadata = Metadata.builder()
-                        .andOr(AndOr.AND)
-                        .query(expression)
-                        .column("")
-                        .value(String.format("%s.%s", expression, property.getName()))
-                        .path(String.format("%s.%s", expression, property.getName()))
-                        .build();
+                final Metadata metadata = new Metadata();
+                metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
+                metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
+                metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
                 offset = Velocities.getValue(xml, metadata);
             } else if (property.isAnnotationPresent(Limit.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim).collect(Collectors.joining());
-
-                final Metadata metadata = Metadata.builder()
-                        .andOr(AndOr.AND)
-                        .query(expression)
-                        .column("")
-                        .value(String.format("%s.%s", expression, property.getName()))
-                        .path(String.format("%s.%s", expression, property.getName()))
-                        .build();
+                final Metadata metadata = new Metadata();
+                metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
+                metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
+                metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
                 limit = Velocities.getValue(xml, metadata);
             } else if (property.isAnnotationPresent(Criteria.class)) {
             }
@@ -89,24 +96,41 @@ public class AnnotationQueryProvider implements QueryProvider {
         Entity.from(query)
                 .forEach(property -> {
                     if (property.isAnnotationPresent(Criterion.class)) {
-                        final Criterion criterion = property.getRequiredAnnotation(Criterion.class);
-                        final String path = Asserts.isBlank(criterion.property()) ? property.getName() : criterion.property();
-                        // format the column with function
-                        final Metadata metadata = Metadata.builder().andOr(andOr)
-                                .query(expression)
-                                .column(entity.getRequiredProperty(path).getColumn())
-                                .value(String.format("%s.%s", expression, property.getName()))
-                                .path(String.format("%s.%s", expression, property.getName()))
-                                .attributes(Arrays.stream(criterion.attributes())
-                                        .collect(Collectors.toMap(Attribute::name, Attribute::value)))
-                                .build();
+                        Class<? extends Annotation> annotation = property.getRequiredAnnotation(Criterion.class).value();
+                        AnnotationAttributes annotationAttributes = AnnotatedElementUtils.getMergedAnnotationAttributes(property.getField(), annotation);
+
+                        Objects.requireNonNull(annotationAttributes, "not found annotation of @" + annotation.getSimpleName() + " at " + query.getSimpleName() + "." + property.getName());
+
+                        final Metadata metadata = new Metadata();
+
+                        final String path = annotationAttributes.containsKey(Metadata.ATTRIBUTE_NAME_PROPERTY)
+                                && Asserts.nonBlank(annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY))
+                                ? annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY) : property.getName();
+
+                        metadata.put(Metadata.ATTRIBUTE_NAME_AND_OR, andOr);
+                        metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
+                        metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
+                        metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
+                        metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
 
                         if (property.isAnnotationPresent(Function.class)) {
                             final Function function = property.getRequiredAnnotation(Function.class);
-                            metadata.setColumn(FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, metadata));
+                            metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, metadata));
                         }
 
-                        final String value = CriterionHandlerRegistry.getInstance().get(criterion.handler()).handle(criterion, metadata);
+                        //append annotation attributes
+                        for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
+                            if (IGNORE_ATTRIBUTES.contains(entry.getKey())) {
+                                continue;
+                            }
+                            if (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && !Object.class.equals(entry.getValue())) {
+                                metadata.put(Metadata.ATTRIBUTE_NAME_JAVA_TYPE, entry.getValue());
+                            } else if (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && !TypeHandler.class.equals(entry.getValue())) {
+                                metadata.put(Metadata.ATTRIBUTE_NAME_TYPE_HANDLER, entry.getValue());
+                            }
+                        }
+
+                        final String value = CriterionHandlerRegistry.getInstance().get(CriterionHandler.class).handle(annotationAttributes, metadata);
                         sql.append(value);
                     } else if (property.isAnnotationPresent(Criteria.class)) {
                         sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");

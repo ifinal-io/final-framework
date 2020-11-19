@@ -1,14 +1,8 @@
 package org.finalframework.annotation.query;
 
 
-import lombok.Builder;
-import lombok.Data;
-import org.apache.ibatis.type.TypeHandler;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.io.Serializable;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * @author likly
@@ -18,24 +12,16 @@ import java.util.Map;
  * @see Criterion
  * @since 1.0
  */
-@Data
-@Builder
-public class Metadata implements Serializable {
-    @NonNull
-    private AndOr andOr;
-    @NonNull
-    private String query;
-    @NonNull
-    private String column;
-    @NonNull
-    private String value;
-    @NonNull
-    private String path;
-    @Nullable
-    private Class<?> javaType;
-    @Nullable
-    @SuppressWarnings("rawtypes")
-    private Class<? extends TypeHandler> typeHandler;
-    private Map<String, String> attributes;
+public class Metadata extends LinkedHashMap<String, Object> implements Serializable {
+
+    public static final String ATTRIBUTE_NAME_AND_OR = "andOr";
+    public static final String ATTRIBUTE_NAME_PROPERTY = "property";
+    public static final String ATTRIBUTE_NAME_COLUMN = "column";
+    public static final String ATTRIBUTE_NAME_VALUE = "value";
+    public static final String ATTRIBUTE_NAME_JAVA_TYPE = "javaType";
+    public static final String ATTRIBUTE_NAME_TYPE_HANDLER = "typeHandler";
+    public static final String ATTRIBUTE_NAME_QUERY = "query";
+
+
 }
 

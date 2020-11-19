@@ -1,10 +1,11 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.annotation.query.Criterion;
 import org.finalframework.annotation.query.CriterionHandler;
 import org.finalframework.annotation.query.Metadata;
 import org.finalframework.data.util.Velocities;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -16,9 +17,10 @@ import java.util.stream.Collectors;
  * @since 1.0
  */
 public class VelocityCriterionHandler implements CriterionHandler {
+
     @Override
-    public String handle(Criterion criterion, Metadata metadata) {
-        final String value = Arrays.stream(criterion.value()).map(String::trim).collect(Collectors.joining());
+    public String handle(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata) {
+        final String value = Arrays.stream(annotationAttributes.getStringArray("value")).map(String::trim).collect(Collectors.joining());
         return Velocities.getValue(value, metadata);
     }
 }

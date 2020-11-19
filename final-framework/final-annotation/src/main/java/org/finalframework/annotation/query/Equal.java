@@ -1,6 +1,6 @@
 package org.finalframework.annotation.query;
 
-import org.springframework.core.annotation.AliasFor;
+import org.apache.ibatis.type.TypeHandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,26 +18,20 @@ import java.lang.annotation.Target;
  * @see NotEqual
  * @since 1.0
  */
-@Criterion
+@Criterion(Equal.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Equal {
-    @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
 
-    @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "   <if test=\"${value} != null\">",
             "   <![CDATA[ ${andOr} ${column} = #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
             "   </if>"
     };
 
-    @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;
 
-    @AliasFor(annotation = Criterion.class, attribute = "handler")
-    Class<? extends CriterionHandler> handler() default CriterionHandler.class;
+    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 
-    @AliasFor(annotation = Criterion.class, attribute = "attributes")
-    Attribute[] attributes() default {};
 }
