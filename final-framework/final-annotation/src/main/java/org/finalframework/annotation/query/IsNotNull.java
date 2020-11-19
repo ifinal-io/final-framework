@@ -14,9 +14,9 @@ import java.lang.annotation.Target;
  * @see IsNull
  * @since 1.0
  */
+@Criterion
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
 public @interface IsNotNull {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";

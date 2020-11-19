@@ -30,9 +30,9 @@ import java.lang.annotation.Target;
  * @see NotLike
  * @since 1.0
  */
+@Criterion
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
 public @interface Contains {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";

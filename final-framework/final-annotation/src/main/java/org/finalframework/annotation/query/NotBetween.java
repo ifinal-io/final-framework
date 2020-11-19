@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
  * @date 2019-02-11 11:29:16
  * @since 1.0
  */
+@Criterion
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
 public @interface NotBetween {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";

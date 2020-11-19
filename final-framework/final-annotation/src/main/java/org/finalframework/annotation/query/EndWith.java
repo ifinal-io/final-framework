@@ -13,20 +13,23 @@ import java.lang.annotation.Target;
  * @date 2019-02-11 11:29:16
  * @since 1.0
  */
+@Criterion
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion(
-        value = {
-                "<script>",
-                "   <if test=\"${value} != null and ${value} != ''\">",
-                "        ${andOr} ${column} LIKE CONCAT(#{${value}},'%') ",
-                "   </if>",
-                "</script>"
-        }
-)
 public @interface EndWith {
+
+
     @AliasFor(annotation = Criterion.class, attribute = "property")
-    String value() default "";
+    String property() default "";
+
+    @AliasFor(annotation = Criterion.class, attribute = "value")
+    String[] value() default {
+            "<script>",
+            "   <if test=\"${value} != null and ${value} != ''\">",
+            "        ${andOr} ${column} LIKE CONCAT(#{${value}},'%') ",
+            "   </if>",
+            "</script>"
+    };
 
     @AliasFor(annotation = Criterion.class, attribute = "javaType")
     Class<?> javaType() default Object.class;

@@ -14,9 +14,9 @@ import java.lang.annotation.Target;
  * @see Like
  * @since 1.0
  */
+@Criterion
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Criterion
 public @interface NotContains {
     @AliasFor(annotation = Criterion.class, attribute = "property")
     String property() default "";
@@ -24,7 +24,7 @@ public @interface NotContains {
     @AliasFor(annotation = Criterion.class, attribute = "value")
     String[] value() default {
             "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${column} NOT_LIKE CONCAT('%',#{${value}},'%') ",
+            "    ${andOr} ${column} NOT LIKE CONCAT('%',#{${value}},'%') ",
             "</if>",
     };
 
