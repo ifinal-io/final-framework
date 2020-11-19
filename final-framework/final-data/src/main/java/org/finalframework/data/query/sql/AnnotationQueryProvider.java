@@ -123,11 +123,13 @@ public class AnnotationQueryProvider implements QueryProvider {
                             if (IGNORE_ATTRIBUTES.contains(entry.getKey())) {
                                 continue;
                             }
-                            if (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && !Object.class.equals(entry.getValue())) {
-                                metadata.put(Metadata.ATTRIBUTE_NAME_JAVA_TYPE, entry.getValue());
-                            } else if (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && !TypeHandler.class.equals(entry.getValue())) {
-                                metadata.put(Metadata.ATTRIBUTE_NAME_TYPE_HANDLER, entry.getValue());
+                            if (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue())) {
+                                continue;
                             }
+                            if (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class.equals(entry.getValue())) {
+                                continue;
+                            }
+                            metadata.put(entry.getKey(), entry.getValue());
                         }
 
                         final String value = CriterionHandlerRegistry.getInstance().get(CriterionHandler.class).handle(annotationAttributes, metadata);

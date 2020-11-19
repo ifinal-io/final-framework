@@ -218,6 +218,8 @@ static class InnerQuery {
 
 ### QueryAnnotations
 
+* Common Annotation
+
 |    Annotation     |                    SQL                     | 备注 |
 | :---------------: | :----------------------------------------: | :--: |
 |     `@IsNull`     |              `column IS NULL`              |      |
@@ -243,4 +245,14 @@ static class InnerQuery {
 |     `@Limit`      |              `LIMIT #{limit}`              |      |
 |     `@Offset`     |         `LIMIT #{offset},#{limit}`         |      |
 |                   |                                            |      |
+
+
+* Json Annotation
+
+|     Annotation      |                     SQL                     | 备注 |
+| :-----------------: | :-----------------------------------------: | :--: |
+|  `@JsonContaions`   | `JSON_CONTAINS( column, #{value}, {path})`  |      |
+| `@NotJsonContaions` | `!JSON_CONTAINS( column, #{value}, {path})` |      |
+|                     |                                             |      |
+|                     |                                             |      |
 

@@ -27,8 +27,9 @@ class SqlProviderHelperTest {
     void and() {
         AndQuery query = new AndQuery();
         query.setA("a");
-        query.setB(new BetweenValue<>("minB", "maxB"));
-        query.setC(Arrays.asList("c1", "c2", "c3"));
+//        query.setB(new BetweenValue<>("minB", "maxB"));
+//        query.setC(Arrays.asList("c1", "c2", "c3"));
+        query.setAa("aa");
         logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
         logger.info(SqlProviderHelper.query(Bean.class, query));
     }
@@ -85,10 +86,13 @@ class SqlProviderHelperTest {
     static class AndQuery implements IQuery {
         @Equal
         private String a;
-        @NotBetween
-        private BetweenValue<String> b;
-        @NotIn
-        private List<String> c;
+        //        @NotBetween
+//        private BetweenValue<String> b;
+//        @NotIn
+//        private List<String> c;
+        @JsonContains(path = "$.a", property = "a")
+        private String aa;
+
 
     }
 
@@ -118,6 +122,7 @@ class SqlProviderHelperTest {
         private String a;
         @Criteria
         private InnerQuery innerQuery;
+
     }
 
     @Data
