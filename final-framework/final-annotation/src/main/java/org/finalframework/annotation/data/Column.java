@@ -58,7 +58,7 @@ public @interface Column {
      *
      * @return the column writer
      */
-    String writer() default "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
+    String writer() default "#{${value}#if($typeHandler)#if($javaType), javaType=$!{javaType.canonicalName}#end, typeHandler=$!{typeHandler.canonicalName}#end}";
 
     /**
      * <pre class="code">

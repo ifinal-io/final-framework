@@ -132,7 +132,7 @@ public class AnnotationQueryProvider implements QueryProvider {
                             metadata.put(entry.getKey(), entry.getValue());
                         }
 
-                        final String value = CriterionHandlerRegistry.getInstance().get(CriterionHandler.class).handle(annotationAttributes, metadata);
+                        final String value = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class).provide(annotationAttributes, metadata);
                         sql.append(value);
                     } else if (property.isAnnotationPresent(Criteria.class)) {
                         sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");

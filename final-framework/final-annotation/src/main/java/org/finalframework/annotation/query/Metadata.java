@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
  * @author likly
  * @version 1.0
  * @date 2020-07-17 17:47:55
- * @see CriterionHandler
+ * @see CriterionSqlProvider
  * @see Criterion
  * @since 1.0
  */

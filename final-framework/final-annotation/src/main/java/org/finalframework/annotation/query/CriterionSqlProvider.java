@@ -9,6 +9,6 @@ import org.springframework.lang.NonNull;
  * @date 2020-07-20 09:25:40
  * @since 1.0
  */
-public interface CriterionHandler {
-    String handle(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata);
+public interface CriterionSqlProvider {
+    String provide(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata);
 }

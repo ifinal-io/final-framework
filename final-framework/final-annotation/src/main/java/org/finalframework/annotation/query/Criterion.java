@@ -40,7 +40,7 @@ import java.lang.annotation.*;
  * @version 1.0
  * @date 2019-02-20 09:25:43
  * @see Metadata
- * @see CriterionHandler
+ * @see CriterionSqlProvider
  * @see IsNull
  * @see IsNotNull
  * @see Equal

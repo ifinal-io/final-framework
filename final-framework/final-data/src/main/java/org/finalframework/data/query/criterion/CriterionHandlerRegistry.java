@@ -1,7 +1,7 @@
 package org.finalframework.data.query.criterion;
 
 
-import org.finalframework.annotation.query.CriterionHandler;
+import org.finalframework.annotation.query.CriterionSqlProvider;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,21 +14,21 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CriterionHandlerRegistry {
     private static final CriterionHandlerRegistry INSTANCE = new CriterionHandlerRegistry();
-    private final Map<Class<? extends CriterionHandler>, CriterionHandler> handlers = new ConcurrentHashMap<>(8);
+    private final Map<Class<? extends CriterionSqlProvider>, CriterionSqlProvider> handlers = new ConcurrentHashMap<>(8);
 
     {
-        handlers.put(CriterionHandler.class, new VelocityCriterionHandler());
+        handlers.put(CriterionSqlProvider.class, new VelocityCriterionSqlProvider());
     }
 
     public static CriterionHandlerRegistry getInstance() {
         return INSTANCE;
     }
 
-    public void registry(Class<? extends CriterionHandler> key, CriterionHandler handler) {
+    public void registry(Class<? extends CriterionSqlProvider> key, CriterionSqlProvider handler) {
         this.handlers.put(key, handler);
     }
 
-    public CriterionHandler get(Class<? extends CriterionHandler> key) {
+    public CriterionSqlProvider get(Class<? extends CriterionSqlProvider> key) {
         return this.handlers.get(key);
     }
 
