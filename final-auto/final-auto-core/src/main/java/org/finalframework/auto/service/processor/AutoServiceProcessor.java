@@ -1,7 +1,7 @@
 package org.finalframework.auto.service.processor;
 
-import org.finalframework.auto.service.annotation.AutoService;
 import org.finalframework.auto.model.AnnotationMirrors;
+import org.finalframework.auto.service.annotation.AutoService;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -63,7 +63,6 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
         return false;
 
     }
-
 
 
     private void processAutoService(@NonNull TypeElement element, @NonNull AnnotationMirror autoService) {

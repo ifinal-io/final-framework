@@ -16,7 +16,7 @@
 
     <modules>
         <module>final-auto-annotation</module>
-        <module>final-auto-service</module>
+        <module>final-auto-core</module>
         <module>final-auto-processor</module>
         <module>final-auto-spring</module>
         <module>final-auto-coding</module>
@@ -44,7 +44,7 @@
             </dependency>
             <dependency>
                 <groupId>org.finalframework.auto</groupId>
-                <artifactId>final-auto-service</artifactId>
+                <artifactId>final-auto-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

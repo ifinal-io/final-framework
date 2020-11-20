@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>org.finalframework.auto</groupId>
-            <artifactId>final-auto-service</artifactId>
+            <artifactId>final-auto-core</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

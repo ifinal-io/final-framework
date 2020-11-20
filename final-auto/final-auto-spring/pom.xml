@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.finalframework.auto</groupId>
-            <artifactId>final-auto-service</artifactId>
+            <artifactId>final-auto-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -42,62 +42,62 @@ public final class AnnotationValues {
 
         @Override
         public Boolean visitByte(byte b, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitChar(char c, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitDouble(double d, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitFloat(float f, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitInt(int i, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitLong(long i, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitShort(short s, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitString(String s, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitType(TypeMirror t, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitEnumConstant(VariableElement c, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitAnnotation(AnnotationMirror a, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
 
         @Override
         public Boolean visitArray(List<? extends AnnotationValue> vals, Void unused) {
-            throw  new IllegalArgumentException("");
+            throw new IllegalArgumentException("");
         }
     }
 

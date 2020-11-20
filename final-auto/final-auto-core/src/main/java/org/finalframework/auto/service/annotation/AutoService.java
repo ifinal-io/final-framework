@@ -34,7 +34,7 @@ public @interface AutoService {
     @NonNull
     String path() default "services";
 
-    @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
+    @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @Retention(RetentionPolicy.CLASS)
     @interface List {
         AutoService[] value();

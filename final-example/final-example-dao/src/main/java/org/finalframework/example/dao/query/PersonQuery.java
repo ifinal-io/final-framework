@@ -5,12 +5,6 @@ import lombok.EqualsAndHashCode;
 import org.finalframework.annotation.query.Equal;
 import org.finalframework.annotation.query.Or;
 import org.finalframework.annotation.query.PageQuery;
-import org.finalframework.example.dao.mapper.AbsPersonMapper;
-import org.finalframework.example.dao.mapper.PersonMapper;
-import org.finalframework.json.Json;
-import org.finalframework.mybatis.sql.provider.SqlProviderHelper;
-
-import java.util.HashMap;
 
 /**
  * @author likly
@@ -34,23 +28,4 @@ public class PersonQuery extends PageQuery {
         @Equal
         private Boolean admin;
     }
-
-    public static void main(String[] args) {
-
-        PersonMapper mapper;
-
-
-        HashMap<String, Object> parameters = new HashMap<>();
-        PersonQuery query = new PersonQuery();
-        query.setName("name");
-        OrQuery orQuery = new OrQuery();
-        orQuery.setAdmin(false);
-        orQuery.setPassword("password");
-        query.setOrQuery(orQuery);
-        System.out.println(Json.toJson(query));
-
-        parameters.put(SqlProviderHelper.PARAMETER_NAME_QUERY, query);
-        System.out.println(SqlProviderHelper.sql(AbsPersonMapper.class, "selectIds", parameters));
-    }
-
 }
