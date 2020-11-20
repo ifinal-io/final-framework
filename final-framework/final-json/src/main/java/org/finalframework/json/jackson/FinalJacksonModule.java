@@ -46,6 +46,8 @@ public class FinalJacksonModule extends SimpleModule {
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         addSerializer(JsonViewValue.class, new JsonViewValueSerializer(objectMapper));
         addSerializer(Class.class, new ClassJsonSerializer(enumClassConverter));
+
+
     }
 
     @SuppressWarnings("unchecked")

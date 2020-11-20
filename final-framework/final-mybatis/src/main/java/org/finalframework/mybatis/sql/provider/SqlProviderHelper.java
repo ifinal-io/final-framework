@@ -1,5 +1,6 @@
 package org.finalframework.mybatis.sql.provider;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
@@ -7,13 +8,16 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
+import org.apache.ibatis.scripting.xmltags.OgnlCache;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.type.TypeHandler;
 import org.finalframework.annotation.IEntity;
 import org.finalframework.annotation.IQuery;
 import org.finalframework.data.query.Update;
 import org.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.finalframework.mybatis.mapper.AbsMapper;
+import org.finalframework.mybatis.sql.SqlBound;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.Serializable;
@@ -23,6 +27,8 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -30,6 +36,7 @@ import java.util.Map;
  * @date 2020/11/18 09:48:59
  * @since 1.0
  */
+@Slf4j
 public final class SqlProviderHelper {
 
     public static final String PARAMETER_NAME_TABLE = "table";
@@ -152,17 +159,39 @@ public final class SqlProviderHelper {
         return boundSql.getSql();
     }
 
-    public static String query(Class<? extends IEntity<?>> entity, Class<? extends IQuery> query) {
-        return AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query);
-    }
+    public static SqlBound query(Class<? extends IEntity<?>> entity, IQuery query) {
+        SqlBound sqlBound = new SqlBound();
+        sqlBound.setEntity(entity);
+        sqlBound.setQuery(query);
 
-    public static String query(Class<? extends IEntity<?>> entity, IQuery query) {
-        SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), String.join("", "<script>", query(entity, query.getClass()), "</script>"), Map.class);
+        String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide("query", entity, query.getClass()), "</script>");
+        sqlBound.setScript(script);
+
+        SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), script, Map.class);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(PARAMETER_NAME_QUERY, query);
-        BoundSql boundSql = sqlSource.getBoundSql(parameters);
-        return boundSql.getSql();
-    }
+        final BoundSql boundSql = sqlSource.getBoundSql(parameters);
+        sqlBound.setSql(boundSql.getSql());
 
+        sqlBound.setParameterMappings(
+                boundSql.getParameterMappings().stream()
+                        .map(item -> {
+                            final SqlBound.ParameterMapping mapping = new SqlBound.ParameterMapping();
+                            mapping.setProperty(item.getProperty());
+                            if (!Object.class.equals(item.getJavaType())) {
+                                mapping.setJavaType(item.getJavaType());
+                            }
+                            if (Objects.nonNull(item.getTypeHandler())) {
+                                mapping.setTypeHandler((Class<? extends TypeHandler<?>>) item.getTypeHandler().getClass());
+                            }
+                            mapping.setExpression(item.getExpression());
+                            mapping.setValue(OgnlCache.getValue(item.getProperty(), boundSql.getParameterObject()));
+                            return mapping;
+                        })
+                        .collect(Collectors.toList())
+        );
+
+        return sqlBound;
+    }
 
 }

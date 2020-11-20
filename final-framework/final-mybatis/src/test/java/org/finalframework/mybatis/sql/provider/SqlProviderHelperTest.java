@@ -30,8 +30,6 @@ class SqlProviderHelperTest {
 //        query.setB(new BetweenValue<>("minB", "maxB"));
 //        query.setC(Arrays.asList("c1", "c2", "c3"));
         query.setAa("aa");
-        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
-        logger.info(SqlProviderHelper.query(Bean.class, query));
     }
 
     @Test
@@ -40,8 +38,8 @@ class SqlProviderHelperTest {
         query.setA("a");
         query.setB(new BetweenValue<>("minB", "maxB"));
         query.setC(Arrays.asList("c1", "c2", "c3"));
-        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
-        logger.info(SqlProviderHelper.query(Bean.class, query));
+        logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
+        logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
     @Test
@@ -52,8 +50,8 @@ class SqlProviderHelperTest {
         innerQuery.setB("b");
         innerQuery.setC("c");
         query.setInnerQuery(innerQuery);
-        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
-        logger.info(SqlProviderHelper.query(Bean.class, query));
+        logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
+        logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
     @Test
@@ -64,8 +62,8 @@ class SqlProviderHelperTest {
         innerQuery.setB("b");
         innerQuery.setC("c");
         query.setInnerQuery(innerQuery);
-        logger.info(SqlProviderHelper.query(Bean.class, query.getClass()));
-        logger.info(SqlProviderHelper.query(Bean.class, query));
+        logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
+        logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
     static interface BeanMapper extends AbsMapper<Long, Bean> {

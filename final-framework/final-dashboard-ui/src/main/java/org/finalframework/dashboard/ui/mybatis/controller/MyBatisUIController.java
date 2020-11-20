@@ -21,4 +21,10 @@ public class MyBatisUIController {
         return "mybatis/mapper";
     }
 
+    @Title("Query")
+    @GetMapping("/query")
+    public String query() {
+        return "dashboard/mybatis/query";
+    }
+
 }

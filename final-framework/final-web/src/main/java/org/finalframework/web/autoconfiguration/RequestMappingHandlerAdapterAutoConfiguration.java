@@ -66,8 +66,6 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         // 获取默认的参数解析器
         final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
         if (Asserts.nonEmpty(defaultArgumentResolvers)) {
-
-
             for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
                 if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
                     Optional.ofNullable(ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters"))

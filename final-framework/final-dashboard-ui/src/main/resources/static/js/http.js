@@ -49,13 +49,15 @@
                     DEFAULT_OPTIONS, ops);
                 ajax(options);
             },
-            "post": function (ops) {
+            post: function (url, data, callback, ops) {
                 var options = $.extend({},
                     {
-                        method: 'POST'
+                        method: 'POST',
+                        url: url,
+                        data: data,
+                        callback: callback
                     },
-                    DEFAULT_OPTIONS,
-                    ops);
+                    DEFAULT_OPTIONS, ops);
                 ajax(options);
             },
             delete: function (url, data, callback, ops) {
