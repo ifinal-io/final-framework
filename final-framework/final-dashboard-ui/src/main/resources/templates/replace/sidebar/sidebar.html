@@ -23,20 +23,60 @@
         </div>
         <div class="sidebar-wrapper">
             <!--            <div th:replace="replace/sidebar/sidebar-modules.html" class="user"></div>-->
-            <!--            <div th:replace="replace/sidebar/sidebar-menus.html" class="user"></div>-->
+            <div class="user" th:replace="replace/sidebar/sidebar-menus.html"></div>
         </div>
     </div>
     <script>
         var sidebar = new Vue({
             el: '#sidebar',
             data: {
-                page: {},
-                modules: []
+                page: {
+                    menus: []
+                },
+                modules: [],
+                sidebar: {
+                    menus: [{
+                        id: 'mybatis',
+                        name: 'Mybatis',
+                        icon: 'dashboard',
+                        menus: [{
+                            id: 'mapper',
+                            name: 'Mapper',
+                            mini: 'MPR',
+                            link: '/dashboard/mybatis/mapper'
+                        }, {
+                            id: 'query',
+                            name: 'Query',
+                            mini: 'QEY',
+                            link: '/dashboard/mybatis/query'
+                        }]
+                    }, {
+                        id: 'documents',
+                        name: 'Documents',
+                        icon: 'dashboard',
+                        menus: [{
+                            id: 'entity',
+                            name: 'Entity',
+                            mini: 'ETY',
+                            link: '/dashboard/documents/entity'
+                        }, {
+                            id: 'enum',
+                            name: 'Enums',
+                            mini: 'EMS',
+                            link: '/dashboard/documents/enums'
+                        }, {
+                            id: 'entity',
+                            name: 'Entity',
+                            mini: 'ETY',
+                            link: '/dashboard/documents/entity'
+                        }]
+                    }]
+                }
             },
             mounted: function () {
-                var _this = this;
-                var page = $('#page').text();
-                console.log(page);
+                let self = this;
+                self.page = JSON.parse($('#page').text());
+                console.log(self.page);
                 // _this.page = JSON.parse(page);
                 // alert(_this.page);
             }

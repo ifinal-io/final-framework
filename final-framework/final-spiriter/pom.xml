@@ -15,7 +15,6 @@
     <artifactId>final-spiriter</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>final-spiriter-annotation</module>
         <module>final-spiriter-core</module>
         <module>final-spiriter-redis</module>
         <module>final-spiriter-jdbc</module>
