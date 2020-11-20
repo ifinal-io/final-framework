@@ -23,6 +23,7 @@
         <module>final-auto-data</module>
         <module>final-auto-query</module>
         <module>final-auto-mybatis</module>
+        <module>final-auto-service</module>
     </modules>
 
     <dependencyManagement>
@@ -76,6 +77,11 @@
             <dependency>
                 <groupId>org.finalframework.auto</groupId>
                 <artifactId>final-auto-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.finalframework.auto</groupId>
+                <artifactId>final-auto-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
