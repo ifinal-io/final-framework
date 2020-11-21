@@ -1,5 +1,6 @@
 package org.finalframework.dashboard.context.service;
 
+import org.finalframework.dashboard.context.entity.BeanDefinition;
 import org.finalframework.dashboard.context.service.query.BeanQuery;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,6 @@ import java.util.List;
  */
 public interface BeanService {
 
-    List<Class<?>> query(@NotNull BeanQuery query);
+    List<BeanDefinition> query(@NotNull BeanQuery query);
 
 }

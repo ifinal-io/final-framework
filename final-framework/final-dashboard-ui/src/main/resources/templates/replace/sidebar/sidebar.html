@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>SideBar</title>
-</head>
-<body>
-<div th:fragment="sidebar">
+<div th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org">
     <div class="sidebar" data-background-color="black" data-color="green"
          data-image="/assets/img/sidebar-1.jpg" id="sidebar">
         <!--
@@ -36,6 +29,21 @@
                 modules: [],
                 sidebar: {
                     menus: [{
+                        id: 'dashboard',
+                        name: 'Dashboard',
+                        icon: 'dashboard',
+                        link: '/dashboard'
+                    }, {
+                        id: 'context',
+                        name: 'Context',
+                        icon: 'dashboard',
+                        menus: [{
+                            id: 'beans',
+                            name: 'Beans',
+                            mini: 'BAS',
+                            link: '/dashboard/context/beans'
+                        }]
+                    }, {
                         id: 'mybatis',
                         name: 'Mybatis',
                         icon: 'dashboard',
@@ -88,5 +96,3 @@
         });
     </script>
 </div>
-</body>
-</html>

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * @author likly
@@ -25,8 +26,8 @@ public class MenusHandlerInterceptor extends AnnotationUiHandlerInterceptor<Menu
     }
 
     @Override
-    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Menus ann, ModelAndView modelAndView) {
-        page.setMenus(Arrays.asList(ann.value()));
+    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Set<Menus> anns, ModelAndView modelAndView) {
+        anns.stream().findFirst().ifPresent(menus -> page.setMenus(Arrays.asList(menus.value())));
     }
 
 }

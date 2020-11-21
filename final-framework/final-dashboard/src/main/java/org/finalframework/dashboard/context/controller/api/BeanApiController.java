@@ -1,5 +1,6 @@
 package org.finalframework.dashboard.context.controller.api;
 
+import org.finalframework.dashboard.context.entity.BeanDefinition;
 import org.finalframework.dashboard.context.service.BeanService;
 import org.finalframework.dashboard.context.service.query.BeanQuery;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class BeanApiController {
     private BeanService beanService;
 
     @GetMapping
-    public List<Class<?>> query(BeanQuery query) {
+    public List<BeanDefinition> query(BeanQuery query) {
         return beanService.query(query);
     }
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh_CN" layout:decorate="layout/dashboard.html" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>beans</title>
+
+</head>
+<body>
+<div id="beans" layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">search</i>
+                    </div>
+                    <h4 class="card-title">Query</h4>
+                </div>
+                <div class="card-body ">
+                    <form class="form-horizontal">
+                        <!--Table-->
+                        <div class="row">
+                            <label class="col-md-1 col-form-label">Table</label>
+                            <div class="col-md-11">
+                                <div class="form-group has-default bmd-form-group">
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-1"></label>
+                            <div class="col-md-11">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" id="inlineCheckbox1" type="checkbox"
+                                               value="option1"> Spring
+                                        <span class="form-check-sign"><span class="check"></span></span>
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" id="inlineCheckbox2" type="checkbox"
+                                               value="option2"> Final
+                                        <span class="form-check-sign"><span class="check"></span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer ">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <button class="btn btn-fill btn-rose" type="button">XML</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">Simple Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Name</th>
+                                    <th>Class</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(bean,index) in beans">
+                                    <td class="text-center" v-html="index + 1">1</td>
+                                    <td><span class="badge badge-info" style="text-transform: none" v-html="bean.name">Name</span>
+                                    </td>
+                                    <td v-html="bean.targetClass">Class</td>
+                                    <td class="td-actions text-right">
+                                        <button
+                                                class="btn btn-success" rel="tooltip"
+                                                type="button">
+                                            <i class="material-icons">visibility</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#beans',
+            data: {
+                beans: [],
+                query: {
+                    springFramework: false,
+                    finalFramework: false
+                }
+            },
+            mounted: function () {
+                this.queryBeans();
+            },
+            methods: {
+                queryBeans: function () {
+                    let self = this;
+                    swal.showLoading();
+
+                    $.http.get('/api/beans', self.query, function (result) {
+                        swal.close();
+                        self.beans = result.data;
+                    })
+                }
+            }
+        })
+        ;
+    </script>
+</div>
+</body>
+</html>

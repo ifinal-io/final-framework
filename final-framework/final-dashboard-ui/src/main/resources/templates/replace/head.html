@@ -9,10 +9,8 @@
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Canonical SEO -->
     <!--  Social tags      -->
-    <meta content="final frameworks dashboard"
-          name="keywords">
-    <meta content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design."
-          name="description">
+
+    <meta th:content="${meta.content}" th:each="meta,iterStat : ${metas}" th:name="${meta.name}">
 
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
@@ -20,7 +18,24 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="/css/material-dashboard.css" rel="stylesheet"/>
-    <link href="/css/codemirror.css" rel="stylesheet"/>
+    <!-- =========================================================================================================== -->
+    <!-- =============================================== CodeMirror ================================================ -->
+    <!-- =========================================================================================================== -->
+    <!-- Core -->
+    <link href="/codemirror/lib/codemirror.css" rel="stylesheet"/>
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <!-- 语法高亮 -->
+    <script src="/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="/codemirror/addon/comment/continuecomment.js"></script>
+    <script src="/codemirror/addon/comment/comment.js"></script>
+    <!-- 语法高亮 -->
+    <script src="/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/codemirror/mode/xml/xml.js"></script>
+    <!-- 主题 -->
+    <link href="/codemirror/theme/solarized.css" rel="stylesheet"/>
+    <!-- =========================================================================================================== -->
+    <!-- =============================================== CodeMirror ================================================ -->
+    <!-- =========================================================================================================== -->
     <link href="/css/docs.min.css" rel="stylesheet"/>
     <link href="/css/post.css" rel="stylesheet"/>
     <link href="/css/markdown.css" rel="stylesheet"/>
@@ -32,7 +47,6 @@
     <script src="/js/core/jquery.min.js"></script>
     <script src="/js/core/popper.min.js"></script>
     <script src="/js/core/bootstrap-material-design.js"></script>
-    <script src="/js/plugins/codemirror.js"></script>
     <script src="/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Plugin for the momentJs  -->
     <script src="/js/plugins/moment.min.js"></script>

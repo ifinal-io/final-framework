@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 /**
  * @author likly
@@ -24,8 +25,9 @@ public class TitleHandlerInterceptor extends AnnotationUiHandlerInterceptor<Titl
     }
 
     @Override
-    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Title ann, ModelAndView modelAndView) {
-        page.setTitle(ann.value());
+    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Set<Title> anns, ModelAndView modelAndView) {
+        anns.stream().findFirst().ifPresent(title -> page.setTitle(title.value()));
     }
+
 }
 

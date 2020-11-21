@@ -1,5 +1,6 @@
 package org.finalframework.dashboard.ui.mybatis.controller;
 
+import org.finalframework.dashboard.ui.annotation.Keywords;
 import org.finalframework.dashboard.ui.annotation.Menus;
 import org.finalframework.dashboard.ui.annotation.Title;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class MyBatisUIController {
 
     @Title("Query")
     @Menus({"mybatis", "query"})
+    @Keywords("Mybatis Annotation Query")
     @GetMapping("/query")
     public String query() {
         return "dashboard/mybatis/query";

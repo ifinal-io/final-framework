@@ -14,6 +14,8 @@ import java.lang.annotation.Annotation;
 @Data
 public class BeanQuery implements Serializable {
 
+    private Boolean springFramework = false;
+    private Boolean finalFramework = false;
     Class<? extends Annotation> annotation;
 
 }
