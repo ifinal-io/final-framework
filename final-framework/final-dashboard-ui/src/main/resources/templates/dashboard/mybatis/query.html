@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh_CN" layout:decorate="layout/admin.html" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+<html lang="zh_CN" layout:decorate="layout/dashboard.html" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 >
 <head>
     <meta charset="UTF-8">
@@ -28,8 +28,7 @@
                                                 data-size="7" data-style="select-with-transition" data-width="100%"
                                                 id="entity-select" title="Choose Entity"
                                                 v-model="query.entity">
-                                            <option :value="item" v-for="item in entities"
-                                                    v-html="item"></option>
+                                            <option :value="item" v-for="item in entities" v-html="item"></option>
                                         </select>
                                     </div>
                                 </div>

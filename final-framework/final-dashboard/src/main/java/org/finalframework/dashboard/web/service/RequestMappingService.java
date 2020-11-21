@@ -3,7 +3,6 @@ package org.finalframework.dashboard.web.service;
 import org.finalframework.dashboard.web.entity.RequestHandler;
 import org.finalframework.dashboard.web.entity.RequestPattern;
 import org.finalframework.dashboard.web.service.query.RequestPatternQuery;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -16,5 +15,5 @@ import java.util.List;
 public interface RequestMappingService {
     List<RequestPattern> query(RequestPatternQuery query);
 
-    RequestHandler find(String pattern, RequestMethod method);
+    RequestHandler find(String pattern);
 }

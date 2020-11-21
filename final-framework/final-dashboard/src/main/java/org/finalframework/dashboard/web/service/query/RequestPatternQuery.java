@@ -2,8 +2,6 @@ package org.finalframework.dashboard.web.service.query;
 
 
 import lombok.Data;
-import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author likly
@@ -13,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Data
 public class RequestPatternQuery {
-    @Nullable
-    private RequestMethod method;
-    @Nullable
     private String pattern;
 }
 

@@ -4,9 +4,9 @@ package org.finalframework.dashboard.web.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Set;
 
 /**
  * @author likly
@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestPattern implements Comparable<RequestPattern> {
-    @Nullable
     private String name;
-    @NonNull
-    private RequestMethod method;
-    @NonNull
+    private Set<RequestMethod> methods;
     private String pattern;
 
     @Override
