@@ -98,7 +98,7 @@
                  * @param logger
                  */
                 doLogger: function (logger) {
-                    swal({
+                    swal.fire({
                         title: 'Change Level',
                         html: `<div class="row">
                                     <div class="col-12">
@@ -134,7 +134,7 @@
                         $.http.post('/api/devops/logger', {name: logger.name, level: value}, function (result) {
                             swal.close();
                             if (result.success) {
-                                swal({
+                                swal.fire({
                                     type: 'success',
                                     html: `Logger level has changed to: <strong>${value}</strong>`,
                                     confirmButtonClass: 'btn btn-success',
