@@ -125,8 +125,9 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             String name = entity.getName();
             info("try to generator entity of " + name);
             TypeElement mapperElement = processingEnv.getElementUtils().getTypeElement(name);
-            final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(name);
             if (mapperElement == null) {
+                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(name);
+
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = buildJavaFile(entity);
                     javaFile.writeTo(writer);

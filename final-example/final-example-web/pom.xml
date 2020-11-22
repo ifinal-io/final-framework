@@ -33,6 +33,12 @@
         <dependency>
             <groupId>org.finalframework.example</groupId>
             <artifactId>final-example-service</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.finalframework.auto</groupId>
+                    <artifactId>final-auto-processor</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
         <dependency>

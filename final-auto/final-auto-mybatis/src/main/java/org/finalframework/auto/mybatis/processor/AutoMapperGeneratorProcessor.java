@@ -87,9 +87,10 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
     private void generator(Mapper mapper) {
         try {
             final TypeElement mapperElement = processingEnv.getElementUtils().getTypeElement(mapper.getName());
-            final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(mapper.getName());
 
             if (mapperElement == null) {
+                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(mapper.getName());
+
 
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = buildJavaFile(mapper);

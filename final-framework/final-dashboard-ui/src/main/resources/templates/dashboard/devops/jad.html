@@ -78,7 +78,8 @@
                 <div class="card-footer ">
                     <div class="mr-auto">
                     </div>
-                    <button @click="doJad" class="btn btn-info" type="button">QUERY</button>
+                    <button @click="doCompile" class="btn btn-warning" type="button">Compile</button>
+                    <button @click="doRedefine" class="btn btn-danger" type="button">Redefine</button>
                 </div>
             </div>
         </div>
@@ -89,7 +90,8 @@
             data: {
                 editor: null,
                 query: {
-                    clazz: null
+                    clazz: null,
+                    source: null
                 },
                 jad: null
             },
@@ -105,7 +107,7 @@
                     indentWithTabs: false,
                     // theme: 'solarized dark'
                 });
-                self.editor.setSize('auto', '800px');
+                self.editor.setSize('auto', '50vh');
 
                 self.init();
 
@@ -123,13 +125,32 @@
                     let self = this;
                     swal.showLoading();
 
-                    $.http.get('/api/devops/jad', self.query, function (result) {
+                    $.http.get('/api/devops/jad', {clazz: self.query.clazz}, function (result) {
                         swal.close();
                         self.jad = result.data;
 
                         self.editor.getDoc().setValue(self.jad.source);
 
                         console.log(self.jad);
+                    })
+                },
+                doCompile: function () {
+                    let self = this;
+                    swal.showLoading();
+
+                    let source = self.editor.getValue();
+
+                    $.http.post('/api/devops/compile', {clazz: self.query.clazz, source: source}, function (result) {
+                        swal.close();
+                    })
+
+                },
+                doRedefine: function () {
+                    let self = this;
+                    swal.showLoading();
+                    let source = self.editor.getValue();
+                    $.http.post('/api/devops/redefine', {clazz: self.query.clazz, source: source}, function (result) {
+                        swal.close();
                     })
                 }
             }

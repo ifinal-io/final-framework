@@ -20,6 +20,7 @@
         <dependency>
             <groupId>org.finalframework.auto</groupId>
             <artifactId>final-auto-service</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
