@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/api/devops/java")
-public class JavaApiController {
+@RequestMapping("/api/devops/hotswap")
+public class HotswapApiController {
 
 
     @GetMapping("/jad")

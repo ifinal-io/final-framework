@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-public class HotswapApiController {
+public class HelloHotswapApiController {
 
-    @GetMapping("/api/java/hotswap")
-    public String hotswap() {
+    @GetMapping("/api/hotswap/hello")
+    public String hello() {
         return "hello hotswap!";
     }
 

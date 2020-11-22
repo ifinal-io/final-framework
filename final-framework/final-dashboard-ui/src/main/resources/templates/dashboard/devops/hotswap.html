@@ -3,11 +3,11 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Java</title>
+    <title>Hotswap</title>
 
 </head>
 <body>
-<div id="java" layout:fragment="content">
+<div id="hotswap" layout:fragment="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -81,7 +81,7 @@
     </div>
     <script>
         new Vue({
-            el: '#java',
+            el: '#hotswap',
             data: {
                 editor: null,
                 query: {
@@ -124,7 +124,7 @@
                     let self = this;
                     swal.showLoading();
 
-                    $.http.get('/api/devops/java/jad', {clazz: self.query.clazz}, function (result) {
+                    $.http.get('/api/devops/hotswap/jad', {clazz: self.query.clazz}, function (result) {
                         swal.close();
                         self.jad = result.data;
                         self.editor.getDoc().setValue(self.jad.source);
@@ -139,7 +139,7 @@
 
                     let source = self.editor.getValue();
 
-                    $.http.post('/api/devops/java/compile', {clazz: self.query.clazz, source: source}, function (result) {
+                    $.http.post('/api/devops/hotswap/compile', {clazz: self.query.clazz, source: source}, function (result) {
                         swal.close();
                     })
 
@@ -148,7 +148,7 @@
                     let self = this;
                     swal.showLoading();
                     let source = self.editor.getValue();
-                    $.http.post('/api/devops/java/redefine', {clazz: self.query.clazz, source: source}, function (result) {
+                    $.http.post('/api/devops/hotswap/redefine', {clazz: self.query.clazz, source: source}, function (result) {
                         swal.close();
                     })
                 }
