@@ -32,6 +32,11 @@
             <artifactId>final-web</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.finalframework</groupId>
+            <artifactId>final-devops</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

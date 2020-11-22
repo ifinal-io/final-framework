@@ -3,11 +3,11 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>beans</title>
+    <title>jad</title>
 
 </head>
 <body>
-<div id="beans" layout:fragment="content">
+<div id="jad" layout:fragment="content">
     <div class="container-fluid">
         <div class="row">
             <div class="card ">
@@ -19,12 +19,12 @@
                 </div>
                 <div class="card-body ">
                     <form class="form-horizontal">
-                        <!--Table-->
+                        <!--Class-->
                         <div class="row">
-                            <label class="col-md-1 col-form-label">Table</label>
+                            <label class="col-md-1 col-form-label">Class</label>
                             <div class="col-md-11">
                                 <div class="form-group has-default bmd-form-group">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" v-model="query.clazz">
                                 </div>
                             </div>
                         </div>
@@ -50,83 +50,88 @@
                     </form>
                 </div>
                 <div class="card-footer ">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <button class="btn btn-fill btn-rose" type="button">XML</button>
-                        </div>
+                    <div class="mr-auto">
                     </div>
+                    <button @click="doJad" class="btn btn-info" type="button">QUERY</button>
                 </div>
             </div>
         </div>
 
+        <!--JadView-->
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-rose card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">assignment</i>
-                        </div>
-                        <h4 class="card-title">Simple Table</h4>
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">search</i>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th>Name</th>
-                                    <th>Class</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(bean,index) in beans">
-                                    <td class="text-center" v-html="index + 1">1</td>
-                                    <td><span class="badge badge-info" style="text-transform: none" v-html="bean.name">Name</span>
-                                    </td>
-                                    <td v-html="bean.targetClass">Class</td>
-                                    <td class="td-actions text-right">
-                                        <a :href="'/dashboard/devops/jad?class=' + bean.targetClass"
-                                           class="btn btn-rose" rel="tooltip"
-                                           type="button">
-                                            <i class="material-icons">visibility</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <h4 class="card-title">JadView</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-default bmd-form-group">
+                                <textarea class="form-control" id="source-editor" rows="100">{}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-footer ">
+                    <div class="mr-auto">
+                    </div>
+                    <button @click="doJad" class="btn btn-info" type="button">QUERY</button>
+                </div>
             </div>
         </div>
-
-
     </div>
-
     <script>
         new Vue({
-            el: '#beans',
+            el: '#jad',
             data: {
-                beans: [],
+                editor: null,
                 query: {
-                    springFramework: false,
-                    finalFramework: false
-                }
+                    clazz: null
+                },
+                jad: null
             },
             mounted: function () {
-                this.queryBeans();
+                let self = this;
+
+                self.editor = CodeMirror.fromTextArea(document.getElementById('source-editor'), {
+                    lineNumbers: true,
+                    matchBrackets: true,
+                    mode: "text/x-java",
+                    // mode: "application/xml",
+                    indentUnit: 4,
+                    indentWithTabs: false,
+                    // theme: 'solarized dark'
+                });
+                self.editor.setSize('auto', '800px');
+
+                self.init();
+
             },
             methods: {
-                queryBeans: function () {
+                init: function () {
+                    let self = this;
+                    self.query.clazz = $.query.string('class');
+
+                    if (self.query.clazz) {
+                        self.doJad();
+                    }
+                },
+                doJad: function () {
                     let self = this;
                     swal.showLoading();
 
-                    $.http.get('/api/beans', self.query, function (result) {
+                    $.http.get('/api/devops/jad', self.query, function (result) {
                         swal.close();
-                        self.beans = result.data;
+                        self.jad = result.data;
+
+                        self.editor.getDoc().setValue(self.jad.source);
+
+                        console.log(self.jad);
                     })
-                },
+                }
             }
         })
         ;
