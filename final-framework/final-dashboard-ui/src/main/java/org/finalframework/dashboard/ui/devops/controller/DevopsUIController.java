@@ -19,8 +19,15 @@ public class DevopsUIController {
     @Title("Java")
     @Menus({"devops", "java"})
     @GetMapping("/java")
-    public String jad() {
+    public String java() {
         return "dashboard/devops/java";
+    }
+
+    @Title("Logger")
+    @Menus({"devops", "logger"})
+    @GetMapping("/logger")
+    public String logger() {
+        return "dashboard/devops/logger";
     }
 
 }

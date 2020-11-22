@@ -3,6 +3,7 @@ package org.finalframework.dashboard.devops.controller.api;
 import org.finalframework.dashboard.devops.model.LoggerModel;
 import org.finalframework.dashboard.devops.service.LoggerService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,11 @@ public class LoggerApiController {
     public List<LoggerModel> query() {
         return loggerService.query();
     }
+
+    @PostMapping
+    public void level(String name, String level) {
+        loggerService.setLevel(name, level);
+    }
+
 
 }

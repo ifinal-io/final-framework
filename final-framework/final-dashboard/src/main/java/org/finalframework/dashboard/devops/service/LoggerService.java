@@ -14,4 +14,5 @@ public interface LoggerService {
 
     List<LoggerModel> query();
 
+    void setLevel(String name, String level);
 }
