@@ -1,7 +1,12 @@
 package org.finalframework.example;
 
-import org.springframework.boot.SpringApplication;
+import com.taobao.arthas.core.command.klass100.JadCommand;
+import com.taobao.arthas.core.shell.command.Command;
+import com.taobao.arthas.core.shell.command.impl.AnnotatedCommandImpl;
+import com.taobao.arthas.core.util.ClassUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.security.CodeSource;
 
 /**
  * @author likly
@@ -12,6 +17,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FinalApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FinalApplication.class);
+
+        Class clazz = SpringBootApplication.class;
+        CodeSource codeSource = clazz.getProtectionDomain().getCodeSource();
+        String file = codeSource.getLocation().getFile();
+
+        System.out.println(ClassUtils.getCodeSource(codeSource));
+
+        System.out.println(file);
+
+        Command command = AnnotatedCommandImpl.create(JadCommand.class);
+
+
+        org.benf.cfr.reader.Main.main(new String[]{"--analyseas", "JAR", file + "/" + clazz.getCanonicalName().replace("\\.", "/")});
+//        org.benf.cfr.reader.Main.main(new String[]{file + clazz.getCanonicalName().replace("\\.","/")});
+
+
+//        org.benf.cfr.reader.Main.main(new String[]{"--help"});
+//        SpringApplication.run(FinalApplication.class);
     }
 }

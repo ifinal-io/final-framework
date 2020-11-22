@@ -34,6 +34,7 @@
         <module>final-javapoets</module>
         <module>final-dashboard</module>
         <module>final-dashboard-ui</module>
+        <module>final-devops</module>
     </modules>
 
     <dependencyManagement>
