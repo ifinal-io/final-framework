@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/dashboard/devops")
 public class DevopsUIController {
 
-    @Title("JAD")
-    @Menus({"devops", "jad"})
-    @GetMapping("/jad")
+    @Title("Java")
+    @Menus({"devops", "java"})
+    @GetMapping("/java")
     public String jad() {
-        return "dashboard/devops/jad";
+        return "dashboard/devops/java";
     }
 
 }

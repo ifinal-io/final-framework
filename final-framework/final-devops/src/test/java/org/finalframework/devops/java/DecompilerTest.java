@@ -1,5 +1,6 @@
 package org.finalframework.devops.java;
 
+import org.benf.cfr.reader.Main;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 
@@ -13,6 +14,9 @@ class DecompilerTest {
 
     @Test
     void decompilerClass() {
+
+        Main.main(new String[]{"--help"});
+
         System.out.println(Decompiler.decompile(ApplicationContext.class, null));
     }
 

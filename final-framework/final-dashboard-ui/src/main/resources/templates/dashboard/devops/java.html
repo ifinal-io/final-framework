@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh_CN" layout:decorate="layout/dashboard.html" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Java</title>
+
+</head>
+<body>
+<div id="java" layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <form class="form-horizontal">
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">search</i>
+                            </div>
+                            <h4 class="card-title">Query</h4>
+                        </div>
+                        <div class="card-body ">
+                            <!--Class-->
+                            <div class="row">
+                                <label class="col-md-1 col-form-label">Class</label>
+                                <div class="col-md-11">
+                                    <div class="form-group has-default bmd-form-group">
+                                        <input class="form-control" type="text" v-model="query.clazz">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <div class="mr-auto">
+                            </div>
+                            <button @click="doJad" class="btn btn-info" type="button"><i class="material-icons">local_cafe</i> JAD</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <!--JadView-->
+        <div class="row">
+
+            <div class="col-12">
+
+
+                <div class="card ">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">article</i>
+                        </div>
+                        <h4 class="card-title">JavaView</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-default bmd-form-group">
+                                    <textarea class="form-control" id="source-editor" rows="100"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <div class="mr-auto">
+                        </div>
+                        <button @click="doCompile" class="btn btn-warning" type="button"><i class="material-icons">report</i> Compile
+                        </button>
+                        <button @click="doRedefine" class="btn btn-danger" type="button"><i class="material-icons">warning</i> Redefine
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#java',
+            data: {
+                editor: null,
+                query: {
+                    clazz: null,
+                    source: null
+                },
+                jad: null
+            },
+            mounted: function () {
+                let self = this;
+
+                self.editor = CodeMirror.fromTextArea(document.getElementById('source-editor'), {
+                    lineNumbers: true,
+                    matchBrackets: true,
+                    mode: "text/x-java",
+                    // mode: "application/xml",
+                    indentUnit: 4,
+                    indentWithTabs: false,
+                    // theme: 'solarized dark'
+                });
+                self.editor.setSize('auto', '50vh');
+
+                self.init();
+
+            },
+            methods: {
+                init: function () {
+                    let self = this;
+                    self.query.clazz = $.query.string('class');
+
+                    if (self.query.clazz) {
+                        self.doJad();
+                    }
+                },
+                doJad: function (e) {
+                    if (e) {
+                        e.preventDefault();
+                    }
+
+                    let self = this;
+                    swal.showLoading();
+
+                    $.http.get('/api/devops/java/jad', {clazz: self.query.clazz}, function (result) {
+                        swal.close();
+                        self.jad = result.data;
+                        self.editor.getDoc().setValue(self.jad.source);
+                        console.log(self.jad);
+                    })
+
+                    return false;
+                },
+                doCompile: function () {
+                    let self = this;
+                    swal.showLoading();
+
+                    let source = self.editor.getValue();
+
+                    $.http.post('/api/devops/java/compile', {clazz: self.query.clazz, source: source}, function (result) {
+                        swal.close();
+                    })
+
+                },
+                doRedefine: function () {
+                    let self = this;
+                    swal.showLoading();
+                    let source = self.editor.getValue();
+                    $.http.post('/api/devops/java/redefine', {clazz: self.query.clazz, source: source}, function (result) {
+                        swal.close();
+                    })
+                }
+            }
+        })
+        ;
+    </script>
+</div>
+</body>
+</html>

@@ -15,16 +15,6 @@
         <dependency>
             <groupId>org.finalframework.boot</groupId>
             <artifactId>final-boot-starter-mybatis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.finalframework.auto</groupId>
-                    <artifactId>final-auto-query</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.finalframework.auto</groupId>
-                    <artifactId>final-auto-mybatis</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.finalframework.example</groupId>
