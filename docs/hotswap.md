@@ -24,6 +24,88 @@ version: 1.0
 
 ![Arthas热更新流程](http://assets.processon.com/chart_image/5fba6fb90791293c5429cf66.png)
 
+## Then
+
+既然技术上可以实现，那如果能够脱离`command`改用人机交互更友好的`GUI`来操作岂不是更好！
+
+![Hotswap](images/hotswap.png)
+
+
+* 定义`HotSwapApiController`如下：
+
+```java
+@RestController
+public class HotswapApiController {
+
+    @GetMapping("/api/java/hotswap")
+    public String hotswap() {
+        return "hello hotswap!";
+    }
+
+}
+```
+
+* 访问``
+
+```json
+{
+    "status": 0,
+    "description": "success",
+    "code": "0",
+    "message": "success",
+    "data": "hello hotswap!",
+    "trace": "20b1d6b1-70d2-4c7f-bdbf-f67106c100c8",
+    "timestamp": 1606055367413,
+    "duration": 0.032,
+    "address": "127.0.0.1:8080",
+    "locale": "zh_CN",
+    "timeZone": "Asia/Shanghai",
+    "success": true
+}
+```
+
+* Jad并Hotswap
+
+```java
+/*
+ * Decompiled with CFR.
+ */
+package org.finalframework.example.web.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HotswapApiController {
+    @GetMapping(value={"/api/java/hotswap"})
+    public String hotswap() {
+        return "hello hotswap done!";
+    }
+}
+
+```
+
+* 重新访问
+
+```json
+{
+    "status": 0,
+    "description": "success",
+    "code": "0",
+    "message": "success",
+    "data": "hello hotswap done!",
+    "trace": "04a6553d-d922-4c30-a0e8-85cc32f9c8f4",
+    "timestamp": 1606055566802,
+    "duration": 0.002,
+    "address": "127.0.0.1:8080",
+    "locale": "zh_CN",
+    "timeZone": "Asia/Shanghai",
+    "success": true
+}
+```
+
+
+
 
 ## See Also
 

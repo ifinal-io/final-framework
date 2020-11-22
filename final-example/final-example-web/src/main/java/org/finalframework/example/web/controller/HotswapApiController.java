@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-public class RedefineController {
+public class HotswapApiController {
 
-    @GetMapping("/api/redefine")
-    public String redefine() {
-        return "redefine";
+    @GetMapping("/api/java/hotswap")
+    public String hotswap() {
+        return "hello hotswap!";
     }
 
 }
