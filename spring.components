@@ -1,3 +1,0 @@
-org.finalframework.dashboard.ui.mybatis.controller.MyBatisUIController=org.springframework.stereotype.Component
-org.finalframework.example.service.impl.PersonServiceImpl=org.springframework.stereotype.Component
-org.finalframework.example.web.controller.HotswapApiController=org.springframework.stereotype.Component
