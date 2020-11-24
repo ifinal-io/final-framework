@@ -1,6 +1,7 @@
 package org.finalframework.boot.autoconfigure.redis;
 
 import org.finalframework.redis.FinalRedisTemplate;
+import org.finalframework.redis.RedisRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,7 @@ public class FinalRedisAutoConfiguration {
             throws UnknownHostException {
         FinalRedisTemplate template = new FinalRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
+        RedisRegistry.getInstance().setRedisTemplate(template);
         return template;
     }
 }

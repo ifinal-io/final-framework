@@ -64,7 +64,7 @@
                 var options = $.extend({
                     method: 'POST',
                     headers: {
-                        Hidden_Http_Method: 'delete'
+                        'Hidden-Http-Method': 'delete'
                     },
                     url: url,
                     data: data,
