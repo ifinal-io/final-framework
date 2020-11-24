@@ -18,6 +18,8 @@ public class LoginUIController {
     @Title("登录")
     @GetMapping("/login")
     public String login() {
-        return "login";
+
+
+        return "dashboard/login";
     }
 }

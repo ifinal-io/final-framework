@@ -1,9 +1,6 @@
 package org.finalframework.annotation.auth;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author likly
@@ -11,8 +8,8 @@ import java.lang.annotation.Target;
  * @date 2018-12-12 14:01:44
  * @since 1.0
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
-    String[] value() default {};
+    Class<? extends Annotation> value() default Auth.class;
 }

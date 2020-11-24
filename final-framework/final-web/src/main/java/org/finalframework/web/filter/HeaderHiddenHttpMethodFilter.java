@@ -23,15 +23,16 @@ import java.util.Locale;
  * @author likly
  * @version 1.0
  * @date 2019-12-28 14:24:28
+ * @see org.springframework.web.filter.HiddenHttpMethodFilter
  * @since 1.0
  */
 @Component
-public class HiddenHttpMethodFilter extends OncePerRequestFilter {
+public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
 
     /**
      * Default method parameter: {@code _method}.
      */
-    public static final String DEFAULT_METHOD_HEADER = "_method";
+    public static final String DEFAULT_METHOD_HEADER = "Hidden-Http-Method";
     private static final List<String> ALLOWED_METHODS =
             Collections.unmodifiableList(Arrays.asList(HttpMethod.PUT.name(),
                     HttpMethod.DELETE.name(), HttpMethod.PATCH.name()));

@@ -3,6 +3,10 @@ spring:
     url: jdbc:MySql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
     data-username: root
     data-password: Aa000000
+  security:
+    user:
+      name: user
+      password: root
 
 final:
   zookeeper:

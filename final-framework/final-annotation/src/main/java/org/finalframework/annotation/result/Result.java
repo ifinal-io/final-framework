@@ -75,6 +75,10 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
      * 服务地址
      */
     private String address;
+    /**
+     * 服务IP
+     */
+    private String ip;
 
     /**
      * 国际化

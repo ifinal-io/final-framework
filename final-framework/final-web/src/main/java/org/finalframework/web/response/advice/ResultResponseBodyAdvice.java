@@ -41,7 +41,8 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
             return null;
         }
         // set address
-        result.setAddress(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(), request.getLocalAddress().getPort()));
+        result.setAddress(request.getLocalAddress().getAddress().getHostName());
+        result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(), request.getLocalAddress().getPort()));
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone
