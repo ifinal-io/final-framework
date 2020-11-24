@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Component
 public class AuthTokenService implements TokenService, AuthService<Auth> {
     @Override
-    public void auth(@Nullable IUser user, @NonNull Auth auth) {
+    public void auth(@Nullable IUser user, @NonNull Auth auth, @NonNull Object handler) {
         logger.info("try auth ...");
 
         if (user == null) {

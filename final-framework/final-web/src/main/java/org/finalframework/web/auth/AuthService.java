@@ -26,10 +26,9 @@ public interface AuthService<A extends Annotation> {
      * @param request  the {@link HttpServletRequest}
      * @param response the {@link HttpServletResponse}
      * @param handler  the handler
-     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest, HttpServletResponse, Object)
      */
-    default void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        auth(user, auth);
+    default void auth(@Nullable IUser<?> user, @NonNull A auth, @Nullable HttpServletRequest request, @Nullable HttpServletResponse response, @NonNull Object handler) {
+        auth(user, auth, handler);
     }
 
 
@@ -38,7 +37,7 @@ public interface AuthService<A extends Annotation> {
      * @param auth
      * @throws org.finalframework.context.exception.ForbiddenException
      */
-    void auth(@Nullable IUser<?> user, @NonNull A auth);
+    void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull Object handler);
 
 
 }
