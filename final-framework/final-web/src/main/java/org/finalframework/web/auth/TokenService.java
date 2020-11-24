@@ -19,6 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 @FunctionalInterface
 public interface TokenService {
 
+    /**
+     * return the {@link IUser} which parsed from the {@link HttpServletRequest}.
+     *
+     * @param request  http request
+     * @param response http response
+     * @return the {@link IUser}
+     */
     @Nullable
     IUser token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response);
 

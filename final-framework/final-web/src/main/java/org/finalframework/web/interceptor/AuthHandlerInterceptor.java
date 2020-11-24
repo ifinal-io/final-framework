@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -46,16 +47,21 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, Object handler) throws Exception {
+    @SuppressWarnings("unchecked")
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         Auth auth = findHandlerAuth(handler, Auth.class);
+
+        Annotation authAnnotation = auth;
+
         if (auth != null) {
             IUser user = UserContextHolder.getUser();
             Class<? extends Annotation> annotation = auth.value();
             if (Auth.class.equals(annotation)) {
-                authServices.get(annotation).auth(user, auth);
-            } else {
-                authServices.get(annotation).auth(user, findHandlerAuth(handler, annotation));
+                authAnnotation = findHandlerAuth(handler, annotation);
             }
+            Objects.requireNonNull(authAnnotation);
+
+            authServices.get(annotation).auth(user, authAnnotation, request, response, handler);
         }
 
 

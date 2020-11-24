@@ -5,6 +5,8 @@ import org.finalframework.annotation.auth.Auth;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 
 /**
@@ -17,6 +19,18 @@ import java.lang.annotation.Annotation;
 @SuppressWarnings("rawtypes")
 @FunctionalInterface
 public interface AuthService<A extends Annotation> {
+
+    /**
+     * @param user     the {@link IUser} login, maybe null.
+     * @param auth     the {@link Annotation} link {@link Auth}
+     * @param request  the {@link HttpServletRequest}
+     * @param response the {@link HttpServletResponse}
+     * @param handler  the handler
+     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest, HttpServletResponse, Object)
+     */
+    default void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+        auth(user, auth);
+    }
 
 
     /**
