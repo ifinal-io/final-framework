@@ -62,7 +62,7 @@ public interface AuthService<A extends Annotation> {
      * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest, HttpServletResponse, Object)
      */
     default void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        auth(user, auth);
+        auth(user, auth, handler);
     }
 
 
@@ -71,7 +71,7 @@ public interface AuthService<A extends Annotation> {
      * @param auth
      * @throws org.finalframework.context.exception.ForbiddenException
      */
-    void auth(@Nullable IUser<?> user, @NonNull A auth);
+    void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull Object handler);
 
 }
 ```
@@ -92,4 +92,27 @@ public class HelloHotswapApiController {
 
 }
 ```
-   
+
+### Request The Url
+
+```json
+{
+    "status": 403,
+    "description": "Forbidden",
+    "code": "403",
+    "message": "未登录！",
+    "data": null,
+    "pagination": null,
+    "trace": "79d8eea6-0bea-4b0b-bc59-5aeaac53c7d6",
+    "timestamp": 1606221030969,
+    "duration": "PT0.031S",
+    "address": "0:0:0:0:0:0:0:1",
+    "ip": "0:0:0:0:0:0:0:1:8080",
+    "locale": "zh_CN",
+    "timeZone": "Asia/Shanghai",
+    "operator": null,
+    "view": null,
+    "exception": "org.finalframework.context.exception.ForbiddenException",
+    "success": false
+}
+```

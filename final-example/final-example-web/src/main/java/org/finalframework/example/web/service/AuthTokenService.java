@@ -38,6 +38,10 @@ public class AuthTokenService implements TokenService, AuthService<Auth> {
     public IUser token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         logger.info("try token");
 
+        if (request.getParameterMap().containsKey("unlogin")) {
+            return null;
+        }
+
 
         return new IUser() {
             @Override
