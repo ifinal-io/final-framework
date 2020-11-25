@@ -15,6 +15,7 @@
             contentType: options.contentType,
             type: options.method,
             headers: options.headers,
+            traditional: true,
             cache: false,
             success: function (result) {
                 console.log(result);

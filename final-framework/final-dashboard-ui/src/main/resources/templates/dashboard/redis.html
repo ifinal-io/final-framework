@@ -19,15 +19,39 @@
                                 <ul class="nav nav-tabs" data-tabs="tabs">
                                     <li class="nav-item">
                                         <a class="nav-link active show" data-toggle="tab" href="#value">
-                                            <i class="material-icons">chat</i>
+                                            <i class="material-icons">code</i>
                                             Value
                                             <div class="ripple-container"></div>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#hash">
-                                            <i class="material-icons">face</i>
+                                            <i class="material-icons">view_list</i>
                                             Hash
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#list">
+                                            <i class="material-icons">view_headline</i>
+                                            List
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#hash">
+                                            <i class="material-icons">view_module</i>
+                                            Set
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#hash">
+                                            <i class="material-icons">sort</i>
+                                            Set
                                             <div class="ripple-container"></div>
                                         </a>
                                     </li>
@@ -126,6 +150,52 @@
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Redis List-->
+                        <div class="tab-pane" id="list">
+                            <div class="card-body">
+                                <form @submit.prevent="doGet">
+                                    <!--Key-->
+                                    <div class="row">
+                                        <label class="col-md-1 col-form-label">Key *</label>
+                                        <div class="col-md-11">
+                                            <div class="form-group has-default bmd-form-group">
+                                                <input class="form-control" type="text" v-model="list.key">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Value-->
+                                    <div class="row">
+                                        <label class="col-md-1 col-form-label">Value *</label>
+                                        <div class="col-md-11">
+                                            <div class="form-group has-default bmd-form-group">
+                                                <input class="form-control" type="text" v-model="list.value">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer ">
+                                <div class="mr-auto">
+                                </div>
+                                <button @click="doDelete(list.key)" class="btn btn-danger" type="button">
+                                    <i class="material-icons">warning</i> DELETE
+                                </button>
+                                <button @click="doLPop" class="btn btn-success" type="button">
+                                    <i class="material-icons">settings</i> LPOP
+                                </button>
+                                <button @click="doLPush" class="btn btn-info" type="button">
+                                    <i class="material-icons">local_cafe</i> LPUSH
+                                </button>
+                                <button @click="doRPop" class="btn btn-success" type="button">
+                                    <i class="material-icons">settings</i> RPOP
+                                </button>
+                                <button @click="doRPush" class="btn btn-info" type="button">
+                                    <i class="material-icons">local_cafe</i> RPUSH
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,6 +241,10 @@
                     field: null,
                     value: null
                 },
+                list: {
+                    key: null,
+                    value: null
+                },
                 data: null
             },
             mounted: function () {
@@ -198,6 +272,7 @@
                         self.doGet();
                     })
                 },
+                //   hash
                 /**
                  * @see hget key field
                  */
@@ -219,6 +294,39 @@
                         swal.close();
                         self.doHGet(self.hash.key, self.hash.field);
                     })
+                },
+                //   list
+                doLPop: function () {
+                    let self = this;
+                    swal.showLoading();
+                    $.http.get('/api/redis/list/lpop', {key: self.list.key}, function (result) {
+                        swal.close();
+                        self.data = result.data;
+                    });
+                },
+                doLPush: function () {
+                    let self = this;
+                    swal.showLoading();
+                    $.http.post('/api/redis/list/lpush', {key: self.list.key, value: self.list.value.split(',')}, function (result) {
+                        swal.close();
+                        self.data = result.data;
+                    });
+                },
+                doRPop: function () {
+                    let self = this;
+                    swal.showLoading();
+                    $.http.get('/api/redis/list/rpop', {key: self.list.key}, function (result) {
+                        swal.close();
+                        self.data = result.data;
+                    });
+                },
+                doRPush: function () {
+                    let self = this;
+                    swal.showLoading();
+                    $.http.post('/api/redis/list/rpush', {key: self.list.key, value: self.list.value}, function (result) {
+                        swal.close();
+                        self.data = result.data;
+                    });
                 },
                 doDelete: function (key) {
                     let self = this;
