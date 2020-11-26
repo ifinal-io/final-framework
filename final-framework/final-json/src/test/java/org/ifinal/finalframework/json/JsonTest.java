@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.json;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.ifinal.finalframework.annotation.data.YN;
 import org.junit.jupiter.api.Assertions;
@@ -13,13 +14,15 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+
 class JsonTest {
 
     @Test
-    void jsonDate() {
+    void jsonDate() throws Exception {
         DateBean dateBean = new DateBean();
         dateBean.setDate(new Date());
         dateBean.setLocalDateTime(LocalDateTime.now());
+        System.out.println(new ObjectMapper().writeValueAsString(new DateBean()));
         System.out.println(Json.toJson(dateBean));
     }
 
@@ -31,7 +34,7 @@ class JsonTest {
 
     @Data
     static class DateBean {
-        private Date date;
+        private Date date = new Date();
         private LocalDateTime localDateTime;
     }
 

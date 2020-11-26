@@ -2,6 +2,7 @@ package org.ifinal.finalframework.data.entity.enums;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ifinal.finalframework.annotation.data.YN;
+import org.ifinal.finalframework.json.Json;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,12 +19,12 @@ public class YNTest {
 
     @Test
     public void of() throws Throwable {
-        assertEquals(YN.YES, objectMapper.readValue(objectMapper.writeValueAsString(YN.YES), YN.class));
+        assertEquals(YN.YES, objectMapper.readValue(YN.YES.getCode().toString(), YN.class));
     }
 
     @Test
     public void value() throws Throwable {
-        assertEquals(YN.YES.getCode().toString(), objectMapper.writeValueAsString(YN.YES));
+        assertEquals(YN.YES.getCode().toString(), Json.toJson(YN.YES));
 
     }
 }

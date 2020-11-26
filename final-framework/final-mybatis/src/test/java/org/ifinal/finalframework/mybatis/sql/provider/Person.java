@@ -19,8 +19,9 @@ import org.springframework.data.geo.Point;
 @ToString(callSuper = true)
 @Transient
 public class Person extends AbsEntity {
-    @Virtual
-    public String vcolumn;
+//    @Virtual
+@Column
+public String vcolumn = "32";
     @View(IView.class)
     private String name;
     private Integer age;

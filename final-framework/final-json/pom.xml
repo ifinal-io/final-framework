@@ -35,11 +35,6 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-context</artifactId>
         </dependency>
