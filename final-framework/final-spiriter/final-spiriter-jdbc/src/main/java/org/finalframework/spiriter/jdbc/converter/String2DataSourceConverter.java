@@ -1,10 +1,10 @@
-package org.finalframework.spiriter.jdbc.converter;
+package org.ifinal.finalframework.spiriter.jdbc.converter;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.ifinal.finalframework.spiriter.jdbc.service.DataSourceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.finalframework.core.converter.Converter;
+import org.ifinal.finalframework.core.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,9 +13,9 @@ import javax.sql.DataSource;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 12:57:05
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
  @Component
 @Component

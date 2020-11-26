@@ -1,6 +1,6 @@
-package org.finalframework.spiriter.redis.api.controller;
+package org.ifinal.finalframework.spiriter.redis.api.controller;
 
-import org.finalframework.redis.Redis;
+import org.ifinal.finalframework.redis.Redis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 16:22:25
+ * @version 1.0.0
+ *
  * @see org.springframework.data.redis.connection.DataType#STRING
- * @since 1.0
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/redis")

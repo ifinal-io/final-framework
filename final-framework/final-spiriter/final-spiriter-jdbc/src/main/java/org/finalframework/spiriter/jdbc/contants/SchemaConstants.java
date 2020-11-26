@@ -1,10 +1,10 @@
-package org.finalframework.spiriter.jdbc.contants;
+package org.ifinal.finalframework.spiriter.jdbc.contants;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 19:38:55
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 public interface SchemaConstants {
     String INFORMATION_SCHEMA = "information_schema";

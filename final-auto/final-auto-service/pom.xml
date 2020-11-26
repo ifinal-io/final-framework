@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-auto</artifactId>
-        <groupId>org.finalframework.auto</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>org.ifinal.finalframework.auto</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,21 +13,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.finalframework.auto</groupId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
             <artifactId>final-auto-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-annotation</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-javapoets</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -36,9 +36,9 @@
             <artifactId>javapoet</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-data</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

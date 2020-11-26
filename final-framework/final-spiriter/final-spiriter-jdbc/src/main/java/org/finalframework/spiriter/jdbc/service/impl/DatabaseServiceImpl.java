@@ -1,9 +1,9 @@
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.ifinal.finalframework.spiriter.jdbc.service.impl;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
-import org.finalframework.spiriter.jdbc.model.Table;
-import org.finalframework.spiriter.jdbc.service.DatabaseService;
+import org.ifinal.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinal.finalframework.spiriter.jdbc.model.Table;
+import org.ifinal.finalframework.spiriter.jdbc.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 12:51:00
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Service
 public class DatabaseServiceImpl implements DatabaseService, InitializingBean {

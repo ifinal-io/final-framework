@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-auto</artifactId>
-        <groupId>org.finalframework.auto</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>org.ifinal.finalframework.auto</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,6 +17,7 @@
             <groupId>com.google.auto.service</groupId>
             <artifactId>auto-service</artifactId>
             <version>1.0-rc7</version>
+            <optional>true</optional>
             <scope>provided</scope>
         </dependency>
     </dependencies>

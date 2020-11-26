@@ -69,7 +69,7 @@ public interface AuthService<A extends Annotation> {
     /**
      * @param user
      * @param auth
-     * @throws org.finalframework.context.exception.ForbiddenException
+     * @throws ForbiddenException
      */
     void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull Object handler);
 
@@ -112,7 +112,7 @@ public class HelloHotswapApiController {
     "timeZone": "Asia/Shanghai",
     "operator": null,
     "view": null,
-    "exception": "org.finalframework.context.exception.ForbiddenException",
+    "exception": "ForbiddenException",
     "success": false
 }
 ```

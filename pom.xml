@@ -10,11 +10,39 @@
         <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.finalframework.frameworks</groupId>
+
+    <groupId>org.ifinal.finalframework.frameworks</groupId>
     <artifactId>final-frameworks</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>final-frameworks</name>
-    <description>Demo project for Spring Boot</description>
+    <version>1.0.0</version>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Final framework with Spring Boot</description>
+    <url>https://github.com/likly/final-frameworks</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>likly</id>
+            <name>likly</name>
+            <email>569553290@qq.com</email>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/likly/final-frameworks.git</connection>
+        <developerConnection>scm:git:ssh://github.com:likly/final-frameworks.git</developerConnection>
+        <url>http://github.com/likly/final-frameworks/tree/master</url>
+    </scm>
 
     <modules>
         <module>final-framework</module>
@@ -27,7 +55,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
-        <final.version>1.0.0-SNAPSHOT</final.version>
+        <final.version>1.0.0.1</final.version>
         <mybatis.version>3.5.4</mybatis.version>
         <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
@@ -51,17 +79,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-logging</artifactId>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>org.slf4j</groupId>-->
-        <!--                    <artifactId>slf4j-log4j12</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -77,12 +94,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.junit.vintage</groupId>-->
-            <!--                    <artifactId>junit-vintage-engine</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -102,23 +113,66 @@
     </dependencyManagement>
 
 
-    <!--    <dependencyManagement>-->
-    <!--        <dependencies>-->
-    <!--            <dependency>-->
-    <!--                <groupId>org.finalframework</groupId>-->
-    <!--                <artifactId>final-framework</artifactId>-->
-    <!--                <version>${project.version}</version>-->
-    <!--                <type>pom</type>-->
-    <!--                <scope>import</scope>-->
-    <!--            </dependency>-->
-    <!--            <dependency>-->
-    <!--                <groupId>org.finalframework.auto</groupId>-->
-    <!--                <artifactId>final-auto</artifactId>-->
-    <!--                <version>${project.version}</version>-->
-    <!--                <type>pom</type>-->
-    <!--                <scope>import</scope>-->
-    <!--            </dependency>-->
-    <!--        </dependencies>-->
-    <!--    </dependencyManagement>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 
 </project>

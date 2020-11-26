@@ -1,17 +1,17 @@
-package org.finalframework.spiriter.jdbc.entity;
+package org.ifinal.finalframework.spiriter.jdbc.entity;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.*;
-import org.finalframework.spiriter.jdbc.contants.SchemaConstants;
+import org.ifinal.finalframework.data.annotation.*;
+import org.ifinal.finalframework.spiriter.jdbc.contants.SchemaConstants;
 
 import java.util.Date;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 22:55:26
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Data
 @Schema(SchemaConstants.INFORMATION_SCHEMA)

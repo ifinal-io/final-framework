@@ -4,10 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-boot</artifactId>
-        <groupId>org.finalframework.boot</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>org.ifinal.finalframework.boot</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
     <artifactId>final-boot-autoconfigure</artifactId>
 
@@ -25,16 +26,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-zookeeper</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.finalframework.auto</groupId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
             <artifactId>final-auto-spring</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.finalframework</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-web</artifactId>
             <scope>provided</scope>
         </dependency>

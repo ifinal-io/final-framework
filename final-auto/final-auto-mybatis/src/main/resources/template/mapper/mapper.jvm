@@ -1,7 +1,6 @@
 package $!{packageName};
     #* @formatter:off *#
 import org.apache.ibatis.annotations.Mapper;
-import org.finalframework.mybatis.mapper.AbsMapper;
 import ${entity.name};
 
 import javax.annotation.Generated;
@@ -10,13 +9,13 @@ import javax.annotation.Generated;
 
 #if($inner)
 @Mapper
-@Generated("org.finalframework.auto.mybatis.processor.AutoMapperGeneratorProcessor")
+@Generated("org.ifinal.finalframework.auto.mybatis.processor.AutoMapperGeneratorProcessor")
 interface $!{simpleName} extends AbsMapper<${idJavaType},${entity.simpleName}>{
 
 }
 #else
 @Mapper
-@Generated("org.finalframework.auto.mybatis.processor.AutoMapperGeneratorProcessor")
+@Generated("org.ifinal.finalframework.auto.mybatis.processor.AutoMapperGeneratorProcessor")
 public interface $!{simpleName} extends AbsMapper<${idJavaType},${entity.simpleName}>{
 
 }

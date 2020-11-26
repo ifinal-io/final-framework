@@ -2,11 +2,11 @@
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 13:02:02
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @SpringController
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
-import org.finalframework.auto.spring.factory.annotation.SpringController;
+import org.ifinal.finalframework.auto.spring.factory.annotation.SpringController;

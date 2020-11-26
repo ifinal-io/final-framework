@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.model;
+package org.ifinal.finalframework.spiriter.jdbc.model;
 
 
 import java.sql.ResultSet;
@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 14:22:31
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 public class RowData extends LinkedHashMap<String, Object> {
 

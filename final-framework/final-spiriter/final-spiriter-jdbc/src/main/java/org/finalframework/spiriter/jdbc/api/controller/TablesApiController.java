@@ -1,16 +1,16 @@
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.data.query.Query;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
-import org.finalframework.spiriter.jdbc.dao.mapper.TablesMapper;
-import org.finalframework.spiriter.jdbc.dao.query.QTables;
-import org.finalframework.spiriter.jdbc.entity.Tables;
-import org.finalframework.spiriter.jdbc.query.TablesQuery;
+import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinal.finalframework.spiriter.jdbc.dao.mapper.TablesMapper;
+import org.ifinal.finalframework.spiriter.jdbc.dao.query.QTables;
+import org.ifinal.finalframework.spiriter.jdbc.entity.Tables;
+import org.ifinal.finalframework.spiriter.jdbc.query.TablesQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 23:05:25
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/jdbc/tables")

@@ -1,6 +1,6 @@
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.ifinal.finalframework.spiriter.jdbc.service.impl;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.ifinal.finalframework.spiriter.jdbc.service.DataSourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -14,9 +14,9 @@ import java.util.Map;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 12:37:39
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Service
 public class DataSourceServiceImpl implements DataSourceService, ApplicationContextAware {

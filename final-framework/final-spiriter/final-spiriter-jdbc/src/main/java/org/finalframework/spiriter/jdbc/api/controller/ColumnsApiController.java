@@ -1,11 +1,11 @@
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.data.query.Query;
-import org.finalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
-import org.finalframework.spiriter.jdbc.dao.query.QColumns;
-import org.finalframework.spiriter.jdbc.entity.Columns;
-import org.finalframework.spiriter.jdbc.query.ColumnsQuery;
+import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
+import org.ifinal.finalframework.spiriter.jdbc.dao.query.QColumns;
+import org.ifinal.finalframework.spiriter.jdbc.entity.Columns;
+import org.ifinal.finalframework.spiriter.jdbc.query.ColumnsQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -19,9 +19,9 @@ import java.util.List;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 20:44:42
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/jdbc")

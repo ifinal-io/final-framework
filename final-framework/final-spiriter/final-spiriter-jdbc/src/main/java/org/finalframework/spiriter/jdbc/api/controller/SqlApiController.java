@@ -1,7 +1,7 @@
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
-import org.finalframework.spiriter.jdbc.model.ResultSets;
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.ifinal.finalframework.spiriter.jdbc.model.ResultSets;
+import org.ifinal.finalframework.spiriter.jdbc.service.DataSourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +21,9 @@ import java.util.List;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 15:53:36
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/jdbc")

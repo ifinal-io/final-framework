@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.model;
+package org.ifinal.finalframework.spiriter.jdbc.model;
 
 
 import lombok.Data;
@@ -11,9 +11,9 @@ import java.util.Optional;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 14:16:25
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Data
 public class ResultSets {

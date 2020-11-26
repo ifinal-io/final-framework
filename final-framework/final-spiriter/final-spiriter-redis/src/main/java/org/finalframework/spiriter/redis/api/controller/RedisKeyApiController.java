@@ -1,7 +1,7 @@
-package org.finalframework.spiriter.redis.api.controller;
+package org.ifinal.finalframework.spiriter.redis.api.controller;
 
-import org.finalframework.redis.Redis;
-import org.finalframework.spiriter.redis.api.model.RedisKey;
+import org.ifinal.finalframework.redis.Redis;
+import org.ifinal.finalframework.spiriter.redis.api.model.RedisKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.DataType;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-18 18:28:22
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/redis")

@@ -3,13 +3,10 @@ package ${packageName};
 
 import javax.annotation.Generated;
 
-import org.finalframework.data.query.AbsQEntity;
-import org.finalframework.data.query.QProperty;
-
 import  ${entity.package}.${entity.simpleName};
 
 #parse("/template/parse/header.vm")
-@Generated("org.finalframework.auto.query.processor.AutoQueryGeneratorProcessor")
+@Generated("org.ifinal.finalframework.auto.query.processor.AutoQueryGeneratorProcessor")
 public final class ${simpleName} extends AbsQEntity<${idProperty.type.getQualifiedName().toString().replace("java.lang.","")},${entity.simpleName}>{
 
     public ${simpleName}() {

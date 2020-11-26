@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.dao.mapper;
+package org.ifinal.finalframework.spiriter.jdbc.dao.mapper;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 22:49:45
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Mapper
 public interface CommonMapper {

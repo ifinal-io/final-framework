@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-frameworks</artifactId>
-        <groupId>org.finalframework.frameworks</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <groupId>org.finalframework.example</groupId>
+    <groupId>org.ifinal.finalframework.example</groupId>
     <artifactId>final-example</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <modules>
         <module>final-example-entity</module>
@@ -21,32 +21,46 @@
         <module>final-example-service</module>
     </modules>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
                 <artifactId>final-boot</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.finalframework.example</groupId>
+                <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-entity</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework.example</groupId>
+                <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.finalframework.example</groupId>
+                <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
+
     </dependencyManagement>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

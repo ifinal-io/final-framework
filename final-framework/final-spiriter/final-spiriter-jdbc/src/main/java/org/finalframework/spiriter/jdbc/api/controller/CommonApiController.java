@@ -1,10 +1,10 @@
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinal.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-20 20:44:42
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping("/api/jdbc")

@@ -79,7 +79,7 @@ public class HelloController {
     "timeZone":"Asia/Shanghai",
     "operator":null,
     "view":null,
-    "exception":"org.finalframework.context.exception.ServiceException",
+    "exception":"ServiceException",
     "success":false
 }
 ```  

@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.jdbc.service;
+package org.ifinal.finalframework.spiriter.jdbc.service;
 
 import org.springframework.lang.Nullable;
 
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-19 12:36:07
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 public interface DataSourceService {
 

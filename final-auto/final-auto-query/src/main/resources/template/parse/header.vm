@@ -1,6 +1,5 @@
 /**
 * @author ${user}
 * @version ${version}
-* @date ${date.format("YYYY-MM-dd HH:mm",$created)}
-* @since 1.0
+* @since 1.0.0
 */

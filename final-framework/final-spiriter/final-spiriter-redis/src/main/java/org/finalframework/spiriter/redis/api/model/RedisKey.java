@@ -1,4 +1,4 @@
-package org.finalframework.spiriter.redis.api.model;
+package org.ifinal.finalframework.spiriter.redis.api.model;
 
 
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-18 18:38:34
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @Data
 @AllArgsConstructor

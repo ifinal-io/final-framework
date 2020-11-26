@@ -2,9 +2,8 @@ package com.didi;
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020/9/25 20:28:24
- * @since 1.0
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public class BinSearch {
 

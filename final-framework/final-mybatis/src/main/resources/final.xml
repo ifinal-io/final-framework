@@ -1,11 +1,11 @@
 <final>
     <data>
         <name-converter>
-            <table-converter class="org.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
-            <column-converter class="org.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
+            <table-converter class="org.ifinal.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
+            <column-converter class="org.ifinal.finalframework.data.mapping.converter.CameHump2UnderlineNameConverter"/>
         </name-converter>
         <column-generator>
-            <default class="org.finalframework.mybatis.generator.DefaultColumnGenerator"/>
+            <default class="org.ifinal.finalframework.mybatis.generator.DefaultColumnGenerator"/>
         </column-generator>
     </data>
 </final>

@@ -2,11 +2,11 @@
 
 /**
  * @author likly
- * @version 1.0
- * @date 2020-05-18 18:33:21
- * @since 1.0
+ * @version 1.0.0
+ *
+ * @since 1.0.0
  */
 @SpringController
-package org.finalframework.spiriter.redis.api.controller;
+package org.ifinal.finalframework.spiriter.redis.api.controller;
 
-import org.finalframework.auto.spring.factory.annotation.SpringController;
+import org.ifinal.finalframework.auto.spring.factory.annotation.SpringController;
