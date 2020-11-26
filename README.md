@@ -1,5 +1,6 @@
 # final-frameworks
 
+![BuildStatus](https://github.com/likly/final-frameworks/workflows/CI/badge.svg)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 
