@@ -12,6 +12,10 @@
 
 `final-frameworks`致力于提供简单、灵活且功能强大的`java`开发脚手架。
 
+## Quick Start
+
+* [如何使用CRUD](docs/quick-start/how-to-use-crud.md)
+
 ## 核心内容
 
 * [增强的JSON](docs/json.md)：对日期、枚举等数据类型进行序列化增强，提高`JSON`可读性。
