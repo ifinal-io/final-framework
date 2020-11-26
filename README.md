@@ -1,7 +1,10 @@
 # final-frameworks
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/likly/final-frameworks/CI)
+[![GitHub](https://img.shields.io/github/license/likly/final-frameworks)](http://www.apache.org/licenses/LICENSE-2.0.html)
+![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks)
+[![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)](https://github.com/likly/final-frameworks)
+[![GitHub language count](https://img.shields.io/github/languages/count/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 
-![BuildStatus](https://github.com/likly/final-frameworks/workflows/CI/badge.svg)
-[![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 
 ## 概述
