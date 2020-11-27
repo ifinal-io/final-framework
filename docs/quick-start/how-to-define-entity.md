@@ -9,8 +9,8 @@ menus:
 date: 2020-11-27 12:54:17 +800
 version: 1.0
 ---
-    
-# how-to-define-an-entity
+
+# How to define entity
 
 ## What
 
@@ -29,7 +29,7 @@ version: 1.0
             <artifactId>final-boot-starter-entity</artifactId>
         </dependency>
     </dependencies>
-```    
+```
 
 ### Define Entity Bean
 
@@ -94,3 +94,47 @@ public class Person implements IEntity<Long>{
     private List<String> tags;
 }
 ```
+
+### Declare @Transient Annotation (Optional)
+
+当实体属性(`Field`)不参与数据库列(`Column`)映射时，可使用`@Transient`注解显示声明。
+
+```java
+import lombok.Data;
+
+@Data
+public class Person implements IEntity<Long>{
+    @Transient
+    private String notColumn;
+}
+```
+
+## Annotations
+
+|   @Annotation   |                    说明                    |
+| :-------------: | :----------------------------------------: |
+|    `@Table`     |                  指定表名                  |
+|    `@Column`    |                  指定列名                  |
+|    `@Final`     |                指定不可修改                |
+|   `@Default`    |                指定不需插入                |
+|   `@Keyword`    |                   关键字                   |
+|     `@Json`     |                    Json                    |
+|  `@PrimaryKey`  |                    主键                    |
+|   `@AutoInc`    |                    自增                    |
+|   `@ReadOnly`   |                    只读                    |
+|  `@Transient`   |                  非数据列                  |
+|  `@WriteOnly`   |                    只写                    |
+|   `@Virtual`    |                   虚拟列                   |
+|   `@Version`    | 版本,更新时自动执行`version = version + 1` |
+|   `@Created`    |         创建时间, @Final,@Default          |
+|   `@Creator`    |                创建,@Final                 |
+| `@LastModified` |                末次修改时间                |
+| `@LastModifier` |                 末次修改人                 |
+|                 |                                            |
+|                 |                                            |
+
+
+
+## See Also
+
+* [如何使用CRUD](how-to-use-crud.md)
