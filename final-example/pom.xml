@@ -27,24 +27,24 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.boot</groupId>
                 <artifactId>final-boot</artifactId>
-                <version>${project.version}</version>
+                <version>${final.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-entity</artifactId>
-                <version>${project.version}</version>
+                <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-dao</artifactId>
-                <version>${project.version}</version>
+                <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.example</groupId>
                 <artifactId>final-example-service</artifactId>
-                <version>${project.version}</version>
+                <version>${final.version}</version>
             </dependency>
         </dependencies>
 

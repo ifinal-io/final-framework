@@ -35,12 +35,12 @@
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-mybatis</artifactId>
-            <version>${project.version}</version>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-javapoets</artifactId>
-            <version>${project.version}</version>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>

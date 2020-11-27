@@ -23,12 +23,12 @@
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-data</artifactId>
-            <version>${project.version}</version>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-javapoets</artifactId>
-            <version>${project.version}</version>
+            <version>${final.version}</version>
         </dependency>
     </dependencies>
 
