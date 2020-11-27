@@ -4,7 +4,7 @@ build:
   nodes:
     tests-with-coverage:
       resources:
-        cpus: 8
+        cpus: 4
       tests:
         override:
           - command: mvn clean package
