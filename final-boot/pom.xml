@@ -16,15 +16,16 @@
         <module>final-boot-autoconfigure</module>
         <module>final-boot-starter</module>
         <module>final-boot-starter-entity</module>
+        <module>final-boot-starter-mybatis</module>
+        <module>final-boot-starter-service</module>
+        <module>final-boot-starter-json</module>
         <module>final-boot-starter-data</module>
         <module>final-boot-starter-redis</module>
         <module>final-boot-starter-cache</module>
         <module>final-boot-starter-monitor</module>
-        <module>final-boot-starter-mybatis</module>
         <module>final-boot-starter-web</module>
-        <module>final-boot-starter-json</module>
-        <module>final-boot-starter-dashboard</module>
         <module>final-boot-starter-zookeeper</module>
+        <module>final-boot-starter-dashboard</module>
     </modules>
 
     <dependencyManagement>
@@ -61,6 +62,16 @@
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-mybatis</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-service</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.boot</groupId>
                 <artifactId>final-boot-starter-data</artifactId>
                 <version>${final.version}</version>
             </dependency>
@@ -72,11 +83,6 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.boot</groupId>
                 <artifactId>final-boot-starter-cache</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-mybatis</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

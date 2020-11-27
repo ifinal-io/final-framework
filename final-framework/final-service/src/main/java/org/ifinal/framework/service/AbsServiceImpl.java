@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.data.service;
+package org.ifinal.framework.service;
 
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.data.repository.Repository;

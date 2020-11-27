@@ -28,13 +28,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--            <dependency>-->
-            <!--                <groupId>org.ifinal.finalframework</groupId>-->
-            <!--                <artifactId>final-framework</artifactId>-->
-            <!--                <version>${final.version}</version>-->
-            <!--                <type>pom</type>-->
-            <!--                <scope>import</scope>-->
-            <!--            </dependency>-->
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-auto ============================================= -->
             <!-- ==================================================================================================== -->

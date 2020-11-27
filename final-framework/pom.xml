@@ -36,6 +36,7 @@
         <module>final-dashboard</module>
         <module>final-dashboard-ui</module>
         <module>final-devops</module>
+        <module>final-service</module>
     </modules>
 
     <dependencyManagement>
@@ -99,6 +100,11 @@
             <dependency>
                 <groupId>org.ifinal.finalframework</groupId>
                 <artifactId>final-data</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-service</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

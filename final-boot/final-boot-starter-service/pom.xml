@@ -3,28 +3,22 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>final-example</artifactId>
-        <groupId>org.ifinal.finalframework.example</groupId>
+        <artifactId>final-boot</artifactId>
+        <groupId>org.ifinal.finalframework.boot</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-example-service</artifactId>
-
+    <artifactId>final-boot-starter-service</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.example</groupId>
-            <artifactId>final-example-dao</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot-starter-service</artifactId>
+            <artifactId>final-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-service</artifactId>
-            <optional>true</optional>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-service</artifactId>
         </dependency>
     </dependencies>
 
