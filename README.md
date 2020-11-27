@@ -8,14 +8,15 @@
 
 
 
-## 概述
+## What
 
 `final-frameworks`致力于提供简单、灵活且功能强大的`java`开发脚手架。
 
 ## Quick Start
 
-* [如何定义实体](docs/quick-start/how-to-define-entity.md)
-* [如何使用CRUD](docs/quick-start/how-to-use-crud.md)
+* [Define Entity with Annotation](docs/quick-start/define-entity-with-annotation)：使用`@Annotation`定义实体。
+* [Operating CRUD with Mapper](docs/quick-start/operating-crud-with-mapper.md)：使用`Mapper`操作`CRUD`。
+* [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。
 
 ## 核心内容
 
