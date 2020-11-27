@@ -3,8 +3,6 @@ build:
     java: 'java-8-oracle'
   nodes:
     tests-with-coverage:
-      resources:
-        cpus: 4
       tests:
         override:
           - command: mvn clean package
