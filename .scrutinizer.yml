@@ -2,7 +2,8 @@ build:
   environment:
     java: 'java-8-oracle'
   nodes:
-    tests-with-coverage:
+    tests: false
+    coverage:
       tests:
         override:
           - command: mvn clean package
