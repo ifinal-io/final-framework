@@ -14,6 +14,7 @@
 
 ## Quick Start
 
+* [如何定义一个实体](docs/quick-start/how-to-define-an-entity.md)
 * [如何使用CRUD](docs/quick-start/how-to-use-crud.md)
 
 ## 核心内容
