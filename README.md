@@ -4,6 +4,7 @@
 [![GitHub](https://img.shields.io/github/license/likly/final-frameworks)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
 [![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)](https://github.com/likly/final-frameworks)
+[![GitHub top language](https://img.shields.io/github/languages/top/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 [![GitHub language count](https://img.shields.io/github/languages/count/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 
 
