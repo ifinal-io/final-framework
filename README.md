@@ -1,7 +1,5 @@
 # final-frameworks
 
-------------------------------------------------------------------------------------------------------------------------
-
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/likly/final-frameworks/CI)](https://github.com/likly/final-frameworks/actions?query=workflow%3ACI)
 [![GitHub](https://img.shields.io/github/license/likly/final-frameworks)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
@@ -18,6 +16,7 @@
 
 * [Define Entity with Annotation](docs/quick-start/define-entity-with-annotation)：使用`@Annotation`定义实体。
 * [Operating CRUD with Mapper](docs/quick-start/operating-crud-with-mapper.md)：使用`Mapper`操作`CRUD`。
+* [Query base on Annotation](docs/quick-start/query-base-on-annotation.md): 使用基于`@Annotation`的`Query`。
 * [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。
 
 ## 核心内容
