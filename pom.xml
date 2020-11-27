@@ -67,7 +67,8 @@
         <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
 
         <!--CI-->
-<!--        <sonar.projectKey>likly_final-frameworks</sonar.projectKey>-->
+        <sonar.projectKey>likly_final-frameworks</sonar.projectKey>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>likly</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
