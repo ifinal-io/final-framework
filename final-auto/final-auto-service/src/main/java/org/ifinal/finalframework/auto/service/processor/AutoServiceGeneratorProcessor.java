@@ -5,8 +5,8 @@ import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
-import org.ifinal.framework.service.AbsService;
-import org.ifinal.framework.service.AbsServiceImpl;
+import org.ifinal.finalframework.service.AbsService;
+import org.ifinal.finalframework.service.AbsServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.processing.AbstractProcessor;

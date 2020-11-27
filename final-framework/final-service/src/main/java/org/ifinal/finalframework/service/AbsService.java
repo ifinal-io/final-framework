@@ -1,4 +1,4 @@
-package org.ifinal.framework.service;
+package org.ifinal.finalframework.service;
 
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.annotation.IQuery;
