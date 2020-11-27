@@ -7,7 +7,7 @@ build:
         override:
           - command: mvn clean package
             coverage:
-              file: '/'
+              file: '[/]'
               format: 'jacoco'
 checks:
   java: true

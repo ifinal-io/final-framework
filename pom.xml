@@ -65,6 +65,11 @@
         <velocity.core.version>2.1</velocity.core.version>
         <velocity.tool.version>3.0</velocity.tool.version>
         <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
+
+        <!--CI-->
+        <sonar.projectKey>likly_final-frameworks</sonar.projectKey>
+        <sonar.organization>likly</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <profiles>
