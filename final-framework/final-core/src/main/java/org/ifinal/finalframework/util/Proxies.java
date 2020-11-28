@@ -9,6 +9,7 @@ import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -56,11 +57,15 @@ public final class Proxies {
         if (JDK_DYNAMIC_AOP_PROXY.equals(target.getClass().getCanonicalName())) {
             try {
                 final Field advisedField = ReflectionUtils.findField(target.getClass(), "advised");
-                advisedField.setAccessible(true);
-                Object advised = advisedField.get(target);
+                Objects.requireNonNull(advisedField, "");
+                ReflectionUtils.makeAccessible(advisedField);
+                Object advised = ReflectionUtils.getField(advisedField, target);
+                Objects.requireNonNull(advised, "");
                 final Field targetSourceField = ReflectionUtils.findField(advised.getClass(), "targetSource");
-                targetSourceField.setAccessible(true);
-                final TargetSource targetSource = (TargetSource) targetSourceField.get(advised);
+                Objects.requireNonNull(targetSourceField, "");
+                ReflectionUtils.makeAccessible(targetSourceField);
+                final TargetSource targetSource = (TargetSource) ReflectionUtils.getField(targetSourceField, advised);
+                Objects.requireNonNull(targetSource, "");
                 return target(targetSource.getTarget());
             } catch (Exception e) {
                 logger.error("parse JDK AOP PROXY target error: {}", target.getClass(), e);
@@ -76,8 +81,9 @@ public final class Proxies {
         if (MAPPER_PROXY.equals(targetClass.getCanonicalName())) {
             try {
                 final Field mapperInterface = ReflectionUtils.findField(targetClass, "mapperInterface");
-                mapperInterface.setAccessible(true);
-                return (Class<?>) mapperInterface.get(target);
+                Objects.requireNonNull(mapperInterface, "");
+                ReflectionUtils.makeAccessible(mapperInterface);
+                return (Class<?>) ReflectionUtils.getField(mapperInterface, target);
             } catch (Exception e) {
                 // ignore
             }

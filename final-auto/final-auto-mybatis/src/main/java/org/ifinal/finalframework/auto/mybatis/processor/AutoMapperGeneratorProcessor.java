@@ -71,13 +71,11 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
                 .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + Optional.ofNullable(mapperPath).orElse(DEFAULT_MAPPER_PATH));
         String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
-        String absMapperName = MAPPER_PREFIX + mapperName;
-        boolean inner = false;
         generator(
                 Mapper.builder()
                         .packageName(packageName)
-                        .simpleName(inner ? absMapperName : mapperName)
-                        .inner(inner)
+                        .simpleName(mapperName)
+                        .inner(false)
                         .entity(EntityFactory.create(processingEnv, entity))
                         .build()
         );

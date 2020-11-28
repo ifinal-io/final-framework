@@ -153,6 +153,7 @@ public final class SqlProviderHelper {
 
     public static String sql(Class<? extends AbsMapper> mapper, String method, Map<String, Object> parameters) {
         Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
+        Objects.requireNonNull(sqlMethod, String.format("not found method of %s in %s", method, mapper));
         final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper, sqlMethod);
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
         return boundSql.getSql();

@@ -72,6 +72,7 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
                     Thread.sleep(sleep);
                 } catch (InterruptedException e) {
                     logger.error("retry sleep error,key={},value={}", key, value, e);
+                    Thread.currentThread().interrupt();
                 }
             }
 

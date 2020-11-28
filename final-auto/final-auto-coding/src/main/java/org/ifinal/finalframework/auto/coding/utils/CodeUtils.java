@@ -32,8 +32,7 @@ public class CodeUtils {
         return ElementFilter.fieldsIn(clazz.getEnclosedElements())
                 .stream()
                 .filter(it -> it.getSimpleName().toString().contains(fieldName))
-                .findFirst()
-                .get();
+                .findFirst().orElse(null);
     }
 
     public static List<VariableElement> fields(TypeElement element) {

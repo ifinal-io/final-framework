@@ -2,11 +2,12 @@ package org.ifinal.finalframework.aop.interceptor;
 
 
 import org.ifinal.finalframework.aop.*;
-import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,12 +29,14 @@ public class OperationInvocationSupport {
     protected List<OperationContext<Operation>> getOperationContexts(Object target, Method method, Object[] args) {
         final Class<?> targetClass = getTargetClass(target);
         final Collection<? extends Operation> operations = configuration.getOperationSource().getOperations(method, targetClass);
-        if (Asserts.nonEmpty(operations)) {
-            return operations.stream()
-                    .map(operation -> getOperationContext(operation, method, args, target, targetClass))
-                    .collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(operations)) {
+            return Collections.emptyList();
         }
-        return null;
+
+        return operations.stream()
+                .map(operation -> getOperationContext(operation, method, args, target, targetClass))
+                .collect(Collectors.toList());
     }
 
     private OperationContext<Operation> getOperationContext(Operation operation, Method method, Object[] args, Object target, Class<?> targetClass) {
@@ -43,12 +46,7 @@ public class OperationInvocationSupport {
 
     private OperationMetadata<Operation> getOperationMetadata(Operation operation, Method method, Class<?> targetClass) {
         final OperationCacheKey<Operation> cacheKey = new OperationCacheKey<>(operation, method, targetClass);
-        OperationMetadata<Operation> metadata = this.metadataCache.get(cacheKey);
-        if (metadata == null) {
-            metadata = new OperationMetadata<>(operation, method, targetClass);
-            this.metadataCache.put(cacheKey, metadata);
-        }
-        return metadata;
+        return this.metadataCache.computeIfAbsent(cacheKey, key -> new OperationMetadata<>(operation, method, targetClass));
     }
 
     private Class<?> getTargetClass(Object target) {

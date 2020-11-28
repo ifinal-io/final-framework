@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConv
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,9 +90,13 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
             for (HandlerMethodReturnValueHandler returnValueHandler : defualtReturnValueHandlers) {
                 if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {
-                    Field messageConverters = ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters");
-                    messageConverters.setAccessible(true);
-                    ReflectionUtils.setField(messageConverters, returnValueHandler, adapter.getMessageConverters());
+
+                    Optional.ofNullable(ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters"))
+                            .ifPresent(field -> {
+                                field.setAccessible(true);
+                                ReflectionUtils.setField(field, returnValueHandler, adapter.getMessageConverters());
+
+                            });
                 }
                 returnValueHandlers.add(returnValueHandler);
             }
