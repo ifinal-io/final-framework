@@ -19,7 +19,7 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class CacheDelOperation implements Operation {
-    private static final String DELIMITER = ":";
+    private static final String DEFAULT_DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
     private final Collection<String> field;
@@ -35,7 +35,7 @@ public class CacheDelOperation implements Operation {
         this.name = Asserts.isBlank(builder.name) ? CacheDelOperation.class.getSimpleName() : builder.name;
         this.key = Asserts.isEmpty(builder.key) ? null : builder.key;
         this.field = Asserts.isEmpty(builder.field) ? null : builder.field;
-        this.delimiter = Asserts.isEmpty(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.delimiter = Asserts.isEmpty(builder.delimiter) ? DEFAULT_DELIMITER : builder.delimiter;
         this.condition = Asserts.isEmpty(builder.condition) ? null : builder.condition;
         this.cutPoint = builder.cutPoint;
         this.retry = Asserts.nonNull(builder.retry) && builder.retry > 1 ? builder.retry : null;

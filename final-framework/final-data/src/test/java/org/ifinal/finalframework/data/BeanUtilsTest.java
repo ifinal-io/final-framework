@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.data;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 
@@ -9,37 +10,19 @@ import org.springframework.beans.BeanUtils;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BeanUtilsTest {
+class BeanUtilsTest {
 
-    public Boolean tag;
-    private boolean isTag;
-
-    public Boolean getTag() {
-        return tag;
-    }
-
-    public boolean isTag() {
-        return isTag;
-    }
-
-    public void setTag(Boolean tag) {
-        this.tag = tag;
-    }
-
-    public void setTag(boolean tag) {
-        isTag = tag;
-    }
 
     @Test
-    public void test() {
+    void test() {
         final Source source = new Source();
         source.setTag(true);
         final Target target = new Target();
         BeanUtils.copyProperties(source, target);
-        System.out.println(target.getTag());
+        Assertions.assertEquals(true, target.getTag());
     }
 
-    public static class Source {
+    static class Source {
         private boolean isTag;
 
         public boolean isTag() {
@@ -51,7 +34,7 @@ public class BeanUtilsTest {
         }
     }
 
-    public static class Target {
+    static class Target {
         private Boolean tag;
 
         public Boolean getTag() {

@@ -25,22 +25,21 @@ import org.junit.jupiter.api.Test;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DateFormattersTest {
+class DateFormattersTest {
 
-    private DateFormatters dateFormatters = DateFormatters.DEFAULT;
+   private DateFormatters dateFormatters = DateFormatters.DEFAULT;
 
-    @Test
-    @SuppressWarnings("all")
-    public void parse() {
-        String YYYY_MM_DD_HH_MM_SS = "2019-02-14 12:13:14";
-        Assertions.assertEquals(YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(YYYY_MM_DD_HH_MM_SS)));
-        String YYYY_MM_DD = "2019-02-14";
-        Assertions.assertEquals(YYYY_MM_DD, DateFormatter.YYYY_MM_DD.format(dateFormatters.parse(YYYY_MM_DD)));
+   @Test
+   void parse() {
+      String YYYY_MM_DD_HH_MM_SS = "2019-02-14 12:13:14";
+      Assertions.assertEquals(YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(YYYY_MM_DD_HH_MM_SS)));
+      String YYYY_MM_DD = "2019-02-14";
+      Assertions.assertEquals(YYYY_MM_DD, DateFormatter.YYYY_MM_DD.format(dateFormatters.parse(YYYY_MM_DD)));
 
-        String YYYY__MM__DD_HH_MM_SS = "2019/02/14 12:13:14";
-        Assertions.assertEquals(YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD_HH_MM_SS.format(dateFormatters.parse(YYYY__MM__DD_HH_MM_SS)));
-        String YYYY__MM__DD = "2019/02/14";
-        Assertions.assertEquals(YYYY__MM__DD, DateFormatter.YYYY__MM__DD.format(dateFormatters.parse(YYYY__MM__DD)));
+      String YYYY__MM__DD_HH_MM_SS = "2019/02/14 12:13:14";
+      Assertions.assertEquals(YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD_HH_MM_SS.format(dateFormatters.parse(YYYY__MM__DD_HH_MM_SS)));
+      String YYYY__MM__DD = "2019/02/14";
+      Assertions.assertEquals(YYYY__MM__DD, DateFormatter.YYYY__MM__DD.format(dateFormatters.parse(YYYY__MM__DD)));
 
         String YYYYMMDD_HH_MM_SS = "20190214 12:13:14";
         Assertions.assertEquals(YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(YYYYMMDD_HH_MM_SS)));

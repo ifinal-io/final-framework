@@ -11,6 +11,7 @@ import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.data.query.criterion.CriterionValue;
 import org.ifinal.finalframework.data.query.criterion.function.SimpleCriterionFunction;
 import org.ifinal.finalframework.data.query.operation.DateOperation;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,6 @@ class QueryTest {
         final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
-        QProperty<Integer> intList = entity.getProperty("intList");
 
         final Query query = new Query();
         query.where(
@@ -74,6 +74,8 @@ class QueryTest {
         for (ParameterMapping parameterMapping : boundSql.getParameterMappings()) {
             logger.info("Parameter ==> {}={}", parameterMapping.getProperty(), OgnlCache.getValue(parameterMapping.getProperty(), parameter));
         }
+
+        Assertions.assertNotNull(boundSql.getSql());
 
 
     }

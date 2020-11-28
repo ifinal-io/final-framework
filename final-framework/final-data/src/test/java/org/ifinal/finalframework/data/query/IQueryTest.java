@@ -13,6 +13,7 @@ import org.ifinal.finalframework.annotation.query.Equal;
 import org.ifinal.finalframework.annotation.query.Or;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,6 @@ class IQueryTest {
         final Document document = script.getNode().getOwnerDocument();
 
         final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
-        QProperty<String> name = entity.getProperty("name");
-        QProperty<Integer> age = entity.getProperty("age");
-
 
         final QueryEntityQuery query = new QueryEntityQuery();
 
@@ -80,6 +78,8 @@ class IQueryTest {
         for (ParameterMapping parameterMapping : boundSql.getParameterMappings()) {
             logger.info("Parameter ==> {}={}", parameterMapping.getProperty(), OgnlCache.getValue(parameterMapping.getProperty(), parameter));
         }
+
+        Assertions.assertNotNull(boundSql.getSql());
 
 
     }

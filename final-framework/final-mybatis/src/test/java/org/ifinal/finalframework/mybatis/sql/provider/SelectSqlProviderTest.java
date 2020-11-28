@@ -7,6 +7,7 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.annotation.IQuery;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -48,5 +49,6 @@ class SelectSqlProviderTest {
 
         final String sql = boundSql.getSql();
         logger.info(sql);
+        Assertions.assertNotNull(sql);
     }
 }

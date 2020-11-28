@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,8 @@ class LimitTest {
         Limit.limit(20L, 20L).apply(builder, "query.limit");
 
         logger.info(builder.toString());
+
+        Assertions.assertNotNull(builder.toString());
 
     }
 }

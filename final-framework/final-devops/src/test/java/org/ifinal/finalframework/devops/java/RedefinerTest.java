@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.devops.java;
 
 import org.ifinal.finalframework.devops.java.compiler.Main;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -29,7 +31,7 @@ class RedefinerTest {
                 "public class Main {\n" +
                 "\n" +
                 "    public String hello() {\n" +
-                "        return \"hello fefe\";\n" +
+                "        return \"hello world\";\n" +
                 "    }\n" +
                 "}\n");
 
@@ -39,7 +41,8 @@ class RedefinerTest {
         System.out.println(Main.class.equals(clazz));
 
         Method hello = ReflectionUtils.findMethod(clazz, "hello");
-        System.out.println(ReflectionUtils.invokeMethod(hello, clazz.newInstance()));
+        Objects.requireNonNull(hello);
+        Assertions.assertEquals("hello world", ReflectionUtils.invokeMethod(hello, clazz.newInstance()));
 
     }
 

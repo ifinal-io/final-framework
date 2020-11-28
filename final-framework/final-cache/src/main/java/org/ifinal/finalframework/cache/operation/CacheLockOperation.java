@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CacheLockOperation implements Operation {
-    private static final String DELIMITER = ":";
+    private static final String DEFAULT_DELIMITER = ":";
     private final String name;
     private final Collection<String> key;
     private final String value;
@@ -41,7 +41,7 @@ public class CacheLockOperation implements Operation {
         this.name = Asserts.isBlank(builder.name) ? CacheLockOperation.class.getSimpleName() : builder.name;
         this.key = Asserts.isEmpty(builder.key) ? null : builder.key;
         this.value = Asserts.isBlank(builder.value) ? null : builder.value;
-        this.delimiter = Asserts.isBlank(builder.delimiter) ? DELIMITER : builder.delimiter;
+        this.delimiter = Asserts.isBlank(builder.delimiter) ? DEFAULT_DELIMITER : builder.delimiter;
         this.condition = Asserts.isBlank(builder.condition) ? null : builder.condition;
         this.order = builder.order;
         this.expire = Asserts.isBlank(builder.expire) ? null : builder.expire;

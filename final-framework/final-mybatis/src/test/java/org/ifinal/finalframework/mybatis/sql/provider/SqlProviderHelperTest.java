@@ -7,7 +7,7 @@ import org.ifinal.finalframework.annotation.IQuery;
 import org.ifinal.finalframework.annotation.data.AutoInc;
 import org.ifinal.finalframework.annotation.data.PrimaryKey;
 import org.ifinal.finalframework.annotation.query.*;
-import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -29,6 +29,9 @@ class SqlProviderHelperTest {
 //        query.setB(new BetweenValue<>("minB", "maxB"));
 //        query.setC(Arrays.asList("c1", "c2", "c3"));
         query.setAa("aa");
+        logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
+        logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
+        Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
     @Test
@@ -39,6 +42,7 @@ class SqlProviderHelperTest {
         query.setC(Arrays.asList("c1", "c2", "c3"));
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
+        Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
     @Test
@@ -51,6 +55,8 @@ class SqlProviderHelperTest {
         query.setInnerQuery(innerQuery);
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
+        Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
+
     }
 
     @Test
@@ -63,11 +69,9 @@ class SqlProviderHelperTest {
         query.setInnerQuery(innerQuery);
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
+        Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
-    static interface BeanMapper extends AbsMapper<Long, Bean> {
-
-    }
 
     @Data
     static class Bean implements IEntity<Long> {
