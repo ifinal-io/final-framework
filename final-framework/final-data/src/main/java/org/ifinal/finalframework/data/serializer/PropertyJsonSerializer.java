@@ -8,6 +8,7 @@ import org.ifinal.finalframework.annotation.data.Json;
 import org.ifinal.finalframework.data.mapping.Property;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -22,13 +23,17 @@ public class PropertyJsonSerializer extends JsonSerializer<Property> {
         gen.writeStringField("name", property.getName());
         gen.writeStringField("column", property.getColumn());
         gen.writeStringField("type", property.getType().getCanonicalName());
-//        gen.writeStringField("javaType", property.getJavaType().getCanonicalName());
 
+        Class<?> componentType = property.getComponentType();
         if (property.isMap()) {
-            gen.writeStringField("keyType", property.getComponentType().getCanonicalName());
-            gen.writeStringField("valueType", property.getMapValueType().getCanonicalName());
+            Objects.requireNonNull(componentType, "Map key type is null");
+            Class<?> mapValueType = property.getMapValueType();
+            Objects.requireNonNull(mapValueType, "Map value type is null");
+            gen.writeStringField("keyType", componentType.getCanonicalName());
+            gen.writeStringField("valueType", mapValueType.getCanonicalName());
         } else if (property.isCollectionLike()) {
-            gen.writeStringField("elementType", property.getComponentType().getCanonicalName());
+            Objects.requireNonNull(componentType, "Map key type is null");
+            gen.writeStringField("elementType", componentType.getCanonicalName());
         }
 
         gen.writeFieldName("properties");

@@ -31,8 +31,7 @@ import java.util.stream.Stream;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public final class Primaries implements Streamable<Class>, Iterable<Class> {
+public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>> {
 
     public static final Primaries BYTE = new Primaries(byte.class, Byte.class);
     public static final Primaries CHAR = new Primaries(char.class, Character.class);
@@ -56,7 +55,7 @@ public final class Primaries implements Streamable<Class>, Iterable<Class> {
             int.class, Integer.class, long.class, Long.class,
             float.class, Float.class, double.class, Double.class,
             String.class, Class.class);
-    private final Set<Class> types = new HashSet<>();
+    private final Set<Class<?>> types = new HashSet<>();
 
     private Primaries(Class<?>... classes) {
         this.types.addAll(Arrays.asList(classes));
@@ -94,7 +93,7 @@ public final class Primaries implements Streamable<Class>, Iterable<Class> {
         return DOUBLE.types.contains(clazz);
     }
 
-    public static boolean isString(Class clazz) {
+    public static boolean isString(Class<?> clazz) {
         return STRING.types.contains(clazz);
     }
 
@@ -103,12 +102,12 @@ public final class Primaries implements Streamable<Class>, Iterable<Class> {
     }
 
     @Override
-    public Stream<Class> stream() {
+    public Stream<Class<?>> stream() {
         return types.stream();
     }
 
     @Override
-    public Iterator<Class> iterator() {
+    public Iterator<Class<?>> iterator() {
         return types.iterator();
     }
 }

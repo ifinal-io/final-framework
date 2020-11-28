@@ -5,7 +5,6 @@ import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.springframework.lang.NonNull;
 
-import java.io.Serializable;
 import java.lang.reflect.Array;
 
 /**
@@ -13,7 +12,7 @@ import java.lang.reflect.Array;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BaseCriterion implements Serializable {
+public class BaseCriterion {
 
     protected void applyValueCriterion(@NonNull StringBuilder sql, Object value, String prefix, String suffix, String expression) {
 

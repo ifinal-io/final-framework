@@ -27,13 +27,14 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
         this.path = path;
     }
 
+    @SuppressWarnings("unused")
     public String getCriterionTarget() {
         return CriterionTarget.from(target).toString();
     }
 
     public String getCriterionValue() {
-        final String value = this.value instanceof CriterionValue ? "criterion.value.value" : "criterion.value";
-        return ((CriterionValueImpl) CriterionValue.from(this.value)).getSqlExpression(value);
+        final String criterionValue = this.value instanceof CriterionValue ? "criterion.value.value" : "criterion.value";
+        return ((CriterionValueImpl<?>) CriterionValue.from(this.value)).getSqlExpression(criterionValue);
     }
 
     /**
@@ -49,8 +50,8 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
      *     </code>
      * </pre>
      *
-     * @param sql
-     * @param expression
+     * @param sql sql
+     * @param expression expression
      */
 
     @Override
@@ -91,7 +92,7 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
         } else if (JsonOperation.NOT_JSON_CONTAINS == operation) {
             return String.format("!JSON_CONTAINS(%s,%s,'%s')", CriterionValue.from(getTarget()), CriterionValue.from(getValue()), path);
         }
-        return null;
+        throw new UnsupportedOperationException(operation.name());
     }
 }
 

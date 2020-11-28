@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.devops.java;
 
+import lombok.extern.slf4j.Slf4j;
 import org.benf.cfr.reader.api.CfrDriver;
 import org.benf.cfr.reader.api.OutputSinkFactory;
 import org.ifinal.finalframework.util.Asserts;
@@ -13,6 +14,7 @@ import java.util.*;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 public final class Decompiler {
     private Decompiler() {
     }
@@ -20,14 +22,15 @@ public final class Decompiler {
     public static String decompile(Class<?> clazz, String methodName) {
         Instrumentation instrumentation = Instrumentations.get();
 
-        HashSet<Class<?>> classes = new HashSet<>(Arrays.asList(clazz));
+        HashSet<Class<?>> classes = new HashSet<>(Collections.singletonList(clazz));
         ClassDumpTransformer transformer = new ClassDumpTransformer(classes, new File(ClassLoader.getSystemClassLoader().getResource(".").getPath()));
         Instrumentations.retransformClasses(instrumentation, transformer, classes);
         Map<Class<?>, File> dumpResult = transformer.getDumpResult();
         File file = dumpResult.get(clazz);
         String absolutePath = file.getAbsolutePath();
         String decompile = decompile(absolutePath, methodName);
-        file.delete();
+        boolean delete = file.delete();
+        logger.info("delete decompile file {} {}", file.getName(), delete);
         return decompile;
     }
 

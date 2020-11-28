@@ -23,7 +23,7 @@ public class DefaultMonitorOperationExpressionEvaluator extends BaseOperationExp
 
     @Override
     public String name(String nameExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
-        return getExpression(this.nameCache, methodKey, nameExpression).getValue(evaluationContext).toString();
+        return String.valueOf(getExpression(this.nameCache, methodKey, nameExpression).getValue(evaluationContext));
     }
 
     @Override

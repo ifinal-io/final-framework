@@ -8,15 +8,15 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DateTimeFormatterContext {
-    private static final DateTimeFormatter DEFAULT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+public final class DateTimeFormatterContext {
     private static final ThreadLocal<DateTimeFormatter> dateTimeFormatter = new ThreadLocal<>();
     private static final ThreadLocal<ZoneOffset> zoneOffset = new ThreadLocal<>();
 
+    private DateTimeFormatterContext() {
+    }
+
     public static DateTimeFormatter getDateTimeFormatter() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatterContext.dateTimeFormatter.get();
-//        return dateTimeFormatter == null ? DEFAULT_DATE_FORMATTER : dateTimeFormatter;
-        return dateTimeFormatter;
+        return DateTimeFormatterContext.dateTimeFormatter.get();
     }
 
     public static void setDateTimeFormatter(DateTimeFormatter formatter) {
@@ -29,6 +29,12 @@ public class DateTimeFormatterContext {
 
     public static void setZoneOffset(ZoneOffset zoneOffset) {
         DateTimeFormatterContext.zoneOffset.set(zoneOffset);
+    }
+
+
+    public static void clear() {
+        dateTimeFormatter.remove();
+        zoneOffset.remove();
     }
 
 }

@@ -20,12 +20,15 @@ import java.util.Set;
  * @since 1.0.0
  */
 public class ClassDumpTransformer implements ClassFileTransformer {
+
     private static final Logger logger = LoggerFactory.getLogger(ClassDumpTransformer.class);
 
-    private Set<Class<?>> classesToEnhance;
-    private Map<Class<?>, File> dumpResult;
+    private static final String CLASS_DUMP_DIR = "classdump";
 
-    private File directory;
+    private final Set<Class<?>> classesToEnhance;
+    private final Map<Class<?>, File> dumpResult;
+
+    private final File directory;
 
     public ClassDumpTransformer(Set<Class<?>> classesToEnhance) {
         this(classesToEnhance, null);
@@ -33,7 +36,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
     public ClassDumpTransformer(Set<Class<?>> classesToEnhance, File directory) {
         this.classesToEnhance = classesToEnhance;
-        this.dumpResult = new HashMap<Class<?>, File>();
+        this.dumpResult = new HashMap<>();
         this.directory = directory;
     }
 
@@ -54,14 +57,13 @@ public class ClassDumpTransformer implements ClassFileTransformer {
     private void dumpClassIfNecessary(Class<?> clazz, byte[] data) {
         String className = clazz.getName();
         ClassLoader classLoader = clazz.getClassLoader();
-        String classDumpDir = "classdump";
 
         // 创建类所在的包路径
         File dumpDir = null;
         if (directory != null) {
             dumpDir = directory;
         } else {
-            dumpDir = new File(classDumpDir);
+            dumpDir = new File(CLASS_DUMP_DIR);
         }
         if (!dumpDir.mkdirs() && !dumpDir.exists()) {
             logger.warn("create dump directory:{} failed.", dumpDir.getAbsolutePath());
@@ -84,7 +86,8 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
 
         if (dumpClassFile.exists()) {
-            dumpClassFile.delete();
+            boolean delete = dumpClassFile.delete();
+            logger.info("delete file {} {}", dumpClassFile.getName(), delete);
         }
 
 
