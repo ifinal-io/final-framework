@@ -16,6 +16,7 @@
  */
 package org.ifinal.finalframework;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -29,6 +30,7 @@ import java.util.function.BiConsumer;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 public class Configuration {
     private static final String PROPERTIES_PATH = "final.properties";
     private static Configuration INSTANCE = new Configuration();
@@ -44,7 +46,7 @@ public class Configuration {
                 properties.load(resource.getInputStream());
                 isConfiguration = true;
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("load final.properties error: {}", e.getMessage(), e);
             }
         } else {
             isConfiguration = false;

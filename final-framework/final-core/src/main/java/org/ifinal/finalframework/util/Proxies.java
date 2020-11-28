@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.util;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
@@ -14,6 +15,7 @@ import java.lang.reflect.Proxy;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 public final class Proxies {
 
     /**
@@ -61,7 +63,7 @@ public final class Proxies {
                 final TargetSource targetSource = (TargetSource) targetSourceField.get(advised);
                 return target(targetSource.getTarget());
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("parse JDK AOP PROXY target error: {}", target.getClass(), e);
             }
         }
 

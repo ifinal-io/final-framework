@@ -136,7 +136,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
         }
     }
 

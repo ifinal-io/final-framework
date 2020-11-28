@@ -100,7 +100,7 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            error(e.getMessage());
         }
     }
 

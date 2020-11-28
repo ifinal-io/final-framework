@@ -2,10 +2,7 @@ package org.ifinal.finalframework.dashboard.zookeeper.controller.api;
 
 import org.ifinal.finalframework.zookeeper.service.ZookeeperService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,7 +20,7 @@ public class ZookeeperApiController {
     @Resource
     private ZookeeperService zookeeperService;
 
-    @RequestMapping("/ls")
+    @GetMapping("/ls")
     public List<String> ls(@RequestParam(value = "path", required = false, defaultValue = "/") String path) {
         return zookeeperService.getChildren(path);
     }

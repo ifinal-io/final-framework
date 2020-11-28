@@ -65,7 +65,6 @@ public class VelocityCoder implements Coder {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
