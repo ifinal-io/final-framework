@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
 import org.ifinal.finalframework.annotation.query.Direction;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -26,7 +27,7 @@ public interface Order extends SqlNode {
     Direction getDirection();
 
     @Override
-    default void apply(StringBuilder sql, String value) {
+    default void apply(@NonNull StringBuilder sql, @NonNull String value) {
         sql.append(String.format("%s %s,", getProperty().getColumn(), getDirection()));
     }
 }

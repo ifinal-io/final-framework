@@ -5,6 +5,7 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @Component
-public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<String, Object>>> {
+public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<String, Object>>>, Serializable {
 
     private final Map<Class<?>, EnumConverter<?>> enumConverterMap = new HashMap<>();
 
@@ -37,6 +38,7 @@ public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<Stri
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> convert(Class<Enum<?>> source) {
         EnumConverter<?> converter = enumConverterMap.get(source);
 

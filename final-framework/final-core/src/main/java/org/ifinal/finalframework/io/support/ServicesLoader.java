@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.io.support;
 
 
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -68,24 +69,7 @@ public final class ServicesLoader {
                         ClassLoader.getSystemResources(propertiesResourceLocation));
                 while (urls.hasMoreElements()) {
                     URL url = urls.nextElement();
-                    UrlResource resource = new UrlResource(url);
-
-
-                    try (BufferedReader r = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
-                        String line;
-                        while ((line = r.readLine()) != null) {
-                            int commentStart = line.indexOf('#');
-                            if (commentStart >= 0) {
-                                line = line.substring(0, commentStart);
-                            }
-                            line = line.trim();
-                            if (!line.isEmpty()) {
-                                services.add(line);
-                            }
-                        }
-                    }
-
-
+                    services.addAll(readFromResource(new UrlResource(url)));
                 }
                 cache.put(classLoader, result);
             } catch (IOException ex) {
@@ -97,5 +81,26 @@ public final class ServicesLoader {
         });
 
     }
+
+    private static List<String> readFromResource(Resource resource) throws IOException {
+        final List<String> services = new ArrayList<>();
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = r.readLine()) != null) {
+                int commentStart = line.indexOf('#');
+                if (commentStart >= 0) {
+                    line = line.substring(0, commentStart);
+                }
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    services.add(line);
+                }
+            }
+        }
+
+        return services;
+
+    }
+
 }
 

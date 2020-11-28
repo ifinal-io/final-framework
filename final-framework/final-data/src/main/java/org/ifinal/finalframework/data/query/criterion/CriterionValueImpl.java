@@ -7,16 +7,13 @@ import org.ifinal.finalframework.annotation.data.SqlKeyWords;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.util.Asserts;
 
-import java.io.Serializable;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 @Data
-class CriterionValueImpl<T> implements CriterionValue<T>, Serializable {
-    private static final long serialVersionUID = -5904183635896162713L;
+class CriterionValueImpl<T> implements CriterionValue<T> {
     private final T value;
     private Class<?> javaType;
     private Class<? extends TypeHandler<?>> typeHandler;

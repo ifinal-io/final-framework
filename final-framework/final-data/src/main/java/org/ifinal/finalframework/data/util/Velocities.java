@@ -2,6 +2,7 @@ package org.ifinal.finalframework.data.util;
 
 
 import ch.qos.logback.classic.Level;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -28,11 +29,13 @@ import java.util.Properties;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 public final class Velocities {
-    public static VelocityEngine ve = new VelocityEngine();
-    private static Properties p = new Properties();
+    private static final String UTF_8 = "UTF-8";
+    private static final VelocityEngine ve = new VelocityEngine();
+    private static final Properties p = new Properties();
 
-    private static ToolManager toolManager;
+    private static final ToolManager toolManager;
 
     static {
 
@@ -49,8 +52,8 @@ public final class Velocities {
         p.setProperty("resource.loader", "template");
         //配置加载器实现类
         p.setProperty("template.resource.loader.class", StringTemplateResourceLoader.class.getCanonicalName());
-        p.setProperty("input.encoding", "UTF-8");
-        p.setProperty("output.encoding", "UTF-8");
+        p.setProperty("input.encoding", UTF_8);
+        p.setProperty("output.encoding", UTF_8);
         p.setProperty("log4j.logger.org.apache", "ERROR");
         p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogChute");
         ve.init(p);
@@ -65,8 +68,11 @@ public final class Velocities {
         toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION);
     }
 
+    private Velocities() {
+    }
+
     public static String getValue(String express, Object params) {
-        Template template = ve.getTemplate(express, "UTF-8");
+        Template template = ve.getTemplate(express, UTF_8);
         if (null == params || Asserts.isBlank(express)) {
             return "";
         }
@@ -84,10 +90,11 @@ public final class Velocities {
      * @param param param
      * @return context
      */
+    @SuppressWarnings("unchecked")
     public static Context buildContext(Object param) {
         ToolContext context = toolManager.createContext();
         if (param instanceof Map) {
-            context.putAll((Map) param);
+            context.putAll((Map<String, Object>) param);
         } else {
             try {
 
@@ -100,6 +107,7 @@ public final class Velocities {
                 }
                 context.put("record", param);
             } catch (Exception e) {
+                throw new IllegalArgumentException(e);
             }
         }
         return context;

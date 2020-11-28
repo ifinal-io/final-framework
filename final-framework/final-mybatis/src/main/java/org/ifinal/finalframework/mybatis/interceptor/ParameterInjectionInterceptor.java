@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
-import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -31,7 +30,6 @@ import java.util.Properties;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
@@ -43,7 +41,7 @@ import java.util.Properties;
 @Component
 public class ParameterInjectionInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(ParameterInjectionInterceptor.class);
-    /**
+    /*
      * @see MapperBuilderAssistant#getStatementResultMaps(String, Class, String)
      */
     private static final String INLINE_RESULT_MAP_SUFFIX = "-Inline";
@@ -83,14 +81,10 @@ public class ParameterInjectionInterceptor implements Interceptor {
                 Map<String, Object> parameters = (Map<String, Object>) parameter;
 
                 final Class<IEntity<Serializable>> entityClass = from((Class<? extends AbsMapper>) mapper);
-//                final RepositoryHolder holder = RepositoryManager.from((Class<? extends Repository>) mapper);
-//                if (holder != null) {
-//                    Entity.from(holder.getEntity())
                 final QEntity<?, ?> entity = QEntity.from(entityClass);
                 parameters.computeIfAbsent(TABLE_PARAMETER_NAME, k -> entity.getTable());
                 parameters.putIfAbsent(PROPERTIES_PARAMETER_NAME, entity);
 
-//                }
             }
 
 
@@ -112,7 +106,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-
+        // do nothing
     }
 
 }

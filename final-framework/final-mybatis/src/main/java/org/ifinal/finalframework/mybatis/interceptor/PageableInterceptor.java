@@ -25,7 +25,6 @@ import java.util.Properties;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
@@ -40,6 +39,7 @@ public abstract class PageableInterceptor implements Interceptor {
     private static final String COUNT_PARAMETER = "count";
 
     @Override
+    @SuppressWarnings("unchecked")
     public Object intercept(Invocation invocation) throws Throwable {
 
         try {
@@ -48,25 +48,7 @@ public abstract class PageableInterceptor implements Interceptor {
             Object parameter = args[1];
             if (!ms.getId().contains("selectCount") && !ms.getId().contains("selectOne") && parameter != null) {
                 if (parameter instanceof Map) {
-                    Map map = (Map) parameter;
-                    for (Object item : map.values()) {
-                        if (item instanceof Pageable) {
-                            startPage((Pageable) item);
-                            return invocation.proceed();
-                        }
-                    }
-
-                    PageQuery query = new PageQuery();
-                    if (map.containsKey(PAGE_PARAMETER) && map.get(PAGE_PARAMETER) instanceof Integer) {
-                        query.setPage((Integer) map.get(PAGE_PARAMETER));
-                    }
-                    if (map.containsKey(SIZE_PARAMETER) && map.get(SIZE_PARAMETER) instanceof Integer) {
-                        query.setSize((Integer) map.get(SIZE_PARAMETER));
-                    }
-                    if (map.containsKey(COUNT_PARAMETER) && map.get(COUNT_PARAMETER) instanceof Boolean) {
-                        query.setCount((Boolean) map.get(COUNT_PARAMETER));
-                    }
-                    startPage(query);
+                    startPage(findPage((Map<String, Object>) parameter));
                     return invocation.proceed();
 
 
@@ -83,6 +65,28 @@ public abstract class PageableInterceptor implements Interceptor {
 
     }
 
+    private Pageable findPage(Map<String, Object> map) {
+        for (Object item : map.values()) {
+            if (item instanceof Pageable) {
+                return (Pageable) item;
+            }
+        }
+
+        PageQuery query = new PageQuery();
+        if (map.containsKey(PAGE_PARAMETER) && map.get(PAGE_PARAMETER) instanceof Integer) {
+            query.setPage((Integer) map.get(PAGE_PARAMETER));
+        }
+        if (map.containsKey(SIZE_PARAMETER) && map.get(SIZE_PARAMETER) instanceof Integer) {
+            query.setSize((Integer) map.get(SIZE_PARAMETER));
+        }
+        if (map.containsKey(COUNT_PARAMETER) && map.get(COUNT_PARAMETER) instanceof Boolean) {
+            query.setCount((Boolean) map.get(COUNT_PARAMETER));
+        }
+
+        return query;
+
+    }
+
     protected abstract void startPage(Pageable pageable);
 
     @Override
@@ -92,6 +96,6 @@ public abstract class PageableInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-
+        //do nothing
     }
 }

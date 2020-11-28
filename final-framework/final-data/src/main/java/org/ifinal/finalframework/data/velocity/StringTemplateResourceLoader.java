@@ -17,7 +17,7 @@ import java.io.StringReader;
 public class StringTemplateResourceLoader extends ResourceLoader {
     @Override
     public void init(ExtProperties configuration) {
-
+        // do nothing
     }
 
     @Override

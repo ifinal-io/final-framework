@@ -51,15 +51,15 @@ public class FinalJacksonModule extends SimpleModule {
 
     @SuppressWarnings("unchecked")
     private <T> T newInstance(@NonNull Class<? extends T> clazz) {
-        Constructor<?> constructor = null;
+        Constructor<?> constructor;
         try {
             constructor = clazz.getConstructor(ObjectMapper.class);
             return (T) constructor.newInstance(this.objectMapper);
         } catch (Exception e) {
             try {
-                return clazz.newInstance();
+                return clazz.getConstructor().newInstance();
             } catch (Exception error) {
-                throw new RuntimeException(error);
+                throw new IllegalArgumentException(error);
             }
         }
     }

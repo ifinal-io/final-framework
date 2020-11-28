@@ -8,7 +8,6 @@ import org.springframework.lang.Nullable;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
 public final class R {
 
     private static final Integer SUCCESS_CODE = 0;
@@ -29,12 +28,12 @@ public final class R {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
     }
 
-    public static Result failure(@NonNull Integer status, @NonNull String description, @NonNull String code, @NonNull String message) {
+    public static Result<?> failure(@NonNull Integer status, @NonNull String description, @NonNull String code, @NonNull String message) {
         return new Result<>(status, description, code, message);
     }
 
 
-    public static Result failure(@NonNull Integer status, @NonNull String message) {
+    public static Result<?> failure(@NonNull Integer status, @NonNull String message) {
         return new Result<>(status, message);
     }
 

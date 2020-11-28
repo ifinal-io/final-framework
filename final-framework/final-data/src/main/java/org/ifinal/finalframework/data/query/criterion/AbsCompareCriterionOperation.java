@@ -2,6 +2,7 @@ package org.ifinal.finalframework.data.query.criterion;
 
 
 import lombok.Getter;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -11,6 +12,8 @@ import lombok.Getter;
 @Getter
 public class AbsCompareCriterionOperation extends BaseCriterion implements CompareCriterionOperation {
 
+    public static final String TARGET_EXPRESSION = ".target";
+    public static final String VALUE_EXPRESSION = ".value";
     private final Object target;
     private final CompareOperation operation;
     private final Object value;
@@ -30,63 +33,63 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
     }
 
     @Override
-    public void apply(StringBuilder parent, String expression) {
+    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
         switch (operation) {
             case NULL:
-                applyValueCriterion(parent, target, null, "IS NULL", expression + ".target");
+                applyValueCriterion(sql, target, null, "IS NULL", expression + TARGET_EXPRESSION);
                 break;
             case NOT_NULL:
-                applyValueCriterion(parent, target, null, "IS NOT NULL", expression + ".target");
+                applyValueCriterion(sql, target, null, "IS NOT NULL", expression + TARGET_EXPRESSION);
                 break;
             case EQUAL:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " = ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " = ", null, expression + VALUE_EXPRESSION);
                 break;
             case NOT_EQUAL:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " != ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " != ", null, expression + VALUE_EXPRESSION);
                 break;
             case GREAT_THAN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " > ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " > ", null, expression + VALUE_EXPRESSION);
                 break;
             case GREAT_THAN_EQUAL:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " >= ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " >= ", null, expression + VALUE_EXPRESSION);
                 break;
             case LESS_THAN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " < ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " < ", null, expression + VALUE_EXPRESSION);
                 break;
             case LESS_THAN_EQUAL:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " <= ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " <= ", null, expression + VALUE_EXPRESSION);
                 break;
             case LIKE:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " LIKE ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " LIKE ", null, expression + VALUE_EXPRESSION);
                 break;
             case NOT_LIKE:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " NOT LIKE ", null, expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " NOT LIKE ", null, expression + VALUE_EXPRESSION);
                 break;
             case IN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " IN (", ")", expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " IN (", ")", expression + VALUE_EXPRESSION);
                 break;
             case NOT_IN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " NOT IN (", ")", expression + ".value");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " NOT IN (", ")", expression + VALUE_EXPRESSION);
                 break;
             case BETWEEN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " BETWEEN ", null, expression + ".min");
-                applyValueCriterion(parent, value, " AND ", null, expression + ".max");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " BETWEEN ", null, expression + ".min");
+                applyValueCriterion(sql, value, " AND ", null, expression + ".max");
                 break;
             case NOT_BETWEEN:
-                applyValueCriterion(parent, target, null, null, expression + ".target");
-                applyValueCriterion(parent, value, " NOT BETWEEN ", null, expression + ".min");
-                applyValueCriterion(parent, value, " AND ", null, expression + ".max");
+                applyValueCriterion(sql, target, null, null, expression + TARGET_EXPRESSION);
+                applyValueCriterion(sql, value, " NOT BETWEEN ", null, expression + ".min");
+                applyValueCriterion(sql, value, " AND ", null, expression + ".max");
                 break;
 
         }

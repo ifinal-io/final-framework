@@ -4,9 +4,8 @@ import org.ifinal.finalframework.annotation.IException;
 import org.ifinal.finalframework.annotation.result.R;
 import org.ifinal.finalframework.annotation.result.Result;
 import org.ifinal.finalframework.context.exception.ServiceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,23 +17,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class IExceptionResultExceptionHandler implements ResultExceptionHandler<IException> {
 
-    private static final Logger logger = LoggerFactory.getLogger(IExceptionResultExceptionHandler.class);
-
-
     @Override
-    public boolean supports(Throwable throwable) {
+    public boolean supports(@NonNull Throwable throwable) {
         return throwable instanceof IException;
     }
 
-
-    public Result<?> handle(ServiceException e) {
-        return R.failure(e.getStatus(), e.getDescription(), e.getCode(), e.getMessage());
-    }
-
     @Override
-    public Result<?> handle(IException e) {
+    @NonNull
+    public Result<?> handle(@NonNull IException e) {
         if (e instanceof ServiceException) {
-            return handle((ServiceException) e);
+            ServiceException se = (ServiceException) e;
+            return R.failure(se.getStatus(), se.getDescription(), e.getCode(), e.getMessage());
         } else {
             return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
         }

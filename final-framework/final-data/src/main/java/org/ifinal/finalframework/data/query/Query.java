@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.Pageable;
 import org.ifinal.finalframework.annotation.query.Direction;
@@ -9,8 +8,8 @@ import org.ifinal.finalframework.data.query.builder.QuerySqlBuilder;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
+import org.springframework.lang.NonNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,8 +21,8 @@ import java.util.stream.Stream;
  * @version 1.0.0
  * @since 1.0.0
  */
-//@Transient
-public class Query implements Streamable<Criterion>, Serializable, Pageable, Sql<Query>, SqlNode {
+@SuppressWarnings("unused")
+public class Query implements Streamable<Criterion>, Pageable, Sql<Query>, SqlNode {
 
     /**
      * 页码，第一页从1开始
@@ -44,7 +43,7 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Sql
     @Getter
     private Boolean count = Boolean.TRUE;
     @Getter
-    private List<Criterion> criteria = new ArrayList<>();
+    private final List<Criterion> criteria = new ArrayList<>();
     @Getter
     private Group group;
     @Getter
@@ -142,7 +141,7 @@ public class Query implements Streamable<Criterion>, Serializable, Pageable, Sql
     }
 
     @Override
-    public void apply(StringBuilder parent, String value) {
+    public void apply(@NonNull StringBuilder parent, @NonNull String value) {
 
         parent.append("<where>");
 

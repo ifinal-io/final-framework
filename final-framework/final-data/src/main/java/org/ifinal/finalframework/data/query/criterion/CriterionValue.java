@@ -4,6 +4,7 @@ package org.ifinal.finalframework.data.query.criterion;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
+import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -36,13 +37,12 @@ public interface CriterionValue<V> extends SqlNode {
     Class<? extends TypeHandler<?>> getTypeHandler();
 
     @Override
-    default void apply(StringBuilder parent, String expression) {
+    default void apply(@NonNull StringBuilder parent, @NonNull String expression) {
 
         final V value = getValue();
 
         if (value instanceof SqlNode) {
             ((SqlNode) value).apply(parent, String.format("%s.value", expression));
-        } else if (value instanceof Iterable) {
         } else {
             parent.append("#{").append(expression).append(".value");
 

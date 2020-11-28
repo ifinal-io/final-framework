@@ -24,7 +24,7 @@ import java.time.Duration;
  * @see Object2ResultConverter
  * @since 1.0.0
  */
-@Order(RestAdviceOrdered.RESULT_PRECEDENCE)
+@Order(1000)
 @RestControllerAdvice
 public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 

@@ -2,6 +2,7 @@ package org.ifinal.finalframework.mybatis.interceptor;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.page.PageMethod;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -30,7 +31,6 @@ import org.springframework.stereotype.Component;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings({"rawtypes"})
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
@@ -59,7 +59,7 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
      * @see PageHelper#startPage(int, int, boolean, Boolean, Boolean)
      */
     private void startPage(int pageNum, int pageSize, boolean count, Boolean reasonable, Boolean pageSizeZero) {
-        final Page<Object> result = PageHelper.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
+        final Page<Object> result = PageMethod.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
         logger.info("pageResult:page={},size={},pages={},total={}",
                 result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
     }

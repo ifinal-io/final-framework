@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
@@ -17,14 +18,17 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Order(RestAdviceOrdered.DEFAULT_PRECEDENCE)
+@Order(0)
 @RestControllerAdvice
 public class ListResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
-    private final List2ResultConverter list2ResultConverter = new List2ResultConverter();
+    private final List2ResultConverter<?> list2ResultConverter = new List2ResultConverter<>();
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    @SuppressWarnings("unchecked")
+    public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
+                                  @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         if (body instanceof List) {
             return list2ResultConverter.convert((List) body);
         }
