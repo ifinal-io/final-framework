@@ -2,8 +2,8 @@ package org.ifinal.finalframework.auto.mybatis.processor;
 
 import com.squareup.javapoet.*;
 import org.ifinal.finalframework.annotation.IEntity;
+import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.auto.mybatis.annotation.AutoMapper;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
@@ -16,13 +16,10 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -32,12 +29,10 @@ import java.util.Set;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("unused")
 @AutoProcessor
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
 public class AutoMapperGeneratorProcessor extends AbstractProcessor {
-    private static final String MAPPER_PREFIX = "Abs";
     private static final String MAPPER_SUFFIX = "Mapper";
     private static final String DEFAULT_ENTITY_PATH = "entity";
     private static final String DEFAULT_MAPPER_PATH = "dao.mapper";
@@ -49,48 +44,27 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
                     .stream()
                     .map(entity -> processingEnv.getElementUtils().getTypeElement(entity))
-                    .forEach(entity -> this.generate(entity, DEFAULT_ENTITY_PATH, DEFAULT_MAPPER_PATH));
-        } else {
-            ElementFilter.packagesIn(roundEnv.getElementsAnnotatedWith(AutoMapper.class))
-                    .forEach(packageElement -> {
-                        final AutoMapper autoMapper = packageElement.getAnnotation(AutoMapper.class);
-                        Arrays.stream(autoMapper.value())
-                                .map(packageName -> ElementFilter.typesIn(processingEnv.getElementUtils().getPackageElement(packageName).getEnclosedElements()))
-                                .forEach(entities -> entities.forEach(entity -> this.generate(entity, autoMapper)));
-                    });
+                    .forEach(this::generate);
         }
         return false;
     }
 
-    private void generate(TypeElement entity, AutoMapper mapper) {
-        generate(entity, mapper.entity(), mapper.mapper());
-    }
-
-    private void generate(TypeElement entity, String entityPath, String mapperPath) {
+    private void generate(TypeElement entity) {
         final String packageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
-                .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + Optional.ofNullable(mapperPath).orElse(DEFAULT_MAPPER_PATH));
+                .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
         String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
-        generator(
-                Mapper.builder()
-                        .packageName(packageName)
-                        .simpleName(mapperName)
-                        .inner(false)
-                        .entity(EntityFactory.create(processingEnv, entity))
-                        .build()
-        );
-    }
+        final String elementName = packageName + "." + mapperName;
 
-    private void generator(Mapper mapper) {
         try {
-            final TypeElement mapperElement = processingEnv.getElementUtils().getTypeElement(mapper.getName());
+            final TypeElement mapperElement = processingEnv.getElementUtils().getTypeElement(elementName);
 
             if (mapperElement == null) {
-                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(mapper.getName());
+                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(elementName);
 
 
                 try (Writer writer = sourceFile.openWriter()) {
-                    JavaFile javaFile = buildJavaFile(mapper);
+                    JavaFile javaFile = buildJavaFile(packageName, mapperName, entity);
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
@@ -102,28 +76,29 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
         }
     }
 
-    private JavaFile buildJavaFile(Mapper mapper) {
+    private JavaFile buildJavaFile(String packageName, String mapperName, TypeElement typeElement) {
+
+        Entity entity = EntityFactory.create(processingEnv, typeElement);
 
         // AbsMapper<ID,IEntity>
         ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
                 ClassName.get(AbsMapper.class),
-                TypeName.get(mapper.getEntity().getRequiredIdProperty().getType()),
-                ClassName.get(mapper.getEntity().getElement())
+                TypeName.get(entity.getRequiredIdProperty().getType()),
+                ClassName.get(entity.getElement())
         );
 
 
         // public interface EntityMapper extends AbsMapper<ID,IEntity>
-        TypeSpec myMapper = TypeSpec.interfaceBuilder(mapper.getSimpleName())
+        TypeSpec myMapper = TypeSpec.interfaceBuilder(mapperName)
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(parameterizedTypeName)
                 .addAnnotation(org.apache.ibatis.annotations.Mapper.class)
                 .addAnnotation(JavaPoets.generated(AutoMapperGeneratorProcessor.class))
                 .addJavadoc(JavaPoets.JavaDoc.author())
                 .addJavadoc(JavaPoets.JavaDoc.version())
-//                .addJavadoc(JavaPoets.JavaDoc.date())
                 .build();
 
-        return JavaFile.builder(mapper.getPackageName(), myMapper).build();
+        return JavaFile.builder(packageName, myMapper).build();
 
     }
 

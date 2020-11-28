@@ -44,23 +44,25 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
     @Override
     protected boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         final Set<TypeElement> elements = ElementFilter.typesIn(roundEnv.getRootElements());
-        for (TypeElement element : elements) {
-            if (element.getKind() == ElementKind.ANNOTATION_TYPE) continue;
-            for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
-                if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
-                    processAutoService(element, annotationMirror);
-                } else {
-                    List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
-                    for (AnnotationMirror mirror : mirrors) {
-                        if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
-                            processAutoService(element, mirror, annotationMirror);
+
+        elements.stream()
+                .filter(element -> ElementKind.ANNOTATION_TYPE != element.getKind())
+                .forEach(element -> {
+                    for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+                        if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
+                            processAutoService(element, annotationMirror);
+                        } else {
+                            List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
+                            for (AnnotationMirror mirror : mirrors) {
+                                if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
+                                    processAutoService(element, mirror, annotationMirror);
+                                }
+                            }
                         }
                     }
-                }
-            }
-        }
-        return false;
+                });
 
+        return false;
     }
 
 

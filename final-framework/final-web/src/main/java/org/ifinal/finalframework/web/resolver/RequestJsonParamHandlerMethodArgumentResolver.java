@@ -20,8 +20,10 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author likly
@@ -35,7 +37,6 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
 
-    @NonNull
     private final Charset defaultCharset = Charset.defaultCharset();
 
     /**
@@ -53,43 +54,60 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     @Override
     public Object resolveArgument(@NonNull MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
                                   @NonNull NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+
+        final String contentType = webRequest.getHeader("content-type");
+
+        String value;
+
+        if (Objects.nonNull(contentType) && contentType.startsWith("application/json")) {
+            value = parseBody(webRequest);
+        } else {
+            value = parseParameter(parameter, webRequest);
+        }
+
+        if (Objects.isNull(value)) {
+            return null;
+        }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("parse RequestJsonParam name={},value={},", parameter.getParameterName(), value);
+        }
+
+        return parseJson(value, parameter);
+
+
+    }
+
+    private String parseBody(@NonNull NativeWebRequest webRequest) throws IOException {
+        final Object nativeRequest = webRequest.getNativeRequest();
+        if (nativeRequest instanceof HttpServletRequest) {
+            ServletServerHttpRequest inputMessage = new ServletServerHttpRequest((HttpServletRequest) nativeRequest);
+            Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
+            return StreamUtils.copyToString(inputMessage.getBody(), charset);
+        }
+        return null;
+    }
+
+    private String parseParameter(@NonNull MethodParameter parameter, @NonNull NativeWebRequest webRequest) {
         // find the @RequestJsonParam annotation
         final RequestJsonParam requestJsonParam = Objects.requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class), "requestJsonParam annotation is null");
 
-        final String contentType = webRequest.getHeader("content-type");
-        if (Objects.nonNull(contentType) && contentType.startsWith("application/json")) {
-
-            final Object nativeRequest = webRequest.getNativeRequest();
-            if (nativeRequest instanceof HttpServletRequest) {
-                ServletServerHttpRequest inputMessage = new ServletServerHttpRequest((HttpServletRequest) nativeRequest);
-                Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
-                final String body = StreamUtils.copyToString(inputMessage.getBody(), charset);
-                if (Asserts.nonEmpty(body)) {
-                    logger.debug("==> jsonBody: {}", body);
-                    return parseJson(body, parameter);
-                }
-            }
-
-            return null;
-
-        } else {
-            final String parameterName = getParameterName(requestJsonParam, parameter);
-            String value = webRequest.getParameter(parameterName);
-            if (Asserts.isBlank(value) && requestJsonParam.required()) {
-                throw new BadRequestException(String.format("parameter %s is required", parameterName));
-            }
-
-            if (Asserts.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
-                value = requestJsonParam.defaultValue();
-            }
-
-            if (Asserts.isBlank(value)) {
-                return null;
-            }
-            logger.debug("==> RequestJsonParam: name={},value={}", parameterName, value);
-            return parseJson(value, parameter);
+        final String parameterName = getParameterName(requestJsonParam, parameter);
+        Objects.requireNonNull(parameterName);
+        String value = webRequest.getParameter(parameterName);
+        if (Asserts.isBlank(value) && requestJsonParam.required()) {
+            throw new BadRequestException(String.format("parameter %s is required", parameterName));
         }
 
+        if (Asserts.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+            value = requestJsonParam.defaultValue();
+        }
+
+        if (Asserts.isBlank(value)) {
+            return null;
+        }
+
+        return value;
     }
 
     private Object parseJson(String json, MethodParameter parameter) {
@@ -108,9 +126,10 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
         return Asserts.isEmpty(requestJsonParam.value()) ? parameter.getParameterName() : requestJsonParam.value().trim();
     }
 
+    @NonNull
     private Charset getContentTypeCharset(@Nullable MediaType contentType) {
         if (contentType != null && contentType.getCharset() != null) {
-            return contentType.getCharset();
+            return Optional.ofNullable(contentType.getCharset()).orElse(getDefaultCharset());
         } else {
             return getDefaultCharset();
         }

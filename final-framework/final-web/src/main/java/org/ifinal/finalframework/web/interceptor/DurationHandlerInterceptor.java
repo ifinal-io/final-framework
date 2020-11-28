@@ -4,6 +4,7 @@ package org.ifinal.finalframework.web.interceptor;
 import org.ifinal.finalframework.web.annotation.HandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,29 +26,30 @@ public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(DurationHandlerInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         String uri = request.getRequestURI();
         long durationStart = System.currentTimeMillis();
         request.setAttribute(DURATION_START_ATTRIBUTE, durationStart);
-        logger.info("METHOD={},URI={},START={}", request.getMethod(), uri, durationStart);
+        if (logger.isDebugEnabled()) {
+            logger.debug("METHOD={},URI={},START={}", request.getMethod(), uri, durationStart);
+        }
 
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, ModelAndView modelAndView) {
         Long durationStart = (Long) request.getAttribute(DURATION_START_ATTRIBUTE);
         String uri = request.getRequestURI();
         long durationEnd = System.currentTimeMillis();
         long duration = durationEnd - durationStart;
         request.setAttribute(DURATION_END_ATTRIBUTE, durationEnd);
         request.setAttribute(DURATION_ATTRIBUTE, duration);
-        logger.info("METHOD={},URI={},START={},DURATION={}", request.getMethod(), uri, durationEnd, duration);
+        if (logger.isDebugEnabled()) {
+            logger.debug("METHOD={},URI={},START={},DURATION={}", request.getMethod(), uri, durationEnd, duration);
+        }
 
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    }
 }
 

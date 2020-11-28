@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.auto.data.validator;
 
 import org.ifinal.finalframework.util.function.FilterVisitor;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
@@ -23,9 +24,8 @@ import java.util.Optional;
  */
 public class EntityValidator extends SimpleElementVisitor8<Void, Void>
         implements
-        FilterVisitor<TypeElement, Class<?>>, Serializable {
+        FilterVisitor<TypeElement, Class<?>> {
 
-    private static final long serialVersionUID = -4327677763778937375L;
 
     private static final List<Modifier> modifiers = Arrays.asList(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL);
     private static final String SERIAL_VERSION_UID_NAME = "serialVersionUID";
@@ -43,17 +43,17 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
     @Override
     public Void visitType(TypeElement e, Void aVoid) {
         if (matches(e, entityInterface)) {
-            validate(e, null);
+            validate(e);
         }
         return super.visitType(e, aVoid);
     }
 
     @Override
-    public boolean matches(TypeElement typeElement, Class<?> param) {
+    public boolean matches(@NonNull TypeElement typeElement, Class<?> param) {
         return isAssignable(typeElement, entityInterface);
     }
 
-    public Void validate(TypeElement data, Class<?> param) {
+    public void validate(TypeElement data) {
 
         if (!isAssignable(data, Serializable.class)) {
             error("The entity of " + data.getQualifiedName().toString() + " must be implements the interface of "
@@ -73,7 +73,6 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
                     + " and modified with 'private','static' and 'final'.");
         }
 
-        return null;
     }
 
     private boolean isAssignable(TypeElement element, Class<?> clazz) {

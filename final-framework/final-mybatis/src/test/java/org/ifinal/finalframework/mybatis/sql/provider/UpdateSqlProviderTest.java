@@ -28,15 +28,15 @@ import java.util.Map;
 class UpdateSqlProviderTest {
 
     /**
-     * @throws NoSuchMethodException
+     * @throws NoSuchMethodException exception
      * @see UpdateSqlProvider#update(ProviderContext, Map)
      * @see AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
      */
     @Test
     void update() throws NoSuchMethodException {
 
-        final Method update = AbsMapper.class.getMethod("update", new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class});
-        /**
+        final Method update = AbsMapper.class.getMethod("update", String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class);
+        /*
          * @see ProviderSqlSource
          */
         final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), update.getAnnotation(UpdateProvider.class), PersonMapper.class, update);
