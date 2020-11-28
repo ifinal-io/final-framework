@@ -61,5 +61,10 @@
             <version>9.4-1205-jdbc4</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-devops</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

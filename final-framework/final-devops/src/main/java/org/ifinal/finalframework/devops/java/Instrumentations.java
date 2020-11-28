@@ -21,6 +21,8 @@ public final class Instrumentations {
 
     public static void retransformClasses(Instrumentation inst, ClassFileTransformer transformer,
                                           Set<Class<?>> classes) {
+
+
         try {
             inst.addTransformer(transformer, true);
 

@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -12,7 +13,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
-import org.ifinal.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -27,14 +27,15 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
+@Order(0)
+@Component
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         }
 )
-@Order(0)
-@Component
 public class InlineSelectInterceptor implements Interceptor {
 
     /**
@@ -68,6 +69,7 @@ public class InlineSelectInterceptor implements Interceptor {
             return invocation.proceed();
 
         } catch (Exception e) {
+            logger.error("Inline Select Interceptor error", e);
             return invocation.proceed();
         }
 
@@ -96,7 +98,8 @@ public class InlineSelectInterceptor implements Interceptor {
         builder.parameterMap(ms.getParameterMap());
         //count查询返回值int
         List<ResultMap> resultMaps = new ArrayList<>();
-        final ResultMap resultMap = ResultMapFactory.from(ms.getConfiguration(), ms.getResultMaps().get(0).getType());
+        Class<?> type = ms.getResultMaps().get(0).getType();
+        final ResultMap resultMap = ms.getConfiguration().getResultMap(type.getName());
         resultMaps.add(resultMap);
         builder.resultMaps(resultMaps);
         builder.resultSetType(ms.getResultSetType());

@@ -145,7 +145,6 @@ public interface Property extends PersistentProperty<Property>, Ordered {
      *
      * @return the property java type
      */
-    @Nullable
     default Class<?> getJavaType() {
         if (isMap()) {
             return Map.class;

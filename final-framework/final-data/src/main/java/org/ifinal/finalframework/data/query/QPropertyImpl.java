@@ -4,6 +4,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.PersistentType;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.modifiable;
     }
 
+    @NonNull
     @Override
     public PersistentType getPersistentType() {
         return this.persistentType;

@@ -26,7 +26,7 @@ public class Person extends AbsEntity {
     private Integer age;
     private List<Integer> intList;
     private Map<String, String> map;
-    @Reference(properties = {"id", "intList", "name"})
+    @Reference(properties = {"id", "name"})
     private Person creator;
 
 

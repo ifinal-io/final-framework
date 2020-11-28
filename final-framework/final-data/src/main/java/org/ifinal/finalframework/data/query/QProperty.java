@@ -34,23 +34,19 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
     <E extends QEntity<?, ?>> E getEntity();
 
-    @NonNull
     Property getProperty();
 
-    @NonNull
+    @SuppressWarnings("unchecked")
     default Class<T> getType() {
         return (Class<T>) getProperty().getJavaType();
     }
 
     Integer getOrder();
 
-    @NonNull
     String getPath();
 
-    @NonNull
     String getTable();
 
-    @NonNull
     String getName();
 
     @Nullable
@@ -63,7 +59,6 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
         return this.getProperty().getReader();
     }
 
-    @NonNull
     String getColumn();
 
     boolean isIdProperty();
@@ -117,62 +112,62 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default Criterion between(Object min, Object max) {
+    default Criterion between(@NonNull Object min, @NonNull Object max) {
         return CriterionTarget.from(this).between(min, max);
     }
 
     @Override
-    default Criterion notBetween(Object min, Object max) {
+    default Criterion notBetween(@NonNull Object min, @NonNull Object max) {
         return CriterionTarget.from(this).notBetween(min, max);
     }
 
     @Override
-    default Criterion eq(Object value) {
+    default Criterion eq(@NonNull Object value) {
         return CriterionTarget.from(this).eq(value);
     }
 
     @Override
-    default Criterion neq(Object value) {
+    default Criterion neq(@NonNull Object value) {
         return CriterionTarget.from(this).neq(value);
     }
 
     @Override
-    default Criterion gt(Object value) {
+    default Criterion gt(@NonNull Object value) {
         return CriterionTarget.from(this).gt(value);
     }
 
     @Override
-    default Criterion gte(Object value) {
+    default Criterion gte(@NonNull Object value) {
         return CriterionTarget.from(this).gte(value);
     }
 
     @Override
-    default Criterion lt(Object value) {
+    default Criterion lt(@NonNull Object value) {
         return CriterionTarget.from(this).lt(value);
     }
 
     @Override
-    default Criterion lte(Object value) {
+    default Criterion lte(@NonNull Object value) {
         return CriterionTarget.from(this).lte(value);
     }
 
     @Override
-    default Criterion in(Collection<Object> values) {
+    default Criterion in(@NonNull Collection<Object> values) {
         return CriterionTarget.from(this).in((Collection) values);
     }
 
     @Override
-    default Criterion nin(Collection<Object> values) {
+    default Criterion nin(@NonNull Collection<Object> values) {
         return CriterionTarget.from(this).nin((Collection) values);
     }
 
     @Override
-    default Criterion like(String value) {
+    default Criterion like(@NonNull String value) {
         return CriterionTarget.from(this).like(value);
     }
 
     @Override
-    default Criterion notLike(String value) {
+    default Criterion notLike(@NonNull String value) {
         return CriterionTarget.from(this).notLike(value);
     }
 
@@ -182,7 +177,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default Criterion notJsonContains(Object value, String path) {
+    default Criterion notJsonContains(@NonNull Object value, String path) {
         return JsonOperations.notContains(this, value, path);
     }
 
@@ -218,17 +213,17 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default CriterionTarget<CriterionFunction> and(Object value) {
+    default CriterionTarget<CriterionFunction> and(@NonNull Object value) {
         return apply(property -> LogicOperations.and(this, value));
     }
 
     @Override
-    default CriterionTarget<CriterionFunction> or(Object value) {
+    default CriterionTarget<CriterionFunction> or(@NonNull Object value) {
         return apply(property -> LogicOperations.or(this, value));
     }
 
     @Override
-    default CriterionTarget<CriterionFunction> xor(Object value) {
+    default CriterionTarget<CriterionFunction> xor(@NonNull Object value) {
         return apply(property -> LogicOperations.xor(this, value));
     }
 

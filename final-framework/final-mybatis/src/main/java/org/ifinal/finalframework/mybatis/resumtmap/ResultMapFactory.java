@@ -14,6 +14,7 @@ import org.ifinal.finalframework.annotation.data.UpperCase;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 import org.slf4j.Logger;
@@ -77,12 +78,14 @@ public final class ResultMapFactory {
 
 
                         final String name = property.getName();
+
+
                         return new ResultMapping.Builder(configuration, name)
                                 .column(formatColumn(entity, null, property))
                                 .javaType(type)
                                 .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
                                 .composites(composites)
-//                                .nestedResultMapId(associationId)
+                                .nestedResultMapId(id + "[" + name + "]")
                                 // a composting result mapping is not need a typehandler, but mybatis have this a validate.
                                 .typeHandler(configuration.getTypeHandlerRegistry().getUnknownTypeHandler())
                                 .build();
@@ -136,6 +139,12 @@ public final class ResultMapFactory {
 
         try {
             Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
+
+            if (JsonParameterTypeHandler.class.equals(typeHandler)) {
+                return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
+            }
+
+
             if (typeHandler != null && !TypeHandler.class.equals(typeHandler)) {
                 return typeHandler.newInstance();
             }
