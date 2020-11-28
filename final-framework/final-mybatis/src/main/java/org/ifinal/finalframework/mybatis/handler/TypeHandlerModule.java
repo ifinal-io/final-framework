@@ -14,13 +14,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class TypeHandlerModule {
 
-    public static final TypeHandlerModule DEFAULT = new TypeHandlerModule() {
-        {
-            registerPersistentTypeHandlerRegister(PersistentType.AUTO, PersistentTypeHandlerRegister.AUTO);
-            registerPersistentTypeHandlerRegister(PersistentType.JSON, new JsonPersistentTypeHandlerRegister());
-        }
-    };
+    public static final TypeHandlerModule DEFAULT = new TypeHandlerModule();
+
     private final Map<PersistentType, PersistentTypeHandlerRegister> typeHandlerRegisterMap = new ConcurrentHashMap<>();
+
+    static {
+        DEFAULT.registerPersistentTypeHandlerRegister(PersistentType.AUTO, PersistentTypeHandlerRegister.AUTO);
+        DEFAULT.registerPersistentTypeHandlerRegister(PersistentType.JSON, new JsonPersistentTypeHandlerRegister());
+    }
 
     public <T> void registerTypeHandler(Class<T> javaType, Class<? extends Collection> collectionType, PersistentType persistentType, TypeHandler<?> typeHandler) {
         PersistentTypeHandlerRegister persistentTypeHandlerRegister = getPersistentTypeHandlerRegister(persistentType);

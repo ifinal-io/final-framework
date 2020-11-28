@@ -114,6 +114,11 @@
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-devops</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
                 <artifactId>final-retrofit</artifactId>
                 <version>${final.version}</version>
             </dependency>

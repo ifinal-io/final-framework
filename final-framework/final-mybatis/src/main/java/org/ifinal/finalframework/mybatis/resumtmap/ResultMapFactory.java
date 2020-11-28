@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -137,11 +138,12 @@ public final class ResultMapFactory {
 
     private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
 
+        Field field = property.getField();
         try {
             Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
-
             if (JsonParameterTypeHandler.class.equals(typeHandler)) {
-                return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
+                Objects.requireNonNull(field);
+                return new JsonTypeReferenceTypeHandler<>(field.getGenericType());
             }
 
 
@@ -154,10 +156,11 @@ public final class ResultMapFactory {
 
 
         if (property.isAnnotationPresent(Json.class) || property.isCollectionLike() || property.isMap()) {
-            return new JsonTypeReferenceTypeHandler<>(property.getField().getGenericType());
+            Objects.requireNonNull(field);
+            return new JsonTypeReferenceTypeHandler<>(field.getGenericType());
         }
         if (property.isEnum()) {
-            final Class<? extends IEnum> type = (Class<? extends IEnum>) property.getType();
+            final Class<? extends IEnum<?>> type = (Class<? extends IEnum<?>>) property.getType();
             return new EnumTypeHandler<>(type);
         }
         return configuration.getTypeHandlerRegistry().getTypeHandler(property.getType());
