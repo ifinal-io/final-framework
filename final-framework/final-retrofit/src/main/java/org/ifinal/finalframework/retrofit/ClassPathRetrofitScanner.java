@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -26,8 +28,9 @@ import java.util.Set;
  * @version 1.0.0
  * @since 1.0.0
  */
+
 public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
-    private static final Logger logger = LoggerFactory.getLogger(ClassPathRetrofitScanner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassPathRetrofitScanner.class);
 
     private static final String DEFAULT_RETROFIT_BEAN_NAME = "retrofit";
 
@@ -49,7 +52,7 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 
         if (beanDefinitions.isEmpty()) {
-            logger.warn("No Retrofit service was found in '" + Arrays.toString(basePackages) + "' package. Please check your configuration.");
+            LOGGER.warn("No Retrofit service was found in '{}' package. Please check your configuration.", Arrays.asList(basePackages));
         } else {
             processBeanDefinitions(beanDefinitions);
         }
@@ -58,15 +61,13 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     }
 
     private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
-        GenericBeanDefinition definition;
         for (BeanDefinitionHolder holder : beanDefinitions) {
 
             try {
-                definition = (GenericBeanDefinition) holder.getBeanDefinition();
+                GenericBeanDefinition definition = (GenericBeanDefinition) holder.getBeanDefinition();
 
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Creating RetrofitFactoryBean with name '" + holder.getBeanName()
-                            + "' and '" + definition.getBeanClassName() + "' retrofitInterface");
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Creating RetrofitFactoryBean with name '{}' and '{}' retrofitInterface", holder.getBeanName(), definition.getBeanClassName());
                 }
 
                 final Class<?> retrofitService = Class.forName(definition.getBeanClassName());
@@ -75,19 +76,24 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
 
                 // the mapper interface is the original class of the bean
                 // but, the actual class of the bean is MapperFactoryBean
-                definition.getConstructorArgumentValues().addGenericArgumentValue(definition.getBeanClassName()); // issue #59
+                if (Objects.nonNull(definition.getBeanClassName())) {
+                    Optional.of(definition.getConstructorArgumentValues())
+                            .ifPresent(it -> it.addGenericArgumentValue(definition.getBeanClassName()));
+                }
                 definition.setBeanClass(this.retrofitFactoryBean.getClass());
 
-                logger.debug("register retrofit: {}", definition.getBeanClassName());
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("register retrofit: {}", definition.getBeanClassName());
+                }
 
-                definition.getPropertyValues().add("retrofit", new RuntimeBeanReference(retrofitBeanName));
+                definition.getPropertyValues().add(DEFAULT_RETROFIT_BEAN_NAME, new RuntimeBeanReference(retrofitBeanName));
 
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Enabling autowire by type for RetrofitFactoryBean with name '" + holder.getBeanName() + "'.");
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Enabling autowire by type for RetrofitFactoryBean with name '{}'.", holder.getBeanName());
                 }
                 definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
             } catch (Exception e) {
-
+                throw new IllegalArgumentException(e);
             }
 
         }
@@ -112,7 +118,7 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         if (this.markerInterface != null) {
             addIncludeFilter(new AssignableTypeFilter(this.markerInterface) {
                 @Override
-                protected boolean matchClassName(String className) {
+                protected boolean matchClassName(@NonNull String className) {
                     return false;
                 }
             });

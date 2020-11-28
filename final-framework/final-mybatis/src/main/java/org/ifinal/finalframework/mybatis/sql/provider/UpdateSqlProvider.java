@@ -15,7 +15,6 @@ import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.Map;
@@ -30,7 +29,6 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
-    private static final String VIEW_PARAMETER_NAME = "view";
     private static final String SELECTIVE_PARAMETER_NAME = "selective";
     private static final String ENTITY_PARAMETER_NAME = "entity";
     private static final String UPDATE_PARAMETER_NAME = "update";
@@ -49,21 +47,15 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
 
         final Object query = parameters.get(QUERY_PARAMETER_NAME);
-        final Class<?> view = (Class<?>) parameters.get(VIEW_PARAMETER_NAME);
-        final boolean selective = Boolean.TRUE.equals(parameters.get(SELECTIVE_PARAMETER_NAME));
 
         Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
         parameters.put(PROPERTIES_PARAMETER_NAME, properties);
 
-        /*
-         * <trim prefix="UPDATE">
-         *      ${table}
-         * </trim>
-         */
         sql.append("<trim prefix=\"UPDATE\">").append("${table}").append("</trim>");
 
         sql.append("<set>");
@@ -75,7 +67,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                 updateSetOperation.apply(sql, String.format("update[%d]", index++));
             }
         } else {
-            appendEntitySet(sql, properties, view, selective);
+            appendEntitySet(sql, properties);
         }
 
         appendVersionProperty(sql, properties);
@@ -83,30 +75,21 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("</set>");
 
         if (parameters.containsKey(IDS_PARAMETER_NAME) && parameters.get(IDS_PARAMETER_NAME) != null) {
-            /*
-             * <where>
-             *     ${properties.idProperty.column}
-             *     <foreach collection="ids" item="id" open=" IN (" separator="," close=")">
-             *         #{id}
-             *     </foreach>
-             * </where>
-             */
             sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
-            ((Query) query).apply(sql, "query");
+            ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
 
     }
 
     /**
-     * @param sql       sql
-     * @param entity    entity
-     * @param selective selective
+     * @param sql    sql
+     * @param entity entity
      */
-    private void appendEntitySet(@NonNull StringBuilder sql, @NonNull QEntity<?, ?> entity, @Nullable Class<?> view, boolean selective) {
+    private void appendEntitySet(@NonNull StringBuilder sql, @NonNull QEntity<?, ?> entity) {
         entity.stream()
                 .filter(property -> property.isWriteable() && property.isModifiable())
                 .forEach(property -> {
@@ -132,7 +115,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
                     final String testWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), true);
 
-                    final String selectiveTest = testWithSelective == null ? "selective" : "selective and " + testWithSelective;
+                    final String selectiveTest = testWithSelective == null ? SELECTIVE_PARAMETER_NAME : "selective and " + testWithSelective;
 
                     // <when test="selective and entity.path != null">
                     sql.append("<when test=\"").append(selectiveTest).append("\">")

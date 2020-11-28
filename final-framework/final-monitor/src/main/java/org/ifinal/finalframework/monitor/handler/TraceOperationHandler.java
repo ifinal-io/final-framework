@@ -27,15 +27,6 @@ public class TraceOperationHandler implements OperationHandler<Tracer, TraceOper
         return null;
     }
 
-    @Override
-    public void afterReturning(Tracer executor, OperationContext<TraceOperation> context, Object result) {
-
-    }
-
-    @Override
-    public void afterThrowing(Tracer executor, OperationContext<TraceOperation> context, Throwable throwable) {
-
-    }
 
     @Override
     public void after(Tracer executor, OperationContext<TraceOperation> context, Object result, Throwable throwable) {

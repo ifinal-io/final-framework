@@ -84,7 +84,7 @@ public final class SqlProviderHelper {
         METHOD_ANNOTATIONS.put(TRUNCATE_METHOD_NAME, UpdateProvider.class);
 
 
-        /**
+        /*
          * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#insert(String, Class, boolean, Collection)
          * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#replace(String, Class, Collection)
          * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#save(String, Class, Collection)
@@ -92,16 +92,16 @@ public final class SqlProviderHelper {
         METHOD_ARGS.put(INSERT_METHOD_NAME, new Class[]{String.class, Class.class, boolean.class, Collection.class});
         METHOD_ARGS.put(REPLACE_METHOD_NAME, new Class[]{String.class, Class.class, Collection.class});
         METHOD_ARGS.put(SAVE_METHOD_NAME, new Class[]{String.class, Class.class, Collection.class});
-        /**
+        /*
          * @see AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
          */
         METHOD_ARGS.put(UPDATE_METHOD_NAME, new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class});
-        /**
+        /*
          * @see AbsMapper#delete(String, Collection, IQuery)
          */
         METHOD_ARGS.put(DELETE_METHOD_NAME, new Class[]{String.class, Collection.class, IQuery.class});
 
-        /**
+        /*
          * @see AbsMapper#select(String, Class, Collection, IQuery)
          * @see AbsMapper#selectOne(String, Class, Serializable, IQuery)
          * @see AbsMapper#selectIds(String, IQuery)
@@ -112,7 +112,7 @@ public final class SqlProviderHelper {
         METHOD_ARGS.put(SELECT_IDS_METHOD_NAME, new Class[]{String.class, IQuery.class});
         METHOD_ARGS.put(SELECT_COUNT_METHOD_NAME, new Class[]{String.class, Collection.class, IQuery.class});
 
-        /**
+        /*
          * @see AbsMapper#truncate(String)
          */
         METHOD_ARGS.put(TRUNCATE_METHOD_NAME, new Class[]{String.class});
@@ -135,7 +135,7 @@ public final class SqlProviderHelper {
         try {
             PROVIDER_CONTEXT_CONSTRUCTOR = ReflectionUtils.accessibleConstructor(ProviderContext.class, Class.class, Method.class, String.class);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -147,7 +147,7 @@ public final class SqlProviderHelper {
             ProviderContext providerContext = PROVIDER_CONTEXT_CONSTRUCTOR.newInstance(mapper, ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method)), null);
             return SQL_PROVIDERS.get(method).provide(providerContext, parameters);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -164,7 +164,7 @@ public final class SqlProviderHelper {
         sqlBound.setEntity(entity);
         sqlBound.setQuery(query);
 
-        String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide("query", entity, query.getClass()), "</script>");
+        String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
         sqlBound.setScript(script);
 
         SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), script, Map.class);

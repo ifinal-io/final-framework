@@ -107,39 +107,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <!--    <distributionManagement>-->
-    <!--        <repository>-->
-    <!--            <id>bintray-likly-maven</id>-->
-    <!--            <name>likly-maven</name>-->
-    <!--            <url>https://api.bintray.com/maven/likly/maven/final-boot/;publish=1;override=1;</url>-->
-    <!--        </repository>-->
-    <!--    </distributionManagement>-->
-
 </project>

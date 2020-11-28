@@ -18,20 +18,24 @@ import java.util.Map;
  */
 public class SelectIdsSqlProvider implements AbsMapperSqlProvider {
 
+    public static final String QUERY_PARAMETER_NAME = "query";
+
     /**
      * @param context    context
      * @param parameters parameters
      * @return sql
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#selectIds(String, IQuery)
      */
+    @SuppressWarnings("unused")
     public String selectIds(ProviderContext context, Map<String, Object> parameters) {
         return provide(context, parameters);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
 
-        Object query = parameters.get("query");
+        Object query = parameters.get(QUERY_PARAMETER_NAME);
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
@@ -45,20 +49,16 @@ public class SelectIdsSqlProvider implements AbsMapperSqlProvider {
         sql.append("<trim prefix=\"SELECT\" suffixOverrides=\",\">");
         sql.append(properties.getIdProperty().getColumn());
         sql.append("</trim>");
-        /*
-         * <trim prefix="FROM">
-         *     ${table}
-         * </trim>
-         */
+
         sql.append("<trim prefix=\"FROM\">")
                 .append("${table}")
                 .append("</trim>");
 
 
         if (query instanceof Query) {
-            ((Query) query).apply(sql, "query");
+            ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide("query", (Class<? extends IEntity<?>>) entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
     }
 }
