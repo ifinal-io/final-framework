@@ -9,7 +9,6 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractAnnotationValueVisitor8;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,71 +99,4 @@ public final class AnnotationValues {
         }
     }
 
-    private static class ListAnnotationValueAnnotationVisitor extends AbstractAnnotationValueVisitor8<List<AnnotationValue>, Void> {
-
-        @Override
-        public List<AnnotationValue> visitBoolean(boolean b, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitByte(byte b, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitChar(char c, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitDouble(double d, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitFloat(float f, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitInt(int i, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitLong(long i, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitShort(short s, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitString(String s, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitType(TypeMirror t, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitEnumConstant(VariableElement c, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitAnnotation(AnnotationMirror a, Void unused) {
-            return null;
-        }
-
-        @Override
-        public List<AnnotationValue> visitArray(List<? extends AnnotationValue> vals, Void unused) {
-            return new ArrayList<>(vals);
-        }
-    }
 }

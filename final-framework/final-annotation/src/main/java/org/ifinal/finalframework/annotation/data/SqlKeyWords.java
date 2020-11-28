@@ -15,6 +15,9 @@ import java.util.Set;
 public final class SqlKeyWords {
     private static final Set<String> keys = new HashSet<>();
 
+    private SqlKeyWords() {
+    }
+
     static {
         init("key", "order", "group", "source");
     }

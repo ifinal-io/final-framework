@@ -10,6 +10,7 @@ import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -30,11 +31,11 @@ public class EnumValueDescSerializer extends JsonSerializer<Object> {
             gen.writeNull();
             return;
         }
-        Enum anEnum = Enums.findEnum(enumValue, value);
+        Enum<?> anEnum = Enums.findEnum(enumValue, value);
         Field field = ReflectionUtils.findField(enumValue.value(), enumValue.desc());
-        field.setAccessible(true);
-        Object description = ReflectionUtils.getField(field, anEnum);
-        gen.writeString(description.toString());
+        Objects.requireNonNull(field, "");
+        ReflectionUtils.makeAccessible(field);
+        gen.writeObject(ReflectionUtils.getField(field, anEnum));
     }
 }
 

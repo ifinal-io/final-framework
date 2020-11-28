@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class Annotations {
 
+    @SuppressWarnings("unused")
     private final ProcessingEnvironment processEnv;
 
     public Annotations(ProcessingEnvironment processEnv) {

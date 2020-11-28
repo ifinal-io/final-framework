@@ -14,10 +14,8 @@ import java.util.List;
  * @since 1.0.0
  */
 public class SetterAndGetterFilter {
-    private final ProcessingEnvironment env;
 
     public SetterAndGetterFilter(ProcessingEnvironment env) {
-        this.env = env;
     }
 
     public boolean matches(ExecutableElement method, TypeMirror parameterTypeOrReturnType) {
@@ -44,7 +42,7 @@ public class SetterAndGetterFilter {
     }
 
     private boolean isGetter(String name, List<? extends VariableElement> parameters) {
-        return parameters.size() == 0 && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
+        return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
     }
 
 
