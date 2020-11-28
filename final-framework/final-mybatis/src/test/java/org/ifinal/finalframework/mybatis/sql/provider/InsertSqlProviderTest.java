@@ -7,6 +7,7 @@ import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
@@ -40,6 +41,7 @@ class InsertSqlProviderTest {
 
         final String sql = SqlProviderHelper.sql(PersonMapper.class, "insert", parameters);
         logger.info(sql);
+        Assertions.assertNotNull(sql);
 
     }
 
@@ -66,6 +68,7 @@ class InsertSqlProviderTest {
 
         final String sql = boundSql.getSql();
         logger.info(sql);
+        Assertions.assertNotNull(sql);
 
         logger.info(SqlProviderHelper.sql(PersonMapper.class, "replace", parameters));
 
@@ -93,6 +96,8 @@ class InsertSqlProviderTest {
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
 
         final String sql = boundSql.getSql();
+        Assertions.assertNotNull(sql);
+
         logger.info(sql);
     }
 }

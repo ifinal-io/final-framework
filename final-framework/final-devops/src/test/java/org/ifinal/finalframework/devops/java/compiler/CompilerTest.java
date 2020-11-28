@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -40,7 +42,8 @@ class CompilerTest {
 
 
         Method hello = ReflectionUtils.findMethod(clazz, "hello");
-        System.out.println(ReflectionUtils.invokeMethod(hello, clazz.newInstance()));
+        Objects.requireNonNull(hello);
+        Assertions.assertEquals("hello fefe", ReflectionUtils.invokeMethod(hello, clazz.newInstance()));
 
 
     }

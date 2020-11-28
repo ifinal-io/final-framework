@@ -2,6 +2,7 @@ package org.ifinal.finalframework.mybatis.sql.script;
 
 import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.parsing.XPathParser;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,5 +29,6 @@ class AnnotationQueryProviderBuilderTest {
                 logger.debug(item);
             }
         }
+        Assertions.assertNotNull(sql);
     }
 }

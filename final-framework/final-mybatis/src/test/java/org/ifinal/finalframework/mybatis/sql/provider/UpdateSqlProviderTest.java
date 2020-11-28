@@ -10,6 +10,7 @@ import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.annotation.IQuery;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -60,6 +61,7 @@ class UpdateSqlProviderTest {
 
         final String sql = boundSql.getSql();
         logger.info(sql);
+        Assertions.assertNotNull(sql);
 
     }
 

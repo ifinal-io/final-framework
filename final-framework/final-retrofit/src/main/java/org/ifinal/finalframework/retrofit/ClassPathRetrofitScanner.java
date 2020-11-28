@@ -14,6 +14,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
@@ -42,7 +43,8 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     }
 
     @Override
-    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+    @NonNull
+    public Set<BeanDefinitionHolder> doScan(@NonNull String... basePackages) {
         registerFilters();
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 

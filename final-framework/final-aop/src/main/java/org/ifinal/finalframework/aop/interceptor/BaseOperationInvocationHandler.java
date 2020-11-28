@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 public class BaseOperationInvocationHandler implements OperationInvocationHandler {
 
-    @NonNull
     private final OperationConfiguration configuration;
 
     public BaseOperationInvocationHandler(@NonNull OperationConfiguration configuration) {
