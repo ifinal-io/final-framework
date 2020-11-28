@@ -9,7 +9,7 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 [![GitHub language count](https://img.shields.io/github/languages/count/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 [![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/likly/final-frameworks/master)](https://scrutinizer-ci.com/g/likly/final-frameworks/)
-![Scrutinizer coverage (GitHub/BitBucket)](https://img.shields.io/scrutinizer/coverage/g/likly/final-frameworks)
+![Sonar Coverage](https://img.shields.io/sonar/coverage/likly_final-frameworks?server=https%3A%2F%2Fsonarcloud.io)
 
 
 ## What

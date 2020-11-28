@@ -2,6 +2,7 @@ package org.ifinal.finalframework.auto.coding.beans;
 
 
 import org.ifinal.finalframework.core.generator.NameGenerator;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -21,13 +22,10 @@ import java.util.stream.Stream;
  */
 public class Bean implements Iterable<PropertyDescriptor> {
 
-    static final String ADD_PREFIX = "add";
-    static final String REMOVE_PREFIX = "remove";
     static final String GET_PREFIX = "get";
     static final String SET_PREFIX = "set";
     static final String IS_PREFIX = "is";
     private static final Map<TypeElement, Bean> cache = new HashMap<>(128);
-    private final ProcessingEnvironment env;
     private final TypeElement typeElement;
     private final SetterAndGetterFilter setterAndGetterFilter;
 
@@ -37,7 +35,6 @@ public class Bean implements Iterable<PropertyDescriptor> {
     private final Map<String, PropertyDescriptor> properties = new LinkedHashMap<>();
 
     private Bean(ProcessingEnvironment env, TypeElement typeElement) {
-        this.env = env;
         this.typeElement = typeElement;
         this.setterAndGetterFilter = new SetterAndGetterFilter(env);
         this.init();
@@ -79,10 +76,8 @@ public class Bean implements Iterable<PropertyDescriptor> {
     private void initProperties() {
 
         // for each field
-        fields.forEach((key, field) -> {
-            this.properties.put(key, new PropertyDescriptor(this, key, Optional.of(field),
-                    findSetter(key), findGetter(key)));
-        });
+        fields.forEach((key, field) -> this.properties.put(key, new PropertyDescriptor(this, key, Optional.of(field),
+                findSetter(key), findGetter(key))));
 
 
         methods.stream()
@@ -131,10 +126,8 @@ public class Bean implements Iterable<PropertyDescriptor> {
                 .filter(it -> it.getSimpleName().toString().equals(setterName))
                 .findFirst();
 
-        if (setter.isPresent()) {
-            // TODO check parameter type
-            processed.put(setter.get(), true);
-        }
+        // check parameter type
+        setter.ifPresent(executableElement -> processed.put(executableElement, true));
 
         return setter;
     }
@@ -147,7 +140,7 @@ public class Bean implements Iterable<PropertyDescriptor> {
                 .findFirst();
 
         if (getter.isPresent()) {
-            // TODO check return type
+            // check return type
             processed.put(getter.get(), true);
             return getter;
         }
@@ -159,7 +152,7 @@ public class Bean implements Iterable<PropertyDescriptor> {
                 .findFirst();
 
         if (nextGetter.isPresent()) {
-            // TODO check return type
+            // check return type
             processed.put(nextGetter.get(), true);
             return nextGetter;
         }
@@ -169,6 +162,7 @@ public class Bean implements Iterable<PropertyDescriptor> {
 
 
     @Override
+    @NonNull
     public Iterator<PropertyDescriptor> iterator() {
         return properties.values().iterator();
     }

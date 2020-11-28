@@ -70,7 +70,9 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
         }
         request.setAttribute(TRACE_ATTRIBUTE, trace);
         MDC.put(traceName, trace);
-        logger.info("put trace to MDC context: {}", trace);
+        if (logger.isInfoEnabled()) {
+            logger.info("put trace to MDC context: {}", trace);
+        }
         return true;
     }
 

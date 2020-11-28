@@ -220,6 +220,7 @@ public class XPathParser {
     private Document createDocument(InputSource inputSource) {
         // important: this must only be called AFTER common constructor
         try {
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(validation);
 
