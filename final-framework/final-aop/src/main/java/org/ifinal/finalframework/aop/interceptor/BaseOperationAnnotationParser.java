@@ -15,22 +15,21 @@ import java.util.*;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("all")
 public class BaseOperationAnnotationParser implements OperationAnnotationParser {
-    private final Set<Class<? extends Annotation>> annoTypes = new HashSet<>();
+    private final Set<Class<? extends Annotation>> annTypes = new HashSet<>();
     private final OperationConfiguration configuration;
 
 
-    public BaseOperationAnnotationParser(Collection<Class<? extends Annotation>> annoTypes, OperationConfiguration configuration) {
-        this.annoTypes.addAll(annoTypes);
+    public BaseOperationAnnotationParser(Collection<Class<? extends Annotation>> annTypes, OperationConfiguration configuration) {
+        this.annTypes.addAll(annTypes);
         this.configuration = configuration;
     }
 
     @Override
-    public Collection<? extends Operation> parseOperationAnnotation(Class<?> type) {
+    public Collection<Operation> parseOperationAnnotation(Class<?> type) {
 
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : annoTypes) {
+        for (Class<? extends Annotation> annotation : annTypes) {
             final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(type);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
@@ -39,15 +38,14 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         }
 
         if (Asserts.isEmpty(anns)) {
-            return null;
+            return Collections.emptyList();
         }
         final Collection<Operation> ops = new ArrayList<>(1);
 
-        annoTypes.forEach(an -> {
+        annTypes.forEach(an -> {
             final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
                     .map(ann -> builder.build(type, ann))
-                    .filter(Objects::nonNull)
                     .forEach(ops::add);
 
 
@@ -59,7 +57,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
     }
 
     @Override
-    public Collection<? extends Operation> parseOperationAnnotation(Method method) {
+    public Collection<Operation> parseOperationAnnotation(Method method) {
         final Collection<Operation> ops = new ArrayList<>(1);
         final Collection<Operation> methodOperationAnnotations = parseMethodOperationAnnotations(method);
         if (Asserts.nonEmpty(methodOperationAnnotations)) {
@@ -74,7 +72,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
 
     private Collection<Operation> parseMethodOperationAnnotations(Method method) {
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : annoTypes) {
+        for (Class<? extends Annotation> annotation : annTypes) {
             final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(method);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
@@ -83,15 +81,14 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         }
 
         if (Asserts.isEmpty(anns)) {
-            return null;
+            return Collections.emptyList();
         }
         final Collection<Operation> ops = new ArrayList<>(1);
 
-        annoTypes.forEach(an -> {
+        annTypes.forEach(an -> {
             final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
                     .map(ann -> builder.build(method, ann))
-                    .filter(Objects::nonNull)
                     .forEach(ops::add);
         });
 
@@ -105,9 +102,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         final Type[] genericParameterTypes = method.getGenericParameterTypes();
         for (int i = 0; i < parameters.length; i++) {
             final Collection<Operation> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i]);
-            if (cacheOperations != null) {
-                ops.addAll(cacheOperations);
-            }
+            ops.addAll(cacheOperations);
         }
         return ops;
     }
@@ -115,7 +110,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
 
     private Collection<Operation> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType) {
         final Collection<Annotation> anns = new ArrayList<>();
-        for (Class<? extends Annotation> annotation : annoTypes) {
+        for (Class<? extends Annotation> annotation : annTypes) {
             final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
             final Collection<? extends Annotation> operationAnnotation = finder.findOperationAnnotation(parameter);
             if (operationAnnotation != null && !operationAnnotation.isEmpty()) {
@@ -124,11 +119,11 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         }
 
         if (Asserts.isEmpty(anns)) {
-            return null;
+            return Collections.emptyList();
         }
         final Collection<Operation> ops = new ArrayList<>(1);
 
-        annoTypes.forEach(an -> {
+        annTypes.forEach(an -> {
             final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
             anns.stream().filter(ann -> ann.annotationType() == an)
                     .map(ann -> builder.build(index, parameter, parameterType, ann))

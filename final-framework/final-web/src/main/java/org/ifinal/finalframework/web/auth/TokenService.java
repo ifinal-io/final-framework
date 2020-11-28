@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
 @FunctionalInterface
 public interface TokenService {
 
@@ -26,6 +25,6 @@ public interface TokenService {
      * @return the {@link IUser}
      */
     @Nullable
-    IUser token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response);
+    IUser<?> token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response);
 
 }

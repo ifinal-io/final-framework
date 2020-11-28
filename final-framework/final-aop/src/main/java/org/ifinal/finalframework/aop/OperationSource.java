@@ -20,7 +20,7 @@ public interface OperationSource {
     }
 
     @Nullable
-    Collection<? extends Operation> getOperations(Method method, @Nullable Class<?> targetClass);
+    Collection<Operation> getOperations(Method method, @Nullable Class<?> targetClass);
 
     @NonNull
     default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {

@@ -2,11 +2,10 @@ package org.ifinal.finalframework.aop.interceptor;
 
 
 import org.ifinal.finalframework.aop.OperationConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 import org.springframework.data.util.Lazy;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AnnotationPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
-    private static final Logger logger = LoggerFactory.getLogger(AnnotationPointcutAdvisor.class);
     private final Lazy<Pointcut> pointcut;
 
     protected AnnotationPointcutAdvisor(OperationConfiguration configuration) {
@@ -25,6 +23,7 @@ public class AnnotationPointcutAdvisor extends AbstractBeanFactoryPointcutAdviso
     }
 
     @Override
+    @NonNull
     public Pointcut getPointcut() {
         return pointcut.get();
     }

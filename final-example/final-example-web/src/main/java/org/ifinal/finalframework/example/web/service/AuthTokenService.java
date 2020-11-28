@@ -1,8 +1,12 @@
 package org.ifinal.finalframework.example.web.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.IUser;
 import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.annotation.data.PrimaryKey;
 import org.ifinal.finalframework.context.exception.ForbiddenException;
 import org.ifinal.finalframework.web.auth.AuthService;
 import org.ifinal.finalframework.web.auth.TokenService;
@@ -12,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
 
 /**
  * @author likly
@@ -23,7 +26,7 @@ import java.io.Serializable;
 @Component
 public class AuthTokenService implements TokenService, AuthService<Auth> {
     @Override
-    public void auth(@Nullable IUser user, @NonNull Auth auth, @NonNull Object handler) {
+    public void auth(@Nullable IUser<?> user, @NonNull Auth auth, @NonNull Object handler) {
         logger.info("try auth ...");
 
         if (user == null) {
@@ -34,7 +37,7 @@ public class AuthTokenService implements TokenService, AuthService<Auth> {
 
     @Nullable
     @Override
-    public IUser token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
+    public IUser<?> token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         logger.info("try token");
 
         if (request.getParameterMap().containsKey("unlogin")) {
@@ -42,26 +45,15 @@ public class AuthTokenService implements TokenService, AuthService<Auth> {
         }
 
 
-        return new IUser() {
-            @Override
-            public String getName() {
-                return "user";
-            }
+        return new User(Long.MIN_VALUE, "user");
+    }
 
-            @Override
-            public void setName(String name) {
-
-            }
-
-            @Override
-            public Serializable getId() {
-                return 1L;
-            }
-
-            @Override
-            public void setId(Serializable serializable) {
-
-            }
-        };
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    static class User implements IUser<Long> {
+        @PrimaryKey
+        private Long id;
+        private String name;
     }
 }

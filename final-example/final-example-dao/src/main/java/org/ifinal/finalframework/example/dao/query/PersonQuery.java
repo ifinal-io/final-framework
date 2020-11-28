@@ -6,6 +6,8 @@ import org.ifinal.finalframework.annotation.query.Equal;
 import org.ifinal.finalframework.annotation.query.Or;
 import org.ifinal.finalframework.annotation.query.PageQuery;
 
+import java.io.Serializable;
+
 /**
  * @author likly
  * @version 1.0.0
@@ -21,7 +23,7 @@ public class PersonQuery extends PageQuery {
     private OrQuery orQuery;
 
     @Data
-    static class OrQuery {
+    static class OrQuery implements Serializable {
         @Equal
         private String password;
         @Equal

@@ -3,7 +3,6 @@ package org.ifinal.finalframework.auto.query.processor;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,9 +13,7 @@ import java.util.Set;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class QProperty implements Serializable {
-
-    private static final long serialVersionUID = 737464778206273859L;
+public class QProperty {
 
     private static final Set<String> dateTypes = new HashSet<>();
 

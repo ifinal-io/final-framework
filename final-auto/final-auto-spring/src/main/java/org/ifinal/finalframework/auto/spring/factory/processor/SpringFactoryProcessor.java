@@ -7,19 +7,12 @@ import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactories;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -40,14 +33,6 @@ import java.util.*;
  *
  * @author likly
  * @version 1.0.0
- * @see Component
- * @see Service
- * @see Repository
- * @see JsonComponent
- * @see Controller
- * @see RestController
- * @see ControllerAdvice
- * @see RestControllerAdvice
  * @see ApplicationListener
  * @see ApplicationContextInitializer
  * @see EnableAutoConfiguration
@@ -56,7 +41,6 @@ import java.util.*;
 @AutoProcessor
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@SuppressWarnings("unused")
 public class SpringFactoryProcessor extends AbstractProcessor {
 
     /**
@@ -213,7 +197,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                     if (mirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
                         processPackageSpringFactory(element, mirror, roundEnv);
                     } else if (mirror.getAnnotationType().toString().equals(SpringFactories.class.getCanonicalName())) {
-                        /**
+                        /*
                          * 在注解元素{@link AnnotationMirror}上声明了多个 {@link SpringFactory}注释
                          */
                         AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(mirror).get(SPRING_FACTORY_VALUE);

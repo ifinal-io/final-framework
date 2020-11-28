@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Default
 @ReadOnly
 @Documented
-@Order(Ordered.VERSION)
+@Order(Integer.MAX_VALUE - 200)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @org.springframework.data.annotation.Version

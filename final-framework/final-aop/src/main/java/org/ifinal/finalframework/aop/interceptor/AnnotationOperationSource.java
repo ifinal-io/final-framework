@@ -24,14 +24,14 @@ public class AnnotationOperationSource extends AbsOperationSource {
     }
 
     @Override
-    protected Collection<? extends Operation> findOperations(Method method) {
-        final Collection<? extends Operation> collection = parser.parseOperationAnnotation(method);
+    protected Collection<Operation> findOperations(Method method) {
+        final Collection<Operation> collection = parser.parseOperationAnnotation(method);
         return Asserts.isEmpty(collection) ? null : collection;
     }
 
     @Override
-    protected Collection<? extends Operation> findOperations(Class<?> clazz) {
-        final Collection<? extends Operation> collection = parser.parseOperationAnnotation(clazz);
+    protected Collection<Operation> findOperations(Class<?> clazz) {
+        final Collection<Operation> collection = parser.parseOperationAnnotation(clazz);
         return Asserts.isEmpty(collection) ? null : collection;
     }
 }

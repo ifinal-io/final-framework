@@ -16,7 +16,7 @@ import java.lang.annotation.*;
  */
 @Column
 @Documented
-@Order(Ordered.LAST_MODIFIER)
+@Order(Integer.MAX_VALUE - 110)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LastModifier {

@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Column
 @Documented
 @CreatedBy
-@Order(Ordered.CREATOR)
+@Order(Integer.MAX_VALUE - 130)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Creator {

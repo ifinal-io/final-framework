@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.sql.DataSource;
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "final.sharding")
-public class ShardingDataSourceProperties implements Serializable {
+public class ShardingDataSourceProperties {
 
     /**
      * 数据源

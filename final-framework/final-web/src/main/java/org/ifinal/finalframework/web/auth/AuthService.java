@@ -15,7 +15,6 @@ import java.lang.annotation.Annotation;
  * @see Auth
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
 @FunctionalInterface
 public interface AuthService<A extends Annotation> {
 
@@ -34,7 +33,6 @@ public interface AuthService<A extends Annotation> {
     /**
      * @param user user
      * @param auth auth
-     * @throws org.ifinal.finalframework.context.exception.ForbiddenException
      */
     void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull Object handler);
 

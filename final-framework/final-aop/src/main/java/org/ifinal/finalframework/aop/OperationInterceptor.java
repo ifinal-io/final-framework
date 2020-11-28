@@ -5,10 +5,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.ifinal.finalframework.aop.interceptor.BaseOperationInvocation;
 import org.ifinal.finalframework.util.Asserts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -16,8 +13,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class OperationInterceptor implements MethodInterceptor, Serializable {
-    private static final Logger logger = LoggerFactory.getLogger(OperationInterceptor.class);
+public class OperationInterceptor implements MethodInterceptor {
 
     private final OperationConfiguration configuration;
 

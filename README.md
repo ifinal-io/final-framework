@@ -8,7 +8,7 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 [![GitHub top language](https://img.shields.io/github/languages/top/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 [![GitHub language count](https://img.shields.io/github/languages/count/likly/final-frameworks)](https://github.com/likly/final-frameworks)
-[![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/likly/final-frameworks/master)](https://scrutinizer-ci.com/g/likly/final-frameworks/)
+[![Sonar Quality Gate](https://img.shields.io/sonar/alert_status/likly_final-frameworks?server=https%3A%2F%2Fsonarcloud.io)](https://scrutinizer-ci.com/g/likly/final-frameworks/)
 ![Sonar Coverage](https://img.shields.io/sonar/coverage/likly_final-frameworks?server=https%3A%2F%2Fsonarcloud.io)
 
 

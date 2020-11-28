@@ -6,6 +6,7 @@ import org.ifinal.finalframework.aop.OperationSource;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -18,24 +19,24 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 public abstract class AbsOperationSource implements OperationSource {
-    private final Collection<? extends Operation> NULL_CACHE_OPERATION = Collections.emptyList();
-    private final Map<Object, Collection<? extends Operation>> operationCache = new ConcurrentHashMap<>(1024);
+    private static final Collection<Operation> NULL_CACHE_OPERATION = Collections.emptyList();
+    private final Map<Object, Collection<Operation>> operationCache = new ConcurrentHashMap<>(1024);
 
     @Override
-    public Collection<? extends Operation> getOperations(Method method, Class<?> targetClass) {
+    public Collection<Operation> getOperations(Method method, Class<?> targetClass) {
         if (method.getDeclaringClass() == Object.class) {
-            return null;
+            return Collections.emptyList();
         }
 
         Object cacheKey = getCacheKey(method, targetClass);
-        Collection<? extends Operation> cached = this.operationCache.get(cacheKey);
+        Collection<Operation> cached = this.operationCache.get(cacheKey);
 
         if (cached != null) {
             return (cached != NULL_CACHE_OPERATION ? cached : null);
         }
 
-        Collection<? extends Operation> operations = computeOperations(method, targetClass);
-        if (operations != null) {
+        Collection<Operation> operations = computeOperations(method, targetClass);
+        if (!CollectionUtils.isEmpty(operations)) {
             final ArrayList<? extends Operation> list = new ArrayList<>(operations);
             list.sort(Comparator.comparingInt(Operation::order));
             this.operationCache.put(cacheKey, Collections.unmodifiableList(list));
@@ -45,23 +46,20 @@ public abstract class AbsOperationSource implements OperationSource {
         return operations;
     }
 
-    @Nullable
-    private Collection<? extends Operation> computeOperations(Method method, @Nullable Class<?> targetClass) {
+    private Collection<Operation> computeOperations(Method method, @Nullable Class<?> targetClass) {
 
         // Don't allow no-public methods as required.
         if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
-            return null;
+            return Collections.emptyList();
         }
 
         // The method may be on an interface, but we need attributes from the target class.
         // If the target class is null, the method will be unchanged.
         // 注解可能是声明在接口上的，因此不需要找到实现类的方法
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
-//        @SuppressWarnings("all")
-//       final Method specificMethod = method;
 
         // First try is the method in the target class.
-        Collection<? extends Operation> opDef = findOperations(specificMethod);
+        Collection<Operation> opDef = findOperations(specificMethod);
 
         if (opDef != null && !opDef.isEmpty()) {
             return opDef;
@@ -86,14 +84,14 @@ public abstract class AbsOperationSource implements OperationSource {
             }
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Nullable
-    protected abstract Collection<? extends Operation> findOperations(Method method);
+    protected abstract Collection<Operation> findOperations(Method method);
 
     @Nullable
-    protected abstract Collection<? extends Operation> findOperations(Class<?> clazz);
+    protected abstract Collection<Operation> findOperations(Class<?> clazz);
 
     protected boolean allowPublicMethodsOnly() {
         return false;

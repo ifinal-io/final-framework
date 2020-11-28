@@ -19,11 +19,11 @@ public interface OperationAnnotationParser {
      * 解析标记在{@link Class}上的 {@link java.lang.annotation.Annotation},并将其构建成对应的{@link Operation}
      */
     @Nullable
-    Collection<? extends Operation> parseOperationAnnotation(Class<?> type);
+    Collection<Operation> parseOperationAnnotation(Class<?> type);
 
     /**
      * 解析标记在 {@link Method} 上的 {@link java.lang.annotation.Annotation},并将其构建成对应的{@link Operation}
      */
     @Nullable
-    Collection<? extends Operation> parseOperationAnnotation(Method method);
+    Collection<Operation> parseOperationAnnotation(Method method);
 }

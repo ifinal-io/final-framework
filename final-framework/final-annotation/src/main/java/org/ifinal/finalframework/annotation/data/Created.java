@@ -23,7 +23,7 @@ import java.lang.reflect.Field;
 @ReadOnly
 @CreatedDate
 @Documented
-@Order(Ordered.CREATED)
+@Order(Integer.MAX_VALUE - 120)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {

@@ -3,7 +3,6 @@ package org.ifinal.finalframework.auto.query.processor;
 import com.squareup.javapoet.*;
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.auto.query.annotation.AutoQuery;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.data.query.AbsQEntity;
 import org.ifinal.finalframework.data.query.QProperty;
@@ -15,16 +14,13 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +31,6 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("unused")
 @AutoProcessor
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
@@ -52,11 +47,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
      */
     private TypeElement entityTypeElement;
 
-    /**
-     * Lombok 注解处理器
-     */
-    private Processor lombokProcessor;
-
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -64,15 +54,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
         this.typeUtils = processingEnv.getTypeUtils();
         this.elementUtils = processingEnv.getElementUtils();
         this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
-        initLombokProcessor();
-    }
-
-    private void initLombokProcessor() {
-        try {
-            lombokProcessor = (Processor) Class.forName("lombok.core.AnnotationProcessor").getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            // ignore
-        }
     }
 
     @Override
@@ -82,42 +63,20 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
                     .stream()
                     .map(entity -> processingEnv.getElementUtils().getTypeElement(entity))
-                    .forEach(entity -> this.generate(entity, DEFAULT_ENTITY_PATH, DEFAULT_QUERY_PATH));
-        } else {
-
-            if (lombokProcessor != null) {
-                lombokProcessor.process(annotations, roundEnv);
-            }
-
-            ElementFilter.packagesIn(roundEnv.getElementsAnnotatedWith(AutoQuery.class))
-                    .forEach(packageElement -> {
-                        final AutoQuery autoQuery = packageElement.getAnnotation(AutoQuery.class);
-
-                        Arrays.stream(autoQuery.value())
-                                .map(packageName -> ElementFilter.typesIn(elementUtils.getPackageElement(packageName).getEnclosedElements()))
-                                .forEach(entities -> entities.stream()
-                                        .filter(this::isEntity)
-                                        .forEach(entity -> this.generate(entity, autoQuery)));
-
-
-                    });
-
+                    .forEach(this::generate);
         }
-
 
         return false;
     }
 
-    private void generate(TypeElement entity, AutoQuery autoQuery) {
-        generate(entity, autoQuery.entity(), autoQuery.query());
-    }
 
-    private void generate(TypeElement entity, String entityPath, String queryPath) {
+    private void generate(TypeElement entity) {
         final String packageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
-                .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + Optional.ofNullable(queryPath).orElse(DEFAULT_QUERY_PATH));
+                .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_QUERY_PATH);
+
+
         generator(QEntityFactory.create(processingEnv, packageName, EntityFactory.create(processingEnv, entity)));
     }
-
 
     private void generator(QEntity entity) {
         try {
