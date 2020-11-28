@@ -5,8 +5,8 @@ import org.ifinal.finalframework.annotation.IQuery;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
 import org.ifinal.finalframework.mybatis.sql.provider.SqlProviderHelper;
 import org.ifinal.finalframework.web.resolver.annotation.RequestJsonParam;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/mybatis/query")
 public class QueryApiController {
 
-
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping
     public SqlBound query(Class<? extends IEntity<?>> entity, @RequestJsonParam IQuery query) {
         return SqlProviderHelper.query(entity, query);
     }
 
-    @RequestMapping(value = "/sql", method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping(value = "/sql")
     public String sql(Class<? extends IEntity<?>> entity, @RequestJsonParam IQuery query) {
         return query(entity, query).getSql();
     }
