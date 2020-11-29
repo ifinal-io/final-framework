@@ -1,6 +1,9 @@
 package org.ifinal.finalframework.annotation.data;
 
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.ifinal.finalframework.annotation.IRecord;
 
 /**
@@ -9,6 +12,9 @@ import org.ifinal.finalframework.annotation.IRecord;
  * @since 1.0.0
  */
 @Transient
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class AbsRecord extends AbsEntity implements IRecord<Long, AbsUser> {
 
     @Creator
@@ -18,24 +24,5 @@ public class AbsRecord extends AbsEntity implements IRecord<Long, AbsUser> {
     @Reference(properties = {"id", "name"})
     private AbsUser lastModifier;
 
-    @Override
-    public AbsUser getCreator() {
-        return creator;
-    }
-
-    @Override
-    public void setCreator(AbsUser creator) {
-        this.creator = creator;
-    }
-
-    @Override
-    public AbsUser getLastModifier() {
-        return lastModifier;
-    }
-
-    @Override
-    public void setLastModifier(AbsUser lastModifier) {
-        this.lastModifier = lastModifier;
-    }
 }
 
