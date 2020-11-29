@@ -4,8 +4,6 @@ import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.ifinal.finalframework.json.context.JsonContextHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,16 +11,15 @@ import org.springframework.stereotype.Component;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings({"rawtypes"})
+
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
         }
 )
 @Component
+@SuppressWarnings("unused")
 public class JsonIgnoreInterceptor implements Interceptor {
-
-    private static final Logger logger = LoggerFactory.getLogger(JsonIgnoreInterceptor.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

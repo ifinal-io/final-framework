@@ -20,10 +20,6 @@ public class JsonTypeReferenceTypeHandler<T> extends BaseTypeReferenceTypeHandle
         super(type);
     }
 
-    public JsonTypeReferenceTypeHandler() {
-        super();
-    }
-
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
         ps.setString(i, Json.toJson(parameter));

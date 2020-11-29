@@ -2,7 +2,6 @@ package org.ifinal.finalframework.boot.autoconfigure.web.response;
 
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.ifinal.finalframework.web.response.advice.ResponsibleResponseBodyAdvice;
-import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -31,7 +30,7 @@ public class ResponseAutoConfiguration implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) {
         Optional.of(applicationContext.getBean(ResponsibleResponseBodyAdvice.class))
                 .ifPresent(it -> it.setSyncStatus(properties.isSyncStatus()));
     }

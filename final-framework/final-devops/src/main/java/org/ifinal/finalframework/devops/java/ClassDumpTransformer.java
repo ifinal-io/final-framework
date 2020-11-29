@@ -2,13 +2,13 @@ package org.ifinal.finalframework.devops.java;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
     private static final Logger logger = LoggerFactory.getLogger(ClassDumpTransformer.class);
 
-    private static final String CLASS_DUMP_DIR = "classdump";
+    private static final String CLASS_DUMP_DIR = "classDump";
 
     private final Set<Class<?>> classesToEnhance;
     private final Map<Class<?>, File> dumpResult;
@@ -41,9 +41,9 @@ public class ClassDumpTransformer implements ClassFileTransformer {
     }
 
     @Override
+    @Nullable
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
-                            ProtectionDomain protectionDomain, byte[] classfileBuffer)
-            throws IllegalClassFormatException {
+                            ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         if (classesToEnhance.contains(classBeingRedefined)) {
             dumpClassIfNecessary(classBeingRedefined, classfileBuffer);
         }
@@ -59,7 +59,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
         ClassLoader classLoader = clazz.getClassLoader();
 
         // 创建类所在的包路径
-        File dumpDir = null;
+        File dumpDir;
         if (directory != null) {
             dumpDir = directory;
         } else {
@@ -80,7 +80,10 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
         File paths = new File(dumpDir, fileName.substring(0, fileName.lastIndexOf("/") + 1));
 
-        paths.mkdirs();
+        if (!paths.exists()) {
+            boolean mkdirs = paths.mkdirs();
+            logger.info("create calssDump dirs : {}", mkdirs);
+        }
 
         File dumpClassFile = new File(dumpDir, fileName);
 

@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 
-import java.net.UnknownHostException;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -23,8 +21,7 @@ public class FinalRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FinalRedisTemplate finalRedisTemplate(RedisConnectionFactory redisConnectionFactory)
-            throws UnknownHostException {
+    public FinalRedisTemplate finalRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         FinalRedisTemplate template = new FinalRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         RedisRegistry.getInstance().setRedisTemplate(template);

@@ -39,12 +39,9 @@ import java.util.Properties;
 )
 @Order
 @Component
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ParameterInjectionInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(ParameterInjectionInterceptor.class);
-    /*
-     * @see MapperBuilderAssistant#getStatementResultMaps(String, Class, String)
-     */
-    private static final String INLINE_RESULT_MAP_SUFFIX = "-Inline";
 
     private static final String TABLE_PARAMETER_NAME = "table";
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
@@ -55,9 +52,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
         for (Type type : genericInterfaces) {
             if (type instanceof ParameterizedType && Repository.class
                     .isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
-                Class<ID> id = (Class<ID>) ((ParameterizedType) type).getActualTypeArguments()[0];
-                Class<T> entity = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[1];
-                return entity;
+                return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[1];
 
             }
         }
