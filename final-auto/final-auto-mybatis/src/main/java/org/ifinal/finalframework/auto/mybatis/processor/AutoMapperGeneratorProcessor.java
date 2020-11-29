@@ -80,7 +80,7 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
 
         Entity entity = EntityFactory.create(processingEnv, typeElement);
 
-        // AbsMapper<ID,IEntity>
+        // AbsMapper<I,IEntity>
         ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
                 ClassName.get(AbsMapper.class),
                 TypeName.get(entity.getRequiredIdProperty().getType()),
@@ -88,7 +88,7 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
         );
 
 
-        // public interface EntityMapper extends AbsMapper<ID,IEntity>
+        // public interface EntityMapper extends AbsMapper<I,IEntity>
         TypeSpec myMapper = TypeSpec.interfaceBuilder(mapperName)
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(parameterizedTypeName)

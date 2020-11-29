@@ -46,7 +46,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
     private static final String TABLE_PARAMETER_NAME = "table";
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
-    public static <ID extends Serializable, T extends IEntity<ID>> Class<T> from(@NonNull Class<? extends AbsMapper> mapper) {
+    public static <I extends Serializable, T extends IEntity<I>> Class<T> from(@NonNull Class<? extends AbsMapper> mapper) {
 
         Type[] genericInterfaces = mapper.getGenericInterfaces();
         for (Type type : genericInterfaces) {

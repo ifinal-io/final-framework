@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Transient
-public interface IRecord<ID extends Serializable, USER extends IUser<ID>> extends IEntity<ID> {
+public interface IRecord<I extends Serializable, USER extends IUser<I>> extends IEntity<I> {
 
     /**
      * return the record creator

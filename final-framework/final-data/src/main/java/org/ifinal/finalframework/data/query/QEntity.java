@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface QEntity<ID extends Serializable, T> extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
+public interface QEntity<I extends Serializable, T> extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
 
     static QEntity<?, ?> from(Class<?> entity) {
         return new AbsQEntity<>(entity);
@@ -28,7 +28,7 @@ public interface QEntity<ID extends Serializable, T> extends Streamable<QPropert
     String getTable();
 
 
-    QProperty<ID> getIdProperty();
+    QProperty<I> getIdProperty();
 
     QProperty getVersionProperty();
 

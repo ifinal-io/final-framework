@@ -27,7 +27,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @SuppressWarnings("all")
-public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> extends Repository<ID, T> {
+public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends Repository<I, T> {
 
     /**
      * @param table    表名
@@ -69,29 +69,29 @@ public interface AbsMapper<ID extends Serializable, T extends IEntity<ID>> exten
     @UpdateProvider(UpdateSqlProvider.class)
     int update(@Param("table") String table, @Param("view") Class<?> view,
                @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
-               @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+               @Param("ids") Collection<I> ids, @Param("query") IQuery query);
 
     @Override
     @DeleteProvider(DeleteSqlProvider.class)
-    int delete(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<ID> ids, @Nullable @Param("query") IQuery query);
+    int delete(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<I> ids, @Nullable @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
-    List<T> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<ID> ids,
+    List<T> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<I> ids,
                    @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
-    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") ID id, @Param("query") IQuery query);
+    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") I id, @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectIdsSqlProvider.class)
-    List<ID> selectIds(@Nullable @Param("table") String table, @NonNull @Param("query") IQuery query);
+    List<I> selectIds(@Nullable @Param("table") String table, @NonNull @Param("query") IQuery query);
 
 
     @Override
     @SelectProvider(SelectCountSqlProvider.class)
-    long selectCount(@Param("table") String table, @Param("ids") Collection<ID> ids, @Param("query") IQuery query);
+    long selectCount(@Param("table") String table, @Param("ids") Collection<I> ids, @Param("query") IQuery query);
 
 
     @Override

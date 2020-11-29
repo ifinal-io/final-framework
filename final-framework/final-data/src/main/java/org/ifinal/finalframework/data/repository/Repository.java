@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @SuppressWarnings({"unused", "unchecked"})
-public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
+public interface Repository<I extends Serializable, T extends IEntity<I>> {
 
     /*==============================================================================================*/
     /*=========================================== INSERT ===========================================*/
@@ -212,11 +212,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update((String) null, entity, selective);
     }
 
-    default int update(@NonNull T entity, @NonNull ID... ids) {
+    default int update(@NonNull T entity, @NonNull I... ids) {
         return update(entity, Arrays.asList(ids));
     }
 
-    default int update(@NonNull T entity, @NonNull Collection<ID> ids) {
+    default int update(@NonNull T entity, @NonNull Collection<I> ids) {
         return update((String) null, entity, ids);
     }
 
@@ -225,11 +225,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update((String) null, entity, query);
     }
 
-    default int update(T entity, boolean selective, ID... ids) {
+    default int update(T entity, boolean selective, I... ids) {
         return update(entity, selective, Arrays.asList(ids));
     }
 
-    default int update(T entity, boolean selective, Collection<ID> ids) {
+    default int update(T entity, boolean selective, Collection<I> ids) {
         return update(null, null, entity, selective, ids);
     }
 
@@ -246,11 +246,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(table, null, entity, selective);
     }
 
-    default int update(String table, T entity, ID... ids) {
+    default int update(String table, T entity, I... ids) {
         return update(table, entity, Arrays.asList(ids));
     }
 
-    default int update(String table, T entity, Collection<ID> ids) {
+    default int update(String table, T entity, Collection<I> ids) {
         return update(table, null, entity, true, ids);
     }
 
@@ -263,11 +263,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(null, view, entity, selective);
     }
 
-    default int update(Class<?> view, T entity, ID... ids) {
+    default int update(Class<?> view, T entity, I... ids) {
         return update(view, entity, Arrays.asList(ids));
     }
 
-    default int update(Class<?> view, T entity, Collection<ID> ids) {
+    default int update(Class<?> view, T entity, Collection<I> ids) {
         return update(null, view, entity, ids);
     }
 
@@ -277,11 +277,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
 
-    default int update(String table, Class<?> view, T entity, ID... ids) {
+    default int update(String table, Class<?> view, T entity, I... ids) {
         return update(table, view, entity, Arrays.asList(ids));
     }
 
-    default int update(String table, Class<?> view, T entity, Collection<ID> ids) {
+    default int update(String table, Class<?> view, T entity, Collection<I> ids) {
         return update(table, view, entity, null, true, ids, null);
     }
 
@@ -294,11 +294,11 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return update(table, view, entity, selective, entity.getId());
     }
 
-    default int update(String table, Class<?> view, T entity, boolean selective, ID... ids) {
+    default int update(String table, Class<?> view, T entity, boolean selective, I... ids) {
         return update(table, view, entity, selective, Arrays.asList(ids));
     }
 
-    default int update(String table, Class<?> view, T entity, boolean selective, Collection<ID> ids) {
+    default int update(String table, Class<?> view, T entity, boolean selective, Collection<I> ids) {
         return update(table, view, entity, null, selective, ids, null);
     }
 
@@ -361,19 +361,19 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
     // -----------------Update---------
 
-    default int update(Update update, ID... ids) {
+    default int update(Update update, I... ids) {
         return update(update, Arrays.asList(ids));
     }
 
-    default int update(Update update, Collection<ID> ids) {
+    default int update(Update update, Collection<I> ids) {
         return update(null, null, null, update, false, ids, null);
     }
 
-    default int update(String table, Update update, ID... ids) {
+    default int update(String table, Update update, I... ids) {
         return update(table, update, Arrays.asList(ids));
     }
 
-    default int update(String table, Update update, Collection<ID> ids) {
+    default int update(String table, Update update, Collection<I> ids) {
         return update(table, null, null, update, false, ids, null);
     }
 
@@ -400,7 +400,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      */
     int update(String table, Class<?> view,
                T entity, Update update, boolean selective,
-               Collection<ID> ids, IQuery query);
+               Collection<I> ids, IQuery query);
 
     /*==============================================================================================*/
     /*=========================================== DELETE ===========================================*/
@@ -422,19 +422,19 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return delete(table, entities.stream().map(IEntity::getId).collect(Collectors.toList()));
     }
 
-    default int delete(@NonNull ID... ids) {
+    default int delete(@NonNull I... ids) {
         return delete(Arrays.asList(ids));
     }
 
-    default int delete(@Nullable String table, @NonNull ID... ids) {
+    default int delete(@Nullable String table, @NonNull I... ids) {
         return delete(table, Arrays.asList(ids));
     }
 
-    default int delete(@NonNull Collection<ID> ids) {
+    default int delete(@NonNull Collection<I> ids) {
         return delete(null, ids);
     }
 
-    default int delete(@Nullable String table, @NonNull Collection<ID> ids) {
+    default int delete(@Nullable String table, @NonNull Collection<I> ids) {
         return delete(table, ids, null);
     }
 
@@ -456,7 +456,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query 条件
      * @return 删除符合条件的数据所影响的行数
      */
-    int delete(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);
+    int delete(@Nullable String table, @Nullable Collection<I> ids, @Nullable IQuery query);
 
     default <PARAM> void delete(IQuery query, Listener<PARAM, Integer> listener) {
         this.delete(null, query, listener);
@@ -497,35 +497,35 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return select(table, view, (IQuery) null);
     }
 
-    default List<T> select(@NonNull ID... ids) {
+    default List<T> select(@NonNull I... ids) {
         return select(Arrays.asList(ids));
     }
 
-    default List<T> select(@Nullable String table, ID... ids) {
+    default List<T> select(@Nullable String table, I... ids) {
         return select(table, Arrays.asList(ids));
     }
 
-    default List<T> select(@Nullable Class<?> view, ID... ids) {
+    default List<T> select(@Nullable Class<?> view, I... ids) {
         return select(view, Arrays.asList(ids));
     }
 
-    default List<T> select(@Nullable String table, Class<?> view, ID... ids) {
+    default List<T> select(@Nullable String table, Class<?> view, I... ids) {
         return select(table, view, Arrays.asList(ids));
     }
 
-    default List<T> select(@NonNull Collection<ID> ids) {
+    default List<T> select(@NonNull Collection<I> ids) {
         return select(null, null, ids);
     }
 
-    default List<T> select(@Nullable String table, @NonNull Collection<ID> ids) {
+    default List<T> select(@Nullable String table, @NonNull Collection<I> ids) {
         return select(table, null, ids, null);
     }
 
-    default List<T> select(@Nullable Class<?> view, @NonNull Collection<ID> ids) {
+    default List<T> select(@Nullable Class<?> view, @NonNull Collection<I> ids) {
         return select(null, view, ids);
     }
 
-    default List<T> select(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<ID> ids) {
+    default List<T> select(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<I> ids) {
         return select(table, view, ids, null);
     }
 
@@ -550,7 +550,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     /**
-     * 根据 {@link ID} 集合或 {@link IQuery} 查询
+     * 根据 {@link I} 集合或 {@link IQuery} 查询
      *
      * @param table 表名
      * @param view  视图
@@ -558,26 +558,26 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query 查询条件
      * @return list
      */
-    List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<ID> ids, @Nullable IQuery query);
+    List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<I> ids, @Nullable IQuery query);
 
 
     /*==============================================================================================*/
     /*========================================= SELECT ONE =========================================*/
     /*==============================================================================================*/
 
-    default T selectOne(@NonNull ID id) {
+    default T selectOne(@NonNull I id) {
         return selectOne(null, null, id, null);
     }
 
-    default T selectOne(@Nullable String table, @NonNull ID id) {
+    default T selectOne(@Nullable String table, @NonNull I id) {
         return selectOne(table, null, id, null);
     }
 
-    default T selectOne(@Nullable Class<?> view, @NonNull ID id) {
+    default T selectOne(@Nullable Class<?> view, @NonNull I id) {
         return selectOne(null, view, id, null);
     }
 
-    default T selectOne(@Nullable String table, @Nullable Class<?> view, @NonNull ID id) {
+    default T selectOne(@Nullable String table, @Nullable Class<?> view, @NonNull I id) {
         return selectOne(table, view, id, null);
     }
 
@@ -599,15 +599,15 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     }
 
     /**
-     * 返回符合查询 {@link ID} 或 {@link IQuery} 的一个结果，当找不到时返回 {@code null}
+     * 返回符合查询 {@link I} 或 {@link IQuery} 的一个结果，当找不到时返回 {@code null}
      *
      * @param table 表名
      * @param view  视图
-     * @param id    ID
+     * @param i     I
      * @param query query
-     * @return 符合查询 {@link ID} 或 {@link IQuery} 的一个结果
+     * @return 符合查询 {@link I} 或 {@link IQuery} 的一个结果
      */
-    T selectOne(@Nullable String table, @Nullable Class<?> view, @Nullable ID id, @Nullable IQuery query);
+    T selectOne(@Nullable String table, @Nullable Class<?> view, @Nullable I id, @Nullable IQuery query);
 
     /*==============================================================================================*/
     /*=========================================== SCANNER ==========================================*/
@@ -654,18 +654,18 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
     /*========================================= SELECT IDS =========================================*/
     /*==============================================================================================*/
 
-    default List<ID> selectIds(@NonNull IQuery query) {
+    default List<I> selectIds(@NonNull IQuery query) {
         return selectIds(null, query);
     }
 
     /**
-     * 返回符合查询条件 {@link IQuery} 的主键集合 {@link ID}
+     * 返回符合查询条件 {@link IQuery} 的主键集合 {@link I}
      *
      * @param table 表名
      * @param query query
-     * @return 符合查询条件 {@link IQuery} 的主键集合 {@link ID}
+     * @return 符合查询条件 {@link IQuery} 的主键集合 {@link I}
      */
-    List<ID> selectIds(@Nullable String table, @NonNull IQuery query);
+    List<I> selectIds(@Nullable String table, @NonNull IQuery query);
 
 
     /*==============================================================================================*/
@@ -690,19 +690,19 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
         return selectCount(table, null, query);
     }
 
-    default long selectCount(@NonNull ID... ids) {
+    default long selectCount(@NonNull I... ids) {
         return selectCount(Arrays.asList(ids));
     }
 
-    default long selectCount(@NonNull Collection<ID> ids) {
+    default long selectCount(@NonNull Collection<I> ids) {
         return selectCount(null, ids);
     }
 
-    default long selectCount(@Nullable String table, @NonNull ID... ids) {
+    default long selectCount(@Nullable String table, @NonNull I... ids) {
         return selectCount(table, Arrays.asList(ids));
     }
 
-    default long selectCount(@Nullable String table, @NonNull Collection<ID> ids) {
+    default long selectCount(@Nullable String table, @NonNull Collection<I> ids) {
         return selectCount(table, ids, null);
     }
 
@@ -714,16 +714,16 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query query
      * @return 符合查询条件 {@link IQuery}的结果集的大小
      */
-    long selectCount(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);
+    long selectCount(@Nullable String table, @Nullable Collection<I> ids, @Nullable IQuery query);
 
     /*==============================================================================================*/
     /*========================================== IS EXISTS =========================================*/
     /*==============================================================================================*/
-    default boolean isExists(@NonNull ID id) {
+    default boolean isExists(@NonNull I id) {
         return isExists(null, id);
     }
 
-    default boolean isExists(@Nullable String table, @NonNull ID id) {
+    default boolean isExists(@Nullable String table, @NonNull I id) {
         return selectCount(table, id) > 0;
     }
 

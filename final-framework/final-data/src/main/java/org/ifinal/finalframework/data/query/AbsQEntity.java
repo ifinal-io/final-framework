@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
+public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
 
     private final List<QProperty<?>> properties = new ArrayList<>();
     private final Map<String, QProperty<?>> pathProperties = new HashMap<>();
@@ -121,8 +121,8 @@ public class AbsQEntity<ID extends Serializable, T> implements QEntity<ID, T> {
     }
 
     @Override
-    public QProperty<ID> getIdProperty() {
-        return (QProperty<ID>) this.idProperty;
+    public QProperty<I> getIdProperty() {
+        return (QProperty<I>) this.idProperty;
     }
 
     @Override

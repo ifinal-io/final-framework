@@ -85,7 +85,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
     private JavaFile buildJavaFile(QEntity entity) {
 
-        // AbsQEntity<ID,IEntity>
+        // AbsQEntity<I,IEntity>
         ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
                 ClassName.get(AbsQEntity.class),
                 TypeName.get(entity.getEntity().getRequiredIdProperty().getType()),

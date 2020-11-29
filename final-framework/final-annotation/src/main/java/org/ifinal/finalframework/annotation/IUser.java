@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Transient
-public interface IUser<ID extends Serializable> extends IEntity<ID> {
+public interface IUser<I extends Serializable> extends IEntity<I> {
     /**
      * return user name.
      *

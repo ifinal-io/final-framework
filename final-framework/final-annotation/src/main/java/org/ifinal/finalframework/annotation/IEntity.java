@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Transient
-public interface IEntity<ID extends Serializable> extends Serializable {
+public interface IEntity<I extends Serializable> extends Serializable {
 
     /**
      * return the entity id.
@@ -22,12 +22,12 @@ public interface IEntity<ID extends Serializable> extends Serializable {
      * @return the entity id.
      */
     @Nullable
-    ID getId();
+    I getId();
 
     /**
      * set id to this entity.
      *
      * @param id id
      */
-    void setId(@Nullable ID id);
+    void setId(@Nullable I id);
 }
