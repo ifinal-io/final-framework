@@ -12,18 +12,20 @@ import java.util.Optional;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class JsonContextHolder {
+public final class JsonContextHolder {
 
-    private static final ThreadLocal<JsonContext> jsonContextHolder =
+    private static final ThreadLocal<JsonContext> JSON_CONTEXT =
             new NamedThreadLocal<>("JsonContext");
-
-    private static final ThreadLocal<JsonContext> inheritableJsonContextHolder =
+    private static final ThreadLocal<JsonContext> INHERITABLE_JSON_CONTEXT =
             new NamedInheritableThreadLocal<>("JsonContext");
+
+    private JsonContextHolder() {
+    }
 
     private static JsonContext defaultJson = new SimpleJsonContext();
 
     public static void resetJsonContext() {
-        jsonContextHolder.remove();
+        JSON_CONTEXT.remove();
     }
 
     public static void setJsonContext(@Nullable JsonContext jsonContext, boolean inheritable) {
@@ -31,20 +33,20 @@ public class JsonContextHolder {
             resetJsonContext();
         } else {
             if (inheritable) {
-                inheritableJsonContextHolder.set(jsonContext);
-                jsonContextHolder.remove();
+                INHERITABLE_JSON_CONTEXT.set(jsonContext);
+                JSON_CONTEXT.remove();
             } else {
-                jsonContextHolder.set(jsonContext);
-                inheritableJsonContextHolder.remove();
+                JSON_CONTEXT.set(jsonContext);
+                INHERITABLE_JSON_CONTEXT.remove();
             }
         }
     }
 
     @Nullable
     public static JsonContext getJsonContext() {
-        JsonContext userContext = jsonContextHolder.get();
+        JsonContext userContext = JSON_CONTEXT.get();
         if (userContext == null) {
-            userContext = inheritableJsonContextHolder.get();
+            userContext = INHERITABLE_JSON_CONTEXT.get();
         }
         if (userContext == null) {
             userContext = defaultJson;
@@ -56,7 +58,7 @@ public class JsonContextHolder {
         setJsonContext(localeContext, false);
     }
 
-    public static void setIgnore(@Nullable boolean ignore, boolean inheritable) {
+    public static void setIgnore(boolean ignore, boolean inheritable) {
         JsonContext jsonContext = getJsonContext();
         if (jsonContext == null) {
             jsonContext = new SimpleJsonContext();

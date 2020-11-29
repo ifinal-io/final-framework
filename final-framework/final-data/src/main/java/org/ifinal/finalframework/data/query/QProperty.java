@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.annotation.data.PersistentType;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.criteriable.Criteriable;
 import org.ifinal.finalframework.data.query.criteriable.ExecuteCriteriable;
@@ -15,7 +14,6 @@ import org.ifinal.finalframework.data.query.operation.MathOperations;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -80,9 +78,6 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
      * @see Property#isModifiable()
      */
     boolean isModifiable();
-
-    @NonNull
-    PersistentType getPersistentType();
 
     Class<? extends TypeHandler> getTypeHandler();
 
@@ -153,12 +148,12 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
     @Override
     default Criterion in(@NonNull Collection<Object> values) {
-        return CriterionTarget.from(this).in((Collection) values);
+        return CriterionTarget.from(this).in(values);
     }
 
     @Override
     default Criterion nin(@NonNull Collection<Object> values) {
-        return CriterionTarget.from(this).nin((Collection) values);
+        return CriterionTarget.from(this).nin(values);
     }
 
     @Override
@@ -172,7 +167,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default Criterion jsonContains(@NotNull Object value, String path) {
+    default Criterion jsonContains(@NonNull Object value, String path) {
         return JsonOperations.contains(this, value, path);
     }
 
@@ -188,7 +183,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default CriterionTarget<CriterionFunction> jsonExtract(String path) {
+    default CriterionTarget<CriterionFunction> jsonExtract(@NonNull String path) {
         return apply(value -> JsonOperations.extract(this, path));
     }
 
@@ -285,17 +280,9 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
         Builder<T> modifiable(boolean modifiable);
 
-        Builder<T> persistentType(PersistentType persistentType);
-
         Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler);
 
         Builder<T> views(List<Class<?>> views);
-
-        Builder<T> insertable(boolean insertable);
-
-        Builder<T> updatable(boolean updatable);
-
-        Builder<T> selectable(boolean selectable);
 
     }
 }

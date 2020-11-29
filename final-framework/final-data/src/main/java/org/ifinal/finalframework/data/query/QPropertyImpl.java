@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.annotation.data.PersistentType;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.util.Asserts;
-import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +25,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final boolean readable;
     private final boolean writeable;
     private final boolean modifiable;
-    private final PersistentType persistentType;
 
     private final Class<? extends TypeHandler> typeHandler;
 
     private final List<Class<?>> views;
 
-    private final boolean insertable;
-    private final boolean updatable;
-    private final boolean selectable;
 
     public QPropertyImpl(BuilderImpl<T, E> builder) {
         this.entity = builder.entity;
@@ -49,15 +43,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         this.readable = builder.isReadable;
         this.writeable = builder.isWriteable;
         this.modifiable = builder.isModifiable;
-        this.persistentType = builder.persistentType;
 
         this.typeHandler = builder.typeHandler;
 
         this.views = Asserts.isEmpty(builder.views) ? new ArrayList<>() : builder.views;
 
-        this.insertable = builder.insertable;
-        this.updatable = builder.updatable;
-        this.selectable = builder.selectable;
     }
 
     @Override
@@ -116,12 +106,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.modifiable;
     }
 
-    @NonNull
-    @Override
-    public PersistentType getPersistentType() {
-        return this.persistentType;
-    }
-
     @Override
     public Class<? extends TypeHandler> getTypeHandler() {
         return this.typeHandler;
@@ -173,13 +157,9 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private boolean isWriteable = true;
         private boolean isModifiable = true;
 
-        private PersistentType persistentType;
 
         private Class<? extends TypeHandler> typeHandler;
         private List<Class<?>> views;
-        private boolean insertable = true;
-        private boolean updatable = true;
-        private boolean selectable = true;
 
         public BuilderImpl(E entity, Property property) {
             this.entity = entity;
@@ -234,11 +214,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
             return this;
         }
 
-        @Override
-        public Builder<T> persistentType(PersistentType persistentType) {
-            this.persistentType = persistentType;
-            return this;
-        }
 
         @Override
         public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
@@ -252,23 +227,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
             return this;
         }
 
-        @Override
-        public Builder<T> insertable(boolean insertable) {
-            this.insertable = insertable;
-            return this;
-        }
-
-        @Override
-        public Builder<T> updatable(boolean updatable) {
-            this.updatable = updatable;
-            return this;
-        }
-
-        @Override
-        public Builder<T> selectable(boolean selectable) {
-            this.selectable = selectable;
-            return this;
-        }
 
         @Override
         public QProperty<T> build() {

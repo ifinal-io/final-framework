@@ -3,6 +3,7 @@ package org.ifinal.finalframework.data.query;
 import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 import org.ifinal.finalframework.util.stream.Streamable;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -52,15 +53,10 @@ public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Cri
 
 
     @Override
-    default void apply(StringBuilder sql, String value) {
+    default void apply(@NonNull StringBuilder sql, @NonNull String value) {
         sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
         int index = 0;
 
-        /*
-         * <trim prefix="AND|OR">
-         *      ${criterion}
-         * </trim>
-         */
         for (Criterion criterion : this) {
             sql.append(String.format("<trim prefix=\" %s \">", andOr().name()));
             criterion.apply(sql, String.format("%s.criteria[%d]", value, index));

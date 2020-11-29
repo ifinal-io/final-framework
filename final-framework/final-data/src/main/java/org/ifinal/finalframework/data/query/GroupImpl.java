@@ -35,7 +35,6 @@ final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
         return GroupImpl.by(these);
     }
 
-    @Override
     public Stream<QProperty<?>> stream() {
         return super.stream();
     }
