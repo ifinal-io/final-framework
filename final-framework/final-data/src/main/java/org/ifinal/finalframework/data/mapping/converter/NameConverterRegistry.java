@@ -15,7 +15,7 @@ public class NameConverterRegistry {
     private static final String FINAL_NAME_CONVERTER_TABLE_CONVERTER = "final.data.name-converter.table-converter";
     private static final String FINAL_NAME_CONVERTER_COLUMN_CONVERTER = "final.data.name-converter.column-converter";
 
-    private static NameConverterRegistry instance = new NameConverterRegistry();
+    private static final NameConverterRegistry instance = new NameConverterRegistry();
 
     private final NameConverter defaultNameConverter = new CameHump2UnderlineNameConverter();
 
@@ -39,7 +39,7 @@ public class NameConverterRegistry {
     private void initTableConverter(@Nullable String tableNameConverter) {
         if (Asserts.isEmpty(tableNameConverter)) return;
         try {
-            this.tableNameConverter = (NameConverter) Class.forName(tableNameConverter).newInstance();
+            this.tableNameConverter = (NameConverter) Class.forName(tableNameConverter).getConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -48,7 +48,7 @@ public class NameConverterRegistry {
     private void initNameConverter(@Nullable String columnNameConverter) {
         if (Asserts.isEmpty(columnNameConverter)) return;
         try {
-            this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).newInstance();
+            this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).getConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

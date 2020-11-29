@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.ifinal.finalframework.annotation.IView;
 import org.ifinal.finalframework.annotation.data.*;
-import org.ifinal.finalframework.mybatis.handler.PointTypeHandler;
 import org.springframework.data.geo.Point;
 
 /**
@@ -25,7 +24,6 @@ public String vcolumn = "32";
     @View(IView.class)
     private String name;
     private Integer age;
-    @Geometry(typeHandler = PointTypeHandler.class)
     private Point point;
     @Function(reader = "MAX(age) as ${column}")
     private Integer maxAge;

@@ -37,7 +37,8 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
     @Override
     public final boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) {
-            return onProcessingOver(annotations, roundEnv);
+            generateServiceFiles();
+            return false;
         } else {
             return doProcess(annotations, roundEnv);
         }
@@ -54,11 +55,6 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         final Map<String, String> instances = this.services.computeIfAbsent(serviceName, key -> new HashMap<>());
         instances.put(instance.getQualifiedName().toString(), name);
         this.paths.putIfAbsent(serviceName, Optional.ofNullable(path).orElse(DEFAULT_SERVICE_PATH));
-    }
-
-    protected boolean onProcessingOver(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        generateServiceFiles();
-        return false;
     }
 
 
