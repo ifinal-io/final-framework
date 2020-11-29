@@ -1,8 +1,6 @@
 package org.ifinal.finalframework.boot.autoconfigure.zookeeper;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,12 +30,7 @@ public class ZookeeperAutoConfiguration {
 
     @Bean
     public ZooKeeper zooKeeper() throws IOException {
-        return new ZooKeeper(properties.getAddress(), properties.getTimeout(), new Watcher() {
-            @Override
-            public void process(WatchedEvent watchedEvent) {
-
-            }
-        });
+        return new ZooKeeper(properties.getAddress(), properties.getTimeout(), watchedEvent -> logger.info(watchedEvent.toString()));
     }
 
 }

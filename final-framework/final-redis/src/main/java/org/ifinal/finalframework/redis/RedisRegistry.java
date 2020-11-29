@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.*;
  */
 public final class RedisRegistry {
     private static final RedisRegistry instance = new RedisRegistry();
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<?, ?> redisTemplate;
 
     private RedisRegistry() {
     }
@@ -19,11 +19,11 @@ public final class RedisRegistry {
         return instance;
     }
 
-    public void setRedisTemplate(RedisTemplate redisTemplate) {
+    public void setRedisTemplate(RedisTemplate<?, ?> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public RedisTemplate<?, ?> template() {
+    public RedisTemplate template() {
         return redisTemplate;
     }
 

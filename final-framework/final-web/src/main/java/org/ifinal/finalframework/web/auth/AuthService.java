@@ -16,7 +16,7 @@ import java.lang.annotation.Annotation;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface AuthService<A extends Annotation> {
+public interface AuthService<T extends IUser<?>, A extends Annotation> {
 
     /**
      * @param user     the {@link IUser} login, maybe null.
@@ -25,7 +25,7 @@ public interface AuthService<A extends Annotation> {
      * @param response the {@link HttpServletResponse}
      * @param handler  the handler
      */
-    default void auth(@Nullable IUser<?> user, @NonNull A auth, @Nullable HttpServletRequest request, @Nullable HttpServletResponse response, @NonNull Object handler) {
+    default void auth(@Nullable T user, @NonNull A auth, @Nullable HttpServletRequest request, @Nullable HttpServletResponse response, @NonNull Object handler) {
         auth(user, auth, handler);
     }
 
@@ -34,7 +34,7 @@ public interface AuthService<A extends Annotation> {
      * @param user user
      * @param auth auth
      */
-    void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull Object handler);
+    void auth(@Nullable T user, @NonNull A auth, @NonNull Object handler);
 
 
 }

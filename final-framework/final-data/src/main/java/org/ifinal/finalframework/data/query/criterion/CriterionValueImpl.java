@@ -43,20 +43,20 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
     }
 
     public String getSqlExpression(String expression) {
-        String value;
+        String criterionValue;
         if (Asserts.nonNull(expression)) {
-            value = expression;
+            criterionValue = expression;
         } else if (isProperty()) {
             QProperty<?> property = (QProperty<?>) this.value;
-            value = SqlKeyWords.contains(property.getColumn().toLowerCase()) ?
+            criterionValue = SqlKeyWords.contains(property.getColumn().toLowerCase()) ?
                     String.format("`%s`", property.getColumn()) : property.getColumn();
         } else {
-            value = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
+            criterionValue = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
         }
 
         if (Asserts.nonNull(expression)) {
             StringBuilder sb = new StringBuilder();
-            sb.append("#{").append(value);
+            sb.append("#{").append(criterionValue);
 
             if (Asserts.nonNull(javaType)) {
                 sb.append(" ,javaType=").append(javaType.getCanonicalName());
@@ -68,10 +68,10 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
 
             sb.append("}");
 
-            value = sb.toString();
+            criterionValue = sb.toString();
         }
 
-        return value;
+        return criterionValue;
     }
 
     @Override

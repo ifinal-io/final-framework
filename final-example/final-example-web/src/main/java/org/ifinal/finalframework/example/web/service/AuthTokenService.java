@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Component
-public class AuthTokenService implements TokenService, AuthService<Auth> {
+public class AuthTokenService implements TokenService<AuthTokenService.User>, AuthService<AuthTokenService.User, Auth> {
     @Override
-    public void auth(@Nullable IUser<?> user, @NonNull Auth auth, @NonNull Object handler) {
+    public void auth(@Nullable User user, @NonNull Auth auth, @NonNull Object handler) {
         logger.info("try auth ...");
 
         if (user == null) {
@@ -37,7 +37,7 @@ public class AuthTokenService implements TokenService, AuthService<Auth> {
 
     @Nullable
     @Override
-    public IUser<?> token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
+    public User token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         logger.info("try token");
 
         if (request.getParameterMap().containsKey("unlogin")) {

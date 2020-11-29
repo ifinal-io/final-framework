@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface TokenService {
+public interface TokenService<T extends IUser<?>> {
 
     /**
      * return the {@link IUser} which parsed from the {@link HttpServletRequest}.
@@ -25,6 +25,6 @@ public interface TokenService {
      * @return the {@link IUser}
      */
     @Nullable
-    IUser<?> token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response);
+    T token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response);
 
 }
