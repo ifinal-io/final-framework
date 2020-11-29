@@ -83,8 +83,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
 
         appendInsertOrReplaceOrSave(sql, insertPrefix);
-        appendColumns(sql, entity, view);
-        appendValues(sql, entity, view);
+        appendColumns(sql, entity);
+        appendValues(sql, entity);
         if (METHOD_SAVE.equals(context.getMapperMethod().getName())) {
             appendOnDuplicateKeyUpdate(sql, entity, view);
         }
@@ -127,9 +127,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      *
      * @param sql    sql
      * @param entity entity
-     * @param view   view
      */
-    private void appendColumns(StringBuilder sql, QEntity<?, ?> entity, Class<?> view) {
+    private void appendColumns(StringBuilder sql, QEntity<?, ?> entity) {
 
         // <trim prefix="(" suffix=)"" suffixOverrides=",">
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
@@ -162,9 +161,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      *
      * @param sql    sql
      * @param entity entity
-     * @param view   view
      */
-    private void appendValues(StringBuilder sql, QEntity<?, ?> entity, Class<?> view) {
+    private void appendValues(StringBuilder sql, QEntity<?, ?> entity) {
         sql.append("<foreach collection=\"list\" item=\"item\" open=\"VALUES\" separator=\",\">");
 
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
@@ -184,15 +182,9 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                                 .append(ScriptMapperHelper.formatTest("item", property.getPath(), false))
                                 .append("\">");
 
-                        final Metadata metadata = new Metadata();
-                        metadata.setProperty(property.getName());
-                        metadata.setColumn(property.getColumn());
-                        metadata.setValue("item." + property.getPath());
-                        metadata.setJavaType(property.getType());
-                        metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, metadata) + ","));
+                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
 
                         value
                                 .append("</when>")
@@ -201,15 +193,9 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         sql.append(value.toString());
                     } else {
                         final StringBuilder value = new StringBuilder();
-                        final Metadata metadata = new Metadata();
-                        metadata.setProperty(property.getName());
-                        metadata.setColumn(property.getColumn());
-                        metadata.setValue("item." + property.getPath());
-                        metadata.setJavaType(property.getType());
-                        metadata.setTypeHandler(property.getTypeHandler());
 
                         final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, metadata) + ","));
+                        value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
                         sql.append(value.toString());
                     }
 
@@ -221,6 +207,16 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append(TRIM_END);
 
         sql.append("</foreach>");
+    }
+
+    private Metadata buildPropertyMetadata(QProperty<?> property) {
+        final Metadata metadata = new Metadata();
+        metadata.setProperty(property.getName());
+        metadata.setColumn(property.getColumn());
+        metadata.setValue("item." + property.getPath());
+        metadata.setJavaType(property.getType());
+        metadata.setTypeHandler(property.getTypeHandler());
+        return metadata;
     }
 
 

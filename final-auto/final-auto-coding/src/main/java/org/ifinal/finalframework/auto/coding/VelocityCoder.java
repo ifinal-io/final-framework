@@ -25,7 +25,7 @@ import java.util.Properties;
  */
 public class VelocityCoder implements Coder {
 
-    private static ToolManager toolManager = new ToolManager();
+    private static final ToolManager toolManager = new ToolManager();
 
     public VelocityCoder() {
         Properties properties = new Properties();
@@ -65,7 +65,7 @@ public class VelocityCoder implements Coder {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 

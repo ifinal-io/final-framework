@@ -1,6 +1,8 @@
 package org.ifinal.finalframework.web.i18n;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -16,6 +18,8 @@ import java.util.Locale;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Setter
+@Getter
 public class I18NLocaleResolver extends CookieLocaleResolver {
 
     private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
@@ -60,7 +64,6 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
     }
 
     private boolean isSupportedLocale(Locale locale) {
-        List<Locale> supportedLocales = getSupportedLocales();
         return (supportedLocales.isEmpty() || supportedLocales.contains(locale));
     }
 
@@ -86,20 +89,5 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
         }
     }
 
-    public String getParamName() {
-        return paramName;
-    }
-
-    public void setParamName(String paramName) {
-        this.paramName = paramName;
-    }
-
-    public String getHeaderName() {
-        return headerName;
-    }
-
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
-    }
 }
 

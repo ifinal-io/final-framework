@@ -17,8 +17,6 @@ import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Field;
@@ -32,8 +30,6 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public final class ResultMapFactory {
-
-    private static final Logger logger = LoggerFactory.getLogger(ResultMapFactory.class);
 
     private static final Map<Class<?>, ResultMap> resultMaps = new ConcurrentHashMap<>();
 
@@ -115,14 +111,10 @@ public final class ResultMapFactory {
 
     }
 
-    private static String formatColumn(Entity entity, Property property, Property referenceProperty) {
-        String column = null;
+    private static String formatColumn(Entity<?> entity, Property property, Property referenceProperty) {
+        String column;
         if (property == null) {
             column = referenceProperty.getColumn();
-//            if (property.isKeyword()) {
-//                column = String.format("`%s`", column);
-//            }
-
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
@@ -148,10 +140,10 @@ public final class ResultMapFactory {
 
 
             if (typeHandler != null && !TypeHandler.class.equals(typeHandler)) {
-                return typeHandler.newInstance();
+                return typeHandler.getConstructor().newInstance();
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
 
 

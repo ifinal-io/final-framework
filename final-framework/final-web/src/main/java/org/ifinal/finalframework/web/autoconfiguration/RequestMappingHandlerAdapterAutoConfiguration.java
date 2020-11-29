@@ -48,8 +48,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     }
 
     /**
-     * @param context
-     * @param adapter
+     * @param context context
+     * @param adapter adapter
      * @see RequestMappingHandlerAdapter#setArgumentResolvers(List)
      */
     private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
@@ -68,7 +68,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
                 if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
                     Optional.ofNullable(ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters"))
                             .ifPresent(messageConverters -> {
-                                messageConverters.setAccessible(true);
+                                ReflectionUtils.makeAccessible(messageConverters);
                                 ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
                             });
 
@@ -85,15 +85,15 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
         final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
 
-        List<HandlerMethodReturnValueHandler> defualtReturnValueHandlers = adapter.getReturnValueHandlers();
-        if (Asserts.nonEmpty(defualtReturnValueHandlers)) {
+        List<HandlerMethodReturnValueHandler> defaultReturnValueHandlers = adapter.getReturnValueHandlers();
+        if (Asserts.nonEmpty(defaultReturnValueHandlers)) {
 
-            for (HandlerMethodReturnValueHandler returnValueHandler : defualtReturnValueHandlers) {
+            for (HandlerMethodReturnValueHandler returnValueHandler : defaultReturnValueHandlers) {
                 if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {
 
                     Optional.ofNullable(ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters"))
                             .ifPresent(field -> {
-                                field.setAccessible(true);
+                                ReflectionUtils.makeAccessible(field);
                                 ReflectionUtils.setField(field, returnValueHandler, adapter.getMessageConverters());
 
                             });
@@ -107,8 +107,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     }
 
     /**
-     * @param context
-     * @param adapter
+     * @param context context
+     * @param adapter adapter
      * @see RequestMappingHandlerAdapter#getMessageConverters()
      */
     private void configureMessageConverters(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
@@ -119,8 +119,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         List<HttpMessageConverter<?>> httpMessageConverters = messageConverters.stream()
                 .map(it -> {
                     if (it instanceof StringHttpMessageConverter) {
-                        JsonStringHttpMessageConverter jsonStringHttpMessageConverter = new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
-                        return jsonStringHttpMessageConverter;
+                        return new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
                     } else {
                         return it;
                     }

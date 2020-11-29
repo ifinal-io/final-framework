@@ -27,13 +27,14 @@ import java.util.ServiceLoader;
  */
 @Slf4j
 @Component
+@SuppressWarnings("unused")
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
-    private final List<ConverterFactory> converterFactories;
+    private final List<ConverterFactory<?, ?>> converterFactories;
     private final List<org.springframework.web.servlet.HandlerInterceptor> handlerInterceptors;
 
 
-    public WebMvcConfigurerAutoConfiguration(ObjectProvider<List<ConverterFactory>> converterFactoriesProvider,
+    public WebMvcConfigurerAutoConfiguration(ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
                                              ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();

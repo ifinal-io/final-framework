@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.web.exception;
 
 
+import org.ifinal.finalframework.context.exception.UnCatchException;
 import org.ifinal.finalframework.context.exception.handler.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,10 +25,10 @@ public class RestControllerExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     @ResponseBody
-    public Object handlerException(Throwable throwable) throws Throwable {
+    public Object handlerException(Throwable throwable) {
         if (globalExceptionHandler != null) {
             return globalExceptionHandler.handle(throwable);
         }
-        throw throwable;
+        throw new UnCatchException(throwable);
     }
 }

@@ -1,18 +1,22 @@
 package org.ifinal.finalframework.auto.coding.beans;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 public class SetterAndGetterFilter {
 
     public SetterAndGetterFilter(ProcessingEnvironment env) {
@@ -20,6 +24,13 @@ public class SetterAndGetterFilter {
 
     public boolean matches(ExecutableElement method, TypeMirror parameterTypeOrReturnType) {
         if (method.getKind() != ElementKind.METHOD) return false;
+
+        if (Objects.nonNull(parameterTypeOrReturnType)) {
+            // check
+            logger.info("try to check method parameterTypeOrReturnType");
+        }
+
+
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
         return isSetter(name, parameters) || isGetter(name, parameters);
