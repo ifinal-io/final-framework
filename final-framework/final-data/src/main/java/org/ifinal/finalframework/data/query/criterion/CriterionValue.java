@@ -14,6 +14,7 @@ import java.util.function.Function;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("rawtypes")
 public interface CriterionValue<V> extends SqlNode {
 
     @SuppressWarnings("unchecked")
@@ -34,7 +35,7 @@ public interface CriterionValue<V> extends SqlNode {
 
     Class<?> getJavaType();
 
-    Class<? extends TypeHandler<?>> getTypeHandler();
+    Class<? extends TypeHandler> getTypeHandler();
 
     @Override
     default void apply(@NonNull StringBuilder parent, @NonNull String expression) {

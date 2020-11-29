@@ -4,6 +4,7 @@ package org.ifinal.finalframework.data.query.criterion.function;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.ifinal.finalframework.data.query.operation.Operation;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -18,8 +19,8 @@ public class SingleCriterionFunction implements CriterionFunction {
     private final Object value;
 
     @Override
-    public void apply(StringBuilder sql, String expression) {
-
+    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
+        // do nothing
     }
 }
 

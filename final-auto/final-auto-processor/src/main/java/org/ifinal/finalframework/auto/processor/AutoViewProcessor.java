@@ -23,7 +23,7 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoViewProcessor extends AbsServiceProcessor {
-    private static final String IENUM = "org.ifinal.finalframework.annotation.IView";
+    private static final String VIEW = "org.ifinal.finalframework.annotation.IView";
     private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
@@ -32,7 +32,7 @@ public class AutoViewProcessor extends AbsServiceProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENUM);
+        this.typeElement = processingEnv.getElementUtils().getTypeElement(VIEW);
         this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
@@ -42,19 +42,13 @@ public class AutoViewProcessor extends AbsServiceProcessor {
         ElementFilter.typesIn(roundEnv.getRootElements())
                 .stream()
                 .filter(typeElementFilter::matches)
-                .forEach(entity -> {
-                    addService(typeElement, entity, null, "services");
-                });
+                .forEach(entity -> addService(typeElement, entity));
 
         ElementFilter.typesIn(roundEnv.getRootElements())
-                .forEach(element -> {
-                    ElementFilter.typesIn(element.getEnclosedElements())
-                            .stream()
-                            .filter(typeElementFilter::matches)
-                            .forEach(entity -> {
-                                addService(typeElement, entity, null, "services");
-                            });
-                });
+                .forEach(element -> ElementFilter.typesIn(element.getEnclosedElements())
+                        .stream()
+                        .filter(typeElementFilter::matches)
+                        .forEach(entity -> addService(typeElement, entity)));
 
 
         return false;

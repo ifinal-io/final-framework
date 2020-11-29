@@ -24,7 +24,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 日期格式化器，将{@link String}解析成{@link Date}或将{@link Date}格式化成指定的格式{@link DateFormatterPattern#pattern}
  *
  * @author likly
  * @version 1.0.0
@@ -34,10 +33,10 @@ public class DateFormatters implements Formatters<Date> {
 
     public static final DateFormatters DEFAULT = new DateFormatters();
 
-    private final List<DateFormatter> dateFormatters = new ArrayList<>();
+    private final List<DateFormatter> formatters = new ArrayList<>();
 
-    public DateFormatters(List<DateFormatter> dateFormatters) {
-        this.dateFormatters.addAll(dateFormatters);
+    public DateFormatters(List<DateFormatter> formatters) {
+        this.formatters.addAll(formatters);
     }
 
     public DateFormatters() {
@@ -54,7 +53,7 @@ public class DateFormatters implements Formatters<Date> {
         if (Asserts.isEmpty(source)) {
             return null;
         }
-        for (DateFormatter formatter : dateFormatters) {
+        for (DateFormatter formatter : formatters) {
             if (formatter.matches(source)) {
                 return formatter.parse(source);
             }

@@ -3,6 +3,7 @@ package org.ifinal.finalframework.auto.data;
 import org.ifinal.finalframework.annotation.data.Schema;
 import org.ifinal.finalframework.annotation.data.Table;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -19,9 +20,6 @@ import java.util.stream.Stream;
  */
 public class BaseEntity implements MutableEntity {
 
-    private final ProcessingEnvironment processEnv;
-    private final Elements elements;
-    private final Types types;
     private final TypeElement typeElement;
     private final String packageName;
     private final String simpleName;
@@ -36,9 +34,8 @@ public class BaseEntity implements MutableEntity {
     private Property versionProperty;
 
     public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
-        this.processEnv = processEnv;
-        this.elements = processEnv.getElementUtils();
-        this.types = processEnv.getTypeUtils();
+        Elements elements = processEnv.getElementUtils();
+        Types types = processEnv.getTypeUtils();
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
         this.name = typeElement.getQualifiedName().toString();
@@ -50,8 +47,8 @@ public class BaseEntity implements MutableEntity {
     }
 
     private String initTable() {
-        Table table = getAnnotation(Table.class);
-        return Asserts.isNull(table) ? this.typeElement.getSimpleName().toString() : table.value();
+        Table annotation = getAnnotation(Table.class);
+        return Asserts.isNull(annotation) ? this.typeElement.getSimpleName().toString() : annotation.value();
     }
 
     @Override
@@ -74,9 +71,9 @@ public class BaseEntity implements MutableEntity {
             properties.add(property);
         }
 
-        List<TypeElement> views = property.getViews();
-        if (Asserts.nonEmpty(views)) {
-            this.views.addAll(views);
+        List<TypeElement> viewElements = property.getViews();
+        if (Asserts.nonEmpty(viewElements)) {
+            this.views.addAll(viewElements);
         }
 
     }
@@ -157,6 +154,7 @@ public class BaseEntity implements MutableEntity {
     }
 
     @Override
+    @NonNull
     public Iterator<Property> iterator() {
         return properties.iterator();
     }

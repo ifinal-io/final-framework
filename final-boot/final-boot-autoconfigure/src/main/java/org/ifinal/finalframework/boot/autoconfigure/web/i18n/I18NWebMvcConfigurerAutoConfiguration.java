@@ -28,7 +28,7 @@ public class I18NWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     public I18NWebMvcConfigurerAutoConfiguration(I18NProperties properties, MessageSource messageSource) {
         this.properties = properties;
-        new Messages(messageSource);
+        Messages.setMessageSource(messageSource);
     }
 
     @Bean(name = "localeResolver")

@@ -38,10 +38,6 @@ public class TypeElementFilter implements Filter<TypeElement> {
 
     @Override
     public boolean matches(TypeElement typeElement) {
-        // 忽略抽象的类
-//        if (typeElement.getModifiers().contains(Modifier.ABSTRACT)) {
-//            return false;
-//        }
         //忽略被注解不解析的类
         if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;
@@ -50,7 +46,6 @@ public class TypeElementFilter implements Filter<TypeElement> {
         boolean subtype = typeUtils.isSubtype(typeUtils.erasure(typeElement.asType()), typeUtils.erasure(entityTypeElement.asType()));
         if (subtype) {
             String msg = "[INFO] [EntityFilter] find entity : " + typeElement.getQualifiedName().toString();
-            System.out.println(msg);
             messager.printMessage(Diagnostic.Kind.NOTE, msg);
         }
         return subtype;

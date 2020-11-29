@@ -9,13 +9,13 @@ import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
@@ -39,22 +39,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
     private static final String DEFAULT_ENTITY_PATH = "entity";
     private static final String DEFAULT_QUERY_PATH = "dao.query";
 
-    private Elements elementUtils;
-    private Types typeUtils;
-
-    /**
-     * @see IEntity
-     */
-    private TypeElement entityTypeElement;
-
-
-    @Override
-    public synchronized void init(ProcessingEnvironment processingEnv) {
-        super.init(processingEnv);
-        this.typeUtils = processingEnv.getTypeUtils();
-        this.elementUtils = processingEnv.getElementUtils();
-        this.entityTypeElement = elementUtils.getTypeElement(IEntity.class.getCanonicalName());
-    }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -121,14 +105,12 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         FieldSpec entityField = FieldSpec.builder(
                 ClassName.get(entity.getPackageName(), entity.getSimpleName()),
-//                ClassName.get(entity.getEntity().getElement()),
                 entity.getEntity().getSimpleName(),
                 Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL
         ).initializer(String.format("new %s()", entity.getSimpleName()))
                 .build();
 
 
-        // public static final QProperty<T> {property} = ${entity.simpleName}.getRequiredProperty("{property.path}");
         List<FieldSpec> fieldSpecs = entity.getProperties().stream()
                 .map(property -> FieldSpec.builder(
                         ParameterizedTypeName.get(ClassName.get(QProperty.class), TypeName.get(property.getElement().asType()))
@@ -136,7 +118,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
                         .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                         // Entity.getRequiredProperty('path')
                         .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())
-//                        .addJavadoc("@see $L#$L", entity.getEntity().getSimpleName(), property.getPath().replace(".", "#"))
                         .build())
                 .collect(Collectors.toList());
 
@@ -155,16 +136,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
 
         return JavaFile.builder(entity.getPackageName(), clazz).indent("    ").build();
-    }
-
-
-    private boolean isEntity(TypeElement typeElement) {
-        return isSubtype(typeElement, entityTypeElement);
-
-    }
-
-    private boolean isSubtype(Element subTypeElement, Element parentTypeElement) {
-        return typeUtils.isSubtype(typeUtils.erasure(subTypeElement.asType()), typeUtils.erasure(parentTypeElement.asType()));
     }
 
 

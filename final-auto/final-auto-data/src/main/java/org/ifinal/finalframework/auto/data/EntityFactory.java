@@ -20,6 +20,9 @@ import java.util.Optional;
  */
 public final class EntityFactory {
 
+    private EntityFactory() {
+    }
+
     private static final Map<String, Entity> cache = new HashMap<>();
 
     public static Entity create(ProcessingEnvironment processEnv, TypeElement typeElement) {

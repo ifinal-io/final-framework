@@ -23,7 +23,7 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoEnumProcessor extends AbsServiceProcessor {
-    private static final String IENUM = "org.ifinal.finalframework.annotation.IEnum";
+    private static final String ENUM = "org.ifinal.finalframework.annotation.IEnum";
     private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
@@ -32,7 +32,7 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENUM);
+        this.typeElement = processingEnv.getElementUtils().getTypeElement(ENUM);
         this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
@@ -42,9 +42,7 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
         ElementFilter.typesIn(roundEnv.getRootElements())
                 .stream()
                 .filter(typeElementFilter::matches)
-                .forEach(entity -> {
-                    addService(typeElement, entity, null, "services");
-                });
+                .forEach(entity -> addService(typeElement, entity));
 
 
         return false;

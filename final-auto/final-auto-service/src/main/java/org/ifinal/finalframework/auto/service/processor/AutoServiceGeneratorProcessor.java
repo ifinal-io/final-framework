@@ -19,7 +19,6 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.Writer;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -49,16 +48,16 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
                     .stream()
                     .map(entity -> processingEnv.getElementUtils().getTypeElement(entity))
-                    .forEach(entity -> this.generateService(entity, DEFAULT_ENTITY_PATH, DEFAULT_SERVICE_PATH));
+                    .forEach(this::generateService);
         }
 
 
         return false;
     }
 
-    private void generateService(TypeElement entity, String entityPath, String servicePath) {
+    private void generateService(TypeElement entity) {
         final String servicePackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
-                .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + Optional.ofNullable(servicePath).orElse(DEFAULT_SERVICE_PATH));
+                .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_SERVICE_PATH);
 
         final String serviceImplPackageName = servicePackageName + ".impl";
 
@@ -74,7 +73,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(servicePackageName + "." + serviceName);
 
                 final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
-                        .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + DEFAULT_MAPPER_PATH);
+                        .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
                 // AbsService<ID,IEntity,EntityMapper>
@@ -92,7 +91,6 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                         .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
                         .addJavadoc(JavaPoets.JavaDoc.author())
                         .addJavadoc(JavaPoets.JavaDoc.version())
-//                        .addJavadoc(JavaPoets.JavaDoc.date())
                         .build();
 
 
@@ -115,7 +113,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(serviceImplPackageName + "." + serviceImplName);
 
                 final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
-                        .replace("." + Optional.ofNullable(entityPath).orElse(DEFAULT_ENTITY_PATH), "." + DEFAULT_MAPPER_PATH);
+                        .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
 //                 AbsServiceImpl<ID,IEntity,EntityMapper>
@@ -126,9 +124,6 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                         ClassName.get(mapperPackageName, mapperName)
                 );
 
-                //public EntityServiceImpl(EntityMapper repository) {
-                //        super(repository);
-                //}
                 MethodSpec constructor = MethodSpec.constructorBuilder()
                         .addModifiers(Modifier.PUBLIC)
                         .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository").build())
@@ -145,7 +140,6 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                         .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
                         .addJavadoc(JavaPoets.JavaDoc.author())
                         .addJavadoc(JavaPoets.JavaDoc.version())
-//                        .addJavadoc(JavaPoets.JavaDoc.date())
                         .build();
 
 

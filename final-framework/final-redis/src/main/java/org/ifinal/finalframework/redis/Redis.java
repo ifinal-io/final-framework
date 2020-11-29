@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"rawtypes", "unchecked"})
 public interface Redis {
 
-    static RedisTemplate<?, ?> template() {
+    static RedisTemplate template() {
         return RedisRegistry.getInstance().template();
     }
 
@@ -40,7 +40,7 @@ public interface Redis {
         return RedisRegistry.getInstance().set();
     }
 
-    static ZSetOperations zset() {
+    static ZSetOperations zSet() {
         return RedisRegistry.getInstance().zSet();
     }
 
