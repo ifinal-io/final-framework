@@ -16,12 +16,12 @@ import java.util.Locale;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class EnumDescSerializer extends JsonSerializer<IEnum> {
+public class EnumDescSerializer extends JsonSerializer<IEnum<?>> {
 
     public static final EnumDescSerializer instance = new EnumDescSerializer();
 
     @Override
-    public void serialize(IEnum value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(IEnum<?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         final String code = String.format("%s.%s", value.getClass().getCanonicalName(), ((Enum<?>) value).name().toLowerCase(Locale.ENGLISH));
         gen.writeString(Messages.getMessage(code, value.getDesc()));
     }

@@ -14,11 +14,11 @@ import java.io.IOException;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class EnumCodeSerializer extends JsonSerializer<IEnum> {
+public class EnumCodeSerializer extends JsonSerializer<IEnum<?>> {
     public static final EnumCodeSerializer instance = new EnumCodeSerializer();
 
     @Override
-    public void serialize(IEnum value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(IEnum<?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeObject(value.getCode());
     }
 }
