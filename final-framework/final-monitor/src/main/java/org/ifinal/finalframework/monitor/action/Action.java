@@ -15,7 +15,7 @@ import java.util.Map;
  * @see org.ifinal.finalframework.monitor.annotation.MonitorAction
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unused"})
 public class Action<T extends IUser> {
     /**
      * 名称
@@ -122,7 +122,7 @@ public class Action<T extends IUser> {
         private MonitorLevel level;
         private T operator;
         private Object target;
-        private Map<String, Object> attributes = new HashMap<>();
+        private final Map<String, Object> attributes = new HashMap<>();
         private MonitorException exception;
         private String trace;
         private Long timestamp;

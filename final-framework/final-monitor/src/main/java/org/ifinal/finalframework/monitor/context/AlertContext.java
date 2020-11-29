@@ -11,6 +11,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public class AlertContext<T> {
     /**
      * 名称
@@ -97,7 +98,7 @@ public class AlertContext<T> {
         private MonitorLevel level;
         private T operator;
         private Object target;
-        private Map<String, Object> attributes = new HashMap<>();
+        private final Map<String, Object> attributes = new HashMap<>();
         private MonitorException exception;
         private String trace;
         private Long timestamp;
@@ -105,38 +106,38 @@ public class AlertContext<T> {
         private Builder() {
         }
 
-        public Builder name(String name) {
+        public Builder<T> name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder level(MonitorLevel level) {
+        public Builder<T> level(MonitorLevel level) {
             this.level = level;
             return this;
         }
 
-        public Builder trace(String trace) {
+        public Builder<T> trace(String trace) {
             this.trace = trace;
             return this;
         }
 
-        public Builder operator(T operator) {
+        public Builder<T> operator(T operator) {
             this.operator = operator;
             return this;
         }
 
 
-        public Builder addAttribute(String name, Object value) {
+        public Builder<T> addAttribute(String name, Object value) {
             this.attributes.put(name, value);
             return this;
         }
 
-        public Builder exception(MonitorException exception) {
+        public Builder<T> exception(MonitorException exception) {
             this.exception = exception;
             return this;
         }
 
-        public Builder timestamp(Long timestamp) {
+        public Builder<T> timestamp(Long timestamp) {
             this.timestamp = timestamp;
             return this;
         }

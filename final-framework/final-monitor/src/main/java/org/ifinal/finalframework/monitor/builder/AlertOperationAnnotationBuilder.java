@@ -5,6 +5,7 @@ import org.ifinal.finalframework.aop.annotation.OperationAttribute;
 import org.ifinal.finalframework.monitor.annotation.MonitorAlert;
 import org.ifinal.finalframework.monitor.operation.AlertOperation;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -18,7 +19,9 @@ import java.lang.reflect.Method;
 @SuppressWarnings("unused")
 public class AlertOperationAnnotationBuilder implements OperationAnnotationBuilder<MonitorAlert, AlertOperation> {
 
-    public AlertOperation build(Method method, MonitorAlert ann) {
+    @Override
+    @NonNull
+    public AlertOperation build(@NonNull Method method, @NonNull MonitorAlert ann) {
         final String name = Asserts.isBlank(ann.name()) ? method.getDeclaringClass().getSimpleName() + "#" + method.getName() : ann.name();
         final AlertOperation.Builder builder = AlertOperation.builder()
                 .name(name)

@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.util;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
+@UtilityClass
 final class ThreadLocalCache {
     private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
 

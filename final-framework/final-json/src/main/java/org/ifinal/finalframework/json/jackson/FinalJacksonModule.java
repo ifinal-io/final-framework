@@ -8,9 +8,7 @@ import org.ifinal.finalframework.context.converter.EnumClassConverter;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
-import org.ifinal.finalframework.json.jackson.serializer.JsonViewValueSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
-import org.ifinal.finalframework.json.jackson.view.JsonViewValue;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Constructor;
@@ -43,7 +41,6 @@ public class FinalJacksonModule extends SimpleModule {
 
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        addSerializer(JsonViewValue.class, new JsonViewValueSerializer(objectMapper));
         addSerializer(Class.class, new ClassJsonSerializer(enumClassConverter));
 
 
