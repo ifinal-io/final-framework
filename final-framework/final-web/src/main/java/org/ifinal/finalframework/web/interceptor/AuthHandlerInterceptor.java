@@ -36,8 +36,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     private final Map<Class<? extends Annotation>, AuthService> authServices = new HashMap<>();
 
-    public AuthHandlerInterceptor(ObjectProvider<AuthService<?>> authServiceProvider) {
-        for (AuthService<?> authService : authServiceProvider) {
+    public AuthHandlerInterceptor(ObjectProvider<AuthService<?, ?>> authServiceProvider) {
+        for (AuthService<?, ?> authService : authServiceProvider) {
             Class<?> targetClass = AopUtils.getTargetClass(authService);
             Class authAnnotation = Reflections.findParameterizedInterfaceArgumentClass(targetClass, AuthService.class, 0);
             logger.info("register auth service of {} for @{}", targetClass, authAnnotation);
