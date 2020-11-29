@@ -17,16 +17,22 @@ public interface Utils {
         if (referenceProperty == null) {
             return property.getName();
         } else {
-            return property.isIdProperty() ?
-                    referenceProperty.referenceMode() == ReferenceMode.SIMPLE ?
-                            referenceProperty.getName() : referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1)
-                    : referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1);
+
+            if (property.isIdProperty()) {
+                if (referenceProperty.referenceMode() == ReferenceMode.SIMPLE) {
+                    return referenceProperty.getName();
+                }
+
+                return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1);
+            }
+
+            return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1);
         }
     }
 
     @NonNull
     static String formatPropertyColumn(@Nullable Property referenceProperty, @NonNull Property property) {
-        String column = null;
+        String column;
         if (referenceProperty == null) {
             column = property.getColumn();
             if (property.isKeyword()) {

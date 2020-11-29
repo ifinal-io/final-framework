@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
+import org.ifinal.finalframework.aop.Operation;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
 import org.ifinal.finalframework.aop.OperationHandlerSupport;
@@ -41,24 +42,10 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
         this.evaluator = evaluator;
     }
 
-    public static void main(String[] args) {
-        String str = "select * from order where createdUser = ${#1currentUser1} and  depart = ${'currentOrg' + #id} and status = 'VALID'";
-        Matcher matcher = EXPRESSION_PATTEN.matcher(str);// 指定要匹配的字符串
-
-        List<String> matchStrs = new ArrayList<>();
-
-        while (matcher.find()) { //此处find（）每次被调用后，会偏移到下一个匹配
-            matchStrs.add(matcher.group());//获取当前匹配的值
-        }
-
-        for (int i = 0; i < matchStrs.size(); i++) {
-            System.out.println(matchStrs.get(i));
-        }
-
-    }
 
     @Override
-    public EvaluationContext createEvaluationContext(OperationContext context, Object result, Throwable e) {
+    @NonNull
+    public EvaluationContext createEvaluationContext(@NonNull OperationContext<Operation> context, Object result, Throwable e) {
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
                 context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
 
@@ -85,6 +72,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
     }
 
     @Override
+    @NonNull
     public String generateExpression(@NonNull String expression) {
         Asserts.isEmpty(expression, "expression is empty");
         return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());

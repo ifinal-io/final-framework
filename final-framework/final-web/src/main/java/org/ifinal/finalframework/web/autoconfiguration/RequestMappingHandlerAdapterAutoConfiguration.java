@@ -42,9 +42,9 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     public void onApplicationEvent(ApplicationReadyEvent event) {
         ConfigurableApplicationContext applicationContext = event.getApplicationContext();
         final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext.getBean(RequestMappingHandlerAdapter.class);
-        configureMessageConverters(applicationContext, requestMappingHandlerAdapter);
+        configureMessageConverters(requestMappingHandlerAdapter);
         configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
-        configureHandlerReturnValueHandler(applicationContext, requestMappingHandlerAdapter);
+        configureHandlerReturnValueHandler(requestMappingHandlerAdapter);
     }
 
     /**
@@ -81,7 +81,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         adapter.setArgumentResolvers(argumentResolvers);
     }
 
-    private void configureHandlerReturnValueHandler(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+    private void configureHandlerReturnValueHandler(RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
 
@@ -107,11 +107,10 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     }
 
     /**
-     * @param context context
      * @param adapter adapter
      * @see RequestMappingHandlerAdapter#getMessageConverters()
      */
-    private void configureMessageConverters(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+    private void configureMessageConverters(RequestMappingHandlerAdapter adapter) {
 
         List<HttpMessageConverter<?>> messageConverters = adapter.getMessageConverters();
 

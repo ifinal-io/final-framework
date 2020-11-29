@@ -11,6 +11,7 @@ import org.ifinal.finalframework.monitor.annotation.MonitorLevel;
 import org.ifinal.finalframework.monitor.executor.Recorder;
 import org.ifinal.finalframework.monitor.handler.ActionOperationHandler;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,6 +81,7 @@ public class ActionOperation implements Operation {
     }
 
     @Override
+    @NonNull
     public String name() {
         return name;
     }
@@ -125,11 +127,13 @@ public class ActionOperation implements Operation {
     }
 
     @Override
+    @NonNull
     public Class<? extends OperationHandler> handler() {
         return handler;
     }
 
     @Override
+    @NonNull
     public Class<? extends Executor> executor() {
         return this.executor;
     }

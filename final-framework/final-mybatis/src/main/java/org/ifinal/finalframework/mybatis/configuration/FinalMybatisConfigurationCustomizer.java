@@ -7,7 +7,6 @@ import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
-import org.ifinal.finalframework.mybatis.lang.FinalXMLLanguageDriver;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
@@ -23,15 +22,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @SuppressWarnings("unused")
-public class EnumTypeHandlerConfigurationCustomizer implements ConfigurationCustomizer {
-    private static final Logger logger = LoggerFactory.getLogger(EnumTypeHandlerConfigurationCustomizer.class);
+public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomizer {
+    private static final Logger logger = LoggerFactory.getLogger(FinalMybatisConfigurationCustomizer.class);
 
     @Override
     public void customize(Configuration configuration) {
         logger.info("setDefaultEnumTypeHandler:{}", EnumTypeHandler.class.getCanonicalName());
         configuration.addMapper(AbsMapper.class);
         configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
-        configuration.getLanguageRegistry().setDefaultDriverClass(FinalXMLLanguageDriver.class);
 
 
         ServicesLoader.load(IEntity.class)
