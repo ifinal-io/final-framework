@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.ifinal.finalframework.annotation.IView;
 import org.ifinal.finalframework.annotation.data.*;
-import org.springframework.data.geo.Point;
 
 /**
  * @author likly
@@ -24,7 +23,6 @@ public String vcolumn = "32";
     @View(IView.class)
     private String name;
     private Integer age;
-    private Point point;
     @Function(reader = "MAX(age) as ${column}")
     private Integer maxAge;
     @Reference(properties = {"id", "name"})
