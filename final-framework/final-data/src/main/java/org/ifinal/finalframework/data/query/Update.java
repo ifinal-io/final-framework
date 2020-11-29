@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import lombok.NonNull;
 import org.ifinal.finalframework.util.stream.Streamable;
+import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public interface Update extends Streamable<UpdateSetOperation>, Iterable<UpdateS
 
 
     @Override
-    default void apply(StringBuilder sql, String expression) {
+    default void apply(@NonNull StringBuilder sql, @NonNull String expression) {
         sql.append("<set>");
         this.forEach(item -> item.apply(sql, expression));
         sql.append("</set>");

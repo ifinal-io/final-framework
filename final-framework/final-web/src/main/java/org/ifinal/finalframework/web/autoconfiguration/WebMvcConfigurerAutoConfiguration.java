@@ -27,7 +27,6 @@ import java.util.ServiceLoader;
  */
 @Slf4j
 @Component
-@SuppressWarnings({"rawtypes", "unused"})
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<ConverterFactory> converterFactories;

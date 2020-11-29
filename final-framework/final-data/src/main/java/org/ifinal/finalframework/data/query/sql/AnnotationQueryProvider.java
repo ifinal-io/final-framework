@@ -39,6 +39,7 @@ public class AnnotationQueryProvider implements QueryProvider {
             Metadata.ATTRIBUTE_NAME_PROPERTY,
             Metadata.ATTRIBUTE_NAME_VALUE
     ).collect(Collectors.toSet());
+    public static final String FORMAT = "%s.%s";
 
 
     private AnnotationQueryProvider() {
@@ -52,13 +53,7 @@ public class AnnotationQueryProvider implements QueryProvider {
 
         builder.append("<where>");
 
-        /**
-         * @see Offset
-         */
         String offset = null;
-        /**
-         * @see Limit
-         */
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
@@ -68,19 +63,10 @@ public class AnnotationQueryProvider implements QueryProvider {
         for (Property property : queryEntity) {
             if (property.isAnnotationPresent(Offset.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim).collect(Collectors.joining());
-                final Metadata metadata = new Metadata();
-                metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
-                metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
-                metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
-                offset = Velocities.getValue(xml, metadata);
+                offset = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
             } else if (property.isAnnotationPresent(Limit.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim).collect(Collectors.joining());
-                final Metadata metadata = new Metadata();
-                metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
-                metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
-                metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
-                limit = Velocities.getValue(xml, metadata);
-            } else if (property.isAnnotationPresent(Criteria.class)) {
+                limit = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
             }
         }
         builder.append("</where>");
@@ -90,6 +76,15 @@ public class AnnotationQueryProvider implements QueryProvider {
 
         return builder.toString();
     }
+
+    private Metadata buildLimitOffsetMetadata(String expression, Property property) {
+        final Metadata metadata = new Metadata();
+        metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
+        metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
+        metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
+        return metadata;
+    }
+
 
     private void appendCriteria(StringBuilder sql, String expression, QEntity<?, ?> entity, Class<?> query, AndOr andOr) {
         Entity.from(query)
@@ -108,9 +103,9 @@ public class AnnotationQueryProvider implements QueryProvider {
 
                         metadata.put(Metadata.ATTRIBUTE_NAME_AND_OR, andOr);
                         metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
-                        metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format("%s.%s", expression, property.getName()));
+                        metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
                         metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
-                        metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format("%s.%s", expression, property.getName()));
+                        metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
 
                         if (property.isAnnotationPresent(Function.class)) {
                             final Function function = property.getRequiredAnnotation(Function.class);
@@ -157,9 +152,9 @@ public class AnnotationQueryProvider implements QueryProvider {
      *     </code>
      * </pre>
      *
-     * @param sql
-     * @param offset
-     * @param limit
+     * @param sql    sql
+     * @param offset offset
+     * @param limit  set
      */
     private void appendLimit(StringBuilder sql, String offset, String limit) {
         if (offset != null || limit != null) {

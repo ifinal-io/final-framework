@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
-import lombok.NonNull;
 import org.ifinal.finalframework.data.query.enums.UpdateOperation;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,6 @@ import java.util.stream.Stream;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("unused")
 class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
     private UpdateImpl() {
         super(16);
