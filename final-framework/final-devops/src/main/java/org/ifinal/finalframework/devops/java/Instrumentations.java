@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.devops.java;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.agent.ByteBuddyAgent;
 
@@ -13,6 +14,7 @@ import java.util.Set;
  * @since 1.0.0
  */
 @Slf4j
+@UtilityClass
 public final class Instrumentations {
 
     public static Instrumentation get() {
@@ -35,8 +37,8 @@ public final class Instrumentations {
                 }
                 try {
                     inst.retransformClasses(clazz);
-                } catch (Throwable e) {
-                    String errorMsg = "retransformClasses class error, name: " + clazz.getName();
+                } catch (Exception e) {
+                    String errorMsg = "retransform Classes class error, name: " + clazz.getName();
                     logger.error(errorMsg, e);
                 }
             }

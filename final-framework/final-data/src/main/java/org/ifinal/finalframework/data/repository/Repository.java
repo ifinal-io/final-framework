@@ -603,7 +603,7 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      *
      * @param table 表名
      * @param view  视图
-     * @param i     I
+     * @param id    I
      * @param query query
      * @return 符合查询 {@link I} 或 {@link IQuery} 的一个结果
      */
