@@ -13,7 +13,8 @@ import java.io.IOException;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class ClassJsonSerializer extends JsonSerializer<Class<?>> {
+@SuppressWarnings("rawtypes")
+public class ClassJsonSerializer extends JsonSerializer<Class> {
 
     private final EnumClassConverter enumClassConverter;
 
@@ -23,7 +24,7 @@ public class ClassJsonSerializer extends JsonSerializer<Class<?>> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void serialize(Class<?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(Class value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (value.isEnum() && enumClassConverter != null) {
             gen.writeObject(enumClassConverter.convert((Class<Enum<?>>) value));
         } else {
