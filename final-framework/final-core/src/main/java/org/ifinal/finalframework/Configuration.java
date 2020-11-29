@@ -31,9 +31,9 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Slf4j
-public class Configuration {
+public final class Configuration {
     private static final String PROPERTIES_PATH = "final.properties";
-    private static Configuration INSTANCE = new Configuration();
+    private static final Configuration INSTANCE = new Configuration();
 
     private final Properties properties = new Properties();
     private boolean isConfiguration;
@@ -57,11 +57,6 @@ public class Configuration {
         return INSTANCE;
     }
 
-    public static void main(String[] args) {
-        Configuration configuration = Configuration.getInstance();
-        Properties properties = configuration.properties;
-
-    }
 
     public boolean isConfiguration() {
         return isConfiguration;
@@ -83,6 +78,7 @@ public class Configuration {
                 properties.load(is);
             }
         } catch (Exception e) {
+            //ignore
         }
     }
 

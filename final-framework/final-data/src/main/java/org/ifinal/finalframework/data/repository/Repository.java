@@ -458,14 +458,14 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      */
     int delete(@Nullable String table, @Nullable Collection<I> ids, @Nullable IQuery query);
 
-    default <PARAM> void delete(IQuery query, Listener<PARAM, Integer> listener) {
+    default <P> void delete(IQuery query, Listener<P, Integer> listener) {
         this.delete(null, query, listener);
     }
 
-    default <PARAM> void delete(String table, @NonNull IQuery query, Listener<PARAM, Integer> listener) {
+    default <P> void delete(String table, @NonNull IQuery query, Listener<P, Integer> listener) {
         Asserts.isNull(listener, "listener is null");
         int offset = 0;
-        PARAM param = listener.onInit();
+        P param = listener.onInit();
         listener.onStart(param);
         int rows;
         do {
