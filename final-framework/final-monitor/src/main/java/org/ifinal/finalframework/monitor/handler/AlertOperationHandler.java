@@ -68,7 +68,7 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
 
         if (throwable != null) {
             builder.exception(throwable instanceof IException
-                    ? new MonitorException((IException) throwable)
+                    ? new MonitorException(500, throwable.getMessage(), (IException) throwable)
                     : new MonitorException(500, throwable.getMessage()));
         }
 

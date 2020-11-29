@@ -74,7 +74,7 @@ public class ActionOperationHandler<T extends IUser> extends AbsMonitorOperation
 
         if (throwable != null) {
             builder.exception(throwable instanceof IException
-                    ? new MonitorException((IException) throwable)
+                    ? new MonitorException(500, throwable.getMessage(), (IException) throwable)
                     : new MonitorException(500, throwable.getMessage()));
         }
 

@@ -8,7 +8,6 @@ import org.ifinal.finalframework.util.format.DateFormatterPattern;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 /**
  * @author likly
@@ -18,10 +17,8 @@ import java.util.TimeZone;
 public class LocalDateSerializer extends JsonSerializer<LocalDate> {
 
     public static final LocalDateSerializer INSTANCE = new LocalDateSerializer();
-    private static final int ZONE_OFFSET = TimeZone.getDefault().getRawOffset() / 3600 / 1000;
-    private static final String ZONE_OFFSET_ID = ZONE_OFFSET > 0 ? "+" + ZONE_OFFSET : "-" + ZONE_OFFSET;
 
-    private DateTimeFormatter formatter;
+    private final DateTimeFormatter formatter;
 
     public LocalDateSerializer() {
         this.formatter = DateTimeFormatter.ofPattern(DateFormatterPattern.YYYY_MM_DD.getPattern());
