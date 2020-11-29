@@ -89,9 +89,6 @@ public interface Property {
 
     TypeMirror getType();
 
-    String getMapKeyType();
-
-    String getMapValueType();
 
     boolean isKeyword();
 

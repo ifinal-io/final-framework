@@ -36,7 +36,6 @@ public class AnnotationProperty implements Property {
     private final ProcessingEnvironment processEnv;
     private final Elements elements;
     private final Types types;
-    private final Annotations annotations;
     private final TypeElements typeElements;
     private final Lazy<Element> element;
     private final Lazy<TypeElement> typeHandler;
@@ -49,9 +48,6 @@ public class AnnotationProperty implements Property {
     private final Lazy<String> column;
     private final Lazy<TypeMirror> type;
     private final Lazy<PersistentType> persistentType;
-    private final String componentType = null;
-    private final String mapKeyType = null;
-    private final String mapValueType = null;
     private final Lazy<Boolean> isKeyword;
     private final Lazy<Boolean> isIdProperty;
     private final Lazy<Boolean> isReference;
@@ -72,9 +68,6 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isMap;
     private TypeElement javaTypeElement;
     private TypeElement metaTypeElement;
-    private boolean unique = false;
-    private boolean nonnull = true;
-    private boolean updatable = true;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
@@ -85,7 +78,6 @@ public class AnnotationProperty implements Property {
         this.processEnv = processEnv;
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
-        this.annotations = new Annotations(processEnv);
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
         this.field = field;
         this.descriptor = descriptor;
@@ -165,19 +157,20 @@ public class AnnotationProperty implements Property {
     }
 
     private String getColumnValue(AnnotationMirror annotation) {
-        DeclaredType annotationType = annotation.getAnnotationType();
         Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotation.getElementValues();
-        String column = "";
+        String realColumn = "";
         String value = "";
-        for (ExecutableElement method : elementValues.keySet()) {
+        for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+            ExecutableElement method = entry.getKey();
+            AnnotationValue annotationValue = entry.getValue();
             if ("name".equals(method.getSimpleName().toString())) {
-                column = (String) elementValues.get(method).getValue();
+                realColumn = (String) annotationValue.getValue();
             } else if ("value".equals(method.getSimpleName().toString())) {
-                value = (String) elementValues.get(method).getValue();
+                value = (String) annotationValue.getValue();
             }
         }
 
-        return Stream.of(value, column).filter(Asserts::nonBlank).findFirst().orElse(getName());
+        return Stream.of(value, realColumn).filter(Asserts::nonBlank).findFirst().orElse(getName());
     }
 
     private TypeElement initTypeHandler() {
@@ -228,6 +221,7 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
+    @org.springframework.lang.NonNull
     public Element getElement() {
         return this.element.get();
     }
@@ -325,16 +319,6 @@ public class AnnotationProperty implements Property {
     @Override
     public TypeElement getMetaTypeElement() {
         return metaTypeElement;
-    }
-
-    @Override
-    public String getMapKeyType() {
-        return mapKeyType;
-    }
-
-    @Override
-    public String getMapValueType() {
-        return mapValueType;
     }
 
     @Override
