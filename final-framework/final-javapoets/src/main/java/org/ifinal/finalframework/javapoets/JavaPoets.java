@@ -63,13 +63,6 @@ public interface JavaPoets {
             return "@version " + version + LINE;
         }
 
-        static String date() {
-            return date(LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now()));
-        }
-
-        static String date(@NonNull String date) {
-            return String.format("@date %s" + LINE, date);
-        }
 
     }
 
