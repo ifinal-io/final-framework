@@ -18,7 +18,7 @@
 
 ## Quick Start
 
-* [Define Entity with Annotation](docs/quick-start/define-entity-with-annotation)：使用`@Annotation`定义实体。
+* [Define Entity with Annotation](docs/quick-start/define-entity-with-annotation.md)：使用`@Annotation`定义实体。
 * [Operating CRUD with Mapper](docs/quick-start/operating-crud-with-mapper.md)：使用`Mapper`操作`CRUD`。
 * [Query base on Annotation](docs/quick-start/query-base-on-annotation.md): 使用基于`@Annotation`的`Query`。
 * [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。

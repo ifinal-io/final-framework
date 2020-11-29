@@ -28,12 +28,13 @@ public final class R {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
     }
 
-    public static Result<?> failure(@NonNull Integer status, @NonNull String description, @NonNull String code, @NonNull String message) {
+    @SuppressWarnings("rawtypes")
+    public static Result failure(@NonNull Integer status, @NonNull String description, @NonNull String code, @NonNull String message) {
         return new Result<>(status, description, code, message);
     }
 
-
-    public static Result<?> failure(@NonNull Integer status, @NonNull String message) {
+    @SuppressWarnings("rawtypes")
+    public static Result failure(@NonNull Integer status, @NonNull String message) {
         return new Result<>(status, message);
     }
 

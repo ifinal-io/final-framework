@@ -22,7 +22,8 @@ public interface Order extends SqlNode {
         return order(property, Direction.DESC);
     }
 
-    QProperty<?> getProperty();
+    @SuppressWarnings("rawtypes")
+    QProperty getProperty();
 
     Direction getDirection();
 

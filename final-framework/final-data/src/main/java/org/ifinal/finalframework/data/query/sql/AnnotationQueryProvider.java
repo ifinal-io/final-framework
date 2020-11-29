@@ -17,6 +17,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -91,8 +92,9 @@ public class AnnotationQueryProvider implements QueryProvider {
                 .forEach(property -> {
                     if (property.isAnnotationPresent(Criterion.class)) {
                         Class<? extends Annotation> annotation = property.getRequiredAnnotation(Criterion.class).value();
-                        AnnotationAttributes annotationAttributes = AnnotatedElementUtils.getMergedAnnotationAttributes(property.getField(), annotation);
-
+                        Field field = property.getField();
+                        Objects.requireNonNull(field, "property filed can not be null:" + property.getName());
+                        AnnotationAttributes annotationAttributes = AnnotatedElementUtils.getMergedAnnotationAttributes(field, annotation);
                         Objects.requireNonNull(annotationAttributes, "not found annotation of @" + annotation.getSimpleName() + " at " + query.getSimpleName() + "." + property.getName());
 
                         final Metadata metadata = new Metadata();
@@ -107,24 +109,8 @@ public class AnnotationQueryProvider implements QueryProvider {
                         metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
                         metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
 
-                        if (property.isAnnotationPresent(Function.class)) {
-                            final Function function = property.getRequiredAnnotation(Function.class);
-                            metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, metadata));
-                        }
-
-                        //append annotation attributes
-                        for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
-                            if (IGNORE_ATTRIBUTES.contains(entry.getKey())) {
-                                continue;
-                            }
-                            if (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue())) {
-                                continue;
-                            }
-                            if (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class.equals(entry.getValue())) {
-                                continue;
-                            }
-                            metadata.put(entry.getKey(), entry.getValue());
-                        }
+                        parseFunctionAnnotation(property, metadata);
+                        appendAnnotationAttributesToMetadata(annotationAttributes, metadata);
 
                         final String value = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class).provide(annotationAttributes, metadata);
                         sql.append(value);
@@ -136,6 +122,28 @@ public class AnnotationQueryProvider implements QueryProvider {
                         sql.append("</if>");
                     }
                 });
+    }
+
+    private void parseFunctionAnnotation(Property property, Metadata metadata) {
+        if (!property.isAnnotationPresent(Function.class)) {
+            return;
+        }
+
+        final Function function = property.getRequiredAnnotation(Function.class);
+        metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, FunctionHandlerRegistry.getInstance().get(function.handler()).handle(function, metadata));
+
+    }
+
+    private void appendAnnotationAttributesToMetadata(AnnotationAttributes annotationAttributes, Metadata metadata) {
+        //append annotation attributes
+        for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
+            if (IGNORE_ATTRIBUTES.contains(entry.getKey())
+                    || (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue()))
+                    || (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class.equals(entry.getValue()))) {
+                continue;
+            }
+            metadata.put(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
