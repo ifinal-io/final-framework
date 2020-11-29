@@ -12,6 +12,7 @@ import org.ifinal.finalframework.monitor.operation.AlertOperation;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.MDC;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter, AlertOperation> {
 
     @Override
-    public Object before(Alerter executor, OperationContext<AlertOperation> context) {
+    public Object before(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
             alert(executor, context, null, null);
         }
@@ -33,27 +34,27 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
     }
 
     @Override
-    public void afterReturning(Alerter executor, OperationContext<AlertOperation> context, Object result) {
+    public void afterReturning(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             alert(executor, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Alerter executor, OperationContext<AlertOperation> context, Throwable throwable) {
+    public void afterThrowing(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context, @NonNull Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.operation().point()) {
             alert(executor, context, null, throwable);
         }
     }
 
     @Override
-    public void after(Alerter executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
+    public void after(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.operation().point()) {
             alert(executor, context, result, throwable);
         }
     }
 
-    private void alert(Alerter executor, OperationContext<AlertOperation> context, Object result, Throwable throwable) {
+    private void alert(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context, Object result, Throwable throwable) {
         final AlertOperation operation = context.operation();
         final OperationMetadata<AlertOperation> metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
@@ -61,7 +62,7 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
         final AlertContext.Builder<T> builder = AlertContext.builder();
         builder.name(operation.name())
                 .level(operation.level())
-                .operator(generateOperator(operation.operator(), metadata, evaluationContext))
+                .operator((T) generateOperator(operation.operator(), metadata, evaluationContext))
                 .trace(MDC.get("trace"))
                 .timestamp(System.currentTimeMillis());
 
