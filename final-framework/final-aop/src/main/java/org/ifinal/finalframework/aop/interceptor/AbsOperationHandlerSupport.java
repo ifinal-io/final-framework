@@ -45,7 +45,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
 
     @Override
     @NonNull
-    public EvaluationContext createEvaluationContext(@NonNull OperationContext<Operation> context, Object result, Throwable e) {
+    public EvaluationContext createEvaluationContext(@NonNull OperationContext<? extends Operation> context, Object result, Throwable e) {
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
                 context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
 
