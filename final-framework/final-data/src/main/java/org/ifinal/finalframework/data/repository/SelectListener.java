@@ -7,7 +7,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface SelectListener<PARAM, T> extends Listener<PARAM, List<T>> {
+public interface SelectListener<P, T> extends Listener<P, List<T>> {
     @Override
-    boolean onListening(int index, PARAM param, List<T> list);
+    boolean onListening(int index, P param, List<T> list);
 }

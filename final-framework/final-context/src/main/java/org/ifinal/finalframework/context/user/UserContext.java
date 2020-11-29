@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface UserContext<USER extends IUser<?>> {
+public interface UserContext<U extends IUser<?>> {
 
     /**
      * return the user.
@@ -17,7 +17,7 @@ public interface UserContext<USER extends IUser<?>> {
      * @return the user.
      */
     @Nullable
-    USER getUser();
+    U getUser();
 
 
 }

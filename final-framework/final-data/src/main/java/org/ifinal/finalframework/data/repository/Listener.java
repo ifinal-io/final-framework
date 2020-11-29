@@ -5,19 +5,19 @@ package org.ifinal.finalframework.data.repository;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Listener<PARAM, DATA> {
+public interface Listener<P, T> {
 
-    default PARAM onInit() {
+    default P onInit() {
         return null;
     }
 
-    default void onStart(PARAM param) {
+    default void onStart(P param) {
     }
 
-    boolean onListening(int index, PARAM param, DATA data);
+    boolean onListening(int index, P param, T data);
 
 
-    default void onFinish(PARAM param) {
+    default void onFinish(P param) {
     }
 
 

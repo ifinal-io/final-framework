@@ -5,8 +5,8 @@ package org.ifinal.finalframework.data.repository;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface DeleteListener<PARAM> extends Listener<PARAM, Integer> {
+public interface DeleteListener<P> extends Listener<P, Integer> {
 
     @Override
-    boolean onListening(int index, PARAM param, Integer rows);
+    boolean onListening(int index, P param, Integer rows);
 }

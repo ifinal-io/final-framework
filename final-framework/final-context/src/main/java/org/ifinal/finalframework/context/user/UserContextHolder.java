@@ -35,7 +35,6 @@ public final class UserContextHolder {
     /**
      * the default user
      */
-    @Nullable
     private static IUser<?> defaultUser;
 
     private UserContextHolder() {

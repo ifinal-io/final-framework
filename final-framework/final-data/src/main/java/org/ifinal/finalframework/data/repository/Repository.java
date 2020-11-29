@@ -614,28 +614,28 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     /*==============================================================================================*/
 
 
-    default <PARAM> void scan(@NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
+    default <P> void scan(@NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(null, null, query, listener);
     }
 
 
-    default <PARAM> void scan(@Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
+    default <P> void scan(@Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(null, view, query, listener);
     }
 
 
-    default <PARAM> void scan(@Nullable String table, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
+    default <P> void scan(@Nullable String table, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(table, null, query, listener);
     }
 
-    default <PARAM> void scan(@Nullable String table, @Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<PARAM, List<T>> listener) {
+    default <P> void scan(@Nullable String table, @Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         if (Asserts.isNull(query.getPage()) || Asserts.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
         Asserts.isNull(listener, "listener is null");
         int index = query.getPage();
         int offset = 0;
-        PARAM param = listener.onInit();
+        P param = listener.onInit();
         listener.onStart(param);
 
         List<T> list;

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Transient
-public interface IRecord<I extends Serializable, USER extends IUser<I>> extends IEntity<I> {
+public interface IRecord<I extends Serializable, U extends IUser<I>> extends IEntity<I> {
 
     /**
      * return the record creator
@@ -20,14 +20,14 @@ public interface IRecord<I extends Serializable, USER extends IUser<I>> extends 
      * @return the record creator
      */
     @Nullable
-    USER getCreator();
+    U getCreator();
 
     /**
      * set the record creator
      *
      * @param creator the record creator
      */
-    void setCreator(@NonNull USER creator);
+    void setCreator(@NonNull U creator);
 
     /**
      * return the record last modifier.
@@ -35,13 +35,13 @@ public interface IRecord<I extends Serializable, USER extends IUser<I>> extends 
      * @return the record last modifier.
      */
     @Nullable
-    USER getLastModifier();
+    U getLastModifier();
 
     /**
      * set the record last modifier.
      *
      * @param modifier the record modifier.
      */
-    void setLastModifier(@NonNull USER modifier);
+    void setLastModifier(@NonNull U modifier);
 
 }
