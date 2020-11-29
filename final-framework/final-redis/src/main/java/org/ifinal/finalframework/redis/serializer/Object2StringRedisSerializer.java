@@ -2,7 +2,6 @@ package org.ifinal.finalframework.redis.serializer;
 
 
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
@@ -27,12 +26,12 @@ public class Object2StringRedisSerializer implements RedisSerializer<Object> {
     }
 
     @Override
-    public byte[] serialize(Object o) throws SerializationException {
+    public byte[] serialize(Object o) {
         return o == null ? null : o.toString().getBytes(charset);
     }
 
     @Override
-    public Object deserialize(byte[] bytes) throws SerializationException {
+    public Object deserialize(byte[] bytes) {
         return (bytes == null ? null : new String(bytes, charset));
     }
 }

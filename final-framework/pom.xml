@@ -25,6 +25,7 @@
         <module>final-data</module>
         <module>final-monitor</module>
         <module>final-mybatis</module>
+        <module>final-service</module>
         <module>final-sharding</module>
         <module>final-retrofit</module>
         <module>final-aop</module>
@@ -35,7 +36,6 @@
         <module>final-dashboard</module>
         <module>final-dashboard-ui</module>
         <module>final-devops</module>
-        <module>final-service</module>
     </modules>
 
     <dependencyManagement>

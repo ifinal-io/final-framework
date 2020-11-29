@@ -7,6 +7,7 @@ import org.ifinal.finalframework.util.Asserts;
 
 import java.io.File;
 import java.lang.instrument.Instrumentation;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -23,7 +24,9 @@ public final class Decompiler {
         Instrumentation instrumentation = Instrumentations.get();
 
         HashSet<Class<?>> classes = new HashSet<>(Collections.singletonList(clazz));
-        ClassDumpTransformer transformer = new ClassDumpTransformer(classes, new File(ClassLoader.getSystemClassLoader().getResource(".").getPath()));
+        URL root = ClassLoader.getSystemClassLoader().getResource(".");
+        Objects.requireNonNull(root);
+        ClassDumpTransformer transformer = new ClassDumpTransformer(classes, new File(root.getPath()));
         Instrumentations.retransformClasses(instrumentation, transformer, classes);
         Map<Class<?>, File> dumpResult = transformer.getDumpResult();
         File file = dumpResult.get(clazz);
@@ -61,11 +64,7 @@ public final class Decompiler {
             }
         };
 
-        HashMap<String, String> options = new HashMap<String, String>();
-        /**
-         * @see org.benf.cfr.reader.util.MiscConstants.Version.getVersion() Currently,
-         *      the cfr version is wrong. so disable show cfr version.
-         */
+        HashMap<String, String> options = new HashMap<>();
         options.put("showversion", "false");
         options.put("hideutf", String.valueOf(hideUnicode));
         if (Asserts.nonBlank(methodName)) {
@@ -73,7 +72,7 @@ public final class Decompiler {
         }
 
         CfrDriver driver = new CfrDriver.Builder().withOptions(options).withOutputSink(mySink).build();
-        List<String> toAnalyse = new ArrayList<String>();
+        List<String> toAnalyse = new ArrayList<>();
         toAnalyse.add(classFilePath);
         driver.analyse(toAnalyse);
 

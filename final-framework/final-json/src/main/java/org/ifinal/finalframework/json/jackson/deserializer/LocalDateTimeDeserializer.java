@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.json.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
@@ -20,10 +19,10 @@ import java.time.ZoneId;
  */
 @AutoService(JsonDeserializer.class)
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-    private LocalDateTimeFormatters dateTimeFormatters = LocalDateTimeFormatters.DEFAULT;
+    private static final LocalDateTimeFormatters dateTimeFormatters = LocalDateTimeFormatters.DEFAULT;
 
     @Override
-    public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public LocalDateTime deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String value = p.getValueAsString();
         if (Asserts.isEmpty(value)) {
             return null;

@@ -11,12 +11,12 @@ import java.util.*;
 public class Compiler {
     private final JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
     private final StandardJavaFileManager standardFileManager;
-    private final List<String> options = new ArrayList<String>();
+    private final List<String> options = new ArrayList<>();
     private final DynamicClassLoader dynamicClassLoader;
 
-    private final Collection<JavaFileObject> compilationUnits = new ArrayList<JavaFileObject>();
-    private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<Diagnostic<? extends JavaFileObject>>();
-    private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<Diagnostic<? extends JavaFileObject>>();
+    private final Collection<JavaFileObject> compilationUnits = new ArrayList<>();
+    private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<>();
+    private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<>();
 
     public Compiler(ClassLoader classLoader) {
         if (javaCompiler == null) {
@@ -46,7 +46,7 @@ public class Compiler {
 
         JavaFileManager fileManager = new DynamicJavaFileManager(standardFileManager, dynamicClassLoader);
 
-        DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
+        DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
                 compilationUnits);
 
@@ -55,7 +55,7 @@ public class Compiler {
             if (!compilationUnits.isEmpty()) {
                 boolean result = task.call();
 
-                if (!result || collector.getDiagnostics().size() > 0) {
+                if (!result || !collector.getDiagnostics().isEmpty()) {
 
                     for (Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
                         switch (diagnostic.getKind()) {
@@ -102,7 +102,7 @@ public class Compiler {
 
     private List<String> diagnosticToString(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
 
-        List<String> diagnosticMessages = new ArrayList<String>();
+        List<String> diagnosticMessages = new ArrayList<>();
 
         for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
             diagnosticMessages.add(

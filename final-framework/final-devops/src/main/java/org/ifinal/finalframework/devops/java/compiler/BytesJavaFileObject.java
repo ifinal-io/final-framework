@@ -2,10 +2,8 @@ package org.ifinal.finalframework.devops.java.compiler;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 
 public class BytesJavaFileObject extends SimpleJavaFileObject {
@@ -20,14 +18,13 @@ public class BytesJavaFileObject extends SimpleJavaFileObject {
                 + Kind.CLASS.extension), Kind.CLASS);
     }
 
-    public BytesJavaFileObject(String className, ByteArrayOutputStream byteArrayOutputStream)
-            throws URISyntaxException {
+    public BytesJavaFileObject(String className, ByteArrayOutputStream byteArrayOutputStream) {
         this(className);
         this.byteArrayOutputStream = byteArrayOutputStream;
     }
 
     @Override
-    public OutputStream openOutputStream() throws IOException {
+    public OutputStream openOutputStream() {
         if (byteArrayOutputStream == null) {
             byteArrayOutputStream = new ByteArrayOutputStream();
         }

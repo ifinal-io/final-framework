@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class DynamicClassLoader extends ClassLoader {
-    private final Map<String, BytesJavaFileObject> byteCodes = new HashMap<String, BytesJavaFileObject>();
+    private final Map<String, BytesJavaFileObject> byteCodes = new HashMap<>();
 
     public DynamicClassLoader(ClassLoader classLoader) {
         super(classLoader);
@@ -26,7 +26,7 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     public Map<String, Class<?>> getClasses() throws ClassNotFoundException {
-        Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
+        Map<String, Class<?>> classes = new HashMap<>();
         for (BytesJavaFileObject byteCode : byteCodes.values()) {
             classes.put(byteCode.getClassName(), findClass(byteCode.getClassName()));
         }
@@ -34,7 +34,7 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     public Map<String, byte[]> getByteCodes() {
-        Map<String, byte[]> result = new HashMap<String, byte[]>(byteCodes.size());
+        Map<String, byte[]> result = new HashMap<>(byteCodes.size());
         for (Entry<String, BytesJavaFileObject> entry : byteCodes.entrySet()) {
             result.put(entry.getKey(), entry.getValue().getByteCode());
         }

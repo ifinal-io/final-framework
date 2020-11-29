@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
+import org.springframework.lang.NonNull;
+
 import javax.tools.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,12 +11,11 @@ import java.util.Set;
 
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
     private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
-            /** JPMS StandardLocation.SYSTEM_MODULES **/
             "SYSTEM_MODULES"};
     private final PackageInternalsFinder finder;
 
     private final DynamicClassLoader classLoader;
-    private final List<BytesJavaFileObject> byteCodes = new ArrayList<BytesJavaFileObject>();
+    private final List<BytesJavaFileObject> byteCodes = new ArrayList<>();
 
     public DynamicJavaFileManager(JavaFileManager fileManager, DynamicClassLoader classLoader) {
         super(fileManager);
@@ -24,8 +25,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public JavaFileObject getJavaFileForOutput(Location location, String className,
-                                               JavaFileObject.Kind kind, FileObject sibling) throws IOException {
+    public JavaFileObject getJavaFileForOutput(Location location, String className, JavaFileObject.Kind kind, FileObject sibling) {
 
         for (BytesJavaFileObject byteCode : byteCodes) {
             if (byteCode.getClassName().equals(className)) {
@@ -49,13 +49,9 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     public String inferBinaryName(Location location, JavaFileObject file) {
         if (file instanceof CustomJavaFileObject) {
             return ((CustomJavaFileObject) file).binaryName();
-        } else {
-            /**
-             * if it's not CustomJavaFileObject, then it's coming from standard file manager
-             * - let it handle the file
-             */
-            return super.inferBinaryName(location, file);
         }
+
+        return super.inferBinaryName(location, file);
     }
 
     @Override
@@ -72,7 +68,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
         // merge JavaFileObjects from specified ClassLoader
         if (location == StandardLocation.CLASS_PATH && kinds.contains(JavaFileObject.Kind.CLASS)) {
-            return new IterableJoin<JavaFileObject>(super.list(location, packageName, kinds, recurse),
+            return new IterableJoin<>(super.list(location, packageName, kinds, recurse),
                     finder.find(packageName));
         }
 
@@ -80,7 +76,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     static class IterableJoin<T> implements Iterable<T> {
-        private final Iterable<T> first, next;
+        private final Iterable<T> first;
+        private final Iterable<T> next;
 
         public IterableJoin(Iterable<T> first, Iterable<T> next) {
             this.first = first;
@@ -88,13 +85,15 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         }
 
         @Override
+        @NonNull
         public Iterator<T> iterator() {
-            return new IteratorJoin<T>(first.iterator(), next.iterator());
+            return new IteratorJoin<>(first.iterator(), next.iterator());
         }
     }
 
     static class IteratorJoin<T> implements Iterator<T> {
-        private final Iterator<T> first, next;
+        private final Iterator<T> first;
+        private final Iterator<T> next;
 
         public IteratorJoin(Iterator<T> first, Iterator<T> next) {
             this.first = first;

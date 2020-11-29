@@ -38,9 +38,9 @@ public final class JsonRegistry {
     private synchronized void initDefaultJsonService() {
 
         try {
-            this.jsonService = (JsonService) Class.forName(DEFAULT_JSON_SERVICE).newInstance();
+            this.jsonService = (JsonService) Class.forName(DEFAULT_JSON_SERVICE).getConstructor().newInstance();
         } catch (Exception e) {
-            // ignore
+            throw new IllegalArgumentException(e);
         } finally {
             initDefaulted = true;
         }
