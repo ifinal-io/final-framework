@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.ifinal.finalframework.example.dao.mapper.PersonMapper">
     <resultMap id="PersonMap" type="org.ifinal.finalframework.example.entity.Person">
+        <id column="id" property="id" javaType="java.lang.Long"/>
+        <result column="account" property="account" javaType="java.lang.String"/>
+        <result column="password" property="password" javaType="java.lang.String"/>
         <result column="name" property="name" javaType="java.lang.String"/>
         <association property="creator" column="creator" javaType="org.ifinal.finalframework.example.entity.Person">
             <id column="creator" property="id" javaType="java.lang.Long"/>

@@ -12,7 +12,12 @@ import org.ifinal.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * @author likly
@@ -24,6 +29,13 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings("unused")
 public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomizer {
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisConfigurationCustomizer.class);
+
+    @NonNull
+    private static final Field composites = Objects.requireNonNull(ReflectionUtils.findField(ResultMapping.class, "composites"));
+
+    static {
+        ReflectionUtils.makeAccessible(composites);
+    }
 
     @Override
     public void customize(Configuration configuration) {
@@ -51,8 +63,14 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
                             .stream()
                             .filter(ResultMapping::isCompositeResult)
                             .forEach(resultMapping -> {
+
                                 ResultMap map = new ResultMap.Builder(configuration, resultMapping.getNestedResultMapId(), resultMap.getType(), resultMapping.getComposites()).build();
                                 configuration.addResultMap(map);
+
+                                // mybatis not support composites result mapping
+                                ReflectionUtils.setField(composites, resultMapping, null);
+
+
                             });
 
 

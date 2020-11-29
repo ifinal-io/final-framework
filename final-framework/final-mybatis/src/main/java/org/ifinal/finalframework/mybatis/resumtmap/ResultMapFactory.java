@@ -84,7 +84,7 @@ public final class ResultMapFactory {
                                 .composites(composites)
                                 .nestedResultMapId(id + "[" + name + "]")
                                 // a composting result mapping is not need a typehandler, but mybatis have this a validate.
-                                .typeHandler(configuration.getTypeHandlerRegistry().getUnknownTypeHandler())
+//                                .typeHandler(configuration.getTypeHandlerRegistry().getUnknownTypeHandler())
                                 .build();
 
 
