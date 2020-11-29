@@ -12,7 +12,6 @@ public interface SqlBuilder<T> extends Builder<String> {
 
     default String formatProperty(QProperty property) {
         return property.getColumn();
-//        return String.format("%s.%s", property.getTable(), property.getColumn());
     }
 
 

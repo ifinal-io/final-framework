@@ -22,10 +22,10 @@ package org.ifinal.finalframework.util.function;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface Converter2<S1, S2, TARGET> {
+public interface Converter2<S1, S2, R> {
 
     /**
-     * convert to {@link TARGET} with {@link S1} and {@link S2}
+     * convert to {@link R} with {@link S1} and {@link S2}
      */
-    TARGET convert(S1 s1, S2 s2);
+    R convert(S1 s1, S2 s2);
 }

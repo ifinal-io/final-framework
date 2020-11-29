@@ -11,12 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class FunctionHandlerRegistry {
+public final class FunctionHandlerRegistry {
     private static final FunctionHandlerRegistry INSTANCE = new FunctionHandlerRegistry();
     private final Map<Class<? extends Function.FunctionHandler>, Function.FunctionHandler> handlers = new ConcurrentHashMap<>(8);
 
-    {
-        handlers.put(Function.FunctionHandler.class, new VelocityFunctionHandler());
+    private FunctionHandlerRegistry() {
+        registry(Function.FunctionHandler.class, new VelocityFunctionHandler());
     }
 
     public static FunctionHandlerRegistry getInstance() {

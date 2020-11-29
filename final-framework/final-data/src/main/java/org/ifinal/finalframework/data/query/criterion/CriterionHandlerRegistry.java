@@ -11,17 +11,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class CriterionHandlerRegistry {
+public final class CriterionHandlerRegistry {
     private static final CriterionHandlerRegistry INSTANCE = new CriterionHandlerRegistry();
     private final Map<Class<? extends CriterionSqlProvider>, CriterionSqlProvider> handlers = new ConcurrentHashMap<>(8);
 
-    {
-        handlers.put(CriterionSqlProvider.class, new VelocityCriterionSqlProvider());
+    private CriterionHandlerRegistry() {
+        registry(CriterionSqlProvider.class, new VelocityCriterionSqlProvider());
     }
 
     public static CriterionHandlerRegistry getInstance() {
         return INSTANCE;
     }
+
 
     public void registry(Class<? extends CriterionSqlProvider> key, CriterionSqlProvider handler) {
         this.handlers.put(key, handler);

@@ -22,6 +22,6 @@ package org.ifinal.finalframework.util.function;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface Convertible<TARGET> {
-    TARGET convert();
+public interface Convertible<R> {
+    R convert();
 }
