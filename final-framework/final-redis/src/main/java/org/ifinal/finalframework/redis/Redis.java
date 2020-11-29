@@ -41,7 +41,7 @@ public interface Redis {
     }
 
     static ZSetOperations zset() {
-        return RedisRegistry.getInstance().zset();
+        return RedisRegistry.getInstance().zSet();
     }
 
     static boolean lock(Object key, Object value, Long timeout, TimeUnit unit) {

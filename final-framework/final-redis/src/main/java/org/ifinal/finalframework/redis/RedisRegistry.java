@@ -8,9 +8,10 @@ import org.springframework.data.redis.core.*;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("rawtypes")
 public final class RedisRegistry {
     private static final RedisRegistry instance = new RedisRegistry();
-    private RedisTemplate<?, ?> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     private RedisRegistry() {
     }
@@ -19,7 +20,7 @@ public final class RedisRegistry {
         return instance;
     }
 
-    public void setRedisTemplate(RedisTemplate<?, ?> redisTemplate) {
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -47,7 +48,7 @@ public final class RedisRegistry {
         return redisTemplate.opsForSet();
     }
 
-    public ZSetOperations zset() {
+    public ZSetOperations zSet() {
         return redisTemplate.opsForZSet();
     }
 

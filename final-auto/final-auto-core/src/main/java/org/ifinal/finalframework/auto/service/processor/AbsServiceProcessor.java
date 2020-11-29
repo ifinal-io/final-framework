@@ -21,6 +21,7 @@ import java.util.*;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public abstract class AbsServiceProcessor extends AbstractProcessor {
 
 

@@ -38,11 +38,7 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
             return ((Set<?>) enums).toArray()[0] instanceof IEnum;
         }
 
-        if (enums instanceof Class && IEnum.class.isAssignableFrom((Class<?>) enums)) {
-            return true;
-        }
-
-        return false;
+        return enums instanceof Class && IEnum.class.isAssignableFrom((Class<?>) enums);
     }
 
     @Override
@@ -56,23 +52,23 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
             IEnum<?>[] enums = (IEnum<?>[]) body;
             return Arrays.stream(enums).map(this::buildEnumBean).collect(Collectors.toList());
         } else if (body instanceof Class && IEnum.class.isAssignableFrom((Class<?>) body)) {
-            final Class<Enum> enumClass = (Class<Enum>) body;
+            final Class<Enum<?>> enumClass = (Class<Enum<?>>) body;
             return Arrays.stream(enumClass.getEnumConstants())
-                    .map(ienum -> this.buildEnumBean((IEnum<?>) ienum))
+                    .map(item -> this.buildEnumBean((IEnum<?>) item))
                     .collect(Collectors.toList());
         }
 
         throw new IllegalArgumentException("不支持的数据类型：" + body.getClass());
     }
 
-    private Map<String, Object> buildEnumBean(IEnum<?> ienum) {
+    private Map<String, Object> buildEnumBean(IEnum<?> item) {
         Map<String, Object> result = new HashMap<>();
-        result.put("code", ienum.getCode());
-        if (ienum instanceof Enum) {
-            result.put("desc", Messages.getMessage(Enums.getEnumI18NCode((Enum<?>) ienum), ienum.getDesc()));
-            result.put("name", ((Enum<?>) ienum).name());
+        result.put("code", item.getCode());
+        if (item instanceof Enum) {
+            result.put("desc", Messages.getMessage(Enums.getEnumI18NCode((Enum<?>) item), item.getDesc()));
+            result.put("name", ((Enum<?>) item).name());
         } else {
-            result.put("desc", ienum.getDesc());
+            result.put("desc", item.getDesc());
         }
         return result;
     }

@@ -15,7 +15,9 @@ import java.util.List;
  * @since 1.0.0
  */
 @Data
+@SuppressWarnings("serial")
 public class SqlBound implements Serializable {
+    private static final long serialVersionUID = 641816143590205180L;
     private Class<? extends IEntity<?>> entity;
     private IQuery query;
     private String script;
@@ -23,7 +25,8 @@ public class SqlBound implements Serializable {
     private List<ParameterMapping> parameterMappings;
 
     @Data
-    public static class ParameterMapping {
+    public static class ParameterMapping implements Serializable {
+        private static final long serialVersionUID = 8682535333697518308L;
         private String property;
         private String expression;
         private Class<?> javaType;

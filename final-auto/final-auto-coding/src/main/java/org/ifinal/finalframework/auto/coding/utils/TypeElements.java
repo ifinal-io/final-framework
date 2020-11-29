@@ -19,10 +19,11 @@ import java.util.stream.Stream;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public final class TypeElements {
     private final Types types;
     private final Elements elements;
-    private final Map<Class<?>, TypeElement> typeElements = new HashMap<>(16);
+    private final Map<Class<?>, TypeElement> typeElementMap = new HashMap<>(16);
     private final Map<Class<?>, TypeMirror> elementTypes = new HashMap<>(16);
 
 
@@ -33,7 +34,6 @@ public final class TypeElements {
     }
 
     private void init() {
-//        Collection.class, List.class, Set.class, Map.class,
 
         Stream.of(LocalDateTime.class, LocalDate.class, LocalTime.class, Object.class)
                 .forEach(this::initTypeElements);
@@ -41,11 +41,10 @@ public final class TypeElements {
         elementTypes.put(List.class, types.getDeclaredType(elements.getTypeElement(List.class.getCanonicalName()), types.getWildcardType(null, null)));
         elementTypes.put(Set.class, types.getDeclaredType(elements.getTypeElement(Set.class.getCanonicalName()), types.getWildcardType(null, null)));
         elementTypes.put(Map.class, types.getDeclaredType(elements.getTypeElement(Map.class.getCanonicalName()), types.getWildcardType(null, null), types.getWildcardType(null, null)));
-        ;
     }
 
     private void initTypeElements(Class<?> type) {
-        typeElements.put(type, elements.getTypeElement(type.getCanonicalName()));
+        typeElementMap.put(type, elements.getTypeElement(type.getCanonicalName()));
     }
 
     public boolean isCollection(@NonNull Element element) {
@@ -91,7 +90,6 @@ public final class TypeElements {
 
     }
 
-
     public boolean isObject(Element element) {
         return isSameType(element, Object.class);
     }
@@ -105,7 +103,7 @@ public final class TypeElements {
     }
 
     public TypeElement getTypeElement(Class<?> type) {
-        return typeElements.containsKey(type) ? typeElements.get(type) : elements.getTypeElement(type.getCanonicalName());
+        return typeElementMap.containsKey(type) ? typeElementMap.get(type) : elements.getTypeElement(type.getCanonicalName());
     }
 
 }

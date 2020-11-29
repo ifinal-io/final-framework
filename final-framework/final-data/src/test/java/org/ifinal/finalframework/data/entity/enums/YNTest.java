@@ -13,17 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class YNTest {
+class YNTest {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
     @Test
-    public void of() throws Throwable {
+    void of() throws Throwable {
         assertEquals(YN.YES, objectMapper.readValue(YN.YES.getCode().toString(), YN.class));
     }
 
     @Test
-    public void value() throws Throwable {
+    void value() throws Throwable {
         assertEquals(YN.YES.getCode().toString(), Json.toJson(YN.YES));
 
     }

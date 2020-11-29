@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.auto.query.processor;
 
-import org.ifinal.finalframework.auto.coding.annotation.Template;
-import org.ifinal.finalframework.auto.coding.file.JavaSource;
 import org.ifinal.finalframework.auto.data.Entity;
 
 import java.util.ArrayList;
@@ -12,8 +10,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Template("query/entity.jvm")
-public class QEntity implements JavaSource {
+public class QEntity {
     private final String packageName;
     private final String name;
     private final String simpleName;
@@ -38,17 +35,14 @@ public class QEntity implements JavaSource {
         return entity;
     }
 
-    @Override
     public String getPackageName() {
         return packageName;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getSimpleName() {
         return simpleName;
     }
@@ -65,7 +59,7 @@ public class QEntity implements JavaSource {
         private final Entity entity;
         private String packageName;
         private String simpleName;
-        private List<QProperty> properties = new ArrayList<>();
+        private final List<QProperty> properties = new ArrayList<>();
         private QProperty idProperty;
 
         public Builder(Entity entity) {

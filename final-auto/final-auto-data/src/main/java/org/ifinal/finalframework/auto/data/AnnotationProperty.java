@@ -146,28 +146,6 @@ public class AnnotationProperty implements Property {
         this.isKeyword = Lazy
                 .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
-//        System.out.println("=================================================" + getName()
-//            + "=================================================");
-//        System.out.println("name：" + getName());
-//        System.out.println("column：" + getColumn());
-//        System.out.println("javaType：" + getJavaTypeElement().getQualifiedName().toString());
-//        System.out.println("isPrimitive：" + isPrimitive());
-//        System.out.println("isEnum：" + isEnum());
-//        System.out.println("isArray：" + isArray());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isList：" + isList());
-//        System.out.println("isSet：" + isSet());
-//        System.out.println("isMap：" + isMap());
-//        System.out.println("isCollection：" + isCollection());
-//        System.out.println("isIdProperty：" + isIdProperty());
-//        System.out.println("isVersion：" + isVersion());
-//        System.out.println("isReference：" + isReference());
-//        System.out.println("isDefault：" + isDefault());
-//        System.out.println("isFinal：" + isFinal());
-//        System.out.println("isReadOnly：" + isReadOnly());
-//        System.out.println("isWriteOnly：" + isWriteOnly());
-//        System.out.println(
-//            "===================================================================================================================");
 
     }
 
@@ -177,10 +155,8 @@ public class AnnotationProperty implements Property {
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (typeElements.isSameType(annotationType, column.asType())) {
-//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,annotationType.toString()+":isColumn:" + true);
                 return getColumnValue(annotationMirror);
             } else if (annotationType.asElement().getAnnotation(Column.class) != null) {
-//                processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,annotationType.toString()+":hasColumn:" + true);
                 return getColumnValue(annotationMirror);
             }
         }
@@ -194,8 +170,6 @@ public class AnnotationProperty implements Property {
         String column = "";
         String value = "";
         for (ExecutableElement method : elementValues.keySet()) {
-//            final String message = annotationType.toString() + ":===========" + method.getSimpleName().toString() + ":" + elementValues.get(method);
-//            processEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,message);
             if ("name".equals(method.getSimpleName().toString())) {
                 column = (String) elementValues.get(method).getValue();
             } else if ("value".equals(method.getSimpleName().toString())) {
@@ -207,22 +181,6 @@ public class AnnotationProperty implements Property {
     }
 
     private TypeElement initTypeHandler() {
-//        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
-//        TypeElement typeHandler = typeElements.getTypeElement(TypeHandler.class);
-//        for (AnnotationMirror annotationMirror : annotationMirrors) {
-//            DeclaredType annotationType = annotationMirror.getAnnotationType();
-//            if (typeElements.isSameType(annotationType, typeHandler.asType())) {
-//                for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : annotationMirror
-//                        .getElementValues().entrySet()) {
-//                    if (entry.getKey().getSimpleName().toString().equals("value")) {
-//                        /**
-//                         * {@link TypeHandler#value()}
-//                         */
-//                        return (TypeElement) ((DeclaredType) entry.getValue().getValue()).asElement();
-//                    }
-//                }
-//            }
-//        }
         return null;
     }
 
