@@ -12,7 +12,6 @@ import org.ifinal.finalframework.mybatis.resumtmap.ResultMapFactory;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -30,7 +29,6 @@ import java.util.Objects;
 public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomizer {
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisConfigurationCustomizer.class);
 
-    @NonNull
     private static final Field composites = Objects.requireNonNull(ReflectionUtils.findField(ResultMapping.class, "composites"));
 
     static {
@@ -77,7 +75,6 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
                 });
 
 
-        System.out.println();
 
 
     }

@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.devops.java;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.devops.java.compiler.Compiler;
 import org.ifinal.finalframework.devops.java.compiler.DynamicClassLoader;
@@ -16,8 +17,10 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Slf4j
-public class Redefiner {
-    public static void redefine(Class clazz, String source) {
+@UtilityClass
+public final class Redefiner {
+
+    public static void redefine(Class<?> clazz, String source) {
 
         Instrumentation instrumentation = Instrumentations.get();
 
@@ -35,7 +38,7 @@ public class Redefiner {
 
         final List<ClassDefinition> definitions = new ArrayList<>();
 
-        for (Class loadedClass : instrumentation.getAllLoadedClasses()) {
+        for (Class<?> loadedClass : instrumentation.getAllLoadedClasses()) {
             if (byteCodes.containsKey(loadedClass.getName())) {
 
                 if (!loadedClass.getClassLoader().equals(classLoader)) {

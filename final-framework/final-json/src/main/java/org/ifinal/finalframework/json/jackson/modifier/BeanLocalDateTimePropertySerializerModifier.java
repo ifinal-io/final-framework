@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.json.jackson.modifier;
 
 
-import com.fasterxml.jackson.core.io.SerializedString;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -38,13 +36,7 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                 new LocalDateTimeSerializer(FORMATTER), writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
-
-        try {
-            Field name = BeanPropertyWriter.class.getDeclaredField("_name");
-            name.setAccessible(true);
-            name.set(bpw, new SerializedString(bpw.getName() + "Format"));
-        } catch (Exception e) {
-        }
+        setNameValue(bpw, bpw.getName() + "Format");
         return Collections.singleton(bpw);
     }
 }
