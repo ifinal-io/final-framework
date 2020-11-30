@@ -18,8 +18,6 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
 
     String getName();
 
-    String getSchema();
-
     String getTable();
 
     String getSimpleName();

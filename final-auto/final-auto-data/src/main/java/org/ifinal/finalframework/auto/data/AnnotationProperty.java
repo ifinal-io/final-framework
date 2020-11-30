@@ -6,7 +6,6 @@ import org.ifinal.finalframework.annotation.data.ReferenceMode;
 import org.ifinal.finalframework.annotation.data.Version;
 import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
 import org.ifinal.finalframework.auto.coding.utils.Annotations;
-import org.ifinal.finalframework.auto.coding.utils.TypeElements;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 
@@ -31,13 +30,8 @@ import java.util.function.Function;
  */
 public class AnnotationProperty implements Property {
 
-    /**
-     * 虚拟列前缀
-     */
-    private static final String VIRTUAL_PREFIX = "v_";
     private final Elements elements;
     private final Types types;
-    private final TypeElements typeElements;
     private final Lazy<Element> element;
     private final Optional<VariableElement> field;
     private final Optional<PropertyDescriptor> descriptor;
@@ -60,7 +54,6 @@ public class AnnotationProperty implements Property {
                               Optional<PropertyDescriptor> descriptor) {
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
-        this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
         this.field = field;
         this.descriptor = descriptor;
 
