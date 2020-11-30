@@ -10,9 +10,11 @@ import org.ifinal.finalframework.util.Primaries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrementOperation> {
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheIncrementOperation> context) {
+    public Void before(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context) {
         if (CutPoint.BEFORE == context.operation().point()) {
             doCacheIncrement(cache, context, null, null);
         }
@@ -32,27 +34,27 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
     }
 
     @Override
-    public void afterReturning(Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
+    public void afterReturning(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.operation().point()) {
             doCacheIncrement(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Cache cache, OperationContext<CacheIncrementOperation> context, Throwable throwable) {
+    public void afterThrowing(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, @NonNull Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.operation().point()) {
             doCacheIncrement(cache, context, null, throwable);
         }
     }
 
     @Override
-    public void after(Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
+    public void after(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.operation().point()) {
             doCacheIncrement(cache, context, result, throwable);
         }
     }
 
-    private void doCacheIncrement(Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
+    private void doCacheIncrement(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CacheIncrementOperation operation = context.operation();
@@ -64,29 +66,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
 
         final boolean hasKey = cache.isExists(key, field);
 
-        final Class<? extends Number> type = operation.type();
-        boolean incremented = false;
-        if (Primaries.isLong(type) || Primaries.isInteger(type)) {
-            final Long value = generateValue(operation.value(), context.metadata(), evaluationContext, Long.class);
-            if (value == null) {
-                throw new NullPointerException("increment value is null");
-            }
-            logger.info("==> cache increment: key={}, field={}, value={}", key, field, value);
-            final Long increment = cache.increment(key, field, value);
-            incremented = increment != null;
-            logger.info("<== result: {}", increment);
-        } else if (Primaries.isFloat(type) || Primaries.isDouble(type)) {
-            final Double value = generateValue(operation.value(), context.metadata(), evaluationContext, Double.class);
-            if (value == null) {
-                throw new NullPointerException("increment value is null");
-            }
-            logger.info("==> cache increment: key={}, field={}, value={}", key, field, value);
-            final Double increment = cache.increment(key, field, value);
-            incremented = increment != null;
-            logger.info("<== result: {}", increment);
-        } else {
-            throw new IllegalArgumentException(String.format("CacheIncrementOperation value type %s is not support.", type.getCanonicalName()));
-        }
+        boolean incremented = Objects.nonNull(doIncrement(logger, cache, context, key, field, evaluationContext));
 
         if (!hasKey && incremented) {
             Long ttl;
@@ -111,4 +91,32 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
         }
 
     }
+
+    private Number doIncrement(Logger logger, Cache cache, OperationContext<CacheIncrementOperation> context, Object key, Object field, EvaluationContext evaluationContext) {
+        final CacheIncrementOperation operation = context.operation();
+        final Class<? extends Number> type = operation.type();
+
+        if (Primaries.isLong(type) || Primaries.isInteger(type)) {
+            final Long value = generateValue(operation.value(), context.metadata(), evaluationContext, Long.class);
+            if (value == null) {
+                throw new NullPointerException("increment value is null");
+            }
+            logger.info("==> cache increment: key={}, field={}, value={}", key, field, value);
+            final Long increment = cache.increment(key, field, value);
+            logger.info("<== result: {}", increment);
+            return increment;
+        } else if (Primaries.isFloat(type) || Primaries.isDouble(type)) {
+            final Double value = generateValue(operation.value(), context.metadata(), evaluationContext, Double.class);
+            if (value == null) {
+                throw new NullPointerException("increment value is null");
+            }
+            logger.info("==> cache increment: key={}, field={}, value={}", key, field, value);
+            final Double increment = cache.increment(key, field, value);
+            logger.info("<== result: {}", increment);
+            return increment;
+        } else {
+            throw new IllegalArgumentException(String.format("CacheIncrementOperation value type %s is not support.", type.getCanonicalName()));
+        }
+    }
+
 }

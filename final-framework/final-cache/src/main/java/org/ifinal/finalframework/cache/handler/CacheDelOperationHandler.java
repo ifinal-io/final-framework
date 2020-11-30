@@ -51,7 +51,7 @@ public class CacheDelOperationHandler extends AbsCacheOperationHandlerSupport im
     }
 
     private void invocation(@NonNull Cache cache, @NonNull OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {
-        final OperationMetadata metadata = context.metadata();
+        final OperationMetadata<?> metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CacheDelOperation operation = context.operation();

@@ -8,7 +8,7 @@ import org.ifinal.finalframework.data.query.criterion.function.*;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface ExecuteCriteriable<V, R> extends
+public interface ExecuteCriteriable<V> extends
         DateFunction<CriterionTarget<CriterionFunction>>,
         MathFunction<V, CriterionTarget<CriterionFunction>>,
         LogicFunction<V, CriterionTarget<CriterionFunction>>,

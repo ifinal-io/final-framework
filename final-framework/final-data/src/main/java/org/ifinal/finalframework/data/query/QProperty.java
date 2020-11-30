@@ -24,7 +24,7 @@ import java.util.function.Function;
  * @since 1.0.0
  */
 public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Object, Criterion>, Sortable<Order>,
-        ExecuteCriteriable<T, Criterion> {
+        ExecuteCriteriable<T> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);

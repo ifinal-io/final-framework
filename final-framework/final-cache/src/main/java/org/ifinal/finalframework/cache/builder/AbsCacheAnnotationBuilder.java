@@ -3,10 +3,7 @@ package org.ifinal.finalframework.cache.builder;
 
 import org.ifinal.finalframework.util.Asserts;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author likly
@@ -18,7 +15,7 @@ public class AbsCacheAnnotationBuilder {
 
     protected static Collection<String> parse(String[] keyOrField, String delimiter) {
         if (Asserts.isEmpty(keyOrField)) {
-            return null;
+            return Collections.emptyList();
         }
         final String split = getDelimiter(delimiter);
         List<String> list = new ArrayList<>();
