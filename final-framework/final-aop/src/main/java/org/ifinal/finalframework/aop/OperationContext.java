@@ -10,6 +10,7 @@ import org.ifinal.finalframework.context.expression.MethodMetadata;
 public interface OperationContext<O extends Operation> {
     O operation();
 
+
     MethodMetadata metadata();
 
     Object target();

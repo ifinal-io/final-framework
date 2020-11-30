@@ -1,12 +1,13 @@
 package org.ifinal.finalframework.util;
 
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
 import java.util.Objects;
 
 /**
@@ -29,6 +30,48 @@ public final class Reflections {
         final Field field = findField(clazz, name);
         Objects.requireNonNull(field, String.format("can not find field of name '%s' on class '%s'", name, clazz));
         return field;
+    }
+
+    @Nullable
+    public static Method findMethod(@NonNull Class<?> clazz, @NonNull String name, Class<?>... paramTypes) {
+        return ReflectionUtils.findMethod(clazz, name, paramTypes);
+    }
+
+    @Nullable
+    public static Method findMethod(@NonNull Class<?> clazz, @NonNull String name) {
+        return ReflectionUtils.findMethod(clazz, name);
+    }
+
+
+    @NonNull
+    public static Method findRequiredMethod(@NonNull Class<?> clazz, @NonNull String name, Class<?>... paramTypes) {
+        Method method = findMethod(clazz, name, paramTypes);
+        Objects.requireNonNull(method, String.format("can not find required method of name '%s' on class '%s'", name, clazz));
+        return method;
+    }
+
+
+    @NonNull
+    public static Method findRequiredMethod(@NonNull Class<?> clazz, @NonNull String name) {
+        Method method = findMethod(clazz, name);
+        Objects.requireNonNull(method, String.format("can not find required method of name '%s' on class '%s'", name, clazz));
+        return method;
+    }
+
+
+    @NonNull
+    public static AnnotationAttributes getAnnotationAttributes(@NonNull Annotation annotation) {
+        return AnnotationUtils.getAnnotationAttributes(null, annotation);
+    }
+
+
+    @Nullable
+    public static AnnotationAttributes findAnnotationAttributes(AnnotatedElement ae, Class<? extends Annotation> annotationType) {
+        Annotation annotation = AnnotationUtils.findAnnotation(ae, annotationType);
+        if (Objects.isNull(annotation)) {
+            return null;
+        }
+        return AnnotationUtils.getAnnotationAttributes(ae, annotation);
     }
 
 
