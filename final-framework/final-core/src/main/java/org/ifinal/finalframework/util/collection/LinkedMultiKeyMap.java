@@ -11,8 +11,9 @@ import java.util.Map;
  */
 public class LinkedMultiKeyMap<K1, K2, V> extends LinkedHashMap<K1, Map<K2, V>> implements MultiKeyMap<K1, K2, V> {
 
+
     @Override
-    public void add(K1 key1, K2 key2, V value) {
+    public void put(K1 key1, K2 key2, V value) {
         Map<K2, V> map = computeIfAbsent(key1, k -> new LinkedHashMap<>());
         map.put(key2, value);
     }

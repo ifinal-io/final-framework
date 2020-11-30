@@ -28,7 +28,7 @@ public class OperationCacheKey<O extends Operation> implements Comparable<Operat
         if (!(other instanceof OperationCacheKey)) {
             return false;
         }
-        OperationCacheKey otherKey = (OperationCacheKey) other;
+        OperationCacheKey<?> otherKey = (OperationCacheKey<?>) other;
         return (this.operation.equals(otherKey.operation) &&
                 this.methodCacheKey.equals(otherKey.methodCacheKey));
     }
