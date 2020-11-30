@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @Slf4j
 @SpringFactory(ApplicationContextInitializer.class)
+@SuppressWarnings("unused")
 public class FinalFrameworkApplicationContextInitializer extends AbsFrameworkApplicationContextInitializer<ConfigurableApplicationContext> {
 
     public FinalFrameworkApplicationContextInitializer() {
