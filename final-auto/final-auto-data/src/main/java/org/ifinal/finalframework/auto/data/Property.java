@@ -1,14 +1,10 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.annotation.data.PersistentType;
 import org.ifinal.finalframework.annotation.data.ReferenceMode;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -24,17 +20,6 @@ public interface Property {
     @NonNull
     Element getElement();
 
-    @Nullable
-    TypeElement getTypeHandler();
-
-    @Nullable
-    VariableElement getField();
-
-    @Nullable
-    ExecutableElement getWriteMethod();
-
-    @Nullable
-    ExecutableElement getReadMethod();
 
     /**
      * return the {@literal javaType} of {@link Property}. if this property is a primary type or it's package type,
@@ -47,21 +32,12 @@ public interface Property {
     @NonNull
     TypeElement getJavaTypeElement();
 
-    TypeElement getMetaTypeElement();
-
     @NonNull
     String getName();
 
     @NonNull
     String getColumn();
 
-    @NonNull
-    PersistentType getPersistentType();
-
-    @Nullable
-    List<TypeElement> getViews();
-
-    boolean hasView(@NonNull Class<?> view);
 
     boolean isDefault();
 
@@ -69,10 +45,7 @@ public interface Property {
 
     boolean isVirtual();
 
-    boolean isSharding();
-
     boolean isReadOnly();
-
 
     boolean isWriteOnly();
 
@@ -85,8 +58,6 @@ public interface Property {
     }
 
 
-    boolean placeholder();
-
     TypeMirror getType();
 
 
@@ -96,19 +67,10 @@ public interface Property {
 
     boolean isVersion();
 
-    boolean isPrimitive();
-
-    boolean isEnum();
-
     boolean isCollection();
-
-    boolean isList();
-
-    boolean isSet();
 
     boolean isMap();
 
-    boolean isArray();
 
     boolean isReference();
 
@@ -125,10 +87,6 @@ public interface Property {
     }
 
     boolean isAnnotationPresent(Class<? extends Annotation> annotationType);
-
-    Entity toEntity();
-
-    boolean hasView(@NonNull TypeElement view);
 
     boolean isTransient();
 

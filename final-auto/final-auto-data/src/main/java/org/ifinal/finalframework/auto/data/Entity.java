@@ -5,7 +5,6 @@ import org.ifinal.finalframework.util.stream.Streamable;
 
 import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,7 +13,6 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface Entity extends Streamable<Property>, Iterable<Property> {
-
 
     String getPackage();
 
@@ -68,7 +66,5 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
     default <A extends Annotation> boolean hasAnnotation(Class<A> annotationType) {
         return getAnnotation(annotationType) != null;
     }
-
-    Collection<TypeElement> getViews();
 
 }

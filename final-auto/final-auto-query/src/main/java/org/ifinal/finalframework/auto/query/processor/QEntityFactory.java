@@ -55,24 +55,14 @@ public final class QEntityFactory {
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .element(property.getElement())
-                    .type(property.getJavaTypeElement())
                     .idProperty(property.isIdProperty())
-                    .column(Utils.formatPropertyColumn(null, property))
-                    .insertable(property.isWriteable())
-                    .updatable(property.isModifiable())
-                    .selectable(!property.isTransient() && !property.isWriteOnly() && !property.isVirtual())
                     .build();
         } else {
             final String path = referenceProperty.getName() + "." + property.getName();
             final String name = Utils.formatPropertyName(referenceProperty, property);
             return QProperty.builder(path, name)
-                    .column(Utils.formatPropertyColumn(referenceProperty, property))
                     .element(property.getElement())
-                    .type(property.getJavaTypeElement())
                     .idProperty(false)
-                    .insertable(property.isWriteable())
-                    .updatable(property.isModifiable())
-                    .selectable(!referenceProperty.isTransient() && !referenceProperty.isWriteOnly() && !referenceProperty.isVirtual())
                     .build();
         }
 

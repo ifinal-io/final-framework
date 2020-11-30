@@ -29,7 +29,6 @@ public class BaseEntity implements MutableEntity {
     private final String type;
     private final List<Property> properties = new LinkedList<>();
     private final Map<String, Property> propertyCache = new LinkedHashMap<>();
-    private final Set<TypeElement> views = new HashSet<>();
     private Property idProperty;
     private Property versionProperty;
 
@@ -71,10 +70,6 @@ public class BaseEntity implements MutableEntity {
             properties.add(property);
         }
 
-        List<TypeElement> viewElements = property.getViews();
-        if (Asserts.nonEmpty(viewElements)) {
-            this.views.addAll(viewElements);
-        }
 
     }
 
@@ -141,11 +136,6 @@ public class BaseEntity implements MutableEntity {
     @Override
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
         return typeElement.getAnnotation(annotationType);
-    }
-
-    @Override
-    public Collection<TypeElement> getViews() {
-        return views;
     }
 
     @Override

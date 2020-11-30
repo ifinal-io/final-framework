@@ -39,7 +39,6 @@ public class AnnotationProperty implements Property {
     private final TypeElements typeElements;
     private final Lazy<Element> element;
     private final Lazy<TypeElement> typeHandler;
-    private final List<TypeElement> views = new ArrayList<>();
     private final Optional<VariableElement> field;
     private final Optional<PropertyDescriptor> descriptor;
     private final Optional<ExecutableElement> readMethod;
@@ -47,7 +46,6 @@ public class AnnotationProperty implements Property {
     private final Lazy<String> name;
     private final Lazy<String> column;
     private final Lazy<TypeMirror> type;
-    private final Lazy<PersistentType> persistentType;
     private final Lazy<Boolean> isKeyword;
     private final Lazy<Boolean> isIdProperty;
     private final Lazy<Boolean> isReference;
@@ -59,15 +57,9 @@ public class AnnotationProperty implements Property {
     private final Lazy<Boolean> isWriteOnly;
     private final Lazy<Boolean> isReadOnly;
     private final Lazy<Boolean> isTransient;
-    private final Lazy<Boolean> isPrimitive;
-    private final Lazy<Boolean> isEnum;
-    private final Lazy<Boolean> isArray;
     private final Lazy<Boolean> isCollection;
-    private final Lazy<Boolean> isList;
-    private final Lazy<Boolean> isSet;
     private final Lazy<Boolean> isMap;
     private TypeElement javaTypeElement;
-    private TypeElement metaTypeElement;
     private boolean placeholder = true;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
@@ -103,12 +95,7 @@ public class AnnotationProperty implements Property {
                 )
         );
 
-        this.isPrimitive = Lazy.of(getType() instanceof PrimitiveType);
-        this.isEnum = Lazy.of(() -> isEnum(getType()));
-        this.isArray = Lazy.of(getType() instanceof ArrayType);
         this.isCollection = Lazy.of(() -> isCollection(getType()));
-        this.isList = Lazy.of(() -> isList(getType()));
-        this.isSet = Lazy.of(() -> isSet(getType()));
         this.isMap = Lazy.of(() -> isMap(getType()));
 
         this.isTransient = Lazy.of(hasAnnotation(Transient.class));
@@ -123,7 +110,6 @@ public class AnnotationProperty implements Property {
         this.isReadOnly = Lazy.of(!isTransient() && !isVirtual() && isAnnotationPresent(ReadOnly.class));
 
 
-        this.persistentType = Lazy.of(PersistentType.AUTO);
 
         PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
         this.javaTypeElement = getType().accept(propertyJavaTypeVisitor, this);
@@ -131,8 +117,6 @@ public class AnnotationProperty implements Property {
         if (isReference()) {
             initReferenceColumn(getAnnotation(Reference.class));
         }
-        initColumnView();
-
         this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
 
         this.isKeyword = Lazy
@@ -182,27 +166,6 @@ public class AnnotationProperty implements Property {
         initReference(ann.mode(), ann.properties(), ann.delimiter());
     }
 
-    private void initColumnView() {
-        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
-        TypeElement columnView = typeElements.getTypeElement(View.class);
-        for (AnnotationMirror annotationMirror : annotationMirrors) {
-            DeclaredType annotationType = annotationMirror.getAnnotationType();
-            if (typeElements.isSameType(annotationType, columnView.asType())) {
-                Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
-                        .getElementValues();
-                columnView.getEnclosedElements().stream()
-                        .map(it -> (ExecutableElement) it)
-                        .forEach(method -> {
-                            List<AnnotationValue> views = (List<AnnotationValue>) elementValues.get(method).getValue();
-                            views.stream().map(AnnotationValue::getValue)
-                                    .map(it -> (TypeElement) ((DeclaredType) it).asElement()).forEach(this.views::add);
-                        });
-
-            }
-        }
-    }
-
-
     private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
         this.referenceMode = mode;
         List<String> referenceProperties = new ArrayList<>(properties.length);
@@ -226,25 +189,6 @@ public class AnnotationProperty implements Property {
         return this.element.get();
     }
 
-    @Override
-    public TypeElement getTypeHandler() {
-        return this.typeHandler.orElse(null);
-    }
-
-    @Override
-    public VariableElement getField() {
-        return field.orElse(null);
-    }
-
-    @Override
-    public ExecutableElement getWriteMethod() {
-        return writeMethod.orElse(null);
-    }
-
-    @Override
-    public ExecutableElement getReadMethod() {
-        return readMethod.orElse(null);
-    }
 
     @Override
     public String getName() {
@@ -256,20 +200,7 @@ public class AnnotationProperty implements Property {
         return column.get();
     }
 
-    @Override
-    public PersistentType getPersistentType() {
-        return this.persistentType.get();
-    }
 
-    @Override
-    public List<TypeElement> getViews() {
-        return views;
-    }
-
-    @Override
-    public boolean hasView(Class<?> view) {
-        return false;
-    }
 
     @Override
     public boolean isDefault() {
@@ -286,10 +217,6 @@ public class AnnotationProperty implements Property {
         return isVirtual.get();
     }
 
-    @Override
-    public boolean isSharding() {
-        return isSharding.get();
-    }
 
     @Override
     public boolean isReadOnly() {
@@ -301,10 +228,6 @@ public class AnnotationProperty implements Property {
         return isWriteOnly.get();
     }
 
-    @Override
-    public boolean placeholder() {
-        return placeholder;
-    }
 
     @Override
     public TypeMirror getType() {
@@ -316,10 +239,6 @@ public class AnnotationProperty implements Property {
         return javaTypeElement;
     }
 
-    @Override
-    public TypeElement getMetaTypeElement() {
-        return metaTypeElement;
-    }
 
     @Override
     public boolean isKeyword() {
@@ -336,40 +255,18 @@ public class AnnotationProperty implements Property {
         return isVersion.get();
     }
 
-    @Override
-    public boolean isPrimitive() {
-        return isPrimitive.get();
-    }
-
-    @Override
-    public boolean isEnum() {
-        return isEnum.get();
-    }
 
     @Override
     public boolean isCollection() {
         return isCollection.get();
     }
 
-    @Override
-    public boolean isList() {
-        return isList.get();
-    }
-
-    @Override
-    public boolean isSet() {
-        return isSet.get();
-    }
 
     @Override
     public boolean isMap() {
         return isMap.get();
     }
 
-    @Override
-    public boolean isArray() {
-        return isArray.get();
-    }
 
     @Override
     public boolean isReference() {
@@ -401,23 +298,6 @@ public class AnnotationProperty implements Property {
         return Annotations.isAnnotationPresent(getElement(), annotationType);
     }
 
-    @Override
-    public Entity toEntity() {
-        return EntityFactory.create(processEnv, getJavaTypeElement());
-    }
-
-    @Override
-    public boolean hasView(TypeElement view) {
-
-        for (TypeElement typeElement : views) {
-            if (typeElements.isAssignable(view.asType(), typeElement.asType()) || typeElements
-                    .isSameType(view.asType(), typeElement.asType())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     @Override
     public boolean isTransient() {
