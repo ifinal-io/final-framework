@@ -27,7 +27,7 @@ public class OperationInterceptor implements MethodInterceptor {
     }
 
     public final Object invoke(OperationInvocation invocation) throws Throwable {
-        final Collection<OperationContext<Operation>> contexts = invocation.getOperationContexts();
+        final Collection<OperationContext> contexts = invocation.getOperationContexts();
 
         if (Asserts.isEmpty(contexts)) {
             return invocation.proceed();

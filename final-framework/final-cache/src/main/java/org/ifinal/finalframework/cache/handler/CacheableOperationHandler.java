@@ -4,10 +4,10 @@ import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
-import org.ifinal.finalframework.cache.operation.CacheableOperation;
 import org.ifinal.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.stereotype.Component;
 
@@ -23,20 +23,21 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("all")
 @Component
-public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheableOperation> {
+public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, Cacheable> {
     private static final String KEY = "key";
     private static final String FIELD = "field";
 
+
     @Override
-    public Object before(Cache cache, OperationContext<CacheableOperation> context) {
+    public Object before(Cache cache, OperationContext context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
-        final CacheableOperation operation = context.operation();
-        final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
+        final AnnotationAttributes operation = context.annotationAttributes();
+        final Object key = generateKey(operation.getStringArray(KEY), operation.getString("delimiter"), context.metadata(), evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + operation);
         }
-        final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
+        final Object field = generateField(operation.getStringArray(FIELD), operation.getString("delimiter"), context.metadata(), evaluationContext);
         context.addAttribute(KEY, key);
         context.addAttribute(FIELD, field);
         final Type genericReturnType = context.metadata().getGenericReturnType();
@@ -48,10 +49,11 @@ public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport i
     }
 
     @Override
-    public void afterReturning(Cache cache, OperationContext<CacheableOperation> context, Object result) {
+    public void afterReturning(Cache cache, OperationContext context, Object result) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, null);
-        if (!isConditionPassing(context.operation().condition(), context.metadata(), evaluationContext)) {
+        AnnotationAttributes annotationAttributes = context.annotationAttributes();
+        if (!isConditionPassing(annotationAttributes.getString("condition"), context.metadata(), evaluationContext)) {
             return;
         }
         final Object key = context.getAttribute(KEY);
@@ -59,7 +61,7 @@ public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport i
         final Object cacheValue = result;
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-        Object expired = generateExpire(context.operation().expire(), context.metadata(), evaluationContext);
+        Object expired = generateExpire(annotationAttributes.getString("expire"), context.metadata(), evaluationContext);
 
         if (expired != null) {
             if (expired instanceof Date) {
@@ -68,8 +70,8 @@ public class CacheableOperationHandler extends AbsCacheOperationHandlerSupport i
                 throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
             }
         } else {
-            ttl = context.operation().ttl();
-            timeUnit = context.operation().timeunit();
+            ttl = annotationAttributes.getNumber("ttl");
+            timeUnit = annotationAttributes.getEnum("timeunit");
         }
 
         logger.info("==> cache set: key={},field={},ttl={},timeunit={}", key, field, ttl, timeUnit);

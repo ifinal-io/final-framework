@@ -61,7 +61,8 @@ public class CacheAnnotationAttributeProcessor implements AnnotationAttributesPr
 
     private void processKeyOrField(AnnotationAttributes annotationAttributes, String name) {
         if (annotationAttributes.containsKey(name)) {
-            annotationAttributes.put(name, parse(annotationAttributes.getStringArray(name), getDelimiter(annotationAttributes.getString(ATTRIBUTE_NAME_DELIMITER))));
+            Collection<String> strings = parse(annotationAttributes.getStringArray(name), getDelimiter(annotationAttributes.getString(ATTRIBUTE_NAME_DELIMITER)));
+            annotationAttributes.put(name, strings.toArray(new String[0]));
         }
     }
 }

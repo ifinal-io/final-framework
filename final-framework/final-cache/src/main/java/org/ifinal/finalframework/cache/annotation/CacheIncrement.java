@@ -3,9 +3,7 @@ package org.ifinal.finalframework.cache.annotation;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.builder.CacheIncrementAnnotationBuilder;
 import org.ifinal.finalframework.cache.handler.CacheIncrementOperationHandler;
-import org.ifinal.finalframework.cache.operation.CacheIncrementOperation;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -16,8 +14,6 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @see Cache#increment(Object, Object, Long)
  * @see Cache#increment(Object, Object, Double)
- * @see CacheIncrementOperation
- * @see CacheIncrementAnnotationBuilder
  * @see CacheIncrementOperationHandler
  * @since 1.0.0
  */

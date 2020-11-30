@@ -7,8 +7,6 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.Collection;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -17,10 +15,10 @@ import java.util.Collection;
 public interface CacheOperationHandlerSupport extends OperationHandlerSupport {
 
     @Nullable
-    Object generateKey(@NonNull Collection<String> keys, @NonNull String delimiter, @NonNull MethodMetadata metadata, @NonNull EvaluationContext evaluationContext);
+    Object generateKey(@NonNull String[] keys, @NonNull String delimiter, @NonNull MethodMetadata metadata, @NonNull EvaluationContext evaluationContext);
 
     @Nullable
-    Object generateField(@NonNull Collection<String> fields, @NonNull String delimiter, @NonNull MethodMetadata metadata, @NonNull EvaluationContext evaluationContext);
+    Object generateField(@NonNull String[] fields, @NonNull String delimiter, @NonNull MethodMetadata metadata, @NonNull EvaluationContext evaluationContext);
 
     @Nullable
     Object generateValue(@NonNull String value, @NonNull MethodMetadata metadata, EvaluationContext evaluationContext);

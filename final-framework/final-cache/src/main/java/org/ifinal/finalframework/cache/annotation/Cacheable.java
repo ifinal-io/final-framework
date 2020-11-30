@@ -4,7 +4,6 @@ package org.ifinal.finalframework.cache.annotation;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.builder.CacheableAnnotationBuilder;
 import org.ifinal.finalframework.cache.handler.CacheableOperationHandler;
 import org.springframework.core.annotation.AliasFor;
 
@@ -23,7 +22,6 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @see Cache#set(Object, Object, Object, Long, TimeUnit, Class)
  * @see Cache#get(Object, Object, Type, Class)
- * @see CacheableAnnotationBuilder
  * @see CacheableOperationHandler
  * @since 1.0.0
  */

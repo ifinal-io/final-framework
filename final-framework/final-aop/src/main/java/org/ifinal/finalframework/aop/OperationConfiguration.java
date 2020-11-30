@@ -4,7 +4,6 @@ import org.aopalliance.intercept.Interceptor;
 import org.ifinal.finalframework.aop.interceptor.AnnotationOperationSource;
 import org.ifinal.finalframework.aop.interceptor.BaseOperationAnnotationFinder;
 import org.ifinal.finalframework.aop.interceptor.BaseOperationInvocationHandler;
-import org.ifinal.finalframework.util.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
@@ -33,8 +32,7 @@ public class OperationConfiguration {
     private static final Integer DEFAULT_INITIAL_SIZE = 8;
     private final Set<Class<? extends Annotation>> annotations = new CopyOnWriteArraySet<>();
     private final Map<Class<? extends Annotation>, OperationAnnotationFinder<? extends Annotation>> finders = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final Map<Class<Annotation>, OperationAnnotationBuilder<?, ?>> builders = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final Map<Class<? extends OperationHandler>, OperationHandler<?, ?>> operationHandlers = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
+    private final Map<Class<? extends Annotation>, OperationHandler<?, ? extends Annotation>> operationHandlers = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Executor>, Executor> executors = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Lazy<OperationInvocationHandler> invocationHandler;
     private final Lazy<OperationSource> operationSource;
@@ -43,10 +41,8 @@ public class OperationConfiguration {
 
 
     public OperationConfiguration(ObjectProvider<Executor> executorObjectProvider,
-                                  ObjectProvider<OperationAnnotationBuilder<?, ?>> builderObjectProvider,
-                                  ObjectProvider<OperationHandler<?, ?>> handlerObjectProvider) {
+                                  ObjectProvider<OperationHandler<?, ? extends Annotation>> handlerObjectProvider) {
         executorObjectProvider.forEach(this::registerExecutor);
-        builderObjectProvider.forEach(this::registerOperationAnnotationBuilder);
         handlerObjectProvider.forEach(this::registerOperationHandler);
         this.operationSource = Lazy.of(new AnnotationOperationSource(annotations, this));
         this.pointcut = Lazy.of(new OperationSourcePointcut(getOperationSource()));
@@ -54,17 +50,11 @@ public class OperationConfiguration {
         this.interceptor = Lazy.of(new OperationInterceptor(this));
     }
 
-    private void registerOperationAnnotationBuilder(OperationAnnotationBuilder<?, ?> builder) {
-        final Class<Annotation> ann = (Class<Annotation>) Reflections.findParameterizedInterfaceArgumentClass(builder.getClass(), OperationAnnotationBuilder.class, 0);
-        logger.debug("find annotation builder: ann=@{},builder={}", ann.getSimpleName(), builder.getClass().getSimpleName());
-        this.annotations.add(ann);
-        this.builders.put(ann, builder);
-    }
 
-    private void registerOperationHandler(OperationHandler<?, ?> handler) {
+    private void registerOperationHandler(OperationHandler<?, ? extends Annotation> handler) {
         final Class<? extends OperationHandler> handlerClass = handler.getClass();
         logger.debug("find operation handler: {}", handlerClass.getSimpleName());
-        operationHandlers.put(handlerClass, handler);
+//        operationHandlers.put(handlerClass, handler);
     }
 
     private void registerExecutor(Executor executor) {
@@ -100,16 +90,12 @@ public class OperationConfiguration {
         return interceptor.get();
     }
 
-    public OperationAnnotationBuilder<Annotation, Operation> getOperationAnnotationBuilder(Class<? extends Annotation> ann) {
-        return (OperationAnnotationBuilder<Annotation, Operation>) builders.get(ann);
-    }
-
-    public <T extends OperationHandler<?, ?>> T getHandler(@NonNull Class<T> invocation) {
+    public <T extends OperationHandler<?, ? extends Annotation>> T getHandler(@NonNull Class<? extends Annotation> invocation) {
         return (T) operationHandlers.get(invocation);
     }
 
-    public Executor getExecutor(Operation operation) {
-        return executors.get(operation.executor());
+    public Executor getExecutor(Class<? extends Executor> executor) {
+        return executors.get(executor);
     }
 
     public <T extends Annotation> OperationAnnotationFinder<T> getOperationAnnotationFinder(Class<T> annotation) {

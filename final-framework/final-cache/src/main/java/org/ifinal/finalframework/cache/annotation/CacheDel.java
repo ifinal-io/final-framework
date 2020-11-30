@@ -4,9 +4,7 @@ import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
-import org.ifinal.finalframework.cache.builder.CacheDelAnnotationBuilder;
 import org.ifinal.finalframework.cache.handler.CacheDelOperationHandler;
-import org.ifinal.finalframework.cache.operation.CacheDelOperation;
 
 import java.lang.annotation.*;
 
@@ -20,8 +18,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author likly
  * @version 1.0.0
  * @see Cache#del(Object, Object)
- * @see CacheDelOperation
- * @see CacheDelAnnotationBuilder
  * @see CacheDelOperationHandler
  * @since 1.0.0
  */

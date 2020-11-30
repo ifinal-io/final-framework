@@ -11,6 +11,6 @@ import java.util.Collection;
  */
 public interface OperationInvocation extends MethodInvocation {
 
-    Collection<OperationContext<Operation>> getOperationContexts();
+    Collection<OperationContext> getOperationContexts();
 
 }

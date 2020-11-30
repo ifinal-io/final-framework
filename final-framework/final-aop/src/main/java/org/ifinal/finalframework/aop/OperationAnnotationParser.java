@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.aop;
 
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
@@ -19,11 +20,11 @@ public interface OperationAnnotationParser {
      * 解析标记在{@link Class}上的 {@link java.lang.annotation.Annotation},并将其构建成对应的{@link Operation}
      */
     @Nullable
-    Collection<Operation> parseOperationAnnotation(Class<?> type);
+    Collection<AnnotationAttributes> parseOperationAnnotation(Class<?> type);
 
     /**
      * 解析标记在 {@link Method} 上的 {@link java.lang.annotation.Annotation},并将其构建成对应的{@link Operation}
      */
     @Nullable
-    Collection<Operation> parseOperationAnnotation(Method method);
+    Collection<AnnotationAttributes> parseOperationAnnotation(Method method);
 }

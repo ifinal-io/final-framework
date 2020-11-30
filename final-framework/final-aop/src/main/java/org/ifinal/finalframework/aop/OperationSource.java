@@ -2,6 +2,7 @@ package org.ifinal.finalframework.aop;
 
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.MethodClassKey;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -20,7 +21,7 @@ public interface OperationSource {
     }
 
     @Nullable
-    Collection<Operation> getOperations(Method method, @Nullable Class<?> targetClass);
+    Collection<AnnotationAttributes> getOperations(Method method, @Nullable Class<?> targetClass);
 
     @NonNull
     default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {

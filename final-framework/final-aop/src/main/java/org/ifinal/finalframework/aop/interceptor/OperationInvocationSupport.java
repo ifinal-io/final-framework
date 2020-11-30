@@ -1,12 +1,12 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.Operation;
-import org.ifinal.finalframework.aop.OperationCacheKey;
 import org.ifinal.finalframework.aop.OperationConfiguration;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.context.expression.AnnotatedElementKey;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
@@ -23,16 +23,17 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public class OperationInvocationSupport {
-    private final Map<OperationCacheKey<Operation>, MethodMetadata> metadataCache = new ConcurrentHashMap<>(1024);
+
+    private final Map<AnnotatedElementKey, MethodMetadata> metadataCache = new ConcurrentHashMap<>(1024);
     private final OperationConfiguration configuration;
 
     public OperationInvocationSupport(OperationConfiguration configuration) {
         this.configuration = configuration;
     }
 
-    protected List<OperationContext<Operation>> getOperationContexts(Object target, Method method, Object[] args) {
+    protected List<OperationContext> getOperationContexts(Object target, Method method, Object[] args) {
         final Class<?> targetClass = getTargetClass(target);
-        final Collection<? extends Operation> operations = configuration.getOperationSource().getOperations(method, targetClass);
+        final Collection<AnnotationAttributes> operations = configuration.getOperationSource().getOperations(method, targetClass);
 
         if (CollectionUtils.isEmpty(operations)) {
             return Collections.emptyList();
@@ -43,13 +44,13 @@ public class OperationInvocationSupport {
                 .collect(Collectors.toList());
     }
 
-    private OperationContext<Operation> getOperationContext(Operation operation, Method method, Object[] args, Object target, Class<?> targetClass) {
-        MethodMetadata metadata = getOperationMetadata(operation, method, targetClass);
-        return new BaseOperationContext<>(operation, metadata, target, args);
+    private OperationContext getOperationContext(AnnotationAttributes operation, Method method, Object[] args, Object target, Class<?> targetClass) {
+        MethodMetadata metadata = getOperationMetadata(method, targetClass);
+        return new BaseOperationContext(operation, metadata, target, args);
     }
 
-    private MethodMetadata getOperationMetadata(Operation operation, Method method, Class<?> targetClass) {
-        final OperationCacheKey<Operation> cacheKey = new OperationCacheKey<>(operation, method, targetClass);
+    private MethodMetadata getOperationMetadata(Method method, Class<?> targetClass) {
+        final AnnotatedElementKey cacheKey = new AnnotatedElementKey(method, targetClass);
         return this.metadataCache.computeIfAbsent(cacheKey, key -> new MethodMetadata(method, targetClass));
     }
 

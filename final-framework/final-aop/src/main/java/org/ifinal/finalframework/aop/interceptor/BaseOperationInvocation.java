@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 import org.aopalliance.intercept.MethodInvocation;
-import org.ifinal.finalframework.aop.Operation;
 import org.ifinal.finalframework.aop.OperationConfiguration;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationInvocation;
@@ -50,7 +49,7 @@ public class BaseOperationInvocation extends OperationInvocationSupport implemen
     }
 
     @Override
-    public Collection<OperationContext<Operation>> getOperationContexts() {
+    public Collection<OperationContext> getOperationContexts() {
         return getOperationContexts(getThis(), getMethod(), getArguments());
     }
 }

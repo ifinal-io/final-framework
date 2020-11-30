@@ -1,14 +1,19 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.*;
+import org.ifinal.finalframework.aop.OperationAnnotationFinder;
+import org.ifinal.finalframework.aop.OperationAnnotationParser;
+import org.ifinal.finalframework.aop.OperationConfiguration;
 import org.ifinal.finalframework.util.Asserts;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -26,7 +31,7 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
     }
 
     @Override
-    public Collection<Operation> parseOperationAnnotation(Class<?> type) {
+    public Collection<AnnotationAttributes> parseOperationAnnotation(Class<?> type) {
 
         final Collection<Annotation> anns = new ArrayList<>();
         for (Class<? extends Annotation> annotation : annTypes) {
@@ -40,37 +45,33 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         if (Asserts.isEmpty(anns)) {
             return Collections.emptyList();
         }
-        final Collection<Operation> ops = new ArrayList<>(1);
-
-        annTypes.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
-            anns.stream().filter(ann -> ann.annotationType() == an)
-                    .map(ann -> builder.build(type, ann))
-                    .forEach(ops::add);
 
 
-        });
-
-        return ops;
+        return anns.stream()
+                .map(annotation -> {
+                    AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(type, annotation);
+                    annotationAttributes.put("class", type);
+                    return annotationAttributes;
+                }).collect(Collectors.toList());
 
 
     }
 
     @Override
-    public Collection<Operation> parseOperationAnnotation(Method method) {
-        final Collection<Operation> ops = new ArrayList<>(1);
-        final Collection<Operation> methodOperationAnnotations = parseMethodOperationAnnotations(method);
+    public Collection<AnnotationAttributes> parseOperationAnnotation(Method method) {
+        final Collection<AnnotationAttributes> ops = new ArrayList<>(1);
+        final Collection<AnnotationAttributes> methodOperationAnnotations = parseMethodOperationAnnotations(method);
         if (Asserts.nonEmpty(methodOperationAnnotations)) {
             ops.addAll(methodOperationAnnotations);
         }
-        final Collection<Operation> parameterOperationAnnotations = parseMethodParameterOperationAnnotations(method);
+        final Collection<AnnotationAttributes> parameterOperationAnnotations = parseMethodParameterOperationAnnotations(method);
         if (Asserts.nonEmpty(parameterOperationAnnotations)) {
             ops.addAll(parameterOperationAnnotations);
         }
         return ops;
     }
 
-    private Collection<Operation> parseMethodOperationAnnotations(Method method) {
+    private Collection<AnnotationAttributes> parseMethodOperationAnnotations(Method method) {
         final Collection<Annotation> anns = new ArrayList<>();
         for (Class<? extends Annotation> annotation : annTypes) {
             final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
@@ -83,32 +84,30 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         if (Asserts.isEmpty(anns)) {
             return Collections.emptyList();
         }
-        final Collection<Operation> ops = new ArrayList<>(1);
 
-        annTypes.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
-            anns.stream().filter(ann -> ann.annotationType() == an)
-                    .map(ann -> builder.build(method, ann))
-                    .forEach(ops::add);
-        });
 
-        return ops;
+        return anns.stream()
+                .map(annotation -> {
+                    AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(method, annotation);
+                    annotationAttributes.put("method", method);
+                    return annotationAttributes;
+                }).collect(Collectors.toList());
     }
 
 
-    private Collection<Operation> parseMethodParameterOperationAnnotations(Method method) {
-        final List<Operation> ops = new ArrayList<>();
+    private Collection<AnnotationAttributes> parseMethodParameterOperationAnnotations(Method method) {
+        final List<AnnotationAttributes> ops = new ArrayList<>();
         final Parameter[] parameters = method.getParameters();
         final Type[] genericParameterTypes = method.getGenericParameterTypes();
         for (int i = 0; i < parameters.length; i++) {
-            final Collection<Operation> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i]);
+            final Collection<AnnotationAttributes> cacheOperations = parseCacheAnnotations(i, parameters[i], genericParameterTypes[i]);
             ops.addAll(cacheOperations);
         }
         return ops;
     }
 
 
-    private Collection<Operation> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType) {
+    private Collection<AnnotationAttributes> parseCacheAnnotations(Integer index, Parameter parameter, Type parameterType) {
         final Collection<Annotation> anns = new ArrayList<>();
         for (Class<? extends Annotation> annotation : annTypes) {
             final OperationAnnotationFinder<? extends Annotation> finder = configuration.getOperationAnnotationFinder(annotation);
@@ -121,16 +120,17 @@ public class BaseOperationAnnotationParser implements OperationAnnotationParser 
         if (Asserts.isEmpty(anns)) {
             return Collections.emptyList();
         }
-        final Collection<Operation> ops = new ArrayList<>(1);
 
-        annTypes.forEach(an -> {
-            final OperationAnnotationBuilder<Annotation, Operation> builder = configuration.getOperationAnnotationBuilder(an);
-            anns.stream().filter(ann -> ann.annotationType() == an)
-                    .map(ann -> builder.build(index, parameter, parameterType, ann))
-                    .forEach(ops::add);
-        });
 
-        return ops;
+        return anns.stream()
+                .map(annotation -> {
+                    AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(parameter, annotation);
+                    annotationAttributes.put("parameter", parameter);
+                    annotationAttributes.put("parameterIndex", index);
+                    annotationAttributes.put("parameterType", parameterType);
+                    return annotationAttributes;
+                }).collect(Collectors.toList());
+
 
     }
 

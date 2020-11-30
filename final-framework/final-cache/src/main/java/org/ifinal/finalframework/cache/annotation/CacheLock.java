@@ -3,9 +3,7 @@ package org.ifinal.finalframework.cache.annotation;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.builder.CacheLockAnnotationBuilder;
 import org.ifinal.finalframework.cache.handler.CacheLockOperationHandler;
-import org.ifinal.finalframework.cache.operation.CacheLockOperation;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -20,8 +18,6 @@ import java.util.concurrent.TimeUnit;
  * @author likly
  * @see Cache#lock(Object, Object, Long, TimeUnit)
  * @see Cache#unlock(Object, Object)
- * @see CacheLockOperation
- * @see CacheLockAnnotationBuilder
  * @see CacheLockOperationHandler
  * @since 1.0.0
  */

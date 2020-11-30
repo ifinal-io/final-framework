@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.Operation;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
 import org.ifinal.finalframework.aop.OperationHandlerSupport;
@@ -45,7 +44,7 @@ public class AbsOperationHandlerSupport implements OperationHandlerSupport {
 
     @Override
     @NonNull
-    public EvaluationContext createEvaluationContext(@NonNull OperationContext<? extends Operation> context, Object result, Throwable e) {
+    public EvaluationContext createEvaluationContext(@NonNull OperationContext context, Object result, Throwable e) {
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
                 context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
 

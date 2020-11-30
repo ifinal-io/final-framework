@@ -5,10 +5,10 @@ import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.CacheLockException;
 import org.ifinal.finalframework.cache.annotation.CacheLock;
-import org.ifinal.finalframework.cache.operation.CacheLockOperation;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.stereotype.Component;
 
@@ -22,26 +22,26 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Component
-public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheLockOperation> {
+public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheLock> {
 
     private static final String KEY = "key";
     private static final String VALUE = "value";
     private static final String LOCK = "lock";
 
     @Override
-    public Void before(Cache cache, OperationContext<CacheLockOperation> context) {
+    public Void before(Cache cache, OperationContext context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
-        final CacheLockOperation operation = context.operation();
-        final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
+        final AnnotationAttributes operation = context.annotationAttributes();
+        final Object key = generateKey(operation.getStringArray("key"), operation.getString("delimiter"), context.metadata(), evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + operation);
         }
-        final Object value = Asserts.isEmpty(operation.value()) ? key : generateValue(operation.value(), context.metadata(), evaluationContext);
+        final Object value = Asserts.isEmpty(operation.getString("value")) ? key : generateValue(operation.getString("value"), context.metadata(), evaluationContext);
 
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-        Object expired = generateExpire(operation.expire(), context.metadata(), evaluationContext);
+        Object expired = generateExpire(operation.getString("expire"), context.metadata(), evaluationContext);
 
         if (expired != null) {
             if (expired instanceof Date) {
@@ -50,11 +50,11 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
                 throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
             }
         } else {
-            ttl = operation.ttl();
-            timeUnit = operation.timeUnit();
+            ttl = operation.getNumber("ttl");
+            timeUnit = operation.getEnum("timeUnit");
         }
 
-        final Long sleep = operation.sleep();
+        final Long sleep = operation.getNumber("sleep");
         context.addAttribute(KEY, key);
         context.addAttribute(VALUE, value);
         int retry = 0;
@@ -77,14 +77,14 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
             }
 
             retry++;
-        } while (retry <= operation.retry());
+        } while (retry <= operation.getNumber("retry").intValue());
 
         context.addAttribute(LOCK, false);
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
     @Override
-    public void after(Cache cache, OperationContext<CacheLockOperation> context, Object result, Throwable throwable) {
+    public void after(Cache cache, OperationContext context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
 
         final Object key = context.getAttribute(KEY);

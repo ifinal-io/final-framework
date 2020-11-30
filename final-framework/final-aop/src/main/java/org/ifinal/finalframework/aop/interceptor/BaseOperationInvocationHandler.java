@@ -14,6 +14,8 @@ import java.util.Collection;
  */
 public class BaseOperationInvocationHandler implements OperationInvocationHandler {
 
+    private static final String EXECUTOR = "executor";
+
     private final OperationConfiguration configuration;
 
     public BaseOperationInvocationHandler(@NonNull OperationConfiguration configuration) {
@@ -21,10 +23,10 @@ public class BaseOperationInvocationHandler implements OperationInvocationHandle
     }
 
     @Override
-    public Object handleBefore(Collection<OperationContext<Operation>> contexts) {
-        for (OperationContext<? extends Operation> context : contexts) {
-            final OperationHandler handler = configuration.getHandler(context.operation().handler());
-            final Executor executor = configuration.getExecutor(context.operation());
+    public Object handleBefore(Collection<OperationContext> contexts) {
+        for (OperationContext context : contexts) {
+            final OperationHandler handler = configuration.getHandler(context.annotationType());
+            final Executor executor = configuration.getExecutor(context.annotationAttributes().getClass(EXECUTOR));
             final Object cacheValue = handler.before(executor, context);
             if (cacheValue != null) {
                 return cacheValue;
@@ -34,37 +36,37 @@ public class BaseOperationInvocationHandler implements OperationInvocationHandle
     }
 
     @Override
-    public void handleAfterReturning(Collection<OperationContext<Operation>> contexts, Object result) {
+    public void handleAfterReturning(Collection<OperationContext> contexts, Object result) {
         if (Asserts.isEmpty(contexts)) {
             return;
         }
-        for (OperationContext<? extends Operation> context : contexts) {
-            final OperationHandler handler = configuration.getHandler(context.operation().handler());
-            final Executor executor = configuration.getExecutor(context.operation());
+        for (OperationContext context : contexts) {
+            final OperationHandler handler = configuration.getHandler(context.annotationType());
+            final Executor executor = configuration.getExecutor(context.annotationAttributes().getClass(EXECUTOR));
             handler.afterReturning(executor, context, result);
         }
     }
 
     @Override
-    public void handleAfterThrowing(Collection<OperationContext<Operation>> contexts, Throwable throwable) {
+    public void handleAfterThrowing(Collection<OperationContext> contexts, Throwable throwable) {
         if (Asserts.isEmpty(contexts)) {
             return;
         }
-        for (OperationContext<? extends Operation> context : contexts) {
-            final OperationHandler handler = configuration.getHandler(context.operation().handler());
-            final Executor executor = configuration.getExecutor(context.operation());
+        for (OperationContext context : contexts) {
+            final OperationHandler handler = configuration.getHandler(context.annotationType());
+            final Executor executor = configuration.getExecutor(context.annotationAttributes().getClass(EXECUTOR));
             handler.afterThrowing(executor, context, throwable);
         }
     }
 
     @Override
-    public void handleAfter(Collection<OperationContext<Operation>> contexts, Object result, Throwable throwable) {
+    public void handleAfter(Collection<OperationContext> contexts, Object result, Throwable throwable) {
         if (Asserts.isEmpty(contexts)) {
             return;
         }
-        for (OperationContext<? extends Operation> context : contexts) {
-            final OperationHandler handler = configuration.getHandler(context.operation().handler());
-            final Executor executor = configuration.getExecutor(context.operation());
+        for (OperationContext context : contexts) {
+            final OperationHandler handler = configuration.getHandler(context.annotationType());
+            final Executor executor = configuration.getExecutor(context.annotationAttributes().getClass(EXECUTOR));
             handler.after(executor, context, result, throwable);
         }
     }

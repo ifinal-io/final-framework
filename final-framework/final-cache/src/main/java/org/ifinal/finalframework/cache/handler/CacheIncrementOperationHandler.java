@@ -5,10 +5,11 @@ import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.operation.CacheIncrementOperation;
+import org.ifinal.finalframework.cache.annotation.CacheIncrement;
 import org.ifinal.finalframework.util.Primaries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -23,46 +24,46 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Component
-public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrementOperation> {
+public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrement> {
 
     @Override
-    public Void before(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context) {
-        if (CutPoint.BEFORE == context.operation().point()) {
+    public Void before(@NonNull Cache cache, OperationContext context) {
+        if (CutPoint.BEFORE == context.cutPoint()) {
             doCacheIncrement(cache, context, null, null);
         }
         return null;
     }
 
     @Override
-    public void afterReturning(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result) {
-        if (CutPoint.AFTER_RETURNING == context.operation().point()) {
+    public void afterReturning(@NonNull Cache cache, OperationContext context, Object result) {
+        if (CutPoint.AFTER_RETURNING == context.cutPoint()) {
             doCacheIncrement(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, @NonNull Throwable throwable) {
-        if (CutPoint.AFTER_THROWING == context.operation().point()) {
+    public void afterThrowing(@NonNull Cache cache, OperationContext context, @NonNull Throwable throwable) {
+        if (CutPoint.AFTER_THROWING == context.cutPoint()) {
             doCacheIncrement(cache, context, null, throwable);
         }
     }
 
     @Override
-    public void after(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
-        if (CutPoint.AFTER == context.operation().point()) {
+    public void after(@NonNull Cache cache, OperationContext context, Object result, Throwable throwable) {
+        if (CutPoint.AFTER == context.cutPoint()) {
             doCacheIncrement(cache, context, result, throwable);
         }
     }
 
-    private void doCacheIncrement(@NonNull Cache cache, OperationContext<CacheIncrementOperation> context, Object result, Throwable throwable) {
+    private void doCacheIncrement(@NonNull Cache cache, OperationContext context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
-        final CacheIncrementOperation operation = context.operation();
-        final Object key = generateKey(operation.key(), operation.delimiter(), context.metadata(), evaluationContext);
+        final AnnotationAttributes operation = context.annotationAttributes();
+        final Object key = generateKey(getKey(operation), getDelimiter(operation), context.metadata(), evaluationContext);
         if (key == null) {
-            throw new IllegalArgumentException("the cache action generate null key, action=" + context.operation());
+            throw new IllegalArgumentException("the cache action generate null key, action=" + context);
         }
-        final Object field = generateField(operation.field(), operation.delimiter(), context.metadata(), evaluationContext);
+        final Object field = generateField(getField(operation), getDelimiter(operation), context.metadata(), evaluationContext);
 
         final boolean hasKey = cache.isExists(key, field);
 
@@ -71,7 +72,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
         if (!hasKey && incremented) {
             Long ttl;
             TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-            Object expired = generateExpire(context.operation().expire(), context.metadata(), evaluationContext);
+            Object expired = generateExpire(getExpire(operation), context.metadata(), evaluationContext);
 
             if (expired != null) {
                 if (expired instanceof Date) {
@@ -80,8 +81,8 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
                     throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
                 }
             } else {
-                ttl = context.operation().ttl();
-                timeUnit = context.operation().timeunit();
+                ttl = ttl(operation);
+                timeUnit = timeUnit(operation);
             }
 
             if (ttl != null && ttl > 0) {
@@ -92,12 +93,12 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
 
     }
 
-    private Number doIncrement(Logger logger, Cache cache, OperationContext<CacheIncrementOperation> context, Object key, Object field, EvaluationContext evaluationContext) {
-        final CacheIncrementOperation operation = context.operation();
-        final Class<? extends Number> type = operation.type();
+    private Number doIncrement(Logger logger, Cache cache, OperationContext context, Object key, Object field, EvaluationContext evaluationContext) {
+        final AnnotationAttributes operation = context.annotationAttributes();
+        final Class<? extends Number> type = operation.getClass("type");
 
         if (Primaries.isLong(type) || Primaries.isInteger(type)) {
-            final Long value = generateValue(operation.value(), context.metadata(), evaluationContext, Long.class);
+            final Long value = generateValue(operation.getString("value"), context.metadata(), evaluationContext, Long.class);
             if (value == null) {
                 throw new NullPointerException("increment value is null");
             }
@@ -106,7 +107,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
             logger.info("<== result: {}", increment);
             return increment;
         } else if (Primaries.isFloat(type) || Primaries.isDouble(type)) {
-            final Double value = generateValue(operation.value(), context.metadata(), evaluationContext, Double.class);
+            final Double value = generateValue(operation.getString("value"), context.metadata(), evaluationContext, Double.class);
             if (value == null) {
                 throw new NullPointerException("increment value is null");
             }

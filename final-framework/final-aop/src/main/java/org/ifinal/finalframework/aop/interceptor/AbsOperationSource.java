@@ -1,16 +1,19 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.Operation;
 import org.ifinal.finalframework.aop.OperationSource;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,26 +22,26 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 public abstract class AbsOperationSource implements OperationSource {
-    private static final Collection<Operation> NULL_CACHE_OPERATION = Collections.emptyList();
-    private final Map<Object, Collection<Operation>> operationCache = new ConcurrentHashMap<>(1024);
+    private static final Collection<AnnotationAttributes> NULL_CACHE_OPERATION = Collections.emptyList();
+    private final Map<Object, Collection<AnnotationAttributes>> operationCache = new ConcurrentHashMap<>(1024);
 
     @Override
-    public Collection<Operation> getOperations(Method method, Class<?> targetClass) {
+    public Collection<AnnotationAttributes> getOperations(Method method, Class<?> targetClass) {
         if (method.getDeclaringClass() == Object.class) {
             return Collections.emptyList();
         }
 
         Object cacheKey = getCacheKey(method, targetClass);
-        Collection<Operation> cached = this.operationCache.get(cacheKey);
+        Collection<AnnotationAttributes> cached = this.operationCache.get(cacheKey);
 
         if (cached != null) {
             return (cached != NULL_CACHE_OPERATION ? cached : null);
         }
 
-        Collection<Operation> operations = computeOperations(method, targetClass);
+        Collection<AnnotationAttributes> operations = computeOperations(method, targetClass);
         if (!CollectionUtils.isEmpty(operations)) {
-            final ArrayList<? extends Operation> list = new ArrayList<>(operations);
-            list.sort(Comparator.comparingInt(Operation::order));
+            final ArrayList<AnnotationAttributes> list = new ArrayList<>(operations);
+//            list.sort(Comparator.comparingInt(Operation::order));
             this.operationCache.put(cacheKey, Collections.unmodifiableList(list));
         } else {
             this.operationCache.put(cacheKey, NULL_CACHE_OPERATION);
@@ -46,7 +49,7 @@ public abstract class AbsOperationSource implements OperationSource {
         return operations;
     }
 
-    private Collection<Operation> computeOperations(Method method, @Nullable Class<?> targetClass) {
+    private Collection<AnnotationAttributes> computeOperations(Method method, @Nullable Class<?> targetClass) {
 
         // Don't allow no-public methods as required.
         if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
@@ -59,7 +62,7 @@ public abstract class AbsOperationSource implements OperationSource {
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
 
         // First try is the method in the target class.
-        Collection<Operation> opDef = findOperations(specificMethod);
+        Collection<AnnotationAttributes> opDef = findOperations(specificMethod);
 
         if (opDef != null && !opDef.isEmpty()) {
             return opDef;
@@ -88,10 +91,10 @@ public abstract class AbsOperationSource implements OperationSource {
     }
 
     @Nullable
-    protected abstract Collection<Operation> findOperations(Method method);
+    protected abstract Collection<AnnotationAttributes> findOperations(Method method);
 
     @Nullable
-    protected abstract Collection<Operation> findOperations(Class<?> clazz);
+    protected abstract Collection<AnnotationAttributes> findOperations(Class<?> clazz);
 
     protected boolean allowPublicMethodsOnly() {
         return false;

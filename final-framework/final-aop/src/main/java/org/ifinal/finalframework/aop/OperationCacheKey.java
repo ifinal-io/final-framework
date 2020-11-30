@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.aop;
 
 import org.springframework.context.expression.AnnotatedElementKey;
+import org.springframework.core.annotation.AnnotationAttributes;
 
 import java.lang.reflect.Method;
 
@@ -9,13 +10,13 @@ import java.lang.reflect.Method;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class OperationCacheKey<O extends Operation> implements Comparable<OperationCacheKey> {
+public class OperationCacheKey implements Comparable<OperationCacheKey> {
 
-    private final O operation;
+    private final AnnotationAttributes operation;
 
     private final AnnotatedElementKey methodCacheKey;
 
-    public OperationCacheKey(O operation, Method method, Class<?> targetClass) {
+    public OperationCacheKey(AnnotationAttributes operation, Method method, Class<?> targetClass) {
         this.operation = operation;
         this.methodCacheKey = new AnnotatedElementKey(method, targetClass);
     }
@@ -28,7 +29,7 @@ public class OperationCacheKey<O extends Operation> implements Comparable<Operat
         if (!(other instanceof OperationCacheKey)) {
             return false;
         }
-        OperationCacheKey<?> otherKey = (OperationCacheKey<?>) other;
+        OperationCacheKey otherKey = (OperationCacheKey) other;
         return (this.operation.equals(otherKey.operation) &&
                 this.methodCacheKey.equals(otherKey.methodCacheKey));
     }
