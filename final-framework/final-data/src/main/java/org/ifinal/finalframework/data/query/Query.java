@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.Pageable;
 import org.ifinal.finalframework.annotation.query.Direction;
-import org.ifinal.finalframework.data.query.builder.QuerySqlBuilder;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public class Query implements Streamable<Criterion>, Pageable, Sql<Query>, SqlNode {
+public class Query implements Streamable<Criterion>, Pageable, SqlNode {
 
     /**
      * 页码，第一页从1开始
@@ -135,10 +134,6 @@ public class Query implements Streamable<Criterion>, Pageable, Sql<Query>, SqlNo
         return criteria.stream();
     }
 
-    @Override
-    public String getSql() {
-        return new QuerySqlBuilder(this).build();
-    }
 
     @Override
     public void apply(@NonNull StringBuilder parent, @NonNull String value) {
