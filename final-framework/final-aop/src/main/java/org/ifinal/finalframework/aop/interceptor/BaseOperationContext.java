@@ -4,7 +4,7 @@ package org.ifinal.finalframework.aop.interceptor;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.ifinal.finalframework.aop.Operation;
 import org.ifinal.finalframework.aop.OperationContext;
-import org.ifinal.finalframework.aop.OperationMetadata;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -18,13 +18,15 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class BaseOperationContext<O extends Operation> implements OperationContext<O> {
-    private final OperationMetadata<O> metadata;
+    private final O operation;
+    private final MethodMetadata metadata;
     private final Object target;
     private final Object[] args;
     private final Class<?> view;
     private final Map<String, Object> attributes = new HashMap<>();
 
-    public BaseOperationContext(OperationMetadata<O> metadata, Object target, Object[] args) {
+    public BaseOperationContext(O operation, MethodMetadata metadata, Object target, Object[] args) {
+        this.operation = operation;
         this.metadata = metadata;
         this.target = target;
         this.args = extractArgs(metadata.getMethod(), args);
@@ -33,11 +35,11 @@ public class BaseOperationContext<O extends Operation> implements OperationConte
 
     @Override
     public O operation() {
-        return metadata.getOperation();
+        return operation;
     }
 
     @Override
-    public OperationMetadata<O> metadata() {
+    public MethodMetadata metadata() {
         return metadata;
     }
 

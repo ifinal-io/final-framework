@@ -5,8 +5,8 @@ import org.ifinal.finalframework.annotation.IException;
 import org.ifinal.finalframework.annotation.IUser;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.OperationMetadata;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.monitor.MonitorException;
 import org.ifinal.finalframework.monitor.action.Action;
 import org.ifinal.finalframework.monitor.executor.Recorder;
@@ -58,7 +58,7 @@ public class ActionOperationHandler<T extends IUser> extends AbsMonitorOperation
     @SuppressWarnings("unchecked")
     private void record(Recorder<T> executor, OperationContext<ActionOperation> context, Object result, Throwable throwable) {
         final ActionOperation operation = context.operation();
-        final OperationMetadata<ActionOperation> metadata = context.metadata();
+        final MethodMetadata metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
 
         final Action.Builder<T> builder = Action.builder();

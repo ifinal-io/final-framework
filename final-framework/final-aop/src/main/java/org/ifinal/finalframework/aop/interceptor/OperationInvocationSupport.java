@@ -1,7 +1,11 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.*;
+import org.ifinal.finalframework.aop.Operation;
+import org.ifinal.finalframework.aop.OperationCacheKey;
+import org.ifinal.finalframework.aop.OperationConfiguration;
+import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -19,7 +23,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public class OperationInvocationSupport {
-    private final Map<OperationCacheKey<Operation>, OperationMetadata<Operation>> metadataCache = new ConcurrentHashMap<>(1024);
+    private final Map<OperationCacheKey<Operation>, MethodMetadata> metadataCache = new ConcurrentHashMap<>(1024);
     private final OperationConfiguration configuration;
 
     public OperationInvocationSupport(OperationConfiguration configuration) {
@@ -40,13 +44,13 @@ public class OperationInvocationSupport {
     }
 
     private OperationContext<Operation> getOperationContext(Operation operation, Method method, Object[] args, Object target, Class<?> targetClass) {
-        OperationMetadata<Operation> metadata = getOperationMetadata(operation, method, targetClass);
-        return new BaseOperationContext<>(metadata, target, args);
+        MethodMetadata metadata = getOperationMetadata(operation, method, targetClass);
+        return new BaseOperationContext<>(operation, metadata, target, args);
     }
 
-    private OperationMetadata<Operation> getOperationMetadata(Operation operation, Method method, Class<?> targetClass) {
+    private MethodMetadata getOperationMetadata(Operation operation, Method method, Class<?> targetClass) {
         final OperationCacheKey<Operation> cacheKey = new OperationCacheKey<>(operation, method, targetClass);
-        return this.metadataCache.computeIfAbsent(cacheKey, key -> new OperationMetadata<>(operation, method, targetClass));
+        return this.metadataCache.computeIfAbsent(cacheKey, key -> new MethodMetadata(method, targetClass));
     }
 
     private Class<?> getTargetClass(Object target) {

@@ -2,11 +2,11 @@ package org.ifinal.finalframework.cache.handler;
 
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.OperationMetadata;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.operation.CacheDelOperation;
 import org.ifinal.finalframework.context.expression.MethodExpressionEvaluator;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
@@ -51,7 +51,7 @@ public class CacheDelOperationHandler extends AbsCacheOperationHandlerSupport im
     }
 
     private void invocation(@NonNull Cache cache, @NonNull OperationContext<CacheDelOperation> context, Object result, Throwable throwable) {
-        final OperationMetadata<?> metadata = context.metadata();
+        final MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final CacheDelOperation operation = context.operation();

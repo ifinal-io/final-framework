@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.cache.handler;
 
 
-import org.ifinal.finalframework.aop.Operation;
-import org.ifinal.finalframework.aop.OperationMetadata;
 import org.ifinal.finalframework.aop.interceptor.AbsOperationHandlerSupport;
 import org.ifinal.finalframework.cache.CacheOperationExpressionEvaluator;
 import org.ifinal.finalframework.cache.CacheOperationHandlerSupport;
 import org.ifinal.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.expression.EvaluationContext;
 
@@ -34,7 +33,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
     }
 
     @Override
-    public Object generateKey(Collection<String> keys, String delimiter, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateKey(Collection<String> keys, String delimiter, MethodMetadata metadata, EvaluationContext evaluationContext) {
         final List<String> keyValues = keys.stream()
                 .map(key -> {
                     if (isExpression(key)) {
@@ -52,7 +51,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
 
 
     @Override
-    public Object generateField(Collection<String> fields, String delimiter, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateField(Collection<String> fields, String delimiter, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (Asserts.isEmpty(fields)) {
             return null;
         }
@@ -71,7 +70,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
     }
 
     @Override
-    public Object generateValue(String value, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateValue(String value, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext);
         }
@@ -79,7 +78,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
     }
 
     @Override
-    public <T> T generateValue(String value, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext, Class<T> clazz) {
+    public <T> T generateValue(String value, MethodMetadata metadata, EvaluationContext evaluationContext, Class<T> clazz) {
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
         }
@@ -87,7 +86,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
     }
 
     @Override
-    public boolean isConditionPassing(String condition, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public boolean isConditionPassing(String condition, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (this.conditionPassing == null) {
             if (condition != null && isExpression(condition)) {
                 this.conditionPassing = evaluator.condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
@@ -99,7 +98,7 @@ public class AbsCacheOperationHandlerSupport extends AbsOperationHandlerSupport 
     }
 
     @Override
-    public Object generateExpire(String expire, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateExpire(String expire, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (expire != null && isExpression(expire)) {
             return evaluator.expired(generateExpression(expire), metadata.getMethodKey(), evaluationContext);
         }

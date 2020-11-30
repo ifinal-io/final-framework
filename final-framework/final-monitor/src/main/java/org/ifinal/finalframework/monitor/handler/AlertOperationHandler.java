@@ -3,8 +3,8 @@ package org.ifinal.finalframework.monitor.handler;
 import org.ifinal.finalframework.annotation.IException;
 import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.OperationMetadata;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.monitor.MonitorException;
 import org.ifinal.finalframework.monitor.context.AlertContext;
 import org.ifinal.finalframework.monitor.executor.Alerter;
@@ -56,7 +56,7 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
 
     private void alert(@NonNull Alerter executor, @NonNull OperationContext<AlertOperation> context, Object result, Throwable throwable) {
         final AlertOperation operation = context.operation();
-        final OperationMetadata<AlertOperation> metadata = context.metadata();
+        final MethodMetadata metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
 
         final AlertContext.Builder<T> builder = AlertContext.builder();

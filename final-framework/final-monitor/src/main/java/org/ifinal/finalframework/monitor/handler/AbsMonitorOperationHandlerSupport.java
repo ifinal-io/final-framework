@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.monitor.handler;
 
 
-import org.ifinal.finalframework.aop.Operation;
-import org.ifinal.finalframework.aop.OperationMetadata;
 import org.ifinal.finalframework.aop.interceptor.AbsOperationHandlerSupport;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.context.user.UserContextHolder;
 import org.ifinal.finalframework.monitor.MonitorOperationExpressionEvaluator;
 import org.ifinal.finalframework.monitor.MonitorOperationHandlerSupport;
@@ -29,7 +28,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     }
 
     @Override
-    public String generateName(String name, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public String generateName(String name, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (Asserts.isBlank(name)) return null;
 
 
@@ -45,7 +44,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     }
 
     @Override
-    public Object generateOperator(String operator, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateOperator(String operator, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (Asserts.nonBlank(operator)) {
             if (isExpression(operator)) {
                 return evaluator.operator(generateExpression(operator), metadata.getMethodKey(), evaluationContext);
@@ -57,7 +56,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     }
 
     @Override
-    public Object generateTarget(String target, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateTarget(String target, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (Asserts.isBlank(target)) return null;
         if (isExpression(target)) {
             return evaluator.target(generateExpression(target), metadata.getMethodKey(), evaluationContext);
@@ -66,7 +65,7 @@ public class AbsMonitorOperationHandlerSupport extends AbsOperationHandlerSuppor
     }
 
     @Override
-    public Object generateAttribute(String attribute, OperationMetadata<? extends Operation> metadata, EvaluationContext evaluationContext) {
+    public Object generateAttribute(String attribute, MethodMetadata metadata, EvaluationContext evaluationContext) {
         if (Asserts.nonBlank(attribute) && isExpression(attribute)) {
             return evaluator.attribute(generateExpression(attribute), metadata.getMethodKey(), evaluationContext);
         }

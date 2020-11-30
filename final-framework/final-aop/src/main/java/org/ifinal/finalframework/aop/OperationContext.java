@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.aop;
 
+import org.ifinal.finalframework.context.expression.MethodMetadata;
+
 /**
  * @author likly
  * @version 1.0.0
@@ -8,7 +10,7 @@ package org.ifinal.finalframework.aop;
 public interface OperationContext<O extends Operation> {
     O operation();
 
-    OperationMetadata<O> metadata();
+    MethodMetadata metadata();
 
     Object target();
 
