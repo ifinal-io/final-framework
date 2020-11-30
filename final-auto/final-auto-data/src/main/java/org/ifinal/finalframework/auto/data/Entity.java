@@ -58,8 +58,6 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
         throw new IllegalStateException(String.format("Required identifier property not found for %s!", getType()));
     }
 
-    Property getVersionProperty();
-
 
     <A extends Annotation> A getAnnotation(Class<A> annotationType);
 

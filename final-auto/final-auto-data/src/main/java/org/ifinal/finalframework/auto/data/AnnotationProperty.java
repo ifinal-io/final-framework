@@ -1,17 +1,20 @@
 package org.ifinal.finalframework.auto.data;
 
-import lombok.NonNull;
-import org.ifinal.finalframework.annotation.IEnum;
-import org.ifinal.finalframework.annotation.data.*;
+import org.ifinal.finalframework.annotation.data.PrimaryKey;
+import org.ifinal.finalframework.annotation.data.Reference;
+import org.ifinal.finalframework.annotation.data.ReferenceMode;
+import org.ifinal.finalframework.annotation.data.Version;
 import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
 import org.ifinal.finalframework.auto.coding.utils.Annotations;
 import org.ifinal.finalframework.auto.coding.utils.TypeElements;
-import org.ifinal.finalframework.util.Asserts;
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.*;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
@@ -20,7 +23,6 @@ import java.beans.Transient;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -33,41 +35,29 @@ public class AnnotationProperty implements Property {
      * 虚拟列前缀
      */
     private static final String VIRTUAL_PREFIX = "v_";
-    private final ProcessingEnvironment processEnv;
     private final Elements elements;
     private final Types types;
     private final TypeElements typeElements;
     private final Lazy<Element> element;
-    private final Lazy<TypeElement> typeHandler;
     private final Optional<VariableElement> field;
     private final Optional<PropertyDescriptor> descriptor;
     private final Optional<ExecutableElement> readMethod;
     private final Optional<ExecutableElement> writeMethod;
     private final Lazy<String> name;
-    private final Lazy<String> column;
     private final Lazy<TypeMirror> type;
-    private final Lazy<Boolean> isKeyword;
     private final Lazy<Boolean> isIdProperty;
     private final Lazy<Boolean> isReference;
     private final Lazy<Boolean> isVersion;
-    private final Lazy<Boolean> isDefault;
-    private final Lazy<Boolean> isFinal;
-    private final Lazy<Boolean> isVirtual;
-    private final Lazy<Boolean> isSharding;
-    private final Lazy<Boolean> isWriteOnly;
-    private final Lazy<Boolean> isReadOnly;
     private final Lazy<Boolean> isTransient;
     private final Lazy<Boolean> isCollection;
     private final Lazy<Boolean> isMap;
-    private TypeElement javaTypeElement;
-    private boolean placeholder = true;
+    private final TypeElement javaTypeElement;
     private List<String> referenceProperties;
     private ReferenceMode referenceMode;
     private Map<String, String> referenceColumns;
 
     public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field,
                               Optional<PropertyDescriptor> descriptor) {
-        this.processEnv = processEnv;
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
         this.typeElements = new TypeElements(processEnv.getTypeUtils(), processEnv.getElementUtils());
@@ -83,7 +73,6 @@ public class AnnotationProperty implements Property {
         }
 
         this.element = Lazy.of(() -> withFieldOrMethod(Function.identity(), Function.identity(), Function.identity()));
-        this.typeHandler = Lazy.of(this::initTypeHandler);
         this.name = Lazy
                 .of(() -> withFieldOrDescriptor(it -> it.getSimpleName().toString(), PropertyDescriptor::getName));
 
@@ -100,67 +89,19 @@ public class AnnotationProperty implements Property {
 
         this.isTransient = Lazy.of(hasAnnotation(Transient.class));
         this.isIdProperty = Lazy.of(!isTransient() && hasAnnotation(PrimaryKey.class));
-        this.isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
-        this.isVirtual = Lazy.of(!isTransient() && isAnnotationPresent(Virtual.class));
-        this.isSharding = Lazy.of(!isTransient() && hasAnnotation(Sharding.class));
         this.isReference = Lazy.of(!isTransient() && hasAnnotation(Reference.class));
         this.isVersion = Lazy.of(!isTransient() && isAnnotationPresent(Version.class));
-        this.isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
-        this.isWriteOnly = Lazy.of(!isTransient() && !isVirtual() && isAnnotationPresent(WriteOnly.class));
-        this.isReadOnly = Lazy.of(!isTransient() && !isVirtual() && isAnnotationPresent(ReadOnly.class));
 
 
-
-        PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor(processEnv);
+        PropertyJavaTypeVisitor propertyJavaTypeVisitor = new PropertyJavaTypeVisitor();
         this.javaTypeElement = getType().accept(propertyJavaTypeVisitor, this);
 
         if (isReference()) {
             initReferenceColumn(getAnnotation(Reference.class));
         }
-        this.column = Lazy.of(() -> isVirtual() ? VIRTUAL_PREFIX + initColumn() : initColumn());
-
-        this.isKeyword = Lazy
-                .of(() -> !isTransient() && (hasAnnotation(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
 
     }
-
-    private String initColumn() {
-        List<? extends AnnotationMirror> annotationMirrors = getElement().getAnnotationMirrors();
-        TypeElement column = typeElements.getTypeElement(Column.class);
-        for (AnnotationMirror annotationMirror : annotationMirrors) {
-            DeclaredType annotationType = annotationMirror.getAnnotationType();
-            if (typeElements.isSameType(annotationType, column.asType())) {
-                return getColumnValue(annotationMirror);
-            } else if (annotationType.asElement().getAnnotation(Column.class) != null) {
-                return getColumnValue(annotationMirror);
-            }
-        }
-
-        return getName();
-    }
-
-    private String getColumnValue(AnnotationMirror annotation) {
-        Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotation.getElementValues();
-        String realColumn = "";
-        String value = "";
-        for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
-            ExecutableElement method = entry.getKey();
-            AnnotationValue annotationValue = entry.getValue();
-            if ("name".equals(method.getSimpleName().toString())) {
-                realColumn = (String) annotationValue.getValue();
-            } else if ("value".equals(method.getSimpleName().toString())) {
-                value = (String) annotationValue.getValue();
-            }
-        }
-
-        return Stream.of(value, realColumn).filter(Asserts::nonBlank).findFirst().orElse(getName());
-    }
-
-    private TypeElement initTypeHandler() {
-        return null;
-    }
-
 
     private void initReferenceColumn(Reference ann) {
         initReference(ann.mode(), ann.properties(), ann.delimiter());
@@ -168,19 +109,19 @@ public class AnnotationProperty implements Property {
 
     private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
         this.referenceMode = mode;
-        List<String> referenceProperties = new ArrayList<>(properties.length);
-        Map<String, String> referenceColumns = new HashMap<>(properties.length);
+        List<String> referencePropertiesLocal = new ArrayList<>(properties.length);
+        Map<String, String> referenceColumnsLocal = new HashMap<>(properties.length);
         for (String property : properties) {
             if (property.contains(delimiter)) {
                 final String[] split = property.split(delimiter);
-                referenceProperties.add(split[0]);
-                referenceColumns.put(split[0], split[1]);
+                referencePropertiesLocal.add(split[0]);
+                referenceColumnsLocal.put(split[0], split[1]);
             } else {
-                referenceProperties.add(property);
+                referencePropertiesLocal.add(property);
             }
         }
-        this.referenceProperties = referenceProperties;
-        this.referenceColumns = referenceColumns;
+        this.referenceProperties = referencePropertiesLocal;
+        this.referenceColumns = referenceColumnsLocal;
     }
 
     @Override
@@ -195,39 +136,6 @@ public class AnnotationProperty implements Property {
         return name.get();
     }
 
-    @Override
-    public String getColumn() {
-        return column.get();
-    }
-
-
-
-    @Override
-    public boolean isDefault() {
-        return isDefault.get();
-    }
-
-    @Override
-    public boolean isFinal() {
-        return isFinal.get();
-    }
-
-    @Override
-    public boolean isVirtual() {
-        return isVirtual.get();
-    }
-
-
-    @Override
-    public boolean isReadOnly() {
-        return isReadOnly.get();
-    }
-
-    @Override
-    public boolean isWriteOnly() {
-        return isWriteOnly.get();
-    }
-
 
     @Override
     public TypeMirror getType() {
@@ -239,11 +147,6 @@ public class AnnotationProperty implements Property {
         return javaTypeElement;
     }
 
-
-    @Override
-    public boolean isKeyword() {
-        return isKeyword.get();
-    }
 
     @Override
     public boolean isIdProperty() {
@@ -327,20 +230,9 @@ public class AnnotationProperty implements Property {
                         () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
-    private boolean isEnum(TypeMirror type) {
-        return types.isAssignable(types.erasure(type), getTypeElement(IEnum.class).asType());
-    }
 
     private boolean isCollection(TypeMirror type) {
         return types.isAssignable(types.erasure(type), getTypeElement(Collection.class).asType());
-    }
-
-    private boolean isList(TypeMirror type) {
-        return types.isAssignable(types.erasure(type), getTypeElement(List.class).asType());
-    }
-
-    private boolean isSet(TypeMirror type) {
-        return types.isAssignable(types.erasure(type), getTypeElement(Set.class).asType());
     }
 
     private boolean isMap(TypeMirror type) {
@@ -366,9 +258,11 @@ public class AnnotationProperty implements Property {
                 return getTypeElement(Float.class);
             case DOUBLE:
                 return getTypeElement(Double.class);
+            default:
+                throw new IllegalArgumentException("不支持的类型：" + kind);
+
         }
 
-        throw new IllegalArgumentException("不支持的类型：" + kind);
     }
 
 
@@ -378,20 +272,6 @@ public class AnnotationProperty implements Property {
 
 
     private static final class PropertyJavaTypeVisitor extends SimpleTypeVisitor8<TypeElement, AnnotationProperty> {
-
-        @NonNull
-        private final ProcessingEnvironment pv;
-        @NonNull
-        private final Elements elements;
-        @NonNull
-        private final Types types;
-
-        public PropertyJavaTypeVisitor(@NonNull ProcessingEnvironment pv) {
-            this.pv = pv;
-            this.elements = pv.getElementUtils();
-            this.types = pv.getTypeUtils();
-
-        }
 
 
         /**

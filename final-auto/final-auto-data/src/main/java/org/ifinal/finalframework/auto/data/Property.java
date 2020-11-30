@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.auto.data;
 
 import org.ifinal.finalframework.annotation.data.ReferenceMode;
-import org.springframework.lang.NonNull;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
@@ -17,7 +16,6 @@ import java.util.Set;
  */
 public interface Property {
 
-    @NonNull
     Element getElement();
 
 
@@ -29,39 +27,13 @@ public interface Property {
      *
      * @return javaType
      */
-    @NonNull
     TypeElement getJavaTypeElement();
 
-    @NonNull
     String getName();
-
-    @NonNull
-    String getColumn();
-
-
-    boolean isDefault();
-
-    boolean isFinal();
-
-    boolean isVirtual();
-
-    boolean isReadOnly();
-
-    boolean isWriteOnly();
-
-    default boolean isWriteable() {
-        return !isTransient() && !isVirtual() && !isReadOnly() && !isDefault();
-    }
-
-    default boolean isModifiable() {
-        return !isTransient() && !isVirtual() && !isReadOnly() && !isFinal();
-    }
 
 
     TypeMirror getType();
 
-
-    boolean isKeyword();
 
     boolean isIdProperty();
 

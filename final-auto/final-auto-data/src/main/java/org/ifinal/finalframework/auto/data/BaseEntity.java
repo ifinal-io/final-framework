@@ -30,7 +30,6 @@ public class BaseEntity implements MutableEntity {
     private final List<Property> properties = new LinkedList<>();
     private final Map<String, Property> propertyCache = new LinkedHashMap<>();
     private Property idProperty;
-    private Property versionProperty;
 
     public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
         Elements elements = processEnv.getElementUtils();
@@ -58,8 +57,6 @@ public class BaseEntity implements MutableEntity {
                 throw new IllegalArgumentException("the entity must only have only one id property!,entity=" + getType());
             }
             this.idProperty = property;
-        } else if (property.isVersion()) {
-            this.versionProperty = property;
         }
 
 
@@ -126,11 +123,6 @@ public class BaseEntity implements MutableEntity {
     @Override
     public Property getIdProperty() {
         return idProperty;
-    }
-
-    @Override
-    public Property getVersionProperty() {
-        return versionProperty;
     }
 
     @Override
