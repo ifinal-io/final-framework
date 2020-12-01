@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.handler;
 
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CachePut> {
 
     @Override
-    public Void before(Cache cache, OperationContext context) {
+    public Void before(Cache cache, AnnotationInvocationContext context) {
         if (CutPoint.BEFORE == context.cutPoint()) {
             invocation(cache, context, null, null);
         }
@@ -35,27 +35,27 @@ public class CachePutOperationHandler extends AbsCacheOperationHandlerSupport im
     }
 
     @Override
-    public void afterReturning(Cache cache, OperationContext context, Object result) {
+    public void afterReturning(Cache cache, AnnotationInvocationContext context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.cutPoint()) {
             invocation(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Cache cache, OperationContext context, Throwable throwable) {
+    public void afterThrowing(Cache cache, AnnotationInvocationContext context, Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.cutPoint()) {
             invocation(cache, context, null, throwable);
         }
     }
 
     @Override
-    public void after(Cache cache, OperationContext context, Object result, Throwable throwable) {
+    public void after(Cache cache, AnnotationInvocationContext context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.cutPoint()) {
             invocation(cache, context, result, throwable);
         }
     }
 
-    private void invocation(Cache cache, OperationContext context, Object result, Throwable throwable) {
+    private void invocation(Cache cache, AnnotationInvocationContext context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final AnnotationAttributes operation = context.annotationAttributes();

@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.cache.handler;
 
 
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.cache.Cache;
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheIncrement> {
 
     @Override
-    public Void before(@NonNull Cache cache, OperationContext context) {
+    public Void before(@NonNull Cache cache, AnnotationInvocationContext context) {
         if (CutPoint.BEFORE == context.cutPoint()) {
             doCacheIncrement(cache, context, null, null);
         }
@@ -35,27 +35,27 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
     }
 
     @Override
-    public void afterReturning(@NonNull Cache cache, OperationContext context, Object result) {
+    public void afterReturning(@NonNull Cache cache, AnnotationInvocationContext context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.cutPoint()) {
             doCacheIncrement(cache, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(@NonNull Cache cache, OperationContext context, @NonNull Throwable throwable) {
+    public void afterThrowing(@NonNull Cache cache, AnnotationInvocationContext context, @NonNull Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.cutPoint()) {
             doCacheIncrement(cache, context, null, throwable);
         }
     }
 
     @Override
-    public void after(@NonNull Cache cache, OperationContext context, Object result, Throwable throwable) {
+    public void after(@NonNull Cache cache, AnnotationInvocationContext context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.cutPoint()) {
             doCacheIncrement(cache, context, result, throwable);
         }
     }
 
-    private void doCacheIncrement(@NonNull Cache cache, OperationContext context, Object result, Throwable throwable) {
+    private void doCacheIncrement(@NonNull Cache cache, AnnotationInvocationContext context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final AnnotationAttributes operation = context.annotationAttributes();
@@ -93,7 +93,7 @@ public class CacheIncrementOperationHandler extends AbsCacheOperationHandlerSupp
 
     }
 
-    private Number doIncrement(Logger logger, Cache cache, OperationContext context, Object key, Object field, EvaluationContext evaluationContext) {
+    private Number doIncrement(Logger logger, Cache cache, AnnotationInvocationContext context, Object key, Object field, EvaluationContext evaluationContext) {
         final AnnotationAttributes operation = context.annotationAttributes();
         final Class<? extends Number> type = operation.getClass("type");
 

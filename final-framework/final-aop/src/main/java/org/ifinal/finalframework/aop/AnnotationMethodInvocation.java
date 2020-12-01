@@ -9,8 +9,8 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface OperationInvocation extends MethodInvocation {
+public interface AnnotationMethodInvocation extends MethodInvocation {
 
-    Collection<OperationContext> getOperationContexts();
+    Collection<AnnotationInvocationContext> getOperationContexts();
 
 }

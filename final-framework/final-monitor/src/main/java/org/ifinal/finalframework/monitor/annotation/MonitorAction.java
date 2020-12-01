@@ -2,9 +2,10 @@ package org.ifinal.finalframework.monitor.annotation;
 
 import org.ifinal.finalframework.aop.Executor;
 import org.ifinal.finalframework.aop.OperationHandler;
+import org.ifinal.finalframework.aop.annotation.AopAnnotation;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
-import org.ifinal.finalframework.aop.annotation.OperationAttribute;
 import org.ifinal.finalframework.monitor.executor.Recorder;
+import org.ifinal.finalframework.monitor.handler.ActionOperationHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -18,6 +19,7 @@ import java.lang.annotation.*;
  */
 
 @Documented
+@AopAnnotation(expressions = {"name", "target"})
 @Repeatable(MonitorAction.List.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -49,14 +51,6 @@ public @interface MonitorAction {
      */
     int action() default 0;
 
-    /**
-     * 操作者
-     */
-    @AliasFor("who")
-    String operator() default "";
-
-    @AliasFor("operator")
-    String who() default "";
 
     /**
      * 操作目标
@@ -70,9 +64,7 @@ public @interface MonitorAction {
 
     CutPoint point() default CutPoint.AFTER_RETURNING;
 
-    OperationAttribute[] attributes() default {};
-
-    Class<? extends OperationHandler> handler() default OperationHandler.class;
+    Class<? extends OperationHandler> handler() default ActionOperationHandler.class;
 
     Class<? extends Executor> executor() default Recorder.class;
 

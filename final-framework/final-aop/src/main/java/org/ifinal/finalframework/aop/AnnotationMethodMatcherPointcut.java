@@ -10,10 +10,10 @@ import java.lang.reflect.Method;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class OperationSourcePointcut extends StaticMethodMatcherPointcut {
+public class AnnotationMethodMatcherPointcut extends StaticMethodMatcherPointcut {
     private final OperationSource source;
 
-    public OperationSourcePointcut(OperationSource source) {
+    public AnnotationMethodMatcherPointcut(OperationSource source) {
         this.source = source;
     }
 

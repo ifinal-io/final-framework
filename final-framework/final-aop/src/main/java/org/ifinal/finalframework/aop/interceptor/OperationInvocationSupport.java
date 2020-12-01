@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationConfiguration;
-import org.ifinal.finalframework.aop.OperationContext;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.context.expression.AnnotatedElementKey;
@@ -31,7 +31,7 @@ public class OperationInvocationSupport {
         this.configuration = configuration;
     }
 
-    protected List<OperationContext> getOperationContexts(Object target, Method method, Object[] args) {
+    protected List<AnnotationInvocationContext> getOperationContexts(Object target, Method method, Object[] args) {
         final Class<?> targetClass = getTargetClass(target);
         final Collection<AnnotationAttributes> operations = configuration.getOperationSource().getOperations(method, targetClass);
 
@@ -44,9 +44,9 @@ public class OperationInvocationSupport {
                 .collect(Collectors.toList());
     }
 
-    private OperationContext getOperationContext(AnnotationAttributes operation, Method method, Object[] args, Object target, Class<?> targetClass) {
+    private AnnotationInvocationContext getOperationContext(AnnotationAttributes operation, Method method, Object[] args, Object target, Class<?> targetClass) {
         MethodMetadata metadata = getOperationMetadata(method, targetClass);
-        return new BaseOperationContext(operation, metadata, target, args);
+        return new BaseAnnotationInvocationContext(operation, metadata, target, args);
     }
 
     private MethodMetadata getOperationMetadata(Method method, Class<?> targetClass) {

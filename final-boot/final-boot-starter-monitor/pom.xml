@@ -11,5 +11,11 @@
 
     <artifactId>final-boot-starter-monitor</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-monitor</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

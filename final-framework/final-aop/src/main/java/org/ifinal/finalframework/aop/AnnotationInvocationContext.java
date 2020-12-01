@@ -12,7 +12,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface OperationContext {
+public interface AnnotationInvocationContext {
 
     AnnotationAttributes annotationAttributes();
 
@@ -23,7 +23,7 @@ public interface OperationContext {
     }
 
     default CutPoint cutPoint() {
-        return annotationAttributes().getEnum("cutPoint");
+        return annotationAttributes().getEnum("point");
     }
 
     Object target();

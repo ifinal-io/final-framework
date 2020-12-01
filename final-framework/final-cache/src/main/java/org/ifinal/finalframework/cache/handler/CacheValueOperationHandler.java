@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.handler;
 
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheValue;
@@ -26,7 +26,7 @@ import java.lang.reflect.Type;
 public class CacheValueOperationHandler extends AbsCacheOperationHandlerSupport implements OperationHandler<Cache, CacheValue> {
 
     @Override
-    public Void before(Cache cache, OperationContext context) {
+    public Void before(Cache cache, AnnotationInvocationContext context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final AnnotationAttributes operation = context.annotationAttributes();

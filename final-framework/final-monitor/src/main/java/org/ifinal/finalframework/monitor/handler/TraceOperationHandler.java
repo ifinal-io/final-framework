@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.monitor.handler;
 
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.monitor.annotation.MonitorTrace;
 import org.ifinal.finalframework.monitor.context.TraceContext;
@@ -18,7 +18,7 @@ public class TraceOperationHandler implements OperationHandler<Tracer, MonitorTr
     private static final String TRACE_CONTEXT = "traceContext";
 
     @Override
-    public Object before(Tracer executor, OperationContext context) {
+    public Object before(Tracer executor, AnnotationInvocationContext context) {
 
         TraceContext traceContext = new TraceContext();
         traceContext.setTrace(context.annotationAttributes().getString("trace"));
@@ -29,7 +29,7 @@ public class TraceOperationHandler implements OperationHandler<Tracer, MonitorTr
 
 
     @Override
-    public void after(Tracer executor, OperationContext context, Object result, Throwable throwable) {
+    public void after(Tracer executor, AnnotationInvocationContext context, Object result, Throwable throwable) {
         executor.stop(context.getAttribute(TRACE_CONTEXT));
     }
 }

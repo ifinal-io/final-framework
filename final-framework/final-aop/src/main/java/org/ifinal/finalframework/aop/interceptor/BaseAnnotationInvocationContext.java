@@ -2,7 +2,7 @@ package org.ifinal.finalframework.aop.interceptor;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -17,7 +17,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BaseOperationContext implements OperationContext {
+public class BaseAnnotationInvocationContext implements AnnotationInvocationContext {
     private final AnnotationAttributes annotationAttributes;
     private final MethodMetadata metadata;
     private final Object target;
@@ -25,7 +25,7 @@ public class BaseOperationContext implements OperationContext {
     private final Class<?> view;
     private final Map<String, Object> attributes = new HashMap<>();
 
-    public BaseOperationContext(AnnotationAttributes annotationAttributes, MethodMetadata metadata, Object target, Object[] args) {
+    public BaseAnnotationInvocationContext(AnnotationAttributes annotationAttributes, MethodMetadata metadata, Object target, Object[] args) {
         this.annotationAttributes = annotationAttributes;
         this.metadata = metadata;
         this.target = target;

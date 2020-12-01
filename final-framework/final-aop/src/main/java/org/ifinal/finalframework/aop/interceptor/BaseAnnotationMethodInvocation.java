@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
+import org.ifinal.finalframework.aop.AnnotationMethodInvocation;
 import org.ifinal.finalframework.aop.OperationConfiguration;
-import org.ifinal.finalframework.aop.OperationContext;
-import org.ifinal.finalframework.aop.OperationInvocation;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
@@ -14,11 +14,11 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BaseOperationInvocation extends OperationInvocationSupport implements OperationInvocation {
+public class BaseAnnotationMethodInvocation extends OperationInvocationSupport implements AnnotationMethodInvocation {
 
     private final MethodInvocation methodInvocation;
 
-    public BaseOperationInvocation(OperationConfiguration configuration, MethodInvocation methodInvocation) {
+    public BaseAnnotationMethodInvocation(OperationConfiguration configuration, MethodInvocation methodInvocation) {
         super(configuration);
         this.methodInvocation = methodInvocation;
     }
@@ -49,7 +49,7 @@ public class BaseOperationInvocation extends OperationInvocationSupport implemen
     }
 
     @Override
-    public Collection<OperationContext> getOperationContexts() {
+    public Collection<AnnotationInvocationContext> getOperationContexts() {
         return getOperationContexts(getThis(), getMethod(), getArguments());
     }
 }

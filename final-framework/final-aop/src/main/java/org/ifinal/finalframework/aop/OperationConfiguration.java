@@ -2,16 +2,17 @@ package org.ifinal.finalframework.aop;
 
 import org.aopalliance.intercept.Interceptor;
 import org.ifinal.finalframework.aop.interceptor.AnnotationOperationSource;
+import org.ifinal.finalframework.aop.interceptor.BaseMethodInvocationDispatcher;
 import org.ifinal.finalframework.aop.interceptor.BaseOperationAnnotationFinder;
-import org.ifinal.finalframework.aop.interceptor.BaseOperationInvocationHandler;
+import org.ifinal.finalframework.util.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.Pointcut;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.data.util.Lazy;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
@@ -32,9 +33,9 @@ public class OperationConfiguration {
     private static final Integer DEFAULT_INITIAL_SIZE = 8;
     private final Set<Class<? extends Annotation>> annotations = new CopyOnWriteArraySet<>();
     private final Map<Class<? extends Annotation>, OperationAnnotationFinder<? extends Annotation>> finders = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final Map<Class<? extends Annotation>, OperationHandler<?, ? extends Annotation>> operationHandlers = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
+    private final Map<Class<? extends OperationHandler>, OperationHandler<?, ? extends Annotation>> operationHandlers = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
     private final Map<Class<? extends Executor>, Executor> executors = new ConcurrentHashMap<>(DEFAULT_INITIAL_SIZE);
-    private final Lazy<OperationInvocationHandler> invocationHandler;
+    private final Lazy<MethodInvocationDispatcher> invocationHandler;
     private final Lazy<OperationSource> operationSource;
     private final Lazy<Pointcut> pointcut;
     private final Lazy<Interceptor> interceptor;
@@ -45,16 +46,18 @@ public class OperationConfiguration {
         executorObjectProvider.forEach(this::registerExecutor);
         handlerObjectProvider.forEach(this::registerOperationHandler);
         this.operationSource = Lazy.of(new AnnotationOperationSource(annotations, this));
-        this.pointcut = Lazy.of(new OperationSourcePointcut(getOperationSource()));
-        this.invocationHandler = Lazy.of(new BaseOperationInvocationHandler(this));
-        this.interceptor = Lazy.of(new OperationInterceptor(this));
+        this.pointcut = Lazy.of(new AnnotationMethodMatcherPointcut(getOperationSource()));
+        this.invocationHandler = Lazy.of(new BaseMethodInvocationDispatcher(this));
+        this.interceptor = Lazy.of(new AnnotationMethodInterceptor(this));
     }
 
 
     private void registerOperationHandler(OperationHandler<?, ? extends Annotation> handler) {
         final Class<? extends OperationHandler> handlerClass = handler.getClass();
         logger.debug("find operation handler: {}", handlerClass.getSimpleName());
-//        operationHandlers.put(handlerClass, handler);
+        operationHandlers.put(handlerClass, handler);
+        Class annotation = Reflections.findParameterizedInterfaceArgumentClass(AopUtils.getTargetClass(handler), OperationHandler.class, 1);
+        annotations.add(annotation);
     }
 
     private void registerExecutor(Executor executor) {
@@ -82,7 +85,7 @@ public class OperationConfiguration {
         return this.pointcut.get();
     }
 
-    public OperationInvocationHandler getInvocationHandler() {
+    public MethodInvocationDispatcher getInvocationHandler() {
         return invocationHandler.get();
     }
 
@@ -90,7 +93,7 @@ public class OperationConfiguration {
         return interceptor.get();
     }
 
-    public <T extends OperationHandler<?, ? extends Annotation>> T getHandler(@NonNull Class<? extends Annotation> invocation) {
+    public <T extends OperationHandler<?, ? extends Annotation>> T getHandler(Class<?> invocation) {
         return (T) operationHandlers.get(invocation);
     }
 

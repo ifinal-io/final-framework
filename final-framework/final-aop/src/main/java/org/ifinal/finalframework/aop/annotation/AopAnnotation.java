@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
  * @since 1.0.0
  */
 @Target(ElementType.ANNOTATION_TYPE)
-@Retention(RetentionPolicy.SOURCE)
-public @interface AdviceAnnotation {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface AopAnnotation {
+    String[] attributes() default {};
+
+    String[] expressions() default {};
 }

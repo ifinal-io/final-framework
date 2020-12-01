@@ -2,7 +2,7 @@ package org.ifinal.finalframework.monitor.handler;
 
 
 import org.ifinal.finalframework.annotation.IUser;
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class ActionOperationHandler<T extends IUser> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Recorder<T>, MonitorAction> {
 
     @Override
-    public Object before(Recorder<T> executor, OperationContext context) {
+    public Object before(Recorder<T> executor, AnnotationInvocationContext context) {
         if (CutPoint.BEFORE == context.cutPoint()) {
             record(executor, context, null, null);
         }
@@ -29,28 +29,28 @@ public class ActionOperationHandler<T extends IUser> extends AbsMonitorOperation
     }
 
     @Override
-    public void afterReturning(Recorder<T> executor, OperationContext context, Object result) {
+    public void afterReturning(Recorder<T> executor, AnnotationInvocationContext context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.cutPoint()) {
             record(executor, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(Recorder<T> executor, OperationContext context, Throwable throwable) {
+    public void afterThrowing(Recorder<T> executor, AnnotationInvocationContext context, Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.cutPoint()) {
             record(executor, context, null, throwable);
         }
     }
 
     @Override
-    public void after(Recorder<T> executor, OperationContext context, Object result, Throwable throwable) {
+    public void after(Recorder<T> executor, AnnotationInvocationContext context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.cutPoint()) {
             record(executor, context, result, throwable);
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void record(Recorder<T> executor, OperationContext context, Object result, Throwable throwable) {
+    private void record(Recorder<T> executor, AnnotationInvocationContext context, Object result, Throwable throwable) {
         final AnnotationAttributes operation = context.annotationAttributes();
         final MethodMetadata metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

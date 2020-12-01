@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.monitor.handler;
 
 import org.ifinal.finalframework.annotation.IException;
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.aop.annotation.CutPoint;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport implements OperationHandler<Alerter, MonitorAlert> {
 
     @Override
-    public Object before(@NonNull Alerter executor, @NonNull OperationContext context) {
+    public Object before(@NonNull Alerter executor, @NonNull AnnotationInvocationContext context) {
         if (CutPoint.BEFORE == context.cutPoint()) {
             alert(executor, context, null, null);
         }
@@ -32,27 +32,27 @@ public class AlertOperationHandler<T> extends AbsMonitorOperationHandlerSupport 
     }
 
     @Override
-    public void afterReturning(@NonNull Alerter executor, @NonNull OperationContext context, Object result) {
+    public void afterReturning(@NonNull Alerter executor, @NonNull AnnotationInvocationContext context, Object result) {
         if (CutPoint.AFTER_RETURNING == context.cutPoint()) {
             alert(executor, context, result, null);
         }
     }
 
     @Override
-    public void afterThrowing(@NonNull Alerter executor, @NonNull OperationContext context, @NonNull Throwable throwable) {
+    public void afterThrowing(@NonNull Alerter executor, @NonNull AnnotationInvocationContext context, @NonNull Throwable throwable) {
         if (CutPoint.AFTER_THROWING == context.cutPoint()) {
             alert(executor, context, null, throwable);
         }
     }
 
     @Override
-    public void after(@NonNull Alerter executor, @NonNull OperationContext context, Object result, Throwable throwable) {
+    public void after(@NonNull Alerter executor, @NonNull AnnotationInvocationContext context, Object result, Throwable throwable) {
         if (CutPoint.AFTER == context.cutPoint()) {
             alert(executor, context, result, throwable);
         }
     }
 
-    private void alert(@NonNull Alerter executor, @NonNull OperationContext context, Object result, Throwable throwable) {
+    private void alert(@NonNull Alerter executor, @NonNull AnnotationInvocationContext context, Object result, Throwable throwable) {
         final AnnotationAttributes annotationAttributes = context.annotationAttributes();
         final MethodMetadata metadata = context.metadata();
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

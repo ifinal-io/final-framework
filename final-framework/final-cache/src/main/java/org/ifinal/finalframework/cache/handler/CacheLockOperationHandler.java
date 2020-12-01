@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.handler;
 
-import org.ifinal.finalframework.aop.OperationContext;
+import org.ifinal.finalframework.aop.AnnotationInvocationContext;
 import org.ifinal.finalframework.aop.OperationHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.CacheLockException;
@@ -29,7 +29,7 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
     private static final String LOCK = "lock";
 
     @Override
-    public Void before(Cache cache, OperationContext context) {
+    public Void before(Cache cache, AnnotationInvocationContext context) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final AnnotationAttributes operation = context.annotationAttributes();
@@ -84,7 +84,7 @@ public class CacheLockOperationHandler extends AbsCacheOperationHandlerSupport i
     }
 
     @Override
-    public void after(Cache cache, OperationContext context, Object result, Throwable throwable) {
+    public void after(Cache cache, AnnotationInvocationContext context, Object result, Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
 
         final Object key = context.getAttribute(KEY);

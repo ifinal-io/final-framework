@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @SuppressWarnings("serial")
-public class AnnotationPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
+public class AnnotationBeanFactoryPointcutAdvisor extends AbstractBeanFactoryPointcutAdvisor {
     private final Lazy<Pointcut> pointcut;
 
-    protected AnnotationPointcutAdvisor(OperationConfiguration configuration) {
+    protected AnnotationBeanFactoryPointcutAdvisor(OperationConfiguration configuration) {
         this.setAdvice(configuration.getInterceptor());
         this.pointcut = Lazy.of(configuration.getPointcut());
     }
