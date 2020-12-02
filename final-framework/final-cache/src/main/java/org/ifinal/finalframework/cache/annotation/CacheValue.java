@@ -1,9 +1,6 @@
 package org.ifinal.finalframework.cache.annotation;
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
-import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CacheValueInterceptorHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -56,7 +53,4 @@ public @interface CacheValue {
     @AliasFor("condition")
     String when() default "";
 
-    Class<? extends InterceptorHandler> handler() default CacheValueInterceptorHandler.class;
-
-    Class<? extends Cache> executor() default Cache.class;
 }

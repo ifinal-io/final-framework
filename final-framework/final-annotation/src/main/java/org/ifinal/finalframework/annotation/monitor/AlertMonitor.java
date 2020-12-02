@@ -17,17 +17,15 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AlertMonitor {
 
-    String name();
+    String[] name();
 
-    String key();
+    String[] key();
 
     MonitorLevel level() default MonitorLevel.INFO;
 
-    String message() default "";
+    String[] message() default "";
 
-    String operator() default "";
-
-    String target() default "";
+    String[] target() default "";
 
     @AliasFor("when")
     String condition() default "";

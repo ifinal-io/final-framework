@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.example.web.controller;
 
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
+import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.example.entity.Person;
 import org.ifinal.finalframework.example.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping
+    @Cacheable(key = "person")
     @ActionMonitor(name = {"查询Person", "${#result[0].id}"}, target = "${#result[0].id}")
     public List<Person> query() {
         return personService.select();

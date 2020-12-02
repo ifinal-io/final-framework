@@ -1,7 +1,8 @@
 package org.ifinal.finalframework.dashboard.zookeeper.controller.api;
 
+import org.apache.zookeeper.ZooKeeper;
 import org.ifinal.finalframework.zookeeper.service.ZookeeperService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/zookeeper")
-@ConditionalOnBean(ZookeeperService.class)
+@ConditionalOnClass(ZooKeeper.class)
 public class ZookeeperApiController {
 
     @Resource

@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.cache.annotation;
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CacheIncrementInterceptorHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -14,7 +12,6 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @see Cache#increment(Object, Object, Long)
  * @see Cache#increment(Object, Object, Double)
- * @see CacheIncrementInterceptorHandler
  * @since 1.0.0
  */
 @Target(ElementType.METHOD)
@@ -90,10 +87,6 @@ public @interface CacheIncrement {
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-    Class<? extends InterceptorHandler> handler() default CacheIncrementInterceptorHandler.class;
-
-
-    Class<? extends Cache> executor() default Cache.class;
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

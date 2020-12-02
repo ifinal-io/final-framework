@@ -23,7 +23,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public Object before(InvocationContext context, Collection<A> annotations) {
+    public Object before(@NonNull InvocationContext context, @NonNull Collection<A> annotations) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -39,7 +39,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterReturning(InvocationContext context, Collection<A> annotations, Object result) {
+    public void afterReturning(@NonNull InvocationContext context, @NonNull Collection<A> annotations, Object result) {
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
                 E handlerExecutor = getExecutor(annotation);
@@ -49,7 +49,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterThrowing(InvocationContext context, Collection<A> annotations, Throwable throwable) {
+    public void afterThrowing(@NonNull InvocationContext context, @NonNull Collection<A> annotations, @NonNull Throwable throwable) {
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
                 E handlerExecutor = getExecutor(annotation);
@@ -59,7 +59,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void after(InvocationContext context, Collection<A> annotations, Object result, Throwable throwable) {
+    public void after(@NonNull InvocationContext context, @NonNull Collection<A> annotations, Object result, Throwable throwable) {
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
                 E handlerExecutor = getExecutor(annotation);

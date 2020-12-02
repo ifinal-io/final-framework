@@ -32,7 +32,7 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
 
     @Override
     public Collection<E> parseAnnotations(Class<?> clazz) {
-        return finder.findOperationAnnotation(clazz)
+        return finder.findAnnotations(clazz)
                 .stream()
                 .map(annotation -> builder.build(clazz, annotation))
                 .collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
 
     @Override
     public Collection<E> parseAnnotations(Method method) {
-        return finder.findOperationAnnotation(method)
+        return finder.findAnnotations(method)
                 .stream()
                 .map(annotation -> builder.build(method, annotation))
                 .collect(Collectors.toList());
@@ -48,7 +48,7 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
 
     @Override
     public Collection<E> parseAnnotations(Parameter parameter, Integer index) {
-        return finder.findOperationAnnotation(parameter)
+        return finder.findAnnotations(parameter)
                 .stream()
                 .map(annotation -> builder.build(parameter, index, annotation))
                 .collect(Collectors.toList());

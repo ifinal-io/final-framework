@@ -22,6 +22,6 @@ import java.lang.reflect.Parameter;
 @FunctionalInterface
 public interface AnnotationFinder<A extends Annotation, C> {
 
-    C findOperationAnnotation(@NonNull AnnotatedElement ae);
+    C findAnnotations(@NonNull AnnotatedElement ae);
 
 }

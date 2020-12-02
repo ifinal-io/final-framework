@@ -27,8 +27,9 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
     private static final String KEY = "key";
     private static final String FIELD = "field";
 
+
     @Override
-    protected Object doBefore(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes operation) {
+    public Object before(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes operation) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         final Object key = generateKey(operation.getStringArray(KEY), operation.getString("delimiter"), context.metadata(), evaluationContext);
@@ -51,7 +52,7 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
     }
 
     @Override
-    protected void doAfterReturning(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result) {
+    public void afterReturning(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result) {
 
         if (Objects.isNull(result)) {
             return;
@@ -87,5 +88,12 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
 
     }
 
+    @Override
+    public void afterThrowing(Cache executor, InvocationContext context, AnnotationAttributes annotation, Throwable throwable) {
+    }
 
+    @Override
+    public void after(Cache executor, InvocationContext context, AnnotationAttributes annotation, Object result, Throwable throwable) {
+
+    }
 }

@@ -2,9 +2,7 @@ package org.ifinal.finalframework.cache.annotation;
 
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CachePutInterceptorHandler;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -40,10 +38,6 @@ public @interface CachePut {
     long ttl() default -1L;
 
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
-
-    Class<? extends InterceptorHandler> handler() default CachePutInterceptorHandler.class;
-
-    Class<? extends Cache> executor() default Cache.class;
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

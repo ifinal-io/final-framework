@@ -26,10 +26,10 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-dashboard</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot-starter-zookeeper</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.ifinal.finalframework.boot</groupId>-->
+        <!--            <artifactId>final-boot-starter-zookeeper</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-monitor</artifactId>

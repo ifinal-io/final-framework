@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.monitor;
 
-import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
+import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 
@@ -9,7 +9,7 @@ import org.springframework.expression.EvaluationContext;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface MonitorOperationExpressionEvaluator extends OperationExpressionEvaluator {
+public interface MonitorExpressionEvaluator extends ExpressionEvaluator {
 
     String name(String nameExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 

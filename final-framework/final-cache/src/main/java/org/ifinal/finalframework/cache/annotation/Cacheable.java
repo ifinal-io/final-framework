@@ -2,9 +2,7 @@ package org.ifinal.finalframework.cache.annotation;
 
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CacheableInterceptorHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -22,7 +20,6 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @see Cache#set(Object, Object, Object, Long, TimeUnit, Class)
  * @see Cache#get(Object, Object, Type, Class)
- * @see CacheableInterceptorHandler
  * @since 1.0.0
  */
 @Documented
@@ -91,8 +88,5 @@ public @interface Cacheable {
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-    Class<? extends InterceptorHandler> handler() default CacheableInterceptorHandler.class;
-
-    Class<? extends Cache> executor() default Cache.class;
 
 }

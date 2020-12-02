@@ -25,12 +25,12 @@ public class MultiAnnotationFinder implements AnnotationFinder<Annotation, Map<C
     }
 
     @Override
-    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findOperationAnnotation(AnnotatedElement ae) {
+    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(AnnotatedElement ae) {
 
         Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
 
         for (Class<? extends Annotation> annotationType : annotationTypes) {
-            Collection<? extends Annotation> annotations = getAnnotationFinder(annotationType).findOperationAnnotation(ae);
+            Collection<? extends Annotation> annotations = getAnnotationFinder(annotationType).findAnnotations(ae);
             if (annotations.isEmpty()) {
                 continue;
             }

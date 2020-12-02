@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.cache.annotation;
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CacheLockInterceptorHandler;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -18,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * @author likly
  * @see Cache#lock(Object, Object, Long, TimeUnit)
  * @see Cache#unlock(Object, Object)
- * @see CacheLockInterceptorHandler
  * @since 1.0.0
  */
 @Documented
@@ -69,7 +66,4 @@ public @interface CacheLock {
      */
     long sleep() default 1000;
 
-    Class<? extends InterceptorHandler> handler() default CacheLockInterceptorHandler.class;
-
-    Class<? extends Cache> executor() default Cache.class;
 }

@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.monitor.interceptor;
 
 
-import org.ifinal.finalframework.aop.interceptor.BaseOperationExpressionEvaluator;
-import org.ifinal.finalframework.monitor.MonitorOperationExpressionEvaluator;
+import org.ifinal.finalframework.aop.interceptor.BaseExpressionEvaluator;
+import org.ifinal.finalframework.monitor.MonitorExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DefaultMonitorOperationExpressionEvaluator extends BaseOperationExpressionEvaluator implements MonitorOperationExpressionEvaluator {
+public class DefaultMonitorExpressionEvaluator extends BaseExpressionEvaluator implements MonitorExpressionEvaluator {
     private final Map<ExpressionKey, Expression> nameCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> operatorCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> targetCache = new ConcurrentHashMap<>(64);

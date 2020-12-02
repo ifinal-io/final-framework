@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.cache.annotation;
 
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
-import org.ifinal.finalframework.cache.handler.CacheDelInterceptorHandler;
 
 import java.lang.annotation.*;
 
@@ -18,7 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author likly
  * @version 1.0.0
  * @see Cache#del(Object, Object)
- * @see CacheDelInterceptorHandler
  * @since 1.0.0
  */
 @Documented
@@ -72,10 +69,6 @@ public @interface CacheDel {
 
     JoinPoint point() default JoinPoint.AFTER_RETURNING;
 
-    Class<? extends InterceptorHandler> handler() default CacheDelInterceptorHandler.class;
-
-
-    Class<? extends Cache> executor() default Cache.class;
 
     /**
      * Defines several {@link CacheDel } annotations on the same element.

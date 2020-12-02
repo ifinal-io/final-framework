@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache;
 
-import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
+import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 
@@ -9,7 +9,7 @@ import org.springframework.expression.EvaluationContext;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface CacheOperationExpressionEvaluator extends OperationExpressionEvaluator {
+public interface CacheExpressionEvaluator extends ExpressionEvaluator {
 
     Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 

@@ -3,12 +3,12 @@ package org.ifinal.finalframework.cache.handler;
 
 import org.ifinal.finalframework.aop.interceptor.AbsOperationInterceptorHandlerSupport;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.CacheOperationExpressionEvaluator;
+import org.ifinal.finalframework.cache.CacheExpressionEvaluator;
 import org.ifinal.finalframework.cache.CacheOperationHandlerSupport;
 import org.ifinal.finalframework.cache.annotation.CacheLock;
 import org.ifinal.finalframework.cache.annotation.CachePut;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
-import org.ifinal.finalframework.cache.interceptor.DefaultCacheOperationExpressionEvaluator;
+import org.ifinal.finalframework.cache.interceptor.DefaultCacheExpressionEvaluator;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
  */
 public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport<Cache> implements CacheOperationHandlerSupport {
 
-    private final CacheOperationExpressionEvaluator evaluator;
+    private final CacheExpressionEvaluator evaluator;
     private Boolean conditionPassing;
 
     public AbsCacheOperationInterceptorHandlerSupport() {
-        this(new DefaultCacheOperationExpressionEvaluator());
+        this(new DefaultCacheExpressionEvaluator());
     }
 
-    public AbsCacheOperationInterceptorHandlerSupport(CacheOperationExpressionEvaluator evaluator) {
+    public AbsCacheOperationInterceptorHandlerSupport(CacheExpressionEvaluator evaluator) {
         super(evaluator);
         this.evaluator = evaluator;
     }

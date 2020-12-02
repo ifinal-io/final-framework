@@ -1,6 +1,4 @@
-package org.ifinal.finalframework.monitor.executor;
-
-import org.ifinal.finalframework.monitor.action.Action;
+package org.ifinal.finalframework.monitor.action;
 
 /**
  * @author likly

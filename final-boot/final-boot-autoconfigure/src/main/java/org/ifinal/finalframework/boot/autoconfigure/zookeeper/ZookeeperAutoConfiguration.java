@@ -2,7 +2,6 @@ package org.ifinal.finalframework.boot.autoconfigure.zookeeper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.ZooKeeper;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,6 @@ import java.io.IOException;
 @Slf4j
 @Configuration
 @ConditionalOnClass(ZooKeeper.class)
-@SpringAutoConfiguration
 @EnableConfigurationProperties(ZookeeperProperties.class)
 public class ZookeeperAutoConfiguration {
 

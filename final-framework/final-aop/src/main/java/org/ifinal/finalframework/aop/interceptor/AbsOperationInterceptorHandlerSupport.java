@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
+import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.ifinal.finalframework.aop.InvocationContext;
-import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
 import org.ifinal.finalframework.aop.OperationHandlerSupport;
 import org.ifinal.finalframework.aop.single.SimpleInterceptorHandler;
 import org.ifinal.finalframework.util.Asserts;
@@ -36,9 +36,9 @@ public class AbsOperationInterceptorHandlerSupport<E> extends SimpleInterceptorH
     private static final Pattern EXPRESSION_PATTEN = Pattern.compile("\\$\\{[^\\{\\}]*\\}");
 
 
-    private final OperationExpressionEvaluator evaluator;
+    private final ExpressionEvaluator evaluator;
 
-    public AbsOperationInterceptorHandlerSupport(OperationExpressionEvaluator evaluator) {
+    public AbsOperationInterceptorHandlerSupport(ExpressionEvaluator evaluator) {
         this.evaluator = evaluator;
     }
 

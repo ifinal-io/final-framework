@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.aop.interceptor;
 
 
-import org.ifinal.finalframework.aop.OperationExpressionEvaluator;
+import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.ifinal.finalframework.context.expression.MethodExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BaseOperationExpressionEvaluator extends MethodExpressionEvaluator implements OperationExpressionEvaluator {
+public class BaseExpressionEvaluator extends MethodExpressionEvaluator implements ExpressionEvaluator {
 
     private final Map<ExpressionKey, Expression> valueCache = new ConcurrentHashMap<>(64);
 

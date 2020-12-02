@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  */
 public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
 
-    R findAnnotations(Method method, Class clazz);
+    R findAnnotations(Method method, Class<?> clazz);
 
     @Override
     default Object invoke(MethodInvocation invocation) throws Throwable {

@@ -12,6 +12,7 @@ import java.lang.reflect.Parameter;
  * @since 1.0.0
  */
 public interface AnnotationBuilder<A extends Annotation, R> {
+
     @NonNull
     R build(@NonNull Class<?> type, @NonNull A annotation);
 

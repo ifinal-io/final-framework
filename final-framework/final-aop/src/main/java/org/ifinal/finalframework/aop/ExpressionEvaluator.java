@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface OperationExpressionEvaluator {
+public interface ExpressionEvaluator {
 
     EvaluationContext createEvaluationContext(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod, Object result, Throwable e);
 

@@ -32,7 +32,7 @@ public class SingleAnnotationFinder<A extends Annotation> implements AnnotationF
     }
 
     @Override
-    public Collection<A> findOperationAnnotation(AnnotatedElement ae) {
+    public Collection<A> findAnnotations(AnnotatedElement ae) {
         if (repeatable) {
             return AnnotatedElementUtils.findMergedRepeatableAnnotations(ae, ann);
         } else {

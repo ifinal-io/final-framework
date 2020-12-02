@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.cache.interceptor;
 
-import org.ifinal.finalframework.aop.interceptor.BaseOperationExpressionEvaluator;
-import org.ifinal.finalframework.cache.CacheOperationExpressionEvaluator;
+import org.ifinal.finalframework.aop.interceptor.BaseExpressionEvaluator;
+import org.ifinal.finalframework.cache.CacheExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class DefaultCacheOperationExpressionEvaluator extends BaseOperationExpressionEvaluator implements CacheOperationExpressionEvaluator {
+public class DefaultCacheExpressionEvaluator extends BaseExpressionEvaluator implements CacheExpressionEvaluator {
 
     private final Map<ExpressionKey, Expression> keyCache = new ConcurrentHashMap<>(64);
     private final Map<ExpressionKey, Expression> fieldCache = new ConcurrentHashMap<>(64);

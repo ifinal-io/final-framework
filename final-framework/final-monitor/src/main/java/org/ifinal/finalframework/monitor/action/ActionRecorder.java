@@ -1,11 +1,7 @@
-package org.ifinal.finalframework.monitor.interceptor;
+package org.ifinal.finalframework.monitor.action;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.json.Json;
-import org.ifinal.finalframework.monitor.action.Action;
-import org.ifinal.finalframework.monitor.action.ActionListener;
-import org.ifinal.finalframework.monitor.executor.Recorder;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Primary;
@@ -35,7 +31,7 @@ public class ActionRecorder implements Recorder {
 
     @Override
     public void record(Action action) {
-        logger.info("{}", Json.toJson(action));
+        listeners.forEach(item -> item.onAction(action));
     }
 
 }
