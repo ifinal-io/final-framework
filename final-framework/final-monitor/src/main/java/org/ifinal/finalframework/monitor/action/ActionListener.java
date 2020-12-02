@@ -12,6 +12,6 @@ import org.springframework.lang.NonNull;
 @FunctionalInterface
 public interface ActionListener {
 
-    void onAction(@NonNull Action<?> action);
+    void onAction(@NonNull Action action);
 
 }

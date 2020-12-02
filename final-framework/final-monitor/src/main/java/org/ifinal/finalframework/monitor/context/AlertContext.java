@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.monitor.context;
 
+import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
 import org.ifinal.finalframework.monitor.MonitorException;
-import org.ifinal.finalframework.monitor.annotation.MonitorLevel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +11,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("unused")
-public class AlertContext<T> {
+public class AlertContext {
     /**
      * 名称
      */
@@ -21,10 +20,6 @@ public class AlertContext<T> {
      * 级别
      */
     private final MonitorLevel level;
-    /**
-     * 操作者
-     */
-    private final T operator;
     /**
      * 目标
      */
@@ -46,10 +41,9 @@ public class AlertContext<T> {
      */
     private final Long timestamp;
 
-    private AlertContext(Builder<T> builder) {
+    private AlertContext(Builder builder) {
         this.name = builder.name;
         this.level = builder.level;
-        this.operator = builder.operator;
         this.target = builder.target;
         this.attributes = builder.attributes;
         this.exception = builder.exception;
@@ -57,8 +51,8 @@ public class AlertContext<T> {
         this.timestamp = builder.timestamp;
     }
 
-    public static <T> Builder<T> builder() {
-        return new Builder<>();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getName() {
@@ -73,9 +67,6 @@ public class AlertContext<T> {
         return trace;
     }
 
-    public T getOperator() {
-        return operator;
-    }
 
     public Object getTarget() {
         return target;
@@ -93,10 +84,9 @@ public class AlertContext<T> {
         return timestamp;
     }
 
-    public static class Builder<T> implements org.ifinal.finalframework.util.Builder<AlertContext<T>> {
+    public static class Builder implements org.ifinal.finalframework.util.Builder<AlertContext> {
         private String name;
         private MonitorLevel level;
-        private T operator;
         private Object target;
         private final Map<String, Object> attributes = new HashMap<>();
         private MonitorException exception;
@@ -106,45 +96,40 @@ public class AlertContext<T> {
         private Builder() {
         }
 
-        public Builder<T> name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder<T> level(MonitorLevel level) {
+        public Builder level(MonitorLevel level) {
             this.level = level;
             return this;
         }
 
-        public Builder<T> trace(String trace) {
+        public Builder trace(String trace) {
             this.trace = trace;
             return this;
         }
 
-        public Builder<T> operator(T operator) {
-            this.operator = operator;
-            return this;
-        }
 
-
-        public Builder<T> addAttribute(String name, Object value) {
+        public Builder addAttribute(String name, Object value) {
             this.attributes.put(name, value);
             return this;
         }
 
-        public Builder<T> exception(MonitorException exception) {
+        public Builder exception(MonitorException exception) {
             this.exception = exception;
             return this;
         }
 
-        public Builder<T> timestamp(Long timestamp) {
+        public Builder timestamp(Long timestamp) {
             this.timestamp = timestamp;
             return this;
         }
 
         @Override
-        public AlertContext<T> build() {
-            return new AlertContext<>(this);
+        public AlertContext build() {
+            return new AlertContext(this);
         }
     }
 }

@@ -1,10 +1,10 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
-import org.ifinal.finalframework.cache.handler.CacheDelOperationHandler;
+import org.ifinal.finalframework.cache.handler.CacheDelInterceptorHandler;
 
 import java.lang.annotation.*;
 
@@ -13,19 +13,19 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
 /**
- * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link CutPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
+ * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link JoinPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
  *
  * @author likly
  * @version 1.0.0
  * @see Cache#del(Object, Object)
- * @see CacheDelOperationHandler
+ * @see CacheDelInterceptorHandler
  * @since 1.0.0
  */
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(List.class)
-@CacheAnnotation({CutPoint.BEFORE, CutPoint.AFTER, CutPoint.AFTER_RETURNING, CutPoint.AFTER_THROWING})
+@CacheAnnotation({JoinPoint.BEFORE, JoinPoint.AFTER, JoinPoint.AFTER_RETURNING, JoinPoint.AFTER_THROWING})
 public @interface CacheDel {
 
     /**
@@ -70,9 +70,9 @@ public @interface CacheDel {
      */
     long sleep() default 1000;
 
-    CutPoint point() default CutPoint.AFTER_RETURNING;
+    JoinPoint point() default JoinPoint.AFTER_RETURNING;
 
-    Class<? extends OperationHandler> handler() default CacheDelOperationHandler.class;
+    Class<? extends InterceptorHandler> handler() default CacheDelInterceptorHandler.class;
 
 
     Class<? extends Cache> executor() default Cache.class;

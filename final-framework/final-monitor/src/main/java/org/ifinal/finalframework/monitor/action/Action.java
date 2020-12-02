@@ -1,10 +1,10 @@
 package org.ifinal.finalframework.monitor.action;
 
-import org.ifinal.finalframework.annotation.IUser;
-import org.ifinal.finalframework.monitor.MonitorException;
-import org.ifinal.finalframework.monitor.annotation.MonitorLevel;
+import lombok.Data;
+import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
+import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -12,179 +12,58 @@ import java.util.Map;
  *
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.monitor.annotation.MonitorAction
+ * @see ActionMonitor
  * @since 1.0.0
  */
-@SuppressWarnings({"rawtypes", "unused"})
-public class Action<T extends IUser> {
+@Data
+public class Action implements Serializable {
+
+    private static final long serialVersionUID = 6604755172250911622L;
     /**
      * 名称
+     *
+     * @see ActionMonitor#name()
+     * @see ActionMonitor#value()
      */
-    private final String name;
+    private String name;
     /**
      * 类型
+     *
+     * @see ActionMonitor#type()
      */
-    private final int type;
+    private String type;
     /**
      * 动作
+     *
+     * @see ActionMonitor#code()
      */
-    private final int action;
+    private String code;
     /**
      * 级别
+     *
+     * @see ActionMonitor#level()
      */
-    private final MonitorLevel level;
-    /**
-     * 操作者
-     */
-    private final T operator;
+    private MonitorLevel level;
     /**
      * 目标
+     *
+     * @see ActionMonitor#target()
      */
-    private final Object target;
+    private Object target;
     /**
      * 属性
      */
-    private final Map<String, Object> attributes;
+    private Map<String, Object> attributes;
     /**
      * 异常
      */
-    private final MonitorException exception;
+    private Throwable exception;
     /**
      * 追踪
      */
-    private final String trace;
+    private String trace;
     /**
      * 时间戳
      */
-    private final Long timestamp;
-
-    private Action(Builder<T> builder) {
-        this.name = builder.name;
-        this.type = builder.type;
-        this.action = builder.action;
-        this.level = builder.level;
-        this.operator = builder.operator;
-        this.target = builder.target;
-        this.attributes = builder.attributes;
-        this.exception = builder.exception;
-        this.trace = builder.trace;
-        this.timestamp = builder.timestamp;
-    }
-
-    public static <T extends IUser> Builder<T> builder() {
-        return new Builder<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public int getAction() {
-        return action;
-    }
-
-    public MonitorLevel getLevel() {
-        return level;
-    }
-
-    public String getTrace() {
-        return trace;
-    }
-
-    public T getOperator() {
-        return operator;
-    }
-
-    public Object getTarget() {
-        return target;
-    }
-
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    public MonitorException getException() {
-        return exception;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public static class Builder<T extends IUser> implements org.ifinal.finalframework.util.Builder<Action<T>> {
-        private String name;
-        private int type;
-        private int action;
-        private MonitorLevel level;
-        private T operator;
-        private Object target;
-        private final Map<String, Object> attributes = new HashMap<>();
-        private MonitorException exception;
-        private String trace;
-        private Long timestamp;
-
-        private Builder() {
-        }
-
-        public Builder<T> name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder<T> type(int type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder<T> action(int action) {
-            this.action = action;
-            return this;
-        }
-
-        public Builder<T> level(MonitorLevel level) {
-            this.level = level;
-            return this;
-        }
-
-        public Builder<T> trace(String trace) {
-            this.trace = trace;
-            return this;
-        }
-
-        public Builder<T> operator(T operator) {
-            this.operator = operator;
-            return this;
-        }
-
-
-        public Builder<T> addAttribute(String name, Object value) {
-            this.attributes.put(name, value);
-            return this;
-        }
-
-        public Builder<T> exception(MonitorException exception) {
-            this.exception = exception;
-            return this;
-        }
-
-        public Builder<T> target(Object target) {
-            this.target = target;
-            return this;
-        }
-
-        public Builder<T> timestamp(Long timestamp) {
-            this.timestamp = timestamp;
-            return this;
-        }
-
-
-        @Override
-        public Action<T> build() {
-            return new Action<>(this);
-        }
-    }
+    private Long timestamp;
 }

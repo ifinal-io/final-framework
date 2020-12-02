@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CacheValueOperationHandler;
+import org.ifinal.finalframework.cache.handler.CacheValueInterceptorHandler;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
  * @see org.ifinal.finalframework.cache.Cache#get(Object, Object, Type, Class)
  * @since 1.0.0
  */
-@CacheAnnotation(CutPoint.BEFORE)
+@CacheAnnotation(JoinPoint.BEFORE)
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheValue {
@@ -56,7 +56,7 @@ public @interface CacheValue {
     @AliasFor("condition")
     String when() default "";
 
-    Class<? extends OperationHandler> handler() default CacheValueOperationHandler.class;
+    Class<? extends InterceptorHandler> handler() default CacheValueInterceptorHandler.class;
 
     Class<? extends Cache> executor() default Cache.class;
 }

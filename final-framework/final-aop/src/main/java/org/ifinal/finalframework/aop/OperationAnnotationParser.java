@@ -11,7 +11,7 @@ import java.util.Collection;
  *
  * @author likly
  * @version 1.0.0
- * @see OperationAnnotationBuilder
+ * @see AnnotationBuilder
  * @since 1.0.0
  */
 public interface OperationAnnotationParser {

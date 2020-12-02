@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.aop;
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.core.annotation.AnnotationAttributes;
 
 import java.util.Collection;
 
@@ -11,6 +12,6 @@ import java.util.Collection;
  */
 public interface AnnotationMethodInvocation extends MethodInvocation {
 
-    Collection<AnnotationInvocationContext> getOperationContexts();
+    Collection<AnnotationAttributes> getAnnotations();
 
 }

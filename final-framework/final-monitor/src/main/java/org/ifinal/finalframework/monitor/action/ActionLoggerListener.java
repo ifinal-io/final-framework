@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ActionLoggerListener implements ActionListener {
 
     @Override
-    public void onAction(@NonNull Action<?> action) {
+    public void onAction(@NonNull Action action) {
         if (logger.isInfoEnabled()) {
             logger.info("==> action handler: {}", Json.toJson(action));
         }

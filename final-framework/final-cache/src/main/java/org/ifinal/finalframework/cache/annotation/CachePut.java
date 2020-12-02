@@ -1,10 +1,10 @@
 package org.ifinal.finalframework.cache.annotation;
 
 
-import org.ifinal.finalframework.aop.OperationHandler;
-import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.handler.CachePutOperationHandler;
+import org.ifinal.finalframework.cache.handler.CachePutInterceptorHandler;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(CachePut.List.class)
-@CacheAnnotation({CutPoint.BEFORE, CutPoint.AFTER, CutPoint.AFTER_RETURNING, CutPoint.AFTER_THROWING})
+@CacheAnnotation({JoinPoint.BEFORE, JoinPoint.AFTER, JoinPoint.AFTER_RETURNING, JoinPoint.AFTER_THROWING})
 public @interface CachePut {
 
     String[] key();
@@ -31,7 +31,7 @@ public @interface CachePut {
 
     String delimiter() default ":";
 
-    CutPoint point() default CutPoint.AFTER_RETURNING;
+    JoinPoint point() default JoinPoint.AFTER_RETURNING;
 
     String condition() default "";
 
@@ -41,7 +41,7 @@ public @interface CachePut {
 
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-    Class<? extends OperationHandler> handler() default CachePutOperationHandler.class;
+    Class<? extends InterceptorHandler> handler() default CachePutInterceptorHandler.class;
 
     Class<? extends Cache> executor() default Cache.class;
 

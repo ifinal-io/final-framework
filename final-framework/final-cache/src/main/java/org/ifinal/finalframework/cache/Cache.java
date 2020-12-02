@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.cache;
 
 import org.ifinal.finalframework.aop.Executor;
-import org.ifinal.finalframework.cache.handler.CacheLockOperationHandler;
+import org.ifinal.finalframework.cache.handler.CacheLockInterceptorHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -28,7 +28,7 @@ public interface Cache extends Executor {
      * @param timeUnit 有效时间单位
      * @return 如果获取成功，则返回 {@code true}，否则返回 {@code false}。
      * @see org.ifinal.finalframework.cache.annotation.CacheLock
-     * @see CacheLockOperationHandler
+     * @see CacheLockInterceptorHandler
      * @see #unlock(Object, Object)
      */
     boolean lock(@NonNull Object key, @NonNull Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
@@ -41,7 +41,7 @@ public interface Cache extends Executor {
      * @param value 缓存锁的Value
      * @return 如果缓存释放成功，则返回 {@code true}，否则返回 {@code false}。
      * @see org.ifinal.finalframework.cache.annotation.CacheLock
-     * @see CacheLockOperationHandler
+     * @see CacheLockInterceptorHandler
      * @see #lock(Object, Object, Long, TimeUnit)
      */
     boolean unlock(@NonNull Object key, @NonNull Object value);

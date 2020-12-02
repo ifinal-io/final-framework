@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.aop.annotation.CutPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
 
 import java.lang.annotation.*;
 
@@ -26,5 +26,5 @@ public @interface CacheAnnotation {
      *
      * @return value
      */
-    CutPoint[] value();
+    JoinPoint[] value();
 }

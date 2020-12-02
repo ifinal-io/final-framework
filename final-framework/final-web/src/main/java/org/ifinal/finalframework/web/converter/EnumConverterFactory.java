@@ -2,11 +2,11 @@ package org.ifinal.finalframework.web.converter;
 
 
 import org.ifinal.finalframework.annotation.IEnum;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Component
 @SuppressWarnings("rawtypes")
-@SpringFactory(ConverterFactory.class)
 public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
 
     @NonNull
