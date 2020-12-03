@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Component
-public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport {
+public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
 
     private static final String KEY = "key";
     private static final String VALUE = "value";

@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class CacheDelInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport {
+public class CacheDelInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
 
     @Override
-    protected void doHandle(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation,
-                            @Nullable Object result, @Nullable Throwable throwable) {
+    public void handle(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation,
+                       @Nullable Object result, @Nullable Throwable throwable) {
         final MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

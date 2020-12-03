@@ -2,6 +2,7 @@ package org.ifinal.finalframework.monitor.handler;
 
 
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.monitor.action.Action;
@@ -17,7 +18,7 @@ import org.springframework.lang.NonNull;
  * @see org.ifinal.finalframework.annotation.monitor.ActionMonitor
  * @since 1.0.0
  */
-public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport<Recorder> {
+public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements InterceptorHandler<Recorder, AnnotationAttributes> {
 
     /**
      * @see ActionMonitor#name()
@@ -42,7 +43,7 @@ public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHand
     private static final String ATTRIBUTE_LEVEL = "level";
 
     @Override
-    protected void doHandle(@NonNull Recorder executor, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void handle(@NonNull Recorder executor, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {
         EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         MethodMetadata metadata = context.metadata();
 

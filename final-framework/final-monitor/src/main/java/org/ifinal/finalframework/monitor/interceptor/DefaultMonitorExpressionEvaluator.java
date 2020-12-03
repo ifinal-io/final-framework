@@ -41,7 +41,6 @@ public class DefaultMonitorExpressionEvaluator extends BaseExpressionEvaluator i
         return getExpression(this.attributeCache, methodKey, attributeExpression).getValue(evaluationContext);
     }
 
-
     @Override
     public void clear() {
         super.clear();

@@ -80,10 +80,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
      */
     private final Lazy<Boolean> isVirtual = Lazy.of(!isTransient() && isAnnotationPresent(Virtual.class));
     /**
-     * @see Sharding
-     */
-    private final Lazy<Boolean> isSharding = Lazy.of(!isTransient() && isAnnotationPresent(Sharding.class));
-    /**
      * @see ReadOnly
      */
     private final Lazy<Boolean> isReadonly = Lazy.of(!isTransient() && isAnnotationPresent(ReadOnly.class));
@@ -187,11 +183,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @Override
     public boolean isVirtual() {
         return isVirtual.get();
-    }
-
-    @Override
-    public boolean isSharding() {
-        return isSharding.get();
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsMonitorOperationInterceptorHandlerSupport<E> extends AbsOperationInterceptorHandlerSupport<E> implements MonitorOperationHandlerSupport {
+public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements MonitorOperationHandlerSupport {
     private final MonitorExpressionEvaluator evaluator;
 
     public AbsMonitorOperationInterceptorHandlerSupport() {

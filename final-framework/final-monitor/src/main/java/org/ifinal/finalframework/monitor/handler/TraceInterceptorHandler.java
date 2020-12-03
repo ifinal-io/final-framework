@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.monitor.handler;
 
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.monitor.context.TraceContext;
 import org.ifinal.finalframework.monitor.trace.Tracer;
@@ -12,12 +13,12 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport<Tracer> {
+public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements InterceptorHandler<Tracer, AnnotationAttributes> {
 
     private static final String TRACE_CONTEXT = "traceContext";
 
     @Override
-    protected Object doBefore(Tracer executor, InvocationContext context, AnnotationAttributes annotation) {
+    public Object before(Tracer executor, InvocationContext context, AnnotationAttributes annotation) {
         TraceContext traceContext = new TraceContext();
         traceContext.setTrace(annotation.getString("trace"));
         context.addAttribute(TRACE_CONTEXT, traceContext);
@@ -26,7 +27,7 @@ public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandl
     }
 
     @Override
-    protected void doAfter(Tracer executor, InvocationContext context, AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void after(Tracer executor, InvocationContext context, AnnotationAttributes annotation, Object result, Throwable throwable) {
         executor.stop(context.getAttribute(TRACE_CONTEXT));
     }
 }

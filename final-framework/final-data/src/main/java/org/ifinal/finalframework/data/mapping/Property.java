@@ -89,14 +89,6 @@ public interface Property extends PersistentProperty<Property>, Ordered {
     boolean isVirtual();
 
     /**
-     * return {@code true} if this property is annotated by {@link Sharding}.
-     *
-     * @return {@code true} if this {@link Property} is annotated by {@link Sharding} annotation.
-     * @see Sharding
-     */
-    boolean isSharding();
-
-    /**
      * return {@code true} if this property is annotated by {@link ReadOnly}.
      *
      * @return {@code true} if this {@link Property} is annotated by {@link ReadOnly} annotation.

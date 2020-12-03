@@ -4,7 +4,6 @@ package org.ifinal.finalframework.aop.interceptor;
 import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.aop.OperationHandlerSupport;
-import org.ifinal.finalframework.aop.single.SimpleInterceptorHandler;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
@@ -21,7 +20,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsOperationInterceptorHandlerSupport<E> extends SimpleInterceptorHandler<E> implements OperationHandlerSupport {
+public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSupport {
 
     /**
      * 表达式的开头标记

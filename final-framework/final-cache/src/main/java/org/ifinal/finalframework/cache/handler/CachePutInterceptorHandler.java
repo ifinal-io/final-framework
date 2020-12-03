@@ -23,10 +23,12 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Component
-public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport {
+public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+
+
     @Override
-    protected void doHandle(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes operation,
-                            @Nullable Object result, @Nullable Throwable throwable) {
+    public void handle(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes operation,
+                       @Nullable Object result, @Nullable Throwable throwable) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         if (!isConditionPassing(operation.getString("condition"), context.metadata(), evaluationContext)) {

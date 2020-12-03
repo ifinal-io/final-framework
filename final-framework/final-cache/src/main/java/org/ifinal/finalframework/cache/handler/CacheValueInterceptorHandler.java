@@ -21,10 +21,10 @@ import java.lang.reflect.Type;
  */
 @SuppressWarnings("all")
 @Component
-public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport {
+public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
 
     @Override
-    protected Object doBefore(Cache cache, InvocationContext context, AnnotationAttributes operation) {
+    public Object before(Cache cache, InvocationContext context, AnnotationAttributes operation) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
 

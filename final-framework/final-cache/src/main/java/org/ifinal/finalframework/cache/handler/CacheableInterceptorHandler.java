@@ -23,10 +23,9 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Component
-public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport {
+public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
     private static final String KEY = "key";
     private static final String FIELD = "field";
-
 
     @Override
     public Object before(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes operation) {
@@ -88,12 +87,4 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
 
     }
 
-    @Override
-    public void afterThrowing(Cache executor, InvocationContext context, AnnotationAttributes annotation, Throwable throwable) {
-    }
-
-    @Override
-    public void after(Cache executor, InvocationContext context, AnnotationAttributes annotation, Object result, Throwable throwable) {
-
-    }
 }

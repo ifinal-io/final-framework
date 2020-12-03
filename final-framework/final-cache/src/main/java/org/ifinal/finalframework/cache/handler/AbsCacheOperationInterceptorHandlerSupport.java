@@ -2,7 +2,6 @@ package org.ifinal.finalframework.cache.handler;
 
 
 import org.ifinal.finalframework.aop.interceptor.AbsOperationInterceptorHandlerSupport;
-import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.CacheExpressionEvaluator;
 import org.ifinal.finalframework.cache.CacheOperationHandlerSupport;
 import org.ifinal.finalframework.cache.annotation.CacheLock;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport<Cache> implements CacheOperationHandlerSupport {
+public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements CacheOperationHandlerSupport {
 
     private final CacheExpressionEvaluator evaluator;
     private Boolean conditionPassing;
