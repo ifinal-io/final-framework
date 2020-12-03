@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @Component
+@Deprecated
 public class EnumClassConverter implements ClassConverter<Enum<?>, List<Map<String, Object>>>, Serializable {
 
     private final Map<Class<?>, EnumConverter<?>> enumConverterMap = new HashMap<>();

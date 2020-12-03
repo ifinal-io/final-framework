@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.IEnum;
-import org.ifinal.finalframework.context.converter.EnumClassConverter;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
@@ -23,17 +22,12 @@ import java.time.LocalDateTime;
 public class FinalJacksonModule extends SimpleModule {
 
     private final ObjectMapper objectMapper;
-    private final EnumClassConverter enumClassConverter;
 
     public FinalJacksonModule(ObjectMapper objectMapper) {
-        this(objectMapper, new EnumClassConverter(null));
+        this.objectMapper = objectMapper;
+        init();
     }
 
-    public FinalJacksonModule(ObjectMapper objectMapper, EnumClassConverter enumClassConverter) {
-        this.objectMapper = objectMapper;
-        this.enumClassConverter = enumClassConverter;
-        this.init();
-    }
 
     private void init() {
 
@@ -41,7 +35,7 @@ public class FinalJacksonModule extends SimpleModule {
 
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        addSerializer(Class.class, new ClassJsonSerializer(enumClassConverter));
+        addSerializer(Class.class, new ClassJsonSerializer());
 
 
     }

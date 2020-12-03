@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.ifinal.finalframework.context.converter.EnumClassConverter;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.util.ServiceLoader;
@@ -22,14 +21,14 @@ public class ObjectMapperFactory {
     private final ObjectMapper objectMapper;
 
     public ObjectMapperFactory() {
-        this(new ObjectMapper(), new EnumClassConverter(null));
+        this(new ObjectMapper());
     }
 
-    public ObjectMapperFactory(ObjectMapper objectMapper, EnumClassConverter enumClassConverter) {
+    public ObjectMapperFactory(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
         objectMapper.registerModule(new Jdk8Module());
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.registerModule(new FinalJacksonModule(objectMapper, enumClassConverter));
+        objectMapper.registerModule(new FinalJacksonModule(objectMapper));
 
         ServiceLoader<BeanSerializerModifier> beanSerializerModifiers = ServiceLoader.load(BeanSerializerModifier.class, getClass().getClassLoader());
 
