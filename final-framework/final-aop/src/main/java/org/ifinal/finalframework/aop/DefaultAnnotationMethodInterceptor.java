@@ -1,14 +1,11 @@
-package org.ifinal.finalframework.aop.single;
+package org.ifinal.finalframework.aop;
 
 import org.aopalliance.intercept.MethodInvocation;
-import org.ifinal.finalframework.aop.*;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
-import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.context.expression.AnnotatedElementKey;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,28 +14,25 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleAnnotationMethodInterceptor<E> implements AnnotationMethodInterceptor<Collection<E>> {
+public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodInterceptor<A> {
+
     private final Map<AnnotatedElementKey, MethodMetadata> metadataCache = new ConcurrentHashMap<>(1024);
 
-    private final AnnotationSource<Collection<E>> source;
-    private final MethodInvocationDispatcher<Collection<E>> dispatcher;
+    private final AnnotationSource<A> source;
+    private final MethodInvocationDispatcher<A> dispatcher;
 
-    public SingleAnnotationMethodInterceptor(AnnotationSource<Collection<E>> source, MethodInvocationDispatcher<Collection<E>> dispatcher) {
+    public DefaultAnnotationMethodInterceptor(AnnotationSource<A> source, MethodInvocationDispatcher<A> dispatcher) {
         this.source = source;
         this.dispatcher = dispatcher;
     }
 
     @Override
-    public Collection<E> findAnnotations(Method method, Class clazz) {
+    public A findAnnotations(Method method, Class<?> clazz) {
         return source.getAnnotations(method, clazz);
     }
 
     @Override
-    public Object invoke(MethodInvocation invocation, Collection<E> annotations) throws Throwable {
-
-        if (Asserts.isEmpty(annotations)) {
-            return invocation.proceed();
-        }
+    public Object invoke(MethodInvocation invocation, A annotations) throws Throwable {
 
         Class<?> targetClass = getTargetClass(invocation.getThis());
         MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
@@ -83,6 +77,5 @@ public class SingleAnnotationMethodInterceptor<E> implements AnnotationMethodInt
     private Class<?> getTargetClass(Object target) {
         return AopProxyUtils.ultimateTargetClass(target);
     }
-
 
 }

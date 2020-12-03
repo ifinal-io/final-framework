@@ -23,7 +23,8 @@ public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
     @Override
     public boolean matches(Method method, Class<?> targetClass) {
         Object annotations = source.getAnnotations(method, targetClass);
-        boolean matches = Asserts.nonEmpty(annotations);
+
+        boolean matches = Asserts.nonEmpty(annotations) && !Boolean.FALSE.equals(annotations);
         if (matches) {
             logger.info("matched -> targetClass={},method={},annotaions={}", targetClass, method, annotations);
         }

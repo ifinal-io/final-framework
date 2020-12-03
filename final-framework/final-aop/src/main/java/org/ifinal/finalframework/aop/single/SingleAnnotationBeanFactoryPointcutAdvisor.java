@@ -1,9 +1,6 @@
 package org.ifinal.finalframework.aop.single;
 
-import org.ifinal.finalframework.aop.AnnotationBuilder;
-import org.ifinal.finalframework.aop.AnnotationSource;
-import org.ifinal.finalframework.aop.AnnotationSourceMethodPoint;
-import org.ifinal.finalframework.aop.InterceptorHandler;
+import org.ifinal.finalframework.aop.*;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 import org.springframework.lang.NonNull;
@@ -27,7 +24,7 @@ public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annot
 
     public SingleAnnotationBeanFactoryPointcutAdvisor(AnnotationSource<Collection<E>> source, List<InterceptorHandler<T, E>> handlers) {
         this.pointcut = new AnnotationSourceMethodPoint(source);
-        setAdvice(new SingleAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
+        setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
             @Override
             @NonNull
             protected T getExecutor(E annotation) {

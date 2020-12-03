@@ -2,7 +2,7 @@ package org.ifinal.finalframework.monitor.handler;
 
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.monitor.context.TraceContext;
-import org.ifinal.finalframework.monitor.executor.Tracer;
+import org.ifinal.finalframework.monitor.trace.Tracer;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Component;
 

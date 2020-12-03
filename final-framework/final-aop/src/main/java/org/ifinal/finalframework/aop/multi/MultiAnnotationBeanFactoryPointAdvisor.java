@@ -2,6 +2,7 @@ package org.ifinal.finalframework.aop.multi;
 
 import org.ifinal.finalframework.aop.AnnotationBuilder;
 import org.ifinal.finalframework.aop.AnnotationSourceMethodPoint;
+import org.ifinal.finalframework.aop.DefaultAnnotationMethodInterceptor;
 import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.single.SingleAnnotationSource;
 import org.springframework.aop.Pointcut;
@@ -26,7 +27,7 @@ public abstract class MultiAnnotationBeanFactoryPointAdvisor<A, E> extends Abstr
 
     public MultiAnnotationBeanFactoryPointAdvisor() {
         this.pointcut = new AnnotationSourceMethodPoint(source);
-        this.setAdvice(new MultiAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
+        this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
             @Override
             protected E getExecutor(A annotation) {
                 return MultiAnnotationBeanFactoryPointAdvisor.this.getExecutor(annotation);
