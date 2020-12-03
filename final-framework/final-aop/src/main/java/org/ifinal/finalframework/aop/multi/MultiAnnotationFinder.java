@@ -1,5 +1,6 @@
-package org.ifinal.finalframework.aop;
+package org.ifinal.finalframework.aop.multi;
 
+import org.ifinal.finalframework.aop.AnnotationFinder;
 import org.ifinal.finalframework.aop.single.SingleAnnotationFinder;
 
 import java.lang.annotation.Annotation;
@@ -13,11 +14,11 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class MultiAnnotationFinder implements AnnotationFinder<Annotation, Map<Class<? extends Annotation>, Collection<? extends Annotation>>> {
+public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>> {
 
     private final Collection<Class<? extends Annotation>> annotationTypes;
 
-    private final Map<Class<? extends Annotation>, AnnotationFinder<? extends Annotation, Collection<? extends Annotation>>> finders;
+    private final Map<Class<? extends Annotation>, AnnotationFinder<Collection<? extends Annotation>>> finders;
 
     public MultiAnnotationFinder(Collection<Class<? extends Annotation>> annotationTypes) {
         this.annotationTypes = annotationTypes;
@@ -41,7 +42,7 @@ public class MultiAnnotationFinder implements AnnotationFinder<Annotation, Map<C
         return map;
     }
 
-    private AnnotationFinder<? extends Annotation, Collection<? extends Annotation>> getAnnotationFinder(Class<? extends Annotation> annotationType) {
+    private AnnotationFinder<Collection<? extends Annotation>> getAnnotationFinder(Class<? extends Annotation> annotationType) {
         return finders.computeIfAbsent(annotationType, annType -> new SingleAnnotationFinder(annType));
     }
 }

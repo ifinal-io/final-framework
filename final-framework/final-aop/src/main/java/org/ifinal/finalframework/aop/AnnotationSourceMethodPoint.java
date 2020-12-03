@@ -3,6 +3,7 @@ package org.ifinal.finalframework.aop;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
+import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
 
@@ -21,7 +22,7 @@ public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
     }
 
     @Override
-    public boolean matches(Method method, Class<?> targetClass) {
+    public boolean matches(@NonNull Method method, @NonNull Class<?> targetClass) {
         Object annotations = source.getAnnotations(method, targetClass);
 
         boolean matches = Asserts.nonEmpty(annotations) && !Boolean.FALSE.equals(annotations);

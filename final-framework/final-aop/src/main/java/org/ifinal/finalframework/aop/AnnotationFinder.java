@@ -20,8 +20,8 @@ import java.lang.reflect.Parameter;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface AnnotationFinder<A extends Annotation, C> {
+public interface AnnotationFinder<A> {
 
-    C findAnnotations(@NonNull AnnotatedElement ae);
+    A findAnnotations(@NonNull AnnotatedElement ae);
 
 }

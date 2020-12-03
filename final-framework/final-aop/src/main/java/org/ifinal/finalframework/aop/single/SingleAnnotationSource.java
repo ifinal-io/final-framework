@@ -28,7 +28,7 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
         this(new SingleAnnotationParser<>(annotationType, builder));
     }
 
-    public SingleAnnotationSource(AnnotationFinder<A, Collection<A>> finder, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationSource(AnnotationFinder<Collection<A>> finder, AnnotationBuilder<A, E> builder) {
         this(new SingleAnnotationParser<>(finder, builder));
     }
 

@@ -12,7 +12,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SimpleAnnotationFinder implements AnnotationFinder<Annotation, Boolean> {
+public class SimpleAnnotationFinder implements AnnotationFinder<Boolean> {
 
     private final Collection<Class<? extends Annotation>> annotationTypes;
 

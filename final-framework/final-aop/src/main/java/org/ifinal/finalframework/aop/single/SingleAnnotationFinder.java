@@ -15,7 +15,7 @@ import java.util.Set;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleAnnotationFinder<A extends Annotation> implements AnnotationFinder<A, Collection<A>> {
+public class SingleAnnotationFinder<A extends Annotation> implements AnnotationFinder<Collection<A>> {
 
     private final Class<A> ann;
     private final boolean repeatable;

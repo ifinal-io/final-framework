@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class SingleAnnotationParser<A extends Annotation, E> implements AnnotationParser<Collection<E>> {
 
-    private final AnnotationFinder<A, Collection<A>> finder;
+    private final AnnotationFinder<Collection<A>> finder;
     private final AnnotationBuilder<A, E> builder;
 
 
@@ -25,7 +25,7 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
         this(new SingleAnnotationFinder<>(annotationType), builder);
     }
 
-    public SingleAnnotationParser(AnnotationFinder<A, Collection<A>> finder, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationParser(AnnotationFinder<Collection<A>> finder, AnnotationBuilder<A, E> builder) {
         this.finder = finder;
         this.builder = builder;
     }
