@@ -46,5 +46,10 @@
             <groupId>org.ifinal.finalframework.auto</groupId>
             <artifactId>final-auto-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

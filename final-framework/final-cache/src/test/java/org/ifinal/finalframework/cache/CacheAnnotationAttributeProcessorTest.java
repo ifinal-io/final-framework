@@ -3,6 +3,7 @@ package org.ifinal.finalframework.cache;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.util.Reflections;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -26,6 +27,7 @@ class CacheAnnotationAttributeProcessorTest {
 
         Set<Cacheable> annotations = AnnotatedElementUtils.findAllMergedAnnotations(cacheable, Cacheable.class);
 
+        Assertions.assertTrue(annotations.size() > 0);
 
         for (Cacheable annotation : annotations) {
             AnnotationAttributes annotationAttributes = Reflections.getAnnotationAttributes(annotation);
