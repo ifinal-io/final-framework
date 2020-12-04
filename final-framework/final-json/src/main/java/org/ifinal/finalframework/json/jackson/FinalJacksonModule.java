@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.json.jackson.deserializer.EnumDeserializer;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
@@ -33,11 +35,29 @@ public class FinalJacksonModule extends SimpleModule {
 
         addSerializer(IEnum.class, EnumCodeSerializer.instance);
 
+        initEnumDeserializer();
+
+
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         addSerializer(Class.class, new ClassJsonSerializer());
 
 
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initEnumDeserializer() {
+        for (String name : ServicesLoader.load(IEnum.class)) {
+            try {
+                Class<IEnum<?>> clazz = (Class<IEnum<?>>) Class.forName(name);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("add enum deserializer: {}", name);
+                }
+                addDeserializer(clazz, new EnumDeserializer<>(clazz));
+            } catch (ClassNotFoundException e) {
+                throw new IllegalArgumentException("not found class of " + name);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

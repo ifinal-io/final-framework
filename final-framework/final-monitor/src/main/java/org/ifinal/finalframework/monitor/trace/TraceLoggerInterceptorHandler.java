@@ -59,7 +59,7 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
         Parameter[] parameters = metadata.getMethod().getParameters();
 
         for (int i = 0; i < args.length; i++) {
-            logger.info("{},Parameter: {}={}", tab, parameters[i].getName(), args[i].toString());
+            logger.info("{},Parameter: {}={}", tab, parameters[i].getName(), args[i]);
         }
 
 

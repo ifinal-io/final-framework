@@ -4,6 +4,7 @@ import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.CacheLockException;
 import org.ifinal.finalframework.cache.annotation.CacheLock;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,15 +34,16 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
     public Object before(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation) {
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
-        final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), context.metadata(), evaluationContext);
+        MethodMetadata metadata = context.metadata();
+        final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), metadata, evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + annotation);
         }
-        final Object value = Asserts.isEmpty(annotation.getString("value")) ? key : generateValue(annotation.getString("value"), context.metadata(), evaluationContext);
+        final Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
 
         Long ttl;
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-        Object expired = generateExpire(annotation.getString("expire"), context.metadata(), evaluationContext);
+        Object expired = generateExpire(annotation.getString("expire"), metadata, evaluationContext);
 
         if (expired != null) {
             if (expired instanceof Date) {
@@ -54,10 +56,12 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
             timeUnit = annotation.getEnum("timeUnit");
         }
 
-        final Long sleep = annotation.getNumber("sleep");
+        final long sleep = annotation.getNumber("sleep");
         context.addAttribute(KEY, key);
         context.addAttribute(VALUE, value);
+
         int retry = 0;
+        int maxRetry = annotation.getNumber("retry").intValue();
         do {
             logger.info("==> try to lock: key={},value={},ttl={},timeUnit={},retry={}", key, value, ttl, timeUnit, retry);
             final boolean lock = cache.lock(key, value, ttl, timeUnit);
@@ -67,7 +71,7 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
                 return null;
             }
 
-            if (sleep != null && sleep > 0L) {
+            if (sleep > 0L) {
                 try {
                     Thread.sleep(sleep);
                 } catch (InterruptedException e) {
@@ -77,11 +81,16 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
             }
 
             retry++;
-        } while (retry <= annotation.getNumber("retry").intValue());
+        } while (retry <= maxRetry);
 
         context.addAttribute(LOCK, false);
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
+
+    private boolean tryLock(Cache cache, String key, String value, Long ttl, TimeUnit timeUnit) {
+        return false;
+    }
+
 
     @Override
     public void after(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation,

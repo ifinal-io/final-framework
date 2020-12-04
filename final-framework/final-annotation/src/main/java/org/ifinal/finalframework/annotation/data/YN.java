@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import org.ifinal.finalframework.annotation.IEntity;
 import org.ifinal.finalframework.annotation.IEnum;
 import org.springframework.context.annotation.Description;
@@ -43,10 +42,10 @@ public enum YN implements IEnum<Integer> {
     }
 
 
-    @JsonCreator
-    public static YN valueOf(Integer value) {
-        return CACHE.get(value);
-    }
+//    @JsonCreator
+//    public static YN valueOf(Integer value) {
+//        return CACHE.get(value);
+//    }
 
     @Override
     @NonNull

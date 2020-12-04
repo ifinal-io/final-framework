@@ -1,5 +1,4 @@
----
-layout: post
+n--- layout: post
 title: how-to-define-an-entity
 subtitle: how-to-define-an-entity
 description: how-to-define-an-entity

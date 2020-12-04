@@ -19,10 +19,18 @@ version: 1.0
 
 ```xml
 
+<dependencies>
+    <dependency>
+        <groupId>org.ifinal.finalframework.boot</groupId>
+        <artifactId>final-boot-starter-service</artifactId>
+        <version>${final.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.ifinal.finalframework.auto</groupId>
+        <artifactId>final-auto-service</artifactId>
+        <version>${final.version}</version>
+        <optional>true</optional>
+    </dependency>
+</dependencies>
 ```
 
-* gradle
-
-```groovy
-
-```

@@ -1,9 +1,10 @@
 package org.ifinal.finalframework.monitor.handler;
 
 
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
-import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
+import org.ifinal.finalframework.aop.JoinPointInterceptorHandler;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.monitor.action.Action;
 import org.ifinal.finalframework.monitor.action.Recorder;
@@ -18,7 +19,7 @@ import org.springframework.lang.NonNull;
  * @see org.ifinal.finalframework.annotation.monitor.ActionMonitor
  * @since 1.0.0
  */
-public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements InterceptorHandler<Recorder, AnnotationAttributes> {
+public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements JoinPointInterceptorHandler<Recorder, AnnotationAttributes> {
 
     /**
      * @see ActionMonitor#name()
@@ -41,6 +42,21 @@ public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHand
      * @see ActionMonitor#level()
      */
     private static final String ATTRIBUTE_LEVEL = "level";
+
+    /**
+     * @see ActionMonitor#point()
+     */
+    private static final String ATTRIBUTE_POINT = "point";
+
+    /**
+     * @param annotation annotation
+     * @return the action join point
+     * @see ActionMonitor#point()
+     */
+    @Override
+    public JoinPoint point(AnnotationAttributes annotation) {
+        return annotation.getEnum(ATTRIBUTE_POINT);
+    }
 
     @Override
     public void handle(@NonNull Recorder executor, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {

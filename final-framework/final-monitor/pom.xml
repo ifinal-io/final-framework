@@ -25,6 +25,10 @@
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

@@ -25,9 +25,9 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping
-    @Cacheable(key = "person")
+    @Cacheable(key = {"person", "${#id}"})
     @ActionMonitor(name = {"查询Person", "${#result[0].id}"}, target = "${#result[0].id}")
-    public List<Person> query() {
+    public List<Person> query(Long id) {
         return personService.select(new PersonQuery());
     }
 

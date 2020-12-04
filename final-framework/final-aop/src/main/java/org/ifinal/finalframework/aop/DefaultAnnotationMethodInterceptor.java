@@ -7,6 +7,7 @@ import org.springframework.context.expression.AnnotatedElementKey;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -40,7 +41,7 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
         InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(), invocation.getArguments());
 
         Object operationValue = dispatcher.before(context, annotations);
-        if (operationValue != null) {
+        if (Objects.nonNull(operationValue)) {
             return operationValue;
         }
 
