@@ -8,8 +8,7 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class AbsSimpleBeanPropertySerializerModifier<T> extends AbsBeanPropertySerializerModifier {
-
+public abstract class AbsSimpleBeanPropertySerializerModifier extends AbsBeanPropertySerializerModifier {
 
 
     @Override

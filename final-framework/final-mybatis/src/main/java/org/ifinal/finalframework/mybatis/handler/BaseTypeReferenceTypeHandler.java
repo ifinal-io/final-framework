@@ -15,12 +15,12 @@ public abstract class BaseTypeReferenceTypeHandler<T> extends BaseTypeHandler<T>
 
     private final Type type;
 
-    public BaseTypeReferenceTypeHandler(Type type) {
+    protected BaseTypeReferenceTypeHandler(Type type) {
         this.type = type;
     }
 
     @SuppressWarnings("unused")
-    public BaseTypeReferenceTypeHandler() {
+    protected BaseTypeReferenceTypeHandler() {
         this.type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 

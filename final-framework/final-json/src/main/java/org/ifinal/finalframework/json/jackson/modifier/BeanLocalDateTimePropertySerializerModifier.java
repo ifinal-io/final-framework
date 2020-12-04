@@ -20,7 +20,7 @@ import java.util.Collections;
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
-public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<LocalDateTime> {
+public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

@@ -19,7 +19,7 @@ import java.util.Date;
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
-public class BeanDatePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<Date> {
+public class BeanDatePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier {
 
 
     @Override

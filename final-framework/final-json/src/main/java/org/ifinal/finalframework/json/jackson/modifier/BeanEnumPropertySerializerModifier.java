@@ -33,7 +33,7 @@ import java.util.Collection;
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
-public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<IEnum<?>> {
+public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier {
 
     private static final String ENUM_NAME_PROPERTY_SUFFIX = "Name";
     private static final String ENUM_DESC_PROPERTY_SUFFIX = "Desc";

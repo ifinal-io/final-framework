@@ -19,7 +19,7 @@ import java.util.Collections;
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
-public class BeanLocalDatePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier<LocalDate> {
+public class BeanLocalDatePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier {
 
     @Override
     protected boolean support(Class<?> clazz) {
