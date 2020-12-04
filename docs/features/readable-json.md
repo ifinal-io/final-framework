@@ -8,9 +8,9 @@ menus:
 
 # Readable JSON
 
-## 日期
+## Date
 
-你定义包含日期类型的的Bean：
+Define a bean with data type property.
 
 ```java
 
@@ -21,7 +21,7 @@ public class DateBean {
 }
 ```
 
-你得到序列化后的JSON：
+the json will get:
 
 ```json
 {
@@ -32,9 +32,9 @@ public class DateBean {
 }
 ```
 
-## 枚举
+## Enum
 
-你定义包含**枚举类型的Bean：
+Define a bean with enum type property.
 
 ```java
 
@@ -44,7 +44,7 @@ static class EnumBean {
 }
 ```
 
-你得到序列化后的JSON：
+the json will get like this:
 
 ```json
 {
