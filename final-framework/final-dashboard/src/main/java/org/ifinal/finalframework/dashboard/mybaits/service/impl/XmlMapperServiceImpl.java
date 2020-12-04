@@ -14,6 +14,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @Service
+@SuppressWarnings("unused")
 class XmlMapperServiceImpl implements XmlMapperService {
 
     @Override
@@ -29,7 +30,7 @@ class XmlMapperServiceImpl implements XmlMapperService {
 
             return SqlProviderHelper.xml(query.getMapper(), query.getMethod(), parameters);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public interface QEntity<I extends Serializable, T> extends Streamable<QProperty<?>>, Iterable<QProperty<?>> {
 
-    static QEntity<?, ?> from(Class<?> entity) {
+    static <I extends Serializable, T> QEntity<I, T> from(Class<T> entity) {
         return new AbsQEntity<>(entity);
     }
 
@@ -30,7 +30,7 @@ public interface QEntity<I extends Serializable, T> extends Streamable<QProperty
 
     QProperty<I> getIdProperty();
 
-    QProperty getVersionProperty();
+    <E> QProperty<E> getVersionProperty();
 
     default boolean hasVersionProperty() {
         return getVersionProperty() != null;
@@ -38,8 +38,8 @@ public interface QEntity<I extends Serializable, T> extends Streamable<QProperty
 
     <E> QProperty<E> getProperty(String path);
 
-    default QProperty getRequiredProperty(String path) {
-        QProperty<?> property = getProperty(path);
+    default <E> QProperty<E> getRequiredProperty(String path) {
+        QProperty<E> property = getProperty(path);
 
         if (property != null) {
             return property;

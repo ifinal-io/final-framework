@@ -89,7 +89,9 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
 
         long start = context.getAttribute(TRACE_START);
         final long duration = System.currentTimeMillis() - start;
-        logger.info("{},Duration:{}", tab, Duration.ofMinutes(duration).toString());
+        if (logger.isInfoEnabled()) {
+            logger.info("{},Duration:{}", tab, Duration.ofMinutes(duration).toString());
+        }
 
         if (Objects.nonNull(throwable)) {
             if (throwable instanceof IException && !(throwable instanceof InternalServerException)) {
