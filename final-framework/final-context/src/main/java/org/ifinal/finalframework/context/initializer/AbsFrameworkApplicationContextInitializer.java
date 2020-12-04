@@ -19,7 +19,7 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
 
     private final Class<?> framework;
 
-    public AbsFrameworkApplicationContextInitializer(Class<?> framework) {
+    protected AbsFrameworkApplicationContextInitializer(Class<?> framework) {
         this.framework = framework;
     }
 

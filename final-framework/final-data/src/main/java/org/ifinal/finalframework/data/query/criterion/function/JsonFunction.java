@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface JsonFunction<V, R> {
+public interface JsonFunction<R> {
     /**
      * 获取 JSON 字符串中指定的属性值
      *

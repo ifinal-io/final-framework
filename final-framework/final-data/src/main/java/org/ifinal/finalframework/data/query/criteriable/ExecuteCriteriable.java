@@ -10,8 +10,8 @@ import org.ifinal.finalframework.data.query.criterion.function.*;
  */
 public interface ExecuteCriteriable<V> extends
         DateFunction<CriterionTarget<CriterionFunction>>,
-        MathFunction<V, CriterionTarget<CriterionFunction>>,
+        MathFunction<CriterionTarget<CriterionFunction>>,
         LogicFunction<V, CriterionTarget<CriterionFunction>>,
-        JsonFunction<V, CriterionTarget<CriterionFunction>> {
+        JsonFunction<CriterionTarget<CriterionFunction>> {
 
 }

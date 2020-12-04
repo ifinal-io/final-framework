@@ -133,7 +133,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
-    public AnnotationProperty(org.springframework.data.mapping.model.Property property, org.ifinal.finalframework.data.mapping.Entity owner, SimpleTypeHolder simpleTypeHolder) {
+    public AnnotationProperty(org.springframework.data.mapping.model.Property property, org.ifinal.finalframework.data.mapping.Entity<?> owner, SimpleTypeHolder simpleTypeHolder) {
         super(property, owner, simpleTypeHolder);
     }
 
