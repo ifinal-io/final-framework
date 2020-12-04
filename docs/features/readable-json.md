@@ -1,22 +1,19 @@
 ---
-layout: post
-title: 增强的JSON
-subtitle: json
-description: json
-tags: []
+layout: post title: 增强的JSON subtitle: json description: json tags: []
 menus:
-    - json
-date: 2020-11-11 15:44:32 +800
-version: 1.0
+
+- json date: 2020-11-11 15:44:32 +800 version: 1.0
+
 ---
-    
-# 增强的JSON
+
+# Readable JSON
 
 ## 日期
 
 你定义包含日期类型的的Bean：
 
 ```java
+
 @Data
 public class DateBean {
     private Date date;
@@ -28,10 +25,10 @@ public class DateBean {
 
 ```json
 {
-    "date":1605059845585,
-    "dateFormat":"2020-11-11 09:57:25",
-    "localDateTime":1605059845603,
-    "localDateTimeFormat":"2020-11-11 09:57:25"
+  "date": 1605059845585,
+  "dateFormat": "2020-11-11 09:57:25",
+  "localDateTime": 1605059845603,
+  "localDateTimeFormat": "2020-11-11 09:57:25"
 }
 ```
 
@@ -40,8 +37,9 @@ public class DateBean {
 你定义包含**枚举类型的Bean：
 
 ```java
+
 @Data
-static class EnumBean{
+static class EnumBean {
     private YN yn = YN.YES;
 }
 ```
@@ -50,9 +48,10 @@ static class EnumBean{
 
 ```json
 {
-    "yn":1,
-    "ynName":"YES",
-    "ynDesc":"有效"
+  "yn": 1,
+  "ynName": "YES",
+  "ynDesc": "有效"
 }
 ```
-    
+
+> 枚举需要实现接口：`IEnum`。    
