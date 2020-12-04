@@ -1,10 +1,10 @@
 package org.ifinal.finalframework.monitor.action;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
 import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -15,10 +15,10 @@ import java.util.Map;
  * @see ActionMonitor
  * @since 1.0.0
  */
-@Data
-public class Action implements Serializable {
+@Getter
+@Setter
+public class Action {
 
-    private static final long serialVersionUID = 6604755172250911622L;
     /**
      * 名称
      *

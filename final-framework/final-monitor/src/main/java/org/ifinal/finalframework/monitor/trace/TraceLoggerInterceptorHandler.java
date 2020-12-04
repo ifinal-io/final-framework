@@ -8,6 +8,7 @@ import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Parameter;
 import java.time.Duration;
@@ -29,7 +30,7 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
 
 
     @Override
-    public Object before(Tracer executor, InvocationContext context, Boolean annotation) {
+    public Object before(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation) {
         context.addAttribute(TRACE_START, System.currentTimeMillis());
 
         MethodMetadata metadata = context.metadata();
@@ -67,17 +68,7 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     }
 
     @Override
-    public void afterReturning(Tracer executor, InvocationContext context, Boolean annotation, Object result) {
-
-    }
-
-    @Override
-    public void afterThrowing(Tracer executor, InvocationContext context, Boolean annotation, Throwable throwable) {
-
-    }
-
-    @Override
-    public void after(Tracer executor, InvocationContext context, Boolean annotation, Object result, Throwable throwable) {
+    public void after(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation, Object result, Throwable throwable) {
         MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
 
