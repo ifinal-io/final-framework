@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.util.stream.Streamable;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
@@ -11,7 +10,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Update extends Streamable<UpdateSetOperation>, Iterable<UpdateSetOperation>, SqlNode {
+public interface Update extends Iterable<UpdateSetOperation>, SqlNode {
 
     static Update update() {
         return UpdateImpl.update();

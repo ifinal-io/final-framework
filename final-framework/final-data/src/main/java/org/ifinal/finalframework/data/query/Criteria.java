@@ -2,7 +2,6 @@ package org.ifinal.finalframework.data.query;
 
 import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
-import org.ifinal.finalframework.util.stream.Streamable;
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Criteria extends Criterion, Streamable<Criterion>, Iterable<Criterion>, SqlNode {
+public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
 
     static Criteria where(Criterion... criterion) {
         return and(criterion);

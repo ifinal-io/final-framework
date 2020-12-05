@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -50,11 +49,6 @@ final class SortImpl extends ArrayList<Order> implements Sort {
         }
 
         return SortImpl.by(these);
-    }
-
-    @Override
-    public Stream<Order> stream() {
-        return super.stream();
     }
 
     @Override

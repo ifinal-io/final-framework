@@ -7,7 +7,6 @@ import org.springframework.lang.NonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -64,8 +63,4 @@ class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
     }
 
 
-    @Override
-    public Stream<UpdateSetOperation> stream() {
-        return super.stream();
-    }
 }

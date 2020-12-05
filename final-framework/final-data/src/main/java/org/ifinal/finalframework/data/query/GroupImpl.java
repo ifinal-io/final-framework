@@ -5,7 +5,6 @@ import org.ifinal.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -35,8 +34,5 @@ final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
         return GroupImpl.by(these);
     }
 
-    public Stream<QProperty<?>> stream() {
-        return super.stream();
-    }
 }
 

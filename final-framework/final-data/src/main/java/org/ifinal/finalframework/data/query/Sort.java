@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
 import org.ifinal.finalframework.annotation.query.Direction;
-import org.ifinal.finalframework.util.stream.Streamable;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Sort extends Streamable<Order>, Iterable<Order>, SqlNode {
+public interface Sort extends Iterable<Order>, SqlNode {
 
     static Sort sort(Direction direction, QProperty<?>... properties) {
         return SortImpl.sort(direction, properties);

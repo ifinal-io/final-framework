@@ -4,7 +4,6 @@ import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * @author likly
@@ -55,11 +54,6 @@ final class CriteriaImpl implements Criteria {
         list.add(this);
         list.addAll(Arrays.asList(criteria));
         return new CriteriaImpl(andOr, list);
-    }
-
-    @Override
-    public Stream<Criterion> stream() {
-        return criteria.stream();
     }
 
     @Override
