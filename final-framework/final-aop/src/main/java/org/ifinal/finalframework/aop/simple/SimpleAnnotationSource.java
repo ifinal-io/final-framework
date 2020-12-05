@@ -33,14 +33,6 @@ public class SimpleAnnotationSource implements AnnotationSource<Boolean> {
         Object cacheKey = getCacheKey(method, targetClass);
         return cache.computeIfAbsent(cacheKey, key -> {
 
-            if (targetClass != null && targetClass.getPackage() != null) {
-
-                if (targetClass.getPackage().getName().contains("spring")) {
-                    return false;
-                }
-            }
-
-
             if (Boolean.TRUE.equals(finder.findAnnotations(method))) {
                 return true;
             }

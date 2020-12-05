@@ -6,6 +6,7 @@ import org.ifinal.finalframework.cache.CacheLockException;
 import org.ifinal.finalframework.cache.annotation.CacheLock;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.Dates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -14,7 +15,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,22 +42,16 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + annotation);
         }
-        final Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
+        Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
 
-        Long ttl;
-        TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-        Object expired = generateExpire(annotation.getString("expire"), metadata, evaluationContext);
-
-        if (expired != null) {
-            if (expired instanceof Date) {
-                ttl = ((Date) expired).getTime() - System.currentTimeMillis();
-            } else {
-                throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
-            }
-        } else {
-            ttl = annotation.getNumber("ttl");
-            timeUnit = annotation.getEnum("timeUnit");
+        if (Objects.isNull(value)) {
+            value = key;
         }
+
+        // find the ttl form expire and ttl
+        Long ttl = ttl(annotation, metadata, evaluationContext);
+        TimeUnit timeUnit = annotation.getEnum("timeUnit");
+
 
         final long sleep = annotation.getNumber("sleep");
         context.addAttribute(KEY, key);
@@ -87,8 +84,22 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
-    private boolean tryLock(Cache cache, String key, String value, Long ttl, TimeUnit timeUnit) {
-        return false;
+    private Long ttl(AnnotationAttributes annotation, MethodMetadata metadata, EvaluationContext evaluationContext) {
+        Object expired = generateExpire(annotation.getString("expire"), metadata, evaluationContext);
+
+        if (expired != null) {
+            if (expired instanceof Date) {
+                return ((Date) expired).getTime() - System.currentTimeMillis();
+            } else if (expired instanceof LocalDateTime) {
+                Date date = Dates.to((LocalDateTime) expired);
+                Objects.requireNonNull(date);
+                return date.getTime() - System.currentTimeMillis();
+            } else {
+                throw new IllegalArgumentException("unSupport expire type: " + expired.getClass());
+            }
+        } else {
+            return annotation.getNumber("ttl");
+        }
     }
 
 
