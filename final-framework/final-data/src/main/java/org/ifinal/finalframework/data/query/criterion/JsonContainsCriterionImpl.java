@@ -3,6 +3,7 @@ package org.ifinal.finalframework.data.query.criterion;
 
 import lombok.Getter;
 import org.ifinal.finalframework.data.query.operation.JsonOperation;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -55,7 +56,7 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
      */
 
     @Override
-    public void apply(StringBuilder sql, String expression) {
+    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
 
         sql.append("<trim prefix=\"");
         switch (operation) {

@@ -18,7 +18,7 @@ public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I
 
     private final R repository;
 
-    public AbsServiceImpl(@NonNull R repository) {
+    protected AbsServiceImpl(@NonNull R repository) {
         this.repository = repository;
     }
 

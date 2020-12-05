@@ -39,6 +39,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements Si
         return value;
     }
 
+    @SuppressWarnings("unused")
     public String getCriterionValue() {
         String expression = OPERATOR_IN.contains(getOperation()) ? "value" : "criterion.value";
         return ((CriterionValueImpl<?>) CriterionValue.from(value)).getSqlExpression(expression);

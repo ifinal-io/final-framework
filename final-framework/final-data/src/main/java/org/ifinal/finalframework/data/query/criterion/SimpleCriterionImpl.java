@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.data.query.operation.Operation;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -13,19 +13,20 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     private final Object target;
     private final Operation operation;
 
-    @SuppressWarnings("unchecked")
-    public SimpleCriterionImpl(AbsBuilder builder) {
+    protected SimpleCriterionImpl(AbsBuilder builder) {
         this.target = builder.target;
         this.operation = builder.operation;
     }
 
     @Override
+    @NonNull
     public Object getTarget() {
         return this.target;
     }
 
 
     @Override
+    @NonNull
     public Operation getOperation() {
         return this.operation;
     }
@@ -39,17 +40,18 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
         private Object target;
         private Operation operation;
-        private Class<? extends TypeHandler<?>> typeHandler;
 
         @Override
-        public R target(Object target) {
+        @NonNull
+        public R target(@NonNull Object target) {
             this.target = target;
             return (R) this;
         }
 
 
         @Override
-        public R operation(Operation operation) {
+        @NonNull
+        public R operation(@NonNull Operation operation) {
             this.operation = operation;
             return (R) this;
         }

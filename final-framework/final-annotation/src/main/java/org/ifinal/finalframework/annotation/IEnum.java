@@ -35,7 +35,6 @@ public interface IEnum<T> {
      *
      * @return enum code
      */
-//    @JsonValue
     @NonNull
     T getCode();
 

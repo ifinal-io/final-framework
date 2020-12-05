@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.data.query.criterion;
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.0.0
@@ -14,8 +16,8 @@ public interface SingleCriterion<T> extends SimpleCriterion {
     T getValue();
 
     @Override
-    default void apply(StringBuilder parent, String expression) {
-
+    default void apply(@NonNull StringBuilder parent, @NonNull String expression) {
+        // nothing
     }
 
     interface Builder<T> extends SimpleCriterion.Builder<SingleCriterion<T>, Builder<T>> {

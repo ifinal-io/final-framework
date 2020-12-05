@@ -11,7 +11,7 @@ import org.springframework.lang.NonNull;
  * @see SingleCriterion
  * @since 1.0.0
  */
-public interface SimpleCriterion<T> extends Criterion {
+public interface SimpleCriterion extends Criterion {
 
     @NonNull
     Object getTarget();
@@ -22,7 +22,7 @@ public interface SimpleCriterion<T> extends Criterion {
     interface Builder<T, R extends Builder> extends org.ifinal.finalframework.util.Builder<T> {
 
         @NonNull
-        R target(Object target);
+        R target(@NonNull Object target);
 
         @NonNull
         R operation(@NonNull Operation operation);
