@@ -16,7 +16,7 @@ import static org.ifinal.finalframework.data.query.operation.Operation.CompareOp
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleCriterionImpl<T> extends SimpleCriterionImpl<T> implements SingleCriterion<T> {
+public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements SingleCriterion<T> {
 
     private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
             IN,

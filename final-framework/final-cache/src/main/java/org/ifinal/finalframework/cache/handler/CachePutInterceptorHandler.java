@@ -59,8 +59,10 @@ public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHand
             timeUnit = operation.getEnum("timeUnit");
         }
 
-        logger.info("==> cache set: key={},field={},ttl={},timeunit={}", key, field, ttl, timeUnit);
-        logger.info("==> cache value: {}", Json.toJson(cacheValue));
+        if (logger.isInfoEnabled()) {
+            logger.info("==> cache set: key={},field={},ttl={},timeunit={}", key, field, ttl, timeUnit);
+            logger.info("==> cache value: {}", Json.toJson(cacheValue));
+        }
         cache.set(key, field, cacheValue, ttl, timeUnit, context.view());
     }
 }

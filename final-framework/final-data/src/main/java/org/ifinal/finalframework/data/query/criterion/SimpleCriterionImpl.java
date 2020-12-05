@@ -8,12 +8,12 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
+public abstract class SimpleCriterionImpl implements SimpleCriterion {
 
     private final Object target;
     private final Operation operation;
 
-    protected SimpleCriterionImpl(AbsBuilder builder) {
+    protected SimpleCriterionImpl(AbsBuilder<?, ?> builder) {
         this.target = builder.target;
         this.operation = builder.operation;
     }
@@ -32,7 +32,7 @@ public abstract class SimpleCriterionImpl<T> implements SimpleCriterion {
     }
 
     public String getCriterionTarget() {
-        return ((CriterionValueImpl) getTarget()).getSql();
+        return ((CriterionValueImpl<?>) getTarget()).getSql();
     }
 
 

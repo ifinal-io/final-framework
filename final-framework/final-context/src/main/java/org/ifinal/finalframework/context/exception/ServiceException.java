@@ -31,9 +31,10 @@ public class ServiceException extends RuntimeException implements Responsible, I
      */
     private final String code;
 
+    private final String message;
+
     private final transient Object[] args;
 
-    private final String formatMessage;
 
     public ServiceException(Integer status, String description, IException exception, Object... args) {
         this(status, description, exception.getCode(), exception.getMessage(), args);
@@ -44,12 +45,12 @@ public class ServiceException extends RuntimeException implements Responsible, I
     }
 
     public ServiceException(Integer status, String description, String code, String message, Object... args) {
-        super(message = Messages.getMessage(message, message, args));
+        super(description);
         this.status = status;
         this.description = description;
         this.code = code;
+        this.message = Messages.getMessage(message, message, args);
         this.args = args;
-        this.formatMessage = message == null ? null : String.format(message, args);
     }
 
     @NonNull
@@ -73,14 +74,11 @@ public class ServiceException extends RuntimeException implements Responsible, I
     @NonNull
     @Override
     public String getMessage() {
-        return super.getMessage();
+        return this.message;
     }
 
     public Object[] getArgs() {
         return args;
     }
 
-    public String getFormatMessage() {
-        return this.formatMessage;
-    }
 }
