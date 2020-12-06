@@ -4,6 +4,7 @@ import org.ifinal.finalframework.aop.AnnotationBuilder;
 import org.ifinal.finalframework.aop.AnnotationFinder;
 import org.ifinal.finalframework.aop.AnnotationParser;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleAnnotationParser<A extends Annotation, E> implements AnnotationParser<Collection<E>> {
+public class SingleAnnotationParser<A extends Annotation, E> implements AnnotationParser<Collection<E>>, Serializable {
 
     private final AnnotationFinder<Collection<A>> finder;
     private final AnnotationBuilder<A, E> builder;

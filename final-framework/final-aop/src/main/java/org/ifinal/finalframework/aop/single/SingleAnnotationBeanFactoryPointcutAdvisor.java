@@ -14,15 +14,16 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
+@SuppressWarnings("serial")
 public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends AbstractBeanFactoryPointcutAdvisor {
 
     private final Pointcut pointcut;
 
-    public SingleAnnotationBeanFactoryPointcutAdvisor(Class<A> annotationType, AnnotationBuilder<A, E> builder, List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(Class<A> annotationType, AnnotationBuilder<A, E> builder, List<InterceptorHandler<T, E>> handlers) {
         this(new SingleAnnotationSource<>(annotationType, builder), handlers);
     }
 
-    public SingleAnnotationBeanFactoryPointcutAdvisor(AnnotationSource<Collection<E>> source, List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(AnnotationSource<Collection<E>> source, List<InterceptorHandler<T, E>> handlers) {
         this.pointcut = new AnnotationSourceMethodPoint(source);
         setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
             @Override

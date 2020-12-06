@@ -17,6 +17,7 @@ import java.util.Arrays;
  * @since 1.0.0
  */
 @Component
+@SuppressWarnings("serial")
 public class ActionAnnotationBeanFactoryPointcutAdvisor extends SingleAnnotationBeanFactoryPointcutAdvisor<ActionMonitor, AnnotationAttributes, Recorder> {
 
     @Resource

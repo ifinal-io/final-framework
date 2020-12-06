@@ -2,6 +2,7 @@ package org.ifinal.finalframework.aop.simple;
 
 import org.ifinal.finalframework.aop.AnnotationSource;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -14,18 +15,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SimpleAnnotationSource implements AnnotationSource<Boolean> {
+public class SimpleAnnotationSource implements AnnotationSource<Boolean>, Serializable {
 
     private final Map<Object, Boolean> cache = new ConcurrentHashMap<>(1024);
 
     private final SimpleAnnotationFinder finder;
 
     public SimpleAnnotationSource(Collection<Class<? extends Annotation>> annotationTypes) {
-        this(new SimpleAnnotationFinder(annotationTypes));
-    }
-
-    public SimpleAnnotationSource(SimpleAnnotationFinder finder) {
-        this.finder = finder;
+        this.finder = new SimpleAnnotationFinder(annotationTypes);
     }
 
     @Override

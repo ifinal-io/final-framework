@@ -5,6 +5,7 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.lang.NonNull;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -13,7 +14,7 @@ import java.lang.reflect.Method;
  * @since 1.0.0
  */
 @Slf4j
-public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
+public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut implements Serializable {
 
     private final AnnotationSource<?> source;
 
@@ -27,7 +28,7 @@ public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
 
         boolean matches = Asserts.nonEmpty(annotations) && !Boolean.FALSE.equals(annotations);
         if (matches) {
-            logger.info("matched -> targetClass={},method={},annotaions={}", targetClass, method, annotations);
+            logger.info("matched -> targetClass={},method={},annotations={}", targetClass, method, annotations);
         }
         return matches;
     }
