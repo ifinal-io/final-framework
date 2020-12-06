@@ -15,11 +15,10 @@ import java.util.List;
  * @since 1.0.0
  */
 @Data
-@SuppressWarnings("serial")
 public class SqlBound implements Serializable {
     private static final long serialVersionUID = 641816143590205180L;
     private Class<? extends IEntity<?>> entity;
-    private IQuery query;
+    private Class<? extends IQuery> query;
     private String script;
     private String sql;
     private List<ParameterMapping> parameterMappings;

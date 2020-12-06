@@ -162,7 +162,9 @@ public final class SqlProviderHelper {
     public static SqlBound query(Class<? extends IEntity<?>> entity, IQuery query) {
         SqlBound sqlBound = new SqlBound();
         sqlBound.setEntity(entity);
-        sqlBound.setQuery(query);
+        if (Objects.nonNull(query)) {
+            sqlBound.setQuery(query.getClass());
+        }
 
         String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
         sqlBound.setScript(script);
