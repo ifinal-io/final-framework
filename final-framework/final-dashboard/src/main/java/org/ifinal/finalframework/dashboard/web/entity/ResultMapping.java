@@ -3,8 +3,7 @@ package org.ifinal.finalframework.dashboard.web.entity;
 
 import lombok.Data;
 
-import java.lang.reflect.Type;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * @author likly
@@ -12,13 +11,9 @@ import java.util.List;
  * @since 1.0.0
  */
 @Data
-public class ResultMapping {
+public class ResultMapping implements Serializable {
     private String name;
     private Class<?> type;
-    private Type genericType;
-    private List<ResultMapping> resultMappings;
     private boolean required = true;
-    private List<Object> options;
-    private Object value;
 }
 
