@@ -2,7 +2,6 @@ package org.ifinal.finalframework.aop.single;
 
 import org.ifinal.finalframework.aop.*;
 import org.springframework.aop.Pointcut;
-import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 import org.springframework.lang.NonNull;
 
 import java.lang.annotation.Annotation;
@@ -14,8 +13,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("serial")
-public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends AbstractBeanFactoryPointcutAdvisor {
+public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends AbsGenericPointcutAdvisor {
 
     private final Pointcut pointcut;
 

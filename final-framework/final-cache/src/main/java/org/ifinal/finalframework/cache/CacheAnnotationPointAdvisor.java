@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.cache;
 
 import org.ifinal.finalframework.aop.AnnotationAttributesAnnotationBuilder;
-import org.ifinal.finalframework.aop.multi.MultiAnnotationBeanFactoryPointAdvisor;
+import org.ifinal.finalframework.aop.multi.MultiAnnotationPointAdvisor;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.cache.handler.CacheableInterceptorHandler;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -16,12 +16,12 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Component
-public class CacheAnnotationBeanFactoryPointAdvisor extends MultiAnnotationBeanFactoryPointAdvisor<AnnotationAttributes, Cache> {
+public class CacheAnnotationPointAdvisor extends MultiAnnotationPointAdvisor<AnnotationAttributes, Cache> {
 
     @Resource
     private RedisCache redisCache;
 
-    public CacheAnnotationBeanFactoryPointAdvisor() {
+    public CacheAnnotationPointAdvisor() {
 
 //        this.addAnnotation(CacheLock.class, new AnnotationAttributesAnnotationBuilder<>(), new CacheLockInterceptorHandler());
         this.addAnnotation(Cacheable.class, new AnnotationAttributesAnnotationBuilder<>(), new CacheableInterceptorHandler());

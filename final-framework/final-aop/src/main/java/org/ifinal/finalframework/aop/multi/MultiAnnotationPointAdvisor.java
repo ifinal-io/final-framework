@@ -1,12 +1,8 @@
 package org.ifinal.finalframework.aop.multi;
 
-import org.ifinal.finalframework.aop.AnnotationBuilder;
-import org.ifinal.finalframework.aop.AnnotationSourceMethodPoint;
-import org.ifinal.finalframework.aop.DefaultAnnotationMethodInterceptor;
-import org.ifinal.finalframework.aop.InterceptorHandler;
+import org.ifinal.finalframework.aop.*;
 import org.ifinal.finalframework.aop.single.SingleAnnotationSource;
 import org.springframework.aop.Pointcut;
-import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 import org.springframework.lang.NonNull;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,20 +14,20 @@ import java.lang.annotation.Annotation;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class MultiAnnotationBeanFactoryPointAdvisor<A, E> extends AbstractBeanFactoryPointcutAdvisor {
+public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointcutAdvisor {
 
     private final Pointcut pointcut;
 
     private final MultiAnnotationSource<A> source = new MultiAnnotationSource<>();
     private final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers = new LinkedMultiValueMap<>();
 
-    public MultiAnnotationBeanFactoryPointAdvisor() {
+    public MultiAnnotationPointAdvisor() {
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
             @Override
             @NonNull
             protected E getExecutor(A annotation) {
-                return MultiAnnotationBeanFactoryPointAdvisor.this.getExecutor(annotation);
+                return MultiAnnotationPointAdvisor.this.getExecutor(annotation);
             }
         }));
     }
