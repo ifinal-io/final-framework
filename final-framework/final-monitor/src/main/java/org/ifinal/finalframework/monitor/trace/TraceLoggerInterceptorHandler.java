@@ -36,21 +36,7 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
         MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
 
-
-        AtomicInteger atomicInteger = methodDeepCounter.get();
-        if (Objects.isNull(atomicInteger)) {
-            atomicInteger = new AtomicInteger(0);
-            methodDeepCounter.set(atomicInteger);
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        int count = atomicInteger.incrementAndGet();
-        for (int i = 0; i < count; i++) {
-            sb.append(TAB);
-        }
-
-        String tab = sb.toString();
+        String tab = tab();
 
         logger.info("====START====================================================START====");
         logger.info("Class:{}", metadata.getTargetClass().getName());
@@ -67,16 +53,19 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
         return null;
     }
 
-    @Override
-    public void after(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation, Object result, Throwable throwable) {
-        MethodMetadata metadata = context.metadata();
-        final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
-
+    private AtomicInteger counter() {
         AtomicInteger atomicInteger = methodDeepCounter.get();
         if (Objects.isNull(atomicInteger)) {
             atomicInteger = new AtomicInteger(0);
             methodDeepCounter.set(atomicInteger);
         }
+        return atomicInteger;
+    }
+
+
+    private String tab() {
+
+        final AtomicInteger atomicInteger = counter();
 
         StringBuilder sb = new StringBuilder();
 
@@ -85,12 +74,21 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
             sb.append(TAB);
         }
 
-        String tab = sb.toString();
+        return sb.toString();
+    }
+
+    @Override
+    public void after(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation, Object result, Throwable throwable) {
+        MethodMetadata metadata = context.metadata();
+        final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
+
+        final AtomicInteger atomicInteger = counter();
+        final String tab = tab();
 
         long start = context.getAttribute(TRACE_START);
         final long duration = System.currentTimeMillis() - start;
         if (logger.isInfoEnabled()) {
-            logger.info("{},Duration:{}", tab, Duration.ofMinutes(duration).toString());
+            logger.info("{},Duration:{}", tab, Duration.ofMinutes(duration));
         }
 
         if (Objects.nonNull(throwable)) {
@@ -101,7 +99,9 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
                 logger.error("exception: {}", throwable.getMessage(), throwable);
             }
         } else {
-            logger.info("{},Result: {}", tab, Json.toJson(result));
+            if (logger.isInfoEnabled()) {
+                logger.info("{},Result: {}", tab, Json.toJson(result));
+            }
         }
 
         int i = atomicInteger.decrementAndGet();

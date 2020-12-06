@@ -27,6 +27,7 @@
 ## Features
 
 * [Readable Json](docs/features/readable-json.md)：对日期、枚举等数据类型进行序列化增强，提高`JSON`可读性。
+* [Global Exception Handler](docs/features/global-exception-handler.md): 全局异常处理。
 * [通用的CURD](docs/crud.md)：定义通用的CURD方法，统一数据的持久化。
 * [简明的查询](docs/query.md)：基于注解的声明式查询，使查询简单明了。
 * [强大的WEB](docs/web.md)
