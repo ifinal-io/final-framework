@@ -16,13 +16,18 @@ import java.util.Objects;
 @Transient
 public interface IEnum<T> {
 
-
+    /**
+     * return the {@link IEnum} value of {@code code}
+     * @param type the enum type
+     * @param code the enum code
+     * @param <T> enum type
+     * @return enum value of code
+     */
     @Nullable
-    @SuppressWarnings("unused")
     static <T extends IEnum<?>> T valueOf(@NonNull Class<T> type, @NonNull Object code) {
         T[] constants = type.getEnumConstants();
         for (T constant : constants) {
-            if (Objects.equals(constant.getCode(), code)) {
+            if (Objects.equals(constant.getCode().toString(), code.toString())) {
                 return constant;
             }
         }
