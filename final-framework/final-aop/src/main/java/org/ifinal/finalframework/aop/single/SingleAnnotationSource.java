@@ -6,7 +6,6 @@ import org.ifinal.finalframework.aop.AnnotationParser;
 import org.ifinal.finalframework.aop.AnnotationSource;
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -19,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleAnnotationSource<A extends Annotation, E> implements AnnotationSource<Collection<E>>, Serializable {
+public class SingleAnnotationSource<A extends Annotation, E> implements AnnotationSource<Collection<E>> {
 
     private final Map<Object, Collection<E>> cache = new ConcurrentHashMap<>(1024);
 

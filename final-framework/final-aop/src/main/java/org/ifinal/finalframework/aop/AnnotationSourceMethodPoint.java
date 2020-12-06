@@ -5,7 +5,6 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.lang.NonNull;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -14,7 +13,7 @@ import java.lang.reflect.Method;
  * @since 1.0.0
  */
 @Slf4j
-public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut implements Serializable {
+public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
 
     private final AnnotationSource<?> source;
 

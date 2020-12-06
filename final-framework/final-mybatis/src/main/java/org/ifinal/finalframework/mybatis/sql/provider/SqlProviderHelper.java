@@ -142,7 +142,7 @@ public final class SqlProviderHelper {
     private SqlProviderHelper() {
     }
 
-    public static String xml(Class<? extends AbsMapper> mapper, String method, Map<String, Object> parameters) {
+    public static String xml(Class<? extends AbsMapper<?,?>> mapper, String method, Map<String, Object> parameters) {
         try {
             ProviderContext providerContext = PROVIDER_CONTEXT_CONSTRUCTOR.newInstance(mapper, ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method)), null);
             return SQL_PROVIDERS.get(method).provide(providerContext, parameters);
@@ -151,7 +151,7 @@ public final class SqlProviderHelper {
         }
     }
 
-    public static String sql(Class<? extends AbsMapper> mapper, String method, Map<String, Object> parameters) {
+    public static String sql(Class<? extends AbsMapper<?,?>> mapper, String method, Map<String, Object> parameters) {
         Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
         Objects.requireNonNull(sqlMethod, String.format("not found method of %s in %s", method, mapper));
         final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper, sqlMethod);
@@ -162,9 +162,7 @@ public final class SqlProviderHelper {
     public static SqlBound query(Class<? extends IEntity<?>> entity, IQuery query) {
         SqlBound sqlBound = new SqlBound();
         sqlBound.setEntity(entity);
-        if (Objects.nonNull(query)) {
-            sqlBound.setQuery(query.getClass());
-        }
+        sqlBound.setQuery(query.getClass());
 
         String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
         sqlBound.setScript(script);
