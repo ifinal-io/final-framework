@@ -20,7 +20,7 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
 
     private static final long serialVersionUID = -8088506337000616189L;
     private final Collection<Class<? extends Annotation>> annotationTypes;
-    private final Map<Class<? extends Annotation>, AnnotationFinder<Collection<? extends Annotation>>> finders = new LinkedHashMap<>();
+    private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders = new LinkedHashMap<>();
 
     public MultiAnnotationFinder(Collection<Class<? extends Annotation>> annotationTypes) {
         this.annotationTypes = annotationTypes;
@@ -43,7 +43,7 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
         return map;
     }
 
-    private AnnotationFinder<Collection<? extends Annotation>> getAnnotationFinder(Class<? extends Annotation> annotationType) {
-        return finders.computeIfAbsent(annotationType, annType -> new SingleAnnotationFinder(annType));
+    private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(Class<? extends Annotation> annotationType) {
+        return finders.computeIfAbsent(annotationType, SingleAnnotationFinder::new);
     }
 }

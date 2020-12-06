@@ -16,7 +16,7 @@ import java.util.Objects;
 public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvocationDispatcher<Boolean> {
     private final List<InterceptorHandler<T, Boolean>> handlers;
 
-    public SimpleMethodInvocationDispatcher(List<InterceptorHandler<T, Boolean>> handlers) {
+    protected SimpleMethodInvocationDispatcher(List<InterceptorHandler<T, Boolean>> handlers) {
         this.handlers = handlers;
     }
 
@@ -36,7 +36,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
 
 
     @Override
-    public void afterReturning(InvocationContext context, Boolean annotations, Object result) {
+    public void afterReturning(@NonNull InvocationContext context,@NonNull  Boolean annotations, Object result) {
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.afterReturning(executor, context, annotations, result);
@@ -44,7 +44,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void afterThrowing(InvocationContext context, Boolean annotations, Throwable throwable) {
+    public void afterThrowing(@NonNull InvocationContext context,@NonNull  Boolean annotations, Throwable throwable) {
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.afterThrowing(executor, context, annotations, throwable);
@@ -52,7 +52,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void after(InvocationContext context, Boolean annotations, Object result, Throwable throwable) {
+    public void after(@NonNull InvocationContext context, @NonNull Boolean annotations, Object result, Throwable throwable) {
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.after(executor, context, annotations, result, throwable);

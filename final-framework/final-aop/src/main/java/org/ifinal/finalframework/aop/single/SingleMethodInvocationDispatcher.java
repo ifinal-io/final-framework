@@ -18,7 +18,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
     private final List<InterceptorHandler<E, A>> handlers;
 
-    public SingleMethodInvocationDispatcher(List<InterceptorHandler<E, A>> handlers) {
+    protected SingleMethodInvocationDispatcher(List<InterceptorHandler<E, A>> handlers) {
         this.handlers = handlers;
     }
 

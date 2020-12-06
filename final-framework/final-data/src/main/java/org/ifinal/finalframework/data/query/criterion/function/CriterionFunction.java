@@ -4,7 +4,7 @@ import org.ifinal.finalframework.data.query.SqlNode;
 import org.ifinal.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * @author likly
@@ -20,7 +20,7 @@ public interface CriterionFunction extends Operation, SqlNode {
 
     Operation getOperation();
 
-    default CriterionFunction map(@NonNull Function<CriterionFunction, CriterionFunction> mapper) {
+    default CriterionFunction map(@NonNull UnaryOperator<CriterionFunction> mapper) {
         return mapper.apply(this);
     }
 
