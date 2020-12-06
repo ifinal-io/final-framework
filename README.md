@@ -22,6 +22,7 @@
 * [Operating CRUD with Mapper](docs/quick-start/operating-crud-with-mapper.md)：使用`Mapper`操作`CRUD`。
 * [Query base on Annotation](docs/quick-start/query-base-on-annotation.md): 使用基于`@Annotation`的`Query`。
 * [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。
+* [Define Rest Api in Controller](docs/quick-start/define-rest-api-in-controller.md): 定义`RestApi`。
 
 ## Features
 
