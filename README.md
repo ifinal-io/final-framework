@@ -23,19 +23,21 @@
 * [Query base on Annotation](docs/quick-start/query-base-on-annotation.md): 使用基于`@Annotation`的`Query`。
 * [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。
 
-
 ## Features
 
 * [Readable Json](docs/features/readable-json.md)：对日期、枚举等数据类型进行序列化增强，提高`JSON`可读性。
 * [Global Exception Handler](docs/features/global-exception-handler.md): 全局异常处理。
+* [Global Result Wrapper](docs/features/global-result-wrapper.md): 全局结果集封装。
+
+
 * [通用的CURD](docs/crud.md)：定义通用的CURD方法，统一数据的持久化。
 * [简明的查询](docs/query.md)：基于注解的声明式查询，使查询简单明了。
 * [强大的WEB](docs/web.md)
-    * [统一的结果集](docs/web.md#统一的结果集): 对`@RestController`的结果进行统一拦截封装
-    * [全局异常处理](docs/web.md#全局异常处理)：对系统中抛出的`Exception`进行全局的拦截处理，转化为统一的结果集。
-    * [TokenAuth认证机制](docs/auth.md)：简化的权限认证机制。
-* [极简的监控](docs/monitor.md)  
-    * [简单的操作日志](docs/monitor.md#简化的操作日志)
+  * [统一的结果集](docs/web.md#统一的结果集): 对`@RestController`的结果进行统一拦截封装
+  * [全局异常处理](docs/web.md#全局异常处理)：对系统中抛出的`Exception`进行全局的拦截处理，转化为统一的结果集。
+  * [TokenAuth认证机制](docs/auth.md)：简化的权限认证机制。
+* [极简的监控](docs/monitor.md)
+  * [简单的操作日志](docs/monitor.md#简化的操作日志)
 * Devops
     * [热更新](docs/hotswap.md)    
 

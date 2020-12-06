@@ -29,6 +29,7 @@ public abstract class MultiAnnotationBeanFactoryPointAdvisor<A, E> extends Abstr
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
             @Override
+            @NonNull
             protected E getExecutor(A annotation) {
                 return MultiAnnotationBeanFactoryPointAdvisor.this.getExecutor(annotation);
             }
@@ -46,7 +47,6 @@ public abstract class MultiAnnotationBeanFactoryPointAdvisor<A, E> extends Abstr
     public Pointcut getPointcut() {
         return pointcut;
     }
-
 
     @NonNull
     protected abstract E getExecutor(A annotation);
