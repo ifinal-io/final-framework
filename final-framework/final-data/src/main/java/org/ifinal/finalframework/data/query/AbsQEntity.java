@@ -5,6 +5,7 @@ import org.ifinal.finalframework.annotation.data.View;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.MappingUtils;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.util.*;
@@ -61,22 +62,19 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
                         property.getReferenceProperties()
                                 .stream()
                                 .map(referenceEntity::getRequiredPersistentProperty)
-                                .forEach(referenceProperty -> {
-
-                                    addProperty(
-                                            QProperty.builder(this, referenceProperty)
-                                                    .order(order + index.getAndIncrement())
-                                                    .path(property.getName() + "." + referenceProperty.getName())
-                                                    .name(MappingUtils.formatPropertyName(property, referenceProperty))
-                                                    .column(MappingUtils.formatColumn(entity, property, referenceProperty))
-                                                    .views(views)
-                                                    .readable(true)
-                                                    .writeable(property.isWriteable())
-                                                    .modifiable(property.isModifiable())
-                                                    .typeHandler(referenceProperty.getTypeHandler())
-                                                    .build()
-                                    );
-                                });
+                                .forEach(referenceProperty -> addProperty(
+                                        QProperty.builder(this, referenceProperty)
+                                                .order(order + index.getAndIncrement())
+                                                .path(property.getName() + "." + referenceProperty.getName())
+                                                .name(MappingUtils.formatPropertyName(property, referenceProperty))
+                                                .column(MappingUtils.formatColumn(entity, property, referenceProperty))
+                                                .views(views)
+                                                .readable(true)
+                                                .writeable(property.isWriteable())
+                                                .modifiable(property.isModifiable())
+                                                .typeHandler(referenceProperty.getTypeHandler())
+                                                .build()
+                                ));
 
 
                     } else {
@@ -121,13 +119,15 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public QProperty<I> getIdProperty() {
         return (QProperty<I>) this.idProperty;
     }
 
     @Override
-    public QProperty getVersionProperty() {
-        return this.versionProperty;
+    @SuppressWarnings("unchecked")
+    public <E> QProperty<E>  getVersionProperty() {
+        return (QProperty<E>) this.versionProperty;
     }
 
     @Override
@@ -137,6 +137,7 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
     }
 
     @Override
+    @NonNull
     public Iterator<QProperty<?>> iterator() {
         return properties.iterator();
     }
