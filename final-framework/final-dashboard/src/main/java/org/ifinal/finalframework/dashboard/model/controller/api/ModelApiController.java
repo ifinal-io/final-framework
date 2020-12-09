@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.dashboard.model.controller.api;
 
-import org.ifinal.finalframework.annotation.IEntity;
-import org.ifinal.finalframework.annotation.IEnum;
-import org.ifinal.finalframework.annotation.IQuery;
-import org.ifinal.finalframework.annotation.IView;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.annotation.IView;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

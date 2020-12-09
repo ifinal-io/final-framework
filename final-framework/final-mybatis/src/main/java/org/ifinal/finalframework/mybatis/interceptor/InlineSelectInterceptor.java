@@ -10,7 +10,7 @@ import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.ifinal.finalframework.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.core.annotation.Order;

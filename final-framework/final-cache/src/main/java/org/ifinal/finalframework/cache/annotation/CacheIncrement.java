@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.aop.annotation.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.springframework.core.annotation.AliasFor;
 
@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(CacheIncrement.List.class)
-@CacheAnnotation({JoinPoint.BEFORE, JoinPoint.AFTER, JoinPoint.AFTER_RETURNING, JoinPoint.AFTER_THROWING})
 public @interface CacheIncrement {
 
     /**

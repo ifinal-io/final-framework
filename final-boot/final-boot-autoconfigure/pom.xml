@@ -20,10 +20,15 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>${sharding.version}</version>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+            <optional>true</optional>
             <scope>provided</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-jdbc-core</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-zookeeper</artifactId>

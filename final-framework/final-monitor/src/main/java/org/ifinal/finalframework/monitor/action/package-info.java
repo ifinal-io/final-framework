@@ -5,7 +5,7 @@
  *
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.annotation.monitor.ActionMonitor
+ * @see org.ifinal.finalframework.monitor.annotation.ActionMonitor
  * @see org.ifinal.finalframework.monitor.action.ActionListener
  * @since 1.0.0
  */

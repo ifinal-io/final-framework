@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;

@@ -1,7 +1,10 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
 
+import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +12,12 @@ import java.util.Map;
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
+ * @see org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration
  */
 public class ShardingRuleProperties implements Serializable {
+    /**
+     * @see ShardingRuleConfiguration#setTables(Collection) 
+     */
     private Map<String, TableRuleProperties> tables;
     private List<String> bindingTables;
     private List<String> broadcastTables;

@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.example.entity;
 
 import lombok.Data;
-import org.ifinal.finalframework.annotation.IView;
-import org.ifinal.finalframework.annotation.data.AbsEntity;
-import org.ifinal.finalframework.annotation.data.Reference;
-import org.ifinal.finalframework.annotation.data.View;
+import org.ifinal.finalframework.core.annotation.IView;
+import org.ifinal.finalframework.data.annotation.AbsEntity;
+import org.ifinal.finalframework.data.annotation.Reference;
+import org.ifinal.finalframework.data.annotation.View;
+import org.ifinal.finalframework.sharding.annotation.ShardingTable;
+import org.ifinal.finalframework.sharding.annotation.TableInlineShardingStrategy;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,8 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Data
+@ShardingTable(logicTables = {"person","person_copy"},actualDataNodes = "ds0.${logicTable}_${00.99}")
+@TableInlineShardingStrategy(columns = "name",expression = "ds0.${logicTable}_${name}")
 public class Person extends AbsEntity {
 
     @View(RegisterView.class)

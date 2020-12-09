@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
@@ -21,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@CacheAnnotation({JoinPoint.BEFORE, JoinPoint.AFTER_RETURNING})
 public @interface CacheLock {
     /**
      * 缓存锁 key
@@ -38,7 +36,6 @@ public @interface CacheLock {
      */
     @Nullable
     String value() default "";
-
 
     @NonNull
     String delimiter() default ":";

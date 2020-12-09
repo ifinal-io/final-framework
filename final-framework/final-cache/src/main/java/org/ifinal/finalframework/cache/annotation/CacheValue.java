@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
@@ -17,7 +16,6 @@ import java.lang.reflect.Type;
  * @see org.ifinal.finalframework.cache.Cache#get(Object, Object, Type, Class)
  * @since 1.0.0
  */
-@CacheAnnotation(JoinPoint.BEFORE)
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheValue {

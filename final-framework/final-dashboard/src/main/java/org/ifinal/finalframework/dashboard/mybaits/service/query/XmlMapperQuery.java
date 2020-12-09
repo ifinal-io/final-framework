@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.dashboard.mybaits.service.query;
 
 import lombok.Data;
-import org.ifinal.finalframework.annotation.IQuery;
+import org.ifinal.finalframework.core.annotation.IQuery;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 
 /**

@@ -2,8 +2,8 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.ifinal.finalframework.annotation.IEntity;
-import org.ifinal.finalframework.annotation.IQuery;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
 import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;

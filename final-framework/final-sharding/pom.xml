@@ -15,5 +15,19 @@
     <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-annotation</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

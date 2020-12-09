@@ -83,6 +83,11 @@
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-sharding</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
                 <artifactId>final-zookeeper</artifactId>
                 <version>${final.version}</version>
             </dependency>

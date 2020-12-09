@@ -3,7 +3,7 @@ package org.ifinal.finalframework.json.jackson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IEnum;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.json.jackson.deserializer.EnumDeserializer;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;

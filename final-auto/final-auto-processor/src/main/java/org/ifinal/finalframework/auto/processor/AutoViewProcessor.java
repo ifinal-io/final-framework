@@ -3,6 +3,8 @@ package org.ifinal.finalframework.auto.processor;
 
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
+import org.ifinal.finalframework.core.annotation.IView;
+import org.ifinal.finalframework.data.annotation.Transient;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -23,8 +25,8 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoViewProcessor extends AbsServiceProcessor {
-    private static final String VIEW = "org.ifinal.finalframework.annotation.IView";
-    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
+    private static final String VIEW = IView.class.getName();
+    private static final String TRANSIENT = Transient.class.getName();
 
     private TypeElementFilter typeElementFilter;
     private TypeElement typeElement;

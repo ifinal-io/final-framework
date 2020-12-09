@@ -3,7 +3,7 @@ package org.ifinal.finalframework.json.jackson.deserializer;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IEnum;
 
 import java.io.IOException;
 import java.util.Arrays;

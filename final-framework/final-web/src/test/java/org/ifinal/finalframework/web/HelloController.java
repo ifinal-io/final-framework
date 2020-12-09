@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web;
 
-import org.ifinal.finalframework.annotation.data.YN;
 import org.ifinal.finalframework.context.exception.ServiceException;
+import org.ifinal.finalframework.data.annotation.YN;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

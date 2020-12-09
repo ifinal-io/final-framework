@@ -21,7 +21,7 @@ import java.util.Objects;
 public class TypeElementFilter implements Filter<TypeElement> {
 
 
-    private final Types typeUtils;
+    private final Types types;
     private final Messager messager;
 
     private final TypeElement entityTypeElement;
@@ -30,7 +30,11 @@ public class TypeElementFilter implements Filter<TypeElement> {
     public TypeElementFilter(@NonNull ProcessingEnvironment processingEnvironment,
                              @NonNull TypeElement entityTypeElement,
                              @Nullable TypeElement transientAnnotationTypeElement) {
-        this.typeUtils = processingEnvironment.getTypeUtils();
+
+        Objects.requireNonNull(entityTypeElement, "typeElement can not be null!");
+
+
+        this.types = processingEnvironment.getTypeUtils();
         this.messager = processingEnvironment.getMessager();
         this.entityTypeElement = entityTypeElement;
         this.transientAnnotationTypeElement = transientAnnotationTypeElement;
@@ -42,8 +46,8 @@ public class TypeElementFilter implements Filter<TypeElement> {
         if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;
         }
-
-        boolean subtype = typeUtils.isSubtype(typeUtils.erasure(typeElement.asType()), typeUtils.erasure(entityTypeElement.asType()));
+        messager.printMessage(Diagnostic.Kind.NOTE, String.format("[INFO] [TypeElementFilter] filter typeElement: %s", typeElement.getQualifiedName().toString()));
+        boolean subtype = types.isSubtype(types.erasure(typeElement.asType()), types.erasure(entityTypeElement.asType()));
         if (subtype) {
             String msg = "[INFO] [EntityFilter] find entity : " + typeElement.getQualifiedName().toString();
             messager.printMessage(Diagnostic.Kind.NOTE, msg);
@@ -57,7 +61,7 @@ public class TypeElementFilter implements Filter<TypeElement> {
         }
 
         for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
-            if (typeUtils.isSameType(annotationMirror.getAnnotationType(), annotationTypeElement.asType())) {
+            if (types.isSameType(annotationMirror.getAnnotationType(), annotationTypeElement.asType())) {
                 return true;
             }
         }

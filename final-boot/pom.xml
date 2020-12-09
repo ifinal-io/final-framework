@@ -26,6 +26,7 @@
         <module>final-boot-starter-web</module>
         <module>final-boot-starter-zookeeper</module>
         <module>final-boot-starter-dashboard</module>
+        <module>final-boot-starter-sharding</module>
     </modules>
 
     <dependencyManagement>
@@ -93,6 +94,11 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.boot</groupId>
                 <artifactId>final-boot-starter-monitor</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <artifactId>final-boot-starter-sharding</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

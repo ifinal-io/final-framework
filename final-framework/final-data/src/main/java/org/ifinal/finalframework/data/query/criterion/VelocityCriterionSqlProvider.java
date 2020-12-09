@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.data.query.criterion;
 
 
-import org.ifinal.finalframework.annotation.query.CriterionSqlProvider;
-import org.ifinal.finalframework.annotation.query.Metadata;
 import org.ifinal.finalframework.data.util.Velocities;
+import org.ifinal.finalframework.query.annotation.CriterionSqlProvider;
+import org.ifinal.finalframework.query.annotation.Metadata;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 

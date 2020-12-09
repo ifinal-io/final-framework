@@ -5,6 +5,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ConcurrentReferenceHashMap;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -32,6 +34,7 @@ public final class ServicesLoader {
 
     private ServicesLoader() {
     }
+
 
     public static List<String> load(@NonNull Class<?> service) {
         return load(service.getCanonicalName());
@@ -56,6 +59,39 @@ public final class ServicesLoader {
     public static List<String> load(@NonNull String service, @Nullable ClassLoader classLoader, @NonNull String propertiesResourceLocation) {
         return loadServices(service, classLoader, propertiesResourceLocation);
     }
+
+    public static List<Class<?>> loadClasses(@NonNull Class<?> service) {
+        return loadClasses(service.getCanonicalName());
+    }
+
+    public static List<Class<?>> loadClasses(@NonNull Class<?> service, @NonNull ClassLoader classLoader) {
+        return loadClasses(service.getCanonicalName(), classLoader);
+    }
+
+    public static List<Class<?>> loadClasses(@NonNull String service) {
+        return loadClasses(service, String.join(DELIMITER, META_INF, DEFAULT_SERVICES_PATH, service));
+    }
+
+    public static List<Class<?>> loadClasses(@NonNull String service, @NonNull ClassLoader classLoader) {
+        return loadClasses(service, classLoader, String.join(DELIMITER, META_INF, DEFAULT_SERVICES_PATH, service));
+    }
+
+    public static List<Class<?>> loadClasses(@NonNull String service, @NonNull String serviceResourceLocation) {
+        return loadClasses(service, null, serviceResourceLocation);
+    }
+
+    public static List<Class<?>> loadClasses(@NonNull String service, @Nullable ClassLoader classLoader, @NonNull String propertiesResourceLocation) {
+        return load(service, classLoader, propertiesResourceLocation).stream()
+                .map(name -> {
+                    try {
+                        return ClassUtils.forName(name, classLoader);
+                    } catch (Exception e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
 
     private static List<String> loadServices(@NonNull String service, @Nullable ClassLoader classLoader, String propertiesResourceLocation) {
         final MultiValueMap<String, String> result = cache.computeIfAbsent(classLoader, key -> new LinkedMultiValueMap<>());

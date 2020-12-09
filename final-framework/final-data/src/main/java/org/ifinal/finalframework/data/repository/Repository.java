@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.data.repository;
 
-import org.ifinal.finalframework.annotation.IEntity;
-import org.ifinal.finalframework.annotation.IQuery;
-import org.ifinal.finalframework.annotation.Pageable;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.annotation.Pageable;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;

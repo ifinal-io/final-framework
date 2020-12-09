@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.web.converter;
 
-import org.ifinal.finalframework.annotation.Enums;
-import org.ifinal.finalframework.annotation.IEnum;
 import org.ifinal.finalframework.context.util.Messages;
+import org.ifinal.finalframework.core.annotation.Enums;
+import org.ifinal.finalframework.core.annotation.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.function.Converter;
 import org.ifinal.finalframework.util.function.Filter;

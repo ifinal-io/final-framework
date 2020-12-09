@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.service;
 
-import org.ifinal.finalframework.annotation.IEntity;
-import org.ifinal.finalframework.annotation.IQuery;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;

@@ -3,7 +3,7 @@ package org.ifinal.finalframework.data.query.criterion;
 
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.annotation.data.SqlKeyWords;
+import org.ifinal.finalframework.data.annotation.SqlKeyWords;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.util.Asserts;
 

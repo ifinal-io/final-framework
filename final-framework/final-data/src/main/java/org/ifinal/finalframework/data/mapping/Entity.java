@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.ifinal.finalframework.annotation.data.NameConverter;
-import org.ifinal.finalframework.annotation.data.NonCompare;
-import org.ifinal.finalframework.annotation.data.Table;
+import org.ifinal.finalframework.data.annotation.NameConverter;
+import org.ifinal.finalframework.data.annotation.NonCompare;
+import org.ifinal.finalframework.data.annotation.Table;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.ifinal.finalframework.data.serializer.EntityJsonSerializer;
 import org.ifinal.finalframework.util.Asserts;

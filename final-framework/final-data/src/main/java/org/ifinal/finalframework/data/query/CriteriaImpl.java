@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
+import org.ifinal.finalframework.query.annotation.AndOr;
 
 import java.util.*;
 

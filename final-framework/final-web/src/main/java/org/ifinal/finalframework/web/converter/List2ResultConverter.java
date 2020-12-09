@@ -2,9 +2,9 @@ package org.ifinal.finalframework.web.converter;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.ifinal.finalframework.annotation.result.Pagination;
-import org.ifinal.finalframework.annotation.result.R;
-import org.ifinal.finalframework.annotation.result.Result;
+import org.ifinal.finalframework.core.annotation.result.Pagination;
+import org.ifinal.finalframework.core.annotation.result.R;
+import org.ifinal.finalframework.core.annotation.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

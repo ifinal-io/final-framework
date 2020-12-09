@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.aop.annotation.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
 
@@ -22,7 +22,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(List.class)
-@CacheAnnotation({JoinPoint.BEFORE, JoinPoint.AFTER, JoinPoint.AFTER_RETURNING, JoinPoint.AFTER_THROWING})
 public @interface CacheDel {
 
     /**

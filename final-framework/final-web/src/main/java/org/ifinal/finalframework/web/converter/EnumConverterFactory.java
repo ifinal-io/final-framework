@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.converter;
 
 
-import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;

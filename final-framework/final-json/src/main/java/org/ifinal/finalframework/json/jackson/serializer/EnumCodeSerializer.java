@@ -3,7 +3,7 @@ package org.ifinal.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IEnum;
 
 import java.io.IOException;
 

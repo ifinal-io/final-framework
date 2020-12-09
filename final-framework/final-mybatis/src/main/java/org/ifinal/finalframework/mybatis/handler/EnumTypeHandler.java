@@ -3,7 +3,7 @@ package org.ifinal.finalframework.mybatis.handler;
 import lombok.NonNull;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.ifinal.finalframework.annotation.IEnum;
+import org.ifinal.finalframework.core.annotation.IEnum;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

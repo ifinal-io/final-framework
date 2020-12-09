@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.response;
 
 import lombok.Data;
+import org.ifinal.finalframework.core.annotation.result.Responsible;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public class ResponseProperties implements Serializable {
     static final String WEB_RESPONSE_STATUS_PREFIX = "final.web.response";
 
     /**
-     * 同步{@link org.ifinal.finalframework.annotation.result.Responsible}状态到{@link javax.servlet.ServletResponse}
+     * 同步{@link Responsible}状态到{@link javax.servlet.ServletResponse}
      */
     private boolean syncStatus = true;
 }

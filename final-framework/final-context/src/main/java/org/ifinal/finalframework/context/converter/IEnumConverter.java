@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.context.converter;
 
-import org.ifinal.finalframework.annotation.Enums;
-import org.ifinal.finalframework.annotation.IEnum;
 import org.ifinal.finalframework.context.util.Messages;
+import org.ifinal.finalframework.core.annotation.Enums;
+import org.ifinal.finalframework.core.annotation.IEnum;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

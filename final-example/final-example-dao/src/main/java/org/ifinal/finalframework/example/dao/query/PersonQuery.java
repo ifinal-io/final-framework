@@ -2,9 +2,9 @@ package org.ifinal.finalframework.example.dao.query;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.ifinal.finalframework.annotation.query.Equal;
-import org.ifinal.finalframework.annotation.query.Or;
-import org.ifinal.finalframework.annotation.query.PageQuery;
+import org.ifinal.finalframework.query.annotation.Equal;
+import org.ifinal.finalframework.query.annotation.Or;
+import org.ifinal.finalframework.query.annotation.PageQuery;
 
 import java.io.Serializable;
 

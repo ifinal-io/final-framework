@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
 import lombok.Getter;
-import org.ifinal.finalframework.annotation.query.Direction;
+import org.ifinal.finalframework.query.annotation.Direction;
 
 /**
  * @author likly
