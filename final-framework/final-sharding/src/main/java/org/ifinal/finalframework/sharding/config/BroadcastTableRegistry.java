@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.sharding.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -10,7 +9,11 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class BroadcastTableRegistry {
-    private final Collection<String> broadcastTables = new ArrayList<>();
+    private final Collection<String> broadcastTables;
+
+    public BroadcastTableRegistry(Collection<String> broadcastTables) {
+        this.broadcastTables = broadcastTables;
+    }
 
     public BroadcastTableRegistry addBroadcastTable(String... broadcastTable) {
         this.broadcastTables.addAll(Arrays.asList(broadcastTable));

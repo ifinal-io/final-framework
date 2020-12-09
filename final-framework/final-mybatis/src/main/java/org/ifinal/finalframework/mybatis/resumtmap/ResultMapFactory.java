@@ -17,9 +17,11 @@ import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
+import org.ifinal.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -144,6 +146,10 @@ public final class ResultMapFactory {
             }
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
+        }
+
+        if(LocalDateTime.class.equals(field.getType())){
+            return new LocalDateTimeTypeHandler();
         }
 
 

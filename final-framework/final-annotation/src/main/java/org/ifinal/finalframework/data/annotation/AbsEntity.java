@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.data.annotation;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.core.annotation.IView;
 
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Data
+@Setter
+@Getter
 @Transient
 public class AbsEntity implements IEntity<Long> {
 

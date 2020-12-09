@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.sharding.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -10,7 +9,11 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class BindingTableRegistry {
-    private final Collection<String> bindingTableGroups = new ArrayList<>();
+    private final Collection<String> bindingTableGroups ;
+
+    public BindingTableRegistry(Collection<String> bindingTableGroups) {
+        this.bindingTableGroups = bindingTableGroups;
+    }
 
     public BindingTableRegistry addBindingTable(String... bindingTable) {
         this.bindingTableGroups.addAll(Arrays.asList(bindingTable));

@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.monitor.trace;
 
 import org.ifinal.finalframework.aop.simple.SimpleAnnotationBeanFactoryPointAdvisor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,7 +12,7 @@ import java.util.Arrays;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Component
+//@Component
 public class TraceBeanFactoryPointcutAdvisor extends SimpleAnnotationBeanFactoryPointAdvisor<Tracer> {
 
     @Resource

@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.query.annotation;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.ifinal.finalframework.core.annotation.Pageable;
 import org.ifinal.finalframework.data.annotation.Transient;
 
@@ -13,7 +14,8 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Data
+@Setter
+@Getter
 @Transient
 public class PageQuery implements Pageable, Serializable {
 

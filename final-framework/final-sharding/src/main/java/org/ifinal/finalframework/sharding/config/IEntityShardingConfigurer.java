@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.sharding.config;
 
-import org.apache.shardingsphere.infra.config.algorithm.ShardingSphereAlgorithmConfiguration;
-import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
-import org.apache.shardingsphere.sharding.api.config.strategy.sharding.ShardingStrategyConfiguration;
-import org.apache.shardingsphere.sharding.api.config.strategy.sharding.StandardShardingStrategyConfiguration;
 import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.sharding.annotation.Property;
@@ -12,6 +8,7 @@ import org.ifinal.finalframework.sharding.annotation.ShardingTable;
 import org.ifinal.finalframework.sharding.annotation.ShardingType;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
@@ -21,7 +18,6 @@ import java.util.*;
 /**
  * @author likly
  * @version 1.0.0
- * @see org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration
  * @since 1.0.0
  */
 @Component
@@ -29,8 +25,10 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
 
     private static final String LOGIN_TABLE_PLACE_HOLDER = "${logicTable}";
 
-    private final Collection<ShardingTableRuleConfiguration> tables = new ArrayList<>();
-    private final Map<String, ShardingSphereAlgorithmConfiguration> shardingAlgorithms = new LinkedHashMap<>();
+    private final Collection<ShardingTableRegistration> tables = new ArrayList<>();
+    private final Collection<String> bindTables = new ArrayList<>();
+    private final Collection<String> broadcastTables = new ArrayList<>();
+    private final Map<String, ShardingStrategyRegistration> shardingStrategies = new LinkedHashMap<>();
 
     public IEntityShardingConfigurer() {
         this.init();
@@ -47,7 +45,17 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
 
                 for (String logicTable : shardingTable.logicTables()) {
 
-                    final ShardingTableRuleConfiguration table = new ShardingTableRuleConfiguration(logicTable, actualDataNodes.replace(LOGIN_TABLE_PLACE_HOLDER, logicTable));
+
+                    if (shardingTable.binding()) {
+                        bindTables.add(logicTable);
+                    }
+
+                    if (shardingTable.broadcast()) {
+                        broadcastTables.add(logicTable);
+                    }
+
+
+                    final ShardingTableRegistration table = new ShardingTableRegistration(logicTable, actualDataNodes.replace(LOGIN_TABLE_PLACE_HOLDER, logicTable));
 
                     for (Annotation annotation : annotations) {
                         Class<? extends Annotation> annotationType = annotation.annotationType();
@@ -57,17 +65,7 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                             AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(clazz, annotation);
 
                             final String name = buildShardingStrategyName(logicTable, shardingStrategy);
-                            ShardingStrategyConfiguration shardingStrategyConfiguration = buildShardingStrategyConfiguration(shardingStrategy.type(), name, annotationAttributes);
-                            switch (shardingStrategy.scope()) {
-                                case TABLE:
-                                    table.setTableShardingStrategy(shardingStrategyConfiguration);
-                                    break;
-                                case DATABASE:
-                                    table.setDatabaseShardingStrategy(shardingStrategyConfiguration);
-                                    break;
-                                case KEY:
-                                    break;
-                            }
+
 
                             final Properties properties = new Properties();
 
@@ -82,7 +80,21 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                                 }
                             }
 
-                            shardingAlgorithms.put(name, new ShardingSphereAlgorithmConfiguration(shardingStrategy.type().name(), properties));
+
+                            ShardingStrategyRegistration shardingStrategyRegistration = buildShardingStrategyConfiguration(shardingStrategy.type(), name, annotationAttributes, properties);
+                            switch (shardingStrategy.scope()) {
+                                case TABLE:
+                                    table.setTableShardingStrategy(shardingStrategyRegistration);
+                                    break;
+                                case DATABASE:
+                                    table.setDatabaseShardingStrategy(shardingStrategyRegistration);
+                                    break;
+                                case KEY:
+                                    break;
+                            }
+
+
+                            shardingStrategies.put(name, shardingStrategyRegistration);
                         }
                     }
 
@@ -98,22 +110,35 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     }
 
 
-    private ShardingStrategyConfiguration buildShardingStrategyConfiguration(ShardingType type, String name, AnnotationAttributes annotationAttributes) {
+    private ShardingStrategyRegistration buildShardingStrategyConfiguration(ShardingType type, String name, AnnotationAttributes annotationAttributes, Properties properties) {
         final String columns = String.join(",", annotationAttributes.getStringArray("columns"));
-
-        switch (type) {
-            case INLINE:
-                return new StandardShardingStrategyConfiguration(columns, name);
-            default:
-                throw new IllegalArgumentException(type.name());
-        }
-
+        return new ShardingStrategyRegistration(type, name, columns, properties);
 
     }
-
 
     private String buildShardingStrategyName(String table, ShardingStrategy shardingStrategy) {
         return String.join("-", table, shardingStrategy.scope().name(), shardingStrategy.type().name());
     }
 
+    @Override
+    public void addShardingTable(@NonNull ShardingTableRegistry registry) {
+        this.tables.forEach(registry::addShardingTableRule);
+    }
+
+    @Override
+    public void addBindingTables(@NonNull BindingTableRegistry registry) {
+        registry.addAllBindingTables(this.bindTables);
+    }
+
+    @Override
+    public void addBroadcastTables(@NonNull BroadcastTableRegistry registry) {
+        registry.addBroadcastTables(this.broadcastTables);
+    }
+
+    @Override
+    public void addShardingAlgorithms(@NonNull ShardingAlgorithmRegistry registry) {
+        for (Map.Entry<String, ShardingStrategyRegistration> entry : shardingStrategies.entrySet()) {
+            registry.addShardingAlgorithm(entry.getKey(), entry.getValue().getType(), entry.getValue().getProperties());
+        }
+    }
 }

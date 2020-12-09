@@ -9,15 +9,18 @@ import org.springframework.lang.NonNull;
  */
 public interface ShardingConfigurer {
 
-
-    default void addShardingTableRule(@NonNull ShardingTableRuleRegistry registry) {
-    }
-
-    default void addBindingTables(@NonNull BindingTableRegistry registry){
+    default void addDataSource(@NonNull ShardingDataSourceRegistry registry) {
 
     }
 
-    default void addBroadcastTables(@NonNull BroadcastTableRegistry registry){
+    default void addShardingTable(@NonNull ShardingTableRegistry registry) {
+    }
+
+    default void addBindingTables(@NonNull BindingTableRegistry registry) {
+
+    }
+
+    default void addBroadcastTables(@NonNull BroadcastTableRegistry registry) {
 
     }
 

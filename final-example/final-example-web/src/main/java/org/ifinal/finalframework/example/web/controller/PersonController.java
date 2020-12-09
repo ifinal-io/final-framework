@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.example.web.controller;
 
-import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.example.dao.query.PersonQuery;
 import org.ifinal.finalframework.example.entity.Person;
 import org.ifinal.finalframework.example.service.PersonService;
-import org.ifinal.finalframework.monitor.annotation.ActionMonitor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +23,8 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping
-    @Cacheable(key = {"person", "${#id}"})
-    @ActionMonitor(name = {"查询Person", "${#result[0].id}"}, target = "${#result[0].id}")
-    public List<Person> query(Long id) {
-        return personService.select(new PersonQuery());
+    public List<Person> query(PersonQuery query) {
+        return personService.select(query);
     }
 
 }

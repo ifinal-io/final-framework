@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.example.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.ifinal.finalframework.core.annotation.IView;
 import org.ifinal.finalframework.data.annotation.AbsEntity;
 import org.ifinal.finalframework.data.annotation.Reference;
@@ -16,9 +17,10 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Data
-@ShardingTable(logicTables = {"person","person_copy"},actualDataNodes = "ds0.${logicTable}_${00.99}")
-@TableInlineShardingStrategy(columns = "name",expression = "ds0.${logicTable}_${name}")
+@Setter
+@Getter
+@ShardingTable(logicTables = {"person"},actualDataNodes = "ds.${logicTable}_0${0..1}")
+@TableInlineShardingStrategy(columns = "age",expression = "${logicTable}_0${age % 2}")
 public class Person extends AbsEntity {
 
     @View(RegisterView.class)

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:MySql://localhost:3306/final-example?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://localhost:3306/final-example?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
     username: root
     password: "!Aa000000"
   redis:
@@ -11,6 +11,9 @@ final:
   zookeeper:
     address: 10.248.224.18:2181
     timeout: 3000
+#  sharding:
+#    datasource:
+#      names: [ds0,ds1]
 logging:
   pattern:
     console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %clr([ %-36X{trace} ]){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
