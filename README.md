@@ -23,6 +23,7 @@
 * [Query base on Annotation](docs/quick-start/query-base-on-annotation.md): 使用基于`@Annotation`的`Query`。
 * [Start with Service](docs/quick-start/start-with-service.md)：从`Service`开始。
 * [Define Rest Api in Controller](docs/quick-start/define-rest-api-in-controller.md): 定义`RestApi`。
+* [Sharding with annotation](docs/quick-start/sharding-with-annotation.md)：基于`@Annotation`的分库分表。
 
 ## Features
 
