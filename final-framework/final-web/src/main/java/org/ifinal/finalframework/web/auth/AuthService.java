@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.auth;
 
-import org.ifinal.finalframework.auth.annotation.Auth;
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

@@ -2,7 +2,7 @@ package org.ifinal.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.data.annotation.*;
+import org.ifinal.finalframework.annotation.data.*;
 import org.ifinal.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;

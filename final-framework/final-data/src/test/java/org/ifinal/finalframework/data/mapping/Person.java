@@ -3,7 +3,7 @@ package org.ifinal.finalframework.data.mapping;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.ifinal.finalframework.data.annotation.AbsEntity;
+import org.ifinal.finalframework.annotation.data.AbsEntity;
 
 import java.util.List;
 

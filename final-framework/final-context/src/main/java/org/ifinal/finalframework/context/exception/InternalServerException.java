@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.context.exception;
 
-import org.ifinal.finalframework.core.annotation.IException;
-import org.ifinal.finalframework.core.annotation.result.ResponseStatus;
+import org.ifinal.finalframework.annotation.core.IException;
+import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
 
 /**
  * 错误的请求异常

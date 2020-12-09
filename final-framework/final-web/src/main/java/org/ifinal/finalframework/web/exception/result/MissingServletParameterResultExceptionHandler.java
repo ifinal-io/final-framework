@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.web.exception.result;
 
+import org.ifinal.finalframework.annotation.core.result.R;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.exception.result.ResultExceptionHandler;
-import org.ifinal.finalframework.core.annotation.result.R;
-import org.ifinal.finalframework.core.annotation.result.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 

@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.data.annotation.Transient;
+import org.ifinal.finalframework.annotation.data.Transient;
 
 /**
  * @author likly

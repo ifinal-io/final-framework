@@ -3,14 +3,14 @@ package org.ifinal.finalframework.data.query.sql;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.query.*;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.ifinal.finalframework.data.query.criterion.FunctionHandlerRegistry;
 import org.ifinal.finalframework.data.util.Velocities;
-import org.ifinal.finalframework.query.annotation.*;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;

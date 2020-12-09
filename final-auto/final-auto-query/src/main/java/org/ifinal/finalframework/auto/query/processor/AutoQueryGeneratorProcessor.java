@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.auto.query.processor;
 
 import com.squareup.javapoet.*;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.data.query.AbsQEntity;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;

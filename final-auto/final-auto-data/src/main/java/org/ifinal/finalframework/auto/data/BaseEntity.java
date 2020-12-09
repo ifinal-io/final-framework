@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.data.annotation.Table;
+import org.ifinal.finalframework.annotation.data.Table;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 

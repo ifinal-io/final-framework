@@ -23,8 +23,8 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoViewProcessor extends AbsServiceProcessor {
-    private static final String VIEW = "org.ifinal.finalframework.core.annotation.IView";
-    private static final String TRANSIENT = "org.ifinal.finalframework.data.annotation.Transient";
+    private static final String VIEW = "org.ifinal.finalframework.annotation.core.IView";
+    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
     private TypeElement typeElement;

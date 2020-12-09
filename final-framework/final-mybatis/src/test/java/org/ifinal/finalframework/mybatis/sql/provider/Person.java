@@ -4,8 +4,8 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.ifinal.finalframework.core.annotation.IView;
-import org.ifinal.finalframework.data.annotation.*;
+import org.ifinal.finalframework.annotation.core.IView;
+import org.ifinal.finalframework.annotation.data.*;
 
 /**
  * @author likly

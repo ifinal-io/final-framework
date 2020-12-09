@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.query.enums;
 
-import org.ifinal.finalframework.data.annotation.Transient;
+import org.ifinal.finalframework.annotation.data.Transient;
 import org.ifinal.finalframework.data.query.operation.Operation;
 
 /**

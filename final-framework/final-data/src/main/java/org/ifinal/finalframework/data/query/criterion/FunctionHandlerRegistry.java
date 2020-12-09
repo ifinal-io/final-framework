@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query.criterion;
 
 
-import org.ifinal.finalframework.query.annotation.Function;
+import org.ifinal.finalframework.annotation.query.Function;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

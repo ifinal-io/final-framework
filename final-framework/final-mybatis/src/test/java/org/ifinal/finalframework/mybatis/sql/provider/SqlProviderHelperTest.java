@@ -2,11 +2,11 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
-import org.ifinal.finalframework.data.annotation.AutoInc;
-import org.ifinal.finalframework.data.annotation.PrimaryKey;
-import org.ifinal.finalframework.query.annotation.*;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
+import org.ifinal.finalframework.annotation.data.AutoInc;
+import org.ifinal.finalframework.annotation.data.PrimaryKey;
+import org.ifinal.finalframework.annotation.query.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

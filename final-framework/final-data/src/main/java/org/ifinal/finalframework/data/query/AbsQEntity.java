@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.data.annotation.Table;
-import org.ifinal.finalframework.data.annotation.View;
+import org.ifinal.finalframework.annotation.data.Table;
+import org.ifinal.finalframework.annotation.data.View;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.MappingUtils;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;

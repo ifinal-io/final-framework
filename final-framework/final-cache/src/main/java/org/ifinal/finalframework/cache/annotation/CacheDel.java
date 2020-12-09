@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.aop.annotation.JoinPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
 

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-example</artifactId>
         <groupId>org.ifinal.finalframework.example</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -34,10 +34,14 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-sharding</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-jdbc-core</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>shardingsphere-jdbc-core</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.ifinal.finalframework.example</groupId>
             <artifactId>final-example-service</artifactId>

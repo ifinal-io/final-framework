@@ -23,8 +23,8 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoQueryProcessor extends AbsServiceProcessor {
-    private static final String QUERY = "org.ifinal.finalframework.core.annotation.IQuery";
-    private static final String TRANSIENT = "org.ifinal.finalframework.data.annotation.Transient";
+    private static final String QUERY = "org.ifinal.finalframework.annotation.core.IQuery";
+    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
     private TypeElement typeElement;

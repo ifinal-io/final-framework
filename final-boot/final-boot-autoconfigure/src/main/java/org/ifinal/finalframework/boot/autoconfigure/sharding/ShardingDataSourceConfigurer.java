@@ -17,10 +17,9 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Configuration
-@EnableConfigurationProperties(ShardingDataSourceProperties.class)
+@EnableConfigurationProperties({ShardingDataSourceProperties.class, DataSourceProperties.class})
 public class ShardingDataSourceConfigurer implements ShardingConfigurer {
 
-    private static final String SPRING_DATA_SOURCE_PREFIX = "spring.datasource";
     private static final String DEFAULT_DATASOURCE_NAME = "ds";
 
 
@@ -39,18 +38,11 @@ public class ShardingDataSourceConfigurer implements ShardingConfigurer {
             registry.addDataSource(DEFAULT_DATASOURCE_NAME, dataSourceProperties.initializeDataSourceBuilder().build());
         } else {
             for (Map.Entry<String, DataSourceProperties> entry : properties.getDatasource().entrySet()) {
-                DataSourceProperties dataSourceProperties = entry.getValue();
-                registry.addDataSource(entry.getKey(), dataSourceProperties.initializeDataSourceBuilder().build());
+                registry.addDataSource(entry.getKey(), entry.getValue().initializeDataSourceBuilder().build());
             }
         }
 
     }
-
-//    @Bean
-//    @ConfigurationProperties(SPRING_DATA_SOURCE_PREFIX)
-//    public DataSourceProperties springDataSource() {
-//        return new DataSourceProperties();
-//    }
 
 
 }

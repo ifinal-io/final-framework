@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.sharding.config;
 
 import lombok.Getter;
-import org.ifinal.finalframework.sharding.annotation.ShardingType;
+import org.ifinal.finalframework.annotation.sharding.ShardingType;
 
 import java.util.Properties;
 

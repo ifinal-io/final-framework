@@ -2,12 +2,12 @@ package org.ifinal.finalframework.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.core.annotation.IView;
-import org.ifinal.finalframework.data.annotation.AbsEntity;
-import org.ifinal.finalframework.data.annotation.Reference;
-import org.ifinal.finalframework.data.annotation.View;
-import org.ifinal.finalframework.sharding.annotation.ShardingTable;
-import org.ifinal.finalframework.sharding.annotation.TableInlineShardingStrategy;
+import org.ifinal.finalframework.annotation.core.IView;
+import org.ifinal.finalframework.annotation.data.AbsEntity;
+import org.ifinal.finalframework.annotation.data.Reference;
+import org.ifinal.finalframework.annotation.data.View;
+import org.ifinal.finalframework.annotation.sharding.ShardingTable;
+import org.ifinal.finalframework.annotation.sharding.TableInlineShardingStrategy;
 
 import java.util.List;
 import java.util.Map;

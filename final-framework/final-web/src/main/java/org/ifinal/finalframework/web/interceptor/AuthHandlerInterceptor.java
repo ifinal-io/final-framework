@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.auth.annotation.Auth;
+import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.core.annotation.IUser;
 import org.ifinal.finalframework.util.Reflections;
 import org.ifinal.finalframework.web.auth.AuthService;
 import org.springframework.aop.support.AopUtils;

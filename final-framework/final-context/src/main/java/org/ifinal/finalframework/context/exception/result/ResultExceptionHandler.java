@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.context.exception.result;
 
-import org.ifinal.finalframework.core.annotation.result.Result;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.exception.ExceptionHandler;
 
 /**

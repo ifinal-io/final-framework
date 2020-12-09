@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.monitor.context;
 
+import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
 import org.ifinal.finalframework.monitor.MonitorException;
-import org.ifinal.finalframework.monitor.annotation.MonitorLevel;
 
 import java.util.HashMap;
 import java.util.Map;

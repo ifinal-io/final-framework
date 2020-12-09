@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.monitor;
 
 
+import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.context.exception.ServiceException;
-import org.ifinal.finalframework.core.annotation.IException;
 
 /**
  * Action异常

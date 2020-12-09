@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.dashboard.mybaits.controller.api;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
 import org.ifinal.finalframework.mybatis.sql.provider.SqlProviderHelper;
 import org.ifinal.finalframework.web.resolver.annotation.RequestJsonParam;

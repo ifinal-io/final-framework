@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.json;
 
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.data.annotation.AbsEntity;
-import org.ifinal.finalframework.data.annotation.YN;
+import org.ifinal.finalframework.annotation.data.AbsEntity;
+import org.ifinal.finalframework.annotation.data.YN;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

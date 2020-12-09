@@ -2,7 +2,7 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 
 import lombok.Data;
-import org.ifinal.finalframework.query.annotation.*;
+import org.ifinal.finalframework.annotation.query.*;
 
 import java.awt.*;
 

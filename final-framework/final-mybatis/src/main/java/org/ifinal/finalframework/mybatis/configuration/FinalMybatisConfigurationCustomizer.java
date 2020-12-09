@@ -4,7 +4,7 @@ package org.ifinal.finalframework.mybatis.configuration;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.session.Configuration;
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;

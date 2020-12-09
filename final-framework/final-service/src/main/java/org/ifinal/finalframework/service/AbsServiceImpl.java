@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.service;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
 

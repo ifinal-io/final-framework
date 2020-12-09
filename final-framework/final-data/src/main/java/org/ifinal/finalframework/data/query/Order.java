@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.query.annotation.Direction;
+import org.ifinal.finalframework.annotation.query.Direction;
 import org.springframework.lang.NonNull;
 
 /**

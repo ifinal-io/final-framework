@@ -29,8 +29,8 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoEntityProcessor extends AbsServiceProcessor {
 
-    private static final String IENTITY = "org.ifinal.finalframework.core.annotation.IEntity";
-    private static final String TRANSIENT = "org.ifinal.finalframework.data.annotation.Transient";
+    private static final String ENTITY = "org.ifinal.finalframework.annotation.core.IEntity";
+    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
 
     private TypeElementFilter typeElementFilter;
@@ -40,7 +40,7 @@ public class AutoEntityProcessor extends AbsServiceProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        this.typeElement = processingEnv.getElementUtils().getTypeElement(IENTITY);
+        this.typeElement = processingEnv.getElementUtils().getTypeElement(ENTITY);
         this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 

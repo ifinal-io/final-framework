@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.dashboard.redis.controller.api;
 
-import org.ifinal.finalframework.auth.annotation.Auth;
+import org.ifinal.finalframework.annotation.auth.Auth;
 import org.ifinal.finalframework.redis.Redis;
 import org.springframework.data.redis.core.*;
 import org.springframework.web.bind.annotation.*;

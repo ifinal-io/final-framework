@@ -4,8 +4,8 @@ package org.ifinal.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinal.finalframework.core.annotation.Enums;
-import org.ifinal.finalframework.data.annotation.EnumValue;
+import org.ifinal.finalframework.annotation.core.Enums;
+import org.ifinal.finalframework.annotation.data.EnumValue;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;

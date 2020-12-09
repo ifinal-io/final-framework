@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.mapping;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.data.annotation.*;
+import org.ifinal.finalframework.annotation.data.*;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.util.Asserts;

@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.query.annotation.Criterion;
+import org.ifinal.finalframework.annotation.query.Criterion;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.filter;
 
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.core.annotation.IUser;
 import org.ifinal.finalframework.web.auth.TokenService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.lang.NonNull;

@@ -3,9 +3,9 @@ package org.ifinal.finalframework.data.query;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.data.annotation.AbsEntity;
-import org.ifinal.finalframework.data.annotation.Geometry;
-import org.ifinal.finalframework.data.annotation.Json;
+import org.ifinal.finalframework.annotation.data.AbsEntity;
+import org.ifinal.finalframework.annotation.data.Geometry;
+import org.ifinal.finalframework.annotation.data.Json;
 import org.springframework.data.geo.Point;
 
 import java.util.List;

@@ -2,8 +2,8 @@ package org.ifinal.finalframework.mybatis.sql;
 
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.mapping.converter;
 
-import org.ifinal.finalframework.data.annotation.NameConverter;
+import org.ifinal.finalframework.annotation.data.NameConverter;
 
 /**
  * @author likly

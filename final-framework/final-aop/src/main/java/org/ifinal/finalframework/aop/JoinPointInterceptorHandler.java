@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.aop;
 
-import org.ifinal.finalframework.aop.annotation.JoinPoint;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

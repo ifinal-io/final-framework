@@ -50,13 +50,11 @@ public class ShardingDataSourceSupport {
             ShardingStrategyRegistration databaseShardingStrategy = registration.getDatabaseShardingStrategy();
             if (Objects.nonNull(databaseShardingStrategy)) {
                 shardingTableRuleConfiguration.setDatabaseShardingStrategy(buildShardingStrategy(databaseShardingStrategy));
-//                configuration.getShardingAlgorithms().put(databaseShardingStrategy.getName(), buildShardingAlgorithm(databaseShardingStrategy));
             }
 
             ShardingStrategyRegistration tableShardingStrategy = registration.getTableShardingStrategy();
             if (Objects.nonNull(tableShardingStrategy)) {
                 shardingTableRuleConfiguration.setTableShardingStrategy(buildShardingStrategy(tableShardingStrategy));
-//                configuration.getShardingAlgorithms().put(tableShardingStrategy.getName(), buildShardingAlgorithm(tableShardingStrategy));
             }
 
 
@@ -67,7 +65,7 @@ public class ShardingDataSourceSupport {
 
         for (ShardingAlgorithmRegistration shardingAlgorithm : shardingAlgorithmRegistry.getShardingAlgorithms()) {
             configuration.getShardingAlgorithms().put(shardingAlgorithm.getName(),
-                    new ShardingSphereAlgorithmConfiguration(shardingAlgorithm.getType().name(), shardingAlgorithm.getProperties()));
+                    buildShardingAlgorithm(shardingAlgorithm));
         }
 
         Properties props = new Properties();
@@ -83,7 +81,7 @@ public class ShardingDataSourceSupport {
         return registry;
     }
 
-    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(ShardingStrategyRegistration databaseShardingStrategy) {
+    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(ShardingAlgorithmRegistration databaseShardingStrategy) {
         return new ShardingSphereAlgorithmConfiguration(databaseShardingStrategy.getType().name(), databaseShardingStrategy.getProperties());
     }
 
