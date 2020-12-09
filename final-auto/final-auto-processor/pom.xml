@@ -18,11 +18,6 @@
             <version>${final.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-annotation</artifactId>
-            <version>${final.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.ifinal.finalframework.auto</groupId>
             <artifactId>final-auto-core</artifactId>
         </dependency>

@@ -3,8 +3,6 @@ package org.ifinal.finalframework.auto.processor;
 
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.data.annotation.Transient;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
@@ -31,8 +29,8 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoEntityProcessor extends AbsServiceProcessor {
 
-    private static final String IENTITY = IEntity.class.getName();
-    private static final String TRANSIENT = Transient.class.getName();
+    private static final String IENTITY = "org.ifinal.finalframework.core.annotation.IEntity";
+    private static final String TRANSIENT = "org.ifinal.finalframework.data.annotation.Transient";
 
 
     private TypeElementFilter typeElementFilter;
