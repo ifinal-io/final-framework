@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.annotation.sharding;
 
+import org.apache.shardingsphere.sharding.algorithm.sharding.datetime.IntervalShardingAlgorithm;
 import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineShardingAlgorithm;
 import org.apache.shardingsphere.sharding.algorithm.sharding.mod.HashModShardingAlgorithm;
 import org.apache.shardingsphere.sharding.algorithm.sharding.mod.ModShardingAlgorithm;
@@ -22,4 +23,9 @@ public enum ShardingType {
      * @see HashModShardingAlgorithm#getType()
      */
     HASH_MOD,
+
+    /**
+     * @see IntervalShardingAlgorithm#getType()
+     */
+    INTERVAL,
 }

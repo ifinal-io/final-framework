@@ -8,8 +8,8 @@ import java.lang.annotation.*;
 
 /**
  * @author likly
- * @version 1.0.2
- * @since 1.0.2
+ * @version 1.0.3-SNAPSHOT
+ * @since 1.0.3-SNAPSHOT
  */
 
 @Documented

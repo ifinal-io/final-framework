@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
-        <version>1.0.2</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>
             <artifactId>final-devops</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -13,7 +13,7 @@
 
     <groupId>org.ifinal.finalframework.frameworks</groupId>
     <artifactId>final-frameworks</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Final framework with Spring Boot</description>
@@ -55,7 +55,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <final.version>1.0.2</final.version>
+        <final.version>1.0.3-SNAPSHOT</final.version>
         <java.version>1.8</java.version>
         <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <mybatis.version>3.5.6</mybatis.version>

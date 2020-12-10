@@ -9,7 +9,6 @@ import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.util.ElementFilter;
@@ -46,7 +45,7 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
         final Set<TypeElement> elements = ElementFilter.typesIn(roundEnv.getRootElements());
 
         elements.stream()
-                .filter(element -> ElementKind.ANNOTATION_TYPE != element.getKind())
+//                .filter(element -> ElementKind.ANNOTATION_TYPE != element.getKind())
                 .forEach(element -> {
                     for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
                         if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
