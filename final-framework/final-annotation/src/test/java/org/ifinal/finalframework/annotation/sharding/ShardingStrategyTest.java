@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.annotation.sharding;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
@@ -14,9 +15,8 @@ class ShardingStrategyTest {
 
     @Test
     void shardingStrategy(){
-        Set<ShardingStrategy> allMergedAnnotations = AnnotatedElementUtils.findMergedRepeatableAnnotations(ShardingEntity.class, ShardingStrategy.class);
         Set<InlineShardingStrategy> allMergedAnnotations2 = AnnotatedElementUtils.findMergedRepeatableAnnotations(ShardingEntity.class, InlineShardingStrategy.class);
-        System.out.println();
+        Assertions.assertFalse(allMergedAnnotations2.isEmpty());
     }
 
 }
