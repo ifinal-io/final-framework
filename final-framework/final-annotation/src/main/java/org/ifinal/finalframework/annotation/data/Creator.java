@@ -4,7 +4,11 @@ import org.ifinal.finalframework.annotation.core.IUser;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedBy;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Annotate the {@linkplain java.lang.reflect.Field property} represent the {@linkplain IUser creator} which is {@linkplain Final}.

@@ -1,6 +1,13 @@
 package org.ifinal.finalframework.auto.query.processor;
 
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;

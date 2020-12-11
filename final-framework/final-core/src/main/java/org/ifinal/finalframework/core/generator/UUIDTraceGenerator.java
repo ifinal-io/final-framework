@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.core.generator;
 
 import java.util.UUID;
@@ -25,7 +26,7 @@ import java.util.UUID;
  */
 public class UUIDTraceGenerator implements TraceGenerator {
 
-    public static final UUIDTraceGenerator instance = new UUIDTraceGenerator();
+    public static final UUIDTraceGenerator INSTANCE = new UUIDTraceGenerator();
 
 
     @Override

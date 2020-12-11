@@ -4,7 +4,11 @@ import org.ifinal.finalframework.annotation.aop.AopAnnotation;
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author likly
@@ -34,7 +38,6 @@ public @interface AlertMonitor {
     String when() default "";
 
     JoinPoint point() default JoinPoint.AFTER_THROWING;
-
 
 
 }

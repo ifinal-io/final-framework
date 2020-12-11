@@ -3,7 +3,11 @@ package org.ifinal.finalframework.annotation.data;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Marked the element is a primary key.

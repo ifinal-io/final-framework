@@ -8,7 +8,14 @@ import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -126,7 +133,7 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <E> QProperty<E>  getVersionProperty() {
+    public <E> QProperty<E> getVersionProperty() {
         return (QProperty<E>) this.versionProperty;
     }
 

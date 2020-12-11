@@ -1,6 +1,11 @@
 package org.ifinal.finalframework.aop.single;
 
-import org.ifinal.finalframework.aop.*;
+import org.ifinal.finalframework.aop.AbsGenericPointcutAdvisor;
+import org.ifinal.finalframework.aop.AnnotationBuilder;
+import org.ifinal.finalframework.aop.AnnotationSource;
+import org.ifinal.finalframework.aop.AnnotationSourceMethodPoint;
+import org.ifinal.finalframework.aop.DefaultAnnotationMethodInterceptor;
+import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.springframework.aop.Pointcut;
 import org.springframework.lang.NonNull;
 

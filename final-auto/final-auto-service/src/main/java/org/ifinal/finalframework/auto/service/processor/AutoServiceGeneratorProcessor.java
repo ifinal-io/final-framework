@@ -38,17 +38,19 @@ import java.util.Set;
 public class AutoServiceGeneratorProcessor extends AbstractProcessor {
 
     private static final String MAPPER_SUFFIX = "Mapper";
+
     private static final String DEFAULT_MAPPER_PATH = "dao.mapper";
 
     private static final String SERVICE_SUFFIX = "Service";
+
     private static final String SERVICE_IMPL_SUFFIX = "ServiceImpl";
 
     private static final String DEFAULT_ENTITY_PATH = "entity";
+
     private static final String DEFAULT_SERVICE_PATH = "service";
 
-
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         if (roundEnv.processingOver()) {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
@@ -57,11 +59,10 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .forEach(this::generateService);
         }
 
-
         return false;
     }
 
-    private void generateService(TypeElement entity) {
+    private void generateService(final TypeElement entity) {
         final String servicePackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
                 .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_SERVICE_PATH);
 
@@ -99,18 +100,15 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                         .addJavadoc(JavaPoets.JavaDoc.version())
                         .build();
 
-
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = JavaFile.builder(servicePackageName, service).build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
 
-
             } catch (Exception e) {
                 error(e.getMessage());
             }
-
 
         }
 
@@ -148,26 +146,21 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                         .addJavadoc(JavaPoets.JavaDoc.version())
                         .build();
 
-
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service).build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
 
-
             } catch (Exception e) {
                 error(e.getMessage());
             }
         }
 
-
     }
-
 
     private void error(String msg) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg);
     }
-
 
 }

@@ -1,7 +1,11 @@
 package org.ifinal.finalframework.data.query.criteriable;
 
 import org.ifinal.finalframework.data.query.criterion.CriterionTarget;
-import org.ifinal.finalframework.data.query.criterion.function.*;
+import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
+import org.ifinal.finalframework.data.query.criterion.function.DateFunction;
+import org.ifinal.finalframework.data.query.criterion.function.JsonFunction;
+import org.ifinal.finalframework.data.query.criterion.function.LogicFunction;
+import org.ifinal.finalframework.data.query.criterion.function.MathFunction;
 
 /**
  * @author likly

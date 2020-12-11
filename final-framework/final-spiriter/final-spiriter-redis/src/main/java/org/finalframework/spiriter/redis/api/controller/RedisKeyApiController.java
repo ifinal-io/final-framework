@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 /**
  * @author likly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @RestController

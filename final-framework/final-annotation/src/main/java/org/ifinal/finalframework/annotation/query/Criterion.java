@@ -1,6 +1,10 @@
 package org.ifinal.finalframework.annotation.query;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * The meta annotation to mark the {@link java.lang.annotation.Annotation} is a criterion annotation.

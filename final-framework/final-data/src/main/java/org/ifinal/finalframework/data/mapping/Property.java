@@ -2,7 +2,16 @@ package org.ifinal.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.annotation.data.*;
+import org.ifinal.finalframework.annotation.data.Column;
+import org.ifinal.finalframework.annotation.data.Default;
+import org.ifinal.finalframework.annotation.data.Final;
+import org.ifinal.finalframework.annotation.data.Keyword;
+import org.ifinal.finalframework.annotation.data.ReadOnly;
+import org.ifinal.finalframework.annotation.data.Reference;
+import org.ifinal.finalframework.annotation.data.ReferenceMode;
+import org.ifinal.finalframework.annotation.data.Transient;
+import org.ifinal.finalframework.annotation.data.Virtual;
+import org.ifinal.finalframework.annotation.data.WriteOnly;
 import org.ifinal.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;

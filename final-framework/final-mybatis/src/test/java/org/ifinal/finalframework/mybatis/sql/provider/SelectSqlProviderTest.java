@@ -10,7 +10,7 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;

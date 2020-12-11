@@ -8,7 +8,6 @@ import org.ifinal.finalframework.spiriter.jdbc.contants.SchemaConstants;
 /**
  * @author likly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @Data

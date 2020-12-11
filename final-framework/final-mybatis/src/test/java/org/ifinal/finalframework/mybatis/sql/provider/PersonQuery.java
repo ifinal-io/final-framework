@@ -2,9 +2,13 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 
 import lombok.Data;
-import org.ifinal.finalframework.annotation.query.*;
+import org.ifinal.finalframework.annotation.query.Equal;
+import org.ifinal.finalframework.annotation.query.Function;
+import org.ifinal.finalframework.annotation.query.LessThan;
+import org.ifinal.finalframework.annotation.query.Limit;
+import org.ifinal.finalframework.annotation.query.Offset;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * @author likly

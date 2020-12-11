@@ -2,7 +2,11 @@ package org.ifinal.finalframework.annotation.data;
 
 import org.springframework.data.annotation.Immutable;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Annotate the {@linkplain java.lang.reflect.Field property} is {@literal final} which would not be updated.

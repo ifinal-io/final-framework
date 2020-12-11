@@ -1,12 +1,23 @@
 package org.ifinal.finalframework.mybatis.mapper;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.repository.Repository;
-import org.ifinal.finalframework.mybatis.sql.provider.*;
+import org.ifinal.finalframework.mybatis.sql.provider.DeleteSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.InsertSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.SelectCountSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.SelectIdsSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.SelectSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.TruncateSqlProvider;
+import org.ifinal.finalframework.mybatis.sql.provider.UpdateSqlProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

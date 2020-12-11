@@ -5,7 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.ifinal.finalframework.annotation.core.IView;
-import org.ifinal.finalframework.annotation.data.*;
+import org.ifinal.finalframework.annotation.data.AbsEntity;
+import org.ifinal.finalframework.annotation.data.Column;
+import org.ifinal.finalframework.annotation.data.Function;
+import org.ifinal.finalframework.annotation.data.Reference;
+import org.ifinal.finalframework.annotation.data.Transient;
+import org.ifinal.finalframework.annotation.data.View;
 
 /**
  * @author likly
@@ -17,9 +22,9 @@ import org.ifinal.finalframework.annotation.data.*;
 @ToString(callSuper = true)
 @Transient
 public class Person extends AbsEntity {
-//    @Virtual
-@Column
-public String vcolumn = "32";
+    //    @Virtual
+    @Column
+    public String vcolumn = "32";
     @View(IView.class)
     private String name;
     private Integer age;

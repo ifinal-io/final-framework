@@ -6,7 +6,14 @@ import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.data.AutoInc;
 import org.ifinal.finalframework.annotation.data.PrimaryKey;
-import org.ifinal.finalframework.annotation.query.*;
+import org.ifinal.finalframework.annotation.query.BetweenValue;
+import org.ifinal.finalframework.annotation.query.Criteria;
+import org.ifinal.finalframework.annotation.query.Equal;
+import org.ifinal.finalframework.annotation.query.JsonContains;
+import org.ifinal.finalframework.annotation.query.NotBetween;
+import org.ifinal.finalframework.annotation.query.NotEqual;
+import org.ifinal.finalframework.annotation.query.NotIn;
+import org.ifinal.finalframework.annotation.query.Or;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

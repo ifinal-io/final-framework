@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author likly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 class TablesTest {

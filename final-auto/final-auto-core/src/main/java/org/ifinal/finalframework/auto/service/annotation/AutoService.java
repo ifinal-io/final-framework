@@ -3,7 +3,11 @@ package org.ifinal.finalframework.auto.service.annotation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import static org.ifinal.finalframework.auto.service.annotation.AutoService.List;
 

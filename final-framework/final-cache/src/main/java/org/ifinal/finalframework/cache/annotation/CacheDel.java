@@ -4,7 +4,12 @@ import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.CacheDel.List;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

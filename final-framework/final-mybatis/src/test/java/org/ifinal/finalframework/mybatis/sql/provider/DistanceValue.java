@@ -3,7 +3,7 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import lombok.Data;
 
-import java.awt.*;
+import java.awt.Point;
 
 /**
  * @author likly

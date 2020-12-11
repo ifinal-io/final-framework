@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class MDCTracer implements Tracer {
     private static final String MDC_TRACER = "mdcTracer";
 
-    private static final TraceGenerator traceGenerator = UUIDTraceGenerator.instance;
+    private static final TraceGenerator traceGenerator = UUIDTraceGenerator.INSTANCE;
 
     @Override
     public void start(TraceContext context) {

@@ -12,6 +12,8 @@ import javax.lang.model.util.AbstractAnnotationValueVisitor8;
 import java.util.List;
 
 /**
+ * Annotation Values Utils.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -23,80 +25,103 @@ public final class AnnotationValues {
     private AnnotationValues() {
     }
 
-    public static boolean getBoolean(@NonNull AnnotationValue value) {
+    /**
+     * return {@code boolean} value from the {@link AnnotationValue}.
+     *
+     * @param value annotation value
+     * @return {@code boolean} value
+     */
+    public static boolean getBoolean(final @NonNull AnnotationValue value) {
         return value.accept(BOOLEAN_ANNOTATION_VISITOR, null);
     }
 
-    public static TypeElement getClass(@NonNull AnnotationValue value) {
+    /**
+     * return {@link Class} value from the {@link AnnotationValue}.
+     *
+     * @param value annotation value
+     * @return {@link Class} value
+     */
+    public static TypeElement getClass(final @NonNull AnnotationValue value) {
         return (TypeElement) ((DeclaredType) value.getValue()).asElement();
     }
 
-    private static class BooleanAnnotationVisitor extends AbstractAnnotationValueVisitor8<Boolean, Void> {
+    protected abstract static class AbsAnnotationValueVisitor<R, P> extends
+            AbstractAnnotationValueVisitor8<R, P> {
 
         @Override
-        public Boolean visitBoolean(boolean av, Void unused) {
+        public R visitBoolean(final boolean b, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitByte(final byte b, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitChar(final char c, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitDouble(final double d, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitFloat(final float f, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitInt(final int i, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitLong(final long i, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitShort(final short s, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitString(final String s, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitType(final TypeMirror t, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitEnumConstant(final VariableElement c, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitAnnotation(final AnnotationMirror a, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+        @Override
+        public R visitArray(final List<? extends AnnotationValue> vals, final P p) {
+            throw new IllegalArgumentException("");
+        }
+
+    }
+
+    private static class BooleanAnnotationVisitor extends AbsAnnotationValueVisitor<Boolean, Void> {
+
+        @Override
+        public Boolean visitBoolean(final boolean av, final Void unused) {
             return av;
         }
 
-        @Override
-        public Boolean visitByte(byte b, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitChar(char c, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitDouble(double d, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitFloat(float f, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitInt(int i, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitLong(long i, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitShort(short s, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitString(String s, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitType(TypeMirror t, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitEnumConstant(VariableElement c, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitAnnotation(AnnotationMirror a, Void unused) {
-            throw new IllegalArgumentException("");
-        }
-
-        @Override
-        public Boolean visitArray(List<? extends AnnotationValue> vals, Void unused) {
-            throw new IllegalArgumentException("");
-        }
     }
 
 }
