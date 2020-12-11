@@ -1,6 +1,12 @@
 package org.ifinal.finalframework.auto.service.processor;
 
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
@@ -65,7 +71,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
         final String serviceImplName = entity.getSimpleName().toString() + SERVICE_IMPL_SUFFIX;
 
         final TypeElement serviceElement = processingEnv.getElementUtils().getTypeElement(servicePackageName + "." + serviceName);
-        final TypeElement serviceImplElement = processingEnv.getElementUtils().getTypeElement(servicePackageName + "." + serviceImplName);
+        final TypeElement serviceImplElement = processingEnv.getElementUtils().getTypeElement(serviceImplPackageName + "." + serviceImplName);
 
         if (serviceElement == null) {
 
