@@ -19,10 +19,10 @@ class ComplexInlineShardingAlgorithmTest {
     @Test
     void test() {
 
-
         ComplexInlineShardingAlgorithm algorithm = new ComplexInlineShardingAlgorithm();
         Properties props = new Properties();
-        props.put("algorithm-expression", "person_${age % 2}_${name}");
+        props.put("algorithm-expression", "person_${age % 2}_${type % 2}");
+        props.put("sharding-columns","age,type");
         algorithm.setProps(props);
 
         algorithm.init();
@@ -30,12 +30,12 @@ class ComplexInlineShardingAlgorithmTest {
 
         Map<String, Collection<Comparable<?>>> shardingValues = new HashMap<>();
 
-        shardingValues.put("name", Arrays.asList("xiaoming", "xiaohong"));
-        shardingValues.put("age", Arrays.asList(10, 11));
+        shardingValues.put("type", Arrays.asList(1, 2));
+        shardingValues.put("age", Arrays.asList(1, 2));
 
-
-        ComplexKeysShardingValue<Comparable<?>> shardingValue = new ComplexKeysShardingValue<>(null, shardingValues, null);
-        Collection<String> tables = algorithm.doSharding(null, shardingValue);
+        Collection<String> availableTargetNames = Arrays.asList("person_0_0", "person_0_1", "person_1_0", "person_1_1");
+        ComplexKeysShardingValue<Comparable<?>> shardingValue = new ComplexKeysShardingValue<>("person", shardingValues, null);
+        Collection<String> tables = algorithm.doSharding(availableTargetNames, shardingValue);
 
         Assertions.assertEquals(4, tables.size());
 
