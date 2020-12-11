@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.sharding.config;
 
 import lombok.Getter;
-import org.ifinal.finalframework.annotation.sharding.ShardingType;
 
 import java.util.Properties;
 
@@ -12,11 +11,11 @@ import java.util.Properties;
  */
 @Getter
 public class ShardingAlgorithmRegistration {
-    private final ShardingType type;
+    private final String type;
     private final String name;
     private final Properties properties;
 
-    public ShardingAlgorithmRegistration(ShardingType type, String name, Properties properties) {
+    public ShardingAlgorithmRegistration(String type, String name, Properties properties) {
         this.type = type;
         this.name = name;
         this.properties = properties;

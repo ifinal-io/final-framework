@@ -5,6 +5,8 @@ import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.config.sharding.strategy.ShardingStrategyConfiguration;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
+import org.ifinal.finalframework.annotation.sharding.Property;
+import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.CollectionUtils;
@@ -62,7 +64,7 @@ public class ShardingDataSourceSupport4 {
 
 
         Properties props = new Properties();
-        props.put("sql.show",true);
+        props.put("sql.show", true);
         return ShardingDataSourceFactory.createDataSource(dataSourceRegistry.getDataSources(), configuration, props);
 
 
@@ -71,10 +73,10 @@ public class ShardingDataSourceSupport4 {
 
     private ShardingStrategyConfiguration buildShardingStrategy(ShardingStrategyRegistration shardingStrategyRegistration) {
         switch (shardingStrategyRegistration.getType()) {
-            case INLINE:
-                return new InlineShardingStrategyConfiguration(shardingStrategyRegistration.getColumn(), shardingStrategyRegistration.getProperties().getProperty("algorithm-expression"));
+            case ShardingStrategy.Algorithm.INLINE:
+                return new InlineShardingStrategyConfiguration(shardingStrategyRegistration.getColumns()[0], shardingStrategyRegistration.getProperties().getProperty(Property.INLINE_ALGORITHM_EXPRESSION));
             default:
-                throw new IllegalArgumentException(shardingStrategyRegistration.getType().name());
+                throw new IllegalArgumentException(shardingStrategyRegistration.getType());
         }
     }
 

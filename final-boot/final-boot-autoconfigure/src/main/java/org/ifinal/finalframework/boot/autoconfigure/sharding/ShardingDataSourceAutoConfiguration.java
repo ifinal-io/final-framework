@@ -17,4 +17,6 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(ShardingRuleConfiguration.class)
 public class ShardingDataSourceAutoConfiguration extends ShardingDataSourceSupport {
 
+
+
 }

@@ -10,7 +10,7 @@ import org.apache.shardingsphere.sharding.algorithm.sharding.mod.ModShardingAlgo
  * @version 1.0.0
  * @since 1.0.0
  */
-public enum ShardingType {
+public enum ShardingAlgorithmType {
     /**
      * @see InlineShardingAlgorithm#getType()
      */
@@ -28,4 +28,10 @@ public enum ShardingType {
      * @see IntervalShardingAlgorithm#getType()
      */
     INTERVAL,
+
+    HINT_INLINE,
+
+    COMPLEX_INLINE,
+
+    CLASS_BASED
 }

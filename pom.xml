@@ -60,6 +60,7 @@
         <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <mybatis.version>3.5.6</mybatis.version>
         <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
+        <pagehelper.version>5.2.0</pagehelper.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
         <sharding.version>5.0.0-alpha</sharding.version>
         <sharding4.version>4.1.1</sharding4.version>
@@ -71,6 +72,12 @@
         <guava.version>30.0-jre</guava.version>
         <apache.commons.lang3.vserion>3.11</apache.commons.lang3.vserion>
         <apache.commons.collections4.vserion>4.4</apache.commons.collections4.vserion>
+
+
+
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
 
         <!--CI-->
         <sonar.projectKey>likly_final-frameworks</sonar.projectKey>
@@ -148,6 +155,11 @@
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-core</artifactId>
                 <version>${sharding4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -231,6 +243,25 @@
                     </execution>
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>${maven-checkstyle-plugin.version}</version>-->
+<!--                <configuration>-->
+<!--                    <configLocation>src/checkstyle/checkstyle_ci.xml</configLocation>-->
+<!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+<!--                    <excludes>**/autogen/**/*</excludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>validate</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
         <pluginManagement>
             <plugins>

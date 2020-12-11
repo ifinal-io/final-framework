@@ -17,7 +17,43 @@ import java.lang.annotation.Target;
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
+@Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 public @interface ShardingStrategy {
-    ShardingType value() ;
+
+    Strategy strategy();
+
+    String type();
+
+    /**
+     * @author likly
+     * @version 1.0.0
+     * @see StandardShardingStrategyConfiguration
+     * @see org.apache.shardingsphere.sharding.api.config.strategy.sharding.ComplexShardingStrategyConfiguration
+     * @see org.apache.shardingsphere.sharding.api.config.strategy.sharding.HintShardingStrategyConfiguration
+     * @see org.apache.shardingsphere.sharding.api.config.strategy.sharding.NoneShardingStrategyConfiguration
+     * @since 1.0.0
+     */
+    enum Strategy {
+        STANDARD, COMPLEX, HINT, CLASS_BASED
+    }
+
+    /**
+     * @author likly
+     * @version 1.0.0
+     * @since 1.0.0
+     */
+    enum Scope {
+        DATABASE, TABLE
+    }
+
+    class Algorithm {
+        public static final String INLINE = "INLINE";
+        public static final String HINT_INLINE = "HINT_INLINE";
+        public static final String COMPLEX_INLINE = "COMPLEX_INLINE";
+        public static final String INTERVAL = "INTERVAL";
+        public static final String CLASS_BASED = "CLASS_BASED";
+
+        private Algorithm() {
+        }
+    }
 }

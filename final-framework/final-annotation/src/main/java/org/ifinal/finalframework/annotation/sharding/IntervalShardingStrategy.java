@@ -15,27 +15,29 @@ import java.time.temporal.ChronoUnit;
 @Repeatable(IntervalShardingStrategy.ShardingStrategies.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@ShardingStrategy(value = ShardingType.INTERVAL)
+@ShardingStrategy(strategy = ShardingStrategy.Strategy.STANDARD, type = ShardingStrategy.Algorithm.INTERVAL)
 public @interface IntervalShardingStrategy {
 
-    ShardingScope scope() default ShardingScope.TABLE;
+    ShardingStrategy.Scope scope();
 
-    @Property("datetime-pattern")
+    String[] columns();
+
+    @Property(Property.INTERVAL_DATETIME_PATTERN)
     String pattern();
 
-    @Property("datetime-lower")
+    @Property(Property.INTERVAL_DATETIME_LOWER)
     String lower();
 
-    @Property("datetime-upper")
+    @Property(Property.INTERVAL_DATETIME_UPPER)
     String upper();
 
-    @Property("sharding-suffix-pattern")
+    @Property(Property.INTERVAL_SHARDING_SUFFIX_PATTERN)
     String suffix();
 
-    @Property("datetime-interval-amount")
+    @Property(Property.INTERVAL_DATETIME_INTERVAL_AMOUNT)
     int interval() default 1;
 
-    @Property("datetime-interval-unit")
+    @Property(Property.INTERVAL_DATETIME_INTERVAL_UNIT)
     ChronoUnit unit() default ChronoUnit.DAYS;
 
     @Target(ElementType.TYPE)

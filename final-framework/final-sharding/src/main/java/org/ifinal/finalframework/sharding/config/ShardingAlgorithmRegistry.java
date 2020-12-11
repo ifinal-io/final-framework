@@ -2,7 +2,6 @@ package org.ifinal.finalframework.sharding.config;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.ifinal.finalframework.annotation.sharding.ShardingType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +17,7 @@ public class ShardingAlgorithmRegistry {
     @Getter(AccessLevel.PACKAGE)
     private final Collection<ShardingAlgorithmRegistration> shardingAlgorithms = new ArrayList<>();
 
-    public ShardingAlgorithmRegistry addShardingAlgorithm(String name, ShardingType type, Properties properties) {
+    public ShardingAlgorithmRegistry addShardingAlgorithm(String name, String type, Properties properties) {
         shardingAlgorithms.add(new ShardingAlgorithmRegistration(type, name, properties));
         return this;
     }

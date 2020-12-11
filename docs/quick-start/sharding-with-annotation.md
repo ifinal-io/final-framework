@@ -32,7 +32,7 @@ version: 1.0
 
 
 
-### Inline Sharding Strategy
+### Inline Sharding Strategy——行表达式分片算法
 
 使用`@InlineShardingStrategy`注解声明行内（`INLINE`）分片（库）策略。使用 Groovy 的表达式，提供对 SQL 语句中的 `=` 和 `IN` 的分片操作支持，只支持单分片键。 对于简单的分片算法，可以通过简单的配置使用，从而避免繁琐的 Java 代码开发，如: `t_user_$->{u_id % 8}` 表示 `t_user` 表根据 `u_id` 模 8，而分成 8 张表，表名称为 `t_user_0` 到 `t_user_7`。
 
@@ -112,4 +112,21 @@ rules:
 |     `columns`     | `String[]` |                         分片列名称                         |    -    |
 |   `expression`    |  `String`  |                     分片算法的行表达式                     |    -    |
 | `allowRangeQuery` | `boolean`  | 是否允许范围查询。注意：范围查询会无视分片策略，进行全路由 | `false` |
+
+
+
+### Interval Sharding Strategy——时间范围分片算法
+
+
+
+|    属性    |    数据类型     | 说明 | 默认值 |
+| :--------: | :-------------: | :--: | :----: |
+|  `scope`   | `ShardingScope` |      |        |
+| `columns`  |   `String[]`    |      |        |
+| `pattern`  |    `String`     |      |        |
+|  `lower`   |    `String`     |      |        |
+|  `upper`   |    `String`     |      |        |
+|  `suffix`  |    `String`     |      |        |
+| `interval` |      `int`      |      |  `1`   |
+|   `unit`   |  `ChronoUnit`   |      | `DAYS` |
 

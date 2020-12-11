@@ -1,7 +1,9 @@
 package org.ifinal.finalframework.sharding.config;
 
 import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.sharding.*;
+import org.ifinal.finalframework.annotation.sharding.Property;
+import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
+import org.ifinal.finalframework.annotation.sharding.ShardingTable;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -71,8 +73,8 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
 
                             AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(clazz, annotation);
 
-                            ShardingScope scope = annotationAttributes.getEnum("scope");
-                            final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.value());
+                            ShardingStrategy.Scope scope = annotationAttributes.getEnum("scope");
+                            final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.type());
 
 
                             final Properties properties = new Properties();
@@ -88,16 +90,19 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                                 }
                             }
 
+                            // process class based sharding strategy properties
+                            if (ShardingStrategy.Strategy.CLASS_BASED == shardingStrategy.strategy()) {
+                                processClassBasedSharingStrategyProperties(properties);
+                            }
 
-                            ShardingStrategyRegistration shardingStrategyRegistration = buildShardingStrategyConfiguration(shardingStrategy.value(), name, annotationAttributes, properties);
+
+                            ShardingStrategyRegistration shardingStrategyRegistration = buildShardingStrategyConfiguration(shardingStrategy, name, annotationAttributes, properties);
                             switch (scope) {
                                 case TABLE:
                                     table.setTableShardingStrategy(shardingStrategyRegistration);
                                     break;
                                 case DATABASE:
                                     table.setDatabaseShardingStrategy(shardingStrategyRegistration);
-                                    break;
-                                case KEY:
                                     break;
                             }
 
@@ -117,6 +122,17 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
         }
     }
 
+    private void processClassBasedSharingStrategyProperties(Properties properties) {
+        if (properties.get(Property.CLASS_BASED_STRATEGY) instanceof ShardingStrategy.Strategy) {
+            properties.put(Property.CLASS_BASED_STRATEGY, ((ShardingStrategy.Strategy) properties.get(Property.CLASS_BASED_STRATEGY)).name());
+        }
+
+        if (properties.get(Property.CLASS_BASED_ALGORITHM_CLASS_NAME) instanceof Class) {
+            properties.put(Property.CLASS_BASED_ALGORITHM_CLASS_NAME, ((Class<?>) properties.get(Property.CLASS_BASED_ALGORITHM_CLASS_NAME)).getName());
+
+        }
+    }
+
     private Collection<Annotation> findAllShardingStrategyAnnotations(Class<?> clazz) {
         final Collection<Annotation> annotations = new ArrayList<>();
 
@@ -129,14 +145,12 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     }
 
 
-    private ShardingStrategyRegistration buildShardingStrategyConfiguration(ShardingType type, String name, AnnotationAttributes annotationAttributes, Properties properties) {
-        final String columns = String.join(",", annotationAttributes.getStringArray("columns"));
-        return new ShardingStrategyRegistration(type, name, columns, properties);
-
+    private ShardingStrategyRegistration buildShardingStrategyConfiguration(ShardingStrategy shardingStrategy, String name, AnnotationAttributes annotationAttributes, Properties properties) {
+        return new ShardingStrategyRegistration(shardingStrategy.strategy(), shardingStrategy.type(), name, annotationAttributes.getStringArray("columns"), properties);
     }
 
-    private String buildShardingStrategyName(String table, ShardingScope scope, ShardingType type) {
-        return String.join("-", table, scope.name(), type.name());
+    private String buildShardingStrategyName(String table, ShardingStrategy.Scope scope, String type) {
+        return String.join("-", table, scope.name(), type);
     }
 
     @Override
