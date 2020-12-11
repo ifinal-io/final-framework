@@ -34,8 +34,8 @@ public class ShardingTableRegistration {
         return this;
     }
 
-    public ShardingTableRegistration setTableShardingStrategy(ShardingStrategyRegistration sHardingStrategy) {
-        this.tableShardingStrategy = sHardingStrategy;
+    public ShardingTableRegistration setTableShardingStrategy(ShardingStrategyRegistration shardingStrategy) {
+        this.tableShardingStrategy = shardingStrategy;
         return this;
     }
 

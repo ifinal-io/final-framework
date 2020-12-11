@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 

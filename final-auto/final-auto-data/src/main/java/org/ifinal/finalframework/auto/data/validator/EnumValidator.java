@@ -26,11 +26,11 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
     }
 
     @Override
-    public Void visitType(TypeElement e, Void aVoid) {
+    public Void visitType(TypeElement e, Void param) {
         if (matches(e)) {
             validate(e, enumInterface);
         }
-        return super.visitType(e, aVoid);
+        return super.visitType(e, param);
     }
 
     @Override

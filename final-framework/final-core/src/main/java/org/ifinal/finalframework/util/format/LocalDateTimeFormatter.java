@@ -29,7 +29,7 @@ public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
     @SuppressWarnings("all")
     public static final LocalDateTimeFormatter YYYY_MM_DD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYY_MM_DD_HH_MM_SS);
     @SuppressWarnings("all")
-    public static final LocalDateTimeFormatter YYYY__MM__DD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
+    public static final LocalDateTimeFormatter YYYY2_MM2_DD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
     @SuppressWarnings("all")
     public static final LocalDateTimeFormatter YYYYMMDDHHMMSS = new LocalDateTimeFormatter(DateFormatterPattern.YYYYMMDDHHMMSS);
     @SuppressWarnings("all")

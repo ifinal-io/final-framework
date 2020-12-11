@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.format;
 
 
@@ -26,22 +27,22 @@ import org.junit.jupiter.api.Test;
  * @since 1.0.0
  */
 class LocalDateTimeFormattersTest {
-   private LocalDateTimeFormatters dateFormatters = LocalDateTimeFormatters.DEFAULT;
+    private LocalDateTimeFormatters dateFormatters = LocalDateTimeFormatters.DEFAULT;
 
-   @Test
-   @SuppressWarnings("all")
-   void parse() {
+    @Test()
+    void parse() {
 
-      String YYYY_MM_DD_HH_MM_SS = "2019-02-14 12:13:14";
-      Assertions.assertEquals(YYYY_MM_DD_HH_MM_SS, LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(YYYY_MM_DD_HH_MM_SS)));
 
-      String YYYY__MM__DD_HH_MM_SS = "2019/02/14 12:13:14";
-      Assertions.assertEquals(YYYY__MM__DD_HH_MM_SS, LocalDateTimeFormatter.YYYY__MM__DD_HH_MM_SS.format(dateFormatters.parse(YYYY__MM__DD_HH_MM_SS)));
+        String datetime = "2019-02-14 12:13:14";
+        Assertions.assertEquals(datetime, LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
 
-      String YYYYMMDD_HH_MM_SS = "20190214 12:13:14";
-      Assertions.assertEquals(YYYYMMDD_HH_MM_SS, LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(YYYYMMDD_HH_MM_SS)));
+        datetime = "2019/02/14 12:13:14";
+        Assertions.assertEquals(datetime, LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
 
-        String YYYYMMDDHHMMSS = "20190214121314";
-        Assertions.assertEquals(YYYYMMDDHHMMSS, LocalDateTimeFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(YYYYMMDDHHMMSS)));
+        datetime = "20190214 12:13:14";
+        Assertions.assertEquals(datetime, LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+
+        datetime = "20190214121314";
+        Assertions.assertEquals(datetime, LocalDateTimeFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(datetime)));
     }
 }

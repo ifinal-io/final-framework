@@ -41,11 +41,11 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
     }
 
     @Override
-    public Void visitType(TypeElement e, Void aVoid) {
+    public Void visitType(TypeElement e, Void param) {
         if (matches(e, entityInterface)) {
             validate(e);
         }
-        return super.visitType(e, aVoid);
+        return super.visitType(e, param);
     }
 
     @Override

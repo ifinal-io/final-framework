@@ -5,9 +5,7 @@ import org.ifinal.finalframework.spiriter.redis.api.model.RedisKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.DataType;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 

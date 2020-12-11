@@ -28,7 +28,7 @@ public class JsonExpressionFactory implements IExpressionObjectFactory {
     }
 
     @Override
-    public Object buildObject(IExpressionContext iExpressionContext, String name) {
+    public Object buildObject(IExpressionContext context, String name) {
         return this.name.equals(name) ? JsonRegistry.getInstance().getJsonService() : null;
     }
 

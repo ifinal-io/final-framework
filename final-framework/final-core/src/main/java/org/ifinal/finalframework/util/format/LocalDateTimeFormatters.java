@@ -23,7 +23,7 @@ public class LocalDateTimeFormatters implements Formatters<LocalDateTime> {
     public LocalDateTimeFormatters() {
         this(Arrays.asList(
                 LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS,
-                LocalDateTimeFormatter.YYYY__MM__DD_HH_MM_SS,
+                LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS,
                 LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS,
                 LocalDateTimeFormatter.YYYYMMDDHHMMSS
         ));

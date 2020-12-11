@@ -32,10 +32,10 @@ class SqlProviderHelperTest {
     @Test
     void and() {
         AndQuery query = new AndQuery();
-        query.setA("a");
+        query.setColumnA("a");
 //        query.setB(new BetweenValue<>("minB", "maxB"));
 //        query.setC(Arrays.asList("c1", "c2", "c3"));
-        query.setAa("aa");
+        query.setColumnA2("aa");
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
         Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
@@ -44,9 +44,9 @@ class SqlProviderHelperTest {
     @Test
     void or() {
         OrQuery query = new OrQuery();
-        query.setA("a");
-        query.setB(new BetweenValue<>("minB", "maxB"));
-        query.setC(Arrays.asList("c1", "c2", "c3"));
+        query.setColumnA("a");
+        query.setColumnB(new BetweenValue<>("minB", "maxB"));
+        query.setColumnC(Arrays.asList("c1", "c2", "c3"));
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
         Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
@@ -55,10 +55,10 @@ class SqlProviderHelperTest {
     @Test
     void andOr() {
         AndOrQuery query = new AndOrQuery();
-        query.setA("a");
+        query.setColumnA("a");
         InnerQuery innerQuery = new InnerQuery();
-        innerQuery.setB("b");
-        innerQuery.setC("c");
+        innerQuery.setColumnB("b");
+        innerQuery.setColumnC("c");
         query.setInnerQuery(innerQuery);
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
@@ -69,10 +69,10 @@ class SqlProviderHelperTest {
     @Test
     void orAnd() {
         OrAndQuery query = new OrAndQuery();
-        query.setA("a");
+        query.setColumnA("a");
         InnerQuery innerQuery = new InnerQuery();
-        innerQuery.setB("b");
-        innerQuery.setC("c");
+        innerQuery.setColumnB("b");
+        innerQuery.setColumnC("c");
         query.setInnerQuery(innerQuery);
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
@@ -85,21 +85,17 @@ class SqlProviderHelperTest {
         @AutoInc
         @PrimaryKey
         private Long id;
-        private String a;
-        private String b;
-        private String c;
+        private String columnA;
+        private String columnB;
+        private String columnC;
     }
 
     @Data
     static class AndQuery implements IQuery {
         @Equal
-        private String a;
-        //        @NotBetween
-//        private BetweenValue<String> b;
-//        @NotIn
-//        private List<String> c;
-        @JsonContains(path = "$.a", property = "a")
-        private String aa;
+        private String columnA;
+        @JsonContains(path = "$.columnA", property = "columnA")
+        private String columnA2;
 
 
     }
@@ -108,17 +104,17 @@ class SqlProviderHelperTest {
     @Or
     static class OrQuery implements IQuery {
         @Equal
-        private String a;
+        private String columnA;
         @NotBetween
-        private BetweenValue<String> b;
+        private BetweenValue<String> columnB;
         @NotIn
-        private List<String> c;
+        private List<String> columnC;
     }
 
     @Data
     static class AndOrQuery implements IQuery {
         @Equal
-        private String a;
+        private String columnA;
         @Or
         private InnerQuery innerQuery;
     }
@@ -127,7 +123,7 @@ class SqlProviderHelperTest {
     @Or
     static class OrAndQuery implements IQuery {
         @Equal
-        private String a;
+        private String columnA;
         @Criteria
         private InnerQuery innerQuery;
 
@@ -136,8 +132,8 @@ class SqlProviderHelperTest {
     @Data
     static class InnerQuery {
         @Equal
-        private String b;
+        private String columnB;
         @NotEqual
-        private String c;
+        private String columnC;
     }
 }

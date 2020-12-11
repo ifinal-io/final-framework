@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.format;
 
 import org.junit.jupiter.api.Assertions;
@@ -27,26 +28,26 @@ import org.junit.jupiter.api.Test;
  */
 class DateFormattersTest {
 
-   private DateFormatters dateFormatters = DateFormatters.DEFAULT;
+    private DateFormatters dateFormatters = DateFormatters.DEFAULT;
 
-   @Test
-   void parse() {
-      String YYYY_MM_DD_HH_MM_SS = "2019-02-14 12:13:14";
-      Assertions.assertEquals(YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(YYYY_MM_DD_HH_MM_SS)));
-      String YYYY_MM_DD = "2019-02-14";
-      Assertions.assertEquals(YYYY_MM_DD, DateFormatter.YYYY_MM_DD.format(dateFormatters.parse(YYYY_MM_DD)));
+    @Test
+    void parse() {
+        String datetime = "2019-02-14 12:13:14";
+        Assertions.assertEquals(datetime, DateFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+        datetime = "2019-02-14";
+        Assertions.assertEquals(datetime, DateFormatter.YYYY_MM_DD.format(dateFormatters.parse(datetime)));
 
-      String YYYY__MM__DD_HH_MM_SS = "2019/02/14 12:13:14";
-      Assertions.assertEquals(YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD_HH_MM_SS.format(dateFormatters.parse(YYYY__MM__DD_HH_MM_SS)));
-      String YYYY__MM__DD = "2019/02/14";
-      Assertions.assertEquals(YYYY__MM__DD, DateFormatter.YYYY__MM__DD.format(dateFormatters.parse(YYYY__MM__DD)));
+        datetime = "2019/02/14 12:13:14";
+        Assertions.assertEquals(datetime, DateFormatter.YYYY__MM__DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+        datetime = "2019/02/14";
+        Assertions.assertEquals(datetime, DateFormatter.YYYY__MM__DD.format(dateFormatters.parse(datetime)));
 
-        String YYYYMMDD_HH_MM_SS = "20190214 12:13:14";
-        Assertions.assertEquals(YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(YYYYMMDD_HH_MM_SS)));
-        String YYYYMMDD = "20190214";
-        Assertions.assertEquals(YYYYMMDD, DateFormatter.YYYYMMDD.format(dateFormatters.parse(YYYYMMDD)));
+        datetime = "20190214 12:13:14";
+        Assertions.assertEquals(datetime, DateFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+        datetime = "20190214";
+        Assertions.assertEquals(datetime, DateFormatter.YYYYMMDD.format(dateFormatters.parse(datetime)));
 
-        String YYYYMMDDHHMMSS = "20190214121314";
-        Assertions.assertEquals(YYYYMMDDHHMMSS, DateFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(YYYYMMDDHHMMSS)));
+        datetime = "20190214121314";
+        Assertions.assertEquals(datetime, DateFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(datetime)));
     }
 }
