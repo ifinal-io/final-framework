@@ -5,7 +5,11 @@ import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardi
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author likly
@@ -15,18 +19,16 @@ import java.util.*;
 @Slf4j
 class ComplexInlineShardingAlgorithmTest {
 
-
     @Test
     void test() {
 
         ComplexInlineShardingAlgorithm algorithm = new ComplexInlineShardingAlgorithm();
         Properties props = new Properties();
         props.put("algorithm-expression", "person_${age % 2}_${type % 2}");
-        props.put("sharding-columns","age,type");
+        props.put("sharding-columns", "age,type");
         algorithm.setProps(props);
 
         algorithm.init();
-
 
         Map<String, Collection<Comparable<?>>> shardingValues = new HashMap<>();
 
@@ -41,8 +43,6 @@ class ComplexInlineShardingAlgorithmTest {
 
         logger.info("{}", tables);
 
-
     }
-
 
 }
