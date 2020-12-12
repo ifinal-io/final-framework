@@ -25,7 +25,9 @@ public class MenusHandlerInterceptor extends AnnotationUiHandlerInterceptor<Menu
     }
 
     @Override
-    protected void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final Set<Menus> anns, final ModelAndView modelAndView) {
+    protected void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                              final HandlerMethod handler, final Page page,
+                              final Set<Menus> anns, final ModelAndView modelAndView) {
 
         anns.stream().findFirst().ifPresent(menus -> page.setMenus(Arrays.asList(menus.value())));
     }

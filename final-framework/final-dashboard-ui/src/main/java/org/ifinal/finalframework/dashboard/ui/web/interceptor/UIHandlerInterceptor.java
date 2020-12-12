@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UIHandlerInterceptor extends HandlerInterceptor {
     @Override
-    default void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler, final ModelAndView modelAndView) throws Exception {
+    default void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                            final Object handler, final ModelAndView modelAndView) throws Exception {
 
         if (handler instanceof HandlerMethod && modelAndView != null) {
             Page page;
@@ -35,7 +36,8 @@ public interface UIHandlerInterceptor extends HandlerInterceptor {
         }
     }
 
-    void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final ModelAndView modelAndView);
+    void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                    final HandlerMethod handler, final Page page, final ModelAndView modelAndView);
 
 }
 

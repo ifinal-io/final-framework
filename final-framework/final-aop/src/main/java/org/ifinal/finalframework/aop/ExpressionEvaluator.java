@@ -13,9 +13,11 @@ import java.lang.reflect.Method;
  */
 public interface ExpressionEvaluator {
 
-    EvaluationContext createEvaluationContext(final Method method, final Object[] args, final Object target, final Class<?> targetClass, final Method targetMethod, final Object result, final Throwable e);
+    EvaluationContext createEvaluationContext(final Method method, final Object[] args, final Object target,
+                                              final Class<?> targetClass, final Method targetMethod, final Object result, final Throwable e);
 
     Object value(final @NonNull String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
 
     <T> T value(final @NonNull String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext, Class<T> clazz);
+
 }

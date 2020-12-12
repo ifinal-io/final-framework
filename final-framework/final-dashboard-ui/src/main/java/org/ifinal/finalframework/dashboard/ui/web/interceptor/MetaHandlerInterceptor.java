@@ -28,7 +28,9 @@ public class MetaHandlerInterceptor extends AnnotationUiHandlerInterceptor<Meta>
     }
 
     @Override
-    protected void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final Set<Meta> anns, final ModelAndView modelAndView) {
+    protected void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                              final HandlerMethod handler, final Page page,
+                              final Set<Meta> anns, final ModelAndView modelAndView) {
 
         modelAndView.getModelMap().put("metas", anns.stream()
                 .map(item -> new MetaInfo(item.name(), item.content()))
@@ -38,7 +40,11 @@ public class MetaHandlerInterceptor extends AnnotationUiHandlerInterceptor<Meta>
     @Data
     @AllArgsConstructor
     static class MetaInfo implements Serializable {
+
         private String name;
+
         private String content;
+
     }
+
 }

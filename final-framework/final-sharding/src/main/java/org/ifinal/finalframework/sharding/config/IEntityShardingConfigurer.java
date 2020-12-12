@@ -152,9 +152,13 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     }
 
 
-    private ShardingStrategyRegistration buildShardingStrategyConfiguration(final ShardingStrategy shardingStrategy, final String name, final AnnotationAttributes annotationAttributes, final Properties properties) {
+    private ShardingStrategyRegistration buildShardingStrategyConfiguration(final ShardingStrategy shardingStrategy,
+                                                                            final String name,
+                                                                            final AnnotationAttributes annotationAttributes,
+                                                                            final Properties properties) {
 
-        return new ShardingStrategyRegistration(shardingStrategy.strategy(), shardingStrategy.type(), name, annotationAttributes.getStringArray("columns"), properties);
+        return new ShardingStrategyRegistration(shardingStrategy.strategy(), shardingStrategy.type(),
+                name, annotationAttributes.getStringArray("columns"), properties);
     }
 
     private String buildShardingStrategyName(final String table, final ShardingStrategy.Scope scope, final String type) {

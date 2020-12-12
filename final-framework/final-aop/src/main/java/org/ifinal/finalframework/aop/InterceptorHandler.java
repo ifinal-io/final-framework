@@ -16,25 +16,27 @@ public interface InterceptorHandler<E, A> {
         return null;
     }
 
-    default void afterReturning(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result) {
+    default void afterReturning(final @NonNull E executor, final @NonNull InvocationContext context,
+                                final @NonNull A annotation, final @Nullable Object result) {
 
         handle(executor, context, annotation, result, null);
     }
 
+    default void handle(final @NonNull E executor, final @NonNull InvocationContext context,
+                        final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
 
-    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @NonNull Throwable throwable) {
+    }
+
+    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context,
+                               final @NonNull A annotation, final @NonNull Throwable throwable) {
 
         handle(executor, context, annotation, null, throwable);
     }
 
-
-    default void after(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
+    default void after(final @NonNull E executor, final @NonNull InvocationContext context,
+                       final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
 
         handle(executor, context, annotation, result, throwable);
-    }
-
-    default void handle(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
-
     }
 
 }

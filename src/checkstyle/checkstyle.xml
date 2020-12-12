@@ -83,6 +83,9 @@
             <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
         </module>
 
+        <module name="LineLength">
+            <property name="max" value="200"/>
+        </module>
 
         <!-- 参数使用 final 修饰 -->
         <module name="FinalParameters"/>

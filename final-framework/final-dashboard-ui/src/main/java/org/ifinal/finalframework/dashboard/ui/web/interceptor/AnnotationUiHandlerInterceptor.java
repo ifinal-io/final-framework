@@ -26,13 +26,17 @@ public abstract class AnnotationUiHandlerInterceptor<A extends Annotation> imple
     }
 
     @Override
-    public final void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final ModelAndView modelAndView) {
+    public final void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                                 final HandlerMethod handler, final Page page, final ModelAndView modelAndView) {
 
         Set<A> annotations = AnnotatedElementUtils.findAllMergedAnnotations(handler.getMethod(), ann);
         if (Asserts.isEmpty(annotations)) return;
         postHandle(request, response, handler, page, annotations, modelAndView);
     }
 
-    protected abstract void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final Set<A> anns, final ModelAndView modelAndView);
+    protected abstract void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+                                       final HandlerMethod handler, final Page page,
+                                       final Set<A> anns, final ModelAndView modelAndView);
+
 }
 
