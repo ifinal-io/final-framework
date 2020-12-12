@@ -6,4 +6,5 @@ package org.ifinal.finalframework.auto.coding.beans;
  * @since 1.0.0
  */
 public interface BeanInfo {
+
 }

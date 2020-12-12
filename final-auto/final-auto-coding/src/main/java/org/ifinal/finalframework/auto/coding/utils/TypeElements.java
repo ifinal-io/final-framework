@@ -25,9 +25,13 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("unused")
 public final class TypeElements {
+
     private final Types types;
+
     private final Elements elements;
+
     private final Map<Class<?>, TypeElement> typeElementMap = new HashMap<>(16);
+
     private final Map<Class<?>, TypeMirror> elementTypes = new HashMap<>(16);
 
 
@@ -58,6 +62,17 @@ public final class TypeElements {
         return isAssignable(element.asType(), elementTypes.get(Collection.class)) || isSubtype(element.asType(), elementTypes.get(Collection.class));
     }
 
+    public boolean isAssignable(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
+
+        return types.isAssignable(type, target);
+    }
+
+    public boolean isSubtype(final @NonNull TypeMirror element, final @NonNull TypeMirror target) {
+
+        return types.isSubtype(element, target);
+
+    }
+
     public boolean isList(final @NonNull Element element) {
 
         return isAssignable(element.asType(), elementTypes.get(List.class)) || isSubtype(element.asType(), elementTypes.get(List.class));
@@ -73,22 +88,6 @@ public final class TypeElements {
         return isAssignable(element.asType(), elementTypes.get(Map.class)) || isSubtype(element.asType(), elementTypes.get(Map.class));
     }
 
-    public boolean isSameType(final @NonNull Element element, final @NonNull Class<?> target) {
-
-        return isSameType(element, getTypeElement(target));
-    }
-
-    public boolean isSameType(final @NonNull Element element, final @NonNull Element target) {
-
-        return isSameType(element.asType(), target.asType());
-    }
-
-    public boolean isSameType(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
-
-        return types.isSameType(type, target);
-    }
-
-
     public boolean isSubtype(final @NonNull Element element, final @NonNull Class<?> target) {
 
         return isSubtype(element, getTypeElement(target));
@@ -100,10 +99,9 @@ public final class TypeElements {
 
     }
 
-    public boolean isSubtype(final @NonNull TypeMirror element, final @NonNull TypeMirror target) {
+    public boolean isSameType(final @NonNull Element element, final @NonNull Class<?> target) {
 
-        return types.isSubtype(element, target);
-
+        return isSameType(element, getTypeElement(target));
     }
 
     public boolean isObject(final Element element) {
@@ -111,19 +109,24 @@ public final class TypeElements {
         return isSameType(element, Object.class);
     }
 
-    public boolean isAssignable(final @NonNull Element element, final @NonNull Element target) {
+    public boolean isSameType(final @NonNull Element element, final @NonNull Element target) {
 
-        return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
-    }
-
-    public boolean isAssignable(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
-
-        return types.isAssignable(type, target);
+        return isSameType(element.asType(), target.asType());
     }
 
     public TypeElement getTypeElement(final Class<?> type) {
 
         return typeElementMap.containsKey(type) ? typeElementMap.get(type) : elements.getTypeElement(type.getCanonicalName());
+    }
+
+    public boolean isSameType(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
+
+        return types.isSameType(type, target);
+    }
+
+    public boolean isAssignable(final @NonNull Element element, final @NonNull Element target) {
+
+        return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
     }
 
 }

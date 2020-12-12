@@ -26,11 +26,7 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
 
     String getRawType();
 
-    String getType();
-
     List<Property> getProperties();
-
-    Property getProperty(String name);
 
     default Property getRequiredProperty(String name) {
 
@@ -43,7 +39,9 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
         throw new IllegalStateException(String.format("Required property of %s not found for %s!", name, getType()));
     }
 
-    Property getIdProperty();
+    Property getProperty(String name);
+
+    String getType();
 
     default Property getRequiredIdProperty() {
 
@@ -56,11 +54,12 @@ public interface Entity extends Streamable<Property>, Iterable<Property> {
         throw new IllegalStateException(String.format("Required identifier property not found for %s!", getType()));
     }
 
-
-    <A extends Annotation> A getAnnotation(Class<A> annotationType);
+    Property getIdProperty();
 
     default <A extends Annotation> boolean hasAnnotation(Class<A> annotationType) {
         return getAnnotation(annotationType) != null;
     }
+
+    <A extends Annotation> A getAnnotation(Class<A> annotationType);
 
 }

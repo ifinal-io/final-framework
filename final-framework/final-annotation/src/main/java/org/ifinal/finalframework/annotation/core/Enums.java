@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.core;
 
-
 import org.ifinal.finalframework.annotation.data.EnumValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -16,6 +15,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public final class Enums {
+
     private Enums() {
     }
 
@@ -41,7 +41,6 @@ public final class Enums {
 
         return String.format("%s.%s", value.getClass().getCanonicalName(), value.name().toLowerCase(Locale.ENGLISH));
     }
-
 
 }
 

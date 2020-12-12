@@ -29,15 +29,23 @@ import java.util.stream.Stream;
 public class Bean implements Iterable<PropertyDescriptor> {
 
     static final String GET_PREFIX = "get";
+
     static final String SET_PREFIX = "set";
+
     static final String IS_PREFIX = "is";
+
     private static final Map<TypeElement, Bean> cache = new HashMap<>(128);
+
     private final TypeElement typeElement;
+
     private final SetterAndGetterFilter setterAndGetterFilter;
 
     private final Map<String, VariableElement> fields = new LinkedHashMap<>();
+
     private final List<ExecutableElement> methods = new ArrayList<>();
+
     private final Map<ExecutableElement, Boolean> processed = new HashMap<>();
+
     private final Map<String, PropertyDescriptor> properties = new LinkedHashMap<>();
 
     private Bean(final ProcessingEnvironment env, final TypeElement typeElement) {
@@ -45,17 +53,6 @@ public class Bean implements Iterable<PropertyDescriptor> {
         this.typeElement = typeElement;
         this.setterAndGetterFilter = new SetterAndGetterFilter(env);
         this.init();
-    }
-
-    public static Bean from(final ProcessingEnvironment env, final TypeElement typeElement) {
-
-        if (!cache.containsKey(typeElement)) {
-            synchronized (cache) {
-                cache.put(typeElement, new Bean(env, typeElement));
-            }
-        }
-
-        return cache.get(typeElement);
     }
 
     private void init() {
@@ -171,6 +168,16 @@ public class Bean implements Iterable<PropertyDescriptor> {
         return Optional.empty();
     }
 
+    public static Bean from(final ProcessingEnvironment env, final TypeElement typeElement) {
+
+        if (!cache.containsKey(typeElement)) {
+            synchronized (cache) {
+                cache.put(typeElement, new Bean(env, typeElement));
+            }
+        }
+
+        return cache.get(typeElement);
+    }
 
     @Override
     @NonNull
@@ -181,5 +188,6 @@ public class Bean implements Iterable<PropertyDescriptor> {
     public Stream<PropertyDescriptor> stream() {
         return properties.values().stream();
     }
+
 }
 

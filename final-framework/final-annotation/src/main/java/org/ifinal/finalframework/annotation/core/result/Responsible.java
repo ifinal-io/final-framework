@@ -10,6 +10,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public interface Responsible {
+
     /**
      * return the code of this response
      *
@@ -27,4 +28,5 @@ public interface Responsible {
      */
     @NonNull
     String getDescription();
+
 }

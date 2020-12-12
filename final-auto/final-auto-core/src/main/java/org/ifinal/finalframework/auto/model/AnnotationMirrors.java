@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.model;
 
-
 import org.springframework.lang.NonNull;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -15,7 +14,9 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public final class AnnotationMirrors {
+
     private AnnotationMirrors() {
+
     }
 
     public static Map<String, AnnotationValue> getAnnotationValues(final @NonNull AnnotationMirror mirror) {

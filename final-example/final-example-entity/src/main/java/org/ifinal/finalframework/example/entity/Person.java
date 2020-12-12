@@ -20,28 +20,37 @@ import java.util.Map;
  */
 @Setter
 @Getter
-@ShardingTable(logicTables = {"person"},actualDataNodes = "ds${0..1}.${logicTable}_0${0..1}")
-@InlineShardingStrategy(scope = ShardingStrategy.Scope.DATABASE,columns = "age",expression = "ds${age % 2}")
-@InlineShardingStrategy(scope = ShardingStrategy.Scope.TABLE,columns = "age",expression = "${logicTable}_0${age % 2}")
+@ShardingTable(logicTables = {"person"}, actualDataNodes = "ds${0..1}.${logicTable}_0${0..1}")
+@InlineShardingStrategy(scope = ShardingStrategy.Scope.DATABASE, columns = "age", expression = "ds${age % 2}")
+@InlineShardingStrategy(scope = ShardingStrategy.Scope.TABLE, columns = "age", expression = "${logicTable}_0${age % 2}")
 public class Person extends AbsEntity {
 
     @View(RegisterView.class)
     private String account;
+
     @View(RegisterView.class)
     private String password;
+
     private Boolean admin;
+
     private String name;
+
     private Integer age;
+
     private List<Integer> intList;
+
     private Map<String, String> map;
+
     @Reference(properties = {"id", "name"})
     private Person creator;
 
 
     public interface RegisterView extends IView {
+
     }
 
     public interface ShareView extends IView {
+
     }
 
 }

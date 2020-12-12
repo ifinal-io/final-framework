@@ -52,11 +52,11 @@ public interface Property {
 
     String referenceColumn(String property);
 
-    <A extends Annotation> A getAnnotation(Class<A> annotationType);
-
     default <A extends Annotation> boolean hasAnnotation(Class<A> annotationType) {
         return getAnnotation(annotationType) != null;
     }
+
+    <A extends Annotation> A getAnnotation(Class<A> annotationType);
 
     boolean isAnnotationPresent(Class<? extends Annotation> annotationType);
 

@@ -36,4 +36,5 @@ public class ResponseAutoConfiguration implements ApplicationContextAware {
         Optional.of(applicationContext.getBean(ResponsibleResponseBodyAdvice.class))
                 .ifPresent(it -> it.setSyncStatus(properties.isSyncStatus()));
     }
+
 }

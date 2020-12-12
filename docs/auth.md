@@ -1,13 +1,8 @@
 ---
-layout: post
-title: auth
-subtitle: auth
-description: auth
-tags: []
+layout: post title: auth subtitle: auth description: auth tags: []
 menus:
-    - auth
-date: 2020-11-24 20:03:17 +800
-version: 1.0
+
+- auth date: 2020-11-24 20:03:17 +800 version: 1.0
 ---
 
 # Auth
@@ -16,9 +11,7 @@ version: 1.0
 
 基于`Token`的`Auth`认证架构，其中，`Token`用于解释登录用户信息，`Auth`用于权限校验。
 
-
 ![TokenAuth认证流程](http://assets.processon.com/chart_image/5fbcf4970791294615614d02.png)
-
 
 ## Quick Start
 
@@ -27,6 +20,7 @@ version: 1.0
 定义一个`TokenService`的实现类，解析并返回当前登录的用户信息，如果未登录，则返回`null`。
 
 ```java
+
 @FunctionalInterface
 public interface TokenService {
 
@@ -46,7 +40,6 @@ public interface TokenService {
 ### Define AuthService
 
 定义`AuthService`用于校验当前`Handler(一般是Controller)`是否有相应的权限。
-
 
 ```java
 
@@ -81,6 +74,7 @@ public interface AuthService<A extends Annotation> {
 在需要`Auth`的`Controller`上声明相应的`@Annotaion`。
 
 ```java
+
 @RestController
 public class HelloHotswapApiController {
 
@@ -97,22 +91,22 @@ public class HelloHotswapApiController {
 
 ```json
 {
-    "status": 403,
-    "description": "Forbidden",
-    "code": "403",
-    "message": "未登录！",
-    "data": null,
-    "pagination": null,
-    "trace": "79d8eea6-0bea-4b0b-bc59-5aeaac53c7d6",
-    "timestamp": 1606221030969,
-    "duration": "PT0.031S",
-    "address": "0:0:0:0:0:0:0:1",
-    "ip": "0:0:0:0:0:0:0:1:8080",
-    "locale": "zh_CN",
-    "timeZone": "Asia/Shanghai",
-    "operator": null,
-    "view": null,
-    "exception": "ForbiddenException",
-    "success": false
+  "status": 403,
+  "description": "Forbidden",
+  "code": "403",
+  "message": "未登录！",
+  "data": null,
+  "pagination": null,
+  "trace": "79d8eea6-0bea-4b0b-bc59-5aeaac53c7d6",
+  "timestamp": 1606221030969,
+  "duration": "PT0.031S",
+  "address": "0:0:0:0:0:0:0:1",
+  "ip": "0:0:0:0:0:0:0:1:8080",
+  "locale": "zh_CN",
+  "timeZone": "Asia/Shanghai",
+  "operator": null,
+  "view": null,
+  "exception": "ForbiddenException",
+  "success": false
 }
 ```

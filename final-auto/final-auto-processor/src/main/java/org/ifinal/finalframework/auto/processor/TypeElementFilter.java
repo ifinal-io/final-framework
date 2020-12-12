@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.processor;
 
-
 import org.ifinal.finalframework.util.function.Filter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -20,7 +19,6 @@ import java.util.Objects;
  */
 public class TypeElementFilter implements Filter<TypeElement> {
 
-
     private final Types types;
 
     private final Messager messager;
@@ -34,7 +32,6 @@ public class TypeElementFilter implements Filter<TypeElement> {
                              final @Nullable TypeElement transientAnnotationTypeElement) {
 
         Objects.requireNonNull(entityTypeElement, "typeElement can not be null!");
-
 
         this.types = processingEnvironment.getTypeUtils();
         this.messager = processingEnvironment.getMessager();
@@ -69,12 +66,9 @@ public class TypeElementFilter implements Filter<TypeElement> {
             }
         }
 
-
         return false;
 
-
     }
-
 
 }
 

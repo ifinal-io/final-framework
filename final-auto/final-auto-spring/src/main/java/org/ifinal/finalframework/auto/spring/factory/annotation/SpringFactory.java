@@ -29,6 +29,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Repeatable(SpringFactories.class)
 public @interface SpringFactory {
+
     /**
      * 工具接口类，也可以是 {@link Annotation}
      */

@@ -36,13 +36,21 @@ import java.util.stream.Stream;
 public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>> {
 
     public static final Primaries BYTE = new Primaries(byte.class, Byte.class);
+
     public static final Primaries CHAR = new Primaries(char.class, Character.class);
+
     public static final Primaries BOOLEAN = new Primaries(boolean.class, Boolean.class);
+
     public static final Primaries SHORT = new Primaries(short.class, Short.class);
+
     public static final Primaries INTEGER = new Primaries(int.class, Integer.class);
+
     public static final Primaries LONG = new Primaries(long.class, Long.class);
+
     public static final Primaries FLOAT = new Primaries(float.class, Float.class);
+
     public static final Primaries DOUBLE = new Primaries(double.class, Double.class);
+
     public static final Primaries STRING = new Primaries(String.class);
 
     public static final Primaries NUMBER = new Primaries(
@@ -57,60 +65,50 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
             int.class, Integer.class, long.class, Long.class,
             float.class, Float.class, double.class, Double.class,
             String.class, Class.class);
+
     private final Set<Class<?>> types = new HashSet<>();
 
     private Primaries(final Class<?>... classes) {
-
         this.types.addAll(Arrays.asList(classes));
     }
 
     public static boolean isByte(final Class<?> clazz) {
-
         return BYTE.types.contains(clazz);
     }
 
     public static boolean isChar(final Class<?> clazz) {
-
         return CHAR.types.contains(clazz);
     }
 
     public static boolean isBoolean(final Class<?> clazz) {
-
         return BOOLEAN.types.contains(clazz);
     }
 
     public static boolean isShort(final Class<?> clazz) {
-
         return SHORT.types.contains(clazz);
     }
 
     public static boolean isInteger(final Class<?> clazz) {
-
         return INTEGER.types.contains(clazz);
     }
 
     public static boolean isLong(final Class<?> clazz) {
-
         return LONG.types.contains(clazz);
     }
 
     public static boolean isFloat(final Class<?> clazz) {
-
         return FLOAT.types.contains(clazz);
     }
 
     public static boolean isDouble(final Class<?> clazz) {
-
         return DOUBLE.types.contains(clazz);
     }
 
     public static boolean isString(final Class<?> clazz) {
-
         return STRING.types.contains(clazz);
     }
 
     public static boolean isPrimary(final Class<?> clazz) {
-
         return ALL.types.contains(clazz);
     }
 
@@ -123,4 +121,5 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
     public Iterator<Class<?>> iterator() {
         return types.iterator();
     }
+
 }

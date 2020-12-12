@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.io.support;
 
-
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.lang.NonNull;
@@ -71,5 +70,6 @@ public final class PropertiesLoader {
                     propertiesResourceLocation + "]", ex);
         }
     }
+
 }
 

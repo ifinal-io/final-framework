@@ -1,22 +1,13 @@
 ---
-layout: post
-title: how-to-use-crud
-subtitle: how-to-use-crud
-description: how-to-use-crud
-tags: []
+layout: post title: how-to-use-crud subtitle: how-to-use-crud description: how-to-use-crud tags: []
 menus:
-    - how-to-use-crud
-date: 2020-11-26 21:48:35 +800
-version: 1.0
+
+- how-to-use-crud date: 2020-11-26 21:48:35 +800 version: 1.0
 ---
 
 # how-to-use-crud
 
-
-
 ## Quick Start
-
-
 
 ## Import Dependency
 
@@ -38,28 +29,34 @@ version: 1.0
 compile group: 'org.ifinal.finalframework.boot', name: 'final-boot-starter-mybatis', version: '${final.version}'
 ```
 
-
-
 ### Define Entity
 
 ```java
+
 @Data
-public class DataEntity extends IEntity<Long>{
+public class DataEntity extends IEntity<Long> {
+
     @PrimaryKey
     private Long id;
+
     private String key;
+
     private String value;
+
 }
 ```
 
 ## Define Mapper
 
 ```java
+
 @Mapper
-public interface DataMapper extends AbsMapper<Long,DataEntity>{}
+public interface DataMapper extends AbsMapper<Long, DataEntity> {
+
+}
 ```
 
-> 可使用`org.ifinal.finalframework.auto:final-auto-mybatis`在编译时自动生成对应`Mapper`。   
+> 可使用`org.ifinal.finalframework.auto:final-auto-mybatis`在编译时自动生成对应`Mapper`。
 
 ## Do CRUD
 

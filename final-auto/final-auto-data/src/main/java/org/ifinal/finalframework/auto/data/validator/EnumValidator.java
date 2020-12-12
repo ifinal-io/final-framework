@@ -18,6 +18,7 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
         Filter<TypeElement> {
 
     private final ProcessingEnvironment processingEnvironment;
+
     private final Class<?> enumInterface;
 
     public EnumValidator(final ProcessingEnvironment processingEnvironment, final Class<?> enumInterface) {
@@ -57,4 +58,5 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
         TypeElement typeElement = processingEnvironment.getElementUtils().getTypeElement(clazz.getCanonicalName());
         return typeUtils.isSubtype(typeUtils.erasure(element.asType()), typeUtils.erasure(typeElement.asType()));
     }
+
 }

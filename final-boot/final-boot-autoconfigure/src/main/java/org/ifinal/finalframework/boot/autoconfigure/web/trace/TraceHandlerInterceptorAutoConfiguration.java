@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 public class TraceHandlerInterceptorAutoConfiguration implements InitializingBean {
 
     private final TraceProperties properties;
+
     private final TraceHandlerInterceptor traceHandlerInterceptor;
 
     public TraceHandlerInterceptorAutoConfiguration(final TraceProperties properties, final TraceHandlerInterceptor traceHandlerInterceptor) {
@@ -28,9 +29,11 @@ public class TraceHandlerInterceptorAutoConfiguration implements InitializingBea
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
+
         traceHandlerInterceptor.setTraceName(properties.getName());
         traceHandlerInterceptor.setTraceName(properties.getParam());
         traceHandlerInterceptor.setHeaderName(properties.getHeader());
     }
+
 }

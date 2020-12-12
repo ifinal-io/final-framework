@@ -1,29 +1,27 @@
 ---
-layout: post
-title: monitor-action
-subtitle: monitor-action
-description: monitor-action
-tags: []
+layout: post title: monitor-action subtitle: monitor-action description: monitor-action tags: []
 menus:
-    - monitor-action
-date: 2020-11-11 15:48:31 +800
-version: 1.0
+
+- monitor-action date: 2020-11-11 15:48:31 +800 version: 1.0
 ---
-    
+
 # 极简的监控
 
-## 简化的操作日志   
+## 简化的操作日志
 
 通过在方法声明上添加`@MonitorAction`注解，即可快速加入操作日志。
 
 ```java
+
 @RestController
 public class HelloController {
+
     @RequestMapping("/hello")
     @MonitorAction("${'访问Hello ' + #word}")
     public String hello(String word) {
         return "hello " + word + "!";
     }
+
 }
 ```
 
@@ -36,6 +34,7 @@ public class HelloController {
 默认情况下，操作日志仅以日志格式输出到文件中，开发人员可根据需求实现`ActionListener`接口将日志实现持久化等自定义操作。
 
 ```java
+
 @FunctionalInterface
 public interface ActionListener {
 

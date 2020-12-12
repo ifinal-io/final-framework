@@ -20,11 +20,11 @@ import java.util.Optional;
  */
 public final class EntityFactory {
 
+    private static final Map<String, Entity> cache = new HashMap<>();
+
     private EntityFactory() {
 
     }
-
-    private static final Map<String, Entity> cache = new HashMap<>();
 
     public static Entity create(final ProcessingEnvironment processEnv, final TypeElement element) {
 

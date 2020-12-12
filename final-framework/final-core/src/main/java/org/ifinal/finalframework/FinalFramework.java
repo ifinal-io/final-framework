@@ -19,7 +19,11 @@ import org.springframework.context.annotation.ImportResource;
         FinalFramework.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
 public class FinalFramework {
+
     static final String CLASS_PATH_SPRING_CONFIG_XML = "classpath:spring-config-*.xml";
+
     static final String CLASS_PATH_CONFIG_SPRING_CONFIG_XML = "classpath*:config/spring-config-*.xml";
+
     static final String CLASS_PATH_SPRING_SPRING_CONFIG_XML = "classpath*:spring/spring-config-*.xml";
+
 }

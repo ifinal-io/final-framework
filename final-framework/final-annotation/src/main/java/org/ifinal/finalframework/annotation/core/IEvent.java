@@ -9,4 +9,5 @@ package org.ifinal.finalframework.annotation.core;
  * @since 1.0.0
  */
 public interface IEvent {
+
 }

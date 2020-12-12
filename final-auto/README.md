@@ -1,18 +1,11 @@
 ---
-layout: post
-title: README
-subtitle: README
-description: README
-tags: []
+layout: post title: README subtitle: README description: README tags: []
 menus:
-    - README
-date: 2020-11-11 14:18:13 +800
-version: 1.0
+
+- README date: 2020-11-11 14:18:13 +800 version: 1.0
 ---
 
-# final auto    
-
-
+# final auto
 
 `final-auto`基于`APT（注解处理器）`技术，自动生成常用的配置文件或模板代码，提高开发效率。
 

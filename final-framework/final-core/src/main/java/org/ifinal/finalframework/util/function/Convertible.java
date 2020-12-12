@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.function;
 
 /**
@@ -23,5 +24,7 @@ package org.ifinal.finalframework.util.function;
  */
 @FunctionalInterface
 public interface Convertible<R> {
+
     R convert();
+
 }

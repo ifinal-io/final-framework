@@ -18,5 +18,4 @@ import org.springframework.context.annotation.Configuration;
 public class ShardingDataSourceAutoConfiguration extends ShardingDataSourceSupport {
 
 
-
 }

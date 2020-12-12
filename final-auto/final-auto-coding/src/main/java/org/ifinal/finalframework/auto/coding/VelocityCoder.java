@@ -81,4 +81,5 @@ public class VelocityCoder implements Coder {
         context.putAll(Beans.toMap(model));
         return context;
     }
+
 }

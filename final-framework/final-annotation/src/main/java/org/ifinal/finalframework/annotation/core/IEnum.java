@@ -18,9 +18,10 @@ public interface IEnum<T> {
 
     /**
      * return the {@link IEnum} value of {@code code}
+     *
      * @param type the enum type
      * @param code the enum code
-     * @param <T> enum type
+     * @param <T>  enum type
      * @return enum value of code
      */
     @Nullable
@@ -50,4 +51,5 @@ public interface IEnum<T> {
      */
     @NonNull
     String getDesc();
+
 }

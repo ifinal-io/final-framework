@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.query.processor;
 
-
 import javax.lang.model.element.Element;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -22,8 +21,11 @@ public class QProperty {
     }
 
     private final String path;
+
     private final String name;
+
     private final Element element;
+
     private final boolean idProperty;
 
     private QProperty(final Builder builder) {
@@ -51,7 +53,6 @@ public class QProperty {
         return idProperty;
     }
 
-
     public Element getElement() {
         return element;
     }
@@ -59,8 +60,11 @@ public class QProperty {
     public static class Builder implements org.ifinal.finalframework.util.Builder<QProperty> {
 
         private final String path;
+
         private final String name;
+
         private Element element;
+
         private boolean idProperty;
 
         private Builder(final String path, final String name) {
@@ -69,13 +73,11 @@ public class QProperty {
             this.name = name;
         }
 
-
         public Builder element(final Element element) {
 
             this.element = element;
             return this;
         }
-
 
         public Builder idProperty(final boolean idProperty) {
 
@@ -83,11 +85,11 @@ public class QProperty {
             return this;
         }
 
-
         @Override
         public QProperty build() {
             return new QProperty(this);
         }
+
     }
 
 }

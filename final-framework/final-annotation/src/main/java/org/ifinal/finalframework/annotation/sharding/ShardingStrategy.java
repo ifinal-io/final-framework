@@ -47,13 +47,20 @@ public @interface ShardingStrategy {
     }
 
     class Algorithm {
+
         public static final String INLINE = "INLINE";
+
         public static final String HINT_INLINE = "HINT_INLINE";
+
         public static final String COMPLEX_INLINE = "COMPLEX_INLINE";
+
         public static final String INTERVAL = "INTERVAL";
+
         public static final String CLASS_BASED = "CLASS_BASED";
 
         private Algorithm() {
         }
+
     }
+
 }

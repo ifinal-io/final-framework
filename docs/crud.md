@@ -1,21 +1,17 @@
 ---
-layout: post
-title: repository
-subtitle: repository
-description: repository
-tags: []
+layout: post title: repository subtitle: repository description: repository tags: []
 menus:
-    - repository
-date: 2020-11-14 23:15:14 +800
-version: 1.0
+
+- repository date: 2020-11-14 23:15:14 +800 version: 1.0
 ---
-    
+
 # repository
 
 ## insert
 
 ```java
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
+
     /**
      * 批量插入数据并返回影响的行数
      *
@@ -26,6 +22,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @return 指插入数据所影响的行数
      */
     int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
+
 }
 ```
 
@@ -49,6 +46,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
 
 ```java
 public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
+
     /**
      * 返回符合查询条件 {@link IQuery}的结果集的大小
      *
@@ -56,6 +54,7 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param query query
      * @return 符合查询条件 {@link IQuery}的结果集的大小
      */
-    long selectCount(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);    
+    long selectCount(@Nullable String table, @Nullable Collection<ID> ids, @Nullable IQuery query);
+
 }
 ```

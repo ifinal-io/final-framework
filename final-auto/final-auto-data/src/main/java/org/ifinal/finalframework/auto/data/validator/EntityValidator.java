@@ -28,10 +28,12 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
 
 
     private static final List<Modifier> modifiers = Arrays.asList(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL);
+
     private static final String SERIAL_VERSION_UID_NAME = "serialVersionUID";
 
 
     private final ProcessingEnvironment processingEnv;
+
     private final Class<?> entityInterface;
 
 
@@ -89,4 +91,5 @@ public class EntityValidator extends SimpleElementVisitor8<Void, Void>
 
         processingEnv.getMessager().printMessage(Kind.ERROR, message);
     }
+
 }

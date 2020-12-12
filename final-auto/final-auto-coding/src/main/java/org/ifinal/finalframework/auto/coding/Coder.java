@@ -18,15 +18,6 @@ public interface Coder {
         return new VelocityCoder();
     }
 
-    /**
-     * coding the template code with data model by writer.
-     *
-     * @param template the name of template
-     * @param model    the data model of template
-     * @param writer   the writer of coding file
-     */
-    void coding(String template, Object model, Writer writer);
-
     default void coding(Object model, Writer writer) {
         Asserts.isNull(model, "the model must not ne null!");
         Asserts.isNull(writer, "the writer must not be null!");
@@ -40,5 +31,14 @@ public interface Coder {
         }
         coding(template.value(), model, writer);
     }
+
+    /**
+     * coding the template code with data model by writer.
+     *
+     * @param template the name of template
+     * @param model    the data model of template
+     * @param writer   the writer of coding file
+     */
+    void coding(String template, Object model, Writer writer);
 
 }

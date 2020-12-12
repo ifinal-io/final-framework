@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +33,13 @@ import java.util.Properties;
  */
 @Slf4j
 public final class Configuration {
+
     private static final String PROPERTIES_PATH = "final.properties";
+
     private static final Configuration INSTANCE = new Configuration();
 
     private final Properties properties = new Properties();
+
     private boolean isConfiguration;
 
     private Configuration() {
@@ -56,7 +60,6 @@ public final class Configuration {
     public static Configuration getInstance() {
         return INSTANCE;
     }
-
 
     public boolean isConfiguration() {
         return isConfiguration;
@@ -83,6 +86,5 @@ public final class Configuration {
             //ignore
         }
     }
-
 
 }

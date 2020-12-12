@@ -1,15 +1,10 @@
 ---
-layout: post
-title: README
-subtitle: README
-description: README
-tags: []
+layout: post title: README subtitle: README description: README tags: []
 menus:
-    - README
-date: 2020-11-11 14:22:16 +800
-version: 1.0
+
+- README date: 2020-11-11 14:22:16 +800 version: 1.0
 ---
-    
+
 # final boot
 
 `final-boot`基于`final-framework`，提供快速开始的`starters`。

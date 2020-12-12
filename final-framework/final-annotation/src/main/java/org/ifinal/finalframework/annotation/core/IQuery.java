@@ -16,4 +16,5 @@ import org.ifinal.finalframework.annotation.data.Transient;
 )
 @Transient
 public interface IQuery {
+
 }

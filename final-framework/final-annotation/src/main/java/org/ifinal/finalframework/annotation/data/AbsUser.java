@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-
 import org.ifinal.finalframework.annotation.core.IUser;
 
 /**
@@ -10,8 +9,10 @@ import org.ifinal.finalframework.annotation.core.IUser;
  */
 @Transient
 public class AbsUser implements IUser<Long> {
+
     @PrimaryKey
     private Long id;
+
     private String name;
 
     @Override
@@ -35,5 +36,6 @@ public class AbsUser implements IUser<Long> {
 
         this.name = name;
     }
+
 }
 

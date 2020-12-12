@@ -54,5 +54,4 @@ public final class AnnotatedElements {
         return AnnotatedElementUtils.isAnnotated(ae, annType);
     }
 
-
 }

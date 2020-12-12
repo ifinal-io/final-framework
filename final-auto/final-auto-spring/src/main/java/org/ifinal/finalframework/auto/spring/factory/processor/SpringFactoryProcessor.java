@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.spring.factory.processor;
 
-
 import org.ifinal.finalframework.auto.model.AnnotationMirrors;
 import org.ifinal.finalframework.auto.model.AnnotationValues;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
@@ -53,6 +52,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
      * @see SpringFactory#value()
      */
     private static final String SPRING_FACTORY_VALUE = "value";
+
     /**
      * @see SpringFactory#extend()
      */
@@ -129,7 +129,6 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-
     private void processClassTypeElement(final TypeElement element) {
 
         List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
@@ -200,7 +199,6 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-
     private void processPackageSpringFactory(final PackageElement packageElement, final AnnotationMirror springFactory, final RoundEnvironment roundEnv) {
         // 直接在类上声明的 SpringFactory 注解
         final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(springFactory);
@@ -215,7 +213,6 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 .filter(it -> processingEnv.getElementUtils().getPackageOf(it).getQualifiedName().toString().startsWith(packageElement.getQualifiedName().toString()))
                 .forEach(item -> springFactoryResource.addSpringFactory(annotation, (TypeElement) item));
     }
-
 
     @SuppressWarnings("unchecked")
     private void processPackageSpringFactories(final PackageElement element, final AnnotationMirror annotationMirror, final RoundEnvironment roundEnv) {
@@ -256,7 +253,6 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         springFactoryResource.addSpringFactory(factory, instance);
     }
 
-
     private void info(final String msg) {
 
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
@@ -266,7 +262,6 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg);
     }
-
 
 }
 

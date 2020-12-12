@@ -12,6 +12,7 @@ import java.util.function.Predicate;
  */
 @FunctionalInterface
 public interface Filter<T> extends Predicate<T> {
+
     /**
      * Evaluates this predicate on the given argument.
      *
@@ -31,4 +32,5 @@ public interface Filter<T> extends Predicate<T> {
      * @return {@code true} if the test data {@link T} is matches, else return {@code false}.
      */
     boolean matches(T data);
+
 }

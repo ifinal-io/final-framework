@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class ShardingStrategyProperties implements Serializable {
+
     private static final long serialVersionUID = 6419098165263663657L;
 
 

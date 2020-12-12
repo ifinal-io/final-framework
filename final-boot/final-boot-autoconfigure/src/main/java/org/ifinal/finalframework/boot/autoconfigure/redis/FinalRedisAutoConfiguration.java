@@ -28,4 +28,5 @@ public class FinalRedisAutoConfiguration {
         RedisRegistry.getInstance().setRedisTemplate(template);
         return template;
     }
+
 }

@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.format;
 
 import org.ifinal.finalframework.util.Asserts;
@@ -33,14 +34,21 @@ import java.util.Date;
 public class DateFormatter implements Formatter<Date> {
 
     public static final DateFormatter YYYY_MM_DD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYY_MM_DD_HH_MM_SS);
+
     public static final DateFormatter YYYY_MM_DD = new DateFormatter(DateFormatterPattern.YYYY_MM_DD);
+
     public static final DateFormatter YYYY__MM__DD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
+
     public static final DateFormatter YYYY__MM__DD = new DateFormatter(DateFormatterPattern.YYYY__MM__DD);
+
     public static final DateFormatter YYYYMMDD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYYMMDD_HH_MM_SS);
+
     public static final DateFormatter YYYYMMDD = new DateFormatter(DateFormatterPattern.YYYYMMDD);
+
     public static final DateFormatter YYYYMMDDHHMMSS = new DateFormatter(DateFormatterPattern.YYYYMMDDHHMMSS);
 
     private final String regex;
+
     private final String pattern;
 
     public DateFormatter(final String regex, final String pattern) {
@@ -75,4 +83,5 @@ public class DateFormatter implements Formatter<Date> {
 
         return source.matches(regex);
     }
+
 }

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.processor;
 
-
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 
@@ -30,12 +29,12 @@ import java.util.Set;
 public class AutoEntityProcessor extends AbsServiceProcessor {
 
     private static final String ENTITY = "org.ifinal.finalframework.annotation.core.IEntity";
+
     private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
-
     private TypeElementFilter typeElementFilter;
-    private TypeElement typeElement;
 
+    private TypeElement typeElement;
 
     @Override
     public synchronized void init(final ProcessingEnvironment processingEnv) {

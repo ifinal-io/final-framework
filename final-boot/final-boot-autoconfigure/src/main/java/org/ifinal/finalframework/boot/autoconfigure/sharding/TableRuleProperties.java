@@ -8,22 +8,26 @@ import java.io.Serializable;
 /**
  * @author likly
  * @version 1.0.0
- * @since 1.0.0
  * @see ShardingTableRuleConfiguration
+ * @since 1.0.0
  */
 public class TableRuleProperties implements Serializable {
+
     /**
      * 逻辑表名
      */
     private String logicTable;
+
     /**
      * 物理节点
      */
     private String actualDataNodes;
+
     /**
      * 分库策略
      */
     private ShardingStrategyProperties databaseShardingStrategy;
+
     /**
      * 分表策略
      */
@@ -65,5 +69,6 @@ public class TableRuleProperties implements Serializable {
 
         this.tableShardingStrategy = tableShardingStrategy;
     }
+
 }
 

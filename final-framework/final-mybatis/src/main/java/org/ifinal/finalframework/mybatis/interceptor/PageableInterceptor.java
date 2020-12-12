@@ -39,7 +39,9 @@ import java.util.Properties;
 public abstract class PageableInterceptor implements Interceptor {
 
     private static final String PAGE_PARAMETER = "page";
+
     private static final String SIZE_PARAMETER = "size";
+
     private static final String COUNT_PARAMETER = "count";
 
     @Override
@@ -104,4 +106,5 @@ public abstract class PageableInterceptor implements Interceptor {
     public void setProperties(final Properties properties) {
         //do nothing
     }
+
 }

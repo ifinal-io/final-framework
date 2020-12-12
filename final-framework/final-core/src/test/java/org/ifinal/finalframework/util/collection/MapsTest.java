@@ -18,23 +18,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Slf4j
 class MapsTest {
 
-
     @Test
     void combine() {
         Map<String, Collection<Integer>> map = new HashMap<>();
-
 
         map.put("A", Arrays.asList(1, 2));
         map.put("B", Arrays.asList(3, 4));
 
         Collection<Map<String, Integer>> combine = Maps.combine(map);
-        logger.info("{}",combine);
+        logger.info("{}", combine);
         assertEquals(4, combine.size());
 
-
-        map.put("C",Arrays.asList(5,6));
+        map.put("C", Arrays.asList(5, 6));
         combine = Maps.combine(map);
-        logger.info("{}",combine);
+        logger.info("{}", combine);
         assertEquals(8, combine.size());
 
     }

@@ -17,7 +17,6 @@
 
 package org.ifinal.finalframework.io.support;
 
-
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -29,6 +28,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public final class FinalFactoriesLoader {
+
     private static final String FACTORIES_RESOURCE_LOCATION = "META-INF/final.factories";
 
     private FinalFactoriesLoader() {

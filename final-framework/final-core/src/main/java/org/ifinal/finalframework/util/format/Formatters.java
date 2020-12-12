@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.format;
 
 /**
@@ -22,5 +23,7 @@ package org.ifinal.finalframework.util.format;
  * @since 1.0.0
  */
 public interface Formatters<T> {
+
     T parse(final String source);
+
 }

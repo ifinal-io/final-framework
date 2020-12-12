@@ -2,7 +2,9 @@
 layout: post title: global-exception-handler subtitle: global-exception-handler description: global-exception-handler
 tags: []
 menus:
+
 - global-exception-handler date: 2020-12-05 11:16:05 +800 version: 1.0
+
 ---
 
 # global-exception-handler
@@ -21,6 +23,7 @@ public class HelloController {
     public void ex(Integer code, String message) {
         throw new ServiceException(code, message);
     }
+
 }
 ```
 

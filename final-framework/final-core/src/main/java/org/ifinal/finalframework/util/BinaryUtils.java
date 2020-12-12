@@ -12,42 +12,75 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public final class BinaryUtils {
+
     private static final Integer BINARY_0 = 1;
+
     private static final Integer BINARY_1 = 1 << 1;
+
     private static final Integer BINARY_2 = 1 << 2;
+
     private static final Integer BINARY_3 = 1 << 3;
+
     private static final Integer BINARY_4 = 1 << 4;
+
     private static final Integer BINARY_5 = 1 << 5;
+
     private static final Integer BINARY_6 = 1 << 6;
+
     private static final Integer BINARY_7 = 1 << 7;
+
     private static final Integer BINARY_8 = 1 << 8;
+
     private static final Integer BINARY_9 = 1 << 9;
+
     private static final Integer BINARY_10 = 1 << 10;
+
     private static final Integer BINARY_11 = 1 << 11;
+
     private static final Integer BINARY_12 = 1 << 12;
+
     private static final Integer BINARY_13 = 1 << 13;
+
     private static final Integer BINARY_14 = 1 << 14;
+
     private static final Integer BINARY_15 = 1 << 15;
+
     private static final Integer BINARY_16 = 1 << 16;
+
     private static final Integer BINARY_17 = 1 << 17;
+
     private static final Integer BINARY_18 = 1 << 18;
+
     private static final Integer BINARY_19 = 1 << 19;
+
     private static final Integer BINARY_20 = 1 << 20;
+
     private static final Integer BINARY_21 = 1 << 21;
+
     private static final Integer BINARY_22 = 1 << 22;
+
     private static final Integer BINARY_23 = 1 << 23;
+
     private static final Integer BINARY_24 = 1 << 24;
+
     private static final Integer BINARY_25 = 1 << 25;
+
     private static final Integer BINARY_26 = 1 << 26;
+
     private static final Integer BINARY_27 = 1 << 27;
+
     private static final Integer BINARY_28 = 1 << 28;
+
     private static final Integer BINARY_29 = 1 << 29;
+
     private static final Integer BINARY_30 = 1 << 30;
+
     private static final Integer BINARY_31 = 1 << 31;
 
     private static final Set<Integer> BINARIES = new HashSet<>();
 
     private BinaryUtils() {
+
     }
 
     static {

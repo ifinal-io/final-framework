@@ -20,4 +20,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @SpringFactory(ApplicationListener.class)
 public @interface SpringApplicationListener {
+
 }

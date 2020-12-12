@@ -33,6 +33,9 @@ public @interface ClassBasedShardingStrategy {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface ShardingStrategies {
+
         ClassBasedShardingStrategy[] value();
+
     }
+
 }

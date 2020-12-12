@@ -34,14 +34,14 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-sharding</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>sharding-jdbc-core</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>shardingsphere-jdbc-core</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.shardingsphere</groupId>-->
+        <!--            <artifactId>sharding-jdbc-core</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.shardingsphere</groupId>-->
+        <!--            <artifactId>shardingsphere-jdbc-core</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.ifinal.finalframework.example</groupId>
             <artifactId>final-example-service</artifactId>

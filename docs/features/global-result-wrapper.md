@@ -1,7 +1,9 @@
 ---
 layout: post title: global-result-wrapper subtitle: global-result-wrapper description: global-result-wrapper tags: []
 menus:
+
 - global-result-wrapper date: 2020-12-06 19:04:43 +800 version: 1.0
+
 ---
 
 # global-result-wrapper
@@ -15,11 +17,13 @@ menus:
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
+
     @RequestMapping
     @MonitorAction("${'{访问Hello} ' + #word}")
     public String hello(String word) {
         return "hello " + word + "!";
     }
+
 }
 ```
 

@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 public final class R {
 
     private static final Integer SUCCESS_CODE = 0;
+
     private static final String SUCCESS_MESSAGE = "success";
 
     private R() {

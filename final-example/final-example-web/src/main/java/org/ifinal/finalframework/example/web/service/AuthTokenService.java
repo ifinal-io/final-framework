@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 public class AuthTokenService implements TokenService<AuthTokenService.User>, AuthService<AuthTokenService.User, Auth> {
+
     @Override
     public void auth(final @Nullable User user, final @NonNull Auth auth, final @NonNull Object handler) {
 
@@ -54,8 +55,12 @@ public class AuthTokenService implements TokenService<AuthTokenService.User>, Au
     @AllArgsConstructor
     @NoArgsConstructor
     static class User implements IUser<Long> {
+
         @PrimaryKey
         private Long id;
+
         private String name;
+
     }
+
 }

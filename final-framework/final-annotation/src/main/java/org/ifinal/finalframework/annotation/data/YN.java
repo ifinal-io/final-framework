@@ -24,10 +24,12 @@ public enum YN implements IEnum<Integer> {
      * 无效
      */
     NO(0, "无效");
+
     /**
      * 枚举码
      */
     private final Integer code;
+
     private final String desc;
 
     YN(final Integer code, final String desc) {
@@ -35,7 +37,6 @@ public enum YN implements IEnum<Integer> {
         this.code = code;
         this.desc = desc;
     }
-
 
     @Override
     @NonNull

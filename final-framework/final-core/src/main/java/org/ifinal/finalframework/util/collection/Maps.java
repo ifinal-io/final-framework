@@ -15,23 +15,18 @@ import java.util.Map;
  */
 public final class Maps {
 
-
     private Maps() {
-
     }
 
     public static <K, V> MultiValueMap<K, V> multiValueMap() {
-
         return new LinkedMultiValueMap<>();
     }
 
     public static <K, V> MultiValueMap<K, V> multiValueMap(final int initialCapacity) {
-
         return new LinkedMultiValueMap<>(initialCapacity);
     }
 
     public static <K, V> Collection<Map<K, V>> combine(final Map<K, Collection<V>> map) {
-
         Collection<Map<K, V>> result = new LinkedList<>();
         for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
             if (result.isEmpty()) {

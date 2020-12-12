@@ -61,4 +61,5 @@ public interface IPagination extends Serializable {
      */
     @Nullable
     Boolean getLastPage();
+
 }

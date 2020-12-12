@@ -45,7 +45,6 @@ public enum MonitorLevel implements IEnum<Integer> {
         return cache.get(code);
     }
 
-
     @Override
     @NonNull
     @JsonValue

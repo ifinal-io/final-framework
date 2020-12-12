@@ -36,7 +36,9 @@ public @interface ComplexInlineShardingStrategy {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface ShardingStrategies {
+
         ComplexInlineShardingStrategy[] value();
+
     }
 
 }

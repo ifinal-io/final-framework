@@ -1,12 +1,8 @@
-n--- layout: post
-title: how-to-define-an-entity
-subtitle: how-to-define-an-entity
-description: how-to-define-an-entity
+n--- layout: post title: how-to-define-an-entity subtitle: how-to-define-an-entity description: how-to-define-an-entity
 tags: []
 menus:
-    - how-to-define-an-entity
-date: 2020-11-27 12:54:17 +800
-version: 1.0
+
+- how-to-define-an-entity date: 2020-11-27 12:54:17 +800 version: 1.0
 ---
 
 # How to define entity
@@ -131,8 +127,6 @@ public class Person implements IEntity<Long>{
 | `@LastModifier` |                 末次修改人                 |
 |                 |                                            |
 |                 |                                            |
-
-
 
 ## See Also
 

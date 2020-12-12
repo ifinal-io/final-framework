@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-
 import org.springframework.lang.NonNull;
 
 import java.util.Arrays;

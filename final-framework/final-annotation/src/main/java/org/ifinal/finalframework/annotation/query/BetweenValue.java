@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.query;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +17,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public final class BetweenValue<T extends Serializable> implements Serializable {
+
     private static final long serialVersionUID = 6194662646358531082L;
+
     T min;
+
     T max;
+
 }
 

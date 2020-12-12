@@ -12,10 +12,12 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 public class InlineShardingStrategyProperties implements Serializable {
+
     /**
      * 分片列名
      */
     private String shardingColumn;
+
     /**
      * 算法表达式
      */
@@ -38,5 +40,6 @@ public class InlineShardingStrategyProperties implements Serializable {
 
         this.algorithmExpression = algorithmExpression;
     }
+
 }
 

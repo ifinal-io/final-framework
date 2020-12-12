@@ -20,10 +20,12 @@ import java.io.Serializable;
 public class PageQuery implements Pageable, Serializable {
 
     private static final long serialVersionUID = 4813020012879522797L;
+
     /**
      * 默认分页页码
      */
     private static final Integer DEFAULT_PAGE = 1;
+
     /**
      * 默认分页容量
      */
@@ -34,11 +36,13 @@ public class PageQuery implements Pageable, Serializable {
      */
     @Page
     private Integer page = DEFAULT_PAGE;
+
     /**
      * 页面宅师
      */
     @Size
     private Integer size = DEFAULT_SIZE;
+
     /**
      * 是否启用Count统计
      */

@@ -1,7 +1,9 @@
 ---
 layout: post title: 增强的JSON subtitle: json description: json tags: []
 menus:
+
 - json date: 2020-11-11 15:44:32 +800 version: 1.0
+
 ---
 
 # Readable JSON
@@ -14,8 +16,11 @@ Define a bean with data type property.
 
 @Data
 public class DateBean {
+
     private Date date;
+
     private LocalDateTime localDateTime;
+
 }
 ```
 
@@ -38,7 +43,9 @@ Define a bean with enum type property.
 
 @Data
 static class EnumBean {
+
     private YN yn = YN.YES;
+
 }
 ```
 

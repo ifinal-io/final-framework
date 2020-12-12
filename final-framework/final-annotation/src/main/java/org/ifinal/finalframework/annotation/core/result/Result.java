@@ -26,6 +26,7 @@ import java.util.TimeZone;
 public final class Result<T> implements IResult<T>, Responsible, Serializable {
 
     private static final long serialVersionUID = -2801752781032532754L;
+
     /**
      * the result {@literal status}
      *
@@ -44,27 +45,33 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
      * the result error {@linkplain IException#getCode() code}
      */
     private String code;
+
     /**
      * the result error {@linkplain IException#getMessage() message}
      */
     private String message;
+
     /**
      * the result {@linkplain IData#getData() data}
      */
     @SuppressWarnings("all")
     private T data;
+
     /**
      * the {@linkplain Pagination pagination}
      */
     private Pagination pagination;
+
     /**
      * trace
      */
     private String trace;
+
     /**
      * 响应时间戳
      */
     private Long timestamp = System.currentTimeMillis();
+
     /**
      * 执行时长
      */
@@ -74,6 +81,7 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
      * 服务地址
      */
     private String address;
+
     /**
      * 服务IP
      */
@@ -83,10 +91,12 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
      * 国际化
      */
     private Locale locale;
+
     /**
      * 时区
      */
     private TimeZone timeZone;
+
     /**
      * 操作者
      */
@@ -128,6 +138,5 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
 
         this(status, description, status.toString(), description);
     }
-
 
 }

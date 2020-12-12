@@ -17,8 +17,10 @@ public enum DateFormatterPattern {
     YYYY__MM__DD("^\\d{4}/\\d{2}/\\d{2}$", "yyyy/MM/dd"),
     YYYYMMDDHHMMSS("^\\d{14}$", "yyyyMMddHHmmss"),
     ;
+
     @Getter
     private final String regex;
+
     @Getter
     private final String pattern;
 

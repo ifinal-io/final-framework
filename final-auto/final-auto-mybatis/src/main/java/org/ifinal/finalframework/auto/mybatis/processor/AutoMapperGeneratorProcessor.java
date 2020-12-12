@@ -37,8 +37,11 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
 public class AutoMapperGeneratorProcessor extends AbstractProcessor {
+
     private static final String MAPPER_SUFFIX = "Mapper";
+
     private static final String DEFAULT_ENTITY_PATH = "entity";
+
     private static final String DEFAULT_MAPPER_PATH = "dao.mapper";
 
     @Override

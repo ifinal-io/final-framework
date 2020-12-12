@@ -21,5 +21,6 @@ public class ShardingDataSourceProperties {
     static final String DEFAULT_DATASOURCE_PREFIX = "final.sharding";
 
     private Map<String, DataSourceProperties> datasource;
+
 }
 

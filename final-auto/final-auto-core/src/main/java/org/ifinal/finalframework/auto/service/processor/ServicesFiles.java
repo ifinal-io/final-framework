@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.service.processor;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,10 +18,13 @@ import java.util.Map;
  * @since 1.0.0
  */
 public final class ServicesFiles {
+
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
+
     private static final String ROOT = "META-INF";
 
     private ServicesFiles() {
+
     }
 
     static String getPath(final String path, final String serviceName) {
@@ -88,5 +90,6 @@ public final class ServicesFiles {
         }
         writer.flush();
     }
+
 }
 

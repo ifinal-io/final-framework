@@ -133,10 +133,10 @@
         <!-- 禁止 import *-->
         <!--        <module name="AvoidStarImport"/>-->
         <!-- 禁止 static import -->
-<!--        <module name="AvoidStaticImport">-->
-<!--            <property name="excludes"-->
-<!--                      value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*"/>-->
-<!--        </module>-->
+        <!--        <module name="AvoidStaticImport">-->
+        <!--            <property name="excludes"-->
+        <!--                      value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*"/>-->
+        <!--        </module>-->
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
@@ -246,7 +246,7 @@
         </module>
         <module name="NonEmptyAtclauseDescription"/>
         <module name="JavadocParagraph"/>
-<!--        <module name="JavadocStyle"/>-->
+        <!--        <module name="JavadocStyle"/>-->
         <module name="JavadocTagContinuationIndentation"/>
         <module name="SingleLineJavadoc"/>
         <!--        <module name="SummaryJavadoc"/>-->

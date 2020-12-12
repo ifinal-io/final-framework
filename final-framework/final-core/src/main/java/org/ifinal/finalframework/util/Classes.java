@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util;
 
 import org.springframework.lang.NonNull;
@@ -54,6 +55,5 @@ public final class Classes {
 
         return ClassUtils.forName(name, classLoader);
     }
-
 
 }

@@ -18,6 +18,7 @@ import java.io.Serializable;
  */
 @Transient
 public interface IUser<I extends Serializable> extends IEntity<I> {
+
     /**
      * return user name.
      *
@@ -32,4 +33,5 @@ public interface IUser<I extends Serializable> extends IEntity<I> {
      * @param name user name.
      */
     void setName(@Nullable String name);
+
 }

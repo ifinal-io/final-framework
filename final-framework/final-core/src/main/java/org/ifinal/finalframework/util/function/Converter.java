@@ -13,6 +13,7 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface Converter<T, R> extends Function<T, R> {
+
     /**
      * Applies this function to the given argument.
      *
@@ -34,4 +35,5 @@ public interface Converter<T, R> extends Function<T, R> {
      */
     @Nullable
     R convert(final @Nullable T source);
+
 }

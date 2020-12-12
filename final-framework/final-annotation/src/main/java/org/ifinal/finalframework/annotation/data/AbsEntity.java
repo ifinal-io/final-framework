@@ -29,24 +29,28 @@ public class AbsEntity implements IEntity<Long> {
     @PrimaryKey
     @View(IView.class)
     private Long id;
+
     /**
      * 版本号
      */
     @Version
     @View(IView.class)
     private Long version;
+
     /**
      * 创建时间
      */
     @Created
     @View(IView.class)
     private LocalDateTime created;
+
     /**
      * 最后修改时间
      */
     @LastModified
     @View(IView.class)
     private LocalDateTime lastModified;
+
     /**
      * 有效标记
      */

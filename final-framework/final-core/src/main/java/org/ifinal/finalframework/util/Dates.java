@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util;
 
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -45,6 +46,5 @@ public interface Dates {
                 .map(it -> it.toInstant().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toLocalDateTime())
                 .orElse(null);
     }
-
 
 }

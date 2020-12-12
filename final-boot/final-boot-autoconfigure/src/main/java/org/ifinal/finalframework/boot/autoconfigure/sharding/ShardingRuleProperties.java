@@ -11,18 +11,24 @@ import java.util.Map;
 /**
  * @author likly
  * @version 1.0.0
- * @since 1.0.0
  * @see org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration
+ * @since 1.0.0
  */
 public class ShardingRuleProperties implements Serializable {
+
     /**
-     * @see ShardingRuleConfiguration#setTables(Collection) 
+     * @see ShardingRuleConfiguration#setTables(Collection)
      */
     private Map<String, TableRuleProperties> tables;
+
     private List<String> bindingTables;
+
     private List<String> broadcastTables;
+
     private ShardingStrategyProperties defaultDatabaseShardingStrategy;
+
     private ShardingStrategyProperties defaultTableShardingStrategy;
+
     private Map<String, MasterSlaveRuleProperties> masterSlaveRules;
 
     public Map<String, TableRuleProperties> getTables() {

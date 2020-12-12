@@ -13,6 +13,8 @@ import org.ifinal.finalframework.annotation.query.PageQuery;
 @Setter
 @Getter
 public class PersonQuery extends PageQuery {
+
     @Equal
     private Integer age;
+
 }

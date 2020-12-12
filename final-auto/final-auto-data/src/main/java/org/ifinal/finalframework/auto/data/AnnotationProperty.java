@@ -40,14 +40,23 @@ import java.util.function.Function;
 public class AnnotationProperty implements Property {
 
     private final Elements elements;
+
     private final Types types;
+
     private final Lazy<Element> element;
+
     private final Optional<VariableElement> field;
+
     private final Optional<PropertyDescriptor> descriptor;
+
     private final Optional<ExecutableElement> readMethod;
+
     private final Optional<ExecutableElement> writeMethod;
+
     private final Lazy<String> name;
+
     private final Lazy<TypeMirror> type;
+
     private final Lazy<Boolean> isIdProperty;
 
     private final Lazy<Boolean> isReference;
@@ -115,9 +124,53 @@ public class AnnotationProperty implements Property {
 
     }
 
+    private <T> T withFieldOrMethod(final Function<? super VariableElement, T> field,
+                                    final Function<? super ExecutableElement, T> setter,
+                                    final Function<? super ExecutableElement, T> getter
+    ) {
+
+        return Optionals.firstNonEmpty(//
+                () -> this.field.map(field), //
+                () -> this.writeMethod.map(setter),
+                () -> this.readMethod.map(getter))//
+                .orElseThrow(
+                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+    }
+
+    private <T> T withFieldOrDescriptor(final Function<? super VariableElement, T> field,
+                                        final Function<? super PropertyDescriptor, T> descriptor) {
+
+        return Optionals.firstNonEmpty(//
+                () -> this.field.map(field), //
+                () -> this.descriptor.map(descriptor))//
+                .orElseThrow(
+                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
+    }
+
+    private boolean isCollection(final TypeMirror type) {
+
+        return types.isAssignable(types.erasure(type), getTypeElement(Collection.class).asType());
+    }
+
+    private TypeElement getTypeElement(final Class<?> type) {
+
+        return elements.getTypeElement(type.getCanonicalName());
+    }
+
     private void initReferenceColumn(final Reference ann) {
 
         initReference(ann.mode(), ann.properties(), ann.delimiter());
+    }
+
+    private boolean isMap(final TypeMirror type) {
+
+        return types.isAssignable(types.erasure(type), getTypeElement(Map.class).asType());
+    }
+
+    @Override
+    @org.springframework.lang.NonNull
+    public Element getElement() {
+        return this.element.get();
     }
 
     private void initReference(final ReferenceMode mode, final String[] properties, final String delimiter) {
@@ -139,28 +192,19 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    @org.springframework.lang.NonNull
-    public Element getElement() {
-        return this.element.get();
+    public TypeElement getJavaTypeElement() {
+        return javaTypeElement;
     }
-
 
     @Override
     public String getName() {
         return name.get();
     }
 
-
     @Override
     public TypeMirror getType() {
         return type.get();
     }
-
-    @Override
-    public TypeElement getJavaTypeElement() {
-        return javaTypeElement;
-    }
-
 
     @Override
     public boolean isIdProperty() {
@@ -172,18 +216,15 @@ public class AnnotationProperty implements Property {
         return isVersion.get();
     }
 
-
     @Override
     public boolean isCollection() {
         return isCollection.get();
     }
 
-
     @Override
     public boolean isMap() {
         return isMap.get();
     }
-
 
     @Override
     public boolean isReference() {
@@ -218,47 +259,11 @@ public class AnnotationProperty implements Property {
         return Annotations.isAnnotationPresent(getElement(), annotationType);
     }
 
-
     @Override
     public boolean isTransient() {
 
         return isTransient != null && Boolean.TRUE.equals(isTransient.get());
     }
-
-    private <T> T withFieldOrDescriptor(final Function<? super VariableElement, T> field,
-                                        final Function<? super PropertyDescriptor, T> descriptor) {
-
-        return Optionals.firstNonEmpty(//
-                () -> this.field.map(field), //
-                () -> this.descriptor.map(descriptor))//
-                .orElseThrow(
-                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
-    }
-
-    private <T> T withFieldOrMethod(final Function<? super VariableElement, T> field,
-                                    final Function<? super ExecutableElement, T> setter,
-                                    final Function<? super ExecutableElement, T> getter
-    ) {
-
-        return Optionals.firstNonEmpty(//
-                () -> this.field.map(field), //
-                () -> this.writeMethod.map(setter),
-                () -> this.readMethod.map(getter))//
-                .orElseThrow(
-                        () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
-    }
-
-
-    private boolean isCollection(final TypeMirror type) {
-
-        return types.isAssignable(types.erasure(type), getTypeElement(Collection.class).asType());
-    }
-
-    private boolean isMap(final TypeMirror type) {
-
-        return types.isAssignable(types.erasure(type), getTypeElement(Map.class).asType());
-    }
-
 
     private TypeElement getPrimitiveTypeElement(final TypeKind kind) {
 
@@ -285,13 +290,6 @@ public class AnnotationProperty implements Property {
         }
 
     }
-
-
-    private TypeElement getTypeElement(final Class<?> type) {
-
-        return elements.getTypeElement(type.getCanonicalName());
-    }
-
 
     private static final class PropertyJavaTypeVisitor extends SimpleTypeVisitor8<TypeElement, AnnotationProperty> {
 
@@ -362,4 +360,5 @@ public class AnnotationProperty implements Property {
         }
 
     }
+
 }

@@ -14,10 +14,12 @@ import java.io.Serializable;
 @Data
 @ConfigurationProperties(prefix = ResponseProperties.WEB_RESPONSE_STATUS_PREFIX)
 public class ResponseProperties implements Serializable {
+
     static final String WEB_RESPONSE_STATUS_PREFIX = "final.web.response";
 
     /**
      * 同步{@link Responsible}状态到{@link javax.servlet.ServletResponse}
      */
     private boolean syncStatus = true;
+
 }

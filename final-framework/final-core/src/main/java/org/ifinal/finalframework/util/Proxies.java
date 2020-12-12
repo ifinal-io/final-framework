@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.util;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.AopProxyUtils;
@@ -23,9 +22,11 @@ public final class Proxies {
      * @see org.apache.ibatis.binding.MapperProxy
      */
     public static final String MAPPER_PROXY = "org.apache.ibatis.binding.MapperProxy";
+
     public static final String JDK_DYNAMIC_AOP_PROXY = "org.springframework.aop.framework.JdkDynamicAopProxy";
 
     private Proxies() {
+
     }
 
     /**
@@ -34,7 +35,7 @@ public final class Proxies {
      * @param target target
      * @return result
      * @see Proxy#isProxyClass(Class)
-     * @see AopUtils#isAopProxy(final Object)
+     * @see AopUtils#isAopProxy(Object)
      */
     public static boolean isProxy(final Object target) {
 
@@ -93,7 +94,6 @@ public final class Proxies {
         }
         return targetClass;
     }
-
 
 }
 

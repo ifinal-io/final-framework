@@ -11,8 +11,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = ZookeeperProperties.PREFIX)
 public class ZookeeperProperties {
+
     static final String PREFIX = "final.zookeeper";
 
     private String address;
+
     private Integer timeout;
+
 }

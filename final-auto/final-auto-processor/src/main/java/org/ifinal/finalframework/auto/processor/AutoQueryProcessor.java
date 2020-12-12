@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.processor;
 
-
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 
@@ -23,10 +22,13 @@ import java.util.Set;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoQueryProcessor extends AbsServiceProcessor {
+
     private static final String QUERY = "org.ifinal.finalframework.annotation.core.IQuery";
+
     private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
 
     private TypeElementFilter typeElementFilter;
+
     private TypeElement typeElement;
 
     @Override
@@ -45,10 +47,8 @@ public class AutoQueryProcessor extends AbsServiceProcessor {
                 .filter(typeElementFilter::matches)
                 .forEach(entity -> addService(typeElement, entity, null, "services"));
 
-
         return false;
     }
-
 
 }
 

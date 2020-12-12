@@ -12,10 +12,8 @@ public final class Lists {
     private Lists() {
     }
 
-
     @SafeVarargs
     public static <T> List<T> of(final T... elements) {
-
         return Arrays.asList(elements);
     }
 }

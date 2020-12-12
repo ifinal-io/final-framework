@@ -11,12 +11,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = TraceProperties.PREFIX)
 public class TraceProperties {
+
     static final String PREFIX = "final.trace";
 
     private static final String TRACE = "trace";
 
     private String name = TRACE;
+
     private String param = TRACE;
+
     private String header = TRACE;
 
 }

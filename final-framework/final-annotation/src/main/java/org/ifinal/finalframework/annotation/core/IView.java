@@ -13,4 +13,5 @@ import org.ifinal.finalframework.annotation.data.View;
  */
 @Transient
 public interface IView {
+
 }

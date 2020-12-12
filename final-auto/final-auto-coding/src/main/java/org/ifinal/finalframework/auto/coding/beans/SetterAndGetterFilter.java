@@ -38,6 +38,16 @@ public class SetterAndGetterFilter {
         return isSetter(name, parameters) || isGetter(name, parameters);
     }
 
+    private boolean isSetter(final String name, final List<? extends VariableElement> parameters) {
+
+        return parameters.size() == 1 && name.startsWith(Bean.SET_PREFIX);
+    }
+
+    private boolean isGetter(final String name, final List<? extends VariableElement> parameters) {
+
+        return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
+    }
+
     public boolean isSetter(final ExecutableElement method) {
 
         String name = method.getSimpleName().toString();
@@ -50,16 +60,6 @@ public class SetterAndGetterFilter {
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
         return isGetter(name, parameters);
-    }
-
-    private boolean isSetter(final String name, final List<? extends VariableElement> parameters) {
-
-        return parameters.size() == 1 && name.startsWith(Bean.SET_PREFIX);
-    }
-
-    private boolean isGetter(final String name, final List<? extends VariableElement> parameters) {
-
-        return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
     }
 
 

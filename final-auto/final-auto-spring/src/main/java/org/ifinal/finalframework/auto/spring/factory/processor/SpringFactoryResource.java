@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.spring.factory.processor;
 
-
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -56,7 +55,6 @@ final class SpringFactoryResource implements Serializable {
     public MultiValueMap<String, String> getSpringFactories() {
         return springFactories;
     }
-
 
     void writeFactoryFile(final OutputStream output)
             throws IOException {

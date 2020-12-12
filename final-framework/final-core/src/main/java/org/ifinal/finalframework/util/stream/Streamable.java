@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.stream;
 
 import java.util.stream.Stream;
@@ -25,5 +26,7 @@ import java.util.stream.Stream;
  */
 @FunctionalInterface
 public interface Streamable<T> {
+
     Stream<T> stream();
+
 }

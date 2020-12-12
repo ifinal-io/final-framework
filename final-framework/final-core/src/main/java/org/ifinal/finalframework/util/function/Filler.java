@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.function;
 
 import org.springframework.lang.NonNull;
@@ -24,5 +25,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public interface Filler<H, R> {
+
     R fill(@NonNull H holder);
+
 }

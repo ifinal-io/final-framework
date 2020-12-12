@@ -9,5 +9,7 @@ import org.springframework.lang.Nullable;
  * @since 1.0.0
  */
 public interface FilterVisitor<T, P> {
+
     boolean matches(@NonNull T t, @Nullable P param);
+
 }

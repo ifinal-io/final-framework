@@ -30,4 +30,5 @@ public interface IEntity<I extends Serializable> extends Serializable {
      * @param id id
      */
     void setId(@Nullable I id);
+
 }

@@ -29,4 +29,5 @@ public interface PersonMapper extends AbsMapper<Long, Person> {
     @SelectProvider(SelectSqlProvider.class)
     List<Person> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<Long> ids,
                         @Param("query") IQuery query);
+
 }

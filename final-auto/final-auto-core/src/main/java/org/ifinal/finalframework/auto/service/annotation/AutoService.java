@@ -28,6 +28,7 @@ import static org.ifinal.finalframework.auto.service.annotation.AutoService.List
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 public @interface AutoService {
+
     @NonNull
     Class<?> value();
 
@@ -40,6 +41,9 @@ public @interface AutoService {
     @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @Retention(RetentionPolicy.CLASS)
     @interface List {
+
         AutoService[] value();
+
     }
+
 }

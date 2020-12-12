@@ -17,15 +17,19 @@ import java.io.Serializable;
 public class CorsProperties implements Serializable {
 
     public static final String PREFIX = "final.web.cors";
+
     private static final long serialVersionUID = 8336511916409326596L;
+
     /**
      * @see CorsRegistration#pathPattern
      */
     private String mapping = "/**";
+
     /**
      * @see CorsRegistration#allowCredentials(boolean)
      */
     private Boolean allowCredentials = true;
+
     /**
      * @see CorsRegistration#allowedMethods(String...)
      */
@@ -40,5 +44,6 @@ public class CorsProperties implements Serializable {
      * @see CorsRegistration#allowedOrigins(String...)
      */
     private String[] allowedOrigins = {"*"};
+
 }
 

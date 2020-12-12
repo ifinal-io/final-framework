@@ -24,13 +24,21 @@ import java.util.stream.Stream;
 public class BaseEntity implements MutableEntity {
 
     private final TypeElement typeElement;
+
     private final String packageName;
+
     private final String simpleName;
+
     private final String name;
+
     private final String table;
+
     private final String type;
+
     private final List<Property> properties = new LinkedList<>();
+
     private final Map<String, Property> propertyCache = new LinkedHashMap<>();
+
     private Property idProperty;
 
     public BaseEntity(final ProcessingEnvironment processEnv, final TypeElement typeElement) {
@@ -103,11 +111,6 @@ public class BaseEntity implements MutableEntity {
     }
 
     @Override
-    public String getType() {
-        return type;
-    }
-
-    @Override
     public List<Property> getProperties() {
         return properties;
     }
@@ -116,6 +119,11 @@ public class BaseEntity implements MutableEntity {
     public Property getProperty(final String name) {
 
         return propertyCache.get(name);
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -139,4 +147,5 @@ public class BaseEntity implements MutableEntity {
     public Iterator<Property> iterator() {
         return properties.iterator();
     }
+
 }

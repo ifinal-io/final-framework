@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.function;
 
 import org.springframework.lang.NonNull;
@@ -27,4 +28,5 @@ import org.springframework.lang.Nullable;
 public interface FillerVisitor<H, P, R> {
 
     R fill(@NonNull H holder, @Nullable P param);
+
 }

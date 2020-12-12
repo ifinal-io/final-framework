@@ -29,15 +29,14 @@ import java.util.TreeMap;
 @SuppressWarnings("unused")
 public abstract class AbsServiceProcessor extends AbstractProcessor {
 
-
     private static final String DEFAULT_SERVICE_PATH = "services";
 
     /**
      * service:instance:name
      */
     private final Map<String, Map<String, String>> services = new HashMap<>();
-    private final Map<String, String> paths = new HashMap<>();
 
+    private final Map<String, String> paths = new HashMap<>();
 
     @Override
     public final boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
@@ -49,23 +48,6 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
             return doProcess(annotations, roundEnv);
         }
     }
-
-    protected abstract boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv);
-
-    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance) {
-
-        addService(service, instance, null, null);
-    }
-
-    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance,
-                                    final @Nullable String name, final @Nullable String path) {
-
-        final String serviceName = service.getQualifiedName().toString();
-        final Map<String, String> instances = this.services.computeIfAbsent(serviceName, key -> new HashMap<>());
-        instances.put(instance.getQualifiedName().toString(), name);
-        this.paths.putIfAbsent(serviceName, Optional.ofNullable(path).orElse(DEFAULT_SERVICE_PATH));
-    }
-
 
     private void generateServiceFiles() {
 
@@ -89,6 +71,15 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
                 fatalError("Unable to create " + resourceFile + ", " + e);
                 return;
             }
+        }
+    }
+
+    protected abstract boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv);
+
+    protected void log(final String msg) {
+
+        if (processingEnv.getOptions().containsKey("debug")) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
         }
     }
 
@@ -116,12 +107,23 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         }
     }
 
+    protected void fatalError(final String msg) {
 
-    protected void log(final String msg) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "FATAL ERROR: " + msg);
+    }
 
-        if (processingEnv.getOptions().containsKey("debug")) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
-        }
+    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance) {
+
+        addService(service, instance, null, null);
+    }
+
+    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance,
+                                    final @Nullable String name, final @Nullable String path) {
+
+        final String serviceName = service.getQualifiedName().toString();
+        final Map<String, String> instances = this.services.computeIfAbsent(serviceName, key -> new HashMap<>());
+        instances.put(instance.getQualifiedName().toString(), name);
+        this.paths.putIfAbsent(serviceName, Optional.ofNullable(path).orElse(DEFAULT_SERVICE_PATH));
     }
 
     @SuppressWarnings("unused")
@@ -130,10 +132,6 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg, element, annotation);
     }
 
-    protected void fatalError(final String msg) {
-
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "FATAL ERROR: " + msg);
-    }
 }
 
 

@@ -49,16 +49,17 @@ public class I18NWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
         return localeResolver;
     }
 
+    @Override
+    public void addInterceptors(final InterceptorRegistry registry) {
+
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName(properties.getParamName());
         return interceptor;
     }
 
-    @Override
-    public void addInterceptors(final InterceptorRegistry registry) {
-
-        registry.addInterceptor(localeChangeInterceptor());
-    }
 }
 

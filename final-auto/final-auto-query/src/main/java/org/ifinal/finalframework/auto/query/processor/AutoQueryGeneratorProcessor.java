@@ -44,8 +44,8 @@ import java.util.stream.Collectors;
 public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
     private static final String DEFAULT_ENTITY_PATH = "entity";
-    private static final String DEFAULT_QUERY_PATH = "dao.query";
 
+    private static final String DEFAULT_QUERY_PATH = "dao.query";
 
     @Override
     public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
@@ -59,7 +59,6 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         return false;
     }
-
 
     private void generate(final TypeElement entity) {
 
@@ -89,6 +88,13 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         } catch (IOException e) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+        }
+    }
+
+    private void info(final String msg) {
+
+        if (processingEnv.getOptions().containsKey("debug")) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
         }
     }
 
@@ -148,14 +154,5 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         return JavaFile.builder(entity.getPackageName(), clazz).indent("    ").build();
     }
-
-
-    private void info(final String msg) {
-
-        if (processingEnv.getOptions().containsKey("debug")) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
-        }
-    }
-
 
 }

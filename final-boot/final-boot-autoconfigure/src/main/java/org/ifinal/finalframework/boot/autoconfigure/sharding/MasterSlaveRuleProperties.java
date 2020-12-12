@@ -10,9 +10,13 @@ import java.util.List;
  * @since 1.0.0
  */
 public class MasterSlaveRuleProperties implements Serializable {
+
     private static final long serialVersionUID = -4796666194553926329L;
+
     private String name;
+
     private String master;
+
     private List<String> slaves;
 
     public String getName() {
@@ -41,5 +45,6 @@ public class MasterSlaveRuleProperties implements Serializable {
 
         this.slaves = slaves;
     }
+
 }
 

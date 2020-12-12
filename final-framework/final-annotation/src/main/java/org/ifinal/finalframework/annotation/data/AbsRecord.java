@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -20,6 +19,7 @@ public class AbsRecord extends AbsEntity implements IRecord<Long, AbsUser> {
     @Creator
     @Reference(properties = {"id", "name"})
     private AbsUser creator;
+
     @LastModifier
     @Reference(properties = {"id", "name"})
     private AbsUser lastModifier;

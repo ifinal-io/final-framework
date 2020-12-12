@@ -11,11 +11,17 @@ import java.util.List;
  * @since 1.0.0
  */
 public class QEntity {
+
     private final String packageName;
+
     private final String name;
+
     private final String simpleName;
+
     private final Entity entity;
+
     private final List<QProperty> properties;
+
     private final QProperty idProperty;
 
     private QEntity(final Builder builder) {
@@ -58,10 +64,15 @@ public class QEntity {
     }
 
     public static class Builder implements org.ifinal.finalframework.util.Builder<QEntity> {
+
         private final Entity entity;
-        private String packageName;
-        private String simpleName;
+
         private final List<QProperty> properties = new ArrayList<>();
+
+        private String packageName;
+
+        private String simpleName;
+
         private QProperty idProperty;
 
         public Builder(final Entity entity) {
@@ -96,7 +107,7 @@ public class QEntity {
         public QEntity build() {
             return new QEntity(this);
         }
-    }
 
+    }
 
 }

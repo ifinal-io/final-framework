@@ -1,13 +1,9 @@
 ---
-layout: post 
-title: define-rest-api-in-controller 
-subtitle: define-rest-api-in-controller 
-description: define-rest-api-in-controller 
-tags: []
+layout: post title: define-rest-api-in-controller subtitle: define-rest-api-in-controller description:
+define-rest-api-in-controller tags: []
 menus:
-    - define-rest-api-in-controller 
-date: 2020-12-06 19:23:12 +800 
-version: 1.0
+
+- define-rest-api-in-controller date: 2020-12-06 19:23:12 +800 version: 1.0
 ---
 
 # define-rest-api-in-controller
@@ -34,10 +30,12 @@ version: 1.0
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
+
     @RequestMapping
     public String hello(String word) {
         return "hello " + word + "!";
     }
+
 }
 ```
 

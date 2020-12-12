@@ -11,4 +11,5 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
  */
 @Mapper
 public interface AbsPersonMapper extends AbsMapper<Long, Person> {
+
 }

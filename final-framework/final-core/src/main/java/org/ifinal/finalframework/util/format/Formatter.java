@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.format;
 
 import org.ifinal.finalframework.util.function.Filter;
@@ -30,4 +31,5 @@ public interface Formatter<T> extends Filter<String> {
     T parse(final String source);
 
     String format(final T target);
+
 }

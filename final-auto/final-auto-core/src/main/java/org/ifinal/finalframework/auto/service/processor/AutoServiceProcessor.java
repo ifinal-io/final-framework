@@ -35,10 +35,12 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
      * @see AutoService#value()
      */
     private static final String KEY_VALUE = "value";
+
     /**
      * @see AutoService#name()
      */
     private static final String KEY_NAME = "name";
+
     /**
      * @see AutoService#path()
      */
@@ -49,26 +51,23 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
 
         final Set<TypeElement> elements = ElementFilter.typesIn(roundEnv.getRootElements());
 
-        elements.stream()
-//                .filter(element -> ElementKind.ANNOTATION_TYPE != element.getKind())
-                .forEach(element -> {
-                    for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
-                        if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
-                            processAutoService(element, annotationMirror);
-                        } else {
-                            List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
-                            for (AnnotationMirror mirror : mirrors) {
-                                if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
-                                    processAutoService(element, mirror, annotationMirror);
-                                }
-                            }
+        elements.forEach(element -> {
+            for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+                if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
+                    processAutoService(element, annotationMirror);
+                } else {
+                    List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
+                    for (AnnotationMirror mirror : mirrors) {
+                        if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
+                            processAutoService(element, mirror, annotationMirror);
                         }
                     }
-                });
+                }
+            }
+        });
 
         return false;
     }
-
 
     private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService) {
 
@@ -97,7 +96,6 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
         }
 
     }
-
 
 }
 

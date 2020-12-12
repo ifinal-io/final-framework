@@ -30,4 +30,5 @@ public interface IData<T> extends Serializable {
      * @param data the data to hold.
      */
     void setData(@Nullable T data);
+
 }

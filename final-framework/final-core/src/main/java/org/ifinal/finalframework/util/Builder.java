@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util;
 
 /**
@@ -24,5 +25,7 @@ package org.ifinal.finalframework.util;
  * @since 1.0.0
  */
 public interface Builder<T> {
+
     T build();
+
 }

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.auto.query.processor;
 
-
 import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.auto.data.Property;
@@ -20,7 +19,6 @@ import java.util.List;
 public final class QEntityFactory {
 
     private static final String ENTITY_PREFIX = "Q";
-
 
     private QEntityFactory() {
     }
@@ -51,7 +49,6 @@ public final class QEntityFactory {
         return builder.build();
     }
 
-
     private static QProperty buildProperty(final @Nullable Property referenceProperty, final @NonNull Property property) {
 
         if (referenceProperty == null) {
@@ -69,5 +66,6 @@ public final class QEntityFactory {
         }
 
     }
+
 }
 
