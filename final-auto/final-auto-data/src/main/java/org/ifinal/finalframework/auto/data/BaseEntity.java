@@ -33,7 +33,8 @@ public class BaseEntity implements MutableEntity {
     private final Map<String, Property> propertyCache = new LinkedHashMap<>();
     private Property idProperty;
 
-    public BaseEntity(ProcessingEnvironment processEnv, TypeElement typeElement) {
+    public BaseEntity(final ProcessingEnvironment processEnv, final TypeElement typeElement) {
+
         Elements elements = processEnv.getElementUtils();
         Types types = processEnv.getTypeUtils();
         this.typeElement = typeElement;
@@ -51,7 +52,7 @@ public class BaseEntity implements MutableEntity {
     }
 
     @Override
-    public void addProperty(Property property) {
+    public void addProperty(final Property property) {
 
         if (property.isIdProperty()) {
             if (idProperty != null) {
@@ -112,7 +113,8 @@ public class BaseEntity implements MutableEntity {
     }
 
     @Override
-    public Property getProperty(String name) {
+    public Property getProperty(final String name) {
+
         return propertyCache.get(name);
     }
 
@@ -122,7 +124,8 @@ public class BaseEntity implements MutableEntity {
     }
 
     @Override
-    public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+    public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
+
         return typeElement.getAnnotation(annotationType);
     }
 

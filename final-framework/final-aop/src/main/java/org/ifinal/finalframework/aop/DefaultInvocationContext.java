@@ -22,7 +22,8 @@ public class DefaultInvocationContext implements InvocationContext {
     private final Class<?> view;
     private final Map<String, Object> attributes = new HashMap<>();
 
-    public DefaultInvocationContext(MethodMetadata metadata, Object target, Object[] args) {
+    public DefaultInvocationContext(final MethodMetadata metadata, final Object target, final Object[] args) {
+
         this.metadata = metadata;
         this.target = target;
         this.args = extractArgs(metadata.getMethod(), args);
@@ -55,17 +56,20 @@ public class DefaultInvocationContext implements InvocationContext {
     }
 
     @Override
-    public void addAttribute(String name, Object value) {
+    public void addAttribute(final String name, final Object value) {
+
         attributes.put(name, value);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T getAttribute(String name) {
+    public <T> T getAttribute(final String name) {
+
         return (T) attributes.get(name);
     }
 
-    private Object[] extractArgs(Method method, Object[] args) {
+    private Object[] extractArgs(final Method method, final Object[] args) {
+
         if (!method.isVarArgs()) {
             return args;
         }
@@ -77,7 +81,8 @@ public class DefaultInvocationContext implements InvocationContext {
     }
 
 
-    private Class<?> extractView(Method method) {
+    private Class<?> extractView(final Method method) {
+
         final JsonView jsonView = AnnotationUtils.findAnnotation(method, JsonView.class);
         if (jsonView == null) return null;
         Class<?>[] classes = jsonView.value();

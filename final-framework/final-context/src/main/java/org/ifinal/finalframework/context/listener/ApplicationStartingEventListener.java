@@ -16,7 +16,8 @@ public class ApplicationStartingEventListener implements ApplicationListener<App
 
 
     @Override
-    public void onApplicationEvent(ApplicationStartingEvent event) {
+    public void onApplicationEvent(final ApplicationStartingEvent event) {
+
         logger.info(event.getClass().getCanonicalName());
     }
 }

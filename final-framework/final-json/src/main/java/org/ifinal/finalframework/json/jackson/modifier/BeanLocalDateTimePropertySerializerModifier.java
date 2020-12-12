@@ -25,12 +25,14 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    protected boolean support(Class<?> clazz) {
+    protected boolean support(final Class<?> clazz) {
+
         return LocalDateTime.class.isAssignableFrom(clazz);
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
+                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
         //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
         BeanPropertyWriter bpw = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),

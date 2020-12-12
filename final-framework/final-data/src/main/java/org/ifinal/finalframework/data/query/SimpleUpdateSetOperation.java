@@ -18,11 +18,13 @@ class SimpleUpdateSetOperation implements UpdateSetOperation {
     private final UpdateOperation operation;
     private final Object value;
 
-    SimpleUpdateSetOperation(QProperty<?> property, UpdateOperation operation) {
+    SimpleUpdateSetOperation(final QProperty<?> property, final UpdateOperation operation) {
+
         this(property, operation, null);
     }
 
-    SimpleUpdateSetOperation(@NonNull QProperty<?> property, @NonNull UpdateOperation operation, @Nullable Object value) {
+    SimpleUpdateSetOperation(final @NonNull QProperty<?> property, final @NonNull UpdateOperation operation, final @Nullable Object value) {
+
         this.property = property;
         this.operation = operation;
         this.value = value;
@@ -33,7 +35,7 @@ class SimpleUpdateSetOperation implements UpdateSetOperation {
     }
 
     @Override
-    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
+    public void apply(final @NonNull StringBuilder sql, final @NonNull String expression) {
 
         sql.append("<trim>");
         sql.append(property.getColumn());

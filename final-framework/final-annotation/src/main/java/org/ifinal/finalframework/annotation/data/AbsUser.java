@@ -20,7 +20,8 @@ public class AbsUser implements IUser<Long> {
     }
 
     @Override
-    public void setId(Long id) {
+    public void setId(final Long id) {
+
         this.id = id;
     }
 
@@ -30,7 +31,8 @@ public class AbsUser implements IUser<Long> {
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(final String name) {
+
         this.name = name;
     }
 }

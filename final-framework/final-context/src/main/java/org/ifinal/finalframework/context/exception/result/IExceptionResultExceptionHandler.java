@@ -18,13 +18,15 @@ import org.springframework.stereotype.Component;
 public class IExceptionResultExceptionHandler implements ResultExceptionHandler<IException> {
 
     @Override
-    public boolean supports(@NonNull Throwable throwable) {
+    public boolean supports(final @NonNull Throwable throwable) {
+
         return throwable instanceof IException;
     }
 
     @Override
     @NonNull
-    public Result<?> handle(@NonNull IException e) {
+    public Result<?> handle(final @NonNull IException e) {
+
         if (e instanceof ServiceException) {
             ServiceException se = (ServiceException) e;
             return R.failure(se.getStatus(), se.getDescription(), e.getCode(), e.getMessage());

@@ -20,21 +20,24 @@ public class HotswapApiController {
 
 
     @GetMapping("/jad")
-    public JadModel jad(Class<?> clazz) {
+    public JadModel jad(final Class<?> clazz) {
+
         JadModel jadModel = new JadModel();
         jadModel.setSource(Decompiler.decompile(clazz, null));
         return jadModel;
     }
 
     @PostMapping("/compile")
-    public void compile(String clazz, String source) {
+    public void compile(final String clazz, final String source) {
+
         Compiler compiler = new Compiler(getClass().getClassLoader());
         compile(clazz, source);
         compiler.compile();
     }
 
     @PostMapping("/redefine")
-    public void redefine(Class<?> clazz, String source) {
+    public void redefine(final Class<?> clazz, final String source) {
+
         Redefiner.redefine(clazz, source);
     }
 

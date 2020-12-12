@@ -31,15 +31,18 @@ public final class PropertiesLoader {
     private PropertiesLoader() {
     }
 
-    public static List<String> loadPropertyValues(@NonNull String propertyKey, @NonNull String propertiesResourceLocation) {
+    public static List<String> loadPropertyValues(final @NonNull String propertyKey, final @NonNull String propertiesResourceLocation) {
+
         return loadPropertyValues(propertyKey, null, propertiesResourceLocation);
     }
 
-    public static List<String> loadPropertyValues(@NonNull String propertyKey, @Nullable ClassLoader classLoader, @NonNull String propertiesResourceLocation) {
+    public static List<String> loadPropertyValues(final @NonNull String propertyKey, final @Nullable ClassLoader classLoader, final @NonNull String propertiesResourceLocation) {
+
         return loadPropertyValues(classLoader, propertiesResourceLocation).getOrDefault(propertyKey, Collections.emptyList());
     }
 
-    private static Map<String, List<String>> loadPropertyValues(@Nullable ClassLoader classLoader, String propertiesResourceLocation) {
+    private static Map<String, List<String>> loadPropertyValues(final @Nullable ClassLoader classLoader, final String propertiesResourceLocation) {
+
         MultiValueMap<String, String> result = cache.get(classLoader);
         if (result != null) {
             return result;

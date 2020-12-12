@@ -26,13 +26,14 @@ public class ShardingDataSourceConfigurer implements ShardingConfigurer {
     private final ShardingDataSourceProperties properties;
     private final DataSourceProperties dataSourceProperties;
 
-    public ShardingDataSourceConfigurer(ShardingDataSourceProperties properties, DataSourceProperties dataSourceProperties) {
+    public ShardingDataSourceConfigurer(final ShardingDataSourceProperties properties, final DataSourceProperties dataSourceProperties) {
+
         this.properties = properties;
         this.dataSourceProperties = dataSourceProperties;
     }
 
     @Override
-    public void addDataSource(@NonNull ShardingDataSourceRegistry registry) {
+    public void addDataSource(final @NonNull ShardingDataSourceRegistry registry) {
 
         if (CollectionUtils.isEmpty(properties.getDatasource())) {
             registry.addDataSource(DEFAULT_DATASOURCE_NAME, dataSourceProperties.initializeDataSourceBuilder().build());

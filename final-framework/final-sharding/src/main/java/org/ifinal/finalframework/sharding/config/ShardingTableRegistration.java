@@ -29,12 +29,14 @@ public class ShardingTableRegistration {
     }
 
 
-    public ShardingTableRegistration setDatabaseShardingStrategy(ShardingStrategyRegistration shardingStrategy) {
+    public ShardingTableRegistration setDatabaseShardingStrategy(final ShardingStrategyRegistration shardingStrategy) {
+
         this.databaseShardingStrategy = shardingStrategy;
         return this;
     }
 
-    public ShardingTableRegistration setTableShardingStrategy(ShardingStrategyRegistration shardingStrategy) {
+    public ShardingTableRegistration setTableShardingStrategy(final ShardingStrategyRegistration shardingStrategy) {
+
         this.tableShardingStrategy = shardingStrategy;
         return this;
     }

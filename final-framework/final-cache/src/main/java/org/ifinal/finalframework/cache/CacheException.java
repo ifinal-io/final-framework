@@ -8,11 +8,13 @@ package org.ifinal.finalframework.cache;
  */
 public class CacheException extends RuntimeException {
 
-    public CacheException(String message) {
+    public CacheException(final String message) {
+
         super(message);
     }
 
-    public CacheException(Throwable cause) {
+    public CacheException(final Throwable cause) {
+
         super(cause);
     }
 }

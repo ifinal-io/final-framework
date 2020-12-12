@@ -21,7 +21,7 @@ public interface InvocationContext {
 
     Map<String, Object> attributes();
 
-    void addAttribute(String name, Object value);
+    void addAttribute(final String name, final Object value);
 
-    <T> T getAttribute(String name);
+    <T> T getAttribute(final String name);
 }

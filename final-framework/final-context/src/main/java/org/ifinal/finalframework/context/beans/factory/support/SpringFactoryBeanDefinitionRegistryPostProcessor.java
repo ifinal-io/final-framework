@@ -23,12 +23,14 @@ import java.util.List;
 public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements BeanDefinitionRegistryPostProcessor {
     private final Class<T> factoryInterface;
 
-    public SpringFactoryBeanDefinitionRegistryPostProcessor(Class<T> factoryInterface) {
+    public SpringFactoryBeanDefinitionRegistryPostProcessor(final Class<T> factoryInterface) {
+
         this.factoryInterface = factoryInterface;
     }
 
     @Override
-    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) {
+    public void postProcessBeanDefinitionRegistry(final @NonNull BeanDefinitionRegistry registry) {
+
         List<String> factories = SpringFactoriesLoader.loadFactoryNames(factoryInterface, this.getClass().getClassLoader());
         for (String factory : factories) {
             try {
@@ -41,7 +43,7 @@ public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements Bean
     }
 
     @Override
-    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) {
+    public void postProcessBeanFactory(final @NonNull ConfigurableListableBeanFactory beanFactory) {
         // do nothing
     }
 }

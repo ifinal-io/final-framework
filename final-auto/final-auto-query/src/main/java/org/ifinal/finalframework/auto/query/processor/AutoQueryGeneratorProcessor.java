@@ -48,7 +48,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         if (roundEnv.processingOver()) {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
@@ -61,7 +61,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
     }
 
 
-    private void generate(TypeElement entity) {
+    private void generate(final TypeElement entity) {
+
         final String packageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
                 .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_QUERY_PATH);
 
@@ -69,7 +70,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
         generator(QEntityFactory.create(processingEnv, packageName, EntityFactory.create(processingEnv, entity)));
     }
 
-    private void generator(QEntity entity) {
+    private void generator(final QEntity entity) {
+
         try {
             String name = entity.getName();
             info("try to generator entity of " + name);
@@ -90,7 +92,7 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
         }
     }
 
-    private JavaFile buildJavaFile(QEntity entity) {
+    private JavaFile buildJavaFile(final QEntity entity) {
 
         // AbsQEntity<I,IEntity>
         ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
@@ -106,7 +108,9 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         MethodSpec tableConstructor = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC)
-                .addParameter(ParameterSpec.builder(ClassName.get(String.class), "table").build())
+                // final String table
+                .addParameter(ParameterSpec.builder(ClassName.get(String.class), "table").addModifiers(Modifier.FINAL).build())
+                // super(Entity.class, table)
                 .addStatement("super($T.class, table)", entity.getEntity().getElement())
                 .build();
 
@@ -146,7 +150,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
     }
 
 
-    private void info(String msg) {
+    private void info(final String msg) {
+
         if (processingEnv.getOptions().containsKey("debug")) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
         }

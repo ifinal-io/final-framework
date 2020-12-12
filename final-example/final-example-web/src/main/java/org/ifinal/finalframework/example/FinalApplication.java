@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class FinalApplication {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         SpringApplication.run(FinalApplication.class);
     }

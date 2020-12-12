@@ -23,12 +23,15 @@ public class BeanDatePropertySerializerModifier extends AbsSimpleBeanPropertySer
 
 
     @Override
-    protected boolean support(Class<?> clazz) {
+    protected boolean support(final Class<?> clazz) {
+
         return Date.class.isAssignableFrom(clazz);
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
+                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+
         BeanPropertyWriter bpw = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                 DateSerializer.INSTANCE, writer.getTypeSerializer(), writer.getSerializationType(),

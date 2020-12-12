@@ -40,13 +40,14 @@ public class Bean implements Iterable<PropertyDescriptor> {
     private final Map<ExecutableElement, Boolean> processed = new HashMap<>();
     private final Map<String, PropertyDescriptor> properties = new LinkedHashMap<>();
 
-    private Bean(ProcessingEnvironment env, TypeElement typeElement) {
+    private Bean(final ProcessingEnvironment env, final TypeElement typeElement) {
+
         this.typeElement = typeElement;
         this.setterAndGetterFilter = new SetterAndGetterFilter(env);
         this.init();
     }
 
-    public static Bean from(ProcessingEnvironment env, TypeElement typeElement) {
+    public static Bean from(final ProcessingEnvironment env, final TypeElement typeElement) {
 
         if (!cache.containsKey(typeElement)) {
             synchronized (cache) {
@@ -68,11 +69,13 @@ public class Bean implements Iterable<PropertyDescriptor> {
 
     }
 
-    private void initFields(List<? extends Element> elements) {
+    private void initFields(final List<? extends Element> elements) {
+
         ElementFilter.fieldsIn(elements).forEach(field -> fields.put(field.getSimpleName().toString(), field));
     }
 
-    private void initMethods(List<? extends Element> elements) {
+    private void initMethods(final List<? extends Element> elements) {
+
         ElementFilter.methodsIn(elements)
                 .stream()
                 .filter(method -> setterAndGetterFilter.matches(method, null))
@@ -125,7 +128,8 @@ public class Bean implements Iterable<PropertyDescriptor> {
 
     }
 
-    private Optional<ExecutableElement> findSetter(String property) {
+    private Optional<ExecutableElement> findSetter(final String property) {
+
         String setterName = NameGenerator.capitalize(SET_PREFIX, property);
         Optional<ExecutableElement> setter = methods.stream()
                 .filter(setterAndGetterFilter::isSetter)
@@ -138,7 +142,8 @@ public class Bean implements Iterable<PropertyDescriptor> {
         return setter;
     }
 
-    private Optional<ExecutableElement> findGetter(String property) {
+    private Optional<ExecutableElement> findGetter(final String property) {
+
         Optional<ExecutableElement> getter = methods.stream()
                 .filter(setterAndGetterFilter::isGetter)
                 .filter(it -> it.getSimpleName().toString()

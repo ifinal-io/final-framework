@@ -30,15 +30,18 @@ public enum MonitorLevel implements IEnum<Integer> {
     private static final Map<Integer, MonitorLevel> cache = Arrays.stream(MonitorLevel.values()).collect(Collectors.toMap(MonitorLevel::getCode, Function.identity()));
 
     private final Integer code;
-    private final String description;
 
-    MonitorLevel(Integer code, String description) {
+    private final String desc;
+
+    MonitorLevel(final Integer code, final String desc) {
+
         this.code = code;
-        this.description = description;
+        this.desc = desc;
     }
 
     @JsonCreator
-    public static MonitorLevel valueOf(Integer code) {
+    public static MonitorLevel valueOf(final Integer code) {
+
         return cache.get(code);
     }
 
@@ -53,6 +56,7 @@ public enum MonitorLevel implements IEnum<Integer> {
     @Override
     @NonNull
     public String getDesc() {
-        return description;
+
+        return desc;
     }
 }

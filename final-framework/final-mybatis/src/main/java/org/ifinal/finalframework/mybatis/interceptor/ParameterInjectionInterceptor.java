@@ -50,7 +50,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
     private static final String TABLE_PARAMETER_NAME = "table";
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
-    public static <I extends Serializable, T extends IEntity<I>> Class<T> from(@NonNull Class<? extends AbsMapper> mapper) {
+    public static <I extends Serializable, T extends IEntity<I>> Class<T> from(final @NonNull Class<? extends AbsMapper> mapper) {
 
         Type[] genericInterfaces = mapper.getGenericInterfaces();
         for (Type type : genericInterfaces) {
@@ -64,7 +64,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
     }
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(final Invocation invocation) throws Throwable {
 
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];
@@ -99,12 +99,13 @@ public class ParameterInjectionInterceptor implements Interceptor {
 
 
     @Override
-    public Object plugin(Object target) {
+    public Object plugin(final Object target) {
+
         return Plugin.wrap(target, this);
     }
 
     @Override
-    public void setProperties(Properties properties) {
+    public void setProperties(final Properties properties) {
         // do nothing
     }
 

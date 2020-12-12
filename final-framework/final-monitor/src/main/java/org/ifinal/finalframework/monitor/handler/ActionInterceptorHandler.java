@@ -54,12 +54,14 @@ public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHand
      * @see ActionMonitor#point()
      */
     @Override
-    public JoinPoint point(AnnotationAttributes annotation) {
+    public JoinPoint point(final AnnotationAttributes annotation) {
+
         return annotation.getEnum(ATTRIBUTE_POINT);
     }
 
     @Override
-    public void handle(@NonNull Recorder executor, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void handle(final @NonNull Recorder executor, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation, final Object result, final Throwable throwable) {
+
         EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         MethodMetadata metadata = context.metadata();
 

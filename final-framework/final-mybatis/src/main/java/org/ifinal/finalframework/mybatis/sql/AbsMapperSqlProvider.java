@@ -15,7 +15,8 @@ import java.lang.reflect.Type;
  */
 public interface AbsMapperSqlProvider extends ScriptSqlProvider {
 
-    default Class<?> getEntityClass(Class<?> mapper) {
+    default Class<?> getEntityClass(final Class<?> mapper) {
+
         final Type[] interfaces = mapper.getGenericInterfaces();
         for (Type type : interfaces) {
             if (type instanceof ParameterizedType && Repository.class

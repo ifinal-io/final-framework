@@ -29,11 +29,13 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
 
     private final List<Property> properties = new ArrayList<>();
 
-    private AnnotationEntity(TypeInformation<T> information) {
+    private AnnotationEntity(final TypeInformation<T> information) {
+
         super(information);
     }
 
-    public AnnotationEntity(Class<T> entityClass) {
+    public AnnotationEntity(final Class<T> entityClass) {
+
         this(ClassTypeInformation.from(entityClass));
         init();
     }
@@ -61,7 +63,8 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
         }
     }
 
-    private Property buildProperty(Class<?> entityClass, PropertyDescriptor descriptor) {
+    private Property buildProperty(final Class<?> entityClass, final PropertyDescriptor descriptor) {
+
         final Field field = Reflections.findField(entityClass, descriptor.getName());
         return field == null
                 ? new AnnotationProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), descriptor), this, SimpleTypeHolder.DEFAULT)

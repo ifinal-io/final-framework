@@ -29,7 +29,8 @@ public enum MethodMethod {
     private final String method;
     private final Class<? extends Annotation> annotation;
 
-    MethodMethod(String method, Class<? extends Annotation> annotation) {
+    MethodMethod(final String method, final Class<? extends Annotation> annotation) {
+
         this.method = method;
         this.annotation = annotation;
     }

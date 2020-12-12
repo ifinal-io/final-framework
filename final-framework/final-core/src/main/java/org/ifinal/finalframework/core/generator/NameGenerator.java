@@ -10,18 +10,21 @@ import static java.util.Locale.ENGLISH;
  * @since 1.0.0
  */
 public interface NameGenerator {
-    static String capitalize(String name) {
+    static String capitalize(final String name) {
+
         if (name == null || name.length() == 0) {
             return name;
         }
         return name.substring(0, 1).toUpperCase(ENGLISH) + name.substring(1);
     }
 
-    static String capitalize(@NonNull String prefix, String name) {
+    static String capitalize(final @NonNull String prefix, final String name) {
+
         return prefix + capitalize(name);
     }
 
-    static String decapitalize(String name) {
+    static String decapitalize(final String name) {
+
         if (name == null || name.length() == 0) {
             return name;
         }
@@ -38,7 +41,8 @@ public interface NameGenerator {
         return name.substring(0, pos).toLowerCase(ENGLISH) + name.substring(pos);
     }
 
-    static String decapitalize(String name, String prefix) {
+    static String decapitalize(final String name, final String prefix) {
+
         return decapitalize(name.substring(prefix.length()));
     }
 }

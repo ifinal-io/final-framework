@@ -27,7 +27,7 @@ import org.ifinal.finalframework.util.function.Filter;
  */
 public interface Formatter<T> extends Filter<String> {
 
-    T parse(String source);
+    T parse(final String source);
 
-    String format(T target);
+    String format(final T target);
 }

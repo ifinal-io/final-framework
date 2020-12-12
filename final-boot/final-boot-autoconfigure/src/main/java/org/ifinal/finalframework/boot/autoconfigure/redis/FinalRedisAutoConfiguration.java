@@ -21,7 +21,8 @@ public class FinalRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FinalRedisTemplate finalRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public FinalRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {
+
         FinalRedisTemplate template = new FinalRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         RedisRegistry.getInstance().setRedisTemplate(template);

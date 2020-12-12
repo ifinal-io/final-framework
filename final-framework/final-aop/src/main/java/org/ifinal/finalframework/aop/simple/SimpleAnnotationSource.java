@@ -20,12 +20,14 @@ public class SimpleAnnotationSource implements AnnotationSource<Boolean> {
 
     private final SimpleAnnotationFinder finder;
 
-    public SimpleAnnotationSource(Collection<Class<? extends Annotation>> annotationTypes) {
+    public SimpleAnnotationSource(final Collection<Class<? extends Annotation>> annotationTypes) {
+
         this.finder = new SimpleAnnotationFinder(annotationTypes);
     }
 
     @Override
-    public Boolean getAnnotations(Method method, Class<?> targetClass) {
+    public Boolean getAnnotations(final Method method, final Class<?> targetClass) {
+
         Object cacheKey = getCacheKey(method, targetClass);
         return cache.computeIfAbsent(cacheKey, key -> {
 

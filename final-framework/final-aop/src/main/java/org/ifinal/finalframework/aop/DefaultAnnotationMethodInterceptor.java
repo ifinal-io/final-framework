@@ -22,18 +22,20 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
     private final AnnotationSource<A> source;
     private final MethodInvocationDispatcher<A> dispatcher;
 
-    public DefaultAnnotationMethodInterceptor(AnnotationSource<A> source, MethodInvocationDispatcher<A> dispatcher) {
+    public DefaultAnnotationMethodInterceptor(final AnnotationSource<A> source, final MethodInvocationDispatcher<A> dispatcher) {
+
         this.source = source;
         this.dispatcher = dispatcher;
     }
 
     @Override
-    public A findAnnotations(Method method, Class<?> clazz) {
+    public A findAnnotations(final Method method, final Class<?> clazz) {
+
         return source.getAnnotations(method, clazz);
     }
 
     @Override
-    public Object invoke(MethodInvocation invocation, A annotations) throws Throwable {
+    public Object invoke(final MethodInvocation invocation, final A annotations) throws Throwable {
 
         Class<?> targetClass = getTargetClass(invocation.getThis());
         MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
@@ -70,12 +72,14 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
     }
 
 
-    private MethodMetadata getOperationMetadata(Method method, Class<?> targetClass) {
+    private MethodMetadata getOperationMetadata(final Method method, final Class<?> targetClass) {
+
         final AnnotatedElementKey cacheKey = new AnnotatedElementKey(method, targetClass);
         return this.metadataCache.computeIfAbsent(cacheKey, key -> new MethodMetadata(method, targetClass));
     }
 
-    private Class<?> getTargetClass(Object target) {
+    private Class<?> getTargetClass(final Object target) {
+
         return AopProxyUtils.ultimateTargetClass(target);
     }
 

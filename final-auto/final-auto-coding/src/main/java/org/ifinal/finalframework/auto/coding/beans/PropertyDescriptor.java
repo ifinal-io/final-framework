@@ -15,15 +15,21 @@ import java.util.Optional;
 public class PropertyDescriptor {
 
     private final Bean bean;
+
     private final String name;
+
     private final Optional<VariableElement> field;
+
     private final Optional<ExecutableElement> setter;
+
     private final Optional<ExecutableElement> getter;
+
     private final Lazy<String> toString;
 
-    public PropertyDescriptor(Bean bean, String name, Optional<VariableElement> field,
-                              Optional<ExecutableElement> setter,
-                              Optional<ExecutableElement> getter) {
+    public PropertyDescriptor(final Bean bean, final String name, final Optional<VariableElement> field,
+                              final Optional<ExecutableElement> setter,
+                              final Optional<ExecutableElement> getter) {
+
         this.bean = bean;
         this.name = name;
         this.field = field;

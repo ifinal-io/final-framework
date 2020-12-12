@@ -44,13 +44,14 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
      * @param methodHeader methodHeader
      * @see #DEFAULT_METHOD_HEADER
      */
-    public void setMethodHeader(String methodHeader) {
+    public void setMethodHeader(final String methodHeader) {
+
         Asserts.isEmpty(methodHeader, "'methodHeader' must not be empty");
         this.methodHeader = methodHeader;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
 
         HttpServletRequest requestToUse = request;
@@ -77,7 +78,8 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
 
         private final String method;
 
-        public HttpMethodRequestWrapper(HttpServletRequest request, String method) {
+        public HttpMethodRequestWrapper(final HttpServletRequest request, final String method) {
+
             super(request);
             this.method = method;
         }

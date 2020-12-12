@@ -13,10 +13,11 @@ import java.lang.reflect.Method;
  */
 public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
 
-    R findAnnotations(Method method, Class<?> clazz);
+    R findAnnotations(final Method method, final Class<?> clazz);
 
     @Override
-    default Object invoke(MethodInvocation invocation) throws Throwable {
+    default Object invoke(final MethodInvocation invocation) throws Throwable {
+
         R annotations = findAnnotations(invocation.getMethod(), invocation.getThis().getClass());
 
         if (Asserts.isEmpty(annotations)) {
@@ -26,5 +27,5 @@ public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
         return invoke(invocation, annotations);
     }
 
-    Object invoke(MethodInvocation invocation, R annotations) throws Throwable;
+    Object invoke(final MethodInvocation invocation, final R annotations) throws Throwable;
 }

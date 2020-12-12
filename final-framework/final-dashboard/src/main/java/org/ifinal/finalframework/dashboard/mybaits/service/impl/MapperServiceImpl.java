@@ -21,12 +21,13 @@ class MapperServiceImpl implements MapperService {
 
     private final List<AbsMapper<?, ?>> mappers;
 
-    public MapperServiceImpl(ObjectProvider<List<AbsMapper<?, ?>>> mappersProviers) {
+    public MapperServiceImpl(final ObjectProvider<List<AbsMapper<?, ?>>> mappersProviers) {
+
         this.mappers = mappersProviers.getIfAvailable();
     }
 
     @Override
-    public List<Class<? extends AbsMapper>> query(@NotNull MapperQuery query) {
+    public List<Class<? extends AbsMapper>> query(final @NotNull MapperQuery query) {
 
         return mappers.stream()
                 .map(Proxies::targetClass)

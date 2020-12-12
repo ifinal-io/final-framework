@@ -130,7 +130,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
 
                 MethodSpec constructor = MethodSpec.constructorBuilder()
                         .addModifiers(Modifier.PUBLIC)
-                        .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository").build())
+                        .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository").addModifiers(Modifier.FINAL).build())
                         .addStatement("super(repository);")
                         .build();
 
@@ -159,7 +159,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
 
     }
 
-    private void error(String msg) {
+    private void error(final String msg) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg);
     }
 

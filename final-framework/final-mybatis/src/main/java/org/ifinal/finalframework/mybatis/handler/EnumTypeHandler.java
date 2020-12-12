@@ -25,7 +25,8 @@ import java.sql.SQLException;
 public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     private final Class<E> type;
 
-    public EnumTypeHandler(@NonNull Class<E> type) {
+    public EnumTypeHandler(final @NonNull Class<E> type) {
+
         if (!type.isEnum()) {
             throw new IllegalArgumentException(" the type must be a enum type!");
         }
@@ -33,7 +34,7 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(final PreparedStatement ps, final int i, final E parameter, final JdbcType jdbcType) throws SQLException {
 
         Object code = parameter.getCode();
 
@@ -41,7 +42,7 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
             ps.setString(i, (String) code);
         } else if (code instanceof Byte) {
             ps.setByte(i, (Byte) code);
-        }else if(code instanceof Short){
+        } else if (code instanceof Short) {
             ps.setShort(i, (Short) code);
         } else if (code instanceof Integer) {
             ps.setInt(i, (Integer) code);
@@ -53,17 +54,20 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
     }
 
     @Override
-    public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public E getNullableResult(final ResultSet rs, final String columnName) throws SQLException {
+
         return IEnum.valueOf(type, rs.getString(columnName));
     }
 
     @Override
-    public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public E getNullableResult(final ResultSet rs, final int columnIndex) throws SQLException {
+
         return IEnum.valueOf(type, rs.getString(columnIndex));
     }
 
     @Override
-    public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public E getNullableResult(final CallableStatement cs, final int columnIndex) throws SQLException {
+
         return IEnum.valueOf(type, cs.getString(columnIndex));
     }
 

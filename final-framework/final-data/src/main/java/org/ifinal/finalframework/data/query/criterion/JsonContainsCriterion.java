@@ -11,11 +11,13 @@ import org.ifinal.finalframework.data.query.operation.JsonOperation;
  */
 public interface JsonContainsCriterion extends SingleCriterion<Object>, SqlNode {
 
-    static JsonContainsCriterion contains(Object target, Object value, String path) {
+    static JsonContainsCriterion contains(final Object target, final Object value, final String path) {
+
         return new JsonContainsCriterionImpl(target, JsonOperation.JSON_CONTAINS, value, path);
     }
 
-    static JsonContainsCriterion notContains(Object target, Object value, String path) {
+    static JsonContainsCriterion notContains(final Object target, final Object value, final String path) {
+
         return new JsonContainsCriterionImpl(target, JsonOperation.NOT_JSON_CONTAINS, value, path);
     }
 

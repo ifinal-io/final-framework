@@ -15,7 +15,8 @@ import org.springframework.context.ApplicationListener;
 public class ApplicationContextInitializedEventListener implements ApplicationListener<ApplicationContextInitializedEvent> {
 
     @Override
-    public void onApplicationEvent(ApplicationContextInitializedEvent event) {
+    public void onApplicationEvent(final ApplicationContextInitializedEvent event) {
+
         logger.info(event.getClass().getCanonicalName());
     }
 }

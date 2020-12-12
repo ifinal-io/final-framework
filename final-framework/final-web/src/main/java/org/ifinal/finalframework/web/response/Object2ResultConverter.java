@@ -14,7 +14,8 @@ import java.io.Serializable;
  */
 public class Object2ResultConverter implements Converter<Object, Result<?>> {
     @Override
-    public Result<?> convert(Object body) {
+    public Result<?> convert(final Object body) {
+
         if (body == null) {
             return R.success();
         }

@@ -39,7 +39,8 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
 
 
     @Override
-    public Class<?> convert(@NonNull String source) {
+    public Class<?> convert(final @NonNull String source) {
+
         try {
             return annotations.containsKey(source) ? annotations.get(source) : Class.forName(source);
         } catch (ClassNotFoundException e) {

@@ -22,7 +22,8 @@ public class ActionRecorder implements Recorder {
 
     private final List<ActionListener> listeners = new ArrayList<>();
 
-    public ActionRecorder(ObjectProvider<List<ActionListener>> handlerProvider) {
+    public ActionRecorder(final ObjectProvider<List<ActionListener>> handlerProvider) {
+
         final List<ActionListener> handlers = handlerProvider.getIfAvailable();
         if (Asserts.nonEmpty(handlers)) {
             this.listeners.addAll(handlers);
@@ -30,7 +31,8 @@ public class ActionRecorder implements Recorder {
     }
 
     @Override
-    public void record(Action action) {
+    public void record(final Action action) {
+
         listeners.forEach(item -> item.onAction(action));
     }
 

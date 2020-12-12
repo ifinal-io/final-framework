@@ -10,26 +10,30 @@ import org.springframework.lang.Nullable;
  */
 public interface InterceptorHandler<E, A> {
 
-    default Object before(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation) {
+    default Object before(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation) {
+
         handle(executor, context, annotation, null, null);
         return null;
     }
 
-    default void afterReturning(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, @Nullable Object result) {
+    default void afterReturning(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result) {
+
         handle(executor, context, annotation, result, null);
     }
 
 
-    default void afterThrowing(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, @NonNull Throwable throwable) {
+    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @NonNull Throwable throwable) {
+
         handle(executor, context, annotation, null, throwable);
     }
 
 
-    default void after(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, @Nullable Object result, @Nullable Throwable throwable) {
+    default void after(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
+
         handle(executor, context, annotation, result, throwable);
     }
 
-    default void handle(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, @Nullable Object result, @Nullable Throwable throwable) {
+    default void handle(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
 
     }
 

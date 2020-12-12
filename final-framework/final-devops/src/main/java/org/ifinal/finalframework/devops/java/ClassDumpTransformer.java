@@ -30,11 +30,13 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
     private final File directory;
 
-    public ClassDumpTransformer(Set<Class<?>> classesToEnhance) {
+    public ClassDumpTransformer(final Set<Class<?>> classesToEnhance) {
+
         this(classesToEnhance, null);
     }
 
-    public ClassDumpTransformer(Set<Class<?>> classesToEnhance, File directory) {
+    public ClassDumpTransformer(final Set<Class<?>> classesToEnhance, final File directory) {
+
         this.classesToEnhance = classesToEnhance;
         this.dumpResult = new HashMap<>();
         this.directory = directory;
@@ -42,8 +44,9 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
     @Override
     @Nullable
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
-                            ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+    public byte[] transform(final ClassLoader loader, final String className, final Class<?> classBeingRedefined,
+                            final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
+
         if (classesToEnhance.contains(classBeingRedefined)) {
             dumpClassIfNecessary(classBeingRedefined, classfileBuffer);
         }
@@ -54,7 +57,8 @@ public class ClassDumpTransformer implements ClassFileTransformer {
         return dumpResult;
     }
 
-    private void dumpClassIfNecessary(Class<?> clazz, byte[] data) {
+    private void dumpClassIfNecessary(final Class<?> clazz, final byte[] data) {
+
         String className = clazz.getName();
         ClassLoader classLoader = clazz.getClassLoader();
 

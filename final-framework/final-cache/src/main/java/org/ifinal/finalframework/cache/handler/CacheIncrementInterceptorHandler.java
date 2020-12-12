@@ -24,7 +24,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class CacheIncrementInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements InterceptorHandler<Cache, AnnotationAttributes> {
     @Override
-    public void handle(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation, final Object result, final Throwable throwable) {
+
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         final Object key = generateKey(getKey(annotation), getDelimiter(annotation), context.metadata(), evaluationContext);
@@ -61,7 +62,8 @@ public class CacheIncrementInterceptorHandler extends AbsCacheOperationIntercept
 
     }
 
-    private Number doIncrement(Logger logger, Cache cache, InvocationContext context, AnnotationAttributes annotation, Object key, Object field, EvaluationContext evaluationContext) {
+    private Number doIncrement(final Logger logger, final Cache cache, final InvocationContext context, final AnnotationAttributes annotation, final Object key, final Object field, final EvaluationContext evaluationContext) {
+
         final Class<? extends Number> type = annotation.getClass("type");
 
         if (Primaries.isLong(type) || Primaries.isInteger(type)) {

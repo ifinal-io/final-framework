@@ -30,13 +30,15 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
         this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
             @Override
             @NonNull
-            protected E getExecutor(A annotation) {
+            protected E getExecutor(final A annotation) {
+
                 return MultiAnnotationPointAdvisor.this.getExecutor(annotation);
             }
         }));
     }
 
-    public <T extends Annotation> void addAnnotation(Class<T> annotationType, AnnotationBuilder<T, A> builder, InterceptorHandler<E, A> handler) {
+    public <T extends Annotation> void addAnnotation(final Class<T> annotationType, final AnnotationBuilder<T, A> builder, final InterceptorHandler<E, A> handler) {
+
         this.source.addAnnotationSource(annotationType, new SingleAnnotationSource<>(annotationType, builder));
         this.handlers.add(annotationType, handler);
     }
@@ -49,6 +51,6 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
     }
 
     @NonNull
-    protected abstract E getExecutor(A annotation);
+    protected abstract E getExecutor(final A annotation);
 
 }

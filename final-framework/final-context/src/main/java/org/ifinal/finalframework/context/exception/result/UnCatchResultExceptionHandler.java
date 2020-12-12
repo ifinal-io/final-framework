@@ -20,12 +20,14 @@ public class UnCatchResultExceptionHandler implements ResultExceptionHandler<Thr
     private static final Logger logger = LoggerFactory.getLogger(UnCatchResultExceptionHandler.class);
 
     @Override
-    public boolean supports(Throwable t) {
+    public boolean supports(final Throwable t) {
+
         return true;
     }
 
     @Override
-    public Result<?> handle(Throwable throwable) {
+    public Result<?> handle(final Throwable throwable) {
+
         logger.error("UnCatchException:", throwable);
         return R.failure(500, Asserts.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
     }

@@ -18,7 +18,8 @@ public final class AnnotationMirrors {
     private AnnotationMirrors() {
     }
 
-    public static Map<String, AnnotationValue> getAnnotationValues(@NonNull AnnotationMirror mirror) {
+    public static Map<String, AnnotationValue> getAnnotationValues(final @NonNull AnnotationMirror mirror) {
+
         return mirror.getElementValues()
                 .entrySet()
                 .stream()

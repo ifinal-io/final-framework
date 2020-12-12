@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class QueryApiController {
 
     @GetMapping
-    public SqlBound query(Class<? extends IEntity<?>> entity, @RequestJsonParam IQuery query) {
+    public SqlBound query(final Class<? extends IEntity<?>> entity, final @RequestJsonParam IQuery query) {
+
         return SqlProviderHelper.query(entity, query);
     }
 
     @GetMapping(value = "/sql")
-    public String sql(Class<? extends IEntity<?>> entity, @RequestJsonParam IQuery query) {
+    public String sql(final Class<? extends IEntity<?>> entity, final @RequestJsonParam IQuery query) {
+
         return query(entity, query).getSql();
     }
 

@@ -17,7 +17,8 @@ import java.util.List;
 public class ListParamApiController {
 
     @GetMapping
-    public List<String> list(@RequestParam("args") List<String> args) {
+    public List<String> list(final @RequestParam("args") List<String> args) {
+
         return args;
     }
 

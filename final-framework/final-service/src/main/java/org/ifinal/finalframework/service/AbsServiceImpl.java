@@ -14,11 +14,13 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I>, R extends Repository<I, T>> implements AbsService<I, T, R> {
+public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I>, R extends Repository<I, T>>
+        implements AbsService<I, T, R> {
 
     private final R repository;
 
-    protected AbsServiceImpl(@NonNull R repository) {
+    protected AbsServiceImpl(final @NonNull R repository) {
+
         this.repository = repository;
     }
 

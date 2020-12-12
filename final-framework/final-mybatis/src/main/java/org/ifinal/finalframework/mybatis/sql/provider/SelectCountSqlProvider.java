@@ -23,13 +23,14 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
     private static final String QUERY = "query";
 
     @SuppressWarnings("unused")
-    public String selectCount(ProviderContext context, Map<String, Object> parameters) {
+    public String selectCount(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
 
     @Override
-    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
 
 
         Object ids = parameters.get("ids");

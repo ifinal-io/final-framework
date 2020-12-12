@@ -21,16 +21,19 @@ public abstract class ScriptMapperHelper {
         return TABLE;
     }
 
-    public static String cdata(String data) {
+    public static String cdata(final String data) {
+
         return String.format("<![CDATA[%s]]>", data);
     }
 
-    public static String bind(String name, String value) {
+    public static String bind(final String name, final String value) {
+
         return String.format("<bind name=\"%s\" value=\"%s\"/>", name, value);
     }
 
 
-    public static String formatBindValue(String prefix, String path) {
+    public static String formatBindValue(final String prefix, final String path) {
+
         if (path.contains(".")) {
             final String[] paths = path.split("\\.");
             List<String> isNulls = new ArrayList<>(paths.length);
@@ -50,7 +53,7 @@ public abstract class ScriptMapperHelper {
         return String.format("%s.%s", prefix, path);
     }
 
-    public static String formatTest(String prefix, String path, boolean selective) {
+    public static String formatTest(final String prefix, final String path, final boolean selective) {
 
         if (path.contains(".")) {
             final String[] paths = path.split("\\.");

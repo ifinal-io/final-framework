@@ -16,18 +16,21 @@ import java.util.function.Function;
  */
 public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlNode {
 
-    static <T> CriterionTarget<T> from(T target) {
+    static <T> CriterionTarget<T> from(final T target) {
+
         return target instanceof CriterionTarget ? (CriterionTarget<T>) target : new CriterionTargetImpl<>(target);
     }
 
     T getTarget();
 
-    default CriterionTarget<CriterionFunction> apply(Function<T, CriterionFunction> mapper) {
+    default CriterionTarget<CriterionFunction> apply(final Function<T, CriterionFunction> mapper) {
+
         return from(mapper.apply(getTarget()));
     }
 
     @Override
-    default void apply(StringBuilder parent, String expression) {
+    default void apply(final StringBuilder parent, final String expression) {
+
         final T target = this.getTarget();
         if (target instanceof SqlNode) {
             ((SqlNode) target).apply(parent, String.format("%s.target", expression));
@@ -40,7 +43,8 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     }
 
     @Override
-    default Criterion between(Object min, Object max) {
+    default Criterion between(final Object min, final Object max) {
+
         return CompareCriterionOperation.builder()
                 .target(getTarget())
                 .operation(CompareOperation.BETWEEN)

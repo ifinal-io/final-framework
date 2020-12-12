@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
 public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
+    public void onApplicationEvent(final ApplicationReadyEvent event) {
+
         ConfigurableApplicationContext applicationContext = event.getApplicationContext();
         final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext.getBean(RequestMappingHandlerAdapter.class);
         configureMessageConverters(requestMappingHandlerAdapter);
@@ -52,7 +53,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
      * @param adapter adapter
      * @see RequestMappingHandlerAdapter#setArgumentResolvers(List)
      */
-    private void configureHandlerMethodArgumentResolver(ApplicationContext context, RequestMappingHandlerAdapter adapter) {
+    private void configureHandlerMethodArgumentResolver(final ApplicationContext context, final RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
 
@@ -81,7 +82,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         adapter.setArgumentResolvers(argumentResolvers);
     }
 
-    private void configureHandlerReturnValueHandler(RequestMappingHandlerAdapter adapter) {
+    private void configureHandlerReturnValueHandler(final RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
 
@@ -110,7 +111,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
      * @param adapter adapter
      * @see RequestMappingHandlerAdapter#getMessageConverters()
      */
-    private void configureMessageConverters(RequestMappingHandlerAdapter adapter) {
+    private void configureMessageConverters(final RequestMappingHandlerAdapter adapter) {
 
         List<HttpMessageConverter<?>> messageConverters = adapter.getMessageConverters();
 

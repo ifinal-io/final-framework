@@ -17,12 +17,14 @@ public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
 
     private final AnnotationSource<?> source;
 
-    public AnnotationSourceMethodPoint(AnnotationSource<?> source) {
+    public AnnotationSourceMethodPoint(final AnnotationSource<?> source) {
+
         this.source = source;
     }
 
     @Override
-    public boolean matches(@NonNull Method method, @NonNull Class<?> targetClass) {
+    public boolean matches(final @NonNull Method method, final @NonNull Class<?> targetClass) {
+
         Object annotations = source.getAnnotations(method, targetClass);
 
         boolean matches = Asserts.nonEmpty(annotations) && !Boolean.FALSE.equals(annotations);

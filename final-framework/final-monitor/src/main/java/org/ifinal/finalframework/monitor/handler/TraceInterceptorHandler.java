@@ -18,7 +18,8 @@ public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandl
     private static final String TRACE_CONTEXT = "traceContext";
 
     @Override
-    public Object before(Tracer executor, InvocationContext context, AnnotationAttributes annotation) {
+    public Object before(final Tracer executor, final InvocationContext context, final AnnotationAttributes annotation) {
+
         TraceContext traceContext = new TraceContext();
         traceContext.setTrace(annotation.getString("trace"));
         context.addAttribute(TRACE_CONTEXT, traceContext);
@@ -27,7 +28,8 @@ public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandl
     }
 
     @Override
-    public void after(Tracer executor, InvocationContext context, AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void after(final Tracer executor, final InvocationContext context, final AnnotationAttributes annotation, final Object result, final Throwable throwable) {
+
         executor.stop(context.getAttribute(TRACE_CONTEXT));
     }
 }

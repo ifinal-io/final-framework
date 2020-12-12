@@ -16,7 +16,8 @@ public class EnumNameSerializer extends JsonSerializer<Enum<?>> {
     public static final EnumNameSerializer instance = new EnumNameSerializer();
 
     @Override
-    public void serialize(Enum<?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final Enum<?> value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         gen.writeString(value.name());
     }
 }

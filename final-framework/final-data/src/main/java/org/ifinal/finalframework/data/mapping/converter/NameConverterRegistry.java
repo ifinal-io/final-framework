@@ -36,7 +36,8 @@ public class NameConverterRegistry {
         initNameConverter(configuration.getString(FINAL_NAME_CONVERTER_COLUMN_CONVERTER, null));
     }
 
-    private void initTableConverter(@Nullable String tableNameConverter) {
+    private void initTableConverter(final @Nullable String tableNameConverter) {
+
         if (Asserts.isEmpty(tableNameConverter)) return;
         try {
             this.tableNameConverter = (NameConverter) Class.forName(tableNameConverter).getConstructor().newInstance();
@@ -45,7 +46,8 @@ public class NameConverterRegistry {
         }
     }
 
-    private void initNameConverter(@Nullable String columnNameConverter) {
+    private void initNameConverter(final @Nullable String columnNameConverter) {
+
         if (Asserts.isEmpty(columnNameConverter)) return;
         try {
             this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).getConstructor().newInstance();
@@ -58,7 +60,8 @@ public class NameConverterRegistry {
         return tableNameConverter;
     }
 
-    public void setTableConverter(NameConverter tableNameConverter) {
+    public void setTableConverter(final NameConverter tableNameConverter) {
+
         this.tableNameConverter = tableNameConverter;
     }
 
@@ -66,7 +69,8 @@ public class NameConverterRegistry {
         return columnNameConverter;
     }
 
-    public void setColumnConverter(NameConverter columnNameConverter) {
+    public void setColumnConverter(final NameConverter columnNameConverter) {
+
         this.columnNameConverter = columnNameConverter;
     }
 }

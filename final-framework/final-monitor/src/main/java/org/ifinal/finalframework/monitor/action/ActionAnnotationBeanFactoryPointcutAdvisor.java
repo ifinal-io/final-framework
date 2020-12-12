@@ -30,7 +30,8 @@ public class ActionAnnotationBeanFactoryPointcutAdvisor extends SingleAnnotation
 
     @Override
     @NonNull
-    protected Recorder getExecutor(AnnotationAttributes annotation) {
+    protected Recorder getExecutor(final AnnotationAttributes annotation) {
+
         return recorder;
     }
 }

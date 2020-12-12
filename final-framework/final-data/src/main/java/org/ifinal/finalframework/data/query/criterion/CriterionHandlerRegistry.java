@@ -24,11 +24,13 @@ public final class CriterionHandlerRegistry {
     }
 
 
-    public void registry(Class<? extends CriterionSqlProvider> key, CriterionSqlProvider handler) {
+    public void registry(final Class<? extends CriterionSqlProvider> key, final CriterionSqlProvider handler) {
+
         this.handlers.put(key, handler);
     }
 
-    public CriterionSqlProvider get(Class<? extends CriterionSqlProvider> key) {
+    public CriterionSqlProvider get(final Class<? extends CriterionSqlProvider> key) {
+
         return this.handlers.get(key);
     }
 

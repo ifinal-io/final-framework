@@ -3,10 +3,13 @@ package org.ifinal.finalframework.sharding.algorithm;
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.util.Expando;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineExpressionParser;
 import org.apache.shardingsphere.sharding.api.sharding.hint.HintShardingAlgorithm;
 import org.apache.shardingsphere.sharding.api.sharding.hint.HintShardingValue;
 import org.apache.shardingsphere.sharding.spi.ShardingAlgorithm;
+import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
 
 import java.util.Collection;
@@ -22,13 +25,19 @@ import java.util.stream.Collectors;
 public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Comparable<?>> {
 
     private static final String ALGORITHM_EXPRESSION_KEY = "algorithm-expression";
+
     private static final String DEFAULT_ALGORITHM_EXPRESSION = "${value}";
+
     private static final String HINT_INLINE_VALUE_PROPERTY_NAME = "value";
-    private final Properties properties = new Properties();
+
+    @Getter
+    @Setter
+    private Properties props;
+
     private String algorithmExpression;
 
     @Override
-    public Collection<String> doSharding(Collection<String> availableTargetNames, HintShardingValue<Comparable<?>> shardingValue) {
+    public Collection<String> doSharding(final Collection<String> availableTargetNames, final HintShardingValue<Comparable<?>> shardingValue) {
 
         if (shardingValue.getValues().isEmpty()) {
             return availableTargetNames;
@@ -40,7 +49,8 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
 
     }
 
-    private String doSharding(Comparable<?> shardingValue) {
+    private String doSharding(final Comparable<?> shardingValue) {
+
         Closure<?> closure = createClosure();
         closure.setProperty(HINT_INLINE_VALUE_PROPERTY_NAME, shardingValue);
         return closure.call().toString();
@@ -49,7 +59,8 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
 
     @Override
     public void init() {
-        String expression = properties.getProperty(ALGORITHM_EXPRESSION_KEY, DEFAULT_ALGORITHM_EXPRESSION);
+
+        String expression = props.getProperty(ALGORITHM_EXPRESSION_KEY, DEFAULT_ALGORITHM_EXPRESSION);
         Preconditions.checkNotNull(expression, "Inline sharding algorithm expression cannot be null.");
         algorithmExpression = InlineExpressionParser.handlePlaceHolder(expression.trim());
     }
@@ -62,18 +73,9 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
 
     @Override
     public String getType() {
-        return "HINT_INLINE";
+
+        return ShardingStrategy.Algorithm.HINT_INLINE;
     }
 
-    @Override
-    public Properties getProps() {
-        return properties;
-    }
-
-    @Override
-    public void setProps(Properties props) {
-        properties.clear();
-        properties.putAll(props);
-    }
 
 }

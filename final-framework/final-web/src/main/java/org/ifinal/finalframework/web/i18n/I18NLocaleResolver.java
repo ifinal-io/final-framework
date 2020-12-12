@@ -29,7 +29,7 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
     private String headerName;
 
     @Override
-    public Locale resolveLocale(@NonNull HttpServletRequest request) {
+    public Locale resolveLocale(final @NonNull HttpServletRequest request) {
 
         Locale locale = null;
 
@@ -63,11 +63,13 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
         return locale;
     }
 
-    private boolean isSupportedLocale(Locale locale) {
+    private boolean isSupportedLocale(final Locale locale) {
+
         return (supportedLocales.isEmpty() || supportedLocales.contains(locale));
     }
 
-    private Locale findSupportedLocale(HttpServletRequest request, Locale fallback) {
+    private Locale findSupportedLocale(final HttpServletRequest request, final Locale fallback) {
+
         Enumeration<Locale> requestLocales = request.getLocales();
         while (requestLocales.hasMoreElements()) {
             Locale locale = requestLocales.nextElement();
@@ -82,7 +84,8 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
         return this.supportedLocales;
     }
 
-    public void setSupportedLocales(List<Locale> locales) {
+    public void setSupportedLocales(final List<Locale> locales) {
+
         this.supportedLocales.clear();
         if (locales != null) {
             this.supportedLocales.addAll(locales);

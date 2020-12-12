@@ -16,12 +16,13 @@ public class TruncateSqlProvider implements AbsMapperSqlProvider {
 
     private static final String TRUNCATE_SQL = "truncate table ${table}";
 
-    public String truncate(ProviderContext context, Map<String, Object> parameters) {
+    public String truncate(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
     @Override
-    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);

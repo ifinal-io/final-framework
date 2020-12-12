@@ -22,11 +22,13 @@ public final class SqlKeyWords {
         init("key", "order", "group", "source");
     }
 
-    private static void init(String... keys) {
+    private static void init(final String... keys) {
+
         Arrays.stream(keys).map(String::toLowerCase).forEach(SqlKeyWords.keys::add);
     }
 
-    public static boolean contains(@NonNull String word) {
+    public static boolean contains(final @NonNull String word) {
+
         return keys.contains(word.toLowerCase());
     }
 }

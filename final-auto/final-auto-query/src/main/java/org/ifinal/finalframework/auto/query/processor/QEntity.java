@@ -18,7 +18,8 @@ public class QEntity {
     private final List<QProperty> properties;
     private final QProperty idProperty;
 
-    private QEntity(Builder builder) {
+    private QEntity(final Builder builder) {
+
         this.entity = builder.entity;
         this.packageName = builder.packageName;
         this.simpleName = builder.simpleName;
@@ -27,7 +28,8 @@ public class QEntity {
         this.idProperty = builder.idProperty;
     }
 
-    public static Builder builder(Entity entity) {
+    public static Builder builder(final Entity entity) {
+
         return new Builder(entity);
     }
 
@@ -62,21 +64,25 @@ public class QEntity {
         private final List<QProperty> properties = new ArrayList<>();
         private QProperty idProperty;
 
-        public Builder(Entity entity) {
+        public Builder(final Entity entity) {
+
             this.entity = entity;
         }
 
-        public Builder packageName(String packageName) {
+        public Builder packageName(final String packageName) {
+
             this.packageName = packageName;
             return this;
         }
 
-        public Builder name(String simpleName) {
+        public Builder name(final String simpleName) {
+
             this.simpleName = simpleName;
             return this;
         }
 
-        public Builder addProperty(QProperty property) {
+        public Builder addProperty(final QProperty property) {
+
             if (property.isIdProperty()) {
                 idProperty = property;
                 properties.add(0, property);

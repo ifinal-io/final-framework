@@ -34,7 +34,8 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
     private static final String LOCK = "lock";
 
     @Override
-    public Object before(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation) {
+    public Object before(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation) {
+
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         MethodMetadata metadata = context.metadata();
@@ -84,7 +85,8 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
-    private Long ttl(AnnotationAttributes annotation, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    private Long ttl(final AnnotationAttributes annotation, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         Object expired = generateExpire(annotation.getString("expire"), metadata, evaluationContext);
 
         if (expired != null) {
@@ -104,8 +106,9 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
 
 
     @Override
-    public void after(@NonNull Cache cache, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation,
-                      @Nullable Object result, @Nullable Throwable throwable) {
+    public void after(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+                      final @Nullable Object result, final @Nullable Throwable throwable) {
+
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
 
         final Object key = context.getAttribute(KEY);

@@ -18,18 +18,21 @@ public abstract class ParameterTypeHandler<T> extends BaseTypeHandler<T> {
 
 
     @Override
-    public final T getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public final T getNullableResult(final ResultSet rs, final String columnName) throws SQLException {
+
         throw new UnsupportedOperationException("");
     }
 
     @Override
-    public final T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public final T getNullableResult(final ResultSet rs, final int columnIndex) throws SQLException {
+
         throw new UnsupportedOperationException("");
 
     }
 
     @Override
-    public final T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public final T getNullableResult(final CallableStatement cs, final int columnIndex) throws SQLException {
+
         throw new UnsupportedOperationException("");
 
     }

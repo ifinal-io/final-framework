@@ -24,12 +24,14 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
         this.formatter = DateTimeFormatter.ofPattern(DateFormatterPattern.YYYY_MM_DD.getPattern());
     }
 
-    public LocalDateSerializer(DateTimeFormatter formatter) {
+    public LocalDateSerializer(final DateTimeFormatter formatter) {
+
         this.formatter = formatter;
     }
 
     @Override
-    public void serialize(LocalDate localDate, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final LocalDate localDate, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         if (localDate == null) return;
         if (formatter != null) {
             gen.writeString(localDate.format(formatter));

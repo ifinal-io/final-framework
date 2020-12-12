@@ -25,7 +25,8 @@ public final class QEntityFactory {
     private QEntityFactory() {
     }
 
-    public static QEntity create(ProcessingEnvironment processingEnv, String packageName, Entity entity) {
+    public static QEntity create(final ProcessingEnvironment processingEnv, final String packageName, final Entity entity) {
+
         final String entityName = entity.getSimpleName();
         final QEntity.Builder builder = new QEntity.Builder(entity);
         builder.packageName(packageName)
@@ -51,7 +52,8 @@ public final class QEntityFactory {
     }
 
 
-    private static QProperty buildProperty(@Nullable Property referenceProperty, @NonNull Property property) {
+    private static QProperty buildProperty(final @Nullable Property referenceProperty, final @NonNull Property property) {
+
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
                     .element(property.getElement())

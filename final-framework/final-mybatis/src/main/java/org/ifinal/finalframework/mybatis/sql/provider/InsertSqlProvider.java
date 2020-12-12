@@ -46,7 +46,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @return sql
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#insert(String, Class, boolean, Collection)
      */
-    public String insert(ProviderContext context, Map<String, Object> parameters) {
+    public String insert(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
@@ -56,7 +57,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @return sql
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#replace(String, Class, Collection)
      */
-    public String replace(ProviderContext context, Map<String, Object> parameters) {
+    public String replace(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
@@ -66,13 +68,14 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @return sql
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#save(String, Class, Collection)
      */
-    public String save(ProviderContext context, Map<String, Object> parameters) {
+    public String save(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
 
     @Override
-    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
 
         final String insertPrefix = getInsertPrefix(context.getMapperMethod(),
                 parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
@@ -92,7 +95,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     }
 
 
-    private String getInsertPrefix(Method method, boolean ignore) {
+    private String getInsertPrefix(final Method method, final boolean ignore) {
+
         switch (method.getName()) {
             case METHOD_INSERT:
                 return ignore ? INSERT_IGNORE_INTO : INSERT_INTO;
@@ -110,7 +114,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * ${table}
      * </trim>
      */
-    private void appendInsertOrReplaceOrSave(StringBuilder sql, String insertPrefix) {
+    private void appendInsertOrReplaceOrSave(final StringBuilder sql, final String insertPrefix) {
+
         sql.append("<trim prefix=\"").append(insertPrefix).append("\">")
                 .append(ScriptMapperHelper.table())
                 .append(TRIM_END);
@@ -128,7 +133,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param sql    sql
      * @param entity entity
      */
-    private void appendColumns(StringBuilder sql, QEntity<?, ?> entity) {
+    private void appendColumns(final StringBuilder sql, final QEntity<?, ?> entity) {
 
         // <trim prefix="(" suffix=)"" suffixOverrides=",">
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
@@ -162,7 +167,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param sql    sql
      * @param entity entity
      */
-    private void appendValues(StringBuilder sql, QEntity<?, ?> entity) {
+    private void appendValues(final StringBuilder sql, final QEntity<?, ?> entity) {
+
         sql.append("<foreach collection=\"list\" item=\"item\" open=\"VALUES\" separator=\",\">");
 
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
@@ -209,7 +215,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("</foreach>");
     }
 
-    private Metadata buildPropertyMetadata(QProperty<?> property) {
+    private Metadata buildPropertyMetadata(final QProperty<?> property) {
+
         final Metadata metadata = new Metadata();
         metadata.setProperty(property.getName());
         metadata.setColumn(property.getColumn());
@@ -231,7 +238,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param properties properties
      * @param view       view
      */
-    private void appendOnDuplicateKeyUpdate(StringBuilder sql, QEntity<?, ?> properties, Class<?> view) {
+    private void appendOnDuplicateKeyUpdate(final StringBuilder sql, final QEntity<?, ?> properties, final Class<?> view) {
+
         final String onDuplicateKeyUpdate = properties.stream()
                 .filter(property -> (property.isWriteable() && property.hasView(view))
                         || property.getProperty().isAnnotationPresent(Version.class)

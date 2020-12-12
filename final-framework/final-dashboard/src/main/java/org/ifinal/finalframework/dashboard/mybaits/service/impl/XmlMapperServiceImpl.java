@@ -18,7 +18,8 @@ import java.util.Objects;
 class XmlMapperServiceImpl implements XmlMapperService {
 
     @Override
-    public String xml(XmlMapperQuery query) {
+    public String xml(final XmlMapperQuery query) {
+
         try {
             HashMap<String, Object> parameters = new HashMap<>();
             parameters.put(SqlProviderHelper.PARAMETER_NAME_TABLE, query.getTable());

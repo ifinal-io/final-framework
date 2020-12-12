@@ -14,7 +14,7 @@ import java.lang.reflect.Array;
  */
 public class BaseCriterion {
 
-    protected void applyValueCriterion(@NonNull StringBuilder sql, Object value, String prefix, String suffix, String expression) {
+    protected void applyValueCriterion(final @NonNull StringBuilder sql, final Object value, final String prefix, final String suffix, final String expression) {
 
         sql.append("<trim");
 

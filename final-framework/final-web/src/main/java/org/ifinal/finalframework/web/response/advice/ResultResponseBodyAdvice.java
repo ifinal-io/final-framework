@@ -32,9 +32,10 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
 
     @Override
-    public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
-                                  @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
+    public Object beforeBodyWrite(final Object body, final @NonNull MethodParameter returnType, final @NonNull MediaType selectedContentType,
+                                  final @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  final @NonNull ServerHttpRequest request, final @NonNull ServerHttpResponse response) {
+
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
             return null;

@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util;
 
 import org.ifinal.finalframework.util.stream.Streamable;
@@ -58,47 +59,58 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
             String.class, Class.class);
     private final Set<Class<?>> types = new HashSet<>();
 
-    private Primaries(Class<?>... classes) {
+    private Primaries(final Class<?>... classes) {
+
         this.types.addAll(Arrays.asList(classes));
     }
 
-    public static boolean isByte(Class<?> clazz) {
+    public static boolean isByte(final Class<?> clazz) {
+
         return BYTE.types.contains(clazz);
     }
 
-    public static boolean isChar(Class<?> clazz) {
+    public static boolean isChar(final Class<?> clazz) {
+
         return CHAR.types.contains(clazz);
     }
 
-    public static boolean isBoolean(Class<?> clazz) {
+    public static boolean isBoolean(final Class<?> clazz) {
+
         return BOOLEAN.types.contains(clazz);
     }
 
-    public static boolean isShort(Class<?> clazz) {
+    public static boolean isShort(final Class<?> clazz) {
+
         return SHORT.types.contains(clazz);
     }
 
-    public static boolean isInteger(Class<?> clazz) {
+    public static boolean isInteger(final Class<?> clazz) {
+
         return INTEGER.types.contains(clazz);
     }
 
-    public static boolean isLong(Class<?> clazz) {
+    public static boolean isLong(final Class<?> clazz) {
+
         return LONG.types.contains(clazz);
     }
 
-    public static boolean isFloat(Class<?> clazz) {
+    public static boolean isFloat(final Class<?> clazz) {
+
         return FLOAT.types.contains(clazz);
     }
 
-    public static boolean isDouble(Class<?> clazz) {
+    public static boolean isDouble(final Class<?> clazz) {
+
         return DOUBLE.types.contains(clazz);
     }
 
-    public static boolean isString(Class<?> clazz) {
+    public static boolean isString(final Class<?> clazz) {
+
         return STRING.types.contains(clazz);
     }
 
-    public static boolean isPrimary(Class<?> clazz) {
+    public static boolean isPrimary(final Class<?> clazz) {
+
         return ALL.types.contains(clazz);
     }
 

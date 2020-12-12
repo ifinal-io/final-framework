@@ -15,7 +15,8 @@ class LimitImpl implements Limit, Serializable {
     private final Long offset;
     private final Long limit;
 
-    LimitImpl(Long offset, Long limit) {
+    LimitImpl(final Long offset, final Long limit) {
+
         this.offset = offset;
         this.limit = limit;
     }

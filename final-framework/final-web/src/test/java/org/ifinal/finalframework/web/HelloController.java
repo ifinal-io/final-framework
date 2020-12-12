@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 public class HelloController {
     @RequestMapping
-    public String hello(String word) {
+    public String hello(final String word) {
+
         return "hello " + word + "!";
     }
 
 
     @RequestMapping("/ex")
-    public void ex(Integer code, String message) {
+    public void ex(final Integer code, final String message) {
+
         throw new ServiceException(code, message);
     }
 

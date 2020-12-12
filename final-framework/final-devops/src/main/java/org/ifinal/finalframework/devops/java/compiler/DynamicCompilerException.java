@@ -15,12 +15,14 @@ public class DynamicCompilerException extends RuntimeException {
 
     private final List<Diagnostic<? extends JavaFileObject>> diagnostics;
 
-    public DynamicCompilerException(String message, List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+    public DynamicCompilerException(final String message, final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+
         super(message);
         this.diagnostics = diagnostics;
     }
 
-    public DynamicCompilerException(Throwable cause, List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+    public DynamicCompilerException(final Throwable cause, final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+
         super(cause);
         this.diagnostics = diagnostics;
     }

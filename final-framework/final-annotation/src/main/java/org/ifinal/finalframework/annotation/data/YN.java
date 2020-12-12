@@ -30,7 +30,8 @@ public enum YN implements IEnum<Integer> {
     private final Integer code;
     private final String desc;
 
-    YN(Integer code, String desc) {
+    YN(final Integer code, final String desc) {
+
         this.code = code;
         this.desc = desc;
     }

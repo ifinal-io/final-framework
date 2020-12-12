@@ -24,7 +24,8 @@ public class ZookeeperServiceImpl implements ZookeeperService {
 
 
     @Override
-    public List<String> getChildren(String path) {
+    public List<String> getChildren(final String path) {
+
         try {
             List<String> children = zooKeeper.getChildren(path, false);
             children.sort(String::compareTo);
@@ -35,7 +36,8 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     }
 
     @Override
-    public void delete(@NonNull String path, int version) {
+    public void delete(final @NonNull String path, final int version) {
+
         try {
             zooKeeper.delete(path, version);
         } catch (Exception e) {

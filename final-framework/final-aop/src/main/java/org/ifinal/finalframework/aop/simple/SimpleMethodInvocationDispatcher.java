@@ -16,12 +16,13 @@ import java.util.Objects;
 public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvocationDispatcher<Boolean> {
     private final List<InterceptorHandler<T, Boolean>> handlers;
 
-    protected SimpleMethodInvocationDispatcher(List<InterceptorHandler<T, Boolean>> handlers) {
+    protected SimpleMethodInvocationDispatcher(final List<InterceptorHandler<T, Boolean>> handlers) {
+
         this.handlers = handlers;
     }
 
     @Override
-    public Object before(@NonNull InvocationContext context, @NonNull Boolean annotations) {
+    public Object before(final @NonNull InvocationContext context, final @NonNull Boolean annotations) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
@@ -36,7 +37,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
 
 
     @Override
-    public void afterReturning(@NonNull InvocationContext context,@NonNull  Boolean annotations, Object result) {
+    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result) {
+
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.afterReturning(executor, context, annotations, result);
@@ -44,7 +46,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void afterThrowing(@NonNull InvocationContext context,@NonNull  Boolean annotations, Throwable throwable) {
+    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Throwable throwable) {
+
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.afterThrowing(executor, context, annotations, throwable);
@@ -52,7 +55,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void after(@NonNull InvocationContext context, @NonNull Boolean annotations, Object result, Throwable throwable) {
+    public void after(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result, final Throwable throwable) {
+
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
             handler.after(executor, context, annotations, result, throwable);

@@ -14,7 +14,8 @@ public final class Lists {
 
 
     @SafeVarargs
-    public static <T> List<T> of(T... elements) {
+    public static <T> List<T> of(final T... elements) {
+
         return Arrays.asList(elements);
     }
 }

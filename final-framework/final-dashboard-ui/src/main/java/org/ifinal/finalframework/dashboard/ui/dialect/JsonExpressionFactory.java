@@ -18,7 +18,8 @@ public class JsonExpressionFactory implements IExpressionObjectFactory {
 
     private final String name;
 
-    public JsonExpressionFactory(String name) {
+    public JsonExpressionFactory(final String name) {
+
         this.name = name;
     }
 
@@ -28,12 +29,14 @@ public class JsonExpressionFactory implements IExpressionObjectFactory {
     }
 
     @Override
-    public Object buildObject(IExpressionContext context, String name) {
+    public Object buildObject(final IExpressionContext context, final String name) {
+
         return this.name.equals(name) ? JsonRegistry.getInstance().getJsonService() : null;
     }
 
     @Override
-    public boolean isCacheable(String name) {
+    public boolean isCacheable(final String name) {
+
         return this.name.equals(name);
     }
 }

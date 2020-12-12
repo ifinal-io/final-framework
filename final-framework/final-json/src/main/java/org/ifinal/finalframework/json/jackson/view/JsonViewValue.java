@@ -15,7 +15,8 @@ public class JsonViewValue implements Viewable<Object> {
     private final Object value;
     private final Class<?> view;
 
-    public JsonViewValue(Object value, Class<?> view) {
+    public JsonViewValue(final Object value, final Class<?> view) {
+
         this.value = value;
         this.view = view;
     }

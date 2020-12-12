@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 public class VelocityCriterionSqlProvider implements CriterionSqlProvider {
 
     @Override
-    public String provide(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata) {
+    public String provide(final @NonNull AnnotationAttributes annotationAttributes, final @NonNull Metadata metadata) {
+
         final String value = Arrays.stream(annotationAttributes.getStringArray("value")).map(String::trim).collect(Collectors.joining());
         return Velocities.getValue(value, metadata);
     }

@@ -21,7 +21,8 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
     @Getter
     private final String path;
 
-    JsonContainsCriterionImpl(Object target, JsonOperation operation, Object value, String path) {
+    JsonContainsCriterionImpl(final Object target, final JsonOperation operation, final Object value, final String path) {
+
         this.target = target;
         this.operation = operation;
         this.value = value;
@@ -56,7 +57,7 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
      */
 
     @Override
-    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
+    public void apply(final @NonNull StringBuilder sql, final @NonNull String expression) {
 
         sql.append("<trim prefix=\"");
         switch (operation) {

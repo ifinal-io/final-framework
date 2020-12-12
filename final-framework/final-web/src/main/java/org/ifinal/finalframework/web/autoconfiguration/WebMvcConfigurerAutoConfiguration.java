@@ -31,17 +31,20 @@ import java.util.ServiceLoader;
 public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<ConverterFactory<?, ?>> converterFactories;
+
     private final List<org.springframework.web.servlet.HandlerInterceptor> handlerInterceptors;
 
 
-    public WebMvcConfigurerAutoConfiguration(ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
-                                             ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+    public WebMvcConfigurerAutoConfiguration(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
+                                             final ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
     }
 
     @Override
-    public void addFormatters(@NonNull FormatterRegistry registry) {
+    public void addFormatters(final @NonNull FormatterRegistry registry) {
+
         logger.info("start register converterFactories ...");
         if (Asserts.nonEmpty(converterFactories)) {
             converterFactories.forEach(registry::addConverterFactory);
@@ -52,7 +55,8 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
 
     @Override
-    public void addInterceptors(@NonNull InterceptorRegistry registry) {
+    public void addInterceptors(final @NonNull InterceptorRegistry registry) {
+
         handlerInterceptors.stream()
                 // 仅支持通过注解注入的拦截器
                 .filter(it -> AnnotatedElementUtils.hasAnnotation(it.getClass(), Component.class))
@@ -61,7 +65,8 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     }
 
-    private void addInterceptor(@NonNull InterceptorRegistry registry, @NonNull org.springframework.web.servlet.HandlerInterceptor interceptor) {
+    private void addInterceptor(final @NonNull InterceptorRegistry registry, final @NonNull org.springframework.web.servlet.HandlerInterceptor interceptor) {
+
         final HandlerInterceptor annotation = AnnotationUtils.getAnnotation(interceptor.getClass(), HandlerInterceptor.class);
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
         if (annotation != null) {

@@ -19,7 +19,8 @@ public class MasterSlaveRuleProperties implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
+
         this.name = name;
     }
 
@@ -27,7 +28,8 @@ public class MasterSlaveRuleProperties implements Serializable {
         return master;
     }
 
-    public void setMaster(String master) {
+    public void setMaster(final String master) {
+
         this.master = master;
     }
 
@@ -35,7 +37,8 @@ public class MasterSlaveRuleProperties implements Serializable {
         return slaves;
     }
 
-    public void setSlaves(List<String> slaves) {
+    public void setSlaves(final List<String> slaves) {
+
         this.slaves = slaves;
     }
 }

@@ -28,20 +28,23 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
 
     private final AnnotationParser<Collection<E>> parser;
 
-    public SingleAnnotationSource(Class<A> annotationType, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationSource(final Class<A> annotationType, final AnnotationBuilder<A, E> builder) {
+
         this(new SingleAnnotationParser<>(annotationType, builder));
     }
 
-    public SingleAnnotationSource(AnnotationFinder<Collection<A>> finder, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationSource(final AnnotationFinder<Collection<A>> finder, final AnnotationBuilder<A, E> builder) {
+
         this(new SingleAnnotationParser<>(finder, builder));
     }
 
-    public SingleAnnotationSource(AnnotationParser<Collection<E>> parser) {
+    public SingleAnnotationSource(final AnnotationParser<Collection<E>> parser) {
+
         this.parser = parser;
     }
 
     @Override
-    public Collection<E> getAnnotations(Method method, Class<?> targetClass) {
+    public Collection<E> getAnnotations(final Method method, final Class<?> targetClass) {
 
         if (method.getDeclaringClass() == Object.class) {
             return Collections.emptyList();
@@ -51,7 +54,7 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
         return this.cache.computeIfAbsent(cacheKey, key -> computeAnnotations(method, targetClass));
     }
 
-    private Collection<E> computeAnnotations(Method method, @Nullable Class<?> targetClass) {
+    private Collection<E> computeAnnotations(final Method method, final @Nullable Class<?> targetClass) {
 
         // Don't allow no-public methods as required.
         if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {

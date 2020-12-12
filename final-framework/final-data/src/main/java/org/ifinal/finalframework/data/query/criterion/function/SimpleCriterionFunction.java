@@ -20,7 +20,7 @@ public class SimpleCriterionFunction extends BaseCriterion implements CriterionF
     private final Operation operation;
 
     @Override
-    public void apply(StringBuilder sql, String expression) {
+    public void apply(final StringBuilder sql, final String expression) {
 
         sql.append(String.format("<trim prefix=\"%s(\" suffix=\")\">", name()));
 

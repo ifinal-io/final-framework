@@ -15,36 +15,42 @@ public final class ShardingConfigurerComposite implements ShardingConfigurer {
     private final Collection<ShardingConfigurer> configurers = new ArrayList<>();
 
 
-    public void addShardingConfigurers(Collection<ShardingConfigurer> shardingConfigurers){
+    public void addShardingConfigurers(final Collection<ShardingConfigurer> shardingConfigurers) {
+
         if (!CollectionUtils.isEmpty(shardingConfigurers)) {
             this.configurers.addAll(shardingConfigurers);
         }
     }
 
     @Override
-    public void addDataSource(@NonNull ShardingDataSourceRegistry registry) {
+    public void addDataSource(final @NonNull ShardingDataSourceRegistry registry) {
+
         configurers.forEach(each -> each.addDataSource(registry));
     }
 
     @Override
-    public void addShardingTable(@NonNull ShardingTableRegistry registry) {
+    public void addShardingTable(final @NonNull ShardingTableRegistry registry) {
+
         configurers.forEach(each -> each.addShardingTable(registry));
     }
 
     @Override
-    public void addBindingTables(@NonNull BindingTableRegistry registry) {
+    public void addBindingTables(final @NonNull BindingTableRegistry registry) {
+
         configurers.forEach(each -> each.addBindingTables(registry));
 
     }
 
     @Override
-    public void addBroadcastTables(@NonNull BroadcastTableRegistry registry) {
+    public void addBroadcastTables(final @NonNull BroadcastTableRegistry registry) {
+
         configurers.forEach(each -> each.addBroadcastTables(registry));
 
     }
 
     @Override
-    public void addShardingAlgorithms(@NonNull ShardingAlgorithmRegistry registry) {
+    public void addShardingAlgorithms(final @NonNull ShardingAlgorithmRegistry registry) {
+
         configurers.forEach(each -> each.addShardingAlgorithms(registry));
 
     }

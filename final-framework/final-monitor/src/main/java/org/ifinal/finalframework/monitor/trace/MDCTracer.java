@@ -24,7 +24,8 @@ public class MDCTracer implements Tracer {
     private static final TraceGenerator traceGenerator = UUIDTraceGenerator.INSTANCE;
 
     @Override
-    public void start(TraceContext context) {
+    public void start(final TraceContext context) {
+
         String trace = context.getTrace();
         String value = MDC.get(trace);
         if (Asserts.isBlank(value)) {
@@ -36,7 +37,8 @@ public class MDCTracer implements Tracer {
     }
 
     @Override
-    public void stop(TraceContext context) {
+    public void stop(final TraceContext context) {
+
         if (Boolean.TRUE.equals(Boolean.valueOf(MDC.get(MDC_TRACER)))) {
             String trace = context.getTrace();
             String value = MDC.get(trace);

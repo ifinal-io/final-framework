@@ -13,5 +13,5 @@ import java.lang.reflect.AnnotatedElement;
 @FunctionalInterface
 public interface AnnotationAttributesProcessor {
 
-    void doProcess(@NonNull AnnotatedElement annotatedElement, @NonNull AnnotationAttributes annotationAttributes);
+    void doProcess(final @NonNull AnnotatedElement annotatedElement, final @NonNull AnnotationAttributes annotationAttributes);
 }

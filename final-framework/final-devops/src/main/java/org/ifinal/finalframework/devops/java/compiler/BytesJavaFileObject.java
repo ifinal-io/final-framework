@@ -13,12 +13,14 @@ public class BytesJavaFileObject extends SimpleJavaFileObject {
 
     private ByteArrayOutputStream byteArrayOutputStream;
 
-    public BytesJavaFileObject(String className) {
+    public BytesJavaFileObject(final String className) {
+
         super(URI.create("byte:///" + className.replace(PKG_SEPARATOR, DIR_SEPARATOR)
                 + Kind.CLASS.extension), Kind.CLASS);
     }
 
-    public BytesJavaFileObject(String className, ByteArrayOutputStream byteArrayOutputStream) {
+    public BytesJavaFileObject(final String className, final ByteArrayOutputStream byteArrayOutputStream) {
+
         this(className);
         this.byteArrayOutputStream = byteArrayOutputStream;
     }

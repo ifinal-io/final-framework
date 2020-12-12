@@ -12,10 +12,11 @@ public abstract class AbsSimpleBeanPropertySerializerModifier extends AbsBeanPro
 
 
     @Override
-    public boolean support(@NonNull BeanPropertyDefinition property) {
+    public boolean support(final @NonNull BeanPropertyDefinition property) {
+
         return support(property.getRawPrimaryType());
     }
 
 
-    protected abstract boolean support(Class<?> clazz);
+    protected abstract boolean support(final Class<?> clazz);
 }

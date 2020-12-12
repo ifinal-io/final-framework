@@ -34,9 +34,10 @@ public final class Proxies {
      * @param target target
      * @return result
      * @see Proxy#isProxyClass(Class)
-     * @see AopUtils#isAopProxy(Object)
+     * @see AopUtils#isAopProxy(final Object)
      */
-    public static boolean isProxy(Object target) {
+    public static boolean isProxy(final Object target) {
+
         return Proxy.isProxyClass(target.getClass()) || AopUtils.isAopProxy(target);
     }
 
@@ -44,7 +45,8 @@ public final class Proxies {
      * @param target target
      * @return result
      */
-    public static Object target(Object target) {
+    public static Object target(final Object target) {
+
         while (isProxy(target)) {
             if (Proxy.isProxyClass(target.getClass())) {
                 return target(Proxy.getInvocationHandler(target));
@@ -75,7 +77,8 @@ public final class Proxies {
         return target;
     }
 
-    public static Class<?> targetClass(Object proxy) {
+    public static Class<?> targetClass(final Object proxy) {
+
         Object target = target(proxy);
         final Class<?> targetClass = target.getClass();
         if (MAPPER_PROXY.equals(targetClass.getCanonicalName())) {

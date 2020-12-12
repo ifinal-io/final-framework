@@ -32,28 +32,34 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
         this(new DefaultCacheExpressionEvaluator());
     }
 
-    public AbsCacheOperationInterceptorHandlerSupport(CacheExpressionEvaluator evaluator) {
+    public AbsCacheOperationInterceptorHandlerSupport(final CacheExpressionEvaluator evaluator) {
+
         super(evaluator);
         this.evaluator = evaluator;
     }
 
-    protected final String[] getKey(AnnotationAttributes annotationAttributes) {
+    protected final String[] getKey(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getStringArray("key");
     }
 
-    protected final String[] getField(AnnotationAttributes annotationAttributes) {
+    protected final String[] getField(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getStringArray("field");
     }
 
-    protected final String getDelimiter(AnnotationAttributes annotationAttributes) {
+    protected final String getDelimiter(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getString("delimiter");
     }
 
-    protected final String getExpire(AnnotationAttributes annotationAttributes) {
+    protected final String getExpire(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getString("expire");
     }
 
-    public final long ttl(AnnotationAttributes annotationAttributes) {
+    public final long ttl(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getNumber("ttl").longValue();
     }
 
@@ -64,13 +70,15 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
      * @see CacheLock#timeunit()
      * @see CachePut#timeunit()
      */
-    public final TimeUnit timeUnit(AnnotationAttributes annotationAttributes) {
+    public final TimeUnit timeUnit(final AnnotationAttributes annotationAttributes) {
+
         return annotationAttributes.getEnum("timeunit");
     }
 
 
     @Override
-    public Object generateKey(String[] keys, String delimiter, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    public Object generateKey(final String[] keys, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         final List<String> keyValues = Arrays.stream(keys)
                 .map(key -> {
                     if (isExpression(key)) {
@@ -88,7 +96,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
 
 
     @Override
-    public Object generateField(String[] fields, String delimiter, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    public Object generateField(final String[] fields, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         if (Asserts.isEmpty(fields)) {
             return null;
         }
@@ -107,7 +116,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateValue(String value, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    public Object generateValue(final String value, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext);
         }
@@ -115,7 +125,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public <T> T generateValue(String value, MethodMetadata metadata, EvaluationContext evaluationContext, Class<T> clazz) {
+    public <T> T generateValue(final String value, final MethodMetadata metadata, final EvaluationContext evaluationContext, final Class<T> clazz) {
+
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
         }
@@ -123,7 +134,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public boolean isConditionPassing(String condition, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    public boolean isConditionPassing(final String condition, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         if (this.conditionPassing == null) {
             if (condition != null && isExpression(condition)) {
                 this.conditionPassing = evaluator.condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
@@ -135,7 +147,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateExpire(String expire, MethodMetadata metadata, EvaluationContext evaluationContext) {
+    public Object generateExpire(final String expire, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+
         if (expire != null && isExpression(expire)) {
             return evaluator.expired(generateExpression(expire), metadata.getMethodKey(), evaluationContext);
         }

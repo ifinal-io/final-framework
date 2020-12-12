@@ -71,7 +71,8 @@ public final class Velocities {
     private Velocities() {
     }
 
-    public static String getValue(String express, Object params) {
+    public static String getValue(final String express, final Object params) {
+
         Template template = ve.getTemplate(express, UTF_8);
         if (null == params || Asserts.isBlank(express)) {
             return "";
@@ -91,7 +92,8 @@ public final class Velocities {
      * @return context
      */
     @SuppressWarnings("unchecked")
-    public static Context buildContext(Object param) {
+    public static Context buildContext(final Object param) {
+
         ToolContext context = toolManager.createContext();
         if (param instanceof Map) {
             context.putAll((Map<String, Object>) param);

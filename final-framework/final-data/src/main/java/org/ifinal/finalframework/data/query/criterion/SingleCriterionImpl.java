@@ -25,7 +25,8 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
 
     private final T value;
 
-    private SingleCriterionImpl(BuilderImpl<T> builder) {
+    private SingleCriterionImpl(final BuilderImpl<T> builder) {
+
         super(builder);
         this.value = builder.value;
     }
@@ -68,7 +69,8 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
         private T value;
 
         @Override
-        public SingleCriterion.Builder<T> value(T value) {
+        public SingleCriterion.Builder<T> value(final T value) {
+
             this.value = value;
             return this;
         }

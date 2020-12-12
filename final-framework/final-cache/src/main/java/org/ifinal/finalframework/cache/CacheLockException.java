@@ -12,19 +12,23 @@ import org.ifinal.finalframework.context.exception.ServiceException;
  */
 public class CacheLockException extends ServiceException {
 
-    public CacheLockException(String message, Object... args) {
+    public CacheLockException(final String message, final Object... args) {
+
         this(ResponseStatus.FORBIDDEN.getCode(), message, args);
     }
 
-    public CacheLockException(IException e, Object... args) {
+    public CacheLockException(final IException e, final Object... args) {
+
         this(e.getCode(), e.getMessage(), args);
     }
 
-    public CacheLockException(Integer code, String message, Object... args) {
+    public CacheLockException(final Integer code, final String message, final Object... args) {
+
         this(code.toString(), message, args);
     }
 
-    public CacheLockException(String code, String message, Object... args) {
+    public CacheLockException(final String code, final String message, final Object... args) {
+
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
     }
 }

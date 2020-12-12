@@ -41,13 +41,15 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     @Setter
     private RetrofitFactoryBean<?> retrofitFactoryBean = new RetrofitFactoryBean<>();
 
-    public ClassPathRetrofitScanner(BeanDefinitionRegistry registry) {
+    public ClassPathRetrofitScanner(final BeanDefinitionRegistry registry) {
+
         super(registry, false);
     }
 
     @Override
     @NonNull
-    public Set<BeanDefinitionHolder> doScan(@NonNull String... basePackages) {
+    public Set<BeanDefinitionHolder> doScan(final @NonNull String... basePackages) {
+
         registerFilters();
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 
@@ -60,7 +62,8 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         return beanDefinitions;
     }
 
-    private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
+    private void processBeanDefinitions(final Set<BeanDefinitionHolder> beanDefinitions) {
+
         for (BeanDefinitionHolder holder : beanDefinitions) {
 
             try {
@@ -101,7 +104,8 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
     }
 
     @Override
-    protected boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
+    protected boolean isCandidateComponent(final AnnotatedBeanDefinition beanDefinition) {
+
         return beanDefinition.getMetadata().isInterface() && beanDefinition.getMetadata().isIndependent();
     }
 
@@ -117,8 +121,10 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         // override AssignableTypeFilter to ignore matches on the actual marker interface
         if (this.markerInterface != null) {
             addIncludeFilter(new AssignableTypeFilter(this.markerInterface) {
+
                 @Override
-                protected boolean matchClassName(@NonNull String className) {
+                protected boolean matchClassName(final @NonNull String className) {
+
                     return false;
                 }
             });

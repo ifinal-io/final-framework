@@ -25,7 +25,8 @@ public class InlineShardingStrategyProperties implements Serializable {
         return shardingColumn;
     }
 
-    public void setShardingColumn(String shardingColumn) {
+    public void setShardingColumn(final String shardingColumn) {
+
         this.shardingColumn = shardingColumn;
     }
 
@@ -33,7 +34,8 @@ public class InlineShardingStrategyProperties implements Serializable {
         return algorithmExpression;
     }
 
-    public void setAlgorithmExpression(String algorithmExpression) {
+    public void setAlgorithmExpression(final String algorithmExpression) {
+
         this.algorithmExpression = algorithmExpression;
     }
 }

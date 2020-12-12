@@ -13,7 +13,8 @@ final class OrderImpl implements Order {
     private final QProperty<?> property;
     private final Direction direction;
 
-    OrderImpl(QProperty<?> property, Direction direction) {
+    OrderImpl(final QProperty<?> property, final Direction direction) {
+
         this.property = property;
         this.direction = direction;
     }

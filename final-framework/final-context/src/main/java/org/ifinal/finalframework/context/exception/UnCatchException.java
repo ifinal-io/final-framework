@@ -9,7 +9,8 @@ package org.ifinal.finalframework.context.exception;
  * @since 1.0.0
  */
 public class UnCatchException extends RuntimeException {
-    public UnCatchException(Throwable cause) {
+    public UnCatchException(final Throwable cause) {
+
         super(cause);
     }
 }

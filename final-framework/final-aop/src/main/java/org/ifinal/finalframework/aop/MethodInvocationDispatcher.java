@@ -13,15 +13,18 @@ import org.springframework.lang.Nullable;
 public interface MethodInvocationDispatcher<A> {
 
     @Nullable
-    Object before(@NonNull InvocationContext context, @NonNull A annotations);
+    Object before(final @NonNull InvocationContext context, final @NonNull A annotations);
 
-    default void afterReturning(@NonNull InvocationContext context, @NonNull A annotations, @Nullable Object result) {
+    default void afterReturning(final @NonNull InvocationContext context, final @NonNull A annotations, final @Nullable Object result) {
+
     }
 
-    default void afterThrowing(@NonNull InvocationContext context, @NonNull A annotations, @NonNull Throwable throwable) {
+    default void afterThrowing(final @NonNull InvocationContext context, final @NonNull A annotations, final @NonNull Throwable throwable) {
+
     }
 
-    default void after(@NonNull InvocationContext context, @NonNull A annotations, @Nullable Object result, @Nullable Throwable throwable) {
+    default void after(final @NonNull InvocationContext context, final @NonNull A annotations, final @Nullable Object result, final @Nullable Throwable throwable) {
+
     }
 
 }

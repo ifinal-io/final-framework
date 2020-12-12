@@ -21,11 +21,14 @@ import java.util.Optional;
 public final class EntityFactory {
 
     private EntityFactory() {
+
     }
 
     private static final Map<String, Entity> cache = new HashMap<>();
 
-    public static Entity create(ProcessingEnvironment processEnv, TypeElement typeElement) {
+    public static Entity create(final ProcessingEnvironment processEnv, final TypeElement element) {
+
+        TypeElement typeElement = element;
 
         String name = typeElement.getQualifiedName().toString();
 

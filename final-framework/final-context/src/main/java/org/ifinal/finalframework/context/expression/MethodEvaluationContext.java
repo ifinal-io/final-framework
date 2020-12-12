@@ -17,11 +17,14 @@ public class MethodEvaluationContext extends MethodBasedEvaluationContext {
 
     private final Set<String> unavailableVariables = new HashSet<>(1);
 
-    public MethodEvaluationContext(MethodExpressionRootObject rootObject, Method method, Object[] arguments, ParameterNameDiscoverer parameterNameDiscoverer) {
+    public MethodEvaluationContext(final MethodExpressionRootObject rootObject, final Method method,
+                                   final Object[] arguments, final ParameterNameDiscoverer parameterNameDiscoverer) {
+
         super(rootObject, method, arguments, parameterNameDiscoverer);
     }
 
-    public void addUnavailableVariable(String name) {
+    public void addUnavailableVariable(final String name) {
+
         this.unavailableVariables.add(name);
     }
 

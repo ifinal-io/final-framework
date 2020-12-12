@@ -21,7 +21,8 @@ public interface Converter<T, R> extends Function<T, R> {
      */
     @Override
     @Nullable
-    default R apply(@Nullable T source) {
+    default R apply(final @Nullable T source) {
+
         return convert(source);
     }
 
@@ -32,5 +33,5 @@ public interface Converter<T, R> extends Function<T, R> {
      * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
      */
     @Nullable
-    R convert(@Nullable T source);
+    R convert(final @Nullable T source);
 }

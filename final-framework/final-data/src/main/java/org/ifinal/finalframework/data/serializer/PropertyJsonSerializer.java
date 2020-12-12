@@ -17,7 +17,8 @@ import java.util.Objects;
  */
 public class PropertyJsonSerializer extends JsonSerializer<Property> {
     @Override
-    public void serialize(Property property, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final Property property, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         gen.writeStartObject();
 
         gen.writeStringField("name", property.getName());

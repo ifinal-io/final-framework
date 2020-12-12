@@ -12,13 +12,15 @@ import java.net.URI;
 public class StringJavaFileObject extends SimpleJavaFileObject {
     private final String contents;
 
-    public StringJavaFileObject(String className, String contents) {
+    public StringJavaFileObject(final String className, final String contents) {
+
         super(URI.create("string:///" + className.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
         this.contents = contents;
     }
 
     @Override
-    public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
+    public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException {
+
         return contents;
     }
 

@@ -24,13 +24,15 @@ import java.util.UUID;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class UUIDTraceGenerator implements TraceGenerator {
+public final class UUIDTraceGenerator implements TraceGenerator {
 
     public static final UUIDTraceGenerator INSTANCE = new UUIDTraceGenerator();
 
 
     @Override
-    public String generate(Void data) {
+    public String generate(final Void data) {
+
         return UUID.randomUUID().toString();
     }
+
 }

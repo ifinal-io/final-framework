@@ -33,13 +33,14 @@ public class RedisKeyApiController {
 
 
     @DeleteMapping
-    public Boolean delete(@RequestParam("key") String key) {
+    public Boolean delete(final @RequestParam("key") String key) {
+
         return stringRedisTemplate.delete(key);
     }
 
 
     @GetMapping
-    public List<String> scan(String pattern) {
+    public List<String> scan(final String pattern) {
 
         ScanOptions options = ScanOptions.scanOptions().count(1).match(pattern).build();
 

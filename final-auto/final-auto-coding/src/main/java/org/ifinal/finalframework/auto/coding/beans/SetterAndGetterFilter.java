@@ -19,10 +19,12 @@ import java.util.Objects;
 @Slf4j
 public class SetterAndGetterFilter {
 
-    public SetterAndGetterFilter(ProcessingEnvironment env) {
+    public SetterAndGetterFilter(final ProcessingEnvironment env) {
+
     }
 
-    public boolean matches(ExecutableElement method, TypeMirror parameterTypeOrReturnType) {
+    public boolean matches(final ExecutableElement method, final TypeMirror parameterTypeOrReturnType) {
+
         if (method.getKind() != ElementKind.METHOD) return false;
 
         if (Objects.nonNull(parameterTypeOrReturnType)) {
@@ -36,23 +38,27 @@ public class SetterAndGetterFilter {
         return isSetter(name, parameters) || isGetter(name, parameters);
     }
 
-    public boolean isSetter(ExecutableElement method) {
+    public boolean isSetter(final ExecutableElement method) {
+
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
         return isSetter(name, parameters);
     }
 
-    public boolean isGetter(ExecutableElement method) {
+    public boolean isGetter(final ExecutableElement method) {
+
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
         return isGetter(name, parameters);
     }
 
-    private boolean isSetter(String name, List<? extends VariableElement> parameters) {
+    private boolean isSetter(final String name, final List<? extends VariableElement> parameters) {
+
         return parameters.size() == 1 && name.startsWith(Bean.SET_PREFIX);
     }
 
-    private boolean isGetter(String name, List<? extends VariableElement> parameters) {
+    private boolean isGetter(final String name, final List<? extends VariableElement> parameters) {
+
         return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
     }
 

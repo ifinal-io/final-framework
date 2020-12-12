@@ -47,7 +47,8 @@ public final class JsonRegistry {
 
     }
 
-    public synchronized void register(JsonService jsonService) {
+    public synchronized void register(final JsonService jsonService) {
+
         Asserts.isNull(jsonService, "json service can not be null");
         this.jsonService = jsonService;
     }

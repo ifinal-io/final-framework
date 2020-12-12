@@ -30,13 +30,15 @@ public class AutoMapperProcessor extends AbsServiceProcessor {
     private TypeElement mapperElement;
 
     @Override
-    public synchronized void init(ProcessingEnvironment processingEnv) {
+    public synchronized void init(final ProcessingEnvironment processingEnv) {
+
         super.init(processingEnv);
         this.mapperElement = processingEnv.getElementUtils().getTypeElement(Mapper.class.getCanonicalName());
     }
 
     @Override
-    protected boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
+
         roundEnv.getElementsAnnotatedWith(Mapper.class)
                 .forEach(mapper -> addService(mapperElement, (TypeElement) mapper));
 

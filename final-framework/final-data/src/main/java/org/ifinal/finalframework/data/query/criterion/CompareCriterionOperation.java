@@ -33,15 +33,15 @@ public interface CompareCriterionOperation extends CriterionOperation {
 
     interface CompareCriterionOperationBuilder extends Builder<CompareCriterionOperation> {
 
-        CompareCriterionOperationBuilder target(Object target);
+        CompareCriterionOperationBuilder target(final Object target);
 
-        CompareCriterionOperationBuilder operation(CompareOperation operation);
+        CompareCriterionOperationBuilder operation(final CompareOperation operation);
 
-        CompareCriterionOperationBuilder value(Object value);
+        CompareCriterionOperationBuilder value(final Object value);
 
-        CompareCriterionOperationBuilder min(Object min);
+        CompareCriterionOperationBuilder min(final Object min);
 
-        CompareCriterionOperationBuilder max(Object max);
+        CompareCriterionOperationBuilder max(final Object max);
 
     }
 

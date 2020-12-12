@@ -20,7 +20,7 @@ import java.util.Map;
 @UtilityClass
 public final class Redefiner {
 
-    public static void redefine(Class<?> clazz, String source) {
+    public static void redefine(final Class<?> clazz, final String source) {
 
         Instrumentation instrumentation = Instrumentations.get();
 

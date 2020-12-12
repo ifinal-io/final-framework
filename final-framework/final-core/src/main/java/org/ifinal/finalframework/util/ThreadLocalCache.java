@@ -15,23 +15,28 @@ import java.util.Map;
 final class ThreadLocalCache {
     private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
 
-    static void set(@NonNull String key, Object value) {
+    static void set(final @NonNull String key, final Object value) {
+
         cache.get().put(key, value);
     }
 
-    static Object get(@NonNull String key) {
+    static Object get(final @NonNull String key) {
+
         return cache.get().get(key);
     }
 
-    static boolean containsKey(@NonNull String key) {
+    static boolean containsKey(final @NonNull String key) {
+
         return cache.get().containsKey(key);
     }
 
-    public static boolean containsValue(@NonNull Object value) {
+    public static boolean containsValue(final @NonNull Object value) {
+
         return cache.get().containsValue(value);
     }
 
-    static Object remove(@NonNull String key) {
+    static Object remove(final @NonNull String key) {
+
         return cache.get().remove(key);
     }
 

@@ -25,12 +25,14 @@ public class ResponseAutoConfiguration implements ApplicationContextAware {
 
     private final ResponseProperties properties;
 
-    public ResponseAutoConfiguration(ResponseProperties properties) {
+    public ResponseAutoConfiguration(final ResponseProperties properties) {
+
         this.properties = properties;
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public void setApplicationContext(final ApplicationContext applicationContext) {
+
         Optional.of(applicationContext.getBean(ResponsibleResponseBodyAdvice.class))
                 .ifPresent(it -> it.setSyncStatus(properties.isSyncStatus()));
     }

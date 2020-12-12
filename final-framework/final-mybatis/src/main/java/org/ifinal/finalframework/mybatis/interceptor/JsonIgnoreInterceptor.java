@@ -26,7 +26,8 @@ import org.springframework.stereotype.Component;
 public class JsonIgnoreInterceptor implements Interceptor {
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(final Invocation invocation) throws Throwable {
+
         boolean ignoreChanged = false;
         try {
             if (!JsonContextHolder.isIgnore()) {
@@ -42,7 +43,8 @@ public class JsonIgnoreInterceptor implements Interceptor {
     }
 
     @Override
-    public Object plugin(Object target) {
+    public Object plugin(final Object target) {
+
         return Plugin.wrap(target, this);
     }
 

@@ -28,7 +28,8 @@ public final class Decompiler {
     private Decompiler() {
     }
 
-    public static String decompile(Class<?> clazz, String methodName) {
+    public static String decompile(final Class<?> clazz, final String methodName) {
+
         Instrumentation instrumentation = Instrumentations.get();
 
         HashSet<Class<?>> classes = new HashSet<>(Collections.singletonList(clazz));
@@ -46,22 +47,27 @@ public final class Decompiler {
     }
 
 
-    public static String decompile(String classFilePath, String methodName) {
+    public static String decompile(final String classFilePath, final String methodName) {
+
         return decompile(classFilePath, methodName, false);
     }
 
-    public static String decompile(String classFilePath, String methodName, boolean hideUnicode) {
+    public static String decompile(final String classFilePath, final String methodName, final boolean hideUnicode) {
+
         final StringBuilder result = new StringBuilder(8192);
 
         OutputSinkFactory mySink = new OutputSinkFactory() {
+
             @Override
-            public List<SinkClass> getSupportedSinks(SinkType sinkType, Collection<SinkClass> collection) {
+            public List<SinkClass> getSupportedSinks(final SinkType sinkType, final Collection<SinkClass> collection) {
+
                 return Arrays.asList(SinkClass.STRING, SinkClass.DECOMPILED, SinkClass.DECOMPILED_MULTIVER,
                         SinkClass.EXCEPTION_MESSAGE);
             }
 
             @Override
-            public <T> Sink<T> getSink(final SinkType sinkType, SinkClass sinkClass) {
+            public <T> Sink<T> getSink(final SinkType sinkType, final SinkClass sinkClass) {
+
                 return sinkable -> {
                     // skip message like: Analysing type demo.MathGame
                     if (sinkType == SinkType.PROGRESS) {

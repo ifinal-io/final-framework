@@ -21,7 +21,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     private final DynamicClassLoader classLoader;
     private final List<BytesJavaFileObject> byteCodes = new ArrayList<>();
 
-    public DynamicJavaFileManager(JavaFileManager fileManager, DynamicClassLoader classLoader) {
+    public DynamicJavaFileManager(final JavaFileManager fileManager, final DynamicClassLoader classLoader) {
+
         super(fileManager);
         this.classLoader = classLoader;
 
@@ -29,7 +30,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public JavaFileObject getJavaFileForOutput(Location location, String className, JavaFileObject.Kind kind, FileObject sibling) {
+    public JavaFileObject getJavaFileForOutput(final Location location, final String className, final JavaFileObject.Kind kind, final FileObject sibling) {
 
         for (BytesJavaFileObject byteCode : byteCodes) {
             if (byteCode.getClassName().equals(className)) {
@@ -45,12 +46,14 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public ClassLoader getClassLoader(Location location) {
+    public ClassLoader getClassLoader(final Location location) {
+
         return classLoader;
     }
 
     @Override
-    public String inferBinaryName(Location location, JavaFileObject file) {
+    public String inferBinaryName(final Location location, final JavaFileObject file) {
+
         if (file instanceof CustomJavaFileObject) {
             return ((CustomJavaFileObject) file).binaryName();
         }
@@ -59,8 +62,9 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public Iterable<JavaFileObject> list(Location location, String packageName, Set<JavaFileObject.Kind> kinds,
-                                         boolean recurse) throws IOException {
+    public Iterable<JavaFileObject> list(final Location location, final String packageName, final Set<JavaFileObject.Kind> kinds,
+                                         final boolean recurse) throws IOException {
+
         if (location instanceof StandardLocation) {
             String locationName = ((StandardLocation) location).name();
             for (String name : superLocationNames) {
@@ -83,7 +87,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         private final Iterable<T> first;
         private final Iterable<T> next;
 
-        public IterableJoin(Iterable<T> first, Iterable<T> next) {
+        public IterableJoin(final Iterable<T> first, final Iterable<T> next) {
+
             this.first = first;
             this.next = next;
         }
@@ -99,7 +104,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         private final Iterator<T> first;
         private final Iterator<T> next;
 
-        public IteratorJoin(Iterator<T> first, Iterator<T> next) {
+        public IteratorJoin(final Iterator<T> first, final Iterator<T> next) {
+
             this.first = first;
             this.next = next;
         }

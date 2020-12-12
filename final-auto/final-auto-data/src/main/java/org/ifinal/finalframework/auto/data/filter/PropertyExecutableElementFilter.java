@@ -40,7 +40,8 @@ public class PropertyExecutableElementFilter implements Filter<ExecutableElement
     }
 
     @Override
-    public boolean matches(ExecutableElement e) {
+    public boolean matches(final ExecutableElement e) {
+
         if (ElementKind.METHOD != e.getKind()) return false;
         Set<Modifier> modifiers = e.getModifiers();
         for (Modifier modifier : ignoreModifiers) {
@@ -54,7 +55,8 @@ public class PropertyExecutableElementFilter implements Filter<ExecutableElement
         return true;
     }
 
-    public void setIgnoreModifiers(Set<Modifier> ignoreModifiers) {
+    public void setIgnoreModifiers(final Set<Modifier> ignoreModifiers) {
+
         this.ignoreModifiers.clear();
         if (Asserts.nonEmpty(ignoreModifiers)) {
             this.ignoreModifiers.addAll(ignoreModifiers);

@@ -9,6 +9,5 @@ package org.ifinal.finalframework.core.generator;
  */
 public interface Generator<T, R> {
 
-
-    R generate(T data);
+    R generate(final T data);
 }

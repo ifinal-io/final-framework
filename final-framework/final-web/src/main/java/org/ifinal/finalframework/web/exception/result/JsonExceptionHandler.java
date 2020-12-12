@@ -20,13 +20,15 @@ import org.springframework.stereotype.Component;
 @ConditionalOnClass(JsonException.class)
 public class JsonExceptionHandler implements ResultExceptionHandler<JsonException> {
     @Override
-    public boolean supports(@NonNull Throwable t) {
+    public boolean supports(final @NonNull Throwable t) {
+
         return t instanceof JsonException;
     }
 
     @NonNull
     @Override
-    public Result<?> handle(JsonException e) {
+    public Result<?> handle(final JsonException e) {
+
         return R.failure(400, e.getMessage());
     }
 }

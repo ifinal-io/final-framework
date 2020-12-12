@@ -41,7 +41,8 @@ public class AlertContext {
      */
     private final Long timestamp;
 
-    private AlertContext(Builder builder) {
+    private AlertContext(final Builder builder) {
+
         this.name = builder.name;
         this.level = builder.level;
         this.target = builder.target;
@@ -96,33 +97,39 @@ public class AlertContext {
         private Builder() {
         }
 
-        public Builder name(String name) {
+        public Builder name(final String name) {
+
             this.name = name;
             return this;
         }
 
-        public Builder level(MonitorLevel level) {
+        public Builder level(final MonitorLevel level) {
+
             this.level = level;
             return this;
         }
 
-        public Builder trace(String trace) {
+        public Builder trace(final String trace) {
+
             this.trace = trace;
             return this;
         }
 
 
-        public Builder addAttribute(String name, Object value) {
+        public Builder addAttribute(final String name, final Object value) {
+
             this.attributes.put(name, value);
             return this;
         }
 
-        public Builder exception(MonitorException exception) {
+        public Builder exception(final MonitorException exception) {
+
             this.exception = exception;
             return this;
         }
 
-        public Builder timestamp(Long timestamp) {
+        public Builder timestamp(final Long timestamp) {
+
             this.timestamp = timestamp;
             return this;
         }

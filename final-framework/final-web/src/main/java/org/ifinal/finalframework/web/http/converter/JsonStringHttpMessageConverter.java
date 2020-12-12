@@ -23,17 +23,20 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
 
     private final StringHttpMessageConverter converter;
 
-    public JsonStringHttpMessageConverter(StringHttpMessageConverter converter) {
+    public JsonStringHttpMessageConverter(final StringHttpMessageConverter converter) {
+
         this.converter = converter;
     }
 
     @Override
-    public boolean canRead(@NonNull Class<?> clazz, MediaType mediaType) {
+    public boolean canRead(final @NonNull Class<?> clazz, final MediaType mediaType) {
+
         return converter.canRead(clazz, mediaType);
     }
 
     @Override
-    public boolean canWrite(@NonNull Class<?> clazz, MediaType mediaType) {
+    public boolean canWrite(final @NonNull Class<?> clazz, final MediaType mediaType) {
+
         return converter.canWrite(String.class, mediaType);
     }
 
@@ -45,12 +48,14 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
 
     @NonNull
     @Override
-    public Object read(@NonNull Class<?> clazz, @NonNull HttpInputMessage inputMessage) throws IOException {
+    public Object read(final @NonNull Class<?> clazz, final @NonNull HttpInputMessage inputMessage) throws IOException {
+
         return converter.read(String.class, inputMessage);
     }
 
     @Override
-    public void write(@NonNull Object o, MediaType contentType, @NonNull HttpOutputMessage outputMessage) throws IOException {
+    public void write(final @NonNull Object o, final MediaType contentType, final @NonNull HttpOutputMessage outputMessage) throws IOException {
+
         converter.write(Json.toJson(o), contentType, outputMessage);
     }
 }

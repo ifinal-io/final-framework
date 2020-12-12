@@ -16,7 +16,8 @@ import java.lang.reflect.Parameter;
 public class AnnotationAttributesAnnotationBuilder<A extends Annotation> implements AnnotationBuilder<A, AnnotationAttributes> {
     @Override
     @NonNull
-    public AnnotationAttributes build(@NonNull Class<?> type, @NonNull A annotation) {
+    public AnnotationAttributes build(final @NonNull Class<?> type, final @NonNull A annotation) {
+
         AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(type, annotation);
         annotationAttributes.put("class", type);
         return annotationAttributes;
@@ -24,7 +25,8 @@ public class AnnotationAttributesAnnotationBuilder<A extends Annotation> impleme
 
     @Override
     @NonNull
-    public AnnotationAttributes build(@NonNull Method method, @NonNull A annotation) {
+    public AnnotationAttributes build(final @NonNull Method method, final @NonNull A annotation) {
+
         AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(method, annotation);
         annotationAttributes.put("method", method);
         return annotationAttributes;
@@ -32,7 +34,8 @@ public class AnnotationAttributesAnnotationBuilder<A extends Annotation> impleme
 
     @Override
     @NonNull
-    public AnnotationAttributes build(@NonNull Parameter parameter, @NonNull Integer index, @NonNull A annotation) {
+    public AnnotationAttributes build(final @NonNull Parameter parameter, final @NonNull Integer index, final @NonNull A annotation) {
+
         AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(parameter, annotation);
         annotationAttributes.put("parameter", parameter);
         annotationAttributes.put("parameterIndex", index);

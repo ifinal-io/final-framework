@@ -14,7 +14,8 @@ import org.springframework.lang.Nullable;
 public interface CacheInterceptorHandler extends JoinPointInterceptorHandler<Cache, AnnotationAttributes> {
 
     @Nullable
-    default JoinPoint point(AnnotationAttributes annotation) {
+    default JoinPoint point(final AnnotationAttributes annotation) {
+
         return annotation.containsKey("point") ? annotation.getEnum("point") : null;
     }
 

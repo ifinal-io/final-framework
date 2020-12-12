@@ -23,7 +23,7 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<ArrayL
     public static final Logger logger = LoggerFactory.getLogger(List2ResultConverter.class);
 
     @Override
-    public Result<ArrayList<T>> convert(List<T> source) {
+    public Result<ArrayList<T>> convert(final List<T> source) {
 
         List<T> list = source instanceof Page ? ((Page<T>) source).getResult() : source;
 
@@ -35,7 +35,8 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<ArrayL
         return result;
     }
 
-    private Pagination buildPageInfo(Page<T> page) {
+    private Pagination buildPageInfo(final Page<T> page) {
+
         final PageInfo<T> pageInfo = page.toPageInfo();
         final Pagination result = new Pagination();
         result.setPage(pageInfo.getPageNum());

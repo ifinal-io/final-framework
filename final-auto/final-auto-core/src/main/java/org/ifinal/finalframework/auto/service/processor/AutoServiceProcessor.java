@@ -45,7 +45,8 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
     private static final String KEY_PATH = "path";
 
     @Override
-    protected boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
+
         final Set<TypeElement> elements = ElementFilter.typesIn(roundEnv.getRootElements());
 
         elements.stream()
@@ -69,11 +70,13 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
     }
 
 
-    private void processAutoService(@NonNull TypeElement element, @NonNull AnnotationMirror autoService) {
+    private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService) {
+
         processAutoService(element, autoService, null);
     }
 
-    private void processAutoService(@NonNull TypeElement element, @NonNull AnnotationMirror autoService, @Nullable AnnotationMirror targetService) {
+    private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService, final @Nullable AnnotationMirror targetService) {
+
         try {
             final Map<String, AnnotationValue> autoServiceValues = AnnotationMirrors.getAnnotationValues(autoService);
             final Map<String, AnnotationValue> targetServiceValues = targetService == null ? null : AnnotationMirrors.getAnnotationValues(targetService);

@@ -19,7 +19,8 @@ public final class DateTimeFormatterContext {
         return DateTimeFormatterContext.dateTimeFormatter.get();
     }
 
-    public static void setDateTimeFormatter(DateTimeFormatter formatter) {
+    public static void setDateTimeFormatter(final DateTimeFormatter formatter) {
+
         dateTimeFormatter.set(formatter);
     }
 
@@ -27,7 +28,8 @@ public final class DateTimeFormatterContext {
         return DateTimeFormatterContext.zoneOffset.get();
     }
 
-    public static void setZoneOffset(ZoneOffset zoneOffset) {
+    public static void setZoneOffset(final ZoneOffset zoneOffset) {
+
         DateTimeFormatterContext.zoneOffset.set(zoneOffset);
     }
 

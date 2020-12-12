@@ -21,12 +21,13 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements MethodInv
 
     private final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers;
 
-    public MultiMethodInvocationDispatcher(MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers) {
+    public MultiMethodInvocationDispatcher(final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers) {
+
         this.handlers = handlers;
     }
 
     @Override
-    public Object before(@NonNull InvocationContext context, @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations) {
+    public Object before(final @NonNull InvocationContext context, final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
@@ -54,7 +55,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements MethodInv
     }
 
     @Override
-    public void afterReturning(@NonNull InvocationContext context, @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, Object result) {
+    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, final Object result) {
+
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
@@ -73,7 +75,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements MethodInv
     }
 
     @Override
-    public void afterThrowing(@NonNull InvocationContext context, @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, @NonNull Throwable throwable) {
+    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, final @NonNull Throwable throwable) {
+
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
@@ -92,7 +95,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements MethodInv
     }
 
     @Override
-    public void after(@NonNull InvocationContext context, @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, Object result, Throwable throwable) {
+    public void after(final @NonNull InvocationContext context, final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, final Object result, final Throwable throwable) {
+
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {

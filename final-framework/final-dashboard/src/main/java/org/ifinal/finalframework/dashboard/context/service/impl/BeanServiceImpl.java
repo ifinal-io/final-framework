@@ -30,7 +30,7 @@ class BeanServiceImpl implements BeanService, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @Override
-    public List<BeanDefinition> query(@NotNull BeanQuery query) {
+    public List<BeanDefinition> query(final @NotNull BeanQuery query) {
 
         final List<BeanDefinition> beanDefinitions = new ArrayList<>();
 

@@ -45,7 +45,8 @@ public final class UserContextHolder {
         INHERITABLE_USER_CONTEXT_HOLDER.remove();
     }
 
-    public static void setUserContext(@Nullable UserContext<? extends IUser<?>> localeContext, boolean inheritable) {
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext, final boolean inheritable) {
+
         if (localeContext == null) {
             reset();
         } else {
@@ -68,11 +69,13 @@ public final class UserContextHolder {
         return (UserContext<T>) userContext;
     }
 
-    public static void setUserContext(@Nullable UserContext<? extends IUser<?>> localeContext) {
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
+
         setUserContext(localeContext, false);
     }
 
-    public static <T extends IUser<?>> void setUser(@Nullable T user, boolean inheritable) {
+    public static <T extends IUser<?>> void setUser(final @Nullable T user, final boolean inheritable) {
+
         UserContext<?> userContext = getUserContext();
         if (userContext == null) {
             userContext = new SimpleUserContext<>(user);
@@ -80,7 +83,8 @@ public final class UserContextHolder {
         setUserContext(userContext, inheritable);
     }
 
-    public static <T extends IUser<?>> void setDefaultUser(@Nullable T user) {
+    public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {
+
         UserContextHolder.defaultUser = user;
     }
 
@@ -89,11 +93,13 @@ public final class UserContextHolder {
         return getUser(getUserContext());
     }
 
-    public static void setUser(@Nullable IUser<?> user) {
+    public static void setUser(final @Nullable IUser<?> user) {
+
         setUser(user, false);
     }
 
-    public static <T extends IUser<?>> T getUser(@Nullable UserContext<? extends IUser<?>> localeContext) {
+    public static <T extends IUser<?>> T getUser(final @Nullable UserContext<? extends IUser<?>> localeContext) {
+
         if (localeContext != null) {
             IUser<?> locale = localeContext.getUser();
             if (locale != null) {

@@ -20,13 +20,15 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
     private final ProcessingEnvironment processingEnvironment;
     private final Class<?> enumInterface;
 
-    public EnumValidator(ProcessingEnvironment processingEnvironment, Class<?> enumInterface) {
+    public EnumValidator(final ProcessingEnvironment processingEnvironment, final Class<?> enumInterface) {
+
         this.processingEnvironment = processingEnvironment;
         this.enumInterface = enumInterface;
     }
 
     @Override
-    public Void visitType(TypeElement e, Void param) {
+    public Void visitType(final TypeElement e, final Void param) {
+
         if (matches(e)) {
             validate(e, enumInterface);
         }
@@ -34,11 +36,12 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
     }
 
     @Override
-    public boolean matches(TypeElement typeElement) {
+    public boolean matches(final TypeElement typeElement) {
+
         return ElementKind.ENUM == typeElement.getKind();
     }
 
-    public Void validate(TypeElement typeElement, Class<?> enumInterface) {
+    public Void validate(final TypeElement typeElement, final Class<?> enumInterface) {
 
         if (!isAssignable(typeElement, enumInterface)) {
             processingEnvironment.getMessager()
@@ -48,7 +51,8 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
         return null;
     }
 
-    private boolean isAssignable(TypeElement element, Class<?> clazz) {
+    private boolean isAssignable(final TypeElement element, final Class<?> clazz) {
+
         Types typeUtils = processingEnvironment.getTypeUtils();
         TypeElement typeElement = processingEnvironment.getElementUtils().getTypeElement(clazz.getCanonicalName());
         return typeUtils.isSubtype(typeUtils.erasure(element.asType()), typeUtils.erasure(typeElement.asType()));

@@ -19,11 +19,13 @@ public class Annotations {
     @SuppressWarnings("unused")
     private final ProcessingEnvironment processEnv;
 
-    public Annotations(ProcessingEnvironment processEnv) {
+    public Annotations(final ProcessingEnvironment processEnv) {
+
         this.processEnv = processEnv;
     }
 
-    public static boolean isAnnotationPresent(@NonNull Element element, @NonNull Class<? extends Annotation> ann) {
+    public static boolean isAnnotationPresent(final @NonNull Element element, final @NonNull Class<? extends Annotation> ann) {
+
         if (element.getAnnotation(ann) != null) {
             return true;
         }

@@ -58,7 +58,8 @@ public class VelocityCoder implements Coder {
 
 
     @Override
-    public void coding(String template, Object model, Writer writer) {
+    public void coding(final String template, final Object model, final Writer writer) {
+
         try {
             Velocity.getTemplate("template/" + template)
                     .merge(buildContext(model), writer);
@@ -69,7 +70,8 @@ public class VelocityCoder implements Coder {
         }
     }
 
-    public Context buildContext(Object model) {
+    public Context buildContext(final Object model) {
+
         ToolContext context = toolManager.createContext();
         context.addToolbox(toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION));
         context.put("version", "1.0");

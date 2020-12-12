@@ -14,6 +14,7 @@
  *  limitations under the License.
  *
  */
+
 package org.ifinal.finalframework.util.collection;
 
 import org.springframework.lang.Nullable;
@@ -27,12 +28,13 @@ import java.util.Map;
  */
 public interface MultiKeyMap<K1, K2, V> extends Map<K1, Map<K2, V>> {
 
-    void put(K1 key1, K2 key2, @Nullable V value);
+    void put(final K1 key1, final K2 key2, final @Nullable V value);
 
-    default V get(K1 key1, K2 key2) {
+    default V get(final K1 key1, final K2 key2) {
+
         return getOrDefault(key1, key2, null);
     }
 
-    V getOrDefault(K1 key1, K2 key2, V defValue);
+    V getOrDefault(final K1 key1, final K2 key2, final V defValue);
 
 }

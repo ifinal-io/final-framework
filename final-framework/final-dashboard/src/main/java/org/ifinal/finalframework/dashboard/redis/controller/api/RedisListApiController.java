@@ -25,24 +25,28 @@ public class RedisListApiController {
     private StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/lpop")
-    public String lpop(String key) {
+    public String lpop(final String key) {
+
         return stringRedisTemplate.opsForList().leftPop(key);
     }
 
 
     @PostMapping("/lpush")
-    public Long lpush(String key, @RequestParam("value") List<String> value) {
+    public Long lpush(final String key, final @RequestParam("value") List<String> value) {
+
         return stringRedisTemplate.opsForList().leftPushAll(key, value);
     }
 
     @GetMapping("/rpop")
-    public String rpop(String key) {
+    public String rpop(final String key) {
+
         return stringRedisTemplate.opsForList().rightPop(key);
     }
 
 
     @PostMapping("/rpush")
-    public Long rpush(String key, @RequestParam("value") List<String> value) {
+    public Long rpush(final String key, final @RequestParam("value") List<String> value) {
+
         return stringRedisTemplate.opsForList().rightPushAll(key, value);
     }
 

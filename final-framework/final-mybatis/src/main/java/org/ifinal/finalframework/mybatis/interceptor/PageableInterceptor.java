@@ -44,7 +44,7 @@ public abstract class PageableInterceptor implements Interceptor {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(final Invocation invocation) throws Throwable {
 
         try {
             Object[] args = invocation.getArgs();
@@ -69,7 +69,8 @@ public abstract class PageableInterceptor implements Interceptor {
 
     }
 
-    private Pageable findPage(Map<String, Object> map) {
+    private Pageable findPage(final Map<String, Object> map) {
+
         for (Object item : map.values()) {
             if (item instanceof Pageable) {
                 return (Pageable) item;
@@ -91,15 +92,16 @@ public abstract class PageableInterceptor implements Interceptor {
 
     }
 
-    protected abstract void startPage(Pageable pageable);
+    protected abstract void startPage(final Pageable pageable);
 
     @Override
-    public Object plugin(Object target) {
+    public Object plugin(final Object target) {
+
         return Plugin.wrap(target, this);
     }
 
     @Override
-    public void setProperties(Properties properties) {
+    public void setProperties(final Properties properties) {
         //do nothing
     }
 }

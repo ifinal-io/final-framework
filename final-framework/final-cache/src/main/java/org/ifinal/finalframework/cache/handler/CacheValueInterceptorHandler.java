@@ -24,7 +24,8 @@ import java.lang.reflect.Type;
 public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
 
     @Override
-    public Object before(Cache cache, InvocationContext context, AnnotationAttributes operation) {
+    public Object before(final Cache cache, final InvocationContext context, final AnnotationAttributes operation) {
+
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
 

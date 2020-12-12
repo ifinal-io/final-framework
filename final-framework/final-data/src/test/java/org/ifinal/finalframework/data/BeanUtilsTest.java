@@ -29,7 +29,8 @@ class BeanUtilsTest {
             return isTag;
         }
 
-        public void setTag(boolean tag) {
+        public void setTag(final boolean tag) {
+
             isTag = tag;
         }
     }
@@ -41,7 +42,8 @@ class BeanUtilsTest {
             return tag;
         }
 
-        public void setTag(Boolean tag) {
+        public void setTag(final Boolean tag) {
+
             this.tag = tag;
         }
     }

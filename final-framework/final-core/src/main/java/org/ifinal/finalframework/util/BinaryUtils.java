@@ -64,13 +64,15 @@ public final class BinaryUtils {
         );
     }
 
-    public static Collection<Integer> flat(Integer binary) {
+    public static Collection<Integer> flat(final Integer binary) {
+
         return BINARIES.stream()
                 .filter(it -> (it & binary) == it)
                 .collect(Collectors.toList());
     }
 
-    public static Integer merge(Collection<Integer> binaries) {
+    public static Integer merge(final Collection<Integer> binaries) {
+
         return new HashSet<>(binaries).stream().reduce(0, Integer::sum);
     }
 

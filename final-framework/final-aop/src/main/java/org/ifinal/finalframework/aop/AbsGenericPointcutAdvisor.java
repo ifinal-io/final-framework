@@ -15,7 +15,8 @@ public abstract class AbsGenericPointcutAdvisor extends AbsPointcutAdvisor{
         return advice;
     }
 
-    public void setAdvice(Advice advice) {
+    public void setAdvice(final Advice advice) {
+
         this.advice = advice;
     }
 }

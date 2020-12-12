@@ -17,11 +17,13 @@ public final class Spel {
         this(new SpelExpressionParser());
     }
 
-    public Spel(SpelExpressionParser parser) {
+    public Spel(final SpelExpressionParser parser) {
+
         this.parser = parser;
     }
 
-    public Expression expression(String expression) {
+    public Expression expression(final String expression) {
+
         return this.parser.parseExpression(expression);
     }
 

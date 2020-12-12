@@ -11,7 +11,8 @@ public class BaseCompareProperty implements CompareProperty {
     private final Object afterValue;
     private final boolean equals;
 
-    private BaseCompareProperty(BuilderImpl builder) {
+    private BaseCompareProperty(final BuilderImpl builder) {
+
         this.property = builder.property;
         this.beforeValue = builder.beforeValue;
         this.afterValue = builder.afterValue;
@@ -65,13 +66,15 @@ public class BaseCompareProperty implements CompareProperty {
         private Object afterValue;
 
         @Override
-        public Builder property(Property property) {
+        public Builder property(final Property property) {
+
             this.property = property;
             return this;
         }
 
         @Override
-        public Builder value(Object before, Object after) {
+        public Builder value(final Object before, final Object after) {
+
             this.beforeValue = before;
             this.afterValue = after;
             return this;

@@ -16,9 +16,10 @@ import java.util.Collection;
  */
 public interface BeanPropertySerializerModifier {
 
-    boolean support(@NonNull BeanPropertyDefinition property);
+    boolean support(final @NonNull BeanPropertyDefinition property);
 
     @Nullable
-    Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer);
+    Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
+                                                    final BeanPropertyDefinition property, final BeanPropertyWriter writer);
 
 }

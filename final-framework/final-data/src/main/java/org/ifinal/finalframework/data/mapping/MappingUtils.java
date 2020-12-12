@@ -16,7 +16,8 @@ import java.util.Optional;
  */
 public interface MappingUtils {
 
-    static String formatPropertyName(@NonNull Property property, @Nullable Property referenceProperty) {
+    static String formatPropertyName(final @NonNull Property property, final @Nullable Property referenceProperty) {
+
         if (referenceProperty == null) {
             return property.getName();
         }
@@ -27,7 +28,8 @@ public interface MappingUtils {
                 .getName().substring(1);
     }
 
-    static String formatColumn(Entity<?> entity, @NonNull Property property, @Nullable Property referenceProperty) {
+    static String formatColumn(final Entity<?> entity, final @NonNull Property property, final @Nullable Property referenceProperty) {
+
         String column = null;
         if (referenceProperty == null) {
             column = property.getColumn();

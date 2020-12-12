@@ -41,18 +41,21 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
-    public RequestMappingServiceImpl(RequestMappingHandlerMapping requestMappingHandlerMapping) {
+    public RequestMappingServiceImpl(final RequestMappingHandlerMapping requestMappingHandlerMapping) {
+
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
     }
 
     @Override
-    public List<RequestPattern> query(RequestPatternQuery query) {
+    public List<RequestPattern> query(final RequestPatternQuery query) {
+
         return requestPatterns.stream().filter(requestPattern -> !Asserts.nonEmpty(query.getPattern())
                 || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase())).collect(Collectors.toList());
     }
 
     @Override
-    public RequestHandler find(String pattern) {
+    public RequestHandler find(final String pattern) {
+
         return requestHandlers.get(pattern);
     }
 

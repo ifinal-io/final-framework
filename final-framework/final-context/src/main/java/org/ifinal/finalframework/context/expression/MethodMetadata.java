@@ -25,7 +25,8 @@ public class MethodMetadata {
     private final Method targetMethod;
     private final AnnotatedElementKey methodKey;
 
-    public MethodMetadata(Method method, Class<?> targetClass) {
+    public MethodMetadata(final Method method, final Class<?> targetClass) {
+
         this.method = BridgeMethodResolver.findBridgedMethod(method);
         this.returnType = method.getReturnType();
         this.genericReturnType = method.getGenericReturnType();

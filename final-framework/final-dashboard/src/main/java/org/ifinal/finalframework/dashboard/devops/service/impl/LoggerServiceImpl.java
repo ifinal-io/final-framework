@@ -60,7 +60,8 @@ class LoggerServiceImpl implements LoggerService {
     }
 
     @Override
-    public void setLevel(String name, String level) {
+    public void setLevel(final String name, final String level) {
+
         Logger logger = loggerContext.getLogger(name);
         logger.setLevel(Level.toLevel(level));
     }

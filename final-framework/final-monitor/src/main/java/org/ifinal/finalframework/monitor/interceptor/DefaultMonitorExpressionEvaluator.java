@@ -22,22 +22,26 @@ public class DefaultMonitorExpressionEvaluator extends BaseExpressionEvaluator i
     private final Map<ExpressionKey, Expression> attributeCache = new ConcurrentHashMap<>(64);
 
     @Override
-    public String name(String nameExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
+    public String name(final String nameExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext) {
+
         return String.valueOf(getExpression(this.nameCache, methodKey, nameExpression).getValue(evaluationContext));
     }
 
     @Override
-    public Object operator(String operatorExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
+    public Object operator(final String operatorExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext) {
+
         return getExpression(this.operatorCache, methodKey, operatorExpression).getValue(evaluationContext);
     }
 
     @Override
-    public Object target(String targetExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
+    public Object target(final String targetExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext) {
+
         return getExpression(this.targetCache, methodKey, targetExpression).getValue(evaluationContext);
     }
 
     @Override
-    public Object attribute(String attributeExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext) {
+    public Object attribute(final String attributeExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext) {
+
         return getExpression(this.attributeCache, methodKey, attributeExpression).getValue(evaluationContext);
     }
 

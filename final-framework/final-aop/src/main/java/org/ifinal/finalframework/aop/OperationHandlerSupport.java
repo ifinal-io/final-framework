@@ -23,9 +23,9 @@ public interface OperationHandlerSupport {
      * @param e       方法抛出的异常，可能为{@code null}
      */
     @NonNull
-    EvaluationContext createEvaluationContext(@NonNull InvocationContext context, @Nullable Object result, @Nullable Throwable e);
+    EvaluationContext createEvaluationContext(final @NonNull InvocationContext context, final @Nullable Object result, final @Nullable Throwable e);
 
-    List<String> findExpressions(String expression);
+    List<String> findExpressions(final String expression);
 
 
     /**
@@ -33,9 +33,9 @@ public interface OperationHandlerSupport {
      *
      * @param expression 表达式字符串
      */
-    boolean isExpression(@Nullable String expression);
+    boolean isExpression(final @Nullable String expression);
 
     @NonNull
-    String generateExpression(@NonNull String expression);
+    String generateExpression(final @NonNull String expression);
 
 }

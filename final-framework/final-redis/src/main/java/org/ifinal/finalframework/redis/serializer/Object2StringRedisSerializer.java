@@ -17,7 +17,8 @@ public class Object2StringRedisSerializer implements RedisSerializer<Object> {
     public static final Object2StringRedisSerializer UTF_8 = new Object2StringRedisSerializer(StandardCharsets.UTF_8);
     private final Charset charset;
 
-    public Object2StringRedisSerializer(Charset charset) {
+    public Object2StringRedisSerializer(final Charset charset) {
+
         this.charset = charset;
     }
 
@@ -26,12 +27,14 @@ public class Object2StringRedisSerializer implements RedisSerializer<Object> {
     }
 
     @Override
-    public byte[] serialize(Object o) {
+    public byte[] serialize(final Object o) {
+
         return o == null ? null : o.toString().getBytes(charset);
     }
 
     @Override
-    public Object deserialize(byte[] bytes) {
+    public Object deserialize(final byte[] bytes) {
+
         return (bytes == null ? null : new String(bytes, charset));
     }
 }

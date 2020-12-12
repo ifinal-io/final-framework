@@ -17,7 +17,8 @@ public class ApplicationFailedEventListener implements ApplicationListener<Appli
     private static final Logger logger = LoggerFactory.getLogger(ApplicationFailedEventListener.class);
 
     @Override
-    public void onApplicationEvent(ApplicationFailedEvent event) {
+    public void onApplicationEvent(final ApplicationFailedEvent event) {
+
         logger.error("Application run failed!", event.getException());
     }
 }

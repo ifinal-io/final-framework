@@ -12,7 +12,8 @@ import org.ifinal.finalframework.data.query.criterion.function.SimpleCriterionFu
 public enum DateOperation implements Operation {
     DATE;
 
-    public static CriterionFunction date(Object value) {
+    public static CriterionFunction date(final Object value) {
+
         return new SimpleCriterionFunction(value, DATE);
     }
 }

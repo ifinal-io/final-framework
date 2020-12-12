@@ -21,17 +21,20 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
     private final AnnotationBuilder<A, E> builder;
 
 
-    public SingleAnnotationParser(Class<A> annotationType, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationParser(final Class<A> annotationType, final AnnotationBuilder<A, E> builder) {
+
         this(new SingleAnnotationFinder<>(annotationType), builder);
     }
 
-    public SingleAnnotationParser(AnnotationFinder<Collection<A>> finder, AnnotationBuilder<A, E> builder) {
+    public SingleAnnotationParser(final AnnotationFinder<Collection<A>> finder, final AnnotationBuilder<A, E> builder) {
+
         this.finder = finder;
         this.builder = builder;
     }
 
     @Override
-    public Collection<E> parseAnnotations(Class<?> clazz) {
+    public Collection<E> parseAnnotations(final Class<?> clazz) {
+
         return finder.findAnnotations(clazz)
                 .stream()
                 .map(annotation -> builder.build(clazz, annotation))
@@ -39,7 +42,8 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
     }
 
     @Override
-    public Collection<E> parseAnnotations(Method method) {
+    public Collection<E> parseAnnotations(final Method method) {
+
         return finder.findAnnotations(method)
                 .stream()
                 .map(annotation -> builder.build(method, annotation))
@@ -47,7 +51,8 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
     }
 
     @Override
-    public Collection<E> parseAnnotations(Parameter parameter, Integer index) {
+    public Collection<E> parseAnnotations(final Parameter parameter, final Integer index) {
+
         return finder.findAnnotations(parameter)
                 .stream()
                 .map(annotation -> builder.build(parameter, index, annotation))

@@ -19,7 +19,7 @@ public class SingleCriterionFunction implements CriterionFunction {
     private final Object value;
 
     @Override
-    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
+    public void apply(final @NonNull StringBuilder sql, final @NonNull String expression) {
         // do nothing
     }
 }

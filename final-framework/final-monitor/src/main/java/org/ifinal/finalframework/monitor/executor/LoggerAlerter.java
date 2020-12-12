@@ -13,7 +13,8 @@ import org.ifinal.finalframework.monitor.context.AlertContext;
 public class LoggerAlerter implements Alerter {
 
     @Override
-    public void alert(AlertContext context) {
+    public void alert(final AlertContext context) {
+
         if (logger.isWarnEnabled()) {
             logger.warn(Json.toJson(context));
         }

@@ -26,7 +26,8 @@ public final class RedisRegistry {
         return instance;
     }
 
-    public void setRedisTemplate(RedisTemplate redisTemplate) {
+    public void setRedisTemplate(final RedisTemplate redisTemplate) {
+
         this.redisTemplate = redisTemplate;
     }
 

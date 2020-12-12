@@ -22,16 +22,20 @@ public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annot
 
     private final Pointcut pointcut;
 
-    protected SingleAnnotationBeanFactoryPointcutAdvisor(Class<A> annotationType, AnnotationBuilder<A, E> builder, List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType, final AnnotationBuilder<A, E> builder, final List<InterceptorHandler<T, E>> handlers) {
+
         this(new SingleAnnotationSource<>(annotationType, builder), handlers);
     }
 
-    protected SingleAnnotationBeanFactoryPointcutAdvisor(AnnotationSource<Collection<E>> source, List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(final AnnotationSource<Collection<E>> source, final List<InterceptorHandler<T, E>> handlers) {
+
         this.pointcut = new AnnotationSourceMethodPoint(source);
         setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
+
             @Override
             @NonNull
-            protected T getExecutor(E annotation) {
+            protected T getExecutor(final E annotation) {
+
                 return SingleAnnotationBeanFactoryPointcutAdvisor.this.getExecutor(annotation);
             }
         }));
@@ -45,7 +49,7 @@ public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annot
 
 
     @NonNull
-    protected abstract T getExecutor(E annotation);
+    protected abstract T getExecutor(final E annotation);
 
 
 }

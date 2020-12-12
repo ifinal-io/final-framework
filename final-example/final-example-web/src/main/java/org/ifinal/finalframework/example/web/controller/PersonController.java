@@ -23,7 +23,8 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping
-    public List<Person> query(PersonQuery query) {
+    public List<Person> query(final PersonQuery query) {
+
         return personService.select(query);
     }
 

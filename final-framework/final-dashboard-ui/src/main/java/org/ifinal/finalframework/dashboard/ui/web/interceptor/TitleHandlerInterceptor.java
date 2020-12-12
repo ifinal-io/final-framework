@@ -24,7 +24,8 @@ public class TitleHandlerInterceptor extends AnnotationUiHandlerInterceptor<Titl
     }
 
     @Override
-    protected void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, Page page, Set<Title> anns, ModelAndView modelAndView) {
+    protected void postHandle(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handler, final Page page, final Set<Title> anns, final ModelAndView modelAndView) {
+
         anns.stream().findFirst().ifPresent(title -> page.setTitle(title.value()));
     }
 

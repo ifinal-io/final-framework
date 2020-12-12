@@ -13,15 +13,18 @@ import org.ifinal.finalframework.context.exception.ServiceException;
  */
 @SuppressWarnings("unused")
 public class MonitorException extends ServiceException {
-    public MonitorException(Integer status, String description, IException exception, Object... args) {
+    public MonitorException(final Integer status, final String description, final IException exception, final Object... args) {
+
         super(status, description, exception, args);
     }
 
-    public MonitorException(Integer status, String description) {
+    public MonitorException(final Integer status, final String description) {
+
         super(status, description);
     }
 
-    public MonitorException(Integer status, String description, String code, String message, Object... args) {
+    public MonitorException(final Integer status, final String description, final String code, final String message, final Object... args) {
+
         super(status, description, code, message, args);
     }
 }

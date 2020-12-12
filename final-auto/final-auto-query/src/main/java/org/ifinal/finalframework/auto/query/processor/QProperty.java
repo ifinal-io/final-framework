@@ -26,14 +26,16 @@ public class QProperty {
     private final Element element;
     private final boolean idProperty;
 
-    private QProperty(Builder builder) {
+    private QProperty(final Builder builder) {
+
         this.path = builder.path;
         this.name = builder.name;
         this.element = builder.element;
         this.idProperty = builder.idProperty;
     }
 
-    public static Builder builder(String path, String name) {
+    public static Builder builder(final String path, final String name) {
+
         return new Builder(path, name);
     }
 
@@ -61,19 +63,22 @@ public class QProperty {
         private Element element;
         private boolean idProperty;
 
-        private Builder(String path, String name) {
+        private Builder(final String path, final String name) {
+
             this.path = path;
             this.name = name;
         }
 
 
-        public Builder element(Element element) {
+        public Builder element(final Element element) {
+
             this.element = element;
             return this;
         }
 
 
-        public Builder idProperty(boolean idProperty) {
+        public Builder idProperty(final boolean idProperty) {
+
             this.idProperty = idProperty;
             return this;
         }

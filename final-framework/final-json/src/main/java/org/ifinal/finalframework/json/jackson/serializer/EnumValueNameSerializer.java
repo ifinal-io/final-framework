@@ -18,12 +18,14 @@ public class EnumValueNameSerializer extends JsonSerializer<Object> {
 
     private final EnumValue enumValue;
 
-    public EnumValueNameSerializer(EnumValue enumValue) {
+    public EnumValueNameSerializer(final EnumValue enumValue) {
+
         this.enumValue = enumValue;
     }
 
     @Override
-    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final Object value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         if (value == null) {
             gen.writeNull();
             return;

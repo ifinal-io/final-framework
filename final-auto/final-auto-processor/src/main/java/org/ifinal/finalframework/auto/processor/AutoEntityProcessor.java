@@ -38,14 +38,15 @@ public class AutoEntityProcessor extends AbsServiceProcessor {
 
 
     @Override
-    public synchronized void init(ProcessingEnvironment processingEnv) {
+    public synchronized void init(final ProcessingEnvironment processingEnv) {
+
         super.init(processingEnv);
         this.typeElement = processingEnv.getElementUtils().getTypeElement(ENTITY);
         this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
     @Override
-    protected boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         ElementFilter.typesIn(roundEnv.getRootElements())
                 .stream()

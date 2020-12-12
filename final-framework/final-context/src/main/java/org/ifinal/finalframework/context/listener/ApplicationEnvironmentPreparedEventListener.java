@@ -15,7 +15,8 @@ import org.springframework.context.ApplicationListener;
 public class ApplicationEnvironmentPreparedEventListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     @Override
-    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+    public void onApplicationEvent(final ApplicationEnvironmentPreparedEvent event) {
+
         logger.info(event.getClass().getCanonicalName());
     }
 }

@@ -19,12 +19,14 @@ import java.util.Optional;
 @Component
 public class DuplicateKeyResultExceptionHandler implements ResultExceptionHandler<DuplicateKeyException> {
     @Override
-    public boolean supports(Throwable throwable) {
+    public boolean supports(final Throwable throwable) {
+
         return throwable instanceof DuplicateKeyException;
     }
 
     @Override
-    public Result<?> handle(DuplicateKeyException throwable) {
+    public Result<?> handle(final DuplicateKeyException throwable) {
+
         return R.failure(500, "Duplicate Key", "500", Optional.ofNullable(throwable.getMessage()).orElse(""));
 
     }

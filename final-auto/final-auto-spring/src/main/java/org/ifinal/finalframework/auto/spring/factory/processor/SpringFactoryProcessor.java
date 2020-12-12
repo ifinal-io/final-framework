@@ -61,7 +61,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     private final SpringFactoryResource springFactoryResource = new SpringFactoryResource();
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         if (roundEnv.processingOver()) {
             generateFactoryFile();
@@ -130,7 +130,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     }
 
 
-    private void processClassTypeElement(TypeElement element) {
+    private void processClassTypeElement(final TypeElement element) {
+
         List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
@@ -143,7 +144,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-    private void processClassSpringFactory(TypeElement element, AnnotationMirror annotationMirror) {
+    private void processClassSpringFactory(final TypeElement element, final AnnotationMirror annotationMirror) {
         // 直接在类上声明的 SpringFactory 注解
         final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(annotationMirror);
         DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
@@ -154,7 +155,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-    private void processClassAnnotation(TypeElement element, List<? extends AnnotationMirror> mirrors) {
+    private void processClassAnnotation(final TypeElement element, final List<? extends AnnotationMirror> mirrors) {
+
         for (AnnotationMirror mirror : mirrors) {
             if (SpringFactory.class.getCanonicalName().equals(mirror.getAnnotationType().toString())) {
                 Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(mirror);
@@ -169,7 +171,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-    private void processAnnotationTypeElement(TypeElement element) {
+    private void processAnnotationTypeElement(final TypeElement element) {
+
         SpringFactory springFactory = element.getAnnotation(SpringFactory.class);
         if (springFactory != null && springFactory.extend()) {
             for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
@@ -182,7 +185,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-    private void processPackageElement(PackageElement element, RoundEnvironment roundEnv) {
+    private void processPackageElement(final PackageElement element, final RoundEnvironment roundEnv) {
+
         for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
             if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
                 processPackageSpringFactory(element, annotationMirror, roundEnv);
@@ -197,7 +201,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     }
 
 
-    private void processPackageSpringFactory(PackageElement packageElement, AnnotationMirror springFactory, RoundEnvironment roundEnv) {
+    private void processPackageSpringFactory(final PackageElement packageElement, final AnnotationMirror springFactory, final RoundEnvironment roundEnv) {
         // 直接在类上声明的 SpringFactory 注解
         final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(springFactory);
         DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
@@ -214,7 +218,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
 
     @SuppressWarnings("unchecked")
-    private void processPackageSpringFactories(PackageElement element, AnnotationMirror annotationMirror, RoundEnvironment roundEnv) {
+    private void processPackageSpringFactories(final PackageElement element, final AnnotationMirror annotationMirror, final RoundEnvironment roundEnv) {
         // 在包元素上声明了多个 SpringFactory 注解
         AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(annotationMirror).get(SPRING_FACTORY_VALUE);
         List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
@@ -224,7 +228,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     }
 
     @SuppressWarnings("unchecked")
-    private void processPackageAnnotation(PackageElement element, List<? extends AnnotationMirror> mirrors, RoundEnvironment roundEnv) {
+    private void processPackageAnnotation(final PackageElement element, final List<? extends AnnotationMirror> mirrors, final RoundEnvironment roundEnv) {
+
         for (AnnotationMirror mirror : mirrors) {
             if (mirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
                 processPackageSpringFactory(element, mirror, roundEnv);
@@ -241,20 +246,24 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
     }
 
-    private void addSpringFactory(String instance) {
+    private void addSpringFactory(final String instance) {
+
         addSpringFactory(SpringFactory.class.getCanonicalName(), instance);
     }
 
-    private void addSpringFactory(String factory, String instance) {
+    private void addSpringFactory(final String factory, final String instance) {
+
         springFactoryResource.addSpringFactory(factory, instance);
     }
 
 
-    private void info(String msg) {
+    private void info(final String msg) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
     }
 
-    private void error(String msg) {
+    private void error(final String msg) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg);
     }
 

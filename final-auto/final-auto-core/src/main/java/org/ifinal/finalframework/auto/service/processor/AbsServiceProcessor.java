@@ -40,7 +40,8 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
 
 
     @Override
-    public final boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public final boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
+
         if (roundEnv.processingOver()) {
             generateServiceFiles();
             return false;
@@ -49,13 +50,16 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         }
     }
 
-    protected abstract boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv);
+    protected abstract boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv);
 
-    protected final void addService(@NonNull TypeElement service, @NonNull TypeElement instance) {
+    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance) {
+
         addService(service, instance, null, null);
     }
 
-    protected final void addService(@NonNull TypeElement service, @NonNull TypeElement instance, @Nullable String name, @Nullable String path) {
+    protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance,
+                                    final @Nullable String name, final @Nullable String path) {
+
         final String serviceName = service.getQualifiedName().toString();
         final Map<String, String> instances = this.services.computeIfAbsent(serviceName, key -> new HashMap<>());
         instances.put(instance.getQualifiedName().toString(), name);
@@ -64,6 +68,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
 
 
     private void generateServiceFiles() {
+
         Filer filer = processingEnv.getFiler();
 
         for (Map.Entry<String, Map<String, String>> entry : services.entrySet()) {
@@ -87,7 +92,8 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         }
     }
 
-    private Map<String, String> readOldService(Filer filer, String resourceFile) {
+    private Map<String, String> readOldService(final Filer filer, final String resourceFile) {
+
         try {
             // would like to be able to print the full path
             // before we attempt to get the resource in case the behavior
@@ -111,18 +117,21 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
     }
 
 
-    protected void log(String msg) {
+    protected void log(final String msg) {
+
         if (processingEnv.getOptions().containsKey("debug")) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
         }
     }
 
     @SuppressWarnings("unused")
-    protected void error(String msg, Element element, AnnotationMirror annotation) {
+    protected void error(final String msg, final Element element, final AnnotationMirror annotation) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg, element, annotation);
     }
 
-    protected void fatalError(String msg) {
+    protected void fatalError(final String msg) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "FATAL ERROR: " + msg);
     }
 }

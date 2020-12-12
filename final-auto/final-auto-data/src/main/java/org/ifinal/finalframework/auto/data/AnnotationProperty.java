@@ -49,18 +49,28 @@ public class AnnotationProperty implements Property {
     private final Lazy<String> name;
     private final Lazy<TypeMirror> type;
     private final Lazy<Boolean> isIdProperty;
+
     private final Lazy<Boolean> isReference;
+
     private final Lazy<Boolean> isVersion;
+
     private final Lazy<Boolean> isTransient;
+
     private final Lazy<Boolean> isCollection;
+
     private final Lazy<Boolean> isMap;
+
     private final TypeElement javaTypeElement;
+
     private List<String> referenceProperties;
+
     private ReferenceMode referenceMode;
+
     private Map<String, String> referenceColumns;
 
-    public AnnotationProperty(ProcessingEnvironment processEnv, Optional<VariableElement> field,
-                              Optional<PropertyDescriptor> descriptor) {
+    public AnnotationProperty(final ProcessingEnvironment processEnv, final Optional<VariableElement> field,
+                              final Optional<PropertyDescriptor> descriptor) {
+
         this.elements = processEnv.getElementUtils();
         this.types = processEnv.getTypeUtils();
         this.field = field;
@@ -105,11 +115,13 @@ public class AnnotationProperty implements Property {
 
     }
 
-    private void initReferenceColumn(Reference ann) {
+    private void initReferenceColumn(final Reference ann) {
+
         initReference(ann.mode(), ann.properties(), ann.delimiter());
     }
 
-    private void initReference(ReferenceMode mode, String[] properties, String delimiter) {
+    private void initReference(final ReferenceMode mode, final String[] properties, final String delimiter) {
+
         this.referenceMode = mode;
         List<String> referencePropertiesLocal = new ArrayList<>(properties.length);
         Map<String, String> referenceColumnsLocal = new HashMap<>(properties.length);
@@ -189,28 +201,32 @@ public class AnnotationProperty implements Property {
     }
 
     @Override
-    public String referenceColumn(String property) {
+    public String referenceColumn(final String property) {
+
         return referenceColumns == null ? null : referenceColumns.get(property);
     }
 
     @Override
-    public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+    public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
+
         return getElement().getAnnotation(annotationType);
     }
 
     @Override
-    public boolean isAnnotationPresent(Class<? extends Annotation> annotationType) {
+    public boolean isAnnotationPresent(final Class<? extends Annotation> annotationType) {
+
         return Annotations.isAnnotationPresent(getElement(), annotationType);
     }
 
 
     @Override
     public boolean isTransient() {
+
         return isTransient != null && Boolean.TRUE.equals(isTransient.get());
     }
 
-    private <T> T withFieldOrDescriptor(Function<? super VariableElement, T> field,
-                                        Function<? super PropertyDescriptor, T> descriptor) {
+    private <T> T withFieldOrDescriptor(final Function<? super VariableElement, T> field,
+                                        final Function<? super PropertyDescriptor, T> descriptor) {
 
         return Optionals.firstNonEmpty(//
                 () -> this.field.map(field), //
@@ -219,9 +235,9 @@ public class AnnotationProperty implements Property {
                         () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
 
-    private <T> T withFieldOrMethod(Function<? super VariableElement, T> field,
-                                    Function<? super ExecutableElement, T> setter,
-                                    Function<? super ExecutableElement, T> getter
+    private <T> T withFieldOrMethod(final Function<? super VariableElement, T> field,
+                                    final Function<? super ExecutableElement, T> setter,
+                                    final Function<? super ExecutableElement, T> getter
     ) {
 
         return Optionals.firstNonEmpty(//
@@ -233,16 +249,19 @@ public class AnnotationProperty implements Property {
     }
 
 
-    private boolean isCollection(TypeMirror type) {
+    private boolean isCollection(final TypeMirror type) {
+
         return types.isAssignable(types.erasure(type), getTypeElement(Collection.class).asType());
     }
 
-    private boolean isMap(TypeMirror type) {
+    private boolean isMap(final TypeMirror type) {
+
         return types.isAssignable(types.erasure(type), getTypeElement(Map.class).asType());
     }
 
 
-    private TypeElement getPrimitiveTypeElement(TypeKind kind) {
+    private TypeElement getPrimitiveTypeElement(final TypeKind kind) {
+
         switch (kind) {
             case BOOLEAN:
                 return getTypeElement(Boolean.class);
@@ -268,7 +287,8 @@ public class AnnotationProperty implements Property {
     }
 
 
-    private TypeElement getTypeElement(Class<?> type) {
+    private TypeElement getTypeElement(final Class<?> type) {
+
         return elements.getTypeElement(type.getCanonicalName());
     }
 
@@ -281,12 +301,14 @@ public class AnnotationProperty implements Property {
          * long}, {@code char}, {@code float}, and {@code double}.
          */
         @Override
-        public TypeElement visitPrimitive(PrimitiveType type, AnnotationProperty property) {
+        public TypeElement visitPrimitive(final PrimitiveType type, final AnnotationProperty property) {
+
             return property.getPrimitiveTypeElement(type.getKind());
         }
 
         @Override
-        public TypeElement visitArray(ArrayType array, AnnotationProperty property) {
+        public TypeElement visitArray(final ArrayType array, final AnnotationProperty property) {
+
             TypeMirror type = array.getComponentType();
             TypeKind kind = type.getKind();
             if (kind.isPrimitive()) {
@@ -309,7 +331,8 @@ public class AnnotationProperty implements Property {
         }
 
         @Override
-        public TypeElement visitDeclared(DeclaredType type, AnnotationProperty property) {
+        public TypeElement visitDeclared(final DeclaredType type, final AnnotationProperty property) {
+
             if (property.isMap()) {
                 return property.getTypeElement(Map.class);
             }

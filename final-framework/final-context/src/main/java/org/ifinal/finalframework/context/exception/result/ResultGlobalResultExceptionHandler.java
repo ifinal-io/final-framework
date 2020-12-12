@@ -24,14 +24,16 @@ import java.util.List;
 //@ConditionalOnMissingBean(GlobalExceptionHandler.class)
 public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandler<Result<?>> {
     private static final Logger logger = LoggerFactory.getLogger(ResultGlobalResultExceptionHandler.class);
-    private List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
 
-    public ResultGlobalResultExceptionHandler(ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
+    private final List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
+
+    public ResultGlobalResultExceptionHandler(final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
+
         this.resultExceptionHandlers.addAll(resultExceptionHandlerObjectProvider.getIfAvailable());
     }
 
     @Override
-    public Result<?> handle(@NonNull Throwable throwable) {
+    public Result<?> handle(final @NonNull Throwable throwable) {
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;

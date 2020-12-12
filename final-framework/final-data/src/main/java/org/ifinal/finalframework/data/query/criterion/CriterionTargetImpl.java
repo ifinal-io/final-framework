@@ -9,7 +9,8 @@ package org.ifinal.finalframework.data.query.criterion;
 public class CriterionTargetImpl<T> implements CriterionTarget<T> {
     private final T target;
 
-    public CriterionTargetImpl(T target) {
+    public CriterionTargetImpl(final T target) {
+
         this.target = target;
     }
 

@@ -12,7 +12,8 @@ import org.ifinal.finalframework.data.util.Velocities;
  */
 public class VelocityFunctionHandler implements Function.FunctionHandler {
     @Override
-    public String handle(Function function, Metadata metadata) {
+    public String handle(final Function function, final Metadata metadata) {
+
         return Velocities.getValue(function.value(), metadata);
     }
 }

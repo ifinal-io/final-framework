@@ -9,7 +9,8 @@ import org.ifinal.finalframework.annotation.data.NameConverter;
  */
 public class CameHump2MiddleLineNameConverter implements NameConverter {
     @Override
-    public String convert(String name) {
+    public String convert(final String name) {
+
         StringBuilder sb = new StringBuilder(name);
         int temp = 0;//定位
         for (int i = 1; i < name.length(); i++) {

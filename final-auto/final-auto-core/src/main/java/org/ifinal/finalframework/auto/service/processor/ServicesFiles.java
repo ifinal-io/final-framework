@@ -25,7 +25,8 @@ public final class ServicesFiles {
     private ServicesFiles() {
     }
 
-    static String getPath(String path, String serviceName) {
+    static String getPath(final String path, final String serviceName) {
+
         return ROOT + "/" + path + "/" + serviceName;
     }
 
@@ -36,7 +37,8 @@ public final class ServicesFiles {
      * @return a not {@code null Set} of service class names.
      * @throws IOException io exception
      */
-    static Map<String, String> readServiceFile(InputStream input) throws IOException {
+    static Map<String, String> readServiceFile(final InputStream input) throws IOException {
+
         Map<String, String> serviceClasses = new HashMap<>();
         try (BufferedReader r = new BufferedReader(new InputStreamReader(input, UTF_8))) {
             String line;
@@ -67,8 +69,9 @@ public final class ServicesFiles {
      * @param services a not {@code null Collection} of service class names.
      * @throws IOException io exception
      */
-    static void writeServiceFile(Map<String, String> services, OutputStream output)
+    static void writeServiceFile(final Map<String, String> services, final OutputStream output)
             throws IOException {
+
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
         for (Map.Entry<String, String> entry : services.entrySet()) {
             if (entry.getValue() == null || entry.getValue().isEmpty()) {

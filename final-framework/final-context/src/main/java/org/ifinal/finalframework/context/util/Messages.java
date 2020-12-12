@@ -22,11 +22,13 @@ public final class Messages {
     }
 
 
-    public static String getMessage(String code, Object... args) {
+    public static String getMessage(final String code, final Object... args) {
+
         return getMessage(code, null, args);
     }
 
-    public static String getMessage(String code, String defaultMessage, Object... args) {
+    public static String getMessage(final String code, final String defaultMessage, final Object... args) {
+
         if (messageSource == null) {
             return defaultMessage != null ? defaultMessage : MessageFormatter.arrayFormat(code, args).getMessage();
         }

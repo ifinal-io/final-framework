@@ -16,12 +16,13 @@ import java.io.StringReader;
  */
 public class StringTemplateResourceLoader extends ResourceLoader {
     @Override
-    public void init(ExtProperties configuration) {
+    public void init(final ExtProperties configuration) {
         // do nothing
     }
 
     @Override
-    public Reader getResourceReader(String source, String encoding) {
+    public Reader getResourceReader(final String source, final String encoding) {
+
         if (source == null || source.length() == 0) {
             throw new ResourceNotFoundException("Need to specify a template name!");
         }
@@ -29,12 +30,14 @@ public class StringTemplateResourceLoader extends ResourceLoader {
     }
 
     @Override
-    public boolean isSourceModified(Resource resource) {
+    public boolean isSourceModified(final Resource resource) {
+
         return false;
     }
 
     @Override
-    public long getLastModified(Resource resource) {
+    public long getLastModified(final Resource resource) {
+
         return 0;
     }
 }

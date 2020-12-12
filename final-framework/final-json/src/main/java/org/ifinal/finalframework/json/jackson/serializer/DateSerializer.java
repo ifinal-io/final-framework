@@ -20,7 +20,8 @@ public class DateSerializer extends JsonSerializer<Date> {
 
     private final String pattern;
 
-    public DateSerializer(String pattern) {
+    public DateSerializer(final String pattern) {
+
         this.pattern = pattern;
     }
 
@@ -29,7 +30,8 @@ public class DateSerializer extends JsonSerializer<Date> {
     }
 
     @Override
-    public void serialize(Date date, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final Date date, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         if (date == null) return;
         if (pattern != null) {
             gen.writeString(new SimpleDateFormat(pattern).format(date));

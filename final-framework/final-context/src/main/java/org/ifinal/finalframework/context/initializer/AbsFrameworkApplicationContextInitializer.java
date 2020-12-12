@@ -19,12 +19,14 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
 
     private final Class<?> framework;
 
-    protected AbsFrameworkApplicationContextInitializer(Class<?> framework) {
+    protected AbsFrameworkApplicationContextInitializer(final Class<?> framework) {
+
         this.framework = framework;
     }
 
     @Override
-    public void initialize(@NonNull C context) {
+    public void initialize(final @NonNull C context) {
+
         BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework), getBeanDefinitionRegistry(context));
     }
 
@@ -35,7 +37,8 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
      * @return the {@linkplain BeanDefinitionRegistry registry}
      */
     @NonNull
-    private BeanDefinitionRegistry getBeanDefinitionRegistry(@NonNull C context) {
+    private BeanDefinitionRegistry getBeanDefinitionRegistry(final @NonNull C context) {
+
         if (context instanceof BeanDefinitionRegistry) {
             return (BeanDefinitionRegistry) context;
         }

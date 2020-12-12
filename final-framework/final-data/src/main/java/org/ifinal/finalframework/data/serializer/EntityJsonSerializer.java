@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class EntityJsonSerializer extends JsonSerializer<Entity<?>> {
     @Override
-    public void serialize(Entity<?> value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final Entity<?> value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
 
         gen.writeStartObject();
 

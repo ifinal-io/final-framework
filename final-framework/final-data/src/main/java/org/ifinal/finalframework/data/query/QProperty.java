@@ -264,7 +264,7 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
     interface Builder<T> extends org.ifinal.finalframework.util.Builder<QProperty<T>> {
 
-        Builder<T> order(Integer order);
+        Builder<T> order(final Integer order);
 
         Builder<T> path(String path);
 

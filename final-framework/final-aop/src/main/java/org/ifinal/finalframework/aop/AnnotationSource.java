@@ -15,10 +15,11 @@ import java.lang.reflect.Method;
 public interface AnnotationSource<R> {
 
     @Nullable
-    R getAnnotations(Method method, @Nullable Class<?> targetClass);
+    R getAnnotations(final Method method, final @Nullable Class<?> targetClass);
 
     @NonNull
-    default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {
+    default Object getCacheKey(final Method method, final @Nullable Class<?> targetClass) {
+
         return new MethodClassKey(method, targetClass);
     }
 

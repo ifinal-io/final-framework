@@ -25,7 +25,8 @@ public class FinalJacksonModule extends SimpleModule {
 
     private final ObjectMapper objectMapper;
 
-    public FinalJacksonModule(ObjectMapper objectMapper) {
+    public FinalJacksonModule(final ObjectMapper objectMapper) {
+
         this.objectMapper = objectMapper;
         init();
     }
@@ -61,7 +62,8 @@ public class FinalJacksonModule extends SimpleModule {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T newInstance(@NonNull Class<? extends T> clazz) {
+    private <T> T newInstance(final @NonNull Class<? extends T> clazz) {
+
         Constructor<?> constructor;
         try {
             constructor = clazz.getConstructor(ObjectMapper.class);

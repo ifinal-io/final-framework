@@ -50,7 +50,8 @@ public interface Redis {
         return RedisRegistry.getInstance().zSet();
     }
 
-    static boolean lock(Object key, Object value, Long timeout, TimeUnit unit) {
+    static boolean lock(final Object key, final Object value, final Long timeout, final TimeUnit unit) {
+
         if (timeout != null && unit != null) {
             return Boolean.TRUE.equals(value().setIfAbsent(key, value, timeout, unit));
         } else {
@@ -61,7 +62,8 @@ public interface Redis {
 
     }
 
-    static boolean unlock(Object key, Object value) {
+    static boolean unlock(final Object key, final Object value) {
+
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         return Boolean.TRUE.equals(key().execute(new DefaultRedisScript<>(script, Boolean.class), Collections.singletonList(key), value));
     }

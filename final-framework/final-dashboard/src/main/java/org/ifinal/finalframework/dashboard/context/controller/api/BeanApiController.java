@@ -23,7 +23,8 @@ public class BeanApiController {
     private BeanService beanService;
 
     @GetMapping
-    public List<BeanDefinition> query(BeanQuery query) {
+    public List<BeanDefinition> query(final BeanQuery query) {
+
         return beanService.query(query);
     }
 

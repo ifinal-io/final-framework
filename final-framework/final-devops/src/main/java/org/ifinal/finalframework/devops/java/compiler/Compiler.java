@@ -28,7 +28,8 @@ public class Compiler {
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<>();
     private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<>();
 
-    public Compiler(ClassLoader classLoader) {
+    public Compiler(final ClassLoader classLoader) {
+
         if (javaCompiler == null) {
             throw new IllegalStateException(
                     "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
@@ -40,11 +41,13 @@ public class Compiler {
         dynamicClassLoader = new DynamicClassLoader(classLoader);
     }
 
-    public void addSource(String className, String source) {
+    public void addSource(final String className, final String source) {
+
         addSource(new StringJavaFileObject(className, source));
     }
 
-    public void addSource(JavaFileObject javaFileObject) {
+    public void addSource(final JavaFileObject javaFileObject) {
+
         compilationUnits.add(javaFileObject);
     }
 
@@ -110,7 +113,7 @@ public class Compiler {
         return compile().getByteCodes();
     }
 
-    private List<String> diagnosticToString(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+    private List<String> diagnosticToString(final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
 
         List<String> diagnosticMessages = new ArrayList<>();
 

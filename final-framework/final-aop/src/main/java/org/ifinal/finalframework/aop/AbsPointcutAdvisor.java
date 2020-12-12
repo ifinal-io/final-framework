@@ -24,7 +24,8 @@ public abstract class AbsPointcutAdvisor implements PointcutAdvisor, Ordered {
         return Ordered.LOWEST_PRECEDENCE;
     }
 
-    public void setOrder(int order) {
+    public void setOrder(final int order) {
+
         this.order = order;
     }
 

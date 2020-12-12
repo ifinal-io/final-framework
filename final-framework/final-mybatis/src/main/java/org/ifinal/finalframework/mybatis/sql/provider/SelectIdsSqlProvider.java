@@ -27,13 +27,14 @@ public class SelectIdsSqlProvider implements AbsMapperSqlProvider {
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#selectIds(String, IQuery)
      */
     @SuppressWarnings("unused")
-    public String selectIds(ProviderContext context, Map<String, Object> parameters) {
+    public String selectIds(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
 
         Object query = parameters.get(QUERY_PARAMETER_NAME);
 

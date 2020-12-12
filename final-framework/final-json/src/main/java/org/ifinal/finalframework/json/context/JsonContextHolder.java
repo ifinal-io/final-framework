@@ -28,7 +28,8 @@ public final class JsonContextHolder {
         JSON_CONTEXT.remove();
     }
 
-    public static void setJsonContext(@Nullable JsonContext jsonContext, boolean inheritable) {
+    public static void setJsonContext(final @Nullable JsonContext jsonContext, final boolean inheritable) {
+
         if (jsonContext == null) {
             resetJsonContext();
         } else {
@@ -54,11 +55,13 @@ public final class JsonContextHolder {
         return userContext;
     }
 
-    public static void setJsonContext(@Nullable JsonContext localeContext) {
+    public static void setJsonContext(final @Nullable JsonContext localeContext) {
+
         setJsonContext(localeContext, false);
     }
 
-    public static void setIgnore(boolean ignore, boolean inheritable) {
+    public static void setIgnore(final boolean ignore, final boolean inheritable) {
+
         JsonContext jsonContext = getJsonContext();
         if (jsonContext == null) {
             jsonContext = new SimpleJsonContext();
@@ -71,7 +74,8 @@ public final class JsonContextHolder {
         return Optional.ofNullable(getJsonContext()).orElse(defaultJson).isIgnore();
     }
 
-    public static void setDefaultJson(@Nullable JsonContext jsonContext) {
+    public static void setDefaultJson(final @Nullable JsonContext jsonContext) {
+
         JsonContextHolder.defaultJson = jsonContext;
     }
 

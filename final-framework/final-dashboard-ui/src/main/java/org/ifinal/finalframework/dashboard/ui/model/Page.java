@@ -17,7 +17,8 @@ public class Page implements Serializable {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
+
         this.title = title;
     }
 
@@ -25,7 +26,8 @@ public class Page implements Serializable {
         return menus;
     }
 
-    public void setMenus(List<String> menus) {
+    public void setMenus(final List<String> menus) {
+
         this.menus = menus;
     }
 }

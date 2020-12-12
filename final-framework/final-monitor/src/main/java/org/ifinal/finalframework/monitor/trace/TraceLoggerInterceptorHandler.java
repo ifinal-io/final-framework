@@ -30,7 +30,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
 
 
     @Override
-    public Object before(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation) {
+    public Object before(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation) {
+
         context.addAttribute(TRACE_START, System.currentTimeMillis());
 
         MethodMetadata metadata = context.metadata();
@@ -78,7 +79,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     }
 
     @Override
-    public void after(@NonNull Tracer executor, @NonNull InvocationContext context, @NonNull Boolean annotation, Object result, Throwable throwable) {
+    public void after(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation, final Object result, final Throwable throwable) {
+
         MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
 

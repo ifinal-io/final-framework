@@ -26,9 +26,10 @@ public class ListResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType,
-                                  @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
+    public Object beforeBodyWrite(final Object body, final @NonNull MethodParameter returnType, final @NonNull MediaType selectedContentType,
+                                  final @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  final @NonNull ServerHttpRequest request, final @NonNull ServerHttpResponse response) {
+
         if (body instanceof List) {
             return list2ResultConverter.convert((List) body);
         }

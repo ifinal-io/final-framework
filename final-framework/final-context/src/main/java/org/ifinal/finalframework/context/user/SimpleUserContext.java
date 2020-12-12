@@ -11,7 +11,8 @@ import org.ifinal.finalframework.annotation.core.IUser;
 class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
     private final T user;
 
-    public SimpleUserContext(T user) {
+    public SimpleUserContext(final T user) {
+
         this.user = user;
     }
 

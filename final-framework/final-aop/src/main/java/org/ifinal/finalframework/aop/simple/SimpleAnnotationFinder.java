@@ -20,12 +20,14 @@ public class SimpleAnnotationFinder implements AnnotationFinder<Boolean>, Serial
     private static final long serialVersionUID = 4901280051679214659L;
     private final Collection<Class<? extends Annotation>> annotationTypes = new ArrayList<>();
 
-    public SimpleAnnotationFinder(Collection<Class<? extends Annotation>> annotationTypes) {
+    public SimpleAnnotationFinder(final Collection<Class<? extends Annotation>> annotationTypes) {
+
         this.annotationTypes.addAll(annotationTypes);
     }
 
     @Override
-    public Boolean findAnnotations(@NonNull AnnotatedElement ae) {
+    public Boolean findAnnotations(final @NonNull AnnotatedElement ae) {
+
         for (Class<? extends Annotation> annotationType : annotationTypes) {
             if (AnnotatedElementUtils.isAnnotated(ae, annotationType)) {
                 return true;

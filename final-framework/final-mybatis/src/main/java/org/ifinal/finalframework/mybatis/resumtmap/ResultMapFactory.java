@@ -43,16 +43,18 @@ public final class ResultMapFactory {
     private ResultMapFactory() {
     }
 
-    public static ResultMap from(@NonNull Configuration configuration, Class<?> entity) {
+    public static ResultMap from(final @NonNull Configuration configuration, final Class<?> entity) {
+
         return from(configuration, Entity.from(entity));
     }
 
-    public static ResultMap from(@NonNull Configuration configuration, Entity<?> entity) {
+    public static ResultMap from(final @NonNull Configuration configuration, final Entity<?> entity) {
+
         return resultMaps.computeIfAbsent(entity.getType(), key -> createResultMap(configuration, entity));
     }
 
 
-    private static ResultMap createResultMap(Configuration configuration, Entity<?> entity) {
+    private static ResultMap createResultMap(final Configuration configuration, final Entity<?> entity) {
 
         final String id = entity.getType().getCanonicalName();
 
@@ -118,7 +120,8 @@ public final class ResultMapFactory {
 
     }
 
-    private static String formatColumn(Entity<?> entity, Property property, Property referenceProperty) {
+    private static String formatColumn(final Entity<?> entity, final Property property, final Property referenceProperty) {
+
         String column;
         if (property == null) {
             column = referenceProperty.getColumn();
@@ -135,7 +138,7 @@ public final class ResultMapFactory {
     }
 
 
-    private static TypeHandler<?> findTypeHandler(Configuration configuration, Property property) {
+    private static TypeHandler<?> findTypeHandler(final Configuration configuration, final Property property) {
 
         Field field = property.getField();
         try {

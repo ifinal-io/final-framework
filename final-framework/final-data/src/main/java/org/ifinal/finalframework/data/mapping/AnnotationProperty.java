@@ -144,7 +144,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     });
 
 
-    public AnnotationProperty(org.springframework.data.mapping.model.Property property, org.ifinal.finalframework.data.mapping.Entity<?> owner, SimpleTypeHolder simpleTypeHolder) {
+    public AnnotationProperty(final org.springframework.data.mapping.model.Property property, final org.ifinal.finalframework.data.mapping.Entity<?> owner, final SimpleTypeHolder simpleTypeHolder) {
+
         super(property, owner, simpleTypeHolder);
     }
 
@@ -222,7 +223,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     }
 
     @Override
-    public String getReferenceColumn(Property property) {
+    public String getReferenceColumn(final Property property) {
+
         return Optional.ofNullable(referenceColumns.get().get(property.getName())).orElse(property.getColumn());
     }
 

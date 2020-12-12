@@ -31,7 +31,8 @@ public final class TypeElements {
     private final Map<Class<?>, TypeMirror> elementTypes = new HashMap<>(16);
 
 
-    public TypeElements(Types types, Elements elements) {
+    public TypeElements(final Types types, final Elements elements) {
+
         this.types = types;
         this.elements = elements;
         this.init();
@@ -47,66 +48,81 @@ public final class TypeElements {
         elementTypes.put(Map.class, types.getDeclaredType(elements.getTypeElement(Map.class.getCanonicalName()), types.getWildcardType(null, null), types.getWildcardType(null, null)));
     }
 
-    private void initTypeElements(Class<?> type) {
+    private void initTypeElements(final Class<?> type) {
+
         typeElementMap.put(type, elements.getTypeElement(type.getCanonicalName()));
     }
 
-    public boolean isCollection(@NonNull Element element) {
+    public boolean isCollection(final @NonNull Element element) {
+
         return isAssignable(element.asType(), elementTypes.get(Collection.class)) || isSubtype(element.asType(), elementTypes.get(Collection.class));
     }
 
-    public boolean isList(@NonNull Element element) {
+    public boolean isList(final @NonNull Element element) {
+
         return isAssignable(element.asType(), elementTypes.get(List.class)) || isSubtype(element.asType(), elementTypes.get(List.class));
     }
 
-    public boolean isSet(@NonNull Element element) {
+    public boolean isSet(final @NonNull Element element) {
+
         return isAssignable(element.asType(), elementTypes.get(Set.class)) || isSubtype(element.asType(), elementTypes.get(Set.class));
     }
 
-    public boolean isMap(@NonNull Element element) {
+    public boolean isMap(final @NonNull Element element) {
+
         return isAssignable(element.asType(), elementTypes.get(Map.class)) || isSubtype(element.asType(), elementTypes.get(Map.class));
     }
 
-    public boolean isSameType(@NonNull Element element, @NonNull Class<?> target) {
+    public boolean isSameType(final @NonNull Element element, final @NonNull Class<?> target) {
+
         return isSameType(element, getTypeElement(target));
     }
 
-    public boolean isSameType(@NonNull Element element, @NonNull Element target) {
+    public boolean isSameType(final @NonNull Element element, final @NonNull Element target) {
+
         return isSameType(element.asType(), target.asType());
     }
 
-    public boolean isSameType(@NonNull TypeMirror type, @NonNull TypeMirror target) {
+    public boolean isSameType(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
+
         return types.isSameType(type, target);
     }
 
 
-    public boolean isSubtype(@NonNull Element element, @NonNull Class<?> target) {
+    public boolean isSubtype(final @NonNull Element element, final @NonNull Class<?> target) {
+
         return isSubtype(element, getTypeElement(target));
     }
 
-    public boolean isSubtype(@NonNull Element element, @NonNull Element target) {
+    public boolean isSubtype(final @NonNull Element element, final @NonNull Element target) {
+
         return types.isSubtype(types.erasure(element.asType()), types.erasure(target.asType()));
 
     }
 
-    public boolean isSubtype(@NonNull TypeMirror element, @NonNull TypeMirror target) {
+    public boolean isSubtype(final @NonNull TypeMirror element, final @NonNull TypeMirror target) {
+
         return types.isSubtype(element, target);
 
     }
 
-    public boolean isObject(Element element) {
+    public boolean isObject(final Element element) {
+
         return isSameType(element, Object.class);
     }
 
-    public boolean isAssignable(@NonNull Element element, @NonNull Element target) {
+    public boolean isAssignable(final @NonNull Element element, final @NonNull Element target) {
+
         return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
     }
 
-    public boolean isAssignable(@NonNull TypeMirror type, @NonNull TypeMirror target) {
+    public boolean isAssignable(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
+
         return types.isAssignable(type, target);
     }
 
-    public TypeElement getTypeElement(Class<?> type) {
+    public TypeElement getTypeElement(final Class<?> type) {
+
         return typeElementMap.containsKey(type) ? typeElementMap.get(type) : elements.getTypeElement(type.getCanonicalName());
     }
 

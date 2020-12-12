@@ -16,31 +16,37 @@ import java.sql.SQLException;
  */
 public class JsonTypeReferenceTypeHandler<T> extends BaseTypeReferenceTypeHandler<T> {
 
-    public JsonTypeReferenceTypeHandler(Type type) {
+    public JsonTypeReferenceTypeHandler(final Type type) {
+
         super(type);
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(final PreparedStatement ps, final int i, final T parameter, final JdbcType jdbcType) throws SQLException {
+
         ps.setString(i, Json.toJson(parameter));
     }
 
     @Override
-    public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public T getNullableResult(final ResultSet rs, final String columnName) throws SQLException {
+
         return toObject(rs.getString(columnName));
     }
 
     @Override
-    public T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public T getNullableResult(final ResultSet rs, final int columnIndex) throws SQLException {
+
         return toObject(rs.getString(columnIndex));
     }
 
     @Override
-    public T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public T getNullableResult(final CallableStatement cs, final int columnIndex) throws SQLException {
+
         return toObject(cs.getString(columnIndex));
     }
 
-    private T toObject(String json) {
+    private T toObject(final String json) {
+
         if (json == null) {
             return null;
         }

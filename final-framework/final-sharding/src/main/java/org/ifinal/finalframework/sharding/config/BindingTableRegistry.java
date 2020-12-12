@@ -11,16 +11,19 @@ import java.util.Collection;
 public class BindingTableRegistry {
     private final Collection<String> bindingTableGroups ;
 
-    public BindingTableRegistry(Collection<String> bindingTableGroups) {
+    public BindingTableRegistry(final Collection<String> bindingTableGroups) {
+
         this.bindingTableGroups = bindingTableGroups;
     }
 
-    public BindingTableRegistry addBindingTable(String... bindingTable) {
+    public BindingTableRegistry addBindingTable(final String... bindingTable) {
+
         this.bindingTableGroups.addAll(Arrays.asList(bindingTable));
         return this;
     }
 
-    public BindingTableRegistry addAllBindingTables(Collection<String> bindingTables) {
+    public BindingTableRegistry addAllBindingTables(final Collection<String> bindingTables) {
+
         this.bindingTableGroups.addAll(bindingTables);
         return this;
     }

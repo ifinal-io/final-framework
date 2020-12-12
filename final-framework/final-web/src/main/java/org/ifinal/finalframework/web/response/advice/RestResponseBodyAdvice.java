@@ -16,7 +16,8 @@ public abstract class RestResponseBodyAdvice<T> implements ResponseBodyAdvice<T>
     private static final RestMethodParameterFilter restMethodParameterFilter = new RestMethodParameterFilter();
 
     @Override
-    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(final MethodParameter methodParameter, final Class<? extends HttpMessageConverter<?>> converterType) {
+
         return restMethodParameterFilter.matches(methodParameter);
     }
 }

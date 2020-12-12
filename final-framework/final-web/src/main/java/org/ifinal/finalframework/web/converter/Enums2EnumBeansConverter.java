@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class Enums2EnumBeansConverter implements Converter<Object, List<Map<String, Object>>>, Filter<Object> {
 
     @Override
-    public boolean matches(Object enums) {
+    public boolean matches(final Object enums) {
 
 
         if (Asserts.isNull(enums)) return false;
@@ -48,7 +48,7 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> convert(Object body) {
+    public List<Map<String, Object>> convert(final Object body) {
 
         if (body instanceof Collection) {
             Collection<IEnum<?>> enums = (Collection<IEnum<?>>) body;
@@ -66,7 +66,8 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
         throw new IllegalArgumentException("不支持的数据类型：" + body.getClass());
     }
 
-    private Map<String, Object> buildEnumBean(IEnum<?> item) {
+    private Map<String, Object> buildEnumBean(final IEnum<?> item) {
+
         Map<String, Object> result = new HashMap<>();
         result.put("code", item.getCode());
         if (item instanceof Enum) {

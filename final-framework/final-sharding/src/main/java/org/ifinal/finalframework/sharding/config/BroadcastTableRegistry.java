@@ -11,16 +11,19 @@ import java.util.Collection;
 public class BroadcastTableRegistry {
     private final Collection<String> broadcastTables;
 
-    public BroadcastTableRegistry(Collection<String> broadcastTables) {
+    public BroadcastTableRegistry(final Collection<String> broadcastTables) {
+
         this.broadcastTables = broadcastTables;
     }
 
-    public BroadcastTableRegistry addBroadcastTable(String... broadcastTable) {
+    public BroadcastTableRegistry addBroadcastTable(final String... broadcastTable) {
+
         this.broadcastTables.addAll(Arrays.asList(broadcastTable));
         return this;
     }
 
-    public BroadcastTableRegistry addBroadcastTables(Collection<String> broadcastTables) {
+    public BroadcastTableRegistry addBroadcastTables(final Collection<String> broadcastTables) {
+
         this.broadcastTables.addAll(broadcastTables);
         return this;
     }

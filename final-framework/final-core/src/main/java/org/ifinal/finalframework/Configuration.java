@@ -62,7 +62,8 @@ public final class Configuration {
         return isConfiguration;
     }
 
-    public String getString(String key, String defaultValue) {
+    public String getString(final String key, final String defaultValue) {
+
         return properties.getProperty(key, defaultValue);
     }
 
@@ -71,7 +72,8 @@ public final class Configuration {
      *
      * @param processingEnv 编译环境
      */
-    public void load(ProcessingEnvironment processingEnv) {
+    public void load(final ProcessingEnvironment processingEnv) {
+
         try {
             FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             try (InputStream is = resource.openInputStream()) {

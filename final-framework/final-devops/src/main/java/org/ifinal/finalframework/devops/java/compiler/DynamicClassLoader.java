@@ -7,16 +7,19 @@ import java.util.Map.Entry;
 public class DynamicClassLoader extends ClassLoader {
     private final Map<String, BytesJavaFileObject> byteCodes = new HashMap<>();
 
-    public DynamicClassLoader(ClassLoader classLoader) {
+    public DynamicClassLoader(final ClassLoader classLoader) {
+
         super(classLoader);
     }
 
-    public void registerCompiledSource(BytesJavaFileObject byteCode) {
+    public void registerCompiledSource(final BytesJavaFileObject byteCode) {
+
         byteCodes.put(byteCode.getClassName(), byteCode);
     }
 
     @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
+    protected Class<?> findClass(final String name) throws ClassNotFoundException {
+
         BytesJavaFileObject byteCode = byteCodes.get(name);
         if (byteCode == null) {
             return super.findClass(name);

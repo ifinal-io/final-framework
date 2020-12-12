@@ -24,18 +24,21 @@ public class SingleAnnotationFinder<A extends Annotation> implements AnnotationF
     private final boolean repeatable;
 
     @SuppressWarnings("unused")
-    private SingleAnnotationFinder(Class<A> ann, boolean repeatable) {
+    private SingleAnnotationFinder(final Class<A> ann, final boolean repeatable) {
+
         this.ann = ann;
         this.repeatable = repeatable;
     }
 
-    public SingleAnnotationFinder(Class<A> ann) {
+    public SingleAnnotationFinder(final Class<A> ann) {
+
         this.ann = ann;
         this.repeatable = ann.getAnnotation(Repeatable.class) != null;
     }
 
     @Override
-    public Collection<A> findAnnotations(@NonNull AnnotatedElement ae) {
+    public Collection<A> findAnnotations(final @NonNull AnnotatedElement ae) {
+
         if (repeatable) {
             return AnnotatedElementUtils.findMergedRepeatableAnnotations(ae, ann);
         } else {

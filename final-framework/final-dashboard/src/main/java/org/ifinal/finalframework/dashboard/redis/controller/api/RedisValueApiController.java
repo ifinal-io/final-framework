@@ -24,12 +24,14 @@ public class RedisValueApiController {
 
 
     @GetMapping
-    public String get(String key) {
+    public String get(final String key) {
+
         return stringRedisTemplate.opsForValue().get(key);
     }
 
     @PostMapping
-    public void set(String key, String value) {
+    public void set(final String key, final String value) {
+
         stringRedisTemplate.opsForValue().set(key, value);
     }
 

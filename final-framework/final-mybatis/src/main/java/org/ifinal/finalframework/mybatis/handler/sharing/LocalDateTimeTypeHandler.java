@@ -28,29 +28,34 @@ public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> imp
     private static final DateTypeHandler DATE_TYPE_HANDLER = new DateTypeHandler();
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, LocalDateTime parameter, JdbcType jdbcType)
+    public void setNonNullParameter(final PreparedStatement ps, final int i, final LocalDateTime parameter, final JdbcType jdbcType)
             throws SQLException {
+
         DATE_TYPE_HANDLER
                 .setParameter(ps, i, Dates.to(parameter), jdbcType);
     }
 
     @Override
-    public LocalDateTime getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public LocalDateTime getNullableResult(final ResultSet rs, final String columnName) throws SQLException {
+
         return convert(DATE_TYPE_HANDLER.getResult(rs, columnName));
     }
 
     @Override
-    public LocalDateTime getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public LocalDateTime getNullableResult(final ResultSet rs, final int columnIndex) throws SQLException {
+
         return convert(DATE_TYPE_HANDLER.getResult(rs, columnIndex));
     }
 
     @Override
-    public LocalDateTime getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public LocalDateTime getNullableResult(final CallableStatement cs, final int columnIndex) throws SQLException {
+
         return convert(DATE_TYPE_HANDLER.getResult(cs, columnIndex));
     }
 
     @Override
-    public LocalDateTime convert(Date date) {
+    public LocalDateTime convert(final Date date) {
+
         return Dates.from(date);
 
     }

@@ -31,7 +31,8 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final List<Class<?>> views;
 
 
-    public QPropertyImpl(BuilderImpl<T, E> builder) {
+    public QPropertyImpl(final BuilderImpl<T, E> builder) {
+
         this.entity = builder.entity;
         this.property = builder.property;
         this.order = builder.order;
@@ -117,7 +118,8 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     }
 
     @Override
-    public boolean hasView(Class<?> view) {
+    public boolean hasView(final Class<?> view) {
+
         if (view == null || Asserts.isEmpty(views)) return true;
         for (Class<?> item : views) {
             if (item.isAssignableFrom(view) || item.equals(view)) return true;
@@ -161,68 +163,79 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private Class<? extends TypeHandler> typeHandler;
         private List<Class<?>> views;
 
-        public BuilderImpl(E entity, Property property) {
+        public BuilderImpl(final E entity, final Property property) {
+
             this.entity = entity;
             this.property = property;
         }
 
         @Override
-        public Builder<T> order(Integer order) {
+        public Builder<T> order(final Integer order) {
+
             this.order = order;
             return this;
         }
 
         @Override
-        public Builder<T> path(String path) {
+        public Builder<T> path(final String path) {
+
             this.path = path;
             return this;
         }
 
         @Override
-        public Builder<T> name(String name) {
+        public Builder<T> name(final String name) {
+
             this.name = name;
             return this;
         }
 
         @Override
-        public Builder<T> column(String column) {
+        public Builder<T> column(final String column) {
+
             this.column = column;
             return this;
         }
 
         @Override
-        public Builder<T> idProperty(boolean idProperty) {
+        public Builder<T> idProperty(final boolean idProperty) {
+
             this.idProperty = idProperty;
             return this;
         }
 
         @Override
-        public Builder<T> readable(boolean readable) {
+        public Builder<T> readable(final boolean readable) {
+
             this.isReadable = readable;
             return this;
         }
 
         @Override
-        public Builder<T> writeable(boolean writeable) {
+        public Builder<T> writeable(final boolean writeable) {
+
             this.isWriteable = writeable;
             return this;
         }
 
         @Override
-        public Builder<T> modifiable(boolean modifiable) {
+        public Builder<T> modifiable(final boolean modifiable) {
+
             this.isModifiable = modifiable;
             return this;
         }
 
 
         @Override
-        public Builder<T> typeHandler(Class<? extends TypeHandler> typeHandler) {
+        public Builder<T> typeHandler(final Class<? extends TypeHandler> typeHandler) {
+
             this.typeHandler = typeHandler;
             return this;
         }
 
         @Override
-        public Builder<T> views(List<Class<?>> views) {
+        public Builder<T> views(final List<Class<?>> views) {
+
             this.views = views;
             return this;
         }

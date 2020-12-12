@@ -22,14 +22,16 @@ public class TypeElementFilter implements Filter<TypeElement> {
 
 
     private final Types types;
+
     private final Messager messager;
 
     private final TypeElement entityTypeElement;
+
     private final TypeElement transientAnnotationTypeElement;
 
-    public TypeElementFilter(@NonNull ProcessingEnvironment processingEnvironment,
-                             @NonNull TypeElement entityTypeElement,
-                             @Nullable TypeElement transientAnnotationTypeElement) {
+    public TypeElementFilter(final @NonNull ProcessingEnvironment processingEnvironment,
+                             final @NonNull TypeElement entityTypeElement,
+                             final @Nullable TypeElement transientAnnotationTypeElement) {
 
         Objects.requireNonNull(entityTypeElement, "typeElement can not be null!");
 
@@ -41,7 +43,7 @@ public class TypeElementFilter implements Filter<TypeElement> {
     }
 
     @Override
-    public boolean matches(TypeElement typeElement) {
+    public boolean matches(final TypeElement typeElement) {
         //忽略被注解不解析的类
         if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;
@@ -55,7 +57,8 @@ public class TypeElementFilter implements Filter<TypeElement> {
         return subtype;
     }
 
-    private boolean isAnnotated(@NonNull TypeElement element, @Nullable TypeElement annotationTypeElement) {
+    private boolean isAnnotated(final @NonNull TypeElement element, final @Nullable TypeElement annotationTypeElement) {
+
         if (Objects.isNull(annotationTypeElement)) {
             return false;
         }

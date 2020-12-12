@@ -36,15 +36,18 @@ public class ServiceException extends RuntimeException implements Responsible, I
     private final transient Object[] args;
 
 
-    public ServiceException(Integer status, String description, IException exception, Object... args) {
+    public ServiceException(final Integer status, final String description, final IException exception, final Object... args) {
+
         this(status, description, exception.getCode(), exception.getMessage(), args);
     }
 
-    public ServiceException(Integer status, String description) {
+    public ServiceException(final Integer status, final String description) {
+
         this(status, description, status.toString(), description);
     }
 
-    public ServiceException(Integer status, String description, String code, String message, Object... args) {
+    public ServiceException(final Integer status, final String description, final String code, final String message, final Object... args) {
+
         super(description);
         this.status = status;
         this.description = description;

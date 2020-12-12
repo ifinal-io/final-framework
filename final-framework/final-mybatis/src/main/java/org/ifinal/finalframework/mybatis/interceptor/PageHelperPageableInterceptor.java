@@ -44,7 +44,8 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);
 
     @Override
-    protected void startPage(Pageable pageable) {
+    protected void startPage(final Pageable pageable) {
+
         if (Asserts.isNull(pageable) || Asserts.isNull(pageable.getPage()) || Asserts.isNull(pageable.getSize()))
             return;
         startPage(pageable.getPage(), pageable.getSize(), Boolean.TRUE.equals(pageable.getCount()), false, false);
@@ -58,7 +59,8 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
      * @param pageSizeZero true且pageSize=0时返回全部结果，false时分页,null时用默认配置
      * @see PageHelper#startPage(int, int, boolean, Boolean, Boolean)
      */
-    private void startPage(int pageNum, int pageSize, boolean count, Boolean reasonable, Boolean pageSizeZero) {
+    private void startPage(final int pageNum, final int pageSize, final boolean count, final Boolean reasonable, final Boolean pageSizeZero) {
+
         final Page<Object> result = PageMethod.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
         logger.info("pageResult:page={},size={},pages={},total={}",
                 result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());

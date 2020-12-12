@@ -37,21 +37,24 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
 
     private final ExpressionEvaluator evaluator;
 
-    public AbsOperationInterceptorHandlerSupport(ExpressionEvaluator evaluator) {
+    public AbsOperationInterceptorHandlerSupport(final ExpressionEvaluator evaluator) {
+
         this.evaluator = evaluator;
     }
 
 
     @Override
     @NonNull
-    public EvaluationContext createEvaluationContext(@NonNull InvocationContext context, Object result, Throwable e) {
+    public EvaluationContext createEvaluationContext(final @NonNull InvocationContext context, final Object result, final Throwable e) {
+
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
                 context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
 
     }
 
     @Override
-    public List<String> findExpressions(String expression) {
+    public List<String> findExpressions(final String expression) {
+
         Matcher matcher = EXPRESSION_PATTEN.matcher(expression);// 指定要匹配的字符串
         List<String> matchStrs = new ArrayList<>();
         while (matcher.find()) { //此处find（）每次被调用后，会偏移到下一个匹配
@@ -66,13 +69,15 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
      * @param expression 表达式字符串
      */
     @Override
-    public boolean isExpression(@Nullable String expression) {
+    public boolean isExpression(final @Nullable String expression) {
+
         return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
     }
 
     @Override
     @NonNull
-    public String generateExpression(@NonNull String expression) {
+    public String generateExpression(final @NonNull String expression) {
+
         Asserts.isEmpty(expression, "expression is empty");
         return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }

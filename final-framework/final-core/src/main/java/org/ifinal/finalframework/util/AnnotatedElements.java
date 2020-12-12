@@ -26,7 +26,8 @@ public final class AnnotatedElements {
      * @param <A>     注解限定
      * @return Annotations
      */
-    public static <A extends Annotation> Collection<A> findAllAnnotations(@NonNull AnnotatedElement ae, @NonNull Class<A> annType) {
+    public static <A extends Annotation> Collection<A> findAllAnnotations(final @NonNull AnnotatedElement ae, final @NonNull Class<A> annType) {
+
         return AnnotatedElementUtils.findAllMergedAnnotations(ae, annType);
     }
 
@@ -38,15 +39,18 @@ public final class AnnotatedElements {
      * @param <A>     注解限定
      * @return Annotations
      */
-    public static <A extends Annotation> Collection<A> getAllLocalAnnotations(@NonNull AnnotatedElement ae, @NonNull Class<A> annType) {
+    public static <A extends Annotation> Collection<A> getAllLocalAnnotations(final @NonNull AnnotatedElement ae, final @NonNull Class<A> annType) {
+
         return AnnotatedElementUtils.getAllMergedAnnotations(ae, annType);
     }
 
-    public boolean isAnnotated(@NonNull AnnotatedElement ae, @NonNull String annName) {
+    public boolean isAnnotated(final @NonNull AnnotatedElement ae, final @NonNull String annName) {
+
         return AnnotatedElementUtils.isAnnotated(ae, annName);
     }
 
-    public boolean isAnnotated(@NonNull AnnotatedElement ae, @NonNull Class<? extends Annotation> annType) {
+    public boolean isAnnotated(final @NonNull AnnotatedElement ae, final @NonNull Class<? extends Annotation> annType) {
+
         return AnnotatedElementUtils.isAnnotated(ae, annType);
     }
 

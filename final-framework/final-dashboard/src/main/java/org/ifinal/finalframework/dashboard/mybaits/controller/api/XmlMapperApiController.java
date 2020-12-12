@@ -25,7 +25,8 @@ public class XmlMapperApiController {
 
 
     @GetMapping
-    public String xml(XmlMapperQuery query) {
+    public String xml(final XmlMapperQuery query) {
+
         return xmlMapperService.xml(query);
     }
 

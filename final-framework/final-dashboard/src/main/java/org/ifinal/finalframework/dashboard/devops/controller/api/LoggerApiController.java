@@ -28,7 +28,8 @@ public class LoggerApiController {
     }
 
     @PostMapping
-    public void level(String name, String level) {
+    public void level(final String name, final String level) {
+
         loggerService.setLevel(name, level);
     }
 

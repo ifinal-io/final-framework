@@ -44,7 +44,8 @@ public class CacheAnnotationPointAdvisor extends MultiAnnotationPointAdvisor<Ann
 
     @Override
     @NonNull
-    protected Cache getExecutor(AnnotationAttributes annotation) {
+    protected Cache getExecutor(final AnnotationAttributes annotation) {
+
         return redisCache;
     }
 }

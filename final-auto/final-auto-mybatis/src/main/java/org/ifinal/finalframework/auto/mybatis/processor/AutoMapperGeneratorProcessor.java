@@ -42,7 +42,7 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
     private static final String DEFAULT_MAPPER_PATH = "dao.mapper";
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         if (roundEnv.processingOver()) {
             ServicesLoader.load(IEntity.class, getClass().getClassLoader())
@@ -53,7 +53,8 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
         return false;
     }
 
-    private void generate(TypeElement entity) {
+    private void generate(final TypeElement entity) {
+
         final String packageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
                 .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
         String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
@@ -80,7 +81,7 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
         }
     }
 
-    private JavaFile buildJavaFile(String packageName, String mapperName, TypeElement typeElement) {
+    private JavaFile buildJavaFile(final String packageName, final String mapperName, final TypeElement typeElement) {
 
         Entity entity = EntityFactory.create(processingEnv, typeElement);
 
@@ -107,7 +108,8 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
     }
 
 
-    private void error(String msg) {
+    private void error(final String msg) {
+
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg);
     }
 

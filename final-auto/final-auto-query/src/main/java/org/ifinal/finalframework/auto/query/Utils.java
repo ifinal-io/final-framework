@@ -12,7 +12,8 @@ import org.springframework.lang.Nullable;
  */
 public interface Utils {
 
-    static String formatPropertyName(@Nullable Property referenceProperty, @NonNull Property property) {
+    static String formatPropertyName(final @Nullable Property referenceProperty, final @NonNull Property property) {
+
         if (referenceProperty == null) {
             return property.getName();
         } else {

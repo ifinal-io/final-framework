@@ -26,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthTokenService implements TokenService<AuthTokenService.User>, AuthService<AuthTokenService.User, Auth> {
     @Override
-    public void auth(@Nullable User user, @NonNull Auth auth, @NonNull Object handler) {
+    public void auth(final @Nullable User user, final @NonNull Auth auth, final @NonNull Object handler) {
+
         logger.info("try auth ...");
 
         if (user == null) {
@@ -37,7 +38,8 @@ public class AuthTokenService implements TokenService<AuthTokenService.User>, Au
 
     @Nullable
     @Override
-    public User token(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
+    public User token(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response) {
+
         logger.info("try token");
 
         if (request.getParameterMap().containsKey("unlogin")) {

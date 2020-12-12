@@ -20,11 +20,13 @@ public class RequestJsonParamHandlerRegistry {
         return instance;
     }
 
-    public <T> void register(Class<T> type, RequestJsonParamHandler<T> handler) {
+    public <T> void register(final Class<T> type, final RequestJsonParamHandler<T> handler) {
+
         requestJsonParamHandlers.put(type, handler);
     }
 
-    public <T> RequestJsonParamHandler<T> getRequestJsonParamHandler(Class<T> type) {
+    public <T> RequestJsonParamHandler<T> getRequestJsonParamHandler(final Class<T> type) {
+
         return (RequestJsonParamHandler<T>) requestJsonParamHandlers.get(type);
     }
 

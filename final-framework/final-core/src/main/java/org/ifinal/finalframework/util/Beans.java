@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 public final class Beans {
     private static final Map<Class<?>, BeanInfo> BEAN_INFO_MAP = new ConcurrentHashMap<>();
 
-    public static BeanInfo from(Class<?> bean) {
+    public static BeanInfo from(final Class<?> bean) {
+
         return BEAN_INFO_MAP.computeIfAbsent(bean, key -> {
             try {
                 return Introspector.getBeanInfo(key);
@@ -31,7 +32,8 @@ public final class Beans {
         });
     }
 
-    public static Map<String, Object> toMap(Object bean) {
+    public static Map<String, Object> toMap(final Object bean) {
+
         BeanInfo beanInfo = from(bean.getClass());
         return Arrays.stream(beanInfo.getPropertyDescriptors())
 //                .filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))

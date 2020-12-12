@@ -12,7 +12,8 @@ public class TraceContext {
         return trace;
     }
 
-    public void setTrace(String trace) {
+    public void setTrace(final String trace) {
+
         this.trace = trace;
     }
 }

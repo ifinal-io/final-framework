@@ -29,7 +29,8 @@ public class ShardingRuleProperties implements Serializable {
         return tables;
     }
 
-    public void setTables(Map<String, TableRuleProperties> tables) {
+    public void setTables(final Map<String, TableRuleProperties> tables) {
+
         this.tables = tables;
     }
 
@@ -37,7 +38,8 @@ public class ShardingRuleProperties implements Serializable {
         return bindingTables;
     }
 
-    public void setBindingTables(List<String> bindingTables) {
+    public void setBindingTables(final List<String> bindingTables) {
+
         this.bindingTables = bindingTables;
     }
 
@@ -45,7 +47,8 @@ public class ShardingRuleProperties implements Serializable {
         return broadcastTables;
     }
 
-    public void setBroadcastTables(List<String> broadcastTables) {
+    public void setBroadcastTables(final List<String> broadcastTables) {
+
         this.broadcastTables = broadcastTables;
     }
 
@@ -53,7 +56,8 @@ public class ShardingRuleProperties implements Serializable {
         return defaultDatabaseShardingStrategy;
     }
 
-    public void setDefaultDatabaseShardingStrategy(ShardingStrategyProperties defaultDatabaseShardingStrategy) {
+    public void setDefaultDatabaseShardingStrategy(final ShardingStrategyProperties defaultDatabaseShardingStrategy) {
+
         this.defaultDatabaseShardingStrategy = defaultDatabaseShardingStrategy;
     }
 
@@ -61,7 +65,8 @@ public class ShardingRuleProperties implements Serializable {
         return defaultTableShardingStrategy;
     }
 
-    public void setDefaultTableShardingStrategy(ShardingStrategyProperties defaultTableShardingStrategy) {
+    public void setDefaultTableShardingStrategy(final ShardingStrategyProperties defaultTableShardingStrategy) {
+
         this.defaultTableShardingStrategy = defaultTableShardingStrategy;
     }
 
@@ -69,7 +74,8 @@ public class ShardingRuleProperties implements Serializable {
         return masterSlaveRules;
     }
 
-    public void setMasterSlaveRules(Map<String, MasterSlaveRuleProperties> masterSlaveRules) {
+    public void setMasterSlaveRules(final Map<String, MasterSlaveRuleProperties> masterSlaveRules) {
+
         this.masterSlaveRules = masterSlaveRules;
     }
 

@@ -17,7 +17,8 @@ public class ApplicationStartedEventListener implements ApplicationListener<Appl
     private static final Logger logger = LoggerFactory.getLogger(ApplicationStartedEventListener.class);
 
     @Override
-    public void onApplicationEvent(ApplicationStartedEvent event) {
+    public void onApplicationEvent(final ApplicationStartedEvent event) {
+
         logger.info("Application Started!!!");
     }
 }

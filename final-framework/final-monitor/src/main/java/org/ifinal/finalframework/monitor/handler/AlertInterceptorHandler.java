@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class AlertInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements InterceptorHandler<Alerter, AnnotationAttributes> {
 
     @Override
-    public void handle(@NonNull Alerter executor, @NonNull InvocationContext context, @NonNull AnnotationAttributes annotation, Object result, Throwable throwable) {
+    public void handle(final @NonNull Alerter executor, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation, final Object result, final Throwable throwable) {
 
         final AlertContext.Builder builder = AlertContext.builder();
         builder.name(annotation.getString("name"))

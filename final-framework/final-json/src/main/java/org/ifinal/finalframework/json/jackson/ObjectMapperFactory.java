@@ -24,7 +24,8 @@ public class ObjectMapperFactory {
         this(new ObjectMapper());
     }
 
-    public ObjectMapperFactory(ObjectMapper objectMapper) {
+    public ObjectMapperFactory(final ObjectMapper objectMapper) {
+
         this.objectMapper = objectMapper;
         objectMapper.registerModule(new Jdk8Module());
         objectMapper.registerModule(new JavaTimeModule());

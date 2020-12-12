@@ -36,7 +36,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     private final Map<Class<? extends Annotation>, AuthService> authServices = new HashMap<>();
 
-    public AuthHandlerInterceptor(ObjectProvider<AuthService<?, ?>> authServiceProvider) {
+    public AuthHandlerInterceptor(final ObjectProvider<AuthService<?, ?>> authServiceProvider) {
+
         for (AuthService<?, ?> authService : authServiceProvider) {
             Class<?> targetClass = AopUtils.getTargetClass(authService);
             Class authAnnotation = Reflections.findParameterizedInterfaceArgumentClass(targetClass, AuthService.class, 0);
@@ -47,7 +48,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) throws Exception {
+
         Auth auth = findHandlerAuth(handler, Auth.class);
 
         Annotation authAnnotation = auth;
@@ -67,7 +69,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
         return true;
     }
 
-    private <A extends Annotation> A findHandlerAuth(@NonNull Object handler, Class<A> ann) {
+    private <A extends Annotation> A findHandlerAuth(final @NonNull Object handler, final Class<A> ann) {
+
         if (handler instanceof HandlerMethod) {
             A annotation = AnnotatedElementUtils.findMergedAnnotation(((HandlerMethod) handler).getMethod(), ann);
             if (annotation != null) {

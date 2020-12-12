@@ -31,14 +31,16 @@ import java.util.Optional;
 public interface Dates {
 
     @Nullable
-    static Date to(@Nullable LocalDateTime localDateTime) {
+    static Date to(final @Nullable LocalDateTime localDateTime) {
+
         return Optional.ofNullable(localDateTime)
                 .map(it -> Date.from(it.atZone(LocaleContextHolder.getTimeZone().toZoneId()).toInstant()))
                 .orElse(null);
     }
 
     @Nullable
-    static LocalDateTime from(@Nullable Date date) {
+    static LocalDateTime from(final @Nullable Date date) {
+
         return Optional.ofNullable(date)
                 .map(it -> it.toInstant().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toLocalDateTime())
                 .orElse(null);

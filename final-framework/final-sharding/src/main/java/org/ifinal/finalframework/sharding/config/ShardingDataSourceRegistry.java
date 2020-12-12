@@ -17,7 +17,8 @@ public class ShardingDataSourceRegistry {
     @Getter(AccessLevel.PACKAGE)
     private final Map<String, DataSource> dataSources = new HashMap<>();
 
-    public ShardingDataSourceRegistry addDataSource(String name, DataSource dataSource) {
+    public ShardingDataSourceRegistry addDataSource(final String name, final DataSource dataSource) {
+
         this.dataSources.put(name, dataSource);
         return this;
     }

@@ -38,7 +38,8 @@ public class PropertyVariableElementFilter implements Filter<VariableElement> {
     }
 
     @Override
-    public boolean matches(VariableElement e) {
+    public boolean matches(final VariableElement e) {
+
         if (ElementKind.FIELD != e.getKind()) return false;
         Set<Modifier> modifiers = e.getModifiers();
         for (Modifier modifier : ignoreModifiers) {
@@ -47,7 +48,8 @@ public class PropertyVariableElementFilter implements Filter<VariableElement> {
         return true;
     }
 
-    public void setIgnoreModifiers(Set<Modifier> ignoreModifiers) {
+    public void setIgnoreModifiers(final Set<Modifier> ignoreModifiers) {
+
         this.ignoreModifiers.clear();
         if (Asserts.nonEmpty(ignoreModifiers)) {
             this.ignoreModifiers.addAll(ignoreModifiers);

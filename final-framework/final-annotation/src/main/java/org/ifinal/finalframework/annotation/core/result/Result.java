@@ -102,7 +102,8 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
     public Result() {
     }
 
-    public Result(Integer status, String description, String code, String message, T data) {
+    public Result(final Integer status, final String description, final String code, final String message, final T data) {
+
         this.status = status;
         this.description = description;
         this.code = code;
@@ -110,18 +111,21 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
         this.data = data;
     }
 
-    public Result(Integer status, String description, String code, String message) {
+    public Result(final Integer status, final String description, final String code, final String message) {
+
         this.status = status;
         this.description = description;
         this.code = code;
         this.message = message;
     }
 
-    public Result(Integer status, String description, T data) {
+    public Result(final Integer status, final String description, final T data) {
+
         this(status, description, status.toString(), description, data);
     }
 
-    public Result(Integer status, String description) {
+    public Result(final Integer status, final String description) {
+
         this(status, description, status.toString(), description);
     }
 

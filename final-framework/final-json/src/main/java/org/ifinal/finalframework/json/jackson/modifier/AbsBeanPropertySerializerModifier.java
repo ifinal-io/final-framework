@@ -37,13 +37,15 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
     }
 
 
-    protected void setNameValue(BeanPropertyWriter bpw, String value) {
+    protected void setNameValue(final BeanPropertyWriter bpw, final String value) {
+
         ReflectionUtils.setField(NAME_FIELD, bpw, new SerializedString(value));
     }
 
     @Override
-    public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
-                                                     List<BeanPropertyWriter> beanProperties) {
+    public List<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
+                                                     final List<BeanPropertyWriter> beanProperties) {
+
         if (JsonContextHolder.isIgnore()) {
             return super.changeProperties(config, beanDesc, beanProperties);
         }

@@ -24,7 +24,8 @@ public class MapperApiController {
 
 
     @GetMapping
-    public List<Class<? extends AbsMapper>> query(MapperQuery query) {
+    public List<Class<? extends AbsMapper>> query(final MapperQuery query) {
+
         return mapperService.query(query);
     }
 

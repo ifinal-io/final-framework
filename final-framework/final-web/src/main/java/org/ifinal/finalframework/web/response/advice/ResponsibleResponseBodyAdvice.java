@@ -33,15 +33,16 @@ public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object
         return syncStatus;
     }
 
-    public void setSyncStatus(boolean syncStatus) {
+    public void setSyncStatus(final boolean syncStatus) {
+
         this.syncStatus = syncStatus;
     }
 
     @Override
     @Nullable
-    public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
-                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(final @Nullable Object body, final MethodParameter returnType, final MediaType selectedContentType,
+                                  final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  final ServerHttpRequest request, final ServerHttpResponse response) {
 
         if (syncStatus && body instanceof Responsible) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Responsible) body).getStatus());

@@ -22,7 +22,8 @@ public enum Direction {
 
     private final String value;
 
-    Direction(String value) {
+    Direction(final String value) {
+
         this.value = value;
     }
 

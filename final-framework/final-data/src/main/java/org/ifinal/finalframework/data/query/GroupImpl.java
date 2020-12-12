@@ -13,17 +13,20 @@ import java.util.Collection;
  */
 final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
 
-    private GroupImpl(Collection<QProperty<?>> properties) {
+    private GroupImpl(final Collection<QProperty<?>> properties) {
+
         this.addAll(properties);
     }
 
-    public static Group by(Collection<QProperty<?>> properties) {
+    public static Group by(final Collection<QProperty<?>> properties) {
+
         return new GroupImpl(properties);
     }
 
 
     @Override
-    public Group and(Group group) {
+    public Group and(final Group group) {
+
         Asserts.isNull(group, "Sort must not be null!");
         ArrayList<QProperty<?>> these = new ArrayList<>(this);
 

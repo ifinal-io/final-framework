@@ -18,12 +18,14 @@ import java.sql.SQLException;
 @Component
 public class SQLResultExceptionHandler implements ResultExceptionHandler<SQLException> {
     @Override
-    public boolean supports(Throwable throwable) {
+    public boolean supports(final Throwable throwable) {
+
         return throwable instanceof SQLException;
     }
 
     @Override
-    public Result<?> handle(SQLException throwable) {
+    public Result<?> handle(final SQLException throwable) {
+
         return R.failure(500, throwable.getMessage(), throwable.getErrorCode() + "", throwable.getSQLState());
     }
 }

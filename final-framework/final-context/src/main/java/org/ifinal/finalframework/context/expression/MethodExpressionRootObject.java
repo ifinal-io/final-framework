@@ -17,7 +17,8 @@ public class MethodExpressionRootObject {
     private final Object target;
     private final Class<?> targetClass;
 
-    public MethodExpressionRootObject(Method method, Object[] args, Object target, Class<?> targetClass) {
+    public MethodExpressionRootObject(final Method method, final Object[] args, final Object target, final Class<?> targetClass) {
+
         this.method = method;
         this.args = args;
         this.target = target;

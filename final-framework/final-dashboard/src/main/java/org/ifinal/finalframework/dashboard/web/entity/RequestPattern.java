@@ -22,7 +22,8 @@ public class RequestPattern implements Comparable<RequestPattern> {
     private String pattern;
 
     @Override
-    public int compareTo(RequestPattern o) {
+    public int compareTo(final RequestPattern o) {
+
         return this.pattern.compareTo(o.pattern);
     }
 }

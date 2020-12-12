@@ -26,7 +26,8 @@ public class I18NWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final I18NProperties properties;
 
-    public I18NWebMvcConfigurerAutoConfiguration(I18NProperties properties, MessageSource messageSource) {
+    public I18NWebMvcConfigurerAutoConfiguration(final I18NProperties properties, final MessageSource messageSource) {
+
         this.properties = properties;
         Messages.setMessageSource(messageSource);
     }
@@ -55,7 +56,8 @@ public class I18NWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(final InterceptorRegistry registry) {
+
         registry.addInterceptor(localeChangeInterceptor());
     }
 }

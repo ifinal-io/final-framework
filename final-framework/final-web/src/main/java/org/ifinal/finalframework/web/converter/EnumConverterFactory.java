@@ -23,7 +23,8 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
 
     @NonNull
     @Override
-    public <T extends IEnum> Converter<String, T> getConverter(@NonNull Class<T> targetType) {
+    public <T extends IEnum> Converter<String, T> getConverter(final @NonNull Class<T> targetType) {
+
         return new EnumConverter<>(targetType);
     }
 
@@ -38,7 +39,8 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
         private final Class<T> enumType;
         private final Map<String, T> enumMap;
 
-        public EnumConverter(Class<T> enumType) {
+        public EnumConverter(final Class<T> enumType) {
+
             this.enumType = enumType;
             final T[] enums = this.enumType.getEnumConstants();
             enumMap = Arrays.stream(enums).collect(Collectors.toMap(e -> e.getCode().toString(), e -> e));
@@ -46,7 +48,8 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
         }
 
         @Override
-        public T convert(@NonNull String source) {
+        public T convert(final @NonNull String source) {
+
             return Asserts.isBlank(source) ? null : enumMap.get(source.trim());
         }
 

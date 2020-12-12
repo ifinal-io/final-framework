@@ -50,12 +50,14 @@ import java.util.stream.Collectors;
 @ConditionalOnClass(ConstraintViolationException.class)
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
     @Override
-    public boolean supports(Throwable t) {
+    public boolean supports(final Throwable t) {
+
         return t instanceof ConstraintViolationException;
     }
 
     @Override
-    public Result<?> handle(ConstraintViolationException e) {
+    public Result<?> handle(final ConstraintViolationException e) {
+
         return R.failure(
                 ResponseStatus.BAD_REQUEST.getCode(), e.getConstraintViolations()
                         .stream()

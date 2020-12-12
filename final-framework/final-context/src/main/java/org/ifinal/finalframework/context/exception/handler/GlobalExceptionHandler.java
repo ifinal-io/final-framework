@@ -21,5 +21,5 @@ public interface GlobalExceptionHandler<T> {
      * @param throwable 异常
      */
     @Nullable
-    T handle(@NonNull Throwable throwable);
+    T handle(final @NonNull Throwable throwable);
 }

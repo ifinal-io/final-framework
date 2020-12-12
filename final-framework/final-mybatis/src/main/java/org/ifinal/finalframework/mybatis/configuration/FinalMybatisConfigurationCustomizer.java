@@ -36,7 +36,8 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
     }
 
     @Override
-    public void customize(Configuration configuration) {
+    public void customize(final Configuration configuration) {
+
         logger.info("setDefaultEnumTypeHandler:{}", EnumTypeHandler.class.getCanonicalName());
         configuration.addMapper(AbsMapper.class);
         configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);

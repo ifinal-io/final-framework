@@ -22,5 +22,5 @@ package org.ifinal.finalframework.util.format;
  * @since 1.0.0
  */
 public interface Formatters<T> {
-    T parse(String source);
+    T parse(final String source);
 }

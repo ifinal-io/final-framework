@@ -18,13 +18,15 @@ public class ShardingTableRegistry {
     private Collection<ShardingTableRegistration> tables = new ArrayList<>();
 
 
-    public ShardingTableRegistration addShardingTableRule(String logicTable, String[] actualDataNodes) {
+    public ShardingTableRegistration addShardingTableRule(final String logicTable, final String[] actualDataNodes) {
+
         ShardingTableRegistration registration = new ShardingTableRegistration(logicTable, actualDataNodes);
         tables.add(registration);
         return registration;
     }
 
-    public ShardingTableRegistry addShardingTableRule(ShardingTableRegistration table) {
+    public ShardingTableRegistry addShardingTableRule(final ShardingTableRegistration table) {
+
         tables.add(table);
         return this;
     }

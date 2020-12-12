@@ -35,15 +35,18 @@ final class SpringFactoryResource implements Serializable {
 
     private final MultiValueMap<String, String> springFactories = new LinkedMultiValueMap<>();
 
-    public void addSpringFactories(TypeElement clazz, Collection<TypeElement> elements) {
+    public void addSpringFactories(final TypeElement clazz, final Collection<TypeElement> elements) {
+
         elements.forEach(item -> addSpringFactory(clazz, item));
     }
 
-    public void addSpringFactory(TypeElement clazz, TypeElement element) {
+    public void addSpringFactory(final TypeElement clazz, final TypeElement element) {
+
         this.addSpringFactory(clazz.getQualifiedName().toString(), element.getQualifiedName().toString());
     }
 
-    public void addSpringFactory(String factoryClass, String factoryName) {
+    public void addSpringFactory(final String factoryClass, final String factoryName) {
+
         List<String> factories = this.springFactories.get(factoryClass);
         if (factories == null || !factories.contains(factoryName)) {
             this.springFactories.add(factoryClass, factoryName);
@@ -55,8 +58,9 @@ final class SpringFactoryResource implements Serializable {
     }
 
 
-    void writeFactoryFile(OutputStream output)
+    void writeFactoryFile(final OutputStream output)
             throws IOException {
+
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
 
         for (Map.Entry<String, List<String>> stringListEntry : springFactories.entrySet()) {

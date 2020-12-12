@@ -127,7 +127,8 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
         }
     }
 
-    private void processClassBasedSharingStrategyProperties(Properties properties) {
+    private void processClassBasedSharingStrategyProperties(final Properties properties) {
+
         if (properties.get(Property.CLASS_BASED_STRATEGY) instanceof ShardingStrategy.Strategy) {
             properties.put(Property.CLASS_BASED_STRATEGY, ((ShardingStrategy.Strategy) properties.get(Property.CLASS_BASED_STRATEGY)).name());
         }
@@ -138,7 +139,8 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
         }
     }
 
-    private Collection<Annotation> findAllShardingStrategyAnnotations(Class<?> clazz) {
+    private Collection<Annotation> findAllShardingStrategyAnnotations(final Class<?> clazz) {
+
         final Collection<Annotation> annotations = new ArrayList<>();
 
         for (Class<? extends Annotation> annotation : SHARDING_STRATEGY_ANNOTATIONS) {
@@ -150,31 +152,37 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     }
 
 
-    private ShardingStrategyRegistration buildShardingStrategyConfiguration(ShardingStrategy shardingStrategy, String name, AnnotationAttributes annotationAttributes, Properties properties) {
+    private ShardingStrategyRegistration buildShardingStrategyConfiguration(final ShardingStrategy shardingStrategy, final String name, final AnnotationAttributes annotationAttributes, final Properties properties) {
+
         return new ShardingStrategyRegistration(shardingStrategy.strategy(), shardingStrategy.type(), name, annotationAttributes.getStringArray("columns"), properties);
     }
 
-    private String buildShardingStrategyName(String table, ShardingStrategy.Scope scope, String type) {
+    private String buildShardingStrategyName(final String table, final ShardingStrategy.Scope scope, final String type) {
+
         return String.join("-", table, scope.name(), type);
     }
 
     @Override
-    public void addShardingTable(@NonNull ShardingTableRegistry registry) {
+    public void addShardingTable(final @NonNull ShardingTableRegistry registry) {
+
         this.tables.forEach(registry::addShardingTableRule);
     }
 
     @Override
-    public void addBindingTables(@NonNull BindingTableRegistry registry) {
+    public void addBindingTables(final @NonNull BindingTableRegistry registry) {
+
         registry.addAllBindingTables(this.bindTables);
     }
 
     @Override
-    public void addBroadcastTables(@NonNull BroadcastTableRegistry registry) {
+    public void addBroadcastTables(final @NonNull BroadcastTableRegistry registry) {
+
         registry.addBroadcastTables(this.broadcastTables);
     }
 
     @Override
-    public void addShardingAlgorithms(@NonNull ShardingAlgorithmRegistry registry) {
+    public void addShardingAlgorithms(final @NonNull ShardingAlgorithmRegistry registry) {
+
         for (Map.Entry<String, ShardingStrategyRegistration> entry : shardingStrategies.entrySet()) {
             registry.addShardingAlgorithm(entry.getKey(), entry.getValue().getType(), entry.getValue().getProperties());
         }

@@ -57,7 +57,7 @@ public class AnnotationQueryProvider implements QueryProvider {
 
     @Override
     @NonNull
-    public String provide(String expression, @NonNull Class<? extends IEntity<?>> entity, @NonNull Class<?> query) {
+    public String provide(final String expression, final @NonNull Class<? extends IEntity<?>> entity, final @NonNull Class<?> query) {
 
         final StringBuilder builder = new StringBuilder();
 
@@ -87,7 +87,8 @@ public class AnnotationQueryProvider implements QueryProvider {
         return builder.toString();
     }
 
-    private Metadata buildLimitOffsetMetadata(String expression, Property property) {
+    private Metadata buildLimitOffsetMetadata(final String expression, final Property property) {
+
         final Metadata metadata = new Metadata();
         metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
         metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
@@ -96,7 +97,8 @@ public class AnnotationQueryProvider implements QueryProvider {
     }
 
 
-    private void appendCriteria(StringBuilder sql, String expression, QEntity<?, ?> entity, Class<?> query, AndOr andOr) {
+    private void appendCriteria(final StringBuilder sql, final String expression, final QEntity<?, ?> entity, final Class<?> query, final AndOr andOr) {
+
         Entity.from(query)
                 .forEach(property -> {
                     if (property.isAnnotationPresent(Criterion.class)) {
@@ -133,7 +135,8 @@ public class AnnotationQueryProvider implements QueryProvider {
                 });
     }
 
-    private void parseFunctionAnnotation(Property property, Metadata metadata) {
+    private void parseFunctionAnnotation(final Property property, final Metadata metadata) {
+
         if (!property.isAnnotationPresent(Function.class)) {
             return;
         }
@@ -143,7 +146,7 @@ public class AnnotationQueryProvider implements QueryProvider {
 
     }
 
-    private void appendAnnotationAttributesToMetadata(AnnotationAttributes annotationAttributes, Metadata metadata) {
+    private void appendAnnotationAttributesToMetadata(final AnnotationAttributes annotationAttributes, final Metadata metadata) {
         //append annotation attributes
         for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
             if (IGNORE_ATTRIBUTES.contains(entry.getKey())
@@ -173,7 +176,8 @@ public class AnnotationQueryProvider implements QueryProvider {
      * @param offset offset
      * @param limit  set
      */
-    private void appendLimit(StringBuilder sql, String offset, String limit) {
+    private void appendLimit(final StringBuilder sql, final String offset, final String limit) {
+
         if (offset != null || limit != null) {
 
             sql.append("<trim prefix=\"LIMIT\">");

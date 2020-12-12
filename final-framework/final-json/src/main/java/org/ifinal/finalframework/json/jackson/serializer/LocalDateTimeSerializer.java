@@ -23,13 +23,15 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     public LocalDateTimeSerializer() {
     }
 
-    public LocalDateTimeSerializer(DateTimeFormatter formatter) {
+    public LocalDateTimeSerializer(final DateTimeFormatter formatter) {
+
         this.formatter = formatter;
     }
 
 
     @Override
-    public void serialize(LocalDateTime localDateTime, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final LocalDateTime localDateTime, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         if (localDateTime == null) return;
         if (formatter != null) {
             gen.writeString(localDateTime.format(formatter));

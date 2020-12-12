@@ -21,7 +21,8 @@ public class TraceHandlerInterceptorAutoConfiguration implements InitializingBea
     private final TraceProperties properties;
     private final TraceHandlerInterceptor traceHandlerInterceptor;
 
-    public TraceHandlerInterceptorAutoConfiguration(TraceProperties properties, TraceHandlerInterceptor traceHandlerInterceptor) {
+    public TraceHandlerInterceptorAutoConfiguration(final TraceProperties properties, final TraceHandlerInterceptor traceHandlerInterceptor) {
+
         this.properties = properties;
         this.traceHandlerInterceptor = traceHandlerInterceptor;
     }

@@ -15,7 +15,8 @@ public class CustomJavaFileObject implements JavaFileObject {
     private final URI uri;
     private final String name;
 
-    public CustomJavaFileObject(String binaryName, URI uri) {
+    public CustomJavaFileObject(final String binaryName, final URI uri) {
+
         this.uri = uri;
         this.binaryName = binaryName;
         name = uri.getPath() == null ? uri.getSchemeSpecificPart() : uri.getPath(); // for FS based URI the path is not null, for JAR URI the scheme specific part is not null
@@ -37,11 +38,13 @@ public class CustomJavaFileObject implements JavaFileObject {
         return name;
     }
 
-    public Reader openReader(boolean ignoreEncodingErrors) {
+    public Reader openReader(final boolean ignoreEncodingErrors) {
+
         throw new UnsupportedOperationException();
     }
 
-    public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+    public CharSequence getCharContent(final boolean ignoreEncodingErrors) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -61,7 +64,8 @@ public class CustomJavaFileObject implements JavaFileObject {
         return Kind.CLASS;
     }
 
-    public boolean isNameCompatible(String simpleName, Kind kind) {
+    public boolean isNameCompatible(final String simpleName, final Kind kind) {
+
         String baseName = simpleName + kind.extension;
         return kind.equals(getKind())
                 && (baseName.equals(getName())

@@ -22,7 +22,8 @@ final class CriteriaImpl implements Criteria {
         this(AndOr.AND, new ArrayList<>());
     }
 
-    protected CriteriaImpl(AndOr andOr, Collection<Criterion> criterion) {
+    protected CriteriaImpl(final AndOr andOr, final Collection<Criterion> criterion) {
+
         this.andOr = andOr;
         this.criteria = criterion;
     }
@@ -37,23 +38,27 @@ final class CriteriaImpl implements Criteria {
     }
 
     @Override
-    public Criteria add(Collection<Criterion> criterion) {
+    public Criteria add(final Collection<Criterion> criterion) {
+
         this.criteria.addAll(criterion);
         return this;
     }
 
     @Override
-    public Criteria and(Criteria... criteria) {
+    public Criteria and(final Criteria... criteria) {
+
         return andOr(AndOr.AND, criteria);
     }
 
 
     @Override
-    public Criteria or(Criteria... criteria) {
+    public Criteria or(final Criteria... criteria) {
+
         return andOr(AndOr.OR, criteria);
     }
 
-    private Criteria andOr(AndOr andOr, Criteria... criteria) {
+    private Criteria andOr(final AndOr andOr, final Criteria... criteria) {
+
         List<Criterion> list = new ArrayList<>();
         list.add(this);
         list.addAll(Arrays.asList(criteria));

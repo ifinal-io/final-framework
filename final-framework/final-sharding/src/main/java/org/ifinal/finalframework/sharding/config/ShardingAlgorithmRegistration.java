@@ -15,7 +15,8 @@ public class ShardingAlgorithmRegistration {
     private final String name;
     private final Properties properties;
 
-    public ShardingAlgorithmRegistration(String type, String name, Properties properties) {
+    public ShardingAlgorithmRegistration(final String type, final String name, final Properties properties) {
+
         this.type = type;
         this.name = name;
         this.properties = properties;

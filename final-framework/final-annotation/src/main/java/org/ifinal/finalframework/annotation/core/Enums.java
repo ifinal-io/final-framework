@@ -19,12 +19,15 @@ public final class Enums {
     private Enums() {
     }
 
-    public static <E extends Enum<E>> E findEnum(@NonNull EnumValue ann, @NonNull Object value) {
+    public static <E extends Enum<E>> E findEnum(final @NonNull EnumValue ann, final @NonNull Object value) {
+
         return findEnum(ann.value(), ann.creator(), ann.valueType(), value);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <E extends Enum<E>> E findEnum(@NonNull Class<? extends Enum> clazz, @NonNull String creator, @Nullable Class<?> valueType, @NonNull Object value) {
+    public static <E extends Enum<E>> E findEnum(final @NonNull Class<? extends Enum> clazz, final @NonNull String creator,
+                                                 final @Nullable Class<?> valueType, final @NonNull Object value) {
+
         Method valueOf = Objects.isNull(valueType) ? ReflectionUtils.findMethod(clazz, creator) : ReflectionUtils.findMethod(clazz, creator, valueType);
 
         if (valueOf == null) {
@@ -34,7 +37,8 @@ public final class Enums {
         return (E) ReflectionUtils.invokeMethod(valueOf, clazz, value);
     }
 
-    public static String getEnumI18NCode(Enum<?> value) {
+    public static String getEnumI18NCode(final Enum<?> value) {
+
         return String.format("%s.%s", value.getClass().getCanonicalName(), value.name().toLowerCase(Locale.ENGLISH));
     }
 

@@ -18,14 +18,16 @@ public class RestControllerExceptionHandler {
 
     private final GlobalExceptionHandler<?> globalExceptionHandler;
 
-    public RestControllerExceptionHandler(GlobalExceptionHandler<?> globalExceptionHandler) {
+    public RestControllerExceptionHandler(final GlobalExceptionHandler<?> globalExceptionHandler) {
+
         this.globalExceptionHandler = globalExceptionHandler;
     }
 
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     @ResponseBody
-    public Object handlerException(Throwable throwable) {
+    public Object handlerException(final Throwable throwable) {
+
         if (globalExceptionHandler != null) {
             return globalExceptionHandler.handle(throwable);
         }

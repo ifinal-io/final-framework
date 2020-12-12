@@ -1,0 +1,50 @@
+#!/bin/bash
+#@author:jimo#
+#@func:pre-commit#
+## cp ./check-style/pre-commit ./.git/hooks/
+
+# 一个打印函数，前后加空行
+function print(){
+    echo ""
+    echo "===========$*============"
+    echo ""
+}
+
+print '避免NPE是程序员的基本修养！'
+print '开始style checking'
+
+wd=`pwd`
+print "当前工作目录：$wd"
+
+check_jar_path="$wd/check-style/checkstyle-8.38-all.jar"
+check_xml_path="$wd/check-style/checkstyle.xml"
+
+# echo $check_jar_path $check_xml_path
+
+# 清空temp文件
+rm -f temp
+
+is_err=0
+
+for file in `git status --porcelain | sed s/^...// | grep '\.java$'`;do
+    path="$wd/$file"
+    print "检查文件：$path"
+    re=`java -jar $check_jar_path -c $check_xml_path $path >> temp`
+    err=`cat temp | grep "ERROR"`
+    if [[ $err = *"ERROR"* ]];then
+        print $err
+        is_err=1
+    fi
+done
+
+print "检查完成，祝你好运"
+
+rm -f temp
+
+if [ $is_err -ne 0 ]
+then
+    print "请先符合style才能提交！"
+    exit 1
+fi
+
+exit 0

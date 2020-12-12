@@ -17,15 +17,18 @@ public class RetrofitFactoryBean<T> implements FactoryBean<T> {
     public RetrofitFactoryBean() {
     }
 
-    public RetrofitFactoryBean(Class<T> service) {
+    public RetrofitFactoryBean(final Class<T> service) {
+
         this.service = service;
     }
 
-    public void setRetrofit(Retrofit retrofit) {
+    public void setRetrofit(final Retrofit retrofit) {
+
         this.retrofit = retrofit;
     }
 
-    public void setService(Class<T> service) {
+    public void setService(final Class<T> service) {
+
         this.service = service;
     }
 

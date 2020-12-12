@@ -34,7 +34,8 @@ public class TableRuleProperties implements Serializable {
         return logicTable;
     }
 
-    public void setLogicTable(String logicTable) {
+    public void setLogicTable(final String logicTable) {
+
         this.logicTable = logicTable;
     }
 
@@ -42,7 +43,8 @@ public class TableRuleProperties implements Serializable {
         return actualDataNodes;
     }
 
-    public void setActualDataNodes(String actualDataNodes) {
+    public void setActualDataNodes(final String actualDataNodes) {
+
         this.actualDataNodes = actualDataNodes;
     }
 
@@ -50,7 +52,8 @@ public class TableRuleProperties implements Serializable {
         return databaseShardingStrategy;
     }
 
-    public void setDatabaseShardingStrategy(ShardingStrategyProperties databaseShardingStrategy) {
+    public void setDatabaseShardingStrategy(final ShardingStrategyProperties databaseShardingStrategy) {
+
         this.databaseShardingStrategy = databaseShardingStrategy;
     }
 
@@ -58,7 +61,8 @@ public class TableRuleProperties implements Serializable {
         return tableShardingStrategy;
     }
 
-    public void setTableShardingStrategy(ShardingStrategyProperties tableShardingStrategy) {
+    public void setTableShardingStrategy(final ShardingStrategyProperties tableShardingStrategy) {
+
         this.tableShardingStrategy = tableShardingStrategy;
     }
 }

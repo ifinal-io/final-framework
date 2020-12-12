@@ -20,7 +20,8 @@ final class EntityCache {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> Entity<T> get(Class<T> entity) {
+    public <T> Entity<T> get(final Class<T> entity) {
+
         if (!cache.containsKey(entity)) {
             synchronized (EntityCache.class) {
                 cache.put(entity, new AnnotationEntity<>(entity));

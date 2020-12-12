@@ -17,11 +17,13 @@ public class PackageInternalsFinder {
     private static final String CLASS_FILE_EXTENSION = ".class";
     private final ClassLoader classLoader;
 
-    public PackageInternalsFinder(ClassLoader classLoader) {
+    public PackageInternalsFinder(final ClassLoader classLoader) {
+
         this.classLoader = classLoader;
     }
 
-    public List<JavaFileObject> find(String packageName) throws IOException {
+    public List<JavaFileObject> find(final String packageName) throws IOException {
+
         String javaPackageName = packageName.replace("\\.", "/");
 
         List<JavaFileObject> result = new ArrayList<>();
@@ -35,7 +37,8 @@ public class PackageInternalsFinder {
         return result;
     }
 
-    private Collection<JavaFileObject> listUnder(String packageName, URL packageFolderURL) {
+    private Collection<JavaFileObject> listUnder(final String packageName, final URL packageFolderURL) {
+
         File directory = new File(packageFolderURL.getFile());
         if (directory.isDirectory()) { // browse local .class files - useful for local execution
             return processDir(packageName, directory);
@@ -44,7 +47,8 @@ public class PackageInternalsFinder {
         } // maybe there can be something else for more involved class loaders
     }
 
-    private List<JavaFileObject> processJar(URL packageFolderURL) {
+    private List<JavaFileObject> processJar(final URL packageFolderURL) {
+
         List<JavaFileObject> result = new ArrayList<>();
         try {
             String jarUri = packageFolderURL.toExternalForm().substring(0, packageFolderURL.toExternalForm().lastIndexOf("!/"));
@@ -71,7 +75,8 @@ public class PackageInternalsFinder {
         return result;
     }
 
-    private List<JavaFileObject> processDir(String packageName, File directory) {
+    private List<JavaFileObject> processDir(final String packageName, final File directory) {
+
         List<JavaFileObject> result = new ArrayList<>();
         File[] childFiles = directory.listFiles();
 

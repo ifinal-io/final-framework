@@ -20,7 +20,8 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
     private final Object min;
     private final Object max;
 
-    private AbsCompareCriterionOperation(AbsCompareCriterionOperationBuilder builder) {
+    private AbsCompareCriterionOperation(final AbsCompareCriterionOperationBuilder builder) {
+
         this.target = builder.target;
         this.operation = builder.operation;
         this.value = builder.value;
@@ -33,7 +34,8 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
     }
 
     @Override
-    public void apply(@NonNull StringBuilder sql, @NonNull String expression) {
+    public void apply(final @NonNull StringBuilder sql, final @NonNull String expression) {
+
         switch (operation) {
             case NULL:
                 applyValueCriterion(sql, target, null, "IS NULL", expression + TARGET_EXPRESSION);
@@ -106,31 +108,36 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
         private Object max;
 
         @Override
-        public CompareCriterionOperationBuilder target(Object target) {
+        public CompareCriterionOperationBuilder target(final Object target) {
+
             this.target = target;
             return this;
         }
 
         @Override
-        public CompareCriterionOperationBuilder operation(CompareOperation operation) {
+        public CompareCriterionOperationBuilder operation(final CompareOperation operation) {
+
             this.operation = operation;
             return this;
         }
 
         @Override
-        public CompareCriterionOperationBuilder value(Object value) {
+        public CompareCriterionOperationBuilder value(final Object value) {
+
             this.value = value;
             return this;
         }
 
         @Override
-        public CompareCriterionOperationBuilder min(Object min) {
+        public CompareCriterionOperationBuilder min(final Object min) {
+
             this.min = min;
             return this;
         }
 
         @Override
-        public CompareCriterionOperationBuilder max(Object max) {
+        public CompareCriterionOperationBuilder max(final Object max) {
+
             this.max = max;
             return this;
         }

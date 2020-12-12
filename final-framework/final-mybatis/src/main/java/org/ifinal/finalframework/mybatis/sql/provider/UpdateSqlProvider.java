@@ -41,14 +41,15 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @return sql
      * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
      */
-    public String update(ProviderContext context, Map<String, Object> parameters) {
+    public String update(final ProviderContext context, final Map<String, Object> parameters) {
+
         return provide(context, parameters);
     }
 
 
     @Override
     @SuppressWarnings("unchecked")
-    public void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
 
         final Object query = parameters.get(QUERY_PARAMETER_NAME);
 
@@ -89,7 +90,8 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param sql    sql
      * @param entity entity
      */
-    private void appendEntitySet(@NonNull StringBuilder sql, @NonNull QEntity<?, ?> entity) {
+    private void appendEntitySet(final @NonNull StringBuilder sql, final @NonNull QEntity<?, ?> entity) {
+
         entity.stream()
                 .filter(property -> property.isWriteable() && property.isModifiable())
                 .forEach(property -> {
@@ -145,7 +147,8 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                 });
     }
 
-    private void appendVersionProperty(StringBuilder sql, QEntity<?, ?> entity) {
+    private void appendVersionProperty(final StringBuilder sql, final QEntity<?, ?> entity) {
+
         sql.append("<if test=\"properties.hasVersionProperty()\">");
         String version = entity.getVersionProperty().getColumn();
         sql.append(version)

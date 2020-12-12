@@ -25,7 +25,8 @@ public interface Json {
      * @return the json string
      * @throws JsonException json exception
      */
-    static String toJson(@Nullable Object object) {
+    static String toJson(final @Nullable Object object) {
+
         return toJson(object, null);
     }
 
@@ -37,7 +38,8 @@ public interface Json {
      * @return json string
      * @throws JsonException json exception
      */
-    static String toJson(@Nullable Object object, @Nullable Class<?> view) {
+    static String toJson(final @Nullable Object object, final @Nullable Class<?> view) {
+
         try {
             if (object instanceof String) {
                 return (String) object;
@@ -58,7 +60,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static Object toObject(@Nullable String json) {
+    static Object toObject(final @Nullable String json) {
+
         return toObject(json, Object.class);
     }
 
@@ -70,7 +73,8 @@ public interface Json {
      * @param <T>      json type
      * @return json value
      */
-    static <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT) {
+    static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT) {
+
         return toObject(json, classOfT, null);
     }
 
@@ -84,7 +88,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static <T> T toObject(@Nullable String json, @NonNull Class<T> classOfT, @Nullable Class<?> view) {
+    static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT, final @Nullable Class<?> view) {
+
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT, view);
         } catch (JsonException e) {
@@ -104,7 +109,8 @@ public interface Json {
      * @return json list
      * @throws JsonException json exception
      */
-    static <E> List<E> toList(@Nullable String json, @NonNull Class<E> classOfT) {
+    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT) {
+
         return toList(json, classOfT, null);
     }
 
@@ -118,7 +124,8 @@ public interface Json {
      * @return json list
      * @throws JsonException json exception
      */
-    static <E> List<E> toList(@Nullable String json, @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT, final @Nullable Class<?> view) {
+
         try {
             return JsonRegistry.getInstance().getJsonService().toList(json, classOfT, view);
         } catch (JsonException e) {
@@ -138,7 +145,8 @@ public interface Json {
      * @return json set
      * @throws JsonException json exception
      */
-    static <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> classOfT) {
+    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT) {
+
         return toSet(json, classOfT, null);
     }
 
@@ -152,7 +160,8 @@ public interface Json {
      * @return json set
      * @throws JsonException json exception
      */
-    static <E> Set<E> toSet(@Nullable String json, @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+
         try {
             return JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view);
         } catch (JsonException e) {
@@ -171,7 +180,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static <T> T toObject(@NonNull String json, @NonNull TypeReference<T> typeOfT) {
+    static <T> T toObject(final @NonNull String json, final @NonNull TypeReference<T> typeOfT) {
+
         return toObject(json, typeOfT.getType());
     }
 
@@ -184,7 +194,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static <T> T toObject(@NonNull String json, @NonNull Type typeOfT) {
+    static <T> T toObject(final @NonNull String json, final @NonNull Type typeOfT) {
+
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT);
         } catch (JsonException e) {
@@ -204,7 +215,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static <T> T toObject(@NonNull String json, @NonNull TypeReference<T> typeOfT, @Nullable Class<?> view) {
+    static <T> T toObject(final @NonNull String json, final @NonNull TypeReference<T> typeOfT, @Nullable Class<?> view) {
+
         return toObject(json, typeOfT.getType(), view);
     }
 
@@ -218,7 +230,8 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
-    static <T> T toObject(@NonNull String json, @NonNull Type typeOfT, @Nullable Class<?> view) {
+    static <T> T toObject(final @NonNull String json, final @NonNull Type typeOfT, @Nullable Class<?> view) {
+
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT, view);
         } catch (JsonException e) {

@@ -35,7 +35,8 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
     private QProperty<?> idProperty;
     private QProperty<?> versionProperty;
 
-    public AbsQEntity(Class<T> type) {
+    public AbsQEntity(final Class<T> type) {
+
         this(type, NameConverterRegistry.getInstance().getTableNameConverter().convert(
                 type.getAnnotation(Table.class) == null || type.getAnnotation(Table.class).value().isEmpty()
                         ? type.getSimpleName()
@@ -43,7 +44,8 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
         ));
     }
 
-    public AbsQEntity(Class<T> type, String table) {
+    public AbsQEntity(final Class<T> type, final String table) {
+
         this.type = type;
         this.table = table;
         this.initProperties();
@@ -105,7 +107,8 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
         this.properties.sort(Comparator.comparing(QProperty::getOrder));
     }
 
-    private void addProperty(QProperty<?> property) {
+    private void addProperty(final QProperty<?> property) {
+
         this.properties.add(property);
         this.pathProperties.put(property.getPath(), property);
         if (property.isIdProperty()) {
@@ -139,7 +142,8 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <E> QProperty<E> getProperty(String path) {
+    public <E> QProperty<E> getProperty(final String path) {
+
         return (QProperty<E>) pathProperties.get(path);
     }
 

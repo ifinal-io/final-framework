@@ -29,12 +29,14 @@ public class RetrofitScannerRegistrar implements ImportBeanDefinitionRegistrar, 
     private ResourceLoader resourceLoader;
 
     @Override
-    public void setResourceLoader(@NonNull ResourceLoader resourceLoader) {
+    public void setResourceLoader(final @NonNull ResourceLoader resourceLoader) {
+
         this.resourceLoader = resourceLoader;
     }
 
     @Override
-    public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata, @NonNull BeanDefinitionRegistry registry) {
+    public void registerBeanDefinitions(final @NonNull AnnotationMetadata importingClassMetadata, final @NonNull BeanDefinitionRegistry registry) {
+
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(RetrofitScan.class.getName()));
 
         Objects.requireNonNull(annotationAttributes);

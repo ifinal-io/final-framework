@@ -16,19 +16,23 @@ public class BadRequestException extends ServiceException {
 
     public static final BadRequestException DEFAULT = new BadRequestException(ResponseStatus.BAD_REQUEST.getDesc());
 
-    public BadRequestException(String message, Object... args) {
+    public BadRequestException(final String message, final Object... args) {
+
         this(ResponseStatus.BAD_REQUEST.getCode(), message, args);
     }
 
-    public BadRequestException(IException e, Object... args) {
+    public BadRequestException(final IException e, final Object... args) {
+
         this(e.getCode(), e.getMessage(), args);
     }
 
-    public BadRequestException(Integer code, String message, Object... args) {
+    public BadRequestException(final Integer code, final String message, final Object... args) {
+
         this(code.toString(), message, args);
     }
 
-    public BadRequestException(String code, String message, Object... args) {
+    public BadRequestException(final String code, final String message, final Object... args) {
+
         super(ResponseStatus.BAD_REQUEST.getCode(), ResponseStatus.BAD_REQUEST.getDesc(), code, message, args);
     }
 

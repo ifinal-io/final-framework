@@ -15,32 +15,39 @@ import java.util.stream.Collectors;
  */
 final class SortImpl extends ArrayList<Order> implements Sort {
 
-    private SortImpl(Collection<Order> orders) {
+    private SortImpl(final Collection<Order> orders) {
+
         this.addAll(orders);
     }
 
-    public static Sort by(Order... orders) {
+    public static Sort by(final Order... orders) {
+
         return by(Arrays.asList(orders));
     }
 
-    public static Sort by(Collection<Order> orders) {
+    public static Sort by(final Collection<Order> orders) {
+
         return new SortImpl(orders);
     }
 
-    public static Sort asc(QProperty<?>... property) {
+    public static Sort asc(final QProperty<?>... property) {
+
         return sort(Direction.ASC, property);
     }
 
-    public static Sort desc(QProperty<?>... property) {
+    public static Sort desc(final QProperty<?>... property) {
+
         return sort(Direction.DESC, property);
     }
 
-    static Sort sort(Direction direction, QProperty<?>... properties) {
+    static Sort sort(final Direction direction, final QProperty<?>... properties) {
+
         Asserts.isEmpty(properties, "properties must be not empty!");
         return new SortImpl(Arrays.stream(properties).map(it -> Order.order(it, direction)).collect(Collectors.toList()));
     }
 
-    public Sort and(Sort sort) {
+    public Sort and(final Sort sort) {
+
         Asserts.isNull(sort, "Sort must not be null!");
         ArrayList<Order> these = new ArrayList<>(this);
 

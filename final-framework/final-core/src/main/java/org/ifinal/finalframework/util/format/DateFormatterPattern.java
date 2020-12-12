@@ -22,7 +22,8 @@ public enum DateFormatterPattern {
     @Getter
     private final String pattern;
 
-    DateFormatterPattern(String regex, String pattern) {
+    DateFormatterPattern(final String regex, final String pattern) {
+
         this.regex = regex;
         this.pattern = pattern;
     }

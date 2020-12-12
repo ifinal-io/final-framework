@@ -16,7 +16,8 @@ public class ApplicationPreparedEventListener implements ApplicationListener<App
 
 
     @Override
-    public void onApplicationEvent(ApplicationPreparedEvent event) {
+    public void onApplicationEvent(final ApplicationPreparedEvent event) {
+
         logger.info(event.getClass().getCanonicalName());
     }
 }

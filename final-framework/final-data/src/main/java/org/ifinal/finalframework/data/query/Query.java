@@ -50,50 +50,60 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
     @Getter
     private Limit limit;
 
-    public Query page(Integer page, Integer size) {
+    public Query page(final Integer page, final Integer size) {
+
         this.page = page;
         this.size = size;
         return this;
     }
 
-    public Query page(Integer page) {
+    public Query page(final Integer page) {
+
         this.page = page;
         return this;
     }
 
-    public Query size(Integer size) {
+    public Query size(final Integer size) {
+
         this.size = size;
         return this;
     }
 
-    public Query count(Boolean count) {
+    public Query count(final Boolean count) {
+
         this.count = count;
         return this;
     }
 
-    public Query where(@NonNull Criterion... criteria) {
+    public Query where(final @NonNull Criterion... criteria) {
+
         return where(Arrays.asList(criteria));
     }
 
-    public Query where(@NonNull Collection<Criterion> criteria) {
+    public Query where(final @NonNull Collection<Criterion> criteria) {
+
         this.criteria.addAll(criteria);
         return this;
     }
 
-    public Query group(QProperty<?>... properties) {
+    public Query group(final QProperty<?>... properties) {
+
         return group(Arrays.asList(properties));
     }
 
-    public Query group(Collection<QProperty<?>> properties) {
+    public Query group(final Collection<QProperty<?>> properties) {
+
         this.group = Asserts.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
         return this;
     }
 
-    public Query sort(@NonNull Order... orders) {
+    public Query sort(final @NonNull Order... orders) {
+
         return sort(Arrays.asList(orders));
     }
 
-    public Query sort(Sort sort) {
+    public Query sort(final Sort sort) {
+
         if (this.sort == null) {
             this.sort = sort;
         } else {
@@ -102,29 +112,35 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
         return this;
     }
 
-    public Query sort(@NonNull Collection<Order> orders) {
+    public Query sort(final @NonNull Collection<Order> orders) {
+
         sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
         return this;
     }
 
-    public Query sort(@NonNull Direction direction, @NonNull QProperty... properties) {
+    public Query sort(final @NonNull Direction direction, final @NonNull QProperty... properties) {
+
         return sort(Sort.sort(direction, properties));
     }
 
-    public Query asc(@NonNull QProperty... properties) {
+    public Query asc(final @NonNull QProperty... properties) {
+
         return sort(Direction.ASC, properties);
     }
 
-    public Query desc(@NonNull QProperty... properties) {
+    public Query desc(final @NonNull QProperty... properties) {
+
         return sort(Direction.DESC, properties);
     }
 
-    public Query limit(long offset, long limit) {
+    public Query limit(final long offset, final long limit) {
+
         this.limit = new LimitImpl(offset, limit);
         return this;
     }
 
-    public Query limit(long limit) {
+    public Query limit(final long limit) {
+
         this.limit = new LimitImpl(null, limit);
         return this;
     }
@@ -136,7 +152,7 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
 
 
     @Override
-    public void apply(@NonNull StringBuilder parent, @NonNull String value) {
+    public void apply(final @NonNull StringBuilder parent, final @NonNull String value) {
 
         parent.append("<where>");
 

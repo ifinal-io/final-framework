@@ -19,7 +19,8 @@ public interface JCUtils {
      * @param element 指定的 {@link TypeElement}
      * @return {@code true} if the test {@link TypeElement}'s kind is {@link ElementKind#ENUM}
      */
-    static boolean isEnum(TypeElement element) {
+    static boolean isEnum(final TypeElement element) {
+
         return element.getKind() == ElementKind.ENUM;
     }
 

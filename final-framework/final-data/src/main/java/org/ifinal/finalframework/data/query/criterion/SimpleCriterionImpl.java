@@ -13,7 +13,8 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
     private final Object target;
     private final Operation operation;
 
-    protected SimpleCriterionImpl(AbsBuilder<?, ?> builder) {
+    protected SimpleCriterionImpl(final AbsBuilder<?, ?> builder) {
+
         this.target = builder.target;
         this.operation = builder.operation;
     }
@@ -43,7 +44,8 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
 
         @Override
         @NonNull
-        public R target(@NonNull Object target) {
+        public R target(final @NonNull Object target) {
+
             this.target = target;
             return (R) this;
         }
@@ -51,7 +53,8 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
 
         @Override
         @NonNull
-        public R operation(@NonNull Operation operation) {
+        public R operation(final @NonNull Operation operation) {
+
             this.operation = operation;
             return (R) this;
         }

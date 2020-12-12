@@ -30,7 +30,8 @@ public class RequestHandler implements Comparable<RequestHandler>, Serializable 
     private List<ResultMapping> resultMappings;
 
     @Override
-    public int compareTo(RequestHandler o) {
+    public int compareTo(final RequestHandler o) {
+
         return pattern.compareTo(o.pattern);
     }
 }

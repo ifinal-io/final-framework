@@ -43,17 +43,20 @@ public class DateFormatter implements Formatter<Date> {
     private final String regex;
     private final String pattern;
 
-    public DateFormatter(String regex, String pattern) {
+    public DateFormatter(final String regex, final String pattern) {
+
         this.regex = regex;
         this.pattern = pattern;
     }
 
-    public DateFormatter(DateFormatterPattern pattern) {
+    public DateFormatter(final DateFormatterPattern pattern) {
+
         this(pattern.getRegex(), pattern.getPattern());
     }
 
     @Override
-    public Date parse(String source) {
+    public Date parse(final String source) {
+
         try {
             return Asserts.isEmpty(source) ? null : new SimpleDateFormat(pattern).parse(source);
         } catch (ParseException e) {
@@ -62,12 +65,14 @@ public class DateFormatter implements Formatter<Date> {
     }
 
     @Override
-    public String format(Date target) {
+    public String format(final Date target) {
+
         return new SimpleDateFormat(pattern).format(target);
     }
 
     @Override
-    public boolean matches(String source) {
+    public boolean matches(final String source) {
+
         return source.matches(regex);
     }
 }

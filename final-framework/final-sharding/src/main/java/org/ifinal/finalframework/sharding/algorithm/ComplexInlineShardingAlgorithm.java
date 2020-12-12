@@ -4,10 +4,13 @@ package org.ifinal.finalframework.sharding.algorithm;
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.util.Expando;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineExpressionParser;
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingValue;
 import org.apache.shardingsphere.sharding.spi.ShardingAlgorithm;
+import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
 import org.ifinal.finalframework.util.collection.Maps;
 
@@ -26,15 +29,23 @@ import java.util.stream.Collectors;
 public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgorithm<Comparable<?>> {
 
     private static final String ALGORITHM_EXPRESSION_KEY = "algorithm-expression";
+
     private static final String SHARING_COLUMNS_KEY = "sharding-columns";
+
     private static final String ALLOW_RANGE_QUERY_KEY = "allow-range-query-with-inline-sharding";
-    private final Properties props = new Properties();
+
+    @Setter
+    @Getter
+    private Properties props;
+
     private boolean allowRangeQuery;
+
     private String[] shardingColumns;
+
     private String algorithmExpression;
 
     @Override
-    public Collection<String> doSharding(Collection<String> availableTargetNames, ComplexKeysShardingValue<Comparable<?>> shardingValue) {
+    public Collection<String> doSharding(final Collection<String> availableTargetNames, final ComplexKeysShardingValue<Comparable<?>> shardingValue) {
 
         if (Objects.nonNull(shardingValue.getColumnNameAndRangeValuesMap()) && !shardingValue.getColumnNameAndRangeValuesMap().isEmpty()) {
             if (isAllowRangeQuery()) {
@@ -60,7 +71,8 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
 
     }
 
-    private String doSharding(Map<String, Comparable<?>> shardingValues) {
+    private String doSharding(final Map<String, Comparable<?>> shardingValues) {
+
         Closure<?> closure = createClosure();
         for (Map.Entry<String, Comparable<?>> entry : shardingValues.entrySet()) {
             closure.setProperty(entry.getKey(), entry.getValue());
@@ -77,7 +89,8 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
         allowRangeQuery = Boolean.parseBoolean(props.getOrDefault(ALLOW_RANGE_QUERY_KEY, Boolean.FALSE.toString()).toString());
     }
 
-    private void initShardingColumns(String shardingColumns) {
+    private void initShardingColumns(final String shardingColumns) {
+
         if (shardingColumns.length() == 0) {
             this.shardingColumns = new String[0];
             return;
@@ -97,17 +110,8 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
 
     @Override
     public String getType() {
-        return "COMPLEX_INLINE";
+
+        return ShardingStrategy.Algorithm.COMPLEX_INLINE;
     }
 
-    @Override
-    public Properties getProps() {
-        return props;
-    }
-
-    @Override
-    public void setProps(Properties props) {
-        this.props.clear();
-        this.props.putAll(props);
-    }
 }

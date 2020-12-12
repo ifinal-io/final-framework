@@ -25,7 +25,7 @@ public class RedisHashApiController {
 
 
     @GetMapping
-    public Object hget(String key, String field) {
+    public Object hget(final String key, final String field) {
 
         if (Asserts.isBlank(field)) {
             return stringRedisTemplate.opsForHash().entries(key);
@@ -35,7 +35,8 @@ public class RedisHashApiController {
     }
 
     @PostMapping
-    public void hset(String key, String field, String value) {
+    public void hset(final String key, final String field, final String value) {
+
         stringRedisTemplate.opsForHash().put(key, field, value);
     }
 

@@ -22,12 +22,13 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
     private final Collection<Class<? extends Annotation>> annotationTypes;
     private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders = new LinkedHashMap<>();
 
-    public MultiAnnotationFinder(Collection<Class<? extends Annotation>> annotationTypes) {
+    public MultiAnnotationFinder(final Collection<Class<? extends Annotation>> annotationTypes) {
+
         this.annotationTypes = annotationTypes;
     }
 
     @Override
-    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(@NonNull AnnotatedElement ae) {
+    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(final @NonNull AnnotatedElement ae) {
 
         Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
 
@@ -43,7 +44,8 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
         return map;
     }
 
-    private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(Class<? extends Annotation> annotationType) {
+    private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(final Class<? extends Annotation> annotationType) {
+
         return finders.computeIfAbsent(annotationType, SingleAnnotationFinder::new);
     }
 }

@@ -38,7 +38,8 @@ public class IEnumConverter<T extends Enum<T>> implements EnumConverter<T> {
     protected static final String ENUM_DESC = "desc";
 
     @Override
-    public Map<String, Object> convert(T source) {
+    public Map<String, Object> convert(final T source) {
+
         final Map<String, Object> result = new HashMap<>();
         result.put(ENUM_NAME, source.name());
         result.put(ENUM_ORDINAL, source.ordinal());

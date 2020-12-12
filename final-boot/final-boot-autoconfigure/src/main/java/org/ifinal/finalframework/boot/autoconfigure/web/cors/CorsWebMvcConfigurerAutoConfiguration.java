@@ -17,12 +17,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
     private final CorsProperties corsProperties;
 
-    public CorsWebMvcConfigurerAutoConfiguration(CorsProperties corsProperties) {
+    public CorsWebMvcConfigurerAutoConfiguration(final CorsProperties corsProperties) {
+
         this.corsProperties = corsProperties;
     }
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(final CorsRegistry registry) {
+
         registry.addMapping(corsProperties.getMapping())
                 .allowCredentials(Boolean.TRUE.equals(corsProperties.getAllowCredentials()))
                 .allowedOrigins(corsProperties.getAllowedOrigins())

@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestMethodParameterFilter implements Filter<MethodParameter> {
 
     @Override
-    public boolean matches(MethodParameter methodParameter) {
+    public boolean matches(final MethodParameter methodParameter) {
+
         if (methodParameter.hasMethodAnnotation(ResponseIgnore.class) || methodParameter.getDeclaringClass().isAnnotationPresent(ResponseIgnore.class)) {
             return false;
         }

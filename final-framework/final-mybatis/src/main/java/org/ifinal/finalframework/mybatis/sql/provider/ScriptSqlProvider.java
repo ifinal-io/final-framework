@@ -17,7 +17,8 @@ import java.util.Map;
 public interface ScriptSqlProvider extends SqlProvider {
 
     @Override
-    default String provide(ProviderContext context, Map<String, Object> parameters) {
+    default String provide(final ProviderContext context, final Map<String, Object> parameters) {
+
         final Logger logger = LoggerFactory.getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
         final StringBuilder sql = new StringBuilder();
         sql.append("<script>");
@@ -28,7 +29,7 @@ public interface ScriptSqlProvider extends SqlProvider {
         return value;
     }
 
-    void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters);
+    void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters);
 
 
 }

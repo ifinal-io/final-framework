@@ -23,11 +23,13 @@ public final class FunctionHandlerRegistry {
         return INSTANCE;
     }
 
-    public void registry(Class<? extends Function.FunctionHandler> key, Function.FunctionHandler handler) {
+    public void registry(final Class<? extends Function.FunctionHandler> key, final Function.FunctionHandler handler) {
+
         this.handlers.put(key, handler);
     }
 
-    public Function.FunctionHandler get(Class<? extends Function.FunctionHandler> key) {
+    public Function.FunctionHandler get(final Class<? extends Function.FunctionHandler> key) {
+
         return this.handlers.get(key);
     }
 

@@ -43,7 +43,8 @@ public class CacheAnnotationAttributeProcessor implements AnnotationAttributesPr
     private static final String ATTRIBUTE_NAME_DELIMITER = "delimiter";
 
 
-    private static Collection<String> parse(String[] keyOrField, String delimiter) {
+    private static Collection<String> parse(final String[] keyOrField, final String delimiter) {
+
         if (Asserts.isEmpty(keyOrField)) {
             return Collections.emptyList();
         }
@@ -55,19 +56,22 @@ public class CacheAnnotationAttributeProcessor implements AnnotationAttributesPr
         return list;
     }
 
-    private static String getDelimiter(String delimiter) {
+    private static String getDelimiter(final String delimiter) {
+
         return Asserts.isBlank(delimiter) ? DELIMITER : delimiter.trim();
     }
 
 
     @Override
-    public void doProcess(@NonNull AnnotatedElement annotatedElement, @NonNull AnnotationAttributes annotationAttributes) {
+    public void doProcess(final @NonNull AnnotatedElement annotatedElement, final @NonNull AnnotationAttributes annotationAttributes) {
+
         processKeyOrField(annotationAttributes, ATTRIBUTE_NAME_KEY);
         processKeyOrField(annotationAttributes, ATTRIBUTE_NAME_FIELD);
     }
 
 
-    private void processKeyOrField(AnnotationAttributes annotationAttributes, String name) {
+    private void processKeyOrField(final AnnotationAttributes annotationAttributes, final String name) {
+
         if (annotationAttributes.containsKey(name)) {
             Collection<String> strings = parse(annotationAttributes.getStringArray(name), getDelimiter(annotationAttributes.getString(ATTRIBUTE_NAME_DELIMITER)));
             annotationAttributes.put(name, strings.toArray(new String[0]));

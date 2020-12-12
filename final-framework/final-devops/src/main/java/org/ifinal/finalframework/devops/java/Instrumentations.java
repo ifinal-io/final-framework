@@ -18,11 +18,12 @@ import java.util.Set;
 public final class Instrumentations {
 
     public static Instrumentation get() {
+
         return ByteBuddyAgent.install();
     }
 
-    public static void retransformClasses(Instrumentation inst, ClassFileTransformer transformer,
-                                          Set<Class<?>> classes) {
+    public static void retransformClasses(final Instrumentation inst, final ClassFileTransformer transformer,
+                                          final Set<Class<?>> classes) {
 
 
         try {
@@ -47,7 +48,8 @@ public final class Instrumentations {
         }
     }
 
-    public static boolean isLambdaClass(Class<?> clazz) {
+    public static boolean isLambdaClass(final Class<?> clazz) {
+
         return clazz.getName().contains("$$Lambda$");
     }
 

@@ -33,7 +33,8 @@ public class ShardingDataSourceSupport {
 
 
     @Autowired(required = false)
-    public void setConfigurers(List<ShardingConfigurer> configurers) {
+    public void setConfigurers(final List<ShardingConfigurer> configurers) {
+
         if (!CollectionUtils.isEmpty(configurers)) {
             this.composite.addShardingConfigurers(configurers);
         }
@@ -94,7 +95,8 @@ public class ShardingDataSourceSupport {
 
     }
 
-    private void log(ShardingConfiguration configuration) {
+    private void log(final ShardingConfiguration configuration) {
+
         if (!logger.isInfoEnabled()) {
             return;
         }
@@ -144,11 +146,13 @@ public class ShardingDataSourceSupport {
         return registry;
     }
 
-    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(ShardingAlgorithmRegistration databaseShardingStrategy) {
+    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(final ShardingAlgorithmRegistration databaseShardingStrategy) {
+
         return new ShardingSphereAlgorithmConfiguration(databaseShardingStrategy.getType(), databaseShardingStrategy.getProperties());
     }
 
-    private ShardingStrategyConfiguration buildShardingStrategy(ShardingStrategyRegistration shardingStrategyRegistration) {
+    private ShardingStrategyConfiguration buildShardingStrategy(final ShardingStrategyRegistration shardingStrategyRegistration) {
+
         String columns = String.join(",", shardingStrategyRegistration.getColumns());
         switch (shardingStrategyRegistration.getStrategy()) {
             case STANDARD:

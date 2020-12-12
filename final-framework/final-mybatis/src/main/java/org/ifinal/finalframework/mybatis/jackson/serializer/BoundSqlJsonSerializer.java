@@ -17,7 +17,8 @@ import java.io.IOException;
 @AutoService(JsonSerializer.class)
 public class BoundSqlJsonSerializer extends JsonSerializer<BoundSql> {
     @Override
-    public void serialize(BoundSql value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(final BoundSql value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+
         gen.writeStartObject();
 
         gen.writeStringField("sql", value.getSql());

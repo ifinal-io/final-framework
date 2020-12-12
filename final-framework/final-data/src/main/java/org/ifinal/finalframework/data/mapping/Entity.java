@@ -28,13 +28,15 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
      * @param <T>         entity type
      * @return entity
      */
-    static <T> Entity<T> from(Class<T> entityClass) {
+    static <T> Entity<T> from(final Class<T> entityClass) {
+
         Asserts.isNull(entityClass, "entityClass must not be null!");
         return EntityCache.getInstance().get(entityClass);
     }
 
     @SuppressWarnings("unchecked")
-    static <T> List<CompareProperty> compare(T before, T after) {
+    static <T> List<CompareProperty> compare(final T before, final T after) {
+
         Entity<T> entity = (Entity<T>) from(before.getClass());
         return entity.stream()
                 .filter(it -> !it.isTransient() && !it.isAnnotationPresent(NonCompare.class))

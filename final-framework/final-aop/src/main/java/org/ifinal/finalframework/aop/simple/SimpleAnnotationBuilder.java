@@ -15,19 +15,22 @@ import java.lang.reflect.Parameter;
 public final class SimpleAnnotationBuilder<A extends Annotation> implements AnnotationBuilder<A, A> {
     @Override
     @NonNull
-    public A build(@NonNull Class<?> type, @NonNull A annotation) {
+    public A build(final @NonNull Class<?> type, final @NonNull A annotation) {
+
         return annotation;
     }
 
     @Override
     @NonNull
-    public A build(@NonNull Method method, @NonNull A annotation) {
+    public A build(final @NonNull Method method, final @NonNull A annotation) {
+
         return annotation;
     }
 
     @Override
     @NonNull
-    public A build(@NonNull Parameter parameter, @NonNull Integer index, @NonNull A annotation) {
+    public A build(final @NonNull Parameter parameter, final @NonNull Integer index, final @NonNull A annotation) {
+
         return annotation;
     }
 }

@@ -25,7 +25,8 @@ import java.util.HashSet;
 public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
-    public void initialize(@NonNull ConfigurableApplicationContext context) {
+    public void initialize(final @NonNull ConfigurableApplicationContext context) {
+
         final HashSet<String> springFactories = new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
 
         for (String annotationName : springFactories) {

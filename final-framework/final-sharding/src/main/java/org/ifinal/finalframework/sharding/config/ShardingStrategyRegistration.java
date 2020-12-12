@@ -18,7 +18,8 @@ public class ShardingStrategyRegistration {
     private final String[] columns;
     private final Properties properties;
 
-    public ShardingStrategyRegistration(ShardingStrategy.Strategy strategy, String type, String name, String[] column, Properties properties) {
+    public ShardingStrategyRegistration(final ShardingStrategy.Strategy strategy, final String type, final String name, final String[] column, final Properties properties) {
+
         this.strategy = strategy;
         this.type = type;
         this.name = name;

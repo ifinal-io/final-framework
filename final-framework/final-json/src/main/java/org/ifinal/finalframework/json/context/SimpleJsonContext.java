@@ -15,7 +15,8 @@ public class SimpleJsonContext implements JsonContext {
         this(false, true, true);
     }
 
-    public SimpleJsonContext(boolean ignore, boolean modifyEnum, boolean modifyDate) {
+    public SimpleJsonContext(final boolean ignore, final boolean modifyEnum, final boolean modifyDate) {
+
         this.ignore = ignore;
         this.modifyEnum = modifyEnum;
         this.modifyDate = modifyDate;
@@ -27,7 +28,8 @@ public class SimpleJsonContext implements JsonContext {
     }
 
     @Override
-    public void setIgnore(boolean ignore) {
+    public void setIgnore(final boolean ignore) {
+
         this.ignore = ignore;
     }
 
@@ -37,7 +39,8 @@ public class SimpleJsonContext implements JsonContext {
     }
 
     @Override
-    public void setModifyEnum(boolean modifyEnum) {
+    public void setModifyEnum(final boolean modifyEnum) {
+
         this.modifyEnum = modifyEnum;
     }
 
@@ -47,7 +50,8 @@ public class SimpleJsonContext implements JsonContext {
     }
 
     @Override
-    public void setModifyDate(boolean modifyDate) {
+    public void setModifyDate(final boolean modifyDate) {
+
         this.modifyDate = modifyDate;
     }
 }

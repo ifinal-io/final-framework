@@ -24,7 +24,8 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public class LoggerFilter implements Filter {
     @Override
-    public Result invoke(Invoker<?> invoker, Invocation invocation) {
+    public Result invoke(final Invoker<?> invoker, final Invocation invocation) {
+
         final Logger logger = LoggerFactory.getLogger(invoker.getInterface());
         try {
             if (logger.isInfoEnabled()) {
