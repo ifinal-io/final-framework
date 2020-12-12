@@ -73,10 +73,6 @@
 
         <!-- Size Violations -->
         <module name="AnonInnerLength"/>
-        <module name="MethodLength"/>
-        <module name="LineLength">
-            <property name="max" value="200"/>
-        </module>
         <module name="OuterTypeNumber"/>
 
         <!-- Whitespace -->
