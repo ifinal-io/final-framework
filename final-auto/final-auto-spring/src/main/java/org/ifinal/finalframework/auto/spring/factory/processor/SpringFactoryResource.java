@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * {@code spring.factories} resource.
@@ -59,7 +59,7 @@ final class SpringFactoryResource implements Serializable {
     void writeFactoryFile(final OutputStream output)
             throws IOException {
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
 
         for (Map.Entry<String, List<String>> stringListEntry : springFactories.entrySet()) {
             String factory = stringListEntry.getKey();

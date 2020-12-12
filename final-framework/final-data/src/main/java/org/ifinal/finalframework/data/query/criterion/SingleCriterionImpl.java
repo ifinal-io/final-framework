@@ -1,15 +1,11 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import org.ifinal.finalframework.data.query.operation.Operation;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.ifinal.finalframework.data.query.operation.Operation.CompareOperation;
-import static org.ifinal.finalframework.data.query.operation.Operation.CompareOperation.IN;
-import static org.ifinal.finalframework.data.query.operation.Operation.CompareOperation.NOT_IN;
 
 /**
  * @author likly
@@ -19,8 +15,8 @@ import static org.ifinal.finalframework.data.query.operation.Operation.CompareOp
 public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements SingleCriterion<T> {
 
     private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
-            IN,
-            NOT_IN
+            Operation.CompareOperation.IN,
+            Operation.CompareOperation.NOT_IN
     ));
 
     private final T value;
@@ -49,8 +45,8 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
     @Override
     public String toString() {
         final Operation operation = getOperation();
-        if (operation instanceof CompareOperation) {
-            CompareOperation compareOperation = (CompareOperation) operation;
+        if (operation instanceof Operation.CompareOperation) {
+            Operation.CompareOperation compareOperation = (Operation.CompareOperation) operation;
             switch (compareOperation) {
                 case EQUAL:
                     return String.format(" %s = %s", getCriterionTarget(), CriterionValue.from(getValue()));
@@ -66,6 +62,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
 
     private static class BuilderImpl<T> extends AbsBuilder<SingleCriterion<T>, SingleCriterion.Builder<T>>
             implements SingleCriterion.Builder<T> {
+
         private T value;
 
         @Override
@@ -79,5 +76,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
         public SingleCriterion<T> build() {
             return new SingleCriterionImpl<>(this);
         }
+
     }
+
 }

@@ -11,9 +11,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 
 /**
  * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link JoinPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
@@ -79,10 +76,13 @@ public @interface CacheDel {
      *
      * @see CacheDel
      */
-    @Target({METHOD})
-    @Retention(RUNTIME)
+    @Target({ElementType.METHOD})
+    @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
+
         CacheDel[] value();
+
     }
+
 }

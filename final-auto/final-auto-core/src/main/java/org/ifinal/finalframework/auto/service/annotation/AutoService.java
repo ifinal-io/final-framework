@@ -9,8 +9,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static org.ifinal.finalframework.auto.service.annotation.AutoService.List;
-
 
 /**
  * 在{@code META-INF}/{@link #path()}目录下生成名为{@link #value()}的文件，用于{@link java.util.ServiceLoader}加载，
@@ -24,7 +22,7 @@ import static org.ifinal.finalframework.auto.service.annotation.AutoService.List
  * @version 1.0.0
  * @since 1.0.0
  */
-@Repeatable(List.class)
+@Repeatable(AutoService.List.class)
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 public @interface AutoService {

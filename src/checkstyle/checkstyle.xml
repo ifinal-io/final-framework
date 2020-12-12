@@ -16,6 +16,11 @@
         <module name="AvoidStarImport"/>
         <!-- 禁止未使用的 import-->
         <module name="UnusedImports"/>
+        <!-- 禁止 static import -->
+        <module name="AvoidStaticImport">
+            <property name="excludes"
+                      value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.jupiter.api.Assertions.*"/>
+        </module>
 
         <!-- Empty Line -->
         <!--        <module name="EmptyLineSeparator">-->

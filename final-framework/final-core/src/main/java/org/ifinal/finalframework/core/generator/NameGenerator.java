@@ -2,7 +2,8 @@ package org.ifinal.finalframework.core.generator;
 
 import org.springframework.lang.NonNull;
 
-import static java.util.Locale.ENGLISH;
+import java.util.Locale;
+
 
 /**
  * @author likly
@@ -10,12 +11,13 @@ import static java.util.Locale.ENGLISH;
  * @since 1.0.0
  */
 public interface NameGenerator {
+
     static String capitalize(final String name) {
 
         if (name == null || name.length() == 0) {
             return name;
         }
-        return name.substring(0, 1).toUpperCase(ENGLISH) + name.substring(1);
+        return name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
     }
 
     static String capitalize(final @NonNull String prefix, final String name) {
@@ -38,11 +40,12 @@ public interface NameGenerator {
             }
         }
 
-        return name.substring(0, pos).toLowerCase(ENGLISH) + name.substring(pos);
+        return name.substring(0, pos).toLowerCase(Locale.ENGLISH) + name.substring(pos);
     }
 
     static String decapitalize(final String name, final String prefix) {
 
         return decapitalize(name.substring(prefix.length()));
     }
+
 }
