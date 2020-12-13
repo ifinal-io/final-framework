@@ -5,7 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
 /**
  * @author likly
  * @version 1.0.0
@@ -15,9 +14,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Limit {
+
     String[] value() default {
-            "<if test=\"${value} != null\">",
-            "   #{${value}}",
-            "</if>"
+        "<if test=\"${value} != null\">",
+        "   #{${value}}",
+        "</if>"
     };
+
 }

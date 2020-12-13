@@ -40,8 +40,10 @@ class InsertSqlProviderTest {
     @Test
     void replace() throws NoSuchMethodException {
 
-        final Method replace = AbsMapper.class.getMethod("replace", new Class[]{String.class, Class.class, Collection.class});
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), replace.getAnnotation(InsertProvider.class), PersonMapper.class,
+        final Method replace = AbsMapper.class
+            .getMethod("replace", new Class[]{String.class, Class.class, Collection.class});
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(),
+            replace.getAnnotation(InsertProvider.class), PersonMapper.class,
             replace);
         final HashMap<String, Object> parameters = new HashMap<>();
 
@@ -63,7 +65,8 @@ class InsertSqlProviderTest {
     @Test
     void save() throws NoSuchMethodException {
         final Method save = AbsMapper.class.getMethod("save", new Class[]{String.class, Class.class, Collection.class});
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), save.getAnnotation(InsertProvider.class), PersonMapper.class,
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(),
+            save.getAnnotation(InsertProvider.class), PersonMapper.class,
             save);
         final HashMap<String, Object> parameters = new HashMap<>();
 

@@ -30,7 +30,8 @@ public class ObjectMapperFactory {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.registerModule(new FinalJacksonModule(objectMapper));
 
-        ServiceLoader<BeanSerializerModifier> beanSerializerModifiers = ServiceLoader.load(BeanSerializerModifier.class, getClass().getClassLoader());
+        ServiceLoader<BeanSerializerModifier> beanSerializerModifiers = ServiceLoader
+            .load(BeanSerializerModifier.class, getClass().getClassLoader());
 
         if (Asserts.nonEmpty(beanSerializerModifiers)) {
             beanSerializerModifiers.forEach(beanSerializerModifier -> objectMapper.setSerializerFactory(

@@ -13,4 +13,5 @@ public interface ColumnHandler {
     String handleWriter(@NonNull Column column, @NonNull Metadata metadata);
 
     String handleReader(@NonNull Column column, @NonNull Metadata metadata);
+
 }

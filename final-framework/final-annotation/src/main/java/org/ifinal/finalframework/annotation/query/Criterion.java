@@ -7,8 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The meta annotation to mark the {@link java.lang.annotation.Annotation} is a criterion annotation.
- * The {@link java.lang.annotation.Annotation} of criterion must have
+ * The meta annotation to mark the {@link java.lang.annotation.Annotation} is a criterion annotation. The {@link
+ * java.lang.annotation.Annotation} of criterion must have
  *
  * <ul>
  *     <li>a {@link String} attribute named `property`</li>

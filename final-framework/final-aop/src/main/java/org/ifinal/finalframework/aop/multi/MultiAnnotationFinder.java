@@ -15,13 +15,15 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>>, Serializable {
+public class MultiAnnotationFinder implements
+    AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>>, Serializable {
 
     private static final long serialVersionUID = -8088506337000616189L;
 
     private final Collection<Class<? extends Annotation>> annotationTypes;
 
-    private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders = new LinkedHashMap<>();
+    private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders
+        = new LinkedHashMap<>();
 
     public MultiAnnotationFinder(final Collection<Class<? extends Annotation>> annotationTypes) {
 
@@ -29,7 +31,8 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
     }
 
     @Override
-    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(final @NonNull AnnotatedElement ae) {
+    public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(
+        final @NonNull AnnotatedElement ae) {
 
         Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
 
@@ -45,7 +48,8 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
         return map;
     }
 
-    private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(final Class<? extends Annotation> annotationType) {
+    private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(
+        final Class<? extends Annotation> annotationType) {
 
         return finders.computeIfAbsent(annotationType, SingleAnnotationFinder::new);
     }

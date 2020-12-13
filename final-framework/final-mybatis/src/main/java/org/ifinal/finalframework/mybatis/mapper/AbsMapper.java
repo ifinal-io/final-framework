@@ -61,7 +61,8 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
-    int replace(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @NonNull @Param("list") Collection<T> entities);
+    int replace(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view,
+        @NonNull @Param("list") Collection<T> entities);
 
     /**
      * @param table    表名
@@ -72,7 +73,8 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
-    int save(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @NonNull @Param("list") Collection<T> entities);
+    int save(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view,
+        @NonNull @Param("list") Collection<T> entities);
 
     @Override
     @UpdateProvider(UpdateSqlProvider.class)
@@ -82,7 +84,8 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
 
     @Override
     @DeleteProvider(DeleteSqlProvider.class)
-    int delete(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<I> ids, @Nullable @Param("query") IQuery query);
+    int delete(@Nullable @Param("table") String table, @Nullable @Param("ids") Collection<I> ids,
+        @Nullable @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
@@ -91,7 +94,8 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
-    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") I id, @Param("query") IQuery query);
+    T selectOne(@Param("table") String table, @Param("view") Class<?> view, @Param("id") I id,
+        @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectIdsSqlProvider.class)

@@ -76,7 +76,8 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                         if (annotationType.isAnnotationPresent(ShardingStrategy.class)) {
                             ShardingStrategy shardingStrategy = annotationType.getAnnotation(ShardingStrategy.class);
 
-                            AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(clazz, annotation);
+                            AnnotationAttributes annotationAttributes = AnnotationUtils
+                                .getAnnotationAttributes(clazz, annotation);
 
                             ShardingStrategy.Scope scope = annotationAttributes.getEnum("scope");
                             final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.type());
@@ -99,7 +100,9 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                                 processClassBasedSharingStrategyProperties(properties);
                             }
 
-                            ShardingStrategyRegistration shardingStrategyRegistration = buildShardingStrategyConfiguration(shardingStrategy, name,
+                            ShardingStrategyRegistration shardingStrategyRegistration
+                                = buildShardingStrategyConfiguration(
+                                shardingStrategy, name,
                                 annotationAttributes, properties);
                             switch (scope) {
                                 case TABLE:
@@ -128,11 +131,13 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     private void processClassBasedSharingStrategyProperties(final Properties properties) {
 
         if (properties.get(Property.CLASS_BASED_STRATEGY) instanceof ShardingStrategy.Strategy) {
-            properties.put(Property.CLASS_BASED_STRATEGY, ((ShardingStrategy.Strategy) properties.get(Property.CLASS_BASED_STRATEGY)).name());
+            properties.put(Property.CLASS_BASED_STRATEGY,
+                ((ShardingStrategy.Strategy) properties.get(Property.CLASS_BASED_STRATEGY)).name());
         }
 
         if (properties.get(Property.CLASS_BASED_ALGORITHM_CLASS_NAME) instanceof Class) {
-            properties.put(Property.CLASS_BASED_ALGORITHM_CLASS_NAME, ((Class<?>) properties.get(Property.CLASS_BASED_ALGORITHM_CLASS_NAME)).getName());
+            properties.put(Property.CLASS_BASED_ALGORITHM_CLASS_NAME,
+                ((Class<?>) properties.get(Property.CLASS_BASED_ALGORITHM_CLASS_NAME)).getName());
 
         }
     }
@@ -157,7 +162,8 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
             name, annotationAttributes.getStringArray("columns"), properties);
     }
 
-    private String buildShardingStrategyName(final String table, final ShardingStrategy.Scope scope, final String type) {
+    private String buildShardingStrategyName(final String table, final ShardingStrategy.Scope scope,
+        final String type) {
 
         return String.join("-", table, scope.name(), type);
     }

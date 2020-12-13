@@ -13,7 +13,8 @@ public final class FunctionHandlerRegistry {
 
     private static final FunctionHandlerRegistry INSTANCE = new FunctionHandlerRegistry();
 
-    private final Map<Class<? extends Function.FunctionHandler>, Function.FunctionHandler> handlers = new ConcurrentHashMap<>(8);
+    private final Map<Class<? extends Function.FunctionHandler>, Function.FunctionHandler> handlers
+        = new ConcurrentHashMap<>(8);
 
     private FunctionHandlerRegistry() {
         registry(Function.FunctionHandler.class, new VelocityFunctionHandler());
@@ -24,7 +25,6 @@ public final class FunctionHandlerRegistry {
     }
 
     public void registry(final Class<? extends Function.FunctionHandler> key, final Function.FunctionHandler handler) {
-
         this.handlers.put(key, handler);
     }
 

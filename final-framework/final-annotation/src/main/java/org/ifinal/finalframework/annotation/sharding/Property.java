@@ -15,20 +15,27 @@ import java.lang.annotation.Target;
 public @interface Property {
 
     String INLINE_ALGORITHM_EXPRESSION = "algorithm-expression";
+
     String INLINE_SHARING_COLUMNS = "sharding-columns";
+
     String INLINE_ALLOW_RANGE_QUERY = "allow-range-query-with-inline-sharding";
 
     String INTERVAL_DATETIME_PATTERN = "datetime-pattern";
+
     String INTERVAL_DATETIME_LOWER = "datetime-lower";
+
     String INTERVAL_DATETIME_UPPER = "datetime-upper";
+
     String INTERVAL_SHARDING_SUFFIX_PATTERN = "sharding-suffix-pattern";
+
     String INTERVAL_DATETIME_INTERVAL_AMOUNT = "datetime-interval-amount";
+
     String INTERVAL_DATETIME_INTERVAL_UNIT = "datetime-interval-unit";
 
-
     String CLASS_BASED_STRATEGY = "strategy";
+
     String CLASS_BASED_ALGORITHM_CLASS_NAME = "algorithmClassName";
 
-
     String value() default "";
+
 }

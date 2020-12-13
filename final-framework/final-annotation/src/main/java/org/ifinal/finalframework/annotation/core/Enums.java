@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.annotation.core;
 
+import java.lang.reflect.Method;
+import java.util.Locale;
+import java.util.Objects;
 import org.ifinal.finalframework.annotation.data.EnumValue;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
-
-import java.lang.reflect.Method;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * @author likly
@@ -25,13 +24,16 @@ public final class Enums {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <E extends Enum<E>> E findEnum(final @NonNull Class<? extends Enum> clazz, final @NonNull String creator,
-                                                 final @Nullable Class<?> valueType, final @NonNull Object value) {
+    public static <E extends Enum<E>> E findEnum(final @NonNull Class<? extends Enum> clazz,
+        final @NonNull String creator,
+        final @Nullable Class<?> valueType, final @NonNull Object value) {
 
-        Method valueOf = Objects.isNull(valueType) ? ReflectionUtils.findMethod(clazz, creator) : ReflectionUtils.findMethod(clazz, creator, valueType);
+        Method valueOf = Objects.isNull(valueType) ? ReflectionUtils.findMethod(clazz, creator)
+            : ReflectionUtils.findMethod(clazz, creator, valueType);
 
         if (valueOf == null) {
-            throw new IllegalArgumentException("can not find method named " + creator + " as enum class " + clazz.getCanonicalName());
+            throw new IllegalArgumentException(
+                "can not find method named " + creator + " as enum class " + clazz.getCanonicalName());
         }
 
         return (E) ReflectionUtils.invokeMethod(valueOf, clazz, value);

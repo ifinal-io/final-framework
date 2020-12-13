@@ -19,7 +19,8 @@ public class EnumCodeSerializer extends JsonSerializer<IEnum> {
     public static final EnumCodeSerializer instance = new EnumCodeSerializer();
 
     @Override
-    public void serialize(final IEnum value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final IEnum value, final JsonGenerator gen, final SerializerProvider serializers)
+        throws IOException {
 
         gen.writeObject(value.getCode());
     }

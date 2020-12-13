@@ -63,13 +63,15 @@ public class BaseEntity implements MutableEntity {
 
         if (property.isIdProperty()) {
             if (idProperty != null) {
-                throw new IllegalArgumentException("the entity must only have only one id property!,entity=" + getType());
+                throw new IllegalArgumentException(
+                    "the entity must only have only one id property!,entity=" + getType());
             }
             this.idProperty = property;
         }
 
         if (propertyCache.containsKey(property.getName())) {
-            throw new IllegalArgumentException(String.format("the entity have not only one property named %s", property.getName()));
+            throw new IllegalArgumentException(
+                String.format("the entity have not only one property named %s", property.getName()));
         } else {
             propertyCache.put(property.getName(), property);
             properties.add(property);

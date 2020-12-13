@@ -1,17 +1,17 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.ifinal.finalframework.annotation.core.IUser;
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.CreatedBy;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.ifinal.finalframework.annotation.core.IUser;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.annotation.CreatedBy;
 
 /**
- * Annotate the {@linkplain java.lang.reflect.Field property} represent the {@linkplain IUser creator} which is {@linkplain Final}.
+ * Annotate the {@linkplain java.lang.reflect.Field property} represent the {@linkplain IUser creator} which is
+ * {@linkplain Final}.
  *
  * @author likly
  * @version 1.0.0
@@ -36,4 +36,5 @@ public @interface Creator {
 
     @AliasFor(annotation = Column.class)
     String name() default "";
+
 }

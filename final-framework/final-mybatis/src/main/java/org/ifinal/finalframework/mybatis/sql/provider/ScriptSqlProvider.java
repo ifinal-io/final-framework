@@ -17,7 +17,8 @@ public interface ScriptSqlProvider extends SqlProvider {
     @Override
     default String provide(ProviderContext context, Map<String, Object> parameters) {
 
-        final Logger logger = LoggerFactory.getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
+        final Logger logger = LoggerFactory
+            .getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
         StringBuilder sql = new StringBuilder();
         sql.append("<script>");
         doProvide(sql, context, parameters);

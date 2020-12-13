@@ -24,7 +24,8 @@ public interface AuthService<T extends IUser<?>, A extends Annotation> {
      * @param response the {@link HttpServletResponse}
      * @param handler  the handler
      */
-    default void auth(@Nullable T user, @NonNull A auth, @Nullable HttpServletRequest request, @Nullable HttpServletResponse response,
+    default void auth(@Nullable T user, @NonNull A auth, @Nullable HttpServletRequest request,
+        @Nullable HttpServletResponse response,
         @NonNull Object handler) {
         auth(user, auth, handler);
     }

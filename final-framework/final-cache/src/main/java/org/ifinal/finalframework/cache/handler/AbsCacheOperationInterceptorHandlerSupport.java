@@ -21,7 +21,8 @@ import org.springframework.expression.EvaluationContext;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements CacheOperationHandlerSupport {
+public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements
+    CacheOperationHandlerSupport {
 
     private final CacheExpressionEvaluator evaluator;
 
@@ -75,7 +76,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateKey(final String[] keys, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateKey(final String[] keys, final String delimiter, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         final List<String> keyValues = Arrays.stream(keys)
             .map(key -> {
@@ -92,7 +94,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateField(final String[] fields, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateField(final String[] fields, final String delimiter, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (Asserts.isEmpty(fields)) {
             return null;
@@ -112,7 +115,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateValue(final String value, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateValue(final String value, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext);
@@ -121,7 +125,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public <T> T generateValue(final String value, final MethodMetadata metadata, final EvaluationContext evaluationContext, final Class<T> clazz) {
+    public <T> T generateValue(final String value, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext, final Class<T> clazz) {
 
         if (value != null && isExpression(value)) {
             return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
@@ -130,11 +135,13 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public boolean isConditionPassing(final String condition, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public boolean isConditionPassing(final String condition, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (this.conditionPassing == null) {
             if (condition != null && isExpression(condition)) {
-                this.conditionPassing = evaluator.condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
+                this.conditionPassing = evaluator
+                    .condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
             } else {
                 this.conditionPassing = true;
             }
@@ -143,7 +150,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     @Override
-    public Object generateExpire(final String expire, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateExpire(final String expire, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (expire != null && isExpression(expire)) {
             return evaluator.expired(generateExpression(expire), metadata.getMethodKey(), evaluationContext);

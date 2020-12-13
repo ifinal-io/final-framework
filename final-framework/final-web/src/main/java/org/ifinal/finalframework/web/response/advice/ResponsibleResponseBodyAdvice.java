@@ -40,7 +40,8 @@ public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object
 
     @Override
     @Nullable
-    public Object beforeBodyWrite(final @Nullable Object body, final MethodParameter returnType, final MediaType selectedContentType,
+    public Object beforeBodyWrite(final @Nullable Object body, final MethodParameter returnType,
+        final MediaType selectedContentType,
         final Class<? extends HttpMessageConverter<?>> selectedConverterType,
         final ServerHttpRequest request, final ServerHttpResponse response) {
 

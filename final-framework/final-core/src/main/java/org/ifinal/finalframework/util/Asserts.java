@@ -172,12 +172,14 @@ public final class Asserts {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isBetween(final @NonNull T obj, final @NonNull T min, final @NonNull T max) {
+    public static <T extends Comparable> boolean isBetween(final @NonNull T obj, final @NonNull T min,
+        final @NonNull T max) {
         return obj.compareTo(min) > 0 && obj.compareTo(max) < 0;
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean nonBetween(final @NonNull T obj, final @NonNull T min, final @NonNull T max) {
+    public static <T extends Comparable> boolean nonBetween(final @NonNull T obj, final @NonNull T min,
+        final @NonNull T max) {
         return obj.compareTo(min) <= 0 || obj.compareTo(max) > 0;
     }
 

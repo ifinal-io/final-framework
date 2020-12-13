@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>final-frameworks</artifactId>
     <build>
         <pluginManagement>
@@ -43,13 +43,11 @@
                     <!-- Check style file path -->
                     <configLocation>checkstyle.xml</configLocation>
                     <!-- include test source -->
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <consoleOutput>true</consoleOutput>
                     <excludes>**/generated-sources/**/*</excludes>
                     <excludes>**/autogen/**/*</excludes>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>${maven-checkstyle-plugin.version}</version>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
                     <dependency>
@@ -67,6 +65,8 @@
                         <phase>validate</phase>
                     </execution>
                 </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>${maven-checkstyle-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

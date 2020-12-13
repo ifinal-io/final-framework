@@ -16,14 +16,17 @@ import org.springframework.lang.Nullable;
  * @since 1.0.0
  */
 @SuppressWarnings({"unused"})
-public interface AbsService<I extends Serializable, T extends IEntity<I>, R extends Repository<I, T>> extends Repository<I, T> {
+public interface AbsService<I extends Serializable, T extends IEntity<I>, R extends Repository<I, T>>
+    extends Repository<I, T> {
+
     @Override
     default int save(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<T> entities) {
         return getRepository().save(table, view, entities);
     }
 
     @Override
-    default int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities) {
+    default int insert(@Nullable String table, @Nullable Class<?> view,
+        boolean ignore, @NonNull Collection<T> entities) {
         return getRepository().insert(table, view, ignore, entities);
     }
 
@@ -33,7 +36,8 @@ public interface AbsService<I extends Serializable, T extends IEntity<I>, R exte
     }
 
     @Override
-    default int update(String table, Class<?> view, T entity, Update update, boolean selective, Collection<I> ids, IQuery query) {
+    default int update(String table, Class<?> view, T entity, Update update,
+        boolean selective, Collection<I> ids, IQuery query) {
         return getRepository().update(table, view, entity, update, selective, ids, query);
     }
 

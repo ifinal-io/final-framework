@@ -26,7 +26,8 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
 
     private final List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
 
-    public ResultGlobalResultExceptionHandler(final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
+    public ResultGlobalResultExceptionHandler(
+        final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
 
         this.resultExceptionHandlers.addAll(resultExceptionHandlerObjectProvider.getIfAvailable());
     }

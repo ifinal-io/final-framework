@@ -92,7 +92,8 @@ public class DefaultInvocationContext implements InvocationContext {
         Class<?>[] classes = jsonView.value();
         if (classes.length != 1) {
             throw new IllegalArgumentException(
-                "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass().getCanonicalName() + "#" + method
+                "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass()
+                    .getCanonicalName() + "#" + method
                     .getName());
         }
         return classes[0];

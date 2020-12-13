@@ -39,7 +39,8 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final Object result) {
+    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations,
+        final Object result) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -50,7 +51,8 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final @NonNull Throwable throwable) {
+    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations,
+        final @NonNull Throwable throwable) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -61,7 +63,8 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void after(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final Object result, final Throwable throwable) {
+    public void after(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations,
+        final Object result, final Throwable throwable) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {

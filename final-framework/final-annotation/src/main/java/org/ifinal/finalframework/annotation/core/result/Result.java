@@ -1,17 +1,16 @@
 package org.ifinal.finalframework.annotation.core.result;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.time.Duration;
+import java.util.Locale;
+import java.util.TimeZone;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.IData;
 import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.annotation.core.IResult;
 import org.ifinal.finalframework.annotation.core.IUser;
-
-import java.io.Serializable;
-import java.time.Duration;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * 业务数据返回结果封装，统一业务返回的数据结构。
@@ -112,7 +111,8 @@ public final class Result<T> implements IResult<T>, Responsible, Serializable {
     public Result() {
     }
 
-    public Result(final Integer status, final String description, final String code, final String message, final T data) {
+    public Result(final Integer status, final String description, final String code, final String message,
+        final T data) {
 
         this.status = status;
         this.description = description;

@@ -73,7 +73,8 @@ public final class ResultMapFactory {
 
                             return new ResultMapping.Builder(configuration, name, column, type)
                                 .javaType(type)
-                                .flags(referenceProperty.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                                .flags(referenceProperty.isIdProperty() ? Collections.singletonList(ResultFlag.ID)
+                                    : Collections.emptyList())
                                 .typeHandler(typeHandler)
                                 .build();
                         })
@@ -84,7 +85,8 @@ public final class ResultMapFactory {
                     return new ResultMapping.Builder(configuration, name)
                         .column(formatColumn(entity, null, property))
                         .javaType(type)
-                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID)
+                            : Collections.emptyList())
                         .composites(composites)
                         .nestedResultMapId(id + "[" + name + "]")
                         .build();
@@ -96,7 +98,8 @@ public final class ResultMapFactory {
                     final TypeHandler<?> typeHandler = findTypeHandler(configuration, property);
 
                     return new ResultMapping.Builder(configuration, name, column, type)
-                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID)
+                            : Collections.emptyList())
                         .typeHandler(typeHandler)
                         .build();
                 }
@@ -110,7 +113,8 @@ public final class ResultMapFactory {
 
     }
 
-    private static String formatColumn(final Entity<?> entity, final Property property, final Property referenceProperty) {
+    private static String formatColumn(final Entity<?> entity, final Property property,
+        final Property referenceProperty) {
 
         String column;
         if (property == null) {
@@ -118,10 +122,12 @@ public final class ResultMapFactory {
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
-                ? property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+                ? property.getColumn()
+                : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
-        if (Optional.ofNullable(property).orElse(referenceProperty).isAnnotationPresent(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {
+        if (Optional.ofNullable(property).orElse(referenceProperty).isAnnotationPresent(UpperCase.class) || entity
+            .isAnnotationPresent(UpperCase.class)) {
             column = column.toUpperCase();
         }
         return column;

@@ -12,7 +12,8 @@ import org.springframework.context.ApplicationListener;
  */
 @Slf4j
 @SpringApplicationListener
-public class ApplicationContextInitializedEventListener implements ApplicationListener<ApplicationContextInitializedEvent> {
+public class ApplicationContextInitializedEventListener implements
+    ApplicationListener<ApplicationContextInitializedEvent> {
 
     @Override
     public void onApplicationEvent(final ApplicationContextInitializedEvent event) {

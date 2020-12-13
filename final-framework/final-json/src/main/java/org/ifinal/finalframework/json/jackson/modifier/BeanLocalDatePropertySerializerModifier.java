@@ -26,7 +26,8 @@ public class BeanLocalDatePropertySerializerModifier extends AbsSimpleBeanProper
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
+    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
+        final BeanDescription beanDesc,
         final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
         BeanPropertyWriter bpw = new BeanPropertyWriter(property,

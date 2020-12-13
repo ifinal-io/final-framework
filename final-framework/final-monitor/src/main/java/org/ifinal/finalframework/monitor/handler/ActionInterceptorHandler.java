@@ -64,7 +64,8 @@ public class ActionInterceptorHandler extends AbsMonitorOperationInterceptorHand
     }
 
     @Override
-    public void handle(final @NonNull Recorder executor, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+    public void handle(final @NonNull Recorder executor, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation,
         final Object result, final Throwable throwable) {
 
         EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);

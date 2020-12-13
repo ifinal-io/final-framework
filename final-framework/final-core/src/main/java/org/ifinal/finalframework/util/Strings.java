@@ -22,18 +22,22 @@ public final class Strings {
         return join(collection, delimiter, null, null);
     }
 
-    public static String join(final @NonNull Collection<?> collection, final @NonNull String delimiter, final @Nullable String prefix,
+    public static String join(final @NonNull Collection<?> collection, final @NonNull String delimiter,
+        final @Nullable String prefix,
         final @Nullable String suffix) {
         return collection.stream()
             .map(Object::toString)
-            .collect(Collectors.joining(delimiter, Optional.ofNullable(prefix).orElse(BLANK), Optional.ofNullable(suffix).orElse(BLANK)));
+            .collect(Collectors.joining(delimiter, Optional.ofNullable(prefix).orElse(BLANK),
+                Optional.ofNullable(suffix).orElse(BLANK)));
     }
 
-    public static String replaceFirst(final @NonNull String text, final @NonNull String source, final @NonNull String target) {
+    public static String replaceFirst(final @NonNull String text, final @NonNull String source,
+        final @NonNull String target) {
         return text.replaceFirst(source, target);
     }
 
-    public static String replaceLast(final @NonNull String text, final @NonNull String source, final @NonNull String target) {
+    public static String replaceLast(final @NonNull String text, final @NonNull String source,
+        final @NonNull String target) {
         final int index = text.lastIndexOf(source);
         if (index != -1) {
             return text.substring(0, index) + target;
@@ -45,7 +49,8 @@ public final class Strings {
         return split(text, delimiter, null, null);
     }
 
-    public static String[] split(final @NonNull String text, final @NonNull String delimiter, final String open, final String close) {
+    public static String[] split(final @NonNull String text, final @NonNull String delimiter,
+        final String open, final String close) {
         String str = text;
 
         if (open != null) {

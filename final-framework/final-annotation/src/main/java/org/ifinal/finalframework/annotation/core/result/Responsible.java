@@ -3,7 +3,8 @@ package org.ifinal.finalframework.annotation.core.result;
 import org.springframework.lang.NonNull;
 
 /**
- * The interface of the response which should be have the response {@linkplain #getStatus() status} and {@linkplain #getDescription() description}.
+ * The interface of the response which should be have the response {@linkplain #getStatus() status} and {@linkplain
+ * #getDescription() description}.
  *
  * @author likly
  * @version 1.0.0

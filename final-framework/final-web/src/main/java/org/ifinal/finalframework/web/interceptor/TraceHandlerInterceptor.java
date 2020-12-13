@@ -54,7 +54,8 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     private TraceGenerator generator = new UuidTraceGenerator();
 
     @Override
-    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) {
+    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+        final @NonNull Object handler) {
         // 获取 header 中是否有自定义的 trace
         String trace = null;
         if (Asserts.nonEmpty(paramName)) {
@@ -78,7 +79,8 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     }
 
     @Override
-    public void afterConcurrentHandlingStarted(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+    public void afterConcurrentHandlingStarted(final @NonNull HttpServletRequest request,
+        final @NonNull HttpServletResponse response,
         final @NonNull Object handler) {
 
         logger.info("remove trace from MDC context");

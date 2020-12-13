@@ -1,18 +1,18 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * Annotate the {@linkplain Field property} is a {@literal reference} column which mapping multi columns in datasource,
- * and the {@linkplain Class type} of this {@linkplain Field property} must {@literal implements} the {@link IEntity entity} interface.
+ * and the {@linkplain Class type} of this {@linkplain Field property} must {@literal implements} the {@link IEntity
+ * entity} interface.
  *
  * @author likly
  * @version 1.0.0
@@ -37,4 +37,5 @@ public @interface Reference {
     String[] properties();
 
     String delimiter() default ":";
+
 }

@@ -28,7 +28,8 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     }
 
     @Override
-    public void serialize(final LocalDateTime localDateTime, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final LocalDateTime localDateTime, final JsonGenerator gen,
+        final SerializerProvider serializers) throws IOException {
 
         if (localDateTime == null) {
             return;

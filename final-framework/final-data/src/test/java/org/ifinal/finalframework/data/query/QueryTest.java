@@ -70,7 +70,8 @@ class QueryTest {
         final BoundSql boundSql = sqlSource.getBoundSql(parameter);
         logger.info("Sql: ==> {}", boundSql.getSql());
         for (ParameterMapping parameterMapping : boundSql.getParameterMappings()) {
-            logger.info("Parameter ==> {}={}", parameterMapping.getProperty(), OgnlCache.getValue(parameterMapping.getProperty(), parameter));
+            logger.info("Parameter ==> {}={}", parameterMapping.getProperty(),
+                OgnlCache.getValue(parameterMapping.getProperty(), parameter));
         }
 
         Assertions.assertNotNull(boundSql.getSql());

@@ -26,7 +26,8 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements
+    CacheInterceptorHandler {
 
     private static final String KEY = "key";
 
@@ -35,16 +36,19 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
     private static final String LOCK = "lock";
 
     @Override
-    public Object before(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation) {
+    public Object before(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation) {
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
         MethodMetadata metadata = context.metadata();
-        final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), metadata, evaluationContext);
+        final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), metadata,
+            evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + annotation);
         }
-        Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
+        Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key
+            : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
 
         if (Objects.isNull(value)) {
             value = key;
@@ -61,7 +65,8 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         int retry = 0;
         int maxRetry = annotation.getNumber("retry").intValue();
         do {
-            logger.info("==> try to lock: key={},value={},ttl={},timeUnit={},retry={}", key, value, ttl, timeUnit, retry);
+            logger
+                .info("==> try to lock: key={},value={},ttl={},timeUnit={},retry={}", key, value, ttl, timeUnit, retry);
             final boolean lock = cache.lock(key, value, ttl, timeUnit);
             logger.info("<== lock result: {}", lock);
             if (lock) {
@@ -85,7 +90,8 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
     }
 
-    private Long ttl(final AnnotationAttributes annotation, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    private Long ttl(final AnnotationAttributes annotation, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         Object expired = generateExpire(annotation.getString("expire"), metadata, evaluationContext);
 
@@ -105,7 +111,8 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
     }
 
     @Override
-    public void after(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+    public void after(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation,
         final @Nullable Object result, final @Nullable Throwable throwable) {
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());

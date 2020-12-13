@@ -55,7 +55,8 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
                 if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
                     processAutoService(element, annotationMirror);
                 } else {
-                    final List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
+                    final List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType()
+                        .asElement().getAnnotationMirrors();
                     for (AnnotationMirror mirror : mirrors) {
                         if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
                             processAutoService(element, mirror, annotationMirror);
@@ -78,12 +79,15 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
 
         try {
             final Map<String, AnnotationValue> autoServiceValues = AnnotationMirrors.getAnnotationValues(autoService);
-            final Map<String, AnnotationValue> targetServiceValues = targetService == null ? null : AnnotationMirrors.getAnnotationValues(targetService);
+            final Map<String, AnnotationValue> targetServiceValues = targetService == null
+                ? null : AnnotationMirrors.getAnnotationValues(targetService);
 
             final DeclaredType serviceInterface = (DeclaredType) autoServiceValues.get(KEY_VALUE).getValue();
-            final String path = autoServiceValues.containsKey(KEY_PATH) ? (String) autoServiceValues.get(KEY_PATH).getValue() : "services";
+            final String path = autoServiceValues.containsKey(KEY_PATH)
+                ? (String) autoServiceValues.get(KEY_PATH).getValue() : "services";
             // first, the name is AutoService#name()
-            String name = autoServiceValues.containsKey(KEY_NAME) ? (String) autoServiceValues.get(KEY_NAME).getValue() : null;
+            String name = autoServiceValues.containsKey(KEY_NAME)
+                ? (String) autoServiceValues.get(KEY_NAME).getValue() : null;
             if (targetServiceValues != null && targetServiceValues.containsKey(KEY_VALUE)) {
                 // the targetService annotation may do not have the value property.
                 name = (String) targetServiceValues.get(KEY_VALUE).getValue();

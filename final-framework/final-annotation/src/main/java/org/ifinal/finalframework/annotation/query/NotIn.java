@@ -14,13 +14,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotIn {
+
     String property() default "";
 
     String[] value() default {
-            "   <if test=\"${value} != null\">",
-            "       <foreach collection=\"${value}\" item=\"item\" open=\" ${andOr} ${column} NOT IN (\" close=\")\" separator=\",\">#{item}</foreach>",
-            "   </if>"
+        "   <if test=\"${value} != null\">",
+        "       <foreach collection=\"${value}\" item=\"item\" open=\" ${andOr} ${column} NOT IN (\" close=\")\" "
+            + "separator=\",\">",
+        "           #{item}",
+        "       </foreach>",
+        "   </if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

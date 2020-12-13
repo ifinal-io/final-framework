@@ -36,7 +36,8 @@ public class DateFormatter implements Formatter<Date> {
 
     public static final DateFormatter YYYY_MM_DD = new DateFormatter(DateFormatterPattern.YYYY_MM_DD);
 
-    public static final DateFormatter YYYY__MM__DD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
+    public static final DateFormatter YYYY__MM__DD_HH_MM_SS = new DateFormatter(
+        DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
 
     public static final DateFormatter YYYY__MM__DD = new DateFormatter(DateFormatterPattern.YYYY__MM__DD);
 

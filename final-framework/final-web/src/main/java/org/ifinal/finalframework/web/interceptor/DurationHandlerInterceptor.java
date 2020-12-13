@@ -26,7 +26,8 @@ public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(DurationHandlerInterceptor.class);
 
     @Override
-    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) {
+    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+        final @NonNull Object handler) {
 
         String uri = request.getRequestURI();
         long durationStart = System.currentTimeMillis();
@@ -39,7 +40,8 @@ public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
     }
 
     @Override
-    public void postHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler,
+    public void postHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+        final @NonNull Object handler,
         final ModelAndView modelAndView) {
 
         Long durationStart = (Long) request.getAttribute(DURATION_START_ATTRIBUTE);

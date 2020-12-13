@@ -15,7 +15,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  * @since 1.0.0
  */
 @Component
-public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
+public class MissingServletParameterResultExceptionHandler implements
+    ResultExceptionHandler<MissingServletRequestParameterException> {
 
     @Override
     public boolean supports(final Throwable throwable) {

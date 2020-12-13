@@ -24,14 +24,15 @@ public abstract class SimpleAnnotationBeanFactoryPointAdvisor<T> extends AbsGene
 
         SimpleAnnotationSource source = new SimpleAnnotationSource(annotationTypes);
         this.pointcut = new AnnotationSourceMethodPoint(source);
-        this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new SimpleMethodInvocationDispatcher<T>(handlers) {
+        this.setAdvice(
+            new DefaultAnnotationMethodInterceptor<>(source, new SimpleMethodInvocationDispatcher<T>(handlers) {
 
-            @Override
-            protected T getExecutor() {
+                @Override
+                protected T getExecutor() {
 
-                return null;
-            }
-        }));
+                    return null;
+                }
+            }));
     }
 
     @Override

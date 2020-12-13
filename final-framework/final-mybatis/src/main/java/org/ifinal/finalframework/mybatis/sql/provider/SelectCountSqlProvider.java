@@ -27,7 +27,8 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
     }
 
     @Override
-    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context,
+        final Map<String, Object> parameters) {
 
         Object ids = parameters.get("ids");
         Object query = parameters.get(QUERY);
@@ -41,7 +42,8 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, QUERY);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY, (Class<? extends IEntity<?>>) entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE
+                .provide(QUERY, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
     }

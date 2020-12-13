@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.annotation.core.result;
 
+import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.ifinal.finalframework.annotation.core.IPage;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author likly

@@ -21,7 +21,8 @@ public class TruncateSqlProvider implements AbsMapperSqlProvider {
     }
 
     @Override
-    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context,
+        final Map<String, Object> parameters) {
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);

@@ -11,6 +11,8 @@ import org.springframework.lang.Nullable;
  */
 @FunctionalInterface
 public interface QueryProvider {
+
     @NonNull
     String provide(@Nullable String expression, @NonNull Class<? extends IEntity<?>> entity, @NonNull Class<?> query);
+
 }

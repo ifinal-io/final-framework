@@ -29,7 +29,8 @@ public class DateSerializer extends JsonSerializer<Date> {
     }
 
     @Override
-    public void serialize(final Date date, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final Date date, final JsonGenerator gen, final SerializerProvider serializers)
+        throws IOException {
 
         if (date == null) {
             return;

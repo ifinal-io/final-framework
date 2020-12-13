@@ -46,7 +46,8 @@ public class EnumValidator extends SimpleElementVisitor8<Void, Void> implements
         if (!isAssignable(typeElement, enumInterface)) {
             processingEnvironment.getMessager()
                 .printMessage(Kind.ERROR,
-                    "the enum type of " + typeElement.getQualifiedName().toString() + " must be implements the interface of " + enumInterface
+                    "the enum type of " + typeElement.getQualifiedName().toString()
+                        + " must be implements the interface of " + enumInterface
                         .getCanonicalName());
         }
         return null;

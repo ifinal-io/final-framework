@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import java.util.Collection;
 import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.data.Metadata;
 import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.query.Query;
@@ -20,12 +18,12 @@ import org.springframework.lang.NonNull;
 /**
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
  * @since 1.0.0
  */
 public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
 
-    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
+    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end"
+        + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
@@ -43,7 +41,6 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param context    context
      * @param parameters parameters
      * @return sql
-     * @see org.ifinal.finalframework.mybatis.mapper.AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
      */
     public String update(final ProviderContext context, final Map<String, Object> parameters) {
 
@@ -52,7 +49,8 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
     @Override
     @SuppressWarnings("unchecked")
-    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context,
+        final Map<String, Object> parameters) {
 
         final Object query = parameters.get(QUERY_PARAMETER_NAME);
 
@@ -83,7 +81,8 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE
+                .provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
     }
@@ -116,9 +115,11 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                 // <choose>
                 sql.append("<choose>");
 
-                final String testWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), true);
+                final String testWithSelective = ScriptMapperHelper
+                    .formatTest(ENTITY_PARAMETER_NAME, property.getPath(), true);
 
-                final String selectiveTest = testWithSelective == null ? SELECTIVE_PARAMETER_NAME : "selective and " + testWithSelective;
+                final String selectiveTest =
+                    testWithSelective == null ? SELECTIVE_PARAMETER_NAME : "selective and " + testWithSelective;
 
                 // <when test="selective and entity.path != null">
                 sql.append("<when test=\"").append(selectiveTest).append("\">")
@@ -127,8 +128,10 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                     // </when>
                     .append("</when>");
 
-                final String testNotWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), false);
-                final String notSelectiveTest = testNotWithSelective == null ? "!selective" : "!selective and " + testNotWithSelective;
+                final String testNotWithSelective = ScriptMapperHelper
+                    .formatTest(ENTITY_PARAMETER_NAME, property.getPath(), false);
+                final String notSelectiveTest =
+                    testNotWithSelective == null ? "!selective" : "!selective and " + testNotWithSelective;
 
                 sql.append("<when test=\"").append(notSelectiveTest).append("\">")
                     .append(property.getColumn()).append(" = ").append(value).append(",")

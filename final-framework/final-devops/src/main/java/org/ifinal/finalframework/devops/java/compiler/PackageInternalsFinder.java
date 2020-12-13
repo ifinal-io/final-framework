@@ -55,7 +55,8 @@ public class PackageInternalsFinder {
 
         List<JavaFileObject> result = new ArrayList<>();
         try {
-            String jarUri = packageFolderURL.toExternalForm().substring(0, packageFolderURL.toExternalForm().lastIndexOf("!/"));
+            String jarUri = packageFolderURL.toExternalForm()
+                .substring(0, packageFolderURL.toExternalForm().lastIndexOf("!/"));
 
             JarURLConnection jarConn = (JarURLConnection) packageFolderURL.openConnection();
             String rootEntryName = jarConn.getEntryName();
@@ -65,7 +66,8 @@ public class PackageInternalsFinder {
             while (entryEnum.hasMoreElements()) {
                 JarEntry jarEntry = entryEnum.nextElement();
                 String name = jarEntry.getName();
-                if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE_EXTENSION)) {
+                if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1
+                    && name.endsWith(CLASS_FILE_EXTENSION)) {
                     URI uri = URI.create(jarUri + "!/" + name);
                     String binaryName = name.replace("/", ".");
                     binaryName = binaryName.replace(CLASS_FILE_EXTENSION + "$", "");

@@ -38,7 +38,8 @@ public final class FinalFactoriesLoader {
         return loadPropertyValues(factoryClass, null, FACTORIES_RESOURCE_LOCATION);
     }
 
-    public static List<String> loadPropertyValues(final @NonNull Class<?> factoryClass, final @Nullable ClassLoader classLoader,
+    public static List<String> loadPropertyValues(final @NonNull Class<?> factoryClass,
+        final @Nullable ClassLoader classLoader,
         final @NonNull String propertiesResourceLocation) {
 
         final String factoryClassName = factoryClass.getName();

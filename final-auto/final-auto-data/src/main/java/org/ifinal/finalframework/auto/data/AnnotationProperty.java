@@ -290,8 +290,8 @@ public class AnnotationProperty implements Property {
     private static final class PropertyJavaTypeVisitor extends SimpleTypeVisitor8<TypeElement, AnnotationProperty> {
 
         /**
-         * Represents a primitive type.  These include {@code boolean}, {@code byte}, {@code short}, {@code int}, {@code long}, {@code char}, {@code float}, and
-         * {@code double}.
+         * Represents a primitive type.  These include {@code boolean}, {@code byte}, {@code short}, {@code int}, {@code
+         * long}, {@code char}, {@code float}, and {@code double}.
          */
         @Override
         public TypeElement visitPrimitive(final PrimitiveType type, final AnnotationProperty property) {

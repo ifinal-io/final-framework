@@ -50,7 +50,8 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+        final FilterChain filterChain)
         throws ServletException, IOException {
 
         HttpServletRequest requestToUse = request;
@@ -69,7 +70,8 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Simple {@link HttpServletRequest} wrapper that returns the supplied method for {@link HttpServletRequest#getMethod()}.
+     * Simple {@link HttpServletRequest} wrapper that returns the supplied method for {@link
+     * HttpServletRequest#getMethod()}.
      */
     private static class HttpMethodRequestWrapper extends HttpServletRequestWrapper {
 

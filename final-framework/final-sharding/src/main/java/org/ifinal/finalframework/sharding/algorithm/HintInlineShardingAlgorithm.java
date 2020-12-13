@@ -36,7 +36,8 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
     private String algorithmExpression;
 
     @Override
-    public Collection<String> doSharding(final Collection<String> availableTargetNames, final HintShardingValue<Comparable<?>> shardingValue) {
+    public Collection<String> doSharding(final Collection<String> availableTargetNames,
+        final HintShardingValue<Comparable<?>> shardingValue) {
 
         if (shardingValue.getValues().isEmpty()) {
             return availableTargetNames;
@@ -64,7 +65,8 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
     }
 
     private Closure<?> createClosure() {
-        Closure<?> result = new InlineExpressionParser(algorithmExpression).evaluateClosure().rehydrate(new Expando(), null, null);
+        Closure<?> result = new InlineExpressionParser(algorithmExpression).evaluateClosure()
+            .rehydrate(new Expando(), null, null);
         result.setResolveStrategy(Closure.DELEGATE_ONLY);
         return result;
     }

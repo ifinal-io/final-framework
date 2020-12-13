@@ -6,9 +6,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * The interface of response data holder which impl the {@linkplain IData data} holder.  when {@link #isSuccess()} return {@code true}
- * the response successful, otherwise use {@linkplain #getCode()} or {@linkplain #getMessage()} for more info. The code and message
- * could be throw by a {@linkplain Exception exception} which impl the interface of {@link IException}.
+ * The interface of response data holder which impl the {@linkplain IData data} holder.  when {@link #isSuccess()}
+ * return {@code true} the response successful, otherwise use {@linkplain #getCode()} or {@linkplain #getMessage()} for
+ * more info. The code and message could be throw by a {@linkplain Exception exception} which impl the interface of
+ * {@link IException}.
  *
  * <h3>Code Example</h3>
  *
@@ -69,7 +70,6 @@ public interface IResult<T> extends IData<T> {
      */
     @NonNull
     String getDescription();
-
 
     /**
      * return the code of this response if response is not success.

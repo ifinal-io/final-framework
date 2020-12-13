@@ -26,63 +26,46 @@
             value="${org.checkstyle.google.suppressionfilter.config}"/>
         <property name="optional" value="true"/>
     </module>
-    <property name="fileExtensions" value="java, properties, xml"/>
-    <!--字符集-->
-    <property name="charset" value="UTF-8"/>
-    <!--查询不通过则报错-->
-    <property name="severity" value="error"/>
-
-    <!--文件Tab字符 <a href="https://checkstyle.org/config_whitespace.html#FileTabCharacter">FileTabCharacter</a>-->
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
-
-    <!--文件长度-->
+    <!--字符集-->
     <module name="FileLength">
         <property name="max" value="1500"/>
     </module>
-    <!-- Excludes all 'module-info.java' files              -->
-    <!-- 单行长度 <a href="https://checkstyle.org/config_sizes.html#LineLength>LineLength</a>-->
+    <!--查询不通过则报错-->
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="200"/>
+        <property name="max" value="120"/>
         <property name="ignorePattern"
             value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
-
-    <!-- Blocks -->
+    <!--文件Tab字符 <a href="https://checkstyle.org/config_whitespace.html#FileTabCharacter">FileTabCharacter</a>-->
     <module name="NewlineAtEndOfFile"/>
-    <!-- Blocks -->
+
+    <!--文件长度-->
     <module name="OrderedProperties"/>
-    <!-- Blocks -->
+    <!-- Excludes all 'module-info.java' files              -->
+    <!-- 单行长度 <a href="https://checkstyle.org/config_sizes.html#LineLength>LineLength</a>-->
     <module name="Translation">
         <property name="fileExtensions" value="properties, translations"/>
     </module>
 
-    <!-- 缺少 package-info.java 文件 -->
-    <!--    <module name="JavadocPackage"/>-->
 
-    <!-- ================================ Regexp ===================================== -->
-    <!-- 当前行匹配非法表达式： -->
-    <!-- 禁用 System.out.print -->
+    <!-- Blocks -->
     <module name="RegexpMultiline">
         <property name="id" value="sout"/>
         <property name="format" value="System\.(out)|(err)\.print"/>
         <property name="message" value="System.out.print 方法不允许使用"/>
     </module>
-    <!-- 禁用 e.printStackTrace() -->
+    <!-- Blocks -->
     <module name="RegexpMultiline">
         <property name="id" value="printStackTrace"/>
         <property name="format" value="\.printStackTrace\("/>
         <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
     </module>
     <!-- Blocks -->
-    <!-- Blocks -->
-    <!-- ================================ Regexp ===================================== -->
-
-
-    <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="TreeWalker">
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -700,7 +683,7 @@
         </module>
         <!-- Lambda 体长度 -->
         <module name="LambdaBodyLength">
-            <property name="max" value="50"/>
+            <property name="max" value="100"/>
         </module>
         <!-- 可执行语句数量 -->
         <module name="ExecutableStatementCount">
@@ -734,6 +717,23 @@
             <property name="accessModifiers" value="private"/>
         </module>
     </module>
+
+    <!-- 缺少 package-info.java 文件 -->
+    <!--    <module name="JavadocPackage"/>-->
+
+    <!-- ================================ Regexp ===================================== -->
+    <!-- 当前行匹配非法表达式： -->
+    <!-- 禁用 System.out.print -->
+    <property name="fileExtensions" value="java, properties, xml"/>
+    <!-- 禁用 e.printStackTrace() -->
+    <property name="charset" value="UTF-8"/>
+    <!-- Blocks -->
+    <!-- Blocks -->
+    <!-- ================================ Regexp ===================================== -->
+
+
+    <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
+    <property name="severity" value="error"/>
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.org/config_whitespace.html -->

@@ -15,13 +15,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IsNull {
+
     String property() default "";
 
     String[] value() default {
-            "<if test=\"${value} != null\">",
-            "<![CDATA[ ${andOr} ${column} IS NULL]]>",
-            "</if>"
+        "<if test=\"${value} != null\">",
+        "<![CDATA[ ${andOr} ${column} IS NULL]]>",
+        "</if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

@@ -10,7 +10,8 @@ import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
  */
 public class UnauthorizedException extends ServiceException {
 
-    public static final UnauthorizedException DEFAULT = new UnauthorizedException(ResponseStatus.UNAUTHORIZED.getDesc());
+    public static final UnauthorizedException DEFAULT = new UnauthorizedException(
+        ResponseStatus.UNAUTHORIZED.getDesc());
 
     public UnauthorizedException(final String message, final Object... args) {
 

@@ -19,18 +19,22 @@ import org.springframework.lang.NonNull;
  */
 @Slf4j
 @SpringFactory(ApplicationContextInitializer.class)
-public class SpringFactoryApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class SpringFactoryApplicationContextInitializer implements
+    ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
     public void initialize(final @NonNull ConfigurableApplicationContext context) {
 
-        final HashSet<String> springFactories = new HashSet<>(SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
+        final HashSet<String> springFactories = new HashSet<>(
+            SpringFactoriesLoader.loadFactoryNames(SpringFactory.class, getClass().getClassLoader()));
 
         for (String annotationName : springFactories) {
             try {
                 Class<?> factoryClass = Class.forName(annotationName);
-                logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}", factoryClass.getCanonicalName());
-                context.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
+                logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}",
+                    factoryClass.getCanonicalName());
+                context
+                    .addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }

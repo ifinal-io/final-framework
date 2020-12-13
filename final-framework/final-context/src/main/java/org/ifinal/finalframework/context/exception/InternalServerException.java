@@ -15,7 +15,8 @@ import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
  */
 public class InternalServerException extends ServiceException {
 
-    public static final InternalServerException DEFAULT = new InternalServerException(ResponseStatus.INTERNAL_SERVER_ERROR.getDesc());
+    public static final InternalServerException DEFAULT = new InternalServerException(
+        ResponseStatus.INTERNAL_SERVER_ERROR.getDesc());
 
     public InternalServerException(final String message, final Object... args) {
 
@@ -34,7 +35,8 @@ public class InternalServerException extends ServiceException {
 
     public InternalServerException(final String code, final String message, final Object... args) {
 
-        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getDesc(), code, message, args);
+        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getDesc(), code,
+            message, args);
     }
 
 }

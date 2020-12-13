@@ -18,13 +18,15 @@ public class BaseExpressionEvaluator extends MethodExpressionEvaluator implement
     private final Map<ExpressionKey, Expression> valueCache = new ConcurrentHashMap<>(64);
 
     @Override
-    public Object value(final String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext) {
+    public Object value(final String expression, final AnnotatedElementKey methodKey,
+        final EvaluationContext evaluationContext) {
 
         return getExpression(this.valueCache, methodKey, expression).getValue(evaluationContext);
     }
 
     @Override
-    public <T> T value(final String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext, final Class<T> clazz) {
+    public <T> T value(final String expression, final AnnotatedElementKey methodKey,
+        final EvaluationContext evaluationContext, final Class<T> clazz) {
 
         return getExpression(this.valueCache, methodKey, expression).getValue(evaluationContext, clazz);
     }

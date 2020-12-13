@@ -22,7 +22,8 @@ public interface OperationHandlerSupport {
      * @param e       方法抛出的异常，可能为{@code null}
      */
     @NonNull
-    EvaluationContext createEvaluationContext(@NonNull InvocationContext context, @Nullable Object result, @Nullable Throwable e);
+    EvaluationContext createEvaluationContext(@NonNull InvocationContext context, @Nullable Object result,
+        @Nullable Throwable e);
 
     List<String> findExpressions(String expression);
 

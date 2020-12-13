@@ -36,11 +36,13 @@ class BeanServiceImpl implements BeanService, ApplicationContextAware {
             Object bean = applicationContext.getBean(beanDefinitionName);
             Class<?> targetClass = Proxies.targetClass(bean);
 
-            if (!Boolean.TRUE.equals(query.getSpringFramework()) && targetClass.getPackage().getName().startsWith(SPRING_FRAMEWORK_PACKAGE)) {
+            if (!Boolean.TRUE.equals(query.getSpringFramework()) && targetClass.getPackage().getName()
+                .startsWith(SPRING_FRAMEWORK_PACKAGE)) {
                 continue;
             }
 
-            if (!Boolean.TRUE.equals(query.getFinalFramework()) && targetClass.getPackage().getName().startsWith(FINAL_FRAMEWORK_PACKAGE)) {
+            if (!Boolean.TRUE.equals(query.getFinalFramework()) && targetClass.getPackage().getName()
+                .startsWith(FINAL_FRAMEWORK_PACKAGE)) {
                 continue;
             }
 

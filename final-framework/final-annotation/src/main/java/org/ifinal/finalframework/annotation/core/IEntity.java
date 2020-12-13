@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.annotation.core;
 
+import java.io.Serializable;
 import org.ifinal.finalframework.annotation.data.Transient;
 import org.springframework.lang.Nullable;
-
-import java.io.Serializable;
 
 /**
  * A marker superinterface of a entity must be impls.

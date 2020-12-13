@@ -41,7 +41,8 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
 
     @Override
     @NonNull
-    public EvaluationContext createEvaluationContext(final @NonNull InvocationContext context, final Object result, final Throwable e) {
+    public EvaluationContext createEvaluationContext(final @NonNull InvocationContext context, final Object result,
+        final Throwable e) {
 
         return evaluator.createEvaluationContext(context.metadata().getMethod(), context.args(),
             context.target(), context.metadata().getTargetClass(), context.metadata().getTargetMethod(), result, e);
@@ -63,14 +64,16 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
     }
 
     /**
-     * 以{@link AbsOperationInterceptorHandlerSupport#EXPRESSION_PREFIX}开头，并且以{@link AbsOperationInterceptorHandlerSupport#EXPRESSION_SUFFIX}结尾的字符串，为一个表达式。
+     * 以{@link AbsOperationInterceptorHandlerSupport#EXPRESSION_PREFIX}开头，并且以{@link
+     * AbsOperationInterceptorHandlerSupport#EXPRESSION_SUFFIX}结尾的字符串，为一个表达式。
      *
      * @param expression 表达式字符串
      */
     @Override
     public boolean isExpression(final @Nullable String expression) {
 
-        return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression.endsWith(EXPRESSION_SUFFIX);
+        return StringUtils.hasText(expression) && expression.startsWith(EXPRESSION_PREFIX) && expression
+            .endsWith(EXPRESSION_SUFFIX);
     }
 
     @Override
@@ -78,7 +81,8 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
     public String generateExpression(final @NonNull String expression) {
 
         Asserts.isEmpty(expression, "expression is empty");
-        return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
+        return expression.trim()
+            .substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
 
 }

@@ -28,7 +28,8 @@ public class TokenFilter extends OncePerRequestFilter {
     private TokenService<? extends IUser> tokenService;
 
     @Override
-    protected void doFilterInternal(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+    protected void doFilterInternal(final @NonNull HttpServletRequest request,
+        final @NonNull HttpServletResponse response,
         final @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         UserContextHolder.setUser(tokenService.token(request, response), true);

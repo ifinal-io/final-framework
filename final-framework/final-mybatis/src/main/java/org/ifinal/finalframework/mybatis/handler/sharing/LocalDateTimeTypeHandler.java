@@ -26,7 +26,8 @@ public class LocalDateTimeTypeHandler extends BaseTypeHandler<LocalDateTime> imp
     private static final DateTypeHandler DATE_TYPE_HANDLER = new DateTypeHandler();
 
     @Override
-    public void setNonNullParameter(final PreparedStatement ps, final int i, final LocalDateTime parameter, final JdbcType jdbcType)
+    public void setNonNullParameter(final PreparedStatement ps, final int i, final LocalDateTime parameter,
+        final JdbcType jdbcType)
         throws SQLException {
 
         DATE_TYPE_HANDLER

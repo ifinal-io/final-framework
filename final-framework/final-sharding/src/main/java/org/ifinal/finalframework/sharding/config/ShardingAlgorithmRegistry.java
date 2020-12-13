@@ -16,7 +16,8 @@ public class ShardingAlgorithmRegistry {
     @Getter(AccessLevel.PACKAGE)
     private final Collection<ShardingAlgorithmRegistration> shardingAlgorithms = new ArrayList<>();
 
-    public ShardingAlgorithmRegistry addShardingAlgorithm(final String name, final String type, final Properties properties) {
+    public ShardingAlgorithmRegistry addShardingAlgorithm(final String name, final String type,
+        final Properties properties) {
 
         shardingAlgorithms.add(new ShardingAlgorithmRegistration(type, name, properties));
         return this;

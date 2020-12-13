@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Annotate the element of {@linkplain Field field} or {@linkplain Method method} is not need to {@literal insert} which has a default value.
- * Such as a {@link Created} column when it default {@literal NOW()}.
+ * Annotate the element of {@linkplain Field field} or {@linkplain Method method} is not need to {@literal insert} which
+ * has a default value. Such as a {@link Created} column when it default {@literal NOW()}.
  *
  * @author likly
  * @version 1.0.0

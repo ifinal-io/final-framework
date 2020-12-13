@@ -105,7 +105,8 @@ public final class AbsCompareCriterionOperation extends BaseCriterion implements
 
     }
 
-    private static class AbsCompareCriterionOperationBuilder implements CompareCriterionOperation.CompareCriterionOperationBuilder {
+    private static class AbsCompareCriterionOperationBuilder implements
+        CompareCriterionOperation.CompareCriterionOperationBuilder {
 
         private Object target;
 

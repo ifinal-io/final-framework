@@ -73,7 +73,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     /**
      * @see Order
      */
-    private final Lazy<Integer> order = Lazy.of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
+    private final Lazy<Integer> order = Lazy
+        .of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
 
     /**
      * @see Default
@@ -103,9 +104,11 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     /**
      * @see Keyword
      */
-    private final Lazy<Boolean> isKeyword = Lazy.of(!isTransient() && (isAnnotationPresent(Keyword.class) || SqlKeyWords.contains(getColumn())));
+    private final Lazy<Boolean> isKeyword = Lazy
+        .of(!isTransient() && (isAnnotationPresent(Keyword.class) || SqlKeyWords.contains(getColumn())));
 
-    private final Lazy<ReferenceMode> referenceMode = Lazy.of(isReference() ? getRequiredAnnotation(Reference.class).mode() : ReferenceMode.SIMPLE);
+    private final Lazy<ReferenceMode> referenceMode = Lazy
+        .of(isReference() ? getRequiredAnnotation(Reference.class).mode() : ReferenceMode.SIMPLE);
 
     private final Lazy<Map<String, String>> referenceColumns = Lazy.of(() -> {
 
@@ -147,7 +150,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     });
 
-    public AnnotationProperty(final org.springframework.data.mapping.model.Property property, final org.ifinal.finalframework.data.mapping.Entity<?> owner,
+    public AnnotationProperty(final org.springframework.data.mapping.model.Property property,
+        final org.ifinal.finalframework.data.mapping.Entity<?> owner,
         final SimpleTypeHolder simpleTypeHolder) {
 
         super(property, owner, simpleTypeHolder);

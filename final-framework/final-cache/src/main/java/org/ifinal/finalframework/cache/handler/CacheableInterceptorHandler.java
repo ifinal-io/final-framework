@@ -22,22 +22,26 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements
+    CacheInterceptorHandler {
 
     private static final String KEY = "key";
 
     private static final String FIELD = "field";
 
     @Override
-    public Object before(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes operation) {
+    public Object before(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes operation) {
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
-        final Object key = generateKey(operation.getStringArray(KEY), operation.getString("delimiter"), context.metadata(), evaluationContext);
+        final Object key = generateKey(operation.getStringArray(KEY), operation.getString("delimiter"),
+            context.metadata(), evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + operation);
         }
-        final Object field = generateField(operation.getStringArray(FIELD), operation.getString("delimiter"), context.metadata(), evaluationContext);
+        final Object field = generateField(operation.getStringArray(FIELD), operation.getString("delimiter"),
+            context.metadata(), evaluationContext);
         context.addAttribute(KEY, key);
         context.addAttribute(FIELD, field);
         final Type genericReturnType = context.metadata().getGenericReturnType();
@@ -53,7 +57,8 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
     }
 
     @Override
-    public void afterReturning(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+    public void afterReturning(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation,
         final Object result) {
 
         if (Objects.isNull(result)) {

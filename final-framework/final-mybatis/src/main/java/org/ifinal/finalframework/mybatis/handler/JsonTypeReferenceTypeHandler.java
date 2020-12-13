@@ -21,7 +21,8 @@ public class JsonTypeReferenceTypeHandler<T> extends BaseTypeReferenceTypeHandle
     }
 
     @Override
-    public void setNonNullParameter(final PreparedStatement ps, final int i, final T parameter, final JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(final PreparedStatement ps, final int i, final T parameter, final JdbcType jdbcType)
+        throws SQLException {
 
         ps.setString(i, Json.toJson(parameter));
     }

@@ -12,7 +12,8 @@ import org.springframework.lang.NonNull;
  */
 public class BaseCriterion {
 
-    protected void applyValueCriterion(final @NonNull StringBuilder sql, final Object value, final String prefix, final String suffix,
+    protected void applyValueCriterion(final @NonNull StringBuilder sql, final Object value, final String prefix,
+        final String suffix,
         final String expression) {
 
         sql.append("<trim");
@@ -32,7 +33,8 @@ public class BaseCriterion {
         } else if (value instanceof QProperty) {
             sql.append(((QProperty<?>) value).getColumn());
         } else if (value instanceof Iterable || value instanceof Array) {
-            sql.append("<foreach collection=\"").append(expression).append("\" item=\"item\" separator=\",\">#{item}</foreach>");
+            sql.append("<foreach collection=\"").append(expression)
+                .append("\" item=\"item\" separator=\",\">#{item}</foreach>");
         } else {
             sql.append("#{").append(expression).append("}");
         }

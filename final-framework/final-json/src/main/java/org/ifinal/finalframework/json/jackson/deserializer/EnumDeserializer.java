@@ -26,7 +26,8 @@ public class EnumDeserializer<T extends IEnum<?>> extends JsonDeserializer<T> {
 
         Objects.requireNonNull(enumType, "the enumType must be not null!");
         this.enumType = enumType;
-        this.cache = Arrays.stream(enumType.getEnumConstants()).collect(Collectors.toMap(it -> it.getCode().toString(), Function.identity()));
+        this.cache = Arrays.stream(enumType.getEnumConstants())
+            .collect(Collectors.toMap(it -> it.getCode().toString(), Function.identity()));
     }
 
     @Override

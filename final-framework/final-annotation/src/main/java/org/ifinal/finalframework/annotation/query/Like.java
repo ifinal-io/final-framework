@@ -15,13 +15,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Like {
+
     String property() default "";
 
     String[] value() default {
-            "<if test=\"${value} != null and ${value} != ''\">",
-            "     ${andOr} ${column} LIKE #{${value}} ",
-            "</if>"
+        "<if test=\"${value} != null and ${value} != ''\">",
+        "     ${andOr} ${column} LIKE #{${value}} ",
+        "</if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

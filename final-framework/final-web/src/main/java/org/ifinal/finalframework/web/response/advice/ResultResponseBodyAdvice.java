@@ -30,7 +30,8 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
 
     @Override
-    public Object beforeBodyWrite(final Object body, final @NonNull MethodParameter returnType, final @NonNull MediaType selectedContentType,
+    public Object beforeBodyWrite(final Object body, final @NonNull MethodParameter returnType,
+        final @NonNull MediaType selectedContentType,
         final @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
         final @NonNull ServerHttpRequest request, final @NonNull ServerHttpResponse response) {
 
@@ -40,7 +41,8 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
         }
         // set address
         result.setAddress(request.getLocalAddress().getAddress().getHostName());
-        result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(), request.getLocalAddress().getPort()));
+        result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(),
+            request.getLocalAddress().getPort()));
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone

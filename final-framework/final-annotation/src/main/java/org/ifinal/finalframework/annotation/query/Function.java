@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.annotation.query;
 
-import org.springframework.lang.NonNull;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -16,6 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 public @interface Function {
+
     String value();
 
     Attribute[] attributes() default {};
@@ -24,7 +23,9 @@ public @interface Function {
 
     @FunctionalInterface
     interface FunctionHandler {
+
         String handle(@NonNull Function function, @NonNull Metadata metadata);
+
     }
 
 }

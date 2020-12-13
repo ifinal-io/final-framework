@@ -22,7 +22,8 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
 
     private final MethodInvocationDispatcher<A> dispatcher;
 
-    public DefaultAnnotationMethodInterceptor(final AnnotationSource<A> source, final MethodInvocationDispatcher<A> dispatcher) {
+    public DefaultAnnotationMethodInterceptor(final AnnotationSource<A> source,
+        final MethodInvocationDispatcher<A> dispatcher) {
 
         this.source = source;
         this.dispatcher = dispatcher;
@@ -40,7 +41,8 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
         Class<?> targetClass = getTargetClass(invocation.getThis());
         MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
 
-        InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(), invocation.getArguments());
+        InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(),
+            invocation.getArguments());
 
         Object operationValue = dispatcher.before(context, annotations);
         if (Objects.nonNull(operationValue)) {

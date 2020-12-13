@@ -15,16 +15,16 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EndWith {
 
-
     String property() default "";
 
     String[] value() default {
-            "<script>",
-            "   <if test=\"${value} != null and ${value} != ''\">",
-            "        ${andOr} ${column} LIKE CONCAT(#{${value}},'%') ",
-            "   </if>",
-            "</script>"
+        "<script>",
+        "   <if test=\"${value} != null and ${value} != ''\">",
+        "        ${andOr} ${column} LIKE CONCAT(#{${value}},'%') ",
+        "   </if>",
+        "</script>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

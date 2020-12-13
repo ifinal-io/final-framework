@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.annotation.LastModifiedDate;
 
 /**
  * 最后更新时间
@@ -32,4 +31,5 @@ public @interface LastModified {
 
     @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
+
 }

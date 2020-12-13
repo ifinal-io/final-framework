@@ -47,12 +47,14 @@ public class ShardingDataSourceSupport {
         ShardingRuleConfiguration configuration = new ShardingRuleConfiguration();
 
         for (ShardingTableRegistration registration : shardingConfiguration.getTables()) {
-            ShardingTableRuleConfiguration shardingTableRuleConfiguration = new ShardingTableRuleConfiguration(registration.getLogicTable(),
+            ShardingTableRuleConfiguration shardingTableRuleConfiguration = new ShardingTableRuleConfiguration(
+                registration.getLogicTable(),
                 registration.getActualDataNodes());
 
             ShardingStrategyRegistration databaseShardingStrategy = registration.getDatabaseShardingStrategy();
             if (Objects.nonNull(databaseShardingStrategy)) {
-                shardingTableRuleConfiguration.setDatabaseShardingStrategy(buildShardingStrategy(databaseShardingStrategy));
+                shardingTableRuleConfiguration
+                    .setDatabaseShardingStrategy(buildShardingStrategy(databaseShardingStrategy));
             }
 
             ShardingStrategyRegistration tableShardingStrategy = registration.getTableShardingStrategy();
@@ -73,7 +75,8 @@ public class ShardingDataSourceSupport {
         Properties props = new Properties();
         props.put("sql-show", true);
 
-        return ShardingSphereDataSourceFactory.createDataSource(shardingConfiguration.getDatasource(), Collections.singleton(configuration), props);
+        return ShardingSphereDataSourceFactory
+            .createDataSource(shardingConfiguration.getDatasource(), Collections.singleton(configuration), props);
 
     }
 
@@ -82,7 +85,8 @@ public class ShardingDataSourceSupport {
         ShardingConfiguration configuration = ShardingConfiguration.builder()
             .datasource(Collections.unmodifiableMap(getDataSourceRegistry().getDataSources()))
             .tables(Collections.unmodifiableCollection(getShardingTableRegistry().getTables()))
-            .shardingAlgorithms(Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
+            .shardingAlgorithms(
+                Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
             .build();
 
         log(configuration);
@@ -110,12 +114,17 @@ public class ShardingDataSourceSupport {
                 logger.info("  │ │ │ ├─{}:", table.getLogicTable());
                 logger.info("  │ │ │ │ ├─actual-data-nodes: {}", table.getActualDataNodes());
                 logger.info("  │ │ │ │ ├─database-strategy: ");
-                logger.info("  │ │ │ │ │ └─{}: ", table.getDatabaseShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
-                logger.info("  │ │ │ │ │   ├─sharding-column: {}", String.join(",", table.getDatabaseShardingStrategy().getColumns()));
-                logger.info("  │ │ │ │ │   └─sharding-algorithm-name: {}", table.getDatabaseShardingStrategy().getName());
+                logger.info("  │ │ │ │ │ └─{}: ",
+                    table.getDatabaseShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
+                logger.info("  │ │ │ │ │   ├─sharding-column: {}",
+                    String.join(",", table.getDatabaseShardingStrategy().getColumns()));
+                logger
+                    .info("  │ │ │ │ │   └─sharding-algorithm-name: {}", table.getDatabaseShardingStrategy().getName());
                 logger.info("  │ │ │ │ ├─table-strategy: ");
-                logger.info("  │ │ │ │ │ └─{}: ", table.getTableShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
-                logger.info("  │ │ │ │ │   ├─sharding-column: {}", String.join(",", table.getTableShardingStrategy().getColumns()));
+                logger.info("  │ │ │ │ │ └─{}: ",
+                    table.getTableShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
+                logger.info("  │ │ │ │ │   ├─sharding-column: {}",
+                    String.join(",", table.getTableShardingStrategy().getColumns()));
                 logger.info("  │ │ │ │ │   └─sharding-algorithm-name: {}", table.getTableShardingStrategy().getName());
             }
         }
@@ -140,12 +149,15 @@ public class ShardingDataSourceSupport {
         return registry;
     }
 
-    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(final ShardingAlgorithmRegistration databaseShardingStrategy) {
+    private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(
+        final ShardingAlgorithmRegistration databaseShardingStrategy) {
 
-        return new ShardingSphereAlgorithmConfiguration(databaseShardingStrategy.getType(), databaseShardingStrategy.getProperties());
+        return new ShardingSphereAlgorithmConfiguration(databaseShardingStrategy.getType(),
+            databaseShardingStrategy.getProperties());
     }
 
-    private ShardingStrategyConfiguration buildShardingStrategy(final ShardingStrategyRegistration shardingStrategyRegistration) {
+    private ShardingStrategyConfiguration buildShardingStrategy(
+        final ShardingStrategyRegistration shardingStrategyRegistration) {
 
         String columns = String.join(",", shardingStrategyRegistration.getColumns());
         switch (shardingStrategyRegistration.getStrategy()) {

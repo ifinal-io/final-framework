@@ -36,7 +36,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result) {
+    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Boolean annotations,
+        final Object result) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
@@ -45,7 +46,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Throwable throwable) {
+    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Boolean annotations,
+        final Throwable throwable) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();
@@ -54,7 +56,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     }
 
     @Override
-    public void after(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result, final Throwable throwable) {
+    public void after(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result,
+        final Throwable throwable) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
             T executor = getExecutor();

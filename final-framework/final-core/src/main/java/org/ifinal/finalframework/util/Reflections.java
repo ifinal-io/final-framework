@@ -37,7 +37,8 @@ public final class Reflections {
     }
 
     @Nullable
-    public static Method findMethod(final @NonNull Class<?> clazz, final @NonNull String name, final Class<?>... paramTypes) {
+    public static Method findMethod(final @NonNull Class<?> clazz, final @NonNull String name,
+        final Class<?>... paramTypes) {
         return ReflectionUtils.findMethod(clazz, name, paramTypes);
     }
 
@@ -47,16 +48,19 @@ public final class Reflections {
     }
 
     @NonNull
-    public static Method findRequiredMethod(final @NonNull Class<?> clazz, final @NonNull String name, final Class<?>... paramTypes) {
+    public static Method findRequiredMethod(final @NonNull Class<?> clazz, final @NonNull String name,
+        final Class<?>... paramTypes) {
         Method method = findMethod(clazz, name, paramTypes);
-        Objects.requireNonNull(method, String.format("can not find required method of name '%s' on class '%s'", name, clazz));
+        Objects.requireNonNull(method,
+            String.format("can not find required method of name '%s' on class '%s'", name, clazz));
         return method;
     }
 
     @NonNull
     public static Method findRequiredMethod(final @NonNull Class<?> clazz, final @NonNull String name) {
         Method method = findMethod(clazz, name);
-        Objects.requireNonNull(method, String.format("can not find required method of name '%s' on class '%s'", name, clazz));
+        Objects.requireNonNull(method,
+            String.format("can not find required method of name '%s' on class '%s'", name, clazz));
         return method;
     }
 
@@ -67,7 +71,8 @@ public final class Reflections {
     }
 
     @Nullable
-    public static AnnotationAttributes findAnnotationAttributes(final AnnotatedElement ae, final Class<? extends Annotation> annotationType) {
+    public static AnnotationAttributes findAnnotationAttributes(final AnnotatedElement ae,
+        final Class<? extends Annotation> annotationType) {
         Annotation annotation = AnnotationUtils.findAnnotation(ae, annotationType);
         if (Objects.isNull(annotation)) {
             return null;
@@ -75,20 +80,24 @@ public final class Reflections {
         return AnnotationUtils.getAnnotationAttributes(ae, annotation);
     }
 
-    public static Class findParameterizedClassArgumentClass(final @NonNull Class<?> target, final @NonNull Class<?> targetInterface, final int index) {
+    public static Class findParameterizedClassArgumentClass(final @NonNull Class<?> target,
+        final @NonNull Class<?> targetInterface, final int index) {
         Type type = target.getGenericSuperclass();
-        if (type instanceof ParameterizedType && targetInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
+        if (type instanceof ParameterizedType
+            && targetInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
             return (Class) ((ParameterizedType) type).getActualTypeArguments()[index];
         }
         throw new IllegalArgumentException("");
     }
 
-    public static Class findParameterizedInterfaceArgumentClass(final @NonNull Class<?> target, final @NonNull Class<?> targetInterface, final int index) {
+    public static Class findParameterizedInterfaceArgumentClass(final @NonNull Class<?> target,
+        final @NonNull Class<?> targetInterface, final int index) {
 
         final Type[] genericInterfaces = target.getGenericInterfaces();
 
         for (Type type : genericInterfaces) {
-            if (type instanceof ParameterizedType && targetInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
+            if (type instanceof ParameterizedType
+                && targetInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
                 return (Class) ((ParameterizedType) type).getActualTypeArguments()[index];
             }
         }

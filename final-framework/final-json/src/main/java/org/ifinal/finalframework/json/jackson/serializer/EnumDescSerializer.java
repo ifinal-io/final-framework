@@ -20,9 +20,11 @@ public class EnumDescSerializer extends JsonSerializer<IEnum<?>> {
     public static final EnumDescSerializer instance = new EnumDescSerializer();
 
     @Override
-    public void serialize(final IEnum<?> value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final IEnum<?> value, final JsonGenerator gen, final SerializerProvider serializers)
+        throws IOException {
 
-        final String code = String.format("%s.%s", value.getClass().getCanonicalName(), ((Enum<?>) value).name().toLowerCase(Locale.ENGLISH));
+        final String code = String
+            .format("%s.%s", value.getClass().getCanonicalName(), ((Enum<?>) value).name().toLowerCase(Locale.ENGLISH));
         gen.writeString(Messages.getMessage(code, value.getDesc()));
     }
 

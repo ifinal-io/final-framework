@@ -17,6 +17,7 @@ public interface ExpressionEvaluator {
 
     Object value(@NonNull String expression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    <T> T value(@NonNull String expression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext, Class<T> clazz);
+    <T> T value(@NonNull String expression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext,
+        Class<T> clazz);
 
 }

@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * Marked the element is a {@literal version} record, it's a {@link ReadOnly} column, it's value insert by {@link
@@ -31,4 +30,5 @@ public @interface Version {
 
     @AliasFor(annotation = Column.class, value = "value")
     String name() default "";
+
 }

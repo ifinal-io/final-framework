@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.annotation.core;
 
+import java.io.Serializable;
 import org.ifinal.finalframework.annotation.data.Creator;
 import org.ifinal.finalframework.annotation.data.LastModifier;
 import org.ifinal.finalframework.annotation.data.Transient;
 import org.springframework.lang.Nullable;
-
-import java.io.Serializable;
 
 /**
  * The interface of {@code user} which impl the interface of {@link IEntity} in the system.

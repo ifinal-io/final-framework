@@ -23,10 +23,12 @@ public interface Utils {
                     return referenceProperty.getName();
                 }
 
-                return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1);
+                return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property
+                    .getName().substring(1);
             }
 
-            return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1);
+            return referenceProperty.getName() + property.getName().substring(0, 1).toUpperCase() + property.getName()
+                .substring(1);
         }
     }
 

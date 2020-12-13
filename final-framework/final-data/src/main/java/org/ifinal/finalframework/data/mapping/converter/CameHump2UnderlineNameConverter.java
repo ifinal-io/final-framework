@@ -15,7 +15,8 @@ public class CameHump2UnderlineNameConverter implements NameConverter {
         StringBuilder sb = new StringBuilder(name);
         int temp = 0;
         for (int i = 1; i < name.length(); i++) {
-            if (Character.isUpperCase(name.charAt(i)) && !Character.isUpperCase(name.charAt(i - 1)) && '_' != name.charAt(i - 1)) {
+            if (Character.isUpperCase(name.charAt(i)) && !Character.isUpperCase(name.charAt(i - 1)) && '_' != name
+                .charAt(i - 1)) {
                 sb.insert(i + temp, "_");
                 temp += 1;
             }

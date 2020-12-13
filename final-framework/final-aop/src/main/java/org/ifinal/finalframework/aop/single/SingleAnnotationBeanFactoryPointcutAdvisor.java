@@ -17,28 +17,32 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends AbsGenericPointcutAdvisor {
+public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends
+    AbsGenericPointcutAdvisor {
 
     private Pointcut pointcut;
 
-    protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType, final AnnotationBuilder<A, E> builder,
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType,
+        final AnnotationBuilder<A, E> builder,
         final List<InterceptorHandler<T, E>> handlers) {
 
         this(new SingleAnnotationSource<>(annotationType, builder), handlers);
     }
 
-    protected SingleAnnotationBeanFactoryPointcutAdvisor(final AnnotationSource<Collection<E>> source, final List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(final AnnotationSource<Collection<E>> source,
+        final List<InterceptorHandler<T, E>> handlers) {
 
         this.pointcut = new AnnotationSourceMethodPoint(source);
-        setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
+        setAdvice(
+            new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
 
-            @Override
-            @NonNull
-            protected T getExecutor(final E annotation) {
+                @Override
+                @NonNull
+                protected T getExecutor(final E annotation) {
 
-                return SingleAnnotationBeanFactoryPointcutAdvisor.this.getExecutor(annotation);
-            }
-        }));
+                    return SingleAnnotationBeanFactoryPointcutAdvisor.this.getExecutor(annotation);
+                }
+            }));
     }
 
     @Override

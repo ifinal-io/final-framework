@@ -19,7 +19,8 @@ import org.springframework.expression.EvaluationContext;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements MonitorOperationHandlerSupport {
+public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements
+    MonitorOperationHandlerSupport {
 
     private final MonitorExpressionEvaluator evaluator;
 
@@ -34,7 +35,8 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     }
 
     @Override
-    public String generateName(final String[] name, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public String generateName(final String[] name, final String delimiter, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         final List<String> nameValues = Arrays.stream(name)
             .map(key -> {
@@ -51,7 +53,8 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     }
 
     @Override
-    public Object generateOperator(final String operator, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateOperator(final String operator, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (Asserts.nonBlank(operator)) {
             if (isExpression(operator)) {
@@ -64,7 +67,8 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     }
 
     @Override
-    public Object generateTarget(final String target, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateTarget(final String target, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (Asserts.isBlank(target)) {
             return null;
@@ -76,7 +80,8 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     }
 
     @Override
-    public Object generateAttribute(final String attribute, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
+    public Object generateAttribute(final String attribute, final MethodMetadata metadata,
+        final EvaluationContext evaluationContext) {
 
         if (Asserts.nonBlank(attribute) && isExpression(attribute)) {
             return evaluator.attribute(generateExpression(attribute), metadata.getMethodKey(), evaluationContext);

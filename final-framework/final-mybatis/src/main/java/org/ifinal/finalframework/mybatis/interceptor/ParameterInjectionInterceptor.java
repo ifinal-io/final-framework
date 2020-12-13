@@ -36,8 +36,10 @@ import org.springframework.stereotype.Component;
 @Intercepts(
     {
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class, CacheKey.class,
             BoundSql.class}),
     }
 )
@@ -52,7 +54,8 @@ public class ParameterInjectionInterceptor implements Interceptor {
 
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
-    public static <I extends Serializable, T extends IEntity<I>> Class<T> from(final @NonNull Class<? extends AbsMapper> mapper) {
+    public static <I extends Serializable, T extends IEntity<I>> Class<T> from(
+        final @NonNull Class<? extends AbsMapper> mapper) {
 
         Type[] genericInterfaces = mapper.getGenericInterfaces();
         for (Type type : genericInterfaces) {

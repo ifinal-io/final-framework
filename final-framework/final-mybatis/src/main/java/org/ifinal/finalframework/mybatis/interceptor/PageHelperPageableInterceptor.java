@@ -33,8 +33,10 @@ import org.springframework.stereotype.Component;
  */
 @Intercepts(
     {
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class, CacheKey.class,
             BoundSql.class}),
     }
 )
@@ -61,7 +63,8 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
      * @param pageSizeZero true且pageSize=0时返回全部结果，false时分页,null时用默认配置
      * @see PageHelper#startPage(int, int, boolean, Boolean, Boolean)
      */
-    private void startPage(final int pageNum, final int pageSize, final boolean count, final Boolean reasonable, final Boolean pageSizeZero) {
+    private void startPage(final int pageNum, final int pageSize, final boolean count, final Boolean reasonable,
+        final Boolean pageSizeZero) {
 
         final Page<Object> result = PageMethod.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
         logger.info("pageResult:page={},size={},pages={},total={}",

@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.annotation.data;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IView;
 
-import java.time.LocalDateTime;
-
 /**
- * The build-in base impl of {@linkplain IEntity entity} which have the common property.
- * such as {@link #id}, {@link #version},{@link #created},{@link #lastModified},{@link #yn}.
+ * The build-in base impl of {@linkplain IEntity entity} which have the common property. such as {@link #id}, {@link
+ * #version},{@link #created},{@link #lastModified},{@link #yn}.
  *
  * @author likly
  * @version 1.0.0
@@ -59,7 +58,6 @@ public class AbsEntity implements IEntity<Long> {
     @Column
     @View(IView.class)
     private YN yn;
-
 
 }
 

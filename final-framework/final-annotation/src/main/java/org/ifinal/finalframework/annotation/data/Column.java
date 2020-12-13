@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.apache.ibatis.type.TypeHandler;
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.Persistent;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,6 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import org.apache.ibatis.type.TypeHandler;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.annotation.Persistent;
 
 /**
  * Annotate a property of {@linkplain Field field} or {@linkplain Method method} mapping to a column of data table.
@@ -61,7 +60,9 @@ public @interface Column {
      *
      * @return the column writer
      */
-    String writer() default "#{${value}#if($typeHandler)#if($javaType), javaType=$!{javaType.canonicalName}#end, typeHandler=$!{typeHandler.canonicalName}#end}";
+    String writer() default "#{${value}#if($typeHandler)"
+        + "#if($javaType), javaType=$!{javaType.canonicalName}#end"
+        + ", typeHandler=$!{typeHandler.canonicalName}#end}";
 
     /**
      * <pre class="code">
@@ -87,4 +88,5 @@ public @interface Column {
      * @return the property type handler
      */
     Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
+
 }

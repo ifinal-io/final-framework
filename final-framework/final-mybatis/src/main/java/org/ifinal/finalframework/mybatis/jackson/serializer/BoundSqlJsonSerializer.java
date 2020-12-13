@@ -17,7 +17,8 @@ import org.ifinal.finalframework.auto.service.annotation.AutoService;
 public class BoundSqlJsonSerializer extends JsonSerializer<BoundSql> {
 
     @Override
-    public void serialize(final BoundSql value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final BoundSql value, final JsonGenerator gen, final SerializerProvider serializers)
+        throws IOException {
 
         gen.writeStartObject();
 

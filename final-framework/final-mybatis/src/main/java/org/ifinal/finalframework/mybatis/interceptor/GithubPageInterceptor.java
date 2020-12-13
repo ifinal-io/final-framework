@@ -20,8 +20,10 @@ import org.springframework.stereotype.Component;
  */
 @Intercepts(
     {
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class, CacheKey.class,
             BoundSql.class}),
     }
 )

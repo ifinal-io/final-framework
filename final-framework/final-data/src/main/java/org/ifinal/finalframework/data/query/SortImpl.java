@@ -42,7 +42,8 @@ final class SortImpl extends ArrayList<Order> implements Sort {
     static Sort sort(final Direction direction, final QProperty<?>... properties) {
 
         Asserts.isEmpty(properties, "properties must be not empty!");
-        return new SortImpl(Arrays.stream(properties).map(it -> Order.order(it, direction)).collect(Collectors.toList()));
+        return new SortImpl(
+            Arrays.stream(properties).map(it -> Order.order(it, direction)).collect(Collectors.toList()));
     }
 
     public Sort and(final Sort sort) {

@@ -25,8 +25,10 @@ class SelectSqlProviderTest {
     @Test
     void selectOne() throws NoSuchMethodException {
 
-        final Method selectOne = AbsMapper.class.getMethod("selectOne", String.class, Class.class, Serializable.class, IQuery.class);
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), selectOne.getAnnotation(SelectProvider.class),
+        final Method selectOne = AbsMapper.class
+            .getMethod("selectOne", String.class, Class.class, Serializable.class, IQuery.class);
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(),
+            selectOne.getAnnotation(SelectProvider.class),
             PersonMapper.class, selectOne);
         final HashMap<String, Object> parameters = new HashMap<>();
 

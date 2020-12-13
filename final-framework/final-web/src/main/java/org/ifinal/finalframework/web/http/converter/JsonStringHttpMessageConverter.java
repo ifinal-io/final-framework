@@ -9,10 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.lang.NonNull;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice} 方式处理{@link
- * org.springframework.web.method.HandlerMethod} 返回类型与声明类型不一致时，导致抛出 {@link ClassCastException}。
+ * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, <br/>处理{@link HandlerMethod}
+ * 返回类型与声明类型不一致时，导致抛出 {@link ClassCastException}。
  *
  * @author likly
  * @version 1.0.0
@@ -47,13 +49,15 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
 
     @NonNull
     @Override
-    public Object read(final @NonNull Class<?> clazz, final @NonNull HttpInputMessage inputMessage) throws IOException {
+    public Object read(final @NonNull Class<?> clazz, final @NonNull HttpInputMessage inputMessage)
+        throws IOException {
 
         return converter.read(String.class, inputMessage);
     }
 
     @Override
-    public void write(final @NonNull Object o, final MediaType contentType, final @NonNull HttpOutputMessage outputMessage) throws IOException {
+    public void write(final @NonNull Object o, final MediaType contentType,
+        final @NonNull HttpOutputMessage outputMessage) throws IOException {
 
         converter.write(Json.toJson(o), contentType, outputMessage);
     }

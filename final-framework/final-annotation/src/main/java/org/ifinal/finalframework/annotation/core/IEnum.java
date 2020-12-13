@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.annotation.core;
 
+import java.util.Objects;
 import org.ifinal.finalframework.annotation.data.Transient;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.util.Objects;
 
 /**
  * A maker superinterface which the {@linkplain Enum enum} should be impl.
@@ -34,7 +33,6 @@ public interface IEnum<T> {
         }
         return null;
     }
-
 
     /**
      * return the enum code, not the {@linkplain Enum#ordinal() ordinal}.

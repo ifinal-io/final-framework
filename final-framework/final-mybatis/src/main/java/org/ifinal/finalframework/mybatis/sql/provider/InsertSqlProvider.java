@@ -37,7 +37,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
     private static final String REPLACE_INTO = "REPLACE INTO";
 
-    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
+    private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end"
+        + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     private static final String TRIM_END = "</trim>";
 
@@ -75,7 +76,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     }
 
     @Override
-    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
+    public void doProvide(final StringBuilder sql, final ProviderContext context,
+        final Map<String, Object> parameters) {
 
         final String insertPrefix = getInsertPrefix(context.getMapperMethod(),
             parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
@@ -187,7 +189,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                         .append("\">");
 
                     final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                    value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
+                    value.append(
+                        ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
 
                     value
                         .append("</when>")
@@ -198,7 +201,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                     final StringBuilder value = new StringBuilder();
 
                     final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                    value.append(ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
+                    value.append(
+                        ScriptMapperHelper.cdata(Velocities.getValue(writer, buildPropertyMetadata(property)) + ","));
                     sql.append(value.toString());
                 }
 
@@ -230,7 +234,8 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
      * @param properties properties
      * @param view       view
      */
-    private void appendOnDuplicateKeyUpdate(final StringBuilder sql, final QEntity<?, ?> properties, final Class<?> view) {
+    private void appendOnDuplicateKeyUpdate(final StringBuilder sql, final QEntity<?, ?> properties,
+        final Class<?> view) {
 
         final String onDuplicateKeyUpdate = properties.stream()
             .filter(property -> (property.isWriteable() && property.hasView(view))

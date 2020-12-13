@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.annotation.sharding;
 
-import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
 
 /**
  * @author likly
@@ -15,6 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ShardingTable {
+
     /**
      * return the logic table name
      *

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-
 /**
  * @author likly
  * @version 1.0.0
@@ -18,4 +17,5 @@ public interface NameConverter {
      * @return mapping name
      */
     String convert(String name);
+
 }

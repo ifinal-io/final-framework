@@ -29,7 +29,8 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
      * @see BeanPropertyWriter#getName()
      * @see SerializedString
      */
-    private static final Field NAME_FIELD = Objects.requireNonNull(ReflectionUtils.findField(BeanPropertyWriter.class, "_name"));
+    private static final Field NAME_FIELD = Objects
+        .requireNonNull(ReflectionUtils.findField(BeanPropertyWriter.class, "_name"));
 
     static {
         ReflectionUtils.makeAccessible(NAME_FIELD);

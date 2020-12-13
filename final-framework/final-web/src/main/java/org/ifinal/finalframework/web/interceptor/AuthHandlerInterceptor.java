@@ -38,7 +38,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
         for (AuthService<?, ?> authService : authServiceProvider) {
             Class<?> targetClass = AopUtils.getTargetClass(authService);
-            Class authAnnotation = Reflections.findParameterizedInterfaceArgumentClass(targetClass, AuthService.class, 0);
+            Class authAnnotation = Reflections
+                .findParameterizedInterfaceArgumentClass(targetClass, AuthService.class, 0);
             logger.info("register auth service of {} for @{}", targetClass, authAnnotation);
             authServices.put(authAnnotation, authService);
         }
@@ -46,7 +47,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler)
+    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+        final @NonNull Object handler)
         throws Exception {
 
         Auth auth = findHandlerAuth(handler, Auth.class);
@@ -74,7 +76,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
             if (annotation != null) {
                 return annotation;
             }
-            return AnnotatedElementUtils.findMergedAnnotation(((HandlerMethod) handler).getMethod().getDeclaringClass(), ann);
+            return AnnotatedElementUtils
+                .findMergedAnnotation(((HandlerMethod) handler).getMethod().getDeclaringClass(), ann);
         }
 
         return null;

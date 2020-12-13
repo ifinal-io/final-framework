@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,10 +10,11 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.springframework.core.annotation.AliasFor;
 
 /**
- * Annotate the element of {@link Field} or {@link Method} is persistent to {@literal json}. The type of
- * collection like {@link List},{@link Set} and {@link Map} will be persistent to {@literal json} by default.
+ * Annotate the element of {@link Field} or {@link Method} is persistent to {@literal json}. The type of collection like
+ * {@link List},{@link Set} and {@link Map} will be persistent to {@literal json} by default.
  *
  * @author likly
  * @version 1.0.0
@@ -33,4 +32,5 @@ public @interface Json {
 
     @AliasFor(annotation = Column.class)
     String name() default "";
+
 }

@@ -1,16 +1,16 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 /**
- * Annotate the element of {@link java.lang.reflect.Field} or {@link java.lang.reflect.Method} is a {@literal readonly} property,
- * it will not be {@literal insert} and {@literal update}. Such as a {@link LastModified} column when it has a default value of {@literal NULL ON UPDATE NOW()}.
+ * Annotate the element of {@link java.lang.reflect.Field} or {@link java.lang.reflect.Method} is a {@literal readonly}
+ * property, it will not be {@literal insert} and {@literal update}. Such as a {@link LastModified} column when it has a
+ * default value of {@literal NULL ON UPDATE NOW()}.
  *
  * @author likly
  * @version 1.0.0

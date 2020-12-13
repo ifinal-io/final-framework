@@ -15,13 +15,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotEndWith {
+
     String property() default "";
 
     String[] value() default {
-            "<if test=\"${value} != null and ${value} != ''\">",
-            "    ${andOr} ${column} NOT LIKE CONCAT(#{${value}},'%') ",
-            "</if>"
+        "<if test=\"${value} != null and ${value} != ''\">",
+        "    ${andOr} ${column} NOT LIKE CONCAT(#{${value}},'%') ",
+        "</if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

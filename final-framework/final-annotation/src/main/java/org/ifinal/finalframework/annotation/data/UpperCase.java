@@ -7,9 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
-
 /**
- * Annotated the name of {@link Class table} or {@link Field column} should be convert to upper case use {@link String#toUpperCase()}.
+ * Annotated the name of {@link Class table} or {@link Field column} should be convert to upper case use {@link
+ * String#toUpperCase()}.
  *
  * @author likly
  * @version 1.0.0
@@ -19,4 +19,5 @@ import java.lang.reflect.Field;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface UpperCase {
+
 }

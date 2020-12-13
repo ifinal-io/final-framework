@@ -23,7 +23,8 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
     @Getter
     private final String path;
 
-    JsonContainsCriterionImpl(final Object target, final JsonOperation operation, final Object value, final String path) {
+    JsonContainsCriterionImpl(final Object target, final JsonOperation operation, final Object value,
+        final String path) {
 
         this.target = target;
         this.operation = operation;
@@ -37,7 +38,8 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
     }
 
     public String getCriterionValue() {
-        final String criterionValue = this.value instanceof CriterionValue ? "criterion.value.value" : "criterion.value";
+        final String criterionValue =
+            this.value instanceof CriterionValue ? "criterion.value.value" : "criterion.value";
         return ((CriterionValueImpl<?>) CriterionValue.from(this.value)).getSqlExpression(criterionValue);
     }
 
@@ -90,9 +92,13 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
     @Override
     public String toString() {
         if (JsonOperation.JSON_CONTAINS == operation) {
-            return String.format("JSON_CONTAINS(%s,%s,'%s')", CriterionValue.from(getTarget()), CriterionValue.from(getValue()), path);
+            return String
+                .format("JSON_CONTAINS(%s,%s,'%s')", CriterionValue.from(getTarget()), CriterionValue.from(getValue()),
+                    path);
         } else if (JsonOperation.NOT_JSON_CONTAINS == operation) {
-            return String.format("!JSON_CONTAINS(%s,%s,'%s')", CriterionValue.from(getTarget()), CriterionValue.from(getValue()), path);
+            return String
+                .format("!JSON_CONTAINS(%s,%s,'%s')", CriterionValue.from(getTarget()), CriterionValue.from(getValue()),
+                    path);
         }
         throw new UnsupportedOperationException(operation.name());
     }

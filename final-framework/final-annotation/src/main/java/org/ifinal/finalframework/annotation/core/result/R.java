@@ -26,14 +26,15 @@ public final class R {
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 
-    public static <T> Result<T> success(final @NonNull String code, final @NonNull String message, final @Nullable T data) {
+    public static <T> Result<T> success(final @NonNull String code, final @NonNull String message,
+        final @Nullable T data) {
 
         return new Result<>(SUCCESS_CODE, SUCCESS_MESSAGE, code, message, data);
     }
 
     @SuppressWarnings("rawtypes")
     public static Result failure(final @NonNull Integer status, final @NonNull String description,
-                                 final @NonNull String code, final @NonNull String message) {
+        final @NonNull String code, final @NonNull String message) {
 
         return new Result<>(status, description, code, message);
     }

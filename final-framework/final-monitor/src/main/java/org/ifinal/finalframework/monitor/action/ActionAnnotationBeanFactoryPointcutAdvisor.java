@@ -17,13 +17,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @SuppressWarnings("serial")
-public class ActionAnnotationBeanFactoryPointcutAdvisor extends SingleAnnotationBeanFactoryPointcutAdvisor<ActionMonitor, AnnotationAttributes, Recorder> {
+public class ActionAnnotationBeanFactoryPointcutAdvisor extends
+    SingleAnnotationBeanFactoryPointcutAdvisor<ActionMonitor, AnnotationAttributes, Recorder> {
 
     @Resource
     private Recorder recorder;
 
     public ActionAnnotationBeanFactoryPointcutAdvisor() {
-        super(ActionMonitor.class, new AnnotationAttributesAnnotationBuilder<>(), Arrays.asList(new ActionInterceptorHandler()));
+        super(ActionMonitor.class, new AnnotationAttributesAnnotationBuilder<>(),
+            Arrays.asList(new ActionInterceptorHandler()));
     }
 
     @Override

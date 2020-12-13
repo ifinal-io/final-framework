@@ -102,7 +102,9 @@ public final class SqlProviderHelper {
         /*
          * @see AbsMapper#update(String, Class, IEntity, Update, boolean, Collection, IQuery)
          */
-        METHOD_ARGS.put(UPDATE_METHOD_NAME, new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class});
+        METHOD_ARGS.put(UPDATE_METHOD_NAME,
+            new Class[]{String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class,
+                IQuery.class});
         /*
          * @see AbsMapper#delete(String, Collection, IQuery)
          */
@@ -115,7 +117,8 @@ public final class SqlProviderHelper {
          * @see AbsMapper#selectCount(String, Collection, IQuery)
          */
         METHOD_ARGS.put(SELECT_METHOD_NAME, new Class[]{String.class, Class.class, Collection.class, IQuery.class});
-        METHOD_ARGS.put(SELECT_ONE_METHOD_NAME, new Class[]{String.class, Class.class, Serializable.class, IQuery.class});
+        METHOD_ARGS
+            .put(SELECT_ONE_METHOD_NAME, new Class[]{String.class, Class.class, Serializable.class, IQuery.class});
         METHOD_ARGS.put(SELECT_IDS_METHOD_NAME, new Class[]{String.class, IQuery.class});
         METHOD_ARGS.put(SELECT_COUNT_METHOD_NAME, new Class[]{String.class, Collection.class, IQuery.class});
 
@@ -140,7 +143,8 @@ public final class SqlProviderHelper {
 
         // init ProviderContext
         try {
-            PROVIDER_CONTEXT_CONSTRUCTOR = ReflectionUtils.accessibleConstructor(ProviderContext.class, Class.class, Method.class, String.class);
+            PROVIDER_CONTEXT_CONSTRUCTOR = ReflectionUtils
+                .accessibleConstructor(ProviderContext.class, Class.class, Method.class, String.class);
         } catch (NoSuchMethodException e) {
             throw new IllegalArgumentException(e);
         }
@@ -149,7 +153,8 @@ public final class SqlProviderHelper {
     private SqlProviderHelper() {
     }
 
-    public static String xml(final Class<? extends AbsMapper<?, ?>> mapper, final String method, final Map<String, Object> parameters) {
+    public static String xml(final Class<? extends AbsMapper<?, ?>> mapper, final String method,
+        final Map<String, Object> parameters) {
 
         try {
             ProviderContext providerContext = PROVIDER_CONTEXT_CONSTRUCTOR
@@ -160,11 +165,13 @@ public final class SqlProviderHelper {
         }
     }
 
-    public static String sql(final Class<? extends AbsMapper<?, ?>> mapper, final String method, final Map<String, Object> parameters) {
+    public static String sql(final Class<? extends AbsMapper<?, ?>> mapper, final String method,
+        final Map<String, Object> parameters) {
 
         Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
         Objects.requireNonNull(sqlMethod, String.format("not found method of %s in %s", method, mapper));
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper,
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(),
+            sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper,
             sqlMethod);
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
         return boundSql.getSql();
@@ -176,7 +183,8 @@ public final class SqlProviderHelper {
         sqlBound.setEntity(entity);
         sqlBound.setQuery(query.getClass());
 
-        String script = String.join("", "<script>", AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
+        String script = String.join("", "<script>",
+            AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
         sqlBound.setScript(script);
 
         SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), script, Map.class);

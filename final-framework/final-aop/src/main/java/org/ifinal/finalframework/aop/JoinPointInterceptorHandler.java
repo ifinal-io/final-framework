@@ -24,7 +24,8 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void afterReturning(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, Object result) {
+    default void afterReturning(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation,
+        Object result) {
 
         if (JoinPoint.AFTER_RETURNING == point(annotation)) {
             handle(executor, context, annotation, result, null);

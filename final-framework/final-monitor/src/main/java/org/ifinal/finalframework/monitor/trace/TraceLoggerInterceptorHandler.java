@@ -28,7 +28,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     ThreadLocal<AtomicInteger> methodDeepCounter = new ThreadLocal<>();
 
     @Override
-    public Object before(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation) {
+    public Object before(final @NonNull Tracer executor, final @NonNull InvocationContext context,
+        final @NonNull Boolean annotation) {
 
         context.addAttribute(TRACE_START, System.currentTimeMillis());
 
@@ -75,7 +76,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     }
 
     @Override
-    public void after(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation, final Object result,
+    public void after(final @NonNull Tracer executor, final @NonNull InvocationContext context,
+        final @NonNull Boolean annotation, final Object result,
         final Throwable throwable) {
 
         MethodMetadata metadata = context.metadata();

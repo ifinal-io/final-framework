@@ -24,7 +24,8 @@ public class ShardingDataSourceConfigurer implements ShardingConfigurer {
 
     private final DataSourceProperties dataSourceProperties;
 
-    public ShardingDataSourceConfigurer(final ShardingDataSourceProperties properties, final DataSourceProperties dataSourceProperties) {
+    public ShardingDataSourceConfigurer(final ShardingDataSourceProperties properties,
+        final DataSourceProperties dataSourceProperties) {
 
         this.properties = properties;
         this.dataSourceProperties = dataSourceProperties;

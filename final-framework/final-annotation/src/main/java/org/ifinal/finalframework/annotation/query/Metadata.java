@@ -26,6 +26,5 @@ public class Metadata extends LinkedHashMap<String, Object> implements Serializa
 
     public static final String ATTRIBUTE_NAME_QUERY = "query";
 
-
 }
 

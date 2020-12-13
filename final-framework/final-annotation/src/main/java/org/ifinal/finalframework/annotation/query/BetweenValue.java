@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.annotation.query;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @author likly

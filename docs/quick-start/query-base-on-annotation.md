@@ -245,8 +245,7 @@ static class InnerQuery {
 
 * Common Annotation
 
-| Annotation | SQL | 备注 | | :---------------: | :----------------------------------------: | :--: |
-|     `@IsNull`
+| Annotation | SQL | 备注 | | :---------------: | :----------------------------------------: | :--: | |     `@IsNull`
 |              `column IS NULL`              | | |   `@IsNotNull`
 |            `column IS NOT NULL`            | | |     `@Equal`
 |            `column = #{value}`             | | |    `@NotEqual`

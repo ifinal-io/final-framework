@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-annotation</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>spring-data-commons</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-core</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-processor</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+            <groupId>org.apache.shardingsphere</groupId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>mybatis</artifactId>
+            <groupId>org.mybatis</groupId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-annotation</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-    </dependencies>
 </project>

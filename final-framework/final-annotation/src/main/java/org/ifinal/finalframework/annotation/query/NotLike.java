@@ -14,13 +14,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotLike {
+
     String property() default "";
 
     String[] value() default {
-            "   <if test=\"${value} != null and ${value} != ''\">",
-            "        ${andOr} ${column} NOT LIKE #{${value}} ",
-            "   </if>"
+        "   <if test=\"${value} != null and ${value} != ''\">",
+        "        ${andOr} ${column} NOT LIKE #{${value}} ",
+        "   </if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

@@ -25,7 +25,8 @@ class SimpleUpdateSetOperation implements UpdateSetOperation {
         this(property, operation, null);
     }
 
-    SimpleUpdateSetOperation(final @NonNull QProperty<?> property, final @NonNull UpdateOperation operation, final @Nullable Object value) {
+    SimpleUpdateSetOperation(final @NonNull QProperty<?> property, final @NonNull UpdateOperation operation,
+        final @Nullable Object value) {
 
         this.property = property;
         this.operation = operation;

@@ -25,17 +25,11 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
         return and(Arrays.asList(criterion));
     }
 
-    Criteria and(Criteria... criteria);
-
     static Criteria and(Collection<Criterion> criterion) {
         return new CriteriaImpl(AndOr.AND, criterion);
     }
 
-    default Criteria add(Criterion... criterion) {
-        return add(Arrays.asList(criterion));
-    }
-
-    Criteria add(Collection<Criterion> criterion);
+    Criteria and(Criteria... criteria);
 
     static Criteria or(Criterion... criterion) {
         return or(Arrays.asList(criterion));
@@ -46,6 +40,12 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
     }
 
     Criteria or(Criteria... criteria);
+
+    Criteria add(Collection<Criterion> criterion);
+
+    default Criteria add(Criterion... criterion) {
+        return add(Arrays.asList(criterion));
+    }
 
     AndOr andOr();
 

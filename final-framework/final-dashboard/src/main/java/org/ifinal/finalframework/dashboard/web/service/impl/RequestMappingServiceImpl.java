@@ -51,7 +51,8 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
     public List<RequestPattern> query(final RequestPatternQuery query) {
 
         return requestPatterns.stream().filter(requestPattern -> !Asserts.nonEmpty(query.getPattern())
-            || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase())).collect(Collectors.toList());
+            || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase()))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -64,7 +65,8 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
     public void afterPropertiesSet() {
         this.requestMappingHandlerMapping.getHandlerMethods().keySet().forEach(it -> logger.info(it.toString()));
 
-        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : this.requestMappingHandlerMapping.getHandlerMethods().entrySet()) {
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : this.requestMappingHandlerMapping.getHandlerMethods()
+            .entrySet()) {
             final RequestMappingInfo requestMappingInfo = entry.getKey();
             final HandlerMethod handlerMethod = entry.getValue();
 
@@ -80,7 +82,8 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
                 requestHandler.setPattern(pattern);
                 requestHandler.setMethods(requestMappingInfo.getMethodsCondition().getMethods());
 
-                requestPatterns.add(new RequestPattern(name, requestMappingInfo.getMethodsCondition().getMethods(), pattern));
+                requestPatterns
+                    .add(new RequestPattern(name, requestMappingInfo.getMethodsCondition().getMethods(), pattern));
                 requestHandlers.put(pattern, requestHandler);
 
             }

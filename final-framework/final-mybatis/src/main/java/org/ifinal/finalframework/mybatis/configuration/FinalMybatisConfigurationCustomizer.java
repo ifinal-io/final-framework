@@ -28,7 +28,8 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
 
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisConfigurationCustomizer.class);
 
-    private static final Field composites = Objects.requireNonNull(ReflectionUtils.findField(ResultMapping.class, "composites"));
+    private static final Field composites = Objects
+        .requireNonNull(ReflectionUtils.findField(ResultMapping.class, "composites"));
 
     static {
         ReflectionUtils.makeAccessible(composites);
@@ -61,7 +62,8 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
                     .filter(ResultMapping::isCompositeResult)
                     .forEach(resultMapping -> {
 
-                        ResultMap map = new ResultMap.Builder(configuration, resultMapping.getNestedResultMapId(), resultMap.getType(),
+                        ResultMap map = new ResultMap.Builder(configuration, resultMapping.getNestedResultMapId(),
+                            resultMap.getType(),
                             resultMapping.getComposites()).build();
                         configuration.addResultMap(map);
 

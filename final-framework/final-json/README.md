@@ -12,10 +12,14 @@
 定义如下的Bean：
 
 ```java
+
 @Data
 public class DateBean {
+
     private Date date;
+
     private LocalDateTime localDateTime;
+
 }
 ```
 
@@ -23,10 +27,10 @@ public class DateBean {
 
 ```json
 {
-    "date":1605059845585,
-    "dateFormat":"2020-11-11 09:57:25",
-    "localDateTime":1605059845603,
-    "localDateTimeFormat":"2020-11-11 09:57:25"
+  "date": 1605059845585,
+  "dateFormat": "2020-11-11 09:57:25",
+  "localDateTime": 1605059845603,
+  "localDateTimeFormat": "2020-11-11 09:57:25"
 }
 ```
 
@@ -35,9 +39,12 @@ public class DateBean {
 定义如下Bean：
 
 ```java
+
 @Data
-static class EnumBean{
+static class EnumBean {
+
     private YN yn = YN.YES;
+
 }
 ```
 
@@ -45,9 +52,9 @@ static class EnumBean{
 
 ```json
 {
-    "yn":1,
-    "ynName":"YES",
-    "ynDesc":"有效"
+  "yn": 1,
+  "ynName": "YES",
+  "ynDesc": "有效"
 }
 ```
 

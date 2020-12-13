@@ -39,10 +39,12 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     private final Charset defaultCharset = Charset.defaultCharset();
 
     /**
-     * return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam}, otherwise {@code false}.
+     * return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam},
+     * otherwise {@code false}.
      *
      * @param parameter the method parameter
-     * @return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam}, otherwise {@code false}.
+     * @return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam},
+     *     otherwise {@code false}.
      */
     @Override
     public boolean supportsParameter(final @NonNull MethodParameter parameter) {
@@ -51,8 +53,10 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     }
 
     @Override
-    public Object resolveArgument(final @NonNull MethodParameter parameter, final @Nullable ModelAndViewContainer mavContainer,
-        final @NonNull NativeWebRequest webRequest, final @Nullable WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(final @NonNull MethodParameter parameter,
+        final @Nullable ModelAndViewContainer mavContainer,
+        final @NonNull NativeWebRequest webRequest, final @Nullable WebDataBinderFactory binderFactory)
+        throws Exception {
 
         final String contentType = webRequest.getHeader("content-type");
 
@@ -87,10 +91,12 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
         return null;
     }
 
-    private String parseParameter(final @NonNull MethodParameter parameter, final @NonNull NativeWebRequest webRequest) {
+    private String parseParameter(final @NonNull MethodParameter parameter,
+        final @NonNull NativeWebRequest webRequest) {
         // find the @RequestJsonParam annotation
         final RequestJsonParam requestJsonParam = Objects
-            .requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class), "requestJsonParam annotation is null");
+            .requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class),
+                "requestJsonParam annotation is null");
 
         final String parameterName = getParameterName(requestJsonParam, parameter);
         Objects.requireNonNull(parameterName);
@@ -113,7 +119,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     private Object parseJson(final String json, final MethodParameter parameter) {
 
         final Class<?> type = parameter.getParameterType();
-        final RequestJsonParamHandler<?> requestJsonParamHandler = RequestJsonParamHandlerRegistry.getInstance().getRequestJsonParamHandler(type);
+        final RequestJsonParamHandler<?> requestJsonParamHandler = RequestJsonParamHandlerRegistry.getInstance()
+            .getRequestJsonParamHandler(type);
         if (requestJsonParamHandler != null) {
             return requestJsonParamHandler.convert(json);
         }
@@ -125,7 +132,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
      */
     private String getParameterName(final RequestJsonParam requestJsonParam, final MethodParameter parameter) {
 
-        return Asserts.isEmpty(requestJsonParam.value()) ? parameter.getParameterName() : requestJsonParam.value().trim();
+        return Asserts.isEmpty(requestJsonParam.value()) ? parameter.getParameterName()
+            : requestJsonParam.value().trim();
     }
 
     @NonNull

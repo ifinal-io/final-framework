@@ -24,26 +24,30 @@ public class DefaultCacheExpressionEvaluator extends BaseExpressionEvaluator imp
     private final Map<ExpressionKey, Expression> expiredCache = new ConcurrentHashMap<>(64);
 
     @Override
-    public Object key(final String keyExpression, final AnnotatedElementKey methodKey, final EvaluationContext context) {
+    public Object key(final String keyExpression, final AnnotatedElementKey methodKey,
+        final EvaluationContext context) {
 
         return getExpression(this.keyCache, methodKey, keyExpression).getValue(context);
     }
 
     @Override
-    public Object field(final String fieldExpression, final AnnotatedElementKey methodKey, final EvaluationContext context) {
+    public Object field(final String fieldExpression, final AnnotatedElementKey methodKey,
+        final EvaluationContext context) {
 
         return getExpression(this.fieldCache, methodKey, fieldExpression).getValue(context);
     }
 
     @Override
-    public boolean condition(final String conditionExpression, final AnnotatedElementKey methodKey, final EvaluationContext context) {
+    public boolean condition(final String conditionExpression, final AnnotatedElementKey methodKey,
+        final EvaluationContext context) {
 
         return Boolean.TRUE.equals(getExpression(this.conditionCache, methodKey, conditionExpression).getValue(
             context, Boolean.class));
     }
 
     @Override
-    public Object expired(final String expiredExpression, final AnnotatedElementKey methodKey, final EvaluationContext context) {
+    public Object expired(final String expiredExpression, final AnnotatedElementKey methodKey,
+        final EvaluationContext context) {
 
         return getExpression(this.expiredCache, methodKey, expiredExpression).getValue(context);
     }

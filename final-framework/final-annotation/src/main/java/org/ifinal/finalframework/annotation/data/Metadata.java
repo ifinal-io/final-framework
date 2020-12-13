@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.annotation.data;
 
+import java.io.Serializable;
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
-
-import java.io.Serializable;
 
 /**
  * @author likly

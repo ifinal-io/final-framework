@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.lang.NonNull;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -12,13 +11,14 @@ import java.util.Set;
  * @since 1.0.0
  */
 public final class SqlKeyWords {
-    private static final Set<String> keys = new HashSet<>();
 
-    private SqlKeyWords() {
-    }
+    private static final Set<String> keys = new HashSet<>();
 
     static {
         init("key", "order", "group", "source");
+    }
+
+    private SqlKeyWords() {
     }
 
     private static void init(final String... keys) {
@@ -30,5 +30,6 @@ public final class SqlKeyWords {
 
         return keys.contains(word.toLowerCase());
     }
+
 }
 

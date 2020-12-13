@@ -15,7 +15,8 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 @Slf4j
-public abstract class AbsFrameworkApplicationContextInitializer<C extends ConfigurableApplicationContext> implements ApplicationContextInitializer<C> {
+public abstract class AbsFrameworkApplicationContextInitializer<C extends ConfigurableApplicationContext> implements
+    ApplicationContextInitializer<C> {
 
     private final Class<?> framework;
 
@@ -27,7 +28,8 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
     @Override
     public void initialize(final @NonNull C context) {
 
-        BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework), getBeanDefinitionRegistry(context));
+        BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework),
+            getBeanDefinitionRegistry(context));
     }
 
     /**

@@ -17,21 +17,25 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class CacheDelInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+public class CacheDelInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements
+    CacheInterceptorHandler {
 
     @Override
-    public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+    public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation,
         final @Nullable Object result, final @Nullable Throwable throwable) {
 
         final MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, result, throwable);
         if (isConditionPassing(annotation.getString("condition"), metadata, evaluationContext)) {
-            final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), metadata, evaluationContext);
+            final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"),
+                metadata, evaluationContext);
             if (key == null) {
                 throw new IllegalArgumentException("the cache action generate null key, action=" + annotation);
             }
-            final Object field = generateField(annotation.getStringArray("field"), annotation.getString("delimiter"), metadata, evaluationContext);
+            final Object field = generateField(annotation.getStringArray("field"), annotation.getString("delimiter"),
+                metadata, evaluationContext);
             logger.info("==> cache del: key={},field={}", key, field);
             Boolean flag = cache.del(key, field);
             logger.info("<== value: {}", flag);

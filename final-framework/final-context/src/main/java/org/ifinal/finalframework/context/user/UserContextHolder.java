@@ -45,7 +45,13 @@ public final class UserContextHolder {
         INHERITABLE_USER_CONTEXT_HOLDER.remove();
     }
 
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext, final boolean inheritable) {
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
+
+        setUserContext(localeContext, false);
+    }
+
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext,
+        final boolean inheritable) {
 
         if (localeContext == null) {
             reset();
@@ -58,11 +64,6 @@ public final class UserContextHolder {
                 INHERITABLE_USER_CONTEXT_HOLDER.remove();
             }
         }
-    }
-
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
-
-        setUserContext(localeContext, false);
     }
 
     public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {
@@ -79,6 +80,10 @@ public final class UserContextHolder {
         return (UserContext<T>) userContext;
     }
 
+    public static void setUser(final @Nullable IUser<?> user) {
+        setUser(user, false);
+    }
+
     public static <T extends IUser<?>> void setUser(final @Nullable T user, final boolean inheritable) {
 
         UserContext<?> userContext = getUserContext();
@@ -86,11 +91,6 @@ public final class UserContextHolder {
             userContext = new SimpleUserContext<>(user);
         }
         setUserContext(userContext, inheritable);
-    }
-
-    public static void setUser(final @Nullable IUser<?> user) {
-
-        setUser(user, false);
     }
 
     public static <T extends IUser<?>> T getUser(final @Nullable UserContext<? extends IUser<?>> localeContext) {

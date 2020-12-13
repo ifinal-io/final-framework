@@ -1,6 +1,5 @@
 ---
-layout: post title: define-rest-api-in-controller subtitle: define-rest-api-in-controller
-description:
+layout: post title: define-rest-api-in-controller subtitle: define-rest-api-in-controller description:
 define-rest-api-in-controller tags: []
 menus:
 

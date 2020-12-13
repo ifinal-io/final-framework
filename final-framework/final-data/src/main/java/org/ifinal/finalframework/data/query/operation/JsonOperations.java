@@ -17,11 +17,13 @@ public final class JsonOperations {
     private JsonOperations() {
     }
 
-    public static Criterion contains(final @NonNull Object doc, final @NonNull Object value, final @NonNull String path) {
+    public static Criterion contains(final @NonNull Object doc, final @NonNull Object value,
+        final @NonNull String path) {
         return JsonContainsCriterion.contains(doc, value, path);
     }
 
-    public static Criterion notContains(final @NonNull Object doc, final @NonNull Object value, final @NonNull String path) {
+    public static Criterion notContains(final @NonNull Object doc, final @NonNull Object value,
+        final @NonNull String path) {
         return JsonContainsCriterion.notContains(doc, value, path);
     }
 

@@ -67,8 +67,11 @@ public class AnnotationEntity<T> extends BasicPersistentEntity<T, Property> impl
 
         final Field field = Reflections.findField(entityClass, descriptor.getName());
         return field == null
-            ? new AnnotationProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), descriptor), this, SimpleTypeHolder.DEFAULT)
-            : new AnnotationProperty(org.springframework.data.mapping.model.Property.of(getTypeInformation(), field, descriptor), this,
+            ? new AnnotationProperty(
+            org.springframework.data.mapping.model.Property.of(getTypeInformation(), descriptor), this,
+            SimpleTypeHolder.DEFAULT)
+            : new AnnotationProperty(
+                org.springframework.data.mapping.model.Property.of(getTypeInformation(), field, descriptor), this,
                 SimpleTypeHolder.DEFAULT);
     }
 

@@ -32,7 +32,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public JavaFileObject getJavaFileForOutput(final Location location, final String className, final JavaFileObject.Kind kind, final FileObject sibling) {
+    public JavaFileObject getJavaFileForOutput(final Location location, final String className,
+        final JavaFileObject.Kind kind, final FileObject sibling) {
 
         for (BytesJavaFileObject byteCode : byteCodes) {
             if (byteCode.getClassName().equals(className)) {
@@ -64,7 +65,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public Iterable<JavaFileObject> list(final Location location, final String packageName, final Set<JavaFileObject.Kind> kinds,
+    public Iterable<JavaFileObject> list(final Location location, final String packageName,
+        final Set<JavaFileObject.Kind> kinds,
         final boolean recurse) throws IOException {
 
         if (location instanceof StandardLocation) {

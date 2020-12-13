@@ -1,17 +1,17 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.annotation.CreatedDate;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.data.annotation.CreatedDate;
 
 /**
- * Annotate the {@link Field property} is a {@code created} column which is have a {@link Default} value of {@code NOW()} and it is {@link Final} and {@link ReadOnly}.
+ * Annotate the {@link Field property} is a {@code created} column which is have a {@link Default} value of {@code
+ * NOW()} and it is {@link Final} and {@link ReadOnly}.
  *
  * @author likly
  * @version 1.0.0
@@ -31,9 +31,11 @@ import java.lang.reflect.Field;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Created {
+
     @AliasFor(annotation = Column.class)
     String value() default "";
 
     @AliasFor(annotation = Column.class)
     String name() default "";
+
 }

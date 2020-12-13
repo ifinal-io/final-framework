@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  *
  * @author likly
  * @version 1.0.0
- * @see org.springframework.context.annotation.ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)
+ * @see ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)
  * @since 1.0.0
  */
 @Slf4j

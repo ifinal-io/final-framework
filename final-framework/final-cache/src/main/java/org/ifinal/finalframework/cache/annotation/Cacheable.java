@@ -13,8 +13,10 @@ import org.springframework.core.annotation.AliasFor;
 /**
  * 缓存，为目标方法增加缓存能力。
  * <ol>
- * <li>在执行之前，优先从 {@link #key()} 和 {@link #field()} 所描述的缓存区域里读取 {@link Cache#get(Object, Object, Type, Class)}，如果命中，则直接返回。</li>
- * <li>在执行之后，将方法的执行结果写到 {@link #key()} 和 {@link #field()} 所描述的缓存区域里，{@link Cache#set(Object, Object, Object, Long, TimeUnit, Class)}。</li>
+ * <li>在执行之前，优先从 {@link #key()} 和 {@link #field()} 所描述的缓存区域里读取
+ * {@link Cache#get(Object, Object, Type, Class)}，如果命中，则直接返回。</li>
+ * <li>在执行之后，将方法的执行结果写到 {@link #key()} 和 {@link #field()} 所描述的缓存区域里，
+ * {@link Cache#set(Object, Object, Object, Long, TimeUnit, Class)}。</li>
  * </ol>
  *
  * @author likly

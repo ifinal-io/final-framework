@@ -19,7 +19,8 @@ public interface MethodInvocationDispatcher<A> {
 
     }
 
-    default void afterThrowing(@NonNull InvocationContext context, @NonNull A annotations, @NonNull Throwable throwable) {
+    default void afterThrowing(@NonNull InvocationContext context, @NonNull A annotations,
+        @NonNull Throwable throwable) {
 
     }
 

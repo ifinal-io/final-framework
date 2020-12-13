@@ -30,8 +30,10 @@ import org.ifinal.finalframework.annotation.query.PageQuery;
  */
 @Intercepts(
     {
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class,
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class,
             CacheKey.class,
             BoundSql.class}),
     }

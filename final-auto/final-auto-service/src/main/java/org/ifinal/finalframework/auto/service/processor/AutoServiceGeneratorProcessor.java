@@ -62,7 +62,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
     }
 
     private void generateService(final TypeElement entity) {
-        final String servicePackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
+        final String servicePackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
+            .toString()
             .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_SERVICE_PATH);
 
         final String serviceImplPackageName = servicePackageName + ".impl";
@@ -70,15 +71,27 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
         final String serviceName = entity.getSimpleName().toString() + SERVICE_SUFFIX;
         final String serviceImplName = entity.getSimpleName().toString() + SERVICE_IMPL_SUFFIX;
 
-        final TypeElement serviceElement = processingEnv.getElementUtils().getTypeElement(servicePackageName + "." + serviceName);
-        final TypeElement serviceImplElement = processingEnv.getElementUtils().getTypeElement(serviceImplPackageName + "." + serviceImplName);
+        final TypeElement serviceElement = processingEnv.getElementUtils()
+            .getTypeElement(servicePackageName + "." + serviceName);
+        final TypeElement serviceImplElement = processingEnv.getElementUtils()
+            .getTypeElement(serviceImplPackageName + "." + serviceImplName);
 
+        generateService(entity, servicePackageName, serviceName, serviceElement);
+        generateServiceImpl(entity, servicePackageName, serviceImplPackageName, serviceName, serviceImplName,
+            serviceImplElement);
+
+    }
+
+    private void generateService(final TypeElement entity, final String servicePackageName, final String serviceName,
+        final TypeElement serviceElement) {
         if (serviceElement == null) {
 
             try {
-                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(servicePackageName + "." + serviceName);
+                final JavaFileObject sourceFile = processingEnv.getFiler()
+                    .createSourceFile(servicePackageName + "." + serviceName);
 
-                final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
+                final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
+                    .toString()
                     .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
@@ -111,12 +124,18 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
             }
 
         }
+    }
 
+    private void generateServiceImpl(final TypeElement entity, final String servicePackageName,
+        final String serviceImplPackageName, final String serviceName, final String serviceImplName,
+        final TypeElement serviceImplElement) {
         if (serviceImplElement == null) {
             try {
-                final JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(serviceImplPackageName + "." + serviceImplName);
+                final JavaFileObject sourceFile = processingEnv.getFiler()
+                    .createSourceFile(serviceImplPackageName + "." + serviceImplName);
 
-                final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName().toString()
+                final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
+                    .toString()
                     .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
@@ -130,7 +149,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 );
 
                 MethodSpec constructor = MethodSpec.constructorBuilder()
-                    .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository").addModifiers(Modifier.FINAL).build())
+                    .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository")
+                        .addModifiers(Modifier.FINAL).build())
                     .addStatement("super(repository);")
                     .build();
 
@@ -155,7 +175,6 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 error(e.getMessage());
             }
         }
-
     }
 
     private void error(final String msg) {

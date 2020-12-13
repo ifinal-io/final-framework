@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.annotation.query;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.annotation.data.Transient;
-
-import java.io.Serializable;
 
 /**
  * 分页查询

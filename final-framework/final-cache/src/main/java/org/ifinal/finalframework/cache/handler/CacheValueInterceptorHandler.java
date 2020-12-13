@@ -20,7 +20,8 @@ import org.springframework.stereotype.Component;
  */
 @SuppressWarnings("all")
 @Component
-public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements
+    CacheInterceptorHandler {
 
     @Override
     public Object before(final Cache cache, final InvocationContext context, final AnnotationAttributes operation) {
@@ -29,11 +30,13 @@ public class CacheValueInterceptorHandler extends AbsCacheOperationInterceptorHa
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
 
         String delimiter = operation.getString("delimiter");
-        final Object key = generateKey(operation.getStringArray("key"), delimiter, context.metadata(), evaluationContext);
+        final Object key = generateKey(operation.getStringArray("key"), delimiter, context.metadata(),
+            evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + context);
         }
-        final Object field = generateField(operation.getStringArray("field"), delimiter, context.metadata(), evaluationContext);
+        final Object field = generateField(operation.getStringArray("field"), delimiter, context.metadata(),
+            evaluationContext);
         final Type type = (Type) operation.get("parameterType");
         logger.info("==> cache get: key={},field={}", key, field);
         Object cacheValue = cache.get(key, field, type, null);

@@ -5,8 +5,9 @@ import org.ifinal.finalframework.annotation.query.PageQuery;
 import org.springframework.lang.Nullable;
 
 /**
- * The interface for query with {@link Pageable}, do page query only when the {@linkplain #getPage() page} and {@linkplain #getSize()} are not null,
- * and do count query only then the {@linkplain #getCount() count} is {@code true}.
+ * The interface for query with {@link Pageable}, do page query only when the {@linkplain #getPage() page} and
+ * {@linkplain #getSize()} are not null, and do count query only then the {@linkplain #getCount() count} is {@code
+ * true}.
  *
  * @author likly
  * @version 1.0.0

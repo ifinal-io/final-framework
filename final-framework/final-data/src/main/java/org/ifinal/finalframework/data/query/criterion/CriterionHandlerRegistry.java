@@ -13,7 +13,8 @@ public final class CriterionHandlerRegistry {
 
     private static final CriterionHandlerRegistry INSTANCE = new CriterionHandlerRegistry();
 
-    private final Map<Class<? extends CriterionSqlProvider>, CriterionSqlProvider> handlers = new ConcurrentHashMap<>(8);
+    private final Map<Class<? extends CriterionSqlProvider>, CriterionSqlProvider> handlers = new ConcurrentHashMap<>(
+        8);
 
     private CriterionHandlerRegistry() {
         registry(CriterionSqlProvider.class, new VelocityCriterionSqlProvider());

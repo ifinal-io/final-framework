@@ -27,13 +27,17 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
 
-    public static final LocalDateTimeFormatter YYYY_MM_DD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYY_MM_DD_HH_MM_SS);
+    public static final LocalDateTimeFormatter YYYY_MM_DD_HH_MM_SS = new LocalDateTimeFormatter(
+        DateFormatterPattern.YYYY_MM_DD_HH_MM_SS);
 
-    public static final LocalDateTimeFormatter YYYY2_MM2_DD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
+    public static final LocalDateTimeFormatter YYYY2_MM2_DD_HH_MM_SS = new LocalDateTimeFormatter(
+        DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
 
-    public static final LocalDateTimeFormatter YYYYMMDDHHMMSS = new LocalDateTimeFormatter(DateFormatterPattern.YYYYMMDDHHMMSS);
+    public static final LocalDateTimeFormatter YYYYMMDDHHMMSS = new LocalDateTimeFormatter(
+        DateFormatterPattern.YYYYMMDDHHMMSS);
 
-    public static final LocalDateTimeFormatter YYYYMMDD_HH_MM_SS = new LocalDateTimeFormatter(DateFormatterPattern.YYYYMMDD_HH_MM_SS);
+    public static final LocalDateTimeFormatter YYYYMMDD_HH_MM_SS = new LocalDateTimeFormatter(
+        DateFormatterPattern.YYYYMMDD_HH_MM_SS);
 
     private final String regex;
 

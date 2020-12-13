@@ -62,7 +62,8 @@ public class CacheAnnotationAttributeProcessor implements AnnotationAttributesPr
     }
 
     @Override
-    public void doProcess(final @NonNull AnnotatedElement annotatedElement, final @NonNull AnnotationAttributes annotationAttributes) {
+    public void doProcess(final @NonNull AnnotatedElement annotatedElement,
+        final @NonNull AnnotationAttributes annotationAttributes) {
 
         processKeyOrField(annotationAttributes, ATTRIBUTE_NAME_KEY);
         processKeyOrField(annotationAttributes, ATTRIBUTE_NAME_FIELD);

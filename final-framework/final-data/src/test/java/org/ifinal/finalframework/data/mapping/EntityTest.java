@@ -18,10 +18,12 @@ class EntityTest {
     void testPersonEntity() {
         Entity<Person> entity = Entity.from(Person.class);
         assertEquals(Person.class.getSimpleName(), entity.getSimpleName());
-        assertEquals(NameConverterRegistry.getInstance().getTableNameConverter().convert(Person.class.getSimpleName()), entity.getTable());
+        assertEquals(NameConverterRegistry.getInstance().getTableNameConverter().convert(Person.class.getSimpleName()),
+            entity.getTable());
         logger.info("entity={},table={}", entity.getSimpleName(), entity.getTable());
         entity.stream().forEach(property -> {
-            logger.info("property={},column={},order={}", property.getName(), property.getColumn(), property.getOrder());
+            logger
+                .info("property={},column={},order={}", property.getName(), property.getColumn(), property.getOrder());
         });
     }
 

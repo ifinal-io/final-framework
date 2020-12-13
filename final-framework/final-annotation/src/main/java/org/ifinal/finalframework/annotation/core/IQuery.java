@@ -11,8 +11,8 @@ import org.ifinal.finalframework.annotation.data.Transient;
  * @since 1.0.0
  */
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
-        include = JsonTypeInfo.As.PROPERTY
+    use = JsonTypeInfo.Id.CLASS,
+    include = JsonTypeInfo.As.PROPERTY
 )
 @Transient
 public interface IQuery {

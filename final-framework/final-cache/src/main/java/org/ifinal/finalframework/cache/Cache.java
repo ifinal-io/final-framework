@@ -81,7 +81,8 @@ public interface Cache extends Executor {
      * @see org.ifinal.finalframework.cache.annotation.Cacheable
      * @see org.ifinal.finalframework.cache.annotation.CachePut
      */
-    void set(@NonNull Object key, @Nullable Object field, @Nullable Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit, @Nullable Class<?> view);
+    void set(@NonNull Object key, @Nullable Object field, @Nullable Object value, @Nullable Long ttl,
+        @NonNull TimeUnit timeUnit, @Nullable Class<?> view);
 
     /**
      * 获取缓存

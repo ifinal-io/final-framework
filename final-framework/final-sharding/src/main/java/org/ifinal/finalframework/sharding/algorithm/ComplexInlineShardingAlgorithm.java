@@ -43,22 +43,27 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
     private String algorithmExpression;
 
     @Override
-    public Collection<String> doSharding(final Collection<String> availableTargetNames, final ComplexKeysShardingValue<Comparable<?>> shardingValue) {
+    public Collection<String> doSharding(final Collection<String> availableTargetNames,
+        final ComplexKeysShardingValue<Comparable<?>> shardingValue) {
 
-        if (Objects.nonNull(shardingValue.getColumnNameAndRangeValuesMap()) && !shardingValue.getColumnNameAndRangeValuesMap().isEmpty()) {
+        if (Objects.nonNull(shardingValue.getColumnNameAndRangeValuesMap()) && !shardingValue
+            .getColumnNameAndRangeValuesMap().isEmpty()) {
             if (isAllowRangeQuery()) {
                 return availableTargetNames;
             }
 
             throw new UnsupportedOperationException(
-                "Since the property of `" + ALLOW_RANGE_QUERY_KEY + "` is false, inline sharding algorithm can not tackle with range query.");
+                "Since the property of `" + ALLOW_RANGE_QUERY_KEY
+                    + "` is false, inline sharding algorithm can not tackle with range query.");
         }
 
-        Map<String, Collection<Comparable<?>>> columnNameAndShardingValuesMap = shardingValue.getColumnNameAndShardingValuesMap();
+        Map<String, Collection<Comparable<?>>> columnNameAndShardingValuesMap = shardingValue
+            .getColumnNameAndShardingValuesMap();
 
         if (shardingColumns.length > 0 && shardingColumns.length != columnNameAndShardingValuesMap.size()) {
             throw new IllegalArgumentException(
-                "complex inline need " + shardingColumns.length + " sharing columns, but only found " + columnNameAndShardingValuesMap.size());
+                "complex inline need " + shardingColumns.length + " sharing columns, but only found "
+                    + columnNameAndShardingValuesMap.size());
         }
 
         Collection<Map<String, Comparable<?>>> combine = Maps.combine(columnNameAndShardingValuesMap);
@@ -84,7 +89,8 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
         Preconditions.checkNotNull(expression, "Inline sharding algorithm expression cannot be null.");
         algorithmExpression = InlineExpressionParser.handlePlaceHolder(expression.trim());
         initShardingColumns(props.getProperty(SHARING_COLUMNS_KEY, ""));
-        allowRangeQuery = Boolean.parseBoolean(props.getOrDefault(ALLOW_RANGE_QUERY_KEY, Boolean.FALSE.toString()).toString());
+        allowRangeQuery = Boolean
+            .parseBoolean(props.getOrDefault(ALLOW_RANGE_QUERY_KEY, Boolean.FALSE.toString()).toString());
     }
 
     private void initShardingColumns(final String shardingColumns) {
@@ -101,7 +107,8 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
     }
 
     private Closure<?> createClosure() {
-        Closure<?> result = new InlineExpressionParser(algorithmExpression).evaluateClosure().rehydrate(new Expando(), null, null);
+        Closure<?> result = new InlineExpressionParser(algorithmExpression).evaluateClosure()
+            .rehydrate(new Expando(), null, null);
         result.setResolveStrategy(Closure.DELEGATE_ONLY);
         return result;
     }

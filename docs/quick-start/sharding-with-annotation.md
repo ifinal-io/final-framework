@@ -111,7 +111,7 @@ rules:
 ### Interval Sharding Strategy——时间范围分片算法
 
 | 属性 | 数据类型 | 说明 | 默认值 | | :--------: | :-------------: | :--: | :----: | |  `scope`
-| `ShardingScope` | | | | `columns`  |   `String[]`    | | | | `pattern`  |    `String`     | | |
-|  `lower`   |    `String`     | | | |  `upper`   |    `String`     | | | |  `suffix`  |    `String`
+| `ShardingScope` | | | | `columns`  |   `String[]`    | | | | `pattern`  |    `String`     | | | |  `lower`
+|    `String`     | | | |  `upper`   |    `String`     | | | |  `suffix`  |    `String`
 | | | | `interval` |      `int`      | |  `1`   | |   `unit`   |  `ChronoUnit`   | | `DAYS` |
 

@@ -25,7 +25,8 @@ public class EnumValueDescSerializer extends JsonSerializer<Object> {
     }
 
     @Override
-    public void serialize(final Object value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
+    public void serialize(final Object value, final JsonGenerator gen, final SerializerProvider serializers)
+        throws IOException {
 
         if (value == null) {
             gen.writeNull();

@@ -9,5 +9,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public interface CriterionSqlProvider {
+
     String provide(@NonNull AnnotationAttributes annotationAttributes, @NonNull Metadata metadata);
+
 }

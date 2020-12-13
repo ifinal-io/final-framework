@@ -22,14 +22,14 @@ public @interface Between {
     String property() default "";
 
     String[] value() default {
-            "<if test=\"${value} != null and ${value}.min != null and ${value}.max != null\">",
-            "    <![CDATA[ ${andOr} ${column} BETWEEN #{${value}.min"
-                    + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
-                    + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}"
-                    + " AND #{${value}.max"
-                    + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
-                    + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
-            "</if>"
+        "<if test=\"${value} != null and ${value}.min != null and ${value}.max != null\">",
+        "    <![CDATA[ ${andOr} ${column} BETWEEN #{${value}.min"
+            + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
+            + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}"
+            + " AND #{${value}.max"
+            + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
+            + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
+        "</if>"
     };
 
     Class<?> javaType() default Object.class;

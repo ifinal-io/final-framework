@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.annotation.core;
 
-import org.springframework.lang.Nullable;
-
 import java.io.Serializable;
+import org.springframework.lang.Nullable;
 
 /**
  * A interface for data holder should be impl which provide the method of {@link #getData()}/{@link #setData(Object)} to

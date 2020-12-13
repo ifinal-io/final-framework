@@ -45,8 +45,8 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters) {
-
+    public void doProvide(final StringBuilder sql, final ProviderContext context,
+        final Map<String, Object> parameters) {
 
         final Class<?> entity = getEntityClass(context.getMapperType());
         final QEntity<?, ?> properties = QEntity.from(entity);
@@ -69,7 +69,8 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
+            sql.append(AnnotationQueryProvider.INSTANCE
+                .provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
     }

@@ -71,7 +71,8 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
         try {
             return getType().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new IllegalStateException(String.format("the entity of %s must have no args constructor!", getType().getName()));
+            throw new IllegalStateException(
+                String.format("the entity of %s must have no args constructor!", getType().getName()));
         }
     }
 

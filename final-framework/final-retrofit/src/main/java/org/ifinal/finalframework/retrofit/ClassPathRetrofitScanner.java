@@ -55,7 +55,8 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
         Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 
         if (beanDefinitions.isEmpty()) {
-            LOGGER.warn("No Retrofit service was found in '{}' package. Please check your configuration.", Arrays.asList(basePackages));
+            LOGGER.warn("No Retrofit service was found in '{}' package. Please check your configuration.",
+                Arrays.asList(basePackages));
         } else {
             processBeanDefinitions(beanDefinitions);
         }
@@ -71,12 +72,14 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
                 GenericBeanDefinition definition = (GenericBeanDefinition) holder.getBeanDefinition();
 
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Creating RetrofitFactoryBean with name '{}' and '{}' retrofitInterface", holder.getBeanName(), definition.getBeanClassName());
+                    LOGGER.debug("Creating RetrofitFactoryBean with name '{}' and '{}' retrofitInterface",
+                        holder.getBeanName(), definition.getBeanClassName());
                 }
 
                 final Class<?> retrofitService = Class.forName(definition.getBeanClassName());
                 final Retrofit retrofit = retrofitService.getAnnotation(Retrofit.class);
-                final String retrofitBeanName = StringUtils.hasText(retrofit.value()) ? retrofit.value() : DEFAULT_RETROFIT_BEAN_NAME;
+                final String retrofitBeanName =
+                    StringUtils.hasText(retrofit.value()) ? retrofit.value() : DEFAULT_RETROFIT_BEAN_NAME;
 
                 // the mapper interface is the original class of the bean
                 // but, the actual class of the bean is MapperFactoryBean
@@ -90,10 +93,12 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
                     LOGGER.debug("register retrofit: {}", definition.getBeanClassName());
                 }
 
-                definition.getPropertyValues().add(DEFAULT_RETROFIT_BEAN_NAME, new RuntimeBeanReference(retrofitBeanName));
+                definition.getPropertyValues()
+                    .add(DEFAULT_RETROFIT_BEAN_NAME, new RuntimeBeanReference(retrofitBeanName));
 
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Enabling autowire by type for RetrofitFactoryBean with name '{}'.", holder.getBeanName());
+                    LOGGER.debug("Enabling autowire by type for RetrofitFactoryBean with name '{}'.",
+                        holder.getBeanName());
                 }
                 definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
             } catch (Exception e) {

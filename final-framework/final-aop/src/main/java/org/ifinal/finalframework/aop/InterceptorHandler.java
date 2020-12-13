@@ -10,7 +10,8 @@ import org.springframework.lang.Nullable;
  */
 public interface InterceptorHandler<E, A> {
 
-    default Object before(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation) {
+    default Object before(final @NonNull E executor, final @NonNull InvocationContext context,
+        final @NonNull A annotation) {
 
         handle(executor, context, annotation, null, null);
         return null;

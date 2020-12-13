@@ -113,7 +113,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
         MethodSpec tableConstructor = MethodSpec.constructorBuilder()
             .addModifiers(Modifier.PUBLIC)
             // final String table
-            .addParameter(ParameterSpec.builder(ClassName.get(String.class), "table").addModifiers(Modifier.FINAL).build())
+            .addParameter(
+                ParameterSpec.builder(ClassName.get(String.class), "table").addModifiers(Modifier.FINAL).build())
             // super(Entity.class, table)
             .addStatement("super($T.class, table)", entity.getEntity().getElement())
             .build();

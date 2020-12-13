@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.retrofit.annotation;
 
-import org.ifinal.finalframework.retrofit.RetrofitFactoryBean;
-
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+import org.ifinal.finalframework.retrofit.RetrofitFactoryBean;
 
 /**
  * @author likly
@@ -17,6 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface RetrofitScan {
+
     String[] basePackages() default {};
 
     Class<?>[] basePackageClasses() default {};
@@ -26,4 +25,5 @@ public @interface RetrofitScan {
     Class<?> markerInterface() default Class.class;
 
     Class<? extends RetrofitFactoryBean> factoryBean() default RetrofitFactoryBean.class;
+
 }

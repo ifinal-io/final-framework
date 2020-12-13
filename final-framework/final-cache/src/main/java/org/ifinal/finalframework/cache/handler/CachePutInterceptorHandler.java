@@ -22,10 +22,12 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements
+    CacheInterceptorHandler {
 
     @Override
-    public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes operation,
+    public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes operation,
         final @Nullable Object result, final @Nullable Throwable throwable) {
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
@@ -34,8 +36,10 @@ public class CachePutInterceptorHandler extends AbsCacheOperationInterceptorHand
             return;
         }
 
-        final Object key = generateKey(operation.getStringArray("key"), operation.getString("delimiter"), context.metadata(), evaluationContext);
-        final Object field = generateField(operation.getStringArray("field"), operation.getString("delimiter"), context.metadata(), evaluationContext);
+        final Object key = generateKey(operation.getStringArray("key"), operation.getString("delimiter"),
+            context.metadata(), evaluationContext);
+        final Object field = generateField(operation.getStringArray("field"), operation.getString("delimiter"),
+            context.metadata(), evaluationContext);
         Object cacheValue = result;
 
         String value = operation.getString("value");

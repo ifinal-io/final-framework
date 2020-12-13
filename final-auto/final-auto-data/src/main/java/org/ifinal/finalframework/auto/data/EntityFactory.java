@@ -42,11 +42,13 @@ public final class EntityFactory {
                 .filter(property -> {
                         if (property.getField().isPresent()) {
                             return property.getField().map(field ->
-                                !(field.getModifiers().contains(Modifier.FINAL) || field.getModifiers().contains(Modifier.STATIC)))
+                                !(field.getModifiers().contains(Modifier.FINAL) || field.getModifiers()
+                                    .contains(Modifier.STATIC)))
                                 .orElse(true);
                         } else if (property.getGetter().isPresent()) {
                             return property.getGetter().map(method ->
-                                !(method.getModifiers().contains(Modifier.FINAL) || method.getModifiers().contains(Modifier.STATIC))).orElse(true);
+                                !(method.getModifiers().contains(Modifier.FINAL) || method.getModifiers()
+                                    .contains(Modifier.STATIC))).orElse(true);
                         }
 
                         return false;

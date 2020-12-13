@@ -46,11 +46,13 @@ public interface CriterionValue<V> extends SqlNode {
             parent.append("#{").append(expression).append(".value");
 
             if (getJavaType() != null) {
-                parent.append(",javaType=").append(Optional.ofNullable(getJavaType()).map(Class::getCanonicalName).orElse(""));
+                parent.append(",javaType=")
+                    .append(Optional.ofNullable(getJavaType()).map(Class::getCanonicalName).orElse(""));
             }
 
             if (getTypeHandler() != null) {
-                parent.append(",typeHandler=").append(Optional.ofNullable(getTypeHandler()).map(Class::getCanonicalName).orElse(""));
+                parent.append(",typeHandler=")
+                    .append(Optional.ofNullable(getTypeHandler()).map(Class::getCanonicalName).orElse(""));
             }
 
             parent.append("}");

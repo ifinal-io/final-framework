@@ -27,7 +27,8 @@ public interface MappingUtils {
                 .getName().substring(1);
     }
 
-    static String formatColumn(final Entity<?> entity, final @NonNull Property property, final @Nullable Property referenceProperty) {
+    static String formatColumn(final Entity<?> entity, final @NonNull Property property,
+        final @Nullable Property referenceProperty) {
 
         String column = null;
         if (referenceProperty == null) {

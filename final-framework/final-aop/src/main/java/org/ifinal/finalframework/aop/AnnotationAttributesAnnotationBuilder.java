@@ -12,7 +12,8 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AnnotationAttributesAnnotationBuilder<A extends Annotation> implements AnnotationBuilder<A, AnnotationAttributes> {
+public class AnnotationAttributesAnnotationBuilder<A extends Annotation> implements
+    AnnotationBuilder<A, AnnotationAttributes> {
 
     @Override
     @NonNull
@@ -34,7 +35,8 @@ public class AnnotationAttributesAnnotationBuilder<A extends Annotation> impleme
 
     @Override
     @NonNull
-    public AnnotationAttributes build(final @NonNull Parameter parameter, final @NonNull Integer index, final @NonNull A annotation) {
+    public AnnotationAttributes build(final @NonNull Parameter parameter, final @NonNull Integer index,
+        final @NonNull A annotation) {
 
         AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(parameter, annotation);
         annotationAttributes.put("parameter", parameter);

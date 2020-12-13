@@ -35,7 +35,8 @@ class ComplexInlineShardingAlgorithmTest {
         shardingValues.put("age", Arrays.asList(1, 2));
 
         Collection<String> availableTargetNames = Arrays.asList("person_0_0", "person_0_1", "person_1_0", "person_1_1");
-        ComplexKeysShardingValue<Comparable<?>> shardingValue = new ComplexKeysShardingValue<>("person", shardingValues, null);
+        ComplexKeysShardingValue<Comparable<?>> shardingValue = new ComplexKeysShardingValue<>("person", shardingValues,
+            null);
         Collection<String> tables = algorithm.doSharding(availableTargetNames, shardingValue);
 
         Assertions.assertEquals(4, tables.size());

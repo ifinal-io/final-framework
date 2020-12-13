@@ -21,7 +21,8 @@ public interface Beans {
      * @return list
      */
     @SuppressWarnings("unchecked")
-    static <T> List<T> findBeansByAnnotation(final ApplicationContext applicationContext, final Class<? extends Annotation> annotationType) {
+    static <T> List<T> findBeansByAnnotation(final ApplicationContext applicationContext,
+        final Class<? extends Annotation> annotationType) {
 
         return findAllBeansAnnotatedBy(applicationContext, annotationType)
             .map(it -> (T) it)
@@ -34,11 +35,13 @@ public interface Beans {
         return Arrays.stream(BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class));
     }
 
-    static Stream<Object> findAllBeansAnnotatedBy(final ApplicationContext applicationContext, final Class<? extends Annotation> annotationType) {
+    static Stream<Object> findAllBeansAnnotatedBy(final ApplicationContext applicationContext,
+        final Class<? extends Annotation> annotationType) {
 
         Asserts.isNull(applicationContext, "applicationContext must be not null!");
         Asserts.isNull(annotationType, "annotationType must be not null!");
-        return findAllBeans(applicationContext).filter(name -> applicationContext.findAnnotationOnBean(name, annotationType) != null)
+        return findAllBeans(applicationContext)
+            .filter(name -> applicationContext.findAnnotationOnBean(name, annotationType) != null)
             .map(applicationContext::getBean);
     }
 

@@ -29,18 +29,22 @@ public final class PropertiesLoader {
     private PropertiesLoader() {
     }
 
-    public static List<String> loadPropertyValues(final @NonNull String propertyKey, final @NonNull String propertiesResourceLocation) {
+    public static List<String> loadPropertyValues(final @NonNull String propertyKey,
+        final @NonNull String propertiesResourceLocation) {
 
         return loadPropertyValues(propertyKey, null, propertiesResourceLocation);
     }
 
-    public static List<String> loadPropertyValues(final @NonNull String propertyKey, final @Nullable ClassLoader classLoader,
+    public static List<String> loadPropertyValues(final @NonNull String propertyKey,
+        final @Nullable ClassLoader classLoader,
         final @NonNull String propertiesResourceLocation) {
 
-        return loadPropertyValues(classLoader, propertiesResourceLocation).getOrDefault(propertyKey, Collections.emptyList());
+        return loadPropertyValues(classLoader, propertiesResourceLocation)
+            .getOrDefault(propertyKey, Collections.emptyList());
     }
 
-    private static Map<String, List<String>> loadPropertyValues(final @Nullable ClassLoader classLoader, final String propertiesResourceLocation) {
+    private static Map<String, List<String>> loadPropertyValues(final @Nullable ClassLoader classLoader,
+        final String propertiesResourceLocation) {
 
         MultiValueMap<String, String> result = cache.get(classLoader);
         if (result != null) {
@@ -66,7 +70,8 @@ public final class PropertiesLoader {
             cache.put(classLoader, result);
             return result;
         } catch (IOException ex) {
-            throw new IllegalArgumentException("Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
+            throw new IllegalArgumentException(
+                "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
         }
     }
 

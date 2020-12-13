@@ -19,12 +19,14 @@ import org.springframework.lang.Nullable;
  * <ul>
  *     <li>insert the records call with {@link #insert(String, Class, boolean, Collection)};</li>
  *     <li>replace the records when the record had exists call with {@link #replace(String, Class, Collection)};</li>
- *     <li>insert the records when the record not exists and update the record when the record had exists call with {@link #save(String, Class, Collection)};</li>
+ *     <li>insert the records when the record not exists and update the record when the record had exists
+ *     call with {@link #save(String, Class, Collection)};</li>
  *     <li>update the record call with {@link #update(String, Class, IEntity, Update, boolean, Collection, IQuery)}</li>
  *     <li>select records call with {@link #select(String, Class, Collection, IQuery)}</li>
  *     <li>select ont record call with {@link #selectOne(String, Class, Serializable, IQuery)}</li>
  *     <li>count the records call with {@link #selectCount()};</li>
- *     <li>check the record is exists call with {@link #isExists(String, Serializable)} or {@link #isExists(String, IQuery)};</li>
+ *     <li>check the record is exists call with {@link #isExists(String, Serializable)}
+ *     or {@link #isExists(String, IQuery)};</li>
  *     <li>truncate table call with {@link #truncate(String)};</li>
  * </ul>
  *
@@ -538,7 +540,8 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      * @param query 查询条件
      * @return list
      */
-    List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<I> ids, @Nullable IQuery query);
+    List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<I> ids,
+        @Nullable IQuery query);
 
     /*==============================================================================================*/
     /*========================================= SELECT ONE =========================================*/
@@ -603,7 +606,8 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         scan(table, null, query, listener);
     }
 
-    default <P> void scan(@Nullable String table, @Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
+    default <P> void scan(@Nullable String table, @Nullable Class<?> view, @NonNull Pageable query,
+        @NonNull Listener<P, List<T>> listener) {
         if (Asserts.isNull(query.getPage()) || Asserts.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }

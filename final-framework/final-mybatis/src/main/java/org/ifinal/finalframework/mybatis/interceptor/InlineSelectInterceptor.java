@@ -35,8 +35,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Intercepts(
     {
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
+            RowBounds.class, ResultHandler.class, CacheKey.class,
             BoundSql.class}),
     }
 )
@@ -85,7 +87,8 @@ public class InlineSelectInterceptor implements Interceptor {
 
     public MappedStatement newFinalMappedStatement(final MappedStatement ms, final String newMsId) {
 
-        MappedStatement.Builder builder = new MappedStatement.Builder(ms.getConfiguration(), newMsId, ms.getSqlSource(), ms.getSqlCommandType());
+        MappedStatement.Builder builder = new MappedStatement.Builder(ms.getConfiguration(), newMsId, ms.getSqlSource(),
+            ms.getSqlCommandType());
         builder.resource(ms.getResource());
         builder.fetchSize(ms.getFetchSize());
         builder.statementType(ms.getStatementType());

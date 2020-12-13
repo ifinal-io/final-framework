@@ -22,7 +22,8 @@ public class RedisCache implements Cache {
     private static final Long ONE = 1L;
 
     @Override
-    public boolean lock(final @NonNull Object key, final @NonNull Object value, final @Nullable Long ttl, final @Nullable TimeUnit timeUnit) {
+    public boolean lock(final @NonNull Object key, final @NonNull Object value, final @Nullable Long ttl,
+        final @Nullable TimeUnit timeUnit) {
 
         return Redis.lock(key, value, ttl, timeUnit);
     }
@@ -46,7 +47,8 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void set(final @NonNull Object key, final @Nullable Object field, final @Nullable Object value, final @Nullable Long ttl,
+    public void set(final @NonNull Object key, final @Nullable Object field, final @Nullable Object value,
+        final @Nullable Long ttl,
         final @Nullable TimeUnit timeUnit, final @Nullable Class<?> view) {
 
         final Object cacheValue = view == null ? Json.toJson(value) : Json.toJson(value, view);
@@ -65,7 +67,8 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public <T> T get(final @NonNull Object key, final @Nullable Object field, final @NonNull Type type, final @Nullable Class<?> view) {
+    public <T> T get(final @NonNull Object key, final @Nullable Object field, final @NonNull Type type,
+        final @Nullable Class<?> view) {
 
         final Object cacheValue = field == null ? Redis.value().get(key) : Redis.hash().get(key, field);
         if (cacheValue == null) {
@@ -90,7 +93,8 @@ public class RedisCache implements Cache {
     @Override
     public Boolean del(final @NonNull Object key, final @Nullable Object field) {
 
-        return field == null ? Boolean.TRUE.equals(Redis.key().delete(key)) : ONE.equals(Redis.hash().delete(key, field));
+        return field == null ? Boolean.TRUE.equals(Redis.key().delete(key))
+            : ONE.equals(Redis.hash().delete(key, field));
     }
 
 }

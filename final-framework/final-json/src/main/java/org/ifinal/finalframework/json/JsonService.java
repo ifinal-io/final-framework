@@ -180,7 +180,8 @@ public interface JsonService {
      * @return json value
      * @throws JsonException json JsonException
      */
-    <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass, @NonNull Class<E> elementClass,
+    <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass,
+        @NonNull Class<E> elementClass,
         @Nullable Class<?> view);
 
 }

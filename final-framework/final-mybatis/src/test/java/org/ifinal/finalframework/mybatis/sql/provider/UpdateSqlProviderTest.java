@@ -35,11 +35,13 @@ class UpdateSqlProviderTest {
     void update() throws NoSuchMethodException {
 
         final Method update = AbsMapper.class
-            .getMethod("update", String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class);
+            .getMethod("update", String.class, Class.class, IEntity.class, Update.class, boolean.class,
+                Collection.class, IQuery.class);
         /*
          * @see ProviderSqlSource
          */
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), update.getAnnotation(UpdateProvider.class), PersonMapper.class,
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(),
+            update.getAnnotation(UpdateProvider.class), PersonMapper.class,
             update);
         final HashMap<String, Object> parameters = new HashMap<>();
 

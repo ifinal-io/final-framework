@@ -56,7 +56,8 @@ public final class NameConverterRegistry {
             return;
         }
         try {
-            this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).getConstructor().newInstance();
+            this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).getConstructor()
+                .newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

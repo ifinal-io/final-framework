@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.annotation.monitor;
 
-import org.ifinal.finalframework.annotation.aop.AopAnnotation;
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.ifinal.finalframework.annotation.aop.AopAnnotation;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * 在方法执行之前，向上下文中注入{@code trace}链路追踪变量。

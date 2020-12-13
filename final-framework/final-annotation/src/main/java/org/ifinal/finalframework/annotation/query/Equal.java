@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.annotation.query;
 
-import org.apache.ibatis.type.TypeHandler;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.apache.ibatis.type.TypeHandler;
 
 /**
  * <pre>
@@ -21,12 +20,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Equal {
+
     String property() default "";
 
     String[] value() default {
-            "   <if test=\"${value} != null\">",
-            "   <![CDATA[ ${andOr} ${column} = #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
-            "   </if>"
+        "   <if test=\"${value} != null\">",
+        "   <![CDATA[ ${andOr} ${column} = #{${value}"
+            + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
+            + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end }]]>",
+        "   </if>"
     };
 
     Class<?> javaType() default Object.class;

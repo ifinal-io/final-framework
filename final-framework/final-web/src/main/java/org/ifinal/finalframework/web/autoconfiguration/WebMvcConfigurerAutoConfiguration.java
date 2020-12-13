@@ -33,8 +33,10 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<org.springframework.web.servlet.HandlerInterceptor> handlerInterceptors;
 
-    public WebMvcConfigurerAutoConfiguration(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
-        final ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+    public WebMvcConfigurerAutoConfiguration(
+        final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
+        final ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>>
+            handlerInterceptorsObjectProvider) {
 
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
@@ -61,9 +63,11 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     }
 
-    private void addInterceptor(final @NonNull InterceptorRegistry registry, final @NonNull org.springframework.web.servlet.HandlerInterceptor interceptor) {
+    private void addInterceptor(final @NonNull InterceptorRegistry registry,
+        final @NonNull org.springframework.web.servlet.HandlerInterceptor interceptor) {
 
-        final HandlerInterceptor annotation = AnnotationUtils.getAnnotation(interceptor.getClass(), HandlerInterceptor.class);
+        final HandlerInterceptor annotation = AnnotationUtils
+            .getAnnotation(interceptor.getClass(), HandlerInterceptor.class);
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
         if (annotation != null) {
             if (annotation.includes().length > 0) {

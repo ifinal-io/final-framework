@@ -22,7 +22,8 @@ public class ShardingStrategyRegistration {
 
     private final Properties properties;
 
-    public ShardingStrategyRegistration(final ShardingStrategy.Strategy strategy, final String type, final String name, final String[] column,
+    public ShardingStrategyRegistration(final ShardingStrategy.Strategy strategy, final String type, final String name,
+        final String[] column,
         final Properties properties) {
 
         this.strategy = strategy;

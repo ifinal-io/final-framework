@@ -15,13 +15,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NotEqual {
+
     String property() default "";
 
     String[] value() default {
-            "<if test=\"${value} != null\">",
-            "   <![CDATA[ ${andOr} ${column} != #{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
-            "</if>"
+        "<if test=\"${value} != null\">",
+        "   <![CDATA[ ${andOr} ${column} != #{${value}"
+            + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
+            + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
+        "</if>"
     };
 
     Class<?> javaType() default Object.class;
+
 }

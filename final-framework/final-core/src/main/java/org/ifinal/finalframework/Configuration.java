@@ -77,7 +77,8 @@ public final class Configuration {
     public void load(final ProcessingEnvironment processingEnv) {
 
         try {
-            FileObject resource = processingEnv.getFiler().getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
+            FileObject resource = processingEnv.getFiler()
+                .getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             try (InputStream is = resource.openInputStream()) {
                 properties.load(is);
             }

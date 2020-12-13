@@ -24,8 +24,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 /**
  * 自定义参数解析器配置器。
- * <p>由于 {@link RequestMappingHandlerAdapter}的配置的 {@link HandlerMethodArgumentResolver}在默认的配置之后， 因此当参数列表中使用{@link java.util.Map}或其子类作为参数时，会被默认的 {@link
- * MapMethodProcessor}所解析，走不到自定义的参数解析器， 因此在 {@link ApplicationReadyEvent}事件中，将自定义的 {@link HandlerMethodArgumentResolver}置于默认的之前。</p>
+ * <p>由于 {@link RequestMappingHandlerAdapter}的配置的 {@link HandlerMethodArgumentResolver}在默认的配置之后， 因此当参数列表中使用{@link
+ * java.util.Map}或其子类作为参数时，会被默认的 {@link MapMethodProcessor}所解析，走不到自定义的参数解析器， 因此在 {@link ApplicationReadyEvent}事件中，将自定义的
+ * {@link HandlerMethodArgumentResolver}置于默认的之前。</p>
  *
  * @author likly
  * @version 1.0.0
@@ -38,7 +39,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
         ConfigurableApplicationContext applicationContext = event.getApplicationContext();
-        final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext.getBean(RequestMappingHandlerAdapter.class);
+        final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext
+            .getBean(RequestMappingHandlerAdapter.class);
         configureMessageConverters(requestMappingHandlerAdapter);
         configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
         configureHandlerReturnValueHandler(requestMappingHandlerAdapter);
@@ -49,7 +51,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
      * @param adapter adapter
      * @see RequestMappingHandlerAdapter#setArgumentResolvers(List)
      */
-    private void configureHandlerMethodArgumentResolver(final ApplicationContext context, final RequestMappingHandlerAdapter adapter) {
+    private void configureHandlerMethodArgumentResolver(final ApplicationContext context,
+        final RequestMappingHandlerAdapter adapter) {
 
         final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
 
@@ -66,7 +69,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
                     Optional.ofNullable(ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters"))
                         .ifPresent(messageConverters -> {
                             ReflectionUtils.makeAccessible(messageConverters);
-                            ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
+                            ReflectionUtils
+                                .setField(messageConverters, argumentResolver, adapter.getMessageConverters());
                         });
 
                 }

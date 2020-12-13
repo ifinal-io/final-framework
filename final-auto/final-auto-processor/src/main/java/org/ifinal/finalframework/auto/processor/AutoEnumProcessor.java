@@ -35,7 +35,8 @@ public class AutoEnumProcessor extends AbsServiceProcessor {
 
         super.init(processingEnv);
         this.typeElement = processingEnv.getElementUtils().getTypeElement(ENUM);
-        this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement, processingEnv.getElementUtils().getTypeElement(TRANSIENT));
+        this.typeElementFilter = new TypeElementFilter(processingEnv, typeElement,
+            processingEnv.getElementUtils().getTypeElement(TRANSIENT));
     }
 
     @Override

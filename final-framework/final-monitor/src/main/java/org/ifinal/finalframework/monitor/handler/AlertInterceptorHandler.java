@@ -17,10 +17,12 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class AlertInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements InterceptorHandler<Alerter, AnnotationAttributes> {
+public class AlertInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements
+    InterceptorHandler<Alerter, AnnotationAttributes> {
 
     @Override
-    public void handle(final @NonNull Alerter executor, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+    public void handle(final @NonNull Alerter executor, final @NonNull InvocationContext context,
+        final @NonNull AnnotationAttributes annotation,
         final Object result, final Throwable throwable) {
 
         final AlertContext.Builder builder = AlertContext.builder();

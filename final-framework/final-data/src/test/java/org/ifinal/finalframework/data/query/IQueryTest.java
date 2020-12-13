@@ -51,7 +51,9 @@ class IQueryTest {
                 final Element element = document.createElement("if");
                 element.setAttribute("test", String.format("%s.%s != null", "query", property.getName()));
                 element.appendChild(document.createCDATASection(
-                    String.format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query", property.getName())));
+                    String
+                        .format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query",
+                            property.getName())));
                 where.appendChild(element);
             }
         }
@@ -74,7 +76,8 @@ class IQueryTest {
         final BoundSql boundSql = sqlSource.getBoundSql(parameter);
         logger.info("Sql: ==> {}", boundSql.getSql());
         for (ParameterMapping parameterMapping : boundSql.getParameterMappings()) {
-            logger.info("Parameter ==> {}={}", parameterMapping.getProperty(), OgnlCache.getValue(parameterMapping.getProperty(), parameter));
+            logger.info("Parameter ==> {}={}", parameterMapping.getProperty(),
+                OgnlCache.getValue(parameterMapping.getProperty(), parameter));
         }
 
         Assertions.assertNotNull(boundSql.getSql());
