@@ -1,4 +1,5 @@
 /**
+ * 。
  * <ol>
  * <li>{@link org.springframework.boot.context.event.ApplicationStartingEvent}</li>
  * <li>{@link org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent}</li>

@@ -60,6 +60,9 @@
         <property name="fileExtensions" value="properties, translations"/>
     </module>
 
+    <!-- 缺少 package-info.java 文件 -->
+    <!--    <module name="JavadocPackage"/>-->
+
     <!-- ================================ Regexp ===================================== -->
     <!-- 当前行匹配非法表达式： -->
     <!-- 禁用 System.out.print -->
@@ -299,19 +302,8 @@
         <!--        </module>-->
         <module name="JavadocParagraph"/>
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
-        <module name="AtclauseOrder">
-            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-            <property name="target"
-                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
-        </module>
-        <module name="JavadocMethod">
-            <property name="scope" value="public"/>
-            <property name="allowMissingParamTags" value="true"/>
-            <property name="allowMissingReturnTag" value="true"/>
-            <property name="allowedAnnotations" value="Override, Test"/>
-            <property name="tokens"
-                value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
-        </module>
+
+
         <!--        方法缺失Javadoc-->
         <!--        <module name="MissingJavadocMethod">-->
         <!--            <property name="scope" value="public"/>-->
@@ -474,19 +466,71 @@
         <module name="UnnecessarySemicolonInTryWithResources"/>
         <!-- Blocks -->
         <module name="VariableDeclarationUsageDistance"/>
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
-        <!-- Blocks -->
         <!-- ================================ Coding ===================================== -->
+        <!-- ================================ Javadoc ===================================== -->
+        <!-- Blocks -->
+        <module name="AtclauseOrder">
+            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
+            <property name="target"
+                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+        </module>
+        <!-- Blocks -->
+        <module name="InvalidJavadocPosition"/>
+        <!-- Blocks -->
+        <module name="JavadocBlockTagLocation"/>
+        <!-- Blocks -->
+        <module name="JavadocContentLocationCheck"/>
+        <!-- Blocks -->
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+            <property name="allowedAnnotations" value="Override, Test"/>
+            <property name="tokens"
+                value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
+        </module>
+        <!-- Blocks -->
+        <module name="JavadocMissingLeadingAsterisk"/>
+        <!-- Blocks -->
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+
+        <!-- Blocks -->
+        <module name="JavadocParagraph"/>
+        <!-- Blocks -->
+        <module name="JavadocStyle">
+            <property name="scope" value="public"/>
+            <property name="excludeScope" value="package"/>
+            <property name="checkFirstSentence" value="true"/>
+            <property name="endOfSentenceFormat" value="([.?!。][ \t\n\r\f&lt;])|([.?!。]$)"/>
+        </module>
+        <!-- Blocks -->
+        <module name="JavadocTagContinuationIndentation"/>
+        <!-- Blocks -->
+        <!--        <module name="JavadocType"/>-->
+        <!-- Field 缺少 Javadoc -->
+        <!--        <module name="JavadocVariable">-->
+        <!--            <property name="scope" value="public"/>-->
+        <!--            <property name="ignoreNamePattern" value="log|logger"/>-->
+        <!--        </module>-->
+        <!--  缺少 Javadoc -->
+        <!--        <module name="MissingJavadocMethod"/>-->
+        <!-- 缺少 Javadoc -->
+        <!--        <module name="MissingJavadocPackage"/>-->
+        <!-- 缺少 Javadoc -->
+        <!--        <module name="MissingJavadocType"/>-->
+        <!-- Blocks -->
+        <module name="NonEmptyAtclauseDescription"/>
+        <!-- Blocks -->
+        <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+        <!-- Blocks -->
+        <module name="SingleLineJavadoc"/>
+        <!--  缺少摘要 -->
+        <!--        <module name="SummaryJavadocCheck"/>-->
+        <!-- Blocks -->
+        <!--        <module name="WriteTag"/>-->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- ================================ Javadoc ===================================== -->
         <!-- ================================ Import ===================================== -->
         <!-- Blocks -->
         <module name="AvoidStarImport"/>
