@@ -47,6 +47,8 @@
                     <excludes>**/generated-sources/**/*</excludes>
                     <excludes>**/autogen/**/*</excludes>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <failOnViolation>true</failOnViolation>
+                    <failsOnError>true</failsOnError>
                 </configuration>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
