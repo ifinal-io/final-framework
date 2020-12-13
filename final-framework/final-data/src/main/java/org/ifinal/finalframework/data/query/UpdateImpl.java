@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.data.query.enums.UpdateOperation;
-import org.ifinal.finalframework.util.Asserts;
-import org.springframework.lang.NonNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import org.ifinal.finalframework.data.query.enums.UpdateOperation;
+import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -14,6 +13,7 @@ import java.util.Collection;
  * @since 1.0.0
  */
 class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
+
     private UpdateImpl() {
         super(16);
     }
@@ -38,7 +38,6 @@ class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
 
         return new UpdateImpl(updateSets);
     }
-
 
     public UpdateImpl set(final @NonNull QProperty<?> property, final @NonNull Object value) {
 
@@ -69,6 +68,5 @@ class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
         this.add(new SimpleUpdateSetOperation(property, UpdateOperation.DECR, value));
         return this;
     }
-
 
 }

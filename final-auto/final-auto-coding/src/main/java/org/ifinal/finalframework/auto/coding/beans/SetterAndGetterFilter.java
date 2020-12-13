@@ -1,15 +1,13 @@
 package org.ifinal.finalframework.auto.coding.beans;
 
-
-import lombok.extern.slf4j.Slf4j;
-
+import java.util.List;
+import java.util.Objects;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.List;
-import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author likly
@@ -25,13 +23,14 @@ public class SetterAndGetterFilter {
 
     public boolean matches(final ExecutableElement method, final TypeMirror parameterTypeOrReturnType) {
 
-        if (method.getKind() != ElementKind.METHOD) return false;
+        if (method.getKind() != ElementKind.METHOD) {
+            return false;
+        }
 
         if (Objects.nonNull(parameterTypeOrReturnType)) {
             // check
             logger.info("try to check method parameterTypeOrReturnType");
         }
-
 
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
@@ -43,16 +42,16 @@ public class SetterAndGetterFilter {
         return parameters.size() == 1 && name.startsWith(Bean.SET_PREFIX);
     }
 
-    private boolean isGetter(final String name, final List<? extends VariableElement> parameters) {
-
-        return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
-    }
-
     public boolean isSetter(final ExecutableElement method) {
 
         String name = method.getSimpleName().toString();
         List<? extends VariableElement> parameters = method.getParameters();
         return isSetter(name, parameters);
+    }
+
+    private boolean isGetter(final String name, final List<? extends VariableElement> parameters) {
+
+        return parameters.isEmpty() && (name.startsWith(Bean.GET_PREFIX) || name.startsWith(Bean.IS_PREFIX));
     }
 
     public boolean isGetter(final ExecutableElement method) {
@@ -61,7 +60,6 @@ public class SetterAndGetterFilter {
         List<? extends VariableElement> parameters = method.getParameters();
         return isGetter(name, parameters);
     }
-
 
 }
 

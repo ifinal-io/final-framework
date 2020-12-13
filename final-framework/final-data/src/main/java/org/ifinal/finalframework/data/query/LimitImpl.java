@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @author likly
@@ -13,6 +12,7 @@ import java.io.Serializable;
 class LimitImpl implements Limit, Serializable {
 
     private final Long offset;
+
     private final Long limit;
 
     LimitImpl(final Long offset, final Long limit) {
@@ -20,6 +20,5 @@ class LimitImpl implements Limit, Serializable {
         this.offset = offset;
         this.limit = limit;
     }
-
 
 }

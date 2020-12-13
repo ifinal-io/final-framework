@@ -8,8 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@link SpringFactory}注解实现将标注了（直接或间接）该注解的 {@link Class}元素按一定的规则写入到 {@code META-INF/spring.factories}
- * 文件中，提高开发效率，写入的 {@code META-INF/spring.factories}文件中。
+ * {@link SpringFactory}注解实现将标注了（直接或间接）该注解的 {@link Class}元素按一定的规则写入到 {@code META-INF/spring.factories} 文件中，提高开发效率，写入的 {@code META-INF/spring.factories}文件中。
  *
  * <p>使用方式：</p>
  * <ul>

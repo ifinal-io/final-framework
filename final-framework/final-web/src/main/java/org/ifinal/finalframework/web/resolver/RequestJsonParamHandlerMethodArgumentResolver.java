@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.web.resolver;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Objects;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.ifinal.finalframework.context.exception.BadRequestException;
 import org.ifinal.finalframework.json.Json;
 import org.ifinal.finalframework.util.Asserts;
@@ -18,12 +23,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author likly
@@ -53,7 +52,7 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
 
     @Override
     public Object resolveArgument(final @NonNull MethodParameter parameter, final @Nullable ModelAndViewContainer mavContainer,
-                                  final @NonNull NativeWebRequest webRequest, final @Nullable WebDataBinderFactory binderFactory) throws Exception {
+        final @NonNull NativeWebRequest webRequest, final @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
         final String contentType = webRequest.getHeader("content-type");
 
@@ -75,7 +74,6 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
 
         return parseJson(value, parameter);
 
-
     }
 
     private String parseBody(final @NonNull NativeWebRequest webRequest) throws IOException {
@@ -91,7 +89,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
 
     private String parseParameter(final @NonNull MethodParameter parameter, final @NonNull NativeWebRequest webRequest) {
         // find the @RequestJsonParam annotation
-        final RequestJsonParam requestJsonParam = Objects.requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class), "requestJsonParam annotation is null");
+        final RequestJsonParam requestJsonParam = Objects
+            .requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class), "requestJsonParam annotation is null");
 
         final String parameterName = getParameterName(requestJsonParam, parameter);
         Objects.requireNonNull(parameterName);

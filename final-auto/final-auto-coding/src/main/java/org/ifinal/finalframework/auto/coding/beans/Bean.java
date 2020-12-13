@@ -1,15 +1,5 @@
 package org.ifinal.finalframework.auto.coding.beans;
 
-
-import org.ifinal.finalframework.core.generator.NameGenerator;
-import org.springframework.lang.NonNull;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.ElementFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.util.ElementFilter;
+import org.ifinal.finalframework.core.generator.NameGenerator;
+import org.springframework.lang.NonNull;
 
 /**
  * start with {@link Bean#from(ProcessingEnvironment, TypeElement)}
@@ -55,6 +53,17 @@ public class Bean implements Iterable<PropertyDescriptor> {
         this.init();
     }
 
+    public static Bean from(final ProcessingEnvironment env, final TypeElement typeElement) {
+
+        if (!cache.containsKey(typeElement)) {
+            synchronized (cache) {
+                cache.put(typeElement, new Bean(env, typeElement));
+            }
+        }
+
+        return cache.get(typeElement);
+    }
+
     private void init() {
         List<? extends Element> elements = typeElement.getEnclosedElements();
         // init fields
@@ -74,54 +83,52 @@ public class Bean implements Iterable<PropertyDescriptor> {
     private void initMethods(final List<? extends Element> elements) {
 
         ElementFilter.methodsIn(elements)
-                .stream()
-                .filter(method -> setterAndGetterFilter.matches(method, null))
-                .forEach(methods::add);
+            .stream()
+            .filter(method -> setterAndGetterFilter.matches(method, null))
+            .forEach(methods::add);
     }
 
     private void initProperties() {
 
         // for each field
         fields.forEach((key, field) -> this.properties.put(key, new PropertyDescriptor(this, key, Optional.of(field),
-                findSetter(key), findGetter(key))));
-
-
-        methods.stream()
-                .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
-                .filter(setterAndGetterFilter::isSetter)
-                .forEach(setter -> {
-                    String setterName = setter.getSimpleName().toString();
-                    if (setterName.startsWith(SET_PREFIX)) {
-                        String propertyName = setterName.substring(SET_PREFIX.length());
-                        if (!properties.containsKey(propertyName)) {
-                            this.properties.put(propertyName, new PropertyDescriptor(this, propertyName, Optional.empty(),
-                                    Optional.of(setter), findGetter(propertyName)));
-                        }
-
-
-                    }
-                });
+            findSetter(key), findGetter(key))));
 
         methods.stream()
-                .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
-                .filter(setterAndGetterFilter::isGetter)
-                .forEach(getter -> {
-                    String getterName = getter.getSimpleName().toString();
-                    String propertyName;
-                    if (getterName.startsWith(IS_PREFIX)) {
-                        propertyName = NameGenerator.decapitalize(getterName, IS_PREFIX);
-                    } else if (getterName.startsWith(GET_PREFIX)) {
-                        propertyName = NameGenerator.decapitalize(getterName, GET_PREFIX);
-                    } else {
-                        throw new IllegalArgumentException("不支持的 getter 方法" + getter.toString());
-                    }
-
+            .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
+            .filter(setterAndGetterFilter::isSetter)
+            .forEach(setter -> {
+                String setterName = setter.getSimpleName().toString();
+                if (setterName.startsWith(SET_PREFIX)) {
+                    String propertyName = setterName.substring(SET_PREFIX.length());
                     if (!properties.containsKey(propertyName)) {
                         this.properties.put(propertyName, new PropertyDescriptor(this, propertyName, Optional.empty(),
-                                findSetter(propertyName), Optional.of(getter)));
+                            Optional.of(setter), findGetter(propertyName)));
                     }
 
-                });
+                }
+            });
+
+        methods.stream()
+            .filter(it -> !Boolean.TRUE.equals(processed.get(it)))
+            .filter(setterAndGetterFilter::isGetter)
+            .forEach(getter -> {
+                String getterName = getter.getSimpleName().toString();
+                String propertyName;
+                if (getterName.startsWith(IS_PREFIX)) {
+                    propertyName = NameGenerator.decapitalize(getterName, IS_PREFIX);
+                } else if (getterName.startsWith(GET_PREFIX)) {
+                    propertyName = NameGenerator.decapitalize(getterName, GET_PREFIX);
+                } else {
+                    throw new IllegalArgumentException("不支持的 getter 方法" + getter.toString());
+                }
+
+                if (!properties.containsKey(propertyName)) {
+                    this.properties.put(propertyName, new PropertyDescriptor(this, propertyName, Optional.empty(),
+                        findSetter(propertyName), Optional.of(getter)));
+                }
+
+            });
 
     }
 
@@ -129,9 +136,9 @@ public class Bean implements Iterable<PropertyDescriptor> {
 
         String setterName = NameGenerator.capitalize(SET_PREFIX, property);
         Optional<ExecutableElement> setter = methods.stream()
-                .filter(setterAndGetterFilter::isSetter)
-                .filter(it -> it.getSimpleName().toString().equals(setterName))
-                .findFirst();
+            .filter(setterAndGetterFilter::isSetter)
+            .filter(it -> it.getSimpleName().toString().equals(setterName))
+            .findFirst();
 
         // check parameter type
         setter.ifPresent(executableElement -> processed.put(executableElement, true));
@@ -142,10 +149,10 @@ public class Bean implements Iterable<PropertyDescriptor> {
     private Optional<ExecutableElement> findGetter(final String property) {
 
         Optional<ExecutableElement> getter = methods.stream()
-                .filter(setterAndGetterFilter::isGetter)
-                .filter(it -> it.getSimpleName().toString()
-                        .equals(NameGenerator.capitalize(GET_PREFIX, property)))
-                .findFirst();
+            .filter(setterAndGetterFilter::isGetter)
+            .filter(it -> it.getSimpleName().toString()
+                .equals(NameGenerator.capitalize(GET_PREFIX, property)))
+            .findFirst();
 
         if (getter.isPresent()) {
             // check return type
@@ -154,10 +161,10 @@ public class Bean implements Iterable<PropertyDescriptor> {
         }
 
         Optional<ExecutableElement> nextGetter = methods.stream()
-                .filter(setterAndGetterFilter::isGetter)
-                .filter(it -> it.getSimpleName().toString()
-                        .equals(NameGenerator.capitalize(IS_PREFIX, property)))
-                .findFirst();
+            .filter(setterAndGetterFilter::isGetter)
+            .filter(it -> it.getSimpleName().toString()
+                .equals(NameGenerator.capitalize(IS_PREFIX, property)))
+            .findFirst();
 
         if (nextGetter.isPresent()) {
             // check return type
@@ -166,17 +173,6 @@ public class Bean implements Iterable<PropertyDescriptor> {
         }
 
         return Optional.empty();
-    }
-
-    public static Bean from(final ProcessingEnvironment env, final TypeElement typeElement) {
-
-        if (!cache.containsKey(typeElement)) {
-            synchronized (cache) {
-                cache.put(typeElement, new Bean(env, typeElement));
-            }
-        }
-
-        return cache.get(typeElement);
     }
 
     @Override

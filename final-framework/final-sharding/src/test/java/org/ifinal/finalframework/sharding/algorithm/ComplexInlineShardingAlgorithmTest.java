@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.sharding.algorithm;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingValue;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingValue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author likly

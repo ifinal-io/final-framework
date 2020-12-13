@@ -1,9 +1,10 @@
 $(document).ready(function () {
-    tableAddClass();
+  tableAddClass();
 });
 
 function tableAddClass() {
-    $('table').each(function () {
-        $(this).addClass('table table-striped table-bordered table-hover dataTable dtr-inline');
-    })
+  $('table').each(function () {
+    $(this).addClass(
+        'table table-striped table-bordered table-hover dataTable dtr-inline');
+  })
 }

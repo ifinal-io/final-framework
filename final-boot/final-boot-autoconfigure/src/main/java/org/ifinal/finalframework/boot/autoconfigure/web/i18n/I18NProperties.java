@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.i18n;
 
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author likly
@@ -33,7 +31,6 @@ public class I18NProperties implements Serializable {
     private Locale defaultLocale = Locale.getDefault();
 
     private List<Locale> supportedLocales;
-
 
     private String paramName = DEFAULT_LOCALE_PARAM_NAME;
 

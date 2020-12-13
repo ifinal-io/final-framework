@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.mybatis.builder.xml;
 
-
+import java.io.IOException;
+import java.io.StringReader;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.StringReader;
 
 /**
  * @author likly
@@ -14,6 +12,7 @@ import java.io.StringReader;
  * @since 1.0.0
  */
 public class XMLMapperEntityResolver implements EntityResolver {
+
     InputSource source = new InputSource(new StringReader("<?xml version='1.0' encoding='UTF-8'?>"));
 
     @Override
@@ -21,5 +20,6 @@ public class XMLMapperEntityResolver implements EntityResolver {
 
         return source;
     }
+
 }
 

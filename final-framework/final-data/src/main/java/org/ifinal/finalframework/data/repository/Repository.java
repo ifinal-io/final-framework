@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.data.repository;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.core.Pageable;
@@ -7,12 +12,6 @@ import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The superinterface of {@code CURD}.
@@ -94,7 +93,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     default int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull T... entities) {
         return insert(table, view, ignore, Arrays.asList(entities));
     }
-
 
     /**
      * 批量插入数据并返回影响的行数
@@ -190,8 +188,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      */
     int save(@Nullable String table, @Nullable Class<?> view, @NonNull Collection<T> entities);
 
-
-
     /*==============================================================================================*/
     /*=========================================== UPDATE ===========================================*/
     /*==============================================================================================*/
@@ -220,7 +216,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return update((String) null, entity, ids);
     }
 
-
     default int update(@NonNull T entity, @NonNull IQuery query) {
         return update((String) null, entity, query);
     }
@@ -232,7 +227,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     default int update(T entity, boolean selective, Collection<I> ids) {
         return update(null, null, entity, selective, ids);
     }
-
 
     default int update(T entity, boolean selective, IQuery query) {
         return update(null, null, entity, selective, query);
@@ -254,7 +248,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return update(table, null, entity, true, ids);
     }
 
-
     default int update(String table, T entity, IQuery query) {
         return update(table, null, entity, query);
     }
@@ -271,11 +264,9 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return update(null, view, entity, ids);
     }
 
-
     default int update(Class<?> view, T entity, IQuery query) {
         return update(null, view, entity, query);
     }
-
 
     default int update(String table, Class<?> view, T entity, I... ids) {
         return update(table, view, entity, Arrays.asList(ids));
@@ -284,7 +275,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     default int update(String table, Class<?> view, T entity, Collection<I> ids) {
         return update(table, view, entity, null, true, ids, null);
     }
-
 
     default int update(String table, Class<?> view, T entity, IQuery query) {
         return update(table, view, entity, null, true, null, query);
@@ -302,11 +292,9 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return update(table, view, entity, null, selective, ids, null);
     }
 
-
     default int update(String table, Class<?> view, T entity, boolean selective, IQuery query) {
         return update(table, view, entity, null, selective, null, query);
     }
-
 
     default int update(T... entities) {
         return update(Arrays.asList(entities));
@@ -314,8 +302,8 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
 
     default int update(@NonNull Collection<T> entities) {
         return entities.stream()
-                .mapToInt(this::update)
-                .sum();
+            .mapToInt(this::update)
+            .sum();
     }
 
     default int update(String table, T... entities) {
@@ -340,8 +328,8 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
 
     default int update(@NonNull Collection<T> entities, boolean selective) {
         return entities.stream()
-                .mapToInt(it -> update(it, selective))
-                .sum();
+            .mapToInt(it -> update(it, selective))
+            .sum();
     }
 
     default int update(String table, Class<?> view, Collection<T> entities) {
@@ -354,10 +342,9 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
 
     default int update(String table, Class<?> view, Collection<T> entities, boolean selective) {
         return entities.stream()
-                .mapToInt(it -> update(table, view, it, selective))
-                .sum();
+            .mapToInt(it -> update(table, view, it, selective))
+            .sum();
     }
-
 
     // -----------------Update---------
 
@@ -381,7 +368,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return update(null, update, query);
     }
 
-
     default int update(String table, Update update, IQuery query) {
         return update(table, null, null, update, false, null, query);
     }
@@ -399,8 +385,8 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      * @return 更新数据后影响的行数
      */
     int update(String table, Class<?> view,
-               T entity, Update update, boolean selective,
-               Collection<I> ids, IQuery query);
+        T entity, Update update, boolean selective,
+        Collection<I> ids, IQuery query);
 
     /*==============================================================================================*/
     /*=========================================== DELETE ===========================================*/
@@ -438,11 +424,9 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return delete(table, ids, null);
     }
 
-
     default int delete(@NonNull IQuery query) {
         return delete(null, null, query);
     }
-
 
     default int delete(@Nullable String table, @NonNull IQuery query) {
         return delete(table, null, query);
@@ -529,21 +513,17 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return select(table, view, ids, null);
     }
 
-
     default List<T> select(@Nullable IQuery query) {
         return select(null, null, query);
     }
-
 
     default List<T> select(@Nullable String table, @Nullable IQuery query) {
         return select(table, null, null, query);
     }
 
-
     default List<T> select(@Nullable Class<?> view, @Nullable IQuery query) {
         return select(null, view, query);
     }
-
 
     default List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable IQuery query) {
         return select(table, view, null, query);
@@ -559,7 +539,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      * @return list
      */
     List<T> select(@Nullable String table, @Nullable Class<?> view, @Nullable Collection<I> ids, @Nullable IQuery query);
-
 
     /*==============================================================================================*/
     /*========================================= SELECT ONE =========================================*/
@@ -580,7 +559,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     default T selectOne(@Nullable String table, @Nullable Class<?> view, @NonNull I id) {
         return selectOne(table, view, id, null);
     }
-
 
     default T selectOne(@NonNull IQuery query) {
         return selectOne(null, null, query);
@@ -613,16 +591,13 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     /*=========================================== SCANNER ==========================================*/
     /*==============================================================================================*/
 
-
     default <P> void scan(@NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(null, null, query, listener);
     }
 
-
     default <P> void scan(@Nullable Class<?> view, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(null, view, query, listener);
     }
-
 
     default <P> void scan(@Nullable String table, @NonNull Pageable query, @NonNull Listener<P, List<T>> listener) {
         scan(table, null, query, listener);
@@ -667,7 +642,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
      */
     List<I> selectIds(@Nullable String table, @NonNull IQuery query);
 
-
     /*==============================================================================================*/
     /*======================================== SELECT COUNT ========================================*/
     /*==============================================================================================*/
@@ -680,11 +654,9 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return selectCount(table, null, null);
     }
 
-
     default long selectCount(@Nullable IQuery query) {
         return selectCount(null, null, query);
     }
-
 
     default long selectCount(@Nullable String table, @NonNull IQuery query) {
         return selectCount(table, null, query);
@@ -727,7 +699,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         return selectCount(table, id) > 0;
     }
 
-
     default boolean isExists(@NonNull IQuery query) {
         return selectCount(query) > 0;
     }
@@ -735,7 +706,6 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     default boolean isExists(@Nullable String table, @NonNull IQuery query) {
         return selectCount(table, null, query) > 0;
     }
-
 
     /*==============================================================================================*/
     /*========================================= TRUNCATE ===========================================*/

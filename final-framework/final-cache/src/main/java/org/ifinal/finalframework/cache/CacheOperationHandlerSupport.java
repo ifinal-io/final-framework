@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.cache;
 
-
 import org.ifinal.finalframework.aop.OperationHandlerSupport;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.springframework.expression.EvaluationContext;
@@ -15,10 +14,12 @@ import org.springframework.lang.Nullable;
 public interface CacheOperationHandlerSupport extends OperationHandlerSupport {
 
     @Nullable
-    Object generateKey(final @NonNull String[] keys, final @NonNull String delimiter, final @NonNull MethodMetadata metadata, final @NonNull EvaluationContext evaluationContext);
+    Object generateKey(final @NonNull String[] keys, final @NonNull String delimiter, final @NonNull MethodMetadata metadata,
+        final @NonNull EvaluationContext evaluationContext);
 
     @Nullable
-    Object generateField(final @NonNull String[] fields, final @NonNull String delimiter, final @NonNull MethodMetadata metadata, final @NonNull EvaluationContext evaluationContext);
+    Object generateField(final @NonNull String[] fields, final @NonNull String delimiter, final @NonNull MethodMetadata metadata,
+        final @NonNull EvaluationContext evaluationContext);
 
     @Nullable
     Object generateValue(final @NonNull String value, final @NonNull MethodMetadata metadata, final EvaluationContext evaluationContext);

@@ -1,10 +1,8 @@
-
 package org.ifinal.finalframework.mybatis.handler;
-
-import org.apache.ibatis.type.BaseTypeHandler;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import org.apache.ibatis.type.BaseTypeHandler;
 
 /**
  * @author likly
@@ -28,4 +26,5 @@ public abstract class BaseTypeReferenceTypeHandler<T> extends BaseTypeHandler<T>
     protected Type getType() {
         return type;
     }
+
 }

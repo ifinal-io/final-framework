@@ -9,4 +9,5 @@ public interface DeleteListener<P> extends Listener<P, Integer> {
 
     @Override
     boolean onListening(int index, P param, Integer rows);
+
 }

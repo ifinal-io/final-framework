@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.monitor.action;
 
-
 import org.springframework.lang.NonNull;
 
 /**

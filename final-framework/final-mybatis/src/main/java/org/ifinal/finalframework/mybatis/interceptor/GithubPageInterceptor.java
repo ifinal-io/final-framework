@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
-
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -20,13 +19,15 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-        }
+    {
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+            BoundSql.class}),
+    }
 )
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class GithubPageInterceptor extends PageInterceptor {
+
 }
 

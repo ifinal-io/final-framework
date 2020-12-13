@@ -1,14 +1,5 @@
 package org.ifinal.finalframework.io.support;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ConcurrentReferenceHashMap;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +11,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ConcurrentReferenceHashMap;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 /**
  * @author likly
@@ -84,16 +83,17 @@ public final class ServicesLoader {
         return loadClasses(service, null, serviceResourceLocation);
     }
 
-    public static List<Class<?>> loadClasses(final @NonNull String service, final @Nullable ClassLoader classLoader, final @NonNull String propertiesResourceLocation) {
+    public static List<Class<?>> loadClasses(final @NonNull String service, final @Nullable ClassLoader classLoader,
+        final @NonNull String propertiesResourceLocation) {
         return load(service, classLoader, propertiesResourceLocation).stream()
-                .map(name -> {
-                    try {
-                        return ClassUtils.forName(name, classLoader);
-                    } catch (Exception e) {
-                        throw new IllegalArgumentException(e);
-                    }
-                })
-                .collect(Collectors.toList());
+            .map(name -> {
+                try {
+                    return ClassUtils.forName(name, classLoader);
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e);
+                }
+            })
+            .collect(Collectors.toList());
     }
 
     private static List<String> loadServices(final @NonNull String service, final @Nullable ClassLoader classLoader, final String propertiesResourceLocation) {
@@ -104,7 +104,8 @@ public final class ServicesLoader {
             final List<String> services = new ArrayList<>();
 
             try {
-                Enumeration<URL> urls = classLoader != null ? classLoader.getResources(propertiesResourceLocation) : ClassLoader.getSystemResources(propertiesResourceLocation);
+                Enumeration<URL> urls =
+                    classLoader != null ? classLoader.getResources(propertiesResourceLocation) : ClassLoader.getSystemResources(propertiesResourceLocation);
                 while (urls.hasMoreElements()) {
                     URL url = urls.nextElement();
                     services.addAll(readFromResource(new UrlResource(url)));

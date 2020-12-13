@@ -10,7 +10,9 @@ import org.ifinal.finalframework.annotation.query.Direction;
  */
 @Getter
 final class OrderImpl implements Order {
+
     private final QProperty<?> property;
+
     private final Direction direction;
 
     OrderImpl(final QProperty<?> property, final Direction direction) {
@@ -18,6 +20,5 @@ final class OrderImpl implements Order {
         this.property = property;
         this.direction = direction;
     }
-
 
 }

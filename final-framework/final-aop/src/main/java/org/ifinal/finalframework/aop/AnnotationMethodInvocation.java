@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.aop;
 
+import java.util.Collection;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.core.annotation.AnnotationAttributes;
-
-import java.util.Collection;
 
 /**
  * @author likly

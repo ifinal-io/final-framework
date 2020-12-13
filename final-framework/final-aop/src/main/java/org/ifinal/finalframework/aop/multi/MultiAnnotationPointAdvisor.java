@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.aop.multi;
 
+import java.lang.annotation.Annotation;
 import org.ifinal.finalframework.aop.AbsGenericPointcutAdvisor;
 import org.ifinal.finalframework.aop.AnnotationBuilder;
 import org.ifinal.finalframework.aop.AnnotationSourceMethodPoint;
@@ -11,8 +12,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.lang.annotation.Annotation;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -23,6 +22,7 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
     private final Pointcut pointcut;
 
     private final MultiAnnotationSource<A> source = new MultiAnnotationSource<>();
+
     private final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers = new LinkedMultiValueMap<>();
 
     public MultiAnnotationPointAdvisor() {
@@ -37,12 +37,12 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
         }));
     }
 
-    public <T extends Annotation> void addAnnotation(final Class<T> annotationType, final AnnotationBuilder<T, A> builder, final InterceptorHandler<E, A> handler) {
+    public <T extends Annotation> void addAnnotation(final Class<T> annotationType, final AnnotationBuilder<T, A> builder,
+        final InterceptorHandler<E, A> handler) {
 
         this.source.addAnnotationSource(annotationType, new SingleAnnotationSource<>(annotationType, builder));
         this.handlers.add(annotationType, handler);
     }
-
 
     @Override
     @NonNull

@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-
-import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
 
 /**
  * @author likly

@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.service;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author likly
@@ -57,7 +56,6 @@ public interface AbsService<I extends Serializable, T extends IEntity<I>, R exte
     default List<I> selectIds(@Nullable String table, @NonNull IQuery query) {
         return getRepository().selectIds(table, query);
     }
-
 
     @Override
     default long selectCount(String table, Collection<I> ids, IQuery query) {

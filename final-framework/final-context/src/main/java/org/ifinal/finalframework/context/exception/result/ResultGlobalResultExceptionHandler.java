@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.context.exception.result;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.exception.UnCatchException;
@@ -12,9 +13,6 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -23,6 +21,7 @@ import java.util.List;
 @Component
 //@ConditionalOnMissingBean(GlobalExceptionHandler.class)
 public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandler<Result<?>> {
+
     private static final Logger logger = LoggerFactory.getLogger(ResultGlobalResultExceptionHandler.class);
 
     private final List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();

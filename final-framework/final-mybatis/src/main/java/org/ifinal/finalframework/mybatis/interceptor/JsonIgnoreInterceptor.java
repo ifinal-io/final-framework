@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
  */
 
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
-        }
+    {
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
+    }
 )
 @Component
 @SuppressWarnings("unused")

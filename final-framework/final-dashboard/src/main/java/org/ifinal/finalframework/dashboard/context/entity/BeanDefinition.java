@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.dashboard.context.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @author likly
@@ -11,6 +10,9 @@ import java.io.Serializable;
  */
 @Data
 public class BeanDefinition implements Serializable {
+
     private String name;
+
     private Class<?> targetClass;
+
 }

@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
+import java.util.Map;
+import java.util.Properties;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -13,9 +15,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.annotation.query.PageQuery;
-
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * 分页拦截器
@@ -32,7 +31,9 @@ import java.util.Properties;
 @Intercepts(
         {
                 @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
+                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class,
+                        CacheKey.class,
+                        BoundSql.class}),
         }
 )
 
@@ -56,7 +57,6 @@ public abstract class PageableInterceptor implements Interceptor {
                 if (parameter instanceof Map) {
                     startPage(findPage((Map<String, Object>) parameter));
                     return invocation.proceed();
-
 
                 } else if (parameter instanceof Pageable) {
                     startPage((Pageable) parameter);

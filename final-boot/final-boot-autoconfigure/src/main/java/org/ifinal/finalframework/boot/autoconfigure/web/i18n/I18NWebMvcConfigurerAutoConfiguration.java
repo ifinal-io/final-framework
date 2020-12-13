@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.i18n;
 
-
 import org.ifinal.finalframework.context.util.Messages;
 import org.ifinal.finalframework.web.i18n.I18NLocaleResolver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

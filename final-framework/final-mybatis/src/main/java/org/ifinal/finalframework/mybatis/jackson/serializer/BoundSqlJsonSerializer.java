@@ -3,11 +3,10 @@ package org.ifinal.finalframework.mybatis.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import java.io.IOException;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
-
-import java.io.IOException;
 
 /**
  * @author likly
@@ -16,6 +15,7 @@ import java.io.IOException;
  */
 @AutoService(JsonSerializer.class)
 public class BoundSqlJsonSerializer extends JsonSerializer<BoundSql> {
+
     @Override
     public void serialize(final BoundSql value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
 
@@ -34,10 +34,9 @@ public class BoundSqlJsonSerializer extends JsonSerializer<BoundSql> {
             gen.writeEndObject();
         }
 
-
         gen.writeEndArray();
-
 
         gen.writeEndObject();
     }
+
 }

@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
-import org.springframework.lang.NonNull;
-
 import java.util.Arrays;
 import java.util.Collection;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -34,11 +33,11 @@ public interface Update extends Iterable<UpdateSetOperation>, SqlNode {
 
     Update decr(@NonNull QProperty<?> property, @NonNull Number value);
 
-
     @Override
     default void apply(@NonNull StringBuilder sql, @NonNull String expression) {
         sql.append("<set>");
         this.forEach(item -> item.apply(sql, expression));
         sql.append("</set>");
     }
+
 }

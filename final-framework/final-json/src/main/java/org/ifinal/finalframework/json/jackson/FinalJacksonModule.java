@@ -2,6 +2,8 @@ package org.ifinal.finalframework.json.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import java.lang.reflect.Constructor;
+import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.io.support.ServicesLoader;
@@ -11,9 +13,6 @@ import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.Constructor;
-import java.time.LocalDateTime;
 
 /**
  * @author likly
@@ -31,18 +30,15 @@ public class FinalJacksonModule extends SimpleModule {
         init();
     }
 
-
     private void init() {
 
         addSerializer(IEnum.class, EnumCodeSerializer.instance);
 
         initEnumDeserializer();
 
-
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         addSerializer(Class.class, new ClassJsonSerializer());
-
 
     }
 
@@ -76,4 +72,5 @@ public class FinalJacksonModule extends SimpleModule {
             }
         }
     }
+
 }

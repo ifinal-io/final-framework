@@ -1,8 +1,9 @@
-n--- layout: post title: how-to-define-an-entity subtitle: how-to-define-an-entity description: how-to-define-an-entity
-tags: []
+n--- layout: post title: how-to-define-an-entity subtitle: how-to-define-an-entity description:
+how-to-define-an-entity tags: []
 menus:
 
 - how-to-define-an-entity date: 2020-11-27 12:54:17 +800 version: 1.0
+
 ---
 
 # How to define entity

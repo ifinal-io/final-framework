@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.zookeeper.service;
 
-import org.springframework.lang.NonNull;
-
 import java.util.List;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -11,10 +10,8 @@ import java.util.List;
  */
 public interface ZookeeperService {
 
-
     List<String> getChildren(String path);
 
     void delete(@NonNull String path, int version);
-
 
 }

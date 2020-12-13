@@ -6,4 +6,5 @@ package org.ifinal.finalframework.dashboard.mybaits.service.query;
  * @since 1.0.0
  */
 public class MapperQuery {
+
 }

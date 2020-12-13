@@ -3,9 +3,8 @@ package org.ifinal.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinal.finalframework.annotation.core.IEnum;
-
 import java.io.IOException;
+import org.ifinal.finalframework.annotation.core.IEnum;
 
 /**
  * 枚举{@link IEnum}码序列化器，将枚举序列化为其{@link IEnum#getCode()}所描述的值。
@@ -16,6 +15,7 @@ import java.io.IOException;
  */
 @SuppressWarnings("rawtypes")
 public class EnumCodeSerializer extends JsonSerializer<IEnum> {
+
     public static final EnumCodeSerializer instance = new EnumCodeSerializer();
 
     @Override
@@ -23,4 +23,5 @@ public class EnumCodeSerializer extends JsonSerializer<IEnum> {
 
         gen.writeObject(value.getCode());
     }
+
 }

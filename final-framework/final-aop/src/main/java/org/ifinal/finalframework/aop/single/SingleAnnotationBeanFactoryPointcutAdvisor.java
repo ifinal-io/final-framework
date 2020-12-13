@@ -1,5 +1,8 @@
 package org.ifinal.finalframework.aop.single;
 
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.List;
 import org.ifinal.finalframework.aop.AbsGenericPointcutAdvisor;
 import org.ifinal.finalframework.aop.AnnotationBuilder;
 import org.ifinal.finalframework.aop.AnnotationSource;
@@ -8,10 +11,6 @@ import org.ifinal.finalframework.aop.DefaultAnnotationMethodInterceptor;
 import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.springframework.aop.Pointcut;
 import org.springframework.lang.NonNull;
-
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author likly
@@ -22,7 +21,8 @@ public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annot
 
     private final Pointcut pointcut;
 
-    protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType, final AnnotationBuilder<A, E> builder, final List<InterceptorHandler<T, E>> handlers) {
+    protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType, final AnnotationBuilder<A, E> builder,
+        final List<InterceptorHandler<T, E>> handlers) {
 
         this(new SingleAnnotationSource<>(annotationType, builder), handlers);
     }
@@ -47,9 +47,7 @@ public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annot
         return pointcut;
     }
 
-
     @NonNull
     protected abstract T getExecutor(final E annotation);
-
 
 }

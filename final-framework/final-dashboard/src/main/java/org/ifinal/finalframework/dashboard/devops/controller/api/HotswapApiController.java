@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/devops/hotswap")
 public class HotswapApiController {
 
-
     @GetMapping("/jad")
     public JadModel jad(final Class<?> clazz) {
 
@@ -40,6 +39,5 @@ public class HotswapApiController {
 
         Redefiner.redefine(clazz, source);
     }
-
 
 }

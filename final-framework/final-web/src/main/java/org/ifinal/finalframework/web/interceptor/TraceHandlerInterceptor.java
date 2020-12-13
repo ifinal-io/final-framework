@@ -1,8 +1,10 @@
 package org.ifinal.finalframework.web.interceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.Setter;
 import org.ifinal.finalframework.core.generator.TraceGenerator;
-import org.ifinal.finalframework.core.generator.UUIDTraceGenerator;
+import org.ifinal.finalframework.core.generator.UuidTraceGenerator;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.web.annotation.HandlerInterceptor;
 import org.slf4j.Logger;
@@ -13,21 +15,21 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author likly
  * @version 1.0.0
  * @see TraceGenerator
- * @see UUIDTraceGenerator
+ * @see UuidTraceGenerator
  * @since 1.0.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @HandlerInterceptor
 public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
+
     public static final String TRACE_ATTRIBUTE = "org.ifinal.finalframework.handler.trace";
+
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);
+
     private static final String TRACE = "trace";
 
     /**
@@ -35,11 +37,13 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
      */
     @Setter
     private String traceName = TRACE;
+
     /**
      * TRACE 参数名称
      */
     @Setter
     private String paramName = TRACE;
+
     /**
      * TRACE 请求头名称
      */
@@ -47,7 +51,7 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     private String headerName = TRACE;
 
     @Setter
-    private TraceGenerator generator = new UUIDTraceGenerator();
+    private TraceGenerator generator = new UuidTraceGenerator();
 
     @Override
     public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) {
@@ -74,9 +78,11 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     }
 
     @Override
-    public void afterConcurrentHandlingStarted(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) {
+    public void afterConcurrentHandlingStarted(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
+        final @NonNull Object handler) {
 
         logger.info("remove trace from MDC context");
         MDC.remove(traceName);
     }
+
 }

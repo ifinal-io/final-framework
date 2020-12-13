@@ -8,4 +8,5 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
  * @since 1.0.0
  */
 public interface PersonMapper extends AbsMapper<Long, Person> {
+
 }

@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Type;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * 作用在方法参数 {@link java.lang.reflect.Parameter} 上，实现在方法执行之前，从缓存中获取值，并将该值赋于该参数。

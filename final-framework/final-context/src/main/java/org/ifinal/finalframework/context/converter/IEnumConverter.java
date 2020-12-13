@@ -1,14 +1,13 @@
 package org.ifinal.finalframework.context.converter;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.ifinal.finalframework.annotation.core.Enums;
 import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.context.util.Messages;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author likly

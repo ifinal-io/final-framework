@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.context.initializer;
 
-
+import java.util.HashSet;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
 import org.ifinal.finalframework.context.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
@@ -8,9 +8,6 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.NonNull;
-
-import java.util.HashSet;
-
 
 /**
  * @author likly
@@ -39,5 +36,6 @@ public class SpringFactoryApplicationContextInitializer implements ApplicationCo
             }
         }
     }
+
 }
 

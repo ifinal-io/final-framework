@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-
-import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
-
 import java.io.Serializable;
+import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
 
 /**
  * @author likly
@@ -32,7 +30,6 @@ public class TableRuleProperties implements Serializable {
      * 分表策略
      */
     private ShardingStrategyProperties tableShardingStrategy;
-
 
     public String getLogicTable() {
         return logicTable;

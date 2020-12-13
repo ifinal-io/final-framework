@@ -8,9 +8,11 @@ import org.ifinal.finalframework.annotation.data.NameConverter;
  * @since 1.0.0
  */
 public class SimpleNameConverter implements NameConverter {
+
     @Override
     public String convert(final String name) {
 
         return name;
     }
+
 }

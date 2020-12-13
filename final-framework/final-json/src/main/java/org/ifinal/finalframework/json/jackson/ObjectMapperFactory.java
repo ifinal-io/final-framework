@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.json.jackson;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,9 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.ifinal.finalframework.util.Asserts;
-
 import java.util.ServiceLoader;
+import org.ifinal.finalframework.util.Asserts;
 
 /**
  * @author likly
@@ -18,6 +16,7 @@ import java.util.ServiceLoader;
  * @since 1.0.0
  */
 public class ObjectMapperFactory {
+
     private final ObjectMapper objectMapper;
 
     public ObjectMapperFactory() {
@@ -35,12 +34,11 @@ public class ObjectMapperFactory {
 
         if (Asserts.nonEmpty(beanSerializerModifiers)) {
             beanSerializerModifiers.forEach(beanSerializerModifier -> objectMapper.setSerializerFactory(
-                    objectMapper.getSerializerFactory()
-                            .withSerializerModifier(beanSerializerModifier)
+                objectMapper.getSerializerFactory()
+                    .withSerializerModifier(beanSerializerModifier)
             ));
 
         }
-
 
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -50,5 +48,6 @@ public class ObjectMapperFactory {
     public ObjectMapper create() {
         return this.objectMapper;
     }
+
 }
 

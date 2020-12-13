@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.auto.coding;
 
+import java.io.Writer;
 import org.ifinal.finalframework.auto.coding.annotation.Template;
 import org.ifinal.finalframework.util.Asserts;
-
-import java.io.Writer;
 
 /**
  * The generator of template code.
@@ -26,8 +25,8 @@ public interface Coder {
 
         if (template == null) {
             throw new NullPointerException("the model must one Template annotation , model=" + model
-                    .getClass()
-                    .getName());
+                .getClass()
+                .getName());
         }
         coding(template.value(), model, writer);
     }

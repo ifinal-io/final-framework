@@ -1,6 +1,13 @@
 package org.ifinal.finalframework.data.query.sql;
 
-
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.core.IEntity;
@@ -25,15 +32,6 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -45,12 +43,12 @@ public class AnnotationQueryProvider implements QueryProvider {
 
     public static final AnnotationQueryProvider INSTANCE = new AnnotationQueryProvider();
 
-    private static final Set<String> IGNORE_ATTRIBUTES = Stream.of(
-            Metadata.ATTRIBUTE_NAME_PROPERTY,
-            Metadata.ATTRIBUTE_NAME_VALUE
-    ).collect(Collectors.toSet());
     public static final String FORMAT = "%s.%s";
 
+    private static final Set<String> IGNORE_ATTRIBUTES = Stream.of(
+        Metadata.ATTRIBUTE_NAME_PROPERTY,
+        Metadata.ATTRIBUTE_NAME_VALUE
+    ).collect(Collectors.toSet());
 
     private AnnotationQueryProvider() {
     }
@@ -83,7 +81,6 @@ public class AnnotationQueryProvider implements QueryProvider {
 
         appendLimit(builder, offset, limit);
 
-
         return builder.toString();
     }
 
@@ -96,43 +93,44 @@ public class AnnotationQueryProvider implements QueryProvider {
         return metadata;
     }
 
-
     private void appendCriteria(final StringBuilder sql, final String expression, final QEntity<?, ?> entity, final Class<?> query, final AndOr andOr) {
 
         Entity.from(query)
-                .forEach(property -> {
-                    if (property.isAnnotationPresent(Criterion.class)) {
-                        Class<? extends Annotation> annotation = property.getRequiredAnnotation(Criterion.class).value();
-                        Field field = property.getField();
-                        Objects.requireNonNull(field, "property filed can not be null:" + property.getName());
-                        AnnotationAttributes annotationAttributes = AnnotatedElementUtils.getMergedAnnotationAttributes(field, annotation);
-                        Objects.requireNonNull(annotationAttributes, "not found annotation of @" + annotation.getSimpleName() + " at " + query.getSimpleName() + "." + property.getName());
+            .forEach(property -> {
+                if (property.isAnnotationPresent(Criterion.class)) {
+                    Class<? extends Annotation> annotation = property.getRequiredAnnotation(Criterion.class).value();
+                    Field field = property.getField();
+                    Objects.requireNonNull(field, "property filed can not be null:" + property.getName());
+                    AnnotationAttributes annotationAttributes = AnnotatedElementUtils.getMergedAnnotationAttributes(field, annotation);
+                    Objects.requireNonNull(annotationAttributes,
+                        "not found annotation of @" + annotation.getSimpleName() + " at " + query.getSimpleName() + "." + property.getName());
 
-                        final Metadata metadata = new Metadata();
+                    final Metadata metadata = new Metadata();
 
-                        final String path = annotationAttributes.containsKey(Metadata.ATTRIBUTE_NAME_PROPERTY)
-                                && Asserts.nonBlank(annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY))
-                                ? annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY) : property.getName();
+                    final String path = annotationAttributes.containsKey(Metadata.ATTRIBUTE_NAME_PROPERTY)
+                        && Asserts.nonBlank(annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY))
+                        ? annotationAttributes.getString(Metadata.ATTRIBUTE_NAME_PROPERTY) : property.getName();
 
-                        metadata.put(Metadata.ATTRIBUTE_NAME_AND_OR, andOr);
-                        metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
-                        metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
-                        metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
-                        metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
+                    metadata.put(Metadata.ATTRIBUTE_NAME_AND_OR, andOr);
+                    metadata.put(Metadata.ATTRIBUTE_NAME_QUERY, expression);
+                    metadata.put(Metadata.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
+                    metadata.put(Metadata.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
+                    metadata.put(Metadata.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
 
-                        parseFunctionAnnotation(property, metadata);
-                        appendAnnotationAttributesToMetadata(annotationAttributes, metadata);
+                    parseFunctionAnnotation(property, metadata);
+                    appendAnnotationAttributesToMetadata(annotationAttributes, metadata);
 
-                        final String value = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class).provide(annotationAttributes, metadata);
-                        sql.append(value);
-                    } else if (property.isAnnotationPresent(Criteria.class)) {
-                        sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
-                        sql.append("<trim prefix=\" ").append(andOr.name()).append(" (\" suffix=\")\" prefixOverrides=\"AND |OR \">");
-                        appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(), property.isAnnotationPresent(Or.class) ? AndOr.OR : AndOr.AND);
-                        sql.append("</trim>");
-                        sql.append("</if>");
-                    }
-                });
+                    final String value = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class).provide(annotationAttributes, metadata);
+                    sql.append(value);
+                } else if (property.isAnnotationPresent(Criteria.class)) {
+                    sql.append("<if test=\"").append(expression).append(".").append(property.getName()).append(" != null\">");
+                    sql.append("<trim prefix=\" ").append(andOr.name()).append(" (\" suffix=\")\" prefixOverrides=\"AND |OR \">");
+                    appendCriteria(sql, expression + "." + property.getName(), entity, property.getType(),
+                        property.isAnnotationPresent(Or.class) ? AndOr.OR : AndOr.AND);
+                    sql.append("</trim>");
+                    sql.append("</if>");
+                }
+            });
     }
 
     private void parseFunctionAnnotation(final Property property, final Metadata metadata) {
@@ -150,8 +148,8 @@ public class AnnotationQueryProvider implements QueryProvider {
         //append annotation attributes
         for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
             if (IGNORE_ATTRIBUTES.contains(entry.getKey())
-                    || (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue()))
-                    || (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class.equals(entry.getValue()))) {
+                || (Metadata.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue()))
+                || (Metadata.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class.equals(entry.getValue()))) {
                 continue;
             }
             metadata.put(entry.getKey(), entry.getValue());
@@ -191,7 +189,6 @@ public class AnnotationQueryProvider implements QueryProvider {
         }
 
     }
-
 
 }
 

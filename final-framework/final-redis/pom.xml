@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-redis</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-annotation</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-core</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-json</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-spring</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-redis</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-annotation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-spring</artifactId>
-        </dependency>
-    </dependencies>
 </project>

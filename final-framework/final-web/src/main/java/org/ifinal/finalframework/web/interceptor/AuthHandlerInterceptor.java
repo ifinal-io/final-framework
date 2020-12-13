@@ -1,5 +1,11 @@
 package org.ifinal.finalframework.web.interceptor;
 
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.auth.Auth;
 import org.ifinal.finalframework.annotation.core.IUser;
@@ -15,13 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -32,7 +31,6 @@ import java.util.Objects;
 @ConditionalOnBean(AuthService.class)
 @SuppressWarnings("rawtypes")
 public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
-
 
     private final Map<Class<? extends Annotation>, AuthService> authServices = new HashMap<>();
 
@@ -48,7 +46,8 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler) throws Exception {
+    public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final @NonNull Object handler)
+        throws Exception {
 
         Auth auth = findHandlerAuth(handler, Auth.class);
 
@@ -64,7 +63,6 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
             authServices.get(annotation).auth(user, authAnnotation, request, response, handler);
         }
-
 
         return true;
     }

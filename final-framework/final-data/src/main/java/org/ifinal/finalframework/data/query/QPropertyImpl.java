@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.util.Asserts;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author likly
@@ -37,7 +36,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     private final Class<? extends TypeHandler> typeHandler;
 
     private final List<Class<?>> views;
-
 
     public QPropertyImpl(final BuilderImpl<T, E> builder) {
 
@@ -89,7 +87,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.name;
     }
 
-
     @Override
     public String getColumn() {
         return this.column;
@@ -128,9 +125,13 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public boolean hasView(final Class<?> view) {
 
-        if (view == null || Asserts.isEmpty(views)) return true;
+        if (view == null || Asserts.isEmpty(views)) {
+            return true;
+        }
         for (Class<?> item : views) {
-            if (item.isAssignableFrom(view) || item.equals(view)) return true;
+            if (item.isAssignableFrom(view) || item.equals(view)) {
+                return true;
+            }
         }
         return false;
     }
@@ -166,7 +167,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         private boolean isWriteable = true;
 
         private boolean isModifiable = true;
-
 
         private Class<? extends TypeHandler> typeHandler;
 
@@ -234,7 +234,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
             return this;
         }
 
-
         @Override
         public Builder<T> typeHandler(final Class<? extends TypeHandler> typeHandler) {
 
@@ -248,7 +247,6 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
             this.views = views;
             return this;
         }
-
 
         @Override
         public QProperty<T> build() {

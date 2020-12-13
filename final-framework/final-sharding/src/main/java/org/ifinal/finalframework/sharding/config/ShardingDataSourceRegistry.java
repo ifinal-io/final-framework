@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.sharding.config;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import javax.sql.DataSource;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 /**
  * @author likly
@@ -14,6 +13,7 @@ import java.util.Map;
  */
 
 public class ShardingDataSourceRegistry {
+
     @Getter(AccessLevel.PACKAGE)
     private final Map<String, DataSource> dataSources = new HashMap<>();
 
@@ -22,6 +22,5 @@ public class ShardingDataSourceRegistry {
         this.dataSources.put(name, dataSource);
         return this;
     }
-
 
 }

@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.dashboard.context.service.query;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import lombok.Data;
 
 /**
  * @author likly
@@ -14,7 +13,9 @@ import java.lang.annotation.Annotation;
 public class BeanQuery implements Serializable {
 
     Class<? extends Annotation> annotation;
+
     private Boolean springFramework = false;
+
     private Boolean finalFramework = false;
 
 }

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.redis;
 
-
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisOperations;
@@ -16,7 +15,9 @@ import org.springframework.data.redis.core.ZSetOperations;
  */
 @SuppressWarnings("rawtypes")
 public final class RedisRegistry {
+
     private static final RedisRegistry instance = new RedisRegistry();
+
     private RedisTemplate redisTemplate;
 
     private RedisRegistry() {
@@ -55,9 +56,8 @@ public final class RedisRegistry {
         return redisTemplate.opsForSet();
     }
 
-    public ZSetOperations zSet() {
+    public ZSetOperations zset() {
         return redisTemplate.opsForZSet();
     }
-
 
 }

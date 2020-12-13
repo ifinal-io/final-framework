@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import java.util.Arrays;
+import java.util.List;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.core.IEntity;
@@ -17,9 +19,6 @@ import org.ifinal.finalframework.annotation.query.Or;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -28,13 +27,10 @@ import java.util.List;
 @Slf4j
 class SqlProviderHelperTest {
 
-
     @Test
     void and() {
         AndQuery query = new AndQuery();
         query.setColumnA("a");
-//        query.setB(new BetweenValue<>("minB", "maxB"));
-//        query.setC(Arrays.asList("c1", "c2", "c3"));
         query.setColumnA2("aa");
         logger.info(SqlProviderHelper.query(Bean.class, query).getScript());
         logger.info(SqlProviderHelper.query(Bean.class, query).getSql());
@@ -79,51 +75,65 @@ class SqlProviderHelperTest {
         Assertions.assertNotNull(SqlProviderHelper.query(Bean.class, query).getSql());
     }
 
-
     @Data
     static class Bean implements IEntity<Long> {
+
         @AutoInc
         @PrimaryKey
         private Long id;
+
         private String columnA;
+
         private String columnB;
+
         private String columnC;
+
     }
 
     @Data
     static class AndQuery implements IQuery {
+
         @Equal
         private String columnA;
+
         @JsonContains(path = "$.columnA", property = "columnA")
         private String columnA2;
-
 
     }
 
     @Data
     @Or
     static class OrQuery implements IQuery {
+
         @Equal
         private String columnA;
+
         @NotBetween
         private BetweenValue<String> columnB;
+
         @NotIn
         private List<String> columnC;
+
     }
 
     @Data
     static class AndOrQuery implements IQuery {
+
         @Equal
         private String columnA;
+
         @Or
         private InnerQuery innerQuery;
+
     }
 
     @Data
     @Or
     static class OrAndQuery implements IQuery {
+
         @Equal
         private String columnA;
+
         @Criteria
         private InnerQuery innerQuery;
 
@@ -131,9 +141,13 @@ class SqlProviderHelperTest {
 
     @Data
     static class InnerQuery {
+
         @Equal
         private String columnB;
+
         @NotEqual
         private String columnC;
+
     }
+
 }

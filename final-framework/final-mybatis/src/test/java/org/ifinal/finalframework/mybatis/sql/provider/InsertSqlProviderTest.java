@@ -1,20 +1,17 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author likly
@@ -24,17 +21,12 @@ import java.util.Map;
 @Slf4j
 class InsertSqlProviderTest {
 
-    /**
-     * @see InsertSqlProvider#insert(ProviderContext, Map)
-     * @see AbsMapper#insert(String, Class, boolean, Collection)
-     */
     @Test
     void insert() {
 
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
-//        parameters.put("view", IView.class);
         parameters.put("view", null);
         parameters.put("ignore", false);
         parameters.put("list", Arrays.asList(new Person()));
@@ -45,18 +37,12 @@ class InsertSqlProviderTest {
 
     }
 
-    /**
-     * @throws NoSuchMethodException
-     * @see AbsMapper#replace(String, Class, Collection)
-     */
     @Test
     void replace() throws NoSuchMethodException {
 
         final Method replace = AbsMapper.class.getMethod("replace", new Class[]{String.class, Class.class, Collection.class});
-        /**
-         * @see ProviderSqlSource
-         */
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), replace.getAnnotation(InsertProvider.class), PersonMapper.class, replace);
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), replace.getAnnotation(InsertProvider.class), PersonMapper.class,
+            replace);
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
@@ -74,17 +60,11 @@ class InsertSqlProviderTest {
 
     }
 
-    /**
-     * @throws NoSuchMethodException
-     * @see AbsMapper#save(String, Class, Collection)
-     */
     @Test
     void save() throws NoSuchMethodException {
         final Method save = AbsMapper.class.getMethod("save", new Class[]{String.class, Class.class, Collection.class});
-        /**
-         * @see ProviderSqlSource
-         */
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), save.getAnnotation(InsertProvider.class), PersonMapper.class, save);
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), save.getAnnotation(InsertProvider.class), PersonMapper.class,
+            save);
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
@@ -100,4 +80,5 @@ class InsertSqlProviderTest {
 
         logger.info(sql);
     }
+
 }

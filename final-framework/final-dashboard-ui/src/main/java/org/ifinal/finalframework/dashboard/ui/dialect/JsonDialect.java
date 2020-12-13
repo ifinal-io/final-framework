@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.dashboard.ui.dialect;
 
-
 import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.dialect.IExpressionObjectDialect;
 import org.thymeleaf.expression.IExpressionObjectFactory;
@@ -11,6 +10,7 @@ import org.thymeleaf.expression.IExpressionObjectFactory;
  * @since 1.0.0
  */
 public class JsonDialect extends AbstractDialect implements IExpressionObjectDialect {
+
     private static final String EXPRESSION_NAME = "json";
 
     public JsonDialect() {
@@ -21,5 +21,6 @@ public class JsonDialect extends AbstractDialect implements IExpressionObjectDia
     public IExpressionObjectFactory getExpressionObjectFactory() {
         return new JsonExpressionFactory(EXPRESSION_NAME);
     }
+
 }
 

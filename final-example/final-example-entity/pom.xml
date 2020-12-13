@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-example-entity</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-boot-starter-entity</artifactId>
+            <groupId>org.ifinal.finalframework.boot</groupId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>final-example</artifactId>
         <groupId>org.ifinal.finalframework.example</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-example-entity</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot-starter-entity</artifactId>
-        </dependency>
-    </dependencies>
 
 
 </project>

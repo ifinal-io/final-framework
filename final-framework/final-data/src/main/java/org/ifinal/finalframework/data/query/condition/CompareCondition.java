@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
  */
 @SuppressWarnings("unused")
 public interface CompareCondition<V, R> extends Condition {
+
     R eq(@NonNull V value);
 
     R neq(@NonNull V value);
@@ -28,4 +29,5 @@ public interface CompareCondition<V, R> extends Condition {
     default R after(@NonNull V value) {
         return gt(value);
     }
+
 }

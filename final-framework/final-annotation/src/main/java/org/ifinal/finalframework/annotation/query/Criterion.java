@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  * <ul>
  *     <li>a {@link String} attribute named `property`</li>
- *     <li>a {@link String[]} attribute named `value`</li>
+ *     <li>a {@link String} array attribute named `value`</li>
  *     <li>a {@link Class} attribute named `javaType`</li>
  * </ul>
  *
@@ -69,5 +69,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Criterion {
+
     Class<? extends Annotation> value();
+
 }

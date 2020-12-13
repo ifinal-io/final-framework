@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.aop;
 
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.lang.NonNull;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -14,6 +13,7 @@ import java.lang.reflect.Parameter;
  * @since 1.0.0
  */
 public class AnnotationAttributesAnnotationBuilder<A extends Annotation> implements AnnotationBuilder<A, AnnotationAttributes> {
+
     @Override
     @NonNull
     public AnnotationAttributes build(final @NonNull Class<?> type, final @NonNull A annotation) {
@@ -41,4 +41,5 @@ public class AnnotationAttributesAnnotationBuilder<A extends Annotation> impleme
         annotationAttributes.put("parameterIndex", index);
         return annotationAttributes;
     }
+
 }

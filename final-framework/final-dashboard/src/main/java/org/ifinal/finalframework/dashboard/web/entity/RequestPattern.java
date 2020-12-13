@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.dashboard.web.entity;
 
-
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Set;
 
 /**
  * @author likly
@@ -17,8 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestPattern implements Comparable<RequestPattern> {
+
     private String name;
+
     private Set<RequestMethod> methods;
+
     private String pattern;
 
     @Override
@@ -26,5 +27,6 @@ public class RequestPattern implements Comparable<RequestPattern> {
 
         return this.pattern.compareTo(o.pattern);
     }
+
 }
 

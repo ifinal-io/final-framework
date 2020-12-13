@@ -13,7 +13,6 @@ import org.ifinal.finalframework.data.query.condition.NullCondition;
  * @since 1.0.0
  */
 public interface Criteriable<V, R> extends NullCondition<R>, CompareCondition<V, R>, InCondition<V, R>,
-        LikeCondition<R>, BetweenCondition<V, R>, JsonCondition<Object, R> {
-
+    LikeCondition<R>, BetweenCondition<V, R>, JsonCondition<Object, R> {
 
 }

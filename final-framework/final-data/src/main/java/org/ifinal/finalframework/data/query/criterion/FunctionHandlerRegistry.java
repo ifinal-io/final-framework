@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
-import org.ifinal.finalframework.annotation.query.Function;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.ifinal.finalframework.annotation.query.Function;
 
 /**
  * @author likly
@@ -12,7 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 public final class FunctionHandlerRegistry {
+
     private static final FunctionHandlerRegistry INSTANCE = new FunctionHandlerRegistry();
+
     private final Map<Class<? extends Function.FunctionHandler>, Function.FunctionHandler> handlers = new ConcurrentHashMap<>(8);
 
     private FunctionHandlerRegistry() {
@@ -32,7 +32,6 @@ public final class FunctionHandlerRegistry {
 
         return this.handlers.get(key);
     }
-
 
 }
 

@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-
+import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 /**
  * @author likly
@@ -30,7 +28,6 @@ public interface ScriptSqlProvider extends SqlProvider {
     }
 
     void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters);
-
 
 }
 

@@ -28,4 +28,5 @@ public interface ExceptionHandler<E, R> {
      */
     @NonNull
     R handle(final @NonNull E throwable);
+
 }

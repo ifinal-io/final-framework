@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public interface JsonFunction<R> {
+
     /**
      * 获取 JSON 字符串中指定的属性值
      *
@@ -28,4 +29,5 @@ public interface JsonFunction<R> {
      * @return result
      */
     R jsonUnquote();
+
 }

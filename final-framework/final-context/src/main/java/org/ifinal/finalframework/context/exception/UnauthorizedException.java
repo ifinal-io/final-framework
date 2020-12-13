@@ -12,7 +12,6 @@ public class UnauthorizedException extends ServiceException {
 
     public static final UnauthorizedException DEFAULT = new UnauthorizedException(ResponseStatus.UNAUTHORIZED.getDesc());
 
-
     public UnauthorizedException(final String message, final Object... args) {
 
         this(ResponseStatus.FORBIDDEN.getCode(), message, args);
@@ -32,6 +31,5 @@ public class UnauthorizedException extends ServiceException {
 
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
     }
-
 
 }

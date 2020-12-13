@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.cache;
 
+import java.lang.reflect.Method;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.util.Reflections;
@@ -7,9 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
-
-import java.lang.reflect.Method;
-import java.util.Set;
 
 /**
  * @author likly
@@ -34,7 +33,6 @@ class CacheAnnotationAttributeProcessorTest {
             processor.doProcess(cacheable, annotationAttributes);
             logger.info("find cacheable annotation attributes: {}", annotationAttributes);
         }
-
 
     }
 

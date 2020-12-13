@@ -17,8 +17,7 @@ public interface Filter<T> extends Predicate<T> {
      * Evaluates this predicate on the given argument.
      *
      * @param data the input argument
-     * @return {@code true} if the input argument matches the predicate,
-     * otherwise {@code false}
+     * @return {@code true} if the input argument matches the predicate, otherwise {@code false}
      */
     @Override
     default boolean test(T data) {

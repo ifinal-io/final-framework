@@ -1,13 +1,5 @@
 package org.ifinal.finalframework.auto.coding.utils;
 
-
-import org.springframework.lang.NonNull;
-
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,6 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -34,7 +32,6 @@ public final class TypeElements {
 
     private final Map<Class<?>, TypeMirror> elementTypes = new HashMap<>(16);
 
-
     public TypeElements(final Types types, final Elements elements) {
 
         this.types = types;
@@ -45,11 +42,13 @@ public final class TypeElements {
     private void init() {
 
         Stream.of(LocalDateTime.class, LocalDate.class, LocalTime.class, Object.class)
-                .forEach(this::initTypeElements);
-        elementTypes.put(Collection.class, types.getDeclaredType(elements.getTypeElement(Collection.class.getCanonicalName()), types.getWildcardType(null, null)));
+            .forEach(this::initTypeElements);
+        elementTypes
+            .put(Collection.class, types.getDeclaredType(elements.getTypeElement(Collection.class.getCanonicalName()), types.getWildcardType(null, null)));
         elementTypes.put(List.class, types.getDeclaredType(elements.getTypeElement(List.class.getCanonicalName()), types.getWildcardType(null, null)));
         elementTypes.put(Set.class, types.getDeclaredType(elements.getTypeElement(Set.class.getCanonicalName()), types.getWildcardType(null, null)));
-        elementTypes.put(Map.class, types.getDeclaredType(elements.getTypeElement(Map.class.getCanonicalName()), types.getWildcardType(null, null), types.getWildcardType(null, null)));
+        elementTypes.put(Map.class,
+            types.getDeclaredType(elements.getTypeElement(Map.class.getCanonicalName()), types.getWildcardType(null, null), types.getWildcardType(null, null)));
     }
 
     private void initTypeElements(final Class<?> type) {
@@ -62,6 +61,11 @@ public final class TypeElements {
         return isAssignable(element.asType(), elementTypes.get(Collection.class)) || isSubtype(element.asType(), elementTypes.get(Collection.class));
     }
 
+    public boolean isAssignable(final @NonNull Element element, final @NonNull Element target) {
+
+        return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
+    }
+
     public boolean isAssignable(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
 
         return types.isAssignable(type, target);
@@ -70,6 +74,17 @@ public final class TypeElements {
     public boolean isSubtype(final @NonNull TypeMirror element, final @NonNull TypeMirror target) {
 
         return types.isSubtype(element, target);
+
+    }
+
+    public boolean isSubtype(final @NonNull Element element, final @NonNull Class<?> target) {
+
+        return isSubtype(element, getTypeElement(target));
+    }
+
+    public boolean isSubtype(final @NonNull Element element, final @NonNull Element target) {
+
+        return types.isSubtype(types.erasure(element.asType()), types.erasure(target.asType()));
 
     }
 
@@ -88,15 +103,9 @@ public final class TypeElements {
         return isAssignable(element.asType(), elementTypes.get(Map.class)) || isSubtype(element.asType(), elementTypes.get(Map.class));
     }
 
-    public boolean isSubtype(final @NonNull Element element, final @NonNull Class<?> target) {
+    public boolean isObject(final Element element) {
 
-        return isSubtype(element, getTypeElement(target));
-    }
-
-    public boolean isSubtype(final @NonNull Element element, final @NonNull Element target) {
-
-        return types.isSubtype(types.erasure(element.asType()), types.erasure(target.asType()));
-
+        return isSameType(element, Object.class);
     }
 
     public boolean isSameType(final @NonNull Element element, final @NonNull Class<?> target) {
@@ -104,19 +113,9 @@ public final class TypeElements {
         return isSameType(element, getTypeElement(target));
     }
 
-    public boolean isObject(final Element element) {
-
-        return isSameType(element, Object.class);
-    }
-
     public boolean isSameType(final @NonNull Element element, final @NonNull Element target) {
 
         return isSameType(element.asType(), target.asType());
-    }
-
-    public TypeElement getTypeElement(final Class<?> type) {
-
-        return typeElementMap.containsKey(type) ? typeElementMap.get(type) : elements.getTypeElement(type.getCanonicalName());
     }
 
     public boolean isSameType(final @NonNull TypeMirror type, final @NonNull TypeMirror target) {
@@ -124,9 +123,9 @@ public final class TypeElements {
         return types.isSameType(type, target);
     }
 
-    public boolean isAssignable(final @NonNull Element element, final @NonNull Element target) {
+    public TypeElement getTypeElement(final Class<?> type) {
 
-        return isAssignable(types.erasure(element.asType()), types.erasure(target.asType()));
+        return typeElementMap.containsKey(type) ? typeElementMap.get(type) : elements.getTypeElement(type.getCanonicalName());
     }
 
 }

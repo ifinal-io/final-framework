@@ -23,6 +23,7 @@ public interface SingleCriterion<T> extends SimpleCriterion {
     interface Builder<T> extends SimpleCriterion.Builder<SingleCriterion<T>, Builder<T>> {
 
         Builder<T> value(final T value);
+
     }
 
 }

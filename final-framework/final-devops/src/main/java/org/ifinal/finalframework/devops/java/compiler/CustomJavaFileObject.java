@@ -1,14 +1,14 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.NestingKind;
-import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URI;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
+import javax.tools.JavaFileObject;
 
 public class CustomJavaFileObject implements JavaFileObject {
     private final String binaryName;
@@ -83,7 +83,6 @@ public class CustomJavaFileObject implements JavaFileObject {
     public String binaryName() {
         return binaryName;
     }
-
 
     public String toString() {
         return this.getClass().getName() + "[" + this.toUri() + "]";

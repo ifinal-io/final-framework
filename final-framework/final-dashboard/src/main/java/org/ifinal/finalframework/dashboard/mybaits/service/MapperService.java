@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.dashboard.mybaits.service;
 
+import java.util.List;
 import org.ifinal.finalframework.dashboard.mybaits.service.query.MapperQuery;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.lang.NonNull;
-
-import java.util.List;
 
 /**
  * @author likly
@@ -14,6 +13,5 @@ import java.util.List;
 public interface MapperService {
 
     List<Class<? extends AbsMapper>> query(@NonNull MapperQuery query);
-
 
 }

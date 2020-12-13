@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.operation;
 
-
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 import org.ifinal.finalframework.data.query.criterion.JsonContainsCriterion;
 import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
@@ -31,16 +30,13 @@ public interface JsonOperations {
         return new SimpleCriterionFunction(doc, JsonOperation.JSON_UNQUOTE);
     }
 
-
     public static CriterionFunction keys(@NonNull Object doc) {
         return new SimpleCriterionFunction(doc, JsonOperation.JSON_KEYS);
     }
 
-
     public static CriterionFunction depth(@NonNull Object doc) {
         return new SimpleCriterionFunction(doc, JsonOperation.JSON_DEPTH);
     }
-
 
     public static CriterionFunction length(@NonNull Object doc) {
         return new SimpleCriterionFunction(doc, JsonOperation.JSON_LENGTH);
@@ -53,7 +49,6 @@ public interface JsonOperations {
     public static CriterionFunction array(@NonNull Object doc) {
         return new SimpleCriterionFunction(doc, JsonOperation.JSON_ARRAY);
     }
-
 
 }
 

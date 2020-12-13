@@ -1,5 +1,14 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -20,16 +29,6 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
 import org.springframework.util.ReflectionUtils;
 
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -45,7 +44,6 @@ public final class SqlProviderHelper {
     public static final String PARAMETER_NAME_IGNORE = "ignore";
 
     public static final String PARAMETER_NAME_SELECTIVE = "selective";
-
 
     private static final String INSERT_METHOD_NAME = "insert";
 
@@ -154,7 +152,8 @@ public final class SqlProviderHelper {
     public static String xml(final Class<? extends AbsMapper<?, ?>> mapper, final String method, final Map<String, Object> parameters) {
 
         try {
-            ProviderContext providerContext = PROVIDER_CONTEXT_CONSTRUCTOR.newInstance(mapper, ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method)), null);
+            ProviderContext providerContext = PROVIDER_CONTEXT_CONSTRUCTOR
+                .newInstance(mapper, ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method)), null);
             return SQL_PROVIDERS.get(method).provide(providerContext, parameters);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -165,7 +164,8 @@ public final class SqlProviderHelper {
 
         Method sqlMethod = ReflectionUtils.findMethod(mapper, method, METHOD_ARGS.get(method));
         Objects.requireNonNull(sqlMethod, String.format("not found method of %s in %s", method, mapper));
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper, sqlMethod);
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), sqlMethod.getAnnotation(METHOD_ANNOTATIONS.get(method)), mapper,
+            sqlMethod);
         final BoundSql boundSql = providerSqlSource.getBoundSql(parameters);
         return boundSql.getSql();
     }
@@ -186,21 +186,21 @@ public final class SqlProviderHelper {
         sqlBound.setSql(boundSql.getSql());
 
         sqlBound.setParameterMappings(
-                boundSql.getParameterMappings().stream()
-                        .map(item -> {
-                            final SqlBound.ParameterMapping mapping = new SqlBound.ParameterMapping();
-                            mapping.setProperty(item.getProperty());
-                            if (!Object.class.equals(item.getJavaType())) {
-                                mapping.setJavaType(item.getJavaType());
-                            }
-                            if (Objects.nonNull(item.getTypeHandler())) {
-                                mapping.setTypeHandler((Class<? extends TypeHandler<?>>) item.getTypeHandler().getClass());
-                            }
-                            mapping.setExpression(item.getExpression());
-                            mapping.setValue(OgnlCache.getValue(item.getProperty(), boundSql.getParameterObject()));
-                            return mapping;
-                        })
-                        .collect(Collectors.toList())
+            boundSql.getParameterMappings().stream()
+                .map(item -> {
+                    final SqlBound.ParameterMapping mapping = new SqlBound.ParameterMapping();
+                    mapping.setProperty(item.getProperty());
+                    if (!Object.class.equals(item.getJavaType())) {
+                        mapping.setJavaType(item.getJavaType());
+                    }
+                    if (Objects.nonNull(item.getTypeHandler())) {
+                        mapping.setTypeHandler((Class<? extends TypeHandler<?>>) item.getTypeHandler().getClass());
+                    }
+                    mapping.setExpression(item.getExpression());
+                    mapping.setValue(OgnlCache.getValue(item.getProperty(), boundSql.getParameterObject()));
+                    return mapping;
+                })
+                .collect(Collectors.toList())
         );
 
         return sqlBound;

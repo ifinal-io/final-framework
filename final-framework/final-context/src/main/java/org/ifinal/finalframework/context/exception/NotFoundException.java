@@ -12,6 +12,7 @@ import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
  * @since 1.0.0
  */
 public class NotFoundException extends ServiceException {
+
     public static final NotFoundException DEFAULT = new NotFoundException(ResponseStatus.NOT_FOUND.getDesc());
 
     public NotFoundException(final String message, final Object... args) {
@@ -33,6 +34,5 @@ public class NotFoundException extends ServiceException {
 
         super(ResponseStatus.NOT_FOUND.getCode(), ResponseStatus.NOT_FOUND.getDesc(), code, message, args);
     }
-
 
 }

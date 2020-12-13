@@ -3,6 +3,7 @@ layout: post title: auth subtitle: auth description: auth tags: []
 menus:
 
 - auth date: 2020-11-24 20:03:17 +800 version: 1.0
+
 ---
 
 # Auth
@@ -54,10 +55,10 @@ public interface AuthService<A extends Annotation> {
      * @param handler  the handler
      * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest, HttpServletResponse, Object)
      */
-    default void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    default void auth(@Nullable IUser<?> user, @NonNull A auth, @NonNull HttpServletRequest request,
+        @NonNull HttpServletResponse response, @NonNull Object handler) {
         auth(user, auth, handler);
     }
-
 
     /**
      * @param user

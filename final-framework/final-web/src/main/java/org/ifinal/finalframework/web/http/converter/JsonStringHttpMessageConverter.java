@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.web.http.converter;
 
+import java.io.IOException;
+import java.util.List;
 import org.ifinal.finalframework.json.Json;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -8,12 +10,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.lang.NonNull;
 
-import java.io.IOException;
-import java.util.List;
-
 /**
- * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice}
- * 方式处理{@link org.springframework.web.method.HandlerMethod} 返回类型与声明类型不一致时，导致抛出 {@link ClassCastException}。
+ * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice} 方式处理{@link
+ * org.springframework.web.method.HandlerMethod} 返回类型与声明类型不一致时，导致抛出 {@link ClassCastException}。
  *
  * @author likly
  * @version 1.0.0
@@ -58,4 +57,5 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
 
         converter.write(Json.toJson(o), contentType, outputMessage);
     }
+
 }

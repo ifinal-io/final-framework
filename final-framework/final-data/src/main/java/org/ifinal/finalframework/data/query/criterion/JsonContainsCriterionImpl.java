@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import lombok.Getter;
 import org.ifinal.finalframework.data.query.operation.JsonOperation;
 import org.springframework.lang.NonNull;
@@ -14,10 +13,13 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
 
     @Getter
     private final Object target;
+
     @Getter
     private final JsonOperation operation;
+
     @Getter
     private final Object value;
+
     @Getter
     private final String path;
 
@@ -52,7 +54,7 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
      *     </code>
      * </pre>
      *
-     * @param sql sql
+     * @param sql        sql
      * @param expression expression
      */
 
@@ -74,16 +76,14 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
         }
         sql.append("\" suffix=\")\">");
 
-
         applyValueCriterion(sql, target, null, null, expression + ".target");
         applyValueCriterion(sql, value, ",", "", expression + ".value");
 
         sql.append(String.format("<if test=\"%s.path != null\">", expression))
-                .append(",#{").append(expression).append(".path}")
-                .append("</if>");
+            .append(",#{").append(expression).append(".path}")
+            .append("</if>");
 
         sql.append("</trim>");
-
 
     }
 
@@ -96,5 +96,6 @@ class JsonContainsCriterionImpl extends BaseCriterion implements JsonContainsCri
         }
         throw new UnsupportedOperationException(operation.name());
     }
+
 }
 

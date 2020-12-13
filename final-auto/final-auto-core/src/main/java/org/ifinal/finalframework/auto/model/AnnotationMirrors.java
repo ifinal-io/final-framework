@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.auto.model;
 
-import org.springframework.lang.NonNull;
-
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -22,9 +21,9 @@ public final class AnnotationMirrors {
     public static Map<String, AnnotationValue> getAnnotationValues(final @NonNull AnnotationMirror mirror) {
 
         return mirror.getElementValues()
-                .entrySet()
-                .stream()
-                .collect(Collectors.toMap(entry -> entry.getKey().getSimpleName().toString(), Map.Entry::getValue));
+            .entrySet()
+            .stream()
+            .collect(Collectors.toMap(entry -> entry.getKey().getSimpleName().toString(), Map.Entry::getValue));
     }
 
 }

@@ -1,6 +1,15 @@
 package org.ifinal.finalframework.mybatis.resumtmap;
 
-
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import org.apache.ibatis.mapping.ResultFlag;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
@@ -19,17 +28,6 @@ import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.Field;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -53,70 +51,62 @@ public final class ResultMapFactory {
         return resultMaps.computeIfAbsent(entity.getType(), key -> createResultMap(configuration, entity));
     }
 
-
     private static ResultMap createResultMap(final Configuration configuration, final Entity<?> entity) {
 
         final String id = entity.getType().getCanonicalName();
 
         final List<ResultMapping> resultMappings = entity.stream()
-                .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isWriteOnly())
-                .map(property -> {
-                    final Class<?> type = property.getType();
-                    if (property.isAssociation()) {
+            .filter(it -> !it.isTransient() && !it.isVirtual() && !it.isWriteOnly())
+            .map(property -> {
+                final Class<?> type = property.getType();
+                if (property.isAssociation()) {
 
-                        final Reference reference = property.getRequiredAnnotation(Reference.class);
-                        final Entity<?> referenceEntity = Entity.from(type);
-                        final List<ResultMapping> composites = Arrays.stream(reference.properties())
-                                .map(referenceEntity::getPersistentProperty)
-                                .map(referenceProperty -> {
+                    final Reference reference = property.getRequiredAnnotation(Reference.class);
+                    final Entity<?> referenceEntity = Entity.from(type);
+                    final List<ResultMapping> composites = Arrays.stream(reference.properties())
+                        .map(referenceEntity::getPersistentProperty)
+                        .map(referenceProperty -> {
 
-                                    final String name = referenceProperty.getName();
-                                    String column = formatColumn(entity, property, referenceProperty);
-                                    final TypeHandler<?> typeHandler = findTypeHandler(configuration, referenceProperty);
+                            final String name = referenceProperty.getName();
+                            String column = formatColumn(entity, property, referenceProperty);
+                            final TypeHandler<?> typeHandler = findTypeHandler(configuration, referenceProperty);
 
-                                    return new ResultMapping.Builder(configuration, name, column, type)
-                                            .javaType(type)
-                                            .flags(referenceProperty.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
-                                            .typeHandler(typeHandler)
-                                            .build();
-                                })
-                                .collect(Collectors.toList());
-
-
-                        final String name = property.getName();
-
-
-                        return new ResultMapping.Builder(configuration, name)
-                                .column(formatColumn(entity, null, property))
+                            return new ResultMapping.Builder(configuration, name, column, type)
                                 .javaType(type)
-                                .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
-                                .composites(composites)
-                                .nestedResultMapId(id + "[" + name + "]")
-                                // a composting result mapping is not need a typehandler, but mybatis have this a validate.
-//                                .typeHandler(configuration.getTypeHandlerRegistry().getUnknownTypeHandler())
-                                .build();
-
-
-                    } else {
-                        final String name = property.getName();
-                        final String column = formatColumn(entity, null, property);
-
-                        final TypeHandler<?> typeHandler = findTypeHandler(configuration, property);
-
-                        return new ResultMapping.Builder(configuration, name, column, type)
-                                .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                                .flags(referenceProperty.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
                                 .typeHandler(typeHandler)
                                 .build();
-                    }
+                        })
+                        .collect(Collectors.toList());
 
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                    final String name = property.getName();
 
+                    return new ResultMapping.Builder(configuration, name)
+                        .column(formatColumn(entity, null, property))
+                        .javaType(type)
+                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                        .composites(composites)
+                        .nestedResultMapId(id + "[" + name + "]")
+                        .build();
+
+                } else {
+                    final String name = property.getName();
+                    final String column = formatColumn(entity, null, property);
+
+                    final TypeHandler<?> typeHandler = findTypeHandler(configuration, property);
+
+                    return new ResultMapping.Builder(configuration, name, column, type)
+                        .flags(property.isIdProperty() ? Collections.singletonList(ResultFlag.ID) : Collections.emptyList())
+                        .typeHandler(typeHandler)
+                        .build();
+                }
+
+            })
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
 
         return new ResultMap.Builder(configuration, id, entity.getType(), resultMappings)
-                .build();
-
+            .build();
 
     }
 
@@ -128,7 +118,7 @@ public final class ResultMapFactory {
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
             column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
-                    ? property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+                ? property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
         if (Optional.ofNullable(property).orElse(referenceProperty).isAnnotationPresent(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {
@@ -136,7 +126,6 @@ public final class ResultMapFactory {
         }
         return column;
     }
-
 
     private static TypeHandler<?> findTypeHandler(final Configuration configuration, final Property property) {
 
@@ -147,7 +136,6 @@ public final class ResultMapFactory {
                 Objects.requireNonNull(field);
                 return new JsonTypeReferenceTypeHandler<>(field.getGenericType());
             }
-
 
             if (typeHandler != null && !TypeHandler.class.equals(typeHandler)) {
                 return typeHandler.getConstructor().newInstance();
@@ -160,7 +148,6 @@ public final class ResultMapFactory {
             return new LocalDateTimeTypeHandler();
         }
 
-
         if (property.isAnnotationPresent(Json.class) || property.isCollectionLike() || property.isMap()) {
             Objects.requireNonNull(field);
             return new JsonTypeReferenceTypeHandler<>(field.getGenericType());
@@ -171,7 +158,6 @@ public final class ResultMapFactory {
         }
         return configuration.getTypeHandlerRegistry().getTypeHandler(property.getType());
     }
-
 
 }
 

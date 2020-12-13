@@ -3,6 +3,7 @@ layout: post title: query subtitle: query description: query tags: []
 menus:
 
 - annotation-query date: 2020-11-18 21:21:53 +800 version: 1.0
+
 ---
 
 # Query
@@ -68,7 +69,9 @@ static class AndQuery implements IQuery {
         <![CDATA[ AND b BETWEEN #{query.b.min} AND #{query.b.max}]]>
     </if>
     <if test="query.c != null">
-        <foreach collection="query.c" item="item" open=" AND c NOT IN (" close=")" separator=",">#{item}</foreach>
+        <foreach collection="query.c" item="item" open=" AND c NOT IN (" close=")" separator=",">
+            #{item}
+        </foreach>
     </if>
 </where>
 
@@ -114,7 +117,9 @@ static class OrQuery implements IQuery {
         <![CDATA[ OR b BETWEEN #{query.b.min} AND #{query.b.max}]]>
     </if>
     <if test="query.c != null">
-        <foreach collection="query.c" item="item" open=" OR c NOT IN (" close=")" separator=",">#{item}</foreach>
+        <foreach collection="query.c" item="item" open=" OR c NOT IN (" close=")" separator=",">
+            #{item}
+        </foreach>
     </if>
 </where>
 
@@ -239,26 +244,34 @@ static class InnerQuery {
 
 * Common Annotation
 
-| Annotation | SQL | 备注 | | :---------------: | :----------------------------------------: | :--: | |     `@IsNull`
-|              `column IS NULL`              | | |   `@IsNotNull`    |            `column IS NOT NULL`            | |
-|     `@Equal`      |            `column = #{value}`             | | |    `@NotEqual`
-|            `column != #{value}`            | | |   `@GreatThan`    |            `column > #{value}`             | |
-| `@GreatThanEqual` |            `column >= #{value}`            | | |    `@LessThan`
-|            `column < #{value}`             | | | `@LessThanEqual`  |            `column <= #{value}`            | |
-|       `@In`       |           `column IN (#{value})`           | | |     `@NotIn`
-|         `column NOT IN (#{value})`         | | |    `@Between`     |     `column BETWEEN #{min} AND #{max}`     | |
-|   `@NotBetween`   |   `column NOT BETWEEN #{min} AND #{max}`   | | |      `@Like`
-|           `column LIKE #{value}`           | | |    `@NotLike`     |         `column NOT LIKE #{value}`         | |
-|    `@Contains`    |   `column LIKE CONCAT('%',#{value},'%')`   | | |  `@NotContains`
-| `column NOT LIKE CONCAT('%',#{value},'%')` | | |   `@StartWith`    |     `column LIKE CONCAT('%',#{value})`     | |
-|  `@NotStartWith`  |   `column NOT LIKE CONCAT('%',#{value})`   | | |    `@EndWith`
-|     `column LIKE CONCAT(#{value},'%')`     | | |   `@NotEndWith`   |   `column NOT LIKE CONCAT(#{value},'%')`   | |
-|     `@Limit`      |              `LIMIT #{limit}`              | | |     `@Offset`
+| Annotation | SQL | 备注 | | :---------------: | :----------------------------------------: | :--: |
+|     `@IsNull`
+|              `column IS NULL`              | | |   `@IsNotNull`
+|            `column IS NOT NULL`            | | |     `@Equal`
+|            `column = #{value}`             | | |    `@NotEqual`
+|            `column != #{value}`            | | |   `@GreatThan`
+|            `column > #{value}`             | | | `@GreatThanEqual`
+|            `column >= #{value}`            | | |    `@LessThan`
+|            `column < #{value}`             | | | `@LessThanEqual`
+|            `column <= #{value}`            | | |       `@In`
+|           `column IN (#{value})`           | | |     `@NotIn`
+|         `column NOT IN (#{value})`         | | |    `@Between`
+|     `column BETWEEN #{min} AND #{max}`     | | |   `@NotBetween`
+|   `column NOT BETWEEN #{min} AND #{max}`   | | |      `@Like`
+|           `column LIKE #{value}`           | | |    `@NotLike`
+|         `column NOT LIKE #{value}`         | | |    `@Contains`
+|   `column LIKE CONCAT('%',#{value},'%')`   | | |  `@NotContains`
+| `column NOT LIKE CONCAT('%',#{value},'%')` | | |   `@StartWith`
+|     `column LIKE CONCAT('%',#{value})`     | | |  `@NotStartWith`
+|   `column NOT LIKE CONCAT('%',#{value})`   | | |    `@EndWith`
+|     `column LIKE CONCAT(#{value},'%')`     | | |   `@NotEndWith`
+|   `column NOT LIKE CONCAT(#{value},'%')`   | | |     `@Limit`      |              `LIMIT #{limit}`
+| | |     `@Offset`
 |         `LIMIT #{offset},#{limit}`         | | | | | |
 
 * Json Annotation
 
-| Annotation | SQL | 备注 | | :-----------------: | :-----------------------------------------: | :--: |
-|  `@JsonContaions`   | `JSON_CONTAINS( column, #{value}, {path})`  | | | `@NotJsonContaions`
+| Annotation | SQL | 备注 | | :-----------------: | :-----------------------------------------: | :--:
+| |  `@JsonContaions`   | `JSON_CONTAINS( column, #{value}, {path})`  | | | `@NotJsonContaions`
 | `!JSON_CONTAINS( column, #{value}, {path})` | | | | | | | | | |
 

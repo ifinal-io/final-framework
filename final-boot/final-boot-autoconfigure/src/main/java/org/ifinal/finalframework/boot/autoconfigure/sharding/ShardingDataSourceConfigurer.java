@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-
+import java.util.Map;
 import org.ifinal.finalframework.sharding.config.ShardingConfigurer;
 import org.ifinal.finalframework.sharding.config.ShardingDataSourceRegistry;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -8,8 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 import org.springframework.util.CollectionUtils;
-
-import java.util.Map;
 
 /**
  * @author likly
@@ -21,7 +19,6 @@ import java.util.Map;
 public class ShardingDataSourceConfigurer implements ShardingConfigurer {
 
     private static final String DEFAULT_DATASOURCE_NAME = "ds";
-
 
     private final ShardingDataSourceProperties properties;
 
@@ -45,7 +42,6 @@ public class ShardingDataSourceConfigurer implements ShardingConfigurer {
         }
 
     }
-
 
 }
 

@@ -1,10 +1,5 @@
 package org.ifinal.finalframework.devops.java;
 
-import lombok.extern.slf4j.Slf4j;
-import org.benf.cfr.reader.api.CfrDriver;
-import org.benf.cfr.reader.api.OutputSinkFactory;
-import org.ifinal.finalframework.util.Asserts;
-
 import java.io.File;
 import java.lang.instrument.Instrumentation;
 import java.net.URL;
@@ -17,6 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
+import org.benf.cfr.reader.api.CfrDriver;
+import org.benf.cfr.reader.api.OutputSinkFactory;
+import org.ifinal.finalframework.util.Asserts;
 
 /**
  * @author likly
@@ -25,6 +24,7 @@ import java.util.Objects;
  */
 @Slf4j
 public final class Decompiler {
+
     private Decompiler() {
     }
 
@@ -46,7 +46,6 @@ public final class Decompiler {
         return decompile;
     }
 
-
     public static String decompile(final String classFilePath, final String methodName) {
 
         return decompile(classFilePath, methodName, false);
@@ -56,13 +55,20 @@ public final class Decompiler {
 
         final StringBuilder result = new StringBuilder(8192);
 
+        HashMap<String, String> options = new HashMap<>();
+        options.put("showversion", "false");
+        options.put("hideutf", String.valueOf(hideUnicode));
+        if (Asserts.nonBlank(methodName)) {
+            options.put("methodname", methodName);
+        }
+
         OutputSinkFactory mySink = new OutputSinkFactory() {
 
             @Override
             public List<SinkClass> getSupportedSinks(final SinkType sinkType, final Collection<SinkClass> collection) {
 
                 return Arrays.asList(SinkClass.STRING, SinkClass.DECOMPILED, SinkClass.DECOMPILED_MULTIVER,
-                        SinkClass.EXCEPTION_MESSAGE);
+                    SinkClass.EXCEPTION_MESSAGE);
             }
 
             @Override
@@ -78,13 +84,6 @@ public final class Decompiler {
             }
         };
 
-        HashMap<String, String> options = new HashMap<>();
-        options.put("showversion", "false");
-        options.put("hideutf", String.valueOf(hideUnicode));
-        if (Asserts.nonBlank(methodName)) {
-            options.put("methodname", methodName);
-        }
-
         CfrDriver driver = new CfrDriver.Builder().withOptions(options).withOutputSink(mySink).build();
         List<String> toAnalyse = new ArrayList<>();
         toAnalyse.add(classFilePath);
@@ -92,4 +91,5 @@ public final class Decompiler {
 
         return result.toString();
     }
+
 }

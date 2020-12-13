@@ -1,6 +1,10 @@
 package org.ifinal.finalframework.web.autoconfiguration;
 
-
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.web.http.converter.JsonStringHttpMessageConverter;
@@ -18,18 +22,10 @@ import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConv
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 /**
  * 自定义参数解析器配置器。
- * <p>
- * 由于 {@link RequestMappingHandlerAdapter}的配置的 {@link HandlerMethodArgumentResolver}在默认的配置之后，
- * 因此当参数列表中使用{@link java.util.Map}或其子类作为参数时，会被默认的 {@link MapMethodProcessor}所解析，走不到自定义的参数解析器，
- * 因此在 {@link ApplicationReadyEvent}事件中，将自定义的 {@link HandlerMethodArgumentResolver}置于默认的之前。
+ * <p>由于 {@link RequestMappingHandlerAdapter}的配置的 {@link HandlerMethodArgumentResolver}在默认的配置之后， 因此当参数列表中使用{@link java.util.Map}或其子类作为参数时，会被默认的 {@link
+ * MapMethodProcessor}所解析，走不到自定义的参数解析器， 因此在 {@link ApplicationReadyEvent}事件中，将自定义的 {@link HandlerMethodArgumentResolver}置于默认的之前。</p>
  *
  * @author likly
  * @version 1.0.0
@@ -59,8 +55,8 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
         //自定义参数解析器不为空，将自定义的参数解析器置于默认的之前
         context.getBeanProvider(HandlerMethodArgumentResolver.class)
-                .stream()
-                .forEachOrdered(argumentResolvers::add);
+            .stream()
+            .forEachOrdered(argumentResolvers::add);
 
         // 获取默认的参数解析器
         final List<HandlerMethodArgumentResolver> defaultArgumentResolvers = adapter.getArgumentResolvers();
@@ -68,16 +64,15 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
             for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
                 if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
                     Optional.ofNullable(ReflectionUtils.findField(argumentResolver.getClass(), "messageConverters"))
-                            .ifPresent(messageConverters -> {
-                                ReflectionUtils.makeAccessible(messageConverters);
-                                ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
-                            });
+                        .ifPresent(messageConverters -> {
+                            ReflectionUtils.makeAccessible(messageConverters);
+                            ReflectionUtils.setField(messageConverters, argumentResolver, adapter.getMessageConverters());
+                        });
 
                 }
                 argumentResolvers.add(argumentResolver);
             }
         }
-
 
         adapter.setArgumentResolvers(argumentResolvers);
     }
@@ -93,16 +88,15 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
                 if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {
 
                     Optional.ofNullable(ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters"))
-                            .ifPresent(field -> {
-                                ReflectionUtils.makeAccessible(field);
-                                ReflectionUtils.setField(field, returnValueHandler, adapter.getMessageConverters());
+                        .ifPresent(field -> {
+                            ReflectionUtils.makeAccessible(field);
+                            ReflectionUtils.setField(field, returnValueHandler, adapter.getMessageConverters());
 
-                            });
+                        });
                 }
                 returnValueHandlers.add(returnValueHandler);
             }
         }
-
 
         adapter.setReturnValueHandlers(returnValueHandlers);
     }
@@ -115,16 +109,14 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
 
         List<HttpMessageConverter<?>> messageConverters = adapter.getMessageConverters();
 
-
         List<HttpMessageConverter<?>> httpMessageConverters = messageConverters.stream()
-                .map(it -> {
-                    if (it instanceof StringHttpMessageConverter) {
-                        return new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
-                    } else {
-                        return it;
-                    }
-                }).collect(Collectors.toList());
-
+            .map(it -> {
+                if (it instanceof StringHttpMessageConverter) {
+                    return new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
+                } else {
+                    return it;
+                }
+            }).collect(Collectors.toList());
 
         adapter.setMessageConverters(httpMessageConverters);
     }

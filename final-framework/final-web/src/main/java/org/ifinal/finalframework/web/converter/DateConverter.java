@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.web.converter;
 
+import java.util.Date;
 import org.ifinal.finalframework.util.format.DateFormatters;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 /**
  * @author likly
@@ -19,4 +18,5 @@ public class DateConverter implements Converter<String, Date> {
 
         return DateFormatters.DEFAULT.parse(source);
     }
+
 }

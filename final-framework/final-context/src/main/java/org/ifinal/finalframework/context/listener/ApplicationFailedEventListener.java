@@ -21,4 +21,5 @@ public class ApplicationFailedEventListener implements ApplicationListener<Appli
 
         logger.error("Application run failed!", event.getException());
     }
+
 }

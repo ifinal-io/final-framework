@@ -2,19 +2,19 @@
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
 (function () {
-    "use strict";
+  "use strict";
 
-    var mode = CodeMirror.getMode({indentUnit: 2}, "text/x-gss");
+  var mode = CodeMirror.getMode({indentUnit: 2}, "text/x-gss");
 
-    function MT(name) {
-        test.mode(name, mode, Array.prototype.slice.call(arguments, 1), "gss");
-    }
+  function MT(name) {
+    test.mode(name, mode, Array.prototype.slice.call(arguments, 1), "gss");
+  }
 
-    MT("atComponent",
-        "[def @component] {",
-        "[tag foo] {",
-        "  [property color]: [keyword black];",
-        "}",
-        "}");
+  MT("atComponent",
+      "[def @component] {",
+      "[tag foo] {",
+      "  [property color]: [keyword black];",
+      "}",
+      "}");
 
 })();

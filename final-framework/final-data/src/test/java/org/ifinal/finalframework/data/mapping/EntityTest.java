@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.data.mapping;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 /**
  * @author likly
@@ -25,4 +24,5 @@ class EntityTest {
             logger.info("property={},column={},order={}", property.getName(), property.getColumn(), property.getOrder());
         });
     }
+
 }

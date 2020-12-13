@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.context.beans.factory.support;
 
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.ApplicationContextException;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.lang.NonNull;
-
-import java.util.List;
 
 /**
  * Load the custom bean into {@code spring} ioc context.
@@ -21,6 +19,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements BeanDefinitionRegistryPostProcessor {
+
     private final Class<T> factoryInterface;
 
     public SpringFactoryBeanDefinitionRegistryPostProcessor(final Class<T> factoryInterface) {
@@ -46,5 +45,6 @@ public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements Bean
     public void postProcessBeanFactory(final @NonNull ConfigurableListableBeanFactory beanFactory) {
         // do nothing
     }
+
 }
 

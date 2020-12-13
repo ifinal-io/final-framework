@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlSource;
@@ -20,15 +22,13 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 class IQueryTest {
+
     private static final Logger logger = LoggerFactory.getLogger(IQueryTest.class);
 
     @Test
@@ -44,21 +44,19 @@ class IQueryTest {
         final Entity<QueryEntityQuery> properties = Entity.from(QueryEntityQuery.class);
         final Element where = document.createElement("where");
 
-
         final AndOr andOr = properties.isAnnotationPresent(Or.class) ? AndOr.OR : AndOr.AND;
 
         for (Property property : properties) {
             if (property.isAnnotationPresent(Equal.class)) {
                 final Element element = document.createElement("if");
                 element.setAttribute("test", String.format("%s.%s != null", "query", property.getName()));
-                element.appendChild(document.createCDATASection(String.format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query", property.getName())));
+                element.appendChild(document.createCDATASection(
+                    String.format("%s %s = #{%s.%s}", andOr, entity.getProperty(property.getName()).getColumn(), "query", property.getName())));
                 where.appendChild(element);
             }
         }
 
-
         script.getNode().appendChild(where);
-
 
         final String sql = script.toString();
         if (logger.isDebugEnabled()) {
@@ -81,6 +79,6 @@ class IQueryTest {
 
         Assertions.assertNotNull(boundSql.getSql());
 
-
     }
+
 }

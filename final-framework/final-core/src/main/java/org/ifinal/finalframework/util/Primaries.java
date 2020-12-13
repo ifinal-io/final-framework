@@ -17,13 +17,12 @@
 
 package org.ifinal.finalframework.util;
 
-import org.ifinal.finalframework.util.stream.Streamable;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
+import org.ifinal.finalframework.util.stream.Streamable;
 
 /**
  * 常见主要基础类型及其包装类型集
@@ -54,17 +53,17 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
     public static final Primaries STRING = new Primaries(String.class);
 
     public static final Primaries NUMBER = new Primaries(
-            byte.class, Byte.class, short.class, Short.class,
-            int.class, Integer.class, long.class, Long.class,
-            float.class, Float.class, double.class, Double.class
+        byte.class, Byte.class, short.class, Short.class,
+        int.class, Integer.class, long.class, Long.class,
+        float.class, Float.class, double.class, Double.class
     );
 
     public static final Primaries ALL = new Primaries(
-            byte.class, Byte.class, short.class, Short.class,
-            char.class, Character.class, boolean.class, Boolean.class,
-            int.class, Integer.class, long.class, Long.class,
-            float.class, Float.class, double.class, Double.class,
-            String.class, Class.class);
+        byte.class, Byte.class, short.class, Short.class,
+        char.class, Character.class, boolean.class, Boolean.class,
+        int.class, Integer.class, long.class, Long.class,
+        float.class, Float.class, double.class, Double.class,
+        String.class, Class.class);
 
     private final Set<Class<?>> types = new HashSet<>();
 

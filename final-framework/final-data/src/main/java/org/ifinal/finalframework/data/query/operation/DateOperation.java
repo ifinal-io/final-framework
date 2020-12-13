@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.operation;
 
-
 import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
 import org.ifinal.finalframework.data.query.criterion.function.SimpleCriterionFunction;
 

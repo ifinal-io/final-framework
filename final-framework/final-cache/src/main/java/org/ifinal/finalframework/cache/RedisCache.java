@@ -1,14 +1,13 @@
 package org.ifinal.finalframework.cache;
 
+import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.json.Json;
 import org.ifinal.finalframework.redis.Redis;
 import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Type;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -47,7 +46,8 @@ public class RedisCache implements Cache {
     }
 
     @Override
-    public void set(final @NonNull Object key, final @Nullable Object field, final @Nullable Object value, final @Nullable Long ttl, final @Nullable TimeUnit timeUnit, final @Nullable Class<?> view) {
+    public void set(final @NonNull Object key, final @Nullable Object field, final @Nullable Object value, final @Nullable Long ttl,
+        final @Nullable TimeUnit timeUnit, final @Nullable Class<?> view) {
 
         final Object cacheValue = view == null ? Json.toJson(value) : Json.toJson(value, view);
         if (field == null) {
@@ -68,7 +68,9 @@ public class RedisCache implements Cache {
     public <T> T get(final @NonNull Object key, final @Nullable Object field, final @NonNull Type type, final @Nullable Class<?> view) {
 
         final Object cacheValue = field == null ? Redis.value().get(key) : Redis.hash().get(key, field);
-        if (cacheValue == null) return null;
+        if (cacheValue == null) {
+            return null;
+        }
         final String json = cacheValue.toString();
         return view == null ? Json.toObject(json, type) : Json.toObject(json, type, view);
     }

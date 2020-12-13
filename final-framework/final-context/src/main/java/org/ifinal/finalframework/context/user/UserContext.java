@@ -19,5 +19,4 @@ public interface UserContext<U extends IUser<?>> {
     @Nullable
     U getUser();
 
-
 }

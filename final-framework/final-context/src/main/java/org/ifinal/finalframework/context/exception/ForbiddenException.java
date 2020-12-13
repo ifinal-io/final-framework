@@ -12,7 +12,6 @@ public class ForbiddenException extends ServiceException {
 
     public static final ForbiddenException DEFAULT = new ForbiddenException(ResponseStatus.FORBIDDEN.getDesc());
 
-
     public ForbiddenException(final String message, final Object... args) {
 
         this(ResponseStatus.FORBIDDEN.getCode(), message, args);
@@ -32,6 +31,5 @@ public class ForbiddenException extends ServiceException {
 
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
     }
-
 
 }

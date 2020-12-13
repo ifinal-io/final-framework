@@ -1,6 +1,10 @@
 package org.ifinal.finalframework.retrofit;
 
-
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import lombok.Setter;
 import org.ifinal.finalframework.retrofit.annotation.Retrofit;
 import org.slf4j.Logger;
@@ -17,12 +21,6 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -30,14 +28,17 @@ import java.util.Set;
  */
 
 public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassPathRetrofitScanner.class);
 
     private static final String DEFAULT_RETROFIT_BEAN_NAME = "retrofit";
 
     @Setter
     private Class<? extends Annotation> annotationClass;
+
     @Setter
     private Class<?> markerInterface;
+
     @Setter
     private RetrofitFactoryBean<?> retrofitFactoryBean = new RetrofitFactoryBean<>();
 
@@ -81,7 +82,7 @@ public class ClassPathRetrofitScanner extends ClassPathBeanDefinitionScanner {
                 // but, the actual class of the bean is MapperFactoryBean
                 if (Objects.nonNull(definition.getBeanClassName())) {
                     Optional.of(definition.getConstructorArgumentValues())
-                            .ifPresent(it -> it.addGenericArgumentValue(definition.getBeanClassName()));
+                        .ifPresent(it -> it.addGenericArgumentValue(definition.getBeanClassName()));
                 }
                 definition.setBeanClass(this.retrofitFactoryBean.getClass());
 

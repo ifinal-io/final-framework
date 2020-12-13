@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.mybatis.mapper;
 
+import java.lang.annotation.Annotation;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
-
-import java.lang.annotation.Annotation;
 
 /**
  * @author likly

@@ -19,5 +19,4 @@ public interface MonitorExpressionEvaluator extends ExpressionEvaluator {
 
     Object attribute(String attributeExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-
 }

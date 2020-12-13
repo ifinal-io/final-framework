@@ -72,7 +72,7 @@ public final class ServicesFiles {
      * @throws IOException io exception
      */
     static void writeServiceFile(final Map<String, String> services, final OutputStream output)
-            throws IOException {
+        throws IOException {
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
         for (Map.Entry<String, String> entry : services.entrySet()) {

@@ -1,6 +1,9 @@
 package org.ifinal.finalframework.cache.handler;
 
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.aop.interceptor.AbsOperationInterceptorHandlerSupport;
 import org.ifinal.finalframework.cache.CacheExpressionEvaluator;
 import org.ifinal.finalframework.cache.CacheOperationHandlerSupport;
@@ -13,11 +16,6 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.expression.EvaluationContext;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -26,6 +24,7 @@ import java.util.stream.Collectors;
 public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements CacheOperationHandlerSupport {
 
     private final CacheExpressionEvaluator evaluator;
+
     private Boolean conditionPassing;
 
     public AbsCacheOperationInterceptorHandlerSupport() {
@@ -64,8 +63,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     }
 
     /**
-     * @param annotationAttributes
-     * @return
+     * @param annotationAttributes annotationAttributes
+     * @return timeunit
      * @see Cacheable#timeunit()
      * @see CacheLock#timeunit()
      * @see CachePut#timeunit()
@@ -75,25 +74,22 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
         return annotationAttributes.getEnum("timeunit");
     }
 
-
     @Override
     public Object generateKey(final String[] keys, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
 
         final List<String> keyValues = Arrays.stream(keys)
-                .map(key -> {
-                    if (isExpression(key)) {
-                        return evaluator.key(generateExpression(key), metadata.getMethodKey(), evaluationContext);
-                    } else {
-                        return key;
-                    }
-                })
-                .map(Object::toString)
-                .collect(Collectors.toList());
-
+            .map(key -> {
+                if (isExpression(key)) {
+                    return evaluator.key(generateExpression(key), metadata.getMethodKey(), evaluationContext);
+                } else {
+                    return key;
+                }
+            })
+            .map(Object::toString)
+            .collect(Collectors.toList());
 
         return String.join(delimiter, keyValues);
     }
-
 
     @Override
     public Object generateField(final String[] fields, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
@@ -102,15 +98,15 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
             return null;
         }
         List<String> fieldValues = Arrays.stream(fields)
-                .map(field -> {
-                    if (isExpression(field)) {
-                        return evaluator.field(generateExpression(field), metadata.getMethodKey(), evaluationContext);
-                    } else {
-                        return field;
-                    }
-                })
-                .map(Object::toString)
-                .collect(Collectors.toList());
+            .map(field -> {
+                if (isExpression(field)) {
+                    return evaluator.field(generateExpression(field), metadata.getMethodKey(), evaluationContext);
+                } else {
+                    return field;
+                }
+            })
+            .map(Object::toString)
+            .collect(Collectors.toList());
 
         return String.join(delimiter, fieldValues);
     }

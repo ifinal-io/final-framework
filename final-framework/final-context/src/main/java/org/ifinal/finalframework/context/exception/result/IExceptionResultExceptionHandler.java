@@ -34,4 +34,5 @@ public class IExceptionResultExceptionHandler implements ResultExceptionHandler<
             return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
         }
     }
+
 }

@@ -23,4 +23,5 @@ public class RedisUIController {
     public String redis() {
         return "dashboard/redis";
     }
+
 }

@@ -13,6 +13,7 @@ import org.springframework.lang.Nullable;
 public class NameConverterRegistry {
 
     private static final String FINAL_NAME_CONVERTER_TABLE_CONVERTER = "final.data.name-converter.table-converter";
+
     private static final String FINAL_NAME_CONVERTER_COLUMN_CONVERTER = "final.data.name-converter.column-converter";
 
     private static final NameConverterRegistry instance = new NameConverterRegistry();
@@ -20,6 +21,7 @@ public class NameConverterRegistry {
     private final NameConverter defaultNameConverter = new CameHump2UnderlineNameConverter();
 
     private NameConverter tableNameConverter = defaultNameConverter;
+
     private NameConverter columnNameConverter = defaultNameConverter;
 
     private NameConverterRegistry() {
@@ -38,7 +40,9 @@ public class NameConverterRegistry {
 
     private void initTableConverter(final @Nullable String tableNameConverter) {
 
-        if (Asserts.isEmpty(tableNameConverter)) return;
+        if (Asserts.isEmpty(tableNameConverter)) {
+            return;
+        }
         try {
             this.tableNameConverter = (NameConverter) Class.forName(tableNameConverter).getConstructor().newInstance();
         } catch (Exception e) {
@@ -48,7 +52,9 @@ public class NameConverterRegistry {
 
     private void initNameConverter(final @Nullable String columnNameConverter) {
 
-        if (Asserts.isEmpty(columnNameConverter)) return;
+        if (Asserts.isEmpty(columnNameConverter)) {
+            return;
+        }
         try {
             this.columnNameConverter = (NameConverter) Class.forName(columnNameConverter).getConstructor().newInstance();
         } catch (Exception e) {
@@ -73,4 +79,5 @@ public class NameConverterRegistry {
 
         this.columnNameConverter = columnNameConverter;
     }
+
 }

@@ -6,9 +6,13 @@ package org.ifinal.finalframework.data.mapping;
  * @since 1.0.0
  */
 public class BaseCompareProperty implements CompareProperty {
+
     private final Property property;
+
     private final Object beforeValue;
+
     private final Object afterValue;
+
     private final boolean equals;
 
     private BaseCompareProperty(final BuilderImpl builder) {
@@ -51,18 +55,21 @@ public class BaseCompareProperty implements CompareProperty {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(property.getName()).append("[beforeValue=")
-                .append(beforeValue)
-                .append(",afterValue=")
-                .append(afterValue)
-                .append(",equals=")
-                .append(equals)
-                .append("]");
+            .append(beforeValue)
+            .append(",afterValue=")
+            .append(afterValue)
+            .append(",equals=")
+            .append(equals)
+            .append("]");
         return builder.toString();
     }
 
     public static class BuilderImpl implements CompareProperty.Builder {
+
         private Property property;
+
         private Object beforeValue;
+
         private Object afterValue;
 
         @Override
@@ -84,5 +91,7 @@ public class BaseCompareProperty implements CompareProperty {
         public CompareProperty build() {
             return new BaseCompareProperty(this);
         }
+
     }
+
 }

@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.util.function;
 
-import org.springframework.lang.Nullable;
-
 import java.util.function.Function;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly

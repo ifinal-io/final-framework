@@ -27,11 +27,10 @@ public class CorsWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(final CorsRegistry registry) {
 
         registry.addMapping(corsProperties.getMapping())
-                .allowCredentials(Boolean.TRUE.equals(corsProperties.getAllowCredentials()))
-                .allowedOrigins(corsProperties.getAllowedOrigins())
-                .allowedMethods(corsProperties.getAllowedMethods())
-                .allowedHeaders(corsProperties.getAllowedHeaders());
+            .allowCredentials(Boolean.TRUE.equals(corsProperties.getAllowCredentials()))
+            .allowedOrigins(corsProperties.getAllowedOrigins())
+            .allowedMethods(corsProperties.getAllowedMethods())
+            .allowedHeaders(corsProperties.getAllowedHeaders());
     }
-
 
 }

@@ -21,4 +21,5 @@ public class ContextUIController {
     public String beans() {
         return "dashboard/context/beans";
     }
+
 }

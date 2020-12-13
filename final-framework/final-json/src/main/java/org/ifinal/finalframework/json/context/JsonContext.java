@@ -18,4 +18,5 @@ public interface JsonContext {
     boolean isModifyDate();
 
     void setModifyDate(final boolean enable);
+
 }

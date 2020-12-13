@@ -13,23 +13,23 @@
     border-bottom: 1px solid black;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">IDL</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">IDL</a>
+  </ul>
 </div>
 
 <article>
-    <h2>IDL mode</h2>
+  <h2>IDL mode</h2>
 
-    <div><textarea id="code" name="code">
+  <div><textarea id="code" name="code">
 ;; Example IDL code
 FUNCTION mean_and_stddev,array
   ;; This program reads in an array of numbers
@@ -53,18 +53,18 @@ FUNCTION mean_and_stddev,array
 END
 
     </textarea></div>
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            mode: {
-                name: "idl",
-                version: 1,
-                singleLineStringErrors: false
-            },
-            lineNumbers: true,
-            indentUnit: 4,
-            matchBrackets: true
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: {
+        name: "idl",
+        version: 1,
+        singleLineStringErrors: false
+      },
+      lineNumbers: true,
+      indentUnit: 4,
+      matchBrackets: true
+    });
+  </script>
 
-    <p><strong>MIME types defined:</strong> <code>text/x-idl</code>.</p>
+  <p><strong>MIME types defined:</strong> <code>text/x-idl</code>.</p>
 </article>

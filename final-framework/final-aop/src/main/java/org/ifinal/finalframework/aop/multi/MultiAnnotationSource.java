@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.aop.multi;
 
-import org.ifinal.finalframework.aop.AnnotationSource;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -10,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import org.ifinal.finalframework.aop.AnnotationSource;
 
 /**
  * @author likly
@@ -17,7 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 public class MultiAnnotationSource<E> implements AnnotationSource<Map<Class<? extends Annotation>, Collection<E>>> {
+
     private final Map<Object, Map<Class<? extends Annotation>, Collection<E>>> cache = new ConcurrentHashMap<>(1024);
+
     private final Map<Class<? extends Annotation>, AnnotationSource<Collection<E>>> sourceMap = new LinkedHashMap<>();
 
     public void addAnnotationSource(final Class<? extends Annotation> annotationType, final AnnotationSource<Collection<E>> source) {
@@ -48,6 +49,6 @@ public class MultiAnnotationSource<E> implements AnnotationSource<Map<Class<? ex
             return map;
         });
 
-
     }
+
 }

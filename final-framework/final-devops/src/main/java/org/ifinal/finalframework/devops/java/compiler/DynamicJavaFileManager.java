@@ -1,24 +1,26 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
-import org.springframework.lang.NonNull;
-
-import javax.tools.FileObject;
-import javax.tools.ForwardingJavaFileManager;
-import javax.tools.JavaFileManager;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.tools.FileObject;
+import javax.tools.ForwardingJavaFileManager;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
+import org.springframework.lang.NonNull;
 
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
+
     private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
-            "SYSTEM_MODULES"};
+        "SYSTEM_MODULES"};
+
     private final PackageInternalsFinder finder;
 
     private final DynamicClassLoader classLoader;
+
     private final List<BytesJavaFileObject> byteCodes = new ArrayList<>();
 
     public DynamicJavaFileManager(final JavaFileManager fileManager, final DynamicClassLoader classLoader) {
@@ -63,7 +65,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
     @Override
     public Iterable<JavaFileObject> list(final Location location, final String packageName, final Set<JavaFileObject.Kind> kinds,
-                                         final boolean recurse) throws IOException {
+        final boolean recurse) throws IOException {
 
         if (location instanceof StandardLocation) {
             String locationName = ((StandardLocation) location).name();
@@ -77,14 +79,16 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         // merge JavaFileObjects from specified ClassLoader
         if (location == StandardLocation.CLASS_PATH && kinds.contains(JavaFileObject.Kind.CLASS)) {
             return new IterableJoin<>(super.list(location, packageName, kinds, recurse),
-                    finder.find(packageName));
+                finder.find(packageName));
         }
 
         return super.list(location, packageName, kinds, recurse);
     }
 
     static class IterableJoin<T> implements Iterable<T> {
+
         private final Iterable<T> first;
+
         private final Iterable<T> next;
 
         public IterableJoin(final Iterable<T> first, final Iterable<T> next) {
@@ -98,10 +102,13 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         public Iterator<T> iterator() {
             return new IteratorJoin<>(first.iterator(), next.iterator());
         }
+
     }
 
     static class IteratorJoin<T> implements Iterator<T> {
+
         private final Iterator<T> first;
+
         private final Iterator<T> next;
 
         public IteratorJoin(final Iterator<T> first, final Iterator<T> next) {
@@ -127,5 +134,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         public void remove() {
             throw new UnsupportedOperationException("remove");
         }
+
     }
+
 }

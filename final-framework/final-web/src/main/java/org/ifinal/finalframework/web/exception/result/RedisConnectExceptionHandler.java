@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConditionalOnClass(RedisConnectionException.class)
 public class RedisConnectExceptionHandler implements ResultExceptionHandler<RedisConnectionException> {
+
     @Override
     public boolean supports(final Throwable throwable) {
 
@@ -26,4 +27,5 @@ public class RedisConnectExceptionHandler implements ResultExceptionHandler<Redi
 
         return R.failure(500, "Redis 连接异常： " + throwable.getMessage());
     }
+
 }

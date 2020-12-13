@@ -19,4 +19,5 @@ public class LoggerAlerter implements Alerter {
             logger.warn(Json.toJson(context));
         }
     }
+
 }

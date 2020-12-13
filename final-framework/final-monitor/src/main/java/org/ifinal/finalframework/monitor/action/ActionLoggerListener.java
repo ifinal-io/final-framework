@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.monitor.action;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.json.Json;
 import org.springframework.lang.NonNull;
@@ -22,4 +21,5 @@ public class ActionLoggerListener implements ActionListener {
             logger.info("==> action handler: {}", Json.toJson(action));
         }
     }
+
 }

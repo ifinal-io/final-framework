@@ -14,21 +14,21 @@
     }
 </style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Oz</a>
-    </ul>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Oz</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Oz mode</h2>
-    <textarea id="code" name="code">
+  <h2>Oz mode</h2>
+  <textarea id="code" name="code">
 declare
 fun {Ints N Max}
   if N == Max then nil
@@ -49,13 +49,13 @@ local X Y in
   {Browse Y}
 end
 </textarea>
-    <p>MIME type defined: <code>text/x-oz</code>.</p>
+  <p>MIME type defined: <code>text/x-oz</code>.</p>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            mode: "text/x-oz",
-            readOnly: false
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      mode: "text/x-oz",
+      readOnly: false
+    });
+  </script>
 </article>

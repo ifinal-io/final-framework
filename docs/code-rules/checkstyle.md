@@ -32,7 +32,8 @@ menus:
     <!-- Names -->
     <module name="PackageName">
         <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
-        <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Package name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="TypeName">
         <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
@@ -44,31 +45,38 @@ menus:
     </module>
     <module name="ParameterName">
         <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-        <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LambdaParameterName">
         <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-        <message key="name.invalidPattern" value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="CatchParameterName">
         <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-        <message key="name.invalidPattern" value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LocalVariableName">
         <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-        <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Local variable name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="ClassTypeParameterName">
         <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-        <message key="name.invalidPattern" value="Class type name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Class type name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="MethodTypeParameterName">
         <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-        <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Method type name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="InterfaceTypeParameterName">
         <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-        <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
+        <message key="name.invalidPattern"
+            value="Interface type name ''{0}'' must match pattern ''{1}''."/>
     </module>
 </module>
 ```

@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
-
-import org.ifinal.finalframework.util.Asserts;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import org.ifinal.finalframework.util.Asserts;
 
 /**
  * @author likly
@@ -22,7 +20,6 @@ final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
 
         return new GroupImpl(properties);
     }
-
 
     @Override
     public Group and(final Group group) {

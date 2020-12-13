@@ -1,5 +1,9 @@
 package org.ifinal.finalframework.monitor.trace;
 
+import java.lang.reflect.Parameter;
+import java.time.Duration;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
@@ -9,11 +13,6 @@ import org.ifinal.finalframework.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.Parameter;
-import java.time.Duration;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author likly
@@ -27,7 +26,6 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     private static final String TAB = "    ";
 
     ThreadLocal<AtomicInteger> methodDeepCounter = new ThreadLocal<>();
-
 
     @Override
     public Object before(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation) {
@@ -50,7 +48,6 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
             logger.info("{},Parameter: {}={}", tab, parameters[i].getName(), args[i]);
         }
 
-
         return null;
     }
 
@@ -62,7 +59,6 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
         }
         return atomicInteger;
     }
-
 
     private String tab() {
 
@@ -79,7 +75,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
     }
 
     @Override
-    public void after(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation, final Object result, final Throwable throwable) {
+    public void after(final @NonNull Tracer executor, final @NonNull InvocationContext context, final @NonNull Boolean annotation, final Object result,
+        final Throwable throwable) {
 
         MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass() + "." + metadata.getMethod().getName());
@@ -111,9 +108,8 @@ public class TraceLoggerInterceptorHandler implements InterceptorHandler<Tracer,
             methodDeepCounter.remove();
         }
 
-
         logger.info("====END====================================================END====");
 
-
     }
+
 }

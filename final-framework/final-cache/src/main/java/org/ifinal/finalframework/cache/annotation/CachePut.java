@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.cache.annotation;
 
-
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.cache.Cache;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Repeatable;
@@ -11,7 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
-
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.cache.Cache;
 
 /**
  * @author likly
@@ -47,6 +44,9 @@ public @interface CachePut {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
+
         CachePut[] value();
+
     }
+
 }

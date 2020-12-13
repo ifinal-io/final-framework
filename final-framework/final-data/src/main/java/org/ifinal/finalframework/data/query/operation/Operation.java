@@ -34,5 +34,4 @@ public interface Operation {
         BETWEEN, NOT_BETWEEN
     }
 
-
 }

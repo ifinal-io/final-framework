@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.aop.simple;
 
-import org.ifinal.finalframework.aop.AnnotationSource;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.ifinal.finalframework.aop.AnnotationSource;
 
 /**
  * @author likly
@@ -48,4 +47,5 @@ public class SimpleAnnotationSource implements AnnotationSource<Boolean> {
             return false;
         });
     }
+
 }

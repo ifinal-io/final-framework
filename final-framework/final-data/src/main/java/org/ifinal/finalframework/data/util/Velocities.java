@@ -1,7 +1,13 @@
 package org.ifinal.finalframework.data.util;
 
-
 import ch.qos.logback.classic.Level;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.StringWriter;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
@@ -16,14 +22,6 @@ import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.io.StringWriter;
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Properties;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -31,8 +29,11 @@ import java.util.Properties;
  */
 @Slf4j
 public final class Velocities {
+
     private static final String UTF_8 = "UTF-8";
+
     private static final VelocityEngine ve = new VelocityEngine();
+
     private static final Properties p = new Properties();
 
     private static final ToolManager toolManager;
@@ -61,7 +62,6 @@ public final class Velocities {
             Scope.add("coding");
         }
 
-
         toolManager = new ToolManager();
         toolManager.setVelocityEngine(ve);
         toolManager.configure(ConfigurationUtils.getDefaultTools());
@@ -83,7 +83,6 @@ public final class Velocities {
         template.merge(context, writer);
         return writer.toString();
     }
-
 
     /**
      * 构建velocity参数map。key:占位符key，value:占位符值

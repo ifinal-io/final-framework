@@ -29,4 +29,5 @@ public class RestMethodParameterFilter implements Filter<MethodParameter> {
 
         return methodParameter.hasMethodAnnotation(ResponseBody.class) || methodParameter.getDeclaringClass().isAnnotationPresent(RestController.class);
     }
+
 }

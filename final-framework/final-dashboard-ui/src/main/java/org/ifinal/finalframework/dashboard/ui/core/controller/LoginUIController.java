@@ -18,7 +18,7 @@ public class LoginUIController {
     @GetMapping("/login")
     public String login() {
 
-
         return "dashboard/login";
     }
+
 }

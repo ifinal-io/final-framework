@@ -1,5 +1,9 @@
 package org.ifinal.finalframework.cache.handler;
 
+import java.lang.reflect.Type;
+import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.annotation.Cacheable;
@@ -11,11 +15,6 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -24,7 +23,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
+
     private static final String KEY = "key";
+
     private static final String FIELD = "field";
 
     @Override
@@ -52,7 +53,8 @@ public class CacheableInterceptorHandler extends AbsCacheOperationInterceptorHan
     }
 
     @Override
-    public void afterReturning(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation, final Object result) {
+    public void afterReturning(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
+        final Object result) {
 
         if (Objects.isNull(result)) {
             return;

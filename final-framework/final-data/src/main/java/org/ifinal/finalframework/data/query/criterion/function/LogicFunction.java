@@ -16,4 +16,5 @@ public interface LogicFunction<V, R> {
     R xor(@NonNull V value);
 
     R not();
+
 }

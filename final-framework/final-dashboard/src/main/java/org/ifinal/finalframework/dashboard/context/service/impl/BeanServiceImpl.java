@@ -1,5 +1,8 @@
 package org.ifinal.finalframework.dashboard.context.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.Setter;
 import org.ifinal.finalframework.dashboard.context.entity.BeanDefinition;
 import org.ifinal.finalframework.dashboard.context.service.BeanService;
@@ -9,10 +12,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -21,10 +20,9 @@ import java.util.List;
 @Service
 class BeanServiceImpl implements BeanService, ApplicationContextAware {
 
-
     private static final String SPRING_FRAMEWORK_PACKAGE = "org.springframework";
-    private static final String FINAL_FRAMEWORK_PACKAGE = "org.ifinal.finalframework";
 
+    private static final String FINAL_FRAMEWORK_PACKAGE = "org.ifinal.finalframework";
 
     @Setter
     private ApplicationContext applicationContext;
@@ -33,7 +31,6 @@ class BeanServiceImpl implements BeanService, ApplicationContextAware {
     public List<BeanDefinition> query(final @NotNull BeanQuery query) {
 
         final List<BeanDefinition> beanDefinitions = new ArrayList<>();
-
 
         for (String beanDefinitionName : applicationContext.getBeanDefinitionNames()) {
             Object bean = applicationContext.getBean(beanDefinitionName);
@@ -55,4 +52,5 @@ class BeanServiceImpl implements BeanService, ApplicationContextAware {
 
         return beanDefinitions;
     }
+
 }

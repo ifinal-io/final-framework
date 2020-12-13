@@ -1,5 +1,9 @@
 package org.ifinal.finalframework.cache.handler;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.cache.Cache;
 import org.ifinal.finalframework.cache.CacheLockException;
@@ -15,11 +19,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -30,7 +29,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHandlerSupport implements CacheInterceptorHandler {
 
     private static final String KEY = "key";
+
     private static final String VALUE = "value";
+
     private static final String LOCK = "lock";
 
     @Override
@@ -52,7 +53,6 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         // find the ttl form expire and ttl
         Long ttl = ttl(annotation, metadata, evaluationContext);
         TimeUnit timeUnit = annotation.getEnum("timeUnit");
-
 
         final long sleep = annotation.getNumber("sleep");
         context.addAttribute(KEY, key);
@@ -104,10 +104,9 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         }
     }
 
-
     @Override
     public void after(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
-                      final @Nullable Object result, final @Nullable Throwable throwable) {
+        final @Nullable Object result, final @Nullable Throwable throwable) {
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
 

@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.auto.query.processor;
 
+import java.util.List;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.TypeElement;
 import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.auto.data.Property;
 import org.ifinal.finalframework.auto.query.Utils;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.TypeElement;
-import java.util.List;
 
 /**
  * @author likly
@@ -28,23 +27,23 @@ public final class QEntityFactory {
         final String entityName = entity.getSimpleName();
         final QEntity.Builder builder = new QEntity.Builder(entity);
         builder.packageName(packageName)
-                .name(ENTITY_PREFIX + entityName);
+            .name(ENTITY_PREFIX + entityName);
         entity.stream()
-                .filter(property -> !property.isTransient())
-                .forEach(property -> {
-                    if (property.isReference()) {
-                        TypeElement multiElement = property.getJavaTypeElement();
-                        Entity multiEntity = EntityFactory.create(processingEnv, multiElement);
-                        final List<String> properties = property.referenceProperties();
-                        properties.stream()
-                                .map(multiEntity::getRequiredProperty)
-                                .map(multiProperty -> buildProperty(property, multiProperty))
-                                .forEach(builder::addProperty);
-                    } else {
-                        builder.addProperty(buildProperty(null, property));
-                    }
+            .filter(property -> !property.isTransient())
+            .forEach(property -> {
+                if (property.isReference()) {
+                    TypeElement multiElement = property.getJavaTypeElement();
+                    Entity multiEntity = EntityFactory.create(processingEnv, multiElement);
+                    final List<String> properties = property.referenceProperties();
+                    properties.stream()
+                        .map(multiEntity::getRequiredProperty)
+                        .map(multiProperty -> buildProperty(property, multiProperty))
+                        .forEach(builder::addProperty);
+                } else {
+                    builder.addProperty(buildProperty(null, property));
+                }
 
-                });
+            });
 
         return builder.build();
     }
@@ -53,16 +52,16 @@ public final class QEntityFactory {
 
         if (referenceProperty == null) {
             return QProperty.builder(property.getName(), Utils.formatPropertyName(null, property))
-                    .element(property.getElement())
-                    .idProperty(property.isIdProperty())
-                    .build();
+                .element(property.getElement())
+                .idProperty(property.isIdProperty())
+                .build();
         } else {
             final String path = referenceProperty.getName() + "." + property.getName();
             final String name = Utils.formatPropertyName(referenceProperty, property);
             return QProperty.builder(path, name)
-                    .element(property.getElement())
-                    .idProperty(false)
-                    .build();
+                .element(property.getElement())
+                .idProperty(false)
+                .build();
         }
 
     }

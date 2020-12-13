@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.operation;
 
-
 import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
 import org.ifinal.finalframework.data.query.criterion.function.SimpleCriterionFunction;
 import org.ifinal.finalframework.data.query.criterion.function.SingleCriterionFunction;
@@ -12,6 +11,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public interface LogicOperations {
+
     static CriterionFunction and(@NonNull Object target, @NonNull Object value) {
         return new SingleCriterionFunction(target, LogicOperation.AND, value);
     }
@@ -27,5 +27,6 @@ public interface LogicOperations {
     static CriterionFunction xor(@NonNull Object target, @NonNull Object value) {
         return new SingleCriterionFunction(target, LogicOperation.XOR, value);
     }
+
 }
 

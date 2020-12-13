@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.dashboard.devops.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @author likly
@@ -11,6 +10,9 @@ import java.io.Serializable;
  */
 @Data
 public class LoggerModel implements Serializable {
+
     private String name;
+
     private String level;
+
 }

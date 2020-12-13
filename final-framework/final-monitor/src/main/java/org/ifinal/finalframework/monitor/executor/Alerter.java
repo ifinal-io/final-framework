@@ -9,5 +9,7 @@ import org.ifinal.finalframework.monitor.context.AlertContext;
  * @since 1.0.0
  */
 public interface Alerter extends Executor {
+
     void alert(AlertContext context);
+
 }

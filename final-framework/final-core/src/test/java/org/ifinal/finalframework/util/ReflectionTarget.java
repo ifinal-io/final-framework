@@ -8,8 +8,10 @@ import org.springframework.cache.annotation.Cacheable;
  * @since 1.0.0
  */
 class ReflectionTarget {
+
     @Cacheable
     public void method() {
 
     }
+
 }

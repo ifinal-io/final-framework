@@ -15,22 +15,22 @@
     background: #f8f8f8;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Closure Stylesheets (GSS)</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Closure Stylesheets (GSS)</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Closure Stylesheets (GSS) mode</h2>
-    <form><textarea id="code" name="code">
+  <h2>Closure Stylesheets (GSS) mode</h2>
+  <form><textarea id="code" name="code">
 /* Some example Closure Stylesheets */
 
 @provide 'some.styles';
@@ -89,19 +89,21 @@ body {
 
 }
 </textarea></form>
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: "text/x-gss"
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      extraKeys: {"Ctrl-Space": "autocomplete"},
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: "text/x-gss"
+    });
+  </script>
 
-    <p>A mode for <a href="https://github.com/google/closure-stylesheets">Closure Stylesheets</a> (GSS).</p>
-    <p><strong>MIME type defined:</strong> <code>text/x-gss</code>.</p>
+  <p>A mode for <a href="https://github.com/google/closure-stylesheets">Closure Stylesheets</a>
+    (GSS).</p>
+  <p><strong>MIME type defined:</strong> <code>text/x-gss</code>.</p>
 
-    <p><strong>Parsing/Highlighting Tests:</strong> <a href="../../test/index.html#gss_*">normal</a>, <a
-            href="../../test/index.html#verbose,gss_*">verbose</a>.</p>
+  <p><strong>Parsing/Highlighting Tests:</strong> <a href="../../test/index.html#gss_*">normal</a>,
+    <a
+        href="../../test/index.html#verbose,gss_*">verbose</a>.</p>
 
 </article>

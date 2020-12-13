@@ -1,6 +1,9 @@
 package org.ifinal.finalframework.auto.coding;
 
 import ch.qos.logback.classic.Level;
+import java.io.Writer;
+import java.util.Date;
+import java.util.Properties;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -13,10 +16,6 @@ import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.ifinal.finalframework.util.Beans;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.Writer;
-import java.util.Date;
-import java.util.Properties;
 
 /**
  * @author likly
@@ -38,7 +37,6 @@ public class VelocityCoder implements Coder {
         properties.setProperty("log4j.logger.org.apache.velocity", "ERROR");
         properties.setProperty("log4j.logger.root", "ERROR");
 
-
         final Logger apacheLogger = LoggerFactory.getLogger("org.apache");
         if (apacheLogger instanceof ch.qos.logback.classic.Logger) {
             ((ch.qos.logback.classic.Logger) apacheLogger).setLevel(Level.ERROR);
@@ -56,13 +54,12 @@ public class VelocityCoder implements Coder {
         toolManager.setVelocityEngine(new VelocityEngine());
     }
 
-
     @Override
     public void coding(final String template, final Object model, final Writer writer) {
 
         try {
             Velocity.getTemplate("template/" + template)
-                    .merge(buildContext(model), writer);
+                .merge(buildContext(model), writer);
             writer.flush();
             writer.close();
         } catch (Exception e) {

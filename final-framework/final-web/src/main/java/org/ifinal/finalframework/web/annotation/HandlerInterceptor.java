@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.web.annotation;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * {@literal Spring} 拦截器注解 {@link java.lang.annotation.Annotation}声明方式。
@@ -25,6 +24,7 @@ import java.util.List;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HandlerInterceptor {
+
     /**
      * @return 拦截器包含的路径表达式
      * @see InterceptorRegistration#addPathPatterns(String...)
@@ -38,4 +38,5 @@ public @interface HandlerInterceptor {
      * @see InterceptorRegistration#excludePathPatterns(List)
      */
     String[] excludes() default {};
+
 }

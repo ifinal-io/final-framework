@@ -16,9 +16,7 @@ public interface Listener<P, T> {
 
     boolean onListening(int index, P param, T data);
 
-
     default void onFinish(P param) {
     }
-
 
 }

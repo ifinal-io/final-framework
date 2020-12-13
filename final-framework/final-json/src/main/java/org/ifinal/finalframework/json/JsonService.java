@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.json;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * Json 序列化与反序列化服务接口
@@ -164,7 +163,8 @@ public interface JsonService {
      * @return json value
      * @throws JsonException json JsonException
      */
-    default <E, T extends Collection<E>> T toCollection(final @Nullable String json, final @NonNull Class<T> collectionClass, final @NonNull Class<E> elementClass) {
+    default <E, T extends Collection<E>> T toCollection(final @Nullable String json, final @NonNull Class<T> collectionClass,
+        final @NonNull Class<E> elementClass) {
 
         return toCollection(json, collectionClass, elementClass, null);
     }
@@ -180,5 +180,7 @@ public interface JsonService {
      * @return json value
      * @throws JsonException json JsonException
      */
-    <E, T extends Collection<E>> T toCollection(final @Nullable String json, final @NonNull Class<T> collectionClass, final @NonNull Class<E> elementClass, final @Nullable Class<?> view);
+    <E, T extends Collection<E>> T toCollection(final @Nullable String json, final @NonNull Class<T> collectionClass, final @NonNull Class<E> elementClass,
+        final @Nullable Class<?> view);
+
 }

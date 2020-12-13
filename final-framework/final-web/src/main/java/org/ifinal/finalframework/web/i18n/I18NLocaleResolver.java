@@ -1,17 +1,15 @@
 package org.ifinal.finalframework.web.i18n;
 
-
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * @author likly
@@ -23,9 +21,11 @@ import java.util.Locale;
 public class I18NLocaleResolver extends CookieLocaleResolver {
 
     private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
+
     private final List<Locale> supportedLocales = new ArrayList<>(4);
 
     private String paramName;
+
     private String headerName;
 
     @Override

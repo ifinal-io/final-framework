@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.dashboard.ui.model;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +9,9 @@ import java.util.List;
  * @since 1.0.0
  */
 public class Page implements Serializable {
+
     private String title;
+
     private List<String> menus;
 
     public String getTitle() {
@@ -30,5 +31,6 @@ public class Page implements Serializable {
 
         this.menus = menus;
     }
+
 }
 

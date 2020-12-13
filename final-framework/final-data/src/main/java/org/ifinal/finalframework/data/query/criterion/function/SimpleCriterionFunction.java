@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion.function;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.ifinal.finalframework.data.query.QProperty;
@@ -16,7 +15,9 @@ import org.ifinal.finalframework.data.query.operation.Operation;
 @Getter
 @AllArgsConstructor
 public class SimpleCriterionFunction extends BaseCriterion implements CriterionFunction {
+
     private final Object value;
+
     private final Operation operation;
 
     @Override
@@ -33,5 +34,6 @@ public class SimpleCriterionFunction extends BaseCriterion implements CriterionF
         }
         sql.append("</trim>");
     }
+
 }
 

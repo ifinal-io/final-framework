@@ -1,26 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
-        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
-    <property name="charset" value="UTF-8"/>
-    <property name="severity" value="error"/>
-    <!--  文件扩展 -->
-    <property name="fileExtensions" value="java, properties, xml"/>
-    <!--  行长度 -->
-    <!--  文件长度 -->
     <module name="FileLength">
         <property name="max" value="2000"/>
     </module>
-    <!--  行长度 -->
     <module name="LineLength">
         <property name="max" value="200"/>
     </module>
-
-    <!-- \t 字符 -->
+    <!--  文件扩展 -->
     <module name="FileTabCharacter"/>
-
-
+    <!--  行长度 -->
+    <!--  文件长度 -->
     <module name="TreeWalker">
 
         <!-- Imports -->
@@ -31,7 +23,7 @@
         <!-- 禁止 static import -->
         <module name="AvoidStaticImport">
             <property name="excludes"
-                      value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.jupiter.api.Assertions.*"/>
+                value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.jupiter.api.Assertions.*"/>
         </module>
         <!-- 非法导入 -->
         <module name="IllegalImport"/>
@@ -48,52 +40,62 @@
 
         <!-- Names -->
         <module name="PackageName">
+            <message key="name.invalidPattern"
+                value="Package name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
-            <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="TypeName">
+            <message key="name.invalidPattern"
+                value="Type name ''{0}'' must match pattern ''{1}''."/>
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
-            <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="MemberName">
+            <message key="name.invalidPattern"
+                value="Member name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
-            <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="ParameterName">
+            <message key="name.invalidPattern"
+                value="Parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="LambdaParameterName">
+            <message key="name.invalidPattern"
+                value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="CatchParameterName">
+            <message key="name.invalidPattern"
+                value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="LocalVariableName">
+            <message key="name.invalidPattern"
+                value="Local variable name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <!--        <module name="PatternVariableName">-->
         <!--            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>-->
         <!--            <message key="name.invalidPattern" value="Pattern variable name ''{0}'' must match pattern ''{1}''."/>-->
         <!--        </module>-->
         <module name="ClassTypeParameterName">
+            <message key="name.invalidPattern"
+                value="Class type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Class type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <!--        <module name="RecordTypeParameterName">-->
         <!--            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>-->
         <!--            <message key="name.invalidPattern" value="Record type name ''{0}'' must match pattern ''{1}''."/>-->
         <!--        </module>-->
         <module name="MethodTypeParameterName">
+            <message key="name.invalidPattern"
+                value="Method type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="InterfaceTypeParameterName">
+            <message key="name.invalidPattern"
+                value="Interface type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
-            <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
         </module>
 
         <!-- Length-->
@@ -136,7 +138,7 @@
         <!-- Empty Line -->
         <module name="EmptyLineSeparator">
             <property name="tokens"
-                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+                value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
                             STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
             <!-- 禁止多个空行 -->
             <!--            <property name="allowMultipleEmptyLines" value="false"/>-->
@@ -184,7 +186,7 @@
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter">
             <property name="tokens"
-                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
+                value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
                     LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
         </module>
         <module name="WhitespaceAround">
@@ -197,4 +199,12 @@
         </module>
         <module name="FinalParameters"/>
     </module>
+    <!--  行长度 -->
+    <property name="severity" value="error"/>
+
+    <!-- \t 字符 -->
+    <property name="fileExtensions" value="java, properties, xml"/>
+
+
+    <property name="charset" value="UTF-8"/>
 </module>

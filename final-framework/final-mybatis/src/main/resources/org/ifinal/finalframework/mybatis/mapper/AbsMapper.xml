@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ifinal.finalframework.mybatis.mapper.AbsMapper">
 
     <sql id="sql-select">
         <trim prefix="SELECT">
-            <foreach collection="properties" item="property" separator=",">${property.column}</foreach>
+            <foreach collection="properties" item="property" separator=",">${property.column}
+            </foreach>
         </trim>
         <trim prefix="FROM">
             <include refid="sql-table"/>
@@ -13,22 +15,24 @@
             <choose>
                 <when test="ids != null">
                     ${properties.idProperty.column}
-                    <trim prefix="IN" suffixOverrides="," prefixOverrides="AND | OR ">
-                        <foreach collection="ids" item="id" separator="," open="(" close=")">#{id}</foreach>
+                    <trim prefix="IN" prefixOverrides="AND | OR " suffixOverrides=",">
+                        <foreach close=")" collection="ids" item="id" open="(" separator=",">#{id}
+                        </foreach>
                     </trim>
                 </when>
                 <when test="query != null">
                     <if test="query.criteria != null">
-                        <foreach collection="query.criteria" item="criterion" separator=" AND " open="(" close=")">
+                        <foreach close=")" collection="query.criteria" item="criterion"
+                            open="(" separator=" AND ">
                             <choose>
-                                <when test="criterion.chain">
-
-                                </when>
                                 <otherwise>
                                     <choose>
                                         <when test=""></when>
                                     </choose>
                                 </otherwise>
+                                <when test="criterion.chain">
+
+                                </when>
                             </choose>
                         </foreach>
                     </if>
@@ -51,17 +55,17 @@
     </sql>
 
     <sql id="sql-update">
-        <trim prefix="UPDATE">%{table}</trim>
         <set>
             <if test="properties.property.hasView(view)">
                 <choose>
+                    <otherwise>${entity.property.column} = null,</otherwise>
                     <when test="selective == true and entity.property != null">
                         ${entity.property.column} = ${entity.property.path}
                     </when>
-                    <otherwise>${entity.property.column} = null,</otherwise>
                 </choose>
             </if>
         </set>
+        <trim prefix="UPDATE">%{table}</trim>
     </sql>
 
     <sql id="sql-function-single">

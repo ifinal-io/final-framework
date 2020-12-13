@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query;
 
-
 import org.springframework.lang.NonNull;
 
 /**
@@ -10,5 +9,7 @@ import org.springframework.lang.NonNull;
  */
 @FunctionalInterface
 public interface SqlNode {
+
     void apply(final @NonNull StringBuilder sql, final @NonNull String expression);
+
 }

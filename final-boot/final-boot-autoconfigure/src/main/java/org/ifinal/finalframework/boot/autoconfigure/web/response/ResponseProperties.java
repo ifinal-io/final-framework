@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.response;
 
+import java.io.Serializable;
 import lombok.Data;
 import org.ifinal.finalframework.annotation.core.result.Responsible;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.io.Serializable;
 
 /**
  * @author likly

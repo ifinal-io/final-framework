@@ -1,17 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>final-frameworks</artifactId>
-        <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-boot</artifactId>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <artifactId>final-framework</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <scope>import</scope>
+                <type>pom</type>
+                <version>${final.version}</version>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-boot ============================================= -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <artifactId>final-boot-autoconfigure</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-json</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-entity</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-mybatis</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-service</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-data</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-redis</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-cache</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-web</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-monitor</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-sharding</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-zookeeper</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-dashboard</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <version>${final.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <groupId>org.ifinal.finalframework.boot</groupId>
-    <artifactId>final-boot</artifactId>
-    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>final-boot-autoconfigure</module>
         <module>final-boot-starter</module>
@@ -28,89 +106,11 @@
         <module>final-boot-starter-dashboard</module>
         <module>final-boot-starter-sharding</module>
     </modules>
+    <packaging>pom</packaging>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
-                <artifactId>final-framework</artifactId>
-                <version>${final.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- ==================================================================================================== -->
-            <!-- =========================================== final-boot ============================================= -->
-            <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-autoconfigure</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-json</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-entity</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-mybatis</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-service</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-data</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-redis</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-cache</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-web</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-monitor</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-sharding</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-zookeeper</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot-starter-dashboard</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
 </project>

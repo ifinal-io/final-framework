@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.aop;
 
+import java.lang.reflect.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -33,4 +32,5 @@ public class AnnotationSourceMethodPoint extends StaticMethodMatcherPointcut {
         }
         return matches;
     }
+
 }

@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.data.query.criterion.function;
 
+import java.util.function.UnaryOperator;
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.ifinal.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
-
-import java.util.function.UnaryOperator;
 
 /**
  * @author likly

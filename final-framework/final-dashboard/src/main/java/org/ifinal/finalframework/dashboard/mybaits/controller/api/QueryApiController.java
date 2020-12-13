@@ -30,5 +30,4 @@ public class QueryApiController {
         return query(entity, query).getSql();
     }
 
-
 }

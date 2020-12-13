@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.dashboard.mybaits.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.validation.constraints.NotNull;
 import org.ifinal.finalframework.dashboard.mybaits.service.MapperService;
 import org.ifinal.finalframework.dashboard.mybaits.service.query.MapperQuery;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.util.Proxies;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -30,9 +29,10 @@ class MapperServiceImpl implements MapperService {
     public List<Class<? extends AbsMapper>> query(final @NotNull MapperQuery query) {
 
         return mappers.stream()
-                .map(Proxies::targetClass)
-                .map(clazz -> (Class<? extends AbsMapper>) clazz)
-                .collect(Collectors.toList());
+            .map(Proxies::targetClass)
+            .map(clazz -> (Class<? extends AbsMapper>) clazz)
+            .collect(Collectors.toList());
 
     }
+
 }

@@ -4,10 +4,9 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import java.util.Collection;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.util.Collection;
 
 /**
  * @author likly
@@ -20,6 +19,6 @@ public interface BeanPropertySerializerModifier {
 
     @Nullable
     Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
-                                                    final BeanPropertyDefinition property, final BeanPropertyWriter writer);
+        final BeanPropertyDefinition property, final BeanPropertyWriter writer);
 
 }

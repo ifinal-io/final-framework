@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.web.converter;
 
+import java.lang.annotation.Annotation;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.aspectj.lang.annotation.Aspect;
 import org.ifinal.finalframework.context.exception.NotFoundException;
 import org.slf4j.Logger;
@@ -13,13 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.annotation.Annotation;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-
 /**
  * @author likly
  * @version 1.0.0
@@ -31,12 +29,11 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
     public static final Logger logger = LoggerFactory.getLogger(String2ClassConverter.class);
 
     private static final Map<String, Class<? extends Annotation>> annotations
-            = Stream.of(
-            RestController.class, Controller.class,
-            Component.class, Service.class, Configuration.class,
-            EnableAutoConfiguration.class, Aspect.class
+        = Stream.of(
+        RestController.class, Controller.class,
+        Component.class, Service.class, Configuration.class,
+        EnableAutoConfiguration.class, Aspect.class
     ).collect(Collectors.toMap(Class::getSimpleName, Function.identity()));
-
 
     @Override
     public Class<?> convert(final @NonNull String source) {
@@ -47,4 +44,5 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
             throw new NotFoundException(e.getMessage());
         }
     }
+
 }

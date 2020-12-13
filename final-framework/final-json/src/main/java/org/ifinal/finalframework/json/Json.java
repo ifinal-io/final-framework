@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.json;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
@@ -52,7 +51,6 @@ public interface Json {
         }
     }
 
-
     /**
      * return json value of {@linkplain String json}
      *
@@ -92,78 +90,6 @@ public interface Json {
 
         try {
             return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
-        }
-    }
-
-
-    /**
-     * return json {@linkplain List list} of {@linkplain String json}.
-     *
-     * @param json     json string
-     * @param classOfT json element value type
-     * @param <E>      json element type
-     * @return json list
-     * @throws JsonException json exception
-     */
-    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT) {
-
-        return toList(json, classOfT, null);
-    }
-
-    /**
-     * return json {@linkplain List list} of {@linkplain String json}.
-     *
-     * @param json     json string
-     * @param classOfT json element value type
-     * @param view     json view
-     * @param <E>      json element type
-     * @return json list
-     * @throws JsonException json exception
-     */
-    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT, final @Nullable Class<?> view) {
-
-        try {
-            return JsonRegistry.getInstance().getJsonService().toList(json, classOfT, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
-        }
-    }
-
-
-    /**
-     * return json {@linkplain Set set} of json {@linkplain String json}
-     *
-     * @param json     json string
-     * @param classOfT json element value type
-     * @param <E>      json element type
-     * @return json set
-     * @throws JsonException json exception
-     */
-    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT) {
-
-        return toSet(json, classOfT, null);
-    }
-
-    /**
-     * return json {@linkplain Set set} of json {@linkplain String json}
-     *
-     * @param json     json string
-     * @param classOfT json element value type
-     * @param view     json view
-     * @param <E>      json element type
-     * @return json set
-     * @throws JsonException json exception
-     */
-    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT, @Nullable Class<?> view) {
-
-        try {
-            return JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view);
         } catch (JsonException e) {
             throw e;
         } catch (Exception e) {
@@ -240,4 +166,75 @@ public interface Json {
             throw new JsonException(e);
         }
     }
+
+    /**
+     * return json {@linkplain List list} of {@linkplain String json}.
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param <E>      json element type
+     * @return json list
+     * @throws JsonException json exception
+     */
+    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT) {
+
+        return toList(json, classOfT, null);
+    }
+
+    /**
+     * return json {@linkplain List list} of {@linkplain String json}.
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param view     json view
+     * @param <E>      json element type
+     * @return json list
+     * @throws JsonException json exception
+     */
+    static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT, final @Nullable Class<?> view) {
+
+        try {
+            return JsonRegistry.getInstance().getJsonService().toList(json, classOfT, view);
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JsonException(e);
+        }
+    }
+
+    /**
+     * return json {@linkplain Set set} of json {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param <E>      json element type
+     * @return json set
+     * @throws JsonException json exception
+     */
+    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT) {
+
+        return toSet(json, classOfT, null);
+    }
+
+    /**
+     * return json {@linkplain Set set} of json {@linkplain String json}
+     *
+     * @param json     json string
+     * @param classOfT json element value type
+     * @param view     json view
+     * @param <E>      json element type
+     * @return json set
+     * @throws JsonException json exception
+     */
+    static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT, @Nullable Class<?> view) {
+
+        try {
+            return JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view);
+        } catch (JsonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JsonException(e);
+        }
+    }
+
 }

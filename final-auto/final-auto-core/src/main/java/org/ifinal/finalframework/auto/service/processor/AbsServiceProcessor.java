@@ -1,8 +1,13 @@
 package org.ifinal.finalframework.auto.service.processor;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.RoundEnvironment;
@@ -12,14 +17,8 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -62,7 +61,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
                 allServices.putAll(entry.getValue());
                 log("New service file contents: " + allServices);
                 FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "",
-                        resourceFile);
+                    resourceFile);
                 OutputStream out = fileObject.openOutputStream();
                 ServicesFiles.writeServiceFile(allServices, out);
                 out.close();
@@ -91,7 +90,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
             // of filer.getResource does change to match the spec, but there's
             // no good way to resolve CLASS_OUTPUT without first getting a resource.
             FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
-                    resourceFile);
+                resourceFile);
             log("Looking for existing resource file at " + existingFile.toUri());
             Map<String, String> oldServices = ServicesFiles.readServiceFile(existingFile.openInputStream());
             log("Existing service entries: " + oldServices);
@@ -118,7 +117,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
     }
 
     protected final void addService(final @NonNull TypeElement service, final @NonNull TypeElement instance,
-                                    final @Nullable String name, final @Nullable String path) {
+        final @Nullable String name, final @Nullable String path) {
 
         final String serviceName = service.getQualifiedName().toString();
         final Map<String, String> instances = this.services.computeIfAbsent(serviceName, key -> new HashMap<>());

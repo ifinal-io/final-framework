@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.AndOr;
-import org.ifinal.finalframework.data.query.criterion.Criterion;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.ifinal.finalframework.annotation.query.AndOr;
+import org.ifinal.finalframework.data.query.criterion.Criterion;
 
 /**
  * @author likly
@@ -15,7 +14,9 @@ import java.util.List;
  * @since 1.0.0
  */
 final class CriteriaImpl implements Criteria {
+
     private final AndOr andOr;
+
     private final Collection<Criterion> criteria;
 
     public CriteriaImpl() {
@@ -26,11 +27,6 @@ final class CriteriaImpl implements Criteria {
 
         this.andOr = andOr;
         this.criteria = criterion;
-    }
-
-    @Override
-    public AndOr andOr() {
-        return andOr;
     }
 
     public AndOr getAndOr() {
@@ -50,11 +46,15 @@ final class CriteriaImpl implements Criteria {
         return andOr(AndOr.AND, criteria);
     }
 
-
     @Override
     public Criteria or(final Criteria... criteria) {
 
         return andOr(AndOr.OR, criteria);
+    }
+
+    @Override
+    public AndOr andOr() {
+        return andOr;
     }
 
     private Criteria andOr(final AndOr andOr, final Criteria... criteria) {
@@ -69,6 +69,5 @@ final class CriteriaImpl implements Criteria {
     public Iterator<Criterion> iterator() {
         return criteria.iterator();
     }
-
 
 }

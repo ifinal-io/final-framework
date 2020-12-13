@@ -9,7 +9,9 @@ import java.time.format.DateTimeFormatter;
  * @since 1.0.0
  */
 public final class DateTimeFormatterContext {
+
     private static final ThreadLocal<DateTimeFormatter> dateTimeFormatter = new ThreadLocal<>();
+
     private static final ThreadLocal<ZoneOffset> zoneOffset = new ThreadLocal<>();
 
     private DateTimeFormatterContext() {
@@ -32,7 +34,6 @@ public final class DateTimeFormatterContext {
 
         DateTimeFormatterContext.zoneOffset.set(zoneOffset);
     }
-
 
     public static void clear() {
         dateTimeFormatter.remove();

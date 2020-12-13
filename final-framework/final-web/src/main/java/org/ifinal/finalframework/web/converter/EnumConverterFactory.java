@@ -1,16 +1,14 @@
 package org.ifinal.finalframework.web.converter;
 
-
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -36,7 +34,9 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
      * @since 1.0.0
      */
     public static class EnumConverter<T extends IEnum> implements Converter<String, T> {
+
         private final Class<T> enumType;
+
         private final Map<String, T> enumMap;
 
         public EnumConverter(final Class<T> enumType) {
@@ -57,5 +57,7 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
         public String toString() {
             return enumType.getSimpleName() + "Converter";
         }
+
     }
+
 }

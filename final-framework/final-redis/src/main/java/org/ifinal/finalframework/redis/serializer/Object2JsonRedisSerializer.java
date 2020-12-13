@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.redis.serializer;
 
-
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import org.ifinal.finalframework.json.Json;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author likly
@@ -15,7 +13,9 @@ import java.nio.charset.StandardCharsets;
  */
 @Component
 public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
+
     public static final Object2JsonRedisSerializer UTF_8 = new Object2JsonRedisSerializer(StandardCharsets.UTF_8);
+
     private final Charset charset;
 
     public Object2JsonRedisSerializer(final Charset charset) {
@@ -38,4 +38,5 @@ public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
 
         return (bytes == null ? null : new String(bytes, charset));
     }
+
 }

@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
@@ -7,11 +12,6 @@ import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author likly
@@ -19,21 +19,27 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class Compiler {
+
     private final JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
+
     private final StandardJavaFileManager standardFileManager;
+
     private final List<String> options = new ArrayList<>();
+
     private final DynamicClassLoader dynamicClassLoader;
 
     private final Collection<JavaFileObject> compilationUnits = new ArrayList<>();
+
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<>();
+
     private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<>();
 
     public Compiler(final ClassLoader classLoader) {
 
         if (javaCompiler == null) {
             throw new IllegalStateException(
-                    "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
-                            + " please confirm the application running in JDK not JRE.");
+                "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
+                    + " please confirm the application running in JDK not JRE.");
         }
         standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
 
@@ -51,7 +57,6 @@ public class Compiler {
         compilationUnits.add(javaFileObject);
     }
 
-
     public DynamicClassLoader compile() {
 
         errors.clear();
@@ -61,7 +66,7 @@ public class Compiler {
 
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
-                compilationUnits);
+            compilationUnits);
 
         try {
 
@@ -102,7 +107,6 @@ public class Compiler {
 
     }
 
-
     public Map<String, Class<?>> build() throws ClassNotFoundException {
         DynamicClassLoader classLoader = compile();
         return classLoader.getClasses();
@@ -119,7 +123,7 @@ public class Compiler {
 
         for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
             diagnosticMessages.add(
-                    "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
+                "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
         }
 
         return diagnosticMessages;
@@ -137,4 +141,5 @@ public class Compiler {
     public ClassLoader getClassLoader() {
         return dynamicClassLoader;
     }
+
 }

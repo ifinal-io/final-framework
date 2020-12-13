@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.json.context;
 
-
+import java.util.Optional;
 import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
-
-import java.util.Optional;
 
 /**
  * @author likly
@@ -15,14 +13,15 @@ import java.util.Optional;
 public final class JsonContextHolder {
 
     private static final ThreadLocal<JsonContext> JSON_CONTEXT =
-            new NamedThreadLocal<>("JsonContext");
+        new NamedThreadLocal<>("JsonContext");
+
     private static final ThreadLocal<JsonContext> INHERITABLE_JSON_CONTEXT =
-            new NamedInheritableThreadLocal<>("JsonContext");
+        new NamedInheritableThreadLocal<>("JsonContext");
+
+    private static JsonContext defaultJson = new SimpleJsonContext();
 
     private JsonContextHolder() {
     }
-
-    private static JsonContext defaultJson = new SimpleJsonContext();
 
     public static void resetJsonContext() {
         JSON_CONTEXT.remove();
@@ -43,6 +42,10 @@ public final class JsonContextHolder {
         }
     }
 
+    public static void setJsonContext(final @Nullable JsonContext localeContext) {
+        setJsonContext(localeContext, false);
+    }
+
     @Nullable
     public static JsonContext getJsonContext() {
         JsonContext userContext = JSON_CONTEXT.get();
@@ -53,11 +56,6 @@ public final class JsonContextHolder {
             userContext = defaultJson;
         }
         return userContext;
-    }
-
-    public static void setJsonContext(final @Nullable JsonContext localeContext) {
-
-        setJsonContext(localeContext, false);
     }
 
     public static void setIgnore(final boolean ignore, final boolean inheritable) {
@@ -78,7 +76,6 @@ public final class JsonContextHolder {
 
         JsonContextHolder.defaultJson = jsonContext;
     }
-
 
 }
 

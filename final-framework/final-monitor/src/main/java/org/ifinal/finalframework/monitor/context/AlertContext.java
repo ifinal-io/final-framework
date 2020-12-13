@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.monitor.context;
 
-import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
-import org.ifinal.finalframework.monitor.MonitorException;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
+import org.ifinal.finalframework.monitor.MonitorException;
 
 /**
  * @author likly
@@ -12,30 +11,37 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class AlertContext {
+
     /**
      * 名称
      */
     private final String name;
+
     /**
      * 级别
      */
     private final MonitorLevel level;
+
     /**
      * 目标
      */
     private final Object target;
+
     /**
      * 属性
      */
     private final Map<String, Object> attributes;
+
     /**
      * 异常
      */
     private final MonitorException exception;
+
     /**
      * 追踪
      */
     private final String trace;
+
     /**
      * 时间戳
      */
@@ -68,7 +74,6 @@ public class AlertContext {
         return trace;
     }
 
-
     public Object getTarget() {
         return target;
     }
@@ -86,12 +91,19 @@ public class AlertContext {
     }
 
     public static class Builder implements org.ifinal.finalframework.util.Builder<AlertContext> {
-        private String name;
-        private MonitorLevel level;
-        private Object target;
+
         private final Map<String, Object> attributes = new HashMap<>();
+
+        private String name;
+
+        private MonitorLevel level;
+
+        private Object target;
+
         private MonitorException exception;
+
         private String trace;
+
         private Long timestamp;
 
         private Builder() {
@@ -115,7 +127,6 @@ public class AlertContext {
             return this;
         }
 
-
         public Builder addAttribute(final String name, final Object value) {
 
             this.attributes.put(name, value);
@@ -138,5 +149,7 @@ public class AlertContext {
         public AlertContext build() {
             return new AlertContext(this);
         }
+
     }
+
 }

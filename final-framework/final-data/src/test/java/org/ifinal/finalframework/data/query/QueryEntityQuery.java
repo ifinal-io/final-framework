@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query;
 
-
 import lombok.Data;
 import org.ifinal.finalframework.annotation.query.Equal;
 import org.ifinal.finalframework.annotation.query.Or;
@@ -13,9 +12,12 @@ import org.ifinal.finalframework.annotation.query.Or;
 @Data
 @Or
 public class QueryEntityQuery {
+
     @Equal
     private String name;
+
     @Equal
     private Integer age;
+
 }
 

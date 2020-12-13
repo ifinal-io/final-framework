@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.aop;
 
+import java.lang.reflect.Method;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.ifinal.finalframework.util.Asserts;
-
-import java.lang.reflect.Method;
 
 /**
  * @author likly
@@ -28,4 +27,5 @@ public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
     }
 
     Object invoke(final MethodInvocation invocation, final R annotations) throws Throwable;
+
 }

@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
-
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
+import org.ifinal.finalframework.annotation.data.ReferenceMode;
 
 /**
  * @author likly
@@ -18,12 +17,10 @@ public interface Property {
 
     Element getElement();
 
-
     /**
-     * return the {@literal javaType} of {@link Property}. if this property is a primary type or it's package type,
-     * return the primary package type. if this property is {@link String},return {@link String}. if this property is a
-     * {@link List} or {@link Set}, return the element of that. if this property is a {@link java.util.Map} type, return
-     * {@link java.util.Map}. if this property is a {@literal Entity}, return the type of {@literal entity}.
+     * return the {@literal javaType} of {@link Property}. if this property is a primary type or it's package type, return the primary package type. if this
+     * property is {@link String},return {@link String}. if this property is a {@link List} or {@link Set}, return the element of that. if this property is a
+     * {@link java.util.Map} type, return {@link java.util.Map}. if this property is a {@literal Entity}, return the type of {@literal entity}.
      *
      * @return javaType
      */
@@ -31,9 +28,7 @@ public interface Property {
 
     String getName();
 
-
     TypeMirror getType();
-
 
     boolean isIdProperty();
 
@@ -42,7 +37,6 @@ public interface Property {
     boolean isCollection();
 
     boolean isMap();
-
 
     boolean isReference();
 

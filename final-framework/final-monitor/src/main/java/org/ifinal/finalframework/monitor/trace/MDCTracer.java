@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.monitor.trace;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.core.generator.TraceGenerator;
-import org.ifinal.finalframework.core.generator.UUIDTraceGenerator;
+import org.ifinal.finalframework.core.generator.UuidTraceGenerator;
 import org.ifinal.finalframework.monitor.context.TraceContext;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.MDC;
@@ -19,9 +18,10 @@ import org.springframework.stereotype.Component;
 @Primary
 @Component
 public class MDCTracer implements Tracer {
+
     private static final String MDC_TRACER = "mdcTracer";
 
-    private static final TraceGenerator traceGenerator = UUIDTraceGenerator.INSTANCE;
+    private static final TraceGenerator traceGenerator = UuidTraceGenerator.INSTANCE;
 
     @Override
     public void start(final TraceContext context) {
@@ -46,4 +46,5 @@ public class MDCTracer implements Tracer {
             MDC.remove(trace);
         }
     }
+
 }

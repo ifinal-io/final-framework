@@ -1,16 +1,14 @@
 package org.ifinal.finalframework.dashboard.ui.web.interceptor;
 
-
+import java.util.Arrays;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.ifinal.finalframework.dashboard.ui.annotation.Menus;
 import org.ifinal.finalframework.dashboard.ui.model.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Set;
 
 /**
  * @author likly
@@ -26,8 +24,8 @@ public class MenusHandlerInterceptor extends AnnotationUiHandlerInterceptor<Menu
 
     @Override
     protected void postHandle(final HttpServletRequest request, final HttpServletResponse response,
-                              final HandlerMethod handler, final Page page,
-                              final Set<Menus> anns, final ModelAndView modelAndView) {
+        final HandlerMethod handler, final Page page,
+        final Set<Menus> anns, final ModelAndView modelAndView) {
 
         anns.stream().findFirst().ifPresent(menus -> page.setMenus(Arrays.asList(menus.value())));
     }

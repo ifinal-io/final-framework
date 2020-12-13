@@ -1,6 +1,9 @@
 package org.ifinal.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Map;
+import java.util.Set;
+import javax.validation.constraints.NotNull;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.Column;
 import org.ifinal.finalframework.annotation.data.Default;
@@ -17,11 +20,6 @@ import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;
 import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.NotNull;
-import java.util.Map;
-import java.util.Set;
-
-
 /**
  * @author likly
  * @version 1.0.0
@@ -29,7 +27,6 @@ import java.util.Set;
  */
 @JsonSerialize(using = PropertyJsonSerializer.class)
 public interface Property extends PersistentProperty<Property>, Ordered {
-
 
     /**
      * return {@code true} if the {@linkplain #getType()} is a {@linkplain Enum enum}, otherwise {@code true}.
@@ -104,7 +101,6 @@ public interface Property extends PersistentProperty<Property>, Ordered {
      * @see ReadOnly
      */
     boolean isReadOnly();
-
 
     /**
      * return {@code true} if this property is annotated by {@link WriteOnly}.

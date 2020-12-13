@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.json;
 
-
 import org.ifinal.finalframework.util.Asserts;
 
 /**
@@ -13,8 +12,11 @@ import org.ifinal.finalframework.util.Asserts;
 public final class JsonRegistry {
 
     private static final JsonRegistry instance = new JsonRegistry();
+
     private static final String DEFAULT_JSON_SERVICE = "org.ifinal.finalframework.json.jackson.JacksonJsonService";
+
     private JsonService jsonService;
+
     private boolean initDefaulted = false;
 
     private JsonRegistry() {
@@ -52,4 +54,5 @@ public final class JsonRegistry {
         Asserts.isNull(jsonService, "json service can not be null");
         this.jsonService = jsonService;
     }
+
 }

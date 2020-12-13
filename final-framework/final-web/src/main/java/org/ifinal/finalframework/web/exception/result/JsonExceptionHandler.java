@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConditionalOnClass(JsonException.class)
 public class JsonExceptionHandler implements ResultExceptionHandler<JsonException> {
+
     @Override
     public boolean supports(final @NonNull Throwable t) {
 
@@ -31,4 +32,5 @@ public class JsonExceptionHandler implements ResultExceptionHandler<JsonExceptio
 
         return R.failure(400, e.getMessage());
     }
+
 }

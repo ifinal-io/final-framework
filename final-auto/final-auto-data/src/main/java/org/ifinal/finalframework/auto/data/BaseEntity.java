@@ -1,13 +1,5 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.annotation.data.Table;
-import org.ifinal.finalframework.util.Asserts;
-import org.springframework.lang.NonNull;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,6 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
+import org.ifinal.finalframework.annotation.data.Table;
+import org.ifinal.finalframework.util.Asserts;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -44,12 +43,12 @@ public class BaseEntity implements MutableEntity {
     public BaseEntity(final ProcessingEnvironment processEnv, final TypeElement typeElement) {
 
         Elements elements = processEnv.getElementUtils();
-        Types types = processEnv.getTypeUtils();
         this.typeElement = typeElement;
         this.packageName = elements.getPackageOf(typeElement).toString();
         this.name = typeElement.getQualifiedName().toString();
         this.table = initTable();
         this.simpleName = typeElement.getSimpleName().toString();
+        Types types = processEnv.getTypeUtils();
         this.type = types.erasure(typeElement.asType()).toString();
 
     }
@@ -69,14 +68,12 @@ public class BaseEntity implements MutableEntity {
             this.idProperty = property;
         }
 
-
         if (propertyCache.containsKey(property.getName())) {
             throw new IllegalArgumentException(String.format("the entity have not only one property named %s", property.getName()));
         } else {
             propertyCache.put(property.getName(), property);
             properties.add(property);
         }
-
 
     }
 

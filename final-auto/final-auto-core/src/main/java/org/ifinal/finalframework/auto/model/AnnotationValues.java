@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.auto.model;
 
-import org.springframework.lang.NonNull;
-
+import java.util.List;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.TypeElement;
@@ -9,7 +8,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractAnnotationValueVisitor8;
-import java.util.List;
+import org.springframework.lang.NonNull;
 
 /**
  * Annotation Values Utils.
@@ -46,7 +45,7 @@ public final class AnnotationValues {
     }
 
     protected abstract static class AbsAnnotationValueVisitor<R, P> extends
-            AbstractAnnotationValueVisitor8<R, P> {
+        AbstractAnnotationValueVisitor8<R, P> {
 
         @Override
         public R visitBoolean(final boolean b, final P p) {

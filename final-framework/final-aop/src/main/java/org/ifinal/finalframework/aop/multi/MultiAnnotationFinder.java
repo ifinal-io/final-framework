@@ -1,15 +1,14 @@
 package org.ifinal.finalframework.aop.multi;
 
-import org.ifinal.finalframework.aop.AnnotationFinder;
-import org.ifinal.finalframework.aop.single.SingleAnnotationFinder;
-import org.springframework.lang.NonNull;
-
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.ifinal.finalframework.aop.AnnotationFinder;
+import org.ifinal.finalframework.aop.single.SingleAnnotationFinder;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -19,7 +18,9 @@ import java.util.Map;
 public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>>, Serializable {
 
     private static final long serialVersionUID = -8088506337000616189L;
+
     private final Collection<Class<? extends Annotation>> annotationTypes;
+
     private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders = new LinkedHashMap<>();
 
     public MultiAnnotationFinder(final Collection<Class<? extends Annotation>> annotationTypes) {
@@ -48,4 +49,5 @@ public class MultiAnnotationFinder implements AnnotationFinder<Map<Class<? exten
 
         return finders.computeIfAbsent(annotationType, SingleAnnotationFinder::new);
     }
+
 }

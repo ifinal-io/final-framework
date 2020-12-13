@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.dashboard.mybaits.service.impl;
 
+import java.util.HashMap;
+import java.util.Objects;
 import org.ifinal.finalframework.dashboard.mybaits.service.XmlMapperService;
 import org.ifinal.finalframework.dashboard.mybaits.service.query.XmlMapperQuery;
 import org.ifinal.finalframework.mybatis.sql.provider.SqlProviderHelper;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @author likly
@@ -34,4 +33,5 @@ class XmlMapperServiceImpl implements XmlMapperService {
             throw new IllegalArgumentException(e);
         }
     }
+
 }

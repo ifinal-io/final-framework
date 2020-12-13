@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.web.response.advice;
 
-
 import org.springframework.core.MethodParameter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
@@ -20,5 +19,6 @@ public abstract class RestResponseBodyAdvice<T> implements ResponseBodyAdvice<T>
 
         return restMethodParameterFilter.matches(methodParameter);
     }
+
 }
 

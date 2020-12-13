@@ -11,4 +11,5 @@ public interface NullCondition<R> extends Condition {
     R isNull();
 
     R isNotNull();
+
 }

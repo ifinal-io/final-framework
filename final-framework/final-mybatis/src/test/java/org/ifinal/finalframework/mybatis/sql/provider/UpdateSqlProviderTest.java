@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import java.awt.Point;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
@@ -12,12 +17,6 @@ import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.awt.Point;
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author likly
@@ -35,21 +34,21 @@ class UpdateSqlProviderTest {
     @Test
     void update() throws NoSuchMethodException {
 
-        final Method update = AbsMapper.class.getMethod("update", String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class);
+        final Method update = AbsMapper.class
+            .getMethod("update", String.class, Class.class, IEntity.class, Update.class, boolean.class, Collection.class, IQuery.class);
         /*
          * @see ProviderSqlSource
          */
-        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), update.getAnnotation(UpdateProvider.class), PersonMapper.class, update);
+        final ProviderSqlSource providerSqlSource = new ProviderSqlSource(new Configuration(), update.getAnnotation(UpdateProvider.class), PersonMapper.class,
+            update);
         final HashMap<String, Object> parameters = new HashMap<>();
 
         parameters.put("table", "person");
-//        parameters.put("view", IView.class);
         parameters.put("view", null);
         parameters.put("selective", false);
         Person person = new Person();
         person.setAge(12);
         person.setName("haha");
-//        person.setCreator(person);
         parameters.put("entity", person);
 
         final PersonQuery query = new PersonQuery();

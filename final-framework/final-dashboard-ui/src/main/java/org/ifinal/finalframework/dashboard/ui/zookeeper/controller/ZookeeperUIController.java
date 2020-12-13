@@ -19,4 +19,5 @@ public class ZookeeperUIController {
     public String zookeeper() {
         return "dashboard/zookeeper";
     }
+
 }

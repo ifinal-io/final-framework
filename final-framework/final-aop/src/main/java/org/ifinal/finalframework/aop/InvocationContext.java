@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.aop;
 
-import org.ifinal.finalframework.context.expression.MethodMetadata;
-
 import java.util.Map;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
 
 /**
  * @author likly
@@ -24,4 +23,5 @@ public interface InvocationContext {
     void addAttribute(final String name, final Object value);
 
     <T> T getAttribute(final String name);
+
 }

@@ -17,9 +17,8 @@
 
 package org.ifinal.finalframework.util.collection;
 
-import org.springframework.lang.Nullable;
-
 import java.util.Map;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly

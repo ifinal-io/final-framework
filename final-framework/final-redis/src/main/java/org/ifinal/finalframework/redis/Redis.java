@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.redis;
 
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisOperations;
@@ -9,9 +11,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.lang.NonNull;
-
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author likly
@@ -46,8 +45,8 @@ public interface Redis {
         return RedisRegistry.getInstance().set();
     }
 
-    static ZSetOperations zSet() {
-        return RedisRegistry.getInstance().zSet();
+    static ZSetOperations zset() {
+        return RedisRegistry.getInstance().zset();
     }
 
     static boolean lock(final Object key, final Object value, final Long timeout, final TimeUnit unit) {
@@ -58,7 +57,6 @@ public interface Redis {
             return Boolean.TRUE.equals(value().setIfAbsent(key, value));
 
         }
-
 
     }
 

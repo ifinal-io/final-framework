@@ -14,10 +14,10 @@ import org.springframework.context.ApplicationListener;
 @SpringApplicationListener
 public class ApplicationPreparedEventListener implements ApplicationListener<ApplicationPreparedEvent> {
 
-
     @Override
     public void onApplicationEvent(final ApplicationPreparedEvent event) {
 
         logger.info(event.getClass().getCanonicalName());
     }
+
 }

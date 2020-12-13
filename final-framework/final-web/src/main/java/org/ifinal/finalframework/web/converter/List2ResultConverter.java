@@ -2,16 +2,14 @@ package org.ifinal.finalframework.web.converter;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import java.util.ArrayList;
+import java.util.List;
 import org.ifinal.finalframework.annotation.core.result.Pagination;
 import org.ifinal.finalframework.annotation.core.result.R;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * @author likly
@@ -47,4 +45,5 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<ArrayL
         result.setLastPage(pageInfo.isIsLastPage());
         return result;
     }
+
 }

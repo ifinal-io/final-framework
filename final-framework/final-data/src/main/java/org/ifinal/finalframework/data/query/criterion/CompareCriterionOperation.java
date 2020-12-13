@@ -30,7 +30,6 @@ public interface CompareCriterionOperation extends CriterionOperation {
     @Nullable
     Object getMax();
 
-
     interface CompareCriterionOperationBuilder extends Builder<CompareCriterionOperation> {
 
         CompareCriterionOperationBuilder target(final Object target);
@@ -44,6 +43,5 @@ public interface CompareCriterionOperation extends CriterionOperation {
         CompareCriterionOperationBuilder max(final Object max);
 
     }
-
 
 }

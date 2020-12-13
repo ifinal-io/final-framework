@@ -10,8 +10,10 @@ package org.ifinal.finalframework.json;
  * @since 1.0.0
  */
 public class JsonException extends RuntimeException {
+
     public JsonException(final Throwable cause) {
 
         super(cause);
     }
+
 }

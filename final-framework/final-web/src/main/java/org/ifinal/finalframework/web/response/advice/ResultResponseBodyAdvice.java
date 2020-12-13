@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.web.response.advice;
 
+import java.time.Duration;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.user.UserContextHolder;
 import org.ifinal.finalframework.web.interceptor.DurationHandlerInterceptor;
@@ -16,8 +17,6 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.Duration;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -30,11 +29,10 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
 
-
     @Override
     public Object beforeBodyWrite(final Object body, final @NonNull MethodParameter returnType, final @NonNull MediaType selectedContentType,
-                                  final @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  final @NonNull ServerHttpRequest request, final @NonNull ServerHttpResponse response) {
+        final @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+        final @NonNull ServerHttpRequest request, final @NonNull ServerHttpResponse response) {
 
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
@@ -52,14 +50,15 @@ public class ResultResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
 
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()
-                    .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
+                .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
                 result.setDuration(Duration.ofMillis(System.currentTimeMillis() - durationStart));
             }
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest()
-                    .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
+                .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
         return result;
     }
+
 }

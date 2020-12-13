@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-
+import java.util.Collection;
+import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
@@ -16,9 +17,6 @@ import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 
-import java.util.Collection;
-import java.util.Map;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -26,13 +24,19 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvider {
+
     private static final String DEFAULT_WRITER = "#{${value}#if($javaType),javaType=$!{javaType.canonicalName}#end#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}";
 
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
+
     private static final String SELECTIVE_PARAMETER_NAME = "selective";
+
     private static final String ENTITY_PARAMETER_NAME = "entity";
+
     private static final String UPDATE_PARAMETER_NAME = "update";
+
     private static final String IDS_PARAMETER_NAME = "ids";
+
     private static final String QUERY_PARAMETER_NAME = "query";
 
     /**
@@ -45,7 +49,6 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         return provide(context, parameters);
     }
-
 
     @Override
     @SuppressWarnings("unchecked")
@@ -83,7 +86,6 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             sql.append(AnnotationQueryProvider.INSTANCE.provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
         }
 
-
     }
 
     /**
@@ -93,58 +95,55 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private void appendEntitySet(final @NonNull StringBuilder sql, final @NonNull QEntity<?, ?> entity) {
 
         entity.stream()
-                .filter(property -> property.isWriteable() && property.isModifiable())
-                .forEach(property -> {
-                    // <if test="properties.property.hasView(view)>"
-                    sql.append("<if test=\"properties.getRequiredProperty('")
-                            .append(property.getPath())
-                            .append("').hasView(view)\">");
+            .filter(property -> property.isWriteable() && property.isModifiable())
+            .forEach(property -> {
+                // <if test="properties.property.hasView(view)>"
+                sql.append("<if test=\"properties.getRequiredProperty('")
+                    .append(property.getPath())
+                    .append("').hasView(view)\">");
 
-                    final Metadata metadata = new Metadata();
+                final Metadata metadata = new Metadata();
 
-                    metadata.setProperty(property.getName());
-                    metadata.setColumn(property.getColumn());
-                    metadata.setValue("entity." + property.getPath());
-                    metadata.setJavaType(property.getType());
-                    metadata.setTypeHandler(property.getTypeHandler());
+                metadata.setProperty(property.getName());
+                metadata.setColumn(property.getColumn());
+                metadata.setValue("entity." + property.getPath());
+                metadata.setJavaType(property.getType());
+                metadata.setTypeHandler(property.getTypeHandler());
 
-                    final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
-                    final String value = Velocities.getValue(writer, metadata);
+                final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
+                final String value = Velocities.getValue(writer, metadata);
 
+                // <choose>
+                sql.append("<choose>");
 
-                    // <choose>
-                    sql.append("<choose>");
+                final String testWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), true);
 
-                    final String testWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), true);
+                final String selectiveTest = testWithSelective == null ? SELECTIVE_PARAMETER_NAME : "selective and " + testWithSelective;
 
-                    final String selectiveTest = testWithSelective == null ? SELECTIVE_PARAMETER_NAME : "selective and " + testWithSelective;
+                // <when test="selective and entity.path != null">
+                sql.append("<when test=\"").append(selectiveTest).append("\">")
+                    // property.column = entity.path
+                    .append(property.getColumn()).append(" = ").append(value).append(",")
+                    // </when>
+                    .append("</when>");
 
-                    // <when test="selective and entity.path != null">
-                    sql.append("<when test=\"").append(selectiveTest).append("\">")
-                            // property.column = entity.path
-                            .append(property.getColumn()).append(" = ").append(value).append(",")
-                            // </when>
-                            .append("</when>");
+                final String testNotWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), false);
+                final String notSelectiveTest = testNotWithSelective == null ? "!selective" : "!selective and " + testNotWithSelective;
 
-                    final String testNotWithSelective = ScriptMapperHelper.formatTest(ENTITY_PARAMETER_NAME, property.getPath(), false);
-                    final String notSelectiveTest = testNotWithSelective == null ? "!selective" : "!selective and " + testNotWithSelective;
+                sql.append("<when test=\"").append(notSelectiveTest).append("\">")
+                    .append(property.getColumn()).append(" = ").append(value).append(",")
+                    .append("</when>");
 
+                if (testNotWithSelective != null) {
+                    sql.append("<otherwise>")
+                        .append(property.getColumn()).append(" = ").append("null").append(",")
+                        .append("</otherwise>");
+                }
 
-                    sql.append("<when test=\"").append(notSelectiveTest).append("\">")
-                            .append(property.getColumn()).append(" = ").append(value).append(",")
-                            .append("</when>");
+                sql.append("</choose>");
 
-                    if (testNotWithSelective != null) {
-                        sql.append("<otherwise>")
-                                .append(property.getColumn()).append(" = ").append("null").append(",")
-                                .append("</otherwise>");
-                    }
-
-
-                    sql.append("</choose>");
-
-                    sql.append("</if>");
-                });
+                sql.append("</if>");
+            });
     }
 
     private void appendVersionProperty(final StringBuilder sql, final QEntity<?, ?> entity) {
@@ -152,13 +151,12 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         sql.append("<if test=\"properties.hasVersionProperty()\">");
         String version = entity.getVersionProperty().getColumn();
         sql.append(version)
-                .append(" = ")
-                .append(version)
-                .append(" + 1,");
+            .append(" = ")
+            .append(version)
+            .append(" + 1,");
 
         sql.append("</if>");
     }
-
 
 }
 

@@ -18,14 +18,17 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 public class ServiceException extends RuntimeException implements Responsible, IException {
+
     /**
      * 状态
      */
     private final Integer status;
+
     /**
      * 状态描述
      */
     private final String description;
+
     /**
      * 异常码
      */
@@ -34,7 +37,6 @@ public class ServiceException extends RuntimeException implements Responsible, I
     private final String message;
 
     private final transient Object[] args;
-
 
     public ServiceException(final Integer status, final String description, final IException exception, final Object... args) {
 

@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.sharding.config;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.ifinal.finalframework.annotation.sharding.ShardingTable;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -14,9 +13,9 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class ShardingTableRegistry {
+
     @Getter(AccessLevel.PACKAGE)
     private Collection<ShardingTableRegistration> tables = new ArrayList<>();
-
 
     public ShardingTableRegistration addShardingTableRule(final String logicTable, final String[] actualDataNodes) {
 
@@ -30,6 +29,5 @@ public class ShardingTableRegistry {
         tables.add(table);
         return this;
     }
-
 
 }

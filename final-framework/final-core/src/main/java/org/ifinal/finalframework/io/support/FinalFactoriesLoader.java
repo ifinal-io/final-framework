@@ -17,10 +17,9 @@
 
 package org.ifinal.finalframework.io.support;
 
+import java.util.List;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.util.List;
 
 /**
  * @author likly
@@ -39,7 +38,8 @@ public final class FinalFactoriesLoader {
         return loadPropertyValues(factoryClass, null, FACTORIES_RESOURCE_LOCATION);
     }
 
-    public static List<String> loadPropertyValues(final @NonNull Class<?> factoryClass, final @Nullable ClassLoader classLoader, final @NonNull String propertiesResourceLocation) {
+    public static List<String> loadPropertyValues(final @NonNull Class<?> factoryClass, final @Nullable ClassLoader classLoader,
+        final @NonNull String propertiesResourceLocation) {
 
         final String factoryClassName = factoryClass.getName();
         return PropertiesLoader.loadPropertyValues(factoryClassName, classLoader, propertiesResourceLocation);

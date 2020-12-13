@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.util;
 
-import lombok.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -23,10 +22,11 @@ public final class Strings {
         return join(collection, delimiter, null, null);
     }
 
-    public static String join(final @NonNull Collection<?> collection, final @NonNull String delimiter, final @Nullable String prefix, final @Nullable String suffix) {
+    public static String join(final @NonNull Collection<?> collection, final @NonNull String delimiter, final @Nullable String prefix,
+        final @Nullable String suffix) {
         return collection.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(delimiter, Optional.ofNullable(prefix).orElse(BLANK), Optional.ofNullable(suffix).orElse(BLANK)));
+            .map(Object::toString)
+            .collect(Collectors.joining(delimiter, Optional.ofNullable(prefix).orElse(BLANK), Optional.ofNullable(suffix).orElse(BLANK)));
     }
 
     public static String replaceFirst(final @NonNull String text, final @NonNull String source, final @NonNull String target) {

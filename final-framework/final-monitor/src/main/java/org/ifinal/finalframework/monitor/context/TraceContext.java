@@ -6,6 +6,7 @@ package org.ifinal.finalframework.monitor.context;
  * @since 1.0.0
  */
 public class TraceContext {
+
     private String trace;
 
     public String getTrace() {
@@ -16,4 +17,5 @@ public class TraceContext {
 
         this.trace = trace;
     }
+
 }

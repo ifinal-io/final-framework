@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.dashboard.context.service;
 
+import java.util.List;
+import javax.validation.constraints.NotNull;
 import org.ifinal.finalframework.dashboard.context.entity.BeanDefinition;
 import org.ifinal.finalframework.dashboard.context.service.query.BeanQuery;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * @author likly

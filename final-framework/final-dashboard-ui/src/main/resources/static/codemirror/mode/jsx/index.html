@@ -14,23 +14,23 @@
     border-bottom: 1px solid black;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">JSX</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">JSX</a>
+  </ul>
 </div>
 
 <article>
-    <h2>JSX mode</h2>
+  <h2>JSX mode</h2>
 
-    <div><textarea id="code" name="code">// Code snippets from http://facebook.github.io/react/docs/jsx-in-depth.html
+  <div><textarea id="code" name="code">// Code snippets from http://facebook.github.io/react/docs/jsx-in-depth.html
 
 // Rendering HTML tags
 var myDivElement = <div className="foo"/>;
@@ -77,16 +77,17 @@ var content = (
 );
 </textarea></div>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            mode: "jsx"
-        })
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      mode: "jsx"
+    })
+  </script>
 
-    <p>JSX Mode for <a href="http://facebook.github.io/react">React</a>'s
-        JavaScript syntax extension.</p>
+  <p>JSX Mode for <a href="http://facebook.github.io/react">React</a>'s
+    JavaScript syntax extension.</p>
 
-    <p><strong>MIME types defined:</strong> <code>text/jsx</code>, <code>text/typescript-jsx</code>.</p>
+  <p><strong>MIME types defined:</strong> <code>text/jsx</code>, <code>text/typescript-jsx</code>.
+  </p>
 
 </article>

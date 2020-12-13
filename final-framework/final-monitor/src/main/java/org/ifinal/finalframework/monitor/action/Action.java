@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.monitor.action;
 
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
 import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
-
-import java.util.Map;
 
 /**
  * Action 上下文，描述一个 Action 的动作
@@ -26,44 +25,53 @@ public class Action {
      * @see ActionMonitor#value()
      */
     private String name;
+
     /**
      * 类型
      *
      * @see ActionMonitor#type()
      */
     private String type;
+
     /**
      * 动作
      *
      * @see ActionMonitor#code()
      */
     private String code;
+
     /**
      * 级别
      *
      * @see ActionMonitor#level()
      */
     private MonitorLevel level;
+
     /**
      * 目标
      *
      * @see ActionMonitor#target()
      */
     private Object target;
+
     /**
      * 属性
      */
     private Map<String, Object> attributes;
+
     /**
      * 异常
      */
     private Throwable exception;
+
     /**
      * 追踪
      */
     private String trace;
+
     /**
      * 时间戳
      */
     private Long timestamp;
+
 }

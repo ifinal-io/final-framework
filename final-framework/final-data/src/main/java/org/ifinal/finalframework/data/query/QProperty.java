@@ -1,5 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.criteriable.Criteriable;
@@ -14,17 +17,13 @@ import org.ifinal.finalframework.data.query.operation.MathOperations;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Function;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Object, Criterion>, Sortable<Order>,
-        ExecuteCriteriable<T> {
+    ExecuteCriteriable<T> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);
@@ -176,7 +175,6 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
         return JsonOperations.notContains(this, value, path);
     }
 
-
     @Override
     default CriterionTarget<CriterionFunction> date() {
         return apply(value -> DateOperation.date(this));
@@ -285,4 +283,5 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
         Builder<T> views(List<Class<?>> views);
 
     }
+
 }

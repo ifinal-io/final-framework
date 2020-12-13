@@ -12,23 +12,23 @@
     border-bottom: 1px solid black;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Elm</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Elm</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Elm mode</h2>
+  <h2>Elm mode</h2>
 
-    <div><textarea id="code" name="code">
+  <div><textarea id="code" name="code">
 import Color exposing (..)
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
@@ -53,12 +53,12 @@ hand clr len time =
         |> traced (solid clr)
 </textarea></div>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            mode: "text/x-elm"
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      mode: "text/x-elm"
+    });
+  </script>
 
-    <p><strong>MIME types defined:</strong> <code>text/x-elm</code>.</p>
+  <p><strong>MIME types defined:</strong> <code>text/x-elm</code>.</p>
 </article>

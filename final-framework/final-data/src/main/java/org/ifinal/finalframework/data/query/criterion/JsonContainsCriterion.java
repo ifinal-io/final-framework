@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.ifinal.finalframework.data.query.operation.JsonOperation;
 
@@ -22,7 +21,6 @@ public interface JsonContainsCriterion extends SingleCriterion<Object>, SqlNode 
     }
 
     String getPath();
-
 
 }
 

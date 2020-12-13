@@ -28,22 +28,22 @@
     }
 </style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">SAS</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">SAS</a>
+  </ul>
 </div>
 
 <article>
-    <h2>SAS mode</h2>
-    <form><textarea id="code" name="code">
+  <h2>SAS mode</h2>
+  <form><textarea id="code" name="code">
 libname foo "/tmp/foobar";
 %let count=1;
 
@@ -82,13 +82,13 @@ proc sql;
 quit;
 </textarea></form>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            mode: 'sas',
-            lineNumbers: true
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: 'sas',
+      lineNumbers: true
+    });
+  </script>
 
-    <p><strong>MIME types defined:</strong> <code>text/x-sas</code>.</p>
+  <p><strong>MIME types defined:</strong> <code>text/x-sas</code>.</p>
 
 </article>

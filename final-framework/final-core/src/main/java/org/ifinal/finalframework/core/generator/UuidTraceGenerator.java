@@ -24,9 +24,9 @@ import java.util.UUID;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class UUIDTraceGenerator implements TraceGenerator {
+public final class UuidTraceGenerator implements TraceGenerator {
 
-    public static final UUIDTraceGenerator INSTANCE = new UUIDTraceGenerator();
+    public static final UuidTraceGenerator INSTANCE = new UuidTraceGenerator();
 
     @Override
     public String generate(final Void data) {

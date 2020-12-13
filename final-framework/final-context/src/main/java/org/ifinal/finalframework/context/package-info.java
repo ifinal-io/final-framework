@@ -1,5 +1,3 @@
-
-
 /**
  * <ol>
  * <li>{@link org.springframework.boot.context.event.ApplicationStartingEvent}</li>
@@ -15,4 +13,5 @@
  * @version 1.0.0
  * @since 1.0.0
  */
+
 package org.ifinal.finalframework.context;

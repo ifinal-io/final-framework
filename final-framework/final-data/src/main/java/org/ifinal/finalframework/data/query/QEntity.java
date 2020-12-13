@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.util.stream.Streamable;
-
 import java.io.Serializable;
+import org.ifinal.finalframework.util.stream.Streamable;
 
 /**
  * @author likly
@@ -26,7 +25,6 @@ public interface QEntity<I extends Serializable, T> extends Streamable<QProperty
     }
 
     String getTable();
-
 
     QProperty<I> getIdProperty();
 

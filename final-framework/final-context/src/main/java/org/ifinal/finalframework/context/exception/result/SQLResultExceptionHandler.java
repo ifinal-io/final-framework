@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.context.exception.result;
 
-
+import java.sql.SQLException;
 import org.ifinal.finalframework.annotation.core.result.R;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.sql.SQLException;
 
 /**
  * @author likly
@@ -17,6 +15,7 @@ import java.sql.SQLException;
 @Order(0)
 @Component
 public class SQLResultExceptionHandler implements ResultExceptionHandler<SQLException> {
+
     @Override
     public boolean supports(final Throwable throwable) {
 
@@ -28,5 +27,6 @@ public class SQLResultExceptionHandler implements ResultExceptionHandler<SQLExce
 
         return R.failure(500, throwable.getMessage(), throwable.getErrorCode() + "", throwable.getSQLState());
     }
+
 }
 

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -12,7 +11,6 @@ import org.springframework.beans.BeanUtils;
  */
 class BeanUtilsTest {
 
-
     @Test
     void test() {
         final Source source = new Source();
@@ -23,6 +21,7 @@ class BeanUtilsTest {
     }
 
     static class Source {
+
         private boolean isTag;
 
         public boolean isTag() {
@@ -33,9 +32,11 @@ class BeanUtilsTest {
 
             isTag = tag;
         }
+
     }
 
     static class Target {
+
         private Boolean tag;
 
         public Boolean getTag() {
@@ -46,6 +47,7 @@ class BeanUtilsTest {
 
             this.tag = tag;
         }
+
     }
 
 }

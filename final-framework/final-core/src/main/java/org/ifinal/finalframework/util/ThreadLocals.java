@@ -14,6 +14,10 @@ public interface ThreadLocals {
         return ThreadLocalCache.containsKey(key) ? (T) ThreadLocalCache.get(key) : defVal;
     }
 
+    static Object get(@NonNull String key) {
+        return ThreadLocalCache.get(key);
+    }
+
     static void set(@NonNull String key, Object value) {
         ThreadLocalCache.set(key, value);
     }
@@ -28,10 +32,6 @@ public interface ThreadLocals {
         if (!ThreadLocalCache.containsKey(key)) {
             ThreadLocalCache.set(key, value);
         }
-    }
-
-    static Object get(@NonNull String key) {
-        return ThreadLocalCache.get(key);
     }
 
     static Object remove(@NonNull String key) {

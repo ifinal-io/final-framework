@@ -17,12 +17,11 @@
 
 package org.ifinal.finalframework.util.format;
 
-import org.ifinal.finalframework.util.Asserts;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import org.ifinal.finalframework.util.Asserts;
 
 /**
  * @author likly
@@ -42,10 +41,10 @@ public class DateFormatters implements Formatters<Date> {
 
     public DateFormatters() {
         this(Arrays.asList(
-                DateFormatter.YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD,
-                DateFormatter.YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD,
-                DateFormatter.YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD,
-                DateFormatter.YYYYMMDDHHMMSS
+            DateFormatter.YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD,
+            DateFormatter.YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD,
+            DateFormatter.YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD,
+            DateFormatter.YYYYMMDDHHMMSS
         ));
     }
 

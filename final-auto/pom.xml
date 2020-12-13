@@ -1,19 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>final-frameworks</artifactId>
-        <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-auto</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+
+                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <!-- ==================================================================================================== -->
+            <!-- =========================================== final-auto ============================================= -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <artifactId>final-auto-annotation</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-core</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-processor</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-spring</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-coding</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-data</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-query</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>final-auto-mybatis</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-auto-service</artifactId>
+                <groupId>org.ifinal.finalframework.auto</groupId>
+                <version>${final.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <groupId>org.ifinal.finalframework.auto</groupId>
-    <artifactId>final-auto</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
-
+    <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>final-auto-annotation</module>
         <module>final-auto-core</module>
@@ -26,83 +95,14 @@
         <module>final-auto-service</module>
     </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- ==================================================================================================== -->
-            <!-- =========================================== final-auto ============================================= -->
-            <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-annotation</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-core</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-processor</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-spring</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-coding</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-data</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-query</artifactId>
-                <version>${final.version}</version>
-            </dependency>
+    <packaging>pom</packaging>
 
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-mybatis</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <artifactId>final-auto-service</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <version>1.0.3-SNAPSHOT</version>
 
 </project>

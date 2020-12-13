@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.MapperBuilderAssistant;
 import org.apache.ibatis.cache.CacheKey;
@@ -20,12 +25,6 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.regex.Pattern;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -35,10 +34,11 @@ import java.util.regex.Pattern;
 @Order(0)
 @Component
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-        }
+    {
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+            BoundSql.class}),
+    }
 )
 public class InlineSelectInterceptor implements Interceptor {
 
@@ -48,7 +48,6 @@ public class InlineSelectInterceptor implements Interceptor {
      * @see AbsMapper#selectOne(String, Class, Serializable, Query)
      */
     private static final Pattern PATTERN = Pattern.compile("(\\.select|\\.selectOne|-Inline)$");
-
 
     @Override
     public Object intercept(final Invocation invocation) throws Throwable {
@@ -64,11 +63,10 @@ public class InlineSelectInterceptor implements Interceptor {
             final List<ResultMap> resultMaps = ms.getResultMaps();
 
             if (resultMaps.size() == 1 && PATTERN.matcher(id).find()
-                    && IEntity.class.isAssignableFrom(resultMaps.get(0).getType())) {
+                && IEntity.class.isAssignableFrom(resultMaps.get(0).getType())) {
                 final MappedStatement mappedStatement = newFinalMappedStatement(ms, id + "-final");
                 return executor.query(mappedStatement, param, rowBounds, resultHandler);
             }
-
 
             return invocation.proceed();
 
@@ -115,4 +113,5 @@ public class InlineSelectInterceptor implements Interceptor {
 
         return builder.build();
     }
+
 }

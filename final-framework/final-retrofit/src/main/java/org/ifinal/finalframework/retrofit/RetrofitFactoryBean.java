@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.retrofit;
 
-
 import org.springframework.beans.factory.FactoryBean;
 import retrofit2.Retrofit;
 
@@ -12,6 +11,7 @@ import retrofit2.Retrofit;
 public class RetrofitFactoryBean<T> implements FactoryBean<T> {
 
     private Retrofit retrofit;
+
     private Class<T> service;
 
     public RetrofitFactoryBean() {
@@ -41,5 +41,6 @@ public class RetrofitFactoryBean<T> implements FactoryBean<T> {
     public Class<?> getObjectType() {
         return service;
     }
+
 }
 

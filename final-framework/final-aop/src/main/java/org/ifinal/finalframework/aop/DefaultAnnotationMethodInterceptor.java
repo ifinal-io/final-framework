@@ -1,14 +1,13 @@
 package org.ifinal.finalframework.aop;
 
-import org.aopalliance.intercept.MethodInvocation;
-import org.ifinal.finalframework.context.expression.MethodMetadata;
-import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.context.expression.AnnotatedElementKey;
-
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import org.aopalliance.intercept.MethodInvocation;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
+import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.context.expression.AnnotatedElementKey;
 
 /**
  * @author likly
@@ -20,6 +19,7 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
     private final Map<AnnotatedElementKey, MethodMetadata> metadataCache = new ConcurrentHashMap<>(1024);
 
     private final AnnotationSource<A> source;
+
     private final MethodInvocationDispatcher<A> dispatcher;
 
     public DefaultAnnotationMethodInterceptor(final AnnotationSource<A> source, final MethodInvocationDispatcher<A> dispatcher) {
@@ -70,7 +70,6 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
 
         return returnValue;
     }
-
 
     private MethodMetadata getOperationMetadata(final Method method, final Class<?> targetClass) {
 

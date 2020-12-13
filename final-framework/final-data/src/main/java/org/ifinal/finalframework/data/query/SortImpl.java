@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.Direction;
-import org.ifinal.finalframework.util.Asserts;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
+import org.ifinal.finalframework.annotation.query.Direction;
+import org.ifinal.finalframework.util.Asserts;
 
 /**
  * @author likly

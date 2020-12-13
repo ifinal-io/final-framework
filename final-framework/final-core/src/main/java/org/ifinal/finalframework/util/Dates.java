@@ -17,12 +17,11 @@
 
 package org.ifinal.finalframework.util;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -35,16 +34,16 @@ public interface Dates {
     static Date to(final @Nullable LocalDateTime localDateTime) {
 
         return Optional.ofNullable(localDateTime)
-                .map(it -> Date.from(it.atZone(LocaleContextHolder.getTimeZone().toZoneId()).toInstant()))
-                .orElse(null);
+            .map(it -> Date.from(it.atZone(LocaleContextHolder.getTimeZone().toZoneId()).toInstant()))
+            .orElse(null);
     }
 
     @Nullable
     static LocalDateTime from(final @Nullable Date date) {
 
         return Optional.ofNullable(date)
-                .map(it -> it.toInstant().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toLocalDateTime())
-                .orElse(null);
+            .map(it -> it.toInstant().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toLocalDateTime())
+            .orElse(null);
     }
 
 }

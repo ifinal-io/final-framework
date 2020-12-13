@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.context.user;
 
-
 import org.ifinal.finalframework.annotation.core.IUser;
 
 /**
@@ -9,6 +8,7 @@ import org.ifinal.finalframework.annotation.core.IUser;
  * @since 1.0.0
  */
 class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
+
     private final T user;
 
     public SimpleUserContext(final T user) {
@@ -20,5 +20,6 @@ class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
     public T getUser() {
         return user;
     }
+
 }
 

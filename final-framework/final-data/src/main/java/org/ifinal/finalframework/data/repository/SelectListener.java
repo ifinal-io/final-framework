@@ -8,6 +8,8 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface SelectListener<P, T> extends Listener<P, List<T>> {
+
     @Override
     boolean onListening(int index, P param, List<T> list);
+
 }

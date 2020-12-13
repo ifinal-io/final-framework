@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.data.AbsEntity;
 import org.ifinal.finalframework.annotation.data.YN;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author likly
@@ -16,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @Slf4j
 class JsonTest {
+
     @Test
     void enum2Json() {
         logger.info(Json.toJson(YN.YES));
@@ -33,4 +33,5 @@ class JsonTest {
         System.out.println(Json.toJson(entity));
         assertEquals(1L, entity.getId());
     }
+
 }

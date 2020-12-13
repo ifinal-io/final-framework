@@ -6,4 +6,5 @@ package org.ifinal.finalframework.aop;
  * @since 1.0.0
  */
 public interface Executor {
+
 }

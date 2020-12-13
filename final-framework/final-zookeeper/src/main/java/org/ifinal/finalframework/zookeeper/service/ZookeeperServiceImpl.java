@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.zookeeper.service;
 
+import java.util.List;
+import javax.annotation.Resource;
 import lombok.Setter;
 import org.apache.zookeeper.ZooKeeper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author likly
@@ -21,7 +20,6 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Setter
     @Resource
     private ZooKeeper zooKeeper;
-
 
     @Override
     public List<String> getChildren(final String path) {
@@ -44,4 +42,5 @@ public class ZookeeperServiceImpl implements ZookeeperService {
             throw new ZookeeperException(e);
         }
     }
+
 }

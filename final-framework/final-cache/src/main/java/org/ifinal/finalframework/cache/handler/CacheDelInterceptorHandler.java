@@ -21,7 +21,7 @@ public class CacheDelInterceptorHandler extends AbsCacheOperationInterceptorHand
 
     @Override
     public void handle(final @NonNull Cache cache, final @NonNull InvocationContext context, final @NonNull AnnotationAttributes annotation,
-                       final @Nullable Object result, final @Nullable Throwable throwable) {
+        final @Nullable Object result, final @Nullable Throwable throwable) {
 
         final MethodMetadata metadata = context.metadata();
         final Logger logger = LoggerFactory.getLogger(metadata.getTargetClass());

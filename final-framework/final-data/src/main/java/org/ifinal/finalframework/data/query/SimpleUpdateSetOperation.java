@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.Objects;
 import lombok.Getter;
 import org.ifinal.finalframework.data.query.enums.UpdateOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.util.Objects;
 
 /**
  * @author likly
@@ -14,8 +13,11 @@ import java.util.Objects;
  */
 @Getter
 class SimpleUpdateSetOperation implements UpdateSetOperation {
+
     private final QProperty<?> property;
+
     private final UpdateOperation operation;
+
     private final Object value;
 
     SimpleUpdateSetOperation(final QProperty<?> property, final UpdateOperation operation) {
@@ -40,7 +42,6 @@ class SimpleUpdateSetOperation implements UpdateSetOperation {
         sql.append("<trim>");
         sql.append(property.getColumn());
 
-
         switch (operation) {
             case EQUAL:
                 sql.append(" = ").append("#{").append(expression).append(".value");
@@ -64,6 +65,8 @@ class SimpleUpdateSetOperation implements UpdateSetOperation {
             case DECR:
                 sql.append(" = ").append(property.getColumn()).append(" - #{").append(expression).append(".value},");
                 break;
+            default:
+                throw new IllegalArgumentException(operation.name());
         }
 
         sql.append("</trim>");

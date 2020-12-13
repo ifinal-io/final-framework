@@ -13,24 +13,24 @@
     border-bottom: 1px solid black;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Q</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Q</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Q mode</h2>
+  <h2>Q mode</h2>
 
 
-    <div><textarea id="code" name="code">
+  <div><textarea id="code" name="code">
 / utilities to quickly load a csv file - for more exhaustive analysis of the csv contents see csvguess.q
 / 2009.09.20 - updated to match latest csvguess.q 
 
@@ -148,12 +148,12 @@ bulkload:{[file;info]
 @[.:;"\\l csvutil.custom.q";::]; / save your custom settings in csvutil.custom.q to override those set at the beginning of the file 
 </textarea></div>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      matchBrackets: true
+    });
+  </script>
 
-    <p><strong>MIME type defined:</strong> <code>text/x-q</code>.</p>
+  <p><strong>MIME type defined:</strong> <code>text/x-q</code>.</p>
 </article>

@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.core.generator;
 
-import org.springframework.lang.NonNull;
-
 import java.util.Locale;
-
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly

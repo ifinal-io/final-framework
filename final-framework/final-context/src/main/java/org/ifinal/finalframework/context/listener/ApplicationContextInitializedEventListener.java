@@ -19,4 +19,5 @@ public class ApplicationContextInitializedEventListener implements ApplicationLi
 
         logger.info(event.getClass().getCanonicalName());
     }
+
 }

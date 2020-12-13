@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.mybatis.configuration;
 
-
+import java.lang.reflect.Field;
+import java.util.Objects;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.session.Configuration;
@@ -15,9 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
-import java.util.Objects;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -27,6 +25,7 @@ import java.util.Objects;
 @Component
 @SuppressWarnings("unused")
 public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomizer {
+
     private static final Logger logger = LoggerFactory.getLogger(FinalMybatisConfigurationCustomizer.class);
 
     private static final Field composites = Objects.requireNonNull(ReflectionUtils.findField(ResultMapping.class, "composites"));
@@ -42,42 +41,38 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
         configuration.addMapper(AbsMapper.class);
         configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
 
-
         ServicesLoader.load(IEntity.class)
-                .stream()
-                .map((String className) -> {
-                    try {
-                        return Class.forName(className);
-                    } catch (ClassNotFoundException e) {
-                        //ignore
-                        throw new IllegalArgumentException(e);
-                    }
-                })
-                .forEach(clazz -> {
-                    ResultMap resultMap = ResultMapFactory.from(configuration, clazz);
+            .stream()
+            .map((String className) -> {
+                try {
+                    return Class.forName(className);
+                } catch (ClassNotFoundException e) {
+                    //ignore
+                    throw new IllegalArgumentException(e);
+                }
+            })
+            .forEach(clazz -> {
+                ResultMap resultMap = ResultMapFactory.from(configuration, clazz);
 
-                    configuration.addResultMap(resultMap);
+                configuration.addResultMap(resultMap);
 
-                    resultMap.getResultMappings()
-                            .stream()
-                            .filter(ResultMapping::isCompositeResult)
-                            .forEach(resultMapping -> {
+                resultMap.getResultMappings()
+                    .stream()
+                    .filter(ResultMapping::isCompositeResult)
+                    .forEach(resultMapping -> {
 
-                                ResultMap map = new ResultMap.Builder(configuration, resultMapping.getNestedResultMapId(), resultMap.getType(), resultMapping.getComposites()).build();
-                                configuration.addResultMap(map);
+                        ResultMap map = new ResultMap.Builder(configuration, resultMapping.getNestedResultMapId(), resultMap.getType(),
+                            resultMapping.getComposites()).build();
+                        configuration.addResultMap(map);
 
-                                // mybatis not support composites result mapping
-                                ReflectionUtils.setField(composites, resultMapping, null);
+                        // mybatis not support composites result mapping
+                        ReflectionUtils.setField(composites, resultMapping, null);
 
+                    });
 
-                            });
-
-
-                });
-
-
-
+            });
 
     }
+
 }
 

@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
+import java.lang.reflect.Array;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.Array;
 
 /**
  * @author likly
@@ -14,7 +12,8 @@ import java.lang.reflect.Array;
  */
 public class BaseCriterion {
 
-    protected void applyValueCriterion(final @NonNull StringBuilder sql, final Object value, final String prefix, final String suffix, final String expression) {
+    protected void applyValueCriterion(final @NonNull StringBuilder sql, final Object value, final String prefix, final String suffix,
+        final String expression) {
 
         sql.append("<trim");
 
@@ -41,5 +40,6 @@ public class BaseCriterion {
         sql.append("</trim>");
 
     }
+
 }
 

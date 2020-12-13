@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.json.jackson.serializer;
 
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import java.io.IOException;
 import org.ifinal.finalframework.annotation.core.Enums;
 import org.ifinal.finalframework.annotation.data.EnumValue;
-
-import java.io.IOException;
 
 /**
  * @author likly
@@ -33,5 +31,6 @@ public class EnumValueNameSerializer extends JsonSerializer<Object> {
         Enum<?> anEnum = Enums.findEnum(enumValue, value);
         gen.writeString(anEnum.name());
     }
+
 }
 

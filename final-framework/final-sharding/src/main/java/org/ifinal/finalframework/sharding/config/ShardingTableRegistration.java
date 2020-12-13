@@ -12,11 +12,12 @@ import lombok.Getter;
 public class ShardingTableRegistration {
 
     private final String logicTable;
+
     private final String actualDataNodes;
 
     private ShardingStrategyRegistration databaseShardingStrategy;
-    private ShardingStrategyRegistration tableShardingStrategy;
 
+    private ShardingStrategyRegistration tableShardingStrategy;
 
     public ShardingTableRegistration(final String logicTable) {
         this.logicTable = logicTable;
@@ -27,7 +28,6 @@ public class ShardingTableRegistration {
         this.logicTable = logicTable;
         this.actualDataNodes = String.join(",", actualDataNodes);
     }
-
 
     public ShardingTableRegistration setDatabaseShardingStrategy(final ShardingStrategyRegistration shardingStrategy) {
 
@@ -40,6 +40,5 @@ public class ShardingTableRegistration {
         this.tableShardingStrategy = shardingStrategy;
         return this;
     }
-
 
 }

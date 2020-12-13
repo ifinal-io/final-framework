@@ -1,16 +1,14 @@
 package org.ifinal.finalframework.aop.single;
 
-
-import org.ifinal.finalframework.aop.AnnotationFinder;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.lang.NonNull;
-
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Repeatable;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 import java.util.Set;
+import org.ifinal.finalframework.aop.AnnotationFinder;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -20,7 +18,9 @@ import java.util.Set;
 public class SingleAnnotationFinder<A extends Annotation> implements AnnotationFinder<Collection<A>>, Serializable {
 
     private static final long serialVersionUID = -2544023527538343148L;
+
     private final Class<A> ann;
+
     private final boolean repeatable;
 
     @SuppressWarnings("unused")
@@ -50,4 +50,5 @@ public class SingleAnnotationFinder<A extends Annotation> implements AnnotationF
             return annotations;
         }
     }
+
 }

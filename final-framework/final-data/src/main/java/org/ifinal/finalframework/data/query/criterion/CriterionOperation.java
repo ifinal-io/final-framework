@@ -18,4 +18,5 @@ public interface CriterionOperation extends Criterion, Operation, SqlNode {
 
     @NonNull
     Operation getOperation();
+
 }

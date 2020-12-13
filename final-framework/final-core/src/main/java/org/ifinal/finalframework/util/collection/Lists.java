@@ -9,6 +9,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public final class Lists {
+
     private Lists() {
     }
 
@@ -16,4 +17,5 @@ public final class Lists {
     public static <T> List<T> of(final T... elements) {
         return Arrays.asList(elements);
     }
+
 }

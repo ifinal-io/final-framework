@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.data.query.type;
 
-
-import org.apache.ibatis.type.JdbcType;
-import org.ifinal.finalframework.json.Json;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import org.apache.ibatis.type.JdbcType;
+import org.ifinal.finalframework.json.Json;
 
 /**
  * Converter the parameter to a {@code json} String.
@@ -20,6 +18,7 @@ import java.sql.SQLException;
  * @since 1.0.0
  */
 public class JsonParameterTypeHandler extends ParameterTypeHandler<Object> {
+
     @Override
     public void setNonNullParameter(final PreparedStatement ps, final int i, final Object parameter, final JdbcType jdbcType) throws SQLException {
 

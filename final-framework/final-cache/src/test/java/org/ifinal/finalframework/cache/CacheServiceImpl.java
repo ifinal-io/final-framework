@@ -8,10 +8,12 @@ import org.ifinal.finalframework.cache.annotation.Cacheable;
  * @since 1.0.0
  */
 public class CacheServiceImpl implements CacheService {
+
     @Override
     @Cacheable(key = "${key32}")
     public Integer cacheable(final Integer key) {
 
         return key;
     }
+
 }

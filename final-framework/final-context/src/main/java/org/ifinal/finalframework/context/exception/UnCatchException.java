@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.context.exception;
 
-
 /**
  * 未捕获的异常
  *
@@ -9,8 +8,10 @@ package org.ifinal.finalframework.context.exception;
  * @since 1.0.0
  */
 public class UnCatchException extends RuntimeException {
+
     public UnCatchException(final Throwable cause) {
 
         super(cause);
     }
+
 }

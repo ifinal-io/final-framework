@@ -1,6 +1,8 @@
 package org.ifinal.finalframework.monitor.handler;
 
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.annotation.monitor.MonitorLevel;
 import org.ifinal.finalframework.aop.interceptor.AbsOperationInterceptorHandlerSupport;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
@@ -12,16 +14,13 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.expression.EvaluationContext;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationInterceptorHandlerSupport implements MonitorOperationHandlerSupport {
+
     private final MonitorExpressionEvaluator evaluator;
 
     public AbsMonitorOperationInterceptorHandlerSupport() {
@@ -34,25 +33,22 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
         this.evaluator = evaluator;
     }
 
-
     @Override
     public String generateName(final String[] name, final String delimiter, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
 
         final List<String> nameValues = Arrays.stream(name)
-                .map(key -> {
-                    if (isExpression(key)) {
-                        return evaluator.name(generateExpression(key), metadata.getMethodKey(), evaluationContext);
-                    } else {
-                        return key;
-                    }
-                })
-                .map(Object::toString)
-                .collect(Collectors.toList());
-
+            .map(key -> {
+                if (isExpression(key)) {
+                    return evaluator.name(generateExpression(key), metadata.getMethodKey(), evaluationContext);
+                } else {
+                    return key;
+                }
+            })
+            .map(Object::toString)
+            .collect(Collectors.toList());
 
         return String.join(delimiter, nameValues);
     }
-
 
     @Override
     public Object generateOperator(final String operator, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
@@ -70,7 +66,9 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     @Override
     public Object generateTarget(final String target, final MethodMetadata metadata, final EvaluationContext evaluationContext) {
 
-        if (Asserts.isBlank(target)) return null;
+        if (Asserts.isBlank(target)) {
+            return null;
+        }
         if (isExpression(target)) {
             return evaluator.target(generateExpression(target), metadata.getMethodKey(), evaluationContext);
         }
@@ -91,6 +89,5 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
 
         return annotation.getEnum("level");
     }
-
 
 }

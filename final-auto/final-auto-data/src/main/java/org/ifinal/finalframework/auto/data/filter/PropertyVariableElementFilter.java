@@ -1,15 +1,13 @@
 package org.ifinal.finalframework.auto.data.filter;
 
-
-import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.util.function.Filter;
-
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.VariableElement;
+import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.function.Filter;
 
 /**
  * <h3>过滤不支持的{@link VariableElement}</h3>
@@ -40,10 +38,14 @@ public class PropertyVariableElementFilter implements Filter<VariableElement> {
     @Override
     public boolean matches(final VariableElement e) {
 
-        if (ElementKind.FIELD != e.getKind()) return false;
+        if (ElementKind.FIELD != e.getKind()) {
+            return false;
+        }
         Set<Modifier> modifiers = e.getModifiers();
         for (Modifier modifier : ignoreModifiers) {
-            if (modifiers.contains(modifier)) return false;
+            if (modifiers.contains(modifier)) {
+                return false;
+            }
         }
         return true;
     }

@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.service;
 
+import java.io.Serializable;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
-
-import java.io.Serializable;
-
 
 /**
  * 默认的{@link AbsService}实现，方便其子类通过 {@literal super}调用方法
@@ -15,7 +13,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I>, R extends Repository<I, T>>
-        implements AbsService<I, T, R> {
+    implements AbsService<I, T, R> {
 
     private final R repository;
 
@@ -31,7 +29,6 @@ public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I
     }
 
     /*=========================================== Overridable ===========================================*/
-
 
 }
 

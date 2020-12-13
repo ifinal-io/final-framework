@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.sharding.config;
 
+import java.util.Properties;
 import lombok.Getter;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
-
-import java.util.Properties;
 
 /**
  * @author likly
@@ -12,13 +11,19 @@ import java.util.Properties;
  */
 @Getter
 public class ShardingStrategyRegistration {
+
     private final ShardingStrategy.Strategy strategy;
+
     private final String type;
+
     private final String name;
+
     private final String[] columns;
+
     private final Properties properties;
 
-    public ShardingStrategyRegistration(final ShardingStrategy.Strategy strategy, final String type, final String name, final String[] column, final Properties properties) {
+    public ShardingStrategyRegistration(final ShardingStrategy.Strategy strategy, final String type, final String name, final String[] column,
+        final Properties properties) {
 
         this.strategy = strategy;
         this.type = type;
@@ -26,4 +31,5 @@ public class ShardingStrategyRegistration {
         this.columns = column;
         this.properties = properties;
     }
+
 }

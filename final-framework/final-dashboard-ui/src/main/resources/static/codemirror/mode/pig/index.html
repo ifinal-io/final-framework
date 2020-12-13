@@ -10,22 +10,22 @@
     border: 2px inset #dee;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Pig Latin</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Pig Latin</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Pig Latin mode</h2>
-    <form><textarea id="code" name="code">
+  <h2>Pig Latin mode</h2>
+  <form><textarea id="code" name="code">
 -- Apache Pig (Pig Latin Language) Demo
 /* 
 This is a multiline comment.
@@ -38,18 +38,18 @@ STORE c INTO "\path\to\output";
 --
 </textarea></form>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            indentUnit: 4,
-            mode: "text/x-pig"
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      indentUnit: 4,
+      mode: "text/x-pig"
+    });
+  </script>
 
-    <p>
-        Simple mode that handles Pig Latin language.
-    </p>
+  <p>
+    Simple mode that handles Pig Latin language.
+  </p>
 
-    <p><strong>MIME type defined:</strong> <code>text/x-pig</code>
-        (PIG code)
+  <p><strong>MIME type defined:</strong> <code>text/x-pig</code>
+    (PIG code)
 </article>

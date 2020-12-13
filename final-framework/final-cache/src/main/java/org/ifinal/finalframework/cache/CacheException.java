@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.cache;
 
-
 /**
  * @author likly
  * @version 1.0.0
@@ -17,4 +16,5 @@ public class CacheException extends RuntimeException {
 
         super(cause);
     }
+
 }

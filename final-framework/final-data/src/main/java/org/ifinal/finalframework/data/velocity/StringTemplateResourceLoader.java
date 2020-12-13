@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.data.velocity;
 
-
+import java.io.Reader;
+import java.io.StringReader;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.runtime.resource.loader.ResourceLoader;
 import org.apache.velocity.util.ExtProperties;
-
-import java.io.Reader;
-import java.io.StringReader;
 
 /**
  * @author likly
@@ -15,6 +13,7 @@ import java.io.StringReader;
  * @since 1.0.0
  */
 public class StringTemplateResourceLoader extends ResourceLoader {
+
     @Override
     public void init(final ExtProperties configuration) {
         // do nothing
@@ -40,5 +39,6 @@ public class StringTemplateResourceLoader extends ResourceLoader {
 
         return 0;
     }
+
 }
 

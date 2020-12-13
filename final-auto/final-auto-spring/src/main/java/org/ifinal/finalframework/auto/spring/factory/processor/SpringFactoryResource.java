@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.auto.spring.factory.processor;
 
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-
-import javax.lang.model.element.TypeElement;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
+import javax.lang.model.element.TypeElement;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@code spring.factories} resource.
@@ -57,13 +55,12 @@ final class SpringFactoryResource implements Serializable {
     }
 
     void writeFactoryFile(final OutputStream output)
-            throws IOException {
+        throws IOException {
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
 
         for (Map.Entry<String, List<String>> stringListEntry : springFactories.entrySet()) {
             String factory = stringListEntry.getKey();
-            List<String> instances = stringListEntry.getValue();
             // # factory
             writer.write("# ");
             writer.write(factory);
@@ -72,6 +69,8 @@ final class SpringFactoryResource implements Serializable {
             writer.write(factory);
             writer.write("=\\");
             writer.newLine();
+
+            List<String> instances = stringListEntry.getValue();
 
             for (int i = 0; i < instances.size(); i++) {
                 final String intance = instances.get(i);

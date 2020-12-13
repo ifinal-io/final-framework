@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.auto.query.processor;
 
-import org.ifinal.finalframework.auto.data.Entity;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.ifinal.finalframework.auto.data.Entity;
 
 /**
  * @author likly

@@ -32,7 +32,6 @@ public interface Limit extends SqlNode {
         return limit(null, limit);
     }
 
-
     /**
      * return limit offset
      *
@@ -53,13 +52,14 @@ public interface Limit extends SqlNode {
     default void apply(StringBuilder sql, String expression) {
 
         sql.append("<trim prefix=\"LIMIT\">")
-                .append(String.format("<if test=\"%s.offset != null\">", expression))
-                .append(String.format("#{%s.offset},", expression))
-                .append("</if>")
-                .append(String.format("<if test=\"%s.limit != null\">", expression))
-                .append(String.format("#{%s.limit}", expression))
-                .append("</if>")
-                .append("</trim>");
+            .append(String.format("<if test=\"%s.offset != null\">", expression))
+            .append(String.format("#{%s.offset},", expression))
+            .append("</if>")
+            .append(String.format("<if test=\"%s.limit != null\">", expression))
+            .append(String.format("#{%s.limit}", expression))
+            .append("</if>")
+            .append("</trim>");
 
     }
+
 }

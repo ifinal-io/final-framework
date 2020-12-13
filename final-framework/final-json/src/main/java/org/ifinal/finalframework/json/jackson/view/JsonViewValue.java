@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.json.jackson.view;
 
-
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 
@@ -12,7 +11,9 @@ import lombok.Data;
  */
 @Data
 public class JsonViewValue implements Viewable<Object> {
+
     private final Object value;
+
     private final Class<?> view;
 
     public JsonViewValue(final Object value, final Class<?> view) {

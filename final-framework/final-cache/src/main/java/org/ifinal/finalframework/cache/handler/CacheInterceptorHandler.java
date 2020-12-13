@@ -19,5 +19,4 @@ public interface CacheInterceptorHandler extends JoinPointInterceptorHandler<Cac
         return annotation.containsKey("point") ? annotation.getEnum("point") : null;
     }
 
-
 }

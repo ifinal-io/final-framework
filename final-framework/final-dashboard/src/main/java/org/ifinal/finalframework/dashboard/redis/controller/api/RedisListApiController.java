@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.dashboard.redis.controller.api;
 
+import java.util.List;
+import javax.annotation.Resource;
 import org.ifinal.finalframework.annotation.auth.Auth;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author likly
@@ -30,7 +29,6 @@ public class RedisListApiController {
         return stringRedisTemplate.opsForList().leftPop(key);
     }
 
-
     @PostMapping("/lpush")
     public Long lpush(final String key, final @RequestParam("value") List<String> value) {
 
@@ -42,7 +40,6 @@ public class RedisListApiController {
 
         return stringRedisTemplate.opsForList().rightPop(key);
     }
-
 
     @PostMapping("/rpush")
     public Long rpush(final String key, final @RequestParam("value") List<String> value) {

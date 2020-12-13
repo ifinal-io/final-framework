@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.operation;
 
-
 /**
  * @author likly
  * @version 1.0.0

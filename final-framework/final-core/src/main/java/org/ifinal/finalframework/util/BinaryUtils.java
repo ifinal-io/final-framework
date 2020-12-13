@@ -79,29 +79,29 @@ public final class BinaryUtils {
 
     private static final Set<Integer> BINARIES = new HashSet<>();
 
-    private BinaryUtils() {
-
-    }
-
     static {
         BINARIES.addAll(
-                Arrays.asList(
-                        BINARY_0, BINARY_1, BINARY_2, BINARY_3, BINARY_4,
-                        BINARY_5, BINARY_6, BINARY_7, BINARY_8, BINARY_9,
-                        BINARY_10, BINARY_11, BINARY_12, BINARY_13, BINARY_14,
-                        BINARY_15, BINARY_16, BINARY_17, BINARY_18, BINARY_19,
-                        BINARY_20, BINARY_21, BINARY_22, BINARY_23, BINARY_24,
-                        BINARY_25, BINARY_26, BINARY_27, BINARY_28, BINARY_29,
-                        BINARY_30, BINARY_31
-                )
+            Arrays.asList(
+                BINARY_0, BINARY_1, BINARY_2, BINARY_3, BINARY_4,
+                BINARY_5, BINARY_6, BINARY_7, BINARY_8, BINARY_9,
+                BINARY_10, BINARY_11, BINARY_12, BINARY_13, BINARY_14,
+                BINARY_15, BINARY_16, BINARY_17, BINARY_18, BINARY_19,
+                BINARY_20, BINARY_21, BINARY_22, BINARY_23, BINARY_24,
+                BINARY_25, BINARY_26, BINARY_27, BINARY_28, BINARY_29,
+                BINARY_30, BINARY_31
+            )
         );
+    }
+
+    private BinaryUtils() {
+
     }
 
     public static Collection<Integer> flat(final Integer binary) {
 
         return BINARIES.stream()
-                .filter(it -> (it & binary) == it)
-                .collect(Collectors.toList());
+            .filter(it -> (it & binary) == it)
+            .collect(Collectors.toList());
     }
 
     public static Integer merge(final Collection<Integer> binaries) {

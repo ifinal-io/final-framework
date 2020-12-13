@@ -20,7 +20,6 @@ package org.ifinal.finalframework.util.format;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * @author likly
  * @version 1.0.0
@@ -50,4 +49,5 @@ class DateFormattersTest {
         datetime = "20190214121314";
         Assertions.assertEquals(datetime, DateFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(datetime)));
     }
+
 }

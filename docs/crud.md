@@ -3,6 +3,7 @@ layout: post title: repository subtitle: repository description: repository tags
 menus:
 
 - repository date: 2020-11-14 23:15:14 +800 version: 1.0
+
 ---
 
 # repository
@@ -21,7 +22,8 @@ public interface Repository<ID extends Serializable, T extends IEntity<ID>> {
      * @param entities 实体集
      * @return 指插入数据所影响的行数
      */
-    int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore, @NonNull Collection<T> entities);
+    int insert(@Nullable String table, @Nullable Class<?> view, boolean ignore,
+        @NonNull Collection<T> entities);
 
 }
 ```

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import lombok.Getter;
 import org.springframework.lang.NonNull;
 
@@ -13,11 +12,17 @@ import org.springframework.lang.NonNull;
 public class AbsCompareCriterionOperation extends BaseCriterion implements CompareCriterionOperation {
 
     public static final String TARGET_EXPRESSION = ".target";
+
     public static final String VALUE_EXPRESSION = ".value";
+
     private final Object target;
+
     private final CompareOperation operation;
+
     private final Object value;
+
     private final Object min;
+
     private final Object max;
 
     private AbsCompareCriterionOperation(final AbsCompareCriterionOperationBuilder builder) {
@@ -93,18 +98,23 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
                 applyValueCriterion(sql, value, " NOT BETWEEN ", null, expression + ".min");
                 applyValueCriterion(sql, value, " AND ", null, expression + ".max");
                 break;
+            default:
+                throw new IllegalArgumentException(operation.name());
 
         }
 
-
     }
 
-
     private static class AbsCompareCriterionOperationBuilder implements CompareCriterionOperation.CompareCriterionOperationBuilder {
+
         private Object target;
+
         private CompareOperation operation;
+
         private Object value;
+
         private Object min;
+
         private Object max;
 
         @Override
@@ -146,6 +156,7 @@ public class AbsCompareCriterionOperation extends BaseCriterion implements Compa
         public CompareCriterionOperation build() {
             return new AbsCompareCriterionOperation(this);
         }
+
     }
 
 }

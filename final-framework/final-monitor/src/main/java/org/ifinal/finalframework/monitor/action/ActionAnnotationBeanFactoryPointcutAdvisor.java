@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.monitor.action;
 
+import java.util.Arrays;
+import javax.annotation.Resource;
 import org.ifinal.finalframework.annotation.monitor.ActionMonitor;
 import org.ifinal.finalframework.aop.AnnotationAttributesAnnotationBuilder;
 import org.ifinal.finalframework.aop.single.SingleAnnotationBeanFactoryPointcutAdvisor;
@@ -7,9 +9,6 @@ import org.ifinal.finalframework.monitor.handler.ActionInterceptorHandler;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
 
 /**
  * @author likly
@@ -27,11 +26,11 @@ public class ActionAnnotationBeanFactoryPointcutAdvisor extends SingleAnnotation
         super(ActionMonitor.class, new AnnotationAttributesAnnotationBuilder<>(), Arrays.asList(new ActionInterceptorHandler()));
     }
 
-
     @Override
     @NonNull
     protected Recorder getExecutor(final AnnotationAttributes annotation) {
 
         return recorder;
     }
+
 }

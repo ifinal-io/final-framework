@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.cache;
 
-
 import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
 import org.ifinal.finalframework.context.exception.ServiceException;
@@ -31,4 +30,5 @@ public class CacheLockException extends ServiceException {
 
         super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
     }
+
 }

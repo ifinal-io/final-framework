@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.sharding.config;
 
-import lombok.Builder;
-import lombok.Getter;
-
-import javax.sql.DataSource;
 import java.util.Collection;
 import java.util.Map;
+import javax.sql.DataSource;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author likly
@@ -15,7 +14,11 @@ import java.util.Map;
 @Builder
 @Getter
 public class ShardingConfiguration {
+
     private final Map<String, DataSource> datasource;
+
     private final Collection<ShardingTableRegistration> tables;
+
     private final Collection<ShardingAlgorithmRegistration> shardingAlgorithms;
+
 }

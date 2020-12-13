@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.aop.simple;
 
+import java.util.List;
+import java.util.Objects;
 import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.aop.MethodInvocationDispatcher;
 import org.springframework.lang.NonNull;
-
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author likly
@@ -14,6 +13,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvocationDispatcher<Boolean> {
+
     private final List<InterceptorHandler<T, Boolean>> handlers;
 
     protected SimpleMethodInvocationDispatcher(final List<InterceptorHandler<T, Boolean>> handlers) {
@@ -34,7 +34,6 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
 
         return null;
     }
-
 
     @Override
     public void afterReturning(final @NonNull InvocationContext context, final @NonNull Boolean annotations, final Object result) {
@@ -65,4 +64,5 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
 
     @NonNull
     protected abstract T getExecutor();
+
 }

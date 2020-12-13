@@ -14,9 +14,9 @@ import org.springframework.context.annotation.ImportResource;
  */
 @ComponentScan
 @ImportResource({
-        FinalFramework.CLASS_PATH_SPRING_CONFIG_XML,
-        FinalFramework.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
-        FinalFramework.CLASS_PATH_SPRING_SPRING_CONFIG_XML
+    FinalFramework.CLASS_PATH_SPRING_CONFIG_XML,
+    FinalFramework.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
+    FinalFramework.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
 public class FinalFramework {
 

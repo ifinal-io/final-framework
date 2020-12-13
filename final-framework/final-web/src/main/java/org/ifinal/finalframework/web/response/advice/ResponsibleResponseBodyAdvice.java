@@ -41,8 +41,8 @@ public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object
     @Override
     @Nullable
     public Object beforeBodyWrite(final @Nullable Object body, final MethodParameter returnType, final MediaType selectedContentType,
-                                  final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  final ServerHttpRequest request, final ServerHttpResponse response) {
+        final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+        final ServerHttpRequest request, final ServerHttpResponse response) {
 
         if (syncStatus && body instanceof Responsible) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Responsible) body).getStatus());
@@ -53,4 +53,5 @@ public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object
 
         return body;
     }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 public abstract class SimpleCriterionImpl implements SimpleCriterion {
 
     private final Object target;
+
     private final Operation operation;
 
     protected SimpleCriterionImpl(final AbsBuilder<?, ?> builder) {
@@ -25,7 +26,6 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
         return this.target;
     }
 
-
     @Override
     @NonNull
     public Operation getOperation() {
@@ -36,10 +36,11 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
         return ((CriterionValueImpl<?>) getTarget()).getSql();
     }
 
-
     @SuppressWarnings("unchecked")
-    public static abstract class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
+    public abstract static class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
+
         private Object target;
+
         private Operation operation;
 
         @Override
@@ -50,7 +51,6 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
             return (R) this;
         }
 
-
         @Override
         @NonNull
         public R operation(final @NonNull Operation operation) {
@@ -60,4 +60,5 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
         }
 
     }
+
 }

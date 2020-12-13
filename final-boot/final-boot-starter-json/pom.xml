@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-boot-starter-json</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-json</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+    </dependencies>
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>jar</packaging>
+
     <parent>
         <artifactId>final-boot</artifactId>
         <groupId>org.ifinal.finalframework.boot</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
-
-    <artifactId>final-boot-starter-json</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-json</artifactId>
-        </dependency>
-    </dependencies>
 
 
 </project>

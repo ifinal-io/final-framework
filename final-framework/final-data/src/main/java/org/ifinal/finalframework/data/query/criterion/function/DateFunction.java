@@ -6,6 +6,7 @@ package org.ifinal.finalframework.data.query.criterion.function;
  * @since 1.0.0
  */
 public interface DateFunction<R> {
+
     R date();
 
 }

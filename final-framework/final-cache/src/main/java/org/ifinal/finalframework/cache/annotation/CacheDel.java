@@ -1,16 +1,14 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.annotation.CacheDel.List;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.cache.Cache;
+import org.ifinal.finalframework.cache.annotation.CacheDel.List;
 
 /**
  * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link JoinPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
@@ -69,7 +67,6 @@ public @interface CacheDel {
     long sleep() default 1000;
 
     JoinPoint point() default JoinPoint.AFTER_RETURNING;
-
 
     /**
      * Defines several {@link CacheDel } annotations on the same element.

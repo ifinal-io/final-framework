@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.dashboard.web.entity;
 
-
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @author likly
@@ -12,8 +10,12 @@ import java.io.Serializable;
  */
 @Data
 public class ResultMapping implements Serializable {
+
     private String name;
+
     private Class<?> type;
+
     private boolean required = true;
+
 }
 

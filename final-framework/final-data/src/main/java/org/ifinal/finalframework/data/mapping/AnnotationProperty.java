@@ -1,5 +1,9 @@
 package org.ifinal.finalframework.data.mapping;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.Column;
 import org.ifinal.finalframework.annotation.data.Default;
@@ -21,12 +25,6 @@ import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.Lazy;
 import org.springframework.lang.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
 
 /**
  * Simple implementation of {@link Property}
@@ -61,7 +59,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return annotation.writer();
     });
 
-
     /**
      * @see Column#reader()
      */
@@ -73,36 +70,43 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return annotation.reader();
     });
 
-
     /**
      * @see Order
      */
     private final Lazy<Integer> order = Lazy.of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
+
     /**
      * @see Default
      */
     private final Lazy<Boolean> isDefault = Lazy.of(!isTransient() && isAnnotationPresent(Default.class));
+
     /**
      * @see Final
      */
     private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
+
     /**
      * @see Virtual
      */
     private final Lazy<Boolean> isVirtual = Lazy.of(!isTransient() && isAnnotationPresent(Virtual.class));
+
     /**
      * @see ReadOnly
      */
     private final Lazy<Boolean> isReadonly = Lazy.of(!isTransient() && isAnnotationPresent(ReadOnly.class));
+
     /**
      * @see WriteOnly
      */
     private final Lazy<Boolean> isWriteOnly = Lazy.of(!isTransient() && isAnnotationPresent(WriteOnly.class));
+
     /**
      * @see Keyword
      */
     private final Lazy<Boolean> isKeyword = Lazy.of(!isTransient() && (isAnnotationPresent(Keyword.class) || SqlKeyWords.contains(getColumn())));
+
     private final Lazy<ReferenceMode> referenceMode = Lazy.of(isReference() ? getRequiredAnnotation(Reference.class).mode() : ReferenceMode.SIMPLE);
+
     private final Lazy<Map<String, String>> referenceColumns = Lazy.of(() -> {
 
         Map<String, String> map = new HashMap<>();
@@ -143,19 +147,17 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
 
     });
 
-
-    public AnnotationProperty(final org.springframework.data.mapping.model.Property property, final org.ifinal.finalframework.data.mapping.Entity<?> owner, final SimpleTypeHolder simpleTypeHolder) {
+    public AnnotationProperty(final org.springframework.data.mapping.model.Property property, final org.ifinal.finalframework.data.mapping.Entity<?> owner,
+        final SimpleTypeHolder simpleTypeHolder) {
 
         super(property, owner, simpleTypeHolder);
     }
-
 
     @Override
     @NonNull
     protected Association<Property> createAssociation() {
         return new Association<>(this, null);
     }
-
 
     @Override
     public int getOrder() {
@@ -228,10 +230,10 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return Optional.ofNullable(referenceColumns.get().get(property.getName())).orElse(property.getColumn());
     }
 
-
     @Override
     @SuppressWarnings("rawtypes")
     public Class<? extends TypeHandler> getTypeHandler() {
         return typeHandler.getNullable();
     }
+
 }

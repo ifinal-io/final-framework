@@ -18,5 +18,4 @@ public interface UpdateSetOperation extends Operation, SqlNode {
     @NonNull
     Operation getOperation();
 
-
 }

@@ -1,6 +1,8 @@
 package org.ifinal.finalframework.data.mapping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.annotation.data.NameConverter;
 import org.ifinal.finalframework.annotation.data.NonCompare;
 import org.ifinal.finalframework.annotation.data.Table;
@@ -9,9 +11,6 @@ import org.ifinal.finalframework.data.serializer.EntityJsonSerializer;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
 import org.springframework.data.mapping.PersistentEntity;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -39,12 +38,12 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
 
         Entity<T> entity = (Entity<T>) from(before.getClass());
         return entity.stream()
-                .filter(it -> !it.isTransient() && !it.isAnnotationPresent(NonCompare.class))
-                .map(property -> CompareProperty.builder()
-                        .property(property)
-                        .value(property.get(before), property.get(after))
-                        .build())
-                .collect(Collectors.toList());
+            .filter(it -> !it.isTransient() && !it.isAnnotationPresent(NonCompare.class))
+            .map(property -> CompareProperty.builder()
+                .property(property)
+                .value(property.get(before), property.get(after))
+                .build())
+            .collect(Collectors.toList());
     }
 
     default String getSimpleName() {

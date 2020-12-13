@@ -1,8 +1,6 @@
 package org.ifinal.finalframework.auto.processor;
 
-import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
-
+import java.util.Set;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -10,7 +8,8 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
-import java.util.Set;
+import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 
 /**
  * @author likly
@@ -43,15 +42,15 @@ public class AutoViewProcessor extends AbsServiceProcessor {
     protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         ElementFilter.typesIn(roundEnv.getRootElements())
-                .stream()
-                .filter(typeElementFilter::matches)
-                .forEach(entity -> addService(typeElement, entity));
+            .stream()
+            .filter(typeElementFilter::matches)
+            .forEach(entity -> addService(typeElement, entity));
 
         ElementFilter.typesIn(roundEnv.getRootElements())
-                .forEach(element -> ElementFilter.typesIn(element.getEnclosedElements())
-                        .stream()
-                        .filter(typeElementFilter::matches)
-                        .forEach(entity -> addService(typeElement, entity)));
+            .forEach(element -> ElementFilter.typesIn(element.getEnclosedElements())
+                .stream()
+                .filter(typeElementFilter::matches)
+                .forEach(entity -> addService(typeElement, entity)));
 
         return false;
     }

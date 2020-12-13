@@ -11,4 +11,5 @@ public interface CacheService {
 
     @Cacheable(key = "${key}")
     Integer cacheable(final Integer key);
+
 }

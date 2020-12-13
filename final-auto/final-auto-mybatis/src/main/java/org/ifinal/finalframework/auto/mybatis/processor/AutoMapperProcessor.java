@@ -1,17 +1,15 @@
 package org.ifinal.finalframework.auto.mybatis.processor;
 
-
-import org.apache.ibatis.annotations.Mapper;
-import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
-
+import java.util.Set;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
+import org.apache.ibatis.annotations.Mapper;
+import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 
 /**
  * @author likly
@@ -21,11 +19,10 @@ import java.util.Set;
 @AutoProcessor
 @SuppressWarnings("unused")
 @SupportedAnnotationTypes({
-        "org.apache.ibatis.annotations.Mapper"
+    "org.apache.ibatis.annotations.Mapper"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoMapperProcessor extends AbsServiceProcessor {
-
 
     private TypeElement mapperElement;
 
@@ -40,8 +37,7 @@ public class AutoMapperProcessor extends AbsServiceProcessor {
     protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         roundEnv.getElementsAnnotatedWith(Mapper.class)
-                .forEach(mapper -> addService(mapperElement, (TypeElement) mapper));
-
+            .forEach(mapper -> addService(mapperElement, (TypeElement) mapper));
 
         return false;
     }

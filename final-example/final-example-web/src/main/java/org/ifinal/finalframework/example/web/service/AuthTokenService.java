@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.example.web.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +15,6 @@ import org.ifinal.finalframework.web.auth.TokenService;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author likly
@@ -46,7 +45,6 @@ public class AuthTokenService implements TokenService<AuthTokenService.User>, Au
         if (request.getParameterMap().containsKey("unlogin")) {
             return null;
         }
-
 
         return new User(Long.MIN_VALUE, "user");
     }

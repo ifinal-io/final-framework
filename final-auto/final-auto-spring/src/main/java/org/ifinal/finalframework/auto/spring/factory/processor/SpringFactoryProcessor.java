@@ -1,18 +1,10 @@
 package org.ifinal.finalframework.auto.spring.factory.processor;
 
-import org.ifinal.finalframework.auto.model.AnnotationMirrors;
-import org.ifinal.finalframework.auto.model.AnnotationValues;
-import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactories;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.RoundEnvironment;
@@ -27,11 +19,18 @@ import javax.lang.model.type.DeclaredType;
 import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import org.ifinal.finalframework.auto.model.AnnotationMirrors;
+import org.ifinal.finalframework.auto.model.AnnotationValues;
+import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactories;
+import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * Parse the spring factory element which annotated by {@link Component} or {@link EnableAutoConfiguration}.
@@ -67,23 +66,22 @@ public class SpringFactoryProcessor extends AbstractProcessor {
             generateFactoryFile();
         } else {
             roundEnv.getRootElements()
-                    .forEach(element -> {
-                        switch (element.getKind()) {
-                            case CLASS:
-                                processClassTypeElement((TypeElement) element);
-                                break;
-                            case ANNOTATION_TYPE:
-                                processAnnotationTypeElement((TypeElement) element);
-                                break;
-                            case PACKAGE:
-                                processPackageElement((PackageElement) element, roundEnv);
-                                break;
-                            default:
-                                break;
-                        }
-                    });
+                .forEach(element -> {
+                    switch (element.getKind()) {
+                        case CLASS:
+                            processClassTypeElement((TypeElement) element);
+                            break;
+                        case ANNOTATION_TYPE:
+                            processAnnotationTypeElement((TypeElement) element);
+                            break;
+                        case PACKAGE:
+                            processPackageElement((PackageElement) element, roundEnv);
+                            break;
+                        default:
+                            break;
+                    }
+                });
         }
-
 
         return false;
     }
@@ -96,7 +94,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
             // of filer.getResource does change to match the spec, but there's
             // no good way to resolve CLASS_OUTPUT without first getting a resource.
             FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
-                    SpringFactoryResource.RESOURCE_FILE);
+                SpringFactoryResource.RESOURCE_FILE);
             InputStreamResource resource = new InputStreamResource(existingFile.openInputStream());
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             for (Map.Entry<?, ?> entry : properties.entrySet()) {
@@ -160,7 +158,8 @@ public class SpringFactoryProcessor extends AbstractProcessor {
             if (SpringFactory.class.getCanonicalName().equals(mirror.getAnnotationType().toString())) {
                 Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(mirror);
                 final TypeElement springFactory = AnnotationValues.getClass(annotationValues.get(SPRING_FACTORY_VALUE));
-                final boolean extend = annotationValues.containsKey(SPRING_FACTORY_EXTEND) && AnnotationValues.getBoolean(annotationValues.get(SPRING_FACTORY_EXTEND));
+                final boolean extend =
+                    annotationValues.containsKey(SPRING_FACTORY_EXTEND) && AnnotationValues.getBoolean(annotationValues.get(SPRING_FACTORY_EXTEND));
                 springFactoryResource.addSpringFactory(springFactory, element);
                 if (Boolean.TRUE.equals(extend)) {
                     springFactoryResource.addSpringFactory(SpringFactory.class.getCanonicalName(), springFactory.getQualifiedName().toString());
@@ -209,9 +208,10 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
         TypeElement annotation = (TypeElement) value.asElement();
         roundEnv.getElementsAnnotatedWith(annotation)
-                .stream()
-                .filter(it -> processingEnv.getElementUtils().getPackageOf(it).getQualifiedName().toString().startsWith(packageElement.getQualifiedName().toString()))
-                .forEach(item -> springFactoryResource.addSpringFactory(annotation, (TypeElement) item));
+            .stream()
+            .filter(
+                it -> processingEnv.getElementUtils().getPackageOf(it).getQualifiedName().toString().startsWith(packageElement.getQualifiedName().toString()))
+            .forEach(item -> springFactoryResource.addSpringFactory(annotation, (TypeElement) item));
     }
 
     @SuppressWarnings("unchecked")

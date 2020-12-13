@@ -1,9 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-
-import lombok.Data;
-
 import java.awt.Point;
+import lombok.Data;
 
 /**
  * @author likly
@@ -12,7 +10,10 @@ import java.awt.Point;
  */
 @Data
 public class DistanceValue {
+
     private Point location;
+
     private Long distance;
+
 }
 

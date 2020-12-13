@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 public @interface Meta {
+
     String name() default "";
 
     String content() default "";
@@ -22,7 +23,9 @@ public @interface Meta {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @interface Metas {
+
         Meta[] value() default {};
+
     }
 
 }

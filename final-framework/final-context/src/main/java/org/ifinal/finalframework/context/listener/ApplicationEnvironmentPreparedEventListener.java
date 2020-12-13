@@ -19,4 +19,5 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 
         logger.info(event.getClass().getCanonicalName());
     }
+
 }

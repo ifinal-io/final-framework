@@ -32,10 +32,11 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-        }
+    {
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+            BoundSql.class}),
+    }
 )
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 @Component
@@ -46,8 +47,9 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
     @Override
     protected void startPage(final Pageable pageable) {
 
-        if (Asserts.isNull(pageable) || Asserts.isNull(pageable.getPage()) || Asserts.isNull(pageable.getSize()))
+        if (Asserts.isNull(pageable) || Asserts.isNull(pageable.getPage()) || Asserts.isNull(pageable.getSize())) {
             return;
+        }
         startPage(pageable.getPage(), pageable.getSize(), Boolean.TRUE.equals(pageable.getCount()), false, false);
     }
 
@@ -63,7 +65,7 @@ public class PageHelperPageableInterceptor extends PageableInterceptor {
 
         final Page<Object> result = PageMethod.startPage(pageNum, pageSize, count, reasonable, pageSizeZero);
         logger.info("pageResult:page={},size={},pages={},total={}",
-                result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
+            result.getPageNum(), result.getPageSize(), result.getPages(), result.getTotal());
     }
 
 }

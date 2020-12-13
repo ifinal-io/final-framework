@@ -18,7 +18,6 @@ import org.springframework.data.redis.core.RedisOperations;
 @ConditionalOnClass(RedisOperations.class)
 public class FinalRedisAutoConfiguration {
 
-
     @Bean
     @ConditionalOnMissingBean
     public FinalRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {

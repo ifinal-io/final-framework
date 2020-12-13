@@ -4,15 +4,14 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import org.ifinal.finalframework.util.format.LocalDateTimeFormatter;
-import org.springframework.lang.NonNull;
-
-import javax.annotation.Generated;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import javax.annotation.Generated;
+import org.ifinal.finalframework.util.format.LocalDateTimeFormatter;
+import org.springframework.lang.NonNull;
 
 /**
  * <ul>
@@ -36,7 +35,6 @@ import java.time.LocalDateTime;
 public interface JavaPoets {
 
     String LINE = "\n";
-
 
     static AnnotationSpec generated(@NonNull Class<?> generator) {
         return AnnotationSpec.builder(Generated.class)
@@ -63,8 +61,6 @@ public interface JavaPoets {
             return "@version " + version + LINE;
         }
 
-
     }
-
 
 }

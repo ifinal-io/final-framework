@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-mybatis</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-core</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-data</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-json</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <!--外部依赖-->
+        <dependency>
+            <artifactId>mysql-connector-java</artifactId>
+            <groupId>mysql</groupId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <artifactId>mybatis</artifactId>
+            <groupId>org.mybatis</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>pagehelper</artifactId>
+            <groupId>com.github.pagehelper</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-devops</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-mybatis</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-data</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-json</artifactId>
-        </dependency>
-        <!--外部依赖-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-devops</artifactId>
-        </dependency>
-    </dependencies>
 </project>

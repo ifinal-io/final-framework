@@ -28,8 +28,10 @@ public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandl
     }
 
     @Override
-    public void after(final Tracer executor, final InvocationContext context, final AnnotationAttributes annotation, final Object result, final Throwable throwable) {
+    public void after(final Tracer executor, final InvocationContext context, final AnnotationAttributes annotation, final Object result,
+        final Throwable throwable) {
 
         executor.stop(context.getAttribute(TRACE_CONTEXT));
     }
+
 }

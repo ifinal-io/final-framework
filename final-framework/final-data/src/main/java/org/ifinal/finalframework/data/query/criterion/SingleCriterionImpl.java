@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-import org.ifinal.finalframework.data.query.operation.Operation;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
+import org.ifinal.finalframework.data.query.operation.Operation;
 
 /**
  * @author likly
@@ -15,8 +13,8 @@ import java.util.Set;
 public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements SingleCriterion<T> {
 
     private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
-            Operation.CompareOperation.IN,
-            Operation.CompareOperation.NOT_IN
+        Operation.CompareOperation.IN,
+        Operation.CompareOperation.NOT_IN
     ));
 
     private final T value;
@@ -61,7 +59,7 @@ public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements Singl
     }
 
     private static class BuilderImpl<T> extends AbsBuilder<SingleCriterion<T>, SingleCriterion.Builder<T>>
-            implements SingleCriterion.Builder<T> {
+        implements SingleCriterion.Builder<T> {
 
         private T value;
 

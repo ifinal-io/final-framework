@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.aop.simple;
 
-import org.ifinal.finalframework.aop.AnnotationBuilder;
-import org.springframework.lang.NonNull;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import org.ifinal.finalframework.aop.AnnotationBuilder;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -13,6 +12,7 @@ import java.lang.reflect.Parameter;
  * @since 1.0.0
  */
 public final class SimpleAnnotationBuilder<A extends Annotation> implements AnnotationBuilder<A, A> {
+
     @Override
     @NonNull
     public A build(final @NonNull Class<?> type, final @NonNull A annotation) {
@@ -33,4 +33,5 @@ public final class SimpleAnnotationBuilder<A extends Annotation> implements Anno
 
         return annotation;
     }
+
 }

@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-
 import java.io.Serializable;
 
 /**

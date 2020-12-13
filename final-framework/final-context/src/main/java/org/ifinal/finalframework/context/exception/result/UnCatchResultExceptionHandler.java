@@ -31,4 +31,5 @@ public class UnCatchResultExceptionHandler implements ResultExceptionHandler<Thr
         logger.error("UnCatchException:", throwable);
         return R.failure(500, Asserts.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
     }
+
 }

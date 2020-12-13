@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.aop;
 
-import org.springframework.lang.NonNull;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -21,4 +20,5 @@ public interface AnnotationBuilder<A extends Annotation, R> {
 
     @NonNull
     R build(final @NonNull Parameter parameter, final @NonNull Integer index, final @NonNull A annotation);
+
 }

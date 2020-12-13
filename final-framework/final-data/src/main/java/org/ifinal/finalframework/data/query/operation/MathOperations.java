@@ -27,5 +27,4 @@ public interface MathOperations {
         return new SimpleCriterionFunction(target, MathOperation.SUM);
     }
 
-
 }

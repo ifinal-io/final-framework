@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.Pageable;
@@ -9,12 +14,6 @@ import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
 import org.springframework.lang.NonNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -23,30 +22,36 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class Query implements Streamable<Criterion>, Pageable, SqlNode {
 
+    @Getter
+    private final List<Criterion> criteria = new ArrayList<>();
+
     /**
      * 页码，第一页从1开始
      */
     @Getter
     @Setter
     private Integer page;
+
     /**
      * 页面容量
      */
     @Setter
     @Getter
     private Integer size;
+
     /**
      * 是否进行Count查询
      */
     @Setter
     @Getter
     private Boolean count = Boolean.TRUE;
-    @Getter
-    private final List<Criterion> criteria = new ArrayList<>();
+
     @Getter
     private Group group;
+
     @Getter
     private Sort sort;
+
     @Getter
     private Limit limit;
 
@@ -150,7 +155,6 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
         return criteria.stream();
     }
 
-
     @Override
     public void apply(final @NonNull StringBuilder parent, final @NonNull String value) {
 
@@ -173,6 +177,6 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
             limit.apply(parent, String.format("%s.limit", value));
         }
 
-
     }
+
 }

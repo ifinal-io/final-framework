@@ -1,14 +1,12 @@
 package org.ifinal.finalframework.aop.interceptor;
 
-
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import org.ifinal.finalframework.aop.ExpressionEvaluator;
 import org.ifinal.finalframework.context.expression.MethodExpressionEvaluator;
 import org.springframework.context.expression.AnnotatedElementKey;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author likly
@@ -34,4 +32,5 @@ public class BaseExpressionEvaluator extends MethodExpressionEvaluator implement
     public void clear() {
         this.valueCache.clear();
     }
+
 }

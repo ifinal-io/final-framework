@@ -9,7 +9,9 @@ import java.lang.reflect.Type;
  * @since 1.0.0
  */
 public abstract class TypeReference<T> {
+
     private final Class<T> rawType;
+
     private final Type type;
 
     @SuppressWarnings("unchecked")
@@ -26,4 +28,5 @@ public abstract class TypeReference<T> {
     public final Type getType() {
         return type;
     }
+
 }

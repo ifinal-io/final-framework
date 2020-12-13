@@ -1,12 +1,5 @@
 package org.ifinal.finalframework.web.converter;
 
-import org.ifinal.finalframework.annotation.core.Enums;
-import org.ifinal.finalframework.annotation.core.IEnum;
-import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.util.function.Converter;
-import org.ifinal.finalframework.util.function.Filter;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.ifinal.finalframework.annotation.core.Enums;
+import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.finalframework.context.util.Messages;
+import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.function.Converter;
+import org.ifinal.finalframework.util.function.Filter;
 
 /**
  * @author likly
@@ -25,21 +24,28 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
     @Override
     public boolean matches(final Object enums) {
 
-
-        if (Asserts.isNull(enums)) return false;
+        if (Asserts.isNull(enums)) {
+            return false;
+        }
 
         if (enums.getClass().isArray()) {
-            if (Asserts.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) {
+                return false;
+            }
             return ((Object[]) enums)[0] instanceof IEnum;
         }
 
         if (enums instanceof List) {
-            if (Asserts.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) {
+                return false;
+            }
             return ((List<?>) enums).get(0) instanceof IEnum;
         }
 
         if (enums instanceof Set) {
-            if (Asserts.isEmpty(enums)) return false;
+            if (Asserts.isEmpty(enums)) {
+                return false;
+            }
             return ((Set<?>) enums).toArray()[0] instanceof IEnum;
         }
 
@@ -59,8 +65,8 @@ public class Enums2EnumBeansConverter implements Converter<Object, List<Map<Stri
         } else if (body instanceof Class && IEnum.class.isAssignableFrom((Class<?>) body)) {
             final Class<Enum<?>> enumClass = (Class<Enum<?>>) body;
             return Arrays.stream(enumClass.getEnumConstants())
-                    .map(item -> this.buildEnumBean((IEnum<?>) item))
-                    .collect(Collectors.toList());
+                .map(item -> this.buildEnumBean((IEnum<?>) item))
+                .collect(Collectors.toList());
         }
 
         throw new IllegalArgumentException("不支持的数据类型：" + body.getClass());

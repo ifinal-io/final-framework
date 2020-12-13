@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.core.annotation;
 
+import java.lang.reflect.AnnotatedElement;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
-
-import java.lang.reflect.AnnotatedElement;
 
 /**
  * @author likly
@@ -14,4 +13,5 @@ import java.lang.reflect.AnnotatedElement;
 public interface AnnotationAttributesProcessor {
 
     void doProcess(final @NonNull AnnotatedElement annotatedElement, final @NonNull AnnotationAttributes annotationAttributes);
+
 }

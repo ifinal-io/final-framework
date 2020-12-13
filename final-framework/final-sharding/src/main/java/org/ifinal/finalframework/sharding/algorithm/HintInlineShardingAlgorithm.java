@@ -3,6 +3,9 @@ package org.ifinal.finalframework.sharding.algorithm;
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.util.Expando;
+import java.util.Collection;
+import java.util.Properties;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineExpressionParser;
@@ -11,10 +14,6 @@ import org.apache.shardingsphere.sharding.api.sharding.hint.HintShardingValue;
 import org.apache.shardingsphere.sharding.spi.ShardingAlgorithm;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
-
-import java.util.Collection;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -44,8 +43,8 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
         }
 
         return shardingValue.getValues().stream()
-                .map(this::doSharding)
-                .collect(Collectors.toList());
+            .map(this::doSharding)
+            .collect(Collectors.toList());
 
     }
 
@@ -55,7 +54,6 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
         closure.setProperty(HINT_INLINE_VALUE_PROPERTY_NAME, shardingValue);
         return closure.call().toString();
     }
-
 
     @Override
     public void init() {
@@ -76,6 +74,5 @@ public class HintInlineShardingAlgorithm implements HintShardingAlgorithm<Compar
 
         return ShardingStrategy.Algorithm.HINT_INLINE;
     }
-
 
 }

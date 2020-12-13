@@ -1,11 +1,5 @@
 package org.ifinal.finalframework.aop.single;
 
-import org.ifinal.finalframework.aop.AnnotationBuilder;
-import org.ifinal.finalframework.aop.AnnotationFinder;
-import org.ifinal.finalframework.aop.AnnotationParser;
-import org.ifinal.finalframework.aop.AnnotationSource;
-import org.springframework.lang.Nullable;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -16,6 +10,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.ifinal.finalframework.aop.AnnotationBuilder;
+import org.ifinal.finalframework.aop.AnnotationFinder;
+import org.ifinal.finalframework.aop.AnnotationParser;
+import org.ifinal.finalframework.aop.AnnotationSource;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -66,7 +65,6 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
         annotations.addAll(parser.parseAnnotations(targetClass));
         annotations.addAll(parser.parseAnnotations(method));
 
-
         Parameter[] parameters = method.getParameters();
         for (int i = 0; i < parameters.length; i++) {
             annotations.addAll(parser.parseAnnotations(parameters[i], i));
@@ -78,4 +76,5 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
     protected boolean allowPublicMethodsOnly() {
         return false;
     }
+
 }

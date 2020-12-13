@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.data.query.type;
 
-
-import org.apache.ibatis.type.BaseTypeHandler;
-
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.ibatis.type.BaseTypeHandler;
 
 /**
  * The {@link ParameterTypeHandler} only used on {@literal WHERE} fragment.
@@ -15,7 +13,6 @@ import java.sql.SQLException;
  * @since 1.0.0
  */
 public abstract class ParameterTypeHandler<T> extends BaseTypeHandler<T> {
-
 
     @Override
     public final T getNullableResult(final ResultSet rs, final String columnName) throws SQLException {
@@ -36,5 +33,6 @@ public abstract class ParameterTypeHandler<T> extends BaseTypeHandler<T> {
         throw new UnsupportedOperationException("");
 
     }
+
 }
 

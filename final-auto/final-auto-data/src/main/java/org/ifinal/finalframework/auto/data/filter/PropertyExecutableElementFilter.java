@@ -1,15 +1,13 @@
 package org.ifinal.finalframework.auto.data.filter;
 
-
-import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.util.function.Filter;
-
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.function.Filter;
 
 /**
  * <h3>过滤不支持的{@link ExecutableElement}</h3>
@@ -42,14 +40,20 @@ public class PropertyExecutableElementFilter implements Filter<ExecutableElement
     @Override
     public boolean matches(final ExecutableElement e) {
 
-        if (ElementKind.METHOD != e.getKind()) return false;
+        if (ElementKind.METHOD != e.getKind()) {
+            return false;
+        }
         Set<Modifier> modifiers = e.getModifiers();
         for (Modifier modifier : ignoreModifiers) {
-            if (modifiers.contains(modifier)) return false;
+            if (modifiers.contains(modifier)) {
+                return false;
+            }
         }
 
         for (String prefix : GETTER_PREFIX) {
-            if (e.getSimpleName().toString().startsWith(prefix)) return true;
+            if (e.getSimpleName().toString().startsWith(prefix)) {
+                return true;
+            }
         }
 
         return true;

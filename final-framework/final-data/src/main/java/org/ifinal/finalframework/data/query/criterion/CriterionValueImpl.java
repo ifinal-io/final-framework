@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import lombok.Data;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.SqlKeyWords;
@@ -56,7 +55,7 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
         } else if (isProperty()) {
             QProperty<?> property = (QProperty<?>) this.value;
             criterionValue = SqlKeyWords.contains(property.getColumn().toLowerCase())
-                    ? String.format("`%s`", property.getColumn()) : property.getColumn();
+                ? String.format("`%s`", property.getColumn()) : property.getColumn();
         } else {
             criterionValue = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
         }

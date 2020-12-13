@@ -14,7 +14,6 @@ import org.springframework.lang.Nullable;
  */
 public interface GlobalExceptionHandler<T> {
 
-
     /**
      * 将异常 {@link Throwable} 转化为可读的结果 {@link T}
      *
@@ -22,4 +21,5 @@ public interface GlobalExceptionHandler<T> {
      */
     @Nullable
     T handle(final @NonNull Throwable throwable);
+
 }

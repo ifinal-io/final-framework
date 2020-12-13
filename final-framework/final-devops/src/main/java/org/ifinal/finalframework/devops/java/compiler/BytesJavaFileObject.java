@@ -1,14 +1,16 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
-import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.net.URI;
-
+import javax.tools.SimpleJavaFileObject;
 
 public class BytesJavaFileObject extends SimpleJavaFileObject {
+
     private static final char PKG_SEPARATOR = '.';
+
     private static final char DIR_SEPARATOR = '/';
+
     private static final String CLASS_FILE_SUFFIX = ".class";
 
     private ByteArrayOutputStream byteArrayOutputStream;
@@ -16,7 +18,7 @@ public class BytesJavaFileObject extends SimpleJavaFileObject {
     public BytesJavaFileObject(final String className) {
 
         super(URI.create("byte:///" + className.replace(PKG_SEPARATOR, DIR_SEPARATOR)
-                + Kind.CLASS.extension), Kind.CLASS);
+            + Kind.CLASS.extension), Kind.CLASS);
     }
 
     public BytesJavaFileObject(final String className, final ByteArrayOutputStream byteArrayOutputStream) {

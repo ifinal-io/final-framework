@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.aop.single;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.aop.MethodInvocationDispatcher;
 import org.springframework.lang.NonNull;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author likly
@@ -74,4 +73,5 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
     @NonNull
     protected abstract E getExecutor(final A annotation);
+
 }

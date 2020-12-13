@@ -6,8 +6,9 @@ package org.ifinal.finalframework.zookeeper.service;
  * @since 1.0.0
  */
 public class ZookeeperException extends RuntimeException {
-    public ZookeeperException(final Throwable cause) {
 
+    public ZookeeperException(final Throwable cause) {
         super(cause);
     }
+
 }

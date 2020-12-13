@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-boot-starter-data</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-boot-starter</artifactId>
+            <groupId>org.ifinal.finalframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-data</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-processor</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
+
     <parent>
         <artifactId>final-boot</artifactId>
         <groupId>org.ifinal.finalframework.boot</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-boot-starter-data</artifactId>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-data</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-processor</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

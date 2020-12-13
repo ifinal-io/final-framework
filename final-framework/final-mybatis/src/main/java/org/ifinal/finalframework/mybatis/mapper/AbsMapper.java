@@ -1,5 +1,9 @@
 package org.ifinal.finalframework.mybatis.mapper;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Options;
@@ -20,11 +24,6 @@ import org.ifinal.finalframework.mybatis.sql.provider.TruncateSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.UpdateSqlProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author likly
@@ -51,7 +50,7 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @Options(useGeneratedKeys = true, keyProperty = "list.id", keyColumn = "id")
     @InsertProvider(InsertSqlProvider.class)
     int insert(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view,
-               @Param("ignore") boolean ignore, @NonNull @Param("list") Collection<T> entities);
+        @Param("ignore") boolean ignore, @NonNull @Param("list") Collection<T> entities);
 
     /**
      * @param table    表名
@@ -75,12 +74,11 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @InsertProvider(InsertSqlProvider.class)
     int save(@Nullable @Param("table") String table, @Nullable @Param("view") Class<?> view, @NonNull @Param("list") Collection<T> entities);
 
-
     @Override
     @UpdateProvider(UpdateSqlProvider.class)
     int update(@Param("table") String table, @Param("view") Class<?> view,
-               @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
-               @Param("ids") Collection<I> ids, @Param("query") IQuery query);
+        @Param("entity") T entity, @Param("update") Update update, @Param("selective") boolean selective,
+        @Param("ids") Collection<I> ids, @Param("query") IQuery query);
 
     @Override
     @DeleteProvider(DeleteSqlProvider.class)
@@ -89,7 +87,7 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @Override
     @SelectProvider(SelectSqlProvider.class)
     List<T> select(@Param("table") String table, @Param("view") Class<?> view, @Param("ids") Collection<I> ids,
-                   @Param("query") IQuery query);
+        @Param("query") IQuery query);
 
     @Override
     @SelectProvider(SelectSqlProvider.class)
@@ -99,15 +97,12 @@ public interface AbsMapper<I extends Serializable, T extends IEntity<I>> extends
     @SelectProvider(SelectIdsSqlProvider.class)
     List<I> selectIds(@Nullable @Param("table") String table, @NonNull @Param("query") IQuery query);
 
-
     @Override
     @SelectProvider(SelectCountSqlProvider.class)
     long selectCount(@Param("table") String table, @Param("ids") Collection<I> ids, @Param("query") IQuery query);
 
-
     @Override
     @UpdateProvider(TruncateSqlProvider.class)
     void truncate(@Nullable @Param("table") String table);
-
 
 }

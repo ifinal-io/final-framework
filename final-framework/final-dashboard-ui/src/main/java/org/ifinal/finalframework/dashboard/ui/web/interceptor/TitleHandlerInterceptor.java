@@ -1,15 +1,13 @@
 package org.ifinal.finalframework.dashboard.ui.web.interceptor;
 
-
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.ifinal.finalframework.dashboard.ui.annotation.Title;
 import org.ifinal.finalframework.dashboard.ui.model.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Set;
 
 /**
  * @author likly
@@ -25,8 +23,8 @@ public class TitleHandlerInterceptor extends AnnotationUiHandlerInterceptor<Titl
 
     @Override
     protected void postHandle(final HttpServletRequest request, final HttpServletResponse response,
-                              final HandlerMethod handler, final Page page,
-                              final Set<Title> anns, final ModelAndView modelAndView) {
+        final HandlerMethod handler, final Page page,
+        final Set<Title> anns, final ModelAndView modelAndView) {
 
         anns.stream().findFirst().ifPresent(title -> page.setTitle(title.value()));
     }

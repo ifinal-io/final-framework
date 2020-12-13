@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.web.resolver;
 
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,7 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 public class RequestJsonParamHandlerRegistry {
+
     private static final RequestJsonParamHandlerRegistry instance = new RequestJsonParamHandlerRegistry();
+
     private final Map<Class<?>, RequestJsonParamHandler<?>> requestJsonParamHandlers = new ConcurrentHashMap<>(64);
 
     private RequestJsonParamHandlerRegistry() {

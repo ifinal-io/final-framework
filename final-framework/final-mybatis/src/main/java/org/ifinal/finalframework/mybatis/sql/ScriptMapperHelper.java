@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.mybatis.sql;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +30,6 @@ public abstract class ScriptMapperHelper {
         return String.format("<bind name=\"%s\" value=\"%s\"/>", name, value);
     }
 
-
     public static String formatBindValue(final String prefix, final String path) {
 
         if (path.contains(".")) {
@@ -45,9 +43,8 @@ public abstract class ScriptMapperHelper {
                 isNulls.add(builder.toString());
             }
 
-
             final String isNull = isNulls.stream().map(item -> String.format("%s == null", item))
-                    .collect(Collectors.joining(" || "));
+                .collect(Collectors.joining(" || "));
             return String.format("%s ? null : %s.%s", isNull, prefix, path);
         }
         return String.format("%s.%s", prefix, path);
@@ -71,7 +68,7 @@ public abstract class ScriptMapperHelper {
                 notNulls.add(builder.toString());
             }
             return notNulls.stream().map(item -> String.format("%s != null", item))
-                    .collect(Collectors.joining(" and "));
+                .collect(Collectors.joining(" and "));
         } else {
             if (selective) {
                 return String.format("%s.%s != null", prefix, path);

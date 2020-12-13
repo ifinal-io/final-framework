@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.data.serializer;
 
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import java.io.IOException;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
-
-import java.io.IOException;
 
 /**
  * @author likly
@@ -15,6 +13,7 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public class EntityJsonSerializer extends JsonSerializer<Entity<?>> {
+
     @Override
     public void serialize(final Entity<?> value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
 
@@ -27,7 +26,6 @@ public class EntityJsonSerializer extends JsonSerializer<Entity<?>> {
 
         gen.writeStartArray();
 
-
         for (Property property : value) {
             gen.writeObject(property);
         }
@@ -37,5 +35,6 @@ public class EntityJsonSerializer extends JsonSerializer<Entity<?>> {
         gen.writeEndObject();
 
     }
+
 }
 

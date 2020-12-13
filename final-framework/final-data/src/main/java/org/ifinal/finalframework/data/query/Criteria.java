@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
 import org.springframework.lang.NonNull;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * @author likly
@@ -26,9 +25,17 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
         return and(Arrays.asList(criterion));
     }
 
+    Criteria and(Criteria... criteria);
+
     static Criteria and(Collection<Criterion> criterion) {
         return new CriteriaImpl(AndOr.AND, criterion);
     }
+
+    default Criteria add(Criterion... criterion) {
+        return add(Arrays.asList(criterion));
+    }
+
+    Criteria add(Collection<Criterion> criterion);
 
     static Criteria or(Criterion... criterion) {
         return or(Arrays.asList(criterion));
@@ -38,18 +45,9 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
         return new CriteriaImpl(AndOr.OR, criterion);
     }
 
-    AndOr andOr();
-
-    default Criteria add(Criterion... criterion) {
-        return add(Arrays.asList(criterion));
-    }
-
-    Criteria add(Collection<Criterion> criterion);
-
-    Criteria and(Criteria... criteria);
-
     Criteria or(Criteria... criteria);
 
+    AndOr andOr();
 
     @Override
     default void apply(@NonNull StringBuilder sql, @NonNull String value) {
@@ -65,6 +63,6 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
 
         sql.append("</trim>");
 
-
     }
+
 }

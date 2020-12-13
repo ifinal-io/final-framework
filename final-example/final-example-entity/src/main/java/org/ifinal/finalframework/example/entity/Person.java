@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.example.entity;
 
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.IView;
@@ -9,9 +11,6 @@ import org.ifinal.finalframework.annotation.data.View;
 import org.ifinal.finalframework.annotation.sharding.InlineShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingTable;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author likly
@@ -43,7 +42,6 @@ public class Person extends AbsEntity {
 
     @Reference(properties = {"id", "name"})
     private Person creator;
-
 
     public interface RegisterView extends IView {
 

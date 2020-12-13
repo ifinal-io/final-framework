@@ -3,9 +3,8 @@ package org.ifinal.finalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinal.finalframework.annotation.core.IEnum;
-
 import java.io.IOException;
+import org.ifinal.finalframework.annotation.core.IEnum;
 
 /**
  * 枚举{@link IEnum}对象序列化器，将枚举序列化成一个Json对象。
@@ -42,4 +41,5 @@ public class EnumSerializer extends JsonSerializer<IEnum<?>> {
         gen.writeObject(value.getDesc());
         gen.writeEndObject();
     }
+
 }

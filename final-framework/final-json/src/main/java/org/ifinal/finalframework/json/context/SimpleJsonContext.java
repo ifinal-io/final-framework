@@ -8,7 +8,9 @@ package org.ifinal.finalframework.json.context;
 public class SimpleJsonContext implements JsonContext {
 
     private boolean ignore;
+
     private boolean modifyEnum;
+
     private boolean modifyDate;
 
     public SimpleJsonContext() {
@@ -54,4 +56,5 @@ public class SimpleJsonContext implements JsonContext {
 
         this.modifyDate = modifyDate;
     }
+
 }

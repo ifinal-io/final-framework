@@ -1,14 +1,12 @@
 package org.ifinal.finalframework.aop;
 
-
 import com.fasterxml.jackson.annotation.JsonView;
-import org.ifinal.finalframework.context.expression.MethodMetadata;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.util.ObjectUtils;
-
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import org.ifinal.finalframework.context.expression.MethodMetadata;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author likly
@@ -16,10 +14,15 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class DefaultInvocationContext implements InvocationContext {
+
     private final MethodMetadata metadata;
+
     private final Object target;
+
     private final Object[] args;
+
     private final Class<?> view;
+
     private final Map<String, Object> attributes = new HashMap<>();
 
     public DefaultInvocationContext(final MethodMetadata metadata, final Object target, final Object[] args) {
@@ -80,16 +83,19 @@ public class DefaultInvocationContext implements InvocationContext {
         return combinedArgs;
     }
 
-
     private Class<?> extractView(final Method method) {
 
         final JsonView jsonView = AnnotationUtils.findAnnotation(method, JsonView.class);
-        if (jsonView == null) return null;
+        if (jsonView == null) {
+            return null;
+        }
         Class<?>[] classes = jsonView.value();
         if (classes.length != 1) {
             throw new IllegalArgumentException(
-                    "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass().getCanonicalName() + "#" + method.getName());
+                "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass().getCanonicalName() + "#" + method
+                    .getName());
         }
         return classes[0];
     }
+
 }

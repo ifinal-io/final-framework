@@ -9,7 +9,6 @@ import org.ifinal.finalframework.annotation.data.NameConverter;
  */
 public class CameHump2UnderlineNameConverter implements NameConverter {
 
-
     @Override
     public String convert(final String name) {
 

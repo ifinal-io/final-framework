@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.dashboard.devops.service;
 
-import org.ifinal.finalframework.dashboard.devops.model.LoggerModel;
-
 import java.util.List;
+import org.ifinal.finalframework.dashboard.devops.model.LoggerModel;
 
 /**
  * @author likly
@@ -14,4 +13,5 @@ public interface LoggerService {
     List<LoggerModel> query();
 
     void setLevel(String name, String level);
+
 }

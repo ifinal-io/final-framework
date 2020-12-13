@@ -1,17 +1,15 @@
 package org.ifinal.finalframework.auto.data;
 
-
-import org.ifinal.finalframework.auto.coding.beans.Bean;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import org.ifinal.finalframework.auto.coding.beans.Bean;
 
 /**
  * @author likly
@@ -41,22 +39,21 @@ public final class EntityFactory {
         while (typeElement != null) {
 
             Bean.from(processEnv, typeElement).stream()
-//                    .filter(property -> property.getField().isPresent())
-                    .filter(property -> {
-                                if (property.getField().isPresent()) {
-                                    return property.getField().map(field ->
-                                            !(field.getModifiers().contains(Modifier.FINAL) || field.getModifiers().contains(Modifier.STATIC)))
-                                            .orElse(true);
-                                } else if (property.getGetter().isPresent()) {
-                                    return property.getGetter().map(method ->
-                                            !(method.getModifiers().contains(Modifier.FINAL) || method.getModifiers().contains(Modifier.STATIC))).orElse(true);
-                                }
+                .filter(property -> {
+                        if (property.getField().isPresent()) {
+                            return property.getField().map(field ->
+                                !(field.getModifiers().contains(Modifier.FINAL) || field.getModifiers().contains(Modifier.STATIC)))
+                                .orElse(true);
+                        } else if (property.getGetter().isPresent()) {
+                            return property.getGetter().map(method ->
+                                !(method.getModifiers().contains(Modifier.FINAL) || method.getModifiers().contains(Modifier.STATIC))).orElse(true);
+                        }
 
-                                return false;
-                            }
-                    )
-                    .map(property -> new AnnotationProperty(processEnv, property.getField(), Optional.of(property)))
-                    .forEach(result::addProperty);
+                        return false;
+                    }
+                )
+                .map(property -> new AnnotationProperty(processEnv, property.getField(), Optional.of(property)))
+                .forEach(result::addProperty);
 
             TypeMirror superclass = typeElement.getSuperclass();
             if (superclass != null) {
@@ -72,6 +69,5 @@ public final class EntityFactory {
 
         return result;
     }
-
 
 }

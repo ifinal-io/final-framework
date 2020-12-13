@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.dashboard.ui.autoconfiguration;
 
-
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.ifinal.finalframework.dashboard.ui.dialect.JsonDialect;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.TemplateEngine;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * @author likly
@@ -17,13 +15,14 @@ import javax.annotation.Resource;
 @Configuration
 @SpringAutoConfiguration
 public class TemplateDialectAutoConfiguration {
+
     @Resource
     private TemplateEngine templateEngine;
-
 
     @PostConstruct
     public void init() {
         templateEngine.addDialect(new JsonDialect());
     }
+
 }
 

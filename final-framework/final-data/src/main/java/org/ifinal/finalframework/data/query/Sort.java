@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.Direction;
-
 import java.util.Arrays;
 import java.util.Collection;
+import org.ifinal.finalframework.annotation.query.Direction;
 
 /**
  * @author likly
@@ -52,4 +51,5 @@ public interface Sort extends Iterable<Order>, SqlNode {
         sql.append("</trim>");
 
     }
+
 }

@@ -1,11 +1,10 @@
 package org.ifinal.finalframework.monitor.trace;
 
+import java.util.Arrays;
+import javax.annotation.Resource;
 import org.ifinal.finalframework.aop.simple.SimpleAnnotationBeanFactoryPointAdvisor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
 
 /**
  * @author likly
@@ -26,4 +25,5 @@ public class TraceBeanFactoryPointcutAdvisor extends SimpleAnnotationBeanFactory
     protected Tracer getExecutor() {
         return tracer;
     }
+
 }

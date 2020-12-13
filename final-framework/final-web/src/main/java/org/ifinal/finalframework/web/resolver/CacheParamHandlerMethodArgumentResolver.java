@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.web.resolver;
 
-
 import org.ifinal.finalframework.cache.annotation.CacheValue;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,7 @@ public class CacheParamHandlerMethodArgumentResolver implements HandlerMethodArg
 
     @Override
     public Object resolveArgument(final MethodParameter parameter, final ModelAndViewContainer mavContainer,
-                                  final NativeWebRequest webRequest, final WebDataBinderFactory binderFactory) throws Exception {
+        final NativeWebRequest webRequest, final WebDataBinderFactory binderFactory) throws Exception {
 
         return null;
     }

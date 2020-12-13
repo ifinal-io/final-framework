@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.cache;
 
+import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.aop.Executor;
 import org.ifinal.finalframework.cache.handler.CacheLockInterceptorHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import java.lang.reflect.Type;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 缓存器，定义统一的缓存接口方法。

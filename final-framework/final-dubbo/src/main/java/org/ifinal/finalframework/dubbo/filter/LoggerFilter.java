@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.dubbo.filter;
 
-
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.Filter;
@@ -18,11 +17,12 @@ import org.slf4j.LoggerFactory;
  * @since 1.0.0
  */
 @Activate(
-        group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}
+    group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}
 )
 @AutoFilter("logger")
 @SuppressWarnings("unused")
 public class LoggerFilter implements Filter {
+
     @Override
     public Result invoke(final Invoker<?> invoker, final Invocation invocation) {
 
@@ -43,5 +43,6 @@ public class LoggerFilter implements Filter {
             throw new RpcException(e);
         }
     }
+
 }
 

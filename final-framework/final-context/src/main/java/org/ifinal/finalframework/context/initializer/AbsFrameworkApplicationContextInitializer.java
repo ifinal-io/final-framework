@@ -50,4 +50,5 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
         throw new BeanDefinitionStoreException("Can not found BeanDefinitionRegistry from " + context);
 
     }
+
 }

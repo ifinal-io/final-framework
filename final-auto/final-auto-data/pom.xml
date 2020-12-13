@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-auto-data</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>final-auto-coding</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-core</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-data-commons</artifactId>
+            <groupId>org.springframework.data</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-annotation</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+            <version>${final.version}</version>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
+
     <parent>
         <artifactId>final-auto</artifactId>
         <groupId>org.ifinal.finalframework.auto</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>final-auto-data</artifactId>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-coding</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-annotation</artifactId>
-            <version>${final.version}</version>
-        </dependency>
-    </dependencies>
 
 </project>

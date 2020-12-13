@@ -16,6 +16,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  */
 @Component
 public class MissingServletParameterResultExceptionHandler implements ResultExceptionHandler<MissingServletRequestParameterException> {
+
     @Override
     public boolean supports(final Throwable throwable) {
 
@@ -28,4 +29,5 @@ public class MissingServletParameterResultExceptionHandler implements ResultExce
         MissingServletRequestParameterException e = throwable;
         return R.failure(400, e.getMessage());
     }
+
 }

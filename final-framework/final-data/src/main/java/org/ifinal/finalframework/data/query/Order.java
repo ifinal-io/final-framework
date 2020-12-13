@@ -31,4 +31,5 @@ public interface Order extends SqlNode {
     default void apply(@NonNull StringBuilder sql, @NonNull String value) {
         sql.append(String.format("%s %s,", getProperty().getColumn(), getDirection()));
     }
+
 }

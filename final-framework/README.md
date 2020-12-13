@@ -1,17 +1,11 @@
 ---
-layout: post
-title: README
-subtitle: README
-description: README
-tags: []
+layout: post title: README subtitle: README description: README tags: []
 menus:
-    - README
-date: 2020-11-11 14:20:22 +800
-version: 1.0
----
-    
-# final framework
 
+- README date: 2020-11-11 14:20:22 +800 version: 1.0
+---
+
+# final framework
 
 `final-framework`用于封装常用的技术框架。
 

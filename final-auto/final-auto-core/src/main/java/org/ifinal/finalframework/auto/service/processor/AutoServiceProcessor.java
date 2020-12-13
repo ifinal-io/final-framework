@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.auto.service.processor;
 
-import org.ifinal.finalframework.auto.model.AnnotationMirrors;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -16,9 +14,10 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.util.ElementFilter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.ifinal.finalframework.auto.model.AnnotationMirrors;
+import org.ifinal.finalframework.auto.service.annotation.AutoService;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -74,7 +73,8 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
         processAutoService(element, autoService, null);
     }
 
-    private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService, final @Nullable AnnotationMirror targetService) {
+    private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService,
+        final @Nullable AnnotationMirror targetService) {
 
         try {
             final Map<String, AnnotationValue> autoServiceValues = AnnotationMirrors.getAnnotationValues(autoService);
@@ -85,7 +85,7 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
             // first, the name is AutoService#name()
             String name = autoServiceValues.containsKey(KEY_NAME) ? (String) autoServiceValues.get(KEY_NAME).getValue() : null;
             if (targetServiceValues != null && targetServiceValues.containsKey(KEY_VALUE)) {
-//                // the targetService annotation may do not have the value property.
+                // the targetService annotation may do not have the value property.
                 name = (String) targetServiceValues.get(KEY_VALUE).getValue();
             }
             addService((TypeElement) serviceInterface.asElement(), element, name, path);

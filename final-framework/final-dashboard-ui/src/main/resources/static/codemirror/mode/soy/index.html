@@ -17,22 +17,22 @@
     border-bottom: 1px solid black;
 }</style>
 <div id=nav>
-    <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
+  <a href="https://codemirror.net"><h1>CodeMirror</h1><img alt="" id=logo src="../../doc/logo.png"></a>
 
-    <ul>
-        <li><a href="../../index.html">Home</a>
-        <li><a href="../../doc/manual.html">Manual</a>
-        <li><a href="https://github.com/codemirror/codemirror">Code</a>
-    </ul>
-    <ul>
-        <li><a href="../index.html">Language modes</a>
-        <li><a class=active href="#">Soy (Closure Template)</a>
-    </ul>
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Soy (Closure Template)</a>
+  </ul>
 </div>
 
 <article>
-    <h2>Soy (Closure Template) mode</h2>
-    <form><textarea id="code" name="code">
+  <h2>Soy (Closure Template) mode</h2>
+  <form><textarea id="code" name="code">
 {namespace example}
 
 /**
@@ -56,16 +56,17 @@
 {/template}
 </textarea></form>
 
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: "text/x-soy",
-            indentUnit: 2,
-            indentWithTabs: false
-        });
-    </script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: "text/x-soy",
+      indentUnit: 2,
+      indentWithTabs: false
+    });
+  </script>
 
-    <p>A mode for <a href="https://developers.google.com/closure/templates/">Closure Templates</a> (Soy).</p>
-    <p><strong>MIME type defined:</strong> <code>text/x-soy</code>.</p>
+  <p>A mode for <a href="https://developers.google.com/closure/templates/">Closure Templates</a>
+    (Soy).</p>
+  <p><strong>MIME type defined:</strong> <code>text/x-soy</code>.</p>
 </article>

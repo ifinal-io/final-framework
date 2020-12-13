@@ -1,9 +1,8 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderMethodResolver;
-
-import java.util.Map;
 
 /**
  * @author likly
@@ -11,5 +10,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 public interface SqlProvider extends ProviderMethodResolver {
+
     String provide(ProviderContext context, Map<String, Object> parameters);
+
 }

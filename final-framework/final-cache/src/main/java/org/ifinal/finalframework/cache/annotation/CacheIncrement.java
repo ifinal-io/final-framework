@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.cache.annotation;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.cache.Cache;
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Repeatable;
@@ -11,6 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
+import org.ifinal.finalframework.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.cache.Cache;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * @author likly
@@ -44,7 +43,6 @@ public @interface CacheIncrement {
      * @return delimiter
      */
     String delimiter() default ":";
-
 
     String value() default "{1}";
 
@@ -91,12 +89,13 @@ public @interface CacheIncrement {
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
+
         CacheIncrement[] value();
+
     }
 
 }

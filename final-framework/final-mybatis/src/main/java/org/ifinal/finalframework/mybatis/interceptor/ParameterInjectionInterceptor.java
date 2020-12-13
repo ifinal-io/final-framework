@@ -1,5 +1,10 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Properties;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -21,12 +26,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.Properties;
-
 /**
  * 参数注入拦截器
  *
@@ -35,19 +34,22 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-        }
+    {
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class,
+            BoundSql.class}),
+    }
 )
 @Order
 @Component
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ParameterInjectionInterceptor implements Interceptor {
+
     private static final Logger logger = LoggerFactory.getLogger(ParameterInjectionInterceptor.class);
 
     private static final String TABLE_PARAMETER_NAME = "table";
+
     private static final String PROPERTIES_PARAMETER_NAME = "properties";
 
     public static <I extends Serializable, T extends IEntity<I>> Class<T> from(final @NonNull Class<? extends AbsMapper> mapper) {
@@ -55,7 +57,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
         Type[] genericInterfaces = mapper.getGenericInterfaces();
         for (Type type : genericInterfaces) {
             if (type instanceof ParameterizedType && Repository.class
-                    .isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
+                .isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
                 return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[1];
 
             }
@@ -86,7 +88,6 @@ public class ParameterInjectionInterceptor implements Interceptor {
 
             }
 
-
             return invocation.proceed();
 
         } catch (Exception e) {
@@ -96,7 +97,6 @@ public class ParameterInjectionInterceptor implements Interceptor {
         }
 
     }
-
 
     @Override
     public Object plugin(final Object target) {

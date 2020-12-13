@@ -23,4 +23,5 @@ public interface BetweenCondition<V, R> extends Condition {
      * @return result
      */
     R notBetween(@NonNull V min, @NonNull V max);
+
 }

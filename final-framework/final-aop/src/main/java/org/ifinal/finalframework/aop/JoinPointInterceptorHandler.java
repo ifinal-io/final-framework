@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
  * @since 1.0.0
  */
 public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E, A> {
+
     @Nullable
     JoinPoint point(final A annotation);
 
@@ -31,7 +32,8 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final @NonNull Throwable throwable) {
+    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation,
+        final @NonNull Throwable throwable) {
 
         if (JoinPoint.AFTER_THROWING == point(annotation)) {
             handle(executor, context, annotation, null, throwable);
@@ -39,10 +41,12 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void after(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final Object result, final Throwable throwable) {
+    default void after(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final Object result,
+        final Throwable throwable) {
 
         if (JoinPoint.AFTER == point(annotation)) {
             handle(executor, context, annotation, result, throwable);
         }
     }
+
 }

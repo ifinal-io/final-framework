@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.cors;
 
-
+import java.io.Serializable;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.servlet.config.annotation.CorsRegistration;
-
-import java.io.Serializable;
 
 /**
  * @author likly

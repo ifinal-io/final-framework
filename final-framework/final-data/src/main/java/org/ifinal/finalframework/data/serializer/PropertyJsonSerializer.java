@@ -1,14 +1,12 @@
 package org.ifinal.finalframework.data.serializer;
 
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinal.finalframework.annotation.data.Json;
-import org.ifinal.finalframework.data.mapping.Property;
-
 import java.io.IOException;
 import java.util.Objects;
+import org.ifinal.finalframework.annotation.data.Json;
+import org.ifinal.finalframework.data.mapping.Property;
 
 /**
  * @author likly
@@ -16,6 +14,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public class PropertyJsonSerializer extends JsonSerializer<Property> {
+
     @Override
     public void serialize(final Property property, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
 
@@ -51,8 +50,8 @@ public class PropertyJsonSerializer extends JsonSerializer<Property> {
 
         gen.writeEndObject();
 
-
         gen.writeEndObject();
     }
+
 }
 

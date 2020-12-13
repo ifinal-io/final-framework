@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -10,6 +8,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import lombok.experimental.UtilityClass;
 
 /**
  * @author likly
@@ -34,14 +33,14 @@ public final class Beans {
     public static Map<String, Object> toMap(final Object bean) {
         BeanInfo beanInfo = from(bean.getClass());
         return Arrays.stream(beanInfo.getPropertyDescriptors())
-//                .filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
-                .collect(Collectors.toMap(PropertyDescriptor::getName, property -> {
-                    try {
-                        return property.getReadMethod().invoke(bean);
-                    } catch (Exception e) {
-                        throw new IllegalArgumentException(e);
-                    }
-                }));
+            //.filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
+            .collect(Collectors.toMap(PropertyDescriptor::getName, property -> {
+                try {
+                    return property.getReadMethod().invoke(bean);
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }));
     }
 
 }

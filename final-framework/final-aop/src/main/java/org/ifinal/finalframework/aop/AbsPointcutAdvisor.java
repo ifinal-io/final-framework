@@ -10,6 +10,7 @@ import org.springframework.core.Ordered;
  * @since 1.0.0
  */
 public abstract class AbsPointcutAdvisor implements PointcutAdvisor, Ordered {
+
     private Integer order;
 
     @Override
@@ -33,4 +34,5 @@ public abstract class AbsPointcutAdvisor implements PointcutAdvisor, Ordered {
     public boolean isPerInstance() {
         return true;
     }
+
 }

@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>final-frameworks</artifactId>
-        <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-example</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <artifactId>final-boot</artifactId>
+                <groupId>org.ifinal.finalframework.boot</groupId>
+                <scope>import</scope>
+                <type>pom</type>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-example-entity</artifactId>
+                <groupId>org.ifinal.finalframework.example</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-example-dao</artifactId>
+                <groupId>org.ifinal.finalframework.example</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-example-service</artifactId>
+                <groupId>org.ifinal.finalframework.example</groupId>
+                <version>${final.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
     <groupId>org.ifinal.finalframework.example</groupId>
-    <artifactId>final-example</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
-
+    <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>final-example-entity</module>
         <module>final-example-dao</module>
@@ -21,46 +51,16 @@
         <module>final-example-service</module>
     </modules>
 
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <artifactId>final-boot</artifactId>
-                <version>${final.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.example</groupId>
-                <artifactId>final-example-entity</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.example</groupId>
-                <artifactId>final-example-dao</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.example</groupId>
-                <artifactId>final-example-service</artifactId>
-                <version>${final.version}</version>
-            </dependency>
-        </dependencies>
-
-    </dependencyManagement>
+    <packaging>pom</packaging>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
+
+
+    <version>1.0.3-SNAPSHOT</version>
 
 </project>

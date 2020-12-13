@@ -1,5 +1,13 @@
 package org.ifinal.finalframework.sharding.config;
 
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
+import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
 import org.apache.shardingsphere.infra.config.algorithm.ShardingSphereAlgorithmConfiguration;
@@ -13,15 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.CollectionUtils;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -29,8 +28,8 @@ import java.util.Properties;
  */
 @Slf4j
 public class ShardingDataSourceSupport {
-    private final ShardingConfigurerComposite composite = new ShardingConfigurerComposite();
 
+    private final ShardingConfigurerComposite composite = new ShardingConfigurerComposite();
 
     @Autowired(required = false)
     public void setConfigurers(final List<ShardingConfigurer> configurers) {
@@ -40,7 +39,6 @@ public class ShardingDataSourceSupport {
         }
     }
 
-
     @Bean
     protected DataSource dataSource() throws SQLException {
 
@@ -48,9 +46,9 @@ public class ShardingDataSourceSupport {
 
         ShardingRuleConfiguration configuration = new ShardingRuleConfiguration();
 
-
         for (ShardingTableRegistration registration : shardingConfiguration.getTables()) {
-            ShardingTableRuleConfiguration shardingTableRuleConfiguration = new ShardingTableRuleConfiguration(registration.getLogicTable(), registration.getActualDataNodes());
+            ShardingTableRuleConfiguration shardingTableRuleConfiguration = new ShardingTableRuleConfiguration(registration.getLogicTable(),
+                registration.getActualDataNodes());
 
             ShardingStrategyRegistration databaseShardingStrategy = registration.getDatabaseShardingStrategy();
             if (Objects.nonNull(databaseShardingStrategy)) {
@@ -62,7 +60,6 @@ public class ShardingDataSourceSupport {
                 shardingTableRuleConfiguration.setTableShardingStrategy(buildShardingStrategy(tableShardingStrategy));
             }
 
-
             configuration.getTables().add(shardingTableRuleConfiguration);
         }
 
@@ -70,7 +67,7 @@ public class ShardingDataSourceSupport {
 
         for (ShardingAlgorithmRegistration shardingAlgorithm : shardingAlgorithmRegistry.getShardingAlgorithms()) {
             configuration.getShardingAlgorithms().put(shardingAlgorithm.getName(),
-                    buildShardingAlgorithm(shardingAlgorithm));
+                buildShardingAlgorithm(shardingAlgorithm));
         }
 
         Properties props = new Properties();
@@ -78,16 +75,15 @@ public class ShardingDataSourceSupport {
 
         return ShardingSphereDataSourceFactory.createDataSource(shardingConfiguration.getDatasource(), Collections.singleton(configuration), props);
 
-
     }
 
     protected ShardingConfiguration getShardingDataSourceConfiguration() {
 
         ShardingConfiguration configuration = ShardingConfiguration.builder()
-                .datasource(Collections.unmodifiableMap(getDataSourceRegistry().getDataSources()))
-                .tables(Collections.unmodifiableCollection(getShardingTableRegistry().getTables()))
-                .shardingAlgorithms(Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
-                .build();
+            .datasource(Collections.unmodifiableMap(getDataSourceRegistry().getDataSources()))
+            .tables(Collections.unmodifiableCollection(getShardingTableRegistry().getTables()))
+            .shardingAlgorithms(Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
+            .build();
 
         log(configuration);
 
@@ -100,7 +96,6 @@ public class ShardingDataSourceSupport {
         if (!logger.isInfoEnabled()) {
             return;
         }
-
 
         logger.info("------------------- final sharding configuration -------------------");
         logger.info("├─final:");
@@ -139,7 +134,6 @@ public class ShardingDataSourceSupport {
 
     }
 
-
     private ShardingAlgorithmRegistry getShardingAlgorithmRegistry() {
         ShardingAlgorithmRegistry registry = new ShardingAlgorithmRegistry();
         composite.addShardingAlgorithms(registry);
@@ -161,13 +155,10 @@ public class ShardingDataSourceSupport {
                 return new HintShardingStrategyConfiguration(shardingStrategyRegistration.getName());
             case COMPLEX:
                 return new ComplexShardingStrategyConfiguration(columns, shardingStrategyRegistration.getName());
-//            case NONE:
-//                return new NoneShardingStrategyConfiguration();
             default:
                 throw new IllegalArgumentException(shardingStrategyRegistration.getType());
         }
     }
-
 
     private ShardingDataSourceRegistry getDataSourceRegistry() {
         ShardingDataSourceRegistry registry = new ShardingDataSourceRegistry();
@@ -180,6 +171,5 @@ public class ShardingDataSourceSupport {
         composite.addShardingTable(registry);
         return registry;
     }
-
 
 }

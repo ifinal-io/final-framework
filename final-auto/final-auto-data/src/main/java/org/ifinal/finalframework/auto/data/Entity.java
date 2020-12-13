@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.auto.data;
 
-
-import org.ifinal.finalframework.util.stream.Streamable;
-
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import javax.lang.model.element.TypeElement;
+import org.ifinal.finalframework.util.stream.Streamable;
 
 /**
  * @author likly

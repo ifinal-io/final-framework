@@ -1,16 +1,15 @@
 package org.ifinal.finalframework.auto.processor;
 
-import org.ifinal.finalframework.util.function.Filter;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
+import java.util.Objects;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-import java.util.Objects;
+import org.ifinal.finalframework.util.function.Filter;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -28,8 +27,8 @@ public class TypeElementFilter implements Filter<TypeElement> {
     private final TypeElement transientAnnotationTypeElement;
 
     public TypeElementFilter(final @NonNull ProcessingEnvironment processingEnvironment,
-                             final @NonNull TypeElement entityTypeElement,
-                             final @Nullable TypeElement transientAnnotationTypeElement) {
+        final @NonNull TypeElement entityTypeElement,
+        final @Nullable TypeElement transientAnnotationTypeElement) {
 
         Objects.requireNonNull(entityTypeElement, "typeElement can not be null!");
 
@@ -45,7 +44,8 @@ public class TypeElementFilter implements Filter<TypeElement> {
         if (isAnnotated(typeElement, transientAnnotationTypeElement)) {
             return false;
         }
-        messager.printMessage(Diagnostic.Kind.NOTE, String.format("[INFO] [TypeElementFilter] filter typeElement: %s", typeElement.getQualifiedName().toString()));
+        messager
+            .printMessage(Diagnostic.Kind.NOTE, String.format("[INFO] [TypeElementFilter] filter typeElement: %s", typeElement.getQualifiedName().toString()));
         boolean subtype = types.isSubtype(types.erasure(typeElement.asType()), types.erasure(entityTypeElement.asType()));
         if (subtype) {
             String msg = "[INFO] [EntityFilter] find entity : " + typeElement.getQualifiedName().toString();

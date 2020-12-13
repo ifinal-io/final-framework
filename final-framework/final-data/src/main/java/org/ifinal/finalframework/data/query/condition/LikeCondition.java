@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
  */
 @SuppressWarnings("unused")
 public interface LikeCondition<R> extends Condition {
+
     default R startWith(@NonNull String value) {
         return like("%" + value);
     }

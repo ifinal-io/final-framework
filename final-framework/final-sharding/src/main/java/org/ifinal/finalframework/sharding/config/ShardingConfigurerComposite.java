@@ -1,10 +1,9 @@
 package org.ifinal.finalframework.sharding.config;
 
-import org.springframework.lang.NonNull;
-import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import org.springframework.lang.NonNull;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author likly
@@ -12,8 +11,8 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public final class ShardingConfigurerComposite implements ShardingConfigurer {
-    private final Collection<ShardingConfigurer> configurers = new ArrayList<>();
 
+    private final Collection<ShardingConfigurer> configurers = new ArrayList<>();
 
     public void addShardingConfigurers(final Collection<ShardingConfigurer> shardingConfigurers) {
 
@@ -54,4 +53,5 @@ public final class ShardingConfigurerComposite implements ShardingConfigurer {
         configurers.forEach(each -> each.addShardingAlgorithms(registry));
 
     }
+
 }

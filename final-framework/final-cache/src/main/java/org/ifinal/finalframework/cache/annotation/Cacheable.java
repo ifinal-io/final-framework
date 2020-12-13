@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.cache.annotation;
 
-
-import org.ifinal.finalframework.cache.Cache;
-import org.springframework.core.annotation.AliasFor;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,6 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
+import org.ifinal.finalframework.cache.Cache;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * 缓存，为目标方法增加缓存能力。
@@ -89,6 +87,5 @@ public @interface Cacheable {
      * @return timeunit
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
-
 
 }

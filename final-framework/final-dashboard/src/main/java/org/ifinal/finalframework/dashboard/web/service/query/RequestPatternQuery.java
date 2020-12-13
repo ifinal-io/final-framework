@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.dashboard.web.service.query;
 
-
 import lombok.Data;
 
 /**
@@ -10,6 +9,8 @@ import lombok.Data;
  */
 @Data
 public class RequestPatternQuery {
+
     private String pattern;
+
 }
 

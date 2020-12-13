@@ -10,13 +10,12 @@ import org.springframework.lang.NonNull;
  */
 public abstract class AbsSimpleBeanPropertySerializerModifier extends AbsBeanPropertySerializerModifier {
 
-
     @Override
     public boolean support(final @NonNull BeanPropertyDefinition property) {
 
         return support(property.getRawPrimaryType());
     }
 
-
     protected abstract boolean support(final Class<?> clazz);
+
 }

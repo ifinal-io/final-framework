@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
+
     @RequestMapping
     public String hello(final String word) {
 
         return "hello " + word + "!";
     }
-
 
     @RequestMapping("/ex")
     public void ex(final Integer code, final String message) {
@@ -30,6 +30,5 @@ public class HelloController {
     public Class<YN> yu() {
         return YN.class;
     }
-
 
 }

@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.web.autoconfiguration;
 
+import java.util.List;
+import java.util.ServiceLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.web.annotation.HandlerInterceptor;
@@ -14,9 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
-import java.util.ServiceLoader;
 
 /**
  * @author likly
@@ -34,9 +33,8 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
 
     private final List<org.springframework.web.servlet.HandlerInterceptor> handlerInterceptors;
 
-
     public WebMvcConfigurerAutoConfiguration(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider,
-                                             final ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+        final ObjectProvider<List<org.springframework.web.servlet.HandlerInterceptor>> handlerInterceptorsObjectProvider) {
 
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
@@ -53,15 +51,13 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
         logger.info("finish register converterFactories ...");
     }
 
-
     @Override
     public void addInterceptors(final @NonNull InterceptorRegistry registry) {
 
         handlerInterceptors.stream()
-                // 仅支持通过注解注入的拦截器
-                .filter(it -> AnnotatedElementUtils.hasAnnotation(it.getClass(), Component.class))
-                .forEach(item -> this.addInterceptor(registry, item));
-
+            // 仅支持通过注解注入的拦截器
+            .filter(it -> AnnotatedElementUtils.hasAnnotation(it.getClass(), Component.class))
+            .forEach(item -> this.addInterceptor(registry, item));
 
     }
 
@@ -84,4 +80,5 @@ public class WebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
         }
         logger.info("==> add interceptor={}", interceptor.getClass());
     }
+
 }

@@ -9,6 +9,7 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class BroadcastTableRegistry {
+
     private final Collection<String> broadcastTables;
 
     public BroadcastTableRegistry(final Collection<String> broadcastTables) {

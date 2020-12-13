@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
 import org.ifinal.finalframework.data.query.SqlNode;
 
 /**

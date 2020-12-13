@@ -17,14 +17,13 @@
 
 package org.ifinal.finalframework;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
-
+import java.io.InputStream;
+import java.util.Properties;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import java.io.InputStream;
-import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * @author likly

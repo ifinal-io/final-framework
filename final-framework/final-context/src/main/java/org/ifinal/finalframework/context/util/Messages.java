@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.context.util;
 
-
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,6 @@ public final class Messages {
 
     private Messages() {
     }
-
 
     public static String getMessage(final String code, final Object... args) {
 

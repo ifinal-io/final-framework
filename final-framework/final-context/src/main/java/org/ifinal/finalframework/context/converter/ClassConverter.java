@@ -8,4 +8,5 @@ import org.ifinal.finalframework.util.function.Converter;
  * @since 1.0.0
  */
 public interface ClassConverter<S, T> extends Converter<Class<S>, T> {
+
 }

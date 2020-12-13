@@ -1,10 +1,8 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
 
 /**
  * 分片策略
@@ -19,12 +17,10 @@ public class ShardingStrategyProperties implements Serializable {
 
     private static final long serialVersionUID = 6419098165263663657L;
 
-
     /**
      * 行内分片策略
      */
     private InlineShardingStrategyProperties inline;
-
 
 }
 

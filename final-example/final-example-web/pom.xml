@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>final-example</artifactId>
-        <groupId>org.ifinal.finalframework.example</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>final-example-web</artifactId>
-
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
+            <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-dashboard</artifactId>
+            <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-monitor</artifactId>
+            <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
             <artifactId>final-boot-starter-sharding</artifactId>
+            <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.apache.shardingsphere</groupId>-->
@@ -43,27 +35,35 @@
         <!--            <artifactId>shardingsphere-jdbc-core</artifactId>-->
         <!--        </dependency>-->
         <dependency>
-            <groupId>org.ifinal.finalframework.example</groupId>
             <artifactId>final-example-service</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.ifinal.finalframework.auto</groupId>
                     <artifactId>final-auto-processor</artifactId>
+                    <groupId>org.ifinal.finalframework.auto</groupId>
                 </exclusion>
             </exclusions>
+            <groupId>org.ifinal.finalframework.example</groupId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
         <dependency>
-            <groupId>org.benf</groupId>
             <artifactId>cfr</artifactId>
+            <groupId>org.benf</groupId>
             <version>0.150</version>
         </dependency>
         <dependency>
-            <groupId>com.taobao.arthas</groupId>
             <artifactId>arthas-core</artifactId>
+            <groupId>com.taobao.arthas</groupId>
             <version>3.4.4</version>
         </dependency>
     </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-example</artifactId>
+        <groupId>org.ifinal.finalframework.example</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
 
 
 </project>

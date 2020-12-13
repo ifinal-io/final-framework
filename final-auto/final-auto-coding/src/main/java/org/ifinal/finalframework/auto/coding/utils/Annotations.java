@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.auto.coding.utils;
 
-import org.springframework.lang.NonNull;
-
+import java.lang.annotation.Annotation;
+import java.util.List;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.DeclaredType;
-import java.lang.annotation.Annotation;
-import java.util.List;
+import org.springframework.lang.NonNull;
 
 /**
  * @author sli

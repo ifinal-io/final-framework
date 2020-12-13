@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.cache;
 
+import javax.annotation.Resource;
 import org.ifinal.finalframework.aop.AnnotationAttributesAnnotationBuilder;
 import org.ifinal.finalframework.aop.multi.MultiAnnotationPointAdvisor;
 import org.ifinal.finalframework.cache.annotation.CacheDel;
@@ -17,8 +18,6 @@ import org.ifinal.finalframework.cache.handler.CacheableInterceptorHandler;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author likly
@@ -48,4 +47,5 @@ public class CacheAnnotationPointAdvisor extends MultiAnnotationPointAdvisor<Ann
 
         return redisCache;
     }
+
 }

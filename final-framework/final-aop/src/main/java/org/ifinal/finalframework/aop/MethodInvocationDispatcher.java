@@ -23,7 +23,8 @@ public interface MethodInvocationDispatcher<A> {
 
     }
 
-    default void after(final @NonNull InvocationContext context, final @NonNull A annotations, final @Nullable Object result, final @Nullable Throwable throwable) {
+    default void after(final @NonNull InvocationContext context, final @NonNull A annotations, final @Nullable Object result,
+        final @Nullable Throwable throwable) {
 
     }
 

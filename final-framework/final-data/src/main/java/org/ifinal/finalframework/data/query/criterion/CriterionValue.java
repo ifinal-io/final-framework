@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-
+import java.util.Optional;
+import java.util.function.Function;
 import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.data.query.SqlNode;
 import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
 import org.springframework.lang.NonNull;
-
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * @author likly
@@ -23,21 +21,19 @@ public interface CriterionValue<V> extends SqlNode {
         return value instanceof CriterionValue ? (CriterionValue<V>) value : new CriterionValueImpl<>(value);
     }
 
-
     CriterionValue<V> javaType(final Class<?> javaType);
 
     CriterionValue<V> typeHandler(final Class<? extends TypeHandler<?>> typeHandler);
-
-    default CriterionFunction apply(final Function<CriterionValue<V>, CriterionFunction> mapper) {
-
-        return mapper.apply(this);
-    }
 
     V getValue();
 
     Class<?> getJavaType();
 
     Class<? extends TypeHandler> getTypeHandler();
+
+    default CriterionFunction apply(final Function<CriterionValue<V>, CriterionFunction> mapper) {
+        return mapper.apply(this);
+    }
 
     @Override
     default void apply(final @NonNull StringBuilder parent, final @NonNull String expression) {
@@ -60,7 +56,7 @@ public interface CriterionValue<V> extends SqlNode {
             parent.append("}");
         }
 
-
     }
+
 }
 

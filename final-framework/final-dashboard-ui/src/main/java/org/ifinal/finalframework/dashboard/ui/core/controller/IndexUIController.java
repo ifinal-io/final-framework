@@ -21,4 +21,5 @@ public class IndexUIController {
     public String index() {
         return "dashboard/index";
     }
+
 }

@@ -12,7 +12,6 @@ import javax.lang.model.element.TypeElement;
  */
 public interface JCUtils {
 
-
     /**
      * 如果指的{@link TypeElement}是{@link ElementKind#ENUM}，则返回 {@code true}。
      *
@@ -23,6 +22,5 @@ public interface JCUtils {
 
         return element.getKind() == ElementKind.ENUM;
     }
-
 
 }

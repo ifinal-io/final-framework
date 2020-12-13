@@ -1,5 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlSource;
@@ -16,20 +18,17 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 class QueryTest {
+
     private static final Logger logger = LoggerFactory.getLogger(QueryTest.class);
 
     @Test
     void apply() {
-
 
         final StringBuilder builder = new StringBuilder();
 
@@ -39,20 +38,19 @@ class QueryTest {
 
         final Query query = new Query();
         query.where(
-                name.eq("haha"),
-                name.apply(value -> new SimpleCriterionFunction(value, DateOperation.DATE)).eq(2),
-                name.isNull(),
-                name.isNotNull(),
-                name.jsonContains(1, "$.a"),
-                age.gt(CriterionValue.from(12)),
-                Criteria.or(name.eq("haha"),
-                        age.gt(12)));
+            name.eq("haha"),
+            name.apply(value -> new SimpleCriterionFunction(value, DateOperation.DATE)).eq(2),
+            name.isNull(),
+            name.isNotNull(),
+            name.jsonContains(1, "$.a"),
+            age.gt(CriterionValue.from(12)),
+            Criteria.or(name.eq("haha"),
+                age.gt(12)));
         query.sort(name.asc(), name.desc());
 
         query.limit(20L, 100L);
 
         query.apply(builder, "query");
-
 
         final XPathParser parser = new XPathParser(String.join("", "<script>", builder.toString(), "</script>"));
         final XNode script = parser.evalNode("//script");
@@ -77,6 +75,6 @@ class QueryTest {
 
         Assertions.assertNotNull(boundSql.getSql());
 
-
     }
+
 }

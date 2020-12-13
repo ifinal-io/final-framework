@@ -1,5 +1,6 @@
 ---
-layout: post title: global-result-wrapper subtitle: global-result-wrapper description: global-result-wrapper tags: []
+layout: post title: global-result-wrapper subtitle: global-result-wrapper description:
+global-result-wrapper tags: []
 menus:
 
 - global-result-wrapper date: 2020-12-06 19:04:43 +800 version: 1.0

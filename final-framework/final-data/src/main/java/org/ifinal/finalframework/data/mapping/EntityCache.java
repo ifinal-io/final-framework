@@ -9,7 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0
  */
 final class EntityCache {
+
     private static final EntityCache ourInstance = new EntityCache();
+
     private static final Map<Class<?>, Entity<?>> cache = new ConcurrentHashMap<>(1024);
 
     private EntityCache() {
@@ -30,4 +32,5 @@ final class EntityCache {
 
         return (Entity<T>) cache.get(entity);
     }
+
 }

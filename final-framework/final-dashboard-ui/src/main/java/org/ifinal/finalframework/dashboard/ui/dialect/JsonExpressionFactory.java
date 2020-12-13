@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.dashboard.ui.dialect;
 
-
-import org.ifinal.finalframework.json.JsonRegistry;
-import org.thymeleaf.context.IExpressionContext;
-import org.thymeleaf.expression.IExpressionObjectFactory;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.ifinal.finalframework.json.JsonRegistry;
+import org.thymeleaf.context.IExpressionContext;
+import org.thymeleaf.expression.IExpressionObjectFactory;
 
 /**
  * @author likly
@@ -39,5 +37,6 @@ public class JsonExpressionFactory implements IExpressionObjectFactory {
 
         return this.name.equals(name);
     }
+
 }
 

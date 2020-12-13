@@ -1,9 +1,13 @@
 package org.ifinal.finalframework.sharding.algorithm;
 
-
 import com.google.common.base.Preconditions;
 import groovy.lang.Closure;
 import groovy.util.Expando;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineExpressionParser;
@@ -13,12 +17,6 @@ import org.apache.shardingsphere.sharding.spi.ShardingAlgorithm;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.auto.service.annotation.AutoService;
 import org.ifinal.finalframework.util.collection.Maps;
-
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -52,22 +50,22 @@ public class ComplexInlineShardingAlgorithm implements ComplexKeysShardingAlgori
                 return availableTargetNames;
             }
 
-            throw new UnsupportedOperationException("Since the property of `" + ALLOW_RANGE_QUERY_KEY + "` is false, inline sharding algorithm can not tackle with range query.");
+            throw new UnsupportedOperationException(
+                "Since the property of `" + ALLOW_RANGE_QUERY_KEY + "` is false, inline sharding algorithm can not tackle with range query.");
         }
 
         Map<String, Collection<Comparable<?>>> columnNameAndShardingValuesMap = shardingValue.getColumnNameAndShardingValuesMap();
 
         if (shardingColumns.length > 0 && shardingColumns.length != columnNameAndShardingValuesMap.size()) {
-            throw new IllegalArgumentException("complex inline need " + shardingColumns.length + " sharing columns, but only found " + columnNameAndShardingValuesMap.size());
+            throw new IllegalArgumentException(
+                "complex inline need " + shardingColumns.length + " sharing columns, but only found " + columnNameAndShardingValuesMap.size());
         }
-
 
         Collection<Map<String, Comparable<?>>> combine = Maps.combine(columnNameAndShardingValuesMap);
 
-
         return combine.stream()
-                .map(this::doSharding)
-                .collect(Collectors.toList());
+            .map(this::doSharding)
+            .collect(Collectors.toList());
 
     }
 

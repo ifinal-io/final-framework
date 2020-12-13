@@ -1,5 +1,11 @@
 package org.ifinal.finalframework.dashboard.web.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.ifinal.finalframework.dashboard.web.entity.RequestHandler;
 import org.ifinal.finalframework.dashboard.web.entity.RequestPattern;
 import org.ifinal.finalframework.dashboard.web.service.RequestMappingService;
@@ -15,14 +21,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-
 /**
  * @author likly
  * @version 1.0.0
@@ -31,12 +29,15 @@ import java.util.stream.Collectors;
 @Service
 @SuppressWarnings("unused")
 class RequestMappingServiceImpl implements RequestMappingService, InitializingBean {
+
     public static final Logger logger = LoggerFactory.getLogger(RequestMappingServiceImpl.class);
+
     /**
      * the key is {@link RequestMappingInfo#getPatternsCondition}
      */
 
     private final Map<String, RequestHandler> requestHandlers = new LinkedHashMap<>(256);
+
     private final List<RequestPattern> requestPatterns = new ArrayList<>();
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
@@ -50,7 +51,7 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
     public List<RequestPattern> query(final RequestPatternQuery query) {
 
         return requestPatterns.stream().filter(requestPattern -> !Asserts.nonEmpty(query.getPattern())
-                || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase())).collect(Collectors.toList());
+            || requestPattern.getPattern().toUpperCase().contains(query.getPattern().toUpperCase())).collect(Collectors.toList());
     }
 
     @Override
@@ -67,10 +68,10 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
             final RequestMappingInfo requestMappingInfo = entry.getKey();
             final HandlerMethod handlerMethod = entry.getValue();
 
-            if (!handlerMethod.hasMethodAnnotation(ResponseBody.class) && !AnnotatedElementUtils.isAnnotated(handlerMethod.getMethod().getDeclaringClass(), ResponseBody.class)) {
+            if (!handlerMethod.hasMethodAnnotation(ResponseBody.class) && !AnnotatedElementUtils
+                .isAnnotated(handlerMethod.getMethod().getDeclaringClass(), ResponseBody.class)) {
                 continue;
             }
-
 
             final String name = requestMappingInfo.getName();
             for (String pattern : requestMappingInfo.getPatternsCondition().getPatterns()) {
@@ -84,11 +85,10 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
 
             }
 
-
         }
-
 
         Collections.sort(requestPatterns);
     }
+
 }
 

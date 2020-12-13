@@ -1,13 +1,12 @@
 package org.ifinal.finalframework.mybatis.handler;
 
-import org.apache.ibatis.type.JdbcType;
-import org.ifinal.finalframework.json.Json;
-
 import java.lang.reflect.Type;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.ibatis.type.JdbcType;
+import org.ifinal.finalframework.json.Json;
 
 /**
  * @author likly
@@ -52,4 +51,5 @@ public class JsonTypeReferenceTypeHandler<T> extends BaseTypeReferenceTypeHandle
         }
         return Json.toObject(json, getType());
     }
+
 }

@@ -1,12 +1,11 @@
 package org.ifinal.finalframework.data.query.criteriable;
 
-import org.springframework.lang.NonNull;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import org.springframework.lang.NonNull;
 
 /**
  * @author likly
@@ -31,7 +30,6 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
         return eq(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
-
     default R neq(@NonNull Date date) {
         return neq(new SimpleDateFormat("yyyy-MM-dd").format(date));
     }
@@ -48,7 +46,6 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
         return neq(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
-
     default R gt(@NonNull Date date) {
         return gt(new SimpleDateFormat("yyyy-MM-dd").format(date));
     }
@@ -64,7 +61,6 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
     default R gt(@NonNull LocalDate date) {
         return gt(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
-
 
     default R gte(@NonNull Date date) {
         return gte(new SimpleDateFormat("yyyy-MM-dd").format(date));
@@ -98,7 +94,6 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
         return lt(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
-
     default R lte(@NonNull Date date) {
         return lte(new SimpleDateFormat("yyyy-MM-dd").format(date));
     }
@@ -130,7 +125,6 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
     default R after(@NonNull LocalDate date) {
         return after(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
-
 
     default R before(@NonNull Date date) {
         return before(new SimpleDateFormat("yyyy-MM-dd").format(date));
@@ -183,4 +177,5 @@ public interface DateCriteriable<R> extends FunctionCriteriable<String, R> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return notBetween(min.format(formatter), max.format(formatter));
     }
+
 }

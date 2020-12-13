@@ -3,14 +3,13 @@ package org.ifinal.finalframework.json.jackson.deserializer;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.ifinal.finalframework.annotation.core.IEnum;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.ifinal.finalframework.annotation.core.IEnum;
 
 /**
  * @author likly

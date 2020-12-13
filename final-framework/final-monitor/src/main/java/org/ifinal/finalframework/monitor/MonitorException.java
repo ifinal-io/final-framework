@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.monitor;
 
-
 import org.ifinal.finalframework.annotation.core.IException;
 import org.ifinal.finalframework.context.exception.ServiceException;
 
@@ -13,6 +12,7 @@ import org.ifinal.finalframework.context.exception.ServiceException;
  */
 @SuppressWarnings("unused")
 public class MonitorException extends ServiceException {
+
     public MonitorException(final Integer status, final String description, final IException exception, final Object... args) {
 
         super(status, description, exception, args);
@@ -27,4 +27,5 @@ public class MonitorException extends ServiceException {
 
         super(status, description, code, message, args);
     }
+
 }

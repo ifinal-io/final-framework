@@ -1,11 +1,9 @@
 package org.ifinal.finalframework.web.response;
 
-
+import java.io.Serializable;
 import org.ifinal.finalframework.annotation.core.result.R;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
-
-import java.io.Serializable;
 
 /**
  * @author likly
@@ -13,6 +11,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 public class Object2ResultConverter implements Converter<Object, Result<?>> {
+
     @Override
     public Result<?> convert(final Object body) {
 
@@ -31,5 +30,6 @@ public class Object2ResultConverter implements Converter<Object, Result<?>> {
         throw new IllegalArgumentException(body.getClass() + " must impl Serializable");
 
     }
+
 }
 
