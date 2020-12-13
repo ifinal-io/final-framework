@@ -147,7 +147,9 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             .addFields(fieldSpecs)
             .build();
 
-        return JavaFile.builder(entity.getPackageName(), clazz).indent("    ").build();
+        return JavaFile.builder(entity.getPackageName(), clazz)
+            .skipJavaLangImports(true)
+            .indent("    ").build();
     }
 
 }

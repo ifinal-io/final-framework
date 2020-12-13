@@ -114,7 +114,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
-                    JavaFile javaFile = JavaFile.builder(servicePackageName, service).build();
+                    JavaFile javaFile = JavaFile.builder(servicePackageName, service)
+                        .skipJavaLangImports(true).build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
@@ -151,7 +152,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 MethodSpec constructor = MethodSpec.constructorBuilder()
                     .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository")
                         .addModifiers(Modifier.FINAL).build())
-                    .addStatement("super(repository);")
+                    .addStatement("super(repository)")
                     .build();
 
                 //  class EntityServiceImpl extends AbsServiceImpl<I,IEntity,EntityMapper> implements EntityService
@@ -166,7 +167,10 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
-                    JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service).indent("    ").build();
+                    JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service)
+                        .skipJavaLangImports(true)
+                        .indent("    ")
+                        .build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
