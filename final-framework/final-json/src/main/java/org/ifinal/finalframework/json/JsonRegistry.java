@@ -17,7 +17,7 @@ public final class JsonRegistry {
 
     private JsonService jsonService;
 
-    private boolean initDefaulted = false;
+    private boolean initDefaulted;
 
     private JsonRegistry() {
     }

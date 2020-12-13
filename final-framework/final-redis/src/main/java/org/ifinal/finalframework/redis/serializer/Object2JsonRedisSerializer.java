@@ -36,7 +36,7 @@ public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
     @Override
     public Object deserialize(final byte[] bytes) {
 
-        return (bytes == null ? null : new String(bytes, charset));
+        return bytes == null ? null : new String(bytes, charset);
     }
 
 }

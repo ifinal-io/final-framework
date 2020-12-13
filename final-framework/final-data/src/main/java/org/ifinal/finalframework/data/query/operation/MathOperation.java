@@ -6,6 +6,6 @@ package org.ifinal.finalframework.data.query.operation;
  * @since 1.0.0
  */
 public enum MathOperation implements Operation {
-    MIN, MAX, SUM, AVG;
+    MIN, MAX, SUM, AVG
 }
 

@@ -8,5 +8,5 @@ package org.ifinal.finalframework.data.query.operation;
  * @since 1.0.0
  */
 public enum LogicOperation implements Operation {
-    AND, OR, NOT, XOR;
+    AND, OR, NOT, XOR
 }

@@ -55,7 +55,7 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
                 if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
                     processAutoService(element, annotationMirror);
                 } else {
-                    List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
+                    final List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement().getAnnotationMirrors();
                     for (AnnotationMirror mirror : mirrors) {
                         if (mirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
                             processAutoService(element, mirror, annotationMirror);

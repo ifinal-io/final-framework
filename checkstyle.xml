@@ -60,6 +60,24 @@
         <property name="fileExtensions" value="properties, translations"/>
     </module>
 
+    <!-- ================================ Regexp ===================================== -->
+    <!-- 当前行匹配非法表达式： -->
+    <!-- 禁用 System.out.print -->
+    <module name="RegexpMultiline">
+        <property name="id" value="sout"/>
+        <property name="format" value="System\.(out)|(err)\.print"/>
+        <property name="message" value="System.out.print 方法不允许使用"/>
+    </module>
+    <!-- 禁用 e.printStackTrace() -->
+    <module name="RegexpMultiline">
+        <property name="id" value="printStackTrace"/>
+        <property name="format" value="\.printStackTrace\("/>
+        <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
+    </module>
+    <!-- Blocks -->
+    <!-- Blocks -->
+    <!-- ================================ Regexp ===================================== -->
+
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="TreeWalker">
@@ -70,8 +88,6 @@
             <property name="message"
                 value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
         </module>
-        <!--避免*号导入-->
-        <module name="AvoidStarImport"/>
         <module name="NoLineWrap">
             <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
         </module>
@@ -236,12 +252,7 @@
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
-        <!--        <module name="CustomImportOrder">-->
-        <!--            <property name="sortImportsInGroupAlphabetically" value="true"/>-->
-        <!--            <property name="separateLineBetweenGroups" value="true"/>-->
-        <!--            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>-->
-        <!--            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>-->
-        <!--        </module>-->
+
         <module name="MethodParamPad">
             <property name="tokens"
                 value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF,
@@ -332,6 +343,172 @@
             <property name="optional" value="true"/>
         </module>
 
+        <!-- ================================ Coding ===================================== -->
+        <!-- Blocks -->
+        <module name="ArrayTrailingComma"/>
+        <!-- Blocks -->
+        <module name="AvoidDoubleBraceInitialization"/>
+        <!--  避免三元表达式 -->
+        <!--        <module name="AvoidInlineConditionals"/>-->
+        <!-- Blocks -->
+        <module name="AvoidNoArgumentSuperConstructorCall"/>
+        <!-- Blocks -->
+        <module name="CovariantEquals"/>
+        <!-- 定义顺序 -->
+        <module name="DeclarationOrder"/>
+        <!-- Blocks -->
+        <module name="DefaultComesLast"/>
+        <!-- Blocks -->
+        <module name="EmptyStatement"/>
+        <!-- Blocks -->
+        <module name="EqualsAvoidNull"/>
+        <!-- Blocks -->
+        <module name="EqualsHashCode"/>
+        <!-- 显式初始化 -->
+        <module name="ExplicitInitialization">
+            <property name="onlyObjectReferences" value="true"/>
+        </module>
+        <!-- Blocks -->
+        <module name="FallThrough"/>
+        <!-- 本地变量声明为 final -->
+        <!--        <module name="FinalLocalVariable"/>-->
+        <!-- 隐藏属性 -->
+        <module name="HiddenField">
+            <property name="tokens"
+                value="VARIABLE_DEF , PATTERN_VARIABLE_DEF , LAMBDA , RECORD_COMPONENT_DEF "/>
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+            <property name="setterCanReturnItsClass" value="true"/>
+        </module>
+        <!-- 禁止捕获Exception -->
+        <!--        <module name="IllegalCatch"/>-->
+        <!-- Blocks -->
+        <module name="IllegalInstantiation">
+            <property name="classes" value="java.lang.Boolean"/>
+        </module>
+        <!-- 禁止抛出： 'Throwable' -->
+        <!--        <module name="IllegalThrows"/>-->
+        <!-- Blocks -->
+        <module name="IllegalToken"/>
+        <!-- Blocks -->
+        <module name="IllegalTokenText"/>
+        <!-- 不允许使用类型 -->
+        <module name="IllegalType">
+            <property name="illegalClassNames" value=""/>
+        </module>
+        <!-- Blocks -->
+        <module name="InnerAssignment"/>
+        <!-- 魔术数字 -->
+        <!--        <module name="MagicNumber">-->
+        <!--            <property name="constantWaiverParentToken" value="EXPR"/>-->
+        <!--            <property name="ignoreNumbers" value="-1,0,1,2"/>-->
+        <!--            <property name="ignoreHashCodeMethod" value="true"/>-->
+        <!--            <property name="ignoreAnnotation" value="true"/>-->
+        <!--            <property name="ignoreFieldDeclaration" value="true"/>-->
+        <!--            <property name="ignoreAnnotationElementDefaults" value="true"/>-->
+        <!--        </module>-->
+        <!-- 类应定义一个构造器 -->
+        <!--        <module name="MissingCtor"/>-->
+        <!-- Blocks -->
+        <module name="MissingSwitchDefault"/>
+        <!-- Blocks -->
+        <module name="ModifiedControlVariable"/>
+        <!-- String 字面量出现次数 -->
+        <module name="MultipleStringLiterals">
+            <property name="allowedDuplicates" value="50"/>
+        </module>
+        <!-- Blocks -->
+        <module name="MultipleVariableDeclarations"/>
+        <!-- for 嵌套次数 -->
+        <module name="NestedForDepth">
+            <property name="max" value="3"/>
+        </module>
+        <!-- if 嵌套次数 -->
+        <module name="NestedIfDepth">
+            <property name="max" value="3"/>
+        </module>
+        <!-- try 嵌套次数 -->
+        <module name="NestedTryDepth">
+            <property name="max" value="3"/>
+        </module>
+        <!-- Blocks -->
+        <module name="NoArrayTrailingComma"/>
+        <!-- Blocks -->
+        <module name="NoClone"/>
+        <!-- Blocks -->
+        <module name="NoEnumTrailingComma"/>
+        <!-- Blocks -->
+        <module name="NoFinalizer"/>
+        <!-- Blocks -->
+        <module name="OneStatementPerLine"/>
+        <!-- Blocks -->
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <!-- Blocks -->
+        <module name="PackageDeclaration"/>
+        <!-- Blocks -->
+        <module name="ParameterAssignment"/>
+        <!-- Blocks -->
+        <module name="RequireThis"/>
+        <!-- Return 次数 -->
+        <module name="ReturnCount">
+            <property name="max" value="10"/>
+            <property name="maxForVoid" value="10"/>
+        </module>
+        <!-- Blocks -->
+        <module name="SimplifyBooleanExpression"/>
+        <!-- Blocks -->
+        <module name="StringLiteralEquality"/>
+        <!-- Blocks -->
+        <module name="SuperClone"/>
+        <!-- Blocks -->
+        <module name="SuperFinalize"/>
+        <!-- 不必要的括号 -->
+        <module name="UnnecessaryParentheses"/>
+        <!-- Blocks -->
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+        <!-- Blocks -->
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+        <!-- 枚举中不必要的分号 -->
+        <module name="UnnecessarySemicolonInEnumeration"/>
+        <!-- Blocks -->
+        <module name="UnnecessarySemicolonInTryWithResources"/>
+        <!-- Blocks -->
+        <module name="VariableDeclarationUsageDistance"/>
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- ================================ Coding ===================================== -->
+        <!-- ================================ Import ===================================== -->
+        <!-- Blocks -->
+        <module name="AvoidStarImport"/>
+        <!-- Blocks -->
+        <module name="AvoidStaticImport">
+            <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
+        </module>
+        <!-- Blocks -->
+        <!--        <module name="CustomImportOrder">-->
+        <!--            <property name="sortImportsInGroupAlphabetically" value="true"/>-->
+        <!--            <property name="separateLineBetweenGroups" value="true"/>-->
+        <!--            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>-->
+        <!--            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>-->
+        <!--        </module>-->
+        <!-- Blocks -->
+        <module name="IllegalImport"/>
+        <!-- Blocks -->
+        <module name="RedundantImport"/>
+        <!-- Blocks -->
+        <module name="UnusedImports"/>
+        <!-- ================================ Import ===================================== -->
+
         <!-- ================================ Class Design ===================================== -->
         <!-- 私有构造函数的类必需声明为 final -->
         <!--        <module name="DesignForExtension"/>-->
@@ -393,8 +570,39 @@
         <!-- 行尾注释 -->
         <module name="TrailingComment"/>
         <!-- Blocks -->
+        <module name="UpperEll"/>
+        <!-- =================================== Metrics ======================================= -->
+        <!-- 布尔表达式数量 -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="5"/>
+        </module>
+        <!-- 类数据的抽象耦合 -->
+        <module name="ClassDataAbstractionCoupling">
+            <property name="max" value="50"/>
+        </module>
+        <!-- 类的分散复杂度 -->
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="50"/>
+        </module>
+        <!-- 逻辑复杂度 -->
+        <module name="CyclomaticComplexity">
+            <property name="max" value="20"/>
+        </module>
         <!-- Blocks -->
-
+        <module name="JavaNCSS">
+            <property name="methodMaximum" value="100"/>
+            <property name="classMaximum" value="1500"/>
+            <property name="fileMaximum" value="2000"/>
+            <property name="recordMaximum" value="150"/>
+        </module>
+        <!-- 方法分支复杂度 -->
+        <module name="NPathComplexity">
+            <property name="max" value="1000"/>
+        </module>
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- Blocks -->
+        <!-- =================================== Metrics ======================================= -->
         <!-- ================================ Miscellaneous ===================================== -->
         <!-- Blocks -->
         <!-- 避免内部块 -->

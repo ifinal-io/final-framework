@@ -10,5 +10,5 @@ import org.ifinal.finalframework.annotation.data.Transient;
 @Transient
 public enum CriteriaType {
     CHAIN,
-    CRITERION;
+    CRITERION
 }

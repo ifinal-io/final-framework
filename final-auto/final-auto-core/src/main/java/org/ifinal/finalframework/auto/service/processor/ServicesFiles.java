@@ -23,13 +23,17 @@ public final class ServicesFiles {
 
     private static final String ROOT = "META-INF";
 
+    private static final String PATH_SPE = "/";
+
+    private static final String CHAR_EQUAL = "=";
+
     private ServicesFiles() {
 
     }
 
     static String getPath(final String path, final String serviceName) {
 
-        return ROOT + "/" + path + "/" + serviceName;
+        return String.join(PATH_SPE, ROOT, path, serviceName);
     }
 
     /**
@@ -41,19 +45,19 @@ public final class ServicesFiles {
      */
     static Map<String, String> readServiceFile(final InputStream input) throws IOException {
 
-        Map<String, String> serviceClasses = new HashMap<>();
+        final Map<String, String> serviceClasses = new HashMap<>();
         try (BufferedReader r = new BufferedReader(new InputStreamReader(input, UTF_8))) {
             String line;
             while ((line = r.readLine()) != null) {
-                int commentStart = line.indexOf('#');
+                final int commentStart = line.indexOf('#');
                 if (commentStart >= 0) {
                     line = line.substring(0, commentStart);
                 }
                 line = line.trim();
                 if (!line.isEmpty()) {
 
-                    if (line.contains("=")) {
-                        final String[] split = line.split("=");
+                    if (line.contains(CHAR_EQUAL)) {
+                        final String[] split = line.split(CHAR_EQUAL);
                         serviceClasses.put(split[1], split[0]);
                     } else {
                         serviceClasses.put(line, null);
@@ -83,7 +87,7 @@ public final class ServicesFiles {
             } else {
                 // name=service
                 writer.write(entry.getValue());
-                writer.write("=");
+                writer.write(CHAR_EQUAL);
                 writer.write(entry.getKey());
                 writer.newLine();
             }

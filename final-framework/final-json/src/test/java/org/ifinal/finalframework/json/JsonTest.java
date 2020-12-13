@@ -20,7 +20,6 @@ class JsonTest {
     void enum2Json() {
         logger.info(Json.toJson(YN.YES));
         assertEquals(YN.YES.getCode().toString(), Json.toJson(YN.YES));
-        System.out.println(Json.toJson(YN.class));
         assertEquals(YN.YES, Json.toObject(YN.YES.getCode().toString(), YN.class));
 
     }
@@ -30,7 +29,6 @@ class JsonTest {
         AbsEntity entity = new AbsEntity();
         entity.setId(1L);
         entity.setCreated(LocalDateTime.now());
-        System.out.println(Json.toJson(entity));
         assertEquals(1L, entity.getId());
     }
 

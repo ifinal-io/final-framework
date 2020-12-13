@@ -6,6 +6,6 @@ package org.ifinal.finalframework.data.query.operation;
  * @since 1.0.0
  */
 public enum StringOperation implements Operation {
-    CONCAT, LOWER, UPPER;
+    CONCAT, LOWER, UPPER
 }
 

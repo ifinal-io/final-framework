@@ -38,8 +38,8 @@ public class DefaultCacheExpressionEvaluator extends BaseExpressionEvaluator imp
     @Override
     public boolean condition(final String conditionExpression, final AnnotatedElementKey methodKey, final EvaluationContext context) {
 
-        return (Boolean.TRUE.equals(getExpression(this.conditionCache, methodKey, conditionExpression).getValue(
-            context, Boolean.class)));
+        return Boolean.TRUE.equals(getExpression(this.conditionCache, methodKey, conditionExpression).getValue(
+            context, Boolean.class));
     }
 
     @Override

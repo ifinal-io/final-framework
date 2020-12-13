@@ -13,69 +13,71 @@ import java.util.stream.Collectors;
  */
 public final class BinaryUtils {
 
+    private static final int BIN_STEP = 1;
+
     private static final Integer BINARY_0 = 1;
 
-    private static final Integer BINARY_1 = 1 << 1;
+    private static final Integer BINARY_1 = BINARY_0 << BIN_STEP;
 
-    private static final Integer BINARY_2 = 1 << 2;
+    private static final Integer BINARY_2 = BINARY_1 << BIN_STEP;
 
-    private static final Integer BINARY_3 = 1 << 3;
+    private static final Integer BINARY_3 = BINARY_2 << BIN_STEP;
 
-    private static final Integer BINARY_4 = 1 << 4;
+    private static final Integer BINARY_4 = BINARY_3 << BIN_STEP;
 
-    private static final Integer BINARY_5 = 1 << 5;
+    private static final Integer BINARY_5 = BINARY_4 << BIN_STEP;
 
-    private static final Integer BINARY_6 = 1 << 6;
+    private static final Integer BINARY_6 = BINARY_5 << BIN_STEP;
 
-    private static final Integer BINARY_7 = 1 << 7;
+    private static final Integer BINARY_7 = BINARY_6 << BIN_STEP;
 
-    private static final Integer BINARY_8 = 1 << 8;
+    private static final Integer BINARY_8 = BINARY_7 << BIN_STEP;
 
-    private static final Integer BINARY_9 = 1 << 9;
+    private static final Integer BINARY_9 = BINARY_8 << BIN_STEP;
 
-    private static final Integer BINARY_10 = 1 << 10;
+    private static final Integer BINARY_10 = BINARY_9 << BIN_STEP;
 
-    private static final Integer BINARY_11 = 1 << 11;
+    private static final Integer BINARY_11 = BINARY_10 << BIN_STEP;
 
-    private static final Integer BINARY_12 = 1 << 12;
+    private static final Integer BINARY_12 = BINARY_11 << BIN_STEP;
 
-    private static final Integer BINARY_13 = 1 << 13;
+    private static final Integer BINARY_13 = BINARY_12 << BIN_STEP;
 
-    private static final Integer BINARY_14 = 1 << 14;
+    private static final Integer BINARY_14 = BINARY_13 << BIN_STEP;
 
-    private static final Integer BINARY_15 = 1 << 15;
+    private static final Integer BINARY_15 = BINARY_14 << BIN_STEP;
 
-    private static final Integer BINARY_16 = 1 << 16;
+    private static final Integer BINARY_16 = BINARY_15 << BIN_STEP;
 
-    private static final Integer BINARY_17 = 1 << 17;
+    private static final Integer BINARY_17 = BINARY_16 << BIN_STEP;
 
-    private static final Integer BINARY_18 = 1 << 18;
+    private static final Integer BINARY_18 = BINARY_17 << BIN_STEP;
 
-    private static final Integer BINARY_19 = 1 << 19;
+    private static final Integer BINARY_19 = BINARY_18 << BIN_STEP;
 
-    private static final Integer BINARY_20 = 1 << 20;
+    private static final Integer BINARY_20 = BINARY_19 << BIN_STEP;
 
-    private static final Integer BINARY_21 = 1 << 21;
+    private static final Integer BINARY_21 = BINARY_20 << BIN_STEP;
 
-    private static final Integer BINARY_22 = 1 << 22;
+    private static final Integer BINARY_22 = BINARY_21 << BIN_STEP;
 
-    private static final Integer BINARY_23 = 1 << 23;
+    private static final Integer BINARY_23 = BINARY_22 << BIN_STEP;
 
-    private static final Integer BINARY_24 = 1 << 24;
+    private static final Integer BINARY_24 = BINARY_23 << BIN_STEP;
 
-    private static final Integer BINARY_25 = 1 << 25;
+    private static final Integer BINARY_25 = BINARY_24 << BIN_STEP;
 
-    private static final Integer BINARY_26 = 1 << 26;
+    private static final Integer BINARY_26 = BINARY_25 << BIN_STEP;
 
-    private static final Integer BINARY_27 = 1 << 27;
+    private static final Integer BINARY_27 = BINARY_26 << BIN_STEP;
 
-    private static final Integer BINARY_28 = 1 << 28;
+    private static final Integer BINARY_28 = BINARY_27 << BIN_STEP;
 
-    private static final Integer BINARY_29 = 1 << 29;
+    private static final Integer BINARY_29 = BINARY_28 << BIN_STEP;
 
-    private static final Integer BINARY_30 = 1 << 30;
+    private static final Integer BINARY_30 = BINARY_29 << BIN_STEP;
 
-    private static final Integer BINARY_31 = 1 << 31;
+    private static final Integer BINARY_31 = BINARY_30 << BIN_STEP;
 
     private static final Set<Integer> BINARIES = new HashSet<>();
 

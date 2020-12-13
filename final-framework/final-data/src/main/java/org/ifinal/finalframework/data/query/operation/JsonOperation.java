@@ -14,7 +14,7 @@ public enum JsonOperation implements Operation {
     JSON_DEPTH,
     JSON_LENGTH,
     JSON_OBJECT,
-    JSON_ARRAY,
+    JSON_ARRAY
 
 }
 

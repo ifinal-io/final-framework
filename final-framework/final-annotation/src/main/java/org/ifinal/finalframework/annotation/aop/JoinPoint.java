@@ -26,6 +26,6 @@ public enum JoinPoint {
     /**
      * 在方法执行之后，包含 {@link #AFTER_RETURNING} 和 {@link #AFTER_THROWING}。
      */
-    AFTER;
+    AFTER
 
 }

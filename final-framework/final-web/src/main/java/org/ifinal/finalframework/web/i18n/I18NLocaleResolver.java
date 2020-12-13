@@ -65,7 +65,7 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
 
     private boolean isSupportedLocale(final Locale locale) {
 
-        return (supportedLocales.isEmpty() || supportedLocales.contains(locale));
+        return supportedLocales.isEmpty() || supportedLocales.contains(locale);
     }
 
     private Locale findSupportedLocale(final HttpServletRequest request, final Locale fallback) {

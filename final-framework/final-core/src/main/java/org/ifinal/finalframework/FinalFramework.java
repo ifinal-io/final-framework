@@ -23,14 +23,14 @@ import org.springframework.context.annotation.ImportResource;
 })
 public class FinalFramework {
 
-    @Getter
-    private final String name;
-
     static final String CLASS_PATH_SPRING_CONFIG_XML = "classpath:spring-config-*.xml";
 
     static final String CLASS_PATH_CONFIG_SPRING_CONFIG_XML = "classpath*:config/spring-config-*.xml";
 
     static final String CLASS_PATH_SPRING_SPRING_CONFIG_XML = "classpath*:spring/spring-config-*.xml";
+
+    @Getter
+    private final String name;
 
     public FinalFramework() {
         // prevents calls from subclass

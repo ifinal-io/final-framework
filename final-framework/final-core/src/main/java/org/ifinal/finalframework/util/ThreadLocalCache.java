@@ -11,10 +11,10 @@ import lombok.NonNull;
  */
 final class ThreadLocalCache {
 
+    private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
+
     private ThreadLocalCache() {
     }
-
-    private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
 
     static void set(final @NonNull String key, final Object value) {
         cache.get().put(key, value);

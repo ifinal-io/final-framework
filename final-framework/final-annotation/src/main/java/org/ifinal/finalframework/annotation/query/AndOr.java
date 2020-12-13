@@ -18,5 +18,5 @@ public enum AndOr {
     /**
      * OR
      */
-    OR;
+    OR
 }
