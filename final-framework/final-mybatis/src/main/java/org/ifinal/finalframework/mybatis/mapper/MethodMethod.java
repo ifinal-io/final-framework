@@ -22,11 +22,10 @@ public enum MethodMethod {
     SELECT_ONE("selectOne", SelectProvider.class),
     SELECT_IDS("selectIds", SelectProvider.class),
     SELECT_COUNT("selectCount", SelectProvider.class),
-    TRUNCATE("truncate", UpdateProvider.class),
-
-    ;
+    TRUNCATE("truncate", UpdateProvider.class);
 
     private final String method;
+
     private final Class<? extends Annotation> annotation;
 
     MethodMethod(final String method, final Class<? extends Annotation> annotation) {

@@ -11,10 +11,17 @@ import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
  */
 @Data
 public class XmlMapperQuery {
-    private Class<? extends AbsMapper<?,?>> mapper;
+
+    private Class<? extends AbsMapper<?, ?>> mapper;
+
     private String method;
+
     private String table;
+
     private boolean ignore;
+
     private boolean selective = false;
+
     private Class<? extends IQuery> query;
+
 }

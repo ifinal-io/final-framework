@@ -21,11 +21,13 @@ public final class UserContextHolder {
      * the user context name.
      */
     private static final String USER_CONTEXT_NAME = "UserContext";
+
     /**
      * the user context in thread local.
      */
     private static final ThreadLocal<UserContext<? extends IUser<?>>> USER_CONTEXT_HOLDER =
             new NamedThreadLocal<>(USER_CONTEXT_NAME);
+
     /**
      * the user context in inheritable thread local
      */

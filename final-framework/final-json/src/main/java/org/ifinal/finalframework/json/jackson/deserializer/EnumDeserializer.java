@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class EnumDeserializer<T extends IEnum<?>> extends JsonDeserializer<T> {
 
     private final Class<T> enumType;
+
     private final Map<String, T> cache;
 
     public EnumDeserializer(final Class<T> enumType) {
@@ -36,10 +37,8 @@ public class EnumDeserializer<T extends IEnum<?>> extends JsonDeserializer<T> {
         return cache.get(code);
     }
 
-    @Override
     public String toString() {
-        return "EnumDeserializer{" +
-                "enumType=" + enumType +
-                '}';
+        return "EnumDeserializer{" + "enumType=" + enumType + '}';
     }
+
 }

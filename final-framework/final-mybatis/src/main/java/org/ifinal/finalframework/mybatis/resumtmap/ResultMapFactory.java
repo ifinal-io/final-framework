@@ -127,8 +127,8 @@ public final class ResultMapFactory {
             column = referenceProperty.getColumn();
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
-            column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
-                    property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
+            column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
+                    ? property.getColumn() : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
         column = NameConverterRegistry.getInstance().getColumnNameConverter().convert(column);
         if (Optional.ofNullable(property).orElse(referenceProperty).isAnnotationPresent(UpperCase.class) || entity.isAnnotationPresent(UpperCase.class)) {

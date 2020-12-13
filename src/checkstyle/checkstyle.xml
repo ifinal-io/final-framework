@@ -7,6 +7,18 @@
     <property name="severity" value="error"/>
     <!--  文件扩展 -->
     <property name="fileExtensions" value="java, properties, xml"/>
+    <!--  行长度 -->
+    <!--  文件长度 -->
+    <module name="FileLength">
+        <property name="max" value="2000"/>
+    </module>
+    <!--  行长度 -->
+    <module name="LineLength">
+        <property name="max" value="200"/>
+    </module>
+
+    <!-- \t 字符 -->
+    <module name="FileTabCharacter"/>
 
 
     <module name="TreeWalker">
@@ -21,17 +33,18 @@
             <property name="excludes"
                       value="org.junit.Assert.*,org.hamcrest.CoreMatchers.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.jupiter.api.Assertions.*"/>
         </module>
+        <!-- 非法导入 -->
+        <module name="IllegalImport"/>
+        <!-- 多余导入 -->
+        <module name="RedundantImport"/>
 
-        <!-- Empty Line -->
-        <!--        <module name="EmptyLineSeparator">-->
-        <!--            <property name="tokens"-->
-        <!--                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,-->
-        <!--                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>-->
-        <!--            &lt;!&ndash; 禁止多个空行 &ndash;&gt;-->
-        <!--            <property name="allowMultipleEmptyLines" value="false"/>-->
-        <!--            &lt;!&ndash; 禁止多个空行 &ndash;&gt;-->
-        <!--            <property name="allowNoEmptyLineBetweenFields" value="false"/>-->
-        <!--        </module>-->
+
+        <!-- Coding -->
+
+        <module name="ArrayTrailingComma"/>
+        <!--        <module name="AvoidDoubleBraceInitialization"/>-->
+        <!--        <module name="AvoidInlineConditionals"/>-->
+
 
         <!-- Names -->
         <module name="PackageName">
@@ -84,15 +97,104 @@
         </module>
 
         <!-- Length-->
+        <module name="OuterTypeNumber">
+            <property name="max" value="1"/>
+        </module>
+        <!-- 可执行语句数量 -->
+        <module name="ExecutableStatementCount">
+            <property name="max" value="50"/>
+        </module>
         <!-- 方法长度-->
         <module name="MethodLength">
             <property name="max" value="100"/>
         </module>
+        <!-- 方法数量-->
+        <module name="MethodCount">
+            <property name="maxTotal" value="200"/>
+            <property name="maxPrivate" value="100"/>
+            <property name="maxPackage" value="100"/>
+            <property name="maxProtected" value="100"/>
+            <property name="maxPublic" value="200"/>
+        </module>
+        <!-- 方法参数数量 -->
+        <module name="ParameterNumber">
+            <property name="max" value="7"/>
+            <property name="ignoreOverriddenMethods" value="false"/>
+        </module>
+        <!-- Lambda 长度-->
+        <!--        <module name="LambdaBodyLength">-->
+        <!--            <property name="max" value="10"/>-->
+        <!--        </module>-->
 
-        <module name="LineLength">
-            <property name="max" value="200"/>
+
+        <module name="OuterTypeNumber"/>
+        <!--        <module name="RecordComponentNumber"/>-->
+
+        <!-- Whitespace -->
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <!-- Empty Line -->
+        <module name="EmptyLineSeparator">
+            <property name="tokens"
+                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+                            STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+            <!-- 禁止多个空行 -->
+            <!--            <property name="allowMultipleEmptyLines" value="false"/>-->
+            <!-- Fields 之间允许无空行 -->
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="true"/>
         </module>
 
+
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoLineWrap"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapDot"/>
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapComma"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
+            <property name="id" value="SeparatorWrapEllipsis"/>
+            <property name="tokens" value="ELLIPSIS"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
+            <property name="id" value="SeparatorWrapArrayDeclarator"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapMethodRef"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SingleSpaceSeparator"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter">
+            <property name="tokens"
+                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
+                    LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
+        </module>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyLambdas" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
+            <property name="ignoreEnhancedForColon" value="false"/>
+        </module>
         <module name="FinalParameters"/>
     </module>
 </module>

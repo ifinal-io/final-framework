@@ -19,8 +19,7 @@ public enum ResponseStatus implements IEnum<Integer> {
     UNAUTHORIZED(401, "Unauthorized"),
     FORBIDDEN(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
-    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
-    ;
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
     private final Integer code;
 

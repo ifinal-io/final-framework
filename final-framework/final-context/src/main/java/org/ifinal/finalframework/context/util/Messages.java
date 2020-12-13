@@ -14,7 +14,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @since 1.0.0
  */
 public final class Messages {
+
     private static final Logger logger = LoggerFactory.getLogger(Messages.class);
+
     @Setter
     private static MessageSource messageSource;
 
@@ -39,5 +41,6 @@ public final class Messages {
             return code;
         }
     }
+
 }
 

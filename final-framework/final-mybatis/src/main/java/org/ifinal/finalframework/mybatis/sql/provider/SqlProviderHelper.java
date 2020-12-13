@@ -39,13 +39,18 @@ import java.util.stream.Collectors;
 public final class SqlProviderHelper {
 
     public static final String PARAMETER_NAME_TABLE = "table";
+
     public static final String PARAMETER_NAME_QUERY = "query";
+
     public static final String PARAMETER_NAME_IGNORE = "ignore";
+
     public static final String PARAMETER_NAME_SELECTIVE = "selective";
 
 
     private static final String INSERT_METHOD_NAME = "insert";
+
     private static final String REPLACE_METHOD_NAME = "replace";
+
     private static final String SAVE_METHOD_NAME = "save";
 
     private static final String UPDATE_METHOD_NAME = "update";
@@ -53,13 +58,17 @@ public final class SqlProviderHelper {
     private static final String DELETE_METHOD_NAME = "delete";
 
     private static final String SELECT_METHOD_NAME = "select";
+
     private static final String SELECT_ONE_METHOD_NAME = "selectOne";
+
     private static final String SELECT_IDS_METHOD_NAME = "selectIds";
+
     private static final String SELECT_COUNT_METHOD_NAME = "selectCount";
 
     private static final String TRUNCATE_METHOD_NAME = "truncate";
 
     private static final Map<String, Class<? extends Annotation>> METHOD_ANNOTATIONS = new HashMap<>(8);
+
     private static final Map<String, Class<?>[]> METHOD_ARGS = new HashMap<>();
 
     private static final Map<String, SqlProvider> SQL_PROVIDERS = new HashMap<>();

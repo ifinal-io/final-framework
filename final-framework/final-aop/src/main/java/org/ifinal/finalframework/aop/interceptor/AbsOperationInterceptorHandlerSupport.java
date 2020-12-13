@@ -26,6 +26,7 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
      * 表达式的开头标记
      */
     private static final String EXPRESSION_PREFIX = "${";
+
     /**
      * 表达式的结尾标记
      */
@@ -55,10 +56,13 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
     @Override
     public List<String> findExpressions(final String expression) {
 
-        Matcher matcher = EXPRESSION_PATTEN.matcher(expression);// 指定要匹配的字符串
+        // 指定要匹配的字符串
+        Matcher matcher = EXPRESSION_PATTEN.matcher(expression);
         List<String> matchStrs = new ArrayList<>();
-        while (matcher.find()) { //此处find（）每次被调用后，会偏移到下一个匹配
-            matchStrs.add(matcher.group());//获取当前匹配的值
+        //此处find（）每次被调用后，会偏移到下一个匹配
+        while (matcher.find()) {
+            //获取当前匹配的值
+            matchStrs.add(matcher.group());
         }
         return matchStrs;
     }
@@ -81,4 +85,5 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
         Asserts.isEmpty(expression, "expression is empty");
         return expression.trim().substring(EXPRESSION_PREFIX.length(), expression.length() - EXPRESSION_SUFFIX.length());
     }
+
 }

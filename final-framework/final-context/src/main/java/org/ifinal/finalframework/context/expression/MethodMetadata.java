@@ -19,10 +19,15 @@ import java.lang.reflect.Type;
 public class MethodMetadata {
 
     private final Method method;
+
     private final Class<?> returnType;
+
     private final Type genericReturnType;
+
     private final Class<?> targetClass;
+
     private final Method targetMethod;
+
     private final AnnotatedElementKey methodKey;
 
     public MethodMetadata(final Method method, final Class<?> targetClass) {
@@ -31,8 +36,9 @@ public class MethodMetadata {
         this.returnType = method.getReturnType();
         this.genericReturnType = method.getGenericReturnType();
         this.targetClass = targetClass;
-        this.targetMethod = (!Proxy.isProxyClass(targetClass) ?
-                AopUtils.getMostSpecificMethod(method, targetClass) : this.method);
+        this.targetMethod = (!Proxy.isProxyClass(targetClass)
+                ? AopUtils.getMostSpecificMethod(method, targetClass) : this.method);
         this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);
     }
+
 }

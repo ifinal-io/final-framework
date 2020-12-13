@@ -15,15 +15,23 @@ import java.util.List;
 public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final E entity;
+
     private final Property property;
+
     private final Integer order;
+
     private final String path;
+
     private final String name;
+
     private final String column;
 
     private final boolean idProperty;
+
     private final boolean readable;
+
     private final boolean writeable;
+
     private final boolean modifiable;
 
     private final Class<? extends TypeHandler> typeHandler;
@@ -137,30 +145,31 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return false;
     }
 
-    @Override
-    public String toString() {
-        return "path=" + path +
-                ",name=" + name +
-                ",column=" + column +
-                ",javaType=" + getType().getCanonicalName();
-    }
-
-
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
+
         private final E entity;
+
         private final Property property;
+
         private Integer order = 0;
+
         private String path;
+
         private String name;
+
         private String column;
 
         private boolean idProperty = false;
+
         private boolean isReadable = true;
+
         private boolean isWriteable = true;
+
         private boolean isModifiable = true;
 
 
         private Class<? extends TypeHandler> typeHandler;
+
         private List<Class<?>> views;
 
         public BuilderImpl(final E entity, final Property property) {
@@ -245,5 +254,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         public QProperty<T> build() {
             return new QPropertyImpl<>(this);
         }
+
     }
+
 }

@@ -73,7 +73,6 @@
 
         <!-- Size Violations -->
         <module name="AnonInnerLength"/>
-        <module name="OuterTypeNumber"/>
 
         <!-- Whitespace -->
         <module name="EmptyForInitializerPad"/>

@@ -9,7 +9,8 @@ import java.util.Collection;
  * @since 1.0.0
  */
 public class BindingTableRegistry {
-    private final Collection<String> bindingTableGroups ;
+
+    private final Collection<String> bindingTableGroups;
 
     public BindingTableRegistry(final Collection<String> bindingTableGroups) {
 

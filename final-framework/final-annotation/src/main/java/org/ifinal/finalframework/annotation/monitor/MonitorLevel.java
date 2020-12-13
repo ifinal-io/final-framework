@@ -24,8 +24,7 @@ public enum MonitorLevel implements IEnum<Integer> {
     DEBUG(2, "DEBUG"),
     INFO(3, "INFO"),
     WARN(4, "WARN"),
-    ERROR(5, "ERROR"),
-    ;
+    ERROR(5, "ERROR");
 
     private static final Map<Integer, MonitorLevel> cache = Arrays.stream(MonitorLevel.values()).collect(Collectors.toMap(MonitorLevel::getCode, Function.identity()));
 

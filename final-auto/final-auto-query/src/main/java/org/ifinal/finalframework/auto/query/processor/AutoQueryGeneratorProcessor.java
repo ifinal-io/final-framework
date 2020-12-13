@@ -130,8 +130,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
 
         List<FieldSpec> fieldSpecs = entity.getProperties().stream()
                 .map(property -> FieldSpec.builder(
-                        ParameterizedTypeName.get(ClassName.get(QProperty.class), TypeName.get(property.getElement().asType()))
-                        , property.getName())
+                        ParameterizedTypeName.get(
+                                ClassName.get(QProperty.class), TypeName.get(property.getElement().asType())), property.getName())
                         .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                         // Entity.getRequiredProperty('path')
                         .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())

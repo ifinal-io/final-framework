@@ -23,6 +23,7 @@ import java.sql.SQLException;
  * @since 1.0.0
  */
 public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
+
     private final Class<E> type;
 
     public EnumTypeHandler(final @NonNull Class<E> type) {
@@ -46,9 +47,9 @@ public class EnumTypeHandler<E extends IEnum<?>> extends BaseTypeHandler<E> {
             ps.setShort(i, (Short) code);
         } else if (code instanceof Integer) {
             ps.setInt(i, (Integer) code);
-        }else if(code instanceof Long){
+        } else if (code instanceof Long) {
             ps.setLong(i, (Long) code);
-        }else if(code instanceof Boolean){
+        } else if (code instanceof Boolean) {
             ps.setBoolean(i, (Boolean) code);
         }
     }

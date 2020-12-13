@@ -26,6 +26,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
     private static final String CLASS_DUMP_DIR = "classDump";
 
     private final Set<Class<?>> classesToEnhance;
+
     private final Map<Class<?>, File> dumpResult;
 
     private final File directory;
@@ -76,8 +77,8 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
         String fileName;
         if (classLoader != null) {
-            fileName = classLoader.getClass().getName() + "-" + Integer.toHexString(classLoader.hashCode()) +
-                    File.separator + className.replace(".", File.separator) + ".class";
+            fileName = classLoader.getClass().getName() + "-" + Integer.toHexString(classLoader.hashCode())
+                    + File.separator + className.replace(".", File.separator) + ".class";
         } else {
             fileName = className.replace(".", File.separator) + ".class";
         }
@@ -107,4 +108,5 @@ public class ClassDumpTransformer implements ClassFileTransformer {
             logger.warn("dump class:{} to file {} failed.", className, dumpClassFile, e);
         }
     }
+
 }

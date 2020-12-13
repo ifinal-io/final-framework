@@ -14,8 +14,11 @@ import org.ifinal.finalframework.util.Asserts;
  */
 @Data
 class CriterionValueImpl<T> implements CriterionValue<T> {
+
     private final T value;
+
     private Class<?> javaType;
+
     private Class<? extends TypeHandler<?>> typeHandler;
 
     public CriterionValueImpl(final T value) {
@@ -52,8 +55,8 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
             criterionValue = expression;
         } else if (isProperty()) {
             QProperty<?> property = (QProperty<?>) this.value;
-            criterionValue = SqlKeyWords.contains(property.getColumn().toLowerCase()) ?
-                    String.format("`%s`", property.getColumn()) : property.getColumn();
+            criterionValue = SqlKeyWords.contains(property.getColumn().toLowerCase())
+                    ? String.format("`%s`", property.getColumn()) : property.getColumn();
         } else {
             criterionValue = this.value instanceof String ? String.format("'%s'", this.value) : this.value.toString();
         }

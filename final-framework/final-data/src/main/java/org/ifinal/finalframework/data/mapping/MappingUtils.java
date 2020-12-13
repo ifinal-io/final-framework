@@ -39,8 +39,8 @@ public interface MappingUtils {
 
         } else {
             final String referenceColumn = property.getReferenceColumn(referenceProperty);
-            column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE ?
-                    property.getColumn()
+            column = referenceProperty.isIdProperty() && property.getReferenceMode() == ReferenceMode.SIMPLE
+                    ? property.getColumn()
                     : property.getColumn() + referenceColumn.substring(0, 1).toUpperCase() + referenceColumn.substring(1);
         }
 
@@ -56,4 +56,5 @@ public interface MappingUtils {
         }
         return column;
     }
+
 }

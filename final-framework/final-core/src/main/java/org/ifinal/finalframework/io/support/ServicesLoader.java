@@ -104,17 +104,14 @@ public final class ServicesLoader {
             final List<String> services = new ArrayList<>();
 
             try {
-                Enumeration<URL> urls = (classLoader != null ?
-                        classLoader.getResources(propertiesResourceLocation) :
-                        ClassLoader.getSystemResources(propertiesResourceLocation));
+                Enumeration<URL> urls = classLoader != null ? classLoader.getResources(propertiesResourceLocation) : ClassLoader.getSystemResources(propertiesResourceLocation);
                 while (urls.hasMoreElements()) {
                     URL url = urls.nextElement();
                     services.addAll(readFromResource(new UrlResource(url)));
                 }
                 cache.put(classLoader, result);
             } catch (IOException ex) {
-                throw new IllegalArgumentException("Unable to load factories from location [" +
-                        propertiesResourceLocation + "]", ex);
+                throw new IllegalArgumentException("Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
             }
 
             return new ArrayList<>(new HashSet<>(services));

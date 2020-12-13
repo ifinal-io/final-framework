@@ -24,14 +24,17 @@ public class IEnumConverter<T extends Enum<T>> implements EnumConverter<T> {
      * @see Enum#ordinal()
      */
     protected static final String ENUM_ORDINAL = "ordinal";
+
     /**
      * @see Enum#name()
      */
     protected static final String ENUM_NAME = "name";
+
     /**
      * @see IEnum#getCode()
      */
     protected static final String ENUM_CODE = "code";
+
     /**
      * @see IEnum#getDesc()
      */
@@ -50,4 +53,5 @@ public class IEnumConverter<T extends Enum<T>> implements EnumConverter<T> {
         }
         return result;
     }
+
 }

@@ -7,7 +7,8 @@ import org.aopalliance.aop.Advice;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class AbsGenericPointcutAdvisor extends AbsPointcutAdvisor{
+public abstract class AbsGenericPointcutAdvisor extends AbsPointcutAdvisor {
+
     private Advice advice = EMPTY_ADVICE;
 
     @Override
@@ -19,4 +20,5 @@ public abstract class AbsGenericPointcutAdvisor extends AbsPointcutAdvisor{
 
         this.advice = advice;
     }
+
 }

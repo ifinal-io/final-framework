@@ -8,11 +8,12 @@ import org.ifinal.finalframework.annotation.data.NameConverter;
  * @since 1.0.0
  */
 public class CameHump2MiddleLineNameConverter implements NameConverter {
+
     @Override
     public String convert(final String name) {
 
         StringBuilder sb = new StringBuilder(name);
-        int temp = 0;//定位
+        int temp = 0;
         for (int i = 1; i < name.length(); i++) {
             if (Character.isUpperCase(name.charAt(i)) && !Character.isUpperCase(name.charAt(i - 1))) {
                 sb.insert(i + temp, "-");
@@ -21,4 +22,5 @@ public class CameHump2MiddleLineNameConverter implements NameConverter {
         }
         return sb.toString().toLowerCase();
     }
+
 }

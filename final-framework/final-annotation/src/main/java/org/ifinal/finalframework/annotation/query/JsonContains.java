@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 /**
  * @author likly
  * @version 1.0.0
+ * @see NotJsonContains
  * @since 1.0.0
  */
 @Target(ElementType.FIELD)
@@ -21,10 +22,10 @@ public @interface JsonContains {
 
     String[] value() default {
             "   <if test=\"${value} != null\">",
-            "       <![CDATA[ ${andOr} JSON_CONTAINS( ${column}, #{${value}" +
-                    "#if($javaType), javaType=$!{javaType.canonicalName}#end" +
-                    "#if($typeHandler), typeHandler=$!{typeHandler.canonicalName}#end}" +
-                    "#if($path), '${path}'#end)]]>",
+            "       <![CDATA[ ${andOr} JSON_CONTAINS( ${column}, #{${value}"
+                    + "#if($javaType), javaType=$!{javaType.canonicalName}#end"
+                    + "#if($typeHandler), typeHandler=$!{typeHandler.canonicalName}#end}"
+                    + "#if($path), '${path}'#end)]]>",
             "   </if>"
     };
 

@@ -48,9 +48,9 @@ public final class PropertiesLoader {
         }
 
         try {
-            Enumeration<URL> urls = (classLoader != null ?
-                    classLoader.getResources(propertiesResourceLocation) :
-                    ClassLoader.getSystemResources(propertiesResourceLocation));
+            Enumeration<URL> urls = classLoader != null
+                    ? classLoader.getResources(propertiesResourceLocation)
+                    : ClassLoader.getSystemResources(propertiesResourceLocation);
             result = new LinkedMultiValueMap<>();
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
@@ -66,8 +66,7 @@ public final class PropertiesLoader {
             cache.put(classLoader, result);
             return result;
         } catch (IOException ex) {
-            throw new IllegalArgumentException("Unable to load factories from location [" +
-                    propertiesResourceLocation + "]", ex);
+            throw new IllegalArgumentException("Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
         }
     }
 
