@@ -19,7 +19,7 @@ final class CriteriaImpl implements Criteria {
 
     private final Collection<Criterion> criteria;
 
-    public CriteriaImpl() {
+    CriteriaImpl() {
         this(AndOr.AND, new ArrayList<>());
     }
 

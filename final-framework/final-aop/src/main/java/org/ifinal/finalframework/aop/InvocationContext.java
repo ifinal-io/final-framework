@@ -20,8 +20,8 @@ public interface InvocationContext {
 
     Map<String, Object> attributes();
 
-    void addAttribute(final String name, final Object value);
+    void addAttribute(String name, Object value);
 
-    <T> T getAttribute(final String name);
+    <T> T getAttribute(String name);
 
 }

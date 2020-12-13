@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 public interface ScriptSqlProvider extends SqlProvider {
 
     @Override
-    default String provide(final ProviderContext context, final Map<String, Object> parameters) {
+    default String provide(ProviderContext context, Map<String, Object> parameters) {
 
         final Logger logger = LoggerFactory.getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
-        final StringBuilder sql = new StringBuilder();
+        StringBuilder sql = new StringBuilder();
         sql.append("<script>");
         doProvide(sql, context, parameters);
         sql.append("</script>");
@@ -27,7 +27,7 @@ public interface ScriptSqlProvider extends SqlProvider {
         return value;
     }
 
-    void doProvide(final StringBuilder sql, final ProviderContext context, final Map<String, Object> parameters);
+    void doProvide(StringBuilder sql, ProviderContext context, Map<String, Object> parameters);
 
 }
 

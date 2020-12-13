@@ -10,10 +10,10 @@ import java.lang.reflect.Parameter;
  */
 public interface AnnotationParser<R> {
 
-    R parseAnnotations(final Class<?> clazz);
+    R parseAnnotations(Class<?> clazz);
 
-    R parseAnnotations(final Method method);
+    R parseAnnotations(Method method);
 
-    R parseAnnotations(final Parameter parameter, final Integer index);
+    R parseAnnotations(Parameter parameter, Integer index);
 
 }

@@ -12,11 +12,11 @@ import org.springframework.lang.NonNull;
  */
 public interface ExpressionEvaluator {
 
-    EvaluationContext createEvaluationContext(final Method method, final Object[] args, final Object target,
-        final Class<?> targetClass, final Method targetMethod, final Object result, final Throwable e);
+    EvaluationContext createEvaluationContext(Method method, Object[] args, Object target,
+        Class<?> targetClass, Method targetMethod, Object result, Throwable e);
 
-    Object value(final @NonNull String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
+    Object value(@NonNull String expression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    <T> T value(final @NonNull String expression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext, Class<T> clazz);
+    <T> T value(@NonNull String expression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext, Class<T> clazz);
 
 }

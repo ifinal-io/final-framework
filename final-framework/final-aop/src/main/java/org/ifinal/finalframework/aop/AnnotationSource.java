@@ -14,10 +14,10 @@ import org.springframework.lang.Nullable;
 public interface AnnotationSource<R> {
 
     @Nullable
-    R getAnnotations(final Method method, final @Nullable Class<?> targetClass);
+    R getAnnotations(Method method, @Nullable Class<?> targetClass);
 
     @NonNull
-    default Object getCacheKey(final Method method, final @Nullable Class<?> targetClass) {
+    default Object getCacheKey(Method method, @Nullable Class<?> targetClass) {
 
         return new MethodClassKey(method, targetClass);
     }

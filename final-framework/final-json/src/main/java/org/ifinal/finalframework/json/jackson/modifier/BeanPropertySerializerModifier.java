@@ -15,10 +15,10 @@ import org.springframework.lang.Nullable;
  */
 public interface BeanPropertySerializerModifier {
 
-    boolean support(final @NonNull BeanPropertyDefinition property);
+    boolean support(@NonNull BeanPropertyDefinition property);
 
     @Nullable
-    Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
-        final BeanPropertyDefinition property, final BeanPropertyWriter writer);
+    Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
+        BeanPropertyDefinition property, BeanPropertyWriter writer);
 
 }

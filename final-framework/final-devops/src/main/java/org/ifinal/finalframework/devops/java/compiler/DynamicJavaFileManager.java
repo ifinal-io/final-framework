@@ -91,7 +91,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
         private final Iterable<T> next;
 
-        public IterableJoin(final Iterable<T> first, final Iterable<T> next) {
+        IterableJoin(final Iterable<T> first, final Iterable<T> next) {
 
             this.first = first;
             this.next = next;
@@ -111,7 +111,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
         private final Iterator<T> next;
 
-        public IteratorJoin(final Iterator<T> first, final Iterator<T> next) {
+        IteratorJoin(final Iterator<T> first, final Iterator<T> next) {
 
             this.first = first;
             this.next = next;

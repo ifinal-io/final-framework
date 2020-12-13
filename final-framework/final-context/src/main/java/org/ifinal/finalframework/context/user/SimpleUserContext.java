@@ -11,8 +11,7 @@ class SimpleUserContext<T extends IUser<?>> implements UserContext<T> {
 
     private final T user;
 
-    public SimpleUserContext(final T user) {
-
+    SimpleUserContext(T user) {
         this.user = user;
     }
 

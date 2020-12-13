@@ -18,7 +18,7 @@ public interface ExceptionHandler<E, R> {
      * @param throwable 业务方法抛出的异常
      * @return 是否可以处理该异常
      */
-    boolean supports(final @NonNull Throwable throwable);
+    boolean supports(@NonNull Throwable throwable);
 
     /**
      * 将异常转化成可视化的结果
@@ -27,6 +27,6 @@ public interface ExceptionHandler<E, R> {
      * @return 异常转化后的结果
      */
     @NonNull
-    R handle(final @NonNull E throwable);
+    R handle(@NonNull E throwable);
 
 }

@@ -73,7 +73,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
         }
     }
 
-    protected abstract boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv);
+    protected abstract boolean doProcess(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv);
 
     protected void log(final String msg) {
 

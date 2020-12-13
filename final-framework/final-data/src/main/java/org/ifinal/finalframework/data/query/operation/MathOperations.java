@@ -9,7 +9,10 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface MathOperations {
+public final class MathOperations {
+
+    private MathOperations() {
+    }
 
     public static CriterionFunction max(@NonNull Object target) {
         return new SimpleCriterionFunction(target, MathOperation.MAX);

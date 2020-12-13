@@ -19,26 +19,26 @@ import org.springframework.util.MultiValueMap;
  */
 public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointcutAdvisor {
 
-    private final Pointcut pointcut;
+    private Pointcut pointcut;
 
-    private final MultiAnnotationSource<A> source = new MultiAnnotationSource<>();
+    private MultiAnnotationSource<A> source = new MultiAnnotationSource<>();
 
-    private final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers = new LinkedMultiValueMap<>();
+    private MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers = new LinkedMultiValueMap<>();
 
     public MultiAnnotationPointAdvisor() {
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
             @Override
             @NonNull
-            protected E getExecutor(final A annotation) {
+            protected E getExecutor(A annotation) {
 
                 return MultiAnnotationPointAdvisor.this.getExecutor(annotation);
             }
         }));
     }
 
-    public <T extends Annotation> void addAnnotation(final Class<T> annotationType, final AnnotationBuilder<T, A> builder,
-        final InterceptorHandler<E, A> handler) {
+    public <T extends Annotation> void addAnnotation(Class<T> annotationType, AnnotationBuilder<T, A> builder,
+        InterceptorHandler<E, A> handler) {
 
         this.source.addAnnotationSource(annotationType, new SingleAnnotationSource<>(annotationType, builder));
         this.handlers.add(annotationType, handler);
@@ -51,6 +51,6 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
     }
 
     @NonNull
-    protected abstract E getExecutor(final A annotation);
+    protected abstract E getExecutor(A annotation);
 
 }

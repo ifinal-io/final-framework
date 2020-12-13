@@ -11,35 +11,35 @@ import org.ifinal.finalframework.annotation.query.Direction;
  */
 public interface Sort extends Iterable<Order>, SqlNode {
 
-    static Sort sort(final Direction direction, final QProperty<?>... properties) {
+    static Sort sort(Direction direction, QProperty<?>... properties) {
 
         return SortImpl.sort(direction, properties);
     }
 
-    static Sort by(final Order... orders) {
+    static Sort by(Order... orders) {
 
         return by(Arrays.asList(orders));
     }
 
-    static Sort by(final Collection<Order> orders) {
+    static Sort by(Collection<Order> orders) {
 
         return SortImpl.by(orders);
     }
 
-    static Sort asc(final QProperty<?>... property) {
+    static Sort asc(QProperty<?>... property) {
 
         return SortImpl.asc(property);
     }
 
-    static Sort desc(final QProperty<?>... property) {
+    static Sort desc(QProperty<?>... property) {
 
         return SortImpl.desc(property);
     }
 
-    Sort and(final Sort sort);
+    Sort and(Sort sort);
 
     @Override
-    default void apply(final StringBuilder sql, final String value) {
+    default void apply(StringBuilder sql, String value) {
 
         sql.append("<trim prefix=\"ORDER BY\" suffixOverrides=\",\">");
 

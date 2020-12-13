@@ -9,14 +9,14 @@ public interface JsonContext {
 
     boolean isIgnore();
 
-    void setIgnore(final boolean ignore);
+    void setIgnore(boolean ignore);
 
     boolean isModifyEnum();
 
-    void setModifyEnum(final boolean enable);
+    void setModifyEnum(boolean enable);
 
     boolean isModifyDate();
 
-    void setModifyDate(final boolean enable);
+    void setModifyDate(boolean enable);
 
 }

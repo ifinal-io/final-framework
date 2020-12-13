@@ -28,6 +28,6 @@ public interface Converter2<S1, S2, R> {
     /**
      * convert to {@link R} with {@link S1} and {@link S2}
      */
-    R convert(final S1 s1, final S2 s2);
+    R convert(S1 s1, S2 s2);
 
 }

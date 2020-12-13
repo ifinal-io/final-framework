@@ -14,26 +14,26 @@ import org.ifinal.finalframework.util.Asserts;
 @Data
 class CriterionValueImpl<T> implements CriterionValue<T> {
 
-    private final T value;
+    private T value;
 
     private Class<?> javaType;
 
     private Class<? extends TypeHandler<?>> typeHandler;
 
-    public CriterionValueImpl(final T value) {
+    CriterionValueImpl(T value) {
 
         this.value = value;
     }
 
     @Override
-    public CriterionValue<T> javaType(final Class<?> javaType) {
+    public CriterionValue<T> javaType(Class<?> javaType) {
 
         this.javaType = javaType;
         return this;
     }
 
     @Override
-    public CriterionValue<T> typeHandler(final Class<? extends TypeHandler<?>> typeHandler) {
+    public CriterionValue<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
 
         this.typeHandler = typeHandler;
         return this;
@@ -47,7 +47,7 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
         return this.value instanceof QProperty;
     }
 
-    public String getSqlExpression(final String expression) {
+    public String getSqlExpression(String expression) {
 
         String criterionValue;
         if (Asserts.nonNull(expression)) {

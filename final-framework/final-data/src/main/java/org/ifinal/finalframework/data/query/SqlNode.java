@@ -10,6 +10,6 @@ import org.springframework.lang.NonNull;
 @FunctionalInterface
 public interface SqlNode {
 
-    void apply(final @NonNull StringBuilder sql, final @NonNull String expression);
+    void apply(@NonNull StringBuilder sql, @NonNull String expression);
 
 }

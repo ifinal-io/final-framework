@@ -22,18 +22,18 @@ public interface OperationHandlerSupport {
      * @param e       方法抛出的异常，可能为{@code null}
      */
     @NonNull
-    EvaluationContext createEvaluationContext(final @NonNull InvocationContext context, final @Nullable Object result, final @Nullable Throwable e);
+    EvaluationContext createEvaluationContext(@NonNull InvocationContext context, @Nullable Object result, @Nullable Throwable e);
 
-    List<String> findExpressions(final String expression);
+    List<String> findExpressions(String expression);
 
     /**
      * 返回指定的字符串是否为一个表达式
      *
      * @param expression 表达式字符串
      */
-    boolean isExpression(final @Nullable String expression);
+    boolean isExpression(@Nullable String expression);
 
     @NonNull
-    String generateExpression(final @NonNull String expression);
+    String generateExpression(@NonNull String expression);
 
 }

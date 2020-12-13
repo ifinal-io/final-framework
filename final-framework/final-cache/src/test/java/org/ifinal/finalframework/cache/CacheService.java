@@ -10,6 +10,6 @@ import org.ifinal.finalframework.cache.annotation.Cacheable;
 public interface CacheService {
 
     @Cacheable(key = "${key}")
-    Integer cacheable(final Integer key);
+    Integer cacheable(Integer key);
 
 }

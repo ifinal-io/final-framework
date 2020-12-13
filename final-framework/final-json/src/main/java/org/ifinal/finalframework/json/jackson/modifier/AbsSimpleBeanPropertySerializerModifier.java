@@ -16,6 +16,6 @@ public abstract class AbsSimpleBeanPropertySerializerModifier extends AbsBeanPro
         return support(property.getRawPrimaryType());
     }
 
-    protected abstract boolean support(final Class<?> clazz);
+    protected abstract boolean support(Class<?> clazz);
 
 }

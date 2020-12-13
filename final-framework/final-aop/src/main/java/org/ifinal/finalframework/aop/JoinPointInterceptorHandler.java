@@ -12,10 +12,10 @@ import org.springframework.lang.Nullable;
 public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E, A> {
 
     @Nullable
-    JoinPoint point(final A annotation);
+    JoinPoint point(A annotation);
 
     @Override
-    default Object before(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation) {
+    default Object before(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation) {
 
         if (JoinPoint.BEFORE == point(annotation)) {
             handle(executor, context, annotation, null, null);
@@ -24,7 +24,7 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void afterReturning(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final Object result) {
+    default void afterReturning(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, Object result) {
 
         if (JoinPoint.AFTER_RETURNING == point(annotation)) {
             handle(executor, context, annotation, result, null);
@@ -32,8 +32,8 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation,
-        final @NonNull Throwable throwable) {
+    default void afterThrowing(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation,
+        @NonNull Throwable throwable) {
 
         if (JoinPoint.AFTER_THROWING == point(annotation)) {
             handle(executor, context, annotation, null, throwable);
@@ -41,8 +41,8 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
     }
 
     @Override
-    default void after(final @NonNull E executor, final @NonNull InvocationContext context, final @NonNull A annotation, final Object result,
-        final Throwable throwable) {
+    default void after(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, Object result,
+        Throwable throwable) {
 
         if (JoinPoint.AFTER == point(annotation)) {
             handle(executor, context, annotation, result, throwable);

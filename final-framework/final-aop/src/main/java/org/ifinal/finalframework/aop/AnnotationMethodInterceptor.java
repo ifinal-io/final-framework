@@ -12,10 +12,10 @@ import org.ifinal.finalframework.util.Asserts;
  */
 public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
 
-    R findAnnotations(final Method method, final Class<?> clazz);
+    R findAnnotations(Method method, Class<?> clazz);
 
     @Override
-    default Object invoke(final MethodInvocation invocation) throws Throwable {
+    default Object invoke(MethodInvocation invocation) throws Throwable {
 
         R annotations = findAnnotations(invocation.getMethod(), invocation.getThis().getClass());
 
@@ -26,6 +26,6 @@ public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
         return invoke(invocation, annotations);
     }
 
-    Object invoke(final MethodInvocation invocation, final R annotations) throws Throwable;
+    Object invoke(MethodInvocation invocation, R annotations) throws Throwable;
 
 }

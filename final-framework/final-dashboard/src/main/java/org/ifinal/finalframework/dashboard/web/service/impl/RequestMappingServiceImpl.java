@@ -42,7 +42,7 @@ class RequestMappingServiceImpl implements RequestMappingService, InitializingBe
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
-    public RequestMappingServiceImpl(final RequestMappingHandlerMapping requestMappingHandlerMapping) {
+    RequestMappingServiceImpl(final RequestMappingHandlerMapping requestMappingHandlerMapping) {
 
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
     }

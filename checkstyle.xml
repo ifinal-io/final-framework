@@ -27,16 +27,22 @@
         <property name="optional" value="true"/>
     </module>
     <property name="fileExtensions" value="java, properties, xml"/>
-    <!--单行长度-->
+    <!--字符集-->
     <property name="charset" value="UTF-8"/>
-
+    <!--查询不通过则报错-->
     <property name="severity" value="error"/>
 
+    <!--文件Tab字符 <a href="https://checkstyle.org/config_whitespace.html#FileTabCharacter">FileTabCharacter</a>-->
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
+
+    <!--文件长度-->
+    <module name="FileLength">
+        <property name="max" value="1500"/>
+    </module>
     <!-- Excludes all 'module-info.java' files              -->
-    <!-- See https://checkstyle.org/config_filefilters.html -->
+    <!-- 单行长度 <a href="https://checkstyle.org/config_sizes.html#LineLength>LineLength</a>-->
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
         <property name="max" value="200"/>
@@ -58,15 +64,11 @@
             <property name="allowByTailComment" value="true"/>
             <property name="allowNonPrintableEscapes" value="true"/>
         </module>
+        <!--避免*号导入-->
         <module name="AvoidStarImport"/>
         <module name="OneTopLevelClass"/>
         <module name="NoLineWrap">
             <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
-        </module>
-        <module name="EmptyBlock">
-            <property name="option" value="TEXT"/>
-            <property name="tokens"
-                value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
         </module>
         <module name="NeedBraces">
             <property name="tokens"
@@ -131,7 +133,6 @@
         <module name="MissingSwitchDefault"/>
         <module name="FallThrough"/>
         <module name="UpperEll"/>
-        <module name="ModifierOrder"/>
         <module name="EmptyLineSeparator">
             <property name="tokens"
                 value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
@@ -361,6 +362,66 @@
             <property default="checkstyle-xpath-suppressions.xml" name="file"
                 value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
             <property name="optional" value="true"/>
+        </module>
+
+        <!-- Blocks -->
+        <!-- 避免内部块 -->
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="false"/>
+        </module>
+        <!-- Modifiers -->
+        <module name="EmptyBlock"/>
+        <module name="EmptyBlock">
+            <property name="option" value="TEXT"/>
+            <property name="tokens"
+                value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
+        </module>
+
+        <!-- Modifiers -->
+        <!-- ModifierOrder -->
+        <module name="ModifierOrder"/>
+        <!-- 多余的修饰符 -->
+        <module name="RedundantModifier"/>
+
+        <!-- Size -->
+        <!-- 内部类名称长度 -->
+        <module name="AnonInnerLength">
+            <property name="max" value="60"/>
+        </module>
+        <!-- Lambda 体长度 -->
+        <module name="LambdaBodyLength">
+            <property name="max" value="50"/>
+        </module>
+        <!-- 可执行语句数量 -->
+        <module name="ExecutableStatementCount">
+            <property name="max" value="100"/>
+            <property name="tokens" value="CTOR_DEF,METHOD_DEF"/>
+        </module>
+        <!-- 方法数量 -->
+        <module name="MethodCount">
+            <property name="maxTotal" value="200"/>
+            <property name="maxPrivate" value="100"/>
+            <property name="maxPackage" value="100"/>
+            <property name="maxProtected" value="100"/>
+            <property name="maxPublic" value="200"/>
+        </module>
+        <!-- 方法长度 -->
+        <module name="MethodLength">
+            <property name="max" value="100"/>
+            <property name="countEmpty" value="true"/>
+        </module>
+        <!-- 外部类数量 -->
+        <module name="OuterTypeNumber">
+            <property name="max" value="2"/>
+        </module>
+        <!-- 参数数量 -->
+        <module name="ParameterNumber">
+            <property name="max" value="7"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+        </module>
+        <module name="RecordComponentNumber">
+            <property name="max" value="3"/>
+            <property name="accessModifiers" value="private"/>
         </module>
     </module>
 

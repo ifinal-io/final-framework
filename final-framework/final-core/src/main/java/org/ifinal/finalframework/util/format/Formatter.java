@@ -28,8 +28,8 @@ import org.ifinal.finalframework.util.function.Filter;
  */
 public interface Formatter<T> extends Filter<String> {
 
-    T parse(final String source);
+    T parse(String source);
 
-    String format(final T target);
+    String format(T target);
 
 }

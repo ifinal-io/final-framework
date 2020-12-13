@@ -20,7 +20,7 @@ class MapperServiceImpl implements MapperService {
 
     private final List<AbsMapper<?, ?>> mappers;
 
-    public MapperServiceImpl(final ObjectProvider<List<AbsMapper<?, ?>>> mappersProviers) {
+    MapperServiceImpl(final ObjectProvider<List<AbsMapper<?, ?>>> mappersProviers) {
 
         this.mappers = mappersProviers.getIfAvailable();
     }

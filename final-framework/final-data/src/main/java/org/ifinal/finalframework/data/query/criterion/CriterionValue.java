@@ -16,14 +16,14 @@ import org.springframework.lang.NonNull;
 public interface CriterionValue<V> extends SqlNode {
 
     @SuppressWarnings("unchecked")
-    static <V> CriterionValue<V> from(final V value) {
+    static <V> CriterionValue<V> from(V value) {
 
         return value instanceof CriterionValue ? (CriterionValue<V>) value : new CriterionValueImpl<>(value);
     }
 
-    CriterionValue<V> javaType(final Class<?> javaType);
+    CriterionValue<V> javaType(Class<?> javaType);
 
-    CriterionValue<V> typeHandler(final Class<? extends TypeHandler<?>> typeHandler);
+    CriterionValue<V> typeHandler(Class<? extends TypeHandler<?>> typeHandler);
 
     V getValue();
 
@@ -31,14 +31,14 @@ public interface CriterionValue<V> extends SqlNode {
 
     Class<? extends TypeHandler> getTypeHandler();
 
-    default CriterionFunction apply(final Function<CriterionValue<V>, CriterionFunction> mapper) {
+    default CriterionFunction apply(Function<CriterionValue<V>, CriterionFunction> mapper) {
         return mapper.apply(this);
     }
 
     @Override
-    default void apply(final @NonNull StringBuilder parent, final @NonNull String expression) {
+    default void apply(@NonNull StringBuilder parent, @NonNull String expression) {
 
-        final V value = getValue();
+        V value = getValue();
 
         if (value instanceof SqlNode) {
             ((SqlNode) value).apply(parent, String.format("%s.value", expression));

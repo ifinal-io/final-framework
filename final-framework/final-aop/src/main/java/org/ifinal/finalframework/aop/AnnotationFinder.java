@@ -20,6 +20,6 @@ import org.springframework.lang.NonNull;
 @FunctionalInterface
 public interface AnnotationFinder<A> {
 
-    A findAnnotations(final @NonNull AnnotatedElement ae);
+    A findAnnotations(@NonNull AnnotatedElement ae);
 
 }

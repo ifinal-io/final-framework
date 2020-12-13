@@ -75,7 +75,7 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
 
         private final String method;
 
-        public HttpMethodRequestWrapper(final HttpServletRequest request, final String method) {
+        HttpMethodRequestWrapper(final HttpServletRequest request, final String method) {
 
             super(request);
             this.method = method;

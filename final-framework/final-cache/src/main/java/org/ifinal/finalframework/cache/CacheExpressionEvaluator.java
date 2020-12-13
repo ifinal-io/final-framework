@@ -11,13 +11,13 @@ import org.springframework.expression.EvaluationContext;
  */
 public interface CacheExpressionEvaluator extends ExpressionEvaluator {
 
-    Object key(final String keyExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
+    Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    Object field(final String fieldExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
+    Object field(String fieldExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    boolean condition(final String conditionExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
+    boolean condition(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
-    Object expired(final String expiredExpression, final AnnotatedElementKey methodKey, final EvaluationContext evaluationContext);
+    Object expired(String expiredExpression, AnnotatedElementKey methodKey, EvaluationContext evaluationContext);
 
     void clear();
 

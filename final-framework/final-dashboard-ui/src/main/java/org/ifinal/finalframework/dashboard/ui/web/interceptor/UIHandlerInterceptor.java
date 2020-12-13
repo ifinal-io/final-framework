@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 public interface UIHandlerInterceptor extends HandlerInterceptor {
 
     @Override
-    default void postHandle(final HttpServletRequest request, final HttpServletResponse response,
-        final Object handler, final ModelAndView modelAndView) throws Exception {
+    default void postHandle(HttpServletRequest request, HttpServletResponse response,
+        Object handler, ModelAndView modelAndView) throws Exception {
 
         if (handler instanceof HandlerMethod && modelAndView != null) {
             Page page;
@@ -35,8 +35,8 @@ public interface UIHandlerInterceptor extends HandlerInterceptor {
         }
     }
 
-    void postHandle(final HttpServletRequest request, final HttpServletResponse response,
-        final HandlerMethod handler, final Page page, final ModelAndView modelAndView);
+    void postHandle(HttpServletRequest request, HttpServletResponse response,
+        HandlerMethod handler, Page page, ModelAndView modelAndView);
 
 }
 

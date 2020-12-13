@@ -12,7 +12,10 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface JsonOperations {
+public final class JsonOperations {
+
+    private JsonOperations() {
+    }
 
     public static Criterion contains(@NonNull Object doc, @NonNull Object value, @NonNull String path) {
         return JsonContainsCriterion.contains(doc, value, path);

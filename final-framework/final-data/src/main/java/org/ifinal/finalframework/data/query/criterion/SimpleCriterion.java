@@ -22,10 +22,10 @@ public interface SimpleCriterion extends Criterion {
     interface Builder<T, R extends Builder> extends org.ifinal.finalframework.util.Builder<T> {
 
         @NonNull
-        R target(final @NonNull Object target);
+        R target(@NonNull Object target);
 
         @NonNull
-        R operation(final @NonNull Operation operation);
+        R operation(@NonNull Operation operation);
 
     }
 

@@ -13,12 +13,12 @@ import org.springframework.lang.NonNull;
 public interface AnnotationBuilder<A extends Annotation, R> {
 
     @NonNull
-    R build(final @NonNull Class<?> type, final @NonNull A annotation);
+    R build(@NonNull Class<?> type, @NonNull A annotation);
 
     @NonNull
-    R build(final @NonNull Method method, final @NonNull A annotation);
+    R build(@NonNull Method method, @NonNull A annotation);
 
     @NonNull
-    R build(final @NonNull Parameter parameter, final @NonNull Integer index, final @NonNull A annotation);
+    R build(@NonNull Parameter parameter, @NonNull Integer index, @NonNull A annotation);
 
 }

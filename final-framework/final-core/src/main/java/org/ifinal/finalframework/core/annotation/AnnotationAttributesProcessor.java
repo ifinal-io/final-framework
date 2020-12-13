@@ -12,6 +12,6 @@ import org.springframework.lang.NonNull;
 @FunctionalInterface
 public interface AnnotationAttributesProcessor {
 
-    void doProcess(final @NonNull AnnotatedElement annotatedElement, final @NonNull AnnotationAttributes annotationAttributes);
+    void doProcess(@NonNull AnnotatedElement annotatedElement, @NonNull AnnotationAttributes annotationAttributes);
 
 }

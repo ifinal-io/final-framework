@@ -130,7 +130,7 @@ public interface Property extends PersistentProperty<Property>, Ordered {
 
     Set<String> getReferenceProperties();
 
-    String getReferenceColumn(final Property property);
+    String getReferenceColumn(Property property);
 
     /**
      * return java type of this property.
@@ -156,7 +156,7 @@ public interface Property extends PersistentProperty<Property>, Ordered {
     @SuppressWarnings("rawtypes")
     Class<? extends TypeHandler> getTypeHandler();
 
-    default Object get(final @NotNull Object target) {
+    default Object get(@NotNull Object target) {
 
         try {
             return getRequiredGetter().invoke(target);
@@ -165,7 +165,7 @@ public interface Property extends PersistentProperty<Property>, Ordered {
         }
     }
 
-    default void set(final @NotNull Object target, final Object value) {
+    default void set(@NotNull Object target, Object value) {
 
         try {
             getRequiredSetter().invoke(target, value);

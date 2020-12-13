@@ -29,12 +29,12 @@ import org.ifinal.finalframework.annotation.query.PageQuery;
  * @since 1.0.0
  */
 @Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class,
-                        CacheKey.class,
-                        BoundSql.class}),
-        }
+    {
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class,
+            CacheKey.class,
+            BoundSql.class}),
+    }
 )
 
 public abstract class PageableInterceptor implements Interceptor {
@@ -94,7 +94,7 @@ public abstract class PageableInterceptor implements Interceptor {
 
     }
 
-    protected abstract void startPage(final Pageable pageable);
+    protected abstract void startPage(Pageable pageable);
 
     @Override
     public Object plugin(final Object target) {

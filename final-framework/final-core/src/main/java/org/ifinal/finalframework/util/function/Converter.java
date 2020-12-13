@@ -33,6 +33,6 @@ public interface Converter<T, R> extends Function<T, R> {
      * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
      */
     @Nullable
-    R convert(final @Nullable T source);
+    R convert(@Nullable T source);
 
 }
