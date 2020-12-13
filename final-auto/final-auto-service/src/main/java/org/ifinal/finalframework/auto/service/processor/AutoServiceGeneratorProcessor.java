@@ -123,7 +123,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 // AbsServiceImpl<I,IEntity,EntityMapper>
                 ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
                     ClassName.get(AbsServiceImpl.class),
-                    TypeName.get(Long.class), // 偷个小懒，先写死
+                    // 偷个小懒，先写死
+                    TypeName.get(Long.class),
                     ClassName.get(entity),
                     ClassName.get(mapperPackageName, mapperName)
                 );

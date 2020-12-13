@@ -14,19 +14,19 @@ public final class MathOperations {
     private MathOperations() {
     }
 
-    public static CriterionFunction max(@NonNull Object target) {
+    public static CriterionFunction max(final @NonNull Object target) {
         return new SimpleCriterionFunction(target, MathOperation.MAX);
     }
 
-    public static CriterionFunction min(@NonNull Object target) {
+    public static CriterionFunction min(final @NonNull Object target) {
         return new SimpleCriterionFunction(target, MathOperation.MIN);
     }
 
-    public static CriterionFunction avg(@NonNull Object target) {
+    public static CriterionFunction avg(final @NonNull Object target) {
         return new SimpleCriterionFunction(target, MathOperation.AVG);
     }
 
-    public static CriterionFunction sum(@NonNull Object target) {
+    public static CriterionFunction sum(final @NonNull Object target) {
         return new SimpleCriterionFunction(target, MathOperation.SUM);
     }
 

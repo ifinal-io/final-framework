@@ -19,7 +19,8 @@ public class CustomJavaFileObject implements JavaFileObject {
 
         this.uri = uri;
         this.binaryName = binaryName;
-        name = uri.getPath() == null ? uri.getSchemeSpecificPart() : uri.getPath(); // for FS based URI the path is not null, for JAR URI the scheme specific part is not null
+        // for FS based URI the path is not null, for JAR URI the scheme specific part is not null
+        name = uri.getPath() == null ? uri.getSchemeSpecificPart() : uri.getPath();
     }
 
     public URI toUri() {

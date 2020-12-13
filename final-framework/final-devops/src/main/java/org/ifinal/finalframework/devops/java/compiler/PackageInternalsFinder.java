@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
-import javax.tools.JavaFileObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
@@ -12,6 +11,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 import java.util.jar.JarEntry;
+import javax.tools.JavaFileObject;
 
 public class PackageInternalsFinder {
     private static final String CLASS_FILE_EXTENSION = ".class";
@@ -29,7 +29,8 @@ public class PackageInternalsFinder {
         List<JavaFileObject> result = new ArrayList<>();
 
         Enumeration<URL> urlEnumeration = classLoader.getResources(javaPackageName);
-        while (urlEnumeration.hasMoreElements()) { // one URL for each jar on the classpath that has the given package
+        while (urlEnumeration.hasMoreElements()) {
+            // one URL for each jar on the classpath that has the given package
             URL packageFolderURL = urlEnumeration.nextElement();
             result.addAll(listUnder(packageName, packageFolderURL));
         }
@@ -40,11 +41,14 @@ public class PackageInternalsFinder {
     private Collection<JavaFileObject> listUnder(final String packageName, final URL packageFolderURL) {
 
         File directory = new File(packageFolderURL.getFile());
-        if (directory.isDirectory()) { // browse local .class files - useful for local execution
+        if (directory.isDirectory()) {
+            // browse local .class files - useful for local execution
             return processDir(packageName, directory);
-        } else { // browse a jar file
+        } else {
+            // browse a jar file
             return processJar(packageFolderURL);
-        } // maybe there can be something else for more involved class loaders
+        }
+        // maybe there can be something else for more involved class loaders
     }
 
     private List<JavaFileObject> processJar(final URL packageFolderURL) {

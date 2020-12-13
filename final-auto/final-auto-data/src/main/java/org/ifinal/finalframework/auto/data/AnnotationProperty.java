@@ -126,10 +126,10 @@ public class AnnotationProperty implements Property {
         final Function<? super ExecutableElement, T> getter
     ) {
 
-        return Optionals.firstNonEmpty(//
-            () -> this.field.map(field), //
+        return Optionals.firstNonEmpty(
+            () -> this.field.map(field),
             () -> this.writeMethod.map(setter),
-            () -> this.readMethod.map(getter))//
+            () -> this.readMethod.map(getter))
             .orElseThrow(
                 () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }
@@ -137,9 +137,9 @@ public class AnnotationProperty implements Property {
     private <T> T withFieldOrDescriptor(final Function<? super VariableElement, T> field,
         final Function<? super PropertyDescriptor, T> descriptor) {
 
-        return Optionals.firstNonEmpty(//
-            () -> this.field.map(field), //
-            () -> this.descriptor.map(descriptor))//
+        return Optionals.firstNonEmpty(
+            () -> this.field.map(field),
+            () -> this.descriptor.map(descriptor))
             .orElseThrow(
                 () -> new IllegalStateException("Should not occur! Either field or descriptor has to be given"));
     }

@@ -49,9 +49,20 @@
         <property name="ignorePattern"
             value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
+
+
+    <!-- Blocks -->
+    <module name="NewlineAtEndOfFile"/>
+    <!-- Blocks -->
+    <module name="OrderedProperties"/>
+    <!-- Blocks -->
+    <module name="Translation">
+        <property name="fileExtensions" value="properties, translations"/>
+    </module>
+
+
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="TreeWalker">
-        <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
             <property name="format"
@@ -59,14 +70,8 @@
             <property name="message"
                 value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
         </module>
-        <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowEscapesForControlCharacters" value="true"/>
-            <property name="allowByTailComment" value="true"/>
-            <property name="allowNonPrintableEscapes" value="true"/>
-        </module>
         <!--避免*号导入-->
         <module name="AvoidStarImport"/>
-        <module name="OneTopLevelClass"/>
         <module name="NoLineWrap">
             <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
         </module>
@@ -107,7 +112,6 @@
         </module>
         <module name="OneStatementPerLine"/>
         <module name="MultipleVariableDeclarations"/>
-        <module name="ArrayTypeStyle"/>
         <module name="MissingSwitchDefault"/>
         <module name="FallThrough"/>
         <module name="UpperEll"/>
@@ -222,14 +226,6 @@
             <message key="ws.notPreceded"
                 value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
         </module>
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="4"/>
-            <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="4"/>
-        </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="4"/>
@@ -329,9 +325,6 @@
         <module name="SingleLineJavadoc">
             <property name="ignoreInlineTags" value="false"/>
         </module>
-        <module name="CommentsIndentation">
-            <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
-        </module>
         <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
         <module name="SuppressionXpathFilter">
             <property default="checkstyle-xpath-suppressions.xml" name="file"
@@ -341,10 +334,68 @@
 
         <!-- ================================ Class Design ===================================== -->
         <!-- 私有构造函数的类必需声明为 final -->
+        <!--        <module name="DesignForExtension"/>-->
+        <!-- 私有构造函数的类必需声明为 final -->
         <module name="FinalClass"/>
         <!-- 工具类的构造函数应该被声明为 private -->
         <module name="HideUtilityClassConstructor"/>
+        <!-- 内部类型声明在最后 -->
+        <module name="InnerTypeLast"/>
+        <!-- 接口必须有方法 -->
+        <module name="InterfaceIsType">
+            <property name="allowMarkerInterfaces" value="true"/>
+        </module>
+        <!-- 工具类的构造函数应该被声明为 private -->
+        <module name="MutableException"/>
+        <!-- 只有一个顶级类 -->
+        <module name="OneTopLevelClass"/>
+        <!-- 工具类的构造函数应该被声明为 private -->
+
         <!-- ================================ Class Design ===================================== -->
+        <!-- ================================ Miscellaneous ===================================== -->
+        <!-- Blocks -->
+        <module name="ArrayTypeStyle"/>
+        <!-- Blocks -->
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <property name="allowByTailComment" value="true"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <!-- Blocks -->
+        <module name="CommentsIndentation">
+            <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
+        </module>
+        <!-- Blocks -->
+        <module name="DescendantToken">
+            <property name="maximumDepth" value="2"/>
+            <property name="limitedTokens" value="LITERAL_DEFAULT"/>
+            <property name="minimumNumber" value="1"/>
+        </module>
+        <!-- Blocks -->
+        <module name="FinalParameters"/>
+        <!-- Blocks -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="4"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="4"/>
+            <property name="arrayInitIndent" value="4"/>
+        </module>
+        <!-- Blocks -->
+        <module name="NoCodeInFile"/>
+        <!-- Blocks -->
+        <module name="OuterTypeFilename"/>
+        <!-- Blocks -->
+        <module name="TodoComment">
+            <property name="format" value="(TODO)|(FIXME)"/>
+        </module>
+        <!-- 行尾注释 -->
+        <module name="TrailingComment"/>
+        <!-- Blocks -->
+        <!-- Blocks -->
+
+        <!-- ================================ Miscellaneous ===================================== -->
         <!-- Blocks -->
         <!-- 避免内部块 -->
         <module name="AvoidNestedBlocks">

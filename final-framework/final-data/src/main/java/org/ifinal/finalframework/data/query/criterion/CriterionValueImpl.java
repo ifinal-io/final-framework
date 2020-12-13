@@ -20,20 +20,20 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
 
     private Class<? extends TypeHandler<?>> typeHandler;
 
-    CriterionValueImpl(T value) {
+    CriterionValueImpl(final T value) {
 
         this.value = value;
     }
 
     @Override
-    public CriterionValue<T> javaType(Class<?> javaType) {
+    public CriterionValue<T> javaType(final Class<?> javaType) {
 
         this.javaType = javaType;
         return this;
     }
 
     @Override
-    public CriterionValue<T> typeHandler(Class<? extends TypeHandler<?>> typeHandler) {
+    public CriterionValue<T> typeHandler(final Class<? extends TypeHandler<?>> typeHandler) {
 
         this.typeHandler = typeHandler;
         return this;
@@ -47,7 +47,7 @@ class CriterionValueImpl<T> implements CriterionValue<T> {
         return this.value instanceof QProperty;
     }
 
-    public String getSqlExpression(String expression) {
+    public String getSqlExpression(final String expression) {
 
         String criterionValue;
         if (Asserts.nonNull(expression)) {

@@ -17,16 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public abstract class AnnotationUiHandlerInterceptor<A extends Annotation> implements UIHandlerInterceptor {
 
-    private Class<A> ann;
+    private final Class<A> ann;
 
-    protected AnnotationUiHandlerInterceptor(Class<A> ann) {
+    protected AnnotationUiHandlerInterceptor(final Class<A> ann) {
 
         this.ann = ann;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response,
-        HandlerMethod handler, Page page, ModelAndView modelAndView) {
+    public void postHandle(final HttpServletRequest request, final HttpServletResponse response,
+        final HandlerMethod handler, final Page page, final ModelAndView modelAndView) {
 
         Set<A> annotations = AnnotatedElementUtils.findAllMergedAnnotations(handler.getMethod(), ann);
         if (Asserts.isEmpty(annotations)) {

@@ -17,13 +17,13 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
     private List<InterceptorHandler<E, A>> handlers;
 
-    protected SingleMethodInvocationDispatcher(List<InterceptorHandler<E, A>> handlers) {
+    protected SingleMethodInvocationDispatcher(final List<InterceptorHandler<E, A>> handlers) {
 
         this.handlers = handlers;
     }
 
     @Override
-    public Object before(@NonNull InvocationContext context, @NonNull Collection<A> annotations) {
+    public Object before(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -39,7 +39,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterReturning(@NonNull InvocationContext context, @NonNull Collection<A> annotations, Object result) {
+    public void afterReturning(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final Object result) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -50,7 +50,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void afterThrowing(@NonNull InvocationContext context, @NonNull Collection<A> annotations, @NonNull Throwable throwable) {
+    public void afterThrowing(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final @NonNull Throwable throwable) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
@@ -61,7 +61,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
     }
 
     @Override
-    public void after(@NonNull InvocationContext context, @NonNull Collection<A> annotations, Object result, Throwable throwable) {
+    public void after(final @NonNull InvocationContext context, final @NonNull Collection<A> annotations, final Object result, final Throwable throwable) {
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
