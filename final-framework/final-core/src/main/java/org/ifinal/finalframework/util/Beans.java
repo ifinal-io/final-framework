@@ -8,17 +8,18 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import lombok.experimental.UtilityClass;
 
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@UtilityClass
 public final class Beans {
 
     private static final Map<Class<?>, BeanInfo> BEAN_INFO_MAP = new ConcurrentHashMap<>();
+
+    private Beans() {
+    }
 
     public static BeanInfo from(final Class<?> bean) {
         return BEAN_INFO_MAP.computeIfAbsent(bean, key -> {

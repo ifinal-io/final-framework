@@ -1,15 +1,13 @@
 package org.ifinal.finalframework.devops.java;
 
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.devops.java.compiler.Compiler;
-import org.ifinal.finalframework.devops.java.compiler.DynamicClassLoader;
-
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.ifinal.finalframework.devops.java.compiler.Compiler;
+import org.ifinal.finalframework.devops.java.compiler.DynamicClassLoader;
 
 /**
  * @author likly
@@ -17,8 +15,10 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Slf4j
-@UtilityClass
 public final class Redefiner {
+
+    private Redefiner() {
+    }
 
     public static void redefine(final Class<?> clazz, final String source) {
 
@@ -31,10 +31,8 @@ public final class Redefiner {
         String className = clazz.getCanonicalName();
         compiler.addSource(className, source);
 
-
         DynamicClassLoader compile = compiler.compile();
         Map<String, byte[]> byteCodes = compile.getByteCodes();
-
 
         final List<ClassDefinition> definitions = new ArrayList<>();
 
@@ -45,12 +43,10 @@ public final class Redefiner {
                     continue;
                 }
 
-
                 logger.info("try to redefine class {}", loadedClass.getName());
                 definitions.add(new ClassDefinition(loadedClass, byteCodes.get(loadedClass.getName())));
             }
         }
-
 
         try {
             instrumentation.redefineClasses(definitions.toArray(new ClassDefinition[0]));
@@ -58,6 +54,6 @@ public final class Redefiner {
             logger.error("redefine error! " + e.getMessage(), e);
         }
 
-
     }
+
 }

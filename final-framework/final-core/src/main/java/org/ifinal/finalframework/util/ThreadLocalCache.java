@@ -3,15 +3,16 @@ package org.ifinal.finalframework.util;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@UtilityClass
 final class ThreadLocalCache {
+
+    private ThreadLocalCache() {
+    }
 
     private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
 
