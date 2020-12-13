@@ -41,10 +41,15 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <!-- Check style file path -->
-                    <configLocation>src/checkstyle/google_checkstyle.xml</configLocation>
+                    <configLocation>checkstyle.xml</configLocation>
                     <!-- include test source -->
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <consoleOutput>true</consoleOutput>
+                    <excludes>**/generated-sources/**/*</excludes>
+                    <excludes>**/autogen/**/*</excludes>
                 </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>${maven-checkstyle-plugin.version}</version>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
                     <dependency>
@@ -62,8 +67,6 @@
                         <phase>validate</phase>
                     </execution>
                 </executions>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>${maven-checkstyle-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

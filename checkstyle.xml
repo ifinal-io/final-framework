@@ -26,6 +26,11 @@
             value="${org.checkstyle.google.suppressionfilter.config}"/>
         <property name="optional" value="true"/>
     </module>
+    <property name="fileExtensions" value="java, properties, xml"/>
+    <!--单行长度-->
+    <property name="charset" value="UTF-8"/>
+
+    <property name="severity" value="error"/>
 
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
@@ -361,9 +366,5 @@
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.org/config_whitespace.html -->
-    <property name="fileExtensions" value="java, properties, xml"/>
-    <!--单行长度-->
-    <property name="charset" value="UTF-8"/>
 
-    <property name="severity" value="error"/>
 </module>

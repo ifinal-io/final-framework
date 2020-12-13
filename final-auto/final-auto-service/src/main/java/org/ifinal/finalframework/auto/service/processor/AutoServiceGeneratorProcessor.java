@@ -146,7 +146,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
-                    JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service).build();
+                    JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service).indent("    ").build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
