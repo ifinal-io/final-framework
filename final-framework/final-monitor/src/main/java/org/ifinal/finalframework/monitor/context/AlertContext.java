@@ -10,7 +10,7 @@ import org.ifinal.finalframework.monitor.MonitorException;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class AlertContext {
+public final class AlertContext {
 
     /**
      * 名称
@@ -90,7 +90,7 @@ public class AlertContext {
         return timestamp;
     }
 
-    public static class Builder implements org.ifinal.finalframework.util.Builder<AlertContext> {
+    public static final class Builder implements org.ifinal.finalframework.util.Builder<AlertContext> {
 
         private final Map<String, Object> attributes = new HashMap<>();
 

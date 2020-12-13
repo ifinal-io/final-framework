@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
+final class UpdateImpl extends ArrayList<UpdateSetOperation> implements Update {
 
     private UpdateImpl() {
         super(16);

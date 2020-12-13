@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class NameConverterRegistry {
+public final class NameConverterRegistry {
 
     private static final String FINAL_NAME_CONVERTER_TABLE_CONVERTER = "final.data.name-converter.table-converter";
 

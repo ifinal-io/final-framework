@@ -9,7 +9,7 @@ import org.ifinal.finalframework.auto.data.Entity;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class QEntity {
+public final class QEntity {
 
     private final String packageName;
 

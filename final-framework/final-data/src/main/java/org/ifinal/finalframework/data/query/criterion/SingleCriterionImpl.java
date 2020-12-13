@@ -10,7 +10,7 @@ import org.ifinal.finalframework.data.query.operation.Operation;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SingleCriterionImpl<T> extends SimpleCriterionImpl implements SingleCriterion<T> {
+public final class SingleCriterionImpl<T> extends SimpleCriterionImpl implements SingleCriterion<T> {
 
     private static final Set<Operation> OPERATOR_IN = new HashSet<>(Arrays.asList(
         Operation.CompareOperation.IN,

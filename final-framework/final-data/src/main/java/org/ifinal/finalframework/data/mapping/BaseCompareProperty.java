@@ -5,7 +5,7 @@ package org.ifinal.finalframework.data.mapping;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class BaseCompareProperty implements CompareProperty {
+public final class BaseCompareProperty implements CompareProperty {
 
     private final Property property;
 

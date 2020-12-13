@@ -11,7 +11,7 @@ import javax.lang.model.element.Element;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class QProperty {
+public final class QProperty {
 
     private static final Set<String> dateTypes = new HashSet<>();
 
@@ -57,7 +57,7 @@ public class QProperty {
         return element;
     }
 
-    public static class Builder implements org.ifinal.finalframework.util.Builder<QProperty> {
+    public static final class Builder implements org.ifinal.finalframework.util.Builder<QProperty> {
 
         private final String path;
 

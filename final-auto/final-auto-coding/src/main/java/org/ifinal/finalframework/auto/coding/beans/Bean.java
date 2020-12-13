@@ -24,7 +24,7 @@ import org.springframework.lang.NonNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class Bean implements Iterable<PropertyDescriptor> {
+public final class Bean implements Iterable<PropertyDescriptor> {
 
     static final String GET_PREFIX = "get";
 

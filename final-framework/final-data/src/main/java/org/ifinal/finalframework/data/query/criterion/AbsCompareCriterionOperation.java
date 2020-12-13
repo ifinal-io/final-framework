@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 @Getter
-public class AbsCompareCriterionOperation extends BaseCriterion implements CompareCriterionOperation {
+public final class AbsCompareCriterionOperation extends BaseCriterion implements CompareCriterionOperation {
 
     public static final String TARGET_EXPRESSION = ".target";
 

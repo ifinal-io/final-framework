@@ -39,7 +39,7 @@ import org.springframework.lang.NonNull;
  * @since 1.0.0
  */
 @Slf4j
-public class AnnotationQueryProvider implements QueryProvider {
+public final class AnnotationQueryProvider implements QueryProvider {
 
     public static final AnnotationQueryProvider INSTANCE = new AnnotationQueryProvider();
 

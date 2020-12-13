@@ -129,7 +129,6 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 );
 
                 MethodSpec constructor = MethodSpec.constructorBuilder()
-                    .addModifiers(Modifier.PUBLIC)
                     .addParameter(ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository").addModifiers(Modifier.FINAL).build())
                     .addStatement("super(repository);")
                     .build();
