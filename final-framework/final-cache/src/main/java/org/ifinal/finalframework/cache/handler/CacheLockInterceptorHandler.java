@@ -41,14 +41,14 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
 
         final Logger logger = LoggerFactory.getLogger(context.target().getClass());
         final EvaluationContext evaluationContext = createEvaluationContext(context, null, null);
-        MethodMetadata metadata = context.metadata();
+        final MethodMetadata metadata = context.metadata();
         final Object key = generateKey(annotation.getStringArray("key"), annotation.getString("delimiter"), metadata,
             evaluationContext);
         if (key == null) {
             throw new IllegalArgumentException("the cache action generate null key, action=" + annotation);
         }
-        Object value = Asserts.isEmpty(annotation.getString(VALUE)) ? key
-            : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
+        Object value = Asserts.isEmpty(annotation.getString(VALUE))
+            ? key : generateValue(annotation.getString(VALUE), metadata, evaluationContext);
 
         if (Objects.isNull(value)) {
             value = key;
@@ -65,8 +65,7 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
         int retry = 0;
         int maxRetry = annotation.getNumber("retry").intValue();
         do {
-            logger
-                .info("==> try to lock: key={},value={},ttl={},timeUnit={},retry={}", key, value, ttl, timeUnit, retry);
+            logger.info("==> try to lock: key={},value={},ttl={},timeUnit={},retry={}", key, value, ttl, timeUnit, retry);
             final boolean lock = cache.lock(key, value, ttl, timeUnit);
             logger.info("<== lock result: {}", lock);
             if (lock) {
@@ -74,20 +73,23 @@ public class CacheLockInterceptorHandler extends AbsCacheOperationInterceptorHan
                 return null;
             }
 
-            if (sleep > 0L) {
-                try {
-                    Thread.sleep(sleep);
-                } catch (InterruptedException e) {
-                    logger.error("retry sleep error,key={},value={}", key, value, e);
-                    Thread.currentThread().interrupt();
-                }
-            }
+            trySleep(sleep);
 
             retry++;
         } while (retry <= maxRetry);
 
         context.addAttribute(LOCK, false);
         throw new CacheLockException(String.format("failure to lock key=%s,value=%s", key, value));
+    }
+
+    private void trySleep(final long sleep) {
+        if (sleep > 0L) {
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private Long ttl(final AnnotationAttributes annotation, final MethodMetadata metadata,

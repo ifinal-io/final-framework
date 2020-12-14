@@ -215,12 +215,12 @@
         </module>
         <!-- 方法长度 -->
         <module name="MethodLength">
-            <property name="max" value="100"/>
+            <property name="max" value="70"/>
             <property name="countEmpty" value="true"/>
         </module>
         <!-- 可执行语句数量 -->
         <module name="ExecutableStatementCount">
-            <property name="max" value="100"/>
+            <property name="max" value="50"/>
             <property name="tokens" value="CTOR_DEF,METHOD_DEF"/>
         </module>
         <!-- Return 次数 -->
@@ -467,6 +467,14 @@
         </module>
         <!-- Javadoc 标签前有一个空行 -->
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+        <!-- 类 Javadoc -->
+        <module name="JavadocType">
+            <property name="scope" value="public"/>
+            <!-- 允许没有 @param -->
+            <property name="allowMissingParamTags" value="true"/>
+            <!-- 允许注释 @Generated -->
+            <property name="allowedAnnotations" value="Generated"/>
+        </module>
         <!-- 类缺失Javadoc -->
         <module name="MissingJavadocType">
             <property name="scope" value="public"/>
@@ -512,9 +520,9 @@
 
 
         <!-- Javadoc缺少前导星号  -->
-        <!--        <module name="JavadocMissingLeadingAsterisk"/>-->
+        <module name="JavadocMissingLeadingAsterisk"/>
         <!-- 星号后Javadoc缺少空格 -->
-        <!--        <module name="JavadocMissingWhitespaceAfterAsterisk"/>-->
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
 
         <!-- Blocks -->
         <module name="JavadocParagraph"/>
@@ -526,13 +534,10 @@
             <property name="endOfSentenceFormat" value="([.?!。][ \t\n\r\f&lt;])|([.?!。]$)"/>
         </module>
         <module name="JavadocTagContinuationIndentation"/>
-        <!-- Blocks -->
-        <!--        <module name="JavadocType"/>-->
+
 
         <!-- 缺少 Javadoc -->
         <module name="MissingJavadocPackage"/>
-        <!-- 缺少 Javadoc -->
-        <module name="MissingJavadocType"/>
         <!-- Blocks -->
         <module name="NonEmptyAtclauseDescription"/>
 
