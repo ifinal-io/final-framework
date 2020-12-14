@@ -28,6 +28,8 @@ import org.ifinal.finalframework.service.AbsServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
+ * Auto Generate Service Processor.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -151,6 +153,7 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                 );
 
                 MethodSpec constructor = MethodSpec.constructorBuilder()
+                    .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
                     .addParameter(
                         ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository")
                             .addModifiers(Modifier.FINAL).build())
