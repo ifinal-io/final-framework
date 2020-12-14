@@ -18,20 +18,48 @@
     <property name="charset" value="UTF-8"/>
     <!-- 检查文件类型 -->
     <property name="fileExtensions" value="java, properties, xml"/>
+    <!--查询不通过则报错-->
     <property name="severity" value="error"/>
 
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+    <!--文件长度-->
+    <module name="FileLength">
+        <property name="max" value="1500"/>
+    </module>
+    <!-- 单行长度-->
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
         <property name="max" value="140"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
+    <!-- 以空行结尾 -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- ================================================== Regexp ==================================================-->
+    <!-- 当前行匹配非法表达式： -->
+    <!-- 禁止 System.out.print -->
+    <module name="RegexpMultiline">
+        <property name="id" value="sout"/>
+        <property name="format" value="System\.(out)|(err)\.print"/>
+        <property name="message" value="System.out.print 方法不允许使用"/>
+    </module>
+    <!-- 禁止 e.printStackTrace -->
+    <module name="RegexpMultiline">
+        <property name="id" value="printStackTrace"/>
+        <property name="format" value="\.printStackTrace\("/>
+        <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
+    </module>
+    <!-- ================================================== Regexp ==================================================-->
+
+
     <module name="TreeWalker">
 
         <module name="SuppressionXpathSingleFilter">
             <!-- suppresion is required till https://github.com/checkstyle/checkstyle/issues/7541 -->
             <property name="id" value="RightCurlyAlone"/>
-            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1]
-                                     or preceding-sibling::*[last()][self::LCURLY]]"/>
+            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1] or preceding-sibling::*[last()][self::LCURLY]]"/>
         </module>
 
         <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
@@ -53,44 +81,36 @@
         </module>
         <!-- ================================================ Name ==================================================-->
         <module name="PackageName">
-            <message key="name.invalidPattern"
-                value="Package name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
         </module>
         <module name="TypeName">
-            <message key="name.invalidPattern"
-                value="Type name ''{0}'' must match pattern ''{1}''."/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                    ANNOTATION_DEF, RECORD_DEF"/>
+            <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <!-- 方法名称 -->
         <module name="MethodName">
-            <message key="name.invalidPattern"
-                value="Method name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Method name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
         </module>
         <!--  参数名称 -->
         <module name="ParameterName">
-            <message key="name.invalidPattern"
-                value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <!--  成员名称 -->
         <module name="MemberName">
-            <message key="name.invalidPattern"
-                value="Member name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
         </module>
         <!--  Lambda 参数名称 -->
         <module name="LambdaParameterName">
-            <message key="name.invalidPattern"
-                value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <!--  Catch 参数名称 -->
         <module name="CatchParameterName">
-            <message key="name.invalidPattern"
-                value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <!--  本地变量名称 -->
@@ -100,8 +120,7 @@
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <module name="PatternVariableName">
-            <message key="name.invalidPattern"
-                value="Pattern variable name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Pattern variable name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <module name="ClassTypeParameterName">
@@ -115,13 +134,11 @@
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
         </module>
         <module name="MethodTypeParameterName">
-            <message key="name.invalidPattern"
-                value="Method type name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Method type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
         </module>
         <module name="InterfaceTypeParameterName">
-            <message key="name.invalidPattern"
-                value="Interface type name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Interface type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
         </module>
         <!-- ============================================== Package ===============================================-->
@@ -412,7 +429,6 @@
                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF,
                     RECORD_COMPONENT_DEF"/>
         </module>
-        <module name="OverloadMethodsDeclarationOrder"/>
 
 
         <module name="MethodParamPad">
@@ -546,8 +562,6 @@
         <!-- Blocks -->
         <module name="NonEmptyAtclauseDescription"/>
 
-        <!-- 单行 Javadoc -->
-        <module name="SingleLineJavadoc"/>
         <!-- Blocks -->
         <!--        <module name="WriteTag"/>-->
         <!-- ================================================ Enum ==================================================-->
@@ -697,50 +711,23 @@
             <property name="accessModifiers" value="private"/>
         </module>
     </module>
-    <!--查询不通过则报错-->
-    <module name="FileTabCharacter">
-        <property name="eachLine" value="true"/>
-    </module>
+
 
     <!-- ================================================= 文件检查 ==================================================-->
     <!--文件Tab字符 <a href="https://checkstyle.org/config_whitespace.html#FileTabCharacter">FileTabCharacter</a>-->
-    <module name="FileLength">
-        <property name="max" value="1500"/>
-    </module>
-    <!--文件长度-->
-    <module name="NewlineAtEndOfFile"/>
-    <!-- 单行长度-->
-    <module name="RegexpMultiline">
-        <property name="id" value="sout"/>
-        <property name="format" value="System\.(out)|(err)\.print"/>
-        <property name="message" value="System.out.print 方法不允许使用"/>
-    </module>
-    <!-- 以空行结尾 -->
-    <module name="RegexpMultiline">
-        <property name="id" value="printStackTrace"/>
-        <property name="format" value="\.printStackTrace\("/>
-        <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
-    </module>
-    <!-- ================================================== Regexp ==================================================-->
-    <!-- 当前行匹配非法表达式： -->
-    <!-- 禁止 System.out.print -->
     <module name="OrderedProperties"/>
-    <!-- 禁止 e.printStackTrace -->
     <module name="Translation">
         <property name="fileExtensions" value="properties, translations"/>
     </module>
-    <!-- ================================================== Regexp ==================================================-->
 
 
     <!-- Excludes all 'module-info.java' files              -->
-
 
 
     <!-- 缺少 package-info.java 文件 -->
     <!--    <module name="JavadocPackage"/>-->
 
 
-    <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
 
 
 </module>
