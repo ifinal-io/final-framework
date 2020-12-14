@@ -13,13 +13,18 @@
             value="${org.checkstyle.google.suppressionfilter.config}"/>
         <property name="optional" value="true"/>
     </module>
+
+    <!--字符集-->
+    <property name="charset" value="UTF-8"/>
     <!-- 检查文件类型 -->
+    <property name="fileExtensions" value="java, properties, xml"/>
+    <property name="severity" value="error"/>
+
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
         <property name="max" value="140"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
-    <!--字符集-->
     <module name="TreeWalker">
 
         <module name="SuppressionXpathSingleFilter">
@@ -727,9 +732,8 @@
     <!-- ================================================== Regexp ==================================================-->
 
 
-    <property name="severity" value="error"/>
     <!-- Excludes all 'module-info.java' files              -->
-    <property name="fileExtensions" value="java, properties, xml"/>
+
 
 
     <!-- 缺少 package-info.java 文件 -->
@@ -737,6 +741,6 @@
 
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
-    <property name="charset" value="UTF-8"/>
+
 
 </module>
