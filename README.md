@@ -52,8 +52,8 @@
 
 ## 开发规范
 
-* [日志规范](docs/code-rules/logger.md)
-* ![Check Style](https://github.com/likly/checkstyle)： 代码规范
+* [日志规范](docs/code-rules/logger.md) : 日志规范
+* [Check Style](https://github.com/likly/checkstyle) : 代码规范
 
 ## 集成技术
 
