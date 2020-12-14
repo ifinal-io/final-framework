@@ -50,7 +50,7 @@ public final class Reflections {
     @NonNull
     public static Method findRequiredMethod(final @NonNull Class<?> clazz, final @NonNull String name,
         final Class<?>... paramTypes) {
-        Method method = findMethod(clazz, name, paramTypes);
+        final Method method = findMethod(clazz, name, paramTypes);
         Objects.requireNonNull(method,
             String.format("can not find required method of name '%s' on class '%s'", name, clazz));
         return method;
@@ -58,7 +58,7 @@ public final class Reflections {
 
     @NonNull
     public static Method findRequiredMethod(final @NonNull Class<?> clazz, final @NonNull String name) {
-        Method method = findMethod(clazz, name);
+        final Method method = findMethod(clazz, name);
         Objects.requireNonNull(method,
             String.format("can not find required method of name '%s' on class '%s'", name, clazz));
         return method;
@@ -73,7 +73,7 @@ public final class Reflections {
     @Nullable
     public static AnnotationAttributes findAnnotationAttributes(final AnnotatedElement ae,
         final Class<? extends Annotation> annotationType) {
-        Annotation annotation = AnnotationUtils.findAnnotation(ae, annotationType);
+        final Annotation annotation = AnnotationUtils.findAnnotation(ae, annotationType);
         if (Objects.isNull(annotation)) {
             return null;
         }
@@ -82,7 +82,7 @@ public final class Reflections {
 
     public static Class findParameterizedClassArgumentClass(final @NonNull Class<?> target,
         final @NonNull Class<?> targetInterface, final int index) {
-        Type type = target.getGenericSuperclass();
+        final Type type = target.getGenericSuperclass();
         if (type instanceof ParameterizedType
             && targetInterface.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
             return (Class) ((ParameterizedType) type).getActualTypeArguments()[index];

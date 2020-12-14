@@ -108,11 +108,11 @@ public final class ServicesLoader {
             final List<String> services = new ArrayList<>();
 
             try {
-                Enumeration<URL> urls =
+                final Enumeration<URL> urls =
                     classLoader != null ? classLoader.getResources(propertiesResourceLocation)
                         : ClassLoader.getSystemResources(propertiesResourceLocation);
                 while (urls.hasMoreElements()) {
-                    URL url = urls.nextElement();
+                    final URL url = urls.nextElement();
                     services.addAll(readFromResource(new UrlResource(url)));
                 }
                 cache.put(classLoader, result);
@@ -133,7 +133,7 @@ public final class ServicesLoader {
             new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = r.readLine()) != null) {
-                int commentStart = line.indexOf('#');
+                final int commentStart = line.indexOf('#');
                 if (commentStart >= 0) {
                     line = line.substring(0, commentStart);
                 }

@@ -14,8 +14,8 @@ class ShardingStrategyTest {
 
     @Test
     void shardingStrategy() {
-        Set<InlineShardingStrategy> allMergedAnnotations2 = AnnotatedElementUtils
-                .findMergedRepeatableAnnotations(ShardingEntity.class, InlineShardingStrategy.class);
+        final Set<InlineShardingStrategy> allMergedAnnotations2 = AnnotatedElementUtils
+            .findMergedRepeatableAnnotations(ShardingEntity.class, InlineShardingStrategy.class);
         Assertions.assertFalse(allMergedAnnotations2.isEmpty());
     }
 

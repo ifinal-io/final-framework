@@ -32,7 +32,7 @@ public final class Beans {
     }
 
     public static Map<String, Object> toMap(final Object bean) {
-        BeanInfo beanInfo = from(bean.getClass());
+        final BeanInfo beanInfo = from(bean.getClass());
         return Arrays.stream(beanInfo.getPropertyDescriptors())
             //.filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
             .collect(Collectors.toMap(PropertyDescriptor::getName, property -> {

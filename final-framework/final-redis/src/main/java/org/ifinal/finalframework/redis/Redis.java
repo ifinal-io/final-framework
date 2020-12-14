@@ -61,7 +61,7 @@ public interface Redis {
     }
 
     static boolean unlock(final Object key, final Object value) {
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] "
+        final String script = "if redis.call('get', KEYS[1]) == ARGV[1] "
             + "then return redis.call('del', KEYS[1]) else return 0 end";
         return Boolean.TRUE.equals(
             key().execute(new DefaultRedisScript<>(script, Boolean.class), Collections.singletonList(key), value));

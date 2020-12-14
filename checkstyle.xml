@@ -16,7 +16,7 @@
     <!-- 检查文件类型 -->
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="120"/>
+        <property name="max" value="140"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
     <!--字符集-->
@@ -286,7 +286,9 @@
         <!-- 变量声明与使用 -->
         <module name="VariableDeclarationUsageDistance"/>
         <!-- 局部变量声明为 final -->
-        <!--        <module name="FinalLocalVariable"/>-->
+        <!--        <module name="FinalLocalVariable">-->
+        <!--            <property name="tokens" value="VARIABLE_DEF , PARAMETER_DEF "/>-->
+        <!--        </module>-->
         <!-- 每行一个声明 -->
         <module name="OneStatementPerLine"/>
         <!-- 修改控制变量 -->
@@ -495,7 +497,6 @@
         <!--        </module>-->
         <!--        Javadoc-->
         <!--        <module name="SummaryJavadoc">-->
-        <!--            <property name="period" value="."/>-->
         <!--            <property name="forbiddenSummaryFragments"-->
         <!--                value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>-->
         <!--        </module>-->
@@ -511,9 +512,9 @@
 
 
         <!-- Javadoc缺少前导星号  -->
-        <module name="JavadocMissingLeadingAsterisk"/>
+        <!--        <module name="JavadocMissingLeadingAsterisk"/>-->
         <!-- 星号后Javadoc缺少空格 -->
-        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <!--        <module name="JavadocMissingWhitespaceAfterAsterisk"/>-->
 
         <!-- Blocks -->
         <module name="JavadocParagraph"/>

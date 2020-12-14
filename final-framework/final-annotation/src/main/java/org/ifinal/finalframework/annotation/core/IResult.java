@@ -116,7 +116,7 @@ public interface IResult<T> extends IData<T> {
      * @return {@literal true} if has more data.
      */
     default boolean hasMore() {
-        IPagination pagination = getPagination();
+        final IPagination pagination = getPagination();
         return pagination != null && !Boolean.TRUE.equals(pagination.getLastPage());
     }
 

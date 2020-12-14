@@ -87,18 +87,18 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     }
 
     private void generateFactoryFile() {
-        Filer filer = processingEnv.getFiler();
+        final Filer filer = processingEnv.getFiler();
         try {
             // would like to be able to print the full path
             // before we attempt to get the resource in case the behavior
             // of filer.getResource does change to match the spec, but there's
             // no good way to resolve CLASS_OUTPUT without first getting a resource.
-            FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
+            final FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
                 SpringFactoryResource.RESOURCE_FILE);
-            InputStreamResource resource = new InputStreamResource(existingFile.openInputStream());
-            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+            final InputStreamResource resource = new InputStreamResource(existingFile.openInputStream());
+            final Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             for (Map.Entry<?, ?> entry : properties.entrySet()) {
-                String factoryClassName = ((String) entry.getKey()).trim();
+                final String factoryClassName = ((String) entry.getKey()).trim();
                 for (String factoryName : StringUtils.commaDelimitedListToStringArray((String) entry.getValue())) {
                     springFactoryResource.addSpringFactory(factoryClassName, factoryName.trim());
                 }
@@ -119,7 +119,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         }
 
         try {
-            FileObject fileObject = filer
+            final FileObject fileObject = filer
                 .createResource(StandardLocation.CLASS_OUTPUT, "", SpringFactoryResource.RESOURCE_FILE);
             springFactoryResource.writeFactoryFile(fileObject.openOutputStream());
             info("Create spring.factories :" + springFactoryResource);
@@ -130,13 +130,13 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
     private void processClassTypeElement(final TypeElement element) {
 
-        List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
+        final List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
         for (AnnotationMirror annotationMirror : annotationMirrors) {
             if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
                 processClassSpringFactory(element, annotationMirror);
             } else {
                 // 查看注解上是否有 SpringFactory 注解
-                List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement()
+                final List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement()
                     .getAnnotationMirrors();
                 processClassAnnotation(element, mirrors);
             }
@@ -146,9 +146,9 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     private void processClassSpringFactory(final TypeElement element, final AnnotationMirror annotationMirror) {
         // 直接在类上声明的 SpringFactory 注解
         final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(annotationMirror);
-        DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
+        final DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
         springFactoryResource.addSpringFactory((TypeElement) value.asElement(), element);
-        AnnotationValue expandValue = annotationValues.get(SPRING_FACTORY_VALUE);
+        final AnnotationValue expandValue = annotationValues.get(SPRING_FACTORY_VALUE);
         if (expandValue != null && Boolean.TRUE.equals(expandValue.getValue())) {
             this.addSpringFactory(((TypeElement) value.asElement()).getQualifiedName().toString());
         }
@@ -158,7 +158,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
         for (AnnotationMirror mirror : mirrors) {
             if (SpringFactory.class.getCanonicalName().equals(mirror.getAnnotationType().toString())) {
-                Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(mirror);
+                final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(mirror);
                 final TypeElement springFactory = AnnotationValues.getClass(annotationValues.get(SPRING_FACTORY_VALUE));
                 final boolean extend =
                     annotationValues.containsKey(SPRING_FACTORY_EXTEND) && AnnotationValues
@@ -175,13 +175,13 @@ public class SpringFactoryProcessor extends AbstractProcessor {
 
     private void processAnnotationTypeElement(final TypeElement element) {
 
-        SpringFactory springFactory = element.getAnnotation(SpringFactory.class);
+        final SpringFactory springFactory = element.getAnnotation(SpringFactory.class);
         if (springFactory != null && springFactory.extend()) {
             for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
                 if (annotationMirror.getAnnotationType().toString().equals(SpringFactory.class.getCanonicalName())) {
                     final Map<String, AnnotationValue> annotationValues = AnnotationMirrors
                         .getAnnotationValues(annotationMirror);
-                    DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
+                    final DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
                     this.addSpringFactory(((TypeElement) value.asElement()).getQualifiedName().toString());
                 }
             }
@@ -198,7 +198,7 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 processPackageSpringFactories(element, annotationMirror, roundEnv);
             } else {
                 // 查看注解上是否有 SpringFactory 注解
-                List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement()
+                final List<? extends AnnotationMirror> mirrors = annotationMirror.getAnnotationType().asElement()
                     .getAnnotationMirrors();
                 processPackageAnnotation(element, mirrors, roundEnv);
             }
@@ -209,12 +209,12 @@ public class SpringFactoryProcessor extends AbstractProcessor {
         final RoundEnvironment roundEnv) {
         // 直接在类上声明的 SpringFactory 注解
         final Map<String, AnnotationValue> annotationValues = AnnotationMirrors.getAnnotationValues(springFactory);
-        DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
-        AnnotationValue expandValue = annotationValues.get(SPRING_FACTORY_EXTEND);
+        final DeclaredType value = (DeclaredType) annotationValues.get(SPRING_FACTORY_VALUE).getValue();
+        final AnnotationValue expandValue = annotationValues.get(SPRING_FACTORY_EXTEND);
         if (expandValue != null && Boolean.TRUE.equals(expandValue.getValue())) {
             this.addSpringFactory(((TypeElement) value.asElement()).getQualifiedName().toString());
         }
-        TypeElement annotation = (TypeElement) value.asElement();
+        final TypeElement annotation = (TypeElement) value.asElement();
         roundEnv.getElementsAnnotatedWith(annotation)
             .stream()
             .filter(
@@ -227,9 +227,9 @@ public class SpringFactoryProcessor extends AbstractProcessor {
     private void processPackageSpringFactories(final PackageElement element, final AnnotationMirror annotationMirror,
         final RoundEnvironment roundEnv) {
         // 在包元素上声明了多个 SpringFactory 注解
-        AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(annotationMirror)
+        final AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(annotationMirror)
             .get(SPRING_FACTORY_VALUE);
-        List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
+        final List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
         for (AnnotationMirror springFactory : springFactories) {
             processPackageSpringFactory(element, springFactory, roundEnv);
         }
@@ -246,9 +246,9 @@ public class SpringFactoryProcessor extends AbstractProcessor {
                 /*
                  * 在注解元素{@link AnnotationMirror}上声明了多个 {@link SpringFactory}注释
                  */
-                AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(mirror)
+                final AnnotationValue annotationValue = AnnotationMirrors.getAnnotationValues(mirror)
                     .get(SPRING_FACTORY_VALUE);
-                List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
+                final List<AnnotationMirror> springFactories = (List<AnnotationMirror>) annotationValue.getValue();
                 for (AnnotationMirror springFactory : springFactories) {
                     processPackageSpringFactory(element, springFactory, roundEnv);
                 }

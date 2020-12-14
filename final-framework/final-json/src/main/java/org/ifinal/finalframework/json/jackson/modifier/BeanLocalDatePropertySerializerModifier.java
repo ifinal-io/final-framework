@@ -30,7 +30,7 @@ public class BeanLocalDatePropertySerializerModifier extends AbsSimpleBeanProper
         final BeanDescription beanDesc,
         final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter bpw = new BeanPropertyWriter(property,
+        final BeanPropertyWriter bpw = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
             LocalDateSerializer.INSTANCE, writer.getTypeSerializer(), writer.getSerializationType(),
             writer.willSuppressNulls(), null, property.findViews());

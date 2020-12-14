@@ -24,14 +24,14 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
     @Override
     public LocalDateTime deserialize(final JsonParser p, final DeserializationContext context) throws IOException {
 
-        String value = p.getValueAsString();
+        final String value = p.getValueAsString();
         if (Asserts.isEmpty(value)) {
             return null;
         }
         if (!p.isNaN()) {
-            long timestamp = p.getValueAsLong();
-            Instant instant = Instant.ofEpochMilli(timestamp);
-            ZoneId zone = ZoneId.systemDefault();
+            final long timestamp = p.getValueAsLong();
+            final Instant instant = Instant.ofEpochMilli(timestamp);
+            final ZoneId zone = ZoneId.systemDefault();
             return LocalDateTime.ofInstant(instant, zone);
         }
 

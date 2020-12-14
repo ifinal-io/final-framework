@@ -26,7 +26,7 @@ class JsonTest {
 
     @Test
     void entityJson() {
-        AbsEntity entity = new AbsEntity();
+        final AbsEntity entity = new AbsEntity();
         entity.setId(1L);
         entity.setCreated(LocalDateTime.now());
         assertEquals(1L, entity.getId());

@@ -27,8 +27,8 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
-                E handlerExecutor = getExecutor(annotation);
-                Object value = handler.before(handlerExecutor, context, annotation);
+                final E handlerExecutor = getExecutor(annotation);
+                final Object value = handler.before(handlerExecutor, context, annotation);
                 if (Objects.nonNull(value)) {
                     return value;
                 }
@@ -44,7 +44,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
-                E handlerExecutor = getExecutor(annotation);
+                final E handlerExecutor = getExecutor(annotation);
                 handler.afterReturning(handlerExecutor, context, annotation, result);
             }
         }
@@ -56,7 +56,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
-                E handlerExecutor = getExecutor(annotation);
+                final E handlerExecutor = getExecutor(annotation);
                 handler.afterThrowing(handlerExecutor, context, annotation, throwable);
             }
         }
@@ -68,7 +68,7 @@ public abstract class SingleMethodInvocationDispatcher<E, A> implements MethodIn
 
         for (InterceptorHandler<E, A> handler : handlers) {
             for (A annotation : annotations) {
-                E handlerExecutor = getExecutor(annotation);
+                final E handlerExecutor = getExecutor(annotation);
                 handler.after(handlerExecutor, context, annotation, result, throwable);
             }
         }

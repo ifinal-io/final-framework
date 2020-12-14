@@ -4,6 +4,8 @@ import java.util.Locale;
 import org.springframework.lang.NonNull;
 
 /**
+ * NameGenerator.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0

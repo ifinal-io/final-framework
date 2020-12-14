@@ -25,8 +25,8 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
     public Object before(final @NonNull InvocationContext context, final @NonNull Boolean annotations) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
-            T executor = getExecutor();
-            Object value = handler.before(executor, context, annotations);
+            final T executor = getExecutor();
+            final Object value = handler.before(executor, context, annotations);
             if (Objects.nonNull(value)) {
                 return value;
             }
@@ -40,7 +40,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
         final Object result) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
-            T executor = getExecutor();
+            final T executor = getExecutor();
             handler.afterReturning(executor, context, annotations, result);
         }
     }
@@ -50,7 +50,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
         final Throwable throwable) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
-            T executor = getExecutor();
+            final T executor = getExecutor();
             handler.afterThrowing(executor, context, annotations, throwable);
         }
     }
@@ -60,7 +60,7 @@ public abstract class SimpleMethodInvocationDispatcher<T> implements MethodInvoc
         final Throwable throwable) {
 
         for (InterceptorHandler<T, Boolean> handler : handlers) {
-            T executor = getExecutor();
+            final T executor = getExecutor();
             handler.after(executor, context, annotations, result, throwable);
         }
     }

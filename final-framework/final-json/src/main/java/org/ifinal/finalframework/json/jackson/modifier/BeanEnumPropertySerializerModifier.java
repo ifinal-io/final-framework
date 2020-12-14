@@ -42,7 +42,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         final BeanDescription beanDesc, final JsonSerializer<?> serializer) {
 
         if (IEnum.class.isAssignableFrom(valueType.getRawClass())) {
-            JsonFormat jsonFormat = beanDesc.getClassAnnotations().get(JsonFormat.class);
+            final JsonFormat jsonFormat = beanDesc.getClassAnnotations().get(JsonFormat.class);
             if (jsonFormat != null && JsonFormat.Shape.OBJECT == jsonFormat.shape()) {
                 return EnumSerializer.instance;
             }
@@ -62,8 +62,8 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         final BeanDescription beanDesc,
         final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
-        BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
+        final BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
+        final BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
         return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter);
     }
 
@@ -71,7 +71,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         final BeanPropertyDefinition property,
         final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
+        final BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
             EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
             writer.willSuppressNulls(), null, property.findViews());
@@ -84,7 +84,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         final BeanPropertyDefinition property,
         final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
+        final BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
             EnumDescSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
             writer.willSuppressNulls(), null, property.findViews());

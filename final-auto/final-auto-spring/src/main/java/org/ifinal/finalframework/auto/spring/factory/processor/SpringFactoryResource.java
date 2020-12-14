@@ -44,7 +44,7 @@ final class SpringFactoryResource implements Serializable {
 
     public void addSpringFactory(final String factoryClass, final String factoryName) {
 
-        List<String> factories = this.springFactories.get(factoryClass);
+        final List<String> factories = this.springFactories.get(factoryClass);
         if (factories == null || !factories.contains(factoryName)) {
             this.springFactories.add(factoryClass, factoryName);
         }
@@ -57,10 +57,10 @@ final class SpringFactoryResource implements Serializable {
     void writeFactoryFile(final OutputStream output)
         throws IOException {
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8));
 
         for (Map.Entry<String, List<String>> stringListEntry : springFactories.entrySet()) {
-            String factory = stringListEntry.getKey();
+            final String factory = stringListEntry.getKey();
             // # factory
             writer.write("# ");
             writer.write(factory);
@@ -70,7 +70,7 @@ final class SpringFactoryResource implements Serializable {
             writer.write("=\\");
             writer.newLine();
 
-            List<String> instances = stringListEntry.getValue();
+            final List<String> instances = stringListEntry.getValue();
 
             for (int i = 0; i < instances.size(); i++) {
                 final String intance = instances.get(i);

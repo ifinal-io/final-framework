@@ -32,8 +32,8 @@ public class MethodExpressionEvaluator extends CachedExpressionEvaluator {
         final Class<?> targetClass, final Method targetMethod,
         final Object result, final Throwable e) {
 
-        MethodExpressionRootObject rootObject = new MethodExpressionRootObject(method, args, target, targetClass);
-        MethodEvaluationContext evaluationContext = new MethodEvaluationContext(rootObject, targetMethod, args,
+        final MethodExpressionRootObject rootObject = new MethodExpressionRootObject(method, args, target, targetClass);
+        final MethodEvaluationContext evaluationContext = new MethodEvaluationContext(rootObject, targetMethod, args,
             getParameterNameDiscoverer());
         if (result == RESULT_UNAVAILABLE) {
             evaluationContext.addUnavailableVariable(RESULT_VARIABLE);

@@ -102,7 +102,7 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
             }
             addService((TypeElement) serviceInterface.asElement(), element, name, path);
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             //ignore
             error(e.getMessage(), element, autoService);
         }

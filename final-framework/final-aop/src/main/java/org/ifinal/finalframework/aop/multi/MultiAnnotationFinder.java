@@ -34,10 +34,11 @@ public class MultiAnnotationFinder implements
     public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(
         final @NonNull AnnotatedElement ae) {
 
-        Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
+        final Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
 
         for (Class<? extends Annotation> annotationType : annotationTypes) {
-            Collection<? extends Annotation> annotations = getAnnotationFinder(annotationType).findAnnotations(ae);
+            final Collection<? extends Annotation> annotations
+                = getAnnotationFinder(annotationType).findAnnotations(ae);
             if (annotations.isEmpty()) {
                 continue;
             }

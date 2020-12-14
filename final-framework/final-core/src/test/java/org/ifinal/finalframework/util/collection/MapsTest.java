@@ -19,7 +19,7 @@ class MapsTest {
 
     @Test
     void combine() {
-        Map<String, Collection<Integer>> map = new HashMap<>();
+        final Map<String, Collection<Integer>> map = new HashMap<>();
 
         map.put("A", Arrays.asList(1, 2));
         map.put("B", Arrays.asList(3, 4));

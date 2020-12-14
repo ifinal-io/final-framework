@@ -32,8 +32,8 @@ public class EnumValueDescSerializer extends JsonSerializer<Object> {
             gen.writeNull();
             return;
         }
-        Enum<?> anEnum = Enums.findEnum(enumValue, value);
-        Field field = ReflectionUtils.findField(enumValue.value(), enumValue.desc());
+        final Enum<?> anEnum = Enums.findEnum(enumValue, value);
+        final Field field = ReflectionUtils.findField(enumValue.value(), enumValue.desc());
         Objects.requireNonNull(field, "");
         ReflectionUtils.makeAccessible(field);
         gen.writeObject(ReflectionUtils.getField(field, anEnum));

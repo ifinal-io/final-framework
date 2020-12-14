@@ -32,17 +32,17 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
         final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
-            List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
+            final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
-                Collection<A> as = annotations.get(entry.getKey());
+                final Collection<A> as = annotations.get(entry.getKey());
 
                 if (Objects.isNull(as) || as.isEmpty()) {
                     continue;
                 }
 
                 for (A annotation : as) {
-                    E executor = getExecutor(annotation);
-                    Object value = handler.before(executor, context, annotation);
+                    final E executor = getExecutor(annotation);
+                    final Object value = handler.before(executor, context, annotation);
                     if (Objects.nonNull(value)) {
                         return value;
                     }
@@ -60,15 +60,15 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
         final Object result) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
-            List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
+            final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
-                Collection<A> as = annotations.get(entry.getKey());
+                final Collection<A> as = annotations.get(entry.getKey());
 
                 if (Objects.isNull(as) || as.isEmpty()) {
                     continue;
                 }
                 for (A annotation : as) {
-                    E executor = getExecutor(annotation);
+                    final E executor = getExecutor(annotation);
                     handler.afterReturning(executor, context, annotation, result);
                 }
 
@@ -82,15 +82,15 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
         final @NonNull Throwable throwable) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
-            List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
+            final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
-                Collection<A> as = annotations.get(entry.getKey());
+                final Collection<A> as = annotations.get(entry.getKey());
 
                 if (Objects.isNull(as) || as.isEmpty()) {
                     continue;
                 }
                 for (A annotation : as) {
-                    E executor = getExecutor(annotation);
+                    final E executor = getExecutor(annotation);
                     handler.afterThrowing(executor, context, annotation, throwable);
                 }
 
@@ -104,15 +104,15 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
         final Throwable throwable) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
-            List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
+            final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
             for (InterceptorHandler<E, A> handler : annotationHandlers) {
-                Collection<A> as = annotations.get(entry.getKey());
+                final Collection<A> as = annotations.get(entry.getKey());
 
                 if (Objects.isNull(as) || as.isEmpty()) {
                     continue;
                 }
                 for (A annotation : as) {
-                    E executor = getExecutor(annotation);
+                    final E executor = getExecutor(annotation);
                     handler.after(executor, context, annotation, result, throwable);
                 }
 

@@ -33,7 +33,7 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
     private static final String DEFAULT_SERVICE_PATH = "services";
 
     /**
-     * service:instance:name
+     * service:instance:name.
      */
     private final Map<String, Map<String, String>> services = new HashMap<>();
 
@@ -52,23 +52,23 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
 
     private void generateServiceFiles() {
 
-        Filer filer = processingEnv.getFiler();
+        final Filer filer = processingEnv.getFiler();
 
         for (Map.Entry<String, Map<String, String>> entry : services.entrySet()) {
-            String providerInterface = entry.getKey();
-            String resourceFile = ServicesFiles.getPath(this.paths.get(providerInterface), providerInterface);
+            final String providerInterface = entry.getKey();
+            final String resourceFile = ServicesFiles.getPath(this.paths.get(providerInterface), providerInterface);
             log("Working on resource file: " + resourceFile);
             try {
                 final Map<String, String> allServices = new TreeMap<>(readOldService(filer, resourceFile));
                 allServices.putAll(entry.getValue());
                 log("New service file contents: " + allServices);
-                FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "",
+                final FileObject fileObject = filer.createResource(StandardLocation.CLASS_OUTPUT, "",
                     resourceFile);
-                OutputStream out = fileObject.openOutputStream();
+                final OutputStream out = fileObject.openOutputStream();
                 ServicesFiles.writeServiceFile(allServices, out);
                 out.close();
                 log("Wrote to: " + fileObject.toUri());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 fatalError("Unable to create " + resourceFile + ", " + e);
                 return;
             }
@@ -91,10 +91,10 @@ public abstract class AbsServiceProcessor extends AbstractProcessor {
             // before we attempt to get the resource in case the behavior
             // of filer.getResource does change to match the spec, but there's
             // no good way to resolve CLASS_OUTPUT without first getting a resource.
-            FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
+            final FileObject existingFile = filer.getResource(StandardLocation.CLASS_OUTPUT, "",
                 resourceFile);
             log("Looking for existing resource file at " + existingFile.toUri());
-            Map<String, String> oldServices = ServicesFiles.readServiceFile(existingFile.openInputStream());
+            final Map<String, String> oldServices = ServicesFiles.readServiceFile(existingFile.openInputStream());
             log("Existing service entries: " + oldServices);
             return oldServices;
         } catch (IOException e) {

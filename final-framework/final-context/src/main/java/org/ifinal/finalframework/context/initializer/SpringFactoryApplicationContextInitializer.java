@@ -30,7 +30,7 @@ public class SpringFactoryApplicationContextInitializer implements
 
         for (String annotationName : springFactories) {
             try {
-                Class<?> factoryClass = Class.forName(annotationName);
+                final Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}",
                     factoryClass.getCanonicalName());
                 context

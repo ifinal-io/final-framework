@@ -38,13 +38,13 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
     @Override
     public Object invoke(final MethodInvocation invocation, final A annotations) throws Throwable {
 
-        Class<?> targetClass = getTargetClass(invocation.getThis());
-        MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
+        final Class<?> targetClass = getTargetClass(invocation.getThis());
+        final MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
 
-        InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(),
+        final InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(),
             invocation.getArguments());
 
-        Object operationValue = dispatcher.before(context, annotations);
+        final Object operationValue = dispatcher.before(context, annotations);
         if (Objects.nonNull(operationValue)) {
             return operationValue;
         }

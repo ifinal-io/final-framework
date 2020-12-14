@@ -53,8 +53,8 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
     public List<String> findExpressions(final String expression) {
 
         // 指定要匹配的字符串
-        Matcher matcher = EXPRESSION_PATTEN.matcher(expression);
-        List<String> matchStrs = new ArrayList<>();
+        final Matcher matcher = EXPRESSION_PATTEN.matcher(expression);
+        final List<String> matchStrs = new ArrayList<>();
         //此处find（）每次被调用后，会偏移到下一个匹配
         while (matcher.find()) {
             //获取当前匹配的值

@@ -52,16 +52,16 @@ public final class PropertiesLoader {
         }
 
         try {
-            Enumeration<URL> urls = classLoader != null
+            final Enumeration<URL> urls = classLoader != null
                 ? classLoader.getResources(propertiesResourceLocation)
                 : ClassLoader.getSystemResources(propertiesResourceLocation);
             result = new LinkedMultiValueMap<>();
             while (urls.hasMoreElements()) {
-                URL url = urls.nextElement();
-                UrlResource resource = new UrlResource(url);
-                Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+                final URL url = urls.nextElement();
+                final UrlResource resource = new UrlResource(url);
+                final Properties properties = PropertiesLoaderUtils.loadProperties(resource);
                 for (Map.Entry<?, ?> entry : properties.entrySet()) {
-                    String factoryClassName = ((String) entry.getKey()).trim();
+                    final String factoryClassName = ((String) entry.getKey()).trim();
                     for (String factoryName : StringUtils.commaDelimitedListToStringArray((String) entry.getValue())) {
                         result.add(factoryClassName, factoryName.trim());
                     }

@@ -5,6 +5,8 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
 /**
+ * AnnotationAttributesProcessor.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0

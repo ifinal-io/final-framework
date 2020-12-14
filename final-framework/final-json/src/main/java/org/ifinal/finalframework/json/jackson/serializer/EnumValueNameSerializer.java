@@ -29,7 +29,7 @@ public class EnumValueNameSerializer extends JsonSerializer<Object> {
             gen.writeNull();
             return;
         }
-        Enum<?> anEnum = Enums.findEnum(enumValue, value);
+        final Enum<?> anEnum = Enums.findEnum(enumValue, value);
         gen.writeString(anEnum.name());
     }
 

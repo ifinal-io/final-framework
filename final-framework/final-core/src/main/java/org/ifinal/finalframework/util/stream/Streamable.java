@@ -20,6 +20,8 @@ package org.ifinal.finalframework.util.stream;
 import java.util.stream.Stream;
 
 /**
+ * Streamable.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0

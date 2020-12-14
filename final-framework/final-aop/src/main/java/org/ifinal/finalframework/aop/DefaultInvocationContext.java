@@ -76,8 +76,8 @@ public class DefaultInvocationContext implements InvocationContext {
         if (!method.isVarArgs()) {
             return args;
         }
-        Object[] varArgs = ObjectUtils.toObjectArray(args[args.length - 1]);
-        Object[] combinedArgs = new Object[args.length - 1 + varArgs.length];
+        final Object[] varArgs = ObjectUtils.toObjectArray(args[args.length - 1]);
+        final Object[] combinedArgs = new Object[args.length - 1 + varArgs.length];
         System.arraycopy(args, 0, combinedArgs, 0, args.length - 1);
         System.arraycopy(varArgs, 0, combinedArgs, args.length - 1, varArgs.length);
         return combinedArgs;
@@ -89,7 +89,7 @@ public class DefaultInvocationContext implements InvocationContext {
         if (jsonView == null) {
             return null;
         }
-        Class<?>[] classes = jsonView.value();
+        final Class<?>[] classes = jsonView.value();
         if (classes.length != 1) {
             throw new IllegalArgumentException(
                 "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass()

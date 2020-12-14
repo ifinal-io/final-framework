@@ -27,7 +27,7 @@ public class SimpleAnnotationSource implements AnnotationSource<Boolean> {
     @Override
     public Boolean getAnnotations(final Method method, final Class<?> targetClass) {
 
-        Object cacheKey = getCacheKey(method, targetClass);
+        final Object cacheKey = getCacheKey(method, targetClass);
         return cache.computeIfAbsent(cacheKey, key -> {
 
             if (Boolean.TRUE.equals(finder.findAnnotations(method))) {

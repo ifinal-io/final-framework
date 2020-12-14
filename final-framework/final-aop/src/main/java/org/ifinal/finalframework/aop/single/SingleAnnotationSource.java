@@ -49,7 +49,7 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
             return Collections.emptyList();
         }
 
-        Object cacheKey = getCacheKey(method, targetClass);
+        final Object cacheKey = getCacheKey(method, targetClass);
         return this.cache.computeIfAbsent(cacheKey, key -> computeAnnotations(method, targetClass));
     }
 
@@ -60,12 +60,12 @@ public class SingleAnnotationSource<A extends Annotation, E> implements Annotati
             return Collections.emptyList();
         }
 
-        List<E> annotations = new ArrayList<>();
+        final List<E> annotations = new ArrayList<>();
 
         annotations.addAll(parser.parseAnnotations(targetClass));
         annotations.addAll(parser.parseAnnotations(method));
 
-        Parameter[] parameters = method.getParameters();
+        final Parameter[] parameters = method.getParameters();
         for (int i = 0; i < parameters.length; i++) {
             annotations.addAll(parser.parseAnnotations(parameters[i], i));
         }

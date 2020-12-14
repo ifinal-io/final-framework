@@ -35,8 +35,8 @@ public class BeanEnumValuePropertySerializerModifier extends AbsBeanPropertySeri
         final BeanDescription beanDesc,
         final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
-        BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
+        final BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
+        final BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
         return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter);
     }
 
@@ -44,7 +44,7 @@ public class BeanEnumValuePropertySerializerModifier extends AbsBeanPropertySeri
         final BeanPropertyDefinition property,
         final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
+        final BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
             new EnumValueNameSerializer(property.getField().getAnnotation(EnumValue.class)), writer.getTypeSerializer(),
             writer.getSerializationType(),
@@ -58,7 +58,7 @@ public class BeanEnumValuePropertySerializerModifier extends AbsBeanPropertySeri
         final BeanPropertyDefinition property,
         final BeanPropertyWriter writer) {
 
-        BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
+        final BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
             new EnumValueDescSerializer(property.getField().getAnnotation(EnumValue.class)), writer.getTypeSerializer(),
             writer.getSerializationType(),

@@ -18,7 +18,7 @@ public abstract class AbsPointcutAdvisor implements PointcutAdvisor, Ordered {
         if (this.order != null) {
             return this.order;
         }
-        Advice advice = getAdvice();
+        final Advice advice = getAdvice();
         if (advice instanceof Ordered) {
             return ((Ordered) advice).getOrder();
         }

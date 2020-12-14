@@ -8,6 +8,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * Maps.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -32,16 +34,16 @@ public final class Maps {
                 entry.getValue()
                     .stream()
                     .map(it -> {
-                        Map<K, V> item = new LinkedHashMap<>();
+                        final Map<K, V> item = new LinkedHashMap<>();
                         item.put(entry.getKey(), it);
                         return item;
                     })
                     .forEach(result::add);
             } else {
-                Collection<Map<K, V>> list = new LinkedList<>();
+                final Collection<Map<K, V>> list = new LinkedList<>();
                 for (Map<K, V> loop : result) {
                     for (V value : entry.getValue()) {
-                        Map<K, V> item = new LinkedHashMap<>();
+                        final Map<K, V> item = new LinkedHashMap<>();
                         item.put(entry.getKey(), value);
                         item.putAll(loop);
                         list.add(item);

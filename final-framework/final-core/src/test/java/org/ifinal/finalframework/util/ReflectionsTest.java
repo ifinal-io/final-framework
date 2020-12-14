@@ -17,9 +17,9 @@ class ReflectionsTest {
 
     @Test
     void findAnnotationAttributes() {
-        Method method = Reflections.findRequiredMethod(ReflectionTarget.class, "method");
+        final Method method = Reflections.findRequiredMethod(ReflectionTarget.class, "method");
         Assertions.assertNotNull(method, "not found method of method");
-        AnnotationAttributes annotationAttributes = Reflections.findAnnotationAttributes(method, Cacheable.class);
+        final AnnotationAttributes annotationAttributes = Reflections.findAnnotationAttributes(method, Cacheable.class);
         logger.info("find annotation attributes: {}", annotationAttributes);
         Assertions.assertNotNull(annotationAttributes);
     }

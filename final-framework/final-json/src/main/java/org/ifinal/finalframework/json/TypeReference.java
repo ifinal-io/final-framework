@@ -16,7 +16,7 @@ public abstract class TypeReference<T> {
 
     @SuppressWarnings("unchecked")
     protected TypeReference() {
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.rawType = (Class<T>) genericSuperclass.getRawType();
         this.type = genericSuperclass.getActualTypeArguments()[0];
     }

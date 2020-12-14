@@ -10,6 +10,8 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.util.ReflectionUtils;
 
 /**
+ * Proxies.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -34,7 +36,7 @@ public final class Proxies {
     }
 
     /**
-     * 判断目标 {@code target} 是否为代理
+     * 判断目标 {@code target} 是否为代理.
      *
      * @param target target
      * @return result
@@ -47,6 +49,8 @@ public final class Proxies {
     }
 
     /**
+     * return the real target.
+     *
      * @param target target
      * @return result
      */
@@ -66,7 +70,7 @@ public final class Proxies {
                 final Field advisedField = ReflectionUtils.findField(target.getClass(), "advised");
                 Objects.requireNonNull(advisedField, "");
                 ReflectionUtils.makeAccessible(advisedField);
-                Object advised = ReflectionUtils.getField(advisedField, target);
+                final Object advised = ReflectionUtils.getField(advisedField, target);
                 Objects.requireNonNull(advised, "");
                 final Field targetSourceField = ReflectionUtils.findField(advised.getClass(), "targetSource");
                 Objects.requireNonNull(targetSourceField, "");
@@ -84,7 +88,7 @@ public final class Proxies {
 
     public static Class<?> targetClass(final Object proxy) {
 
-        Object target = target(proxy);
+        final Object target = target(proxy);
         final Class<?> targetClass = target.getClass();
         if (MAPPER_PROXY.equals(targetClass.getCanonicalName())) {
             try {

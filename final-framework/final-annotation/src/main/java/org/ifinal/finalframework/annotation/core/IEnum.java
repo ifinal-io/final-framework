@@ -25,7 +25,7 @@ public interface IEnum<T> {
      */
     @Nullable
     static <T extends IEnum<?>> T valueOf(@NonNull Class<T> type, @NonNull Object code) {
-        T[] constants = type.getEnumConstants();
+        final T[] constants = type.getEnumConstants();
         for (T constant : constants) {
             if (Objects.equals(constant.getCode().toString(), code.toString())) {
                 return constant;

@@ -28,7 +28,7 @@ public final class Enums {
         final @NonNull String creator,
         final @Nullable Class<?> valueType, final @NonNull Object value) {
 
-        Method valueOf = Objects.isNull(valueType) ? ReflectionUtils.findMethod(clazz, creator)
+        final Method valueOf = Objects.isNull(valueType) ? ReflectionUtils.findMethod(clazz, creator)
             : ReflectionUtils.findMethod(clazz, creator, valueType);
 
         if (valueOf == null) {

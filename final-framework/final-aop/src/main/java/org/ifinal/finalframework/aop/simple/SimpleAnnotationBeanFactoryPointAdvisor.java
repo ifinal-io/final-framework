@@ -22,7 +22,7 @@ public abstract class SimpleAnnotationBeanFactoryPointAdvisor<T> extends AbsGene
     protected SimpleAnnotationBeanFactoryPointAdvisor(final Collection<Class<? extends Annotation>> annotationTypes,
         final List<InterceptorHandler<T, Boolean>> handlers) {
 
-        SimpleAnnotationSource source = new SimpleAnnotationSource(annotationTypes);
+        final SimpleAnnotationSource source = new SimpleAnnotationSource(annotationTypes);
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(
             new DefaultAnnotationMethodInterceptor<>(source, new SimpleMethodInvocationDispatcher<T>(handlers) {

@@ -46,7 +46,7 @@ public class FinalJacksonModule extends SimpleModule {
     private void initEnumDeserializer() {
         for (String name : ServicesLoader.load(IEnum.class)) {
             try {
-                Class<IEnum<?>> clazz = (Class<IEnum<?>>) Class.forName(name);
+                final Class<IEnum<?>> clazz = (Class<IEnum<?>>) Class.forName(name);
                 if (logger.isDebugEnabled()) {
                     logger.debug("add enum deserializer: {}", name);
                 }
@@ -60,7 +60,7 @@ public class FinalJacksonModule extends SimpleModule {
     @SuppressWarnings("unchecked")
     private <T> T newInstance(final @NonNull Class<? extends T> clazz) {
 
-        Constructor<?> constructor;
+        final Constructor<?> constructor;
         try {
             constructor = clazz.getConstructor(ObjectMapper.class);
             return (T) constructor.newInstance(this.objectMapper);

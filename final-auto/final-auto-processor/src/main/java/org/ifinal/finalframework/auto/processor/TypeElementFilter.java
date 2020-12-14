@@ -47,10 +47,10 @@ public class TypeElementFilter implements Filter<TypeElement> {
         messager
             .printMessage(Diagnostic.Kind.NOTE, String.format("[INFO] [TypeElementFilter] filter typeElement: %s",
                 typeElement.getQualifiedName().toString()));
-        boolean subtype = types
+        final boolean subtype = types
             .isSubtype(types.erasure(typeElement.asType()), types.erasure(entityTypeElement.asType()));
         if (subtype) {
-            String msg = "[INFO] [EntityFilter] find entity : " + typeElement.getQualifiedName().toString();
+            final String msg = "[INFO] [EntityFilter] find entity : " + typeElement.getQualifiedName().toString();
             messager.printMessage(Diagnostic.Kind.NOTE, msg);
         }
         return subtype;

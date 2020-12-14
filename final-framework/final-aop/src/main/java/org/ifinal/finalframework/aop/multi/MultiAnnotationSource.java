@@ -31,14 +31,14 @@ public class MultiAnnotationSource<E> implements AnnotationSource<Map<Class<? ex
     public Map<Class<? extends Annotation>, Collection<E>> getAnnotations(final Method method,
         final Class<?> targetClass) {
 
-        Object cacheKey = getCacheKey(method, targetClass);
+        final Object cacheKey = getCacheKey(method, targetClass);
 
         return cache.computeIfAbsent(cacheKey, key -> {
-            Map<Class<? extends Annotation>, Collection<E>> map = new HashMap<>();
+            final Map<Class<? extends Annotation>, Collection<E>> map = new HashMap<>();
 
             for (Map.Entry<Class<? extends Annotation>, AnnotationSource<Collection<E>>> entry : sourceMap.entrySet()) {
 
-                Collection<E> annotations = entry.getValue().getAnnotations(method, targetClass);
+                final Collection<E> annotations = entry.getValue().getAnnotations(method, targetClass);
 
                 if (Objects.isNull(annotations) || annotations.isEmpty()) {
                     continue;

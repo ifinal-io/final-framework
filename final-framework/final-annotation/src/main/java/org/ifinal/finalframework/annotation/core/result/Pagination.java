@@ -44,7 +44,7 @@ public class Pagination implements IPagination {
     private Boolean lastPage;
 
     public Pagination toPageInfo() {
-        Pagination pagination = new Pagination();
+        final Pagination pagination = new Pagination();
         pagination.page = this.page;
         pagination.size = this.size;
         pagination.pages = this.pages;

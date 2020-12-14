@@ -80,7 +80,7 @@ public final class ServicesFiles {
     static void writeServiceFile(final Map<String, String> services, final OutputStream output)
         throws IOException {
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output, UTF_8));
         for (Map.Entry<String, String> entry : services.entrySet()) {
             if (entry.getValue() == null || entry.getValue().isEmpty()) {
                 // service

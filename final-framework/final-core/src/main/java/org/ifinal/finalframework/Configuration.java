@@ -43,7 +43,7 @@ public final class Configuration {
 
     private Configuration() {
 
-        ClassPathResource resource = new ClassPathResource("/" + PROPERTIES_PATH);
+        final ClassPathResource resource = new ClassPathResource("/" + PROPERTIES_PATH);
         if (resource.exists()) {
             try {
                 properties.load(resource.getInputStream());
@@ -77,7 +77,7 @@ public final class Configuration {
     public void load(final ProcessingEnvironment processingEnv) {
 
         try {
-            FileObject resource = processingEnv.getFiler()
+            final FileObject resource = processingEnv.getFiler()
                 .getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             try (InputStream is = resource.openInputStream()) {
                 properties.load(is);

@@ -17,7 +17,7 @@ public interface AnnotationMethodInterceptor<R> extends MethodInterceptor {
     @Override
     default Object invoke(MethodInvocation invocation) throws Throwable {
 
-        R annotations = findAnnotations(invocation.getMethod(), invocation.getThis().getClass());
+        final R annotations = findAnnotations(invocation.getMethod(), invocation.getThis().getClass());
 
         if (Asserts.isEmpty(annotations)) {
             return invocation.proceed();

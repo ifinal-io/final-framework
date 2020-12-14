@@ -96,7 +96,7 @@ public final class UserContextHolder {
     public static <T extends IUser<?>> T getUser(final @Nullable UserContext<? extends IUser<?>> localeContext) {
 
         if (localeContext != null) {
-            IUser<?> locale = localeContext.getUser();
+            final IUser<?> locale = localeContext.getUser();
             if (locale != null) {
                 return (T) locale;
             }

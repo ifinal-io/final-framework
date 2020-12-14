@@ -28,7 +28,7 @@ public class IExceptionResultExceptionHandler implements ResultExceptionHandler<
     public Result<?> handle(final @NonNull IException e) {
 
         if (e instanceof ServiceException) {
-            ServiceException se = (ServiceException) e;
+            final ServiceException se = (ServiceException) e;
             return R.failure(se.getStatus(), se.getDescription(), e.getCode(), e.getMessage());
         } else {
             return R.failure(500, e.getMessage(), e.getCode(), e.getMessage());
