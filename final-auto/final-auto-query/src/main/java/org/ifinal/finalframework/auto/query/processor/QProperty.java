@@ -57,6 +57,9 @@ public final class QProperty {
         return element;
     }
 
+    /**
+     * Builder.
+     */
     public static final class Builder implements org.ifinal.finalframework.util.Builder<QProperty> {
 
         private final String path;

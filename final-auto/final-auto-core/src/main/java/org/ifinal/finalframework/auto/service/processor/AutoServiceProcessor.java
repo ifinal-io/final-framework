@@ -20,6 +20,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
+ * AutoServiceProcessor.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -31,16 +33,22 @@ import org.springframework.lang.Nullable;
 public class AutoServiceProcessor extends AbsServiceProcessor {
 
     /**
+     * value.
+     *
      * @see AutoService#value()
      */
     private static final String KEY_VALUE = "value";
 
     /**
+     * name.
+     *
      * @see AutoService#name()
      */
     private static final String KEY_NAME = "name";
 
     /**
+     * path.
+     *
      * @see AutoService#path()
      */
     private static final String KEY_PATH = "path";

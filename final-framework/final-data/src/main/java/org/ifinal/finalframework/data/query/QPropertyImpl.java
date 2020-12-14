@@ -146,6 +146,12 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return false;
     }
 
+    /**
+     * Builder.
+     *
+     * @param <T> type.
+     * @param <E> entity type.
+     */
     public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
 
         private final E entity;

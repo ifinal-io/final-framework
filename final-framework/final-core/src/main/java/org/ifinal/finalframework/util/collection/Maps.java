@@ -29,11 +29,14 @@ public final class Maps {
         Collection<Map<K, V>> result = new LinkedList<>();
         for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
             if (result.isEmpty()) {
-                for (V value : entry.getValue()) {
-                    Map<K, V> item = new LinkedHashMap<>();
-                    item.put(entry.getKey(), value);
-                    result.add(item);
-                }
+                entry.getValue()
+                    .stream()
+                    .map(it -> {
+                        Map<K, V> item = new LinkedHashMap<>();
+                        item.put(entry.getKey(), it);
+                        return item;
+                    })
+                    .forEach(result::add);
             } else {
                 Collection<Map<K, V>> list = new LinkedList<>();
                 for (Map<K, V> loop : result) {

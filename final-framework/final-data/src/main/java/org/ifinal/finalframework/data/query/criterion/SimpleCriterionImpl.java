@@ -4,6 +4,8 @@ import org.ifinal.finalframework.data.query.operation.Operation;
 import org.springframework.lang.NonNull;
 
 /**
+ * SimpleCriterionImpl.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -36,6 +38,12 @@ public abstract class SimpleCriterionImpl implements SimpleCriterion {
         return ((CriterionValueImpl<?>) getTarget()).getSql();
     }
 
+    /**
+     * AbsBuilder.
+     *
+     * @param <T> type
+     * @param <R> return type
+     */
     @SuppressWarnings("unchecked")
     public abstract static class AbsBuilder<T, R extends Builder> implements Builder<T, R> {
 

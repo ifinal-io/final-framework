@@ -23,6 +23,7 @@ import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 
 /**
@@ -99,11 +100,12 @@ public class AutoMapperGeneratorProcessor extends AbstractProcessor {
             .addSuperinterface(parameterizedTypeName)
             .addAnnotation(org.apache.ibatis.annotations.Mapper.class)
             .addAnnotation(JavaPoets.generated(AutoMapperGeneratorProcessor.class))
-            .addJavadoc(JavaPoets.JavaDoc.author())
-            .addJavadoc(JavaPoets.JavaDoc.version())
+            .addJavadoc(Javadoc.author())
+            .addJavadoc(Javadoc.version())
             .build();
 
-        return JavaFile.builder(packageName, myMapper).build();
+        return JavaFile.builder(packageName, myMapper)
+            .skipJavaLangImports(true).build();
 
     }
 

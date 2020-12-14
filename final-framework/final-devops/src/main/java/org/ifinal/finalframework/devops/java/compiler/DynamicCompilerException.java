@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
+/**
+ * DynamicCompilerException.
+ */
 @SuppressWarnings("serial")
 public class DynamicCompilerException extends RuntimeException {
 

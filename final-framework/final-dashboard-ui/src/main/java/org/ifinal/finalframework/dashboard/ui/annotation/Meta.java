@@ -20,6 +20,9 @@ public @interface Meta {
 
     String content() default "";
 
+    /**
+     * Metas.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @interface Metas {

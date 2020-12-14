@@ -18,10 +18,15 @@ import org.springframework.util.ReflectionUtils;
 public final class Proxies {
 
     /**
+     * mapper proxy.
+     *
      * @see org.apache.ibatis.binding.MapperProxy
      */
     public static final String MAPPER_PROXY = "org.apache.ibatis.binding.MapperProxy";
 
+    /**
+     * jdk dynamic aop proxy.
+     */
     public static final String JDK_DYNAMIC_AOP_PROXY = "org.springframework.aop.framework.JdkDynamicAopProxy";
 
     private Proxies() {

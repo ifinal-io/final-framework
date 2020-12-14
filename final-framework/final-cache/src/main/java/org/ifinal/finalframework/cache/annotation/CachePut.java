@@ -9,8 +9,11 @@ import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
+import org.ifinal.finalframework.cache.annotation.CachePut.CachePuts;
 
 /**
+ * CachePut.
+ *
  * @author likly
  * @version 1.0.0
  * @see Cache#set(Object, Object, Object, Long, TimeUnit, Class)
@@ -19,7 +22,7 @@ import org.ifinal.finalframework.cache.Cache;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(CachePut.List.class)
+@Repeatable(CachePuts.class)
 public @interface CachePut {
 
     String[] key();
@@ -40,10 +43,13 @@ public @interface CachePut {
 
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
+    /**
+     * CachePuts.
+     */
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
-    @interface List {
+    @interface CachePuts {
 
         CachePut[] value();
 

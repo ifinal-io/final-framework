@@ -29,26 +29,52 @@ import org.ifinal.finalframework.util.Asserts;
  * @version 1.0.0
  * @since 1.0.0
  */
-@SuppressWarnings("all")
 public class DateFormatter implements Formatter<Date> {
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYY_MM_DD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYY_MM_DD_HH_MM_SS);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYY_MM_DD = new DateFormatter(DateFormatterPattern.YYYY_MM_DD);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYY__MM__DD_HH_MM_SS = new DateFormatter(
         DateFormatterPattern.YYYY__MM__DD_HH_MM_SS);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYY__MM__DD = new DateFormatter(DateFormatterPattern.YYYY__MM__DD);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYYMMDD_HH_MM_SS = new DateFormatter(DateFormatterPattern.YYYYMMDD_HH_MM_SS);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYYMMDD = new DateFormatter(DateFormatterPattern.YYYYMMDD);
 
+    /**
+     * DateFormatter.
+     */
     public static final DateFormatter YYYYMMDDHHMMSS = new DateFormatter(DateFormatterPattern.YYYYMMDDHHMMSS);
 
+    /**
+     * regex.
+     */
     private final String regex;
 
+    /**
+     * pattern.
+     */
     private final String pattern;
 
     public DateFormatter(final String regex, final String pattern) {

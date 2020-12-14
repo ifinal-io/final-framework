@@ -21,6 +21,9 @@ public @interface Function {
 
     Class<? extends FunctionHandler> handler() default FunctionHandler.class;
 
+    /**
+     * FunctionHandler.
+     */
     @FunctionalInterface
     interface FunctionHandler {
 

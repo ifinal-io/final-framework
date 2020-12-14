@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
 import org.ifinal.finalframework.cache.Cache;
+import org.ifinal.finalframework.cache.annotation.CacheIncrement.CacheIncrements;
 import org.springframework.core.annotation.AliasFor;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.core.annotation.AliasFor;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(CacheIncrement.List.class)
+@Repeatable(CacheIncrements.class)
 public @interface CacheIncrement {
 
     /**
@@ -89,10 +90,13 @@ public @interface CacheIncrement {
      */
     TimeUnit timeunit() default TimeUnit.MILLISECONDS;
 
+    /**
+     * CacheIncrements.
+     */
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
-    @interface List {
+    @interface CacheIncrements {
 
         CacheIncrement[] value();
 

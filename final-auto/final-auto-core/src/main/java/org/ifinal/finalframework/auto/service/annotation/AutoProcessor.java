@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 import javax.annotation.processing.Processor;
 
 /**
+ * AutoProcessor.
+ *
  * @author likly
  * @version 1.0.0
  * @see Processor

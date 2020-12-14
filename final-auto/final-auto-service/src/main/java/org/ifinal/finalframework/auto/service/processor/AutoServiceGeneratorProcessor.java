@@ -22,6 +22,7 @@ import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 import org.ifinal.finalframework.service.AbsService;
 import org.ifinal.finalframework.service.AbsServiceImpl;
 import org.springframework.stereotype.Service;
@@ -109,8 +110,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .addModifiers(Modifier.PUBLIC)
                     .addSuperinterface(parameterizedTypeName)
                     .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
-                    .addJavadoc(JavaPoets.JavaDoc.author())
-                    .addJavadoc(JavaPoets.JavaDoc.version())
+                    .addJavadoc(Javadoc.author())
+                    .addJavadoc(Javadoc.version())
                     .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
@@ -163,8 +164,8 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
                     .addMethod(constructor)
                     .addAnnotation(Service.class)
                     .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
-                    .addJavadoc(JavaPoets.JavaDoc.author())
-                    .addJavadoc(JavaPoets.JavaDoc.version())
+                    .addJavadoc(Javadoc.author())
+                    .addJavadoc(Javadoc.version())
                     .build();
 
                 try (Writer writer = sourceFile.openWriter()) {

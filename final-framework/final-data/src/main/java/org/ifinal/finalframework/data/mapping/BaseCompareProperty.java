@@ -64,6 +64,9 @@ public final class BaseCompareProperty implements CompareProperty {
         return builder.toString();
     }
 
+    /**
+     * CompareProperty.builder
+     */
     public static class BuilderImpl implements CompareProperty.Builder {
 
         private Property property;

@@ -38,12 +38,15 @@ public interface JavaPoets {
 
     static AnnotationSpec generated(@NonNull Class<?> generator) {
         return AnnotationSpec.builder(Generated.class)
-                .addMember("value", "$S", generator.getCanonicalName())
-                .addMember("date", "$S", LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now()))
-                .build();
+            .addMember("value", "$S", generator.getCanonicalName())
+            .addMember("date", "$S", LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now()))
+            .build();
     }
 
-    interface JavaDoc {
+    /**
+     * Javadoc.
+     */
+    interface Javadoc {
 
         static String author() {
             return author("finalframework");

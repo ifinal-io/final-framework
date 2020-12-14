@@ -5,6 +5,9 @@ import java.io.OutputStream;
 import java.net.URI;
 import javax.tools.SimpleJavaFileObject;
 
+/**
+ * BytesJavaFileObject.
+ */
 public class BytesJavaFileObject extends SimpleJavaFileObject {
 
     private static final char PKG_SEPARATOR = '.';

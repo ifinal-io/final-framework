@@ -10,9 +10,15 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.tools.JavaFileObject;
 
+/**
+ * CustomJavaFileObject.
+ */
 public class CustomJavaFileObject implements JavaFileObject {
+
     private final String binaryName;
+
     private final URI uri;
+
     private final String name;
 
     public CustomJavaFileObject(final String binaryName, final URI uri) {
@@ -69,8 +75,8 @@ public class CustomJavaFileObject implements JavaFileObject {
 
         String baseName = simpleName + kind.extension;
         return kind.equals(getKind())
-                && (baseName.equals(getName())
-                || getName().endsWith("/" + baseName));
+            && (baseName.equals(getName())
+            || getName().endsWith("/" + baseName));
     }
 
     public NestingKind getNestingKind() {

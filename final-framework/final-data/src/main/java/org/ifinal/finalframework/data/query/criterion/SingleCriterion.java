@@ -20,6 +20,11 @@ public interface SingleCriterion<T> extends SimpleCriterion {
         // nothing
     }
 
+    /**
+     * Builder.
+     *
+     * @param <T> type
+     */
     interface Builder<T> extends SimpleCriterion.Builder<SingleCriterion<T>, Builder<T>> {
 
         Builder<T> value(T value);

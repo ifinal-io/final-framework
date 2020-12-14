@@ -13,8 +13,13 @@ import java.util.Objects;
 import java.util.jar.JarEntry;
 import javax.tools.JavaFileObject;
 
+/**
+ * PackageInternalsFinder.
+ */
 public class PackageInternalsFinder {
+
     private static final String CLASS_FILE_EXTENSION = ".class";
+
     private final ClassLoader classLoader;
 
     public PackageInternalsFinder(final ClassLoader classLoader) {
@@ -105,4 +110,5 @@ public class PackageInternalsFinder {
 
         return result;
     }
+
 }

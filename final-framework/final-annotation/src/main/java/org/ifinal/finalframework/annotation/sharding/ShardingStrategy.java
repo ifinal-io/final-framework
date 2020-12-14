@@ -45,6 +45,9 @@ public @interface ShardingStrategy {
         DATABASE, TABLE
     }
 
+    /**
+     * Sharding Algorithm Type
+     */
     class Algorithm {
 
         public static final String INLINE = "INLINE";

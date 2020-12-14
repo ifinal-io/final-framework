@@ -28,6 +28,9 @@ public @interface ClassBasedShardingStrategy {
     @Property(Property.CLASS_BASED_ALGORITHM_CLASS_NAME)
     Class<? extends ShardingAlgorithm> algorithm();
 
+    /**
+     * ShardingStrategies.
+     */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface ShardingStrategies {

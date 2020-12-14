@@ -33,6 +33,9 @@ public @interface InlineShardingStrategy {
     @Property(Property.INLINE_ALLOW_RANGE_QUERY)
     boolean allowRangeQuery() default false;
 
+    /**
+     * ShardingStrategies.
+     */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface ShardingStrategies {

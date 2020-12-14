@@ -5,6 +5,7 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.ifinal.finalframework.auto.service.annotation.AutoService.AutoServices;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -19,7 +20,7 @@ import org.springframework.lang.Nullable;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Repeatable(AutoService.List.class)
+@Repeatable(AutoServices.class)
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 public @interface AutoService {
@@ -33,9 +34,12 @@ public @interface AutoService {
     @NonNull
     String path() default "services";
 
+    /**
+     * AutoServices
+     */
     @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @Retention(RetentionPolicy.CLASS)
-    @interface List {
+    @interface AutoServices {
 
         AutoService[] value();
 

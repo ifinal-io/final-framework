@@ -5,6 +5,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
+ * CompareCriterionOperation.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -30,6 +32,9 @@ public interface CompareCriterionOperation extends CriterionOperation {
     @Nullable
     Object getMax();
 
+    /**
+     * CompareCriterionOperationBuilder.
+     */
     interface CompareCriterionOperationBuilder extends Builder<CompareCriterionOperation> {
 
         CompareCriterionOperationBuilder target(Object target);

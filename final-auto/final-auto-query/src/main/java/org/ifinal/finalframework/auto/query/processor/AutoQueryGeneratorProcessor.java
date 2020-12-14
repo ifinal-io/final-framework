@@ -29,6 +29,7 @@ import org.ifinal.finalframework.data.query.AbsQEntity;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 
 /**
  * QEntity 代码生成处理器
@@ -141,8 +142,8 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             .superclass(parameterizedTypeName)
             .addMethod(defaultConstructor).addMethod(tableConstructor)
             .addAnnotation(JavaPoets.generated(AutoQueryGeneratorProcessor.class))
-            .addJavadoc(JavaPoets.JavaDoc.author())
-            .addJavadoc(JavaPoets.JavaDoc.version())
+            .addJavadoc(Javadoc.author())
+            .addJavadoc(Javadoc.version())
             .addField(entityField)
             .addFields(fieldSpecs)
             .build();

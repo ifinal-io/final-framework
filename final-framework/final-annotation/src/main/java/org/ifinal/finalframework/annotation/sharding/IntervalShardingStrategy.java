@@ -43,6 +43,9 @@ public @interface IntervalShardingStrategy {
     @Property(Property.INTERVAL_DATETIME_INTERVAL_UNIT)
     ChronoUnit unit() default ChronoUnit.DAYS;
 
+    /**
+     * ShardingStrategies.
+     */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface ShardingStrategies {

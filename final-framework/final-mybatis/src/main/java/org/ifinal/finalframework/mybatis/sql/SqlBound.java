@@ -8,6 +8,8 @@ import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 
 /**
+ * SqlBound.
+ *
  * @author likly
  * @version 1.0.0
  * @see org.apache.ibatis.mapping.BoundSql
@@ -28,6 +30,9 @@ public class SqlBound implements Serializable {
 
     private List<ParameterMapping> parameterMappings;
 
+    /**
+     * ParameterMapping.
+     */
     @Data
     public static class ParameterMapping implements Serializable {
 

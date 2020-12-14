@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,18 +83,7 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
                             ShardingStrategy.Scope scope = annotationAttributes.getEnum("scope");
                             final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.type());
 
-                            final Properties properties = new Properties();
-
-                            for (Method method : annotationType.getMethods()) {
-                                if (method.isAnnotationPresent(Property.class)) {
-                                    Property property = method.getAnnotation(Property.class);
-                                    Object value = annotationAttributes.get(method.getName());
-                                    if (value instanceof String) {
-                                        value = ((String) value).replace(LOGIN_TABLE_PLACE_HOLDER, logicTable);
-                                    }
-                                    properties.put(property.value(), value);
-                                }
-                            }
+                            final Properties properties = parseAnnotationToProperties(logicTable, annotationAttributes);
 
                             // process class based sharding strategy properties
                             if (ShardingStrategy.Strategy.CLASS_BASED == shardingStrategy.strategy()) {
@@ -126,6 +116,25 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
             }
 
         }
+    }
+
+    private Properties parseAnnotationToProperties(final String logicTable,
+        final AnnotationAttributes annotationAttributes) {
+        final Properties properties = new Properties();
+        final Class<? extends Annotation> annotationType = annotationAttributes.annotationType();
+        Objects.requireNonNull(annotationType);
+        for (Method method : annotationType.getMethods()) {
+            if (method.isAnnotationPresent(Property.class)) {
+                Property property = method.getAnnotation(Property.class);
+                Object value = annotationAttributes.get(method.getName());
+                if (value instanceof String) {
+                    value = ((String) value).replace(LOGIN_TABLE_PLACE_HOLDER, logicTable);
+                }
+                properties.put(property.value(), value);
+            }
+        }
+
+        return properties;
     }
 
     private void processClassBasedSharingStrategyProperties(final Properties properties) {

@@ -9,6 +9,13 @@ import org.ifinal.finalframework.util.Asserts;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 
+/**
+ * Beans.
+ *
+ * @author likly
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @SuppressWarnings("unused")
 public interface Beans {
 

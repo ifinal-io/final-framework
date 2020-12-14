@@ -62,6 +62,9 @@ public final class QEntity {
         return idProperty;
     }
 
+    /**
+     * Builder.
+     */
     public static class Builder implements org.ifinal.finalframework.util.Builder<QEntity> {
 
         private final Entity entity;

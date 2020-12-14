@@ -19,6 +19,9 @@ public interface CompareProperty {
 
     boolean equals();
 
+    /**
+     * Builder.
+     */
     interface Builder extends org.ifinal.finalframework.util.Builder<CompareProperty> {
 
         Builder property(Property property);

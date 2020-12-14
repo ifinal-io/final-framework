@@ -34,30 +34,63 @@ import org.ifinal.finalframework.util.stream.Streamable;
 @SuppressWarnings("unused")
 public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>> {
 
+    /**
+     * Byte.
+     */
     public static final Primaries BYTE = new Primaries(byte.class, Byte.class);
 
+    /**
+     * Char.
+     */
     public static final Primaries CHAR = new Primaries(char.class, Character.class);
 
+    /**
+     * Boolean.
+     */
     public static final Primaries BOOLEAN = new Primaries(boolean.class, Boolean.class);
 
+    /**
+     * Short.
+     */
     public static final Primaries SHORT = new Primaries(short.class, Short.class);
 
+    /**
+     * Integer.
+     */
     public static final Primaries INTEGER = new Primaries(int.class, Integer.class);
 
+    /**
+     * Long.
+     */
     public static final Primaries LONG = new Primaries(long.class, Long.class);
 
+    /**
+     * Float.
+     */
     public static final Primaries FLOAT = new Primaries(float.class, Float.class);
 
+    /**
+     * Double.
+     */
     public static final Primaries DOUBLE = new Primaries(double.class, Double.class);
 
+    /**
+     * String.
+     */
     public static final Primaries STRING = new Primaries(String.class);
 
+    /**
+     * Number.
+     */
     public static final Primaries NUMBER = new Primaries(
         byte.class, Byte.class, short.class, Short.class,
         int.class, Integer.class, long.class, Long.class,
         float.class, Float.class, double.class, Double.class
     );
 
+    /**
+     * All.
+     */
     public static final Primaries ALL = new Primaries(
         byte.class, Byte.class, short.class, Short.class,
         char.class, Character.class, boolean.class, Boolean.class,
@@ -65,6 +98,9 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
         float.class, Float.class, double.class, Double.class,
         String.class, Class.class);
 
+    /**
+     * types.
+     */
     private final Set<Class<?>> types = new HashSet<>();
 
     private Primaries(final Class<?>... classes) {

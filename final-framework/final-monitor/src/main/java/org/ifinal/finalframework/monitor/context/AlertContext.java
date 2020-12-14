@@ -90,6 +90,9 @@ public final class AlertContext {
         return timestamp;
     }
 
+    /**
+     * Builder.
+     */
     public static final class Builder implements org.ifinal.finalframework.util.Builder<AlertContext> {
 
         private final Map<String, Object> attributes = new HashMap<>();

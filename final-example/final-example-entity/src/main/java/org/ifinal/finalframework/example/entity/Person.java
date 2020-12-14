@@ -13,6 +13,8 @@ import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingTable;
 
 /**
+ * Person.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -43,10 +45,16 @@ public class Person extends AbsEntity {
     @Reference(properties = {"id", "name"})
     private Person creator;
 
+    /**
+     * RegisterView.
+     */
     public interface RegisterView extends IView {
 
     }
 
+    /**
+     * ShareView.
+     */
     public interface ShareView extends IView {
 
     }

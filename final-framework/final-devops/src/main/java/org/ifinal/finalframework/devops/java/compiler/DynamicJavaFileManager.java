@@ -12,6 +12,9 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import org.springframework.lang.NonNull;
 
+/**
+ * DynamicJavaFileManager.
+ */
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
 
     private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
