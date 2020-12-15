@@ -29,6 +29,8 @@ class JsonTest {
         final AbsEntity entity = new AbsEntity();
         entity.setId(1L);
         entity.setCreated(LocalDateTime.now());
+        entity.setYn(YN.YES);
+        logger.info(Json.toJson(entity));
         assertEquals(1L, entity.getId());
     }
 

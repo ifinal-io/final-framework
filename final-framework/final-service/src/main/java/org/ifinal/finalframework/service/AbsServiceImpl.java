@@ -6,7 +6,7 @@ import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
 
 /**
- * 默认的{@link AbsService}实现，方便其子类通过 {@literal super}调用方法
+ * 默认的{@link AbsService}实现，方便其子类通过 {@literal super}调用方法.
  *
  * @author likly
  * @version 1.0.0

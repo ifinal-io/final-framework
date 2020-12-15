@@ -16,7 +16,7 @@ import org.springframework.lang.Nullable;
 public interface IEnum<T> {
 
     /**
-     * return the {@link IEnum} value of {@code code}
+     * return the {@link IEnum} value of {@code code}.
      *
      * @param type the enum type
      * @param code the enum code
@@ -24,7 +24,13 @@ public interface IEnum<T> {
      * @return enum value of code
      */
     @Nullable
-    static <T extends IEnum<?>> T valueOf(@NonNull Class<T> type, @NonNull Object code) {
+    static <T extends IEnum<?>> T valueOf(@NonNull Class<T> type, @Nullable Object code) {
+        Objects.requireNonNull(type, "enum type can not be null");
+
+        if (Objects.isNull(code)) {
+            return null;
+        }
+
         final T[] constants = type.getEnumConstants();
         for (T constant : constants) {
             if (Objects.equals(constant.getCode().toString(), code.toString())) {

@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.boot.autoconfigure.sharding;
 
-import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
+import org.ifinal.finalframework.sharding.config.ShardingConfigurer;
 import org.ifinal.finalframework.sharding.config.ShardingDataSourceSupport;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
-@ConditionalOnClass(ShardingRuleConfiguration.class)
+@ConditionalOnClass(ShardingConfigurer.class)
 public class ShardingDataSourceAutoConfiguration extends ShardingDataSourceSupport {
 
 }

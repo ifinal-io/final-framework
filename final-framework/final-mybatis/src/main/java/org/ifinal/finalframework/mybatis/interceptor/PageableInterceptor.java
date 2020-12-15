@@ -82,6 +82,11 @@ public abstract class PageableInterceptor implements Interceptor {
         }
 
         PageQuery query = new PageQuery();
+
+        query.setPage(null);
+        query.setSize(null);
+        query.setCount(null);
+
         if (map.containsKey(PAGE_PARAMETER) && map.get(PAGE_PARAMETER) instanceof Integer) {
             query.setPage((Integer) map.get(PAGE_PARAMETER));
         }
