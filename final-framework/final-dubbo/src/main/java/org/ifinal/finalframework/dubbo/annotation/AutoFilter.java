@@ -1,13 +1,11 @@
 package org.ifinal.finalframework.dubbo.annotation;
 
-import org.apache.dubbo.rpc.Filter;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+import org.apache.dubbo.rpc.Filter;
+import org.ifinal.finalframework.auto.service.annotation.AutoService;
 
 /**
  * @author likly
@@ -15,11 +13,13 @@ import java.lang.annotation.Target;
  * @since 1.0.0
  */
 @AutoService(
-        value = Filter.class,
-        path = "dubbo"
+    value = Filter.class,
+    path = "dubbo"
 )
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
 public @interface AutoFilter {
+
     String value();
+
 }

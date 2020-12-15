@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.devops.java.compiler;
 
-import javax.tools.SimpleJavaFileObject;
 import java.io.IOException;
 import java.net.URI;
+import javax.tools.SimpleJavaFileObject;
 
 /**
  * @author likly
@@ -10,6 +10,7 @@ import java.net.URI;
  * @since 1.0.0
  */
 public class StringJavaFileObject extends SimpleJavaFileObject {
+
     private final String contents;
 
     public StringJavaFileObject(final String className, final String contents) {

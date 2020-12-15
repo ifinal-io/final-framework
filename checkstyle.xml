@@ -149,13 +149,13 @@
         <module name="AvoidStaticImport">
             <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
         </module>
-        <!-- Blocks -->
-        <!--        <module name="CustomImportOrder">-->
-        <!--            <property name="sortImportsInGroupAlphabetically" value="true"/>-->
-        <!--            <property name="separateLineBetweenGroups" value="true"/>-->
-        <!--            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>-->
-        <!--            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>-->
-        <!--        </module>-->
+        <!-- 自定义导入顺序 -->
+        <module name="CustomImportOrder">
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
+            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
+        </module>
         <!-- 非法导入 -->
         <module name="IllegalImport"/>
         <!-- 多余导入 -->
@@ -541,9 +541,9 @@
 
 
         <!-- Javadoc缺少前导星号  -->
-        <module name="JavadocMissingLeadingAsterisk"/>
+        <!--        <module name="JavadocMissingLeadingAsterisk"/>-->
         <!-- 星号后Javadoc缺少空格 -->
-        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <!--        <module name="JavadocMissingWhitespaceAfterAsterisk"/>-->
 
         <!-- Blocks -->
         <module name="JavadocParagraph"/>
@@ -726,8 +726,6 @@
 
     <!-- 缺少 package-info.java 文件 -->
     <!--    <module name="JavadocPackage"/>-->
-
-
 
 
 </module>

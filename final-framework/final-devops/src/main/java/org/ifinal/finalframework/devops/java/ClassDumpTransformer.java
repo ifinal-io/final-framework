@@ -1,9 +1,5 @@
 package org.ifinal.finalframework.devops.java;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.lang.Nullable;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,6 +9,9 @@ import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -46,7 +45,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
     @Override
     @Nullable
     public byte[] transform(final ClassLoader loader, final String className, final Class<?> classBeingRedefined,
-                            final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
+        final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
 
         if (classesToEnhance.contains(classBeingRedefined)) {
             dumpClassIfNecessary(classBeingRedefined, classfileBuffer);
@@ -78,7 +77,7 @@ public class ClassDumpTransformer implements ClassFileTransformer {
         String fileName;
         if (classLoader != null) {
             fileName = classLoader.getClass().getName() + "-" + Integer.toHexString(classLoader.hashCode())
-                    + File.separator + className.replace(".", File.separator) + ".class";
+                + File.separator + className.replace(".", File.separator) + ".class";
         } else {
             fileName = className.replace(".", File.separator) + ".class";
         }
@@ -92,12 +91,10 @@ public class ClassDumpTransformer implements ClassFileTransformer {
 
         File dumpClassFile = new File(dumpDir, fileName);
 
-
         if (dumpClassFile.exists()) {
             boolean delete = dumpClassFile.delete();
             logger.info("delete file {} {}", dumpClassFile.getName(), delete);
         }
-
 
         // 将类字节码写入文件
         try (OutputStream out = new FileOutputStream(dumpClassFile)) {
