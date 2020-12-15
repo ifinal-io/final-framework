@@ -18,11 +18,12 @@ import org.ifinal.finalframework.json.jackson.deserializer.EnumDeserializer;
 public class IEnumDeserializers extends SimpleDeserializers {
 
     @Override
+    @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findEnumDeserializer(final Class<?> type, final DeserializationConfig config, final BeanDescription beanDesc)
         throws JsonMappingException {
 
         if (IEnum.class.isAssignableFrom(type)) {
-            return new EnumDeserializer(type);
+            return new EnumDeserializer<>((Class<? extends IEnum<?>>) type);
         }
 
         return super.findEnumDeserializer(type, config, beanDesc);

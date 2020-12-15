@@ -19,6 +19,7 @@ class JsonTest {
     @Test
     void enum2Json() {
         logger.info(Json.toJson(YN.YES));
+        logger.info(Json.toObject(Json.toJson(YN.YES), YN.class).toString());
         assertEquals(YN.YES.getCode().toString(), Json.toJson(YN.YES));
         assertEquals(YN.YES, Json.toObject(YN.YES.getCode().toString(), YN.class));
 

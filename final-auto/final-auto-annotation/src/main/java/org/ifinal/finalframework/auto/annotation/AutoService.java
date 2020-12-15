@@ -25,15 +25,35 @@ import org.springframework.lang.Nullable;
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 public @interface AutoService {
 
+    /**
+     * return auto service target class.
+     *
+     * @return auto service target class.
+     */
     @NonNull
     Class<?> value();
 
+    /**
+     * return the service name like dubbo spi.
+     *
+     * @return the service name.
+     */
     @Nullable
     String name() default "";
 
+    /**
+     * return service file path, default is {@literal services}.
+     *
+     * @return service file path.
+     */
     @NonNull
     String path() default "services";
 
+    /**
+     * return {@code true} if don't need be processed, such as a annotation like {@link AutoProcessor}.
+     *
+     * @return whether need to processed.
+     */
     boolean ignore() default false;
 
     /**

@@ -17,6 +17,7 @@
 
 package org.ifinal.finalframework.util;
 
+import java.util.Objects;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
@@ -35,11 +36,10 @@ public final class Classes {
     /**
      * @param name class name
      * @return class
-     * @throws ClassNotFoundException if the class was not found.
      * @see ClassUtils#forName(String, ClassLoader)
      */
-    public static Class<?> forName(final @NonNull String name) throws ClassNotFoundException {
-
+    @Nullable
+    public static Class<?> forName(final @NonNull String name) {
         return forName(name, null);
     }
 
@@ -49,12 +49,26 @@ public final class Classes {
      * @param name        class name
      * @param classLoader class loader
      * @return class
-     * @throws ClassNotFoundException if the class was not found
      */
-    public static Class<?> forName(final @NonNull String name, final @Nullable ClassLoader classLoader)
-        throws ClassNotFoundException {
+    @Nullable
+    public static Class<?> forName(final @NonNull String name, final @Nullable ClassLoader classLoader) {
+        try {
+            Objects.requireNonNull(name, "clazz name can not be null");
+            return ClassUtils.forName(name, classLoader);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
 
-        return ClassUtils.forName(name, classLoader);
+    public static Class<?> requiredForName(final @NonNull String name) {
+        return requiredForName(name, null);
+    }
+
+    @NonNull
+    public static Class<?> requiredForName(final @NonNull String name, final @Nullable ClassLoader classLoader) {
+        Class<?> clazz = forName(name, classLoader);
+        Objects.requireNonNull(clazz, "can not found class of name = " + name);
+        return clazz;
     }
 
 }

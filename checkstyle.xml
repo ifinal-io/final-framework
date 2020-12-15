@@ -144,7 +144,9 @@
         <!-- ============================================== Package ===============================================-->
         <!-- ============================================== Import ===============================================-->
         <!-- 避免星号导入 -->
-        <module name="AvoidStarImport"/>
+        <module name="AvoidStarImport">
+            <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
+        </module>
         <!-- 避免静态导入 -->
         <module name="AvoidStaticImport">
             <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
@@ -518,7 +520,9 @@
             <property name="tokens"
                 value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
-
+        <!--        <module name="MissingJavadocMethod">-->
+        <!--            <property name="allowMissingPropertyJavadoc" value="true"/>-->
+        <!--        </module>-->
 
         <!--  缺少摘要 -->
         <!--        <module name="SummaryJavadocCheck">-->

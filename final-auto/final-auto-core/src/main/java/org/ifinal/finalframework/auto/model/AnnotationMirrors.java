@@ -20,6 +20,12 @@ public final class AnnotationMirrors {
 
     }
 
+    /**
+     * return the annotation values.
+     *
+     * @param mirror annotation mirror.
+     * @return annotation mirror values.
+     */
     public static Map<String, AnnotationValue> getAnnotationValues(final @NonNull AnnotationMirror mirror) {
 
         return mirror.getElementValues()

@@ -11,16 +11,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.ifinal.finalframework.util.Classes;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.ConcurrentReferenceHashMap;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * Services loader like {@link java.util.ServiceLoader}.
+ *
  * @author likly
  * @version 1.0.0
  * @see java.util.ServiceLoader
@@ -88,13 +90,7 @@ public final class ServicesLoader {
     public static List<Class<?>> loadClasses(final @NonNull String service, final @Nullable ClassLoader classLoader,
         final @NonNull String propertiesResourceLocation) {
         return load(service, classLoader, propertiesResourceLocation).stream()
-            .map(name -> {
-                try {
-                    return ClassUtils.forName(name, classLoader);
-                } catch (Exception e) {
-                    throw new IllegalArgumentException(e);
-                }
-            })
+            .map(name -> Classes.requiredForName(name, classLoader))
             .collect(Collectors.toList());
     }
 
