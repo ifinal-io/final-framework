@@ -2,7 +2,15 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>final-auto</artifactId>
+        <groupId>org.ifinal.finalframework.auto</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>final-auto-core</artifactId>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.auto.service/auto-service -->
         <dependency>
@@ -12,14 +20,11 @@
             <scope>provided</scope>
             <version>1.0-rc7</version>
         </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>final-auto-annotation</artifactId>
+        </dependency>
     </dependencies>
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <artifactId>final-auto</artifactId>
-        <groupId>org.ifinal.finalframework.auto</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
 
 </project>

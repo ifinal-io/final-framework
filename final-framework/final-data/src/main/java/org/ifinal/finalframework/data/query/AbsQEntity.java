@@ -83,7 +83,7 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
                                 .readable(true)
                                 .writeable(property.isWriteable())
                                 .modifiable(property.isModifiable())
-                                .typeHandler(referenceProperty.getTypeHandler())
+                                .typeHandler(TypeHandlers.findTypeHandler(referenceProperty))
                                 .build()
                         ));
 
@@ -99,7 +99,7 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
                             .readable(!property.isTransient() && !property.isVirtual() && !property.isWriteOnly())
                             .writeable(property.isWriteable())
                             .modifiable(property.isModifiable())
-                            .typeHandler(property.getTypeHandler())
+                            .typeHandler(TypeHandlers.findTypeHandler(property))
                             .views(views)
                             .build()
                     );

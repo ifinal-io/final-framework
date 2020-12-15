@@ -2,7 +2,9 @@ package org.ifinal.finalframework.auto.service.processor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -11,12 +13,11 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.util.ElementFilter;
+import org.ifinal.finalframework.auto.annotation.AutoService;
 import org.ifinal.finalframework.auto.model.AnnotationMirrors;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -54,13 +55,15 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
      */
     private static final String KEY_PATH = "path";
 
+    private static final IgnoreFilter ignoreFilter = new IgnoreFilter();
+
     @Override
     protected boolean doProcess(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
         final Set<TypeElement> elements = ElementFilter.typesIn(roundEnv.getRootElements());
 
         elements.stream()
-            .filter(it -> it.getKind() != ElementKind.ANNOTATION_TYPE)
+            .filter(ignoreFilter)
             .forEach(element -> {
                 for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
                     if (annotationMirror.getAnnotationType().toString().equals(AutoService.class.getCanonicalName())) {
@@ -81,7 +84,6 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
     }
 
     private void processAutoService(final @NonNull TypeElement element, final @NonNull AnnotationMirror autoService) {
-
         processAutoService(element, autoService, null);
     }
 
@@ -108,6 +110,21 @@ public class AutoServiceProcessor extends AbsServiceProcessor {
         } catch (final Exception e) {
             //ignore
             error(e.getMessage(), element, autoService);
+        }
+
+    }
+
+    private static class IgnoreFilter implements Predicate<TypeElement> {
+
+        @Override
+        public boolean test(final TypeElement element) {
+
+            AutoService annotation = element.getAnnotation(AutoService.class);
+            if (Objects.nonNull(annotation)) {
+                return !annotation.ignore();
+            }
+
+            return true;
         }
 
     }

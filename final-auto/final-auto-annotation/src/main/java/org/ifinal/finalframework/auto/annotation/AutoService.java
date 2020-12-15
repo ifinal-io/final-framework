@@ -1,11 +1,11 @@
-package org.ifinal.finalframework.auto.service.annotation;
+package org.ifinal.finalframework.auto.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.ifinal.finalframework.auto.service.annotation.AutoService.AutoServices;
+import org.ifinal.finalframework.auto.annotation.AutoService.AutoServices;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -33,6 +33,8 @@ public @interface AutoService {
 
     @NonNull
     String path() default "services";
+
+    boolean ignore() default false;
 
     /**
      * AutoServices.

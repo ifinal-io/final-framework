@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
+import org.ifinal.finalframework.auto.annotation.AutoService;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateSerializer;
 
 /**

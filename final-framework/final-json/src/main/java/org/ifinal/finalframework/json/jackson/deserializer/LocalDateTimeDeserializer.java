@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
+import org.ifinal.finalframework.auto.annotation.AutoService;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.format.LocalDateTimeFormatters;
 

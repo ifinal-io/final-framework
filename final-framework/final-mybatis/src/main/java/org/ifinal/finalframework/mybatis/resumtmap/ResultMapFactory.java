@@ -23,6 +23,7 @@ import org.ifinal.finalframework.annotation.data.UpperCase;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.ifinal.finalframework.data.query.TypeHandlers;
 import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
@@ -136,10 +137,13 @@ public final class ResultMapFactory {
     private static TypeHandler<?> findTypeHandler(final Configuration configuration, final Property property) {
 
         Field field = property.getField();
+        Objects.requireNonNull(field);
+
         try {
-            Class<? extends TypeHandler> typeHandler = property.getTypeHandler();
+
+            Class<? extends TypeHandler<?>> typeHandler = TypeHandlers.findTypeHandler(property);
+
             if (JsonParameterTypeHandler.class.equals(typeHandler)) {
-                Objects.requireNonNull(field);
                 return new JsonTypeReferenceTypeHandler<>(field.getGenericType());
             }
 

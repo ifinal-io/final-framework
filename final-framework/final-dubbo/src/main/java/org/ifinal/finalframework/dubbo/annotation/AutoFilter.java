@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.apache.dubbo.rpc.Filter;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
+import org.ifinal.finalframework.auto.annotation.AutoService;
 
 /**
  * @author likly
@@ -14,7 +14,8 @@ import org.ifinal.finalframework.auto.service.annotation.AutoService;
  */
 @AutoService(
     value = Filter.class,
-    path = "dubbo"
+    path = "dubbo",
+    ignore = true
 )
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)

@@ -2,25 +2,13 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>final-auto-annotation</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-                <groupId>org.apache.maven.plugins</groupId>
-            </plugin>
-        </plugins>
-    </build>
-
-    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>final-auto</artifactId>
         <groupId>org.ifinal.finalframework.auto</groupId>
         <version>1.0.3-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>final-auto-annotation</artifactId>
 
 </project>

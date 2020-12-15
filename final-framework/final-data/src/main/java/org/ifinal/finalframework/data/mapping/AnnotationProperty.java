@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.Column;
 import org.ifinal.finalframework.annotation.data.Default;
 import org.ifinal.finalframework.annotation.data.Final;
-import org.ifinal.finalframework.annotation.data.Json;
 import org.ifinal.finalframework.annotation.data.Keyword;
 import org.ifinal.finalframework.annotation.data.Order;
 import org.ifinal.finalframework.annotation.data.ReadOnly;
@@ -18,7 +16,6 @@ import org.ifinal.finalframework.annotation.data.SqlKeyWords;
 import org.ifinal.finalframework.annotation.data.Virtual;
 import org.ifinal.finalframework.annotation.data.WriteOnly;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
@@ -129,27 +126,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
         return map;
     });
 
-    @SuppressWarnings("rawtypes")
-    private final Lazy<Class<? extends TypeHandler>> typeHandler = Lazy.of(() -> {
-        if (isAnnotationPresent(Column.class)) {
-            Class<? extends TypeHandler> handler = getRequiredAnnotation(Column.class).typeHandler();
-            if (TypeHandler.class != handler) {
-                return handler;
-            }
-        }
-
-        if (isAnnotationPresent(Json.class)) {
-            return JsonParameterTypeHandler.class;
-        }
-
-        if (isCollectionLike()) {
-            return JsonParameterTypeHandler.class;
-        }
-
-        return null;
-
-    });
-
     public AnnotationProperty(final org.springframework.data.mapping.model.Property property,
         final org.ifinal.finalframework.data.mapping.Entity<?> owner,
         final SimpleTypeHolder simpleTypeHolder) {
@@ -232,12 +208,6 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     public String getReferenceColumn(final Property property) {
 
         return Optional.ofNullable(referenceColumns.get().get(property.getName())).orElse(property.getColumn());
-    }
-
-    @Override
-    @SuppressWarnings("rawtypes")
-    public Class<? extends TypeHandler> getTypeHandler() {
-        return typeHandler.getNullable();
     }
 
 }

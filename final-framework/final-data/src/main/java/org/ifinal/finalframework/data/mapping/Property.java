@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
-import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.data.Column;
 import org.ifinal.finalframework.annotation.data.Default;
 import org.ifinal.finalframework.annotation.data.Final;
@@ -18,7 +17,6 @@ import org.ifinal.finalframework.annotation.data.WriteOnly;
 import org.ifinal.finalframework.data.serializer.PropertyJsonSerializer;
 import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;
-import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -151,10 +149,6 @@ public interface Property extends PersistentProperty<Property>, Ordered {
             return getType();
         }
     }
-
-    @Nullable
-    @SuppressWarnings("rawtypes")
-    Class<? extends TypeHandler> getTypeHandler();
 
     default Object get(@NotNull Object target) {
 

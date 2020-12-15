@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
-import org.ifinal.finalframework.auto.service.annotation.AutoService;
+import org.ifinal.finalframework.auto.annotation.AutoService;
 
 /**
  * @author likly
