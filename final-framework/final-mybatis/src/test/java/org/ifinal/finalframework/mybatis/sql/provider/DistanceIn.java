@@ -4,7 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.apache.ibatis.type.TypeHandler;
 import org.ifinal.finalframework.annotation.query.Criterion;
 
 /**
@@ -26,7 +25,5 @@ public @interface DistanceIn {
     };
 
     Class<?> javaType() default Object.class;
-
-    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 
 }

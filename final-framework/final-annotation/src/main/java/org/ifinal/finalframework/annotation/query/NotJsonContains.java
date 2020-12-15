@@ -4,7 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.apache.ibatis.type.TypeHandler;
 
 /**
  * @author likly
@@ -31,7 +30,5 @@ public @interface NotJsonContains {
     String path() default "";
 
     Class<?> javaType() default Object.class;
-
-    Class<? extends TypeHandler> typeHandler() default TypeHandler.class;
 
 }
