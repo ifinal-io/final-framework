@@ -8,7 +8,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
         <relativePath/>
-        <version>2.3.3.RELEASE</version> <!-- lookup parent from repository -->
+        <version>2.4.1</version> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinal.finalframework.frameworks</groupId>
     <artifactId>final-frameworks</artifactId>
@@ -26,6 +26,7 @@
     </modules>
 
     <properties>
+        <spring.boot.version>2.4.1</spring.boot.version>
         <apache.commons.collections4.vserion>4.4</apache.commons.collections4.vserion>
         <apache.commons.lang3.vserion>3.11</apache.commons.lang3.vserion>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
@@ -43,7 +44,6 @@
         <pagehelper.version>5.2.0</pagehelper.version>
         <retrofit.version>2.8.1</retrofit.version>
         <sharding.version>5.0.0-alpha</sharding.version>
-        <sharding4.version>4.1.1</sharding4.version>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
 
@@ -52,7 +52,6 @@
         <sonar.projectKey>likly_final-frameworks</sonar.projectKey>
 
         <!--CI-->
-        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
         <velocity.core.version>2.1</velocity.core.version>
         <velocity.tool.version>3.0</velocity.tool.version>
@@ -204,11 +203,6 @@
                 <artifactId>shardingsphere-jdbc-core</artifactId>
                 <groupId>org.apache.shardingsphere</groupId>
                 <version>${sharding.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>sharding-jdbc-core</artifactId>
-                <groupId>org.apache.shardingsphere</groupId>
-                <version>${sharding4.version}</version>
             </dependency>
             <dependency>
                 <artifactId>pagehelper</artifactId>
