@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.data.AutoInc;
 import org.ifinal.finalframework.annotation.data.PrimaryKey;
 import org.ifinal.finalframework.annotation.query.BetweenValue;
@@ -16,6 +14,8 @@ import org.ifinal.finalframework.annotation.query.NotBetween;
 import org.ifinal.finalframework.annotation.query.NotEqual;
 import org.ifinal.finalframework.annotation.query.NotIn;
 import org.ifinal.finalframework.annotation.query.Or;
+import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.origin.IQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

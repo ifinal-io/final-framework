@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.cache;
 
-import org.ifinal.finalframework.annotation.core.IException;
-import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
 import org.ifinal.finalframework.context.exception.ServiceException;
+import org.ifinal.finalframework.origin.IException;
+import org.ifinal.finalframework.origin.result.ResponseStatus;
 
 /**
  * @author likly

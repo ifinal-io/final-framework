@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.origin.IQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -47,8 +47,10 @@
             <groupId>com.github.pagehelper</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-annotation</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-auth</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -57,6 +59,6 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 </project>

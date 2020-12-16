@@ -3,7 +3,7 @@ package org.ifinal.finalframework.web.converter;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.finalframework.origin.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;

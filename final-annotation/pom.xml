@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+    <packaging>pom</packaging>
+    <groupId>org.ifinal.finalframework.annotation</groupId>
+    <artifactId>final-annotation</artifactId>
+    <description>Define final framework annotation and interface</description>
+    <modules>
+        <module>final-annotation-core</module>
+        <module>final-annotation-data</module>
+        <module>final-annotation-query</module>
+        <module>final-annotation-sharding</module>
+        <module>final-annotation-aop</module>
+        <module>final-annotation-auth</module>
+        <module>final-annotation-monitor</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-auth</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-aop</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-data</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-monitor</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-query</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-sharding</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

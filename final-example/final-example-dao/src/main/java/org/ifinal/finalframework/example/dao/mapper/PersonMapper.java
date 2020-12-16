@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.SelectProvider;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.example.entity.Person;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.sql.provider.SelectSqlProvider;
+import org.ifinal.finalframework.origin.IQuery;
 
 /**
  * @author finalframework

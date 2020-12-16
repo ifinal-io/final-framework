@@ -2,8 +2,8 @@ package org.ifinal.finalframework.service;
 
 import java.io.Serializable;
 import java.util.Objects;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.data.repository.Repository;
+import org.ifinal.finalframework.origin.IEntity;
 import org.springframework.lang.NonNull;
 
 /**

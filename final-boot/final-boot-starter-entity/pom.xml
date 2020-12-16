@@ -5,12 +5,17 @@
     <artifactId>final-boot-starter-entity</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>final-annotation</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
-            <artifactId>final-auto-processor</artifactId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-sharding</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>final-auto-processor</artifactId>
         </dependency>
     </dependencies>
 
@@ -19,7 +24,7 @@
     <parent>
         <artifactId>final-boot</artifactId>
         <groupId>org.ifinal.finalframework.boot</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
 </project>

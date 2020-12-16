@@ -10,6 +10,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
+import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.origin.lang.Transient;
 
 /**
  * @author likly
@@ -22,9 +24,9 @@ import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoEnumProcessor extends AbsServiceProcessor {
 
-    private static final String ENUM = "org.ifinal.finalframework.annotation.core.IEnum";
+    private static final String ENUM = IEnum.class.getName();
 
-    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
+    private static final String TRANSIENT = Transient.class.getName();
 
     private TypeElementFilter typeElementFilter;
 

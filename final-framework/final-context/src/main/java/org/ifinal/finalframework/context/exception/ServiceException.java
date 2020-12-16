@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.context.exception;
 
-import org.ifinal.finalframework.annotation.core.IException;
-import org.ifinal.finalframework.annotation.core.result.Responsible;
 import org.ifinal.finalframework.context.util.Messages;
+import org.ifinal.finalframework.origin.IException;
+import org.ifinal.finalframework.origin.result.Responsible;
 import org.springframework.lang.NonNull;
 
 /**

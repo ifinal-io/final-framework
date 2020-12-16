@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.context.user;
 
-import org.ifinal.finalframework.annotation.core.IUser;
+import org.ifinal.finalframework.origin.IUser;
 import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
@@ -45,11 +45,6 @@ public final class UserContextHolder {
         INHERITABLE_USER_CONTEXT_HOLDER.remove();
     }
 
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
-
-        setUserContext(localeContext, false);
-    }
-
     public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext,
         final boolean inheritable) {
 
@@ -66,6 +61,10 @@ public final class UserContextHolder {
         }
     }
 
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
+        setUserContext(localeContext, false);
+    }
+
     public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {
 
         UserContextHolder.defaultUser = user;
@@ -78,19 +77,6 @@ public final class UserContextHolder {
             userContext = INHERITABLE_USER_CONTEXT_HOLDER.get();
         }
         return (UserContext<T>) userContext;
-    }
-
-    public static void setUser(final @Nullable IUser<?> user) {
-        setUser(user, false);
-    }
-
-    public static <T extends IUser<?>> void setUser(final @Nullable T user, final boolean inheritable) {
-
-        UserContext<?> userContext = getUserContext();
-        if (userContext == null) {
-            userContext = new SimpleUserContext<>(user);
-        }
-        setUserContext(userContext, inheritable);
     }
 
     public static <T extends IUser<?>> T getUser(final @Nullable UserContext<? extends IUser<?>> localeContext) {
@@ -107,6 +93,19 @@ public final class UserContextHolder {
     @Nullable
     public static <T extends IUser<?>> T getUser() {
         return getUser(getUserContext());
+    }
+
+    public static <T extends IUser<?>> void setUser(final @Nullable T user, final boolean inheritable) {
+
+        UserContext<?> userContext = getUserContext();
+        if (userContext == null) {
+            userContext = new SimpleUserContext<>(user);
+        }
+        setUserContext(userContext, inheritable);
+    }
+
+    public static void setUser(final @Nullable IUser<?> user) {
+        setUser(user, false);
     }
 
     /**

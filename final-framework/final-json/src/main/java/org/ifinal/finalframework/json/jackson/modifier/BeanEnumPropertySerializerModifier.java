@@ -10,12 +10,12 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import java.util.Arrays;
 import java.util.Collection;
-import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.auto.annotation.AutoService;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumDescSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumNameSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumSerializer;
+import org.ifinal.finalframework.origin.IEnum;
 
 /**
  * 对JavaBean的枚举型属性（实现了{@link IEnum}接口）进行序列化修改。

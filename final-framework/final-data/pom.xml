@@ -12,8 +12,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <artifactId>jackson-databind</artifactId>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-query</artifactId>
         </dependency>
         <dependency>
             <artifactId>final-json</artifactId>
@@ -37,8 +41,6 @@
             <artifactId>spring-tx</artifactId>
             <groupId>org.springframework</groupId>
         </dependency>
-
-
         <dependency>
             <artifactId>velocity-engine-core</artifactId>
             <groupId>org.apache.velocity</groupId>
@@ -53,10 +55,6 @@
             <artifactId>spring-data-commons</artifactId>
             <groupId>org.springframework.data</groupId>
         </dependency>
-        <dependency>
-            <artifactId>final-annotation</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
     </dependencies>
 
     <modelVersion>4.0.0</modelVersion>
@@ -64,7 +62,7 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinal.finalframework</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
 </project>

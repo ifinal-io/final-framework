@@ -15,7 +15,6 @@ import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandler;
-import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.annotation.data.Json;
 import org.ifinal.finalframework.annotation.data.Reference;
 import org.ifinal.finalframework.annotation.data.ReferenceMode;
@@ -28,6 +27,7 @@ import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
+import org.ifinal.finalframework.origin.IEnum;
 import org.springframework.lang.NonNull;
 
 /**

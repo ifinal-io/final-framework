@@ -1,9 +1,9 @@
 package org.ifinal.finalframework.web.exception.result;
 
-import org.ifinal.finalframework.annotation.core.result.R;
-import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.exception.result.ResultExceptionHandler;
 import org.ifinal.finalframework.json.JsonException;
+import org.ifinal.finalframework.origin.result.R;
+import org.ifinal.finalframework.origin.result.Result;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

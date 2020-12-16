@@ -17,7 +17,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
@@ -25,6 +24,7 @@ import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.origin.IEntity;
 
 /**
  * Mapper.java 生成注解处理器

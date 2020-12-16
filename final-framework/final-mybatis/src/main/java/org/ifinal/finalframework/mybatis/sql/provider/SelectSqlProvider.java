@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.data.Metadata;
 import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.query.QProperty;
@@ -13,6 +11,8 @@ import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
+import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.origin.IQuery;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 

@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.ifinal.finalframework.annotation.auth.Auth;
-import org.ifinal.finalframework.annotation.core.IUser;
+import org.ifinal.finalframework.origin.IUser;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

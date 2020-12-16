@@ -22,7 +22,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.data.query.AbsQEntity;
@@ -30,6 +29,7 @@ import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
+import org.ifinal.finalframework.origin.IEntity;
 
 /**
  * QEntity 代码生成处理器

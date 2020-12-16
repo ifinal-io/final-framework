@@ -3,10 +3,10 @@ package org.ifinal.finalframework.service;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.repository.Repository;
+import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.origin.IQuery;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

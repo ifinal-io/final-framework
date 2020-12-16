@@ -27,10 +27,6 @@ public final class JsonContextHolder {
         JSON_CONTEXT.remove();
     }
 
-    public static void setJsonContext(final @Nullable JsonContext localeContext) {
-        setJsonContext(localeContext, false);
-    }
-
     public static void setJsonContext(final @Nullable JsonContext jsonContext, final boolean inheritable) {
 
         if (jsonContext == null) {
@@ -44,6 +40,10 @@ public final class JsonContextHolder {
                 INHERITABLE_JSON_CONTEXT.remove();
             }
         }
+    }
+
+    public static void setJsonContext(final @Nullable JsonContext localeContext) {
+        setJsonContext(localeContext, false);
     }
 
     @Nullable

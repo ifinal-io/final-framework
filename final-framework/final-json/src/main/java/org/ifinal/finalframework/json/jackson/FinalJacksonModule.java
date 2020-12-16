@@ -5,12 +5,12 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.lang.reflect.Constructor;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.json.jackson.deserializer.IEnumDeserializers;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
+import org.ifinal.finalframework.origin.IEnum;
 import org.springframework.lang.NonNull;
 
 /**

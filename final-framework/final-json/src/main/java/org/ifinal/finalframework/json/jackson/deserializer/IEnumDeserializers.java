@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.finalframework.origin.IEnum;
 
 /**
  * IEnumSerializers.

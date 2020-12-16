@@ -10,6 +10,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
+import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.origin.lang.Transient;
 
 /**
  * <pre class="code">
@@ -27,9 +29,9 @@ import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class AutoEntityProcessor extends AbsServiceProcessor {
 
-    private static final String ENTITY = "org.ifinal.finalframework.annotation.core.IEntity";
+    private static final String ENTITY = IEntity.class.getName();
 
-    private static final String TRANSIENT = "org.ifinal.finalframework.annotation.data.Transient";
+    private static final String TRANSIENT = Transient.class.getName();
 
     private TypeElementFilter typeElementFilter;
 

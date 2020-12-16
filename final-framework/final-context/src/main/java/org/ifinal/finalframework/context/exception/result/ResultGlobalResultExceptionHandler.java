@@ -2,10 +2,10 @@ package org.ifinal.finalframework.context.exception.result;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.ifinal.finalframework.annotation.core.IException;
-import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.exception.UnCatchException;
 import org.ifinal.finalframework.context.exception.handler.GlobalExceptionHandler;
+import org.ifinal.finalframework.origin.IException;
+import org.ifinal.finalframework.origin.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

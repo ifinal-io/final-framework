@@ -19,9 +19,9 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.origin.IEntity;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

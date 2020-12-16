@@ -13,8 +13,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.annotation.query.PageQuery;
+import org.ifinal.finalframework.origin.Pageable;
 
 /**
  * 分页拦截器

@@ -5,8 +5,9 @@
     <artifactId>final-boot-starter</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>final-annotation</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-annotation-core</artifactId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <artifactId>final-core</artifactId>
@@ -19,7 +20,7 @@
     <parent>
         <artifactId>final-boot</artifactId>
         <groupId>org.ifinal.finalframework.boot</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
 

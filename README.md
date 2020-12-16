@@ -47,6 +47,7 @@
 ## 工程概述
 
 * [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
+* [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
 * [`final-auto`](final-auto/README.md)：基于`APT`生动化生成配置文件及模板代码，提升开发效率。
 * [`final-boot`](final-boot/README.md): 基于`Spring Boot`，提供开箱即用的`starters`。
 

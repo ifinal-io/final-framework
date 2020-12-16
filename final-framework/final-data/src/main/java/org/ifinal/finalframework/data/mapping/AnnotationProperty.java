@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.ifinal.finalframework.annotation.data.Column;
-import org.ifinal.finalframework.annotation.data.Default;
-import org.ifinal.finalframework.annotation.data.Final;
 import org.ifinal.finalframework.annotation.data.Keyword;
 import org.ifinal.finalframework.annotation.data.Order;
 import org.ifinal.finalframework.annotation.data.ReadOnly;
@@ -16,6 +14,9 @@ import org.ifinal.finalframework.annotation.data.SqlKeyWords;
 import org.ifinal.finalframework.annotation.data.Virtual;
 import org.ifinal.finalframework.annotation.data.WriteOnly;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.ifinal.finalframework.origin.lang.Default;
+import org.ifinal.finalframework.origin.lang.Final;
+import org.ifinal.finalframework.origin.lang.Transient;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.data.mapping.Association;
 import org.springframework.data.mapping.model.AnnotationBasedPersistentProperty;
@@ -73,6 +74,8 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     private final Lazy<Integer> order = Lazy
         .of(isAnnotationPresent(Order.class) ? getRequiredAnnotation(Order.class).value() : 0);
 
+    private final Lazy<Boolean> isTransient = Lazy.of(super.isTransient() || isAnnotationPresent(Transient.class));
+
     /**
      * @see Default
      */
@@ -81,7 +84,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     /**
      * @see Final
      */
-    private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
+    private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class) && super.isImmutable());
 
     /**
      * @see Virtual
@@ -145,6 +148,11 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     }
 
     @Override
+    public boolean isTransient() {
+        return isTransient.get();
+    }
+
+    @Override
     public String getColumn() {
         return NameConverterRegistry.getInstance().getColumnNameConverter().convert(column.get());
     }
@@ -167,6 +175,11 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     @Override
     public boolean isFinal() {
         return isFinal.get();
+    }
+
+    @Override
+    public boolean isImmutable() {
+        return isFinal();
     }
 
     @Override

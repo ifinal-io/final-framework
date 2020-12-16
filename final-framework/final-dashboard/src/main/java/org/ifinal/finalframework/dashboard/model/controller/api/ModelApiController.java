@@ -1,11 +1,11 @@
 package org.ifinal.finalframework.dashboard.model.controller.api;
 
 import java.util.List;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IEnum;
-import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.annotation.core.IView;
 import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.origin.IQuery;
+import org.ifinal.finalframework.origin.IView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
