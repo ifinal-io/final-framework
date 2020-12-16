@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.data;
 
-import com.sun.source.tree.MemberReferenceTree.ReferenceMode;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

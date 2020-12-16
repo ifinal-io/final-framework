@@ -44,7 +44,7 @@
 * Devops
     * [热更新](docs/hotswap.md)
 
-## 工程概述
+## Modules
 
 * [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
 * [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
@@ -56,19 +56,29 @@
 * [日志规范](docs/code-rules/logger.md) : 日志规范
 * [Check Style](https://github.com/likly/checkstyle) : 代码规范
 
-## 集成技术
+## Dependencies
 
-|                             技术                             |           说明           |
-| :----------------------------------------------------------: | :----------------------: |
-|       [Lombok](https://github.com/rzwitserloot/lombok)       |     简化对象封闭工具     |
-|    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    |
-|    [Mybatis](https://mybatis.org/mybatis-3/zh/index.html)    |         ORM框架          |
-| [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) |     Mybatis分页插件      |
-|                  [Redis](https://redis.io/)                  |        分布式缓存        |
-|           [Dubbo](http://dubbo.apache.org/zh-cn/)            |      分布式RPC调用       |
-| [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |       分库分表组件       |
-|                          Zookeeper                           | 分布式注册中心、配置中心 |
-|       [javapoet](https://github.com/square/javapoet)       |      Java源代码生成      |
+|                            group                             |           说明           |                           DI/Maven                           |
+| :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
+|       [Lombok](https://github.com/rzwitserloot/lombok)       |     简化对象封闭工具     | ![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok?label=1.8.16) |
+|    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    | ![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=v2.4.1) |
+|    [Mybatis](https://mybatis.org/mybatis-3/zh/index.html)    |         ORM框架          | ![Maven Central](https://img.shields.io/maven-central/v/org.mybatis/mybatis?label=3.5.6) |
+| [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) |     Mybatis分页插件      | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pagehelper/pagehelper?label=5.2.0) |
+|                  [Redis](https://redis.io/)                  |        分布式缓存        |                                                              |
+|           [Dubbo](http://dubbo.apache.org/zh-cn/)            |      分布式RPC调用       | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.dubbo/dubbo-spring-boot-starter?label=2.7.8) |
+| [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |       分库分表组件       | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.shardingsphere/shardingsphere-jdbc-core?label=5.0.0-alpha) |
+|                          Zookeeper                           | 分布式注册中心、配置中心 |                                                              |
+|        [javapoet](https://github.com/square/javapoet)        |      Java源代码生成      | ![Maven Central](https://img.shields.io/maven-central/v/com.squareup/javapoet?label=1.13.0) |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
+|                                                              |                          |                                                              |
 
 ## Contact
 
@@ -76,7 +86,7 @@
 
 * <a href="mailto:likly@ilikly.com?subject=Concat from github">MailTO:likly@ilikly.com</a>
 
-## 致谢
+## Thanks
 
 *
 
