@@ -2,7 +2,44 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.0.3-SNAPSHOT</version>
+    </parent>
+    <packaging>pom</packaging>
+
+    <groupId>org.ifinal.finalframework</groupId>
     <artifactId>final-framework</artifactId>
+
+    <modules>
+        <module>final-annotation</module>
+        <module>final-context</module>
+        <module>final-json</module>
+        <module>final-redis</module>
+        <module>final-core</module>
+        <module>final-cache</module>
+        <module>final-dubbo</module>
+        <module>final-data</module>
+        <module>final-query</module>
+        <module>final-monitor</module>
+        <module>final-mybatis</module>
+        <module>final-service</module>
+        <module>final-sharding</module>
+        <module>final-retrofit</module>
+        <module>final-aop</module>
+        <module>final-zookeeper</module>
+        <module>final-selenium</module>
+        <module>final-web</module>
+        <module>final-javapoets</module>
+        <module>final-dashboard</module>
+        <module>final-dashboard-ui</module>
+        <module>final-devops</module>
+    </modules>
+
+
     <dependencyManagement>
         <dependencies>
 
@@ -157,39 +194,5 @@
         </dependencies>
     </dependencyManagement>
 
-    <groupId>org.ifinal.finalframework</groupId>
-    <modelVersion>4.0.0</modelVersion>
-
-    <modules>
-        <module>final-annotation</module>
-        <module>final-context</module>
-        <module>final-json</module>
-        <module>final-redis</module>
-        <module>final-core</module>
-        <module>final-cache</module>
-        <module>final-dubbo</module>
-        <module>final-data</module>
-        <module>final-monitor</module>
-        <module>final-mybatis</module>
-        <module>final-service</module>
-        <module>final-sharding</module>
-        <module>final-retrofit</module>
-        <module>final-aop</module>
-        <module>final-zookeeper</module>
-        <module>final-selenium</module>
-        <module>final-web</module>
-        <module>final-javapoets</module>
-        <module>final-dashboard</module>
-        <module>final-dashboard-ui</module>
-        <module>final-devops</module>
-    </modules>
-
-    <packaging>pom</packaging>
-
-    <parent>
-        <artifactId>final-frameworks</artifactId>
-        <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.0.3-SNAPSHOT</version>
-    </parent>
 
 </project>

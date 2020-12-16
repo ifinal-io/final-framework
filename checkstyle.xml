@@ -37,23 +37,13 @@
     <!-- 以空行结尾 -->
     <module name="NewlineAtEndOfFile"/>
 
+
+    <!-- 包 Javadoc -->
+    <!--    <module name="JavadocPackage"/>-->
+
     <!-- ================================================== Regexp ==================================================-->
     <!-- 当前行匹配非法表达式： -->
     <!-- 禁止 System.out.print -->
-    <module name="RegexpMultiline">
-        <property name="id" value="sout"/>
-        <property name="format" value="System\.(out)|(err)\.print"/>
-        <property name="message" value="System.out.print 方法不允许使用"/>
-    </module>
-    <!-- 禁止 e.printStackTrace -->
-    <module name="RegexpMultiline">
-        <property name="id" value="printStackTrace"/>
-        <property name="format" value="\.printStackTrace\("/>
-        <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
-    </module>
-    <!-- ================================================== Regexp ==================================================-->
-
-
     <module name="TreeWalker">
 
         <module name="SuppressionXpathSingleFilter">
@@ -490,6 +480,9 @@
         </module>
         <!-- Javadoc 标签前有一个空行 -->
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+
+        <!-- 缺失包 Javadoc -->
+        <!--        <module name="MissingJavadocPackage"/>-->
         <!-- 类 Javadoc -->
         <module name="JavadocType">
             <property name="scope" value="public"/>
@@ -714,6 +707,20 @@
             <property name="max" value="3"/>
             <property name="accessModifiers" value="private"/>
         </module>
+    </module>
+    <!-- 禁止 e.printStackTrace -->
+    <module name="RegexpMultiline">
+        <property name="id" value="sout"/>
+        <property name="format" value="System\.(out)|(err)\.print"/>
+        <property name="message" value="System.out.print 方法不允许使用"/>
+    </module>
+    <!-- ================================================== Regexp ==================================================-->
+
+
+    <module name="RegexpMultiline">
+        <property name="id" value="printStackTrace"/>
+        <property name="format" value="\.printStackTrace\("/>
+        <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
     </module>
 
 

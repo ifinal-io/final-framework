@@ -15,17 +15,13 @@ import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * 分页拦截器
- *
- * <ul>
- * <li>单一参数实现了 {@link Pageable} 接口</li>
- * <li>参数列表中有一个参数实现了 {@link Pageable} 接口</li>
- * </ul>
+ * PageHelperPageableInterceptor.
  *
  * @author likly
  * @version 1.0.0
@@ -42,6 +38,7 @@ import org.springframework.stereotype.Component;
 )
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 @Component
+@ConditionalOnClass(PageHelper.class)
 public class PageHelperPageableInterceptor extends PageableInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(PageHelperPageableInterceptor.class);

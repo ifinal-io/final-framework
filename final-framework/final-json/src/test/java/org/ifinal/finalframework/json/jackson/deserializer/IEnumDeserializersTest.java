@@ -1,11 +1,11 @@
-package org.ifinal.finalframework.json.jackson.serializer;
+package org.ifinal.finalframework.json.jackson.deserializer;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.ifinal.finalframework.annotation.data.YN;
-import org.ifinal.finalframework.json.jackson.deserializer.EnumDeserializer;
+import org.ifinal.finalframework.json.jackson.deserializer.IEnumDeserializers.EnumDeserializer;
 import org.junit.jupiter.api.Test;
 
 /**
