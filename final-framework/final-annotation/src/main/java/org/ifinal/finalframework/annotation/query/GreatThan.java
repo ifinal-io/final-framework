@@ -20,9 +20,11 @@ public @interface GreatThan {
 
     String[] value() default {
         "<if test=\"${value} != null\">",
-        "<![CDATA[ ${andOr} ${column} > #{${value}"
-            + "#if($javaType),javaType=$!{javaType.canonicalName}#end"
-            + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end}]]>",
+        "   <![CDATA[ ",
+        "       ${andOr} ${column} > #{${value}",
+        "       #if($javaType), javaType=$!{javaType.canonicalName}#end",
+        "       #if($typeHandler), typeHandler=$!{typeHandler.canonicalName}#end}",
+        "   ]]>",
         "</if>"
     };
 

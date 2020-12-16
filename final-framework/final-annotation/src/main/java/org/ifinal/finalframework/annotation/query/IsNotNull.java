@@ -20,7 +20,7 @@ public @interface IsNotNull {
 
     String[] value() default {
         "<if test=\"${value} != null\">",
-        "<![CDATA[ ${andOr} ${column} IS NOT NULL]]>",
+        "   <![CDATA[ ${andOr} ${column} IS NOT NULL]]>",
         "</if>"
     };
 

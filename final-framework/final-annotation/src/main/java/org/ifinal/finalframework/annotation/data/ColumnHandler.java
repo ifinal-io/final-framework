@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.ifinal.finalframework.annotation.query.Metadata;
+import org.ifinal.finalframework.annotation.query.CriterionAttributes;
 import org.springframework.lang.NonNull;
 
 /**
@@ -10,8 +10,8 @@ import org.springframework.lang.NonNull;
  */
 public interface ColumnHandler {
 
-    String handleWriter(@NonNull Column column, @NonNull Metadata metadata);
+    String handleWriter(@NonNull Column column, @NonNull CriterionAttributes metadata);
 
-    String handleReader(@NonNull Column column, @NonNull Metadata metadata);
+    String handleReader(@NonNull Column column, @NonNull CriterionAttributes metadata);
 
 }

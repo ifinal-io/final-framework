@@ -20,8 +20,7 @@ public @interface In {
 
     String[] value() default {
         "<if test=\"${value} != null\">",
-        "    <foreach collection=\"${value}\" item=\"item\" open=\"${andOr} ${column} IN (\" close=\")\" "
-            + "separator=\",\">",
+        "    <foreach collection=\"${value}\" item=\"item\" open=\"${andOr} ${column} IN (\" close=\")\" separator=\",\">",
         "        #{item}",
         "    </foreach>",
         "</if>"

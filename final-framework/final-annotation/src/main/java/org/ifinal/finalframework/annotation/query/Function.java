@@ -27,7 +27,7 @@ public @interface Function {
     @FunctionalInterface
     interface FunctionHandler {
 
-        String handle(@NonNull Function function, @NonNull Metadata metadata);
+        String handle(@NonNull Function function, @NonNull CriterionAttributes metadata);
 
     }
 

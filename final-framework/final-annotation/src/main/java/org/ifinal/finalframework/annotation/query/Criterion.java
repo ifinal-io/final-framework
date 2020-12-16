@@ -42,7 +42,7 @@ import java.lang.annotation.Target;
  *
  * @author likly
  * @version 1.0.0
- * @see Metadata
+ * @see CriterionAttributes
  * @see CriterionSqlProvider
  * @see IsNull
  * @see IsNotNull

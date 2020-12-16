@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query.criterion;
 
+import org.ifinal.finalframework.annotation.query.CriterionAttributes;
 import org.ifinal.finalframework.annotation.query.Function;
-import org.ifinal.finalframework.annotation.query.Metadata;
 import org.ifinal.finalframework.data.util.Velocities;
 
 /**
@@ -12,7 +12,7 @@ import org.ifinal.finalframework.data.util.Velocities;
 public class VelocityFunctionHandler implements Function.FunctionHandler {
 
     @Override
-    public String handle(final Function function, final Metadata metadata) {
+    public String handle(final Function function, final CriterionAttributes metadata) {
 
         return Velocities.getValue(function.value(), metadata);
     }

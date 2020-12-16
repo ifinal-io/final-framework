@@ -2,10 +2,9 @@ package org.ifinal.finalframework.data.query.criterion;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import org.ifinal.finalframework.annotation.query.CriterionAttributes;
 import org.ifinal.finalframework.annotation.query.CriterionSqlProvider;
-import org.ifinal.finalframework.annotation.query.Metadata;
 import org.ifinal.finalframework.data.util.Velocities;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
 /**
@@ -15,11 +14,11 @@ import org.springframework.lang.NonNull;
  */
 public class VelocityCriterionSqlProvider implements CriterionSqlProvider {
 
-    @Override
-    public String provide(final @NonNull AnnotationAttributes annotationAttributes, final @NonNull Metadata metadata) {
+    private static final String DEFAULT_DELIMITER = " ";
 
-        final String value = Arrays.stream(annotationAttributes.getStringArray("value")).map(String::trim)
-            .collect(Collectors.joining());
+    @Override
+    public String provide(final @NonNull String[] criterion, final @NonNull CriterionAttributes metadata) {
+        final String value = Arrays.stream(criterion).map(String::trim).collect(Collectors.joining(DEFAULT_DELIMITER));
         return Velocities.getValue(value, metadata);
     }
 

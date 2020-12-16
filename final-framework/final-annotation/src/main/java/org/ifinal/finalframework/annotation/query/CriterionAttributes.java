@@ -1,7 +1,6 @@
 package org.ifinal.finalframework.annotation.query;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
+import org.springframework.core.annotation.AnnotationAttributes;
 
 /**
  * @author likly
@@ -10,7 +9,7 @@ import java.util.LinkedHashMap;
  * @see Criterion
  * @since 1.0.0
  */
-public class Metadata extends LinkedHashMap<String, Object> implements Serializable {
+public class CriterionAttributes extends AnnotationAttributes {
 
     public static final String ATTRIBUTE_NAME_AND_OR = "andOr";
 
@@ -25,6 +24,26 @@ public class Metadata extends LinkedHashMap<String, Object> implements Serializa
     public static final String ATTRIBUTE_NAME_TYPE_HANDLER = "typeHandler";
 
     public static final String ATTRIBUTE_NAME_QUERY = "query";
+
+    public AndOr getAndor() {
+        return getEnum(ATTRIBUTE_NAME_AND_OR);
+    }
+
+    public String getProperty() {
+        return getString(ATTRIBUTE_NAME_PROPERTY);
+    }
+
+    public String getColumn() {
+        return getString(ATTRIBUTE_NAME_COLUMN);
+    }
+
+    public Class<?> getJavaType() {
+        return getClass(ATTRIBUTE_NAME_JAVA_TYPE);
+    }
+
+    public Class<?> getTypeHandler() {
+        return getClass(ATTRIBUTE_NAME_TYPE_HANDLER);
+    }
 
 }
 
