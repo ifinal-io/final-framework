@@ -46,3 +46,15 @@ public class HelloController {
   "success": true
 }
 ```
+
+* 属性：
+
+| 属性 | 类型 | 含义 | 备注 | | :-----------: | :--------------------------: | :--------: | :--: | |   `status`    |          `Integer`           |
+状态 | | | `description` |           `String`           | 状态描述 | | |    `code`     |           `String`           | 业务码 | | |   `message`
+|           `String`           | 业务码描述 | | |    `data`     |             `T`              | 业务数据 | | | `pagination`  |         `Pagination`
+| 分页信息 | | |    `trace`    |           `String`           | 业务trace | | |  `timestamp`  |            `Long`            | 响应时间戳 | |
+|  `duration`   |          `Duration`          | 业务耗时 | | |   `address`   |           `String`           | 服务地址 | | |     `ip`
+|           `String`           | 服务IP | | |   `locale`    |           `Locale`           | 地区 | | |  `timeZone`   |          `TimeZone`
+| 时区 | | |  `operator`   |           `IUser`            | 操作人 | | |    `view`     |           `Class`            | 视图 | | |  `exception`
+| `Class<? extends Throwable>` | 异常 | | | | | | | | | | | | | | | | |
+
