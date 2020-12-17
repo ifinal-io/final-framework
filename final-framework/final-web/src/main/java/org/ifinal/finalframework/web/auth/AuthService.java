@@ -31,8 +31,9 @@ public interface AuthService<T extends IUser<?>, A extends Annotation> {
     }
 
     /**
-     * @param user user
-     * @param auth auth
+     * @param user    user
+     * @param auth    auth
+     * @param handler handler
      */
     void auth(@Nullable T user, @NonNull A auth, @NonNull Object handler);
 

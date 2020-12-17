@@ -13,8 +13,8 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, <br/>处理{@link HandlerMethod}
- * 返回类型与声明类型不一致时，导致抛出 {@link ClassCastException}。
+ * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, 处理{@link HandlerMethod} 返回类型与声明类型不一致时，导致抛出 {@link
+ * ClassCastException}。
  *
  * @author likly
  * @version 1.0.0
