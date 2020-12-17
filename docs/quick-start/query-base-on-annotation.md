@@ -245,18 +245,32 @@ static class InnerQuery {
 
 * Common Annotation
 
-| Annotation | SQL | 备注 | | :---------------: | :----------------------------------------: | :--: | |     `@IsNull`
-|              `column IS NULL`              | | |   `@IsNotNull`    |            `column IS NOT NULL`            | | |     `@Equal`
-|            `column = #{value}`             | | |    `@NotEqual`    |            `column != #{value}`            | | |   `@GreatThan`
-|            `column > #{value}`             | | | `@GreatThanEqual` |            `column >= #{value}`            | | |    `@LessThan`
-|            `column < #{value}`             | | | `@LessThanEqual`  |            `column <= #{value}`            | | |       `@In`
-|           `column IN (#{value})`           | | |     `@NotIn`      |         `column NOT IN (#{value})`         | | |    `@Between`
-|     `column BETWEEN #{min} AND #{max}`     | | |   `@NotBetween`   |   `column NOT BETWEEN #{min} AND #{max}`   | | |      `@Like`
-|           `column LIKE #{value}`           | | |    `@NotLike`     |         `column NOT LIKE #{value}`         | | |    `@Contains`
-|   `column LIKE CONCAT('%',#{value},'%')`   | | |  `@NotContains`   | `column NOT LIKE CONCAT('%',#{value},'%')` | | |   `@StartWith`
-|     `column LIKE CONCAT('%',#{value})`     | | |  `@NotStartWith`  |   `column NOT LIKE CONCAT('%',#{value})`   | | |    `@EndWith`
-|     `column LIKE CONCAT(#{value},'%')`     | | |   `@NotEndWith`   |   `column NOT LIKE CONCAT(#{value},'%')`   | | |     `@Limit`
-|              `LIMIT #{limit}`              | | |     `@Offset`     |         `LIMIT #{offset},#{limit}`         | | | | | | | | | |
+|     Annotation      |                     SQL                     | 备注 |
+| :-----------------: | :-----------------------------------------: | ---- |
+|     `@IsNull`     |              `column IS NULL`              |      |
+|   `@IsNotNull`    |            `column IS NOT NULL`            |      |
+|     `@Equal`      |            `column = #{value}`             |      |
+|    `@NotEqual`    |            `column != #{value}`            |      |
+|   `@GreatThan`    |            `column > #{value}`             |      |
+| `@GreatThanEqual` |            `column >= #{value}`            |      |
+|    `@LessThan`    |            `column < #{value}`             |      |
+| `@LessThanEqual`  |            `column <= #{value}`            |      |
+|       `@In`       |           `column IN (#{value})`           |      |
+|     `@NotIn`      |         `column NOT IN (#{value})`         |      |
+|    `@Between`     |     `column BETWEEN #{min} AND #{max}`     |      |
+|   `@NotBetween`   |   `column NOT BETWEEN #{min} AND #{max}`   |      |
+|      `@Like`      |           `column LIKE #{value}`           |      |
+|    `@NotLike`     |         `column NOT LIKE #{value}`         |      |
+|    `@Contains`    |   `column LIKE CONCAT('%',#{value},'%')`   |      |
+|  `@NotContains`   | `column NOT LIKE CONCAT('%',#{value},'%')` |      |
+|   `@StartWith`    |     `column LIKE CONCAT('%',#{value})`     |      |
+|  `@NotStartWith`  |   `column NOT LIKE CONCAT('%',#{value})`   |      |
+|    `@EndWith`     |     `column LIKE CONCAT(#{value},'%')`     |      |
+|   `@NotEndWith`   |   `column NOT LIKE CONCAT(#{value},'%')`   |      |
+|     `@Limit`      |              `LIMIT #{limit}`              |      |
+|     `@Offset`     |         `LIMIT #{offset},#{limit}`         |      |
+|                   |                                            |      |
+|                   |                                            |      |
 
 * Json Annotation
 
@@ -272,10 +286,20 @@ static class InnerQuery {
 |                     |                                             |      |
 |                     |                                             |      |
 
+
+
 * Function Annotation
 
-| Annotation | SQL | 备注 | | :------------: | :-------------------------------: | :--: | |     `@MAX`     |           `MAX(column)`
-| | |     `@MIN`     |           `MIN(column)`           | | | `@JsonExtract` | `JSON_EXTRACT(${column},${path})` | | |  `@JsonKeys`
-|  `JSON_KEYS(${column},${path})`   | | | | | | | | | | | | | | | | | | | | | |
+| Annotation |      SQL      | 备注 |
+| :--------: | :-----------: | ---- |
+|   `@Max`   | `MAX(column)` |      |
+|   `@MIN    | `MIN(column)` |      |
+|            |               |      |
+|            |               |      |
+|            |               |      |
+|            |               |      |
+|            |               |      |
+|            |               |      |
+|            |               |      |
 
-​    
+ 
