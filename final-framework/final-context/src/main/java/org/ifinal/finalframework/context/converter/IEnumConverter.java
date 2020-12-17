@@ -3,7 +3,7 @@ package org.ifinal.finalframework.context.converter;
 import java.util.HashMap;
 import java.util.Map;
 import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.util.Enums;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

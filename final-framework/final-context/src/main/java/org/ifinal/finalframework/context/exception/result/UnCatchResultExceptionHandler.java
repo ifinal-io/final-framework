@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.context.exception.result;
 
-import org.ifinal.finalframework.origin.result.R;
-import org.ifinal.finalframework.origin.result.Result;
+import org.ifinal.finalframework.annotation.core.result.R;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -5,7 +5,7 @@ import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.monitor.MonitorException;
 import org.ifinal.finalframework.monitor.context.AlertContext;
 import org.ifinal.finalframework.monitor.executor.Alerter;
-import org.ifinal.finalframework.origin.IException;
+import org.ifinal.finalframework.annotation.core.IException;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;

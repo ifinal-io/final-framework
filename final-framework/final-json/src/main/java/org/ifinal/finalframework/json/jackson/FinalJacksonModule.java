@@ -10,7 +10,7 @@ import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserial
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.EnumCodeSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEnum;
 import org.springframework.lang.NonNull;
 
 /**

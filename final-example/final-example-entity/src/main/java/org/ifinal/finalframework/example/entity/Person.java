@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
+import org.ifinal.finalframework.annotation.core.IView;
 import org.ifinal.finalframework.annotation.data.AbsEntity;
 import org.ifinal.finalframework.annotation.data.Reference;
-import org.ifinal.finalframework.annotation.data.View;
 import org.ifinal.finalframework.annotation.sharding.InlineShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingTable;
-import org.ifinal.finalframework.origin.IView;
 
 /**
  * Person.
@@ -26,10 +25,8 @@ import org.ifinal.finalframework.origin.IView;
 @InlineShardingStrategy(scope = ShardingStrategy.Scope.TABLE, columns = "age", expression = "${logicTable}_0${age % 2}")
 public class Person extends AbsEntity {
 
-    @View(RegisterView.class)
     private String account;
 
-    @View(RegisterView.class)
     private String password;
 
     private Boolean admin;

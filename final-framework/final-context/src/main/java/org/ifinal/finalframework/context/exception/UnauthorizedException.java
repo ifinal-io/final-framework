@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.context.exception;
 
-import org.ifinal.finalframework.origin.IException;
-import org.ifinal.finalframework.origin.result.ResponseStatus;
+import org.ifinal.finalframework.annotation.core.IException;
+import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
 
 /**
  * @author likly

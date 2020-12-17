@@ -14,7 +14,7 @@ import org.ifinal.finalframework.annotation.sharding.Property;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 import org.ifinal.finalframework.annotation.sharding.ShardingTable;
 import org.ifinal.finalframework.io.support.ServicesLoader;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;

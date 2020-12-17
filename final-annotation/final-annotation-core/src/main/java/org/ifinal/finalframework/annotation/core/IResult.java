@@ -1,7 +1,7 @@
-package org.ifinal.finalframework.origin;
+package org.ifinal.finalframework.annotation.core;
 
-import org.ifinal.finalframework.origin.result.ResponseStatus;
-import org.ifinal.finalframework.origin.result.Result;
+import org.ifinal.finalframework.annotation.core.result.ResponseStatus;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

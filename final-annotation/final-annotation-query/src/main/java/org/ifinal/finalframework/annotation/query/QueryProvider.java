@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.annotation.query;
 
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

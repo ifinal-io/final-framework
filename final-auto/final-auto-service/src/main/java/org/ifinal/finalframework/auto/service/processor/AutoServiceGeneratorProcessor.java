@@ -22,7 +22,7 @@ import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.service.AbsService;
 import org.ifinal.finalframework.service.AbsServiceImpl;
 import org.springframework.stereotype.Service;

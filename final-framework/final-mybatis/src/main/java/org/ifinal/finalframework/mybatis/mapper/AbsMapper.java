@@ -20,8 +20,8 @@ import org.ifinal.finalframework.mybatis.sql.provider.SelectIdsSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.SelectSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.TruncateSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.UpdateSqlProvider;
-import org.ifinal.finalframework.origin.IEntity;
-import org.ifinal.finalframework.origin.IQuery;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

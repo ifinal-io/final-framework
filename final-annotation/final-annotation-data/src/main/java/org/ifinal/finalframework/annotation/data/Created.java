@@ -6,8 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
-import org.ifinal.finalframework.origin.lang.Default;
-import org.ifinal.finalframework.origin.lang.Final;
+import org.ifinal.finalframework.annotation.core.lang.Default;
+import org.ifinal.finalframework.annotation.core.lang.Final;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -20,7 +20,6 @@ import org.springframework.data.annotation.CreatedDate;
  * @see Column
  * @see Default NOW()
  * @see Final can not update
- * @see LastModified
  * @since 1.0.0
  */
 @Column

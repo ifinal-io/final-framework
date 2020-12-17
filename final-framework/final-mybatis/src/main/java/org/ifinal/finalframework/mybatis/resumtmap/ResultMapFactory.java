@@ -27,7 +27,7 @@ import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.JsonTypeReferenceTypeHandler;
 import org.ifinal.finalframework.mybatis.handler.sharing.LocalDateTimeTypeHandler;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEnum;
 import org.springframework.lang.NonNull;
 
 /**

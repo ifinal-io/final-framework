@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.origin.result;
+package org.ifinal.finalframework.annotation.core.result;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -6,10 +6,10 @@ import java.util.Locale;
 import java.util.TimeZone;
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.origin.IData;
-import org.ifinal.finalframework.origin.IException;
-import org.ifinal.finalframework.origin.IResult;
-import org.ifinal.finalframework.origin.IUser;
+import org.ifinal.finalframework.annotation.core.IResult;
+import org.ifinal.finalframework.annotation.core.IData;
+import org.ifinal.finalframework.annotation.core.IException;
+import org.ifinal.finalframework.annotation.core.IUser;
 
 /**
  * 业务数据返回结果封装，统一业务返回的数据结构。

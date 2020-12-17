@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.origin.IUser;
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.ifinal.finalframework.web.auth.TokenService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.lang.NonNull;

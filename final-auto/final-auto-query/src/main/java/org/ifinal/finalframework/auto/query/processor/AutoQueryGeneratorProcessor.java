@@ -29,7 +29,7 @@ import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 
 /**
  * QEntity 代码生成处理器

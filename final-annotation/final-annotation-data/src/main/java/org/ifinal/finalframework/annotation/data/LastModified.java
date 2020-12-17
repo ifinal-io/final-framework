@@ -17,9 +17,9 @@ import org.springframework.data.annotation.LastModifiedDate;
  * @see LastModifier
  * @since 1.0.0
  */
+@Documented
 @ReadOnly
 @Column
-@Documented
 @LastModifiedDate
 @Order(Integer.MAX_VALUE - 100)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})

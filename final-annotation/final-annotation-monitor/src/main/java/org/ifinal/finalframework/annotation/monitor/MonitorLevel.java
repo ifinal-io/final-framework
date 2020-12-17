@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.ifinal.finalframework.origin.IEnum;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 import org.springframework.lang.NonNull;
 
 /**

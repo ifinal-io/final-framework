@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.ifinal.finalframework.annotation.query.Direction;
 import org.ifinal.finalframework.data.query.criterion.Criterion;
-import org.ifinal.finalframework.origin.Pageable;
+import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
 import org.springframework.lang.NonNull;

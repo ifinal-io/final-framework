@@ -3,8 +3,8 @@ package org.ifinal.finalframework.annotation.data;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.ifinal.finalframework.origin.IRecord;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.IRecord;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * @author likly

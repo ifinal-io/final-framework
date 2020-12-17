@@ -3,8 +3,8 @@ package org.ifinal.finalframework.annotation.query;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.origin.Pageable;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.Pageable;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * 分页查询

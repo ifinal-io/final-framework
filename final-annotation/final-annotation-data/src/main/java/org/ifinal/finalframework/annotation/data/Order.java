@@ -12,10 +12,10 @@ import org.springframework.core.annotation.AliasFor;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Documented
 @org.springframework.core.annotation.Order
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface Order {
 
     @AliasFor(annotation = org.springframework.core.annotation.Order.class)

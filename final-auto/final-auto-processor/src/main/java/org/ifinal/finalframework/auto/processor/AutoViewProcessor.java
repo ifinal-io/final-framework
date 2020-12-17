@@ -10,8 +10,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
-import org.ifinal.finalframework.origin.IView;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.IView;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * @author likly

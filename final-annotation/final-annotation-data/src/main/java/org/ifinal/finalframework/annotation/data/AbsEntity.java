@@ -3,10 +3,10 @@ package org.ifinal.finalframework.annotation.data;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.origin.IEntity;
-import org.ifinal.finalframework.origin.IView;
-import org.ifinal.finalframework.origin.lang.Default;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IView;
+import org.ifinal.finalframework.annotation.core.lang.Default;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * The build-in base impl of {@linkplain IEntity entity} which have the common property. such as {@link #id}, {@link

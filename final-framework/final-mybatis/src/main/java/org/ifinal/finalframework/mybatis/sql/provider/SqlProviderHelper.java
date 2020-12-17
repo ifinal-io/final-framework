@@ -25,8 +25,8 @@ import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
-import org.ifinal.finalframework.origin.IEntity;
-import org.ifinal.finalframework.origin.IQuery;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
 import org.springframework.util.ReflectionUtils;
 
 /**

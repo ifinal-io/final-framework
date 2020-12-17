@@ -1,7 +1,7 @@
-package org.ifinal.finalframework.origin.result;
+package org.ifinal.finalframework.annotation.core.result;
 
 import lombok.Data;
-import org.ifinal.finalframework.origin.IPagination;
+import org.ifinal.finalframework.annotation.core.IPagination;
 
 /**
  * @author likly

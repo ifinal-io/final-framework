@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query.enums;
 
 import org.ifinal.finalframework.data.query.operation.Operation;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * @author likly

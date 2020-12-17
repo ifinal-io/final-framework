@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.origin;
+package org.ifinal.finalframework.annotation.core;
 
 import org.springframework.lang.Nullable;
 

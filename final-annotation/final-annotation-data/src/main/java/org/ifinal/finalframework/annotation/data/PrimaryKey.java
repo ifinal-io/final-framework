@@ -5,9 +5,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.ifinal.finalframework.origin.IEntity;
-import org.ifinal.finalframework.origin.lang.Default;
-import org.ifinal.finalframework.origin.lang.Final;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.lang.Default;
+import org.ifinal.finalframework.annotation.core.lang.Final;
 import org.springframework.core.annotation.AliasFor;
 
 /**

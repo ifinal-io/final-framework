@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.Enums;
 import org.ifinal.finalframework.util.function.Converter;

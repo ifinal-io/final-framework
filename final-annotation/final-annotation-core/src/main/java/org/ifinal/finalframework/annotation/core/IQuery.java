@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.origin;
+package org.ifinal.finalframework.annotation.core;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

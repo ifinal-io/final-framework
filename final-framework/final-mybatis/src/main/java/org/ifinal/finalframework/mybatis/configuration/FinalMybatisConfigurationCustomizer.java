@@ -9,7 +9,7 @@ import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.resumtmap.ResultMapFactory;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

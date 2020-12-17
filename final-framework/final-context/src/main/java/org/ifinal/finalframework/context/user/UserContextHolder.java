@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.context.user;
 
-import org.ifinal.finalframework.origin.IUser;
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;

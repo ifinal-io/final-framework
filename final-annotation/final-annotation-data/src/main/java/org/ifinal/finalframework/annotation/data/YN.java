@@ -2,8 +2,8 @@ package org.ifinal.finalframework.annotation.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.ifinal.finalframework.origin.IEntity;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IEnum;
 import org.springframework.context.annotation.Description;
 
 /**

@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.context.exception.result;
 
 import java.sql.SQLException;
-import org.ifinal.finalframework.origin.result.R;
-import org.ifinal.finalframework.origin.result.Result;
+import org.ifinal.finalframework.annotation.core.result.R;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

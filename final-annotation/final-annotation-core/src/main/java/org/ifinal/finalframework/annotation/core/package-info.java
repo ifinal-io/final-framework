@@ -4,4 +4,4 @@
  * @since 1.0.0
  */
 
-package org.ifinal.finalframework.origin;
+package org.ifinal.finalframework.annotation.core;

@@ -24,7 +24,7 @@ import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 
 /**
  * Mapper.java 生成注解处理器

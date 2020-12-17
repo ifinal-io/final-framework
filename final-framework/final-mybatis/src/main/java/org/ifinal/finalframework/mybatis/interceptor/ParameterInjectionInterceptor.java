@@ -19,7 +19,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
-import org.ifinal.finalframework.origin.IEntity;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

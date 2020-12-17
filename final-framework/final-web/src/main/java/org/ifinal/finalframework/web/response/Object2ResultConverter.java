@@ -1,8 +1,8 @@
 package org.ifinal.finalframework.web.response;
 
 import java.io.Serializable;
-import org.ifinal.finalframework.origin.result.R;
-import org.ifinal.finalframework.origin.result.Result;
+import org.ifinal.finalframework.annotation.core.result.R;
+import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
 
 /**

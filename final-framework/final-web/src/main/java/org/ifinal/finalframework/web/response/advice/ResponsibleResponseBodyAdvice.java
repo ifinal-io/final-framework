@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.response.advice;
 
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
-import org.ifinal.finalframework.origin.result.Responsible;
+import org.ifinal.finalframework.annotation.core.result.Responsible;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

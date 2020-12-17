@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.annotation.aop;
 
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * AOP切入点，用于描述缓存 {@link java.lang.annotation.Annotation} 的调用顺序。

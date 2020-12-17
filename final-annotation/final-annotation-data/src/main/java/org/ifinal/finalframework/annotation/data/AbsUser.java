@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.annotation.data;
 
-import org.ifinal.finalframework.origin.IUser;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.IUser;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 
 /**
  * @author likly

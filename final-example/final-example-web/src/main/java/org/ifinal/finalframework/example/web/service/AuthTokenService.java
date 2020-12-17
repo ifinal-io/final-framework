@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.auth.Auth;
 import org.ifinal.finalframework.annotation.data.PrimaryKey;
 import org.ifinal.finalframework.context.exception.ForbiddenException;
-import org.ifinal.finalframework.origin.IUser;
+import org.ifinal.finalframework.annotation.core.IUser;
 import org.ifinal.finalframework.web.auth.AuthService;
 import org.ifinal.finalframework.web.auth.TokenService;
 import org.springframework.lang.NonNull;

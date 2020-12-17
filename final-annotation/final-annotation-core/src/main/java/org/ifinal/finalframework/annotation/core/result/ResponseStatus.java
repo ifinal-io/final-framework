@@ -1,8 +1,8 @@
-package org.ifinal.finalframework.origin.result;
+package org.ifinal.finalframework.annotation.core.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.ifinal.finalframework.origin.IEnum;
+import org.ifinal.finalframework.annotation.core.IEnum;
 
 /**
  * @author likly

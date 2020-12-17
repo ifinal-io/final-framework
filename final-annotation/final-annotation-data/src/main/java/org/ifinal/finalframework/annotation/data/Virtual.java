@@ -24,8 +24,8 @@ import org.springframework.core.annotation.AliasFor;
  * @since 1.0.0
  */
 @Prefix("v_")
-@Documented
 @Column
+@Documented
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Virtual {

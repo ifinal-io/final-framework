@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.origin;
+package org.ifinal.finalframework.annotation.core;
 
 /**
  * The marked interface of {@code event}.

@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.annotation.data;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,6 +18,7 @@ import org.springframework.core.annotation.AliasFor;
         + "#if($typeHandler),typeHandler=$!{typeHandler.canonicalName}#end})",
     reader = "ST_ASTEXT(${column}) as ${column}"
 )
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface Geometry {

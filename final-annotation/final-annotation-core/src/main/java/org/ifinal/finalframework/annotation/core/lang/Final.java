@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.origin.lang;
+package org.ifinal.finalframework.annotation.core.lang;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

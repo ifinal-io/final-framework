@@ -9,7 +9,7 @@ import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.context.exception.InternalServerException;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.json.Json;
-import org.ifinal.finalframework.origin.IException;
+import org.ifinal.finalframework.annotation.core.IException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

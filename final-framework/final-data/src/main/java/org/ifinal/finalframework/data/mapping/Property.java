@@ -12,9 +12,9 @@ import org.ifinal.finalframework.annotation.data.ReferenceMode;
 import org.ifinal.finalframework.annotation.data.Virtual;
 import org.ifinal.finalframework.annotation.data.WriteOnly;
 import org.ifinal.finalframework.data.serializer.PropertyJsonSerializer;
-import org.ifinal.finalframework.origin.lang.Default;
-import org.ifinal.finalframework.origin.lang.Final;
-import org.ifinal.finalframework.origin.lang.Transient;
+import org.ifinal.finalframework.annotation.core.lang.Default;
+import org.ifinal.finalframework.annotation.core.lang.Final;
+import org.ifinal.finalframework.annotation.core.lang.Transient;
 import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;
 
