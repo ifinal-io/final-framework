@@ -46,7 +46,7 @@
 
 ## Modules
 
-* [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
+* [`final-annotation`](final-annotation/README.md): 定义基本的`Annotation`和`接口`。
 * [`final-framework`](final-framework/README.md): 对常用技术进行封装及增强，如`spring`、`myabtis`、`json`等。
 * [`final-auto`](final-auto/README.md)：基于`APT`生动化生成配置文件及模板代码，提升开发效率。
 * [`final-boot`](final-boot/README.md): 基于`Spring Boot`，提供开箱即用的`starters`。
@@ -58,7 +58,7 @@
 
 ## Dependencies
 
-|                            group                             |           说明           |                           DI/Maven                           |
+|                          Dependency                          |       Description        |                           Version                            |
 | :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
 |       [Lombok](https://github.com/rzwitserloot/lombok)       |     简化对象封闭工具     | ![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok?label=1.8.16) |
 |    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    | ![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=v2.4.1) |
@@ -69,8 +69,8 @@
 | [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |       分库分表组件       | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.shardingsphere/shardingsphere-jdbc-core?label=5.0.0-alpha) |
 |                          Zookeeper                           | 分布式注册中心、配置中心 |                                                              |
 |        [javapoet](https://github.com/square/javapoet)        |      Java源代码生成      | ![Maven Central](https://img.shields.io/maven-central/v/com.squareup/javapoet?label=1.13.0) |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
+|                        Velocity-Core                         |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity/velocity-engine-core?label=2.1) |
+|                        Velocity-Tools                        |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity.tools/velocity-tools-generic?label=3.0) |
 |                                                              |                          |                                                              |
 |                                                              |                          |                                                              |
 |                                                              |                          |                                                              |

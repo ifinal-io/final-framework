@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.annotation.query.function;
 
-import jdk.nashorn.internal.objects.annotations.Function;
 
 /**
  * Max.
