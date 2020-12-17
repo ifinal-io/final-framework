@@ -61,7 +61,7 @@
 |                          Dependency                          |       Description        |                           Version                            |
 | :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
 |       [Lombok](https://github.com/rzwitserloot/lombok)       |     简化对象封装工具     | ![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok?label=1.8.16) |
-|    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    | ![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=v2.4.1) |
+|    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    | [![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=v2.4.1)](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot) |
 |    [Mybatis](https://mybatis.org/mybatis-3/zh/index.html)    |         ORM框架          | ![Maven Central](https://img.shields.io/maven-central/v/org.mybatis/mybatis?label=3.5.6) |
 | [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) |     Mybatis分页插件      | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pagehelper/pagehelper?label=5.2.0) |
 |                  [Redis](https://redis.io/)                  |        分布式缓存        |                                                              |
