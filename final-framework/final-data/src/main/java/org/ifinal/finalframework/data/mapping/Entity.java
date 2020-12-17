@@ -14,7 +14,7 @@ import org.springframework.data.mapping.PersistentEntity;
 
 /**
  * @author likly
- * @version 1.0.0PP
+ * @version 1.0.0
  * @since 1.0.0
  */
 @JsonSerialize(using = EntityJsonSerializer.class)

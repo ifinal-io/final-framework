@@ -29,8 +29,7 @@ import org.springframework.lang.NonNull;
 public @interface Table {
 
     /**
-     * return the special table name when the {@link Class#getSimpleName()} of {@linkplain IEntity entity} can not
-     * mapped the table.
+     * return the special table name when the {@link Class#getSimpleName()} of {@linkplain IEntity entity} can not mapped the table.
      *
      * @return the special table name.
      */
