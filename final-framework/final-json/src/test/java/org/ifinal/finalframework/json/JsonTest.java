@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.finalframework.util.format.DateFormatter;
+import org.ifinal.finalframework.util.format.LocalDateTimeFormatter;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -45,10 +47,14 @@ class JsonTest {
     @Test
     void toObjectOfDate() {
 
-        Object now = new Date();
-        assertEquals(now, Json.toObject(Json.toJson(now), Date.class));
-        now = LocalDateTime.now();
-        assertEquals(now, Json.toObject(Json.toJson(now), LocalDateTime.class));
+        final String pattern = "yyyy-MM-dd HH:mm:ss";
+
+        long now = System.currentTimeMillis();
+
+        String date = DateFormatter.YYYY_MM_DD_HH_MM_SS.format(new Date(now));
+
+        assertEquals(date, DateFormatter.YYYY_MM_DD_HH_MM_SS.format(Json.toObject(Json.toJson(now), Date.class)));
+        assertEquals(date, LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(Json.toObject(Json.toJson(now), LocalDateTime.class)));
 
     }
 
