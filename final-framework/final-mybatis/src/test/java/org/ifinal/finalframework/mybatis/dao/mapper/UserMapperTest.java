@@ -4,9 +4,7 @@ import javax.annotation.Resource;
 import org.ifinal.finalframework.mybatis.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * UserMapperTest.
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @since 1.0.0
  */
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class UserMapperTest {
 
     @Resource
