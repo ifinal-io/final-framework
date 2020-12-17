@@ -59,7 +59,6 @@ public interface Json {
      * @throws JsonException json exception
      */
     static Object toObject(final @Nullable String json) {
-
         return toObject(json, Object.class);
     }
 
@@ -72,7 +71,6 @@ public interface Json {
      * @return json value
      */
     static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT) {
-
         return toObject(json, classOfT, null);
     }
 
@@ -86,10 +84,16 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
+    @SuppressWarnings("unchecked")
     static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT,
         final @Nullable Class<?> view) {
 
         try {
+
+            if (String.class.equals(classOfT)) {
+                return (T) json;
+            }
+
             return JsonRegistry.getInstance().getJsonService().toObject(json, classOfT, view);
         } catch (JsonException e) {
             throw e;
@@ -122,14 +126,7 @@ public interface Json {
      * @throws JsonException json exception
      */
     static <T> T toObject(final @NonNull String json, final @NonNull Type typeOfT) {
-
-        try {
-            return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
-        }
+        return toObject(json, typeOfT, null);
     }
 
     /**
@@ -158,9 +155,12 @@ public interface Json {
      * @return json value
      * @throws JsonException json exception
      */
+    @SuppressWarnings("unchecked")
     static <T> T toObject(final @NonNull String json, final @NonNull Type typeOfT, @Nullable Class<?> view) {
-
         try {
+            if (String.class.equals(typeOfT)) {
+                return (T) json;
+            }
             return JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT, view);
         } catch (JsonException e) {
             throw e;

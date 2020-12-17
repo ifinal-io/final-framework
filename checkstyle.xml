@@ -19,7 +19,7 @@
     <!-- 检查文件类型 -->
     <property name="fileExtensions" value="java, properties, xml"/>
     <!--查询不通过则报错-->
-    <property name="severity" value="error"/>
+    <property name="severity" value="warning"/>
 
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>

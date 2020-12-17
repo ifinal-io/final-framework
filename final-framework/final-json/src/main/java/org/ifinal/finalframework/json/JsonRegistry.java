@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.json;
 
+import java.util.Objects;
 import org.ifinal.finalframework.util.Asserts;
 
 /**
@@ -50,8 +51,7 @@ public final class JsonRegistry {
     }
 
     public synchronized void register(final JsonService jsonService) {
-
-        Asserts.isNull(jsonService, "json service can not be null");
+        Objects.requireNonNull(jsonService, "json service can not be null");
         this.jsonService = jsonService;
     }
 

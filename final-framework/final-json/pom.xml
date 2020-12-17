@@ -21,14 +21,6 @@
             <version>${final.version}</version>
         </dependency>
         <dependency>
-            <artifactId>spring-boot-starter-json</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
             <artifactId>jackson-databind</artifactId>
             <groupId>com.fasterxml.jackson.core</groupId>
         </dependency>
