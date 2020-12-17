@@ -286,14 +286,12 @@ static class InnerQuery {
 |                     |                                             |      |
 |                     |                                             |      |
 
-
-
 * Function Annotation
 
 | Annotation |      SQL      | 备注 |
 | :--------: | :-----------: | ---- |
 |   `@Max`   | `MAX(column)` |      |
-|   `@MIN    | `MIN(column)` |      |
+|   `@MIN`    | `MIN(column)` |      |
 |            |               |      |
 |            |               |      |
 |            |               |      |
