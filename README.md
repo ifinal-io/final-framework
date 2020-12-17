@@ -71,7 +71,7 @@
 |        [javapoet](https://github.com/square/javapoet)        |      Java源代码生成      | ![Maven Central](https://img.shields.io/maven-central/v/com.squareup/javapoet?label=1.13.0) |
 |                        Velocity-Core                         |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity/velocity-engine-core?label=2.1) |
 |                        Velocity-Tools                        |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity.tools/velocity-tools-generic?label=3.0) |
-|                                                              |                          |                                                              |
+|                          H2Database                          |        内存数据库        | ![Maven Central](https://img.shields.io/maven-central/v/com.h2database/h2?label=1.4.200) |
 |                                                              |                          |                                                              |
 |                                                              |                          |                                                              |
 |                                                              |                          |                                                              |
