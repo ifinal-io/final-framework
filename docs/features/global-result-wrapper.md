@@ -7,9 +7,7 @@ menus:
 
 ---
 
-# global-result-wrapper
-
-## 统一的结果集
+# 全局结果集包装
 
 你在`@RestController`中定义的方法：
 
@@ -46,8 +44,6 @@ public class HelloController {
   "success": true
 }
 ```
-
-
 
 * 属性：
 
