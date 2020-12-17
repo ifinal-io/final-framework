@@ -3,6 +3,7 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
+import org.ifinal.finalframework.mybatis.sql.XmlFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +19,23 @@ public interface ScriptSqlProvider extends SqlProvider {
     default String provide(ProviderContext context, Map<String, Object> parameters) {
 
         final Logger logger = LoggerFactory
-            .getLogger(context.getMapperType() + "." + context.getMapperMethod().getName());
+            .getLogger(context.getMapperType().getName() + "." + context.getMapperMethod().getName());
         StringBuilder sql = new StringBuilder();
         sql.append("<script>");
         doProvide(sql, context, parameters);
         sql.append("</script>");
         String value = sql.toString();
-        logger.info("sql ==> {}", value);
+        if (logger.isDebugEnabled()) {
+            String script = XmlFormatter.format(value);
+
+            String[] nodes = script.split("\n");
+
+            for (final String node : nodes) {
+                logger.debug("{}", node);
+
+            }
+
+        }
         return value;
     }
 

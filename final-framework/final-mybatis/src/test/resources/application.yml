@@ -8,3 +8,6 @@ spring:
   h2:
     console:
       enabled: true
+logging:
+  level:
+    org.ifinal.finalframework.mybatis: debug
