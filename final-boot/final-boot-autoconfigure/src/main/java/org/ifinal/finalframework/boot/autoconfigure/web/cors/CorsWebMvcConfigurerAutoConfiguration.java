@@ -1,8 +1,10 @@
 package org.ifinal.finalframework.boot.autoconfigure.web.cors;
 
+import java.util.Objects;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Component
+@Configuration
 @ConditionalOnClass(WebMvcConfigurer.class)
 @EnableConfigurationProperties(CorsProperties.class)
 public class CorsWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
@@ -26,11 +28,28 @@ public class CorsWebMvcConfigurerAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
 
-        registry.addMapping(corsProperties.getMapping())
-            .allowCredentials(Boolean.TRUE.equals(corsProperties.getAllowCredentials()))
-            .allowedOrigins(corsProperties.getAllowedOrigins())
-            .allowedMethods(corsProperties.getAllowedMethods())
-            .allowedHeaders(corsProperties.getAllowedHeaders());
+        if (Objects.isNull(corsProperties.getMapping())) {
+            return;
+        }
+
+        CorsRegistration registration = registry.addMapping(corsProperties.getMapping());
+
+        if (Objects.nonNull(corsProperties.getAllowCredentials())) {
+            registration.allowCredentials(corsProperties.getAllowCredentials());
+        }
+
+        if (Objects.nonNull(corsProperties.getAllowedOrigins())) {
+            registration.allowedOrigins(corsProperties.getAllowedOrigins());
+        }
+
+        if (Objects.nonNull(corsProperties.getAllowedHeaders())) {
+            registration.allowedHeaders(corsProperties.getAllowedHeaders());
+        }
+
+        if (Objects.nonNull(corsProperties.getAllowedMethods())) {
+            registration.allowedMethods(corsProperties.getAllowedMethods());
+        }
+
     }
 
 }

@@ -21,27 +21,27 @@ public class CorsProperties implements Serializable {
     /**
      * @see CorsRegistration#pathPattern
      */
-    private String mapping = "/**";
+    private String mapping;
 
     /**
      * @see CorsRegistration#allowCredentials(boolean)
      */
-    private Boolean allowCredentials = true;
+    private Boolean allowCredentials;
 
     /**
      * @see CorsRegistration#allowedMethods(String...)
      */
-    private String[] allowedMethods = {"*"};
+    private String[] allowedMethods;
 
     /**
      * @see CorsRegistration#allowedMethods(String...)
      */
-    private String[] allowedHeaders = {"*"};
+    private String[] allowedHeaders;
 
     /**
      * @see CorsRegistration#allowedOrigins(String...)
      */
-    private String[] allowedOrigins = {"*"};
+    private String[] allowedOrigins;
 
 }
 
