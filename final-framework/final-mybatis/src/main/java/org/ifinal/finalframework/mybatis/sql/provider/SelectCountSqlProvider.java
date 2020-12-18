@@ -2,12 +2,13 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import org.apache.ibatis.builder.annotation.ProviderContext;
-import org.ifinal.finalframework.data.query.Query;
-import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
-import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
+import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.data.query.QueryProvider;
+import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 
 /**
  * @author likly
@@ -42,8 +43,20 @@ public class SelectCountSqlProvider implements AbsMapperSqlProvider, ScriptSqlPr
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, QUERY);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE
-                .provide(QUERY, (Class<? extends IEntity<?>>) entity, query.getClass()));
+
+            final QueryProvider provider = query(QUERY, (Class<? extends IEntity<?>>) entity, query.getClass());
+
+            if (Objects.nonNull(provider.where())) {
+                sql.append(provider.where());
+            }
+
+            if (Objects.nonNull(provider.orders())) {
+                sql.append(provider.orders());
+            }
+
+            if (Objects.nonNull(provider.limit())) {
+                sql.append(provider.limit());
+            }
         }
 
     }

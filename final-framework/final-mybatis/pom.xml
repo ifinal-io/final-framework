@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-framework</artifactId>
+        <groupId>org.ifinal.finalframework</groupId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>final-mybatis</artifactId>
     <dependencies>
         <dependency>
@@ -16,6 +21,10 @@
         </dependency>
         <dependency>
             <artifactId>final-json</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-devops</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <!--外部依赖-->
@@ -40,10 +49,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
             <groupId>org.springframework.boot</groupId>
         </dependency>
-        <dependency>
-            <artifactId>final-devops</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -51,11 +57,5 @@
         </dependency>
     </dependencies>
 
-    <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>final-framework</artifactId>
-        <groupId>org.ifinal.finalframework</groupId>
-        <version>1.1.0-SNAPSHOT</version>
-    </parent>
 </project>

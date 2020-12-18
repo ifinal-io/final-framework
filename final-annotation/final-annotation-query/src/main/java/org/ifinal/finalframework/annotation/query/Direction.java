@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.annotation.query;
 
-import org.ifinal.finalframework.annotation.core.lang.Transient;
-
 /**
  * 方向
  *
@@ -9,7 +7,6 @@ import org.ifinal.finalframework.annotation.core.lang.Transient;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Transient
 public enum Direction {
     /**
      * 正序

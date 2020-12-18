@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.annotation.query;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,6 +12,7 @@ import java.lang.annotation.Target;
  * @see IsNull
  * @since 1.0.0
  */
+@Documented
 @Criterion(IsNotNull.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

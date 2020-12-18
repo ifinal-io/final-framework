@@ -1,17 +1,19 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
 import java.util.Map;
+import java.util.Objects;
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.data.Metadata;
 import org.ifinal.finalframework.data.query.QEntity;
+import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.query.UpdateSetOperation;
-import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 
@@ -81,8 +83,20 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         } else if (query instanceof Query) {
             ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
         } else if (query != null) {
-            sql.append(AnnotationQueryProvider.INSTANCE
-                .provide(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass()));
+
+            final QueryProvider provider = query(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass());
+
+            if (Objects.nonNull(provider.where())) {
+                sql.append(provider.where());
+            }
+
+            if (Objects.nonNull(provider.orders())) {
+                sql.append(provider.orders());
+            }
+
+            if (Objects.nonNull(provider.limit())) {
+                sql.append(provider.limit());
+            }
         }
 
     }
@@ -94,7 +108,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     private void appendEntitySet(final @NonNull StringBuilder sql, final @NonNull QEntity<?, ?> entity) {
 
         entity.stream()
-            .filter(property -> property.isWriteable() && property.isModifiable())
+            .filter(QProperty::isModifiable)
             .forEach(property -> {
                 // <if test="properties.property.hasView(view)>"
                 sql.append("<if test=\"properties.getRequiredProperty('")

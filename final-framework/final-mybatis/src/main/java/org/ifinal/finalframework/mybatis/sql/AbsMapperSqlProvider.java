@@ -2,6 +2,9 @@ package org.ifinal.finalframework.mybatis.sql;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.data.query.QueryProvider;
+import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.sql.provider.ScriptSqlProvider;
 
@@ -25,6 +28,10 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         }
 
         throw new IllegalArgumentException("can not find entity from mapper of " + mapper.getCanonicalName());
+    }
+
+    default QueryProvider query(String expression, Class<? extends IEntity> entity, Class<?> query) {
+        return new AnnotationQueryProvider(expression, entity, query);
     }
 
     default String whereIdNotNull() {

@@ -1,6 +1,8 @@
 package org.ifinal.finalframework.mybatis.dao.mapper;
 
 import javax.annotation.Resource;
+import org.ifinal.finalframework.annotation.query.Direction;
+import org.ifinal.finalframework.mybatis.dao.query.PersonQuery;
 import org.ifinal.finalframework.mybatis.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,24 @@ class UserMapperTest {
         Assertions.assertEquals(1, save);
         User db = userMapper.selectOne(user.getId());
         Assertions.assertEquals(user.getName(), db.getName());
+    }
+
+    @Test
+    void orderQuery() {
+        User user = new User();
+        user.setName("name");
+        user.setAge(1);
+        userMapper.insert(user);
+        user.setAge(100);
+        userMapper.insert(user);
+        PersonQuery query = new PersonQuery();
+        query.setOrderByName(Direction.ASC);
+        query.setOrderByAge(Direction.DESC.getValue());
+        query.setLimit(1);
+        User result = userMapper.selectOne(query);
+
+        Assertions.assertEquals(100, result.getAge());
+
     }
 
 }

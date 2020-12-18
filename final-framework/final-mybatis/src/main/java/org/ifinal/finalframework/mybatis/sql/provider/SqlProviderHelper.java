@@ -21,12 +21,13 @@ import org.apache.ibatis.scripting.xmltags.OgnlCache;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandler;
+import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.annotation.core.IQuery;
+import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
 import org.springframework.util.ReflectionUtils;
 
 /**
@@ -183,9 +184,27 @@ public final class SqlProviderHelper {
         sqlBound.setEntity(entity);
         sqlBound.setQuery(query.getClass());
 
-        String script = String.join("", "<script>",
-            AnnotationQueryProvider.INSTANCE.provide(PARAMETER_NAME_QUERY, entity, query.getClass()), "</script>");
-        sqlBound.setScript(script);
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("<script>");
+
+        final QueryProvider provider = new AnnotationQueryProvider("query", (Class<? extends IEntity<?>>) entity, query.getClass());
+
+        if (Objects.nonNull(provider.where())) {
+            sql.append(provider.where());
+        }
+
+        if (Objects.nonNull(provider.orders())) {
+            sql.append(provider.orders());
+        }
+
+        if (Objects.nonNull(provider.limit())) {
+            sql.append(provider.limit());
+        }
+
+        sql.append("</script>");
+
+        String script = sql.toString();
 
         SqlSource sqlSource = new XMLLanguageDriver().createSqlSource(new Configuration(), script, Map.class);
         Map<String, Object> parameters = new HashMap<>();

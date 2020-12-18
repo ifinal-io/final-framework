@@ -3,6 +3,7 @@ package org.ifinal.finalframework.data.query.sql;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.TypeHandler;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.query.AndOr;
 import org.ifinal.finalframework.annotation.query.Criteria;
 import org.ifinal.finalframework.annotation.query.Criterion;
@@ -18,29 +20,32 @@ import org.ifinal.finalframework.annotation.query.CriterionSqlProvider;
 import org.ifinal.finalframework.annotation.query.Limit;
 import org.ifinal.finalframework.annotation.query.Offset;
 import org.ifinal.finalframework.annotation.query.Or;
-import org.ifinal.finalframework.annotation.query.QueryProvider;
+import org.ifinal.finalframework.annotation.query.Order;
 import org.ifinal.finalframework.annotation.query.function.Function;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.QEntity;
+import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.ifinal.finalframework.data.util.Velocities;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.lang.NonNull;
 
 /**
  * @author likly
  * @version 1.0.0
- * @see Criterion
+ * @see org.ifinal.finalframework.data.query.criterion.Criterion
  * @since 1.0.0
  */
 @Slf4j
 public final class AnnotationQueryProvider implements QueryProvider {
 
-    public static final AnnotationQueryProvider INSTANCE = new AnnotationQueryProvider();
+    private final String where;
+
+    private final String orders;
+
+    private final String limit;
 
     public static final String FORMAT = "%s.%s";
 
@@ -49,25 +54,19 @@ public final class AnnotationQueryProvider implements QueryProvider {
         CriterionAttributes.ATTRIBUTE_NAME_VALUE
     ).collect(Collectors.toSet());
 
-    private AnnotationQueryProvider() {
-    }
+    public AnnotationQueryProvider(final String expression, final Class<? extends IEntity> entity, final Class query) {
 
-    @Override
-    @NonNull
-    public String provide(final String expression, final @NonNull Class<? extends IEntity<?>> entity,
-        final @NonNull Class<?> query) {
-
-        final StringBuilder builder = new StringBuilder();
-
-        builder.append("<where>");
-
+        final StringBuilder where = new StringBuilder();
+        where.append("<where>");
         String offset = null;
         String limit = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        appendCriteria(builder, expression, properties, query,
+        appendCriteria(where, expression, properties, query,
             AnnotatedElementUtils.isAnnotated(query, Or.class) ? AndOr.OR : AndOr.AND);
 
+        final Map<Integer, String> orders = new LinkedHashMap<>();
+        CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class);
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
             if (property.isAnnotationPresent(Offset.class)) {
@@ -78,13 +77,30 @@ public final class AnnotationQueryProvider implements QueryProvider {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim)
                     .collect(Collectors.joining());
                 limit = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
+            } else if (property.isAnnotationPresent(Order.class)) {
+                Order order = property.getRequiredAnnotation(Order.class);
+
+                AnnotationAttributes attributes = AnnotatedElementUtils
+                    .getMergedAnnotationAttributes(property.getField(), Order.class);
+                final CriterionAttributes metadata = new CriterionAttributes();
+
+                final String path = attributes.containsKey(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY)
+                    && Asserts.nonBlank(attributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY))
+                    ? attributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY) : property.getName();
+
+                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_QUERY, expression);
+                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, properties.getRequiredProperty(path).getColumn());
+                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
+                orders.put(order.order(), criterionSqlProvider.order(attributes, metadata));
+
             }
         }
-        builder.append("</where>");
+        where.append("</where>");
 
-        appendLimit(builder, offset, limit);
+        this.where = where.toString();
+        this.orders = buildOrders(orders);
+        this.limit = buildLimit(offset, limit);
 
-        return builder.toString();
     }
 
     private CriterionAttributes buildLimitOffsetMetadata(final String expression, final Property property) {
@@ -174,6 +190,21 @@ public final class AnnotationQueryProvider implements QueryProvider {
         }
     }
 
+    private String buildOrders(final Map<Integer, String> orders) {
+        final StringBuilder sql = new StringBuilder();
+        if (orders.isEmpty()) {
+            return null;
+        }
+        sql.append("<trim prefix=\" ORDER BY \" suffixOverrides=\",\">");
+        orders.keySet().stream()
+            .sorted()
+            .map(orders::get)
+            .forEach(sql::append);
+        sql.append("</trim>");
+
+        return sql.toString();
+    }
+
     /**
      * <pre>
      *     <code>
@@ -188,11 +219,12 @@ public final class AnnotationQueryProvider implements QueryProvider {
      *     </code>
      * </pre>
      *
-     * @param sql    sql
      * @param offset offset
      * @param limit  set
      */
-    private void appendLimit(final StringBuilder sql, final String offset, final String limit) {
+    private String buildLimit(final String offset, final String limit) {
+
+        final StringBuilder sql = new StringBuilder();
 
         if (offset != null || limit != null) {
 
@@ -206,6 +238,22 @@ public final class AnnotationQueryProvider implements QueryProvider {
             sql.append("</trim>");
         }
 
+        return sql.toString();
+    }
+
+    @Override
+    public String where() {
+        return this.where;
+    }
+
+    @Override
+    public String orders() {
+        return this.orders;
+    }
+
+    @Override
+    public String limit() {
+        return this.limit;
     }
 
 }

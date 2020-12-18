@@ -3,7 +3,7 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 import java.util.Map;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
-import org.ifinal.finalframework.mybatis.sql.XmlFormatter;
+import org.ifinal.finalframework.util.XmlFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

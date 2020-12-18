@@ -12,6 +12,8 @@ public interface CriterionSqlProvider {
 
     void function(@NonNull AnnotationAttributes annotation, @NonNull CriterionAttributes metadata);
 
+    String order(@NonNull AnnotationAttributes order, @NonNull CriterionAttributes metadata);
+
     String provide(@NonNull AnnotationAttributes criterion, @NonNull CriterionAttributes metadata);
 
 }

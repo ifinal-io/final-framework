@@ -8,7 +8,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
         <relativePath/>
-        <version>2.4.1</version> <!-- lookup parent from repository -->
+        <version>2.3.3.RELEASE</version> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinal.finalframework.frameworks</groupId>
     <artifactId>final-frameworks</artifactId>
@@ -26,7 +26,8 @@
     </modules>
 
     <properties>
-        <spring.boot.version>2.4.1</spring.boot.version>
+        <lombok.version>1.18.16</lombok.version>
+        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <apache.commons.collections4.vserion>4.4</apache.commons.collections4.vserion>
         <apache.commons.lang3.vserion>3.11</apache.commons.lang3.vserion>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
@@ -154,6 +155,7 @@
         <dependency>
             <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>

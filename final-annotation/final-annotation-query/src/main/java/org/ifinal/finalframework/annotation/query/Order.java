@@ -1,31 +1,30 @@
 package org.ifinal.finalframework.annotation.query;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Order.
+ *
  * @author likly
  * @version 1.0.0
- * @see IsNotNull
  * @since 1.0.0
  */
-@Documented
-@Criterion(IsNull.class)
-@Target(ElementType.FIELD)
+
+@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IsNull {
+public @interface Order {
 
     String property() default "";
 
+    int order() default 0;
+
     String[] value() default {
         "<if test=\"${value} != null\">",
-        "   <![CDATA[ ${andOr} ${column} IS NULL]]>",
+        "   ${column} \\${${value}},",
         "</if>"
     };
-
-    Class<?> javaType() default Object.class;
 
 }

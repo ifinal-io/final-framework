@@ -26,5 +26,18 @@
         </dependency>
     </dependencies>
 
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    &lt;!&ndash; disable processing because the definition in META-INF/services breaks javac &ndash;&gt;-->
+    <!--                    <compilerArgument>-proc:none</compilerArgument>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
+
 
 </project>

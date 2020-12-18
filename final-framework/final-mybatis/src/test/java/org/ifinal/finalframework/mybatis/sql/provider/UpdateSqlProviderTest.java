@@ -11,10 +11,11 @@ import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
-import org.ifinal.finalframework.data.query.Update;
-import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
+import org.ifinal.finalframework.annotation.data.YN;
+import org.ifinal.finalframework.data.query.Update;
+import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +52,7 @@ class UpdateSqlProviderTest {
         Person person = new Person();
         person.setAge(12);
         person.setName("haha");
+        person.setYn(YN.NO);
         parameters.put("entity", person);
 
         final PersonQuery query = new PersonQuery();
