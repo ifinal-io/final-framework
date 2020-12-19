@@ -30,6 +30,8 @@ class IEnumTest {
         Assertions.assertEquals(YN.YES, IEnum.valueOf(YN.class, 1));
         Assertions.assertEquals(YN.YES, IEnum.valueOf(YN.class, Integer.valueOf("1")));
         Assertions.assertNull(IEnum.valueOf(YN.class, -1));
+        Assertions.assertNull(IEnum.valueOf(YN.class, null));
+        Assertions.assertThrows(NullPointerException.class, () -> IEnum.valueOf(null, null));
     }
 
 }

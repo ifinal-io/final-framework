@@ -22,7 +22,7 @@ public interface IEnum<T> {
      * @return enum value of code
      */
     @Nullable
-    static <T extends IEnum<?>> T valueOf(@NonNull Class<T> type, @Nullable Object code) {
+    static <T extends IEnum<?>> T valueOf(@Nullable Class<T> type, @Nullable Object code) {
         Objects.requireNonNull(type, "enum type can not be null");
 
         if (Objects.isNull(code)) {
