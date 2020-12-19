@@ -2,6 +2,7 @@ package org.ifinal.finalframework.json;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +46,13 @@ class JsonTest {
     }
 
     @Test
+    void toJsonOfClass() {
+        ClassEntity entity = new ClassEntity();
+        entity.setClazz(JsonTest.class);
+        assertTrue(Json.toJson(entity).contains(JsonTest.class.getName()));
+    }
+
+    @Test
     void toObjectOfDate() {
 
         final String pattern = "yyyy-MM-dd HH:mm:ss";
@@ -69,6 +77,13 @@ class JsonTest {
     void toObjectOfString() {
         String json = "{\"name\":\"haha\"}";
         assertEquals(json, Json.toObject(json, String.class));
+    }
+
+    @Data
+    private static class ClassEntity {
+
+        private Class<?> clazz;
+
     }
 
     /**
@@ -99,7 +114,7 @@ class JsonTest {
      */
     @Getter
     @AllArgsConstructor
-    enum YN implements IEnum<Integer> {
+    private enum YN implements IEnum<Integer> {
 
         YES(1, "YES"), NO(2, "NO");
 

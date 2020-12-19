@@ -19,7 +19,7 @@ import org.springframework.lang.NonNull;
  */
 @Slf4j
 @SpringFactory(ApplicationContextInitializer.class)
-public class SpringFactoryApplicationContextInitializer implements
+public final class SpringFactoryApplicationContextInitializer implements
     ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
@@ -33,8 +33,7 @@ public class SpringFactoryApplicationContextInitializer implements
                 final Class<?> factoryClass = Class.forName(annotationName);
                 logger.info("Register SpringFactoryBeanDefinitionRegistryPostProcessor for: {}",
                     factoryClass.getCanonicalName());
-                context
-                    .addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
+                context.addBeanFactoryPostProcessor(new SpringFactoryBeanDefinitionRegistryPostProcessor<>(factoryClass));
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }

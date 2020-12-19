@@ -30,8 +30,7 @@ public class SpringFactoryBeanDefinitionRegistryPostProcessor<T> implements Bean
     @Override
     public void postProcessBeanDefinitionRegistry(final @NonNull BeanDefinitionRegistry registry) {
 
-        final List<String> factories = SpringFactoriesLoader
-            .loadFactoryNames(factoryInterface, this.getClass().getClassLoader());
+        final List<String> factories = SpringFactoriesLoader.loadFactoryNames(factoryInterface, this.getClass().getClassLoader());
         for (String factory : factories) {
             try {
                 final Class<?> item = Class.forName(factory);
