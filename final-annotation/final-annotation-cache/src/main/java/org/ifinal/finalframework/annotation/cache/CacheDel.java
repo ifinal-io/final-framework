@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.cache.annotation;
+package org.ifinal.finalframework.annotation.cache;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,8 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.cache.Cache;
-import org.ifinal.finalframework.cache.annotation.CacheDel.List;
+import org.ifinal.finalframework.annotation.cache.CacheDel.List;
 
 /**
  * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link JoinPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。

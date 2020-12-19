@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-framework</artifactId>
+        <groupId>org.ifinal.finalframework</groupId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>final-cache</artifactId>
+
+
     <dependencies>
+        <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-cache</artifactId>
+        </dependency>
         <dependency>
             <artifactId>final-context</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
@@ -26,14 +39,8 @@
             <artifactId>spring-context</artifactId>
             <groupId>org.springframework</groupId>
         </dependency>
+
+
     </dependencies>
 
-    <modelVersion>4.0.0</modelVersion>
-
-
-    <parent>
-        <artifactId>final-framework</artifactId>
-        <groupId>org.ifinal.finalframework</groupId>
-        <version>1.1.0-SNAPSHOT</version>
-    </parent>
 </project>

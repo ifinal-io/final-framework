@@ -1,9 +1,7 @@
-package org.ifinal.finalframework.cache;
+package org.ifinal.finalframework.annotation.cache;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
-import org.ifinal.finalframework.aop.Executor;
-import org.ifinal.finalframework.cache.handler.CacheLockInterceptorHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -12,10 +10,9 @@ import org.springframework.lang.Nullable;
  *
  * @author likly
  * @version 1.0.0
- * @see RedisCache
  * @since 1.0.0
  */
-public interface Cache extends Executor {
+public interface Cache {
 
     /**
      * 获取缓存锁,当且仅当缓存 {@code key} 不存在时，才可猎取成功。
@@ -26,8 +23,7 @@ public interface Cache extends Executor {
      * @param ttl      有效时间，最好不要为 {@code null}，以避免死锁。
      * @param timeUnit 有效时间单位
      * @return 如果获取成功，则返回 {@code true}，否则返回 {@code false}。
-     * @see org.ifinal.finalframework.cache.annotation.CacheLock
-     * @see CacheLockInterceptorHandler
+     * @see CacheLock
      * @see #unlock(Object, Object)
      */
     boolean lock(@NonNull Object key, @NonNull Object value, @Nullable Long ttl, @NonNull TimeUnit timeUnit);
@@ -39,8 +35,7 @@ public interface Cache extends Executor {
      * @param key   缓存锁的Key
      * @param value 缓存锁的Value
      * @return 如果缓存释放成功，则返回 {@code true}，否则返回 {@code false}。
-     * @see org.ifinal.finalframework.cache.annotation.CacheLock
-     * @see CacheLockInterceptorHandler
+     * @see CacheLock
      * @see #lock(Object, Object, Long, TimeUnit)
      */
     boolean unlock(@NonNull Object key, @NonNull Object value);
@@ -78,8 +73,8 @@ public interface Cache extends Executor {
      * @param ttl      缓存的有效时间
      * @param timeUnit 时间单位
      * @param view     缓存视图
-     * @see org.ifinal.finalframework.cache.annotation.Cacheable
-     * @see org.ifinal.finalframework.cache.annotation.CachePut
+     * @see Cacheable
+     * @see CachePut
      */
     void set(@NonNull Object key, @Nullable Object field, @Nullable Object value, @Nullable Long ttl,
         @NonNull TimeUnit timeUnit, @Nullable Class<?> view);
@@ -93,7 +88,7 @@ public interface Cache extends Executor {
      * @param view  缓存视图
      * @param <T>   数据类型
      * @return 获取缓存数据，如果不存在，则返回 {@code null}。
-     * @see org.ifinal.finalframework.cache.annotation.Cacheable
+     * @see Cacheable
      */
     @Nullable
     <T> T get(@NonNull Object key, @Nullable Object field, @NonNull Type type, @Nullable Class<?> view);
@@ -105,7 +100,7 @@ public interface Cache extends Executor {
      * @param field 缓存的 field
      * @param value 增量
      * @return 缓存自增后的值
-     * @see org.ifinal.finalframework.cache.annotation.CacheIncrement
+     * @see CacheIncrement
      */
     Long increment(@NonNull Object key, @Nullable Object field, @NonNull Long value);
 
@@ -116,7 +111,7 @@ public interface Cache extends Executor {
      * @param field 缓存的 field
      * @param value 增量
      * @return 缓存自增后的值
-     * @see org.ifinal.finalframework.cache.annotation.CacheIncrement
+     * @see CacheIncrement
      */
     Double increment(@NonNull Object key, @Nullable Object field, @NonNull Double value);
 
@@ -129,7 +124,7 @@ public interface Cache extends Executor {
      * @param key   缓存的 Key
      * @param field 缓存的 Field
      * @return 是否成功
-     * @see org.ifinal.finalframework.cache.annotation.CacheDel
+     * @see CacheDel
      */
     Boolean del(@NonNull Object key, @Nullable Object field);
 

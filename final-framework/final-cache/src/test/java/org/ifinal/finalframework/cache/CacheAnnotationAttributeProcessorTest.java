@@ -3,7 +3,7 @@ package org.ifinal.finalframework.cache;
 import java.lang.reflect.Method;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.cache.annotation.Cacheable;
+import org.ifinal.finalframework.annotation.cache.Cacheable;
 import org.ifinal.finalframework.util.Reflections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -4,4 +4,4 @@
  * @since 1.0.0
  */
 
-package org.ifinal.finalframework.cache.annotation;
+package org.ifinal.finalframework.annotation.cache;

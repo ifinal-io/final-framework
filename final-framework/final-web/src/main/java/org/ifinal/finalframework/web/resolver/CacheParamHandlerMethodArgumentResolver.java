@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.web.resolver;
 
-import org.ifinal.finalframework.cache.annotation.CacheValue;
+import org.ifinal.finalframework.annotation.cache.CacheValue;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;

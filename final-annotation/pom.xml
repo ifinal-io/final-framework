@@ -21,6 +21,7 @@
         <module>final-annotation-aop</module>
         <module>final-annotation-auth</module>
         <module>final-annotation-monitor</module>
+        <module>final-annotation-cache</module>
     </modules>
 
     <dependencyManagement>
@@ -48,6 +49,11 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.annotation</groupId>
                 <artifactId>final-annotation-monitor</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-cache</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

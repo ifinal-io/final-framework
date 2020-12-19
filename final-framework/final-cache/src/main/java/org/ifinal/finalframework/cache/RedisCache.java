@@ -2,6 +2,7 @@ package org.ifinal.finalframework.cache;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
+import org.ifinal.finalframework.annotation.cache.Cache;
 import org.ifinal.finalframework.json.Json;
 import org.ifinal.finalframework.redis.Redis;
 import org.springframework.context.annotation.Primary;

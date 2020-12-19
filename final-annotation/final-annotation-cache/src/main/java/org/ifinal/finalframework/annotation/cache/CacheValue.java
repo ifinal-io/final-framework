@@ -1,10 +1,9 @@
-package org.ifinal.finalframework.cache.annotation;
+package org.ifinal.finalframework.annotation.cache;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Type;
 import org.springframework.core.annotation.AliasFor;
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.core.annotation.AliasFor;
  *
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.cache.Cache#get(Object, Object, Type, Class)
  * @since 1.0.0
  */
 @Target(ElementType.PARAMETER)
