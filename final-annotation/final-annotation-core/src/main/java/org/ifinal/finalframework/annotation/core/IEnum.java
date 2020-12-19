@@ -31,7 +31,7 @@ public interface IEnum<T> {
 
         final T[] constants = type.getEnumConstants();
         for (T constant : constants) {
-            if (Objects.equals(constant.getCode().toString(), code.toString())) {
+            if (Objects.equals(constant.getCode(), code)) {
                 return constant;
             }
         }
