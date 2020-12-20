@@ -7,12 +7,10 @@
         <dependency>
             <artifactId>final-auto-core</artifactId>
             <groupId>org.ifinal.finalframework.auto</groupId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <artifactId>final-auto-data</artifactId>
             <groupId>org.ifinal.finalframework.auto</groupId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <artifactId>final-mybatis</artifactId>

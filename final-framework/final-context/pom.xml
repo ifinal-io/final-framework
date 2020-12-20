@@ -9,6 +9,10 @@
             <artifactId>final-annotation-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-resource</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>spring-boot-starter-web</artifactId>
             <groupId>org.springframework.boot</groupId>
         </dependency>
@@ -27,6 +31,10 @@
         <dependency>
             <artifactId>final-core</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-json</artifactId>
         </dependency>
     </dependencies>
 

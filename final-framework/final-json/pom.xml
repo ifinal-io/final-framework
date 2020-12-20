@@ -29,12 +29,12 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-context</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
-        <dependency>
             <artifactId>final-auto-core</artifactId>
             <groupId>org.ifinal.finalframework.auto</groupId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
         </dependency>
     </dependencies>
 

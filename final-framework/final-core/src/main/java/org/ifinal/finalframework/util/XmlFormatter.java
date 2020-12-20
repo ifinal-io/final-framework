@@ -24,11 +24,11 @@ public final class XmlFormatter {
 
     }
 
-    public static String format(String xml) {
+    public static String format(final String xml) {
         return format(xml, DEFAULT_INDENT);
     }
 
-    public static String format(String xml, int indent) {
+    public static String format(final String xml, final int indent) {
         try {
             TransformerFactory transFactory = TransformerFactory.newInstance();
             Transformer transformer = transFactory.newTransformer();

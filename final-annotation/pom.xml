@@ -22,6 +22,7 @@
         <module>final-annotation-auth</module>
         <module>final-annotation-monitor</module>
         <module>final-annotation-cache</module>
+        <module>final-annotation-resource</module>
     </modules>
 
     <dependencyManagement>
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.annotation</groupId>
                 <artifactId>final-annotation-sharding</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-resource</artifactId>
                 <version>${final.version}</version>
             </dependency>
         </dependencies>

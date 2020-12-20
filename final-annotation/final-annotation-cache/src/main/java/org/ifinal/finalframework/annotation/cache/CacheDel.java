@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.annotation.cache.CacheDel.List;
+import org.ifinal.finalframework.annotation.cache.CacheDel.CacheDels;
 
 /**
  * 在方法 {@link java.lang.reflect.Method} 执行的生命周期 {@link JoinPoint}中删除命中的缓存 {@link Cache#del(Object, Object)}。
@@ -20,7 +20,7 @@ import org.ifinal.finalframework.annotation.cache.CacheDel.List;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(List.class)
+@Repeatable(CacheDels.class)
 public @interface CacheDel {
 
     /**
@@ -75,7 +75,7 @@ public @interface CacheDel {
     @Target({ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
-    @interface List {
+    @interface CacheDels {
 
         CacheDel[] value();
 

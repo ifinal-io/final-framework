@@ -23,6 +23,8 @@
         <module>final-framework</module>
         <module>final-boot</module>
         <module>final-example</module>
+        <module>final-apps</module>
+        <module>final-cloud</module>
     </modules>
 
     <properties>

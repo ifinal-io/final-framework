@@ -1,0 +1,11 @@
+server:
+  port: 8081
+logging:
+  level:
+    org.ifinal.finalframework: debug
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  application:
+    name: user
+

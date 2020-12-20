@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
-import java.util.Locale;
-import org.ifinal.finalframework.context.util.Messages;
 import org.ifinal.finalframework.annotation.core.IEnum;
 
 /**
@@ -22,10 +20,7 @@ public class EnumDescSerializer extends JsonSerializer<IEnum<?>> {
     @Override
     public void serialize(final IEnum<?> value, final JsonGenerator gen, final SerializerProvider serializers)
         throws IOException {
-
-        final String code = String
-            .format("%s.%s", value.getClass().getCanonicalName(), ((Enum<?>) value).name().toLowerCase(Locale.ENGLISH));
-        gen.writeString(Messages.getMessage(code, value.getDesc()));
+        gen.writeString(value.getDesc());
     }
 
 }
