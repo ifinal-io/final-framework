@@ -5,9 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.web.http.converter.JsonStringHttpMessageConverter;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
@@ -25,25 +27,34 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 /**
  * 自定义参数解析器配置器。
  * <p>由于 {@link RequestMappingHandlerAdapter}的配置的 {@link HandlerMethodArgumentResolver}在默认的配置之后， 因此当参数列表中使用{@link
- * java.util.Map}或其子类作为参数时，会被默认的 {@link MapMethodProcessor}所解析，走不到自定义的参数解析器， 因此在 {@link ApplicationReadyEvent}事件中，将自定义的
- * {@link HandlerMethodArgumentResolver}置于默认的之前。</p>
+ * java.util.Map}或其子类作为参数时，会被默认的 {@link MapMethodProcessor}所解析，走不到自定义的参数解析器， 因此在 {@link ApplicationReadyEvent}事件中，将自定义的 {@link
+ * HandlerMethodArgumentResolver}置于默认的之前。</p>
  *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 @SpringApplicationListener
 public class RequestMappingHandlerAdapterAutoConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
+        try {
 
-        ConfigurableApplicationContext applicationContext = event.getApplicationContext();
-        final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext
-            .getBean(RequestMappingHandlerAdapter.class);
-        configureMessageConverters(requestMappingHandlerAdapter);
-        configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
-        configureHandlerReturnValueHandler(requestMappingHandlerAdapter);
+            if (event.getSpringApplication().getWebApplicationType() != WebApplicationType.SERVLET) {
+                return;
+            }
+
+            ConfigurableApplicationContext applicationContext = event.getApplicationContext();
+            final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext
+                .getBean(RequestMappingHandlerAdapter.class);
+            configureMessageConverters(requestMappingHandlerAdapter);
+            configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
+            configureHandlerReturnValueHandler(requestMappingHandlerAdapter);
+        } catch (Exception e) {
+            logger.error("", e);
+        }
     }
 
     /**

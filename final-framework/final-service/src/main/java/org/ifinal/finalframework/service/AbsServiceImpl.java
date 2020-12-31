@@ -2,8 +2,8 @@ package org.ifinal.finalframework.service;
 
 import java.io.Serializable;
 import java.util.Objects;
-import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
 
 /**
@@ -19,8 +19,7 @@ public abstract class AbsServiceImpl<I extends Serializable, T extends IEntity<I
     private final R repository;
 
     protected AbsServiceImpl(final R repository) {
-        Objects.requireNonNull(repository);
-        this.repository = repository;
+        this.repository = Objects.requireNonNull(repository);
     }
 
     @Override

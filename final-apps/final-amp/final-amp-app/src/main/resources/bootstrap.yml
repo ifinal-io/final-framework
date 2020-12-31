@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: amp2
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  application:
+    name: amp

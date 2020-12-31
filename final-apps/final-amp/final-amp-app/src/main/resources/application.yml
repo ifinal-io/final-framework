@@ -8,7 +8,11 @@ spring:
   h2:
     console:
       enabled: true
-
+  application:
+    name: "amp"
+  cloud:
+    bootstrap:
+      enabled:
 logging:
   level:
     org.ifinal.finalframework: debug
@@ -17,3 +21,5 @@ dubbo:
     address: zookeeper://localhost:2181
   application:
     name: amp
+server:
+  port: 8000
