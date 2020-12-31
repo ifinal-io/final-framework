@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
             <artifactId>final-redis</artifactId>
         </dependency>
         <dependency>

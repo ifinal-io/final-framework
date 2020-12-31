@@ -9,8 +9,8 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-data</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-data-core</artifactId>
+            <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
         <dependency>
             <artifactId>final-auto-processor</artifactId>

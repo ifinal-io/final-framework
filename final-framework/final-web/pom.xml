@@ -23,14 +23,6 @@
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-cache</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>final-data</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
-        <dependency>
             <artifactId>final-context</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
@@ -49,6 +41,10 @@
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
             <artifactId>final-annotation-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-aop</artifactId>
         </dependency>
     </dependencies>
 

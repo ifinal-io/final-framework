@@ -6,7 +6,7 @@
     <dependencies>
         <dependency>
             <artifactId>final-redis</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
             <optional>true</optional>
         </dependency>
         <dependency>

@@ -17,15 +17,9 @@
     <modules>
         <module>final-context</module>
         <module>final-json</module>
-        <module>final-redis</module>
         <module>final-core</module>
-        <module>final-cache</module>
         <module>final-dubbo</module>
-        <module>final-data</module>
         <module>final-monitor</module>
-        <module>final-mybatis</module>
-        <module>final-service</module>
-        <module>final-sharding</module>
         <module>final-retrofit</module>
         <module>final-aop</module>
         <module>final-zookeeper</module>
@@ -79,12 +73,7 @@
             </dependency>
             <dependency>
                 <artifactId>final-redis</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-sharding</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinal.finalframework.data</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
@@ -99,21 +88,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-dubbo</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-data</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-service</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-cache</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
@@ -137,7 +111,6 @@
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
-
             <dependency>
                 <artifactId>final-web</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>

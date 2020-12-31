@@ -23,8 +23,8 @@
             <artifactId>final-auto-spring</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework</groupId>
-            <artifactId>final-data</artifactId>
+            <groupId>org.ifinal.finalframework.data</groupId>
+            <artifactId>final-data-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>

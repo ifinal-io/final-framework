@@ -12,6 +12,13 @@
                 <type>pom</type>
                 <version>${final.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>final-data</artifactId>
+                <groupId>org.ifinal.finalframework.data</groupId>
+                <scope>import</scope>
+                <type>pom</type>
+                <version>${final.version}</version>
+            </dependency>
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-boot ============================================= -->
             <!-- ==================================================================================================== -->

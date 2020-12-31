@@ -14,7 +14,7 @@
         </dependency>
         <dependency>
             <artifactId>final-mybatis</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
             <version>${final.version}</version>
         </dependency>
         <dependency>

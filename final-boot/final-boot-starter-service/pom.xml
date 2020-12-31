@@ -10,7 +10,7 @@
         </dependency>
         <dependency>
             <artifactId>final-service</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
     </dependencies>
 

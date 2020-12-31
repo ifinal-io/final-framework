@@ -29,13 +29,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.ifinal.finalframework.data</groupId>
+            <artifactId>final-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <artifactId>final-web</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <artifactId>final-sharding</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
