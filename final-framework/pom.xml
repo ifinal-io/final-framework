@@ -7,7 +7,7 @@
     <parent>
         <artifactId>final-frameworks</artifactId>
         <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
 
@@ -83,7 +83,7 @@
             </dependency>
             <dependency>
                 <artifactId>final-mybatis</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinal.finalframework.data</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

@@ -5,14 +5,14 @@
     <parent>
         <artifactId>final-frameworks</artifactId>
         <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ifinal.finalframework.apps</groupId>
     <artifactId>final-apps</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.1-SNAPSHOT</version>
     <modules>
         <module>final-amp</module>
         <module>final-user</module>

@@ -10,7 +10,7 @@
         </dependency>
         <dependency>
             <artifactId>final-mybatis</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
         <dependency>
             <artifactId>final-auto-query</artifactId>
@@ -27,7 +27,7 @@
     <parent>
         <artifactId>final-boot</artifactId>
         <groupId>org.ifinal.finalframework.boot</groupId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
 
 
