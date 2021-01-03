@@ -1,12 +1,10 @@
 package org.ifinal.finalframework.util;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
-import org.springframework.util.Assert;
 
 /**
  * General utility methods that asserts in validating arguments.
@@ -22,42 +20,67 @@ public final class Asserts {
     private Asserts() {
     }
 
-    public static boolean isTrue(final Boolean bool) {
-        return Boolean.TRUE.equals(bool);
-    }
-
-    public static void isTrue(final Boolean bool, final @NonNull String message, final Object... args) {
-        if (isTrue(bool)) {
-            throw new IllegalArgumentException(formatMessage(message, args));
-        }
-    }
-
-    public static boolean isFalse(final Boolean bool) {
-        return Boolean.FALSE.equals(bool);
-    }
-
-    public static void isFalse(final Boolean bool, final String message, final Object... args) {
-        if (isFalse(bool)) {
-            throw new IllegalArgumentException(formatMessage(message, args));
-        }
-    }
-
     public static boolean isNull(final Object obj) {
         return Objects.isNull(obj);
     }
 
-    public static void isNull(final Object obj, final String message, final Object... args) {
-        Assert.notNull(obj, formatMessage(message, args));
+    public static void requiredNull(final Object obj) {
+        requiredNull(obj, "required null but found {}", obj);
+    }
+
+    public static void requiredNull(final Object obj, final String message, final Object... args) {
+        if (!isNull(obj)) {
+            throw new IllegalArgumentException(formatMessage(message, args));
+        }
     }
 
     public static boolean nonNull(final Object obj) {
         return Objects.nonNull(obj);
     }
 
-    public static void nonNull(final Object obj, final String message, final Object... args) {
-        if (nonNull(obj)) {
-            throw new NullPointerException(formatMessage(message, args));
+    /**
+     * @param obj
+     * @param <T>
+     * @return
+     * @see Objects#requireNonNull(Object)
+     */
+    public static <T> T requiredNonNull(T obj) {
+        return Objects.requireNonNull(obj);
+    }
+
+    public static <T> T requiredNonNull(final T obj, String message, Object... args) {
+        return Objects.requireNonNull(obj, formatMessage(message, args));
+    }
+
+    public static boolean isTrue(final Object bool) {
+        return Boolean.TRUE.equals(bool);
+    }
+
+    public static boolean requiredTrue(final Object bool) {
+        return requiredTrue(bool, "required true value but found {}", bool);
+    }
+
+    public static boolean requiredTrue(final Object bool, @NonNull String message, final Object... args) {
+        if (!isTrue(bool)) {
+            throw new IllegalArgumentException(formatMessage(message, args));
         }
+        return true;
+    }
+
+    public static boolean isFalse(final Boolean bool) {
+        return Boolean.FALSE.equals(bool);
+    }
+
+    public static boolean requiredFalse(final Object bool) {
+        return requiredFalse(bool, "required false but found {}", bool);
+    }
+
+    public static boolean requiredFalse(final Object bool, final String message, final Object... args) {
+        if (Boolean.FALSE.equals(bool)) {
+            return false;
+        }
+
+        throw new IllegalArgumentException(formatMessage(message, args));
     }
 
     public static boolean isEmpty(final Object obj) {
@@ -106,81 +129,45 @@ public final class Asserts {
         return true;
     }
 
-    public static void nonEmpty(final Object obj, final String message, final Object... args) {
-        if (nonEmpty(obj)) {
+    public static <T> T requiredNonEmpty(final T obj) {
+        return requiredNonEmpty(obj, "required not empty but found {}", obj);
+    }
+
+    public static <T> T requiredNonEmpty(T obj, String message, Object... args) {
+
+        if (isEmpty(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
+
+        return obj;
     }
 
     public static boolean isBlank(final String text) {
         return text == null || text.trim().isEmpty();
     }
 
-    public static void isBlank(final String obj, final String message, final Object... args) {
-        if (isBlank(obj)) {
-            throw new IllegalArgumentException(formatMessage(message, args));
-        }
-    }
-
     public static boolean nonBlank(final String text) {
         return text != null && !text.trim().isEmpty();
     }
 
-    public static boolean isEqual(final Object left, final Object right) {
-        return left != null && left.equals(right);
+    public static String requiredNonBlank(final String text) {
+        return requiredNonBlank(text, "required not blank but found {}", text);
     }
 
-    public static boolean nonEqual(final Object left, final Object right) {
-        return left != null && right != null && !left.equals(right);
+    public static String requiredNonBlank(final String text, final String message, final Object... args) {
+        if (isBlank(text)) {
+            throw new IllegalArgumentException(formatMessage(message, args));
+        }
+
+        return text;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isGreaterThan(final T candidate, final T target) {
-        return candidate != null && target != null && candidate.compareTo(target) > 0;
+    public static boolean isEquals(final Object left, final Object right) {
+        return Objects.equals(left, right);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isGreaterEqualThan(final T candidate, final T target) {
-
-        return candidate != null && target != null && candidate.compareTo(target) >= 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isLessThan(final T candidate, final T target) {
-        return candidate != null && target != null && candidate.compareTo(target) < 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isLessEqualThan(final T candidate, final T target) {
-        return candidate != null && target != null && candidate.compareTo(target) <= 0;
-    }
-
-    public static boolean isIn(final Object candidate, final Object... target) {
-        return isIn(candidate, Arrays.asList(target));
-    }
-
-    public static boolean isIn(final Object candidate, final Collection<?> target) {
-        return nonNull(candidate) && nonEmpty(target) && target.contains(candidate);
-    }
-
-    public static boolean nonIn(final Object candidate, final Object... target) {
-        return nonIn(candidate, Arrays.asList(target));
-    }
-
-    public static boolean nonIn(final Object candidate, final Collection<?> target) {
-        return nonNull(candidate) && nonEmpty(target) && !target.contains(candidate);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean isBetween(final @NonNull T obj, final @NonNull T min,
-        final @NonNull T max) {
-        return obj.compareTo(min) > 0 && obj.compareTo(max) < 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends Comparable> boolean nonBetween(final @NonNull T obj, final @NonNull T min,
-        final @NonNull T max) {
-        return obj.compareTo(min) <= 0 || obj.compareTo(max) > 0;
+    public static boolean nonEquals(final Object left, final Object right) {
+        return !Objects.equals(left, right);
     }
 
     public static boolean matches(final @NonNull String text, final @NonNull String regex) {

@@ -34,7 +34,6 @@ public final class Enums {
     }
 
     public static String getEnumI18NCode(final Enum<?> value) {
-
         return String.format("%s.%s", value.getClass().getCanonicalName(), value.name().toLowerCase(Locale.ENGLISH));
     }
 

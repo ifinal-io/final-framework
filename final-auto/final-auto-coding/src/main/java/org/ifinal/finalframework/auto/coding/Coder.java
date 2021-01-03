@@ -18,8 +18,8 @@ public interface Coder {
     }
 
     default void coding(Object model, Writer writer) {
-        Asserts.isNull(model, "the model must not ne null!");
-        Asserts.isNull(writer, "the writer must not be null!");
+        Asserts.requiredNonNull(model, "the model must not ne null!");
+        Asserts.requiredNonNull(writer, "the writer must not be null!");
 
         Template template = model.getClass().getAnnotation(Template.class);
 

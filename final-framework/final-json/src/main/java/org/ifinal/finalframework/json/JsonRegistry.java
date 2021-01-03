@@ -34,7 +34,7 @@ public final class JsonRegistry {
         if (jsonService == null && !initDefaulted) {
             initDefaultJsonService();
         }
-        Asserts.isNull(jsonService, "json service is not registered!!!");
+        Asserts.requiredNonNull(jsonService, "json service is not registered!!!");
         return jsonService;
     }
 
