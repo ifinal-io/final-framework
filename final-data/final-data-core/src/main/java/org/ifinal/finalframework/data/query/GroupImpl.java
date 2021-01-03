@@ -24,7 +24,7 @@ final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
     @Override
     public Group and(final Group group) {
 
-        Asserts.isNull(group, "Sort must not be null!");
+        Asserts.requiredNonNull(group, "Sort must not be null!");
         ArrayList<QProperty<?>> these = new ArrayList<>(this);
 
         for (QProperty<?> order : group) {

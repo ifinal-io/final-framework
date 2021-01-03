@@ -48,7 +48,7 @@ final class SortImpl extends ArrayList<Order> implements Sort {
 
     public Sort and(final Sort sort) {
 
-        Asserts.isNull(sort, "Sort must not be null!");
+        Asserts.requiredNonNull(sort, "Sort must not be null!");
         ArrayList<Order> these = new ArrayList<>(this);
 
         for (Order order : sort) {

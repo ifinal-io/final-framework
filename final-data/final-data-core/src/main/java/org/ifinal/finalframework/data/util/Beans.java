@@ -38,15 +38,15 @@ public interface Beans {
 
     static Stream<String> findAllBeans(final ApplicationContext applicationContext) {
 
-        Asserts.isNull(applicationContext, "applicationContext must be not null!");
+        Asserts.requiredNonNull(applicationContext, "applicationContext must be not null!");
         return Arrays.stream(BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class));
     }
 
     static Stream<Object> findAllBeansAnnotatedBy(final ApplicationContext applicationContext,
         final Class<? extends Annotation> annotationType) {
 
-        Asserts.isNull(applicationContext, "applicationContext must be not null!");
-        Asserts.isNull(annotationType, "annotationType must be not null!");
+        Asserts.requiredNonNull(applicationContext, "applicationContext must be not null!");
+        Asserts.requiredNonNull(annotationType, "annotationType must be not null!");
         return findAllBeans(applicationContext)
             .filter(name -> applicationContext.findAnnotationOnBean(name, annotationType) != null)
             .map(applicationContext::getBean);

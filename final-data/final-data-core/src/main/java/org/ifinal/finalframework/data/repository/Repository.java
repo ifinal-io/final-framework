@@ -449,7 +449,7 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
     }
 
     default <P> void delete(String table, @NonNull IQuery query, Listener<P, Integer> listener) {
-        Asserts.isNull(listener, "listener is null");
+        Asserts.requiredNonNull(listener, "listener is null");
         int offset = 0;
         P param = listener.onInit();
         listener.onStart(param);
@@ -611,7 +611,7 @@ public interface Repository<I extends Serializable, T extends IEntity<I>> {
         if (Asserts.isNull(query.getPage()) || Asserts.isNull(query.getSize())) {
             throw new IllegalArgumentException("query page or size is null");
         }
-        Asserts.isNull(listener, "listener is null");
+        Asserts.requiredNonNull(listener, "listener is null");
         int index = query.getPage();
         int offset = 0;
         P param = listener.onInit();

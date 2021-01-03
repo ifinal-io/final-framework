@@ -29,7 +29,7 @@ public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Pro
      */
     static <T> Entity<T> from(final Class<T> entityClass) {
 
-        Asserts.isNull(entityClass, "entityClass must not be null!");
+        Asserts.requiredNonNull(entityClass, "entityClass must not be null!");
         return EntityCache.getInstance().get(entityClass);
     }
 

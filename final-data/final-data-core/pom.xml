@@ -61,6 +61,10 @@
             <artifactId>spring-data-commons</artifactId>
             <groupId>org.springframework.data</groupId>
         </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-core</artifactId>
+        </dependency>
     </dependencies>
 
 
