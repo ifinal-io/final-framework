@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.ifinal.finalframework.annotation.core.IEnum;
+import org.springframework.lang.Nullable;
 
 /**
  * IEnumSerializers.
@@ -37,29 +38,28 @@ public class IEnumDeserializers extends SimpleDeserializers {
     }
 
     /**
+     * The {@link JsonDeserializer} for type of {@link Enum} which implementation the interface of {@link IEnum}.
+     *
      * @author likly
      * @version 1.0.0
      * @since 1.0.0
      */
-    public static class EnumDeserializer<T extends IEnum<?>> extends JsonDeserializer<T> {
+    private static class EnumDeserializer<T extends IEnum<?>> extends JsonDeserializer<T> {
 
         private final Class<T> enumType;
 
         private final Map<String, T> cache;
 
-        public EnumDeserializer(final Class<T> enumType) {
-
-            Objects.requireNonNull(enumType, "the enumType must be not null!");
-            this.enumType = enumType;
+        EnumDeserializer(final Class<T> enumType) {
+            this.enumType = Objects.requireNonNull(enumType, "the enumType must be not null!");
             this.cache = Arrays.stream(enumType.getEnumConstants())
                 .collect(Collectors.toMap(it -> it.getCode().toString(), Function.identity()));
         }
 
         @Override
+        @Nullable
         public T deserialize(final JsonParser p, final DeserializationContext context) throws IOException {
-
-            final String code = p.getValueAsString();
-            return cache.get(code);
+            return cache.get(p.getValueAsString());
         }
 
         public String toString() {
