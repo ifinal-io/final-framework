@@ -41,12 +41,6 @@ import org.springframework.core.annotation.AnnotationAttributes;
 @Slf4j
 public final class AnnotationQueryProvider implements QueryProvider {
 
-    private final String where;
-
-    private final String orders;
-
-    private final String limit;
-
     public static final String FORMAT = "%s.%s";
 
     private static final Set<String> IGNORE_ATTRIBUTES = Stream.of(
@@ -54,31 +48,36 @@ public final class AnnotationQueryProvider implements QueryProvider {
         CriterionAttributes.ATTRIBUTE_NAME_VALUE
     ).collect(Collectors.toSet());
 
+    private final String where;
+
+    private final String orders;
+
+    private final String limit;
+
     public AnnotationQueryProvider(final String expression, final Class<? extends IEntity> entity, final Class query) {
 
-        final StringBuilder where = new StringBuilder();
-        where.append("<where>");
-        String offset = null;
-        String limit = null;
+        final StringBuilder whereBuilder = new StringBuilder();
+        whereBuilder.append("<where>");
+        String offsetFragment = null;
+        String limitFragment = null;
 
         final QEntity<?, ?> properties = QEntity.from(entity);
-        appendCriteria(where, expression, properties, query,
+        appendCriteria(whereBuilder, expression, properties, query,
             AnnotatedElementUtils.isAnnotated(query, Or.class) ? AndOr.OR : AndOr.AND);
 
-        final Map<Integer, String> orders = new LinkedHashMap<>();
+        final Map<Integer, String> orderFragments = new LinkedHashMap<>();
         CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class);
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
             if (property.isAnnotationPresent(Offset.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Offset.class).value()).map(String::trim)
                     .collect(Collectors.joining());
-                offset = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
+                offsetFragment = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
             } else if (property.isAnnotationPresent(Limit.class)) {
                 final String xml = Arrays.stream(property.getRequiredAnnotation(Limit.class).value()).map(String::trim)
                     .collect(Collectors.joining());
-                limit = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
+                limitFragment = Velocities.getValue(xml, buildLimitOffsetMetadata(expression, property));
             } else if (property.isAnnotationPresent(Order.class)) {
-                Order order = property.getRequiredAnnotation(Order.class);
 
                 AnnotationAttributes attributes = AnnotatedElementUtils
                     .getMergedAnnotationAttributes(property.getField(), Order.class);
@@ -91,15 +90,17 @@ public final class AnnotationQueryProvider implements QueryProvider {
                 metadata.put(CriterionAttributes.ATTRIBUTE_NAME_QUERY, expression);
                 metadata.put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, properties.getRequiredProperty(path).getColumn());
                 metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
-                orders.put(order.order(), criterionSqlProvider.order(attributes, metadata));
+
+                Order order = property.getRequiredAnnotation(Order.class);
+                orderFragments.put(order.order(), criterionSqlProvider.order(attributes, metadata));
 
             }
         }
-        where.append("</where>");
+        whereBuilder.append("</where>");
 
-        this.where = where.toString();
-        this.orders = buildOrders(orders);
-        this.limit = buildLimit(offset, limit);
+        this.where = whereBuilder.toString();
+        this.orders = buildOrders(orderFragments);
+        this.limit = buildLimit(offsetFragment, limitFragment);
 
     }
 

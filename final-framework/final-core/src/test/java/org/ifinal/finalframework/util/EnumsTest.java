@@ -22,7 +22,7 @@ class EnumsTest {
 
         private final Integer value;
 
-        public static Yn valueOf(Integer code) {
+        public static Yn valueOf(final Integer code) {
             for (final Yn constant : Yn.class.getEnumConstants()) {
                 if (Asserts.isEquals(constant.getValue(), code)) {
                     return constant;

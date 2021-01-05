@@ -94,8 +94,7 @@ class JsonTest {
      * @since 1.0.0
      */
     @Data
-    static
-    class DateEntity {
+    static class DateEntity {
 
         private Date date;
 

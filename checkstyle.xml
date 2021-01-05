@@ -17,7 +17,7 @@
     <!-- 检查文件类型 -->
     <property name="fileExtensions" value="java, properties, xml"/>
     <!--查询不通过则报错-->
-    <property name="severity" value="warning"/>
+    <property name="severity" value="error"/>
 
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
@@ -174,9 +174,9 @@
         <!-- 为扩展设计 -->
         <!--        <module name="DesignForExtension"/>-->
         <!-- 私有构造函数的类必需声明为 final -->
-        <module name="FinalClass"/>
+        <!--        <module name="FinalClass"/>-->
         <!-- 工具类的构造函数应该被声明为 private -->
-        <module name="HideUtilityClassConstructor"/>
+        <!--        <module name="HideUtilityClassConstructor"/>-->
         <!-- 内部类型声明在最后 -->
         <module name="InnerTypeLast"/>
         <!-- 接口必须有方法 -->

@@ -25,7 +25,7 @@ public class ProjectApiController {
     private ProjectService projectService;
 
     @PutMapping
-    public boolean put(Project project) {
+    public boolean put(final Project project) {
         int rows = projectService.insert(project);
         logger.info("create project: {}", Json.toJson(project));
         return true;

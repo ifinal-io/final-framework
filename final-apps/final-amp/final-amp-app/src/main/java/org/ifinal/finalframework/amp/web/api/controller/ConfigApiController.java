@@ -43,14 +43,14 @@ public class ConfigApiController {
     }
 
     @PostMapping("/refresh")
-    public boolean refresh(String key, String value) {
+    public boolean refresh(final String key, final String value) {
         logger.info("refresh config: key={}, value={}", key, value);
         resourceValueManager.setValue(key, value);
         return true;
     }
 
     @GetMapping("/update")
-    public void update(String key, String value) {
+    public void update(final String key, final String value) {
         List<ServiceInstance> instances = discoveryClient.getInstances("application");
 
         RestTemplate restTemplate = new RestTemplate();

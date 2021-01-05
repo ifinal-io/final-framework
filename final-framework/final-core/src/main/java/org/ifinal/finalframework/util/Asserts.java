@@ -38,17 +38,11 @@ public final class Asserts {
         return Objects.nonNull(obj);
     }
 
-    /**
-     * @param obj
-     * @param <T>
-     * @return
-     * @see Objects#requireNonNull(Object)
-     */
-    public static <T> T requiredNonNull(T obj) {
+    public static <T> T requiredNonNull(final T obj) {
         return Objects.requireNonNull(obj);
     }
 
-    public static <T> T requiredNonNull(final T obj, String message, Object... args) {
+    public static <T> T requiredNonNull(final T obj, final String message, final Object... args) {
         return Objects.requireNonNull(obj, formatMessage(message, args));
     }
 
@@ -60,7 +54,7 @@ public final class Asserts {
         return requiredTrue(bool, "required true value but found {}", bool);
     }
 
-    public static boolean requiredTrue(final Object bool, @NonNull String message, final Object... args) {
+    public static boolean requiredTrue(final Object bool, @NonNull final String message, final Object... args) {
         if (!isTrue(bool)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
@@ -133,7 +127,7 @@ public final class Asserts {
         return requiredNonEmpty(obj, "required not empty but found {}", obj);
     }
 
-    public static <T> T requiredNonEmpty(T obj, String message, Object... args) {
+    public static <T> T requiredNonEmpty(final T obj, final String message, final Object... args) {
 
         if (isEmpty(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));

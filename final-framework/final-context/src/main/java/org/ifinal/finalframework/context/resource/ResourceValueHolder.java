@@ -49,7 +49,7 @@ public final class ResourceValueHolder {
 
     }
 
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         switch (type) {
             case FIELD:
                 try {
