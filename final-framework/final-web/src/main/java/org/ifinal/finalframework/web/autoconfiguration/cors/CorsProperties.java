@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.cors;
+package org.ifinal.finalframework.web.autoconfiguration.cors;
 
 import java.io.Serializable;
 import lombok.Data;

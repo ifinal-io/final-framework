@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.response;
+package org.ifinal.finalframework.web.autoconfiguration.response;
 
 import java.util.Optional;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;

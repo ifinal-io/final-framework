@@ -2,7 +2,35 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <artifactId>final-frameworks</artifactId>
+        <groupId>org.ifinal.finalframework.frameworks</groupId>
+        <version>1.1.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.ifinal.finalframework.boot</groupId>
     <artifactId>final-boot</artifactId>
+
+    <modules>
+        <module>final-boot-starter</module>
+        <module>final-boot-starter-entity</module>
+        <module>final-boot-starter-mybatis</module>
+        <module>final-boot-starter-service</module>
+        <module>final-boot-starter-json</module>
+        <module>final-boot-starter-data</module>
+        <module>final-boot-starter-redis</module>
+        <module>final-boot-starter-cache</module>
+        <module>final-boot-starter-monitor</module>
+        <module>final-boot-starter-web</module>
+        <module>final-boot-starter-zookeeper</module>
+        <module>final-boot-starter-dashboard</module>
+        <module>final-boot-starter-sharding</module>
+        <module>final-boot-starter-dubbo</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -22,11 +50,6 @@
             <!-- ==================================================================================================== -->
             <!-- =========================================== final-boot ============================================= -->
             <!-- ==================================================================================================== -->
-            <dependency>
-                <artifactId>final-boot-autoconfigure</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
-                <version>${final.version}</version>
-            </dependency>
             <dependency>
                 <artifactId>final-boot-starter</artifactId>
                 <groupId>org.ifinal.finalframework.boot</groupId>
@@ -100,30 +123,4 @@
         </dependencies>
     </dependencyManagement>
 
-    <groupId>org.ifinal.finalframework.boot</groupId>
-    <modelVersion>4.0.0</modelVersion>
-    <modules>
-        <module>final-boot-autoconfigure</module>
-        <module>final-boot-starter</module>
-        <module>final-boot-starter-entity</module>
-        <module>final-boot-starter-mybatis</module>
-        <module>final-boot-starter-service</module>
-        <module>final-boot-starter-json</module>
-        <module>final-boot-starter-data</module>
-        <module>final-boot-starter-redis</module>
-        <module>final-boot-starter-cache</module>
-        <module>final-boot-starter-monitor</module>
-        <module>final-boot-starter-web</module>
-        <module>final-boot-starter-zookeeper</module>
-        <module>final-boot-starter-dashboard</module>
-        <module>final-boot-starter-sharding</module>
-        <module>final-boot-starter-dubbo</module>
-    </modules>
-    <packaging>pom</packaging>
-
-    <parent>
-        <artifactId>final-frameworks</artifactId>
-        <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.1-SNAPSHOT</version>
-    </parent>
 </project>

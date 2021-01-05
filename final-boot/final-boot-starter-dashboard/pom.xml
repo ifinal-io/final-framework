@@ -5,10 +5,6 @@
     <artifactId>final-boot-starter-dashboard</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>final-boot-autoconfigure</artifactId>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-        </dependency>
-        <dependency>
             <artifactId>final-dashboard</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>

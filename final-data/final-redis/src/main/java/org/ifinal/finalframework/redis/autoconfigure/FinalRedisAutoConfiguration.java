@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.redis;
+package org.ifinal.finalframework.redis.autoconfigure;
 
 import org.ifinal.finalframework.redis.FinalRedisTemplate;
 import org.ifinal.finalframework.redis.RedisRegistry;

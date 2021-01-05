@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.i18n;
+package org.ifinal.finalframework.web.autoconfiguration.i18n;
 
 import java.io.Serializable;
 import java.util.List;

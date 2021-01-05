@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.i18n;
+package org.ifinal.finalframework.web.autoconfiguration.i18n;
 
 import org.ifinal.finalframework.context.util.Messages;
 import org.ifinal.finalframework.web.i18n.I18NLocaleResolver;

@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.sharding;
+package org.ifinal.finalframework.sharding.autoconfigure;
 
 import java.io.Serializable;
 import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;

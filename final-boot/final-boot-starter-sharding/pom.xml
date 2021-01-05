@@ -15,6 +15,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ifinal.finalframework.boot</groupId>
+            <artifactId>final-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>final-sharding</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>

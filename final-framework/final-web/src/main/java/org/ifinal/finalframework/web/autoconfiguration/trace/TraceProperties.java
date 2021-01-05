@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.trace;
+package org.ifinal.finalframework.web.autoconfiguration.trace;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.web.response;
+package org.ifinal.finalframework.web.autoconfiguration.response;
 
 import java.io.Serializable;
 import lombok.Data;

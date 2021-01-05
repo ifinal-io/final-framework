@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.boot.autoconfigure.sharding;
+package org.ifinal.finalframework.sharding.autoconfigure;
 
 import java.util.Map;
 import lombok.Getter;
