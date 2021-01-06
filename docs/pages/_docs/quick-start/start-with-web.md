@@ -1,10 +1,16 @@
 ---
-layout: post title: define-rest-api-in-controller subtitle: define-rest-api-in-controller description:
-define-rest-api-in-controller tags: []
+formatter: off
+layout: post 
+title: define-rest-api-in-controller 
+subtitle: define-rest-api-in-controller 
+description: define-rest-api-in-controller 
+tags: []
 menus:
-
-- define-rest-api-in-controller date: 2020-12-06 19:23:12 +800 version: 1.0
-
+    - quick-start
+    - start-with-web
+date: 2020-12-06 19:23:12 +800 
+version: 1.0 
+formatter: on
 ---
 
 # define-rest-api-in-controller

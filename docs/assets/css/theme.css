@@ -47,3 +47,11 @@
 .sidebar .menu-group .menu-item:first-child {
     /*border-bottom: 1px solid #343434 !important;*/
 }
+
+.sidebar div[data-toggle=collapse] {
+    background-color: transparent !important;
+}
+
+.sidebar div[data-toggle=collapse]:hover {
+    background-color: hsla(0, 0%, 78%, .2);
+}
