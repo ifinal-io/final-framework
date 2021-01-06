@@ -266,7 +266,6 @@
                     <!-- include test source -->
                     <consoleOutput>true</consoleOutput>
                     <excludes>**/generated-sources/**/*</excludes>
-                    <excludes>**/autogen/**/*</excludes>
                     <failOnViolation>true</failOnViolation>
                     <failsOnError>true</failsOnError>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>

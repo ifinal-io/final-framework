@@ -9,7 +9,7 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-mybatis</artifactId>
+            <artifactId>final-data-mybatis</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
         <dependency>

@@ -15,11 +15,11 @@
 
     <modules>
         <module>final-data-core</module>
-        <module>final-redis</module>
-        <module>final-cache</module>
-        <module>final-mybatis</module>
-        <module>final-sharding</module>
-        <module>final-service</module>
+        <module>final-data-redis</module>
+        <module>final-data-cache</module>
+        <module>final-data-mybatis</module>
+        <module>final-data-sharding</module>
+        <module>final-data-service</module>
     </modules>
 
     <dependencyManagement>
@@ -38,27 +38,27 @@
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.data</groupId>
-                <artifactId>final-redis</artifactId>
+                <artifactId>final-data-redis</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.data</groupId>
-                <artifactId>final-cache</artifactId>
+                <artifactId>final-data-cache</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.data</groupId>
-                <artifactId>final-mybatis</artifactId>
+                <artifactId>final-data-mybatis</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.data</groupId>
-                <artifactId>final-sharding</artifactId>
+                <artifactId>final-data-sharding</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinal.finalframework.data</groupId>
-                <artifactId>final-service</artifactId>
+                <artifactId>final-data-service</artifactId>
                 <version>${final.version}</version>
             </dependency>
         </dependencies>

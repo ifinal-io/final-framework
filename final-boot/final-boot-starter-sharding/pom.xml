@@ -19,7 +19,7 @@
             <artifactId>final-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <artifactId>final-sharding</artifactId>
+            <artifactId>final-data-sharding</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
     </dependencies>

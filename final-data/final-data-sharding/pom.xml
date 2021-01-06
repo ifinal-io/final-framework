@@ -4,42 +4,41 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.ifinal.finalframework.data</groupId>
         <version>1.1.1-SNAPSHOT</version>
     </parent>
-
-    <artifactId>final-cache</artifactId>
-
+    <packaging>jar</packaging>
+    <artifactId>final-data-sharding</artifactId>
     <dependencies>
         <dependency>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+            <groupId>org.apache.shardingsphere</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-core</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-auto-core</artifactId>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-cache</artifactId>
+            <artifactId>final-annotation-core</artifactId>
         </dependency>
         <dependency>
-            <artifactId>final-context</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-sharding</artifactId>
         </dependency>
         <dependency>
-            <artifactId>final-aop</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
         </dependency>
-        <dependency>
-            <artifactId>final-redis</artifactId>
-            <groupId>org.ifinal.finalframework.data</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>final-json</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>spring-context</artifactId>
-            <groupId>org.springframework</groupId>
-        </dependency>
-
-
     </dependencies>
+
 
 </project>

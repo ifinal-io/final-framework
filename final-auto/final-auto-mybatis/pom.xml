@@ -13,7 +13,7 @@
             <groupId>org.ifinal.finalframework.auto</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-mybatis</artifactId>
+            <artifactId>final-data-mybatis</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
             <version>${final.version}</version>
         </dependency>

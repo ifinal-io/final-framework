@@ -9,7 +9,7 @@
             <groupId>org.ifinal.finalframework.boot</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-service</artifactId>
+            <artifactId>final-data-service</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
         </dependency>
     </dependencies>

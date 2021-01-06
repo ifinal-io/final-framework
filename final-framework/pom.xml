@@ -72,7 +72,7 @@
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-redis</artifactId>
+                <artifactId>final-data-redis</artifactId>
                 <groupId>org.ifinal.finalframework.data</groupId>
                 <version>${final.version}</version>
             </dependency>
@@ -82,7 +82,7 @@
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-mybatis</artifactId>
+                <artifactId>final-data-mybatis</artifactId>
                 <groupId>org.ifinal.finalframework.data</groupId>
                 <version>${final.version}</version>
             </dependency>

@@ -19,7 +19,7 @@
             <version>${final.version}</version>
         </dependency>
         <dependency>
-            <artifactId>final-service</artifactId>
+            <artifactId>final-data-service</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
             <version>${final.version}</version>
         </dependency>

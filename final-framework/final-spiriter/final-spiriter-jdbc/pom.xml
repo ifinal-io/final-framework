@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.data</groupId>
-            <artifactId>final-mybatis</artifactId>
+            <artifactId>final-data-mybatis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.auto</groupId>

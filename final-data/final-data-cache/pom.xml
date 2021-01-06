@@ -2,42 +2,44 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>final-framework</artifactId>
-        <groupId>org.ifinal.finalframework</groupId>
+        <artifactId>final-data</artifactId>
+        <groupId>org.ifinal.finalframework.data</groupId>
         <version>1.1.1-SNAPSHOT</version>
     </parent>
-    <artifactId>final-dashboard</artifactId>
+
+    <artifactId>final-data-cache</artifactId>
+
     <dependencies>
+        <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-cache</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>final-context</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-aop</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
         <dependency>
             <artifactId>final-data-redis</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
-            <optional>true</optional>
         </dependency>
         <dependency>
-            <artifactId>final-zookeeper</artifactId>
+            <artifactId>final-json</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
-            <optional>true</optional>
         </dependency>
         <dependency>
-            <artifactId>final-data-mybatis</artifactId>
-            <groupId>org.ifinal.finalframework.data</groupId>
-            <optional>true</optional>
+            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework</groupId>
         </dependency>
-        <dependency>
-            <artifactId>final-web</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <artifactId>final-devops</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-            <version>1.1.1-SNAPSHOT</version>
-        </dependency>
+
+
     </dependencies>
-
-
 
 </project>
