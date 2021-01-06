@@ -23,6 +23,7 @@
         <module>final-annotation-monitor</module>
         <module>final-annotation-cache</module>
         <module>final-annotation-resource</module>
+        <module>final-annotation-web</module>
     </modules>
 
     <dependencyManagement>
@@ -70,6 +71,11 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.annotation</groupId>
                 <artifactId>final-annotation-resource</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation-web</artifactId>
                 <version>${final.version}</version>
             </dependency>
         </dependencies>

@@ -19,6 +19,10 @@
             <groupId>org.ifinal.finalframework.auto</groupId>
         </dependency>
         <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-web</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>final-json</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
