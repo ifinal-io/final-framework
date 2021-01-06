@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -25,6 +26,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Interceptor {
+
+    @AliasFor(annotation = Component.class)
+    String value() default "";
 
     /**
      * return the path patterns.
