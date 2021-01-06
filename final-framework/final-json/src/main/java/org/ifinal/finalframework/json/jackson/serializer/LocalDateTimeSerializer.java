@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import org.ifinal.finalframework.auto.annotation.AutoService;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * @author likly
@@ -37,7 +37,7 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         if (formatter != null) {
             gen.writeString(localDateTime.format(formatter));
         } else {
-            gen.writeNumber(localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            gen.writeNumber(localDateTime.atZone(LocaleContextHolder.getTimeZone().toZoneId()).toInstant().toEpochMilli());
         }
     }
 
