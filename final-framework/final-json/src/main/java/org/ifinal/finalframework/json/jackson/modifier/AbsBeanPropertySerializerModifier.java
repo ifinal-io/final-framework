@@ -22,8 +22,7 @@ import org.springframework.util.ReflectionUtils;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerModifier implements
-    BeanPropertySerializerModifier {
+public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerModifier implements BeanPropertySerializerModifier {
 
     /**
      * @see BeanPropertyWriter#getName()

@@ -34,5 +34,5 @@ build/
 
 **/.DS_Store
 
-web/_site/
-web/.jekyll-cache/
+docs/_site/
+docs/.jekyll-cache/
