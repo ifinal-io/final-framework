@@ -1,0 +1,93 @@
+.markdown {
+
+}
+
+.markdown .card {
+    font-size: 1.275em;
+}
+
+.markdown #embed_dom {
+    display: block;
+    width: 100%;
+    height: 80vh;
+}
+
+.markdown h1 {
+    display: none;
+}
+
+.markdown h2 {
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    margin: 32px 0;
+}
+
+.markdown h2 {
+    font-weight: bold;
+    background: rgb(239, 112, 96);
+    color: #efebe9;
+    padding: 3px 10px 1px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    margin-right: 3px;
+}
+
+.markdown img {
+    /* 图片居中 */
+    clear: both;
+    margin: 0 auto;
+    display: block;
+    max-width: 70%;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 5px;
+    padding: 2px;
+
+    /* 添加图片阴影 */
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    o-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    height: 100%;
+    overflow-y: auto;
+    /*padding-top: 1.5rem;*/
+    /*padding-bottom: 1.5rem;*/
+    font-size: 1rem;
+}
+
+
+code.highlighter-rouge {
+    border: 1px solid rgba(255, 255, 255, .1);
+    padding: 2px;
+    border-radius: 2px;
+    /*background-color: #4e555b;*/
+}
+
+/*TOC*/
+.markdown .toc ul {
+    list-style: none;
+    padding-left: 1em;
+}
+
+.toc .nav {
+    padding: 0 !important;
+}
+
+.markdown .toc .nav-link {
+    padding: 0;
+    color: #929aa2;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.markdown .toc .nav-link:hover {
+    color: #0086b3;
+}
+
+
+.markdown .toc .nav-link.active {
+    color: #e06c75;
+}

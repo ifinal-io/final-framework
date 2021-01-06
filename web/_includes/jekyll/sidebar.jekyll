@@ -1,0 +1,21 @@
+<script>
+    new Vue({
+        el: '#sidebar',
+        data: {
+            page: {
+                module: "{{module}}",
+                menus: {{page.menus | jsonify}}
+            },
+            menus: sidebar
+        },
+        mounted: function(){
+            var self = this;
+            var id = "#";
+            for(index in self.page.menus){
+                id += self.page.menus[index];
+                $(id).collapse('toggle');
+                id += '-';
+            }
+        }
+    });
+</script>

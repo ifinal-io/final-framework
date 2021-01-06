@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh" class="theme-dark">
+
+{% include head.html %}
+
+<style>
+
+</style>
+<body data-offset="100" data-spy="scroll" data-target="#toc">
+<!-- Extra details for Live View on GitHub Pages -->
+<div class="wrapper ">
+  {% include sidebar/sidebar.html %}
+  <div class="main-panel">
+    <!-- Navbar -->
+    {% include navbar.html %}
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row d-none">
+          <div class="col-xl-10 col-lg-12 offset-sm-0">
+            {% assign title = page.title %}
+            {% if page.subtitle %}
+            {% assign title = page.title | append: '——' | append: page.subtitle %}
+            {% endif %}
+            <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}">
+              <h1 class="card-title post-title">{{ title | markdownify }}</h1>
+            </a>
+            <div class="category">
+              {{ page.description | markdownify }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row flex-md-nowrap markdown">
+          <main class="col-xl-10 col-lg-12 card" role="main">
+            <article class="card-body">
+              {{ content }}
+            </article>
+          </main>
+
+          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+            <div class="card">
+              <div class="card-body">
+                <div class="toc" id="toc">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="snowbox"/>
+{% include plugins/fixed.html %}
+<script>
+
+  $(document).ready(function () {
+        mermaid.initialize({
+          theme: 'dark',
+          sequence: {
+            showSequenceNumbers: true
+          }
+        });
+        mermaid.init({}, ".language-mermaid, .language-sequence");
+
+        $sidebar = $('.sidebar');
+
+        $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+            $('.fixed-plugin .dropdown').addClass('open');
+          }
+
+        }
+
+        $('.fixed-plugin a').click(function (event) {
+          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+        // $('.fixed-plugin .background-color .badge').click(function () {
+        //     $(this).siblings().removeClass('active');
+        //     $(this).addClass('active');
+        //
+        //     var new_color = $(this).data('background-color');
+        //
+        //     if ($sidebar.length != 0) {
+        //         $sidebar.attr('data-background-color', new_color);
+        //     }
+        // });
+
+        $('.switch-sidebar-image input').change(function () {
+          $full_page_background = $('.full-page-background');
+
+          $input = $(this);
+
+          if ($input.is(':checked')) {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar_img_container.fadeIn('fast');
+              $sidebar.attr('data-image', '#');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page_background.fadeIn('fast');
+              $full_page.attr('data-image', '#');
+            }
+
+            background_image = true;
+          } else {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar.removeAttr('data-image');
+              $sidebar_img_container.fadeOut('fast');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page.removeAttr('data-image', '#');
+              $full_page_background.fadeOut('fast');
+            }
+
+            background_image = false;
+          }
+        });
+
+      }
+  );
+</script>
+
+
+<!-- 飘雪花 -->
+<script type="text/javascript">
+  (function ($) {
+    $.fn.snow = function (options) {
+      var $flake = $('<div id="snowbox" />').css({'position': 'absolute', 'z-index': '9999', 'top': '-50px'}).html('❄'),
+          documentHeight = $(document).height(),
+          documentWidth = $(document).width(),
+          defaults = {
+            minSize: 5,
+            maxSize: 25,
+            newOn: 500,
+            flakeColor: getRandomColor() /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+          },
+          options = $.extend({}, defaults, options);
+      var interval = setInterval(function () {
+        var startPositionLeft = Math.random() * documentWidth - 100,
+            startOpacity = 0.5 + Math.random(),
+            sizeFlake = options.minSize + Math.random() * options.maxSize,
+            endPositionTop = documentHeight - 200,
+            endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+            durationFall = documentHeight * 10 + Math.random() * 5000;
+        $flake.clone().appendTo('body').css({
+          left: startPositionLeft,
+          opacity: startOpacity,
+          'font-size': sizeFlake,
+          color: getRandomColor()
+        }).animate({
+          top: endPositionTop,
+          left: endPositionLeft,
+          opacity: 0.2
+        }, durationFall, 'linear', function () {
+          $(this).remove()
+        });
+      }, options.newOn);
+    };
+  })(jQuery);
+  $(function () {
+    $.fn.snow({
+      minSize: 3, /* 定义雪花最小尺寸 */
+      maxSize: 33,/* 定义雪花最大尺寸 */
+      newOn: 666  /* 定义密集程度，数字越小越密集 */
+    });
+
+    // 每张图片居中处理
+    // $("img[loading='lazy']").parent("p").css("text-align","center");
+    $("#topics p img").wrap("<div style='text-align:center;'></div>");
+  });
+  var getRandomColor = function () {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  }
+</script>
+</body>
+{% include plugins/toc.html container="#toc" %}
+{% include jekyll/format-href.jekyll %}
+</html>

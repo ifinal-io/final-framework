@@ -1,0 +1,184 @@
+<div class="fixed-plugin" id="fixed">
+  <div class="dropdown show-dropdown">
+    <a data-toggle="dropdown" href="#">
+      <i class="fa fa-cog fa-2x"> </i>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="header-title"> Sidebar Filters</li>
+      <li class="adjustments-line">
+        <a class="switch-trigger active-color" href="javascript:void(0)">
+          <div class="badge-colors ml-auto mr-auto">
+                        <span :class="filter == item ? 'active badge-' + item : 'badge-' + item" :data-color="item"
+                              @click="changeFilter(item)" class="badge filter" v-for="item in filters"></span>
+          </div>
+        </a>
+      </li>
+      <li class="header-title">Sidebar Background</li>
+      <li class="adjustments-line">
+        <a class="switch-trigger background-color" href="javascript:void(0)">
+          <div class="ml-auto mr-auto">
+                        <span :class="color == item ? 'active badge-' + item : 'badge-' + item"
+                              :data-background-color="item"
+                              @click="changeColor(item)"
+                              class="badge filter" v-for="item in colors"></span>
+          </div>
+        </a>
+      </li>
+      <li class="adjustments-line">
+        <a class="switch-trigger" href="javascript:void(0)">
+          <p>Sidebar Mini</p>
+          <label class="ml-auto">
+            <div class="togglebutton switch-sidebar-mini">
+              <label>
+                <input :data-mini="mini" type="checkbox" v-model="mini">
+                <span @click="switchMidiSidebar(!mini)" class="toggle"></span>
+              </label>
+            </div>
+          </label>
+          <div class="clearfix"></div>
+        </a>
+      </li>
+      <li class="adjustments-line">
+        <a class="switch-trigger" href="javascript:void(0)">
+          <p>Sidebar Images</p>
+          <label class="switch-mini ml-auto">
+            <div class="togglebutton switch-sidebar-image">
+              <label>
+                <input checked="" type="checkbox">
+                <span class="toggle"></span>
+              </label>
+            </div>
+          </label>
+          <div class="clearfix"></div>
+        </a>
+      </li>
+      <li class="header-title">Images</li>
+      <li :class="image.src == item ? 'active' : ''" v-for="item in images">
+        <a @click="switchSidebarImage(item)" class="img-holder switch-trigger" href="javascript:void(0)">
+          <img :src="item" alt="">
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<script>
+  var fixed = new Vue({
+    el: '#fixed',
+    data: {
+      filter: $.cookie('sidebar-filter'),
+      filters: ['purple', 'azure', 'green', 'orange', 'danger', 'rose'],
+      color: $.cookie('sidebar-color'),
+      colors: ['black', 'white', 'red'],
+      image: {
+        enable: true,
+        src: $.cookie('sidebar-image-url')
+      },
+      images: [
+        '/assets/img/sidebar-1.jpg',
+        '/assets/img/sidebar-2.jpg',
+        '/assets/img/sidebar-3.jpg',
+        '/assets/img/sidebar-4.jpg',
+      ],
+      mini: $.cookie('sidebar-mini') == 'true',
+    },
+    mounted: function () {
+      let $this = this;
+
+      if (!$this.filter) {
+        $this.filter = 'green';
+      }
+
+      if (!$this.color) {
+        $this.color = 'black';
+      }
+
+      if ($this.mini) {
+        $('body').addClass('sidebar-mini');
+      }
+      $this.changeFilter($this.filter);
+      $this.changeColor($this.color);
+    },
+    methods: {
+      changeFilter: function (filter) {
+        let $this = this;
+        $this.filter = filter;
+        $.cookie('sidebar-filter', filter, {path: '/'});
+
+        let $sidebar = $('.sidebar');
+        let $full_page = $('.full-page');
+        let $sidebar_responsive = $('body > .navbar-collapse');
+
+        if ($sidebar.length != 0) {
+          $sidebar.attr('data-color', filter);
+        }
+
+        if ($full_page.length != 0) {
+          $full_page.attr('filter-color', filter);
+        }
+
+        if ($sidebar_responsive.length != 0) {
+          $sidebar_responsive.attr('data-color', filter);
+        }
+      },
+      changeColor: function (color) {
+        let $this = this;
+        $this.color = color;
+        $.cookie('sidebar-color', color, {path: '/'});
+
+        let $sidebar = $('.sidebar');
+        if ($sidebar.length != 0) {
+          $sidebar.attr('data-background-color', color);
+        }
+      },
+      switchMidiSidebar(mini) {
+        console.log("set cookie:sidebar-mini:" + mini);
+        $.cookie('sidebar_mini', mini, {path: '/'});
+        console.log($.cookie('sidebar_mini'));
+        if (mini) {
+          $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+          setTimeout(function () {
+            $('body').addClass('sidebar-mini');
+          }, 300);
+        } else {
+          $('body').removeClass('sidebar-mini');
+          $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        }
+        // we simulate the window Resize so the charts will get updated in realtime.
+        var simulateWindowResize = setInterval(function () {
+          window.dispatchEvent(new Event('resize'));
+        }, 180);
+
+        // we stop the simulation of Window Resize after the animations are completed
+        setTimeout(function () {
+          clearInterval(simulateWindowResize);
+        }, 1000);
+      },
+      switchSidebarImage: function (image) {
+        let $this = this;
+        $this.image.src = image;
+        $.cookie('sidebar-image-url', image, {path: '/'});
+        let $sidebar_img_container = $('.sidebar .sidebar-background');
+        let $full_page_background = $('.full-page-background');
+        if ($sidebar_img_container.length != 0 && $this.image.enable) {
+          $sidebar_img_container.fadeOut('fast', function () {
+            $sidebar_img_container.css('background-image', 'url("' + image + '")');
+            $sidebar_img_container.fadeIn('fast');
+          });
+        }
+
+        if ($full_page_background.length != 0 && $this.image.enable) {
+          $full_page_background.fadeOut('fast', function () {
+            $full_page_background.css('background-image', 'url("' + image + '")');
+            $full_page_background.fadeIn('fast');
+          });
+        }
+
+        if ($this.image.enable) {
+
+          $sidebar_img_container.css('background-image', 'url("' + image + '")');
+          $full_page_background.css('background-image', 'url("' + image + '")');
+        }
+      }
+    }
+  })
+</script>

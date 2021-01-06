@@ -33,3 +33,6 @@ build/
 .vscode/
 
 **/.DS_Store
+
+web/_site/
+web/.jekyll-cache/

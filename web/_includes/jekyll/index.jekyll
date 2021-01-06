@@ -1,0 +1,8 @@
+<script>
+    var index = new Vue({
+        el: '#index',
+        data: {
+            carousels: {{ site.data.modules | jsonify }}
+        }
+    });
+</script>

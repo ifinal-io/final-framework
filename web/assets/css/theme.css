@@ -1,0 +1,49 @@
+.sidebar {
+    padding: 0;
+    margin: 0;
+    height: 100vh !important;
+}
+
+.sidebar .expand {
+    position: absolute;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    padding-left: 8px;
+    /*background-color: red;*/
+}
+
+.sidebar .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    /*margin-left: 2px;*/
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent
+}
+
+*[aria-expanded=true].caret {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    transform: rotate(180deg)
+}
+
+
+.sidebar .menus .menu-group {
+    margin-top: -1px !important;
+    border-top: 1px solid #343434 !important;
+    border-bottom: 1px solid #343434 !important;
+}
+
+
+.sidebar .menu-group > .menu-item:not(:last-child) {
+    margin-top: -1px;
+    border-top: 1px solid #343434 !important;
+    border-bottom: 1px solid #343434 !important;
+}
+
+.sidebar .menu-group .menu-item:first-child {
+    /*border-bottom: 1px solid #343434 !important;*/
+}

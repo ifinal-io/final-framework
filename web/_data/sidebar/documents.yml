@@ -1,0 +1,84 @@
+default:
+  logo: /assets/img/modules/mayi.png
+  name: Final Framework
+menus:
+  - id: index
+    name: README
+    icon: dashboard
+    link: /documents
+  - id: data
+    name: Data
+    icon: table_chart
+    menus:
+      - id: enum
+        link: /documents/data/enum
+        mini: EM
+        name: Enum
+      - id: result
+        link: /documents/data/result
+        mini: RST
+        name: Result
+      - id: converter
+        mini: CVT
+        name: Converter
+        menus:
+          - id: enum-converter
+            name: EnumConverter
+            link: /documents/data/converter/enum-converter
+            mini: EC
+      - id: repository
+        mini: CURD
+        name: Repository
+        menus:
+          - id: index
+            name: README
+            link: /documents/data/repository/
+            mini: RD
+          - id: create
+            name: Create
+            link: /documents/data/repository/create
+            mini: C
+          - id: retrieve
+            name: Retrieve
+            link: /documents/data/repository/retrieve
+            mini: R
+          - id: update
+            name: Update
+            link: /documents/data/repository/update
+            mini: U
+          - id: delete
+            name: Delte
+            link: /documents/data/repository/delete
+            mini: D
+      - id: query
+        mini: QY
+        name: Query
+        menus:
+          - id: pageable
+            link: /documents/data/query/pageable
+            mini: Page
+            name: Pageable
+          - id: criterion
+            link: /documents/data/query/criterion
+            mini: CTN
+            name: Criterion
+          - id: criteria
+            link: /documents/data/query/criteria
+            mini: CTA
+            name: Criteria
+          - id: function
+            mini: FUN
+            name: Function
+            menus:
+              - id: math
+                link: /documents/data/query/function/math
+                mini: MTH
+                name: Math
+              - id: json
+                link: /documents/data/query/function/json
+                mini: JSON
+                name: Json
+  - id: starter
+    name: Starter
+    icon: dashboard
+    link: /documents/start

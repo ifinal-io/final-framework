@@ -1,0 +1,75 @@
+logo: /assets/img/modules/mayi.png
+name: Final Framework
+menus:
+  - id: index
+    name: README
+    icon: dashboard
+    link: /framework/
+  - id: starter
+    name: Starter
+    icon: dashboard
+    menus:
+      - id: entity
+        link: /framework/starter/entity
+        mini: ET
+        name: Entity
+      - id: mybatis
+        link: /framework/starter/mybatis
+        mini: MB
+        name: Mybatis
+      - id: service
+        link: /framework/starter/service
+        mini: SV
+        name: Service
+      - id: spring
+        link: /framework/starter/spring
+        mini: SP
+        name: Spring
+  - id: data
+    name: Data
+    icon: table_chart
+    menus:
+      - id: orm
+        name: 对象映射
+        mini: ORM
+        menus:
+          - id: annotation
+            link: /framework/data/orm/annotation
+            mini: ANN
+            name: Annotation
+      - id: result
+        link: /framework/data/result
+        mini: RST
+        name: Result
+      - id: exception
+        link: /framework/data/exception
+        name: Exception
+        mini: EP
+  - id: coding
+    name: Coding
+    icon: code
+    menus:
+      - id: entities
+        link: /framework/coding/entities
+        mini: ETS
+        name: Entities
+      - id: qentity
+        link: /framework/coding/qentity
+        mini: QET
+        name: QEntity
+      - id: datasource
+        link: /framework/coding/datasource
+        mini: DS
+        name: DataSource
+      - id: mapper
+        link: /framework/coding/mapper
+        mini: MPR
+        name: Mapper
+      - id: spring
+        mini: SPR
+        name: Spring
+        menus:
+          - id: factory
+            link: /framework/coding/spring/factory
+            mini: SFT
+            name: SpringFactory
