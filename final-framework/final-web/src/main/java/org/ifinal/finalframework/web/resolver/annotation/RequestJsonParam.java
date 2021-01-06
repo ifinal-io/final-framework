@@ -19,18 +19,22 @@ import org.springframework.web.bind.annotation.ValueConstants;
  * @see RequestJsonParamHandlerMethodArgumentResolver
  * @since 1.0.0
  */
+@Deprecated
+@org.ifinal.finalframework.annotation.web.bind.RequestJsonParam
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequestJsonParam {
 
-    @AliasFor("name")
+    @AliasFor(annotation = org.ifinal.finalframework.annotation.web.bind.RequestJsonParam.class)
     String value() default "";
 
-    @AliasFor("value")
+    @AliasFor(annotation = org.ifinal.finalframework.annotation.web.bind.RequestJsonParam.class)
     String name() default "";
 
+    @AliasFor(annotation = org.ifinal.finalframework.annotation.web.bind.RequestJsonParam.class)
     boolean required() default true;
 
+    @AliasFor(annotation = org.ifinal.finalframework.annotation.web.bind.RequestJsonParam.class)
     String defaultValue() default ValueConstants.DEFAULT_NONE;
 
 }
