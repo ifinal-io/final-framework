@@ -3,10 +3,10 @@ package org.ifinal.finalframework.web.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.Setter;
+import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
 import org.ifinal.finalframework.core.generator.TraceGenerator;
 import org.ifinal.finalframework.core.generator.UuidTraceGenerator;
 import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.web.annotation.HandlerInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -23,7 +23,7 @@ import org.springframework.web.servlet.AsyncHandlerInterceptor;
  * @since 1.0.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@HandlerInterceptor
+@Interceptor
 public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
 
     public static final String TRACE_ATTRIBUTE = "org.ifinal.finalframework.handler.trace";
