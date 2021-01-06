@@ -96,6 +96,8 @@ toc:
   headers: h2,h3,h4,h5,h6
   list_class: ""
   item_class: "nav-item toc-entry"
+final:
+  version: 1.0.2
 exclude:
   - .idea/
 # Exclude from processing.

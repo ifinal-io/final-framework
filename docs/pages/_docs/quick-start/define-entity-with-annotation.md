@@ -31,6 +31,7 @@ formatter: on
     <dependency>
         <groupId>org.ifinal.finalframework.boot</groupId>
         <artifactId>final-boot-starter-entity</artifactId>
+        <version>{{ site.final.version }}</version>
     </dependency>
 </dependencies>
 ```

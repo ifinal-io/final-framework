@@ -1,10 +1,16 @@
 ---
-layout: post title: query-base-on-annotation subtitle: query-base-on-annotation description:
-query-base-on-annotation tags: []
+formatter: off
+layout: post 
+title: query-base-on-annotation 
+subtitle: query-base-on-annotation 
+description: query-base-on-annotation 
+tags: []
 menus:
-
-- query-base-on-annotation date: 2020-11-27 23:44:50 +800 version: 1.0
-
+    - quick-start
+    - define-query-with-annotation
+date: 2020-11-27 23:44:50 +800 
+version: 1.0
+formatter: on
 ---
 
 # query-base-on-annotation

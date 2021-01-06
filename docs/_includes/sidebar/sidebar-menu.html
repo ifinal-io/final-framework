@@ -16,9 +16,9 @@
          v-if="menu1.menus">
       <ul class="nav">
         <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id ? 'active' : ''" class="nav-item "
-            v-for="menu2 in menu1.menus">
+            v-for="(menu2,i2) in menu1.menus">
           <a :href="menu2.url" class="nav-link" v-if="menu2.menus == null">
-            <span class="sidebar-mini" v-html="menu2.mini"> P </span>
+            <span class="sidebar-mini" v-html="menu2.mini ? menu2.mini : i2 + 1"> P </span>
             <span class="sidebar-normal" v-html="menu2.name"> Pricing </span>
           </a>
           <a :href="'#' + menu1.id +'@'+ menu2.id" aria-expanded="true" class="nav-link"

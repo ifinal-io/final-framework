@@ -3,7 +3,7 @@
 }
 
 .markdown .card {
-    font-size: 1.275em;
+    font-size: 1em;
 }
 
 .markdown #embed_dom {
@@ -30,6 +30,20 @@
     border-top-left-radius: 3px;
     margin-right: 3px;
 }
+
+.markdown h3 {
+    font-weight: bold;
+    padding: 3px 10px 1px;
+    margin-right: 3px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.markdown h4 {
+    font-weight: bold;
+    padding: 3px 10px 1px;
+    margin-right: 3px;
+}
+
 
 .markdown img {
     /* 图片居中 */
@@ -91,3 +105,15 @@ code.highlighter-rouge {
 .markdown .toc .nav-link.active {
     color: #e06c75;
 }
+
+.markdown table {
+    width: 100%;
+}
+
+.markdown table > thead > tr > th,
+.markdown table > tbody > tr > td {
+    padding: 12px 8px;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+}
+

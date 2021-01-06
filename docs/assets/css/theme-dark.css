@@ -32,3 +32,9 @@
     line-height: 1.45;
 }
 
+.theme-dark .markdown table {
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+    border-radius: 5px !important;
+    background-color: #141414 !important;
+}
+
