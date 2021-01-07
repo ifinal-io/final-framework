@@ -7,7 +7,8 @@ description: how-to-define-an-entity
 tags: []
 menus:
     - quick-start
-    - define-entity-with-annotation
+    - start-entity
+    - index
 date: 2020-11-27 12:54:17 +800
 version: 1.0
 formatter: on

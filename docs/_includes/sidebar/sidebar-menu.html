@@ -1,55 +1,43 @@
 {% raw %}
 <ul class="nav">
-  <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="(menu1,i1) in sidebar.menus">
-    <a :href="menu1.url" class="nav-link" v-if="menu1.menus == null">
-      <i class="material-icons" v-html="menu1.icon"></i>
-      <p v-html="menu1.name"></p>
-    </a>
-    <a :class="page.menus.length > 1 && page.menus[1] != 'index' ? 'collapse' : ''" :href="menu1.url" class="nav-link"
-       data-toggle2="collapse" v-if="menu1.menus">
+  <li :class="page.paths[1] == menu1.id ? 'active' : ''" class="nav-item " v-for="(menu1,i1) in sidebar.menus">
+
+    <a :class="page.paths[1] == menu1.id && page.paths[2] != 'index' ? 'collapse' : ''"
+       :href="menu1.url ? menu1.url : '/' + page.collection + '/' + menu1.id " class="nav-link">
       <i class="material-icons" v-html="menu1.icon"></i>
       <p> {{menu1.name}}</p>
     </a>
-    <a :href="'#' + menu1.id" aria-expanded="true" v-if="menu1.menus"
-
+    <a :href="'#' + menu1.id" :aria-expanded="page.paths[1] == menu1.id" v-if="menu1.menus"
        data-toggle="collapse"
        style="display: inline-block;width: 32px;height: 32px;float: right;margin-top:-36px;margin-right: 18px;z-index: 999;clear: both;background-color: transparent"
-    >
-      <b class="caret" style="margin-right: 24px;"></b>
-    </a>
-    <div :class="page.menus[0] == menu1.id ? 'show' : ''" :id="menu1.id" class="collapse"
+    ><b class="caret" style="margin-right: 24px;"></b></a>
+    <div :class="page.paths[1] == menu1.id ? 'show' : ''" :id="menu1.id" class="collapse"
          v-if="menu1.menus">
       <ul class="nav">
-        <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id ? 'active' : ''" class="nav-item "
+        <li :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id ? 'active' : ''" class="nav-item "
             v-for="(menu2,i2) in menu1.menus">
 
-          <a :href="menu2.url" class="nav-link" v-if="menu2.menus == null">
+          <a :href="menu2.url ? menu2.url : '/' + page.collection + '/' + menu1.id + '/' + menu2.id" class="nav-link"
+             :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] != 'index' ? 'collapse' : ''">
             <span class="sidebar-mini" v-html="menu2.mini ? menu2.mini :  i1 + '.' + (i2 + 1)"> P </span>
             <span class="sidebar-normal" v-html="menu2.name"> Pricing </span>
           </a>
 
-          <a :href="menu2.url" aria-expanded="true" class="nav-link"
-             :class="page.menus.length > 2 && page.menus[2] != 'index' ? 'collapse' : ''"
-             v-if="menu2.menus">
-            <span class="sidebar-mini" v-html="menu2.mini ? menu2.mini :  i1 + '.' + (i2 + 1)"> MLT </span>
-            <span class="sidebar-normal"> <span v-html="menu2.name"></span></span>
-          </a>
-
-          <a :href="'#' + menu1.id +'@'+ menu2.id" aria-expanded="true" v-if="menu2.menus"
+          <a :href="'#' + menu1.id +'@'+ menu2.id"
+             :aria-expanded="page.paths[1] == menu1.id && page.paths[2] == menu2.id" v-if="menu2.menus"
              data-toggle="collapse"
              style="display: inline-block;width: 32px;height: 32px;float: right;margin-top:-36px;margin-right: 18px;z-index: 999;clear: both;background-color: transparent"
-          >
-            <b class="caret" style="margin-right: 24px;"></b>
-          </a>
+          ><b class="caret" style="margin-right: 24px;"></b></a>
 
-          <div :class="page.menus[1] == menu2.id ? 'show' : ''" :id="menu1.id +'@' + menu2.id"
+          <div :class="page.paths[2] == menu2.id ? 'show' : ''" :id="menu1.id +'@' + menu2.id"
                class="collapse"
                v-if="menu2.menus">
             <ul class="nav">
-              <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id ? 'active' : ''"
+              <li :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] == menu3.id ? 'active' : ''"
                   class="nav-item"
                   v-for="(menu3,i3) in menu2.menus">
-                <a :href="menu3.url" class="nav-link" v-if="menu3.menus == null">
+                <a :href="menu3.url ? menu3.url : '/' + page.collection + '/' + menu1.id + '/' + menu2.id + '/' + menu3.id "
+                   class="nav-link" v-if="menu3.menus == null">
                   <span class="sidebar-mini" v-html="menu3.mini ? menu2.mini : i1 + '.' + (i2 + 1) + '.' + (i3 + 1)"> E </span>
                   <span class="sidebar-normal" v-html="menu3.name"> Example </span>
                 </a>
@@ -60,12 +48,12 @@
                   <span class="sidebar-mini" v-html="menu3.mini"> MLT </span>
                   <span class="sidebar-normal"> <span v-html="menu3.name"></span><b class="caret"></b></span>
                 </a>
-                <div :class="page.menus[2] == menu3.id ? 'show' : ''"
+                <div :class="page.paths[3] == menu3.id ? 'show' : ''"
                      :id="menu1.id +'@' + menu2.id +'@' + menu3.id"
                      class="collapse"
                      v-if="menu3.menus">
                   <ul class="nav">
-                    <li :class="page.menus[0] == menu1.id && page.menus[1] == menu2.id && page.menus[2] == menu3.id && page.menus[3] == menu4.id ? 'active' : ''"
+                    <li :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] == menu3.id && page.paths[4] == menu4.id ? 'active' : ''"
                         class="nav-item"
                         v-for="menu4 in menu3.menus">
                       <a :href="menu4.link" class="nav-link">

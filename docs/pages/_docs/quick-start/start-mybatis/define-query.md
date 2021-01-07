@@ -7,7 +7,8 @@ description: query-base-on-annotation
 tags: []
 menus:
     - quick-start
-    - define-query-with-annotation
+    - start-mybatis
+    - define-query
 date: 2020-11-27 23:44:50 +800 
 version: 1.0
 formatter: on

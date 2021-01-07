@@ -6,14 +6,16 @@
             //color: $.cookie('sidebar-color'),
             //mini: $.cookie('sidebar_mini'),
             page: {
+                collection: "{{page.collection}}",
+                paths: {{page.path | replace: '_', '' | replace: '.md' : '' | split: '/' | jsonify}},
                 module: "{{module}}",
-                menus: {{ page.menus | jsonify }}
             },
             modules: modules,
             sidebar: sidebar
         },
         mounted: function(){
             console.log(this.sidebar);
+            console.log(this.page.paths);
         }
     })
 </script>

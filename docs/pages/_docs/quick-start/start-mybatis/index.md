@@ -7,7 +7,8 @@ description: start-with-mybatis
 tags: [] 
 menus: 
     - quick-start
-    - start-with-mybatis 
+    - start-mybatis
+    - index
 date: 2021-01-06 20:29:53 +800 
 version: 1.0
 formatter: on
