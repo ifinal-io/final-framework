@@ -7,7 +7,7 @@ description: define-rest-api-in-controller
 tags: []
 menus:
     - quick-start
-    - start-with-web
+    - start-web
     - define-rest-api
 date: 2020-12-06 19:23:12 +800 
 version: 1.0 
@@ -68,4 +68,4 @@ public class HelloController {
 
 ## See Also
 
-* [Global Result Wrapper](../features/global-result-wrapper.md)
+* [Global Result Wrapper](../../features/global-result-wrapper.md)

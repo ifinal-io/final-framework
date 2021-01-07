@@ -28,13 +28,13 @@ sidebar = {
         name: 'Start Service',
         url: '/docs/quick-start/start-with-service'
       }, {
-        id: 'start-with-web',
+        id: 'start-web',
         name: 'Start Web',
-        url: '/docs/quick-start/start-with-web',
+        url: '/docs/quick-start/start-web',
         menus: [{
           id: 'define-rest-api',
           name: 'Define RestApi',
-          url: '/docs/quick-start/define-rest-api',
+          url: '/docs/quick-start/start-web/define-rest-api',
         }]
       }]
     }
