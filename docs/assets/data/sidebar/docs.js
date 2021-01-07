@@ -1,6 +1,6 @@
 sidebar = {
   menus: [{
-    id: 'index',
+    id: 'overview',
     icon: 'dashboard',
     name: 'OverView',
   }, {
