@@ -32,7 +32,7 @@
           <div :class="page.paths[2] == menu2.id ? 'show' : ''" :id="menu1.id +'@' + menu2.id"
                class="collapse"
                v-if="menu2.menus">
-            <ul class="nav">
+            <ul class="nav" style="background-color: #18181899;padding: 16px 0">
               <li :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] == menu3.id ? 'active' : ''"
                   class="nav-item"
                   v-for="(menu3,i3) in menu2.menus">

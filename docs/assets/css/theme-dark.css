@@ -36,4 +36,8 @@
     background-color: transparent;
 }
 
+.theme-dark .markdown blockquote {
+    background-color: #141414 !important;
+}
+
 

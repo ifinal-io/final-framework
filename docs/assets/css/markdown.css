@@ -126,7 +126,15 @@ code.highlighter-rouge {
     line-height: 1.45;
 }
 
-.markdown div.language-xml pre {
+.markdown blockquote {
+    border-left-width: 2px;
+    border-left-style: solid;
+    border-color: #9c27b0;
+    padding: 16px 16px 1px;
+}
+
+.markdown div.language-xml pre,
+.markdown div.language-java pre {
     padding-top: 0;
 }
 

@@ -1,0 +1,55 @@
+---
+formatter: off
+layout: post
+title: Receive Json Param 
+subtitle: receive-json-param 
+description: receive-json-param 
+tags: [] 
+date: 2021-01-07 14:57:05 +800 
+version: 1.0
+formatter: on
+---
+
+# Receive Json Param
+
+## What
+
+How to receive the request param value When it is not a simple type, such as like a json.
+
+```url
+http://localhost:8080/params/person?person={"name": "xiaoming","age": 18}
+```
+
+## How
+
+### Define Param Bean
+
+```java
+
+@Data
+public class Person {
+
+    private String name;
+
+    private Integer age;
+
+}
+```
+
+### Define Controller
+
+```java
+
+@RestController
+@RequestMapping("/params")
+public class RequestJsonController {
+
+    @GettingMapping("/person")
+    public Person person(@RequestJsonParam Person person) {
+        return person;
+    }
+
+}
+```
+
+> The `@RequestJsonParam` is also support json body like `@RequestBody`.

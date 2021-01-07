@@ -16,6 +16,9 @@ sidebar = {
       menus: [{
         id: 'define-entity',
         name: 'Define Entity',
+      }, {
+        id: 'define-enum',
+        name: 'Define Enum'
       }]
     }, {
       id: 'start-mybatis',
@@ -36,6 +39,9 @@ sidebar = {
       menus: [{
         id: 'define-rest-api',
         name: 'Define RestApi',
+      }, {
+        id: 'receive-json-param',
+        name: 'Receive Json Param'
       }]
     }]
   }, {

@@ -1,7 +1,7 @@
 ---
 formatter: off
 layout: post
-title: how-to-define-an-entity
+title: Define Entity
 subtitle: how-to-define-an-entity
 description: how-to-define-an-entity
 tags: []
@@ -14,7 +14,7 @@ version: 1.0
 formatter: on
 ---
 
-# How to define entity
+# Define Entity
 
 ## What
 
