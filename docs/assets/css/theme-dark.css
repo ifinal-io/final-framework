@@ -23,13 +23,7 @@
 }
 
 .theme-dark .markdown pre {
-    border: 1px solid rgba(255, 255, 255, .1) !important;
-    border-radius: 5px !important;
     background-color: #141414 !important;
-    padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
 }
 
 .theme-dark .markdown table {
@@ -37,4 +31,9 @@
     border-radius: 5px !important;
     background-color: #141414 !important;
 }
+
+.theme-dark .markdown .highlight .w {
+    background-color: transparent;
+}
+
 

@@ -33,8 +33,8 @@
 
 .markdown h3 {
     font-weight: bold;
+    margin: 32px 0;
     padding: 3px 10px 1px;
-    margin-right: 3px;
     border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
@@ -48,12 +48,12 @@
 .markdown img {
     /* 图片居中 */
     clear: both;
-    margin: 0 auto;
+    margin: 16px auto;
     display: block;
     max-width: 70%;
     border: 1px solid rgba(255, 255, 255, .1);
     border-radius: 5px;
-    padding: 2px;
+    padding: 5px;
 
     /* 添加图片阴影 */
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -115,5 +115,18 @@ code.highlighter-rouge {
     padding: 12px 8px;
     vertical-align: middle;
     border: 1px solid rgba(255, 255, 255, .1) !important;
+}
+
+.markdown pre {
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+    border-radius: 5px !important;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+}
+
+.markdown div.language-xml pre {
+    padding-top: 0;
 }
 

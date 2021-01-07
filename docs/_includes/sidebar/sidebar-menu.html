@@ -1,7 +1,7 @@
 {% raw %}
 <ul class="nav">
   <li :class="page.paths[1] == menu1.id ? 'active' : ''" class="nav-item " v-for="(menu1,i1) in sidebar.menus">
-
+    <!--一级菜单-->
     <a :class="page.paths[1] == menu1.id && page.paths[2] != 'index' ? 'collapse' : ''"
        :href="menu1.url ? menu1.url : '/' + page.collection + '/' + menu1.id " class="nav-link">
       <i class="material-icons" v-html="menu1.icon"></i>
@@ -16,9 +16,9 @@
       <ul class="nav">
         <li :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id ? 'active' : ''" class="nav-item "
             v-for="(menu2,i2) in menu1.menus">
-
+          <!--二级菜单-->
           <a :href="menu2.url ? menu2.url : '/' + page.collection + '/' + menu1.id + '/' + menu2.id" class="nav-link"
-             :class="page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] != 'index' ? 'collapse' : ''">
+             :class="page.paths.length > 3 && page.paths[1] == menu1.id && page.paths[2] == menu2.id && page.paths[3] != 'index' ? 'collapse' : ''">
             <span class="sidebar-mini" v-html="menu2.mini ? menu2.mini :  i1 + '.' + (i2 + 1)"> P </span>
             <span class="sidebar-normal" v-html="menu2.name"> Pricing </span>
           </a>

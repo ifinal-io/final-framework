@@ -8,6 +8,9 @@ sidebar = {
     icon: 'dashboard',
     name: 'Quick Start',
     menus: [{
+      id: 'start-project',
+      name: 'Start Project'
+    }, {
       id: 'start-entity',
       name: 'Start Entity',
       menus: [{
@@ -25,7 +28,7 @@ sidebar = {
         name: 'Define Query'
       }]
     }, {
-      id: 'start-with-service',
+      id: 'start-service',
       name: 'Start Service',
     }, {
       id: 'start-web',
