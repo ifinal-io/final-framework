@@ -36,6 +36,18 @@ kramdown:
   input: GFM
   auto_ids: true
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    # Rouge Options › https://github.com/jneen/rouge#full-options
+    #    line_numbers: false # bad idea, spans don't need linenos and would inherit this option
+    line_format: '%i'
+    table_class: 'rouge-table'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+  html_to_native: true
+  start_line: 1
   extensions:
     - autolink
     - footnotes
@@ -56,7 +68,7 @@ plugins:
   #- jekyll-paginate
   - jekyll-readme-index
   #- jekyll-titles-from-headings
-  #- jekyll-relative-links
+  - jekyll-relative-links
 #data_dir: datas
 collections_dir: pages
 collections:

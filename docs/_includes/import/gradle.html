@@ -1,0 +1,4 @@
+{% highlight groovy %}
+<!-- https://mvnrepository.com/artifact/{{ include.group }}/{{ include.artifact }} -->
+compile group: '{{ include.group }}', name: '{{ include.artifact }}', version: '{{ site.final.version }}'
+{% endhighlight %}

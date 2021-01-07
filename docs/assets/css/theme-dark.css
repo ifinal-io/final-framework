@@ -22,19 +22,19 @@
 .theme-dark .card .card-body {
 }
 
-.theme-dark .markdown pre {
+.theme-dark .markdown div.highlight > pre {
     background-color: #141414 !important;
 }
 
 .theme-dark .markdown table {
-    border: 1px solid rgba(255, 255, 255, .1) !important;
-    border-radius: 5px !important;
-    background-color: #141414 !important;
+    /*border: 1px solid rgba(255, 255, 255, .1) !important;*/
+    /*border-radius: 5px !important;*/
+    /*background-color: #141414 !important;*/
 }
 
-.theme-dark .markdown .highlight .w {
-    background-color: transparent;
-}
+/*.theme-dark .markdown .highlight .w {*/
+/*    background-color: transparent;*/
+/*}*/
 
 .theme-dark .markdown blockquote {
     background-color: #141414 !important;

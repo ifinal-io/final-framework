@@ -23,7 +23,8 @@
 
 .markdown h2 {
     font-weight: bold;
-    background: rgb(239, 112, 96);
+    background-color: #ff9800;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(255, 152, 0, .4);
     color: #efebe9;
     padding: 3px 10px 1px;
     border-top-right-radius: 3px;
@@ -34,7 +35,7 @@
 .markdown h3 {
     font-weight: bold;
     margin: 32px 0;
-    padding: 3px 10px 1px;
+    padding: 3px 10px 5px;
     border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
@@ -110,20 +111,24 @@ code.highlighter-rouge {
     width: 100%;
 }
 
-.markdown table > thead > tr > th,
-.markdown table > tbody > tr > td {
+.markdown article > table > thead > tr > th,
+.markdown article > table > tbody > tr > td {
     padding: 12px 8px;
     vertical-align: middle;
     border: 1px solid rgba(255, 255, 255, .1) !important;
 }
 
-.markdown pre {
-    border: 1px solid rgba(255, 255, 255, .1) !important;
+.markdown div.highlight pre {
+    /*border: 1px solid rgba(255, 255, 255, .1) !important;*/
     border-radius: 5px !important;
-    padding: 16px;
     overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
+    color: rgb(147, 161, 161) !important;
+    font-size: 100%;
+    /*line-height: 1.45;*/
+}
+
+.markdown div.highlight > pre {
+    padding: 16px;
 }
 
 .markdown blockquote {
@@ -133,8 +138,7 @@ code.highlighter-rouge {
     padding: 16px 16px 1px;
 }
 
-.markdown div.language-xml pre,
-.markdown div.language-java pre {
-    padding-top: 0;
-}
+/*.markdown div.language-xml pre{*/
+/*    padding-top: 0;*/
+/*}*/
 

@@ -23,14 +23,19 @@ formatter: on
 * maven
 
 ```xml
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-entity -->
+<dependency>
+    <groupId>org.ifinal.finalframework.boot</groupId>
+    <artifactId>final-boot-starter-entity</artifactId>
+    <version>{{ site.final.version }}</version>
+</dependency>
+```
 
-<dependencies>
-    <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
-        <artifactId>final-boot-starter-entity</artifactId>
-        <version>{{ site.final.version }}</version>
-    </dependency>
-</dependencies>
+* gradle
+
+```groovy
+// https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-entity
+compile group: 'org.ifinal.finalframework.boot', name: 'final-boot-starter-entity', version: '{{ site.final.version }}'
 ```
 
 ### Usage

@@ -57,8 +57,6 @@ public interface PersonService extends AbsService<Long, Person, PersonMapper> {
 * PersonServiceImpl
 
 ```java
-
-@Service
 class PersonServiceImpl extends AbsServiceImpl<Long, Person, PersonMapper> implements PersonService {
 
     public PersonServiceImpl(PersonMapper repository) {

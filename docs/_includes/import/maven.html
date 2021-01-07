@@ -1,0 +1,8 @@
+{% highlight xml %}
+<!-- https://mvnrepository.com/artifact/{{ include.group }}/{{ include.artifact }} -->
+<dependency>
+  <groupId>{{ include.group }}</groupId>
+  <artifactId>{{ include.artifact }}</artifactId>
+  <version>{{ site.final.version }}</version>
+</dependency>
+{% endhighlight %}

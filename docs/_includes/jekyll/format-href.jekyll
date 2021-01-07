@@ -6,12 +6,12 @@ $(document).ready(function () {
        let href = $a.attr('href');
 
        if (href !== undefined && href.indexOf('http') == -1) {
-            if(href.indexOf('.md') !== -1){
+            //if(href.indexOf('.md') !== -1){
                 // 以 .md 结尾的，替换为 .html
                 // 将链接中的 README 替换为 index
-                href = href.replace('README','index');
-                href = href.substr(0, href.length - 3).concat('.html');
-            }
+              //  href = href.replace('README','index');
+              //  href = href.substr(0, href.length - 3).concat('.html');
+            //}
 
             if (href.indexOf('.java') !== -1 ) {
                 href = domain + href;
