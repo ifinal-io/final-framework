@@ -5,12 +5,17 @@
       <i class="material-icons" v-html="menu1.icon"></i>
       <p v-html="menu1.name"></p>
     </a>
-    <a :class="page.menus[0] == menu1.id ? '' : 'collapsed'" :href="'#' + menu1.id" class="nav-link"
-       data-toggle="collapse" v-if="menu1.menus">
+    <a :class="page.menus.length > 1 && page.menus[1] != 'index' ? 'collapse' : ''" :href="menu1.url" class="nav-link"
+       data-toggle2="collapse" v-if="menu1.menus">
       <i class="material-icons" v-html="menu1.icon"></i>
-      <p> {{menu1.name}}
-        <b class="caret"></b>
-      </p>
+      <p> {{menu1.name}}</p>
+    </a>
+    <a :href="'#' + menu1.id" aria-expanded="true" v-if="menu1.menus"
+
+       data-toggle="collapse"
+       style="display: inline-block;width: 32px;height: 32px;float: right;margin-top:-36px;margin-right: 18px;z-index: 999;clear: both;background-color: transparent"
+    >
+      <b class="caret" style="margin-right: 24px;"></b>
     </a>
     <div :class="page.menus[0] == menu1.id ? 'show' : ''" :id="menu1.id" class="collapse"
          v-if="menu1.menus">

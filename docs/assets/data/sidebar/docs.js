@@ -1,16 +1,16 @@
 sidebar = {
   menus: [
     {
-      id: 'dashboard',
+      id: 'index',
       icon: 'dashboard',
-      name: 'dashboard',
-      url: 'dashboard',
+      name: 'OverView',
+      url: '/docs',
     },
     {
       id: 'quick-start',
       icon: 'dashboard',
       name: 'Quick Start',
-      url: '/docs/quick-start/index',
+      url: '/docs/quick-start',
       menus: [{
         id: 'define-entity-with-annotation',
         name: 'Define Entity',
