@@ -38,7 +38,7 @@ public class List2ResultConverter<T> implements Converter<List<T>, Result<ArrayL
         final PageInfo<T> pageInfo = page.toPageInfo();
         final Pagination result = new Pagination();
         result.setPage(pageInfo.getPageNum());
-        result.setSize(pageInfo.getSize());
+        result.setSize(pageInfo.getPageSize());
         result.setPages(pageInfo.getPages());
         result.setTotal(pageInfo.getTotal());
         result.setFirstPage(pageInfo.isIsFirstPage());
