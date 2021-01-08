@@ -19,6 +19,7 @@
 .markdown h2 {
     border-bottom: 1px solid rgba(255, 255, 255, .1);
     margin: 32px 0;
+    font-size: 24px;
 }
 
 .markdown h2 {
@@ -37,12 +38,13 @@
     margin: 32px 0;
     padding: 3px 10px 5px;
     border-bottom: 1px solid rgba(255, 255, 255, .1);
+    font-size: 20px;
 }
 
 .markdown h4 {
     font-weight: bold;
     padding: 3px 10px 1px;
-    margin-right: 3px;
+    margin: 24px 0;
 }
 
 
@@ -127,7 +129,7 @@ code.highlighter-rouge {
     border-radius: 5px !important;
     overflow: auto;
     color: rgb(147, 161, 161) !important;
-    font-size: 100%;
+    font-size: 85%;
     /*line-height: 1.45;*/
 }
 

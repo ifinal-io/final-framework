@@ -16,4 +16,4 @@ formatter: on
 ![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)
 
 
-`FinalFramework`旨在提供**简单**、**易用**、**易扩展**的`Java`开发脚手架。
+`FinalFramework`旨在提供**简单**、**易用**、**可**的`Java`开发脚手架。

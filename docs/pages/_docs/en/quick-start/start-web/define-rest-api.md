@@ -1,7 +1,7 @@
 ---
 formatter: off
 layout: post 
-title: define-rest-api-in-controller 
+title: Define Rest Api
 subtitle: define-rest-api-in-controller 
 description: define-rest-api-in-controller 
 tags: []
@@ -14,26 +14,13 @@ version: 1.0
 formatter: on
 ---
 
-# define-rest-api-in-controller
+# Define Rest Api
 
-## Import Dependency
-
-* maven
-
-```xml
-
-<dependencies>
-    <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
-        <artifactId>final-boot-starter-web</artifactId>
-        <version>${final.version}</version>
-    </dependency>
-</dependencies>
-```
-
-## Define a Rest Api
+## Define RestController
 
 ```java
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/hello")
@@ -47,7 +34,9 @@ public class HelloController {
 }
 ```
 
-## Visit The Api
+## Request the Url
+
+when request the url of `http://localhost:8080/hello?word=final!` you will get the result like this：
 
 ```json
 {
@@ -65,7 +54,3 @@ public class HelloController {
   "success": true
 }
 ```
-
-## See Also
-
-* [Global Result Wrapper](../../features/global-result-wrapper.md)

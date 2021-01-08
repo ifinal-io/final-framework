@@ -15,7 +15,7 @@
         module: "{{ module }}",
         lang: "{{ lang }}"
       },
-      modules: modules,
+      modules: [],
       sidebar: {{ site.data.sidebar[lang][page.collection] | jsonify }}
     },
     mounted: function () {

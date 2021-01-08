@@ -106,10 +106,14 @@
         html += "<li class=\"" + settings.classes.item + "\">" + createLink(
             indexs, header);
       } else if (this_level <= level) { // higher level than before; end parent ol
-        if (this_level < level) {
 
-          console.log(indexs.pop());
+        for(i = this_level; i <= level; i++){
+          if (i < level) {
+            console.log(indexs.pop());
+          }
         }
+
+
 
         for (var i = this_level; i < level; i++) {
           html += "</li></" + settings.listType + ">"

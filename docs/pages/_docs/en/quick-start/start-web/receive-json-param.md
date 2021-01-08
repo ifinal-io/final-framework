@@ -16,7 +16,7 @@ formatter: on
 
 How to receive the request param value When it is not a simple type, such as like a json.
 
-```url
+```
 http://localhost:8080/params/person?person={"name": "xiaoming","age": 18}
 ```
 
@@ -24,7 +24,10 @@ http://localhost:8080/params/person?person={"name": "xiaoming","age": 18}
 
 ### Define Param Bean
 
+Define a bean for receive the json param, such as `Person`:
+
 ```java
+import lombok.Data;
 
 @Data
 public class Person {
@@ -38,7 +41,13 @@ public class Person {
 
 ### Define Controller
 
+Define one `Controller` which have a method use `Person` to receive the json param, and add a `@RequestJsonParam` annotation on the `Person`
+parameter.
+
 ```java
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GettingMapping;
 
 @RestController
 @RequestMapping("/params")

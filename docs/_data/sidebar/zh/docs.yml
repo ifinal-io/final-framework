@@ -9,21 +9,21 @@ menus:
       - id: start-project
         name: 创建工程
       - id: start-entity
-        name: 数据实体
+        name: 开始 Entity
         menus:
           - id: define-entity
             name: 定义实体
           - id: define-enum
             name: 定义枚举
       - id: start-mybatis
-        name: 持久Mybatis
+        name: 开始 Mybatis
         menus:
-          - id: define-mapper
-            name: 定义Mapper
-          - id: define-query
-            name: 定义Query
+          - id: use-mapper
+            name: 使用 Mapper
+          - id: use-query
+            name: 使用 Query
       - id: start-web
-        name: 开始Web
+        name: 开始 Web
         menus:
           - id: define-rest-api
             name: 定义Rest接口

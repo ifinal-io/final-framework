@@ -1,7 +1,37 @@
 menus:
   - id: overview
-    icon: dashboard
+    icon: emoji_objects
     name: Overview
   - id: quick-start
-    icon: dashboard
+    icon: surfing
     name: Quick Start
+    menus:
+      - id: start-entity
+        name: Start Entity
+        menus:
+          - id: define-entity
+            name: Define Entity
+          - id: define-enum
+            name: Define Enum
+      - id: start-mybatis
+        name: Start Mybatis
+        menus:
+          - id: use-mapper
+            name: Use Mapper
+          - id: use-query
+            name: Use Query
+      - id: start-service
+        name: Start Service
+      - id: start-web
+        name: Start Web
+        menus:
+          - id: define-rest-api
+            name: Define RestApi
+          - id: receive-json-param
+            name: Receive Json Param
+  - id: user-manual
+    icon: books
+    name: User Manual
+  - id: dev-manual
+    icon: handyman
+    name: Dev Manual

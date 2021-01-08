@@ -1,44 +1,38 @@
 ---
 formatter: off
 layout: post
-title: start-with-mybatis 
+title: 开始 Mybatis 
 subtitle: start-with-mybatis 
 description: start-with-mybatis 
 tags: [] 
-menus: 
-    - quick-start
-    - start-mybatis
-    - index
 date: 2021-01-06 20:29:53 +800 
 version: 1.0
 formatter: on
 ---
 
-# start-with-mybatis
+# 开始 Mybatis
 
-## How
+## 概述
 
-### Import Dependency
+`final-mybatis`基于`apache mybatis` 进行封装，提供开箱即用的**CURD**操作以及丰富的**查询**（`Query`）条件。
+
+## 如何使用
+
+### 导入依赖
 
 * maven
 
 ```xml
-
-<dependencies>
-    <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
-        <artifactId>final-boot-starter-mybatis</artifactId>
-        <version>{{ site.final.version }}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.ifinal.finalframework.auto</groupId>
-        <artifactId>final-auto-mybatis</artifactId>
-        <version>{{ site.final.version }}</version>
-    </dependency>
-</dependencies>
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-mybatis -->
+<dependency>
+    <groupId>org.ifinal.finalframework.boot</groupId>
+    <artifactId>final-boot-starter-mybatis</artifactId>
+    <version>{{ site.final.version }}</version>
+</dependency>
 ```
 
-### Declare package-info.java
+### 使用指南
 
-Declare a `package-info.java` file in your project source directory like `src/main/java`.
+* [定义Mapper](use-mapper.md)
+* [定义Query](use-query.md)
 
