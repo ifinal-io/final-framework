@@ -32,6 +32,7 @@
         <dependency>
             <artifactId>final-auto-spring</artifactId>
             <groupId>org.ifinal.finalframework.auto</groupId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

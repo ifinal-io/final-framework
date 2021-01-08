@@ -7,15 +7,17 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@Slf4j
 public class SetterAndGetterFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(SetterAndGetterFilter.class);
 
     public SetterAndGetterFilter(final ProcessingEnvironment env) {
 

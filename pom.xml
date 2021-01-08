@@ -228,8 +228,27 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-gpg-plugin</artifactId>

@@ -1,0 +1,24 @@
+menus:
+  - id: overview
+    icon: dashboard
+    name: 概览
+  - id: quick-start
+    icon: dashboard
+    name: 快速开始
+    menus:
+      - id: start-project
+        name: 创建工程
+      - id: start-entity
+        name: 数据实体
+        menus:
+          - id: define-entity
+            name: 定义实体
+          - id: define-enum
+            name: 定义枚举
+      - id: start-mybatis
+        name: 持久Mybatis
+        menus:
+          - id: define-mapper
+            name: 定义Mapper
+          - id: define-query
+            name: 定义Query

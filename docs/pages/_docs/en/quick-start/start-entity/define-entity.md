@@ -5,10 +5,6 @@ title: Define Entity
 subtitle: how-to-define-an-entity
 description: how-to-define-an-entity
 tags: []
-menus:
-    - quick-start
-    - start-entity
-    - define-entity
 date: 2020-11-27 12:54:17 +800
 version: 1.0
 formatter: on
@@ -21,21 +17,6 @@ formatter: on
 `Entity`通常代表数据实体，在`final-framework`的世界里，它表示与数据库表的映射关系。
 
 ## How
-
-### Import Dependency
-
-* maven
-
-```xml
-
-<dependencies>
-    <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
-        <artifactId>final-boot-starter-entity</artifactId>
-        <version>{{ site.final.version }}</version>
-    </dependency>
-</dependencies>
-```
 
 ### Define Entity Bean
 

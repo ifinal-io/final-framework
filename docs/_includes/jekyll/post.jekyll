@@ -1,0 +1,30 @@
+{% assign paths = page.path | replace: '_', '' | replace: '.md' : '' | split: '/'%}
+{% assign lang = paths[1] %}
+<script>
+  var post = new Vue({
+    el: '#post',
+    data: {
+      //filter: $.cookie('sidebar-filter'),
+      //color: $.cookie('sidebar-color'),
+      //mini: $.cookie('sidebar_mini'),
+      page: {
+        collection: "{{ page.collection }}",
+        paths: {{ paths | jsonify }},
+        title: "{{ page.title }}",
+        menus: [],
+        module: "{{ module }}",
+        lang: "{{ lang }}"
+      },
+      modules: modules,
+      sidebar: {{ site.data.sidebar[lang][page.collection] | jsonify }}
+    },
+    mounted: function () {
+
+      this.page.menus = this.page.paths.slice(2);
+
+      console.log(this.sidebar);
+      console.log(this.page.paths);
+      console.log(this.page.menus);
+    }
+  })
+</script>

@@ -1,0 +1,7 @@
+menus:
+  - id: overview
+    icon: dashboard
+    name: Overview
+  - id: quick-start
+    icon: dashboard
+    name: Quick Start

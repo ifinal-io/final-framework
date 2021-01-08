@@ -44,6 +44,10 @@
             </exclusions>
             <groupId>org.ifinal.finalframework.example</groupId>
         </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.boot</groupId>
+            <artifactId>final-boot-starter-redis</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
         <dependency>
             <artifactId>cfr</artifactId>
