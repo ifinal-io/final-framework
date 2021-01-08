@@ -1,9 +1,9 @@
 menus:
   - id: overview
-    icon: dashboard
+    icon: emoji_objects
     name: 概览
   - id: quick-start
-    icon: dashboard
+    icon: surfing
     name: 快速开始
     menus:
       - id: start-project
@@ -22,6 +22,8 @@ menus:
             name: 使用 Mapper
           - id: use-query
             name: 使用 Query
+      - id: start-service
+        name: 开始 Service
       - id: start-web
         name: 开始 Web
         menus:
@@ -29,3 +31,9 @@ menus:
             name: 定义Rest接口
           - id: receive-json-param
             name: 接收Json参数
+  - id: user-manual
+    icon: books
+    name: 用户手册
+  - id: dev-manual
+    icon: handyman
+    name: 开发手册

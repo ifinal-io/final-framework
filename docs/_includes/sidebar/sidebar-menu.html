@@ -2,7 +2,7 @@
 <ul class="nav">
   <li :class="page.menus[0] == menu1.id ? 'active' : ''" class="nav-item " v-for="(menu1,i1) in sidebar.menus">
     <!--一级菜单-->
-    <a :class="page.menus[0] == menu1.id && page.menus[1] != 'index' ? 'collapse' : ''"
+    <a :class="page.menus.length > 1 && page.menus[0] == menu1.id && page.menus[1] != 'index' ? 'collapse' : ''"
        :href="menu1.url ? menu1.url : '/' + page.collection + '/' + page.lang + '/' + menu1.id " class="nav-link">
       <i class="material-icons" v-html="menu1.icon"></i>
       <p> {{menu1.name}}</p>

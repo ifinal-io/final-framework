@@ -2,6 +2,11 @@
 
 }
 
+.sidebar .logo a.logo-mini {
+    width: 32px;
+}
+
+
 .markdown .card {
     font-size: 1em;
 }
