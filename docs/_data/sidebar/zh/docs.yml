@@ -22,3 +22,10 @@ menus:
             name: 定义Mapper
           - id: define-query
             name: 定义Query
+      - id: start-web
+        name: 开始Web
+        menus:
+          - id: define-rest-api
+            name: 定义Rest接口
+          - id: receive-json-param
+            name: 接收Json参数

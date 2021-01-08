@@ -63,6 +63,10 @@
     o-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.markdown article > p {
+    text-indent: 2em;
+}
+
 .sticky-top {
     position: -webkit-sticky;
     position: sticky;
@@ -107,7 +111,7 @@ code.highlighter-rouge {
     color: #e06c75;
 }
 
-.markdown table {
+.markdown article > table {
     width: 100%;
 }
 
@@ -126,6 +130,7 @@ code.highlighter-rouge {
     font-size: 100%;
     /*line-height: 1.45;*/
 }
+
 
 .markdown div.highlight > pre {
     padding: 16px;

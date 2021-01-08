@@ -1,39 +1,22 @@
 ---
 formatter: off
 layout: post 
-title: define-rest-api-in-controller 
+title: 定义Rest接口
 subtitle: define-rest-api-in-controller 
 description: define-rest-api-in-controller 
 tags: []
-menus:
-    - quick-start
-    - start-web
-    - define-rest-api
 date: 2020-12-06 19:23:12 +800 
 version: 1.0 
 formatter: on
 ---
 
-# define-rest-api-in-controller
+# 定义Rest接口
 
-## Import Dependency
-
-* maven
-
-```xml
-
-<dependencies>
-    <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
-        <artifactId>final-boot-starter-web</artifactId>
-        <version>${final.version}</version>
-    </dependency>
-</dependencies>
-```
-
-## Define a Rest Api
+## 定义 RestController
 
 ```java
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/hello")
@@ -47,7 +30,10 @@ public class HelloController {
 }
 ```
 
-## Visit The Api
+## 访问接口
+
+访问上述定义的接口 `http://localhost:8080/hello?word=final!` 将得到以下结果：
+
 
 ```json
 {
@@ -65,7 +51,3 @@ public class HelloController {
   "success": true
 }
 ```
-
-## See Also
-
-* [Global Result Wrapper](../../features/global-result-wrapper.md)
