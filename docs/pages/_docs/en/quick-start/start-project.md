@@ -17,8 +17,11 @@ formatter: on
 ### Use Idea Spring Initializr
 
 1. new project with spring initializr
+   
    ![Idea Spring Initializer](../images/quick-start/idea-spring-initializr.png)
+
 2. config new project
+
    ![Idea Spring New Project](../images/quick-start/idea-spring-new-project.png)
 
 ### Use Spring Initializr

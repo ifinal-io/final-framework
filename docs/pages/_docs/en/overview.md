@@ -13,6 +13,6 @@ formatter: on
 # Overview
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
-![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)
+[![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)](https://github.com/likly/final-frameworks)
 
 `Final` is a **simple**、**easy**、**scalable** `Java` framework.

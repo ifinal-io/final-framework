@@ -48,7 +48,7 @@
 }
 
 
-.markdown article > img {
+.markdown article p > img {
     /* 图片居中 */
     clear: both;
     margin: 16px auto;
