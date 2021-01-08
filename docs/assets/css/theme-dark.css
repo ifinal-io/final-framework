@@ -32,9 +32,9 @@
     /*background-color: #141414 !important;*/
 }
 
-/*.theme-dark .markdown .highlight .w {*/
-/*    background-color: transparent;*/
-/*}*/
+.theme-dark .markdown .highlight .w {
+    background-color: transparent;
+}
 
 .theme-dark .markdown blockquote {
     background-color: #141414 !important;

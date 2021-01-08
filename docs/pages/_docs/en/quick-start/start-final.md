@@ -1,7 +1,7 @@
 ---
 formatter: off
 layout: post
-title: Start Project 
+title: Start Final 
 subtitle: start-project 
 description: start-project 
 tags: [] 
@@ -10,11 +10,17 @@ version: 1.0
 formatter: on
 ---
 
-# start-project
+# Start Final
 
-## Create A Spring Boot Project
+## What
 
-### Use Idea Spring Initializr
+**Final** is s simple java framework base on `spring`, `mybatis`, `redis`, `shardingSphere` like `spring`.
+
+## How
+
+### Create A Spring Boot Project
+
+* Use Idea Spring Initializr
 
 1. new project with spring initializr
    
@@ -24,20 +30,20 @@ formatter: on
 
    ![Idea Spring New Project](../images/quick-start/idea-spring-new-project.png)
 
-### Use Spring Initializr
+* Use Spring Initializr
 
 Use [`start.spring.io`](https://start.spring.io) to create a spring project.
 
 ![Spring Initializr](../images/quick-start/start.spring.io.png)
 
-## Import Dependency
+### Import Dependency
 
 Import `final-boot` dependencies into project by `replace parent` or `import pom`.
 
-### Replace Parent
+* Replace Parent
 
 ```xml
-
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
 <parent>
     <groupId>org.ifinal.finalframework.boot</groupId>
     <artifactId>final-boot</artifactId>
@@ -46,10 +52,10 @@ Import `final-boot` dependencies into project by `replace parent` or `import pom
 </parent>
 ```
 
-### Import Pom
+* Import Pom
 
 ```xml
-
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
 <dependencyManagement>
     <dependencies>
         <dependency>

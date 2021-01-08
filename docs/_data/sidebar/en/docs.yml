@@ -6,8 +6,8 @@ menus:
     icon: surfing
     name: Quick Start
     menus:
-      - id: start-project
-        name: Start Project
+      - id: start-final
+        name: Start Final
       - id: start-entity
         name: Start Entity
         menus:

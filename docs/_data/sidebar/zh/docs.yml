@@ -6,8 +6,8 @@ menus:
     icon: surfing
     name: 快速开始
     menus:
-      - id: start-project
-        name: 创建工程
+      - id: start-final
+        name: 开始 Final
       - id: start-entity
         name: 开始 Entity
         menus:

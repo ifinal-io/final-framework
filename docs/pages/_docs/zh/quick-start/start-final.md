@@ -17,8 +17,11 @@ formatter: on
 ### 使用 Idea Spring Initializr
 
 1. 创建一个工程
+   
    ![Idea Spring Initializer](../images/quick-start/idea-spring-initializr.png)
+   
 2. 配置新工程信息
+   
    ![Idea Spring New Project](../images/quick-start/idea-spring-new-project.png)
 
 ### 使用 Spring Initializr
@@ -36,7 +39,7 @@ Use [`start.spring.io`](https://start.spring.io) to create a spring project.
 * 替换 Parent 节点
 
 ```xml
-
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
 <parent>
     <groupId>org.ifinal.finalframework.boot</groupId>
     <artifactId>final-boot</artifactId>
@@ -48,7 +51,7 @@ Use [`start.spring.io`](https://start.spring.io) to create a spring project.
 * 导入 Pom
 
 ```xml
-
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
 <dependencyManagement>
     <dependencies>
         <dependency>
