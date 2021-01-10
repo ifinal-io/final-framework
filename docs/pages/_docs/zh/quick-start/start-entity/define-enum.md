@@ -1,7 +1,7 @@
 ---
 formatter: off
 layout: post
-title: Define Enum 
+title: 定义枚举
 subtitle: define-enum 
 description: define-enum 
 tags: [] 
@@ -10,19 +10,18 @@ version: 1.0
 formatter: on
 ---
 
-# Define Enum
+# 定义枚举
 
-## What
+## 简介
 
-`Enum` is a base type of `java` which can avoid the `magic number(or String)` and `limit input`.
+**枚举**（`Enum`）作为 `Java` 语言的一个基础类型，它可以避免**魔术数字/字符串**（`Magic Number/String`）和**限制输入**。
 
-## How
+## 用法
 
-### Declare an Enum which implements IEnum
-
-Declare one enum and implements the interface of `IEnum`.
+声明一个实现了接口`IEnum`的枚举。
 
 ```java
+package org.ifinal.finalframework.annotation.data;
 
 @Getter
 @AllArgsConstructor
@@ -47,15 +46,15 @@ public enum YN implements IEnum<Integer> {
 }
 ```
 
-> The `YN` is a build-in enum.
+> `YN` 是内建枚举。
 
-## Why
+既然是语言的基础组成，那为什么要单独说明呢？
 
-The enum of `IEnum` is stronger more than normal enum.
+## 为什么
 
-* Could be saved to datasource use the value of `getCode()`.
-* Could be parsed from the value of `getCode()` in `Json` and `RequestParam`.
-* More readable in json.
+具有`final`特性的枚举有以下特点：
+
+* **可读性更高的Json**
 
 ```json
 {
@@ -64,3 +63,13 @@ The enum of `IEnum` is stronger more than normal enum.
   "ynDesc": "有效"
 }
 ```
+
+* **可被持久化**
+
+实现了`IEnum`接口的枚举在持久化时可使用`getCode()`的值进行持久化。
+
+* **可用于接收参数**
+
+实现了`IEnum`接口的枚举可直接收到**请求参数**（`@RequestParam`）或**请求体**（`@RequestBody`）中其`getCode()`对应的值。
+
+> 在项目中应尽量避免使用`IEnum.getCode()`，甚至应该*禁止使用*。

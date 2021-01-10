@@ -10,15 +10,24 @@ version: 1.0
 formatter: on
 ---
 
-# Start Entity
+# 数据实体
 
-## What
+## 简介
 
-`final-entity` define the rule of `ORM`(**Object/Relational Mapping**).
+`final-entity` 定义了**对象关系映射** `ORM`(**Object/Relational Mapping**)的规则。
 
-## How
+除了支持基本的数据类型，还扩展了对枚举和复杂对象的映射支持。
 
-### Import Dependency
+通过本节学习，您将得到如下收获：
+
+* 如何定义实体
+* 如何定义枚举
+
+## 快速开始
+
+在开始之前，请确保您已经搭建好了一个`final`工程。如果您尚未搭建有`final`工程，请查阅: [开始 Final](../start-final.md)。
+
+### 导入依赖
 
 * maven
 
@@ -38,7 +47,7 @@ formatter: on
 compile group: 'org.ifinal.finalframework.boot', name: 'final-boot-starter-entity', version: '{{ site.final.version }}'
 ```
 
-### Usage
+### 用法
 
-* [Define Entity](define-entity.md)
-* [Define Enum](define-enum.md)
+* [定义实体](define-entity.md)
+* [定义枚举](define-enum.md)

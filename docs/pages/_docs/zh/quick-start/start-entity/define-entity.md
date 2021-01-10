@@ -1,7 +1,7 @@
 ---
 formatter: off
 layout: post
-title: Define Entity
+title: 定义实体
 subtitle: how-to-define-an-entity
 description: how-to-define-an-entity
 tags: []
@@ -10,15 +10,15 @@ version: 1.0
 formatter: on
 ---
 
-# Define Entity
+# 定义实体
 
-## What
+## 简介
 
 `Entity`通常代表数据实体，在`final-framework`的世界里，它表示与数据库表的映射关系。
 
-## How
+## 用法
 
-### Define Entity Bean
+### 定义实体对象
 
 定义一个实现了`IEntity`接口的`Bean`。
 
@@ -39,7 +39,9 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-### Declare @Table Annotation (Optional)
+> `final` 通过接口 `IEntity` 来识别实体类（`Entity`）。
+
+### 自定义表名 (可选)
 
 当实体名称(`Class.getSimpleName()`)与与数据库表名(`Table`)不相同时，可使用`@Table("table")`注解显示声明。
 
@@ -55,7 +57,7 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-### Declare @Column Annotation (Optional)
+### 自定义列名 (可选)
 
 当实体属性(`Field`)名称与数据表列名(`Column`)不相同时，可使用`@Column("column")`注解显示声明。
 
@@ -73,7 +75,7 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-### Declare @Json Annotation (Optional)
+### 声明 Json 列 (可选)
 
 当实体属性(`Field`)需要以`JSON`格式存在到数据库中时，可使用`@Json`注解显示声明
 
@@ -91,7 +93,7 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-### Declare @Transient Annotation (Optional)
+### 声明非数据列 (可选)
 
 当实体属性(`Field`)不参与数据库列(`Column`)映射时，可使用`@Transient`注解显示声明。
 
@@ -107,30 +109,9 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-## Annotations
 
-|   @Annotation   |                    说明                    |
-| :-------------: | :----------------------------------------: |
-|    `@Table`     |                  指定表名                  |
-|    `@Column`    |                  指定列名                  |
-|    `@Final`     |                指定不可修改                |
-|   `@Default`    |                指定不需插入                |
-|   `@Keyword`    |                   关键字                   |
-|     `@Json`     |                    Json                    |
-|  `@PrimaryKey`  |                    主键                    |
-|   `@AutoInc`    |                    自增                    |
-|   `@ReadOnly`   |                    只读                    |
-|  `@Transient`   |                  非数据列                  |
-|  `@WriteOnly`   |                    只写                    |
-|   `@Virtual`    |                   虚拟列                   |
-|   `@Version`    | 版本,更新时自动执行`version = version + 1` |
-|   `@Created`    |         创建时间, @Final,@Default          |
-|   `@Creator`    |                创建,@Final                 |
-| `@LastModified` |                末次修改时间                |
-| `@LastModifier` |                 末次修改人                 |
-|                 |                                            |
-|                 |                                            |
 
 ## See Also
 
+* [对象关系映射](../../user-manual/annotation/orm.md)
 * [如何使用CRUD](how-to-use-crud.md)

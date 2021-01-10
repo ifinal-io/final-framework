@@ -8,7 +8,7 @@
 
 
 .markdown article {
-    font-size: 1.275em;
+    font-size: 1em;
 }
 
 .markdown .card {
@@ -105,7 +105,7 @@ code.highlighter-rouge {
 
 .markdown .toc ul {
     list-style: none;
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 .toc .nav {
@@ -115,7 +115,7 @@ code.highlighter-rouge {
 .markdown .toc .nav-link {
     padding: .4rem .6rem;
     color: black;
-    font-size: 1em;
+    font-size: 0.8em;
     cursor: pointer;
     outline: none;
     border-radius: 4px;
@@ -174,18 +174,27 @@ code.highlighter-rouge {
     /*line-height: 1.45;*/
 }
 
+.markdown div.highlight {
+    margin-left: 2em;
+    border-radius: 5px;
+}
 
 .markdown div.highlight > pre {
     padding: 16px;
-    background-color: wheat;
-    margin: 2em;
+    /*background-color: wheat;*/
+    /*margin: 2em;*/
 }
 
 .markdown blockquote {
-    border-left-width: 2px;
-    border-left-style: solid;
-    border-color: #9c27b0;
     padding: 16px 16px 1px;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    margin-left: 2em;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+    border-left-color: #f0ad4e;
+    background-color: wheat;
 }
 
 

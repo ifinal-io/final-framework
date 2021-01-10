@@ -13,7 +13,7 @@
   {% include sidebar/sidebar.html %}
   <div class="main-panel">
     <!-- Navbar -->
-    {% include navbar.html %}
+    {% include navbar/navbar.html %}
     <!-- End Navbar -->
     <div class="content">
       <div class="container-fluid">
@@ -34,9 +34,7 @@
         </div>
 
         <div class="row flex-md-nowrap markdown">
-          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-1">
-          </div>
-          <main class="col-xl-8 col-lg-12  " role="main">
+          <main class="col-xl-10 col-lg-12  " role="main">
             <article>
               {{ content }}
             </article>
@@ -113,7 +111,6 @@
 
         $('.switch-sidebar-image input').change(function () {
           $full_page_background = $('.full-page-background');
-
           $input = $(this);
 
           if ($input.is(':checked')) {

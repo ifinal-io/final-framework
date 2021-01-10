@@ -34,6 +34,12 @@ menus:
   - id: user-manual
     icon: books
     name: 用户手册
+    menus:
+      - id: annotation
+        name: Annotation
+        menus:
+          - id: orm
+            name: ORM
   - id: dev-manual
     icon: handyman
     name: 开发手册
