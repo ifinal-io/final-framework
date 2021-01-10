@@ -7,6 +7,10 @@
 }
 
 
+.markdown article {
+    font-size: 1.275em;
+}
+
 .markdown .card {
     font-size: 1em;
 }
@@ -124,20 +128,41 @@ code.highlighter-rouge {
 
 
 .markdown .toc .nav-link.active {
+    font-weight: bold;
     color: white;
     background-color: #4caf50;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(76, 175, 80, .4);
+}
+
+.markdown article > ol,
+.markdown article > ul {
+    margin: 0 1em;
+}
+
+.markdown article > ol li,
+.markdown article > ul li {
+    padding: .4rem .6rem;
 }
 
 .markdown article > table {
     width: 100%;
 }
 
+.markdown article > table > thead > tr > th {
+    background-color: #e7e7e7;
+}
+
+.markdown article > table > tbody > tr > td {
+    /*background-color: wheat;*/
+}
+
+
 .markdown article > table > thead > tr > th,
 .markdown article > table > tbody > tr > td {
     padding: 12px 8px;
     vertical-align: middle;
-    border: 1px solid rgba(255, 255, 255, .1) !important;
+    adding: .75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
 }
 
 .markdown div.highlight pre {

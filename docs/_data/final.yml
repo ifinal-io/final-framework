@@ -1,0 +1,13 @@
+modules:
+  - name: final-annotaiton
+  - name: final-framework
+  - name: final-auto
+  - name: final-boot
+dependency:
+  code:
+    - group: org.projectlombok
+      artifact: lombok
+      version: 1.8.16
+      home: https://github.com/rzwitserloot/lombok
+      name: Lombok
+      description: 简化对象封装工具
