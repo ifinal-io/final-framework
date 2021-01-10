@@ -7,6 +7,7 @@ description: overview
 tags: [] 
 date: 2021-01-08 10:34:33 +800 
 version: 1.0
+
 formatter: on
 ---
 
@@ -22,6 +23,17 @@ formatter: on
 `Final` 基于`spring` 开发，集成了大量流行的开源项目，以提供更为易用的开发方式。
 
 `Final` 也是`Java`开发的最佳实践之一，将工作中用到的Java技术和遇到的问题，通过更深入的研究与学习后整合到本项目中，然后再引入到工作项目中，从而使本项目经过更多的线上验证。
+
+## 功能
+
+* 增强的枚举([#6](https://github.com/likly/final-frameworks/issues/6))
+* 增强的日期([#9](https://github.com/likly/final-frameworks/issues/9))
+* 接收Json参数([#7](https://github.com/likly/final-frameworks/issues/7))
+* 声明式缓存
+* 声明式操作日志
+* 声明式分库分表
+* 统一结果集([#10](https://github.com/likly/final-frameworks/issues/10))
+* 全局异常处理
 
 ## 模块
 

@@ -13,6 +13,7 @@ menus:
 Define a bean with data type property.
 
 ```java
+package example;
 
 @Data
 public class DateBean {

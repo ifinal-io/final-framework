@@ -1,27 +1,20 @@
 package org.ifinal.finalframework.web.autoconfiguration;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
 import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.web.http.converter.JsonStringHttpMessageConverter;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.method.annotation.MapMethodProcessor;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver;
-import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 /**
@@ -49,9 +42,7 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
             ConfigurableApplicationContext applicationContext = event.getApplicationContext();
             final RequestMappingHandlerAdapter requestMappingHandlerAdapter = applicationContext
                 .getBean(RequestMappingHandlerAdapter.class);
-            configureMessageConverters(requestMappingHandlerAdapter);
             configureHandlerMethodArgumentResolver(applicationContext, requestMappingHandlerAdapter);
-            configureHandlerReturnValueHandler(requestMappingHandlerAdapter);
         } catch (Exception e) {
             logger.error("", e);
         }
@@ -90,50 +81,6 @@ public class RequestMappingHandlerAdapterAutoConfiguration implements Applicatio
         }
 
         adapter.setArgumentResolvers(argumentResolvers);
-    }
-
-    private void configureHandlerReturnValueHandler(final RequestMappingHandlerAdapter adapter) {
-
-        final List<HandlerMethodReturnValueHandler> returnValueHandlers = new LinkedList<>();
-
-        List<HandlerMethodReturnValueHandler> defaultReturnValueHandlers = adapter.getReturnValueHandlers();
-        if (Asserts.nonEmpty(defaultReturnValueHandlers)) {
-
-            for (HandlerMethodReturnValueHandler returnValueHandler : defaultReturnValueHandlers) {
-                if (returnValueHandler instanceof AbstractMessageConverterMethodProcessor) {
-
-                    Optional.ofNullable(ReflectionUtils.findField(returnValueHandler.getClass(), "messageConverters"))
-                        .ifPresent(field -> {
-                            ReflectionUtils.makeAccessible(field);
-                            ReflectionUtils.setField(field, returnValueHandler, adapter.getMessageConverters());
-
-                        });
-                }
-                returnValueHandlers.add(returnValueHandler);
-            }
-        }
-
-        adapter.setReturnValueHandlers(returnValueHandlers);
-    }
-
-    /**
-     * @param adapter adapter
-     * @see RequestMappingHandlerAdapter#getMessageConverters()
-     */
-    private void configureMessageConverters(final RequestMappingHandlerAdapter adapter) {
-
-        List<HttpMessageConverter<?>> messageConverters = adapter.getMessageConverters();
-
-        List<HttpMessageConverter<?>> httpMessageConverters = messageConverters.stream()
-            .map(it -> {
-                if (it instanceof StringHttpMessageConverter) {
-                    return new JsonStringHttpMessageConverter((StringHttpMessageConverter) it);
-                } else {
-                    return it;
-                }
-            }).collect(Collectors.toList());
-
-        adapter.setMessageConverters(httpMessageConverters);
     }
 
 }

@@ -40,6 +40,8 @@ menus:
         menus:
           - id: orm
             name: ORM
+          - id: result
+            name: 统一结果集
   - id: dev-manual
     icon: handyman
     name: 开发手册

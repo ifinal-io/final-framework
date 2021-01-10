@@ -60,4 +60,4 @@ public class RequestJsonController {
 }
 ```
 
-> The `@RequestJsonParam` is also support json body like `@RequestBody`.
+> `@RequestJsonParam` 像 `@RequestBody` 同样支持Json请求体。

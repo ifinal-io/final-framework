@@ -1,0 +1,10 @@
+menus:
+  - id: web
+    icon: dashboard
+    name: Web
+    menus:
+      - id: spi
+        name: SPI
+        menus:
+          - id: handler-method-argument-resolver
+            name: 参数解析器

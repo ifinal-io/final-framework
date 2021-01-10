@@ -77,21 +77,14 @@ collections_dir: pages
 collections:
   docs:
     output: true
-#defaults:
-#  - scope:
-#      path: ""
-#      type: "cache"
-#    values:
-#      layout: "post"
-#      toc: true
-#      module: "cache"
-#  - scope:
-#      path: ""
-#      type: "json"
-#    values:
-#      layout: "post"
-#      toc: true
-#      module: "json"
+  spring:
+    output: true
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: post
+      output: true
 # 插件配置
 gist:
   noscript: false

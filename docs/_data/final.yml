@@ -1,3 +1,5 @@
+features:
+  - name: 增强的JSON
 modules:
   - name: final-annotaiton
   - name: final-framework

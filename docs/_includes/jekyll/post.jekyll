@@ -17,7 +17,7 @@
       },
       modules: [],
       theme: "light",
-      sidebar: {{ site.data.sidebar[lang][page.collection] | jsonify }}
+      sidebar: {{ site.data.i18n[lang]['sidebar'][page.collection] | jsonify }}
     },
     mounted: function () {
 
