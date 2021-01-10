@@ -1,4 +1,19 @@
 menus:
+  - id: overview
+    icon: emoji_objects
+    name: 概览
+  - id: ioc
+    icon: emoji_objects
+    name: IOC
+    menus:
+      - id: spi
+        name: SPI
+        menus:
+          - id: application-listener
+            name: 应用监听器
+  - id: aop
+    icon: emoji_objects
+    name: AOP
   - id: web
     icon: dashboard
     name: Web
