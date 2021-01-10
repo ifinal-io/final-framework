@@ -29,20 +29,21 @@
 
 .markdown h2 {
     font-weight: bold;
-    background-color: #ff9800;
-    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(255, 152, 0, .4);
-    color: #efebe9;
+    /*background-color: #ff9800;*/
+    /*box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(255, 152, 0, .4);*/
+    /*color: #efebe9;*/
     padding: 3px 10px 1px;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     margin-right: 3px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .markdown h3 {
     font-weight: bold;
     margin: 32px 0;
     padding: 3px 10px 5px;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
     font-size: 20px;
 }
 
@@ -93,6 +94,11 @@ code.highlighter-rouge {
 }
 
 /*TOC*/
+
+.markdown .toc {
+    margin-top: 32px;
+}
+
 .markdown .toc ul {
     list-style: none;
     padding-left: 1em;
@@ -103,10 +109,13 @@ code.highlighter-rouge {
 }
 
 .markdown .toc .nav-link {
-    padding: 0;
-    color: #929aa2;
-    font-size: 12px;
+    padding: .4rem .6rem;
+    color: black;
+    font-size: 1em;
     cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+    transition: all .15s;
 }
 
 .markdown .toc .nav-link:hover {
@@ -115,7 +124,9 @@ code.highlighter-rouge {
 
 
 .markdown .toc .nav-link.active {
-    color: #e06c75;
+    color: white;
+    background-color: #4caf50;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(76, 175, 80, .4);
 }
 
 .markdown article > table {
@@ -141,6 +152,8 @@ code.highlighter-rouge {
 
 .markdown div.highlight > pre {
     padding: 16px;
+    background-color: wheat;
+    margin: 2em;
 }
 
 .markdown blockquote {
@@ -149,6 +162,18 @@ code.highlighter-rouge {
     border-color: #9c27b0;
     padding: 16px 16px 1px;
 }
+
+
+.sidebar .nav li.active > a.collapse {
+    background-color: hsla(0, 0%, 78%, .2);
+    color: #3c4858;
+    box-shadow: none
+}
+
+.sidebar[data-background-color=black] .nav li.active > a.collapse {
+    color: #fff;
+}
+
 
 /*.markdown div.language-xml pre{*/
 /*    padding-top: 0;*/

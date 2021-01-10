@@ -16,11 +16,14 @@
         lang: "{{ lang }}"
       },
       modules: [],
+      theme: "light",
       sidebar: {{ site.data.sidebar[lang][page.collection] | jsonify }}
     },
     mounted: function () {
 
       this.page.menus = this.page.paths.slice(2);
+
+      $('#body').data('theme', 'light');
 
       console.log(this.sidebar);
       console.log(this.page.paths);

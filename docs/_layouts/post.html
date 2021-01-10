@@ -6,7 +6,8 @@
 <style>
 
 </style>
-<body data-offset="100" data-spy="scroll" data-target="#toc">
+<body data-offset="140" data-spy="scroll" data-target="#toc" style="background-color: whitesmoke" id="body">
+
 <!-- Extra details for Live View on GitHub Pages -->
 <div class="wrapper " id="post">
   {% include sidebar/sidebar.html %}
@@ -33,18 +34,20 @@
         </div>
 
         <div class="row flex-md-nowrap markdown">
-          <main class="col-xl-10 col-lg-12 card" role="main">
-            <article class="card-body">
+          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-1">
+          </div>
+          <main class="col-xl-8 col-lg-12  " role="main">
+            <article>
               {{ content }}
             </article>
           </main>
 
           <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
-            <div class="card">
-              <div class="card-body">
-                <div class="toc" id="toc">
 
-                </div>
+            <div style="border-left: 1px red solid;padding-left: 1em">
+
+
+              <div class="toc" id="toc">
               </div>
             </div>
 
