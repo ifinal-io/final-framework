@@ -25,6 +25,11 @@
 
     <div class="navbar-nav-scroll ml-md-auto " style="margin-right: 70px">
       <ul class="navbar-nav bd-navbar-nav flex-row">
+        <li class="nav-item">
+          <a class="nav-link" href="{{site.github}}" target="_blank" rel="noopener"><i class="material-icons">star</i> 点赞关注
+            <div class="ripple-container"></div>
+          </a>
+        </li>
         <!--I18N-->
         <li class="nav-item dropdown">
           {% assign locales = page.path | replace: '_', '' | replace: '.md' : '' | split: '/'%}
