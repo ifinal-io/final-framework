@@ -72,7 +72,7 @@ public interface BeanPostProcessor {
 
 | SPI                                                  |      描述       |      |
 | ---------------------------------------------------- | :-------------: | ---- |
-| [ApplicationContextAwareProcessor](../bean/aware.md) | 解析`Aware`回调 |      |
+| [ApplicationContextAwareProcessor](aware.md) | 解析`Aware`回调 |      |
 |                                                      |                 |      |
 |                                                      |                 |      |
 |                                                      |                 |      |

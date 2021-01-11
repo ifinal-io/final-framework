@@ -11,20 +11,21 @@ menus:
       - id: context
         name: Context
         menus:
-          - id: refresh
-            name: Refresh
+          - id: application-context
+            name: 应用上下文
+          - id: application-event-publisher
+            name: 应用事件发布者
+          - id: application-listener
+            name: 应用监听器
+          - id: application-event-multicaster
+            name: 应用事件多播器
       - id: bean
         name: Bean
         menus:
           - id: aware
             name: Aware
-      - id: spi
-        name: SPI
-        menus:
           - id: bean-post-processor
             name: Bean 后置处理器
-          - id: application-listener
-            name: 应用监听器
   - id: aop
     icon: emoji_objects
     name: AOP

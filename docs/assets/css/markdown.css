@@ -184,7 +184,7 @@ code.highlighter-rouge {
     border-radius: 5px;
 }
 
-.markdown div.highlight > pre {
+.markdown div.highlight > pre.highlight {
     padding: 16px;
     /*background-color: wheat;*/
     /*margin: 2em;*/
