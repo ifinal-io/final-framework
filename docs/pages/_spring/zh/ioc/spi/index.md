@@ -14,5 +14,12 @@ formatter: on
 
 ## SPI
 
-| SPI | 名称 | 描述 | | :-----------------: | :--------: | :--: | | ApplicationListener | 应用监听器 | | | | | |
+|                      SPI                       |      名称       | 描述 |
+| :--------------------------------------------: | :-------------: | :---: |
+| [ApplicationListener](application-listener.md) |   应用监听器    |      |
+|  [BeanPostProcessor](bean-post-processor.md)   | Bean 后置处理器 |      |
+|                                                |                 |      |
+|                                                |                 |      |
+
+
 

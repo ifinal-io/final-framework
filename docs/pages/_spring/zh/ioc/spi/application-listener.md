@@ -1,6 +1,5 @@
 ---
 formatter: off
-layout: post
 title: 应用监听器
 subtitle: application-listener 
 description: application-listener 

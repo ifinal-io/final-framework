@@ -1,3 +1,5 @@
+{% assign paths = page.path | replace: '_', '' | replace: '.md' : '' | split: '/'%}
+{% assign lang = paths[1] %}
 <div class="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
   <!--
     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -6,10 +8,10 @@
 -->
   <div class="logo">
     <a class="simple-text logo-mini" href="{{ site.url }}">
-      <img src="{{ site.logo }}" height="32px" width="32px"/>
+      <img src="{{ site.data.i18n[lang]['sidebar'][page.collection]['logo'] }}" height="32px" width="32px"/>
     </a>
     <a class="simple-text logo-normal" style="text-transform: none" href="{{ site.url }}">
-      {{ site.name }}
+      {{ site.data.i18n[lang]['sidebar'][page.collection]['name'] }}
     </a>
   </div>
   <div class="sidebar-wrapper">

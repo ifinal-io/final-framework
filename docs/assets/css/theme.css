@@ -1,3 +1,8 @@
+.navbar a.navbar-brand {
+    font-weight: bold;
+}
+
+
 .sidebar {
     padding: 0;
     margin: 0;

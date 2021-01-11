@@ -1,3 +1,5 @@
+logo: /assets/images/logos/spring.svg
+name: FinalSpring
 menus:
   - id: overview
     icon: emoji_objects
@@ -6,16 +8,28 @@ menus:
     icon: emoji_objects
     name: IOC
     menus:
+      - id: context
+        name: Context
+        menus:
+          - id: refresh
+            name: Refresh
+      - id: bean
+        name: Bean
+        menus:
+          - id: aware
+            name: Aware
       - id: spi
         name: SPI
         menus:
+          - id: bean-post-processor
+            name: Bean 后置处理器
           - id: application-listener
             name: 应用监听器
   - id: aop
     icon: emoji_objects
     name: AOP
   - id: web
-    icon: dashboard
+    icon: public
     name: Web
     menus:
       - id: spi
