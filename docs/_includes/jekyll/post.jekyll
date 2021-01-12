@@ -15,7 +15,7 @@
         module: "{{ module }}",
         lang: "{{ lang }}"
       },
-      modules: [],
+      modules: {{ site.data.i18n[lang]['modules'] | jsonify }},
       theme: "light",
       sidebar: {{ site.data.i18n[lang]['sidebar'][page.collection] | jsonify }}
     },

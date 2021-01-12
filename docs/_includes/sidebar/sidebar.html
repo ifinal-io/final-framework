@@ -8,13 +8,14 @@
 -->
   <div class="logo">
     <a class="simple-text logo-mini" href="{{ site.url }}">
-      <img src="{{ site.data.i18n[lang]['sidebar'][page.collection]['logo'] }}" height="32px" width="32px"/>
+      <img src="{{ site.logo }}" height="32px" width="32px"/>
     </a>
     <a class="simple-text logo-normal" style="text-transform: none" href="{{ site.url }}">
-      {{ site.data.i18n[lang]['sidebar'][page.collection]['name'] }}
+      {{ site.name }}
     </a>
   </div>
   <div class="sidebar-wrapper">
+    {% include sidebar/sidebar-user.html %}
     {% include sidebar/sidebar-menu.html %}
   </div>
   <div class="sidebar-background" style="background-image: url(/assets/img/sidebar-1.jpg);"></div>
