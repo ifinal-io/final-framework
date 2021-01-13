@@ -18,6 +18,8 @@ public class ShardingDataSourceProperties {
 
     static final String DEFAULT_DATASOURCE_PREFIX = "final.sharding";
 
+    private boolean enable = true;
+
     private Map<String, DataSourceProperties> datasource;
 
 }

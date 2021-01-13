@@ -84,7 +84,7 @@ public class AnnotationProperty extends AnnotationBasedPersistentProperty<Proper
     /**
      * @see Final
      */
-    private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class) && super.isImmutable());
+    private final Lazy<Boolean> isFinal = Lazy.of(!isTransient() && isAnnotationPresent(Final.class));
 
     /**
      * @see Virtual

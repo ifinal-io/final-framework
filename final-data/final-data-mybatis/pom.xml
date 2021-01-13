@@ -7,7 +7,7 @@
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.ifinal.finalframework.data</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
     <artifactId>final-data-mybatis</artifactId>
     <dependencies>

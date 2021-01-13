@@ -32,9 +32,9 @@ formatter: on
 * maven
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-entity -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot-starter-entity -->
 <dependency>
-    <groupId>org.ifinal.finalframework.boot</groupId>
+    <groupId>org.ifinal.finalframework.starter</groupId>
     <artifactId>final-boot-starter-entity</artifactId>
     <version>{{ site.final.version }}</version>
 </dependency>
@@ -43,8 +43,8 @@ formatter: on
 * gradle
 
 ```groovy
-// https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-entity
-compile group: 'org.ifinal.finalframework.boot', name: 'final-boot-starter-entity', version: '{{ site.final.version }}'
+// https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot-starter-entity
+compile group: 'org.ifinal.finalframework.starter', name: 'final-boot-starter-entity', version: '{{ site.final.version }}'
 ```
 
 ### 用法

@@ -23,9 +23,9 @@ formatter: on
 * maven
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot-starter-mybatis -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot-starter-mybatis -->
 <dependency>
-    <groupId>org.ifinal.finalframework.boot</groupId>
+    <groupId>org.ifinal.finalframework.starter</groupId>
     <artifactId>final-boot-starter-mybatis</artifactId>
     <version>{{ site.final.version }}</version>
 </dependency>

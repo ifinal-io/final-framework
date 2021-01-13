@@ -17,8 +17,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <artifactId>final-boot</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <artifactId>final-starter</artifactId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <scope>import</scope>
                 <type>pom</type>
                 <version>${final.version}</version>
@@ -57,10 +57,10 @@
     <parent>
         <artifactId>final-frameworks</artifactId>
         <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
 
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
 
 </project>

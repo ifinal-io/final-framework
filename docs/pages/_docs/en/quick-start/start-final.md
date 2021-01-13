@@ -43,10 +43,10 @@ Import `final-boot` dependencies into project by `replace parent` or `import pom
 * Replace Parent
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot -->
 <parent>
-    <groupId>org.ifinal.finalframework.boot</groupId>
-    <artifactId>final-boot</artifactId>
+    <groupId>org.ifinal.finalframework.starter</groupId>
+    <artifactId>final-starter</artifactId>
     <version>{{ site.final.version }}</version>
     <relativePath/> <!-- lookup parent from repository -->
 </parent>
@@ -55,12 +55,12 @@ Import `final-boot` dependencies into project by `replace parent` or `import pom
 * Import Pom
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot -->
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot</artifactId>
+            <groupId>org.ifinal.finalframework.starter</groupId>
+            <artifactId>final-starter</artifactId>
             <version>{{ site.final.version }}</version>
             <scope>import</scope>
             <type>pom</type>

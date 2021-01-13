@@ -12,8 +12,8 @@ import org.springframework.core.annotation.AliasFor;
 
 /**
  * @author likly
- * @version 1.1.1-SNAPSHOT
- * @since 1.1.1-SNAPSHOT
+ * @version 1.1.2-SNAPSHOT
+ * @since 1.1.2-SNAPSHOT
  */
 
 @Documented

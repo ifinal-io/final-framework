@@ -7,11 +7,15 @@
     <parent>
         <artifactId>final-data</artifactId>
         <groupId>org.ifinal.finalframework.data</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
     <artifactId>final-data-sharding</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
         <dependency>
             <artifactId>shardingsphere-jdbc-core</artifactId>
             <groupId>org.apache.shardingsphere</groupId>

@@ -18,10 +18,14 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.data.query.AbsQEntity;
@@ -29,7 +33,6 @@ import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.annotation.core.IEntity;
 
 /**
  * QEntity 代码生成处理器
@@ -128,13 +131,22 @@ public class AutoQueryGeneratorProcessor extends AbstractProcessor {
             .build();
 
         List<FieldSpec> fieldSpecs = entity.getProperties().stream()
-            .map(property -> FieldSpec.builder(
-                ParameterizedTypeName.get(
-                    ClassName.get(QProperty.class), TypeName.get(property.getElement().asType())), property.getName())
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                // Entity.getRequiredProperty('path')
-                .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())
-                .build())
+            .map(property -> {
+                Element element = property.getElement();
+                TypeMirror type = element.asType();
+
+                if (element instanceof ExecutableElement) {
+                    type = ((ExecutableElement) element).getReturnType();
+                }
+
+                return FieldSpec.builder(
+                    ParameterizedTypeName.get(
+                        ClassName.get(QProperty.class), TypeName.get(type)), property.getName())
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    // Entity.getRequiredProperty('path')
+                    .initializer("$L.getRequiredProperty($S)", entity.getEntity().getSimpleName(), property.getPath())
+                    .build();
+            })
             .collect(Collectors.toList());
 
         TypeSpec clazz = TypeSpec.classBuilder(entity.getSimpleName())

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>final-amp</artifactId>
         <groupId>org.ifinal.finalframework.amp</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
+            <groupId>org.ifinal.finalframework.starter</groupId>
             <artifactId>final-boot-starter-entity</artifactId>
         </dependency>
     </dependencies>

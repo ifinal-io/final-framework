@@ -116,7 +116,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     }
 
     @Override
-    default Criterion in(Collection<Object> values) {
+    default Criterion in(Collection<?> values) {
         return CompareCriterionOperation.builder()
             .target(getTarget())
             .operation(CompareOperation.IN)
@@ -125,7 +125,7 @@ public interface CriterionTarget<T> extends Criteriable<Object, Criterion>, SqlN
     }
 
     @Override
-    default Criterion nin(Collection<Object> values) {
+    default Criterion nin(Collection<?> values) {
         return CompareCriterionOperation.builder()
             .target(getTarget())
             .operation(CompareOperation.NOT_IN)

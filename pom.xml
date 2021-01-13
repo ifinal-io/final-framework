@@ -12,7 +12,7 @@
     </parent>
     <groupId>org.ifinal.finalframework.frameworks</groupId>
     <artifactId>final-frameworks</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Final framework with Spring Boot</description>
@@ -21,7 +21,7 @@
         <module>final-annotation</module>
         <module>final-auto</module>
         <module>final-framework</module>
-        <module>final-boot</module>
+        <module>final-starter</module>
         <module>final-example</module>
         <module>final-apps</module>
         <module>final-cloud</module>
@@ -34,7 +34,7 @@
         <apache.commons.collections4.vserion>4.4</apache.commons.collections4.vserion>
         <apache.commons.lang3.vserion>3.11</apache.commons.lang3.vserion>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
-        <final.version>1.1.1-SNAPSHOT</final.version>
+        <final.version>1.1.2-SNAPSHOT</final.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <guava.version>30.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -227,11 +227,11 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                </plugin>
+                <!--<plugin>-->
+                <!--    <groupId>org.apache.maven.plugins</groupId>-->
+                <!--    <artifactId>maven-compiler-plugin</artifactId>-->
+                <!--    <version>3.8.1</version>-->
+                <!--</plugin>-->
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

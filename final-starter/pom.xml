@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
     <parent>
         <artifactId>final-frameworks</artifactId>
         <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.ifinal.finalframework.boot</groupId>
-    <artifactId>final-boot</artifactId>
+    <groupId>org.ifinal.finalframework.starter</groupId>
+    <artifactId>final-starter</artifactId>
 
     <modules>
         <module>final-boot-starter</module>
@@ -52,72 +51,72 @@
             <!-- ==================================================================================================== -->
             <dependency>
                 <artifactId>final-boot-starter</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-json</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-entity</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-mybatis</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-service</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-data</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-redis</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-cache</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-web</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-dubbo</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-monitor</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-sharding</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-zookeeper</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-dashboard</artifactId>
-                <groupId>org.ifinal.finalframework.boot</groupId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>
         </dependencies>

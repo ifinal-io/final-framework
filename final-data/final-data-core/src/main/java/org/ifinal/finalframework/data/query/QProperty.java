@@ -146,12 +146,12 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
     }
 
     @Override
-    default Criterion in(@NonNull Collection<Object> values) {
+    default Criterion in(@NonNull Collection<?> values) {
         return CriterionTarget.from(this).in(values);
     }
 
     @Override
-    default Criterion nin(@NonNull Collection<Object> values) {
+    default Criterion nin(@NonNull Collection<?> values) {
         return CriterionTarget.from(this).nin(values);
     }
 

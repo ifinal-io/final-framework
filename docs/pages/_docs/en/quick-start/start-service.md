@@ -29,7 +29,7 @@ formatter: on
 
 <dependencies>
     <dependency>
-        <groupId>org.ifinal.finalframework.boot</groupId>
+        <groupId>org.ifinal.finalframework.starter</groupId>
         <artifactId>final-boot-starter-service</artifactId>
         <version>${final.version}</version>
     </dependency>

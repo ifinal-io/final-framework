@@ -49,10 +49,10 @@ Use [`start.spring.io`](https://start.spring.io) to create a spring project.
 * 替换 Parent 节点
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-starter -->
 <parent>
-    <groupId>org.ifinal.finalframework.boot</groupId>
-    <artifactId>final-boot</artifactId>
+    <groupId>org.ifinal.finalframework.starter</groupId>
+    <artifactId>final-starter</artifactId>
     <version>{{ site.final.version }}</version>
     <relativePath/> <!-- lookup parent from repository -->
 </parent>
@@ -61,12 +61,12 @@ Use [`start.spring.io`](https://start.spring.io) to create a spring project.
 * 导入 Pom
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.boot/final-boot -->
+<!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-starter -->
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.boot</groupId>
-            <artifactId>final-boot</artifactId>
+            <groupId>org.ifinal.finalframework.starter</groupId>
+            <artifactId>final-starter</artifactId>
             <version>{{ site.final.version }}</version>
             <scope>import</scope>
             <type>pom</type>
