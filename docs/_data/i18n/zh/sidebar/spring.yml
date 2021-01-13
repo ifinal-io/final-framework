@@ -4,6 +4,14 @@ menus:
   - id: overview
     icon: emoji_objects
     name: 概览
+  - id: hello-world
+    icon: dashboard
+    name: 你好，世界
+  - id: annotations
+    icon: widgets
+    name: Annotation
+    menus:
+
   - id: ioc
     icon: emoji_objects
     name: IOC
