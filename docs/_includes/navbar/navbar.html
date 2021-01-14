@@ -1,30 +1,17 @@
-<nav class="navbar navbar-expand-lg  navbar-fixed-top navbar-transparent text-white navbar-absolute navbar-translate">
-  <div class="container-fluid">
-    <div class="navbar-wrapper">
-      <div class="navbar-minimize">
-        <button class="btn btn-just-icon btn-white btn-fab btn-round" id="minimizeSidebar">
-          <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
-          <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
-        </button>
-      </div>
-      <a class="navbar-brand" href="#pablo">{{ page.title }}</a>
+<nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg bg-primary" style="margin-left: 260px" color-on-scroll="100"
+     id="sectionsNav">
+  <div class="container">
+    <div class="navbar-translate">
+      <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit-pro/index.html">{{ site.title }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
-    <!--        -->
-    <button aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler" data-toggle="collapse" type="button">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-      <span class="navbar-toggler-icon icon-bar"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end">
-      <ul class="navbar-nav">
-
-      </ul>
-    </div>
-
-    <div class="navbar-nav-scroll ml-md-auto " style="margin-right: 70px">
-      <ul class="navbar-nav bd-navbar-nav flex-row">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{{site.github}}" target="_blank" rel="noopener"><i class="material-icons">star</i> 点赞关注
             <div class="ripple-container"></div>
@@ -55,8 +42,8 @@
         </li>
       </ul>
     </div>
-
-    {% include navbar/github-corner.html %}
-
   </div>
+
+  {% include navbar/github-corner.html %}
+
 </nav>

@@ -9,21 +9,26 @@
 <body data-offset="150" data-spy="scroll" data-target="#toc" style="background-color: whitesmoke" id="body">
 
 <!-- Extra details for Live View on GitHub Pages -->
-<div class="wrapper " id="post">
+<div class="wrapper" id="post">
   {% include sidebar/sidebar.html %}
-  <div class="main-panel">
+  <div class="main-panel blog-posts">
     <!-- Navbar -->
     {% include navbar/navbar.html %}
     <!-- End Navbar -->
 
-    <div class="card card-background" style="background-image: url('{{ page.banner }}');
-margin-top: 0;margin-bottom: 0px;height: 400px;border-top-right-radius: 0; border-top-left-radius: 0;box-shadow: none">
-      <div class="card-body" style="padding: 120px 0 80px">
-        <h1 class="card-title" style="font-size: 3.75rem; font-weight: 500">{{ page.title }}</h1>
+
+    <div class="page-header header-filter header-small" data-parallax="true"
+         style="height: 65vh;background-image: url('{{ page.banner }}'); transform: translate3d(0px, 0px, 0px);">
+      <div class="container" style="height: auto">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <h1 class="title text-white" style="font-family: Metropolis,sans-serif">{{page.title}}</h1>
+            <br>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="content" style="margin-top: 0">
+    <div class="main main-raised">
       <div class="container-fluid">
 
         <div class="row flex-md-nowrap markdown">
@@ -35,11 +40,8 @@ margin-top: 0;margin-bottom: 0px;height: 400px;border-top-right-radius: 0; borde
             </article>
           </main>
 
-          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
-
+          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2" style="top: 100px">
             <div style="border-left: 1px #9c27b0  solid;padding-left: 1em">
-
-
               <div class="toc" id="toc">
               </div>
             </div>
@@ -49,6 +51,8 @@ margin-top: 0;margin-bottom: 0px;height: 400px;border-top-right-radius: 0; borde
 
       </div>
     </div>
+
+
   </div>
 </div>
 <div id="snowbox"/>
