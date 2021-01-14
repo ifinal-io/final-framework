@@ -218,3 +218,61 @@ code.highlighter-rouge {
 /*    padding-top: 0;*/
 /*}*/
 
+
+/*-------------------------*/
+
+
+#hero {
+    background-color: #262a2d;
+    padding: 80px 0 95px;
+    overflow: hidden;
+}
+
+.left-geo, .right-geo {
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    top: -200px;
+}
+
+.left-geo {
+    border-radius: 50%;
+    left: -370px;
+}
+
+.left-geo .quarter-circle1 {
+    transform: rotate(-140deg);
+    animation: fadeIn .4s ease-out .2s forwards;
+}
+
+.quarter-circle1, .quarter-circle2 {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+}
+
+.quarter-circle1 {
+    background: #80ea6e;
+    border-radius: 100% 0 0 0;
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.quarter-circle2 {
+    background: #80ea6e;
+    border-radius: 100% 0 0 0;
+    left: 0;
+    transform-origin: bottom right;
+}
+
+.relative {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+

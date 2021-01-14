@@ -15,26 +15,21 @@
     <!-- Navbar -->
     {% include navbar/navbar.html %}
     <!-- End Navbar -->
-    <div class="content">
+
+    <div class="card card-background" style="background-image: url('{{ page.banner }}');
+margin-top: 0;margin-bottom: 0px;height: 400px;border-top-right-radius: 0; border-top-left-radius: 0;box-shadow: none">
+      <div class="card-body" style="padding: 120px 0 80px">
+        <h1 class="card-title" style="font-size: 3.75rem; font-weight: 500">{{ page.title }}</h1>
+      </div>
+    </div>
+
+    <div class="content" style="margin-top: 0">
       <div class="container-fluid">
 
-        <div class="row d-none">
-          <div class="col-xl-10 col-lg-12 offset-sm-0">
-            {% assign title = page.title %}
-            {% if page.subtitle %}
-            {% assign title = page.title | append: '——' | append: page.subtitle %}
-            {% endif %}
-            <a href="#" id="{{ page.title | downcase | replace: ' ', '-'}}">
-              <h1 class="card-title post-title">{{ title | markdownify }}</h1>
-            </a>
-            <div class="category">
-              {{ page.description | markdownify }}
-            </div>
-          </div>
-        </div>
-
         <div class="row flex-md-nowrap markdown">
-          <main class="col-xl-10 col-lg-12  " role="main">
+          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+          </div>
+          <main class="col-xl-8 col-lg-12  " role="main">
             <article>
               {{ content }}
             </article>
