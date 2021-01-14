@@ -7,6 +7,12 @@ menus:
   - id: hello-world
     icon: dashboard
     name: 你好，世界
+  - id: application
+    icon: apps
+    name: 应用
+    menus:
+      - id: spring-application
+        name: SpringApplication
   - id: annotations
     icon: widgets
     name: Annotation

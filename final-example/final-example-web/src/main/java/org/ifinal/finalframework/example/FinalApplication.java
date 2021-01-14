@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.example;
 
+import org.ifinal.finalframework.context.listener.ApplicationReadyEventListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,7 +15,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class FinalApplication extends SpringBootServletInitializer {
 
     public static void main(final String[] args) {
-        SpringApplication.run(FinalApplication.class);
+
+        SpringApplication application = new SpringApplication(FinalApplication.class);
+
+        application.addListeners(new ApplicationReadyEventListener());
+
+        application.run(args);
+
     }
 
     @Override
