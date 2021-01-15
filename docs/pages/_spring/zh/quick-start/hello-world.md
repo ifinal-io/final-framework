@@ -2,7 +2,7 @@
 formatter: off
 title: 你好，世界
 subtitle: component-scan 
-description: component-scan 
+summary: 程序员世界的大门。
 tags: [] 
 date: 2021-01-13 22:31:05 +800 
 version: 1.0

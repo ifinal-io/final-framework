@@ -6,24 +6,24 @@
 <style>
 
 </style>
-<body data-offset="150" data-spy="scroll" data-target="#toc" style="background-color: whitesmoke" id="body">
+<body class="blog-posts" data-offset="150" data-spy="scroll" data-target="#toc" style="background-color: whitesmoke" id="body">
 
 <!-- Extra details for Live View on GitHub Pages -->
 <div class="wrapper" id="post">
-  {% include sidebar/sidebar.html %}
   <div class="main-panel blog-posts">
+    {% include sidebar/sidebar.html %}
     <!-- Navbar -->
     {% include navbar/navbar.html %}
     <!-- End Navbar -->
 
 
-    <div class="page-header header-filter header-small" data-parallax="true"
-         style="height: 65vh;background-image: url('{{ page.banner }}'); transform: translate3d(0px, 0px, 0px);">
+    <div class="page-header header-filter header-small card-background" data-parallax="true"
+         style="background-image: url('{{ page.banner }}');transform: translate3d(0px, 0px, 0px);">
       <div class="container" style="height: auto">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto text-center">
             <h1 class="title text-white" style="font-family: Metropolis,sans-serif">{{page.title}}</h1>
-            <h4>{{page.description | markdownify }}</h4>
+            <h4>{{page.summary | markdownify }}</h4>
             <br>
           </div>
         </div>
@@ -49,8 +49,7 @@
 
       </div>
     </div>
-
-
+    {% include footer.html %}
   </div>
 </div>
 <div id="snowbox"/>

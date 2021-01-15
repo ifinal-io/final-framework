@@ -1,8 +1,8 @@
 ---
 formatter: off
 title: Spring Application 启动流程
-subtitle: spring-application 
-description: 可用于从Java `main`方法引导和启动`Spring`应用程序的类。
+subtitle: spring-application
+summary: 可用于从Java `main`方法引导和启动`Spring`应用程序的类。
 tags: [] 
 date: 2021-01-14 18:47:28 +800 
 version: 1.0
@@ -36,7 +36,7 @@ public class FinalApplication {
 }
 ```
 
-> 像在文章[你好，世界](../hello-world.md)中的`SpringApplication.run(FinalApplication.class)`那样。
+> 像在文章[你好，世界](hello-world.md)中的`SpringApplication.run(FinalApplication.class)`那样。
 
 ### 定制用法
 

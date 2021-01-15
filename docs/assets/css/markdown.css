@@ -69,15 +69,18 @@
     margin: 16px auto;
     display: block;
     max-width: 70%;
-    border: 1px solid rgba(255, 255, 255, .1);
-    border-radius: 5px;
-    padding: 5px;
+    /*border: 1px solid rgba(255, 255, 255, .1);*/
+    /*border-radius: 5px;*/
+    /*padding: 5px;*/
 
     /* 添加图片阴影 */
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    o-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    /*box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;*/
+    /*webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;*/
+    /*moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;*/
+    /*o-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;*/
+
+    border-radius: 6px !important;
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
 }
 
 .markdown article > p {
@@ -125,6 +128,7 @@ code.highlighter-rouge {
     outline: none;
     border-radius: 4px;
     transition: all .15s;
+    text-transform: none;
 }
 
 .markdown .toc .nav-link:hover {
@@ -224,3 +228,12 @@ code.highlighter-rouge {
 
 /*-------------------------*/
 
+@media (min-width: 991px) {
+    .wrapper .navbar {
+        margin-left: 260px;
+    }
+
+    .wrapper .navbar .container {
+        padding: 0 -130px;
+    }
+}

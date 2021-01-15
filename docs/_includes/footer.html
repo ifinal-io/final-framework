@@ -1,20 +1,21 @@
-<footer class="footer" id="footer">
-  <div class="container-fluid">
+<footer class="footer">
+  <div class="container">
     <nav class="float-left">
       <ul>
-        <li v-for="item in footer.links">
-          <a :href="item.href" v-html="item.name"></a>
+        <li>
+          <a href="{{site.url}}">
+            {{ site.name }}
+          </a>
         </li>
       </ul>
     </nav>
     <div class="copyright float-right">
-      &copy;
+      ©
       <script>
         document.write(new Date().getFullYear())
       </script>
       , mark with <i class="material-icons">stars</i> by
-      <a :href="git.url" target="_blank" v-html="git.domain"></a> for a better framework.
+      <a href="{{site.github}}" target="_blank">{{site.name}}</a> for a better framework.
     </div>
   </div>
 </footer>
-{% include footer.jekyll %}

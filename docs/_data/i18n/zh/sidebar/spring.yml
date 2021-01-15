@@ -4,20 +4,18 @@ menus:
   - id: overview
     icon: emoji_objects
     name: 概览
-  - id: hello-world
-    icon: dashboard
-    name: 你好，世界
-  - id: application
-    icon: apps
-    name: 应用
+  - id: quick-start
+    icon: surfing
+    name: 快速开始
     menus:
+      - id: hello-world
+        name: 你好，世界
       - id: spring-application
         name: SpringApplication
-  - id: annotations
-    icon: widgets
-    name: Annotation
-    menus:
-
+  #  - id: annotations
+  #    icon: widgets
+  #    name: Annotation
+  #    menus:
   - id: ioc
     icon: emoji_objects
     name: IOC
@@ -33,13 +31,13 @@ menus:
             name: 应用监听器
           - id: application-event-multicaster
             name: 应用事件多播器
-      - id: bean
-        name: Bean
-        menus:
-          - id: aware
-            name: Aware
-          - id: bean-post-processor
-            name: Bean 后置处理器
+  #      - id: bean
+  #        name: Bean
+  #        menus:
+  #          - id: aware
+  #            name: Aware
+  #          - id: bean-post-processor
+  #            name: Bean 后置处理器
   - id: aop
     icon: emoji_objects
     name: AOP
@@ -52,3 +50,9 @@ menus:
         menus:
           - id: handler-method-argument-resolver
             name: 参数解析器
+  - id: index
+    icon: search
+    name: 索引
+    menus:
+      - id: class-index
+        name: 类索引
