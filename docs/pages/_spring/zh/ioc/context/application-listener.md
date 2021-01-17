@@ -13,7 +13,7 @@ formatter: on
 
 ## 概述
 
-在[Spring 应用启动流程](../../quick-start/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`或扩展文件`spring.factories`
+在[Spring 应用启动流程](../../application/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`或扩展文件`spring.factories`
 来注册应用监听器（`ApplicationListener`）。
 
 那么，什么是应用监听器呢？
@@ -127,20 +127,3 @@ public class FinalApplication {
 ### Spring 应用事件
 
 Spring 内置了一系列的 Spring 应用事件（`SpringApplicationEvent`），以供开发者监听并处理。
-
-* 内置 Spring 应用事件
-
-| SpringApplicationEvent              | 触发顺序 |         含义         |
-| ----------------------------------- | :------: | :------------------: |
-| ApplicationStartingEvent            |    1     |       启动事件       |
-| ApplicationEnvironmentPreparedEvent |    2     |     环境准备事件     |
-| ApplicationContextInitializedEvent  |    3     | 应用上下文初始化事件 |
-| ApplicationPreparedEvent            |    4     |       准备事件       |
-| ApplicationStartedEvent             |    5     |     启动完成事件     |
-| ApplicationReadyEvent               |    6     |     准备完成事件     |
-| ApplicationFailedEvent              |    -1    |       失败事件       |
-
-
-
-
-

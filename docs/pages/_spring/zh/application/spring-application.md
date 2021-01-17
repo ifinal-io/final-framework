@@ -3,7 +3,7 @@ formatter: off
 title: Spring Application 启动流程
 subtitle: spring-application
 summary: 可用于从Java `main`方法引导和启动`Spring`应用程序的类。
-tags: [] 
+tags: [spring,spring源码] 
 date: 2021-01-14 18:47:28 +800 
 version: 1.0
 formatter: on
@@ -36,7 +36,7 @@ public class FinalApplication {
 }
 ```
 
-> 像在文章[你好，世界](hello-world.md)中的`SpringApplication.run(FinalApplication.class)`那样。
+> 像在文章[你好，世界](../quick-start/hello-world.md)中的`SpringApplication.run(FinalApplication.class)`那样。
 
 ### 定制用法
 
@@ -85,9 +85,9 @@ application.addListeners(new ApplicationReadyEventListener());
 
 > 一般情况下，启动类所在的包应包含所有子模块的包，这样才能确保`SpringApplication`可以读取并加载到项目中声明的Bean。
 
-## 启动流程
+## 源码分析
 
-接下来，通过跟踪源码，看看 Spring 容器是如何启动的。就从`SpringApplication.run(Class)`开始吧：
+既然是从`SpringApplication.run(Class)`开始的，那就看看它都做了些什么吧：
 
 * `SpringApplicatin.run(Class)`
 
@@ -107,9 +107,9 @@ public class SpringApplication {
 }
 ```
 
-可以看到先是通过构造方法`new SpringApplication(primarySources)`创建了一个`SpringApplication`的实例，然后调用`run`方法。
+可以看到先是通过构造方法`new SpringApplication(primarySources)`创建了一个`SpringApplication`的实例，然后调用`run`方法，继续跟进构造函数。
 
-* 先跟进构造方法：
+### 构造方法
 
 ```java
 package org.springframework.boot;
@@ -138,17 +138,67 @@ public class SpringApplication {
 }
 ```
 
-在构造方法中，主要有以下几个步骤：
+第15行代码的字面意思是从`classpath`推断`WebApplicationType`，跟进`deduceFromClasspath()`方法，发现Spring是通过判断特定的类是否存在来决定`WebApplicationType`的。
 
-1. 保存传进来的启动类`primarySources`；
-2. 初始化WEB应用类型；
-3. 加载 `spring.factories` 文件中的 `ApplicationContextInitializer` 扩展；
-4. 加载 `spring.factories` 文件中的 `ApplicationListener` 扩展；
-5. 通过堆栈信息推倒主应用类，即`main`方法所在的类。
+第17、19两行代码中，发现都调用了`getSpringFactoriesInstances`方法，跟进发现一个关键的一行代码`SpringFactoriesLoader.loadFactoryNames(type,classLoader)`，
+该方法功能类似于JDK的SPI，用于加载Spring SPI的类名：
 
-> `spring.factories` 会有专题来叙述，这里不再累赘，只需要知道是从 `META-INF/spring.factories` 配置文件中加载指定的SPI即可。
+```java
+package org.springframework.boot;
+
+public class SpringApplication {
+
+    private <T> Collection<T> getSpringFactoriesInstances(Class<T> type) {
+        return getSpringFactoriesInstances(type, new Class<?>[]{});
+    }
+
+    private <T> Collection<T> getSpringFactoriesInstances(Class<T> type, Class<?>[] parameterTypes, Object... args) {
+        ClassLoader classLoader = getClassLoader();
+        // Use names and ensure unique to protect against duplicates
+        Set<String> names = new LinkedHashSet<>(SpringFactoriesLoader.loadFactoryNames(type, classLoader));
+        List<T> instances = createSpringFactoriesInstances(type, parameterTypes, classLoader, args, names);
+        AnnotationAwareOrderComparator.sort(instances);
+        return instances;
+    }
+
+}
+```
+
+> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI。
+
+第21行`deduceMainApplicationClass()`方法通过分析堆栈信息`StackTraceElement`来推导主应用`Class`，代码如下：
+
+```java
+package org.springframework.boot;
+
+public class SpringApplication {
+
+    private Class<?> deduceMainApplicationClass() {
+        try {
+            StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+            for (StackTraceElement stackTraceElement : stackTrace) {
+                if ("main".equals(stackTraceElement.getMethodName())) {
+                    return Class.forName(stackTraceElement.getClassName());
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            // Swallow and continue
+        }
+        return null;
+    }
+
+}
+```
+
+至此，构造方法分析结束，收获收下几点：
+
+* Spring 是通过分析`classpath`下特定的`Class`是否存在来决定`WebApplicationType`的；
+* Spring 通过`SpringFactoriesLoader`加载了`ApplicationContextInitializer`,`ApplicationListener`扩展；
+* Spring 通过分析堆栈信息`StackTraceElement`来推导主应用`Class`。
 
 * 再来分析`run(String[])`方法
+
+### run方法
 
 ```java
 package org.springframework.boot;
@@ -209,20 +259,89 @@ public class SpringApplication {
 }
 ```
 
-在 `run` 方法中，主要有以下几个步骤：
+第16行`getFunListeners(args)`通过`SpringFactoriesLoader`加载了扩展`SpringApplicationRunListener`并实例了`SpringApplicationRunListeners`对象。
 
-1. 解析启动参数。
-2. 准备环境（`ConfigurableEnvironment`）。
-3. 通过`createApplicationContext()`方法创建应用上下文`ConfigurableApplicationContext`，这里会根据运行环境看初始为以下几种之一：
-    * `AnnotationConfigServletWebServerApplicationContext`
-    * `AnnotationConfigReactiveWebServerApplicationContext`
-    * `AnnotationConfigApplicationContext`
-4. 通过`prepareContext()` 方法准备上下文，主要是应用`ApplicationContextInitializer`的扩展点`initialize(context)`。
-5. 通过`refreshContext(context)`刷新上下文（实例化所有单例），指向了`ConfigurableApplicationContext`接口的`refresh`方法。
-6. 通过`afterRefresh(context, applicationArguments)` 方法后置刷新回调，用于子类扩展。
+> `SpringApplicationRunListeners`是`SpringApplicationRunListener`的集合表现形式，用于触发所有`SpringApplicationRunListener`实例。
 
-> `ConfigurableApplicationContext`的`refresh`方法是Spring应用上下文中的核心方法，会单独叙述。
+第17行调用了`SpringApplicationRunListeners`的`starting()`方法。
 
+第20行创建了一个`ApplicationArguments`的实例。
+
+第22行创建了一个`ConfigurableEnvironment`的实例，并在方法内调用了`SpringApplicationRunListeners`的`environmentPrepared(environment)`方法。
+
+第27行创建了一个`ConfigurableApplicationContext`的实例。
+
+第28行通过`SpringFactoriesLoader`加载了扩展`SpringBootExceptionReporter`。
+
+第31行`prepareContext`方法用于准备`ConfigurableApplicationContext`，稍后单独分析，现在直接跳过进行下一行。
+
+第33行` refreshContext(context)`最终调用了`ConfigurableApplicationContext`的`refreah()`方法。
+
+第34行`afterRefresh(context, applicationArguments)`是一个空的方法，用于子类扩展。
+
+第40行调用了`SpringApplicationRunListeners`的`started(context)`方法。
+
+第41行通过`callRunners()`调用了所有`ApplicationRunner`和`CommandLineRunner`实例的`run`方法。
+
+第43行当有异常时，调用了`SpringApplicationRunListeners`的`failed(context, exception)`方法。
+
+第48行调用了`SpringApplicationRunListeners`的`running(context)`方法。
+
+现在，回过头来分析`prepareContext`方法
+
+### prepareContext
+
+```java
+package org.springframework.boot;
+
+public class SpringApplication {
+
+    private void prepareContext(ConfigurableApplicationContext context, ConfigurableEnvironment environment,
+        SpringApplicationRunListeners listeners, ApplicationArguments applicationArguments, Banner printedBanner) {
+        context.setEnvironment(environment);
+        postProcessApplicationContext(context);
+        applyInitializers(context);
+        listeners.contextPrepared(context);
+        if (this.logStartupInfo) {
+            logStartupInfo(context.getParent() == null);
+            logStartupProfileInfo(context);
+        }
+        // Add boot specific singleton beans
+        ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+        beanFactory.registerSingleton("springApplicationArguments", applicationArguments);
+        if (printedBanner != null) {
+            beanFactory.registerSingleton("springBootBanner", printedBanner);
+        }
+        if (beanFactory instanceof DefaultListableBeanFactory) {
+            ((DefaultListableBeanFactory) beanFactory)
+                .setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
+        }
+        if (this.lazyInitialization) {
+            context.addBeanFactoryPostProcessor(new LazyInitializationBeanFactoryPostProcessor());
+        }
+        // Load the sources
+        Set<Object> sources = getAllSources();
+        Assert.notEmpty(sources, "Sources must not be empty");
+        load(context, sources.toArray(new Object[0]));
+        listeners.contextLoaded(context);
+    }
+
+}
+```
+
+第9行调用了`ApplicationContextInitializer`的`initialize(context)`。
+
+第10行调用了`SpringApplicationRunListeners`的`contextPrepared(context)`方法。
+
+第31行内部创建了一个`BeanDefinitionLoader`实例并调用了`load()`方法。
+
+> `BeanDefinitionLoader`用于加载`BeanDefinition`，包含以下读取器：
+> * 由 `AnnotatedBeanDefinitionReader` 加载的**应用完全限定的类名**所在包下的Bean。
+> * 由 `XmlBeanDefinitionReader`加载的声明在`XML`文件中的Bean。
+> * 由 `GroovyBeanDefinitionReader`加载的`groovy`脚本声明的Bean。
+> * 由 `ClassPathBeanDefinitionScanner` 扫描 `<context:component-scan>` 节点所指定的软件包中的Bean。
+
+第32行调用了`SpringApplicationRunListeners`的`contextLoaded(context)`方法。
 
 至此，SpringApplication 的核心启动流程就完成了。
 

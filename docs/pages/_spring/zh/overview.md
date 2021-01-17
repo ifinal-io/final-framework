@@ -26,5 +26,5 @@ Spring 通过提供强大的框架设计，极大地提高Java的开发效率，
 本系列在更新的过程中可能会对目录结构进行调整，因此请收藏的同学收藏首页地址，再通过目录跳转到相应的页面，由此带来的不便尽请谅解。
 
 本文的第一个章节[快速开始](quick-start/index.md)将从程序员的入门之路[Hello World](quick-start/hello-world.md)
-开始，逐步的分析Spring应用的[启动流程](quick-start/spring-application.md)
+开始，逐步的分析Spring应用的[启动流程](application/spring-application.md)
 及常用功能的实现原理。
