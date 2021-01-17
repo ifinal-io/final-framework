@@ -2,7 +2,7 @@
 formatter: off
 title: SpringApplicationRunListener
 subtitle: spring-application-run-listener 
-summary: Spring应用运行监听器
+summary: 用于监听`SpringApplication`的`run`方法的监听器
 tags: [spring,application,listener] 
 date: 2021-01-16 19:53:41 +800 
 version: 1.0
@@ -13,11 +13,14 @@ formatter: on
 
 ## 概述
 
-`SpringApplicationRunListener`是Spring提供的用于监听`SpringApplication`的`run`方法的监听器。
+**`SpringApplicationRunListener`是Spring提供的用于监听`SpringApplication`的`run`方法的监听器。**
 
-`SpringApplicationRunListener`由`SpringApplicaton`在`run`方法是通过`SpringFactoriesLoader`从`/META-INF/spring.factories`中加载。
+[Spring Application 启动流程](spring-application.md)一文中，在分析`run`方法源码时，得知`SpringApplication`会通过`SpringFactoriesLoader`
+加载声明在`/META-INF/spring.factories`配置文件中的`SpringApplicationRunListener`并实例化，然后传递给`SpringApplicationRunListeners`对象，在`run`
+方法的执行过程中，通过`SpringApplicationRunListeners`间隔地调用所有`SpringApplicationRunListener`的方法。详情请查阅`SpringApplicationRunListeners`相关源码。
 
-`SpringApplicationRunListener`应该声明一个接收`SpringApplication`和`String[]`参数的公开的构造函数。
+* `SpringApplicationRunListener`由`SpringApplicaton`在`run`方法是通过`SpringFactoriesLoader`从`/META-INF/spring.factories`中加载。
+* `SpringApplicationRunListener`应该声明一个接收`SpringApplication`和`String[]`参数的公开的构造函数。
 
 ## 定义
 

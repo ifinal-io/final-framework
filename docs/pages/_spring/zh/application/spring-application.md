@@ -347,11 +347,14 @@ public class SpringApplication {
 
 ## 小结
 
-本节以`SpringApplication.run(Class)`方法为着入点，通过分析构造方法和`run`方法，获取了以下知识点：
+本节以`SpringApplication.run(Class)`方法为切入点，通过分析构造方法和`run`方法等源码，获取了以下知识点：
 
-* 在构造方法中会加载在`spring.factories`文件中声明的扩展点`ApplicationContextInitializer`和`ApplicationListener`;
-* 通过运行环境实例化不同的应用上下文；
-* 在`prepareContext`准备环节中应用了的扩展点`ApplicationContextInitializer`的`initialize(context)`方法。
+* 通过`SpringFactoriesLoader`加载了以下扩展点（SPI）：
+  * ApplicationContextInitializer
+  * ApplicationListener
+  * SpringApplicationRunListener
+  * SpringBootExceptionReporter
+* 通过SpringApplicationRunListeners触发了SpringApplicationRunListener的一系列方法。
 * 在`refreshContext(context)`刷新环节中，指向了`ConfigurableApplicationContext`接口的`refresh`方法。
 
 本文结束。

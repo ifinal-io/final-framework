@@ -18,6 +18,12 @@ menus:
         name: SpringApplication
       - id: spring-application-run-listener
         name: SpringApplicationRunListener
+  - id: annotations
+    icon: widgets
+    name: Annotaions
+    menus:
+      - id: event-listener
+        name: EventListener
   - id: ioc
     icon: emoji_objects
     name: IOC
