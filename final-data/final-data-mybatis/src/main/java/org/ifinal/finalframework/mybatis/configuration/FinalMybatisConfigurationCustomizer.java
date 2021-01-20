@@ -40,7 +40,7 @@ public class FinalMybatisConfigurationCustomizer implements ConfigurationCustomi
         configuration.addMapper(AbsMapper.class);
         configuration.getTypeHandlerRegistry().setDefaultEnumTypeHandler(EnumTypeHandler.class);
 
-        ServicesLoader.load(IEntity.class)
+        ServicesLoader.load(IEntity.class, IEntity.class.getClassLoader())
             .stream()
             .map((String className) -> {
 

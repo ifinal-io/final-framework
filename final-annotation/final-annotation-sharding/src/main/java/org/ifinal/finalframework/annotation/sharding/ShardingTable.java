@@ -28,8 +28,6 @@ public @interface ShardingTable {
      */
     String[] actualDataNodes();
 
-    boolean binding() default false;
-
     boolean broadcast() default false;
 
 }

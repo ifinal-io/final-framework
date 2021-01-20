@@ -16,7 +16,7 @@ formatter: on
 
 |                      SPI                       |      名称       | 描述 |
 | :--------------------------------------------: | :-------------: | :---: |
-| [ApplicationListener](../context/application-listener.md) |   应用监听器    |      |
+| [ApplicationListener](../../context/application-listener.md) |   应用监听器    |      |
 |  [BeanPostProcessor](../bean/bean-post-processor.md)   | Bean 后置处理器 |      |
 |                                                |                 |      |
 |                                                |                 |      |

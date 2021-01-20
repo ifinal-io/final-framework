@@ -5,11 +5,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.sharding.Property;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
@@ -26,13 +28,14 @@ import org.springframework.stereotype.Component;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Slf4j
 @Component
 public class IEntityShardingConfigurer implements ShardingConfigurer {
 
     private static final String LOGIN_TABLE_PLACE_HOLDER = "${logicTable}";
 
     private static final Set<Class<? extends Annotation>> SHARDING_STRATEGY_ANNOTATIONS =
-        ServicesLoader.loadClasses(ShardingStrategy.class)
+        ServicesLoader.loadClasses(ShardingStrategy.class, ShardingStrategy.class.getClassLoader())
             .stream()
             .map(clazz -> (Class<? extends Annotation>) clazz)
             .collect(Collectors.toSet());
@@ -50,72 +53,84 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
     }
 
     private void init() {
-        for (Class<?> clazz : ServicesLoader.loadClasses(IEntity.class)) {
+        List<Class<?>> classes = ServicesLoader.loadClasses(IEntity.class, IEntity.class.getClassLoader());
+
+        if (logger.isInfoEnabled()) {
+            logger.info("found entities size={}", classes.size());
+        }
+
+        for (Class<?> clazz : classes) {
 
             if (clazz.isAnnotationPresent(ShardingTable.class)) {
-                ShardingTable shardingTable = clazz.getAnnotation(ShardingTable.class);
-                Collection<Annotation> shardingStrategyAnnotations = findAllShardingStrategyAnnotations(clazz);
-
-                final String actualDataNodes = String.join(",", shardingTable.actualDataNodes());
-
-                for (String logicTable : shardingTable.logicTables()) {
-
-                    if (shardingTable.binding()) {
-                        bindTables.add(logicTable);
-                    }
-
-                    if (shardingTable.broadcast()) {
-                        broadcastTables.add(logicTable);
-                    }
-
-                    final ShardingTableRegistration table = new ShardingTableRegistration(logicTable,
-                        actualDataNodes.replace(LOGIN_TABLE_PLACE_HOLDER, logicTable));
-
-                    for (Annotation annotation : shardingStrategyAnnotations) {
-
-                        Class<? extends Annotation> annotationType = annotation.annotationType();
-                        if (annotationType.isAnnotationPresent(ShardingStrategy.class)) {
-                            ShardingStrategy shardingStrategy = annotationType.getAnnotation(ShardingStrategy.class);
-
-                            AnnotationAttributes annotationAttributes = AnnotationUtils
-                                .getAnnotationAttributes(clazz, annotation);
-
-                            ShardingStrategy.Scope scope = annotationAttributes.getEnum("scope");
-                            final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.type());
-
-                            final Properties properties = parseAnnotationToProperties(logicTable, annotationAttributes);
-
-                            // process class based sharding strategy properties
-                            if (ShardingStrategy.Strategy.CLASS_BASED == shardingStrategy.strategy()) {
-                                processClassBasedSharingStrategyProperties(properties);
-                            }
-
-                            ShardingStrategyRegistration shardingStrategyRegistration
-                                = buildShardingStrategyConfiguration(
-                                shardingStrategy, name,
-                                annotationAttributes, properties);
-                            switch (scope) {
-                                case TABLE:
-                                    table.setTableShardingStrategy(shardingStrategyRegistration);
-                                    break;
-                                case DATABASE:
-                                    table.setDatabaseShardingStrategy(shardingStrategyRegistration);
-                                    break;
-                                default:
-                                    throw new IllegalArgumentException(scope.name());
-                            }
-
-                            shardingStrategies.put(name, shardingStrategyRegistration);
-                        }
-                    }
-
-                    tables.add(table);
-
-                }
-
+                parseShardingTable(clazz);
             }
 
         }
+    }
+
+    private void parseShardingTable(final Class<?> clazz) {
+
+        ShardingTable shardingTable = clazz.getAnnotation(ShardingTable.class);
+        Collection<Annotation> shardingStrategyAnnotations = findAllShardingStrategyAnnotations(clazz);
+
+        final String actualDataNodes = String.join(",", shardingTable.actualDataNodes());
+
+        for (String logicTable : shardingTable.logicTables()) {
+
+            if (shardingTable.broadcast()) {
+                broadcastTables.add(logicTable);
+            }
+
+            final ShardingTableRegistration table = new ShardingTableRegistration(logicTable,
+                actualDataNodes.replace(LOGIN_TABLE_PLACE_HOLDER, logicTable));
+
+            for (Annotation annotation : shardingStrategyAnnotations) {
+
+                Class<? extends Annotation> annotationType = annotation.annotationType();
+                if (annotationType.isAnnotationPresent(ShardingStrategy.class)) {
+                    parseShardingStrategy(clazz, logicTable, table, annotation, annotationType);
+                }
+            }
+
+            if (logger.isInfoEnabled()) {
+                logger.info("add sharding table: {}", table);
+            }
+
+            tables.add(table);
+
+        }
+    }
+
+    private void parseShardingStrategy(final Class<?> clazz, final String logicTable, final ShardingTableRegistration table,
+        final Annotation annotation, final Class<? extends Annotation> annotationType) {
+        ShardingStrategy shardingStrategy = annotationType.getAnnotation(ShardingStrategy.class);
+
+        AnnotationAttributes annotationAttributes = AnnotationUtils.getAnnotationAttributes(clazz, annotation);
+
+        ShardingStrategy.Scope scope = annotationAttributes.getEnum("scope");
+        final String name = buildShardingStrategyName(logicTable, scope, shardingStrategy.type());
+
+        final Properties properties = parseAnnotationToProperties(logicTable, annotationAttributes);
+
+        // process class based sharding strategy properties
+        if (ShardingStrategy.Strategy.CLASS_BASED == shardingStrategy.strategy()) {
+            processClassBasedSharingStrategyProperties(properties);
+        }
+
+        ShardingStrategyRegistration shardingStrategyRegistration
+            = buildShardingStrategyConfiguration(shardingStrategy, name, annotationAttributes, properties);
+        switch (scope) {
+            case TABLE:
+                table.setTableShardingStrategy(shardingStrategyRegistration);
+                break;
+            case DATABASE:
+                table.setDatabaseShardingStrategy(shardingStrategyRegistration);
+                break;
+            default:
+                throw new IllegalArgumentException(scope.name());
+        }
+
+        shardingStrategies.put(name, shardingStrategyRegistration);
     }
 
     private Properties parseAnnotationToProperties(final String logicTable,
@@ -197,7 +212,6 @@ public class IEntityShardingConfigurer implements ShardingConfigurer {
 
     @Override
     public void addShardingAlgorithms(final @NonNull ShardingAlgorithmRegistry registry) {
-
         for (Map.Entry<String, ShardingStrategyRegistration> entry : shardingStrategies.entrySet()) {
             registry.addShardingAlgorithm(entry.getKey(), entry.getValue().getType(), entry.getValue().getProperties());
         }

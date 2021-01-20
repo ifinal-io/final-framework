@@ -14,7 +14,7 @@ import org.springframework.util.CollectionUtils;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({ShardingDataSourceProperties.class, DataSourceProperties.class})
 public class ShardingDataSourceConfigurer implements ShardingConfigurer {
 
@@ -24,9 +24,7 @@ public class ShardingDataSourceConfigurer implements ShardingConfigurer {
 
     private final DataSourceProperties dataSourceProperties;
 
-    public ShardingDataSourceConfigurer(final ShardingDataSourceProperties properties,
-        final DataSourceProperties dataSourceProperties) {
-
+    public ShardingDataSourceConfigurer(final ShardingDataSourceProperties properties, final DataSourceProperties dataSourceProperties) {
         this.properties = properties;
         this.dataSourceProperties = dataSourceProperties;
     }

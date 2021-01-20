@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.util.Classes;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -28,6 +29,7 @@ import org.springframework.util.MultiValueMap;
  * @see java.util.ServiceLoader
  * @since 1.0.0
  */
+@Slf4j
 public final class ServicesLoader {
 
     private static final Map<ClassLoader, MultiValueMap<String, String>> cache = new ConcurrentReferenceHashMap<>();
@@ -111,7 +113,6 @@ public final class ServicesLoader {
                     final URL url = urls.nextElement();
                     services.addAll(readFromResource(new UrlResource(url)));
                 }
-                cache.put(classLoader, result);
             } catch (IOException ex) {
                 throw new IllegalArgumentException(
                     "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);

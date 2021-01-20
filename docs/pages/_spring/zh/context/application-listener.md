@@ -13,7 +13,7 @@ formatter: on
 
 ## 概述
 
-在[Spring 应用启动流程](../../application/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`或扩展文件`spring.factories`
+在[Spring 应用启动流程](../boot/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`或扩展文件`spring.factories`
 来注册应用监听器（`ApplicationListener`）。
 
 那么，什么是应用监听器呢？

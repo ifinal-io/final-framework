@@ -2,6 +2,7 @@ package org.ifinal.finalframework.sharding.config;
 
 import java.util.Properties;
 import lombok.Getter;
+import lombok.ToString;
 import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
 
 /**
@@ -10,6 +11,7 @@ import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
  * @since 1.0.0
  */
 @Getter
+@ToString
 public class ShardingStrategyRegistration {
 
     private final ShardingStrategy.Strategy strategy;

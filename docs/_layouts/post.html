@@ -24,6 +24,8 @@
           <div class="col-md-8 ml-auto mr-auto text-center">
             <h1 class="title text-white" style="font-family: Metropolis,sans-serif">{{page.title}}</h1>
             <h4>{{page.summary | markdownify }}</h4>
+            <div>共<span class="badge badge-info">{{ page.content | number_of_words }}</span>字，用时约<span class="badge badge-success">{{page.content | number_of_words | divided_by: 100}}</span>分。
+            </div>
             <br>
           </div>
         </div>
@@ -144,7 +146,7 @@
   $(function () {
     $.fn.snow({
       minSize: 3, /* 定义雪花最小尺寸 */
-      maxSize: 33,/* 定义雪花最大尺寸 */
+      maxSize: 66,/* 定义雪花最大尺寸 */
       newOn: 666  /* 定义密集程度，数字越小越密集 */
     });
 

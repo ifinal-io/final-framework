@@ -10,9 +10,9 @@ menus:
     menus:
       - id: hello-world
         name: 你好，世界
-  - id: application
+  - id: boot
     icon: apps
-    name: Application
+    name: Boot
     menus:
       - id: spring-application
         name: SpringApplication
@@ -24,43 +24,15 @@ menus:
     menus:
       - id: event-listener
         name: EventListener
-  - id: ioc
+  - id: context
+    name: Context
     icon: emoji_objects
-    name: IOC
     menus:
-      - id: context
-        name: Context
-        menus:
-          - id: application-context
-            name: 应用上下文
-          - id: application-event-publisher
-            name: 应用事件发布者
-          - id: application-listener
-            name: 应用监听器
-          - id: application-event-multicaster
-            name: 应用事件多播器
-  #      - id: bean
-  #        name: Bean
-  #        menus:
-  #          - id: aware
-  #            name: Aware
-  #          - id: bean-post-processor
-  #            name: Bean 后置处理器
-  - id: aop
-    icon: emoji_objects
-    name: AOP
-  - id: web
-    icon: public
-    name: Web
-    menus:
-      - id: spi
-        name: SPI
-        menus:
-          - id: handler-method-argument-resolver
-            name: 参数解析器
-  - id: index
-    icon: search
-    name: 索引
-    menus:
-      - id: class-index
-        name: 类索引
+      - id: application-context
+        name: 应用上下文
+      - id: application-event-publisher
+        name: 应用事件发布者
+      - id: application-listener
+        name: 应用监听器
+      - id: application-event-multicaster
+        name: 应用事件多播器

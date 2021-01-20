@@ -3,7 +3,6 @@ package org.ifinal.finalframework.sharding.config;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -34,7 +33,18 @@ public class ShardingDataSourceSupport {
     @Autowired(required = false)
     public void setConfigurers(final List<ShardingConfigurer> configurers) {
 
+        if (logger.isInfoEnabled()) {
+            logger.info("found ShardingConfigurer size={}", configurers.size());
+        }
+
         if (!CollectionUtils.isEmpty(configurers)) {
+
+            if (logger.isInfoEnabled()) {
+                for (final ShardingConfigurer configurer : configurers) {
+                    logger.info("found ShardingConfigurer: {}", configurer.getClass().getName());
+                }
+            }
+
             this.composite.addShardingConfigurers(configurers);
         }
     }
@@ -113,19 +123,6 @@ public class ShardingDataSourceSupport {
             for (ShardingTableRegistration table : configuration.getTables()) {
                 logger.info("  │ │ │ ├─{}:", table.getLogicTable());
                 logger.info("  │ │ │ │ ├─actual-data-nodes: {}", table.getActualDataNodes());
-                logger.info("  │ │ │ │ ├─database-strategy: ");
-                logger.info("  │ │ │ │ │ └─{}: ",
-                    table.getDatabaseShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
-                logger.info("  │ │ │ │ │   ├─sharding-column: {}",
-                    String.join(",", table.getDatabaseShardingStrategy().getColumns()));
-                logger
-                    .info("  │ │ │ │ │   └─sharding-algorithm-name: {}", table.getDatabaseShardingStrategy().getName());
-                logger.info("  │ │ │ │ ├─table-strategy: ");
-                logger.info("  │ │ │ │ │ └─{}: ",
-                    table.getTableShardingStrategy().getStrategy().name().toLowerCase(Locale.ROOT));
-                logger.info("  │ │ │ │ │   ├─sharding-column: {}",
-                    String.join(",", table.getTableShardingStrategy().getColumns()));
-                logger.info("  │ │ │ │ │   └─sharding-algorithm-name: {}", table.getTableShardingStrategy().getName());
             }
         }
 

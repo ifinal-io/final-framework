@@ -2,6 +2,7 @@ package org.ifinal.finalframework.sharding.config;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author likly
@@ -9,6 +10,7 @@ import lombok.Getter;
  * @since 1.0.0
  */
 @Getter(AccessLevel.PACKAGE)
+@ToString
 public class ShardingTableRegistration {
 
     private final String logicTable;
@@ -30,13 +32,11 @@ public class ShardingTableRegistration {
     }
 
     public ShardingTableRegistration setDatabaseShardingStrategy(final ShardingStrategyRegistration shardingStrategy) {
-
         this.databaseShardingStrategy = shardingStrategy;
         return this;
     }
 
     public ShardingTableRegistration setTableShardingStrategy(final ShardingStrategyRegistration shardingStrategy) {
-
         this.tableShardingStrategy = shardingStrategy;
         return this;
     }
