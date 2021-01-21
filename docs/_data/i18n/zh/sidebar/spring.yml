@@ -23,13 +23,15 @@ menus:
     name: Annotaions
     menus:
       - id: event-listener
-        name: EventListener
+        name: "@EventListener"
+      - id: component-scan
+        name: "@ComponentScan"
   - id: context
     name: Context
     icon: emoji_objects
     menus:
       - id: application-context
-        name: 应用上下文
+        name: 应用程序
       - id: application-event-publisher
         name: 应用事件发布者
       - id: application-listener

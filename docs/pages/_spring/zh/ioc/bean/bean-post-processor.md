@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: Bean 后置处理器
 subtitle: bean-post-processor 
 description: bean-post-processor 
 tags: [] 
 date: 2021-01-11 12:49:23 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Bean 后置处理器

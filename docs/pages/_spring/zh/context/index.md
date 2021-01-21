@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: index 
 subtitle: index 
 description: index 
 tags: [] 
 date: 2021-01-11 22:29:29 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # index

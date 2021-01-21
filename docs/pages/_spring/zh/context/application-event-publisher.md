@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: 应用事件发布者
 subtitle: application-event-publisher 
 description: application-event-publisher 
 tags: [] 
 date: 2021-01-11 22:27:25 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 应用事件发布者

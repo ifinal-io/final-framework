@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: SpringApplicationRunListener
 subtitle: spring-application-run-listener 
 summary: 用于监听`SpringApplication`的`run`方法的监听器
 tags: [spring,application,listener] 
 date: 2021-01-16 19:53:41 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # SpringApplicationRunListener

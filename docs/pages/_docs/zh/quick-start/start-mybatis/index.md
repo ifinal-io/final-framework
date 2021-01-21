@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: 开始 Mybatis 
 subtitle: start-with-mybatis 
@@ -7,7 +7,7 @@ description: start-with-mybatis
 tags: [] 
 date: 2021-01-06 20:29:53 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 开始 Mybatis

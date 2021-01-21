@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: Define Entity
 subtitle: how-to-define-an-entity
@@ -7,7 +7,7 @@ description: how-to-define-an-entity
 tags: []
 date: 2020-11-27 12:54:17 +800
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Define Entity

@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: "@EventListener"
 subtitle: event-listener 
 summary: 把方法标记为处理`ApplicationEvent`的`ApplicationListener`的注解。
 tags: [spring,spring源码] 
 date: 2021-01-17 22:42:58 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # @EventListener

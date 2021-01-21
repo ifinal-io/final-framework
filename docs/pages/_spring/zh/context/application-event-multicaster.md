@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: 应用事件多播器
 subtitle: application-event-multicaster 
 description: application-event-multicaster 
 tags: [] 
 date: 2021-01-11 23:04:56 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 应用事件多播器

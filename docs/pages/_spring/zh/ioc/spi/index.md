@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: SPI 
 subtitle: index 
@@ -7,7 +7,7 @@ description: index
 tags: [] 
 date: 2021-01-10 21:57:30 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # SPI

@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: Define Enum 
 subtitle: define-enum 
@@ -7,7 +7,7 @@ description: define-enum
 tags: [] 
 date: 2021-01-07 15:18:55 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Define Enum

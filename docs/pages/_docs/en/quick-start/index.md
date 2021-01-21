@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: Quick Start
 subtitle: Quick Start 
@@ -10,7 +10,7 @@ menus:
     - index
 date: 2021-01-06 23:44:24 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Quick Start

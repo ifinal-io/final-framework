@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: 应用监听器
 subtitle: application-listener
 summary: 监听Spring应用事件
 tags: [] 
 date: 2021-01-10 23:50:48 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 应用监听器

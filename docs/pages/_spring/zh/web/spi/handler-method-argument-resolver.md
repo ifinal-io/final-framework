@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: 参数解析器
 subtitle: handler-method-argument-resolver 
 description: handler-method-argument-resolver 
 tags: [] 
 date: 2021-01-10 21:11:17 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 参数解析器

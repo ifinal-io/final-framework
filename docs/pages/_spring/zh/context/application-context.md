@@ -1,12 +1,12 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 title: ApplicationContext 
 subtitle: index 
 description: index 
 tags: [] 
 date: 2021-01-11 18:19:27 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # ApplicationContext
@@ -22,14 +22,22 @@ formatter: on
 * 继承自`ApplicationEventPublisher`接口将事件发布给注册的侦听器的能力。
 * 继承自`MessageSource`接口解决消息，支持国际化的能力。
 
+```mermaid
+classDiagram
+    BeanFactory <|-- HierarchicalBeanFactory
+    BeanFactory <|-- ListableBeanFactory
+    MessageSource <|-- ApplicationContext
+    ListableBeanFactory <|-- ApplicationContext
+    ApplicationEventPublisher <|-- ApplicationContext
+    HierarchicalBeanFactory <|-- ApplicationContext
+    ResourcePatternResolver <|-- ApplicationContext
+    ResourceLoader <|-- ResourcePatternResolver
+```
+
 ## 继承关系
 
 ```mermaid
 classDiagram
-    BeanFactory <|-- ListableBeanFactory
-    BeanFactory <|-- HierarchicalBeanFactory
-    ListableBeanFactory <|-- ApplicationContext
-    HierarchicalBeanFactory <|-- ApplicationContext
     ApplicationContext <|-- ConfigurableApplicationContext
     ConfigurableApplicationContext <|-- AbstractApplicationContext
     AbstractApplicationContext <|-- AnnotationConfigApplicationContext

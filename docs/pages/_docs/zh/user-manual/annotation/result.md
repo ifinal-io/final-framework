@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: 统一结果集 
 subtitle: result 
@@ -9,7 +9,7 @@ date: 2021-01-10 23:01:32 +800
 version: 1.0
 issues: 
     - https://github.com/likly/final-frameworks/issues/10
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 统一结果集

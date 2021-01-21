@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post 
 title: Start Web
 subtitle: define-rest-api-in-controller 
@@ -11,7 +11,7 @@ menus:
     - index
 date: 2020-12-06 19:23:12 +800 
 version: 1.0 
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Start Web

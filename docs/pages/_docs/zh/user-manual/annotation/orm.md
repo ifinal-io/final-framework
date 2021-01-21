@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: 对象关系映射 
 subtitle: orm 
@@ -7,7 +7,7 @@ description: orm
 tags: [orm] 
 date: 2021-01-10 17:46:06 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 对象关系映射

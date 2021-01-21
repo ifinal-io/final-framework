@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: Start Mybatis
 subtitle: start-with-mybatis 
@@ -11,7 +11,7 @@ menus:
     - index
 date: 2021-01-06 20:29:53 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # start-with-mybatis

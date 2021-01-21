@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: Receive Json Param 
 subtitle: receive-json-param 
@@ -7,7 +7,7 @@ description: receive-json-param
 tags: [] 
 date: 2021-01-07 14:57:05 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # Receive Json Param

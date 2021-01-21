@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post 
 title: 定义Rest接口
 subtitle: define-rest-api-in-controller 
@@ -7,7 +7,7 @@ description: define-rest-api-in-controller
 tags: []
 date: 2020-12-06 19:23:12 +800 
 version: 1.0 
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 定义Rest接口

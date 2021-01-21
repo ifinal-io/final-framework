@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post 
 title: query-base-on-annotation 
 subtitle: query-base-on-annotation 
@@ -11,7 +11,7 @@ menus:
     - define-query
 date: 2020-11-27 23:44:50 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # query-base-on-annotation

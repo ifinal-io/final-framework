@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post 
 title: 使用 Mapper
 subtitle: how-to-use-crud 
@@ -7,7 +7,7 @@ description: how-to-use-crud
 tags: []
 date: 2020-11-26 21:48:35 +800 
 version: 1.0 
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 使用 Mapper

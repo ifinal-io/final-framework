@@ -1,5 +1,5 @@
 ---
-formatter: off
+formatter: "@formatter:off"
 layout: post
 title: 创建工程
 subtitle: start-project 
@@ -7,7 +7,7 @@ description: start-project
 tags: [] 
 date: 2021-01-07 13:01:52 +800 
 version: 1.0
-formatter: on
+formatter: "@formatter:on"
 ---
 
 # 创建工程
