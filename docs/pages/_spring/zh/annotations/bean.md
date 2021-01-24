@@ -3,7 +3,7 @@ formatter: "@formatter:off"
 title: "@Bean" 
 subtitle: bean 
 summary: bean 
-tags: [] 
+tags: [spring,annotation] 
 date: 2021-01-24 12:12:22 +800 
 version: 1.0
 formatter: "@formatter:on"
@@ -33,3 +33,6 @@ for (MethodMetadata methodMetadata : beanMethods) {
 }
 ```
 
+### Load
+
+在`loadBeanDefinitionsForBeanMethod()`中加载`BeanDefinition`

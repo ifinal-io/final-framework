@@ -21,6 +21,7 @@ public interface CompareCriterionOperation extends CriterionOperation {
     Object getTarget();
 
     @Override
+    @NonNull
     CompareOperation getOperation();
 
     @Nullable
