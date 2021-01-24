@@ -22,16 +22,22 @@ menus:
     icon: widgets
     name: Annotaions
     menus:
+      - id: bean
+        name: "@Bean"
       - id: event-listener
         name: "@EventListener"
       - id: component-scan
         name: "@ComponentScan"
+      - id: import-resource
+        name: '@ImportResource'
   - id: context
     name: Context
     icon: emoji_objects
     menus:
       - id: application-context
         name: 应用程序
+      - id: configuration-class
+        name: ConfigurationClass
       - id: application-event-publisher
         name: 应用事件发布者
       - id: application-listener
