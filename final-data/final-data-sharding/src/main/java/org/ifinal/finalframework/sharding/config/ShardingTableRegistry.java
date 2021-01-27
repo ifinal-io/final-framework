@@ -25,7 +25,6 @@ public class ShardingTableRegistry {
     }
 
     public ShardingTableRegistry addShardingTableRule(final ShardingTableRegistration table) {
-
         tables.add(table);
         return this;
     }

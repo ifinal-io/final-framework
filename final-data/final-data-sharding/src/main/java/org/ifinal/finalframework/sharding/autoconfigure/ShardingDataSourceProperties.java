@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.sharding.autoconfigure;
 
 import java.util.Map;
+import java.util.Properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -21,6 +22,8 @@ public class ShardingDataSourceProperties {
     private boolean enable = true;
 
     private Map<String, DataSourceProperties> datasource;
+
+    private Properties props;
 
 }
 

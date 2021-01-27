@@ -58,13 +58,13 @@ public class ShardingDataSourceSupport {
 
         for (ShardingTableRegistration registration : shardingConfiguration.getTables()) {
             ShardingTableRuleConfiguration shardingTableRuleConfiguration = new ShardingTableRuleConfiguration(
-                registration.getLogicTable(),
-                registration.getActualDataNodes());
+                    registration.getLogicTable(),
+                    registration.getActualDataNodes());
 
             ShardingStrategyRegistration databaseShardingStrategy = registration.getDatabaseShardingStrategy();
             if (Objects.nonNull(databaseShardingStrategy)) {
                 shardingTableRuleConfiguration
-                    .setDatabaseShardingStrategy(buildShardingStrategy(databaseShardingStrategy));
+                        .setDatabaseShardingStrategy(buildShardingStrategy(databaseShardingStrategy));
             }
 
             ShardingStrategyRegistration tableShardingStrategy = registration.getTableShardingStrategy();
@@ -79,25 +79,25 @@ public class ShardingDataSourceSupport {
 
         for (ShardingAlgorithmRegistration shardingAlgorithm : shardingAlgorithmRegistry.getShardingAlgorithms()) {
             configuration.getShardingAlgorithms().put(shardingAlgorithm.getName(),
-                buildShardingAlgorithm(shardingAlgorithm));
+                    buildShardingAlgorithm(shardingAlgorithm));
         }
 
         Properties props = new Properties();
         props.put("sql-show", true);
 
         return ShardingSphereDataSourceFactory
-            .createDataSource(shardingConfiguration.getDatasource(), Collections.singleton(configuration), props);
+                .createDataSource(shardingConfiguration.getDatasource(), Collections.singleton(configuration), props);
 
     }
 
     protected ShardingConfiguration getShardingDataSourceConfiguration() {
 
         ShardingConfiguration configuration = ShardingConfiguration.builder()
-            .datasource(Collections.unmodifiableMap(getDataSourceRegistry().getDataSources()))
-            .tables(Collections.unmodifiableCollection(getShardingTableRegistry().getTables()))
-            .shardingAlgorithms(
-                Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
-            .build();
+                .datasource(Collections.unmodifiableMap(getDataSourceRegistry().getDataSources()))
+                .tables(Collections.unmodifiableCollection(getShardingTableRegistry().getTables()))
+                .shardingAlgorithms(
+                        Collections.unmodifiableCollection(getShardingAlgorithmRegistry().getShardingAlgorithms()))
+                .build();
 
         log(configuration);
 
@@ -147,14 +147,14 @@ public class ShardingDataSourceSupport {
     }
 
     private ShardingSphereAlgorithmConfiguration buildShardingAlgorithm(
-        final ShardingAlgorithmRegistration databaseShardingStrategy) {
+            final ShardingAlgorithmRegistration databaseShardingStrategy) {
 
         return new ShardingSphereAlgorithmConfiguration(databaseShardingStrategy.getType(),
-            databaseShardingStrategy.getProperties());
+                databaseShardingStrategy.getProperties());
     }
 
     private ShardingStrategyConfiguration buildShardingStrategy(
-        final ShardingStrategyRegistration shardingStrategyRegistration) {
+            final ShardingStrategyRegistration shardingStrategyRegistration) {
 
         String columns = String.join(",", shardingStrategyRegistration.getColumns());
         switch (shardingStrategyRegistration.getStrategy()) {

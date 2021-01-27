@@ -18,11 +18,11 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
+import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.auto.annotation.AutoProcessor;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.service.AbsService;
 import org.ifinal.finalframework.service.AbsServiceImpl;
 import org.springframework.stereotype.Service;
@@ -54,20 +54,18 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
     @Override
     public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
-        if (roundEnv.processingOver()) {
-            ServicesLoader.load(IEntity.class, getClass().getClassLoader())
+        ServicesLoader.load(IEntity.class, getClass().getClassLoader())
                 .stream()
                 .map(entity -> processingEnv.getElementUtils().getTypeElement(entity))
                 .forEach(this::generateService);
-        }
 
         return false;
     }
 
     private void generateService(final TypeElement entity) {
         final String servicePackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
-            .toString()
-            .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_SERVICE_PATH);
+                .toString()
+                .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_SERVICE_PATH);
 
         final String serviceImplPackageName = servicePackageName + ".impl";
 
@@ -75,50 +73,50 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
         final String serviceImplName = entity.getSimpleName().toString() + SERVICE_IMPL_SUFFIX;
 
         final TypeElement serviceElement = processingEnv.getElementUtils()
-            .getTypeElement(servicePackageName + "." + serviceName);
+                .getTypeElement(servicePackageName + "." + serviceName);
         final TypeElement serviceImplElement = processingEnv.getElementUtils()
-            .getTypeElement(serviceImplPackageName + "." + serviceImplName);
+                .getTypeElement(serviceImplPackageName + "." + serviceImplName);
 
         generateService(entity, servicePackageName, serviceName, serviceElement);
         generateServiceImpl(entity, servicePackageName, serviceImplPackageName, serviceName, serviceImplName,
-            serviceImplElement);
+                serviceImplElement);
 
     }
 
     private void generateService(final TypeElement entity, final String servicePackageName, final String serviceName,
-        final TypeElement serviceElement) {
+                                 final TypeElement serviceElement) {
         if (serviceElement == null) {
 
             try {
                 final JavaFileObject sourceFile = processingEnv.getFiler()
-                    .createSourceFile(servicePackageName + "." + serviceName);
+                        .createSourceFile(servicePackageName + "." + serviceName);
 
                 final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
-                    .toString()
-                    .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
+                        .toString()
+                        .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
                 // AbsService<I,IEntity,EntityMapper>
                 ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
-                    ClassName.get(AbsService.class),
-                    // 偷个小懒，先写死
-                    TypeName.get(Long.class),
-                    ClassName.get(entity),
-                    ClassName.get(mapperPackageName, mapperName)
+                        ClassName.get(AbsService.class),
+                        // 偷个小懒，先写死
+                        TypeName.get(Long.class),
+                        ClassName.get(entity),
+                        ClassName.get(mapperPackageName, mapperName)
                 );
 
                 // public interface EntityService extends AbsService<I,IEntity,EntityMapper>
                 TypeSpec service = TypeSpec.interfaceBuilder(serviceName)
-                    .addModifiers(Modifier.PUBLIC)
-                    .addSuperinterface(parameterizedTypeName)
-                    .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
-                    .addJavadoc(Javadoc.author())
-                    .addJavadoc(Javadoc.version())
-                    .build();
+                        .addModifiers(Modifier.PUBLIC)
+                        .addSuperinterface(parameterizedTypeName)
+                        .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
+                        .addJavadoc(Javadoc.author())
+                        .addJavadoc(Javadoc.version())
+                        .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = JavaFile.builder(servicePackageName, service)
-                        .skipJavaLangImports(true).build();
+                            .skipJavaLangImports(true).build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }
@@ -131,51 +129,51 @@ public class AutoServiceGeneratorProcessor extends AbstractProcessor {
     }
 
     private void generateServiceImpl(final TypeElement entity, final String servicePackageName,
-        final String serviceImplPackageName, final String serviceName, final String serviceImplName,
-        final TypeElement serviceImplElement) {
+                                     final String serviceImplPackageName, final String serviceName, final String serviceImplName,
+                                     final TypeElement serviceImplElement) {
         if (serviceImplElement == null) {
             try {
                 final JavaFileObject sourceFile = processingEnv.getFiler()
-                    .createSourceFile(serviceImplPackageName + "." + serviceImplName);
+                        .createSourceFile(serviceImplPackageName + "." + serviceImplName);
 
                 final String mapperPackageName = processingEnv.getElementUtils().getPackageOf(entity).getQualifiedName()
-                    .toString()
-                    .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
+                        .toString()
+                        .replace("." + DEFAULT_ENTITY_PATH, "." + DEFAULT_MAPPER_PATH);
                 final String mapperName = entity.getSimpleName().toString() + MAPPER_SUFFIX;
 
                 // AbsServiceImpl<I,IEntity,EntityMapper>
                 ParameterizedTypeName parameterizedTypeName = ParameterizedTypeName.get(
-                    ClassName.get(AbsServiceImpl.class),
-                    // 偷个小懒，先写死
-                    TypeName.get(Long.class),
-                    ClassName.get(entity),
-                    ClassName.get(mapperPackageName, mapperName)
+                        ClassName.get(AbsServiceImpl.class),
+                        // 偷个小懒，先写死
+                        TypeName.get(Long.class),
+                        ClassName.get(entity),
+                        ClassName.get(mapperPackageName, mapperName)
                 );
 
                 MethodSpec constructor = MethodSpec.constructorBuilder()
-                    .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
-                    .addParameter(
-                        ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository")
-                            .addModifiers(Modifier.FINAL).build())
-                    .addStatement("super(repository)")
-                    .build();
+                        .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
+                        .addParameter(
+                                ParameterSpec.builder(ClassName.get(mapperPackageName, mapperName), "repository")
+                                        .addModifiers(Modifier.FINAL).build())
+                        .addStatement("super(repository)")
+                        .build();
 
                 //  class EntityServiceImpl extends AbsServiceImpl<I,IEntity,EntityMapper> implements EntityService
                 TypeSpec service = TypeSpec.classBuilder(serviceImplName)
-                    .superclass(parameterizedTypeName)
-                    .addSuperinterface(ClassName.get(servicePackageName, serviceName))
-                    .addMethod(constructor)
-                    .addAnnotation(Service.class)
-                    .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
-                    .addJavadoc(Javadoc.author())
-                    .addJavadoc(Javadoc.version())
-                    .build();
+                        .superclass(parameterizedTypeName)
+                        .addSuperinterface(ClassName.get(servicePackageName, serviceName))
+                        .addMethod(constructor)
+                        .addAnnotation(Service.class)
+                        .addAnnotation(JavaPoets.generated(AutoServiceGeneratorProcessor.class))
+                        .addJavadoc(Javadoc.author())
+                        .addJavadoc(Javadoc.version())
+                        .build();
 
                 try (Writer writer = sourceFile.openWriter()) {
                     JavaFile javaFile = JavaFile.builder(serviceImplPackageName, service)
-                        .skipJavaLangImports(true)
-                        .indent("    ")
-                        .build();
+                            .skipJavaLangImports(true)
+                            .indent("    ")
+                            .build();
                     javaFile.writeTo(writer);
                     writer.flush();
                 }

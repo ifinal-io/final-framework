@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
 import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author likly
@@ -12,6 +14,8 @@ import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
  * @see org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration
  * @since 1.0.0
  */
+@Data
+@ConfigurationProperties(prefix = "final.sharding.rule")
 public class ShardingRuleProperties implements Serializable {
 
     /**
@@ -31,56 +35,6 @@ public class ShardingRuleProperties implements Serializable {
 
     public Map<String, TableRuleProperties> getTables() {
         return tables;
-    }
-
-    public void setTables(final Map<String, TableRuleProperties> tables) {
-
-        this.tables = tables;
-    }
-
-    public List<String> getBindingTables() {
-        return bindingTables;
-    }
-
-    public void setBindingTables(final List<String> bindingTables) {
-
-        this.bindingTables = bindingTables;
-    }
-
-    public List<String> getBroadcastTables() {
-        return broadcastTables;
-    }
-
-    public void setBroadcastTables(final List<String> broadcastTables) {
-
-        this.broadcastTables = broadcastTables;
-    }
-
-    public ShardingStrategyProperties getDefaultDatabaseShardingStrategy() {
-        return defaultDatabaseShardingStrategy;
-    }
-
-    public void setDefaultDatabaseShardingStrategy(final ShardingStrategyProperties defaultDatabaseShardingStrategy) {
-
-        this.defaultDatabaseShardingStrategy = defaultDatabaseShardingStrategy;
-    }
-
-    public ShardingStrategyProperties getDefaultTableShardingStrategy() {
-        return defaultTableShardingStrategy;
-    }
-
-    public void setDefaultTableShardingStrategy(final ShardingStrategyProperties defaultTableShardingStrategy) {
-
-        this.defaultTableShardingStrategy = defaultTableShardingStrategy;
-    }
-
-    public Map<String, MasterSlaveRuleProperties> getMasterSlaveRules() {
-        return masterSlaveRules;
-    }
-
-    public void setMasterSlaveRules(final Map<String, MasterSlaveRuleProperties> masterSlaveRules) {
-
-        this.masterSlaveRules = masterSlaveRules;
     }
 
 }
