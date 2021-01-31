@@ -3,8 +3,10 @@ package org.ifinal.finalframework.util.format;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.Dates;
 
 /**
  * @author likly
@@ -42,7 +44,14 @@ public class LocalDateTimeFormatters implements Formatters<LocalDateTime> {
                 return formatter.parse(source);
             }
         }
-        return null;
+
+        try {
+            final long timestamp = Long.parseLong(source);
+            return Dates.from(new Date(timestamp));
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
 }
