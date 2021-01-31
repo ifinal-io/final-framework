@@ -28,6 +28,7 @@
         <module>final-boot-starter-dashboard</module>
         <module>final-boot-starter-sharding</module>
         <module>final-boot-starter-dubbo</module>
+        <module>final-boot-starter-logging</module>
     </modules>
 
     <dependencyManagement>
@@ -66,6 +67,11 @@
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-mybatis</artifactId>
+                <groupId>org.ifinal.finalframework.starter</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-boot-starter-logging</artifactId>
                 <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>

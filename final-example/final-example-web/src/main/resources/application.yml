@@ -27,3 +27,10 @@ logging:
     file: "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : [ %-36X{trace} ] : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
   level:
     org.ifinal.finalframework.example.dao: debug
+  logger:
+    org.ifinal.finalframework.example.web.controller: controller.log
+    org.ifinal.finalframework.example.service: service.log
+    org.ifinal.finalframework.example.dao: dao.log
+  file:
+    home: ./logs
+

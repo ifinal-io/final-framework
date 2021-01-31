@@ -29,6 +29,7 @@
         <module>final-dashboard</module>
         <module>final-dashboard-ui</module>
         <module>final-devops</module>
+        <module>final-logging</module>
     </modules>
 
 

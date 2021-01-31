@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "logging",
+      "type": "org.ifinal.finalframework.logging.LoggingExtApplicationListener"
+    }
+  ],
+  "properties": [
+    {
+      "name": "logging.file.path",
+      "type": "java.lang.String",
+      "description": "",
+      "sourceType": "org.ifinal.finalframework.logging.LoggingExtApplicationListener",
+      "defaultValue": "logs"
+    },
+    {
+      "name": "logging.pattern.rolling-file-suffix",
+      "type": "java.lang.String",
+      "description": "",
+      "sourceType": "org.ifinal.finalframework.logging.LoggingExtApplicationListener",
+      "defaultValue": ".%d{yyyy-MM-dd}.%i.gz"
+    },
+    {
+      "name": "logging.logger",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "",
+      "sourceType": "org.ifinal.finalframework.logging.LoggingExtApplicationListener"
+    }
+  ]
+}
