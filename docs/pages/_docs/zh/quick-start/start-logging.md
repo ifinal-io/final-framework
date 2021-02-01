@@ -49,15 +49,13 @@ logging:
   level:
     org.springframework: warn
     org.apache: warn
-    io.admiral: warn
-    com.dmall: warn
-    com.dmall.offline.marketing: debug
-    com.dmall.offline.marketing.web.controller: debug
-    com.dmall.offline.marketing.warepool.web.controller: debug
+    org.ifinal.finalframework.example: debug
+    org.ifinal.finalframework.example.web.controller: debug
+    org.ifinal.finalframework.example.warepool.web.controller: debug
   # 日志文件
   logger:
     root: all.log
-    com.dmall.offline.marketing.warepool.dao: mapper.log
-    com.dmall.offline.marketing.warepool.service: service.log
-    com.dmall.offline.marketing.warepool.web.controller: controller.log
+    org.ifinal.finalframework.example.warepool.dao: mapper.log
+    org.ifinal.finalframework.example.warepool.service: service.log
+    org.ifinal.finalframework.example.warepool.web.controller: controller.log
 ```
