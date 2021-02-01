@@ -40,7 +40,7 @@ logging:
     rolling-file-suffix: ".%d{yyyy-MM-dd}.%i"
   file:
     # 日志路径
-    path: logs/app/${dmall.dmc.project-code}/${dmall.dmc.app-code}/${dmall.dmc.instanceCode}
+    path: logs/app/${project-code}/${app-code}/${instanceCode}
     # 最大保留历史
     max-history: 7
     # 单个文件最大容量
