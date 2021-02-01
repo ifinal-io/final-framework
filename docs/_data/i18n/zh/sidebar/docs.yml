@@ -33,6 +33,8 @@ menus:
             name: 定义Rest接口
           - id: receive-json-param
             name: 接收Json参数
+      - id: start-logging
+        name: 开始 Logging
   - id: user-manual
     icon: books
     name: 用户手册

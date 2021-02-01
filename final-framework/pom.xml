@@ -117,7 +117,11 @@
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-logging</artifactId>
+                <version>${final.version}</version>
+            </dependency>
             <dependency>
                 <artifactId>final-aop</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>

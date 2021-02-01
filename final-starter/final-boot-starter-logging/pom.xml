@@ -10,4 +10,11 @@
 
     <artifactId>final-boot-starter-logging</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-logging</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

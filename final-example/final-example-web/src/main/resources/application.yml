@@ -31,6 +31,4 @@ logging:
     org.ifinal.finalframework.example.web.controller: controller.log
     org.ifinal.finalframework.example.service: service.log
     org.ifinal.finalframework.example.dao: dao.log
-  file:
-    home: ./logs
 
