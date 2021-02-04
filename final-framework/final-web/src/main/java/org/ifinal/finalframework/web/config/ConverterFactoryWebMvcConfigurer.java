@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.web.autoconfiguration;
+package org.ifinal.finalframework.web.config;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -20,11 +20,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @Component
 @SuppressWarnings("unused")
-public class ConverterFactoryAutoConfiguration implements WebMvcConfigurer {
+public class ConverterFactoryWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<ConverterFactory<?, ?>> converterFactories;
 
-    public ConverterFactoryAutoConfiguration(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider) {
+    public ConverterFactoryWebMvcConfigurer(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider) {
 
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
     }

@@ -127,3 +127,7 @@ public class FinalApplication {
 ### Spring 应用事件
 
 Spring 内置了一系列的 Spring 应用事件（`SpringApplicationEvent`），以供开发者监听并处理。
+
+## Build-In Application Listener
+
+* LoggingApplicationListener

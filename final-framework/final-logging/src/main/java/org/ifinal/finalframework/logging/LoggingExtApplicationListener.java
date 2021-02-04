@@ -39,6 +39,7 @@ import org.springframework.util.unit.DataSize;
  * @author likly
  * @version 1.0.0
  * @see LoggingApplicationListener
+ * @see org.springframework.boot.logging.LoggingSystem
  * @since 1.0.0
  */
 @SpringApplicationListener

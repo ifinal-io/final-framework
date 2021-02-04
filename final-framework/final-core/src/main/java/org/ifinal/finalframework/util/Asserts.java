@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.ObjectUtils;
 
 /**
  * General utility methods that asserts in validating arguments.
@@ -12,6 +14,9 @@ import org.springframework.lang.NonNull;
  * @author likly
  * @version 1.0.0
  * @see MessageFormatter#arrayFormat(String, Object[])
+ * @see Objects
+ * @see ObjectUtils
+ * @see org.springframework.util.CollectionUtils
  * @since 1.0.0
  */
 @SuppressWarnings("rawtypes")
@@ -77,24 +82,13 @@ public final class Asserts {
         throw new IllegalArgumentException(formatMessage(message, args));
     }
 
-    public static boolean isEmpty(final Object obj) {
-        if (obj == null) {
-            return true;
-        }
-        if (obj instanceof String) {
-            return ((String) obj).isEmpty();
-        }
-        if (obj instanceof Object[]) {
-            return ((Object[]) obj).length == 0;
-        }
-        if (obj instanceof Collection) {
-            return ((Collection) obj).isEmpty();
-        }
-
-        if (obj instanceof Map) {
-            return ((Map) obj).isEmpty();
-        }
-        return false;
+    /**
+     * @param obj
+     * @return
+     * @see org.springframework.util.ObjectUtils#isEmpty(Object)
+     */
+    public static boolean isEmpty(@Nullable final Object obj) {
+        return ObjectUtils.isEmpty(obj);
     }
 
     public static void isEmpty(final Object obj, final String message, final Object... args) {

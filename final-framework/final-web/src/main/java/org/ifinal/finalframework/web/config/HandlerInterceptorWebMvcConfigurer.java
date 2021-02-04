@@ -1,8 +1,9 @@
-package org.ifinal.finalframework.web.autoconfiguration;
+package org.ifinal.finalframework.web.config;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -15,19 +16,22 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * Add all {@link HandlerInterceptor}s which annotated by {@link Component} to {@link InterceptorRegistry}.
+ *
  * @author likly
  * @version 1.0.0
  * @see HandlerInterceptor
+ * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
  * @since 1.0.0
  */
 @Slf4j
 @Component
 @SuppressWarnings("unused")
-public class HandlerInterceptorAutoConfiguration implements WebMvcConfigurer {
+public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<HandlerInterceptor> handlerInterceptors;
 
-    public HandlerInterceptorAutoConfiguration(final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+    public HandlerInterceptorWebMvcConfigurer(final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
     }
 
@@ -35,7 +39,7 @@ public class HandlerInterceptorAutoConfiguration implements WebMvcConfigurer {
     public void addInterceptors(final @NonNull InterceptorRegistry registry) {
         handlerInterceptors.stream()
             // filter the interceptor annotated by @Component
-            .filter(it -> AnnotatedElementUtils.isAnnotated(it.getClass(), Component.class))
+            .filter(it -> AnnotatedElementUtils.isAnnotated(AopUtils.getTargetClass(it), Component.class))
             .forEach(item -> this.addInterceptor(registry, item));
 
     }

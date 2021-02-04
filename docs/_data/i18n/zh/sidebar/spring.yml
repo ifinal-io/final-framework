@@ -22,6 +22,8 @@ menus:
     icon: widgets
     name: Annotaions
     menus:
+      - id: component
+        name: "@Component"
       - id: bean
         name: "@Bean"
       - id: event-listener
