@@ -1,9 +1,13 @@
 ---
-layout: post title: auth subtitle: auth description: auth tags: []
-menus:
-
-- auth date: 2020-11-24 20:03:17 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: auth 
+subtitle: auth 
+description: auth 
+tags: []
+date: 2020-11-24 20:03:17 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # Auth

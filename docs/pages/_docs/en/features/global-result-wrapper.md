@@ -1,10 +1,13 @@
 ---
-layout: post title: global-result-wrapper subtitle: global-result-wrapper description:
-global-result-wrapper tags: []
-menus:
-
-- global-result-wrapper date: 2020-12-06 19:04:43 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: global-result-wrapper 
+subtitle: global-result-wrapper 
+description: global-result-wrapper 
+tags: []
+date: 2020-12-06 19:04:43 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # 全局结果集包装

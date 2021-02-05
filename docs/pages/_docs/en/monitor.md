@@ -1,9 +1,13 @@
 ---
-layout: post title: monitor-action subtitle: monitor-action description: monitor-action tags: []
-menus:
-
-- monitor-action date: 2020-11-11 15:48:31 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: monitor-action 
+subtitle: monitor-action 
+description: monitor-action 
+tags: []
+date: 2020-11-11 15:48:31 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # 极简的监控

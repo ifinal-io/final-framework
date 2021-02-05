@@ -1,9 +1,13 @@
 ---
-layout: post title: 增强的JSON subtitle: json description: json tags: []
-menus:
-
-- json date: 2020-11-11 15:44:32 +800 version: 1.0
-
+formatter: "@formatter:on"
+layout: post 
+title: 增强的JSON 
+subtitle: json
+description: json 
+tags: []
+date: 2020-11-11 15:44:32 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # Readable JSON

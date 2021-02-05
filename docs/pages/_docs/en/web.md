@@ -1,9 +1,13 @@
 ---
-layout: post title: 统一的结果集 subtitle: result description: result tags: []
-menus:
-
-- result date: 2020-11-11 15:46:17 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: 统一的结果集 
+subtitle: result 
+description: result 
+tags: []
+date: 2020-11-11 15:46:17 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 ## 统一的结果集

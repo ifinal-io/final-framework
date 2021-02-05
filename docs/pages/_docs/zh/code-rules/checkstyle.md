@@ -1,7 +1,13 @@
 ---
-@formatter:off layout: post title: checkstyle subtitle: checkstyle description: checkstyle tags: []
-menus:
-- checkstyle date: 2020-12-11 20:44:43 +800 version: 1.0 @formatter:on
+formatter: "@formatter:off"
+layout: post 
+title: checkstyle 
+subtitle: checkstyle 
+description: checkstyle 
+tags: []
+date: 2020-12-11 20:44:43 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # checkstyle

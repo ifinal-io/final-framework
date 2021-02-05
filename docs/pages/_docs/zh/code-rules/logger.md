@@ -1,9 +1,13 @@
 ---
-layout: post title: logger subtitle: logger description: logger tags: []
-menus:
-
-- logger date: 2020-11-10 20:19:34 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: logger 
+subtitle: logger 
+description: logger 
+tags: []
+date: 2020-11-10 20:19:34 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # logger

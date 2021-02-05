@@ -1,10 +1,13 @@
 ---
-layout: post title: sharding-with-annotation subtitle: sharding-with-annotation description:
-sharding-with-annotation tags: []
-menus:
-
-- sharding-with-annotation date: 2020-12-09 21:03:17 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: sharding-with-annotation 
+subtitle: sharding-with-annotation 
+description: sharding-with-annotation 
+tags: []
+date: 2020-12-09 21:03:17 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # sharding-with-annotation

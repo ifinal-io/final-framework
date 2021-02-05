@@ -130,10 +130,10 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 `AnnotatedBeanDefinitionReader`通过`AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry)`向容器内注册了几个**创世纪**的类：
 
-* ConfigurationClassPostProcessor
-* AutowiredAnnotationBeanPostProcessor
+* `ConfigurationClassPostProcessor`：用于解析`@Configuration`,`@ComponentScan`等配置类。
+* AutowiredAnnotationBeanPostProcessor：
 * CommonAnnotationBeanPostProcessor
-* EventListenerMethodProcessor
+* EventListenerMethodProcessor：用于解析`@EventListener`注解票房的方法，将基转换为`ApplicationListener`。
 * DefaultEventListenerFactory
 
 ### refresh

@@ -1,10 +1,13 @@
 ---
-layout: post title: global-exception-handler subtitle: global-exception-handler description:
-global-exception-handler tags: []
-menus:
-
-- global-exception-handler date: 2020-12-05 11:16:05 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: global-exception-handler 
+subtitle: global-exception-handler 
+description: global-exception-handler 
+tags: []
+date: 2020-12-05 11:16:05 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # global-exception-handler

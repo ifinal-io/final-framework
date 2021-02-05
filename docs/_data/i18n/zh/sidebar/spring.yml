@@ -37,7 +37,12 @@ menus:
     icon: emoji_objects
     menus:
       - id: application-context
-        name: 应用程序
+        name: ApplicationContext
+      - id: bean-factory-post-processor
+        name: Bean工厂后置处理器
+        menus:
+          - id: configuration-class-post-processor
+            name: 配置类处理器
       - id: configuration-class
         name: ConfigurationClass
       - id: application-event-publisher

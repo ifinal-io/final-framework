@@ -1,9 +1,13 @@
 ---
-layout: post title: hotswap subtitle: hotswap description: hotswap tags: []
-menus:
-
-- hotswap date: 2020-11-22 22:02:42 +800 version: 1.0
-
+formatter: "@formatter:off"
+layout: post 
+title: hotswap 
+subtitle: hotswap 
+description: hotswap 
+tags: []
+date: 2020-11-22 22:02:42 +800 
+version: 1.0
+formatter: "@formatter:on"
 ---
 
 # 热更新
