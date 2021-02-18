@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  * @version 1.0.0
  * @since 1.0.0
  */
-class BinariesTests {
+class BinariesTest {
 
     @Test
     void flat() {

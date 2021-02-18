@@ -6,12 +6,26 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.stereotype.Component;
 
 /**
- * final framework {@link ComponentScan} configuration.
+ * An {@link Configuration} class for {@code finalframework}.
+ *
+ * <h3>ComponentScan</h3>
+ * <p>{@link FinalFramework} use default packages of {@code org.ifinal.finalframework} to scan {@link Component}s.</p>
+ *
+ * <h3>ImportResource</h3>
+ * <p>Import the resources from:</p>
+ * <ul>
+ *     <li>{@code classpath:spring-config-*.xml}</li>
+ *     <li>{@code classpath*:config/spring-config-*.xml}</li>
+ *     <li>{@code classpath*:spring/spring-config-*.xml}</li>
+ * </ul>
  *
  * @author likly
  * @version 1.0.0
+ * @see ComponentScan
+ * @see ImportResource
  * @see ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)
  * @since 1.0.0
  */

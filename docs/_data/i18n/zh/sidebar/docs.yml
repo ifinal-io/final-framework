@@ -35,6 +35,16 @@ menus:
             name: 接收Json参数
       - id: start-logging
         name: 开始 Logging
+  - id: features
+    icon: app_registration
+    name: 功能
+    menus:
+      - id: framework
+        name: Framework
+      - id: readable-json
+        name: 可读性Json
+      - id: result
+        name: 统一结果集
   - id: user-manual
     icon: books
     name: 用户手册
@@ -44,8 +54,6 @@ menus:
         menus:
           - id: orm
             name: ORM
-          - id: result
-            name: 统一结果集
   - id: dev-manual
     icon: handyman
     name: 开发手册
