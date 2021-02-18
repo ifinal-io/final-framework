@@ -56,7 +56,7 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
                 interceptorRegistration.excludePathPatterns(annotation.excludes());
             }
         }
-        final Order order = AnnotationUtils.getAnnotation(interceptor.getClass(), Order.class);
+        final Order order = AnnotationUtils.getAnnotation(AopUtils.getTargetClass(interceptor), Order.class);
         if (order != null) {
             interceptorRegistration.order(order.value());
         }

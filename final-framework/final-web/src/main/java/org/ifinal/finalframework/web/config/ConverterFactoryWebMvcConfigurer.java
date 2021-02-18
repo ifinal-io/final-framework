@@ -12,9 +12,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link WebMvcConfigurer#addFormatters(FormatterRegistry)}.
+ * Also support SPI from {@link ServiceLoader}.
+ *
  * @author likly
  * @version 1.0.0
  * @see ConverterFactory
+ * @see FormatterRegistry
+ * @see ServiceLoader
  * @since 1.0.0
  */
 @Slf4j
@@ -25,7 +30,6 @@ public class ConverterFactoryWebMvcConfigurer implements WebMvcConfigurer {
     private final List<ConverterFactory<?, ?>> converterFactories;
 
     public ConverterFactoryWebMvcConfigurer(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider) {
-
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
     }
 
@@ -34,10 +38,17 @@ public class ConverterFactoryWebMvcConfigurer implements WebMvcConfigurer {
 
         logger.info("start register converterFactories ...");
         if (Asserts.nonEmpty(converterFactories)) {
-            converterFactories.forEach(registry::addConverterFactory);
+            converterFactories.forEach(item -> this.addConverterFactory(registry, item));
         }
-        ServiceLoader.load(ConverterFactory.class).forEach(registry::addConverterFactory);
+        ServiceLoader.load(ConverterFactory.class).forEach(item -> this.addConverterFactory(registry, item));
         logger.info("finish register converterFactories ...");
+    }
+
+    private void addConverterFactory(final FormatterRegistry registry, final ConverterFactory<?, ?> factory) {
+        if (logger.isInfoEnabled()) {
+            logger.info("addConverterFactory: {}", factory.getClass().getName());
+        }
+        registry.addConverterFactory(factory);
     }
 
 }

@@ -21,12 +21,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Component
 public class HttpMessageConverterWebMvcConfigurer implements WebMvcConfigurer {
 
+    /**
+     * Replace the {@link StringHttpMessageConverter} to {@link JsonStringHttpMessageConverter}.
+     *
+     * @param converters the build-in {@link HttpMessageConverter}s.
+     */
     @Override
     public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
 
         for (int i = 0; i < converters.size(); i++) {
             HttpMessageConverter<?> converter = converters.get(i);
             if (converter instanceof StringHttpMessageConverter) {
+                // Use JsonStringHttpMessageConverter replace StringHttpMessageConverter.
                 converter = new JsonStringHttpMessageConverter((StringHttpMessageConverter) converter);
                 converters.set(i, converter);
             }
