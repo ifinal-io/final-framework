@@ -1,0 +1,16 @@
+#!/bin/sh
+#execute shell before commit,check the code
+
+
+# mvn checkstyle: check
+mvn checkstyle:check
+#得到checkstyle检测结果，没有代码规范问题 执行结果为0；有代码规范问题 执行结果为非0
+checkstyle_result=$?
+if [ $checkstyle_result -eq 0 ]
+then 
+    echo "项目执行checkstyle检测成功!!!"
+else    
+    echo "提交失败，源于项目存在代码规范问题（mvn checkstyle:check）"
+    echo "请查看target目录下的checkstyle-result.html文件得知详情"
+    exit 1
+fi
