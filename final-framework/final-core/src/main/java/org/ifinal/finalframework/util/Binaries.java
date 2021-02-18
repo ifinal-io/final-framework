@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class BinaryUtils {
+public final class Binaries {
 
     private static final int BIN_STEP = 1;
 
@@ -79,10 +79,10 @@ public final class BinaryUtils {
 
     private static final Integer BINARY_31 = BINARY_30 << BIN_STEP;
 
-    private static final Set<Integer> BINARIES = new HashSet<>();
+    private static final Set<Integer> CACHE = new HashSet<>();
 
     static {
-        BINARIES.addAll(
+        CACHE.addAll(
             Arrays.asList(
                 BINARY_0, BINARY_1, BINARY_2, BINARY_3, BINARY_4,
                 BINARY_5, BINARY_6, BINARY_7, BINARY_8, BINARY_9,
@@ -95,20 +95,20 @@ public final class BinaryUtils {
         );
     }
 
-    private BinaryUtils() {
+    private Binaries() {
 
     }
 
     public static Collection<Integer> flat(final Integer binary) {
 
-        return BINARIES.stream()
+        return CACHE.stream()
             .filter(it -> (it & binary) == it)
             .collect(Collectors.toList());
     }
 
     public static Integer merge(final Collection<Integer> binaries) {
 
-        return new HashSet<>(binaries).stream().reduce(0, Integer::sum);
+        return new HashSet<>(binaries).stream().reduce(0, (a, b) -> a | b);
     }
 
 }

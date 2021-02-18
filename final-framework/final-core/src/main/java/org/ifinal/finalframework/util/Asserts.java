@@ -83,8 +83,6 @@ public final class Asserts {
     }
 
     /**
-     * @param obj
-     * @return
      * @see org.springframework.util.ObjectUtils#isEmpty(Object)
      */
     public static boolean isEmpty(@Nullable final Object obj) {

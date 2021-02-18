@@ -21,6 +21,7 @@ import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer
 public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPropertySerializerModifier {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final LocalDateTimeSerializer SERIALIZER = new LocalDateTimeSerializer(FORMATTER);
 
     @Override
     protected boolean support(final Class<?> clazz) {
@@ -35,7 +36,7 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
         //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,
             writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-            new LocalDateTimeSerializer(FORMATTER), writer.getTypeSerializer(), writer.getSerializationType(),
+            SERIALIZER, writer.getTypeSerializer(), writer.getSerializationType(),
             writer.willSuppressNulls(), null, property.findViews());
         setNameValue(bpw, bpw.getName() + "Format");
         return Collections.singleton(bpw);
