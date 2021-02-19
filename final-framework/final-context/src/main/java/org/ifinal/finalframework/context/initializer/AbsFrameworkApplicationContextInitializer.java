@@ -1,5 +1,6 @@
 package org.ifinal.finalframework.context.initializer;
 
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
@@ -10,6 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
 
 /**
+ * Registration a {@code framework} class into {@link ConfigurableApplicationContext}.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -21,13 +24,11 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
     private final Class<?> framework;
 
     protected AbsFrameworkApplicationContextInitializer(final Class<?> framework) {
-
-        this.framework = framework;
+        this.framework = Objects.requireNonNull(framework);
     }
 
     @Override
     public void initialize(final @NonNull C context) {
-
         BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework),
             getBeanDefinitionRegistry(context));
     }
