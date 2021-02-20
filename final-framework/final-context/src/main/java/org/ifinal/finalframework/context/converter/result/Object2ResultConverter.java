@@ -7,6 +7,8 @@ import org.ifinal.finalframework.util.function.Converter;
 import java.io.Serializable;
 
 /**
+ * Wrap the {@linkplain Object body} with {@link Result}.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0

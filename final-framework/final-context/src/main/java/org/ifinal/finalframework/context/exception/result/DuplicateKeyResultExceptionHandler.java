@@ -24,14 +24,12 @@ public class DuplicateKeyResultExceptionHandler implements ResultExceptionHandle
 
     @Override
     public boolean supports(final @NonNull Throwable throwable) {
-
         return throwable instanceof DuplicateKeyException;
     }
 
     @Override
     @NonNull
     public Result<?> handle(final @NonNull DuplicateKeyException throwable) {
-
         return R.failure(500, "Duplicate Key", "500", Optional.ofNullable(throwable.getMessage()).orElse(""));
 
     }
