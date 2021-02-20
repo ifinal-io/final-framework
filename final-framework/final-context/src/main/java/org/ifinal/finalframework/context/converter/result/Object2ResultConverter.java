@@ -1,9 +1,10 @@
-package org.ifinal.finalframework.web.response;
+package org.ifinal.finalframework.context.converter.result;
 
-import java.io.Serializable;
 import org.ifinal.finalframework.annotation.core.result.R;
 import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
+
+import java.io.Serializable;
 
 /**
  * @author likly

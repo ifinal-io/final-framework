@@ -1,11 +1,12 @@
 package org.ifinal.finalframework.web.response.advice;
 
-import org.ifinal.finalframework.util.function.Filter;
-import org.ifinal.finalframework.web.response.annotation.ResponseIgnore;
-import org.ifinal.finalframework.web.response.annotation.RestResponseController;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.ifinal.finalframework.util.function.Filter;
+import org.ifinal.finalframework.web.response.annotation.ResponseIgnore;
+import org.ifinal.finalframework.web.response.annotation.RestResponseController;
 
 /**
  * Rest {@link MethodParameter} 方法过滤器。
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 public class RestMethodParameterFilter implements Filter<MethodParameter> {
+
+    public static final RestMethodParameterFilter INSTANCE = new RestMethodParameterFilter();
 
     @Override
     public boolean matches(final MethodParameter methodParameter) {

@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.web.response.advice;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
-import org.ifinal.finalframework.annotation.core.result.Responsible;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -9,9 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import org.ifinal.finalframework.annotation.core.result.Responsible;
 
 /**
  * @author likly
@@ -21,13 +21,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @Order
 @RestControllerAdvice
-@SpringFactory(ResponseBodyAdvice.class)
-public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object> {
+public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
 
     /**
      * 是否同步Response状态
      */
-    private boolean syncStatus;
+    private boolean syncStatus = true;
 
     public boolean isSyncStatus() {
         return syncStatus;
@@ -40,10 +39,11 @@ public class ResponsibleResponseBodyAdvice extends RestResponseBodyAdvice<Object
 
     @Override
     @Nullable
-    public Object beforeBodyWrite(final @Nullable Object body, final MethodParameter returnType,
+    public Object beforeBodyWrite(final @Nullable Object body, final @NonNull MethodParameter returnType,
         final MediaType selectedContentType,
         final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-        final ServerHttpRequest request, final ServerHttpResponse response) {
+        final ServerHttpRequest request,
+        final ServerHttpResponse response) {
 
         if (syncStatus && body instanceof Responsible) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Responsible) body).getStatus());

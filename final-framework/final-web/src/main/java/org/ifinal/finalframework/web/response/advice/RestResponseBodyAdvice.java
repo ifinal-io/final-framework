@@ -2,7 +2,10 @@ package org.ifinal.finalframework.web.response.advice;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import org.ifinal.finalframework.web.response.advice.result.ResultResponseBodyAdvice;
 
 /**
  * @author likly
@@ -10,15 +13,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @see ResultResponseBodyAdvice
  * @since 1.0.0
  */
-public abstract class RestResponseBodyAdvice<T> implements ResponseBodyAdvice<T> {
-
-    private static final RestMethodParameterFilter restMethodParameterFilter = new RestMethodParameterFilter();
+public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
 
     @Override
-    public boolean supports(final MethodParameter methodParameter,
-        final Class<? extends HttpMessageConverter<?>> converterType) {
+    default boolean supports(final @NonNull MethodParameter methodParameter,
+        final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
 
-        return restMethodParameterFilter.matches(methodParameter);
+        return RestMethodParameterFilter.INSTANCE.matches(methodParameter);
     }
 
 }

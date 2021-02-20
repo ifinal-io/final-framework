@@ -167,6 +167,7 @@
                 </exclusion>
             </exclusions>
             <groupId>org.springframework.boot</groupId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
