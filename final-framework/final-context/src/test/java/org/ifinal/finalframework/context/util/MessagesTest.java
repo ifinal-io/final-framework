@@ -25,7 +25,8 @@ class MessagesTest {
         ConfigurableApplicationContext context = SpringApplication.run(ContextApplicationContext.class);
         System.out.println(context.getMessage("success", null, LocaleContextHolder.getLocale()));
         System.out.println(context.getMessage("success", null, Locale.ENGLISH));
-        System.out.println(Messages.getMessage("success"));
+        System.out.println(context.getMessage("success2", null, Locale.JAPANESE));
+        System.out.println(Messages.getMessage("success2"));
 
     }
 
