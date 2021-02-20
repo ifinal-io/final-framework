@@ -1,10 +1,5 @@
 package org.ifinal.finalframework.annotation.web.servlet;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.List;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,8 +7,15 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.List;
+
 /**
- * A custom {@link Component} annotation for {@link HandlerInterceptor}.
+ * A custom {@link Component} annotation for {@link HandlerInterceptor} and the interceptor would be auto-detects by a custom a {@link
+ * WebMvcConfigurer}.
  *
  * @author likly
  * @version 1.0.0

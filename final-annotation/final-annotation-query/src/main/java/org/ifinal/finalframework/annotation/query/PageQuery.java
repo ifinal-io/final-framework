@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.annotation.query;
 
-import java.io.Serializable;
-import lombok.Getter;
-import lombok.Setter;
 import org.ifinal.finalframework.annotation.core.Pageable;
 import org.ifinal.finalframework.annotation.core.lang.Transient;
+
+import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 分页查询
@@ -37,7 +39,7 @@ public class PageQuery implements Pageable, Serializable {
     private Integer page = DEFAULT_PAGE;
 
     /**
-     * 页面宅师
+     * 页面容量
      */
     @Size
     private Integer size = DEFAULT_SIZE;

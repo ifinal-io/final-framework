@@ -1,8 +1,5 @@
 package org.ifinal.finalframework.web.config;
 
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -15,11 +12,18 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
+
+import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * Add all {@link HandlerInterceptor}s which annotated by {@link Component} to {@link InterceptorRegistry}.
+ * A {@link WebMvcConfigurer} could auto-detects {@link HandlerInterceptor}s witch annotated by {@link Component}.
  *
  * @author likly
  * @version 1.0.0
+ * @see Interceptor
  * @see HandlerInterceptor
  * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
  * @since 1.0.0
@@ -46,7 +50,9 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     private void addInterceptor(final @NonNull InterceptorRegistry registry, final @NonNull HandlerInterceptor interceptor) {
 
-        final Interceptor annotation = AnnotationUtils.getAnnotation(interceptor.getClass(), Interceptor.class);
+        final Class<?> targetClass = AopUtils.getTargetClass(interceptor);
+
+        final Interceptor annotation = AnnotationUtils.getAnnotation(targetClass, Interceptor.class);
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
         if (annotation != null) {
             if (annotation.includes().length > 0) {
@@ -56,7 +62,7 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
                 interceptorRegistration.excludePathPatterns(annotation.excludes());
             }
         }
-        final Order order = AnnotationUtils.getAnnotation(AopUtils.getTargetClass(interceptor), Order.class);
+        final Order order = AnnotationUtils.getAnnotation(targetClass, Order.class);
         if (order != null) {
             interceptorRegistration.order(order.value());
         }
