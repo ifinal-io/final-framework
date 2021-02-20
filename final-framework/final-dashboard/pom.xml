@@ -14,7 +14,6 @@
         <dependency>
             <artifactId>final-data-redis</artifactId>
             <groupId>org.ifinal.finalframework.data</groupId>
-            <!--<optional>true</optional>-->
         </dependency>
         <dependency>
             <artifactId>final-zookeeper</artifactId>
@@ -29,7 +28,6 @@
         <dependency>
             <artifactId>final-web</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <artifactId>final-devops</artifactId>
