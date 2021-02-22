@@ -1,11 +1,12 @@
 package org.ifinal.finalframework.context;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * AnnotationConfigApplicationContextTest.
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @Slf4j
 @ComponentScan
-class AnnotationConfigApplicationContextTest {
+public class AnnotationConfigApplicationContextTest {
 
     @Test
     void context() {
