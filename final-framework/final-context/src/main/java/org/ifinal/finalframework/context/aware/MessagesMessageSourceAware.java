@@ -10,10 +10,12 @@ import org.ifinal.finalframework.context.util.Messages;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * MessagesMessageSourceAware.
+ * An aware helper to receive {@link MessageSource} from {@link MessageSourceAware} and set to {@link Messages}.
  *
  * @author likly
  * @version 1.0.0
+ * @see MessageSource
+ * @see Messages
  * @since 1.0.0
  */
 @Slf4j
