@@ -16,6 +16,10 @@ menus:
     menus:
       - id: spring-application
         name: SpringApplication
+      - id: spring-factory
+        name: SpringFactory
+      - id: spring-banner
+        name: SpringBanner
       - id: spring-application-run-listener
         name: SpringApplicationRunListener
   - id: annotations

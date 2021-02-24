@@ -2,8 +2,8 @@
 formatter: "@formatter:off"
 title: Spring Application 启动流程
 subtitle: spring-application
-summary: 可用于从Java `main`方法引导和启动`Spring`应用程序的类。
-tags: [spring,spring源码] 
+summary: 一个可用于从Java `main`方法引导和启动`Spring`应用程序的类。
+tags: [spring,application] 
 date: 2021-01-14 18:47:28 +800 
 version: 1.0
 formatter: "@formatter:on"
@@ -11,13 +11,33 @@ formatter: "@formatter:on"
 
 # Spring Application 启动流程
 
-## 简介
+## What
 
-**`SpringApplication`是 *Spring Boot* 提供的，可从 Java `main` 方法*引导和启动* `Spring` 应用程序的类。**
+**`SpringApplication`一个可从 Java `main` 方法*引导和启动* `Spring` 应用程序的类。**
 
-本文将以`SpringApplication`的使用方法`run(Class)`为切入点，通过分析构造方法和`run`方法的源码，了解`SpringApplication`应用的基本启动流程。
+## Features
 
-## 用法
+### Bootstrap
+
+默认情况下，`SpringApplication`将执行以下步骤来引导您的应用程序：
+
+* 创建一个适当的`ApplicationContext`实例（取决于您的类路径）。
+* 注册一个`CommandLinePropertySource`以将命令行参数注入到为`Spring`属性中。
+* 刷新应用程序上下文，加载所有单例 Bean。
+* 触发任何`CommandLineRunner` Bean
+
+### Load
+
+加载并读取不同来源下的bean：
+
+* 由 `AnnotatedBeanDefinitionReader` 加载的**应用完全限定的类名**所在包下的Bean。
+* 由 `XmlBeanDefinitionReader`加载的声明在`XML`文件中的Bean。
+* 由 `GroovyBeanDefinitionReader`加载的`groovy`脚本声明的Bean。
+* 由 `ClassPathBeanDefinitionScanner` 扫描 `<context:component-scan>` 节点所指定的软件包中的Bean。
+
+> 一般情况下，启动类所在的包应包含所有子模块的包，这样才能确保`SpringApplication`可以读取并加载到项目中声明的Bean。
+
+## Usage
 
 ### 常规用法
 
@@ -52,8 +72,8 @@ public static void main(String[]args){
 
 通过IDE的代码提示功能，发现如下图的选项：
 
-![应用定制](../images/application/spring-application-add-config.png)
-![应用定制](../images/application/spring-application-set-config.png)
+![应用定制](../images/boot/spring-application-add-config.png)
+![应用定制](../images/boot/spring-application-set-config.png)
 
 #### 注册监听
 
@@ -63,29 +83,7 @@ public static void main(String[]args){
 application.addListeners(new ApplicationReadyEventListener());
 ```
 
-## 默认实现
-
-### 引导步骤
-
-默认情况下，`SpringApplication`将执行以下步骤来引导您的应用程序：
-
-* 创建一个适当的`ApplicationContext`实例（取决于您的类路径）。
-* 注册一个`CommandLinePropertySource`以将命令行参数注入到为`Spring`属性中。
-* 刷新应用程序上下文，加载所有单例 Bean。
-* 触发任何`CommandLineRunner` Bean
-
-### 加载Bean
-
-加载并读取不同来源下的bean：
-
-* 由 `AnnotatedBeanDefinitionReader` 加载的**应用完全限定的类名**所在包下的Bean。
-* 由 `XmlBeanDefinitionReader`加载的声明在`XML`文件中的Bean。
-* 由 `GroovyBeanDefinitionReader`加载的`groovy`脚本声明的Bean。
-* 由 `ClassPathBeanDefinitionScanner` 扫描 `<context:component-scan>` 节点所指定的软件包中的Bean。
-
-> 一般情况下，启动类所在的包应包含所有子模块的包，这样才能确保`SpringApplication`可以读取并加载到项目中声明的Bean。
-
-## 源码分析
+## How
 
 既然是从`SpringApplication.run(Class)`开始的，那就看看它都做了些什么吧：
 
@@ -107,9 +105,23 @@ public class SpringApplication {
 }
 ```
 
-可以看到先是通过构造方法`new SpringApplication(primarySources)`创建了一个`SpringApplication`的实例，然后调用`run`方法，继续跟进构造函数。
+上述代码的核心流程如下：
 
-### 构造方法
+1. 通过构造方法`new SpringApplication(primarySources)`创建了一个`SpringApplication`的实例;
+2. 调用`SpringApplication`的`run()`方法。
+
+流程如图所示：
+
+```mermaid
+flowchart TD
+    subgraph one["SpringApplication"]
+    	a["new SpringApplication(primarySources)"]-->b["run(args)"]
+    end
+```
+
+### Constructor
+
+现在，来查看`SpringApplication`的构造方法：
 
 ```java
 package org.springframework.boot;
@@ -140,8 +152,9 @@ public class SpringApplication {
 
 第15行代码的字面意思是从`classpath`推断`WebApplicationType`，跟进`deduceFromClasspath()`方法，发现Spring是通过判断特定的类是否存在来决定`WebApplicationType`的。
 
-第17、19两行代码中，发现都调用了`getSpringFactoriesInstances`方法，跟进发现一个关键的一行代码`SpringFactoriesLoader.loadFactoryNames(type,classLoader)`，
-该方法功能类似于JDK的SPI，用于加载Spring SPI的类名：
+第17、19两行代码中，分别加载了Spring的SPI扩展`ApplicationContextInitializer`[^ApplicationContextInitializer]和`ApplicationListener`[^ApplicationListener]
+发现都调用了`getSpringFactoriesInstances`方法，跟进发现一个关键的一行代码`SpringFactoriesLoader.loadFactoryNames(type,classLoader)`， 该方法功能类似于JDK的SPI，用于加载Spring
+SPI的类名：
 
 ```java
 package org.springframework.boot;
@@ -164,7 +177,7 @@ public class SpringApplication {
 }
 ```
 
-> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI。
+> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI，详情请查看[SpringFactory](spring-factory.md)。
 
 第21行`deduceMainApplicationClass()`方法通过分析堆栈信息`StackTraceElement`来推导主应用`Class`，代码如下：
 
@@ -198,7 +211,7 @@ public class SpringApplication {
 
 * 再来分析`run(String[])`方法
 
-### run方法
+### run()
 
 ```java
 package org.springframework.boot;
@@ -257,6 +270,25 @@ public class SpringApplication {
     }
 
 }
+```
+
+```mermaid
+flowchart TD
+    subgraph one["run"]
+    a1["SpringApplicationRunListeners listeners = getRunListeners(args)"]-->a2["listeners.starting()"]
+    a2-->a3["ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments)"]
+    a3-->a4["Banner printedBanner = printBanner(environment)"]
+    a4-->a5["context = createApplicationContext()"]
+    a5-->a6["prepareContext(context, environment, listeners, applicationArguments, printedBanner)"]
+    a6-->a7["refreshContext(context)"]
+    a7-->a8["afterRefresh(context, applicationArguments)"]
+    a8-->a9["listeners.started(context)"]
+    a9-->a10["listeners.running(context)"]
+    end
+    a6-->two
+    subgraph two["prepareContext"]
+    b1["listeners.contextPrepared(context)"]-->b2["listeners.contextLoaded(context)"]
+    end
 ```
 
 第16行`getFunListeners(args)`通过`SpringFactoriesLoader`加载了扩展`SpringApplicationRunListener`并实例了`SpringApplicationRunListeners`对象。
@@ -350,11 +382,16 @@ public class SpringApplication {
 本节以`SpringApplication.run(Class)`方法为切入点，通过分析构造方法和`run`方法等源码，获取了以下知识点：
 
 * 通过`SpringFactoriesLoader`加载了以下扩展点（SPI）：
-  * ApplicationContextInitializer
-  * ApplicationListener
-  * SpringApplicationRunListener
-  * SpringBootExceptionReporter
+    * ApplicationContextInitializer
+    * ApplicationListener
+    * SpringApplicationRunListener
+    * SpringBootExceptionReporter
 * 通过SpringApplicationRunListeners触发了SpringApplicationRunListener的一系列方法。
 * 在`refreshContext(context)`刷新环节中，指向了`ConfigurableApplicationContext`接口的`refresh`方法。
 
 本文结束。
+
+[^ApplicationContextInitializer]: `ApplicationContextInitializer`是Spring提供的SPI扩展之一，用于扩展`ConfigurableApplicationContext`。
+
+[^ApplicationListener]: `ApplicationListener`是Spring提供的SPI扩展之一，用于监听Spring运行期间触发的`ApplicationEvent`。
+

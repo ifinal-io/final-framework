@@ -16,6 +16,10 @@
     font-size: 1em;
 }
 
+.markdown article .footnotes {
+    margin: 32px 0;
+}
+
 .markdown .card {
     font-size: 1em;
 }
@@ -158,6 +162,7 @@ code.highlighter-rouge {
 
 .markdown article > table {
     width: 100%;
+    background-color: antiquewhite;
 }
 
 .markdown article > table > thead > tr > th {
