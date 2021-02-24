@@ -4,16 +4,12 @@ menus:
   - id: overview
     icon: emoji_objects
     name: 概览
-  - id: quick-start
-    icon: surfing
-    name: 快速开始
-    menus:
-      - id: hello-world
-        name: 你好，世界
   - id: boot
     icon: apps
     name: Boot
     menus:
+      - id: hello-world
+        name: Hello World
       - id: spring-application
         name: SpringApplication
       - id: spring-factory
