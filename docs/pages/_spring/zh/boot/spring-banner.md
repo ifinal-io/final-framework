@@ -118,6 +118,22 @@ SpringApplication.setBannerMode(Mode.OFF);
 ```
 
 > **ImageBanner**是将图像中的每一帧转换为`TextBanner`，因此`git`的Banner会出现多个。
+>
+> 可以通过`spring.banner.image.location`属性来指定`ImageBanner`资源的位置，默认为`banner.{ext}`。
+
+### Properties
+
+
+
+```yaml
+spring:
+	banner:
+		location: classpath:banner.txt # TextBanner 资源位置，默认为 classpath:banner.txt
+		image:
+			location: classpath:banner.gif # ImageBanner 资源位置，默认为 classpath:banner.gif(jpg|png)
+```
+
+
 
 ## When
 
@@ -291,6 +307,10 @@ class SpringBootBanner implements Banner {
 ```
 
 
+
+## Summary
+
+本文叙述了Spring应用Banner的用法及原理，Banner可应用于描述应用的组织、功能或版本信息等。
 
 
 

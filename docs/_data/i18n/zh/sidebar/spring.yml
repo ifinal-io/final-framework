@@ -5,8 +5,8 @@ menus:
     icon: emoji_objects
     name: 概览
   - id: boot
-    icon: apps
-    name: Boot
+    icon: do_not_disturb_on_total_silence
+    name: BOOT
     menus:
       - id: hello-world
         name: Hello World
@@ -18,23 +18,9 @@ menus:
         name: SpringBanner
       - id: spring-application-run-listener
         name: SpringApplicationRunListener
-  - id: annotations
-    icon: widgets
-    name: Annotaions
-    menus:
-      - id: component
-        name: "@Component"
-      - id: bean
-        name: "@Bean"
-      - id: event-listener
-        name: "@EventListener"
-      - id: component-scan
-        name: "@ComponentScan"
-      - id: import-resource
-        name: '@ImportResource'
-  - id: context
-    name: Context
-    icon: emoji_objects
+  - id: ioc
+    name: IOC
+    icon: sports_rugby
     menus:
       - id: application-context
         name: ApplicationContext
@@ -51,3 +37,11 @@ menus:
         name: 应用监听器
       - id: application-event-multicaster
         name: 应用事件多播器
+  - id: aop
+    name: AOP
+    icon: design_services
+  - id: security
+    name: Security
+    icon: shield
+
+
