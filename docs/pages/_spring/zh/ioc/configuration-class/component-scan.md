@@ -139,7 +139,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
 41-53行解析扫描包的范围由属性`basePackages`和`basePackageClasses`指定的包的合集，如果未指定，则为该注解声明类所在的包。
 
-![](../images/annotations/component-scan-packages.png)
+![](../../images/annotations/component-scan-packages.png)
 
 ### doScan
 

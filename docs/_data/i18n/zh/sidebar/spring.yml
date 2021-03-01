@@ -15,7 +15,9 @@ menus:
       - id: spring-banner
         name: SpringBanner
       - id: spring-application-run-listener
-        name: SpringApplicationRunListener
+        name: 'SpringApplicationRunListener'
+      - id: enable-auto-configuration
+        name: '@EnableAutoConfiguration'
   - id: ioc
     name: IOC
     icon: sports_rugby
@@ -24,9 +26,6 @@ menus:
         name: ApplicationContext
       - id: bean-factory-post-processor
         name: Bean工厂后置处理器
-        menus:
-          - id: configuration-class-post-processor
-            name: 配置类处理器
       - id: configuration-class
         name: ConfigurationClass
         menus:
@@ -34,6 +33,10 @@ menus:
             name: 配置类解析器
           - id: configuration-class-post-processor
             name: 配置类处理器
+          - id: component-scan
+            name: '@ComponentScan'
+          - id: bean
+            name: '@Bean'
       - id: application-listener
         name: 应用监听器
         menus:

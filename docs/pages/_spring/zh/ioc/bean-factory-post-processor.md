@@ -75,6 +75,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 ## How
 
+![BeanFactoryPostProcessor](http://assets.processon.com/chart_image/5f9a9292e401fd767b506ac4.png)
 
 
 
