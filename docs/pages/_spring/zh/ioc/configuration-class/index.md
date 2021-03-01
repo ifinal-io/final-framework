@@ -2,8 +2,8 @@
 formatter: "@formatter:off"
 title: ConfigurationClass
 subtitle: configuration-class 
-summary: configuration-class 
-tags: [] 
+summary: 含有特殊标记的`BeanDefiniton`。
+tags: [spring,ioc] 
 date: 2021-01-22 16:49:09 +800 
 version: 1.0
 formatter: "@formatter:on"
@@ -13,9 +13,11 @@ formatter: "@formatter:on"
 
 ## What
 
-**`ConfigurationClass`是一种用户定义的配置类，包含被`@Bean`标记的方法。**
+**配置类(`ConfigurationClass`)是一种含有特殊标记的`BeanDefiniton`。**
 
-具体体现为：
+## Definition
+
+Spring将符合以下规则的`BeanDefinition`称为**配置类(`ConfigurationClass`)**：
 
 * 不含有工厂方法
 * 非以下接口子类：
@@ -30,16 +32,17 @@ formatter: "@formatter:on"
     * Import
     * ImportResource
 
-本文将通过源码的方式，解决以下问题：
+
+
+## Target
+
+从本节开始，将通过源码分析的方式解决以下问题：
 
 * 如何判定一个`BeanDefinition`是否是`ConfigurationClass`；
-* 如何解析一个`ConfigurationClass`。
+* 如何解析一个`ConfigurationClass`；
+* `ConfigurationClass`是何时被解析的。
 
 ## How
-
-首先，来解决第一个问题：如何判定一个`BeanDefinition`是否是`ConfigurationClass`？
-
-### How to Check
 
 如何判定一个`BeanDefinition`是否是配置类呢？
 
@@ -174,109 +177,4 @@ abstract class ConfigurationClassUtils {
 
 }
 ```
-
-拉下来，再来分析一下是如何解析的。
-
-### How to Parse
-
-Spring提供了专用于解析`ConfigurationClass`的工具类`ConfigurationClassParser`。
-
-在`ConfigurationClassParser`的`parse(Set<BeanDefinitionHolder> configCandidates)`方法中，定义了处理的流程：
-
-```java
-public void parse(Set<BeanDefinitionHolder> configCandidates) {
-    for (BeanDefinitionHolder holder : configCandidates) {
-        BeanDefinition bd = holder.getBeanDefinition();
-        try {
-            if (bd instanceof AnnotatedBeanDefinition) {
-                parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
-            }
-            else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
-                parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
-            }
-            else {
-                parse(bd.getBeanClassName(), holder.getBeanName());
-            }
-        }
-        catch (BeanDefinitionStoreException ex) {
-            throw ex;
-        }
-        catch (Throwable ex) {
-            throw new BeanDefinitionStoreException(
-                    "Failed to parse configuration class [" + bd.getBeanClassName() + "]", ex);
-        }
-    }
-
-    this.deferredImportSelectorHandler.process();
-}
-```
-
-通过分析`BeanDefinition`的类型，分别处理，但最终都走到`processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter)`方法。
-
-在该方法中，将`ConfigurationClass`转化成一个`SourceClass`，循环处理当前类及其父类和接口：
-
-```java
-// Recursively process the configuration class and its superclass hierarchy.
-SourceClass sourceClass = asSourceClass(configClass, filter);
-do {
-	sourceClass = doProcessConfigurationClass(configClass, sourceClass, filter);
-}
-while (sourceClass != null);
-```
-
-接下来，继续分析`doProcessConfigurationClass`方法，在该方法中，将逐个分析类上的注解。
-
-首先分析的是`@Component`注解：
-
-```java
-if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
-	// Recursively process any member (nested) classes first
-	processMemberClasses(configClass, sourceClass, filter);
-}
-```
-
-然后，处理`@PropertySources`注解：
-
-```java
-// Process any @PropertySource annotations
-for (AnnotationAttributes propertySource : AnnotationConfigUtils.attributesForRepeatable(
-		sourceClass.getMetadata(), PropertySources.class,
-		org.springframework.context.annotation.PropertySource.class)) {
-	if (this.environment instanceof ConfigurableEnvironment) {
-		processPropertySource(propertySource);
-	}
-	else {
-		logger.info("Ignoring @PropertySource annotation on [" + sourceClass.getMetadata().getClassName() +
-				"]. Reason: Environment must implement ConfigurableEnvironment");
-	}
-}
-```
-
-其次，处理`@ComponentScan`注解：
-
-```java
-// Process any @ComponentScan annotations
-Set<AnnotationAttributes> componentScans = AnnotationConfigUtils.attributesForRepeatable(
-		sourceClass.getMetadata(), ComponentScans.class, ComponentScan.class);
-if (!componentScans.isEmpty() &&
-		!this.conditionEvaluator.shouldSkip(sourceClass.getMetadata(), ConfigurationPhase.REGISTER_BEAN)) {
-	for (AnnotationAttributes componentScan : componentScans) {
-		// The config class is annotated with @ComponentScan -> perform the scan immediately
-		Set<BeanDefinitionHolder> scannedBeanDefinitions =
-				this.componentScanParser.parse(componentScan, sourceClass.getMetadata().getClassName());
-		// Check the set of scanned definitions for any further config classes and parse recursively if needed
-		for (BeanDefinitionHolder holder : scannedBeanDefinitions) {
-			BeanDefinition bdCand = holder.getBeanDefinition().getOriginatingBeanDefinition();
-			if (bdCand == null) {
-				bdCand = holder.getBeanDefinition();
-			}
-			if (ConfigurationClassUtils.checkConfigurationClassCandidate(bdCand, this.metadataReaderFactory)) {
-				parse(bdCand.getBeanClassName(), holder.getBeanName());
-			}
-		}
-	}
-}
-```
-
-
 

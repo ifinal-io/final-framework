@@ -12,8 +12,6 @@ menus:
         name: Hello World
       - id: spring-application
         name: SpringApplication
-      - id: spring-factory
-        name: SpringFactory
       - id: spring-banner
         name: SpringBanner
       - id: spring-application-run-listener
@@ -31,15 +29,25 @@ menus:
             name: 配置类处理器
       - id: configuration-class
         name: ConfigurationClass
-      - id: application-event-publisher
-        name: 应用事件发布者
+        menus:
+          - id: configuration-class-parser
+            name: 配置类解析器
+          - id: configuration-class-post-processor
+            name: 配置类处理器
       - id: application-listener
         name: 应用监听器
-      - id: application-event-multicaster
-        name: 应用事件多播器
+        menus:
+          - id: event-listener
+            name: '@EventListener'
+          - id: application-event-publisher
+            name: 应用事件发布者
+          - id: application-event-multicaster
+            name: 应用事件多播器
+      - id: spring-factory
+        name: SpringFactory
   - id: aop
     name: AOP
-    icon: design_services
+    icon: layers
   - id: security
     name: Security
     icon: shield

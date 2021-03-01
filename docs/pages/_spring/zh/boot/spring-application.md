@@ -177,7 +177,7 @@ public class SpringApplication {
 }
 ```
 
-> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI，详情请查看[SpringFactory](spring-factory.md)。
+> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI，详情请查看[SpringFactory](../ioc/spring-factory.md)。
 
 第21行`deduceMainApplicationClass()`方法通过分析堆栈信息`StackTraceElement`来推导主应用`Class`，代码如下：
 

@@ -22,5 +22,5 @@ SpringBoot极大的简化了Spring程序的配置，遵循**约定大于配置**
 * [Hello World](hello-world.md)
 * [SpringApplication](spring-application.md)
 * [SpringBanner](spring-banner.md)
-* [SpringFactory](spring-factory.md)
+* [SpringFactory](../ioc/spring-factory.md)
 
