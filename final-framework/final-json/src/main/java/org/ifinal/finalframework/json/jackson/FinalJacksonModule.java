@@ -1,15 +1,20 @@
 package org.ifinal.finalframework.json.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import java.lang.reflect.Constructor;
-import java.time.LocalDateTime;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
+
 import org.ifinal.finalframework.json.jackson.deserializer.IEnumDeserializers;
 import org.ifinal.finalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
+import org.ifinal.finalframework.json.jackson.deserializer.StringTrimDeserializer;
 import org.ifinal.finalframework.json.jackson.serializer.ClassJsonSerializer;
 import org.ifinal.finalframework.json.jackson.serializer.LocalDateTimeSerializer;
-import org.springframework.lang.NonNull;
+import org.ifinal.finalframework.json.jackson.serializer.StringTrimSerializer;
+
+import java.lang.reflect.Constructor;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author likly
@@ -33,6 +38,10 @@ public class FinalJacksonModule extends SimpleModule {
 
         addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+
+        addDeserializer(String.class, new StringTrimDeserializer());
+        addSerializer(String.class, new StringTrimSerializer());
+
         addSerializer(Class.class, new ClassJsonSerializer());
 
     }
