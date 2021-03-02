@@ -32,17 +32,53 @@
       </div>
     </div>
     <div class="main main-raised">
-      <div class="container-fluid">
 
-        <div class="row flex-md-nowrap markdown" style="padding: 1em;padding-top: 30px;min-height: 50vh">
-          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+      <div class="card">
+
+        <div class="card-header card-header-success">
+
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+              </div>
+              <div class="col-xl-8 col-lg-12  ">
+                <div class="card-stats">
+                  <div class="author">
+                    <a href="#pablo">
+                      <img
+                          src="{{site.data.authors[page.author].avatar}}"
+                          alt="..." class="avatar img-raised">
+                      <span>{{ page.author }}</span>
+                    </a>
+                  </div>
+                  <div class="stats ml-auto">
+                    <i class="material-icons">article</i> {{ page.content | number_of_words }} &#xB7;
+                    <i class="material-icons">pending_actions</i> {{page.content | number_of_words | divided_by: 100}}
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <article class="col-xl-8 col-lg-12  ">
-            {{ content }}
-          </article>
-          <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2" style="top: 100px;padding-top: 2em;">
-            <div style="border-left: 1px #9c27b0  solid;padding-left: 1em">
-              <div class="toc" id="toc">
+
+
+        </div>
+
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="row flex-md-nowrap markdown" style="padding: 1em;padding-top: 30px;min-height: 50vh">
+              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+              </div>
+              <article class="col-xl-8 col-lg-12  ">
+                {{ content }}
+              </article>
+              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2" style="top: 100px;padding-top: 2em;">
+                <div style="border-left: 1px #9c27b0  solid;padding-left: 1em">
+                  <div class="toc" id="toc">
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -51,6 +87,7 @@
 
       </div>
     </div>
+
     {% include footer.html %}
   </div>
 </div>
@@ -64,7 +101,7 @@
           sequence: {
             showSequenceNumbers: true
           },
-          er:{
+          er: {
             fontSize: 18
           }
         });

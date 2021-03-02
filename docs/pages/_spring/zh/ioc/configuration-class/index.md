@@ -17,6 +17,18 @@ formatter: "@formatter:on"
 
 ## Definition
 
+```mermaid
+classDiagram
+  class ConfigrationClass{
+      -AnnotationMetadata metadata
+      -Resource resource
+      -String beanName
+      -Set<BeanMethod> beanMethods;
+      -Map<String,Class<? extends BeanDefinitionReader>> importedResources
+      -Map<ImportBeanDefinitionRegistrar,AnnotationMetadata> importBeanDefinitionRegistrars
+  }
+```
+
 Spring将符合以下规则的`BeanDefinition`称为**配置类(`ConfigurationClass`)**：
 
 * 不含有工厂方法

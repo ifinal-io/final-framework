@@ -85,6 +85,7 @@ defaults:
     values:
       layout: post
       output: true
+      author: likly
       banner: /assets/images/banner/spring-banner.png
 # 插件配置
 gist:

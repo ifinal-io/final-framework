@@ -35,6 +35,10 @@ menus:
             name: 配置类处理器
           - id: component-scan
             name: '@ComponentScan'
+          - id: import
+            name: '@Import'
+          - id: import-resource
+            name: '@ImportResource'
           - id: bean
             name: '@Bean'
       - id: application-listener
