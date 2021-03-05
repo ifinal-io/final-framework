@@ -161,7 +161,8 @@ code.highlighter-rouge {
 }
 
 .markdown article > table {
-    width: 100%;
+    width: calc(100% - 2em);
+    margin-left: 2em;
     background-color: antiquewhite;
 }
 
