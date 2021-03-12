@@ -17,12 +17,13 @@
 
 package org.ifinal.finalframework.util;
 
+import org.ifinal.finalframework.util.stream.Streamable;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
-import org.ifinal.finalframework.util.stream.Streamable;
 
 /**
  * 常见主要基础类型及其包装类型集
@@ -145,6 +146,10 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
 
     public static boolean isPrimary(final Class<?> clazz) {
         return ALL.types.contains(clazz);
+    }
+
+    public static boolean isNumber(final Class<?> clazz){
+        return NUMBER.types.contains(clazz);
     }
 
     @Override

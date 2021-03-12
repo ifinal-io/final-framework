@@ -1,0 +1,40 @@
+{
+  "version": "XLSX",
+  "sheets": [
+    {
+      "name": "SHEET NAME",
+      "header": {
+        "style": {
+        },
+        "rows": [
+          {
+            "style": {},
+            "cells": [
+              {
+                "value": "姓名"
+              }
+            ]
+          }
+        ]
+      },
+      "body": {
+        "titleRowStyle": {},
+        "valueRowStyle": {},
+        "columns": [
+          {
+            "title": {},
+            "value": {},
+            "titleStyle": {
+            },
+            "valueStyle": {}
+          }
+        ]
+      },
+      "footer": {
+        "style": {},
+        "rows": [
+        ]
+      }
+    }
+  ]
+}

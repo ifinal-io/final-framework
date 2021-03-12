@@ -30,6 +30,7 @@
         <module>final-devops</module>
         <module>final-logging</module>
         <module>final-security</module>
+        <module>final-poi</module>
     </modules>
 
 
@@ -140,6 +141,11 @@
             </dependency>
             <dependency>
                 <artifactId>final-security</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-poi</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
