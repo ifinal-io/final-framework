@@ -9,8 +9,8 @@
             <groupId>org.ifinal.finalframework.auto</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-data-core</artifactId>
-            <groupId>org.ifinal.finalframework.data</groupId>
+            <artifactId>final-data</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
             <version>${final.version}</version>
         </dependency>
         <dependency>

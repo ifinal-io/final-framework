@@ -8,8 +8,8 @@
             <groupId>org.ifinal.finalframework.starter</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-data-service</artifactId>
-            <groupId>org.ifinal.finalframework.data</groupId>
+            <artifactId>final-service</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
         </dependency>
     </dependencies>
 

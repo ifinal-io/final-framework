@@ -2,7 +2,7 @@
 
 # final-frameworks
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/likly/final-frameworks/CI)](https://github.com/likly/final-frameworks/actions?query=workflow%3ACI)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/final-projects/final-framework/CI)](https://github.com/final-projectes/final-framework/actions?query=workflow%3ACI)
 [![GitHub](https://img.shields.io/github/license/likly/final-frameworks)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinal.finalframework.frameworks/final-frameworks?server=https%3A%2F%2Foss.sonatype.org%2F)

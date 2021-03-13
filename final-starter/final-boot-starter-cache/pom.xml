@@ -9,7 +9,7 @@
         </dependency>
         <dependency>
             <artifactId>final-data-cache</artifactId>
-            <groupId>org.ifinal.finalframework.data</groupId>
+            <groupId>org.ifinal.finalframework</groupId>
         </dependency>
     </dependencies>
 

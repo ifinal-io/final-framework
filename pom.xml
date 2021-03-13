@@ -24,7 +24,6 @@
         <module>final-example</module>
         <module>final-apps</module>
         <module>final-cloud</module>
-        <module>final-data</module>
     </modules>
 
     <properties>
