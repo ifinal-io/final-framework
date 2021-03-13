@@ -37,19 +37,6 @@ class ExcelsTest {
         return cells;
     }
 
-    @Test
-    void exprot() throws Exception {
-
-        Excels.newWriter(
-//            Arrays.asList(new Cell(3, "标题1")),
-//            Arrays.asList(new Cell(4, "标题2")),
-            cells())
-            .append(persons())
-            .write("test.xlsx");
-
-        Excels.write(cells(), persons(), "test2.xlsx");
-
-    }
 
     @Test
     void testJson() throws IOException {

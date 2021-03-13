@@ -156,6 +156,29 @@
                 <version>${final.version}</version>
             </dependency>
             <dependency>
+                <artifactId>final-data</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-cache</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-service</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-sharding</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
                 <artifactId>mybatis</artifactId>
                 <groupId>org.mybatis</groupId>
                 <version>${mybatis.version}</version>

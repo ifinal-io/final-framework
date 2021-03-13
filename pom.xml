@@ -21,8 +21,6 @@
         <module>final-auto</module>
         <module>final-framework</module>
         <module>final-starter</module>
-        <module>final-example</module>
-        <module>final-apps</module>
         <module>final-cloud</module>
     </modules>
 

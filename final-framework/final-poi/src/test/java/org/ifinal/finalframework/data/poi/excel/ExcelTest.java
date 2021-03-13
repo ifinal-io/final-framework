@@ -35,11 +35,6 @@ class ExcelTest {
 
         logger.info("{}", Json.toJson(excel));
 
-        SpelExcelGenerator generator = new SpelExcelGenerator();
-        generator.writeRow(excel.getSheets().get(0).getBody(), null);
-
-        generator.write("base.xlsx");
-
     }
 
 }

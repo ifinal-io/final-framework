@@ -8,7 +8,7 @@
             <groupId>org.ifinal.finalframework.starter</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-data-cache</artifactId>
+            <artifactId>final-cache</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
     </dependencies>
