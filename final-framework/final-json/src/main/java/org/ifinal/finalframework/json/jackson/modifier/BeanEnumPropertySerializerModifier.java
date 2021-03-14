@@ -17,21 +17,21 @@ import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.auto.annotation.AutoService;
 
 /**
- * <h4>Feature:</h4>
+ * <h3>Feature:</h3>
  * <ul>
  *     <li>the property serialize the value of {@link IEnum#getCode()}.</li>
  *     <li>add property name serialize the value of {@link Enum#name()}.</li>
  *     <li>add property desc serialize the value of {@link IEnum#getDesc()}.</li>
  * </ul>
  *
- * <h4>Java Entity Example:</h4>
+ * <h3>Java Entity Example:</h3>
  * <pre class="code">
  *     &#64;Data
  *     static class EnumBean {
  *          private YN yn = YN.YES;
  *     }
  * </pre>
- * <h4>Json Example:</h4>
+ * <h3>Json Example:</h3>
  * <pre class="code">
  *      {
  *          "yn": 1,

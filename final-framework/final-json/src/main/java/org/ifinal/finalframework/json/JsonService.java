@@ -1,11 +1,12 @@
 package org.ifinal.finalframework.json;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 /**
  * Json 序列化与反序列化服务接口
@@ -177,6 +178,7 @@ public interface JsonService {
      * @param elementClass    json element type
      * @param <E>             json element type
      * @param <T>             json collection type
+     * @param view            json view
      * @return json value
      * @throws JsonException json JsonException
      */
