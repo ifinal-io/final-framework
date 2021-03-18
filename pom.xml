@@ -19,7 +19,6 @@
     <modules>
         <module>final-auto</module>
         <module>final-framework</module>
-        <module>final-starter</module>
     </modules>
 
     <properties>
