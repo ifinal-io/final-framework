@@ -35,8 +35,8 @@
             <artifactId>final-json</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-auth</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-web</artifactId>
         </dependency>
     </dependencies>
 

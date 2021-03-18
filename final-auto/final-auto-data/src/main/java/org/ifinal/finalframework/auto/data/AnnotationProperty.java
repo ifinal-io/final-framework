@@ -22,12 +22,13 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
+import org.ifinal.finalframework.auto.coding.utils.Annotations;
 import org.ifinal.finalframework.annotation.data.PrimaryKey;
 import org.ifinal.finalframework.annotation.data.Reference;
 import org.ifinal.finalframework.annotation.data.ReferenceMode;
 import org.ifinal.finalframework.annotation.data.Version;
-import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
-import org.ifinal.finalframework.auto.coding.utils.Annotations;
+
 import org.springframework.data.util.Lazy;
 import org.springframework.data.util.Optionals;
 

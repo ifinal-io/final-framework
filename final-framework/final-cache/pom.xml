@@ -15,16 +15,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-cache</artifactId>
-        </dependency>
-        <dependency>
             <artifactId>final-context</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <dependency>
             <artifactId>final-aop</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-cache</artifactId>
         </dependency>
         <dependency>
             <artifactId>final-redis</artifactId>
@@ -38,8 +38,12 @@
             <artifactId>spring-context</artifactId>
             <groupId>org.springframework</groupId>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

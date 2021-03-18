@@ -40,18 +40,18 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.ifinal.finalframework.annotation</groupId>
-                <artifactId>final-annotation</artifactId>
-                <version>${final.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
                 <groupId>org.ifinal.finalframework.auto</groupId>
                 <artifactId>final-auto</artifactId>
                 <version>${final.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>1.1.3</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->

@@ -7,7 +7,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.web.annotation.auth.Auth;
 import org.ifinal.finalframework.context.user.UserContextHolder;
 import org.ifinal.finalframework.annotation.core.IUser;
 import org.ifinal.finalframework.util.Reflections;

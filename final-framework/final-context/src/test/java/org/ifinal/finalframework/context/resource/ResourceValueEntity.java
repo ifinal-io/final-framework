@@ -2,7 +2,7 @@ package org.ifinal.finalframework.context.resource;
 
 import java.util.List;
 import lombok.Getter;
-import org.ifinal.finalframework.annotation.resource.ResourceValue;
+import org.ifinal.finalframework.context.annotation.ResourceValue;
 import org.springframework.stereotype.Component;
 
 /**

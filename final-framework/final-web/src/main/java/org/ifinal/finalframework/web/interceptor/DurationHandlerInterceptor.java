@@ -2,7 +2,7 @@ package org.ifinal.finalframework.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
+import org.ifinal.finalframework.web.annotation.servlet.Interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

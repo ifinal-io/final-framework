@@ -1,8 +1,9 @@
 package org.ifinal.finalframework.cache;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 import org.ifinal.finalframework.annotation.cache.Cache;
 import org.ifinal.finalframework.annotation.cache.CacheDel;
@@ -27,7 +28,8 @@ import javax.annotation.Resource;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Component
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnProperty(prefix = "final.cache", name = "enable", havingValue = "true", matchIfMissing = true)
 public class CacheAnnotationPointAdvisor extends MultiAnnotationPointAdvisor<AnnotationAttributes, Cache> {
 
     @Resource
@@ -53,7 +55,6 @@ public class CacheAnnotationPointAdvisor extends MultiAnnotationPointAdvisor<Ann
     @Override
     @NonNull
     protected Cache getExecutor(final AnnotationAttributes annotation) {
-
         return redisCache;
     }
 

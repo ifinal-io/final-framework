@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>final-aop</artifactId>
     <dependencies>
         <dependency>
@@ -33,8 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-aop</artifactId>
-            <version>${final.version}</version>
+            <artifactId>final-annotation-core</artifactId>
         </dependency>
     </dependencies>
 

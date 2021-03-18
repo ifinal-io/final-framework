@@ -17,8 +17,8 @@
             <groupId>org.springframework.data</groupId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-data</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-data</artifactId>
             <version>${final.version}</version>
             <scope>compile</scope>
         </dependency>

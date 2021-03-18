@@ -3,7 +3,7 @@ package org.ifinal.finalframework.web.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.Setter;
-import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
+import org.ifinal.finalframework.web.annotation.servlet.Interceptor;
 import org.ifinal.finalframework.core.generator.TraceGenerator;
 import org.ifinal.finalframework.core.generator.UuidTraceGenerator;
 import org.ifinal.finalframework.util.Asserts;

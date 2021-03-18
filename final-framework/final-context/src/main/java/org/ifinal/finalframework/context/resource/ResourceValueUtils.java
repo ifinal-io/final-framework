@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.ifinal.finalframework.annotation.resource.ResourceValue;
+import org.ifinal.finalframework.context.annotation.ResourceValue;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 /**

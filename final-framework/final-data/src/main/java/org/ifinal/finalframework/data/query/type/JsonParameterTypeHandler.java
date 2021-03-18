@@ -12,7 +12,7 @@ import org.apache.ibatis.type.JdbcType;
  *
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.annotation.data.Json
+ * @see org.ifinal.finalframework.data.annotation.Json
  * @see java.util.Collection
  * @see java.util.Map
  * @see java.util.List

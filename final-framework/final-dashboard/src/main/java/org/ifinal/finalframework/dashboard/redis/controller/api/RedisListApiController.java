@@ -2,7 +2,7 @@ package org.ifinal.finalframework.dashboard.redis.controller.api;
 
 import java.util.List;
 import javax.annotation.Resource;
-import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.web.annotation.auth.Auth;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

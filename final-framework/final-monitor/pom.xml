@@ -9,6 +9,10 @@
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <dependency>
+            <groupId>org.ifinal.finalframework.annotation</groupId>
+            <artifactId>final-annotation-monitor</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>final-context</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
@@ -22,11 +26,6 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-monitor</artifactId>
-        </dependency>
-
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
 

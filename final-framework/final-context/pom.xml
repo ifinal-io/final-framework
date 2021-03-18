@@ -9,10 +9,6 @@
             <artifactId>final-annotation-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-resource</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.ifinal.auto</groupId>
             <artifactId>auto-spring</artifactId>
         </dependency>

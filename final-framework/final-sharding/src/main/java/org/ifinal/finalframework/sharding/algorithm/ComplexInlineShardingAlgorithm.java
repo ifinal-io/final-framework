@@ -14,7 +14,7 @@ import org.apache.shardingsphere.sharding.algorithm.sharding.inline.InlineExpres
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.sharding.api.sharding.complex.ComplexKeysShardingValue;
 import org.apache.shardingsphere.sharding.spi.ShardingAlgorithm;
-import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
+import org.ifinal.finalframework.sharding.annotation.ShardingStrategy;
 import org.ifinal.auto.service.annotation.AutoService;
 import org.ifinal.finalframework.util.collection.Maps;
 

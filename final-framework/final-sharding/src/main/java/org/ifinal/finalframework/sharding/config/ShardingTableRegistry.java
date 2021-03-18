@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.ifinal.finalframework.annotation.sharding.ShardingTable;
+import org.ifinal.finalframework.sharding.annotation.ShardingTable;
 
 /**
  * @author likly

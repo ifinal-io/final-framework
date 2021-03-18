@@ -32,15 +32,11 @@
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
             <artifactId>final-annotation-sharding</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-data</artifactId>
+            <artifactId>final-annotation-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>

@@ -24,8 +24,6 @@
         <module>final-boot-starter-cache</module>
         <module>final-boot-starter-monitor</module>
         <module>final-boot-starter-web</module>
-        <module>final-boot-starter-zookeeper</module>
-        <module>final-boot-starter-dashboard</module>
         <module>final-boot-starter-sharding</module>
         <module>final-boot-starter-dubbo</module>
         <module>final-boot-starter-logging</module>
@@ -35,13 +33,6 @@
         <dependencies>
             <dependency>
                 <artifactId>final-framework</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <scope>import</scope>
-                <type>pom</type>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-data</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <scope>import</scope>
                 <type>pom</type>
@@ -112,16 +103,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-sharding</artifactId>
-                <groupId>org.ifinal.finalframework.starter</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-boot-starter-zookeeper</artifactId>
-                <groupId>org.ifinal.finalframework.starter</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-boot-starter-dashboard</artifactId>
                 <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>

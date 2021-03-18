@@ -11,6 +11,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+
 import org.ifinal.finalframework.annotation.data.Table;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.lang.NonNull;

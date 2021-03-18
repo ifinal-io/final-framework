@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.dashboard.ui.redis.controller;
 
-import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.web.annotation.auth.Auth;
 import org.ifinal.finalframework.dashboard.ui.annotation.Menus;
 import org.ifinal.finalframework.dashboard.ui.annotation.Title;
 import org.springframework.stereotype.Controller;

@@ -19,10 +19,6 @@
             <groupId>org.ifinal.auto</groupId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-web</artifactId>
-        </dependency>
-        <dependency>
             <artifactId>final-json</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
@@ -43,10 +39,6 @@
             <groupId>com.github.pagehelper</groupId>
             <scope>provided</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinal.finalframework.annotation</groupId>
-            <artifactId>final-annotation-auth</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework</groupId>

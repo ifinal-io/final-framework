@@ -17,11 +17,9 @@
     <description>Final framework with Spring Boot</description>
 
     <modules>
-        <module>final-annotation</module>
         <module>final-auto</module>
         <module>final-framework</module>
         <module>final-starter</module>
-        <module>final-cloud</module>
     </modules>
 
     <properties>

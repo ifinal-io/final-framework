@@ -1,6 +1,5 @@
 package org.ifinal.finalframework.aop;
 
-import java.util.List;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -24,17 +23,5 @@ public interface OperationHandlerSupport {
     @NonNull
     EvaluationContext createEvaluationContext(@NonNull InvocationContext context, @Nullable Object result,
         @Nullable Throwable e);
-
-    List<String> findExpressions(String expression);
-
-    /**
-     * 返回指定的字符串是否为一个表达式
-     *
-     * @param expression 表达式字符串
-     */
-    boolean isExpression(@Nullable String expression);
-
-    @NonNull
-    String generateExpression(@NonNull String expression);
 
 }

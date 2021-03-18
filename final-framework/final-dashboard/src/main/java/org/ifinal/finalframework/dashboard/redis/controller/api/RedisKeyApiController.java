@@ -3,7 +3,7 @@ package org.ifinal.finalframework.dashboard.redis.controller.api;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
-import org.ifinal.finalframework.annotation.auth.Auth;
+import org.ifinal.finalframework.web.annotation.auth.Auth;
 import org.ifinal.finalframework.redis.Redis;
 import org.springframework.data.redis.core.ConvertingCursor;
 import org.springframework.data.redis.core.Cursor;

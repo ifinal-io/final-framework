@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
-import org.ifinal.finalframework.annotation.web.bind.RequestJsonParam;
+import org.ifinal.finalframework.web.annotation.bind.RequestJsonParam;
 import org.ifinal.finalframework.context.exception.BadRequestException;
 import org.ifinal.finalframework.json.Json;
 import org.ifinal.finalframework.util.Asserts;

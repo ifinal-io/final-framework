@@ -13,10 +13,7 @@ import org.ifinal.finalframework.cache.interceptor.DefaultCacheExpressionEvaluat
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 import org.ifinal.finalframework.util.Asserts;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -81,18 +78,7 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     public Object generateKey(final String[] keys, final String delimiter, final MethodMetadata metadata,
         final EvaluationContext evaluationContext) {
 
-        final List<String> keyValues = Arrays.stream(keys)
-            .map(key -> {
-                if (isExpression(key)) {
-                    return evaluator.key(generateExpression(key), metadata.getMethodKey(), evaluationContext);
-                } else {
-                    return key;
-                }
-            })
-            .map(Object::toString)
-            .collect(Collectors.toList());
-
-        return String.join(delimiter, keyValues);
+        return evaluator.key(String.join(delimiter, keys), metadata.getMethodKey(), evaluationContext);
     }
 
     @Override
@@ -102,38 +88,22 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
         if (Asserts.isEmpty(fields)) {
             return null;
         }
-        List<String> fieldValues = Arrays.stream(fields)
-            .map(field -> {
-                if (isExpression(field)) {
-                    return evaluator.field(generateExpression(field), metadata.getMethodKey(), evaluationContext);
-                } else {
-                    return field;
-                }
-            })
-            .map(Object::toString)
-            .collect(Collectors.toList());
 
-        return String.join(delimiter, fieldValues);
+        return evaluator.field(String.join(delimiter, fields), metadata.getMethodKey(), evaluationContext);
+
     }
 
     @Override
     public Object generateValue(final String value, final MethodMetadata metadata,
         final EvaluationContext evaluationContext) {
 
-        if (value != null && isExpression(value)) {
-            return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext);
-        }
-        return value;
+        return evaluator.value(value, metadata.getMethodKey(), evaluationContext);
     }
 
     @Override
     public <T> T generateValue(final String value, final MethodMetadata metadata,
         final EvaluationContext evaluationContext, final Class<T> clazz) {
-
-        if (value != null && isExpression(value)) {
-            return evaluator.value(generateExpression(value), metadata.getMethodKey(), evaluationContext, clazz);
-        }
-        throw new IllegalArgumentException("value expression can not evaluator to " + clazz.getCanonicalName());
+        return evaluator.value(value, metadata.getMethodKey(), evaluationContext, clazz);
     }
 
     @Override
@@ -141,9 +111,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
         final EvaluationContext evaluationContext) {
 
         if (this.conditionPassing == null) {
-            if (condition != null && isExpression(condition)) {
-                this.conditionPassing = evaluator
-                    .condition(generateExpression(condition), metadata.getMethodKey(), evaluationContext);
+            if (condition != null) {
+                this.conditionPassing = evaluator.condition(condition, metadata.getMethodKey(), evaluationContext);
             } else {
                 this.conditionPassing = true;
             }
@@ -155,8 +124,8 @@ public class AbsCacheOperationInterceptorHandlerSupport extends AbsOperationInte
     public Object generateExpire(final String expire, final MethodMetadata metadata,
         final EvaluationContext evaluationContext) {
 
-        if (expire != null && isExpression(expire)) {
-            return evaluator.expired(generateExpression(expire), metadata.getMethodKey(), evaluationContext);
+        if (expire != null) {
+            return evaluator.expired(expire, metadata.getMethodKey(), evaluationContext);
         }
         return null;
     }

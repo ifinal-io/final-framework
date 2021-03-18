@@ -3,7 +3,7 @@ package org.ifinal.finalframework.sharding.config;
 import java.util.Properties;
 import lombok.Getter;
 import lombok.ToString;
-import org.ifinal.finalframework.annotation.sharding.ShardingStrategy;
+import org.ifinal.finalframework.sharding.annotation.ShardingStrategy;
 
 /**
  * @author likly

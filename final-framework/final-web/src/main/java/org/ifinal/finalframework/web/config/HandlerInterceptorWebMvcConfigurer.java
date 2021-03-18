@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import org.ifinal.finalframework.annotation.web.servlet.Interceptor;
+import org.ifinal.finalframework.web.annotation.servlet.Interceptor;
 
 import java.util.List;
 
