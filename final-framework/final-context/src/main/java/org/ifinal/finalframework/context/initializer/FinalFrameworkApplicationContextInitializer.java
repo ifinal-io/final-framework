@@ -2,7 +2,7 @@ package org.ifinal.finalframework.context.initializer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ifinal.finalframework.FinalFramework;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
+import org.ifinal.auto.spring.factory.annotation.SpringFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 

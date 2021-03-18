@@ -8,8 +8,8 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
-import org.ifinal.finalframework.auto.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.service.processor.AbsServiceProcessor;
+import org.ifinal.auto.service.annotation.AutoProcessor;
+import org.ifinal.auto.service.processor.AbsServiceProcessor;
 import org.ifinal.finalframework.annotation.core.IEnum;
 import org.ifinal.finalframework.annotation.core.lang.Transient;
 

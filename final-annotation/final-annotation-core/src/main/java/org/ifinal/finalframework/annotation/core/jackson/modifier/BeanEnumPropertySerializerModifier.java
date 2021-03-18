@@ -1,4 +1,12 @@
-package org.ifinal.finalframework.json.jackson.modifier;
+package org.ifinal.finalframework.annotation.core.jackson.modifier;
+
+import org.ifinal.finalframework.annotation.core.IEnum;
+import org.ifinal.auto.service.annotation.AutoService;
+import org.ifinal.finalframework.json.jackson.modifier.AbsSimpleBeanPropertySerializerModifier;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -10,11 +18,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import org.ifinal.finalframework.annotation.core.IEnum;
-import org.ifinal.finalframework.auto.annotation.AutoService;
 
 /**
  * <h3>Feature:</h3>

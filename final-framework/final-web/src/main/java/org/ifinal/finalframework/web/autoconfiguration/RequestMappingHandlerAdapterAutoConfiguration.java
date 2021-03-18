@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
+import org.ifinal.auto.spring.factory.annotation.SpringApplicationListener;
 import org.ifinal.finalframework.util.Asserts;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

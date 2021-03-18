@@ -15,8 +15,8 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <artifactId>final-auto-spring</artifactId>
-            <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>auto-spring</artifactId>
+            <groupId>org.ifinal.auto</groupId>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>

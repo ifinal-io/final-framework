@@ -5,7 +5,7 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.ifinal.finalframework.auto.annotation.AutoService;
+import org.ifinal.auto.service.annotation.AutoService;
 
 /**
  * @author likly

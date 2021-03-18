@@ -17,7 +17,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.finalframework.auto.annotation.AutoProcessor;
+import org.ifinal.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.io.support.ServicesLoader;

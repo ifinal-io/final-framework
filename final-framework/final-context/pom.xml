@@ -13,8 +13,8 @@
             <artifactId>final-annotation-resource</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.ifinal.finalframework.auto</groupId>
-            <artifactId>final-auto-spring</artifactId>
+            <groupId>org.ifinal.auto</groupId>
+            <artifactId>auto-spring</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

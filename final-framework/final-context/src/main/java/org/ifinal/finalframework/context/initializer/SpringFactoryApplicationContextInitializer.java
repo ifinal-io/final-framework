@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
+import org.ifinal.auto.spring.factory.annotation.SpringFactory;
 import org.ifinal.finalframework.context.beans.factory.support.SpringFactoryBeanDefinitionRegistryPostProcessor;
 
 import lombok.extern.slf4j.Slf4j;

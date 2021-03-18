@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.dubbo.annotation;
 
-import org.ifinal.finalframework.auto.annotation.AutoService;
+import org.ifinal.auto.service.annotation.AutoService;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

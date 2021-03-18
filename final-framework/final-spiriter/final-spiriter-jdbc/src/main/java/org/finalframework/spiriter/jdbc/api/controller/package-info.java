@@ -9,4 +9,4 @@
 @SpringController
 package org.ifinal.finalframework.spiriter.jdbc.api.controller;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringController;
+import org.ifinal.auto.spring.factory.annotation.SpringController;

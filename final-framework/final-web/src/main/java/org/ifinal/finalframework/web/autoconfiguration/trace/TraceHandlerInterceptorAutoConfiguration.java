@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.web.autoconfiguration.trace;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
+import org.ifinal.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.ifinal.finalframework.web.interceptor.TraceHandlerInterceptor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

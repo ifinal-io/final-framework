@@ -9,5 +9,5 @@
 @SpringFactory(value = Service.class, expand = true)
 package org.ifinal.finalframework.spiriter.jdbc.service.impl;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringFactory;
+import org.ifinal.auto.spring.factory.annotation.SpringFactory;
 import org.springframework.stereotype.Service;

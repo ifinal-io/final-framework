@@ -9,4 +9,4 @@
 @SpringController
 package org.ifinal.finalframework.spiriter.redis.api.controller;
 
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringController;
+import org.ifinal.auto.spring.factory.annotation.SpringController;

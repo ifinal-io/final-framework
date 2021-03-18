@@ -33,22 +33,7 @@
             <!-- =========================================== final-auto ============================================= -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <artifactId>final-auto-annotation</artifactId>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-auto-core</artifactId>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
                 <artifactId>final-auto-processor</artifactId>
-                <groupId>org.ifinal.finalframework.auto</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-auto-spring</artifactId>
                 <groupId>org.ifinal.finalframework.auto</groupId>
                 <version>${final.version}</version>
             </dependency>
@@ -84,10 +69,7 @@
     <groupId>org.ifinal.finalframework.auto</groupId>
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>final-auto-annotation</module>
-        <module>final-auto-core</module>
         <module>final-auto-processor</module>
-        <module>final-auto-spring</module>
         <module>final-auto-coding</module>
         <module>final-auto-data</module>
         <module>final-auto-query</module>

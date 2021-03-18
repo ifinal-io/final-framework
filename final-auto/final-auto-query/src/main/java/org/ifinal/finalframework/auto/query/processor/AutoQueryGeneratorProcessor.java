@@ -26,7 +26,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.auto.annotation.AutoProcessor;
+import org.ifinal.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.EntityFactory;
 import org.ifinal.finalframework.data.query.AbsQEntity;
 import org.ifinal.finalframework.data.query.QProperty;

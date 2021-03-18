@@ -25,8 +25,8 @@
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-auto-core</artifactId>
-            <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>auto-service</artifactId>
+            <groupId>org.ifinal.auto</groupId>
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>

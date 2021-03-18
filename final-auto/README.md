@@ -12,8 +12,6 @@ menus:
 
 |       artifactId        |                             描述                             |
 | :---------------------: | :----------------------------------------------------------: |
-| `final-auto-annotation` |                                                              |
-|  `final-auto-core`   | 自动生成`META-INF/services`文件，支持JDK原生`SPI`及`Dubbo`扩展`SPI` |
 |   `final-auto-spring`   | 自动生成`META-INF/spring.factories`文件，支持对`SpringFactory`进行扩展 |
 |   `final-auto-coding`   |        使用`Velocity`模板引擎，提供模板代码生成的基础        |
 |    `final-auto-data`    |  |

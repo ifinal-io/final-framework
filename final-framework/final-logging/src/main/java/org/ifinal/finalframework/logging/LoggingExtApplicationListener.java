@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringApplicationListener;
+import org.ifinal.auto.spring.factory.annotation.SpringApplicationListener;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.logging.LoggingApplicationListener;

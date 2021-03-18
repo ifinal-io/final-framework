@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.autoconfiguration.response;
 
 import java.util.Optional;
-import org.ifinal.finalframework.auto.spring.factory.annotation.SpringAutoConfiguration;
+import org.ifinal.auto.spring.factory.annotation.SpringAutoConfiguration;
 import org.ifinal.finalframework.web.response.advice.ResponsibleResponseBodyAdvice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

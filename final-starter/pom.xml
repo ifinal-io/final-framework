@@ -29,7 +29,6 @@
         <module>final-boot-starter-sharding</module>
         <module>final-boot-starter-dubbo</module>
         <module>final-boot-starter-logging</module>
-        <module>final-boot-starter-security</module>
     </modules>
 
     <dependencyManagement>
@@ -113,11 +112,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-boot-starter-sharding</artifactId>
-                <groupId>org.ifinal.finalframework.starter</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-boot-starter-security</artifactId>
                 <groupId>org.ifinal.finalframework.starter</groupId>
                 <version>${final.version}</version>
             </dependency>

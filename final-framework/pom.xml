@@ -15,7 +15,6 @@
 
     <modules>
         <module>final-context</module>
-        <module>final-json</module>
         <module>final-core</module>
         <module>final-dubbo</module>
         <module>final-monitor</module>
@@ -29,7 +28,6 @@
         <module>final-dashboard-ui</module>
         <module>final-devops</module>
         <module>final-logging</module>
-        <module>final-security</module>
         <module>final-data</module>
         <module>final-redis</module>
         <module>final-cache</module>
@@ -141,11 +139,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-monitor</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-security</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>

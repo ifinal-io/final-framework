@@ -5,8 +5,8 @@
     <artifactId>final-auto-mybatis</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>final-auto-core</artifactId>
-            <groupId>org.ifinal.finalframework.auto</groupId>
+            <groupId>org.ifinal.auto</groupId>
+            <artifactId>auto-service</artifactId>
         </dependency>
         <dependency>
             <artifactId>final-auto-data</artifactId>

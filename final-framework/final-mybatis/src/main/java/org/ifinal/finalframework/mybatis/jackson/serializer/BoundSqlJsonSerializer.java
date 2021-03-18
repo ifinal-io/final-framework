@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.jackson.serializer;
 
-import org.ifinal.finalframework.auto.annotation.AutoService;
+import org.ifinal.auto.service.annotation.AutoService;
 
 import java.io.IOException;
 
