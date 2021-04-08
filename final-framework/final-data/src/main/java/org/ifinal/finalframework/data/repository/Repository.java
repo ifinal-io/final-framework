@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.core.Pageable;
-import org.ifinal.finalframework.data.query.Update;
+import org.ifinal.finalframework.query.Update;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.io.Serializable;

@@ -11,7 +11,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Sort extends Iterable<Order>, SqlNode {
+public interface Sort extends Iterable<Order> {
 
     static Sort sort(Direction direction, QProperty<?>... properties) {
 
@@ -40,18 +40,5 @@ public interface Sort extends Iterable<Order>, SqlNode {
 
     Sort and(Sort sort);
 
-    @Override
-    default void apply(StringBuilder sql, String value) {
-
-        sql.append("<trim prefix=\"ORDER BY\" suffixOverrides=\",\">");
-
-        int index = 0;
-        for (Order order : this) {
-            order.apply(sql, String.format("value[%d]", index));
-        }
-
-        sql.append("</trim>");
-
-    }
 
 }

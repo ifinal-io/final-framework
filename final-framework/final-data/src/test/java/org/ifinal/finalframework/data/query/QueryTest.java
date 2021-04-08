@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
 import org.ifinal.finalframework.data.query.criterion.VelocityCriterionValue;
+import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.Criteria;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -37,8 +39,6 @@ class QueryTest {
     @Test
     void apply() {
 
-        final StringBuilder builder = new StringBuilder();
-
         final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
@@ -55,7 +55,12 @@ class QueryTest {
 
         query.limit(20L, 100L);
 
-        query.apply(builder, "query");
+        final StringBuilder builder = new StringBuilder();
+
+        DefaultQueryProvider provider = new DefaultQueryProvider(query);
+        Optional.ofNullable(provider.where()).ifPresent(builder::append);
+        Optional.ofNullable(provider.orders()).ifPresent(builder::append);
+        Optional.ofNullable(provider.limit()).ifPresent(builder::append);
 
         final XPathParser parser = new XPathParser(String.join("", "<script>", builder.toString(), "</script>"));
         final XNode script = parser.evalNode("//script");
@@ -111,12 +116,12 @@ class QueryTest {
 
                 CriterionAttributes target = new CriterionAttributes();
                 target.putAll(attributes);
-                target.put("criterion",String.format("query.criteria[%d]", i));
+                target.put("criterion", String.format("query.criteria[%d]", i));
 
                 String column = target.getColumn();
 
-                if(column.contains("${") || column.contains("#{")){
-                    column = Velocities.getValue(column,target);
+                if (column.contains("${") || column.contains("#{")) {
+                    column = Velocities.getValue(column, target);
                     target.setColumn(column);
                 }
 

@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
@@ -71,7 +72,10 @@ public class SelectSqlProvider implements AbsMapperSqlProvider {
         } else if (SELECT_METHOD_NAME.equals(context.getMapperMethod().getName()) && parameters.get("ids") != null) {
             sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
-            ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
+            QueryProvider provider = query((Query) query);
+            Optional.ofNullable(provider.where()).ifPresent(sql::append);
+            Optional.ofNullable(provider.orders()).ifPresent(sql::append);
+            Optional.ofNullable(provider.limit()).ifPresent(sql::append);
         } else if (query != null) {
 
             final QueryProvider provider = query(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass());

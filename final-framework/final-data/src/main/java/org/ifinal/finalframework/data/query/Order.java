@@ -1,7 +1,5 @@
 package org.ifinal.finalframework.data.query;
 
-import org.springframework.lang.NonNull;
-
 import org.ifinal.finalframework.query.Direction;
 
 /**
@@ -9,7 +7,7 @@ import org.ifinal.finalframework.query.Direction;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Order extends SqlNode {
+public interface Order {
 
     static Order order(QProperty<?> property, Direction direction) {
         return new OrderImpl(property, direction);
@@ -27,10 +25,5 @@ public interface Order extends SqlNode {
     QProperty getProperty();
 
     Direction getDirection();
-
-    @Override
-    default void apply(@NonNull StringBuilder sql, @NonNull String value) {
-        sql.append(String.format("%s %s,", getProperty().getColumn(), getDirection()));
-    }
 
 }

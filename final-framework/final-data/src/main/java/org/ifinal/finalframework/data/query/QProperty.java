@@ -10,6 +10,7 @@ import org.ifinal.finalframework.query.CriterionAttributes;
 import org.ifinal.finalframework.query.CriterionTarget;
 import org.ifinal.finalframework.query.FunctionCriteriable;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
@@ -21,7 +22,7 @@ import org.apache.ibatis.type.TypeHandler;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface QProperty<T> extends Comparable<QProperty<T>>, FunctionCriteriable<Object>, Sortable<Order>{
+public interface QProperty<T> extends Comparable<QProperty<T>>, FunctionCriteriable<Object>, Sortable<Order> {
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);
@@ -78,6 +79,11 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, FunctionCriteria
 
     Class<? extends TypeHandler> getTypeHandler();
 
+    default boolean isAnnotationPresent(Class<? extends Annotation> annotation) {
+        return getProperty().isAnnotationPresent(annotation);
+
+    }
+
     /**
      * Returns whether the property is an array.
      */
@@ -91,12 +97,12 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, FunctionCriteria
 
     @Override
     default Criterion condition(@NonNull String expression, @Nullable Object value, @Nullable Consumer<CriterionAttributes> consumer) {
-       return CriterionTarget.from(getColumn()).condition(expression,value,consumer);
+        return CriterionTarget.from(getColumn()).condition(expression, value, consumer);
     }
 
     @Override
-    default Criteriable<Object> apply(@NonNull UnaryOperator<String> column, @Nullable Consumer<CriterionAttributes> consumer){
-        return CriterionTarget.from(getColumn()).apply(column,consumer);
+    default Criteriable<Object> apply(@NonNull UnaryOperator<String> column, @Nullable Consumer<CriterionAttributes> consumer) {
+        return CriterionTarget.from(getColumn()).apply(column, consumer);
     }
 
     @Override

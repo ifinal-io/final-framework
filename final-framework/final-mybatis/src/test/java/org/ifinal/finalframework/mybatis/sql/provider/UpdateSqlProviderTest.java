@@ -14,8 +14,9 @@ import org.apache.ibatis.session.Configuration;
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
 import org.ifinal.finalframework.annotation.data.YN;
-import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.query.Update;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -49,11 +50,13 @@ class UpdateSqlProviderTest {
         parameters.put("table", "person");
         parameters.put("view", null);
         parameters.put("selective", false);
-        Person person = new Person();
-        person.setAge(12);
-        person.setName("haha");
-        person.setYn(YN.NO);
-        parameters.put("entity", person);
+//        Person person = new Person();
+//        person.setAge(12);
+//        person.setName("haha");
+//        person.setYn(YN.NO);
+//        parameters.put("entity", person);
+
+        parameters.put("update",Update.update().set("name","haha"));
 
         final PersonQuery query = new PersonQuery();
         query.setLocation(new Point());

@@ -7,6 +7,7 @@ import org.ifinal.finalframework.query.Criteria;
 import org.ifinal.finalframework.query.Criterion;
 import org.ifinal.finalframework.query.Direction;
 import org.ifinal.finalframework.query.Groupable;
+import org.ifinal.finalframework.query.Limitable;
 import org.ifinal.finalframework.query.Orderable;
 import org.ifinal.finalframework.util.stream.Streamable;
 
@@ -26,7 +27,7 @@ import lombok.Setter;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public class Query implements Streamable<Criterion>, Groupable, Orderable, Pageable, SqlNode {
+public class Query implements Streamable<Criterion>, Groupable, Orderable, Limitable, Pageable {
 
     @Getter
     private final Criteria criteria = new Criteria();
@@ -150,35 +151,6 @@ public class Query implements Streamable<Criterion>, Groupable, Orderable, Pagea
     @Override
     public Stream<Criterion> stream() {
         return criteria.stream();
-    }
-
-    @Override
-    public void apply(final @NonNull StringBuilder parent, final @NonNull String value) {
-//
-//        parent.append("<where>");
-//
-//        for (int i = 0; i < this.criteria.size(); i++) {
-//            final Criterion criterion = this.criteria.get(i);
-//            parent.append("<trim prefix=\" AND \">");
-//            criterion.apply(parent, String.format("%s.criteria[%s]", value, i));
-//            parent.append("</trim>");
-//        }
-//
-//        parent.append("</where>");
-//
-//        if(Asserts.nonNull(this.group)){
-//            this.group.apply(parent,String.format("%s.group",value));
-//        }
-//
-//
-//        if (Asserts.nonNull(this.sort)) {
-//            this.sort.apply(parent, String.format("%s.sort", value));
-//        }
-//
-//        if (this.limit != null) {
-//            limit.apply(parent, String.format("%s.limit", value));
-//        }
-
     }
 
 }

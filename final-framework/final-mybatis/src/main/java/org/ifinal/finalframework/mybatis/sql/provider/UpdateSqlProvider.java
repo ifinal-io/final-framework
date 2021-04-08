@@ -8,15 +8,17 @@ import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.query.QProperty;
 import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.data.query.QueryProvider;
-import org.ifinal.finalframework.data.query.Update;
-import org.ifinal.finalframework.data.query.UpdateSetOperation;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
+import org.ifinal.finalframework.query.Criterion;
+import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.Update;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
@@ -69,10 +71,24 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         if (parameters.containsKey(UPDATE_PARAMETER_NAME) && parameters.get(UPDATE_PARAMETER_NAME) != null) {
             final Update updates = (Update) parameters.get(UPDATE_PARAMETER_NAME);
-            int index = 0;
-            for (UpdateSetOperation updateSetOperation : updates) {
-                updateSetOperation.apply(sql, String.format("update[%d]", index++));
+            for (int i = 0; i < updates.size(); i++) {
+                Criterion criterion = updates.get(i);
+
+                if (criterion instanceof CriterionAttributes) {
+                    CriterionAttributes fragment = new CriterionAttributes();
+                    fragment.putAll((CriterionAttributes) criterion);
+                    fragment.setValue(String.format("update[%d]", i));
+                    String value = Velocities.getValue(fragment.getExpression(), fragment);
+                    sql.append(value);
+                } else {
+                    throw new IllegalArgumentException("update not support criterion of " + criterion.getClass());
+                }
+
             }
+
+//            for (UpdateSetOperation updateSetOperation : updates) {
+//                updateSetOperation.apply(sql, String.format("update[%d]", index++));
+//            }
         } else {
             appendEntitySet(sql, properties);
         }
@@ -84,7 +100,12 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         if (parameters.containsKey(IDS_PARAMETER_NAME) && parameters.get(IDS_PARAMETER_NAME) != null) {
             sql.append(whereIdsNotNull());
         } else if (query instanceof Query) {
-            ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
+            QueryProvider provider = query((Query) query);
+
+            Optional.ofNullable(provider.where()).ifPresent(sql::append);
+            Optional.ofNullable(provider.orders()).ifPresent(sql::append);
+            Optional.ofNullable(provider.limit()).ifPresent(sql::append);
+
         } else if (query != null) {
 
             final QueryProvider provider = query(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass());

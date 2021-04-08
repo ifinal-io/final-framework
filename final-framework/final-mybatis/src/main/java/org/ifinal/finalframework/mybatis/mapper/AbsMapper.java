@@ -5,7 +5,6 @@ import org.springframework.lang.Nullable;
 
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.data.query.Update;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.sql.provider.DeleteSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.InsertSqlProvider;
@@ -14,6 +13,7 @@ import org.ifinal.finalframework.mybatis.sql.provider.SelectIdsSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.SelectSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.TruncateSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.provider.UpdateSqlProvider;
+import org.ifinal.finalframework.query.Update;
 
 import java.io.Serializable;
 import java.util.Collection;

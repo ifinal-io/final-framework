@@ -241,13 +241,13 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
 
         final String onDuplicateKeyUpdate = properties.stream()
             .filter(property -> (property.isWriteable() && property.hasView(view))
-                || property.getProperty().isAnnotationPresent(Version.class)
-                || property.getProperty().isAnnotationPresent(LastModified.class))
+                || property.isVersionProperty()
+                || property.isAnnotationPresent(LastModified.class))
             .map(property -> {
                 String column = property.getColumn();
-                if (property.getProperty().isAnnotationPresent(Version.class)) {
+                if (property.isVersionProperty()) {
                     return String.format("%s = %s + 1", column, column);
-                } else if (property.getProperty().isAnnotationPresent(LastModified.class)) {
+                } else if (property.isAnnotationPresent(LastModified.class)) {
                     return String.format("%s = NOW()", column);
                 } else {
                     return String.format("%s = values(%s)", column, column);

@@ -9,6 +9,7 @@ import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
 
@@ -59,7 +60,11 @@ public class SelectIdsSqlProvider implements AbsMapperSqlProvider {
         Object query = parameters.get(QUERY_PARAMETER_NAME);
 
         if (query instanceof Query) {
-            ((Query) query).apply(sql, QUERY_PARAMETER_NAME);
+            QueryProvider provider = query((Query) query);
+
+            Optional.ofNullable(provider.where()).ifPresent(sql::append);
+            Optional.ofNullable(provider.orders()).ifPresent(sql::append);
+            Optional.ofNullable(provider.limit()).ifPresent(sql::append);
         } else if (query != null) {
 
             final QueryProvider provider = query(QUERY_PARAMETER_NAME, (Class<? extends IEntity<?>>) entity, query.getClass());

@@ -3,8 +3,10 @@ package org.ifinal.finalframework.mybatis.sql;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.data.query.Query;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
+import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.sql.provider.ScriptSqlProvider;
 
@@ -34,6 +36,10 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
         return new AnnotationQueryProvider(expression, entity, query);
     }
 
+    default QueryProvider query(Query query){
+        return new DefaultQueryProvider(query);
+    }
+
     default String whereIdNotNull() {
         return "<where>${properties.idProperty.column} = #{id}</where>";
     }
@@ -44,6 +50,7 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
             + "<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach>"
             + "</where>";
     }
+
 
 }
 
