@@ -1,6 +1,7 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.Direction;
+
+import org.ifinal.finalframework.query.Direction;
 
 import java.util.Arrays;
 import java.util.Collection;

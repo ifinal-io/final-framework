@@ -6,7 +6,7 @@
     <parent>
         <artifactId>final-frameworks</artifactId>
         <groupId>org.ifinal.finalframework.frameworks</groupId>
-        <version>1.1.3-SNAPSHOT</version>
+        <version>1.1.4-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
 
@@ -21,7 +21,6 @@
         <module>final-retrofit</module>
         <module>final-aop</module>
         <module>final-zookeeper</module>
-        <module>final-selenium</module>
         <module>final-web</module>
         <module>final-javapoets</module>
         <module>final-dashboard</module>
@@ -34,6 +33,7 @@
         <module>final-service</module>
         <module>final-sharding</module>
         <module>final-mybatis</module>
+        <module>final-colud</module>
     </modules>
 
 
@@ -49,7 +49,7 @@
             <dependency>
                 <groupId>org.ifinal.finalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>1.1.3-SNAPSHOT</version>
+                <version>1.1.4-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

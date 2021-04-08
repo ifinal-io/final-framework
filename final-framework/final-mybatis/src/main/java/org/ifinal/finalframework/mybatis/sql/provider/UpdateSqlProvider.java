@@ -1,8 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import java.util.Map;
-import java.util.Objects;
-import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.springframework.lang.NonNull;
+
 import org.ifinal.finalframework.annotation.core.IEntity;
 import org.ifinal.finalframework.annotation.data.Metadata;
 import org.ifinal.finalframework.data.query.QEntity;
@@ -15,7 +14,11 @@ import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.util.Asserts;
-import org.springframework.lang.NonNull;
+
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.ibatis.builder.annotation.ProviderContext;
 
 /**
  * @author likly
@@ -164,6 +167,10 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
     }
 
     private void appendVersionProperty(final StringBuilder sql, final QEntity<?, ?> entity) {
+
+        if (!entity.hasVersionProperty()) {
+            return;
+        }
 
         sql.append("<if test=\"properties.hasVersionProperty()\">");
         String version = entity.getVersionProperty().getColumn();

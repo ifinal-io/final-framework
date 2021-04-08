@@ -7,7 +7,7 @@ import org.ifinal.finalframework.data.query.SqlNode;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Criterion extends SqlNode {
+public interface Criterion extends SqlNode, org.ifinal.finalframework.query.Criterion {
 
 }
 

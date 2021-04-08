@@ -2,8 +2,8 @@ package org.ifinal.finalframework.data.query;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.annotation.query.AndOr;
-import org.ifinal.finalframework.data.query.criterion.Criterion;
+import org.ifinal.finalframework.query.AndOr;
+import org.ifinal.finalframework.query.Criterion;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -53,17 +53,17 @@ public interface Criteria extends Criterion, Iterable<Criterion>, SqlNode {
 
     @Override
     default void apply(@NonNull StringBuilder sql, @NonNull String value) {
-        sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
-        int index = 0;
-
-        for (Criterion criterion : this) {
-            sql.append(String.format("<trim prefix=\" %s \">", andOr().name()));
-            criterion.apply(sql, String.format("%s.criteria[%d]", value, index));
-            sql.append("</trim>");
-            index++;
-        }
-
-        sql.append("</trim>");
+//        sql.append("<trim prefix=\"(\" prefixOverrides=\"AND |OR \" suffix=\")\">");
+//        int index = 0;
+//
+//        for (Criterion criterion : this) {
+//            sql.append(String.format("<trim prefix=\" %s \">", andOr().name()));
+//            criterion.apply(sql, String.format("%s.criteria[%d]", value, index));
+//            sql.append("</trim>");
+//            index++;
+//        }
+//
+//        sql.append("</trim>");
 
     }
 

@@ -7,7 +7,7 @@
     <parent>
         <artifactId>final-auto</artifactId>
         <groupId>org.ifinal.finalframework.auto</groupId>
-        <version>1.1.3-SNAPSHOT</version>
+        <version>1.1.4-SNAPSHOT</version>
     </parent>
     <artifactId>final-auto-processor</artifactId>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
             <artifactId>final-annotation-core</artifactId>
-            <version>1.1.3-SNAPSHOT</version>
+            <version>1.1.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>final-core</artifactId>

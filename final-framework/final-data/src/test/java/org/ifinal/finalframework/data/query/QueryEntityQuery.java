@@ -1,7 +1,8 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.Equal;
-import org.ifinal.finalframework.annotation.query.Or;
+
+import org.ifinal.finalframework.query.annotation.Equal;
+import org.ifinal.finalframework.query.annotation.Or;
 
 import lombok.Data;
 

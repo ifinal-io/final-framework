@@ -2,7 +2,7 @@ package org.ifinal.finalframework.data.query;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.annotation.query.Direction;
+import org.ifinal.finalframework.query.Direction;
 
 /**
  * @author likly

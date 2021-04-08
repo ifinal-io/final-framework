@@ -1,9 +1,12 @@
 package org.ifinal.finalframework.data.query;
 
+import org.springframework.lang.NonNull;
+
 import org.ifinal.finalframework.util.Asserts;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author likly
@@ -33,6 +36,13 @@ final class GroupImpl extends ArrayList<QProperty<?>> implements Group {
         }
 
         return GroupImpl.by(these);
+    }
+
+    @Override
+    public void apply(@NonNull final StringBuilder sql, @NonNull final String expression) {
+        sql.append("GROUP BY ")
+            .append( this.stream().map(QProperty::getColumn).collect(Collectors.joining(",")));
+
     }
 
 }

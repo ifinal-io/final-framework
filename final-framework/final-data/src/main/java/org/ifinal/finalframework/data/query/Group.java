@@ -8,7 +8,7 @@ import java.util.Collection;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Group extends Iterable<QProperty<?>> {
+public interface Group extends Iterable<QProperty<?>>,SqlNode {
 
     static Group by(QProperty<?>... properties) {
         return by(Arrays.asList(properties));

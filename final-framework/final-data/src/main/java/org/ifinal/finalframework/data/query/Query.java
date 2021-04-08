@@ -3,8 +3,8 @@ package org.ifinal.finalframework.data.query;
 import org.springframework.lang.NonNull;
 
 import org.ifinal.finalframework.annotation.core.Pageable;
-import org.ifinal.finalframework.annotation.query.Direction;
-import org.ifinal.finalframework.data.query.criterion.Criterion;
+import org.ifinal.finalframework.query.Criterion;
+import org.ifinal.finalframework.query.Direction;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
 
@@ -160,25 +160,30 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
 
     @Override
     public void apply(final @NonNull StringBuilder parent, final @NonNull String value) {
-
-        parent.append("<where>");
-
-        for (int i = 0; i < this.criteria.size(); i++) {
-            final Criterion criterion = this.criteria.get(i);
-            parent.append("<trim prefix=\" AND \">");
-            criterion.apply(parent, String.format("%s.criteria[%s]", value, i));
-            parent.append("</trim>");
-        }
-
-        parent.append("</where>");
-
-        if (Asserts.nonNull(this.sort)) {
-            this.sort.apply(parent, String.format("%s.sort", value));
-        }
-
-        if (this.limit != null) {
-            limit.apply(parent, String.format("%s.limit", value));
-        }
+//
+//        parent.append("<where>");
+//
+//        for (int i = 0; i < this.criteria.size(); i++) {
+//            final Criterion criterion = this.criteria.get(i);
+//            parent.append("<trim prefix=\" AND \">");
+//            criterion.apply(parent, String.format("%s.criteria[%s]", value, i));
+//            parent.append("</trim>");
+//        }
+//
+//        parent.append("</where>");
+//
+//        if(Asserts.nonNull(this.group)){
+//            this.group.apply(parent,String.format("%s.group",value));
+//        }
+//
+//
+//        if (Asserts.nonNull(this.sort)) {
+//            this.sort.apply(parent, String.format("%s.sort", value));
+//        }
+//
+//        if (this.limit != null) {
+//            limit.apply(parent, String.format("%s.limit", value));
+//        }
 
     }
 

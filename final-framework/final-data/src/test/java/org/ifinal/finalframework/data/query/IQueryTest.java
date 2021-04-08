@@ -1,10 +1,10 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.query.AndOr;
-import org.ifinal.finalframework.annotation.query.Equal;
-import org.ifinal.finalframework.annotation.query.Or;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
+import org.ifinal.finalframework.query.AndOr;
+import org.ifinal.finalframework.query.annotation.Equal;
+import org.ifinal.finalframework.query.annotation.Or;
 
 import java.util.HashMap;
 import java.util.Map;

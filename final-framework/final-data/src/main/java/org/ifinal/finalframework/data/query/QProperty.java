@@ -4,19 +4,15 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import org.ifinal.finalframework.data.mapping.Property;
-import org.ifinal.finalframework.data.query.criteriable.Criteriable;
-import org.ifinal.finalframework.data.query.criteriable.ExecuteCriteriable;
-import org.ifinal.finalframework.data.query.criterion.Criterion;
-import org.ifinal.finalframework.data.query.criterion.CriterionTarget;
-import org.ifinal.finalframework.data.query.criterion.function.CriterionFunction;
-import org.ifinal.finalframework.data.query.operation.DateOperation;
-import org.ifinal.finalframework.data.query.operation.JsonOperations;
-import org.ifinal.finalframework.data.query.operation.LogicOperations;
-import org.ifinal.finalframework.data.query.operation.MathOperations;
+import org.ifinal.finalframework.query.Criteriable;
+import org.ifinal.finalframework.query.Criterion;
+import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.CriterionTarget;
+import org.ifinal.finalframework.query.FunctionCriteriable;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 import org.apache.ibatis.type.TypeHandler;
 
@@ -25,8 +21,7 @@ import org.apache.ibatis.type.TypeHandler;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Object, Criterion>, Sortable<Order>,
-    ExecuteCriteriable<T> {
+public interface QProperty<T> extends Comparable<QProperty<T>>, FunctionCriteriable<Object>, Sortable<Order>{
 
     static <T, E extends QEntity<?, ?>> QProperty.Builder<T> builder(E entity, Property property) {
         return new QPropertyImpl.BuilderImpl<>(entity, property);
@@ -94,158 +89,14 @@ public interface QProperty<T> extends Comparable<QProperty<T>>, Criteriable<Obje
 
     boolean nonnull();
 
-    default CriterionTarget<CriterionFunction> apply(Function<QProperty<T>, CriterionFunction> mapper) {
-        return CriterionTarget.from(mapper.apply(this));
+    @Override
+    default Criterion condition(@NonNull String expression, @Nullable Object value, @Nullable Consumer<CriterionAttributes> consumer) {
+       return CriterionTarget.from(getColumn()).condition(expression,value,consumer);
     }
 
     @Override
-    default Criterion isNull() {
-        return CriterionTarget.from(this).isNull();
-    }
-
-    @Override
-    default Criterion isNotNull() {
-        return CriterionTarget.from(this).isNotNull();
-    }
-
-    @Override
-    default Criterion between(@NonNull Object min, @NonNull Object max) {
-        return CriterionTarget.from(this).between(min, max);
-    }
-
-    @Override
-    default Criterion notBetween(@NonNull Object min, @NonNull Object max) {
-        return CriterionTarget.from(this).notBetween(min, max);
-    }
-
-    @Override
-    default Criterion eq(@NonNull Object value) {
-        return CriterionTarget.from(this).eq(value);
-    }
-
-    @Override
-    default Criterion neq(@NonNull Object value) {
-        return CriterionTarget.from(this).neq(value);
-    }
-
-    @Override
-    default Criterion gt(@NonNull Object value) {
-        return CriterionTarget.from(this).gt(value);
-    }
-
-    @Override
-    default Criterion gte(@NonNull Object value) {
-        return CriterionTarget.from(this).gte(value);
-    }
-
-    @Override
-    default Criterion lt(@NonNull Object value) {
-        return CriterionTarget.from(this).lt(value);
-    }
-
-    @Override
-    default Criterion lte(@NonNull Object value) {
-        return CriterionTarget.from(this).lte(value);
-    }
-
-    @Override
-    default Criterion in(@NonNull Collection<?> values) {
-        return CriterionTarget.from(this).in(values);
-    }
-
-    @Override
-    default Criterion nin(@NonNull Collection<?> values) {
-        return CriterionTarget.from(this).nin(values);
-    }
-
-    @Override
-    default Criterion like(@NonNull String value) {
-        return CriterionTarget.from(this).like(value);
-    }
-
-    @Override
-    default Criterion notLike(@NonNull String value) {
-        return CriterionTarget.from(this).notLike(value);
-    }
-
-    @Override
-    default Criterion jsonContains(@NonNull Object value, String path) {
-        return JsonOperations.contains(this, value, path);
-    }
-
-    @Override
-    default Criterion notJsonContains(@NonNull Object value, String path) {
-        return JsonOperations.notContains(this, value, path);
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> date() {
-        return apply(value -> DateOperation.date(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> jsonExtract(@NonNull String path) {
-        return apply(value -> JsonOperations.extract(this, path));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> jsonKeys() {
-        return apply(value -> JsonOperations.keys(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> jsonLength() {
-        return apply(value -> JsonOperations.length(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> jsonDepth() {
-        return apply(value -> JsonOperations.depth(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> jsonUnquote() {
-        return apply(value -> JsonOperations.unquote(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> and(@NonNull Object value) {
-        return apply(property -> LogicOperations.and(this, value));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> or(@NonNull Object value) {
-        return apply(property -> LogicOperations.or(this, value));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> xor(@NonNull Object value) {
-        return apply(property -> LogicOperations.xor(this, value));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> not() {
-        return apply(value -> LogicOperations.not(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> min() {
-        return apply(value -> MathOperations.min(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> max() {
-        return apply(value -> MathOperations.max(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> sum() {
-        return apply(value -> MathOperations.sum(this));
-    }
-
-    @Override
-    default CriterionTarget<CriterionFunction> avg() {
-        return apply(value -> MathOperations.avg(this));
+    default Criteriable<Object> apply(@NonNull UnaryOperator<String> column, @Nullable Consumer<CriterionAttributes> consumer){
+        return CriterionTarget.from(getColumn()).apply(column,consumer);
     }
 
     @Override
