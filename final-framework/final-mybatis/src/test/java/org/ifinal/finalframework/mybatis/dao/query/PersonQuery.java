@@ -2,9 +2,9 @@ package org.ifinal.finalframework.mybatis.dao.query;
 
 import lombok.Data;
 import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.annotation.query.Direction;
-import org.ifinal.finalframework.annotation.query.Limit;
-import org.ifinal.finalframework.annotation.query.Order;
+import org.ifinal.finalframework.query.Direction;
+import org.ifinal.finalframework.query.annotation.Limit;
+import org.ifinal.finalframework.query.annotation.Order;
 
 /**
  * PersonQuery.

@@ -1,10 +1,11 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import org.ifinal.finalframework.query.annotation.Criterion;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.ifinal.finalframework.annotation.query.Criterion;
 
 /**
  * @author likly

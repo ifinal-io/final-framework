@@ -4,22 +4,22 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 
 import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.query.AndOr;
-import org.ifinal.finalframework.query.annotation.Criteria;
-import org.ifinal.finalframework.query.annotation.Criterion;
-import org.ifinal.finalframework.query.CriterionAttributes;
-import org.ifinal.finalframework.query.annotation.CriterionSqlProvider;
-import org.ifinal.finalframework.query.annotation.function.Function;
-import org.ifinal.finalframework.query.annotation.Limit;
-import org.ifinal.finalframework.query.annotation.Offset;
-import org.ifinal.finalframework.query.annotation.Or;
-import org.ifinal.finalframework.query.annotation.Order;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.QEntity;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.ifinal.finalframework.data.util.Velocities;
+import org.ifinal.finalframework.query.AndOr;
+import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.annotation.Criteria;
+import org.ifinal.finalframework.query.annotation.Criterion;
+import org.ifinal.finalframework.query.annotation.CriterionSqlProvider;
+import org.ifinal.finalframework.query.annotation.Limit;
+import org.ifinal.finalframework.query.annotation.Offset;
+import org.ifinal.finalframework.query.annotation.Or;
+import org.ifinal.finalframework.query.annotation.Order;
+import org.ifinal.finalframework.query.annotation.function.Function;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.lang.annotation.Annotation;
@@ -38,7 +38,6 @@ import org.apache.ibatis.type.TypeHandler;
 /**
  * @author likly
  * @version 1.0.0
- * @see org.ifinal.finalframework.data.query.criterion.Criterion
  * @since 1.0.0
  */
 @Slf4j

@@ -3,14 +3,17 @@ package org.ifinal.finalframework.data.query;
 import org.springframework.lang.NonNull;
 
 import org.ifinal.finalframework.annotation.core.Pageable;
+import org.ifinal.finalframework.query.Criteria;
 import org.ifinal.finalframework.query.Criterion;
 import org.ifinal.finalframework.query.Direction;
-import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.query.Groupable;
+import org.ifinal.finalframework.query.Orderable;
 import org.ifinal.finalframework.util.stream.Streamable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,10 +26,10 @@ import lombok.Setter;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public class Query implements Streamable<Criterion>, Pageable, SqlNode {
+public class Query implements Streamable<Criterion>, Groupable, Orderable, Pageable, SqlNode {
 
     @Getter
-    private final List<Criterion> criteria = new ArrayList<>();
+    private final Criteria criteria = new Criteria();
 
     /**
      * 页码，第一页从1开始
@@ -50,13 +53,16 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
     private Boolean count = Boolean.TRUE;
 
     @Getter
-    private Group group;
+    private Long offset;
 
     @Getter
-    private Sort sort;
+    private Long limit;
 
     @Getter
-    private Limit limit;
+    private final List<String> orders = new LinkedList<>();
+
+    @Getter
+    private final List<String> groups = new LinkedList<>();
 
     public Query page(final Integer page, final Integer size) {
 
@@ -89,7 +95,6 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
     }
 
     public Query where(final @NonNull Collection<Criterion> criteria) {
-
         this.criteria.addAll(criteria);
         return this;
     }
@@ -100,39 +105,28 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
     }
 
     public Query group(final Collection<QProperty<?>> properties) {
-
-        this.group = Asserts.isNull(group) ? Group.by(properties) : this.group.and(Group.by(properties));
+        properties.forEach(it -> this.groups.add(it.getColumn()));
         return this;
     }
 
     public Query sort(final @NonNull Order... orders) {
-
         return sort(Arrays.asList(orders));
     }
 
     public Query sort(final Sort sort) {
-
-        if (this.sort == null) {
-            this.sort = sort;
-        } else {
-            this.sort.and(sort);
-        }
+        sort.forEach(it -> this.orders.add(it.getProperty().getColumn() + " " + it.getDirection().name()));
         return this;
     }
 
     public Query sort(final @NonNull Collection<Order> orders) {
-
-        sort = sort == null ? Sort.by(new ArrayList<>(orders)) : sort.and(Sort.by(new ArrayList<>()));
-        return this;
+        return this.sort(Sort.by(new ArrayList<>(orders)));
     }
 
     public Query sort(final @NonNull Direction direction, final @NonNull QProperty... properties) {
-
         return sort(Sort.sort(direction, properties));
     }
 
     public Query asc(final @NonNull QProperty... properties) {
-
         return sort(Direction.ASC, properties);
     }
 
@@ -142,14 +136,14 @@ public class Query implements Streamable<Criterion>, Pageable, SqlNode {
     }
 
     public Query limit(final long offset, final long limit) {
-
-        this.limit = new LimitImpl(offset, limit);
+        this.offset = offset;
+        this.limit = limit;
         return this;
     }
 
     public Query limit(final long limit) {
-
-        this.limit = new LimitImpl(null, limit);
+        this.offset = null;
+        this.limit = limit;
         return this;
     }
 
