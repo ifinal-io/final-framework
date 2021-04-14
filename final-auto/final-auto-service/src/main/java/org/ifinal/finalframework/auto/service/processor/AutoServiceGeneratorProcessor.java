@@ -1,5 +1,18 @@
 package org.ifinal.finalframework.auto.service.processor;
 
+import org.springframework.stereotype.Service;
+
+import org.ifinal.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
+import org.ifinal.finalframework.service.AbsService;
+import org.ifinal.finalframework.service.AbsServiceImpl;
+
+import java.io.Writer;
+import java.util.Set;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -7,8 +20,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import java.io.Writer;
-import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -18,14 +29,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.io.support.ServicesLoader;
-import org.ifinal.finalframework.javapoets.JavaPoets;
-import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.service.AbsService;
-import org.ifinal.finalframework.service.AbsServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * Auto Generate Service Processor.

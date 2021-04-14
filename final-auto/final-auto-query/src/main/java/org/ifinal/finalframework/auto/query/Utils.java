@@ -1,9 +1,10 @@
 package org.ifinal.finalframework.auto.query;
 
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
-import org.ifinal.finalframework.auto.data.Property;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.ifinal.finalframework.auto.data.Property;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
 
 /**
  * @author likly

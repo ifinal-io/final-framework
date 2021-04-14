@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.ifinal.finalframework.annotation.core.result.Result;
+import org.ifinal.finalframework.core.annotation.result.Result;
 import org.ifinal.finalframework.json.Json;
 
 import java.util.ArrayList;

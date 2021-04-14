@@ -1,13 +1,13 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import org.ifinal.finalframework.annotation.data.LastModified;
-import org.ifinal.finalframework.annotation.data.Metadata;
-import org.ifinal.finalframework.annotation.data.Version;
-import org.ifinal.finalframework.data.query.QEntity;
-import org.ifinal.finalframework.data.query.QProperty;
+import org.ifinal.finalframework.data.annotation.LastModified;
+import org.ifinal.finalframework.data.annotation.Metadata;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.lang.reflect.Method;
@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.type.TypeHandler;
 
 /**
  * @author likly
@@ -85,7 +86,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
             parameters.containsKey("ignore") && Boolean.TRUE.equals(parameters.get("ignore")));
 
         final Class<?> view = (Class<?>) parameters.get("view");
-        final QEntity<?, ?> entity = QEntity.from(getEntityClass(context.getMapperType()));
+        final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(getEntityClass(context.getMapperType()));
         parameters.put("entity", entity);
 
         appendInsertOrReplaceOrSave(sql, insertPrefix);
@@ -223,7 +224,7 @@ public class InsertSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         metadata.setColumn(property.getColumn());
         metadata.setValue("item." + property.getPath());
         metadata.setJavaType(property.getType());
-        metadata.setTypeHandler(property.getTypeHandler());
+        metadata.setTypeHandler((Class<? extends TypeHandler>) property.getTypeHandler());
         return metadata;
     }
 

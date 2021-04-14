@@ -3,7 +3,7 @@ package org.ifinal.finalframework.cache;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 
-import org.ifinal.finalframework.annotation.cache.Cacheable;
+import org.ifinal.finalframework.cache.annotation.Cacheable;
 import org.ifinal.finalframework.util.Reflections;
 
 import java.lang.reflect.Method;

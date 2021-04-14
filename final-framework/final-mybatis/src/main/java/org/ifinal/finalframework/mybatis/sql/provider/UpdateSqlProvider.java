@@ -2,17 +2,18 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.data.Metadata;
-import org.ifinal.finalframework.data.query.QEntity;
-import org.ifinal.finalframework.data.query.QProperty;
-import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.data.annotation.Metadata;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.query.Criterion;
 import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
+import org.ifinal.finalframework.query.Query;
 import org.ifinal.finalframework.query.Update;
 import org.ifinal.finalframework.util.Asserts;
 
@@ -21,6 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.ibatis.builder.annotation.ProviderContext;
+import org.apache.ibatis.type.TypeHandler;
 
 /**
  * @author likly
@@ -62,7 +64,7 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
         final Object query = parameters.get(QUERY_PARAMETER_NAME);
 
         Class<?> entity = getEntityClass(context.getMapperType());
-        final QEntity<?, ?> properties = QEntity.from(entity);
+        final QEntity<?, ?> properties = DefaultQEntityFactory.INSTANCE.create(entity);
         parameters.put(PROPERTIES_PARAMETER_NAME, properties);
 
         sql.append("<trim prefix=\"UPDATE\">").append("${table}").append("</trim>");
@@ -145,7 +147,9 @@ public class UpdateSqlProvider implements AbsMapperSqlProvider, ScriptSqlProvide
                 metadata.setColumn(property.getColumn());
                 metadata.setValue("entity." + property.getPath());
                 metadata.setJavaType(property.getType());
-                metadata.setTypeHandler(property.getTypeHandler());
+                if (Objects.nonNull(property.getTypeHandler())) {
+                    metadata.setTypeHandler((Class<? extends TypeHandler>) property.getTypeHandler());
+                }
 
                 final String writer = Asserts.isBlank(property.getWriter()) ? DEFAULT_WRITER : property.getWriter();
                 final String value = Velocities.getValue(writer, metadata);

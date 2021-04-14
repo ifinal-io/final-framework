@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.query;
 
-import org.ifinal.finalframework.annotation.data.Json;
+import org.ifinal.finalframework.data.annotation.Json;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.type.JsonParameterTypeHandler;
 
@@ -19,8 +19,8 @@ public final class TypeHandlers {
     }
 
     public static Class<? extends TypeHandler<?>> findTypeHandler(final Property property) {
-        if (property.isAnnotationPresent(org.ifinal.finalframework.annotation.data.TypeHandler.class)) {
-            return property.getRequiredAnnotation(org.ifinal.finalframework.annotation.data.TypeHandler.class).value();
+        if (property.isAnnotationPresent(org.ifinal.finalframework.data.annotation.TypeHandler.class)) {
+            return property.getRequiredAnnotation(org.ifinal.finalframework.data.annotation.TypeHandler.class).value();
         }
 
         if (property.isAnnotationPresent(Json.class)) {

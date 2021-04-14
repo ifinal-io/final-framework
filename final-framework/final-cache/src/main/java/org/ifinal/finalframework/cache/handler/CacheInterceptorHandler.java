@@ -3,9 +3,9 @@ package org.ifinal.finalframework.cache.handler;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.annotation.aop.JoinPoint;
-import org.ifinal.finalframework.annotation.cache.Cache;
 import org.ifinal.finalframework.aop.JoinPointInterceptorHandler;
+import org.ifinal.finalframework.cache.annotation.Cache;
+import org.ifinal.finalframework.core.annotation.aop.JoinPoint;
 
 /**
  * @author likly

@@ -1,22 +1,22 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.query.Update;
+
 import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.builder.annotation.ProviderContext;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.session.Configuration;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.annotation.data.YN;
-import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
-import org.ifinal.finalframework.query.Update;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

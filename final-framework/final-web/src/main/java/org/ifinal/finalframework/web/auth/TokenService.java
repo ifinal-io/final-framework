@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.web.auth;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.ifinal.finalframework.annotation.core.IUser;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.ifinal.finalframework.core.annotation.IUser;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Just only do parse token from the {@link HttpServletRequest} to {@link IUser} but don't check the user info.

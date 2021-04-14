@@ -1,5 +1,12 @@
 package org.ifinal.finalframework.web.converter;
 
+import org.ifinal.finalframework.context.util.Messages;
+import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.util.Enums;
+import org.ifinal.finalframework.util.function.Converter;
+import org.ifinal.finalframework.util.function.Filter;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,12 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.annotation.core.IEnum;
-import org.ifinal.finalframework.util.Asserts;
-import org.ifinal.finalframework.util.Enums;
-import org.ifinal.finalframework.util.function.Converter;
-import org.ifinal.finalframework.util.function.Filter;
 
 /**
  * @author likly

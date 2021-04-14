@@ -4,10 +4,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.data.query.QEntity;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+import org.ifinal.finalframework.query.QEntity;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -88,7 +89,7 @@ public class ParameterInjectionInterceptor implements Interceptor {
                 Map<String, Object> parameters = (Map<String, Object>) parameter;
 
                 final Class<IEntity<Serializable>> entityClass = from((Class<? extends AbsMapper>) mapper);
-                final QEntity<?, ?> entity = QEntity.from(entityClass);
+                final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(entityClass);
                 parameters.computeIfAbsent(TABLE_PARAMETER_NAME, k -> entity.getTable());
                 parameters.putIfAbsent(PROPERTIES_PARAMETER_NAME, entity);
 

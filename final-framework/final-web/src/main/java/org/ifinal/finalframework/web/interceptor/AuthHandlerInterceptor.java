@@ -1,17 +1,5 @@
 package org.ifinal.finalframework.web.interceptor;
 
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.web.annotation.auth.Auth;
-import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.annotation.core.IUser;
-import org.ifinal.finalframework.util.Reflections;
-import org.ifinal.finalframework.web.auth.AuthService;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -20,6 +8,21 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
+
+import org.ifinal.finalframework.context.user.UserContextHolder;
+import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.util.Reflections;
+import org.ifinal.finalframework.web.annotation.auth.Auth;
+import org.ifinal.finalframework.web.auth.AuthService;
+
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author likly

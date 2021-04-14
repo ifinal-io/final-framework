@@ -3,7 +3,7 @@ package org.ifinal.finalframework.data.mapping.converter;
 import org.springframework.lang.Nullable;
 
 import org.ifinal.finalframework.Configuration;
-import org.ifinal.finalframework.annotation.data.NameConverter;
+import org.ifinal.finalframework.data.annotation.NameConverter;
 import org.ifinal.finalframework.util.Asserts;
 
 /**

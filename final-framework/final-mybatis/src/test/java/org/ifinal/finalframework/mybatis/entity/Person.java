@@ -1,10 +1,11 @@
 package org.ifinal.finalframework.mybatis.entity;
 
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.data.annotation.PrimaryKey;
+import org.ifinal.finalframework.data.annotation.Reference;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.data.PrimaryKey;
-import org.ifinal.finalframework.annotation.data.Reference;
 
 /**
  * Person.

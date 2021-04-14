@@ -1,11 +1,12 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.data.query.QEntity;
-import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.Query;
 
 import java.util.Map;
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class SelectIdsSqlProvider implements AbsMapperSqlProvider {
         final Map<String, Object> parameters) {
 
         final Class<?> entity = getEntityClass(context.getMapperType());
-        final QEntity<?, ?> properties = QEntity.from(entity);
+        final QEntity<?, ?> properties = DefaultQEntityFactory.INSTANCE.create(entity);
         parameters.put("entity", properties);
 
         /*

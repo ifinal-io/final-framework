@@ -11,7 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import org.ifinal.finalframework.annotation.core.result.Responsible;
+import org.ifinal.finalframework.core.annotation.result.Responsible;
 
 /**
  * @author likly

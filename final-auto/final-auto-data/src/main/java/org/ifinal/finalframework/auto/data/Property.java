@@ -1,10 +1,11 @@
 package org.ifinal.finalframework.auto.data;
 
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;

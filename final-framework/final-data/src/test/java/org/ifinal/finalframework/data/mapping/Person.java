@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.mapping;
 
-import org.ifinal.finalframework.annotation.data.AbsEntity;
+import org.ifinal.finalframework.data.annotation.AbsEntity;
 
 import java.util.List;
 

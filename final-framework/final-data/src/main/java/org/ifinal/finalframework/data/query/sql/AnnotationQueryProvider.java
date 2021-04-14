@@ -3,15 +3,17 @@ package org.ifinal.finalframework.data.query.sql;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 
-import org.ifinal.finalframework.annotation.core.IEntity;
+import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
-import org.ifinal.finalframework.data.query.QEntity;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QEntityFactory;
 import org.ifinal.finalframework.query.annotation.Criteria;
 import org.ifinal.finalframework.query.annotation.Criterion;
 import org.ifinal.finalframework.query.annotation.CriterionSqlProvider;
@@ -50,6 +52,8 @@ public final class AnnotationQueryProvider implements QueryProvider {
         CriterionAttributes.ATTRIBUTE_NAME_VALUE
     ).collect(Collectors.toSet());
 
+    private final QEntityFactory entityFactory = DefaultQEntityFactory.INSTANCE;
+
     private final String where;
 
     private final String orders;
@@ -63,7 +67,7 @@ public final class AnnotationQueryProvider implements QueryProvider {
         String offsetFragment = null;
         String limitFragment = null;
 
-        final QEntity<?, ?> properties = QEntity.from(entity);
+        final QEntity<?, ?> properties = entityFactory.create(entity);
         appendCriteria(whereBuilder, expression, properties, query,
             AnnotatedElementUtils.isAnnotated(query, Or.class) ? AndOr.OR : AndOr.AND);
 

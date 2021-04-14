@@ -1,5 +1,17 @@
 package org.ifinal.finalframework.sharding.config;
 
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.sharding.annotation.Property;
+import org.ifinal.finalframework.sharding.annotation.ShardingStrategy;
+import org.ifinal.finalframework.sharding.annotation.ShardingTable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -11,17 +23,8 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.sharding.annotation.Property;
-import org.ifinal.finalframework.sharding.annotation.ShardingStrategy;
-import org.ifinal.finalframework.sharding.annotation.ShardingTable;
-import org.ifinal.finalframework.io.support.ServicesLoader;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 /**
  * @author likly

@@ -1,15 +1,16 @@
 package org.ifinal.finalframework.service;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.query.Update;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author likly

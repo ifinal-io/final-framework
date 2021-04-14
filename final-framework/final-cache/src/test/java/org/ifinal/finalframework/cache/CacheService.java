@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.cache;
 
-import org.ifinal.finalframework.annotation.cache.Cacheable;
+import org.ifinal.finalframework.cache.annotation.Cacheable;
 
 /**
  * @author likly

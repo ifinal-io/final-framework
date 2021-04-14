@@ -7,6 +7,9 @@ import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.Criteria;
 import org.ifinal.finalframework.query.Criterion;
 import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
+import org.ifinal.finalframework.query.Query;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ class QueryTest {
     @Test
     void apply() {
 
-        final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
+        final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
 
@@ -90,7 +93,7 @@ class QueryTest {
 
     @Test
     void script() {
-        final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
+        final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
 

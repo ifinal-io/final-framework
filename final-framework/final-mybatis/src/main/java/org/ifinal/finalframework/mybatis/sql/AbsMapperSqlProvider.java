@@ -1,14 +1,15 @@
 package org.ifinal.finalframework.mybatis.sql;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.core.annotation.IEntity;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.sql.provider.ScriptSqlProvider;
+import org.ifinal.finalframework.query.Query;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * @author likly
@@ -50,7 +51,6 @@ public interface AbsMapperSqlProvider extends ScriptSqlProvider {
             + "<foreach collection=\"ids\" item=\"id\" open=\" IN (\" separator=\",\" close=\")\">#{id}</foreach>"
             + "</where>";
     }
-
 
 }
 

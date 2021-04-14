@@ -1,5 +1,15 @@
 package org.ifinal.finalframework.auto.data;
 
+import org.springframework.data.util.Lazy;
+import org.springframework.data.util.Optionals;
+
+import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
+import org.ifinal.finalframework.auto.coding.utils.Annotations;
+import org.ifinal.finalframework.data.annotation.PrimaryKey;
+import org.ifinal.finalframework.data.annotation.Reference;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
+import org.ifinal.finalframework.data.annotation.Version;
+
 import java.beans.Transient;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -9,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -22,15 +33,6 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
-import org.ifinal.finalframework.auto.coding.beans.PropertyDescriptor;
-import org.ifinal.finalframework.auto.coding.utils.Annotations;
-import org.ifinal.finalframework.annotation.data.PrimaryKey;
-import org.ifinal.finalframework.annotation.data.Reference;
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
-import org.ifinal.finalframework.annotation.data.Version;
-
-import org.springframework.data.util.Lazy;
-import org.springframework.data.util.Optionals;
 
 /**
  * @author likly

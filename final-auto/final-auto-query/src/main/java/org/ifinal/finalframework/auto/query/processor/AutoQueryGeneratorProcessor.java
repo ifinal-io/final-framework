@@ -1,5 +1,19 @@
 package org.ifinal.finalframework.auto.query.processor;
 
+import org.ifinal.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.auto.data.EntityFactory;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.data.query.AbsQEntity;
+import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -8,11 +22,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -25,14 +34,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.data.query.AbsQEntity;
-import org.ifinal.finalframework.data.query.QProperty;
-import org.ifinal.finalframework.io.support.ServicesLoader;
-import org.ifinal.finalframework.javapoets.JavaPoets;
-import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
 
 /**
  * QEntity 代码生成处理器

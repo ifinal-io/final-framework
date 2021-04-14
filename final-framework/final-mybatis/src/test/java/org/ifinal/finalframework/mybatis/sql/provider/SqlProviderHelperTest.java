@@ -1,13 +1,9 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import java.util.Arrays;
-import java.util.List;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.annotation.core.IQuery;
-import org.ifinal.finalframework.annotation.data.AutoInc;
-import org.ifinal.finalframework.annotation.data.PrimaryKey;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.data.annotation.AutoInc;
+import org.ifinal.finalframework.data.annotation.PrimaryKey;
 import org.ifinal.finalframework.query.BetweenValue;
 import org.ifinal.finalframework.query.annotation.Criteria;
 import org.ifinal.finalframework.query.annotation.Equal;
@@ -17,6 +13,11 @@ import org.ifinal.finalframework.query.annotation.NotEqual;
 import org.ifinal.finalframework.query.annotation.NotIn;
 import org.ifinal.finalframework.query.annotation.Or;
 
+import java.util.Arrays;
+import java.util.List;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

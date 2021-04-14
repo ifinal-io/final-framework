@@ -3,9 +3,9 @@ package org.ifinal.finalframework.data.mapping;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.annotation.data.Prefix;
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
-import org.ifinal.finalframework.annotation.data.UpperCase;
+import org.ifinal.finalframework.data.annotation.Prefix;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
+import org.ifinal.finalframework.data.annotation.UpperCase;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
 
 import java.util.Optional;

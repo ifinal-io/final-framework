@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.interceptor;
 
-import org.ifinal.finalframework.annotation.core.Pageable;
+import org.ifinal.finalframework.core.annotation.Pageable;
 import org.ifinal.finalframework.query.PageQuery;
 
 import java.util.Map;

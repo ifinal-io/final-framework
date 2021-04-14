@@ -1,10 +1,11 @@
 package org.ifinal.finalframework.data.query.sql;
 
-import org.ifinal.finalframework.data.query.QEntity;
-import org.ifinal.finalframework.data.query.QProperty;
-import org.ifinal.finalframework.data.query.Query;
+import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.QueryEntity;
 import org.ifinal.finalframework.query.Criteria;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
+import org.ifinal.finalframework.query.Query;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ class DefaultQueryProviderTest {
 
     @Test
     void where(){
-        final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
+        final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(QueryEntity.class);
         QProperty<String> name = entity.getProperty("name");
         QProperty<Integer> age = entity.getProperty("age");
 

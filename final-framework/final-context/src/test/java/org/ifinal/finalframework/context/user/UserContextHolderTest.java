@@ -3,7 +3,7 @@ package org.ifinal.finalframework.context.user;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.ifinal.finalframework.annotation.core.IUser;
+import org.ifinal.finalframework.core.annotation.IUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

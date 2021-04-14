@@ -2,11 +2,11 @@ package org.ifinal.finalframework.mybatis.resumtmap;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.annotation.core.IEnum;
-import org.ifinal.finalframework.annotation.data.Json;
-import org.ifinal.finalframework.annotation.data.Reference;
-import org.ifinal.finalframework.annotation.data.ReferenceMode;
-import org.ifinal.finalframework.annotation.data.UpperCase;
+import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.data.annotation.Json;
+import org.ifinal.finalframework.data.annotation.Reference;
+import org.ifinal.finalframework.data.annotation.ReferenceMode;
+import org.ifinal.finalframework.data.annotation.UpperCase;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;

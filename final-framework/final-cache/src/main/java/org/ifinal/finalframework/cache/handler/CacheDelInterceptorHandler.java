@@ -6,8 +6,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.annotation.cache.Cache;
 import org.ifinal.finalframework.aop.InvocationContext;
+import org.ifinal.finalframework.cache.annotation.Cache;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
 
 import org.slf4j.Logger;

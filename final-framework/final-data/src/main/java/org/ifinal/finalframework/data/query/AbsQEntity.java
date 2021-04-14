@@ -2,11 +2,13 @@ package org.ifinal.finalframework.data.query;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.annotation.data.Table;
-import org.ifinal.finalframework.annotation.data.View;
+import org.ifinal.finalframework.data.annotation.Table;
+import org.ifinal.finalframework.data.annotation.View;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.MappingUtils;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -76,7 +78,8 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
                         .stream()
                         .map(referenceEntity::getRequiredPersistentProperty)
                         .forEach(referenceProperty -> addProperty(
-                            QProperty.builder(this, referenceProperty)
+
+                            new QPropertyImpl.Builder<>(this, referenceProperty)
                                 .order(order + index.getAndIncrement())
                                 .path(property.getName() + "." + referenceProperty.getName())
                                 .name(MappingUtils.formatPropertyName(property, referenceProperty))
@@ -92,7 +95,7 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
                 } else {
 
                     addProperty(
-                        QProperty.builder(this, property)
+                        new QPropertyImpl.Builder<>(this, property)
                             .order(order)
                             .path(property.getName())
                             .name(property.getName())
@@ -156,7 +159,6 @@ public class AbsQEntity<I extends Serializable, T> implements QEntity<I, T> {
         return properties.iterator();
     }
 
-    @Override
     public Stream<QProperty<?>> stream() {
         return properties.stream();
     }

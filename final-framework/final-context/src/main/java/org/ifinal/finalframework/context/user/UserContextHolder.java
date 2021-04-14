@@ -1,9 +1,10 @@
 package org.ifinal.finalframework.context.user;
 
-import org.ifinal.finalframework.annotation.core.IUser;
 import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
+
+import org.ifinal.finalframework.core.annotation.IUser;
 
 /**
  * The context holder of {@link UserContext} with {@link ThreadLocal}.

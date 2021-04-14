@@ -1,13 +1,23 @@
 package org.ifinal.finalframework.auto.mybatis.processor;
 
+import org.ifinal.auto.service.annotation.AutoProcessor;
+import org.ifinal.finalframework.auto.data.Entity;
+import org.ifinal.finalframework.auto.data.EntityFactory;
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.io.support.ServicesLoader;
+import org.ifinal.finalframework.javapoets.JavaPoets;
+import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
+import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Set;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -17,14 +27,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import org.ifinal.auto.service.annotation.AutoProcessor;
-import org.ifinal.finalframework.auto.data.Entity;
-import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.io.support.ServicesLoader;
-import org.ifinal.finalframework.javapoets.JavaPoets;
-import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;
-import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
-import org.ifinal.finalframework.annotation.core.IEntity;
 
 /**
  * Mapper.java 生成注解处理器

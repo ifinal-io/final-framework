@@ -3,6 +3,7 @@ package org.ifinal.finalframework.data.query;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.query.AndOr;
+import org.ifinal.finalframework.query.QEntity;
 import org.ifinal.finalframework.query.annotation.Equal;
 import org.ifinal.finalframework.query.annotation.Or;
 
@@ -39,7 +40,7 @@ class IQueryTest {
         final XNode script = parser.evalNode("//script");
         final Document document = script.getNode().getOwnerDocument();
 
-        final QEntity<?, ?> entity = QEntity.from(QueryEntity.class);
+        final QEntity<?, ?> entity = DefaultQEntityFactory.INSTANCE.create(QueryEntity.class);
 
         final QueryEntityQuery query = new QueryEntityQuery();
 

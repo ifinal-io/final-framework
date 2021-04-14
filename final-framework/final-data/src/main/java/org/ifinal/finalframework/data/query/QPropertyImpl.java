@@ -1,8 +1,13 @@
 package org.ifinal.finalframework.data.query;
 
+import org.springframework.lang.Nullable;
+
 import org.ifinal.finalframework.data.mapping.Property;
+import org.ifinal.finalframework.query.QEntity;
+import org.ifinal.finalframework.query.QProperty;
 import org.ifinal.finalframework.util.Asserts;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +44,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
     private final List<Class<?>> views;
 
-    public QPropertyImpl(final BuilderImpl<T, E> builder) {
+    public QPropertyImpl(final Builder<T, E> builder) {
 
         this.entity = builder.entity;
         this.property = builder.property;
@@ -64,9 +69,13 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.entity;
     }
 
-    @Override
     public Property getProperty() {
         return this.property;
+    }
+
+    @Override
+    public Class<T> getType() {
+        return null;
     }
 
     @Override
@@ -89,6 +98,18 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
         return this.name;
     }
 
+    @Nullable
+    @Override
+    public String getWriter() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public String getReader() {
+        return null;
+    }
+
     @Override
     public String getColumn() {
         return this.column;
@@ -97,6 +118,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public boolean isIdProperty() {
         return idProperty;
+    }
+
+    @Override
+    public boolean isVersionProperty() {
+        return false;
     }
 
     @Override
@@ -117,6 +143,11 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
     @Override
     public Class<? extends TypeHandler> getTypeHandler() {
         return this.typeHandler;
+    }
+
+    @Override
+    public boolean isAnnotationPresent(final Class<? extends Annotation> annotation) {
+        return false;
     }
 
     @Override
@@ -154,7 +185,7 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
      * @param <T> type.
      * @param <E> entity type.
      */
-    public static class BuilderImpl<T, E extends QEntity> implements Builder<T> {
+    public static class Builder<T, E extends QEntity> {
 
         private final E entity;
 
@@ -180,83 +211,72 @@ public class QPropertyImpl<T, E extends QEntity<?, ?>> implements QProperty<T> {
 
         private List<Class<?>> views;
 
-        public BuilderImpl(final E entity, final Property property) {
+        public Builder(final E entity, final Property property) {
 
             this.entity = entity;
             this.property = property;
         }
 
-        @Override
-        public Builder<T> order(final Integer order) {
+        public Builder<T, E> order(final Integer order) {
 
             this.order = order;
             return this;
         }
 
-        @Override
-        public Builder<T> path(final String path) {
+        public Builder<T, E> path(final String path) {
 
             this.path = path;
             return this;
         }
 
-        @Override
-        public Builder<T> name(final String name) {
+        public Builder<T, E> name(final String name) {
 
             this.name = name;
             return this;
         }
 
-        @Override
-        public Builder<T> column(final String column) {
+        public Builder<T, E> column(final String column) {
 
             this.column = column;
             return this;
         }
 
-        @Override
-        public Builder<T> idProperty(final boolean idProperty) {
+        public Builder<T, E> idProperty(final boolean idProperty) {
 
             this.idProperty = idProperty;
             return this;
         }
 
-        @Override
-        public Builder<T> readable(final boolean readable) {
+        public Builder<T, E> readable(final boolean readable) {
 
             this.isReadable = readable;
             return this;
         }
 
-        @Override
-        public Builder<T> writeable(final boolean writeable) {
+        public Builder<T, E> writeable(final boolean writeable) {
 
             this.isWriteable = writeable;
             return this;
         }
 
-        @Override
-        public Builder<T> modifiable(final boolean modifiable) {
+        public Builder<T, E> modifiable(final boolean modifiable) {
 
             this.isModifiable = modifiable;
             return this;
         }
 
-        @Override
-        public Builder<T> typeHandler(final Class<? extends TypeHandler> typeHandler) {
+        public Builder<T, E> typeHandler(final Class<? extends TypeHandler> typeHandler) {
 
             this.typeHandler = typeHandler;
             return this;
         }
 
-        @Override
-        public Builder<T> views(final List<Class<?>> views) {
+        public Builder<T, E> views(final List<Class<?>> views) {
 
             this.views = views;
             return this;
         }
 
-        @Override
         public QProperty<T> build() {
             return new QPropertyImpl<>(this);
         }

@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.serializer;
 
-import org.ifinal.finalframework.annotation.data.Json;
+import org.ifinal.finalframework.data.annotation.Json;
 import org.ifinal.finalframework.data.mapping.Property;
 
 import java.io.IOException;

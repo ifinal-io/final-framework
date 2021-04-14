@@ -10,9 +10,9 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import org.ifinal.finalframework.annotation.core.result.Result;
 import org.ifinal.finalframework.context.converter.result.Object2ResultConverter;
 import org.ifinal.finalframework.context.user.UserContextHolder;
+import org.ifinal.finalframework.core.annotation.result.Result;
 import org.ifinal.finalframework.web.interceptor.DurationHandlerInterceptor;
 import org.ifinal.finalframework.web.interceptor.TraceHandlerInterceptor;
 import org.ifinal.finalframework.web.response.advice.RestResponseBodyAdvice;

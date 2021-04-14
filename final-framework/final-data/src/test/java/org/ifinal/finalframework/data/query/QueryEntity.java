@@ -2,9 +2,9 @@ package org.ifinal.finalframework.data.query;
 
 import org.springframework.data.geo.Point;
 
-import org.ifinal.finalframework.annotation.data.AbsEntity;
-import org.ifinal.finalframework.annotation.data.Geometry;
-import org.ifinal.finalframework.annotation.data.Json;
+import org.ifinal.finalframework.data.annotation.AbsEntity;
+import org.ifinal.finalframework.data.annotation.Geometry;
+import org.ifinal.finalframework.data.annotation.Json;
 
 import java.util.List;
 

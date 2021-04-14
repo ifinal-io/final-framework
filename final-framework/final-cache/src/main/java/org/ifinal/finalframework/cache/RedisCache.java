@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.annotation.cache.Cache;
+import org.ifinal.finalframework.cache.annotation.Cache;
 import org.ifinal.finalframework.json.Json;
 import org.ifinal.finalframework.redis.Redis;
 

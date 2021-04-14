@@ -1,15 +1,16 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
+import org.ifinal.finalframework.core.annotation.IView;
+import org.ifinal.finalframework.core.annotation.lang.Transient;
+import org.ifinal.finalframework.data.annotation.AbsEntity;
+import org.ifinal.finalframework.data.annotation.Column;
+import org.ifinal.finalframework.data.annotation.Function;
+import org.ifinal.finalframework.data.annotation.Reference;
+import org.ifinal.finalframework.data.annotation.View;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.ifinal.finalframework.annotation.core.IView;
-import org.ifinal.finalframework.annotation.core.lang.Transient;
-import org.ifinal.finalframework.annotation.data.AbsEntity;
-import org.ifinal.finalframework.annotation.data.Column;
-import org.ifinal.finalframework.annotation.data.Function;
-import org.ifinal.finalframework.annotation.data.Reference;
-import org.ifinal.finalframework.annotation.data.View;
 
 /**
  * @author likly

@@ -1,10 +1,12 @@
 package org.ifinal.finalframework.service;
 
+import org.springframework.lang.NonNull;
+
+import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.data.repository.Repository;
+
 import java.io.Serializable;
 import java.util.Objects;
-import org.ifinal.finalframework.annotation.core.IEntity;
-import org.ifinal.finalframework.data.repository.Repository;
-import org.springframework.lang.NonNull;
 
 /**
  * 默认的{@link AbsService}实现，方便其子类通过 {@literal super}调用方法.
