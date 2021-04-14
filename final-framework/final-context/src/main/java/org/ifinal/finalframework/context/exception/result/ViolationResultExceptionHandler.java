@@ -5,7 +5,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import org.ifinal.finalframework.core.annotation.result.R;
-import org.ifinal.finalframework.core.annotation.result.ResponseStatus;
+import org.ifinal.finalframework.core.annotation.ResponseStatus;
 import org.ifinal.finalframework.core.annotation.result.Result;
 
 import java.util.stream.Collectors;

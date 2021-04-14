@@ -6,21 +6,17 @@ import org.ifinal.finalframework.data.annotation.NameConverter;
 import org.ifinal.finalframework.data.annotation.NonCompare;
 import org.ifinal.finalframework.data.annotation.Table;
 import org.ifinal.finalframework.data.mapping.converter.NameConverterRegistry;
-import org.ifinal.finalframework.data.serializer.EntityJsonSerializer;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.stream.Streamable;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@JsonSerialize(using = EntityJsonSerializer.class)
 public interface Entity<T> extends PersistentEntity<T, Property>, Streamable<Property>, Iterable<Property> {
 
     /**

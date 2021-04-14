@@ -13,12 +13,10 @@ import org.ifinal.finalframework.data.annotation.Reference;
 import org.ifinal.finalframework.data.annotation.ReferenceMode;
 import org.ifinal.finalframework.data.annotation.Virtual;
 import org.ifinal.finalframework.data.annotation.WriteOnly;
-import org.ifinal.finalframework.data.serializer.PropertyJsonSerializer;
 
 import java.util.Map;
 import java.util.Set;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -26,7 +24,6 @@ import javax.validation.constraints.NotNull;
  * @version 1.0.0
  * @since 1.0.0
  */
-@JsonSerialize(using = PropertyJsonSerializer.class)
 public interface Property extends PersistentProperty<Property>, Ordered {
 
     /**

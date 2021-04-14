@@ -20,10 +20,12 @@
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
             <artifactId>final-annotation-data</artifactId>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <groupId>org.ifinal.finalframework.annotation</groupId>
             <artifactId>final-annotation-query</artifactId>
+            <version>${final.version}</version>
         </dependency>
         <dependency>
             <artifactId>final-json</artifactId>
