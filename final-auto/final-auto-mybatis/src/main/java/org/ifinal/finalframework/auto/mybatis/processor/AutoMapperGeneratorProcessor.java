@@ -3,7 +3,7 @@ package org.ifinal.finalframework.auto.mybatis.processor;
 import org.ifinal.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.Entity;
 import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;
 import org.ifinal.finalframework.javapoets.JavaPoets.Javadoc;

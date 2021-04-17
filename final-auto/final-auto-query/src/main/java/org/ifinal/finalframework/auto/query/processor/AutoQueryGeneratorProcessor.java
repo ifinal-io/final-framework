@@ -2,7 +2,7 @@ package org.ifinal.finalframework.auto.query.processor;
 
 import org.ifinal.auto.service.annotation.AutoProcessor;
 import org.ifinal.finalframework.auto.data.EntityFactory;
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.query.AbsQEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.javapoets.JavaPoets;

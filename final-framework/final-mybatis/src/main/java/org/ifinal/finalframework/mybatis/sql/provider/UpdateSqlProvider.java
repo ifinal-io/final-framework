@@ -2,7 +2,7 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.annotation.Metadata;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.QueryProvider;

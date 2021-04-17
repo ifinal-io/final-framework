@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.core.IUser;
 import org.ifinal.finalframework.web.auth.TokenService;
 
 import java.io.IOException;

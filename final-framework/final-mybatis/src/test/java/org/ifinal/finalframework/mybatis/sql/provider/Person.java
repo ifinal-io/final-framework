@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql.provider;
 
-import org.ifinal.finalframework.core.annotation.IView;
-import org.ifinal.finalframework.core.annotation.lang.Transient;
+import org.ifinal.finalframework.core.IView;
+import org.ifinal.finalframework.core.lang.Transient;
 import org.ifinal.finalframework.data.annotation.AbsEntity;
 import org.ifinal.finalframework.data.annotation.Column;
 import org.ifinal.finalframework.data.annotation.Function;

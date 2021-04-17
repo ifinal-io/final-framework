@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.web.converter;
 
 import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.core.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 import org.ifinal.finalframework.util.Enums;
 import org.ifinal.finalframework.util.function.Converter;

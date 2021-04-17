@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IEnum;
-import org.ifinal.finalframework.core.annotation.IQuery;
-import org.ifinal.finalframework.core.annotation.IView;
+import org.ifinal.finalframework.core.IEntity;
+import org.ifinal.finalframework.core.IEnum;
+import org.ifinal.finalframework.core.IQuery;
+import org.ifinal.finalframework.core.IView;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package org.ifinal.finalframework.mybatis.interceptor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 
 import java.io.Serializable;

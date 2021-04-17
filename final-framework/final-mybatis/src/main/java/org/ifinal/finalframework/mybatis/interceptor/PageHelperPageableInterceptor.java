@@ -5,7 +5,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.Pageable;
+import org.ifinal.finalframework.core.Pageable;
 import org.ifinal.finalframework.util.Asserts;
 
 import com.github.pagehelper.Page;

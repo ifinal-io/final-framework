@@ -3,7 +3,7 @@ package org.ifinal.finalframework.web.auth;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.core.IUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

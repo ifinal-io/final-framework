@@ -3,9 +3,9 @@ package org.ifinal.finalframework.data.mapping;
 import org.springframework.core.Ordered;
 import org.springframework.data.mapping.PersistentProperty;
 
-import org.ifinal.finalframework.core.annotation.lang.Default;
-import org.ifinal.finalframework.core.annotation.lang.Final;
-import org.ifinal.finalframework.core.annotation.lang.Transient;
+import org.ifinal.finalframework.core.lang.Default;
+import org.ifinal.finalframework.core.lang.Final;
+import org.ifinal.finalframework.core.lang.Transient;
 import org.ifinal.finalframework.data.annotation.Column;
 import org.ifinal.finalframework.data.annotation.Keyword;
 import org.ifinal.finalframework.data.annotation.ReadOnly;

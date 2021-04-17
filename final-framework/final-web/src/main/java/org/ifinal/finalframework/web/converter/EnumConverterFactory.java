@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.core.IEnum;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.util.Arrays;

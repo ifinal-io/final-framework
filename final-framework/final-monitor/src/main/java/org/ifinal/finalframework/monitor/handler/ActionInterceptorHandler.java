@@ -7,7 +7,7 @@ import org.springframework.lang.NonNull;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.aop.JoinPointInterceptorHandler;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
-import org.ifinal.finalframework.core.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.core.aop.JoinPoint;
 import org.ifinal.finalframework.monitor.action.Action;
 import org.ifinal.finalframework.monitor.action.Recorder;
 import org.ifinal.finalframework.monitor.annotation.ActionMonitor;

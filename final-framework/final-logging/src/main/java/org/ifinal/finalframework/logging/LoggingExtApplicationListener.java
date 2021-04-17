@@ -79,6 +79,7 @@ public class LoggingExtApplicationListener implements ApplicationListener<Applic
 
         for (final Entry<String, String> entry : loggers.entrySet()) {
             Logger logger = (Logger) LoggerFactory.getLogger(entry.getKey());
+            logger.setAdditive(false);
             logger.addAppender(fileAppender(new File(filePath, entry.getValue()).getPath()));
         }
 

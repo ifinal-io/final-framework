@@ -4,7 +4,7 @@ import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.core.IUser;
 
 /**
  * The context holder of {@link UserContext} with {@link ThreadLocal}.

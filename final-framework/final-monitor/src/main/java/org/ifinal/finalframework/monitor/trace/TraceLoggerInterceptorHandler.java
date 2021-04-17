@@ -6,7 +6,7 @@ import org.ifinal.finalframework.aop.InterceptorHandler;
 import org.ifinal.finalframework.aop.InvocationContext;
 import org.ifinal.finalframework.context.exception.InternalServerException;
 import org.ifinal.finalframework.context.expression.MethodMetadata;
-import org.ifinal.finalframework.core.annotation.IException;
+import org.ifinal.finalframework.core.IException;
 import org.ifinal.finalframework.json.Json;
 
 import java.lang.reflect.Parameter;

@@ -2,7 +2,7 @@ package org.ifinal.finalframework.context.user;
 
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.core.IUser;
 
 /**
  * @author likly

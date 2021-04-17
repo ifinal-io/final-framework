@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.repository;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 
 import java.util.Collection;
 

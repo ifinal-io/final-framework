@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.entity;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.annotation.PrimaryKey;
 import org.ifinal.finalframework.data.annotation.Reference;
 

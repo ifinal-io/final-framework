@@ -2,7 +2,7 @@ package org.ifinal.finalframework.context.converter.result;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.ifinal.finalframework.core.annotation.result.R;
+import org.ifinal.finalframework.core.result.R;
 
 import org.junit.jupiter.api.Test;
 

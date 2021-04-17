@@ -3,6 +3,7 @@ package org.ifinal.finalframework;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
@@ -50,6 +51,5 @@ public class FinalFramework implements BeanNameAware {
     @Getter
     @Setter
     private String beanName;
-
 
 }

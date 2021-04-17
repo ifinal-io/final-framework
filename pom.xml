@@ -42,6 +42,7 @@
         <sharding.version>5.0.0-alpha</sharding.version>
         <h2.version>1.4.200</h2.version>
 
+        <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>likly</sonar.organization>

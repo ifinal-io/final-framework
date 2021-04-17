@@ -3,8 +3,8 @@ package org.ifinal.finalframework.service;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.IEntity;
+import org.ifinal.finalframework.core.IQuery;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.query.Update;
 

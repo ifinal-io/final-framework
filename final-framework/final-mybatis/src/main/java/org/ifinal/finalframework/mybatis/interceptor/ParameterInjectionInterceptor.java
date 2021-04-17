@@ -4,7 +4,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;

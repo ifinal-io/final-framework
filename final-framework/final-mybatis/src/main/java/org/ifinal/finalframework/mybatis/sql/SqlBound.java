@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.mybatis.sql;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.IEntity;
+import org.ifinal.finalframework.core.IQuery;
 
 import java.io.Serializable;
 import java.util.List;

@@ -3,7 +3,7 @@ package org.ifinal.finalframework.mybatis.configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.mybatis.handler.EnumTypeHandler;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;

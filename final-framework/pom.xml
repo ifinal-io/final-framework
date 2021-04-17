@@ -33,9 +33,7 @@
         <module>final-service</module>
         <module>final-sharding</module>
         <module>final-mybatis</module>
-        <module>final-colud</module>
     </modules>
-
 
     <dependencyManagement>
         <dependencies>

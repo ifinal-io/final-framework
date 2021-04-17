@@ -2,8 +2,8 @@ package org.ifinal.finalframework.auto.processor;
 
 import org.ifinal.auto.service.annotation.AutoProcessor;
 import org.ifinal.auto.service.processor.AbsServiceProcessor;
-import org.ifinal.finalframework.core.annotation.IView;
-import org.ifinal.finalframework.core.annotation.lang.Transient;
+import org.ifinal.finalframework.core.IView;
+import org.ifinal.finalframework.core.lang.Transient;
 
 import java.util.Set;
 

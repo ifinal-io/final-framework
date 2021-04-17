@@ -6,9 +6,9 @@ import org.springframework.data.mapping.model.SimpleTypeHolder;
 import org.springframework.data.util.Lazy;
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.core.annotation.lang.Default;
-import org.ifinal.finalframework.core.annotation.lang.Final;
-import org.ifinal.finalframework.core.annotation.lang.Transient;
+import org.ifinal.finalframework.core.lang.Default;
+import org.ifinal.finalframework.core.lang.Final;
+import org.ifinal.finalframework.core.lang.Transient;
 import org.ifinal.finalframework.data.annotation.Column;
 import org.ifinal.finalframework.data.annotation.Keyword;
 import org.ifinal.finalframework.data.annotation.Order;

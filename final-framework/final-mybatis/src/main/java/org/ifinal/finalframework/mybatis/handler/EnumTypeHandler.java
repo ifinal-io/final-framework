@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.handler;
 
-import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.core.IEnum;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

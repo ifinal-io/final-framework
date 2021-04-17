@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.sql;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;

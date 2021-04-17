@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import org.ifinal.finalframework.context.exception.UnCatchException;
 import org.ifinal.finalframework.context.exception.handler.GlobalExceptionHandler;
-import org.ifinal.finalframework.core.annotation.IException;
-import org.ifinal.finalframework.core.annotation.result.Result;
+import org.ifinal.finalframework.core.IException;
+import org.ifinal.finalframework.core.result.Result;
 
 import java.util.ArrayList;
 import java.util.List;

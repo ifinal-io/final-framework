@@ -4,9 +4,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.result.R;
-import org.ifinal.finalframework.core.annotation.ResponseStatus;
-import org.ifinal.finalframework.core.annotation.result.Result;
+import org.ifinal.finalframework.core.result.R;
+import org.ifinal.finalframework.core.ResponseStatus;
+import org.ifinal.finalframework.core.result.Result;
 
 import java.util.stream.Collectors;
 

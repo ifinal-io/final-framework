@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.context.converter.result;
 
-import org.ifinal.finalframework.core.annotation.result.R;
-import org.ifinal.finalframework.core.annotation.result.Result;
+import org.ifinal.finalframework.core.result.R;
+import org.ifinal.finalframework.core.result.Result;
 import org.ifinal.finalframework.util.function.Converter;
 
 import java.io.Serializable;

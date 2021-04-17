@@ -10,7 +10,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import org.ifinal.finalframework.context.user.UserContextHolder;
-import org.ifinal.finalframework.core.annotation.IUser;
+import org.ifinal.finalframework.core.IUser;
 import org.ifinal.finalframework.util.Reflections;
 import org.ifinal.finalframework.web.annotation.auth.Auth;
 import org.ifinal.finalframework.web.auth.AuthService;

@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.mybatis.dao.query;
 
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.IQuery;
 import org.ifinal.finalframework.query.Direction;
 import org.ifinal.finalframework.query.annotation.Limit;
 import org.ifinal.finalframework.query.annotation.Order;

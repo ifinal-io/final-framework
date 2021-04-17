@@ -2,7 +2,7 @@ package org.ifinal.finalframework.mybatis.resumtmap;
 
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.core.annotation.IEnum;
+import org.ifinal.finalframework.core.IEnum;
 import org.ifinal.finalframework.data.annotation.Json;
 import org.ifinal.finalframework.data.annotation.Reference;
 import org.ifinal.finalframework.data.annotation.ReferenceMode;

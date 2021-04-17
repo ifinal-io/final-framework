@@ -3,8 +3,8 @@ package org.ifinal.finalframework.context.exception;
 import org.springframework.lang.NonNull;
 
 import org.ifinal.finalframework.context.util.Messages;
-import org.ifinal.finalframework.core.annotation.IException;
-import org.ifinal.finalframework.core.annotation.result.Responsible;
+import org.ifinal.finalframework.core.IException;
+import org.ifinal.finalframework.core.result.Responsible;
 
 /**
  * 业务异常

@@ -3,7 +3,7 @@ package org.ifinal.finalframework.data.query.sql;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;

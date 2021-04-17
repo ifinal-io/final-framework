@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
-import org.ifinal.finalframework.core.annotation.IQuery;
+import org.ifinal.finalframework.core.IEntity;
+import org.ifinal.finalframework.core.IQuery;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
 import org.ifinal.finalframework.mybatis.sql.provider.SqlProviderHelper;
 import org.ifinal.finalframework.web.annotation.bind.RequestJsonParam;

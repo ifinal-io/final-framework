@@ -6,7 +6,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import org.ifinal.finalframework.core.annotation.IEntity;
+import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.io.support.ServicesLoader;
 import org.ifinal.finalframework.sharding.annotation.Property;
 import org.ifinal.finalframework.sharding.annotation.ShardingStrategy;

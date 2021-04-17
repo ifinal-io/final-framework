@@ -5,7 +5,7 @@ import org.springframework.lang.Nullable;
 
 import org.ifinal.finalframework.aop.JoinPointInterceptorHandler;
 import org.ifinal.finalframework.cache.annotation.Cache;
-import org.ifinal.finalframework.core.annotation.aop.JoinPoint;
+import org.ifinal.finalframework.core.aop.JoinPoint;
 
 /**
  * @author likly

@@ -2,7 +2,7 @@ package org.ifinal.finalframework.web.autoconfiguration.response;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import org.ifinal.finalframework.core.annotation.result.Responsible;
+import org.ifinal.finalframework.core.result.Responsible;
 
 import java.io.Serializable;
 
