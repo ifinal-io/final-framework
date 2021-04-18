@@ -59,7 +59,8 @@ public class DefaultQueryProvider extends AbsQueryProvider {
                 target.put(CriterionAttributes.ATTRIBUTE_NAME_AND_OR, andOr);
                 target.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format("%s[%d].value", expression, i));
 
-                String value = new VelocityCriterionValue(attributes.getString(CriterionAttributes.ATTRIBUTE_NAME_EXPRESSION))
+                String value = new VelocityCriterionValue(
+                    attributes.getString(CriterionAttributes.ATTRIBUTE_NAME_EXPRESSION))
                     .value(target);
                 sql.append(value);
             } else if (criterion instanceof Criteria) {

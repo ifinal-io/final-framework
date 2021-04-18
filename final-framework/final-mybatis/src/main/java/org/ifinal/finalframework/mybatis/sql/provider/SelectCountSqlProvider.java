@@ -2,9 +2,9 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 
 import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.core.IQuery;
-import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.query.Query;
+import org.ifinal.finalframework.query.QueryProvider;
 
 import java.util.Collection;
 import java.util.Map;

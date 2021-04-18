@@ -1,12 +1,12 @@
 package org.ifinal.finalframework.mybatis.sql;
 
 import org.ifinal.finalframework.core.IEntity;
-import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;
 import org.ifinal.finalframework.data.repository.Repository;
 import org.ifinal.finalframework.mybatis.sql.provider.ScriptSqlProvider;
 import org.ifinal.finalframework.query.Query;
+import org.ifinal.finalframework.query.QueryProvider;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

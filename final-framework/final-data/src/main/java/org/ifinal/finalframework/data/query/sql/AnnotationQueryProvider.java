@@ -7,7 +7,6 @@ import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
-import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
@@ -43,7 +42,7 @@ import org.apache.ibatis.type.TypeHandler;
  * @since 1.0.0
  */
 @Slf4j
-public final class AnnotationQueryProvider implements QueryProvider {
+public final class AnnotationQueryProvider extends AbsQueryProvider {
 
     public static final String FORMAT = "%s.%s";
 
@@ -72,7 +71,8 @@ public final class AnnotationQueryProvider implements QueryProvider {
             AnnotatedElementUtils.isAnnotated(query, Or.class) ? AndOr.OR : AndOr.AND);
 
         final Map<Integer, String> orderFragments = new LinkedHashMap<>();
-        CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class);
+        CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance()
+            .get(CriterionSqlProvider.class);
         final Entity<?> queryEntity = Entity.from(query);
         for (Property property : queryEntity) {
             if (property.isAnnotationPresent(Offset.class)) {
@@ -94,8 +94,10 @@ public final class AnnotationQueryProvider implements QueryProvider {
                     ? attributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY) : property.getName();
 
                 metadata.put(CriterionAttributes.ATTRIBUTE_NAME_QUERY, expression);
-                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, properties.getRequiredProperty(path).getColumn());
-                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
+                metadata
+                    .put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, properties.getRequiredProperty(path).getColumn());
+                metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE,
+                    String.format(FORMAT, expression, property.getName()));
 
                 Order order = property.getRequiredAnnotation(Order.class);
                 orderFragments.put(order.order(), criterionSqlProvider.order(attributes, metadata));
@@ -115,7 +117,8 @@ public final class AnnotationQueryProvider implements QueryProvider {
         final CriterionAttributes metadata = new CriterionAttributes();
         metadata.put(CriterionAttributes.ATTRIBUTE_NAME_QUERY, expression);
         metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
-        metadata.put(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
+        metadata
+            .put(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
         return metadata;
     }
 
@@ -140,16 +143,21 @@ public final class AnnotationQueryProvider implements QueryProvider {
 
                     final String path = criterionAttributes.containsKey(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY)
                         && Asserts.nonBlank(criterionAttributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY))
-                        ? criterionAttributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY) : property.getName();
+                        ? criterionAttributes.getString(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY)
+                        : property.getName();
 
                     metadata.put(CriterionAttributes.ATTRIBUTE_NAME_AND_OR, andOr);
                     metadata.put(CriterionAttributes.ATTRIBUTE_NAME_QUERY, expression);
                     metadata
-                        .put(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY, String.format(FORMAT, expression, property.getName()));
-                    metadata.put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
-                    metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE, String.format(FORMAT, expression, property.getName()));
+                        .put(CriterionAttributes.ATTRIBUTE_NAME_PROPERTY,
+                            String.format(FORMAT, expression, property.getName()));
+                    metadata
+                        .put(CriterionAttributes.ATTRIBUTE_NAME_COLUMN, entity.getRequiredProperty(path).getColumn());
+                    metadata.put(CriterionAttributes.ATTRIBUTE_NAME_VALUE,
+                        String.format(FORMAT, expression, property.getName()));
 
-                    CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance().get(CriterionSqlProvider.class);
+                    CriterionSqlProvider criterionSqlProvider = CriterionHandlerRegistry.getInstance()
+                        .get(CriterionSqlProvider.class);
 
                     // process @Function annotation
                     if (property.isAnnotationPresent(Function.class)) {
@@ -188,7 +196,8 @@ public final class AnnotationQueryProvider implements QueryProvider {
         //append annotation attributes
         for (Map.Entry<String, Object> entry : annotationAttributes.entrySet()) {
             if (IGNORE_ATTRIBUTES.contains(entry.getKey())
-                || (CriterionAttributes.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class.equals(entry.getValue()))
+                || (CriterionAttributes.ATTRIBUTE_NAME_JAVA_TYPE.equals(entry.getKey()) && Object.class
+                .equals(entry.getValue()))
                 || (CriterionAttributes.ATTRIBUTE_NAME_TYPE_HANDLER.equals(entry.getKey()) && TypeHandler.class
                 .equals(entry.getValue()))) {
                 continue;

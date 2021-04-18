@@ -6,12 +6,12 @@ import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.core.IQuery;
 import org.ifinal.finalframework.data.annotation.Metadata;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
-import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.query.QEntity;
 import org.ifinal.finalframework.query.QProperty;
 import org.ifinal.finalframework.query.Query;
+import org.ifinal.finalframework.query.QueryProvider;
 import org.ifinal.finalframework.util.Asserts;
 
 import java.io.Serializable;

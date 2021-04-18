@@ -1,6 +1,6 @@
 package org.ifinal.finalframework.data.query.sql;
 
-import org.ifinal.finalframework.data.query.QueryProvider;
+import org.ifinal.finalframework.query.QueryProvider;
 
 /**
  * AbsQueryProvider.
@@ -15,12 +15,19 @@ public abstract class AbsQueryProvider implements QueryProvider {
         + "     <if test=\"query.offset != null\">"
         + "         #{query.offset},"
         + "     </if>"
-        + "     <if test=\"query.limit != null\""
+        + "     <if test=\"query.limit != null\">"
         + "         #{query.limit}"
         + "     </if>"
         + "</trim>";
 
     private static final String ORDERS = "<foreach collection=\"query.orders\" item=\"item\" open=\"ORDER BY\" separator=\",\">${item}</foreach>";
+
+    private static final String GROUPS = "<foreach collection=\"query.groups\" item=\"item\" open=\"GROUP BY\" separator=\",\">${item}</foreach>";
+
+    @Override
+    public String groups() {
+        return GROUPS;
+    }
 
     @Override
     public String orders() {

@@ -4,10 +4,10 @@ import org.springframework.util.ReflectionUtils;
 
 import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.core.IQuery;
-import org.ifinal.finalframework.data.query.QueryProvider;
 import org.ifinal.finalframework.data.query.sql.AnnotationQueryProvider;
 import org.ifinal.finalframework.mybatis.mapper.AbsMapper;
 import org.ifinal.finalframework.mybatis.sql.SqlBound;
+import org.ifinal.finalframework.query.QueryProvider;
 import org.ifinal.finalframework.query.Update;
 
 import java.io.Serializable;
