@@ -6,6 +6,7 @@ import java.beans.PropertyDescriptor;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import ch.qos.logback.classic.Level;
@@ -69,11 +70,7 @@ public final class Velocities {
     }
 
     public static String getValue(final String express, final Object params) {
-
         Template template = ve.getTemplate(express, UTF_8);
-        if (null == params) {
-            return "";
-        }
         //反射param设置key，value
         Context context = buildContext(params);
         StringWriter writer = new StringWriter();
@@ -93,7 +90,7 @@ public final class Velocities {
         ToolContext context = toolManager.createContext();
         if (param instanceof Map) {
             context.putAll((Map<String, Object>) param);
-        } else {
+        } else if (Objects.nonNull(param)) {
             try {
                 BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
                 for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
