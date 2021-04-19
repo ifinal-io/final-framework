@@ -1,7 +1,7 @@
 package org.ifinal.finalframework.data.query.criterion;
 
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.CriterionAttributes;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import lombok.RequiredArgsConstructor;
 

@@ -8,7 +8,6 @@ import org.ifinal.finalframework.data.mapping.Entity;
 import org.ifinal.finalframework.data.mapping.Property;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
 import org.ifinal.finalframework.data.query.criterion.CriterionHandlerRegistry;
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.CriterionAttributes;
 import org.ifinal.finalframework.query.QEntity;
@@ -22,6 +21,7 @@ import org.ifinal.finalframework.query.annotation.Or;
 import org.ifinal.finalframework.query.annotation.Order;
 import org.ifinal.finalframework.query.annotation.function.Function;
 import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

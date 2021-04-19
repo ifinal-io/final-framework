@@ -1,4 +1,4 @@
-package org.ifinal.finalframework.data.velocity;
+package org.ifinal.finalframework.velocity;
 
 import java.io.Reader;
 import java.io.StringReader;

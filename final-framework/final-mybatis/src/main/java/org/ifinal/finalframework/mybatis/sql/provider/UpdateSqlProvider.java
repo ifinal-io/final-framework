@@ -5,7 +5,6 @@ import org.springframework.lang.NonNull;
 import org.ifinal.finalframework.core.IEntity;
 import org.ifinal.finalframework.data.annotation.Metadata;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.query.Criterion;
@@ -16,6 +15,7 @@ import org.ifinal.finalframework.query.Query;
 import org.ifinal.finalframework.query.QueryProvider;
 import org.ifinal.finalframework.query.Update;
 import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import java.util.Map;
 import java.util.Objects;

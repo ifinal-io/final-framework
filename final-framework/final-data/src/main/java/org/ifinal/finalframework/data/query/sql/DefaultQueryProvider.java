@@ -1,12 +1,12 @@
 package org.ifinal.finalframework.data.query.sql;
 
 import org.ifinal.finalframework.data.query.criterion.VelocityCriterionValue;
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.Criteria;
 import org.ifinal.finalframework.query.Criterion;
 import org.ifinal.finalframework.query.CriterionAttributes;
 import org.ifinal.finalframework.query.Query;
+import org.ifinal.finalframework.velocity.Velocities;
 
 /**
  * DefaultQueryProvider.

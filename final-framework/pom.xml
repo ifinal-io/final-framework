@@ -32,6 +32,7 @@
         <module>final-service</module>
         <module>final-sharding</module>
         <module>final-mybatis</module>
+        <module>final-velocity</module>
     </modules>
 
     <dependencyManagement>
@@ -59,18 +60,23 @@
                 <version>${final.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-velocity</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
                 <artifactId>final-javapoets</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-json</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-json</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>

@@ -2,7 +2,6 @@ package org.ifinal.finalframework.data.query;
 
 import org.ifinal.finalframework.data.query.criterion.VelocityCriterionValue;
 import org.ifinal.finalframework.data.query.sql.DefaultQueryProvider;
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.AndOr;
 import org.ifinal.finalframework.query.Criteria;
 import org.ifinal.finalframework.query.Criterion;
@@ -10,6 +9,7 @@ import org.ifinal.finalframework.query.CriterionAttributes;
 import org.ifinal.finalframework.query.QEntity;
 import org.ifinal.finalframework.query.QProperty;
 import org.ifinal.finalframework.query.Query;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import java.util.Arrays;
 import java.util.HashMap;

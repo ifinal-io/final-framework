@@ -3,12 +3,12 @@ package org.ifinal.finalframework.mybatis.sql.provider;
 import org.ifinal.finalframework.data.annotation.LastModified;
 import org.ifinal.finalframework.data.annotation.Metadata;
 import org.ifinal.finalframework.data.query.DefaultQEntityFactory;
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.mybatis.sql.AbsMapperSqlProvider;
 import org.ifinal.finalframework.mybatis.sql.ScriptMapperHelper;
 import org.ifinal.finalframework.query.QEntity;
 import org.ifinal.finalframework.query.QProperty;
 import org.ifinal.finalframework.util.Asserts;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import java.lang.reflect.Method;
 import java.util.Collection;

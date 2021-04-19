@@ -3,9 +3,9 @@ package org.ifinal.finalframework.data.query.criterion;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.lang.NonNull;
 
-import org.ifinal.finalframework.data.util.Velocities;
 import org.ifinal.finalframework.query.CriterionAttributes;
 import org.ifinal.finalframework.query.annotation.CriterionSqlProvider;
+import org.ifinal.finalframework.velocity.Velocities;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

@@ -46,18 +46,12 @@
             <version>2.1.0</version>
         </dependency>
         <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-velocity</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>spring-tx</artifactId>
             <groupId>org.springframework</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>velocity-engine-core</artifactId>
-            <groupId>org.apache.velocity</groupId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <artifactId>velocity-tools-generic</artifactId>
-            <groupId>org.apache.velocity.tools</groupId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <artifactId>spring-data-commons</artifactId>
