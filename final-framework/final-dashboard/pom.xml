@@ -16,11 +16,6 @@
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
         <dependency>
-            <artifactId>final-zookeeper</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <artifactId>final-mybatis</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
             <optional>true</optional>
