@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class Object2JsonRedisSerializer implements RedisSerializer<Object> {
 
-    public static final Object2JsonRedisSerializer UTF_8 = new Object2JsonRedisSerializer(StandardCharsets.UTF_8);
+    public static final Object2JsonRedisSerializer UTF_8 = new Object2JsonRedisSerializer();
 
     private final Charset charset;
 
