@@ -1,13 +1,14 @@
 package org.ifinal.finalframework.mybatis.dao.mapper;
 
-import javax.annotation.Resource;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import org.ifinal.finalframework.mybatis.dao.query.PersonQuery;
 import org.ifinal.finalframework.mybatis.entity.User;
 import org.ifinal.finalframework.query.Direction;
 
+import javax.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * UserMapperTest.
@@ -43,7 +44,7 @@ class UserMapperTest {
         userMapper.insert(user);
         PersonQuery query = new PersonQuery();
         query.setOrderByName(Direction.ASC);
-        query.setOrderByAge(Direction.DESC.getValue());
+        query.setOrderByAge(Direction.DESC.name());
         query.setLimit(1);
         User result = userMapper.selectOne(query);
 
