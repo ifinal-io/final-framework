@@ -56,22 +56,42 @@
 
     <profiles>
         <profile>
+            <id>ci</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>oss</id>
+                    <name>oss-releases</name>
+                    <url>https://oss.sonatype.org/content/repositories/releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>oss-snapshots</id>
+                    <name>oss-snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
             <id>deploy</id>
             <build>
                 <plugins>
+
                     <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
                         <groupId>org.apache.maven.plugins</groupId>
-                    </plugin>
-                    <plugin>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <executions>
                             <execution>
@@ -81,7 +101,6 @@
                                 <phase>verify</phase>
                             </execution>
                         </executions>
-                        <groupId>org.apache.maven.plugins</groupId>
                     </plugin>
                 </plugins>
             </build>
