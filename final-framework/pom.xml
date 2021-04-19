@@ -20,7 +20,6 @@
         <module>final-monitor</module>
         <module>final-retrofit</module>
         <module>final-aop</module>
-        <module>final-zookeeper</module>
         <module>final-web</module>
         <module>final-javapoets</module>
         <module>final-dashboard</module>
@@ -76,11 +75,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-redis</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-zookeeper</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
