@@ -22,8 +22,6 @@
         <module>final-aop</module>
         <module>final-web</module>
         <module>final-javapoets</module>
-        <module>final-dashboard</module>
-        <module>final-dashboard-ui</module>
         <module>final-devops</module>
         <module>final-logging</module>
         <module>final-data</module>
@@ -101,16 +99,6 @@
             </dependency>
             <dependency>
                 <artifactId>final-retrofit</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-dashboard</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
-                <version>${final.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-dashboard-ui</artifactId>
                 <groupId>org.ifinal.finalframework</groupId>
                 <version>${final.version}</version>
             </dependency>

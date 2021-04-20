@@ -95,11 +95,13 @@ public final class Velocities {
                 BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
                 for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
                     Method readMethod = propertyDescriptor.getReadMethod();
-                    if (readMethod != null) {
-                        context.put(propertyDescriptor.getName(), readMethod.invoke(param));
+
+                    if (Objects.isNull(readMethod)) {
+                        continue;
                     }
+
+                    context.put(propertyDescriptor.getName(), readMethod.invoke(param));
                 }
-                context.put("record", param);
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
