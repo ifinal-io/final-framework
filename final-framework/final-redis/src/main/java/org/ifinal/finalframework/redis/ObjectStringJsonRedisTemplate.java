@@ -11,6 +11,8 @@ import org.ifinal.finalframework.redis.serializer.Object2StringRedisSerializer;
  * @author likly
  * @version 1.0.0
  * @see org.springframework.data.redis.core.StringRedisTemplate
+ * @see Object2StringRedisSerializer
+ * @see Object2JsonRedisSerializer
  * @since 1.0.0
  */
 public class ObjectStringJsonRedisTemplate extends RedisTemplate<Object, Object> {

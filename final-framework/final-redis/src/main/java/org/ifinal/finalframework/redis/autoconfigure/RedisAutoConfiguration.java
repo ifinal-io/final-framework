@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 
-import org.ifinal.finalframework.redis.ObjectJsonRedisTemplate;
+import org.ifinal.finalframework.redis.ObjectStringJsonRedisTemplate;
 import org.ifinal.finalframework.redis.RedisRegistry;
 
 /**
@@ -17,13 +17,13 @@ import org.ifinal.finalframework.redis.RedisRegistry;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisOperations.class)
-public class FinalRedisAutoConfiguration {
+public class RedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ObjectJsonRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {
+    public ObjectStringJsonRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {
 
-        ObjectJsonRedisTemplate template = new ObjectJsonRedisTemplate();
+        ObjectStringJsonRedisTemplate template = new ObjectStringJsonRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         RedisRegistry.getInstance().setRedisTemplate(template);
         return template;
