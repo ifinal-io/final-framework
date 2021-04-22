@@ -1,13 +1,14 @@
 package org.ifinal.finalframework.redis.autoconfigure;
 
-import org.ifinal.finalframework.redis.FinalRedisTemplate;
-import org.ifinal.finalframework.redis.RedisRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
+
+import org.ifinal.finalframework.redis.ObjectJsonRedisTemplate;
+import org.ifinal.finalframework.redis.RedisRegistry;
 
 /**
  * @author likly
@@ -20,9 +21,9 @@ public class FinalRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public FinalRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {
+    public ObjectJsonRedisTemplate finalRedisTemplate(final RedisConnectionFactory redisConnectionFactory) {
 
-        FinalRedisTemplate template = new FinalRedisTemplate();
+        ObjectJsonRedisTemplate template = new ObjectJsonRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         RedisRegistry.getInstance().setRedisTemplate(template);
         return template;

@@ -6,8 +6,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * A custom {@link RedisSerializer} for serialize {@link Object} to {@link String} and deserialize to {@link String}.
+ *
  * @author likly
  * @version 1.0.0
+ * @see Object2JsonRedisSerializer
  * @since 1.0.0
  */
 public class Object2StringRedisSerializer implements RedisSerializer<Object> {
@@ -17,7 +20,6 @@ public class Object2StringRedisSerializer implements RedisSerializer<Object> {
     private final Charset charset;
 
     public Object2StringRedisSerializer(final Charset charset) {
-
         this.charset = charset;
     }
 

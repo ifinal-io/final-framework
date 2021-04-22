@@ -23,10 +23,6 @@
             <artifactId>final-json</artifactId>
             <groupId>org.ifinal.finalframework</groupId>
         </dependency>
-        <dependency>
-            <artifactId>final-devops</artifactId>
-            <groupId>org.ifinal.finalframework</groupId>
-        </dependency>
         <!--外部依赖-->
         <dependency>
             <artifactId>mysql-connector-java</artifactId>
@@ -45,11 +41,6 @@
             <artifactId>pagehelper</artifactId>
             <groupId>com.github.pagehelper</groupId>
         </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-aop</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
