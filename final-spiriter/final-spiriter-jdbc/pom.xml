@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>final-spiriter</artifactId>
+        <groupId>org.ifinal.finalframework.spiriter</groupId>
+        <version>1.2.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>final-spiriter-jdbc</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.auto</groupId>
+            <artifactId>auto-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>final-auto-query</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework.auto</groupId>
+            <artifactId>final-auto-mybatis</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -4,27 +4,36 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <relativePath/>
-        <version>2.4.4</version> <!-- lookup parent from repository -->
+        <groupId>org.ifinal.finalframework.parent</groupId>
+        <artifactId>final-projects-parent</artifactId>
+        <version>1.2.0-SNAPSHOT</version>
+        <relativePath/><!-- lookup parent from repository -->
     </parent>
-    <groupId>org.ifinal.finalframework.frameworks</groupId>
-    <artifactId>final-frameworks</artifactId>
-    <version>1.1.4-SNAPSHOT</version>
+    <groupId>org.ifinal.finalframework</groupId>
+    <artifactId>final-framework</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Final framework with Spring Boot</description>
 
     <modules>
-        <module>final-auto</module>
-        <module>final-framework</module>
+        <module>final-context</module>
+        <module>final-core</module>
+        <module>final-dubbo</module>
+        <module>final-monitor</module>
+        <module>final-retrofit</module>
+        <module>final-aop</module>
+        <module>final-web</module>
+        <module>final-javapoets</module>
+        <module>final-devops</module>
+        <module>final-logging</module>
+        <module>final-velocity</module>
     </modules>
 
     <properties>
         <lombok.version>1.18.18</lombok.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
-        <final.version>1.1.4-SNAPSHOT</final.version>
+        <final.version>1.2.0-SNAPSHOT</final.version>
         <auto.service.version>1.0.0</auto.service.version>
         <auto.spring.version>1.0.0</auto.spring.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
@@ -156,37 +165,6 @@
         </license>
     </licenses>
 
-
-    <dependencies>
-        <dependency>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>lombok</artifactId>
-            <groupId>org.projectlombok</groupId>
-            <version>${lombok.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>junit-vintage-engine</artifactId>
-                    <groupId>org.junit.vintage</groupId>
-                </exclusion>
-            </exclusions>
-            <groupId>org.springframework.boot</groupId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -232,6 +210,116 @@
                 <artifactId>auto-spring</artifactId>
                 <version>${auto.spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>1.2.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-velocity</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-javapoets</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-json</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>final-dubbo</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-devops</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-retrofit</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-web</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinal.finalframework</groupId>
+                <artifactId>final-logging</artifactId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-aop</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>final-context</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-monitor</artifactId>
+                <groupId>org.ifinal.finalframework</groupId>
+                <version>${final.version}</version>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <artifactId>mybatis</artifactId>
+                <groupId>org.mybatis</groupId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <version>${mybatis.spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>pagehelper</artifactId>
+                <groupId>com.github.pagehelper</groupId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>retrofit</artifactId>
+                <groupId>com.squareup.retrofit2</groupId>
+                <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>okhttp</artifactId>
+                <groupId>com.squareup.okhttp3</groupId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>converter-jackson</artifactId>
+                <groupId>com.squareup.retrofit2</groupId>
+                <version>${retrofit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -268,6 +356,11 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <groupId>org.apache.maven.plugins</groupId>

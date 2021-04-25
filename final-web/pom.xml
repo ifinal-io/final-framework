@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>final-web</artifactId>
+    <dependencies>
+        <dependency>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <optional>true</optional>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <artifactId>auto-spring</artifactId>
+            <groupId>org.ifinal.auto</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-json</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>final-context</artifactId>
+            <groupId>org.ifinal.finalframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>pagehelper</artifactId>
+            <groupId>com.github.pagehelper</groupId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinal.finalframework</groupId>
+            <artifactId>final-aop</artifactId>
+        </dependency>
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-framework</artifactId>
+        <groupId>org.ifinal.finalframework</groupId>
+        <version>1.2.0-SNAPSHOT</version>
+    </parent>
+</project>
