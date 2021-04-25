@@ -15,35 +15,24 @@
  *
  */
 
-package org.ifinal.finalframework.context.expression;
+package org.ifinal.finalframework.core.annotation;
 
-import java.lang.reflect.Method;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.lang.NonNull;
 
-import lombok.Getter;
+import java.lang.reflect.AnnotatedElement;
 
 /**
+ * AnnotationAttributesProcessor.
+ *
  * @author likly
  * @version 1.0.0
+ * @see AnnotationAttributes
  * @since 1.0.0
  */
-@Getter
-public class MethodExpressionRootObject {
+@FunctionalInterface
+public interface AnnotationAttributesProcessor {
 
-    private final Method method;
-
-    private final Object[] args;
-
-    private final Object target;
-
-    private final Class<?> targetClass;
-
-    public MethodExpressionRootObject(final Method method, final Object[] args, final Object target,
-        final Class<?> targetClass) {
-
-        this.method = method;
-        this.args = args;
-        this.target = target;
-        this.targetClass = targetClass;
-    }
+    void doProcess(@NonNull AnnotatedElement annotatedElement, @NonNull AnnotationAttributes annotationAttributes);
 
 }
