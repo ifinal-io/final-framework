@@ -1,4 +1,43 @@
+/*
+ * Copyright 2020-2021 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package org.ifinal.finalframework.logging;
+
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.boot.context.logging.LoggingApplicationListener;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.ConfigurationPropertyName;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.PropertyResolver;
+import org.springframework.core.env.PropertySourcesPropertyResolver;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.unit.DataSize;
+
+import org.ifinal.auto.spring.factory.annotation.SpringApplicationListener;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
@@ -12,26 +51,7 @@ import ch.qos.logback.core.spi.ContextAware;
 import ch.qos.logback.core.spi.LifeCycle;
 import ch.qos.logback.core.util.FileSize;
 import ch.qos.logback.core.util.OptionHelper;
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import org.ifinal.auto.spring.factory.annotation.SpringApplicationListener;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
-import org.springframework.boot.context.logging.LoggingApplicationListener;
-import org.springframework.boot.context.properties.bind.Bindable;
-import org.springframework.boot.context.properties.bind.Binder;
-import org.springframework.boot.context.properties.source.ConfigurationPropertyName;
-import org.springframework.context.ApplicationListener;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertyResolver;
-import org.springframework.core.env.PropertySourcesPropertyResolver;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.util.unit.DataSize;
 
 /**
  * LoggingExtApplicationListener.
