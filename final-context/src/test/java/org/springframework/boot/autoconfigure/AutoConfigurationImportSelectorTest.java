@@ -12,7 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 package org.springframework.boot.autoconfigure;
@@ -20,9 +19,8 @@ package org.springframework.boot.autoconfigure;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.type.AnnotationMetadata;
 
-import org.ifinal.finalframework.ContextApplicationContext;
-
 import lombok.extern.slf4j.Slf4j;
+import org.finalframework.ContextApplicationContext;
 import org.junit.jupiter.api.Test;
 
 /**

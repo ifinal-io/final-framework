@@ -50,7 +50,7 @@ public interface ApplicationListener<E extends ApplicationEvent> extends EventLi
 1.
 
 ```java
-package org.ifinal.finalframework.context.listener;
+package org.finalframework.context.listener;
 
 @Slf4j
 @SpringApplicationListener
@@ -69,7 +69,7 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
 * `ConfigurableApplicationContext.addApplicationListener`
 
 ```java
-package org.ifinal.finalframework.example;
+package org.finalframework.example;
 
 @SpringBootApplication
 public class FinalApplication {
@@ -88,7 +88,7 @@ public class FinalApplication {
 ```properties
 # org.springframework.context.ApplicationListener
 org.springframework.context.ApplicationListener=\
-org.ifinal.finalframework.context.listener.ApplicationReadyEventListener
+org.finalframework.context.listener.ApplicationReadyEventListener
 ```
 
 > `spring.factories`是Spring提供的SPI配置文件，开发者可以在此配置自定义的扩展，以扩展Spring的功能。
@@ -98,7 +98,7 @@ org.ifinal.finalframework.context.listener.ApplicationReadyEventListener
 ### 使用 @EventListener
 
 ```java
-package org.ifinal.finalframework.example;
+package org.finalframework.example;
 
 @Slf4j
 @SpringBootApplication

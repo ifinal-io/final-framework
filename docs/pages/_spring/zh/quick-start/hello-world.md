@@ -20,7 +20,7 @@ formatter: "@formatter:on"
 在`Spring Boot`大行其道的现在，姑且认为各位读者都写过类似下面这段代码：
 
 ```java
-package org.ifinal.finalframework.example;
+package org.finalframework.example;
 
 @SpringBootApplication
 @RestController

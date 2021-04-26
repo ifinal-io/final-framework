@@ -23,7 +23,7 @@ formatter: "@formatter:on"
 在 `.dao.mapper` 包下添加 `PersonMapper.java` ：
 
 ```java
-package org.ifinal.finalframework.example.dao.mapper;
+package org.finalframework.example.dao.mapper;
 
 @Mapper
 public interface PersonMapper extends AbsMapper<Long, Person> {
