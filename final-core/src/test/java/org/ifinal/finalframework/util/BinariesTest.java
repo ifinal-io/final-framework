@@ -35,15 +35,15 @@ class BinariesTest {
 
     @Test
     void flat() {
-        assertTrue(Binaries.flat(7).containsAll(Arrays.asList(1,2,4)));
+        assertTrue(Binaries.flat(7).containsAll(Arrays.asList(1, 2, 4)));
         assertTrue(Binaries.flat(4).contains(4));
     }
 
     @Test
     void merge() {
-        assertEquals(7,Binaries.merge(Arrays.asList(1,2,4)));
-        assertEquals(7,Binaries.merge(Arrays.asList(1,2,4,5)));
-        assertEquals(7,Binaries.merge(Arrays.asList(1,3,5)));
+        assertEquals(7, Binaries.merge(Arrays.asList(1, 2, 4)));
+        assertEquals(7, Binaries.merge(Arrays.asList(1, 2, 4, 5)));
+        assertEquals(7, Binaries.merge(Arrays.asList(1, 3, 5)));
     }
 
 }

@@ -66,6 +66,7 @@ public abstract class CachedExpressionEvaluator {
 
     /**
      * Return a shared parameter name discoverer which caches data internally.
+     *
      * @since 4.3
      */
     protected ParameterNameDiscoverer getParameterNameDiscoverer() {
@@ -73,9 +74,11 @@ public abstract class CachedExpressionEvaluator {
     }
 
     /**
-     * Return the {@link Expression} for the specified SpEL value
-     * <p>Parse the expression if it hasn't been already.
-     * @param cache the cache to use
+     * Return the {@link Expression} for the specified SpEL value.
+     *
+     * <p>Parse the expression if it hasn't been already.</p>
+     *
+     * @param cache      the cache to use
      * @param elementKey the element on which the expression is defined
      * @param expression the expression to parse
      */
@@ -120,8 +123,8 @@ public abstract class CachedExpressionEvaluator {
                 return false;
             }
             CachedExpressionEvaluator.ExpressionKey otherKey = (ExpressionKey) other;
-            return (this.element.equals(otherKey.element) &&
-                ObjectUtils.nullSafeEquals(this.expression, otherKey.expression));
+            return this.element.equals(otherKey.element)
+                && ObjectUtils.nullSafeEquals(this.expression, otherKey.expression);
         }
 
         @Override

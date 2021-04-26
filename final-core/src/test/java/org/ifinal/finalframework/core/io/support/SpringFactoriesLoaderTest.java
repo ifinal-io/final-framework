@@ -36,14 +36,15 @@ import org.junit.jupiter.api.Test;
 class SpringFactoriesLoaderTest {
 
     @Test
-    void loadApplicationListenerFactoryNames(){
-        List<String> factoryNames = SpringFactoriesLoader.loadFactoryNames(ApplicationListener.class,null);
-        factoryNames.forEach(it -> logger.info("{}",it));
+    void loadApplicationListenerFactoryNames() {
+        List<String> factoryNames = SpringFactoriesLoader.loadFactoryNames(ApplicationListener.class, null);
+        factoryNames.forEach(it -> logger.info("{}", it));
     }
 
     @Test
-    void loadApplicationListenerFactories(){
+    void loadApplicationListenerFactories() {
         List<ApplicationListener> listeners = SpringFactoriesLoader.loadFactories(ApplicationListener.class, null);
-        listeners.forEach(it -> logger.info("{}",it.getClass()));
+        listeners.forEach(it -> logger.info("{}", it.getClass()));
     }
+
 }

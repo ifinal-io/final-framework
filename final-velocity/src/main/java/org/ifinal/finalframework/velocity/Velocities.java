@@ -40,6 +40,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A tool for {@code velocity} template language.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
@@ -77,6 +79,7 @@ public final class Velocities {
     }
 
     private Velocities() {
+        throw new IllegalAccessError("There is no instance for you!");
     }
 
     private static void setLoggerLevel(String name, Level level) {

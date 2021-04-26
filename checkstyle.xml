@@ -1,5 +1,22 @@
-<?xml version="1.0"?>
-<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<?xml version="1.0"?><!--
+  ~ Copyright 2020-2021 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
     <module name="BeforeExecutionExclusionFileFilter">
@@ -8,7 +25,7 @@
 
     <module name="SuppressionFilter">
         <property default="checkstyle-suppressions.xml" name="file"
-            value="${org.checkstyle.google.suppressionfilter.config}"/>
+                  value="${org.checkstyle.google.suppressionfilter.config}"/>
         <property name="optional" value="true"/>
     </module>
 
@@ -17,7 +34,7 @@
     <!-- 检查文件类型 -->
     <property name="fileExtensions" value="java, properties, xml"/>
     <!--查询不通过则报错-->
-    <property name="severity" value="warning"/>
+    <property name="severity" value="error"/>
 
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
@@ -41,19 +58,19 @@
 
     <!-- ================================================== Regexp ==================================================-->
     <!-- 当前行匹配非法表达式： -->
-    <!-- 禁止 System.out.print -->
     <module name="TreeWalker">
 
         <module name="SuppressionXpathSingleFilter">
             <!-- suppresion is required till https://github.com/checkstyle/checkstyle/issues/7541 -->
             <property name="id" value="RightCurlyAlone"/>
-            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1] or preceding-sibling::*[last()][self::LCURLY]]"/>
+            <property name="query"
+                      value="//RCURLY[parent::SLIST[count(./*)=1] or preceding-sibling::*[last()][self::LCURLY]]"/>
         </module>
 
         <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
         <module name="SuppressionXpathFilter">
             <property default="checkstyle-xpath-suppressions.xml" name="file"
-                value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
+                      value="${org.checkstyle.google.suppressionxpathfilter.config}"/>
             <property name="optional" value="true"/>
         </module>
         <!-- ================================================ File ==================================================-->
@@ -103,8 +120,7 @@
         </module>
         <!--  本地变量名称 -->
         <module name="LocalVariableName">
-            <message key="name.invalidPattern"
-                value="Local variable name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <module name="PatternVariableName">
@@ -112,13 +128,11 @@
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
         </module>
         <module name="ClassTypeParameterName">
-            <message key="name.invalidPattern"
-                value="Class type name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Class type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
         </module>
         <module name="RecordTypeParameterName">
-            <message key="name.invalidPattern"
-                value="Record type name ''{0}'' must match pattern ''{1}''."/>
+            <message key="name.invalidPattern" value="Record type name ''{0}'' must match pattern ''{1}''."/>
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
         </module>
         <module name="MethodTypeParameterName">
@@ -133,11 +147,13 @@
         <!-- ============================================== Import ===============================================-->
         <!-- 避免星号导入 -->
         <module name="AvoidStarImport">
-            <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
+            <property name="excludes"
+                      value="org.junit.jupiter.api.Assertions.*,org.junit.*,org.mockito.*,org.mockito.Mockito.*"/>
         </module>
         <!-- 避免静态导入 -->
         <module name="AvoidStaticImport">
-            <property name="excludes" value="org.junit.jupiter.api.Assertions.*,org.junit.*"/>
+            <property name="excludes"
+                      value="org.junit.jupiter.api.Assertions.*,org.junit.*,org.mockito.*,org.mockito.Mockito.*"/>
         </module>
         <!-- 自定义导入顺序 -->
         <!--        <module name="CustomImportOrder">-->
@@ -160,8 +176,7 @@
         <!-- ============================================ Annotation ================================================-->
         <module name="AnnotationLocation">
             <property name="id" value="AnnotationLocationMostCases"/>
-            <property name="tokens"
-                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF,
                       RECORD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="AnnotationLocation">
@@ -251,7 +266,7 @@
             <property name="ignoreOverriddenMethods" value="true"/>
         </module>
         <!-- 参数 final 修饰 -->
-        <module name="FinalParameters"/>
+        <!--<module name="FinalParameters"/>-->
         <!-- =============================================== Block ==================================================-->
         <!-- for 嵌套次数 -->
         <module name="NestedForDepth">
@@ -272,8 +287,7 @@
         <!-- 空块 -->
         <module name="EmptyBlock">
             <property name="option" value="TEXT"/>
-            <property name="tokens"
-                value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
+            <property name="tokens" value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
         </module>
         <!-- 空Catch块 -->
         <module name="EmptyCatchBlock">
@@ -329,27 +343,23 @@
         </module>
         <!-- 需要大括号 -->
         <module name="NeedBraces">
-            <property name="tokens"
-                value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
+            <property name="tokens" value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
         </module>
         <!-- 之后应该有空格 -->
         <module name="WhitespaceAfter">
-            <property name="tokens"
-                value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
+            <property name="tokens" value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
                     LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
         </module>
         <!-- 周围应该有空格 -->
         <module name="WhitespaceAround">
             <message key="ws.notFollowed"
-                value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
-            <message key="ws.notPreceded"
-                value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
+                     value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
+            <message key="ws.notPreceded" value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
             <property name="allowEmptyMethods" value="true"/>
             <property name="allowEmptyTypes" value="true"/>
             <property name="allowEmptyLoops" value="true"/>
             <property name="ignoreEnhancedForColon" value="false"/>
-            <property name="tokens"
-                value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR,
+            <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR,
                     BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND,
                     LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY,
                     LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED,
@@ -361,8 +371,7 @@
         </module>
         <!-- 空行分隔 -->
         <module name="EmptyLineSeparator">
-            <property name="tokens"
-                value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+            <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
                     STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF,
                     COMPACT_CTOR_DEF"/>
             <!-- 禁止多个空行 -->
@@ -402,39 +411,31 @@
 
 
         <module name="GenericWhitespace">
-            <message key="ws.followed"
-                value="GenericWhitespace ''{0}'' is followed by whitespace."/>
-            <message key="ws.preceded"
-                value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
-            <message key="ws.illegalFollow"
-                value="GenericWhitespace ''{0}'' should followed by whitespace."/>
-            <message key="ws.notPreceded"
-                value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+            <message key="ws.followed" value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+            <message key="ws.preceded" value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+            <message key="ws.illegalFollow" value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+            <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="4"/>
-            <property name="tokens"
-                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF,
                     RECORD_COMPONENT_DEF"/>
         </module>
 
 
         <module name="MethodParamPad">
-            <property name="tokens"
-                value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF,
+            <property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF,
                     SUPER_CTOR_CALL, ENUM_CONSTANT_DEF, RECORD_DEF"/>
         </module>
         <module name="NoWhitespaceBefore">
-            <property name="tokens"
-                value="COMMA, SEMI, POST_INC, POST_DEC, DOT,
+            <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT,
                     LABELED_STAT, METHOD_REF"/>
             <property name="allowLineBreaks" value="true"/>
         </module>
         <module name="ParenPad">
-            <property name="tokens"
-                value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF,
+            <property name="tokens" value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF,
                     EXPR, LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_NEW,
                     LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_WHILE, METHOD_CALL,
                     METHOD_DEF, QUESTION, RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA,
@@ -442,14 +443,12 @@
         </module>
         <module name="OperatorWrap">
             <property name="option" value="NL"/>
-            <property name="tokens"
-                value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
+            <property name="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
                     LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
         </module>
         <!-- Curly -->
         <module name="LeftCurly">
-            <property name="tokens"
-                value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
+            <property name="tokens" value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
                     INTERFACE_DEF, LAMBDA, LITERAL_CASE, LITERAL_CATCH, LITERAL_DEFAULT,
                     LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
                     LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF,
@@ -457,15 +456,13 @@
         </module>
         <module name="RightCurly">
             <property name="id" value="RightCurlySame"/>
-            <property name="tokens"
-                value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,
+            <property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,
                     LITERAL_DO"/>
         </module>
         <module name="RightCurly">
             <property name="id" value="RightCurlyAlone"/>
             <property name="option" value="alone"/>
-            <property name="tokens"
-                value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,
+            <property name="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,
                     INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF, INTERFACE_DEF, RECORD_DEF,
                     COMPACT_CTOR_DEF"/>
         </module>
@@ -473,8 +470,7 @@
         <!-- 标签顺序 -->
         <module name="AtclauseOrder">
             <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-            <property name="target"
-                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+            <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
         </module>
         <!-- Javadoc 标签前有一个空行 -->
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
@@ -492,8 +488,7 @@
         <!-- 类缺失Javadoc -->
         <module name="MissingJavadocType">
             <property name="scope" value="public"/>
-            <property name="tokens"
-                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
                               RECORD_DEF, ANNOTATION_DEF"/>
             <property name="excludeScope" value="nothing"/>
         </module>
@@ -508,8 +503,7 @@
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowMissingReturnTag" value="true"/>
             <property name="allowedAnnotations" value="Override, Test"/>
-            <property name="tokens"
-                value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <!--        <module name="MissingJavadocMethod">-->
         <!--            <property name="allowMissingPropertyJavadoc" value="true"/>-->
@@ -608,8 +602,7 @@
 
         <!-- 隐藏属性 -->
         <module name="HiddenField">
-            <property name="tokens"
-                value="VARIABLE_DEF , PATTERN_VARIABLE_DEF , LAMBDA , RECORD_COMPONENT_DEF "/>
+            <property name="tokens" value="VARIABLE_DEF , PATTERN_VARIABLE_DEF , LAMBDA , RECORD_COMPONENT_DEF "/>
             <property name="ignoreConstructorParameter" value="true"/>
             <property name="ignoreSetter" value="true"/>
             <property name="setterCanReturnItsClass" value="true"/>
@@ -625,9 +618,9 @@
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
             <property name="format"
-                value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
+                      value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
             <property name="message"
-                value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
+                      value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
         </module>
         <!-- 不允许使用类型 -->
         <module name="IllegalType">
@@ -697,39 +690,31 @@
         <module name="NPathComplexity">
             <property name="max" value="1000"/>
         </module>
-
         <!-- ================================================ Other ==================================================-->
-
-
         <module name="RecordComponentNumber">
             <property name="max" value="3"/>
             <property name="accessModifiers" value="private"/>
         </module>
     </module>
-    <!-- 禁止 e.printStackTrace -->
+    <!-- ================================================== Regexp ==================================================-->
+    <!-- 禁止 System.out.print -->
     <module name="RegexpMultiline">
         <property name="id" value="sout"/>
         <property name="format" value="System\.(out)|(err)\.print"/>
         <property name="message" value="System.out.print 方法不允许使用"/>
     </module>
-    <!-- ================================================== Regexp ==================================================-->
-
-
+    <!-- 禁止 e.printStackTrace -->
     <module name="RegexpMultiline">
         <property name="id" value="printStackTrace"/>
         <property name="format" value="\.printStackTrace\("/>
         <property name="message" value="e.printStackTrace(**) 方法不允许使用"/>
     </module>
-
-
     <!-- ================================================= 文件检查 ==================================================-->
     <!--文件Tab字符 <a href="https://checkstyle.org/config_whitespace.html#FileTabCharacter">FileTabCharacter</a>-->
     <module name="OrderedProperties"/>
     <module name="Translation">
         <property name="fileExtensions" value="properties, translations"/>
     </module>
-
-
     <!-- Excludes all 'module-info.java' files              -->
 
 

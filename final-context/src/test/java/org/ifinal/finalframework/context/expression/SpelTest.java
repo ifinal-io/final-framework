@@ -42,21 +42,6 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 class SpelTest {
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    private static class Person {
-
-        private String name;
-
-        private Integer age;
-
-        private Date date;
-
-        private Person creator;
-
-    }
-
     @Test
     void stand() {
         Person person = new Person("xiaoMing", 12, new Date(), null);
@@ -65,7 +50,6 @@ class SpelTest {
         logger.info("name={}", Spel.getValue("#{name}", person));
         logger.info("date={}", Spel.getValue("#{new java.text.SimpleDateFormat('yyyy-MM-dd').format(date)}", person));
 
-//        Spel.setValue("creator",person,new Person());
         logger.info("creator.name={}", Spel.getValue("#{creator.name}", person));
         Spel.setValue("creator.name", person, "123321");
         logger.info("creator.name={}", Spel.getValue("#{creator.name}", person));
@@ -88,10 +72,8 @@ class SpelTest {
         StandardEvaluationContext context = new StandardEvaluationContext(params);
         context.addPropertyAccessor(new MapAccessor());
 
-//        Spel.setValue("['ext']['name']",params,"456789");
         Spel.setValue("ext", context, new HashMap<>());
         Spel.setValue("ext.name", context, "aaaa");
-//        Spel.setValue("ext.date",context,new Date());
 
         logger.info("ext.name={}", Spel.getValue("#{ext.name}", context));
         logger.info("date={}", Spel.getValue(
@@ -122,6 +104,21 @@ class SpelTest {
         Object value = Spel.getValue("hello #{3+4}");
         logger.info("hello #{3+4}={}", value);
         assertEquals("hello 7", value);
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class Person {
+
+        private String name;
+
+        private Integer age;
+
+        private Date date;
+
+        private Person creator;
+
     }
 
 }

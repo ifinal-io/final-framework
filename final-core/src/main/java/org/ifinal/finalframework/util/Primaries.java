@@ -148,7 +148,7 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
         return ALL.types.contains(clazz);
     }
 
-    public static boolean isNumber(final Class<?> clazz){
+    public static boolean isNumber(final Class<?> clazz) {
         return NUMBER.types.contains(clazz);
     }
 

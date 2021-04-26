@@ -40,7 +40,7 @@ public final class Colors {
     public Colors() {
     }
 
-    public static Color decode(String color){
+    public static Color decode(String color) {
         if (color.startsWith("#")) {
             return Color.decode(color.replace("#", "0x"));
         }
