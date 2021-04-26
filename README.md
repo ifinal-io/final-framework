@@ -1,21 +1,21 @@
 ![final-framework](src/images/final-framework@2x.png)
 
-# final-frameworks
+# final-framework
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/final-projects/final-framework/CI)](https://github.com/final-projectes/final-framework/actions?query=workflow%3ACI)
-[![GitHub](https://img.shields.io/github/license/likly/final-frameworks)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework.frameworks/final-frameworks?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinal.finalframework.frameworks/final-frameworks?server=https%3A%2F%2Foss.sonatype.org%2F)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/s/org.ifinal.finalframework.frameworks/final-frameworks?server=https%3A%2F%2Foss.sonatype.org%2F)
-![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-frameworks)
-![GitHub top language](https://img.shields.io/github/languages/top/likly/final-frameworks)
-[![GitHub language count](https://img.shields.io/github/languages/count/likly/final-frameworks)](https://github.com/likly/final-frameworks)
-[![Sonar Quality Gate](https://img.shields.io/sonar/alert_status/likly_final-frameworks?server=https%3A%2F%2Fsonarcloud.io)](https://scrutinizer-ci.com/g/likly/final-frameworks/)
-![Sonar Coverage](https://img.shields.io/sonar/coverage/likly_final-frameworks?server=https%3A%2F%2Fsonarcloud.io)
+[![GitHub](https://img.shields.io/github/license/likly/final-framework)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework/final-framework?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinal.finalframework/final-framework?server=https%3A%2F%2Foss.sonatype.org%2F)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/s/org.ifinal.finalframework/final-framework?server=https%3A%2F%2Foss.sonatype.org%2F)
+![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-framework)
+![GitHub top language](https://img.shields.io/github/languages/top/likly/final-framework)
+[![GitHub language count](https://img.shields.io/github/languages/count/likly/final-framework)](https://github.com/likly/final-framework)
+[![Sonar Quality Gate](https://img.shields.io/sonar/alert_status/likly_final-framework?server=https%3A%2F%2Fsonarcloud.io)](https://scrutinizer-ci.com/g/likly/final-framework/)
+![Sonar Coverage](https://img.shields.io/sonar/coverage/likly_final-framework?server=https%3A%2F%2Fsonarcloud.io)
 
 ## What
 
-`final-frameworks`致力于提供简单、灵活且功能强大的`java`开发脚手架。
+`final-framework`致力于提供简单、灵活且功能强大的`java`开发脚手架。
 
 ## Document
 
