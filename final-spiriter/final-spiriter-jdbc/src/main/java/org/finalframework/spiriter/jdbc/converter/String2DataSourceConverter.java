@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.converter;
+package org.ifinalframework.spiriter.jdbc.converter;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.ifinalframework.spiriter.jdbc.service.DataSourceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.finalframework.core.converter.Converter;
+import org.ifinalframework.core.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

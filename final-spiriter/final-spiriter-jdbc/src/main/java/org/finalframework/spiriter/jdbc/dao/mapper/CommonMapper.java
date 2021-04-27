@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.dao.mapper;
+package org.ifinalframework.spiriter.jdbc.dao.mapper;
 
 import java.util.List;
 

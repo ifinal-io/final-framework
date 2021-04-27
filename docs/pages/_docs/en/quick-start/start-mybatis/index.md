@@ -26,12 +26,12 @@ formatter: "@formatter:on"
 
 <dependencies>
     <dependency>
-        <groupId>org.ifinal.finalframework.starter</groupId>
+        <groupId>org.ifinalframework.starter</groupId>
         <artifactId>final-boot-starter-mybatis</artifactId>
         <version>{{ site.final.version }}</version>
     </dependency>
     <dependency>
-        <groupId>org.ifinal.finalframework.auto</groupId>
+        <groupId>org.ifinalframework.auto</groupId>
         <artifactId>final-auto-mybatis</artifactId>
         <version>{{ site.final.version }}</version>
     </dependency>

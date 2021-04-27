@@ -29,12 +29,12 @@ formatter: "@formatter:on"
 
 <dependencies>
     <dependency>
-        <groupId>org.ifinal.finalframework.starter</groupId>
+        <groupId>org.ifinalframework.starter</groupId>
         <artifactId>final-boot-starter-service</artifactId>
         <version>${final.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.ifinal.finalframework.auto</groupId>
+        <groupId>org.ifinalframework.auto</groupId>
         <artifactId>final-auto-service</artifactId>
         <version>${final.version}</version>
         <optional>true</optional>
@@ -75,7 +75,7 @@ class PersonServiceImpl extends AbsServiceImpl<Long, Person, PersonMapper> imple
 ```xml
 
 <dependency>
-    <groupId>org.ifinal.finalframework.auto</groupId>
+    <groupId>org.ifinalframework.auto</groupId>
     <artifactId>final-auto-service</artifactId>
     <version>${final.version}</version>
     <optional>true</optional>

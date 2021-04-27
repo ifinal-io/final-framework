@@ -30,7 +30,7 @@ formatter: "@formatter:on"
 
 <dependencies>
     <dependency>
-        <groupId>org.ifinal.finalframework.starter</groupId>
+        <groupId>org.ifinalframework.starter</groupId>
         <artifactId>final-boot-starter-web</artifactId>
         <version>${final.version}</version>
     </dependency>

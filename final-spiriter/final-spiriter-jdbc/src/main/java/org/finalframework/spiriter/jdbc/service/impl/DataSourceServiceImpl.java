@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.ifinalframework.spiriter.jdbc.service.impl;
 
-import org.finalframework.spiriter.jdbc.service.DataSourceService;
+import org.ifinalframework.spiriter.jdbc.service.DataSourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

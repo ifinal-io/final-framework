@@ -21,7 +21,7 @@ formatter: "@formatter:on"
 
 ```xml
 <dependency>
-    <groupId>org.ifinal.finalframework.starter</groupId>
+    <groupId>org.ifinalframework.starter</groupId>
     <artifactId>final-boot-starter-logging</artifactId>
     <version>{{site.final.version}}</version>
 </dependency>

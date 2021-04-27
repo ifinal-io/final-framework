@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.dao.mapper;
+package org.ifinalframework.spiriter.jdbc.dao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.finalframework.mybatis.mapper.AbsMapper;
-import org.finalframework.spiriter.jdbc.entity.Tables;
+import org.ifinalframework.mybatis.mapper.AbsMapper;
+import org.ifinalframework.spiriter.jdbc.entity.Tables;
 
 
 /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.service;
+package org.ifinalframework.spiriter.jdbc.service;
 
 import org.springframework.lang.Nullable;
 

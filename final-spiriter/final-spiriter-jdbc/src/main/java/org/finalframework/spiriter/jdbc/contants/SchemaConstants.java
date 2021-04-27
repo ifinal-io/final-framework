@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.contants;
+package org.ifinalframework.spiriter.jdbc.contants;
 
 /**
  * @author likly

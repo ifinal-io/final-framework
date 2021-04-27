@@ -23,6 +23,6 @@
  * @since 1.0.0
  */
 @SpringController
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinalframework.spiriter.jdbc.api.controller;
 
-import org.ifinal.auto.spring.factory.annotation.SpringController;
+import org.ifinalframework.auto.spring.factory.annotation.SpringController;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.entity;
+package org.ifinalframework.spiriter.jdbc.entity;
 
-import org.finalframework.data.query.QEntity;
+import org.ifinalframework.data.query.QEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -25,7 +25,7 @@ formatter: "@formatter:on"
 ```xml
 <!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot-starter-mybatis -->
 <dependency>
-    <groupId>org.ifinal.finalframework.starter</groupId>
+    <groupId>org.ifinalframework.starter</groupId>
     <artifactId>final-boot-starter-mybatis</artifactId>
     <version>{{ site.final.version }}</version>
 </dependency>

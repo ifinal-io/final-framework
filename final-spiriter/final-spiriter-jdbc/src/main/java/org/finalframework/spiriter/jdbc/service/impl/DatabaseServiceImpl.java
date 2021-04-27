@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.service.impl;
+package org.ifinalframework.spiriter.jdbc.service.impl;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
-import org.finalframework.spiriter.jdbc.model.Table;
-import org.finalframework.spiriter.jdbc.service.DatabaseService;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinalframework.spiriter.jdbc.model.Table;
+import org.ifinalframework.spiriter.jdbc.service.DatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

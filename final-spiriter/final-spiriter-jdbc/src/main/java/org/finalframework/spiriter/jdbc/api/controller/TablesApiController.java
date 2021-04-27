@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.api.controller;
+package org.ifinalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.finalframework.data.query.Query;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
-import org.finalframework.spiriter.jdbc.dao.mapper.TablesMapper;
-import org.finalframework.spiriter.jdbc.dao.query.QTables;
-import org.finalframework.spiriter.jdbc.entity.Tables;
-import org.finalframework.spiriter.jdbc.query.TablesQuery;
+import org.ifinalframework.data.query.Query;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.TablesMapper;
+import org.ifinalframework.spiriter.jdbc.dao.query.QTables;
+import org.ifinalframework.spiriter.jdbc.entity.Tables;
+import org.ifinalframework.spiriter.jdbc.query.TablesQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

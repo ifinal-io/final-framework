@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.model;
+package org.ifinalframework.spiriter.jdbc.model;
 
 
 /**

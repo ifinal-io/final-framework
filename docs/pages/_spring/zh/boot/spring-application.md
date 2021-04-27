@@ -44,7 +44,7 @@ formatter: "@formatter:on"
 在大多数情况下，可以直接从`main`方法中调用静态`run(Class, String[])`方法来引导应用程序：
 
 ```java
-package org.finalframework.example;
+package org.ifinalframework.example;
 
 @SpringBootApplication
 public class FinalApplication {

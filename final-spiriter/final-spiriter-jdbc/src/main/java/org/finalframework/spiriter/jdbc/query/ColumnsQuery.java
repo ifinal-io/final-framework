@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.query;
+package org.ifinalframework.spiriter.jdbc.query;
 
 
 import lombok.Data;

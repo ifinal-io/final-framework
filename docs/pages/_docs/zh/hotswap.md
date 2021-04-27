@@ -71,7 +71,7 @@ public class HotswapApiController {
  * Decompiled with CFR.
  */
 
-package org.finalframework.example.web.controller;
+package org.ifinalframework.example.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

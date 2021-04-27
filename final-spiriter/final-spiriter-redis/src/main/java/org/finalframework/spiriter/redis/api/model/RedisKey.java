@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.redis.api.model;
+package org.ifinalframework.spiriter.redis.api.model;
 
 
 import lombok.AllArgsConstructor;

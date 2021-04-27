@@ -34,7 +34,7 @@ formatter: "@formatter:on"
 ```xml
 <!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.starter/final-boot-starter-entity -->
 <dependency>
-    <groupId>org.ifinal.finalframework.starter</groupId>
+    <groupId>org.ifinalframework.starter</groupId>
     <artifactId>final-boot-starter-entity</artifactId>
     <version>{{ site.final.version }}</version>
 </dependency>

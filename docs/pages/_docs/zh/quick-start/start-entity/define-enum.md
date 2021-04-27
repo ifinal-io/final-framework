@@ -21,7 +21,7 @@ formatter: "@formatter:on"
 声明一个实现了接口`IEnum`的枚举。
 
 ```java
-package org.finalframework.annotation.data;
+package org.ifinalframework.annotation.data;
 
 @Getter
 @AllArgsConstructor

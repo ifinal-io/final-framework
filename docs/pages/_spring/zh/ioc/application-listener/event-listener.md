@@ -22,7 +22,7 @@ formatter: "@formatter:on"
 声明一个`public`的方法并指定要处理的`ApplicationEvent`，如`ApplicationReadyEvent`，同时使用`@EventListener`标记:
 
 ```java
-package org.finalframework.example;
+package org.ifinalframework.example;
 
 @Slf4j
 @SpringBootApplication

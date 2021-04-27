@@ -18,7 +18,8 @@ package org.springframework.context.annotation;
 
 import org.springframework.core.type.AnnotationMetadata;
 
-import org.finalframework.FinalFramework;
+import org.ifinalframework.FinalFramework;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

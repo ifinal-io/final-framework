@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.service;
+package org.ifinalframework.spiriter.jdbc.service;
 
 
-import org.finalframework.spiriter.jdbc.model.Table;
+import org.ifinalframework.spiriter.jdbc.model.Table;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

@@ -23,7 +23,7 @@ formatter: "@formatter:on"
 在 `.dao.mapper` 包下添加 `PersonMapper.java` ：
 
 ```java
-package org.finalframework.example.dao.mapper;
+package org.ifinalframework.example.dao.mapper;
 
 @Mapper
 public interface PersonMapper extends AbsMapper<Long, Person> {
@@ -42,7 +42,7 @@ public interface PersonMapper extends AbsMapper<Long, Person> {
 ```xml
 <!-- https://mvnrepository.com/artifact/org.ifinal.finalframework.auto/final-auto-mybatis -->
 <dependency>
-    <groupId>org.ifinal.finalframework.auto</groupId>
+    <groupId>org.ifinalframework.auto</groupId>
     <artifactId>final-auto-mybatis</artifactId>
     <version>{{ site.final.version }}</version>
     <scope>provided</scope>

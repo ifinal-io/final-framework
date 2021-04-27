@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2020-2021 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <parent>
-        <groupId>org.ifinal.finalframework.parent</groupId>
-        <artifactId>final-projects-parent</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <groupId>org.ifinalframework.project</groupId>
+        <artifactId>final-project</artifactId>
+        <version>1.2.0-alpha</version>
         <relativePath/><!-- lookup parent from repository -->
     </parent>
-    <groupId>org.ifinal.finalframework</groupId>
+    <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.0-alpha</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Final framework with Spring Boot</description>
@@ -28,14 +44,13 @@
         <module>final-devops</module>
         <module>final-logging</module>
         <module>final-velocity</module>
+        <module>final-json</module>
     </modules>
 
     <properties>
         <lombok.version>1.18.18</lombok.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
-        <final.version>1.2.0-SNAPSHOT</final.version>
-        <auto.service.version>1.0.0</auto.service.version>
-        <auto.spring.version>1.0.0</auto.spring.version>
+        <final.version>${project.version}</final.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <guava.version>30.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -98,7 +113,6 @@
             <id>deploy</id>
             <build>
                 <plugins>
-
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -138,7 +152,7 @@
             </distributionManagement>
         </profile>
     </profiles>
-    <url>https://github.com/likly/final-frameworks</url>
+    <url>https://github.com/final-projects/final-framework</url>
 
     <scm>
         <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
@@ -201,19 +215,16 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.auto</groupId>
-                <artifactId>auto-service</artifactId>
-                <version>${auto.service.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.auto</groupId>
-                <artifactId>auto-spring</artifactId>
-                <version>${auto.spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinal.finalframework.annotation</groupId>
+                <groupId>org.ifinalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>1.2.0-SNAPSHOT</version>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${final.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -221,70 +232,70 @@
             <!-- ========================================= final-framework ========================================== -->
             <!-- ==================================================================================================== -->
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-core</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-velocity</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-javapoets</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-json</artifactId>
                 <version>${final.version}</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-dubbo</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-devops</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-retrofit</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-web</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-logging</artifactId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-aop</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-context</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <dependency>
                 <artifactId>final-monitor</artifactId>
-                <groupId>org.ifinal.finalframework</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <version>${final.version}</version>
             </dependency>
             <!-- ==================================================================================================== -->
@@ -344,9 +355,17 @@
                 </plugin>
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.2.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <phase>package</phase>
+                        </execution>
+                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
                 </plugin>
                 <plugin>
                     <artifactId>maven-gpg-plugin</artifactId>
@@ -376,6 +395,18 @@
                             <goal>jar</goal>
                         </goals>
                         <phase>compile</phase>
+                    </execution>
+                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>package</phase>
                     </execution>
                 </executions>
                 <groupId>org.apache.maven.plugins</groupId>

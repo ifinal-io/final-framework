@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.entity;
+package org.ifinalframework.spiriter.jdbc.entity;
 
 
 import lombok.Data;
-import org.finalframework.data.annotation.*;
-import org.finalframework.spiriter.jdbc.contants.SchemaConstants;
+import org.ifinalframework.data.annotation.*;
+import org.ifinalframework.spiriter.jdbc.contants.SchemaConstants;
 
 import java.util.Date;
 

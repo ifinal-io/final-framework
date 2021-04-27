@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.redis.api.controller;
+package org.ifinalframework.spiriter.redis.api.controller;
 
-import org.finalframework.redis.Redis;
+import org.ifinalframework.redis.Redis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;

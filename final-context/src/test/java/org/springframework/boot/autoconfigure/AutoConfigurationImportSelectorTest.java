@@ -19,8 +19,9 @@ package org.springframework.boot.autoconfigure;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.type.AnnotationMetadata;
 
+import org.ifinalframework.ContextApplicationContext;
+
 import lombok.extern.slf4j.Slf4j;
-import org.finalframework.ContextApplicationContext;
 import org.junit.jupiter.api.Test;
 
 /**

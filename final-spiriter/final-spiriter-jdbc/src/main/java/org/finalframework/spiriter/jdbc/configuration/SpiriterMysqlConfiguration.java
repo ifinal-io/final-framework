@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.finalframework.spiriter.jdbc.configuration;
+package org.ifinalframework.spiriter.jdbc.configuration;
 
 
 import org.apache.ibatis.session.Configuration;
-import org.finalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
-import org.finalframework.spiriter.jdbc.dao.mapper.CommonMapper;
-import org.finalframework.spiriter.jdbc.dao.mapper.TablesMapper;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.CommonMapper;
+import org.ifinalframework.spiriter.jdbc.dao.mapper.TablesMapper;
 
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 

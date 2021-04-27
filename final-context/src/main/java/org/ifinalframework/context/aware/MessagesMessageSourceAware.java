@@ -1,0 +1,49 @@
+/*
+ * Copyright 2020-2021 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.ifinalframework.context.aware;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+
+import org.ifinalframework.context.util.Messages;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * An aware helper to receive {@link MessageSource} from {@link MessageSourceAware} and set to {@link Messages}.
+ *
+ * @author likly
+ * @version 1.0.0
+ * @see MessageSource
+ * @see Messages
+ * @since 1.0.0
+ */
+@Slf4j
+@Component
+public class MessagesMessageSourceAware implements MessageSourceAware {
+
+    @Override
+    public void setMessageSource(final @NonNull MessageSource messageSource) {
+        if (logger.isInfoEnabled()) {
+            logger.info("set message source: {}", messageSource.getClass());
+        }
+        Messages.setMessageSource(messageSource);
+    }
+
+}
