@@ -22,14 +22,14 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-project</artifactId>
-        <version>1.2.0-alpha</version>
+        <version>1.2.0-SNAPSHOT</version>
         <relativePath/><!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.2.0-alpha</version>
+    <version>1.2.0-SNAPSHOT</version>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
 
     <modules>
@@ -50,7 +50,7 @@
     <properties>
         <lombok.version>1.18.18</lombok.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
-        <final.version>${project.version}</final.version>
+        <final.version>1.2.0-SNAPSHOT</final.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <guava.version>30.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
