@@ -3,13 +3,14 @@
 # final-framework
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/final-projects/final-framework/CI)](https://github.com/final-projectes/final-framework/actions?query=workflow%3ACI)
-[![GitHub](https://img.shields.io/github/license/likly/final-framework)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Maven Central](https://img.shields.io/maven-central/v/org.ifinal.finalframework/final-framework?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinal.finalframework/final-framework?server=https%3A%2F%2Foss.sonatype.org%2F)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/s/org.ifinal.finalframework/final-framework?server=https%3A%2F%2Foss.sonatype.org%2F)
-![GitHub Repo stars](https://img.shields.io/github/stars/likly/final-framework)
-![GitHub top language](https://img.shields.io/github/languages/top/likly/final-framework)
-[![GitHub language count](https://img.shields.io/github/languages/count/likly/final-framework)](https://github.com/likly/final-framework)
+[![GitHub](https://img.shields.io/github/license/final-projects/final-framework)](http://www.apache.
+org/licenses/LICENSE-2.0.html)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ifinalframework/final-framework?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinalframework/final-framework?server=https://s01.oss.sonatype.org)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/s/org.ifinalframework/final-framework?server=https://s01.oss.sonatype.org)
+![GitHub Repo stars](https://img.shields.io/github/stars/final-projects/final-framework)
+![GitHub top language](https://img.shields.io/github/languages/top/final-projects/final-framework)
+[![GitHub language count](https://img.shields.io/github/languages/count/final-projects/final-framework)](https://github.com/likly/final-framework)
 [![Sonar Quality Gate](https://img.shields.io/sonar/alert_status/likly_final-framework?server=https%3A%2F%2Fsonarcloud.io)](https://scrutinizer-ci.com/g/likly/final-framework/)
 ![Sonar Coverage](https://img.shields.io/sonar/coverage/likly_final-framework?server=https%3A%2F%2Fsonarcloud.io)
 

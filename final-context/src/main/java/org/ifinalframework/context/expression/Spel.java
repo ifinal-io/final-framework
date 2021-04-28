@@ -34,7 +34,7 @@ public final class Spel {
 
     private static final ExpressionParser PARSER = new SpelExpressionParser(new SpelParserConfiguration(true, true));
 
-    private static final MapAccessor MAP_ACCESSOR = new MapAccessor();
+    private static final MapAccessor MAP_ACCESSOR = new PropertyMapAccessor();
 
     private static final ParserContext PARSER_CONTEXT = ParserContext.TEMPLATE_EXPRESSION;
 

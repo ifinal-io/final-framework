@@ -85,7 +85,7 @@ class SpelTest {
     void getValueFromMap() {
         Map<String, Object> params = new HashMap<>();
         params.put("name", "xiaoMing");
-        params.put("age", 12);
+//        params.put("age", 12);
         assertEquals(params.get("name"), Spel.getValue("#{name}", params));
         assertEquals(params.get("age"), Spel.getValue("#{age}", params));
 
