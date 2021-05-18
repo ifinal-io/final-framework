@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+import org.ifinalframework.json.Json;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * SpelTest.
@@ -103,6 +107,21 @@ class SpelTest {
         Object value = Spel.getValue("hello #{3+4}");
         logger.info("hello #{3+4}={}", value);
         assertEquals("hello 7", value);
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = {"#{['data'][0]['shopCode']}"}
+    )
+    void test2(String expression) {
+        final String json = "{\"data\": [{\"id\": 20936066, \"yn\": 1, \"mart\": \"bjwm\", \"skuId\": 100929389, \"status\": 14, \"barCode\": \"6971460180066\", \"bizType\": 0, \"created\": 1590484875000, \"storeId\": 13558, \"baseUnit\": \"EA\", \"createId\": \"sap\", \"modified\": 1616489347000, \"shopCode\": \"8632\", \"shopName\": \"明光村店(筹备中)\", \"shopType\": \"S\", \"statusCn\": \"4\", \"updateId\": \"郑涛\", \"customize\": {\"consignForSale\": false, \"existOrderUnit\": true}, \"goodsCode\": \"926053\", \"goodsName\": \"微波鲜玉米\", \"orderUnit\": \"EA\", \"deliveryType\": 1, \"purchaseUnit\": \"EA\", \"supplierCode\": \"DC15\", \"supplierName\": \"大兴冷冻冷藏日配库\", \"categoryCode0\": \"P20\", \"categoryCode1\": \"UF2\", \"categoryCode2\": \"285-001\", \"outSupplierCode\": \"334310\", \"outSupplierName\": \"小丁家（北京）农业科技有限公司\"}], \"mart\": \"bjwm\", \"groupId\": 1142, \"venderId\": 1, \"timestamp\": 1619911098680, \"storeCreditCode\": \"\"}";
+
+        Object object = Json.toObject(json);
+
+        Object value = Spel.getValue(expression, object);
+
+        logger.info("{}={}", expression, value);
+
     }
 
     @Data
