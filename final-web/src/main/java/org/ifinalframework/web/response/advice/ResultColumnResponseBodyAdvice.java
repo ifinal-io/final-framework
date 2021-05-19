@@ -23,6 +23,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -51,15 +52,19 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class ResultColumnResponseBodyAdvice implements RestResponseBodyAdvice<Result<List<?>>> {
 
+    public static final MapAccessor ACCESSOR = new MapAccessor();
+
     @Nullable
     @Override
     public Result<List<?>> beforeBodyWrite(@Nullable final Result<List<?>> body,
-        final MethodParameter returnType,
-        final MediaType selectedContentType, final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-        final ServerHttpRequest request, final ServerHttpResponse response) {
+        @NonNull final MethodParameter returnType,
+        @NonNull final MediaType selectedContentType,
+        @NonNull final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+        @NonNull final ServerHttpRequest request,
+        @NonNull final ServerHttpResponse response) {
 
         if (Objects.isNull(body)) {
-            return body;
+            return null;
         }
 
         HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
@@ -80,7 +85,7 @@ public class ResultColumnResponseBodyAdvice implements RestResponseBodyAdvice<Re
                 Map<String, Object> item = new LinkedHashMap<>();
 
                 StandardEvaluationContext context = new StandardEvaluationContext(data);
-                context.addPropertyAccessor(new MapAccessor());
+                context.addPropertyAccessor(ACCESSOR);
 
                 for (final Column column : responseColumn) {
                     item.put(column.getKey(), Spel.getValue(column.getValue(), context));

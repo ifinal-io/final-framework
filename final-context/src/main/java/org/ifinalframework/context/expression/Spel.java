@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,8 +33,14 @@ public final class Spel {
 
     private static final ExpressionParser PARSER = new SpelExpressionParser(new SpelParserConfiguration(true, true));
 
+    /**
+     * {@link MapAccessor}支持使用对象表达式{@code a.b}替代取值表达式{@code a['b']}。
+     */
     private static final MapAccessor MAP_ACCESSOR = new PropertyMapAccessor();
 
+    /**
+     * 以{@code #{}}包裹的才算表达式。
+     */
     private static final ParserContext PARSER_CONTEXT = ParserContext.TEMPLATE_EXPRESSION;
 
     private Spel() {

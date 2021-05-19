@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,14 +29,15 @@ import java.lang.annotation.Target;
 import java.util.List;
 
 /**
- * A custom {@link Component} annotation for {@link HandlerInterceptor} and the interceptor would be auto-detects by a custom a {@link
- * WebMvcConfigurer}.
+ * A custom {@link Component} annotation for {@link HandlerInterceptor} and the interceptor would be auto-detects by a
+ * custom a {@link WebMvcConfigurer}.
  *
  * @author likly
  * @version 1.0.0
  * @see InterceptorRegistration
  * @see HandlerInterceptor
  * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
+ * @see org.ifinalframework.web.config.HandlerInterceptorWebMvcConfigurer
  * @since 1.0.0
  */
 @Component

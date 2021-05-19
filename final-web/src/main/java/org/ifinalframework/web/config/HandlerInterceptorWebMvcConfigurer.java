@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.ifinalframework.web.annotation.servlet.Interceptor;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +51,8 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<HandlerInterceptor> handlerInterceptors;
 
-    public HandlerInterceptorWebMvcConfigurer(final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+    public HandlerInterceptorWebMvcConfigurer(
+        final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
     }
 
@@ -59,12 +60,13 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
     public void addInterceptors(final @NonNull InterceptorRegistry registry) {
         handlerInterceptors.stream()
             // filter the interceptor annotated by @Component
-            .filter(it -> AnnotatedElementUtils.isAnnotated(AopUtils.getTargetClass(it), Component.class))
+            .filter(new ComponentHandlerFilter())
             .forEach(item -> this.addInterceptor(registry, item));
 
     }
 
-    private void addInterceptor(final @NonNull InterceptorRegistry registry, final @NonNull HandlerInterceptor interceptor) {
+    private void addInterceptor(final @NonNull InterceptorRegistry registry,
+        final @NonNull HandlerInterceptor interceptor) {
 
         final Class<?> targetClass = AopUtils.getTargetClass(interceptor);
 
@@ -83,6 +85,15 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
             interceptorRegistration.order(order.value());
         }
         logger.info("==> add interceptor={}", interceptor.getClass());
+    }
+
+    private static class ComponentHandlerFilter implements Predicate<HandlerInterceptor> {
+
+        @Override
+        public boolean test(final HandlerInterceptor handlerInterceptor) {
+            return AnnotatedElementUtils.isAnnotated(AopUtils.getTargetClass(handlerInterceptor), Component.class);
+        }
+
     }
 
 }
