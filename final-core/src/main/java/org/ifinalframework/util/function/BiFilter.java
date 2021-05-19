@@ -15,14 +15,23 @@
 
 package org.ifinalframework.util.function;
 
+import java.util.function.BiPredicate;
+
 /**
+ * BiFilter.
+ *
  * @author likly
  * @version 1.0.0
- * @see BiFilter
+ * @see BiPredicate
  * @since 1.0.0
- * @deprecated see {@link BiFilter}
  */
-@Deprecated
-public interface FilterVisitor<T, P> extends BiFilter<T, P> {
+public interface BiFilter<T, U> extends BiPredicate<T, U> {
+
+    @Override
+    default boolean test(T t, U u) {
+        return matches(t, u);
+    }
+
+    boolean matches(T t, U u);
 
 }

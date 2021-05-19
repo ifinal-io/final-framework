@@ -15,14 +15,31 @@
 
 package org.ifinalframework.util.function;
 
+import java.util.Optional;
+import java.util.function.Consumer;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 /**
+ * ConsumerTest.
+ *
  * @author likly
  * @version 1.0.0
- * @see BiFilter
  * @since 1.0.0
- * @deprecated see {@link BiFilter}
  */
-@Deprecated
-public interface FilterVisitor<T, P> extends BiFilter<T, P> {
+class ConsumerTest {
+
+    @Test
+    void andThen() {
+        Consumer<StringBuilder> consumer = ((Consumer<StringBuilder>) sb -> sb.append("a"))
+            .andThen(it -> it.append("b"))
+            .andThen(it -> it.append("c"));
+        StringBuilder stringBuilder = new StringBuilder();
+        Optional.of(stringBuilder)
+            .ifPresent(consumer);
+
+        Assertions.assertEquals("abc", stringBuilder.toString());
+    }
 
 }

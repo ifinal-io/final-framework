@@ -16,13 +16,13 @@
 package org.ifinalframework.util.function;
 
 /**
+ * BiFilterTest.
+ *
  * @author likly
  * @version 1.0.0
- * @see BiFilter
+ * @see java.util.function.Consumer
  * @since 1.0.0
- * @deprecated see {@link BiFilter}
  */
-@Deprecated
-public interface FilterVisitor<T, P> extends BiFilter<T, P> {
+class BiFilterTest {
 
 }
