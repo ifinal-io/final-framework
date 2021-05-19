@@ -80,7 +80,7 @@
     <scm>
         <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
         <developerConnection>scm:git:ssh://github.com:final-projects/final-framework.git</developerConnection>
-        <url>http://github.com/final-projects/final-framework/tree/master</url>
+        <url>https://github.com/final-projects/final-framework/tree/master</url>
     </scm>
 
     <developers>
@@ -98,17 +98,10 @@
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -232,20 +225,11 @@
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
             <!-- ==================================================================================================== -->
-            <dependency>
-                <artifactId>mybatis</artifactId>
-                <groupId>org.mybatis</groupId>
-                <version>${mybatis.version}</version>
-            </dependency>
+
             <dependency>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <version>${mybatis.spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>pagehelper</artifactId>
-                <groupId>com.github.pagehelper</groupId>
-                <version>${pagehelper.version}</version>
             </dependency>
             <dependency>
                 <artifactId>retrofit</artifactId>
