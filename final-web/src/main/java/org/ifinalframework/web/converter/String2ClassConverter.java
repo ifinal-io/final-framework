@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -33,6 +32,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import lombok.Getter;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,8 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
 
     public static final Logger logger = LoggerFactory.getLogger(String2ClassConverter.class);
 
-    private static final Map<String, Class<? extends Annotation>> annotations
+    @Getter
+    private final Map<String, Class<? extends Annotation>> shortAnnotations
         = Stream.of(
         RestController.class, Controller.class,
         Component.class, Service.class, Configuration.class,
@@ -58,7 +59,7 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
     public Class<?> convert(final @NonNull String source) {
 
         try {
-            return annotations.containsKey(source) ? annotations.get(source) : Class.forName(source);
+            return shortAnnotations.containsKey(source) ? shortAnnotations.get(source) : Class.forName(source);
         } catch (ClassNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
