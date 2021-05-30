@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,8 +30,8 @@ import java.util.ServiceLoader;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link WebMvcConfigurer#addFormatters(FormatterRegistry)}.
- * Also support SPI from {@link ServiceLoader}.
+ * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link
+ * WebMvcConfigurer#addFormatters(FormatterRegistry)}. Also support SPI from {@link ServiceLoader}.
  *
  * @author likly
  * @version 1.0.0
@@ -43,12 +42,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-@SuppressWarnings("unused")
 public class ConverterFactoryWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<ConverterFactory<?, ?>> converterFactories;
 
-    public ConverterFactoryWebMvcConfigurer(final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider) {
+    public ConverterFactoryWebMvcConfigurer(
+        final ObjectProvider<List<ConverterFactory<?, ?>>> converterFactoriesProvider) {
         this.converterFactories = converterFactoriesProvider.getIfAvailable();
     }
 
