@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +16,13 @@
 package org.ifinalframework.velocity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +38,18 @@ import org.junit.jupiter.api.Test;
  * @since 1.0.0
  */
 class VelocitiesTest {
+
+    @Test
+    void noInstance() {
+        InvocationTargetException error = assertThrows(InvocationTargetException.class, () -> {
+            Constructor<Velocities> constructor = ReflectionUtils.accessibleConstructor(Velocities.class);
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        });
+
+        assertTrue(error.getTargetException() instanceof IllegalAccessError);
+
+    }
 
     @Test
     void getValue() {
