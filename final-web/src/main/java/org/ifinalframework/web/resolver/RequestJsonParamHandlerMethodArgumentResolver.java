@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,10 +35,12 @@ import org.ifinalframework.web.annotation.bind.RequestJsonParam;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,6 @@ import org.slf4j.LoggerFactory;
  * @author likly
  * @version 1.0.0
  * @see RequestJsonParam
- * @see RequestJsonParamHandler
  * @since 1.0.0
  */
 @Component
@@ -55,7 +55,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
 
     private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
 
-    private final Charset defaultCharset = Charset.defaultCharset();
+    @Setter
+    private Charset defaultCharset = StandardCharsets.UTF_8;
 
     /**
      * return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam},
@@ -136,13 +137,6 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     }
 
     private Object parseJson(final String json, final MethodParameter parameter) {
-
-        final Class<?> type = parameter.getParameterType();
-        final RequestJsonParamHandler<?> requestJsonParamHandler = RequestJsonParamHandlerRegistry.getInstance()
-            .getRequestJsonParamHandler(type);
-        if (requestJsonParamHandler != null) {
-            return requestJsonParamHandler.convert(json);
-        }
         return Json.toObject(json, parameter.getGenericParameterType());
     }
 
