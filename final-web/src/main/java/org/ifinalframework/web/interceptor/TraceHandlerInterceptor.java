@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,7 +18,8 @@ package org.ifinalframework.web.interceptor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
-import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.lang.Nullable;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import org.ifinalframework.core.generator.TraceGenerator;
 import org.ifinalframework.core.generator.UuidTraceGenerator;
@@ -43,7 +43,7 @@ import org.slf4j.MDC;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Interceptor
-public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
+public class TraceHandlerInterceptor implements HandlerInterceptor {
 
     public static final String TRACE_ATTRIBUTE = "org.finalframework.handler.trace";
 
@@ -98,9 +98,9 @@ public class TraceHandlerInterceptor implements AsyncHandlerInterceptor {
     }
 
     @Override
-    public void afterConcurrentHandlingStarted(final @NonNull HttpServletRequest request,
-        final @NonNull HttpServletResponse response,
-        final @NonNull Object handler) {
+    public void afterCompletion(final @NonNull HttpServletRequest request, @NonNull final HttpServletResponse response,
+        final @NonNull Object handler,
+        @Nullable final Exception ex) throws Exception {
 
         logger.info("remove trace from MDC context");
         MDC.remove(traceName);
