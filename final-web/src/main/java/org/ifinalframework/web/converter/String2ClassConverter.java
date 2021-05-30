@@ -34,8 +34,6 @@ import java.util.stream.Stream;
 
 import lombok.Getter;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
@@ -44,8 +42,6 @@ import org.slf4j.LoggerFactory;
  */
 @Component
 public class String2ClassConverter implements Converter<String, Class<?>> {
-
-    public static final Logger logger = LoggerFactory.getLogger(String2ClassConverter.class);
 
     @Getter
     private final Map<String, Class<? extends Annotation>> shortAnnotations
