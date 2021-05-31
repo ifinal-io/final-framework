@@ -36,7 +36,7 @@ public class DubboConsumerApplicationContext {
         HelloService helloService = context.getBean(HelloService.class);
         while (true) {
             logger.info(helloService.hello("world"));
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }
     }
 
