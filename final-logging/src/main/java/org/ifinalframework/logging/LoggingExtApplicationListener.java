@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -64,12 +63,13 @@ import org.slf4j.LoggerFactory;
 @SpringApplicationListener
 public class LoggingExtApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-    private static final String CONSOLE_LOG_PATTERN = "%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} "
-        + "%clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} "
-        + "%clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} "
-        + "%clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}";
+    private static final String CONSOLE_LOG_PATTERN =
+        "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} "
+            + "%clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} "
+            + "%clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} "
+            + "%clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}";
 
-    private static final String FILE_LOG_PATTERN = "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} "
+    private static final String FILE_LOG_PATTERN = "%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}} "
         + "${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}";
 
     private static final DataSize MAX_FILE_SIZE = DataSize.ofMegabytes(10);
@@ -140,7 +140,7 @@ public class LoggingExtApplicationListener implements ApplicationListener<Applic
         rollingPolicy.setCleanHistoryOnStart(
             this.patterns.getProperty("logging.file.clean-history-on-start", Boolean.class, false));
         rollingPolicy.setFileNamePattern(
-            logFile + this.patterns.getProperty("logging.pattern.rolling-file-suffix", ".%d{yyyy-MM-dd}.%i.gz"));
+            logFile + this.patterns.getProperty("logging.pattern.rolling-file-suffix", ".%d{yyyy-MM-dd}.%i"));
         setMaxFileSize(rollingPolicy, getDataSize("logging.file.max-size", MAX_FILE_SIZE));
         rollingPolicy
             .setMaxHistory(this.patterns.getProperty("logging.file.max-history", Integer.class, MAX_FILE_HISTORY));
