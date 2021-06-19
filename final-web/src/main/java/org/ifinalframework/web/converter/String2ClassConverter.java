@@ -53,7 +53,6 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
 
     @Override
     public Class<?> convert(final @NonNull String source) {
-
         try {
             return shortAnnotations.containsKey(source) ? shortAnnotations.get(source) : Class.forName(source);
         } catch (ClassNotFoundException e) {
