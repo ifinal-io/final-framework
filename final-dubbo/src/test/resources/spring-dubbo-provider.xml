@@ -24,7 +24,7 @@
 
     <!-- 使用multicast广播注册中心暴露服务地址 -->
 <!--    <dubbo:registry address="zookeeper://10.248.224.18:2181?backup=10.248.224.25:2181,10.248.224.39:2181" />-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <!--<dubbo:protocol name="dubbo" port="20880" />-->
@@ -34,4 +34,7 @@
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="helloService" class="org.ifinalframework.dubbo.service.HelloServiceImpl"/>
+
+
+    <dubbo:reference id="helloService2" interface="org.ifinalframework.dubbo.service.HelloService" timeout="100000"/>
 </beans>

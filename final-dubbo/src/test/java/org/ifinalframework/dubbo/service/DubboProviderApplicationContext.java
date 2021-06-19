@@ -15,9 +15,14 @@
 
 package org.ifinalframework.dubbo.service;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.AbstractInterfaceConfig;
 
 /**
  * DubboProviderApplicationContext.
@@ -33,7 +38,11 @@ public class DubboProviderApplicationContext {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
             "classpath:spring-dubbo-provider.xml");
 
-        HelloService helloService = context.getBean(HelloService.class);
+//        HelloService helloService = context.getBean(HelloService.class);
+
+        final ObjectProvider<AbstractInterfaceConfig> beanProvider = context
+            .getBeanProvider(AbstractInterfaceConfig.class);
+        final List<AbstractInterfaceConfig> serviceBeans = beanProvider.stream().collect(Collectors.toList());
 
         int i = 0;
         while (true) {

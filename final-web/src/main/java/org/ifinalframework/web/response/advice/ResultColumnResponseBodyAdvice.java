@@ -56,7 +56,7 @@ public class ResultColumnResponseBodyAdvice implements RestResponseBodyAdvice<Re
 
     @Nullable
     @Override
-    public Result<List<?>> beforeBodyWrite(@Nullable final Result<List<?>> body,
+    public Result<List<?>> doBeforeBodyWrite(@Nullable final Result<List<?>> body,
         @NonNull final MethodParameter returnType,
         @NonNull final MediaType selectedContentType,
         @NonNull final Class<? extends HttpMessageConverter<?>> selectedConverterType,
