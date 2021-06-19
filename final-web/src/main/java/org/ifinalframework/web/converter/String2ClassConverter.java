@@ -22,6 +22,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.ifinalframework.context.exception.NotFoundException;
@@ -52,9 +53,11 @@ public class String2ClassConverter implements Converter<String, Class<?>> {
     ).collect(Collectors.toMap(Class::getSimpleName, Function.identity()));
 
     @Override
+    @NonNull
     public Class<?> convert(final @NonNull String source) {
         try {
-            return shortAnnotations.containsKey(source) ? shortAnnotations.get(source) : Class.forName(source);
+            return shortAnnotations.containsKey(source) ? shortAnnotations.get(source)
+                : ClassUtils.forName(source, getClass().getClassLoader());
         } catch (ClassNotFoundException e) {
             throw new NotFoundException(e.getMessage());
         }
