@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,8 +29,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
+ * @deprecated removed future.
  */
 @Slf4j
+@Deprecated
 public final class Configuration {
 
     private static final String PROPERTIES_PATH = "final.properties";
