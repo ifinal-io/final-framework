@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * An {@link Configuration} class for {@code finalframework}.
  *
  * <h3>ComponentScan</h3>
- * <p>{@link FinalFramework} use default packages of {@code org.finalframework} to scan {@link Component}s.</p>
+ * <p>{@link FinalFramework} use default packages of {@code org.ifinalframework} to scan {@link Component}s.</p>
  *
  * <h3>ImportResource</h3>
  * <p>Import the resources from:</p>
