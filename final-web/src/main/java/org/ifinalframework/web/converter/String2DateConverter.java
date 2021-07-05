@@ -15,28 +15,25 @@
 
 package org.ifinalframework.web.converter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
-import org.ifinalframework.util.format.DateFormatter;
+import org.ifinalframework.util.format.DateFormatters;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
-
 /**
- * DateConverterTest.
- *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-class DateConverterTest {
+@Component
+public class String2DateConverter implements Converter<String, Date> {
 
-    private final DateConverter converter = new DateConverter();
-
-    @Test
-    void convert() {
-        assertNotNull(converter.convert(DateFormatter.YYYYMMDD_HH_MM_SS.format(new Date())));
+    @Override
+    public Date convert(@NonNull String source) {
+        return DateFormatters.DEFAULT.parse(source);
     }
 
 }

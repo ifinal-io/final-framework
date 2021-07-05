@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,28 +15,28 @@
 
 package org.ifinalframework.web.converter;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.ifinalframework.util.format.LocalDateTimeFormatters;
+import org.ifinalframework.util.format.LocalDateTimeFormatter;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Test;
+
 /**
- * LocalDateTimeConverter.
+ * LocalDateTimeConverterTest.
  *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@Component
-public class LocalDateTimeConverter implements Converter<String, LocalDateTime> {
+class String2LocalDateTimeConverterTest {
 
-    @Nullable
-    @Override
-    public LocalDateTime convert(final String source) {
-        return LocalDateTimeFormatters.DEFAULT.parse(source);
+    private final String2LocalDateTimeConverter converter = new String2LocalDateTimeConverter();
+
+    @Test
+    void convert() {
+        assertNotNull(converter.convert(LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now())));
     }
 
 }

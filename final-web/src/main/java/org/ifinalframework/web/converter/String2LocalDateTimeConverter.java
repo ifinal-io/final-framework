@@ -17,23 +17,37 @@ package org.ifinalframework.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import org.ifinalframework.util.format.DateFormatters;
+import org.ifinalframework.util.format.LocalDateTimeFormatters;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
+ * LocalDateTimeConverter.
+ *
+ * <p>Convert {@link String} to {@link LocalDateTime}.</p>
+ *
+ * Supports patterns:
+ * <ul>
+ *     <li>{@code yyyy-MM-dd HH:mm:ss}</li>
+ *     <li>{@code yyyy/MM/dd HH:mm:ss}</li>
+ *     <li>{@code yyyyMMdd HH:mm:ss}</li>
+ *     <li>{@code yyyyMMddHHmmss}</li>
+ * </ul>
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
 @Component
-public class DateConverter implements Converter<String, Date> {
+public class String2LocalDateTimeConverter implements Converter<String, LocalDateTime> {
 
+    @Nullable
     @Override
-    public Date convert(@NonNull String source) {
-        return DateFormatters.DEFAULT.parse(source);
+    public LocalDateTime convert(@NonNull String source) {
+        return LocalDateTimeFormatters.DEFAULT.parse(source);
     }
 
 }

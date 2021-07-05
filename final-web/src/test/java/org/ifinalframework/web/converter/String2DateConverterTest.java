@@ -17,26 +17,26 @@ package org.ifinalframework.web.converter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.ifinalframework.util.format.LocalDateTimeFormatter;
+import org.ifinalframework.util.format.DateFormatter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * LocalDateTimeConverterTest.
+ * DateConverterTest.
  *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-class LocalDateTimeConverterTest {
+class String2DateConverterTest {
 
-    private final LocalDateTimeConverter converter = new LocalDateTimeConverter();
+    private final String2DateConverter converter = new String2DateConverter();
 
     @Test
     void convert() {
-        assertNotNull(converter.convert(LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now())));
+        assertNotNull(converter.convert(DateFormatter.YYYYMMDD_HH_MM_SS.format(new Date())));
     }
 
 }
