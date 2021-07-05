@@ -20,11 +20,11 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-project</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.1-alpha</version>
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1-alpha</version>
 
     <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
@@ -46,7 +46,7 @@
 
     <properties>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
-        <final.version>1.2.1-SNAPSHOT</final.version>
+        <final.version>1.2.1-alpha</final.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <guava.version>30.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -59,7 +59,6 @@
         <okhttp.version>3.14.7</okhttp.version>
         <pagehelper.version>5.2.0</pagehelper.version>
         <retrofit.version>2.8.1</retrofit.version>
-        <sharding.version>5.0.0-alpha</sharding.version>
         <h2.version>1.4.200</h2.version>
 
         <!--Sonar-->
@@ -118,11 +117,6 @@
                 <artifactId>javapoet</artifactId>
                 <groupId>com.squareup</groupId>
                 <version>${squareup.javapoet.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>shardingsphere-jdbc-core</artifactId>
-                <groupId>org.apache.shardingsphere</groupId>
-                <version>${sharding.version}</version>
             </dependency>
             <dependency>
                 <artifactId>pagehelper</artifactId>
