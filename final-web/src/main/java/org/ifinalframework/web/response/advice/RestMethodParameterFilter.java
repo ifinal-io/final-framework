@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.ifinalframework.util.function.Filter;
 import org.ifinalframework.web.response.annotation.ResponseIgnore;
-import org.ifinalframework.web.response.annotation.RestResponseController;
 
 /**
  * Rest {@link MethodParameter} 方法过滤器。
@@ -41,10 +39,6 @@ public class RestMethodParameterFilter implements Filter<MethodParameter> {
         if (methodParameter.hasMethodAnnotation(ResponseIgnore.class) || methodParameter.getDeclaringClass()
             .isAnnotationPresent(ResponseIgnore.class)) {
             return false;
-        }
-
-        if (methodParameter.getDeclaringClass().isAnnotationPresent(RestResponseController.class)) {
-            return true;
         }
 
         return methodParameter.hasMethodAnnotation(ResponseBody.class) || methodParameter.getDeclaringClass()
