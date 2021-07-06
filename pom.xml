@@ -24,7 +24,7 @@
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.2.1-alpha</version>
+    <version>1.2.1-SNAPSHOT</version>
 
     <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
