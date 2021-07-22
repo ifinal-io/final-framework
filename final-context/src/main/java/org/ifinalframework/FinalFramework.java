@@ -46,6 +46,7 @@ import lombok.extern.slf4j.Slf4j;
  * @see ComponentScan
  * @see ImportResource
  * @see ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)
+ * @see org.springframework.context.ApplicationContextInitializer
  * @since 1.0.0
  */
 @Slf4j
