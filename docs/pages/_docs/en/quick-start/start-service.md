@@ -31,12 +31,12 @@ formatter: "@formatter:on"
     <dependency>
         <groupId>org.ifinalframework.starter</groupId>
         <artifactId>final-boot-starter-service</artifactId>
-        <version>${final.version}</version>
+        <version>1.2.1</version>
     </dependency>
     <dependency>
         <groupId>org.ifinalframework.auto</groupId>
         <artifactId>final-auto-service</artifactId>
-        <version>${final.version}</version>
+        <version>1.2.1</version>
         <optional>true</optional>
     </dependency>
 </dependencies>
@@ -77,7 +77,7 @@ class PersonServiceImpl extends AbsServiceImpl<Long, Person, PersonMapper> imple
 <dependency>
     <groupId>org.ifinalframework.auto</groupId>
     <artifactId>final-auto-service</artifactId>
-    <version>${final.version}</version>
+    <version>1.2.1</version>
     <optional>true</optional>
 </dependency>
 ```
