@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,6 +21,7 @@ import org.springframework.lang.Nullable;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
@@ -32,10 +32,11 @@ import java.util.Set;
  * @see JsonRegistry
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public final class Json {
 
     private Json() {
-        throw new AssertionError("No  Json instances for you!");
+        throw new AssertionError("No Json instances for you!");
     }
 
     /**
@@ -59,17 +60,12 @@ public final class Json {
      * @throws JsonException json exception
      */
     public static String toJson(final @Nullable Object object, final @Nullable Class<?> view) {
-
-        try {
-            if (object instanceof String) {
-                return ((String) object).trim();
-            }
-            return JsonRegistry.getInstance().getJsonService().toJson(object, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
+        if (object instanceof String) {
+            return ((String) object).trim();
         }
+
+        return wrap(() -> JsonRegistry.getInstance().getJsonService().toJson(object, view));
+
     }
 
     /**
@@ -108,20 +104,11 @@ public final class Json {
     @SuppressWarnings("unchecked")
     public static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT,
         final @Nullable Class<?> view) {
-
-        try {
-
-            if (String.class.equals(classOfT)) {
-                return (T) json;
-            }
-
-            return JsonRegistry
-                .getInstance().getJsonService().toObject(json, classOfT, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
+        if (String.class.equals(classOfT)) {
+            return (T) json;
         }
+
+        return wrap(() -> JsonRegistry.getInstance().getJsonService().toObject(json, classOfT, view));
     }
 
     /**
@@ -179,17 +166,12 @@ public final class Json {
      */
     @SuppressWarnings("unchecked")
     public static <T> T toObject(final @NonNull String json, final @NonNull Type typeOfT, @Nullable Class<?> view) {
-        try {
-            if (String.class.equals(typeOfT)) {
-                return (T) json;
-            }
-            return JsonRegistry
-                .getInstance().getJsonService().toObject(json, typeOfT, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
+        if (String.class.equals(typeOfT)) {
+            return (T) json;
         }
+
+        return wrap(() -> JsonRegistry.getInstance().getJsonService().toObject(json, typeOfT, view));
+
     }
 
     /**
@@ -218,15 +200,8 @@ public final class Json {
      */
     public static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT,
         final @Nullable Class<?> view) {
-
-        try {
-            return JsonRegistry
-                .getInstance().getJsonService().toList(json, classOfT, view);
-        } catch (JsonException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new JsonException(e);
-        }
+        return wrap(() -> JsonRegistry
+            .getInstance().getJsonService().toList(json, classOfT, view));
     }
 
     /**
@@ -239,7 +214,6 @@ public final class Json {
      * @throws JsonException json exception
      */
     public static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT) {
-
         return toSet(json, classOfT, null);
     }
 
@@ -255,9 +229,12 @@ public final class Json {
      */
     public static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT,
         @Nullable Class<?> view) {
+        return wrap(() -> JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view));
+    }
 
+    private static <T> T wrap(Supplier<T> supplier) {
         try {
-            return JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view);
+            return supplier.get();
         } catch (JsonException e) {
             throw e;
         } catch (Exception e) {
