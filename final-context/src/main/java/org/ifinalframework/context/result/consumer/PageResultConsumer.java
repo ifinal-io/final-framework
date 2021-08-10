@@ -15,19 +15,17 @@
 
 package org.ifinalframework.context.result.consumer;
 
-import org.springframework.stereotype.Component;
-
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.core.result.Pagination;
 import org.ifinalframework.core.result.Result;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-
 /**
- * PageResultConsumer.
+ * Build a {@linkplain Pagination} from {@linkplain Page}.
  *
  * @author likly
  * @version 1.2.1
