@@ -25,6 +25,7 @@ import java.util.function.Predicate;
  *
  * @author likly
  * @version 1.2.1
+ * @see ResultFunction
  * @since 1.2.1
  */
 public interface ResultConsumer<T> extends Consumer<Result<T>>, Predicate<Result<?>> {

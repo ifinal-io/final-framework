@@ -15,12 +15,11 @@
 
 package org.ifinalframework.context.result.function;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 import org.ifinalframework.context.result.ResultFunction;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -51,10 +50,4 @@ public class ObjectResultFunction implements ResultFunction<Object, Object> {
 
         throw new IllegalArgumentException(body.getClass() + " must impl Serializable");
     }
-
-    @Override
-    public boolean test(Object o) {
-        return true;
-    }
-
 }

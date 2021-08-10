@@ -21,12 +21,17 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * ResultFunction.
+ * The function of convert {@link S} to {@link Result}.
  *
  * @author likly
  * @version 1.2.1
+ * @see ResultConsumer
  * @since 1.2.1
  */
+@FunctionalInterface
 public interface ResultFunction<S, E> extends Function<S, Result<E>>, Predicate<S> {
-
+    @Override
+    default boolean test(S s) {
+        return true;
+    }
 }
