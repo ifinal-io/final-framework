@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,16 +15,14 @@
 
 package org.ifinalframework.web.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.web.http.converter.JsonStringHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import org.ifinalframework.web.http.converter.JsonStringHttpMessageConverter;
-
 import java.util.List;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * HttpMessageConverterWebMvcConfigurer.
@@ -54,6 +51,9 @@ public class HttpMessageConverterWebMvcConfigurer implements WebMvcConfigurer {
                 // Use JsonStringHttpMessageConverter replace StringHttpMessageConverter.
                 converter = new JsonStringHttpMessageConverter((StringHttpMessageConverter) converter);
                 converters.set(i, converter);
+
+                logger.info("replace StringHttpMessageConverter by JsonStringHttpMessageConverter: {}", converter);
+
             }
         }
 
