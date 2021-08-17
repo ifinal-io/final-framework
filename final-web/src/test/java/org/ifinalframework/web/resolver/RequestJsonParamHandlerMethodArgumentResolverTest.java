@@ -15,26 +15,27 @@
 
 package org.ifinalframework.web.resolver;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.ifinalframework.json.Json;
+import org.ifinalframework.web.annotation.bind.RequestJsonParam;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ResolvableType;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import org.ifinalframework.json.Json;
-import org.ifinalframework.web.annotation.bind.RequestJsonParam;
+import javax.servlet.http.HttpServletRequest;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 /**
  * RequestJsonParamHandlerMethodArgumentResolverTest.
@@ -57,6 +58,9 @@ class RequestJsonParamHandlerMethodArgumentResolverTest {
 
     @Mock
     private NativeWebRequest webRequest;
+
+    @Mock
+    private HttpServletRequest httpServletRequest;
 
     @Mock
     private WebDataBinderFactory binderFactory;
