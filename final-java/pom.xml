@@ -24,7 +24,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-devops</artifactId>
+    <artifactId>final-java</artifactId>
 
     <dependencies>
         <dependency>
@@ -42,6 +42,12 @@
             <groupId>org.benf</groupId>
             <artifactId>cfr</artifactId>
             <version>0.150</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

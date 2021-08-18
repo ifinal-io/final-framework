@@ -38,7 +38,7 @@
         <module>final-aop</module>
         <module>final-web</module>
         <module>final-javapoets</module>
-        <module>final-devops</module>
+        <module>final-java</module>
         <module>final-logging</module>
         <module>final-velocity</module>
         <module>final-json</module>
@@ -178,7 +178,7 @@
                 <version>1.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <artifactId>final-devops</artifactId>
+                <artifactId>final-java</artifactId>
                 <groupId>org.ifinalframework</groupId>
                 <version>1.2.2-SNAPSHOT</version>
             </dependency>

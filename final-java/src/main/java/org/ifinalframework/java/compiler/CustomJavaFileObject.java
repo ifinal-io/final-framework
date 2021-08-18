@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,17 +13,13 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.devops.java.compiler;
+package org.ifinalframework.java.compiler;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
-import java.net.URI;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.tools.JavaFileObject;
+import java.io.*;
+import java.net.URI;
 
 /**
  * CustomJavaFileObject.

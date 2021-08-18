@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,20 +13,16 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.devops.java.compiler;
+package org.ifinalframework.java.compiler;
 
+import javax.tools.JavaFileObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.jar.JarEntry;
-import javax.tools.JavaFileObject;
 
 /**
  * PackageInternalsFinder.
