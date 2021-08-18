@@ -20,6 +20,7 @@ import com.github.pagehelper.PageInfo;
 import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.core.result.Pagination;
 import org.ifinalframework.core.result.Result;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -32,6 +33,7 @@ import java.util.Objects;
  * @since 1.2.1
  */
 @Component
+@ConditionalOnClass(Page.class)
 public class PageResultConsumer implements ResultConsumer<Page<?>> {
 
     @Override
