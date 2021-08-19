@@ -36,6 +36,7 @@ import java.util.Set;
  */
 public class ClassDumpTransformer implements ClassFileTransformer {
 
+
     private static final Logger logger = LoggerFactory.getLogger(ClassDumpTransformer.class);
 
     private static final String CLASS_DUMP_DIR = "classDump";

@@ -26,6 +26,7 @@ import java.net.URI;
  */
 public class CustomJavaFileObject implements JavaFileObject {
 
+
     private final String binaryName;
 
     private final URI uri;

@@ -25,6 +25,7 @@ import java.net.URI;
  */
 public class BytesJavaFileObject extends SimpleJavaFileObject {
 
+
     private static final char PKG_SEPARATOR = '.';
 
     private static final char DIR_SEPARATOR = '/';

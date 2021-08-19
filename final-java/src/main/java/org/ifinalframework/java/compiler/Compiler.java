@@ -53,7 +53,6 @@ public class Compiler {
     }
 
     public void addSource(final String className, final String source) {
-
         addSource(new StringJavaFileObject(className, source));
     }
 

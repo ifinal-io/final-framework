@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.benf.cfr.reader.api.CfrDriver;
 import org.benf.cfr.reader.api.OutputSinkFactory;
 import org.ifinalframework.util.Asserts;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.File;
 import java.lang.instrument.Instrumentation;
@@ -36,7 +38,11 @@ public final class Decompiler {
     private Decompiler() {
     }
 
-    public static String decompile(final Class<?> clazz, final String methodName) {
+    public static String decompile(@NonNull Class<?> clazz) {
+        return decompile(clazz, null);
+    }
+
+    public static String decompile(@NonNull final Class<?> clazz, @Nullable final String methodName) {
 
         Instrumentation instrumentation = Instrumentations.get();
 
@@ -76,7 +82,7 @@ public final class Decompiler {
             public List<SinkClass> getSupportedSinks(final SinkType sinkType, final Collection<SinkClass> collection) {
 
                 return Arrays.asList(SinkClass.STRING, SinkClass.DECOMPILED, SinkClass.DECOMPILED_MULTIVER,
-                    SinkClass.EXCEPTION_MESSAGE);
+                        SinkClass.EXCEPTION_MESSAGE);
             }
 
             @Override

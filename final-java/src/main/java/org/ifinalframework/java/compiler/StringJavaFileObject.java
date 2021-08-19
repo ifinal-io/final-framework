@@ -26,6 +26,7 @@ import java.net.URI;
  */
 public class StringJavaFileObject extends SimpleJavaFileObject {
 
+
     private final String contents;
 
     public StringJavaFileObject(final String className, final String contents) {

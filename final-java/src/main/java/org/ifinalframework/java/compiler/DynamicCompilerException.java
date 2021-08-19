@@ -25,6 +25,7 @@ import java.util.*;
 @SuppressWarnings("serial")
 public class DynamicCompilerException extends RuntimeException {
 
+
     private static final long serialVersionUID = 844455388423567597L;
 
     private final List<Diagnostic<? extends JavaFileObject>> diagnostics;

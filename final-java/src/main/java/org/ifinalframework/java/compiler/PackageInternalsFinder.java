@@ -31,6 +31,7 @@ public class PackageInternalsFinder {
 
     private static final String CLASS_FILE_EXTENSION = ".class";
 
+
     private final ClassLoader classLoader;
 
     public PackageInternalsFinder(final ClassLoader classLoader) {

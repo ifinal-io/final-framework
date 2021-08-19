@@ -34,6 +34,7 @@ import java.util.Map;
 public final class Redefiner {
 
     private Redefiner() {
+
     }
 
     public static void redefine(final Class<?> clazz, final String source) {
