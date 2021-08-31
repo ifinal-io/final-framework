@@ -18,6 +18,7 @@ package org.ifinalframework.java;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.java.compiler.Compiler;
 import org.ifinalframework.java.compiler.DynamicClassLoader;
+import org.springframework.lang.NonNull;
 
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
@@ -37,7 +38,13 @@ public final class Redefiner {
 
     }
 
-    public static void redefine(final Class<?> clazz, final String source) {
+    /**
+     * Redefine the {@link Class} from {@code source} into {@code jvm}.
+     *
+     * @param clazz  class
+     * @param source source
+     */
+    public static void redefine(@NonNull final Class<?> clazz, @NonNull final String source) {
 
         Instrumentation instrumentation = Instrumentations.get();
 
