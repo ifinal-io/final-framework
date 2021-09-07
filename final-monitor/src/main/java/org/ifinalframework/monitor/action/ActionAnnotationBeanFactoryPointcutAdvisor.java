@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import org.ifinalframework.aop.AnnotationAttributesAnnotationBuilder;
 import org.ifinalframework.aop.single.SingleAnnotationBeanFactoryPointcutAdvisor;
-import org.ifinalframework.monitor.annotation.ActionMonitor;
+import org.ifinalframework.monitor.annotation.OperationAction;
 import org.ifinalframework.monitor.handler.ActionInterceptorHandler;
 
 import java.util.Arrays;
@@ -36,21 +35,21 @@ import javax.annotation.Resource;
 @Component
 @SuppressWarnings("serial")
 public class ActionAnnotationBeanFactoryPointcutAdvisor extends
-    SingleAnnotationBeanFactoryPointcutAdvisor<ActionMonitor, AnnotationAttributes, Recorder> {
+    SingleAnnotationBeanFactoryPointcutAdvisor<OperationAction, AnnotationAttributes, OperationActionHandler> {
 
     @Resource
-    private Recorder recorder;
+    private OperationActionHandler operationActionHandler;
 
     public ActionAnnotationBeanFactoryPointcutAdvisor() {
-        super(ActionMonitor.class, new AnnotationAttributesAnnotationBuilder<>(),
+        super(OperationAction.class, new AnnotationAttributesAnnotationBuilder<>(),
             Arrays.asList(new ActionInterceptorHandler()));
     }
 
     @Override
     @NonNull
-    protected Recorder getExecutor(final AnnotationAttributes annotation) {
+    protected OperationActionHandler getExecutor(final AnnotationAttributes annotation) {
 
-        return recorder;
+        return operationActionHandler;
     }
 
 }

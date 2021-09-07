@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,20 +15,19 @@
 
 package org.ifinalframework.monitor.action;
 
-import org.ifinalframework.monitor.annotation.ActionMonitor;
-import org.ifinalframework.monitor.annotation.MonitorLevel;
-
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.ifinalframework.monitor.annotation.MonitorLevel;
+import org.ifinalframework.monitor.annotation.OperationAction;
+
+import java.util.Map;
 
 /**
  * Action 上下文，描述一个 Action 的动作
  *
  * @author likly
  * @version 1.0.0
- * @see ActionMonitor
+ * @see OperationAction
  * @since 1.0.0
  */
 @Getter
@@ -39,36 +37,36 @@ public class Action {
     /**
      * 名称
      *
-     * @see ActionMonitor#name()
-     * @see ActionMonitor#value()
+     * @see OperationAction#name()
+     * @see OperationAction#value()
      */
     private String name;
 
     /**
      * 类型
      *
-     * @see ActionMonitor#type()
+     * @see OperationAction#type()
      */
     private String type;
 
     /**
      * 动作
      *
-     * @see ActionMonitor#code()
+     * @see OperationAction#code()
      */
     private String code;
 
     /**
      * 级别
      *
-     * @see ActionMonitor#level()
+     * @see OperationAction#level()
      */
     private MonitorLevel level;
 
     /**
      * 目标
      *
-     * @see ActionMonitor#target()
+     * @see OperationAction#target()
      */
     private Object target;
 

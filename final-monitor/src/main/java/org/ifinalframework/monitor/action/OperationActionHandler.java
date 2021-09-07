@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,28 +15,13 @@
 
 package org.ifinalframework.monitor.action;
 
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
-
-import org.ifinalframework.json.Json;
-
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-@Slf4j
-@Component
-public class ActionLoggerListener implements ActionListener {
+public interface OperationActionHandler {
 
-    @Override
-    public void onAction(final @NonNull Action action) {
-
-        if (logger.isInfoEnabled()) {
-            logger.info("==> action handler: {}", Json.toJson(action));
-        }
-    }
+    void handle(Action action);
 
 }

@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,20 +34,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Primary
 @Component
-public class ActionRecorder implements Recorder {
+public class ActionOperationActionHandler implements OperationActionHandler {
 
-    private final List<ActionListener> listeners = new ArrayList<>();
+    private final List<OperationActionListener> listeners = new ArrayList<>();
 
-    public ActionRecorder(final ObjectProvider<List<ActionListener>> handlerProvider) {
+    public ActionOperationActionHandler(final ObjectProvider<List<OperationActionListener>> handlerProvider) {
 
-        final List<ActionListener> handlers = handlerProvider.getIfAvailable();
+        final List<OperationActionListener> handlers = handlerProvider.getIfAvailable();
         if (Asserts.nonEmpty(handlers)) {
             this.listeners.addAll(handlers);
         }
     }
 
     @Override
-    public void record(final Action action) {
+    public void handle(final Action action) {
 
         listeners.forEach(item -> item.onAction(action));
     }
