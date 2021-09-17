@@ -1,6 +1,5 @@
 <?xml version="1.0"?><!--
   ~ Copyright 2020-2021 the original author or authors.
-  ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
@@ -57,6 +56,7 @@
 
     <!-- ================================================== Regexp ==================================================-->
     <!-- 当前行匹配非法表达式： -->
+    <module name="NoCodeInFile"/>
     <module name="TreeWalker">
 
         <module name="SuppressionXpathSingleFilter">
@@ -76,7 +76,6 @@
         <!-- 类文件名称 -->
         <module name="OuterTypeFilename"/>
         <!-- 空文件 -->
-        <module name="NoCodeInFile"/>
         <!-- 避免转义的Unicode字符 -->
         <module name="AvoidEscapedUnicodeCharacters">
             <property name="allowEscapesForControlCharacters" value="true"/>
