@@ -15,6 +15,7 @@
 
 package org.ifinalframework.web.response.advice;
 
+import org.ifinalframework.core.result.Responsible;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,6 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import org.ifinalframework.core.result.Responsible;
 
 /**
  * @author likly
@@ -55,10 +54,10 @@ public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Obj
     @Override
     @Nullable
     public Object doBeforeBodyWrite(final @Nullable Object body, final @NonNull MethodParameter returnType,
-        final MediaType selectedContentType,
-        final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-        final ServerHttpRequest request,
-        final ServerHttpResponse response) {
+                                    final MediaType selectedContentType,
+                                    final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                    final ServerHttpRequest request,
+                                    final ServerHttpResponse response) {
 
         if (syncStatus && body instanceof Responsible) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Responsible) body).getStatus());

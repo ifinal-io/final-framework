@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,13 +15,14 @@
 
 package org.ifinalframework.context.util;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.util.Objects;
 
 /**
  * @author likly
@@ -50,7 +50,11 @@ public final class Messages {
             return defaultMessage != null ? defaultMessage : MessageFormatter.arrayFormat(code, args).getMessage();
         }
         try {
-            return messageSource.getMessage(code, args, defaultMessage, LocaleContextHolder.getLocale());
+            final String message = messageSource.getMessage(code, args, null, LocaleContextHolder.getLocale());
+            if (Objects.isNull(message)) {
+                return MessageFormatter.arrayFormat(code, args).getMessage();
+            }
+            return message;
         } catch (Exception e) {
             logger.warn("get message error:{}", code, e);
             return code;
