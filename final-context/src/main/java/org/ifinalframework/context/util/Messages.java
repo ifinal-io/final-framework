@@ -27,6 +27,9 @@ import java.util.Objects;
 /**
  * @author likly
  * @version 1.0.0
+ * @see MessageFormatter
+ * @see MessageSource
+ * @see LocaleContextHolder
  * @since 1.0.0
  */
 public final class Messages {
@@ -44,6 +47,13 @@ public final class Messages {
         return getMessage(code, null, args);
     }
 
+    /**
+     * @param code           message code.
+     * @param defaultMessage default message.
+     * @param args           message args.
+     * @return message
+     * @see MessageFormatter#arrayFormat(String, Object[])
+     */
     public static String getMessage(final String code, final String defaultMessage, final Object... args) {
 
         if (messageSource == null) {
