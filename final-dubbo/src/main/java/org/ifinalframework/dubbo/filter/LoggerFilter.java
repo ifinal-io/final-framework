@@ -15,25 +15,19 @@
 
 package org.ifinalframework.dubbo.filter;
 
-import org.springframework.util.ReflectionUtils;
-
+import com.alibaba.fastjson.JSON;
+import org.apache.dubbo.common.constants.CommonConstants;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.rpc.*;
 import org.ifinalframework.dubbo.annotation.AutoFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.alibaba.fastjson.JSON;
-import org.apache.dubbo.common.constants.CommonConstants;
-import org.apache.dubbo.common.extension.Activate;
-import org.apache.dubbo.rpc.Filter;
-import org.apache.dubbo.rpc.Invocation;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.Result;
-import org.apache.dubbo.rpc.RpcException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
@@ -41,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.0.0
  */
 @Activate(
-    group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}
+        group = {CommonConstants.PROVIDER, CommonConstants.CONSUMER}
 )
 @AutoFilter("logger")
 @SuppressWarnings("unused")
@@ -57,7 +51,7 @@ public class LoggerFilter implements Filter {
             if (logger.isInfoEnabled()) {
 
                 Method method = ReflectionUtils
-                    .findMethod(invoker.getInterface(), methodName, invocation.getParameterTypes());
+                        .findMethod(invoker.getInterface(), methodName, invocation.getParameterTypes());
 
                 Parameter[] parameters = method.getParameters();
 
