@@ -16,6 +16,7 @@
 package org.ifinalframework.dubbo.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.*;
@@ -61,11 +62,11 @@ public class LoggerFilter implements Filter {
                     args.put(parameters[i].getName(), invocation.getArguments()[i]);
                 }
 
-                logger.info("{}#{}, args={}", service, methodName, JSON.toJSONString(args));
+                logger.info("{}#{}, args={}", service, methodName, JSON.toJSONString(args, SerializerFeature.WriteNonStringKeyAsString));
             }
             final Result result = invoker.invoke(invocation);
             if (logger.isInfoEnabled()) {
-                logger.info("{}#{}, result={}", service, methodName, JSON.toJSONString(result.getValue()));
+                logger.info("{}#{}, result={}", service, methodName, JSON.toJSONString(result.getValue(), SerializerFeature.WriteNonStringKeyAsString));
             }
             return result;
 
