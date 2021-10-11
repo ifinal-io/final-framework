@@ -16,12 +16,11 @@
 package org.ifinalframework.web.resolver;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.context.exception.BadRequestException;
 import org.ifinalframework.json.Json;
 import org.ifinalframework.util.Asserts;
 import org.ifinalframework.web.annotation.bind.RequestJsonParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -51,12 +50,12 @@ import java.util.Optional;
  * @author likly
  * @version 1.0.0
  * @see RequestJsonParam
+ * @see RequestBody
  * @since 1.0.0
  */
+@Slf4j
 @Component
 public final class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
-    private static final Logger logger = LoggerFactory.getLogger(RequestJsonParamHandlerMethodArgumentResolver.class);
 
     @Setter
     private Charset defaultCharset = StandardCharsets.UTF_8;
@@ -78,8 +77,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     @Override
     public Object resolveArgument(final @NonNull MethodParameter parameter,
                                   final @Nullable ModelAndViewContainer mavContainer,
-                                  final @NonNull NativeWebRequest webRequest, final @Nullable WebDataBinderFactory binderFactory)
-            throws Exception {
+                                  final @NonNull NativeWebRequest webRequest,
+                                  final @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
         final String contentType = webRequest.getHeader("content-type");
 
