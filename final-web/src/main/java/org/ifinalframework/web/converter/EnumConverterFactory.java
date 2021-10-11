@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,19 +15,20 @@
 
 package org.ifinalframework.web.converter;
 
+import org.ifinalframework.core.IEnum;
+import org.ifinalframework.util.Asserts;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import org.ifinalframework.core.IEnum;
-import org.ifinalframework.util.Asserts;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Create {@link EnumConverter} with {@link IEnum enum class} from {@link EnumConverterFactory}.
+ *
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
