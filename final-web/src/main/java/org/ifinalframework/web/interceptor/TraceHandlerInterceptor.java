@@ -15,24 +15,22 @@
 
 package org.ifinalframework.web.interceptor;
 
+import lombok.Setter;
+import org.ifinalframework.core.generator.TraceGenerator;
+import org.ifinalframework.core.generator.UuidTraceGenerator;
+import org.ifinalframework.util.Asserts;
+import org.ifinalframework.web.annotation.servlet.Interceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import org.ifinalframework.core.generator.TraceGenerator;
-import org.ifinalframework.core.generator.UuidTraceGenerator;
-import org.ifinalframework.util.Asserts;
-import org.ifinalframework.web.annotation.servlet.Interceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 
 /**
  * @author likly
@@ -45,7 +43,7 @@ import org.slf4j.MDC;
 @Interceptor
 public class TraceHandlerInterceptor implements HandlerInterceptor {
 
-    public static final String TRACE_ATTRIBUTE = "org.finalframework.handler.trace";
+    public static final String TRACE_ATTRIBUTE = TraceHandlerInterceptor.class.getCanonicalName() + ".trace";
 
     private static final Logger logger = LoggerFactory.getLogger(TraceHandlerInterceptor.class);
 
@@ -74,7 +72,7 @@ public class TraceHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
-        final @NonNull Object handler) {
+                             final @NonNull Object handler) {
         // 获取 header 中是否有自定义的 trace
         String trace = null;
         if (Asserts.nonEmpty(paramName)) {
@@ -99,8 +97,8 @@ public class TraceHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(final @NonNull HttpServletRequest request, @NonNull final HttpServletResponse response,
-        final @NonNull Object handler,
-        @Nullable final Exception ex) throws Exception {
+                                final @NonNull Object handler,
+                                @Nullable final Exception ex) throws Exception {
 
         logger.info("remove trace from MDC context");
         MDC.remove(traceName);

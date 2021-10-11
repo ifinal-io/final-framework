@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,17 +15,15 @@
 
 package org.ifinalframework.web.interceptor;
 
+import org.ifinalframework.web.annotation.servlet.Interceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import org.ifinalframework.web.annotation.servlet.Interceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author likly
@@ -36,17 +33,19 @@ import org.slf4j.LoggerFactory;
 @Interceptor
 public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
 
-    public static final String DURATION_START_ATTRIBUTE = "org.finalframework.handler.duration.start";
+    private static final String DURATION_ATTRIBUTE_PREFIX = DurationHandlerInterceptor.class.getCanonicalName();
 
-    public static final String DURATION_END_ATTRIBUTE = "org.finalframework.handler.duration.end";
+    public static final String DURATION_START_ATTRIBUTE = String.join(".", DURATION_ATTRIBUTE_PREFIX, "start");
 
-    public static final String DURATION_ATTRIBUTE = "org.finalframework.handler.duration";
+    public static final String DURATION_END_ATTRIBUTE = String.join(".", DURATION_ATTRIBUTE_PREFIX, "end");
+
+    public static final String DURATION_ATTRIBUTE = String.join(".", DURATION_ATTRIBUTE_PREFIX, "duration");
 
     private static final Logger logger = LoggerFactory.getLogger(DurationHandlerInterceptor.class);
 
     @Override
     public boolean preHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
-        final @NonNull Object handler) {
+                             final @NonNull Object handler) {
 
         String uri = request.getRequestURI();
         long durationStart = System.currentTimeMillis();
@@ -60,8 +59,8 @@ public class DurationHandlerInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     public void postHandle(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response,
-        final @NonNull Object handler,
-        final ModelAndView modelAndView) {
+                           final @NonNull Object handler,
+                           final ModelAndView modelAndView) {
 
         Long durationStart = (Long) request.getAttribute(DURATION_START_ATTRIBUTE);
         String uri = request.getRequestURI();
