@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,12 +15,12 @@
 
 package org.ifinalframework.web.exception;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import org.ifinalframework.context.exception.UnCatchException;
 import org.ifinalframework.context.exception.handler.GlobalExceptionHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @author likly
@@ -39,7 +38,7 @@ public class RestControllerExceptionHandler {
         this.globalExceptionHandler = globalExceptionHandler;
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler
+    @ExceptionHandler
     @ResponseBody
     public Object handlerException(final Throwable throwable) {
 
