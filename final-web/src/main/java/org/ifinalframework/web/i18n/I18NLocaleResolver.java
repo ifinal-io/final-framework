@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,23 +15,23 @@
 
 package org.ifinalframework.web.i18n;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.ifinalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
-import org.ifinalframework.util.Asserts;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author likly
  * @version 1.0.0
+ * @see CookieLocaleResolver
+ * @see org.springframework.web.server.i18n.AcceptHeaderLocaleContextResolver
  * @since 1.0.0
  */
 @Setter
