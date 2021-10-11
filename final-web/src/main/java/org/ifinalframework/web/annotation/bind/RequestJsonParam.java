@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,14 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * A ext {@link Annotation} for {@link HandlerMethodArgumentResolver} like {@link RequestParam},{@link RequestBody}.
+ * An ext {@link Annotation} for {@link HandlerMethodArgumentResolver} like {@link RequestParam},{@link RequestBody}.
  *
  * @author likly
  * @version 1.0.0
