@@ -15,8 +15,11 @@
 
 package org.ifinalframework.web.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.web.annotation.servlet.Interceptor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
@@ -27,12 +30,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import org.ifinalframework.web.annotation.servlet.Interceptor;
-
 import java.util.List;
 import java.util.function.Predicate;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * A {@link WebMvcConfigurer} could auto-detects {@link HandlerInterceptor}s witch annotated by {@link Component}.
@@ -52,26 +51,28 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
     private final List<HandlerInterceptor> handlerInterceptors;
 
     public HandlerInterceptorWebMvcConfigurer(
-        final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+            final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
     }
 
     @Override
     public void addInterceptors(final @NonNull InterceptorRegistry registry) {
         handlerInterceptors.stream()
-            // filter the interceptor annotated by @Component
-            .filter(new ComponentHandlerFilter())
-            .forEach(item -> this.addInterceptor(registry, item));
+                // filter the interceptor annotated by @Component
+                .filter(new ComponentHandlerFilter())
+                .forEach(item -> this.addInterceptor(registry, item));
 
     }
 
-    private void addInterceptor(final @NonNull InterceptorRegistry registry,
-        final @NonNull HandlerInterceptor interceptor) {
+    private void addInterceptor(@NonNull InterceptorRegistry registry,
+                                @NonNull HandlerInterceptor interceptor) {
+
+        InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
 
         final Class<?> targetClass = AopUtils.getTargetClass(interceptor);
 
+        // find @Interceptor
         final Interceptor annotation = AnnotationUtils.getAnnotation(targetClass, Interceptor.class);
-        InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
         if (annotation != null) {
             if (annotation.includes().length > 0) {
                 interceptorRegistration.addPathPatterns(annotation.includes());
@@ -80,13 +81,23 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
                 interceptorRegistration.excludePathPatterns(annotation.excludes());
             }
         }
-        final Order order = AnnotationUtils.getAnnotation(targetClass, Order.class);
-        if (order != null) {
-            interceptorRegistration.order(order.value());
+
+        if (registry instanceof Ordered) {
+            interceptorRegistration.order(((Ordered) registry).getOrder());
+        } else {
+            // find @Order
+            final Order order = AnnotationUtils.getAnnotation(targetClass, Order.class);
+            if (order != null) {
+                interceptorRegistration.order(order.value());
+            }
         }
-        logger.info("==> add interceptor={}", interceptor.getClass());
+
+        logger.info("==> add interceptor={}", targetClass);
     }
 
+    /**
+     * Find the {@link HandlerInterceptor} with is annotated by {@link Component}.
+     */
     private static class ComponentHandlerFilter implements Predicate<HandlerInterceptor> {
 
         @Override
