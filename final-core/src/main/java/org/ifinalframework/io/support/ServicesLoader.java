@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +15,8 @@
 
 package org.ifinalframework.io.support;
 
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.util.Classes;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.lang.NonNull;
@@ -24,21 +25,13 @@ import org.springframework.util.ConcurrentReferenceHashMap;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import org.ifinalframework.util.Classes;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Services loader like {@link java.util.ServiceLoader}.
@@ -46,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author likly
  * @version 1.0.0
  * @see java.util.ServiceLoader
+ * @see org.springframework.core.io.support.SpringFactoriesLoader
  * @since 1.0.0
  */
 @Slf4j
@@ -83,7 +77,7 @@ public final class ServicesLoader {
     }
 
     public static List<String> load(final @NonNull String service, final @Nullable ClassLoader classLoader,
-        final @NonNull String propertiesResourceLocation) {
+                                    final @NonNull String propertiesResourceLocation) {
         return loadServices(service, classLoader, propertiesResourceLocation);
     }
 
@@ -104,37 +98,37 @@ public final class ServicesLoader {
     }
 
     public static List<Class<?>> loadClasses(final @NonNull String service,
-        final @NonNull String serviceResourceLocation) {
+                                             final @NonNull String serviceResourceLocation) {
         return loadClasses(service, null, serviceResourceLocation);
     }
 
     public static List<Class<?>> loadClasses(final @NonNull String service, final @Nullable ClassLoader classLoader,
-        final @NonNull String propertiesResourceLocation) {
+                                             final @NonNull String propertiesResourceLocation) {
         return load(service, classLoader, propertiesResourceLocation).stream()
-            .map(name -> Classes.requiredForName(name, classLoader))
-            .collect(Collectors.toList());
+                .map(name -> Classes.requiredForName(name, classLoader))
+                .collect(Collectors.toList());
     }
 
     private static List<String> loadServices(final @NonNull String service, final @Nullable ClassLoader classLoader,
-        final String propertiesResourceLocation) {
+                                             final String propertiesResourceLocation) {
 
         final MultiValueMap<String, String> result = cache
-            .computeIfAbsent(classLoader, key -> new LinkedMultiValueMap<>());
+                .computeIfAbsent(classLoader, key -> new LinkedMultiValueMap<>());
 
         return result.computeIfAbsent(service, key -> {
             final List<String> services = new ArrayList<>();
 
             try {
                 final Enumeration<URL> urls =
-                    classLoader != null ? classLoader.getResources(propertiesResourceLocation)
-                        : ClassLoader.getSystemResources(propertiesResourceLocation);
+                        classLoader != null ? classLoader.getResources(propertiesResourceLocation)
+                                : ClassLoader.getSystemResources(propertiesResourceLocation);
                 while (urls.hasMoreElements()) {
                     final URL url = urls.nextElement();
                     services.addAll(readFromResource(new UrlResource(url)));
                 }
             } catch (IOException ex) {
                 throw new IllegalArgumentException(
-                    "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
+                        "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
             }
 
             return new ArrayList<>(new HashSet<>(services));
@@ -146,7 +140,7 @@ public final class ServicesLoader {
 
         final List<String> services = new ArrayList<>();
         try (BufferedReader r = new BufferedReader(
-            new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
+                new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = r.readLine()) != null) {
                 final int commentStart = line.indexOf('#');
