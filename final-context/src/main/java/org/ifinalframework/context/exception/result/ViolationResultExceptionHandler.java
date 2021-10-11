@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,17 +15,17 @@
 
 package org.ifinalframework.context.exception.result;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 import org.ifinalframework.core.ResponseStatus;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
 
 /**
  * The handler is to handle the exception throw by framework of {@link javax.validation.Validator}
@@ -68,19 +67,20 @@ import javax.validation.ConstraintViolationException;
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
 
     @Override
-    public boolean supports(final Throwable t) {
+    public boolean supports(final @NonNull Throwable t) {
 
         return t instanceof ConstraintViolationException;
     }
 
+    @NonNull
     @Override
-    public Result<?> handle(final ConstraintViolationException e) {
+    public Result<?> handle(final @NonNull ConstraintViolationException e) {
 
         return R.failure(
-            ResponseStatus.BAD_REQUEST.getCode(), e.getConstraintViolations()
-                .stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.joining(","))
+                ResponseStatus.BAD_REQUEST.getCode(), e.getConstraintViolations()
+                        .stream()
+                        .map(ConstraintViolation::getMessage)
+                        .collect(Collectors.joining(","))
         );
     }
 
