@@ -24,7 +24,25 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import java.lang.annotation.*;
 
 /**
- * An ext {@link Annotation} for {@link HandlerMethodArgumentResolver} like {@link RequestParam},{@link RequestBody}.
+ * An ext {@link Annotation} which can resolve {@code json} param from request parameters for {@link HandlerMethodArgumentResolver} like {@link RequestParam} and {@link RequestBody}.
+ * <p>
+ * Define an api with {@link RequestJsonParam} like this:
+ * <pre class="code">
+ * &#064;RestController
+ * public class JsonParamController{
+ *
+ *      &#064;GetMapping("/json")
+ *      public Object json(&#064;RequestJsonParam Object json){
+ *          return json;
+ *      }
+ * }
+ * </pre>
+ * <p>
+ * Then request this {@code api} with {@code curl} like this:
+ *
+ * <pre class="code">
+ * curl http://localhost:8080/json?json={"name":haha}
+ * </pre>
  *
  * @author likly
  * @version 1.0.0
