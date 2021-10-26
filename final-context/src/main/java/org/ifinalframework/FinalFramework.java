@@ -15,6 +15,9 @@
 
 package org.ifinalframework;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,17 +26,13 @@ import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * An {@link Configuration} class for {@code finalframework}.
  *
- * <h3>ComponentScan</h3>
+ * <h3>@ComponentScan</h3>
  * <p>{@link FinalFramework} use default packages of {@code org.ifinalframework} to scan {@link Component}s.</p>
  *
- * <h3>ImportResource</h3>
+ * <h3>@ImportResource</h3>
  * <p>Import the resources from:</p>
  * <ul>
  *     <li>{@code classpath:spring-config-*.xml}</li>
@@ -47,14 +46,15 @@ import lombok.extern.slf4j.Slf4j;
  * @see ImportResource
  * @see ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)
  * @see org.springframework.context.ApplicationContextInitializer
+ * @see org.ifinalframework.context.initializer.FinalFrameworkApplicationContextInitializer
  * @since 1.0.0
  */
 @Slf4j
 @ComponentScan
 @ImportResource({
-    FinalFramework.CLASS_PATH_SPRING_CONFIG_XML,
-    FinalFramework.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
-    FinalFramework.CLASS_PATH_SPRING_SPRING_CONFIG_XML
+        FinalFramework.CLASS_PATH_SPRING_CONFIG_XML,
+        FinalFramework.CLASS_PATH_CONFIG_SPRING_CONFIG_XML,
+        FinalFramework.CLASS_PATH_SPRING_SPRING_CONFIG_XML
 })
 public class FinalFramework implements BeanNameAware {
 
