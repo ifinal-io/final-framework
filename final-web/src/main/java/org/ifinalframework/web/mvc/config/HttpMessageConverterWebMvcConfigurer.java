@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.config;
+package org.ifinalframework.web.mvc.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.web.http.converter.JsonStringHttpMessageConverter;

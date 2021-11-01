@@ -13,18 +13,16 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.config;
+package org.ifinalframework.web.mvc.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.web.annotation.servlet.Interceptor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -49,10 +47,13 @@ import java.util.function.Predicate;
 public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<HandlerInterceptor> handlerInterceptors;
+    private final List<HandlerInterceptorCustomizer> handlerInterceptorCustomizers;
 
     public HandlerInterceptorWebMvcConfigurer(
-            final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider) {
+            final ObjectProvider<List<HandlerInterceptor>> handlerInterceptorsObjectProvider,
+            final ObjectProvider<List<HandlerInterceptorCustomizer>> handlerInterceptorCustomizersProvider) {
         this.handlerInterceptors = handlerInterceptorsObjectProvider.getIfAvailable();
+        this.handlerInterceptorCustomizers = handlerInterceptorCustomizersProvider.getIfAvailable();
     }
 
     @Override
@@ -69,28 +70,14 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(interceptor);
 
+        if (!CollectionUtils.isEmpty(handlerInterceptorCustomizers)) {
+            for (HandlerInterceptorCustomizer customizer : handlerInterceptorCustomizers) {
+                customizer.customize(interceptorRegistration, interceptor);
+            }
+        }
+
+
         final Class<?> targetClass = AopUtils.getTargetClass(interceptor);
-
-        // find @Interceptor
-        final Interceptor annotation = AnnotationUtils.getAnnotation(targetClass, Interceptor.class);
-        if (annotation != null) {
-            if (annotation.includes().length > 0) {
-                interceptorRegistration.addPathPatterns(annotation.includes());
-            }
-            if (annotation.excludes().length > 0) {
-                interceptorRegistration.excludePathPatterns(annotation.excludes());
-            }
-        }
-
-        if (registry instanceof Ordered) {
-            interceptorRegistration.order(((Ordered) registry).getOrder());
-        } else {
-            // find @Order
-            final Order order = AnnotationUtils.getAnnotation(targetClass, Order.class);
-            if (order != null) {
-                interceptorRegistration.order(order.value());
-            }
-        }
 
         logger.info("==> add interceptor={}", targetClass);
     }

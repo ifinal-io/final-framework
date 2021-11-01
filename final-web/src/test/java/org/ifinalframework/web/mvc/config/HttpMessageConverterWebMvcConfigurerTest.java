@@ -13,19 +13,17 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.config;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
+package org.ifinalframework.web.mvc.config;
 
 import org.ifinalframework.web.http.converter.JsonStringHttpMessageConverter;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * HttpMessageConverterWebMvcConfigurerTest.

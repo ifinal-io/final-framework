@@ -37,7 +37,7 @@ import java.util.List;
  * @see InterceptorRegistration
  * @see HandlerInterceptor
  * @see WebMvcConfigurer#addInterceptors(InterceptorRegistry)
- * @see org.ifinalframework.web.config.HandlerInterceptorWebMvcConfigurer
+ * @see org.ifinalframework.web.mvc.config.HandlerInterceptorWebMvcConfigurer
  * @since 1.0.0
  */
 @Component

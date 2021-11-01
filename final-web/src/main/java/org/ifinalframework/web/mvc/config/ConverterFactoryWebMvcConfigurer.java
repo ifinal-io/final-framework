@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.config;
+package org.ifinalframework.web.mvc.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.util.Asserts;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
@@ -22,12 +24,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import org.ifinalframework.util.Asserts;
-
 import java.util.List;
 import java.util.ServiceLoader;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link

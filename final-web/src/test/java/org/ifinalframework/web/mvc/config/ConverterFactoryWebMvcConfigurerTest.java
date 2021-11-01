@@ -13,24 +13,23 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.config;
+package org.ifinalframework.web.mvc.config;
 
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.Mockito.*;
-
+import org.ifinalframework.web.converter.EnumConverterFactory;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
 
-import org.ifinalframework.web.converter.EnumConverterFactory;
-
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * ConverterFactoryWebMvcConfigurerTest.
