@@ -25,10 +25,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 
 /**
- * OrderHandlerInterceptorCustomizer.
+ * Customize the order for {@link HandlerInterceptor} from {@link Ordered#getOrder()} or {@link Order#value()}.
  *
  * @author likly
  * @version 1.2.2
+ * @see Ordered
+ * @see Order
  * @since 1.2.2
  */
 @Component
