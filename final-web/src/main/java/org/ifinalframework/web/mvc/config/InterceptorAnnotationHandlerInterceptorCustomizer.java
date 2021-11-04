@@ -24,7 +24,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 
 /**
- * InterceptorAnnotationHandlerInterceptorCustomizer.
+ * Parse {@link Interceptor} annotation in {@link HandlerInterceptor}.
  *
  * @author likly
  * @version 1.2.2
