@@ -66,6 +66,13 @@ public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     }
 
+    /**
+     * Registration {@link HandlerInterceptor} with {@link InterceptorRegistry} and customize by {@link HandlerInterceptorCustomizer}.
+     *
+     * @param registry    interceptor registry.
+     * @param interceptor handler interceptor.
+     * @see HandlerInterceptorCustomizer
+     */
     private void addInterceptor(@NonNull InterceptorRegistry registry,
                                 @NonNull HandlerInterceptor interceptor) {
 
