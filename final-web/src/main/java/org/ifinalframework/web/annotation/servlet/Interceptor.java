@@ -32,6 +32,13 @@ import java.util.List;
  * A custom {@link Component} annotation for {@link HandlerInterceptor} and the interceptor would be auto-detects by a
  * custom a {@link WebMvcConfigurer}.
  *
+ * <pre class="code">
+ * &#064;Interceptor(includes="/**")
+ * public class MyHandlerInterceptor implements HandlerInterceptor{
+ *     ...
+ * }
+ * </pre>
+ *
  * @author likly
  * @version 1.0.0
  * @see InterceptorRegistration

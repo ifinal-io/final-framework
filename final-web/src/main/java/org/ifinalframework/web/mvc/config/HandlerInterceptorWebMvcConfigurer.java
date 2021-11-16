@@ -34,6 +34,8 @@ import java.util.function.Predicate;
 /**
  * A {@link WebMvcConfigurer} could auto-detects {@link HandlerInterceptor}s witch annotated by {@link Component}.
  *
+ * <h4>Warn: Don't use {@link org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport}</h4>
+ *
  * @author likly
  * @version 1.0.0
  * @see Interceptor
@@ -43,7 +45,6 @@ import java.util.function.Predicate;
  */
 @Slf4j
 @Component
-@SuppressWarnings("unused")
 public class HandlerInterceptorWebMvcConfigurer implements WebMvcConfigurer {
 
     private final List<HandlerInterceptor> handlerInterceptors;
