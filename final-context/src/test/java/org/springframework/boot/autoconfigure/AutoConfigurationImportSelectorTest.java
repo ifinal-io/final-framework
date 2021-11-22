@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,13 +15,11 @@
 
 package org.springframework.boot.autoconfigure;
 
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.ContextApplicationContext;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.type.AnnotationMetadata;
-
-import org.ifinalframework.ContextApplicationContext;
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 /**
  * AutoConfigurationImportSelectorTest.
@@ -43,7 +40,9 @@ class AutoConfigurationImportSelectorTest {
         selector.setResourceLoader(context);
         selector.setBeanFactory(context.getBeanFactory());
         String[] imports = selector.selectImports(AnnotationMetadata.introspect(ContextApplicationContext.class));
-        logger.info("{}", imports);
+        for (String item : imports) {
+            logger.info(item);
+        }
     }
 
 }
