@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,6 +35,7 @@ public final class JsonRegistry {
     private JsonService jsonService;
 
     private JsonRegistry() {
+        throw new AssertionError("There is no JsonRegistry instance for you!");
     }
 
     public static JsonRegistry getInstance() {
