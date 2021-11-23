@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,14 +15,12 @@
 
 package org.ifinalframework.context.initializer;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.FinalFramework;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import org.ifinalframework.FinalFramework;
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * FinalFrameworkApplicationContextInitializerTest.
@@ -42,7 +39,6 @@ class FinalFrameworkApplicationContextInitializerTest {
         context.refresh();
         FinalFramework framework = context.getBean(FinalFramework.class);
         assertNotNull(framework);
-        logger.info("framework:{}", framework.getBeanName());
     }
 
 }
