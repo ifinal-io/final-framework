@@ -35,7 +35,6 @@ public final class JsonRegistry {
     private JsonService jsonService;
 
     private JsonRegistry() {
-        throw new AssertionError("There is no JsonRegistry instance for you!");
     }
 
     public static JsonRegistry getInstance() {
