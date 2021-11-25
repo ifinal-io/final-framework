@@ -29,7 +29,32 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <url>https://github.com/final-projects/final-framework</url>
 
+    <scm>
+        <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:final-projects/final-framework.git</developerConnection>
+        <url>https://github.com/final-projects/final-framework/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>569553290@qq.com</email>
+            <id>likly</id>
+            <name>likly</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <artifactId>velocity-engine-core</artifactId>

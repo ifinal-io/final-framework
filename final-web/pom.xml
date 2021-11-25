@@ -12,10 +12,44 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>final-framework</artifactId>
+        <groupId>org.ifinalframework</groupId>
+        <version>1.2.3-SNAPSHOT</version>
+    </parent>
+
     <artifactId>final-web</artifactId>
+    <url>https://github.com/final-projects/final-framework</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:final-projects/final-framework.git</developerConnection>
+        <url>https://github.com/final-projects/final-framework/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>569553290@qq.com</email>
+            <id>likly</id>
+            <name>likly</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -69,11 +103,4 @@
         </dependency>
     </dependencies>
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <artifactId>final-framework</artifactId>
-        <groupId>org.ifinalframework</groupId>
-        <version>1.2.3-SNAPSHOT</version>
-    </parent>
 </project>
