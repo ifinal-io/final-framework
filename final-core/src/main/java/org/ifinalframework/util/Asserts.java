@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +15,7 @@
 
 package org.ifinalframework.util;
 
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
@@ -23,8 +23,6 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
-
-import org.slf4j.helpers.MessageFormatter;
 
 /**
  * General utility methods that asserts in validating arguments.
@@ -43,14 +41,31 @@ public final class Asserts {
     private Asserts() {
     }
 
+    /**
+     * return {@code true} if the test object is null.
+     *
+     * @param obj test object.
+     */
     public static boolean isNull(final Object obj) {
         return Objects.isNull(obj);
     }
 
+    /**
+     * @see #requiredNonNull(Object, String, Object...)
+     */
     public static void requiredNull(final Object obj) {
-        requiredNull(obj, "required null but found {}", obj);
+        requiredNull(obj, "the value required must be null but found {}", obj);
     }
 
+    /**
+     * Assert that an object is null.
+     * <pre class="code">Asserts.requiredNull(value,"the {} required muse be null.","value")</pre></pre>
+     *
+     * @param obj     the object to check.
+     * @param message the exception message to use if the assertion fails.
+     * @param args    the exception message format args.
+     * @throws IllegalArgumentException if the object is not null.
+     */
     public static void requiredNull(final Object obj, final String message, final Object... args) {
         if (!isNull(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
@@ -65,6 +80,15 @@ public final class Asserts {
         return Objects.requireNonNull(obj);
     }
 
+    /**
+     * Assert that an object is not null.
+     *
+     * @param obj     the object to check.
+     * @param message the exception message to use if the assertion fails.
+     * @param args    the exception message format args.
+     * @param <T>     the object type.
+     * @throws NullPointerException is the object is null.
+     */
     public static <T> T requiredNonNull(final T obj, final String message, final Object... args) {
         return Objects.requireNonNull(obj, formatMessage(message, args));
     }
