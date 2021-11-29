@@ -93,6 +93,11 @@ public final class Asserts {
         return Objects.requireNonNull(obj, formatMessage(message, args));
     }
 
+    /**
+     * Assert that an object is {@code true}.
+     *
+     * @param bool the object to check.
+     */
     public static boolean isTrue(final Object bool) {
         return Boolean.TRUE.equals(bool);
     }
@@ -101,6 +106,14 @@ public final class Asserts {
         return requiredTrue(bool, "required true value but found {}", bool);
     }
 
+    /**
+     * Assert that an object is {@code true}.
+     *
+     * @param bool    the object to check.
+     * @param message the exception message to use if the assertion fails.
+     * @param args    the exception message format args.
+     * @throws IllegalArgumentException if the object is not {@code true}.
+     */
     public static boolean requiredTrue(final Object bool, @NonNull final String message, final Object... args) {
         if (!isTrue(bool)) {
             throw new IllegalArgumentException(formatMessage(message, args));
@@ -116,6 +129,14 @@ public final class Asserts {
         return requiredFalse(bool, "required false but found {}", bool);
     }
 
+    /**
+     * Assert that an object is {@code false}.
+     *
+     * @param bool    the object to check.
+     * @param message the exception message to use if the assertion fails.
+     * @param args    the exception message format args.
+     * @throws IllegalArgumentException if the object is not {@code false}.
+     */
     public static boolean requiredFalse(final Object bool, final String message, final Object... args) {
         if (Boolean.FALSE.equals(bool)) {
             return false;
