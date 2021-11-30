@@ -152,6 +152,15 @@ public final class Asserts {
         return ObjectUtils.isEmpty(obj);
     }
 
+    /**
+     * Assert that an object is empty.
+     *
+     * @param obj     the object to check.
+     * @param message the exception message to use if the assertion fails.
+     * @param args    the exception message format args.
+     * @throws IllegalArgumentException if the object is empty.
+     * @see #isEmpty(Object)
+     */
     public static void isEmpty(final Object obj, final String message, final Object... args) {
         if (isEmpty(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
