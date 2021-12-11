@@ -26,7 +26,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,7 +53,6 @@ import java.util.Optional;
  * @since 1.0.0
  */
 @Slf4j
-@Component
 public final class RequestJsonParamHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Setter
