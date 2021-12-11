@@ -66,6 +66,10 @@
             <groupId>org.ifinalframework.auto</groupId>
         </dependency>
         <dependency>
+            <groupId>org.ifinalframework.annotation</groupId>
+            <artifactId>final-annotation-web</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>final-json</artifactId>
             <groupId>org.ifinalframework</groupId>
         </dependency>
