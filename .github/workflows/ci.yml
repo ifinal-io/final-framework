@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: 11
       - name: Build with Maven
-        run: mvn -B package -Pci --file pom.xml
+        run: mvn -B package -Pci --file pom.xml -U
       - name: Codecov
         uses: codecov/codecov-action@v1.2.2
       - name: Cache SonarCloud packages
