@@ -30,5 +30,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
  */
 @FunctionalInterface
 public interface HandlerInterceptorCustomizer {
+    /**
+     * Customize the {@link HandlerInterceptor} with {@link InterceptorRegistration}.
+     *
+     * @param registration interceptor registration.
+     * @param interceptor  handler interceptor.
+     */
     void customize(@NonNull InterceptorRegistration registration, @NonNull HandlerInterceptor interceptor);
 }

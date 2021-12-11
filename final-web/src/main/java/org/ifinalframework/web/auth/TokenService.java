@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,10 +15,9 @@
 
 package org.ifinalframework.web.auth;
 
+import org.ifinalframework.core.IUser;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-
-import org.ifinalframework.core.IUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface TokenService<T extends IUser<?>> {
+public interface
+TokenService<T extends IUser<?>> {
 
     /**
      * return the {@link IUser} which parsed from the {@link HttpServletRequest}.

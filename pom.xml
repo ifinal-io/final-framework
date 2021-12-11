@@ -132,7 +132,7 @@
             <dependency>
                 <groupId>org.ifinalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>1.2.2</version>
+                <version>1.2.3-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
