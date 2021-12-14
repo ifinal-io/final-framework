@@ -38,8 +38,7 @@ class RequestMappingHandlerAdapterBeanPostProcessorTest {
 
     @Test
     void postProcessAfterInitialization() {
-        final RequestMappingHandlerAdapter bean = (RequestMappingHandlerAdapter) requestMappingHandlerAdapterBeanPostProcessor
-                .postProcessAfterInitialization(new RequestMappingHandlerAdapter(), RequestMappingHandlerAdapter.class.getSimpleName());
+        final RequestMappingHandlerAdapter bean = (RequestMappingHandlerAdapter) requestMappingHandlerAdapterBeanPostProcessor.postProcessAfterInitialization(new RequestMappingHandlerAdapter(), RequestMappingHandlerAdapter.class.getSimpleName());
 
 
         Assertions.assertTrue(bean.getArgumentResolvers().get(0) instanceof RequestJsonParamHandlerMethodArgumentResolver);
