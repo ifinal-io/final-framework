@@ -20,11 +20,11 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-project</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.4-SNAPSHOT</version>
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4-SNAPSHOT</version>
 
     <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
@@ -132,14 +132,14 @@
             <dependency>
                 <groupId>org.ifinalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.auto</groupId>
                 <artifactId>final-auto</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -149,69 +149,69 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-velocity</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-javapoets</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-json</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-dubbo</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-java</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-retrofit</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-web</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-logging</artifactId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-aop</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-context</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-monitor</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.2.3</version>
+                <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
