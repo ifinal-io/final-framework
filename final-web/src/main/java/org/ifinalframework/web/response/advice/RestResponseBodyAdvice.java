@@ -24,8 +24,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import org.ifinalframework.web.response.advice.result.ResultResponseBodyAdvice;
-
 /**
  * @author likly
  * @version 1.0.0
@@ -36,15 +34,15 @@ public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
 
     @Override
     default boolean supports(final @NonNull MethodParameter methodParameter,
-        final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+                             final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
         return RestMethodParameterFilter.INSTANCE.matches(methodParameter);
     }
 
     @Nullable
     @Override
     default T beforeBodyWrite(@Nullable T body, MethodParameter returnType, MediaType selectedContentType,
-        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-        ServerHttpResponse response) {
+                              Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+                              ServerHttpResponse response) {
 
         if (request.getURI().getPath().contains("swagger")) {
             return body;
@@ -55,8 +53,8 @@ public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
     }
 
     T doBeforeBodyWrite(T body, MethodParameter returnType, MediaType selectedContentType,
-        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-        ServerHttpResponse response);
+                        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+                        ServerHttpResponse response);
 
 }
 

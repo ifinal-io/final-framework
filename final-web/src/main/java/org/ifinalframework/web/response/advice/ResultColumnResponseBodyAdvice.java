@@ -52,11 +52,11 @@ public class ResultColumnResponseBodyAdvice implements RestResponseBodyAdvice<Re
     @Nullable
     @Override
     public Result<List<?>> doBeforeBodyWrite(@Nullable final Result<List<?>> body,
-        @NonNull final MethodParameter returnType,
-        @NonNull final MediaType selectedContentType,
-        @NonNull final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-        @NonNull final ServerHttpRequest request,
-        @NonNull final ServerHttpResponse response) {
+                                             @NonNull final MethodParameter returnType,
+                                             @NonNull final MediaType selectedContentType,
+                                             @NonNull final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                             @NonNull final ServerHttpRequest request,
+                                             @NonNull final ServerHttpResponse response) {
 
         if (Objects.isNull(body)) {
             return null;

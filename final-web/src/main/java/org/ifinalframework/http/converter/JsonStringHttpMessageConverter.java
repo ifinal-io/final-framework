@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,8 +13,9 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.http.converter;
+package org.ifinalframework.http.converter;
 
+import org.ifinalframework.json.Json;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -25,10 +25,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import org.ifinalframework.json.Json;
-
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, 处理{@link HandlerMethod} 返回类型与声明类型不一致时，导致抛出
@@ -36,15 +35,15 @@ import java.util.List;
  *
  * @author likly
  * @version 1.0.0
+ * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)
  * @since 1.0.0
  */
 public class JsonStringHttpMessageConverter implements HttpMessageConverter<Object> {
 
     private final StringHttpMessageConverter converter;
 
-    public JsonStringHttpMessageConverter(final StringHttpMessageConverter converter) {
-
-        this.converter = converter;
+    public JsonStringHttpMessageConverter(StringHttpMessageConverter converter) {
+        this.converter = Objects.requireNonNull(converter, "StringHttpMessageConverter can not be null!");
     }
 
     @Override
@@ -68,14 +67,14 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
     @NonNull
     @Override
     public Object read(final @NonNull Class<?> clazz, final @NonNull HttpInputMessage inputMessage)
-        throws IOException {
+            throws IOException {
 
         return converter.read(String.class, inputMessage);
     }
 
     @Override
     public void write(final @NonNull Object o, final MediaType contentType,
-        final @NonNull HttpOutputMessage outputMessage) throws IOException {
+                      final @NonNull HttpOutputMessage outputMessage) throws IOException {
 
         converter.write(Json.toJson(o), contentType, outputMessage);
     }

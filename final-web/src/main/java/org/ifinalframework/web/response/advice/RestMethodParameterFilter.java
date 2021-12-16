@@ -15,12 +15,11 @@
 
 package org.ifinalframework.web.response.advice;
 
+import org.ifinalframework.util.function.Filter;
+import org.ifinalframework.web.response.annotation.ResponseIgnore;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.ifinalframework.util.function.Filter;
-import org.ifinalframework.web.response.annotation.ResponseIgnore;
 
 /**
  * Rest {@link MethodParameter} 方法过滤器。
@@ -37,12 +36,12 @@ public class RestMethodParameterFilter implements Filter<MethodParameter> {
     public boolean matches(final MethodParameter methodParameter) {
 
         if (methodParameter.hasMethodAnnotation(ResponseIgnore.class) || methodParameter.getDeclaringClass()
-            .isAnnotationPresent(ResponseIgnore.class)) {
+                .isAnnotationPresent(ResponseIgnore.class)) {
             return false;
         }
 
         return methodParameter.hasMethodAnnotation(ResponseBody.class) || methodParameter.getDeclaringClass()
-            .isAnnotationPresent(RestController.class);
+                .isAnnotationPresent(RestController.class);
     }
 
 }

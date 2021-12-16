@@ -16,6 +16,7 @@
 package org.ifinalframework.web.response.advice;
 
 import org.ifinalframework.core.result.Responsible;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -35,21 +36,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @Order
 @RestControllerAdvice
+@ConditionalOnProperty(prefix = "final.web.response.advice", name = "responsible", havingValue = "true", matchIfMissing = true)
 public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
 
-    /**
-     * 是否同步Response状态
-     */
-    private boolean syncStatus = true;
-
-    public boolean isSyncStatus() {
-        return syncStatus;
-    }
-
-    public void setSyncStatus(final boolean syncStatus) {
-
-        this.syncStatus = syncStatus;
-    }
 
     @Override
     @Nullable
@@ -59,7 +48,7 @@ public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Obj
                                     final ServerHttpRequest request,
                                     final ServerHttpResponse response) {
 
-        if (syncStatus && body instanceof Responsible) {
+        if (body instanceof Responsible) {
             final HttpStatus httpStatus = HttpStatus.resolve(((Responsible) body).getStatus());
             if (httpStatus != null) {
                 response.setStatusCode(httpStatus);

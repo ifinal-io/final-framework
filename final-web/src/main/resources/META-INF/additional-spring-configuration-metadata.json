@@ -1,0 +1,20 @@
+{
+  "groups": [
+  ],
+  "properties": [
+    {
+      "name": "final.web.response.advice.result",
+      "type": "java.lang.Boolean",
+      "description": "启用 ResultResponseBodyAdvice.",
+      "sourceType": "org.ifinalframework.web.response.advice.ResultResponseBodyAdvice",
+      "defaultValue": "true"
+    },
+    {
+      "name": "final.web.response.advice.responsible",
+      "type": "java.lang.Boolean",
+      "description": "启用 ResponsibleResponseBodyAdvice.",
+      "sourceType": "org.ifinalframework.web.response.advice.ResponsibleResponseBodyAdvice",
+      "defaultValue": "true"
+    }
+  ]
+}

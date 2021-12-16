@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.response.advice.result;
+package org.ifinalframework.web.response.advice;
 
+import com.github.pagehelper.Page;
+import org.ifinalframework.context.converter.result.Page2ResultConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
@@ -25,11 +27,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import org.ifinalframework.context.converter.result.Page2ResultConverter;
-import org.ifinalframework.web.response.advice.RestResponseBodyAdvice;
-
-import com.github.pagehelper.Page;
 
 /**
  * PageResponseBodyAdvice.
@@ -48,9 +45,9 @@ public class PageResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
     @Nullable
     @Override
     public Object doBeforeBodyWrite(@Nullable final Object body,
-        final MethodParameter returnType, final MediaType selectedContentType,
-        final Class<? extends HttpMessageConverter<?>> selectedConverterType, final ServerHttpRequest request,
-        final ServerHttpResponse response) {
+                                    final MethodParameter returnType, final MediaType selectedContentType,
+                                    final Class<? extends HttpMessageConverter<?>> selectedConverterType, final ServerHttpRequest request,
+                                    final ServerHttpResponse response) {
 
         if (body instanceof Page) {
             return converter.convert((Page) body);

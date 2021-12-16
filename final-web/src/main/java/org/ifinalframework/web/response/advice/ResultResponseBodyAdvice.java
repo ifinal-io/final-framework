@@ -13,8 +13,14 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.response.advice.result;
+package org.ifinalframework.web.response.advice;
 
+import org.ifinalframework.context.converter.result.Object2ResultConverter;
+import org.ifinalframework.context.user.UserContextHolder;
+import org.ifinalframework.core.result.Result;
+import org.ifinalframework.web.interceptor.DurationHandlerInterceptor;
+import org.ifinalframework.web.interceptor.TraceHandlerInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -24,13 +30,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import org.ifinalframework.context.converter.result.Object2ResultConverter;
-import org.ifinalframework.context.user.UserContextHolder;
-import org.ifinalframework.core.result.Result;
-import org.ifinalframework.web.interceptor.DurationHandlerInterceptor;
-import org.ifinalframework.web.interceptor.TraceHandlerInterceptor;
-import org.ifinalframework.web.response.advice.RestResponseBodyAdvice;
 
 import java.time.Duration;
 
@@ -42,15 +41,16 @@ import java.time.Duration;
  */
 @Order(1000)
 @RestControllerAdvice
+@ConditionalOnProperty(prefix = "final.web.response.advice", name = "result", havingValue = "true", matchIfMissing = true)
 public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
 
     private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
 
     @Override
     public Object doBeforeBodyWrite(final Object body, final MethodParameter returnType,
-        final MediaType selectedContentType,
-        final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-        final ServerHttpRequest request, final ServerHttpResponse response) {
+                                    final MediaType selectedContentType,
+                                    final Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                    final ServerHttpRequest request, final ServerHttpResponse response) {
 
         final Result<?> result = object2ResultConverter.convert(body);
         if (result == null) {
@@ -59,7 +59,7 @@ public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> 
         // set address
         result.setAddress(request.getLocalAddress().getAddress().getHostName());
         result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(),
-            request.getLocalAddress().getPort()));
+                request.getLocalAddress().getPort()));
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone
@@ -69,12 +69,12 @@ public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> 
 
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()
-                .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
+                    .getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE);
             if (durationStart != null) {
                 result.setDuration(Duration.ofMillis(System.currentTimeMillis() - durationStart));
             }
             String trace = (String) ((ServletServerHttpRequest) request).getServletRequest()
-                .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
+                    .getAttribute(TraceHandlerInterceptor.TRACE_ATTRIBUTE);
             result.setTrace(trace);
         }
         return result;

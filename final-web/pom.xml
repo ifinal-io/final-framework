@@ -59,7 +59,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <groupId>org.springframework.boot</groupId>
             <optional>true</optional>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <artifactId>auto-spring</artifactId>
