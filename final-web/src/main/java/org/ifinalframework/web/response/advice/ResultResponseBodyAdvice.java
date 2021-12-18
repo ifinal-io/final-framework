@@ -15,13 +15,13 @@
 
 package org.ifinalframework.web.response.advice;
 
-import org.ifinalframework.context.converter.result.Object2ResultConverter;
-import org.ifinalframework.context.user.UserContextHolder;
+import lombok.RequiredArgsConstructor;
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.web.interceptor.DurationHandlerInterceptor;
 import org.ifinalframework.web.interceptor.TraceHandlerInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -34,17 +34,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Duration;
 
 /**
+ * Wrap the {@link org.springframework.web.bind.annotation.ResponseBody} with {@link Result}.
+ *
  * @author likly
  * @version 1.0.0
- * @see Object2ResultConverter
  * @since 1.0.0
  */
 @Order(1000)
+@RequiredArgsConstructor
 @RestControllerAdvice
+@ConditionalOnBean(ResultFunctionConsumerComposite.class)
 @ConditionalOnProperty(prefix = "final.web.response.advice", name = "result", havingValue = "true", matchIfMissing = true)
 public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
 
-    private static final Object2ResultConverter object2ResultConverter = new Object2ResultConverter();
+
+    private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
 
     @Override
     public Object doBeforeBodyWrite(final Object body, final MethodParameter returnType,
@@ -52,7 +56,7 @@ public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> 
                                     final Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                     final ServerHttpRequest request, final ServerHttpResponse response) {
 
-        final Result<?> result = object2ResultConverter.convert(body);
+        final Result<?> result = resultFunctionConsumerComposite.apply(body);
         if (result == null) {
             return null;
         }
@@ -60,12 +64,6 @@ public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> 
         result.setAddress(request.getLocalAddress().getAddress().getHostName());
         result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(),
                 request.getLocalAddress().getPort()));
-        // set locale
-        result.setLocale(LocaleContextHolder.getLocale());
-        // set timeZone
-        result.setTimeZone(LocaleContextHolder.getTimeZone());
-        // set operator
-        result.setOperator(UserContextHolder.getUser());
 
         if (request instanceof ServletServerHttpRequest) {
             Long durationStart = (Long) ((ServletServerHttpRequest) request).getServletRequest()

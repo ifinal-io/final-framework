@@ -15,6 +15,9 @@
 
 package org.ifinalframework.web.reactive;
 
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
+import org.ifinalframework.core.result.Result;
+import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.MethodParameter;
@@ -30,13 +33,10 @@ import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.config.WebFluxConfigurationSupport;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
-
-import org.ifinalframework.context.converter.result.Object2ResultConverter;
-import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Type;
-
-import reactor.core.publisher.Mono;
+import java.util.Objects;
 
 /**
  * 将{@link HandlerMethod}的返回结果 {@link HandlerResult#getReturnValue()}进行统一的包装。
@@ -51,27 +51,30 @@ import reactor.core.publisher.Mono;
 @ConditionalOnReactiveWebApplication
 public class ResultHandlerResultHandler extends ResponseBodyResultHandler {
 
-    private static final Object2ResultConverter OBJECT_2_RESULT_CONVERTER = new Object2ResultConverter();
+    private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
 
     /**
      * @param reactiveAdapterRegistry
      * @param serverCodecConfigurer
      * @param contentTypeResolver
      * @see WebFluxConfigurationSupport#responseBodyResultHandler(ReactiveAdapterRegistry, ServerCodecConfigurer,
-     *     RequestedContentTypeResolver)
+     * RequestedContentTypeResolver)
      */
     @Autowired
     public ResultHandlerResultHandler(
-        @Qualifier("webFluxAdapterRegistry") ReactiveAdapterRegistry reactiveAdapterRegistry,
-        ServerCodecConfigurer serverCodecConfigurer,
-        @Qualifier("webFluxContentTypeResolver") RequestedContentTypeResolver contentTypeResolver) {
+            @Qualifier("webFluxAdapterRegistry") ReactiveAdapterRegistry reactiveAdapterRegistry,
+            ServerCodecConfigurer serverCodecConfigurer,
+            @Qualifier("webFluxContentTypeResolver") RequestedContentTypeResolver contentTypeResolver,
+            ResultFunctionConsumerComposite resultFunctionConsumerComposite
+    ) {
         super(serverCodecConfigurer.getWriters(), contentTypeResolver, reactiveAdapterRegistry);
+        this.resultFunctionConsumerComposite = resultFunctionConsumerComposite;
         setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
     @Override
-    public Mono<Void> handleResult(final ServerWebExchange exchange, final HandlerResult result) {
-        Object body = OBJECT_2_RESULT_CONVERTER.convert(result.getReturnValue());
+    public Mono<Void> handleResult(@NonNull ServerWebExchange exchange, @NonNull HandlerResult result) {
+        final Result<?> body = resultFunctionConsumerComposite.apply(result.getReturnValue());
         MethodParameter bodyTypeParameter = result.getReturnTypeSource();
         final ReturnValueMethodParameter actualParam = new ReturnValueMethodParameter(bodyTypeParameter, body);
         return writeBody(body, actualParam, actualParam, exchange);
@@ -82,7 +85,7 @@ public class ResultHandlerResultHandler extends ResponseBodyResultHandler {
         private final Object returnValue;
 
         public ReturnValueMethodParameter(final MethodParameter origin, final Object returnValue) {
-            super(origin.getMethod(), origin.getParameterIndex());
+            super(Objects.requireNonNull(origin.getMethod()), origin.getParameterIndex());
             this.returnValue = returnValue;
         }
 
@@ -98,6 +101,19 @@ public class ResultHandlerResultHandler extends ResponseBodyResultHandler {
             return ResolvableType.forClass(getParameterType()).getType();
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+            ReturnValueMethodParameter that = (ReturnValueMethodParameter) o;
+            return Objects.equals(returnValue, that.returnValue);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), returnValue);
+        }
     }
 
 }

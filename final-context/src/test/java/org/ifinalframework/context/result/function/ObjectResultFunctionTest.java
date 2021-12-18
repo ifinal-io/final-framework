@@ -15,18 +15,15 @@
 
 package org.ifinalframework.context.result.function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.ifinalframework.core.result.Result;
-
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * ObjectResultFunctionTest.
@@ -45,7 +42,7 @@ class ObjectResultFunctionTest {
     @NullAndEmptySource
     @ValueSource(strings = {"haha"})
     void apply(String value) {
-        final Result<Object> result = objectResultFunction.apply(value);
+        final Result<?> result = objectResultFunction.apply(value);
         assertNotNull(result);
         assertEquals(value, result.getData());
     }

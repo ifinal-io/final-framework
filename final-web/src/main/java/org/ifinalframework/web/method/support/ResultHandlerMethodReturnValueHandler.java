@@ -15,7 +15,8 @@
 
 package org.ifinalframework.web.method.support;
 
-import org.ifinalframework.context.converter.result.Object2ResultConverter;
+import lombok.RequiredArgsConstructor;
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
@@ -32,16 +33,13 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
  * @version 1.0.0
  * @since 1.0.0
  */
+@RequiredArgsConstructor
 public class ResultHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
 
-    private final Object2ResultConverter converter = new Object2ResultConverter();
+    private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
 
     private final RequestResponseBodyMethodProcessor handler;
 
-    public ResultHandlerMethodReturnValueHandler(
-            final RequestResponseBodyMethodProcessor handler) {
-        this.handler = handler;
-    }
 
     @Override
     public boolean supportsReturnType(final @NonNull MethodParameter returnType) {
@@ -53,7 +51,7 @@ public class ResultHandlerMethodReturnValueHandler implements HandlerMethodRetur
                                   @NonNull ModelAndViewContainer mavContainer, @NonNull NativeWebRequest webRequest)
             throws Exception {
 
-        final Result<?> convert = converter.convert(returnValue);
+        final Result<?> convert = resultFunctionConsumerComposite.apply(returnValue);
 
         handler.handleReturnValue(convert, returnType, mavContainer, webRequest);
 

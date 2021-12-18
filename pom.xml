@@ -340,6 +340,7 @@
                     <excludes>
                         <exclude>**/*Entity.java</exclude>
                         <exclude>**/*Entity.class</exclude>
+                        <exclude>**/*Exception.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>

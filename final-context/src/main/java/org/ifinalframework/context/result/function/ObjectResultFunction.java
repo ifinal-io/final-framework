@@ -32,16 +32,17 @@ import java.io.Serializable;
  */
 @Order
 @Component
-public class ObjectResultFunction implements ResultFunction<Object, Object> {
+public class ObjectResultFunction implements ResultFunction {
+
 
     @Override
-    public Result<Object> apply(Object body) {
+    public Result<?> apply(Object body) {
         if (body == null) {
             return R.success();
         }
 
         if (body instanceof Result) {
-            return (Result<Object>) body;
+            return (Result<?>) body;
         }
 
         if (body instanceof Serializable) {
