@@ -58,7 +58,7 @@
         <okhttp.version>3.14.7</okhttp.version>
         <pagehelper.version>5.2.0</pagehelper.version>
         <retrofit.version>2.8.1</retrofit.version>
-        <h2.version>1.4.200</h2.version>
+        <h2.version>2.0.202</h2.version>
 
         <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
