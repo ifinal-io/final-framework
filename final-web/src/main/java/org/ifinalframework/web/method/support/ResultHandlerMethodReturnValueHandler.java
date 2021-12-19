@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
  *
  * @author likly
  * @version 1.0.0
+ * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @since 1.0.0
  */
 @RequiredArgsConstructor

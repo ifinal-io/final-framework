@@ -21,13 +21,13 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Add {@link RequestJsonParamHandlerMethodArgumentResolver} before the build-in.
@@ -40,18 +40,6 @@ import java.util.*;
  */
 @Component
 public class RequestMappingHandlerAdapterBeanPostProcessor implements BeanPostProcessor {
-
-    /**
-     * @see AbstractMessageConverterMethodArgumentResolver#messageConverters
-     */
-    private static final Field MESSAGE_CONVERTERS = Objects.requireNonNull(
-            ReflectionUtils.findField(AbstractMessageConverterMethodArgumentResolver.class, "messageConverters"),
-            "Can not found messageConverters in class of AbstractMessageConverterMethodArgumentResolver.");
-
-    static {
-        ReflectionUtils.makeAccessible(MESSAGE_CONVERTERS);
-    }
-
 
     @Nullable
     @Override
@@ -68,13 +56,8 @@ public class RequestMappingHandlerAdapterBeanPostProcessor implements BeanPostPr
 
             argumentResolvers.add(new RequestJsonParamHandlerMethodArgumentResolver());
 
-            for (HandlerMethodArgumentResolver argumentResolver : defaultArgumentResolvers) {
-                if (argumentResolver instanceof AbstractMessageConverterMethodArgumentResolver) {
-                    ReflectionUtils.setField(MESSAGE_CONVERTERS, argumentResolver, adapter.getMessageConverters());
+            argumentResolvers.addAll(defaultArgumentResolvers);
 
-                }
-                argumentResolvers.add(argumentResolver);
-            }
 
             adapter.setArgumentResolvers(argumentResolvers);
 
