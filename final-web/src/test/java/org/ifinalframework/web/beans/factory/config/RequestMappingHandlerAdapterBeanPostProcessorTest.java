@@ -16,12 +16,14 @@
 package org.ifinalframework.web.beans.factory.config;
 
 import org.ifinalframework.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * RequestMappingHandlerAdapterBeanPostProcessorTest.
@@ -35,12 +37,11 @@ class RequestMappingHandlerAdapterBeanPostProcessorTest {
     @InjectMocks
     private RequestMappingHandlerAdapterBeanPostProcessor requestMappingHandlerAdapterBeanPostProcessor;
 
-
     @Test
     void postProcessAfterInitialization() {
         final RequestMappingHandlerAdapter bean = (RequestMappingHandlerAdapter) requestMappingHandlerAdapterBeanPostProcessor.postProcessAfterInitialization(new RequestMappingHandlerAdapter(), RequestMappingHandlerAdapter.class.getSimpleName());
-
-
-        Assertions.assertTrue(bean.getArgumentResolvers().get(0) instanceof RequestJsonParamHandlerMethodArgumentResolver);
+        assertNotNull(bean);
+        assertNotNull(bean.getArgumentResolvers());
+        assertTrue(bean.getArgumentResolvers().get(0) instanceof RequestJsonParamHandlerMethodArgumentResolver);
     }
 }
