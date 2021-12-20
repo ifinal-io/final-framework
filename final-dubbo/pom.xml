@@ -83,6 +83,7 @@
         <dependency>
             <groupId>org.ifinalframework.auto</groupId>
             <artifactId>auto-service</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
