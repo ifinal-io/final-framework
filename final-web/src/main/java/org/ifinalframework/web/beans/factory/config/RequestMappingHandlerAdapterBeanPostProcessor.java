@@ -49,16 +49,19 @@ public class RequestMappingHandlerAdapterBeanPostProcessor implements BeanPostPr
 
             final RequestMappingHandlerAdapter adapter = (RequestMappingHandlerAdapter) bean;
 
-            final List<HandlerMethodArgumentResolver> defaultArgumentResolvers
+            // find build-in argument resolvers.
+            final List<HandlerMethodArgumentResolver> buildInArgumentResolvers
                     = Optional.ofNullable(adapter.getArgumentResolvers()).orElse(Collections.emptyList());
 
-            final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>(defaultArgumentResolvers.size() + 1);
+            final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>(buildInArgumentResolvers.size() + 1);
 
+            // add custom argument resolver first.
             argumentResolvers.add(new RequestJsonParamHandlerMethodArgumentResolver());
 
-            argumentResolvers.addAll(defaultArgumentResolvers);
+            // add build-in argument resolvers second.
+            argumentResolvers.addAll(buildInArgumentResolvers);
 
-
+            // set argument resolvers for adapter.
             adapter.setArgumentResolvers(argumentResolvers);
 
         }
