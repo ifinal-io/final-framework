@@ -30,8 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface
-TokenService<T extends IUser<?>> {
+public interface TokenService<T extends IUser<?>> {
 
     /**
      * return the {@link IUser} which parsed from the {@link HttpServletRequest}.

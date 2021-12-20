@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,6 +16,7 @@
 package org.ifinalframework.core.generator;
 
 import org.springframework.lang.NonNull;
+import org.springframework.util.Assert;
 
 import java.util.Locale;
 
@@ -29,16 +29,18 @@ import java.util.Locale;
  */
 public interface NameGenerator {
 
+    /**
+     * Returns a String which capitalizes the first letter of the string.
+     */
     static String capitalize(final String name) {
-
-        if (name == null || name.length() == 0) {
-            return name;
-        }
+        Assert.hasText(name, "the name must be not empty!");
         return name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
     }
 
+    /**
+     * Returns a String which capitalizes the first letter of the string with {@code prefix}.
+     */
     static String capitalize(final @NonNull String prefix, final String name) {
-
         return prefix + capitalize(name);
     }
 

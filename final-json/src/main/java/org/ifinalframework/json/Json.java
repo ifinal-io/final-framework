@@ -103,7 +103,7 @@ public final class Json {
      */
     @SuppressWarnings("unchecked")
     public static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT,
-        final @Nullable Class<?> view) {
+                                 final @Nullable Class<?> view) {
         if (String.class.equals(classOfT)) {
             return (T) json;
         }
@@ -149,7 +149,7 @@ public final class Json {
      * @throws JsonException json exception
      */
     public static <T> T toObject(final @NonNull String json, final @NonNull TypeReference<T> typeOfT,
-        @Nullable Class<?> view) {
+                                 @Nullable Class<?> view) {
 
         return toObject(json, typeOfT.getType(), view);
     }
@@ -199,9 +199,9 @@ public final class Json {
      * @throws JsonException json exception
      */
     public static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT,
-        final @Nullable Class<?> view) {
+                                     final @Nullable Class<?> view) {
         return wrap(() -> JsonRegistry
-            .getInstance().getJsonService().toList(json, classOfT, view));
+                .getInstance().getJsonService().toList(json, classOfT, view));
     }
 
     /**
@@ -228,7 +228,7 @@ public final class Json {
      * @throws JsonException json exception
      */
     public static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT,
-        @Nullable Class<?> view) {
+                                   @Nullable Class<?> view) {
         return wrap(() -> JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view));
     }
 
