@@ -15,10 +15,9 @@
 
 package org.ifinalframework.velocity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Constructor;
@@ -26,9 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * VelocitiesTest.

@@ -32,6 +32,14 @@
             <groupId>org.springframework.boot</groupId>
         </dependency>
         <dependency>
+            <artifactId>velocity-engine-core</artifactId>
+            <groupId>org.apache.velocity</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>velocity-tools-generic</artifactId>
+            <groupId>org.apache.velocity.tools</groupId>
+        </dependency>
+        <dependency>
             <artifactId>mybatis</artifactId>
             <groupId>org.mybatis</groupId>
             <optional>true</optional>

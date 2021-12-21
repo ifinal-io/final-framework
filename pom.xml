@@ -39,7 +39,6 @@
         <module>final-web</module>
         <module>final-javapoets</module>
         <module>final-java</module>
-        <module>final-velocity</module>
         <module>final-json</module>
     </modules>
 
@@ -153,11 +152,6 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-velocity</artifactId>
                 <version>1.2.4-SNAPSHOT</version>
             </dependency>
             <dependency>
