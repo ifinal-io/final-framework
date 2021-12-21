@@ -37,26 +37,17 @@
         <module>final-retrofit</module>
         <module>final-aop</module>
         <module>final-web</module>
-        <module>final-javapoets</module>
-        <module>final-java</module>
         <module>final-json</module>
     </modules>
 
     <properties>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
-        <guava.version>30.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <java.version>1.8</java.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <mybatis.spring.boot.version>2.1.0</mybatis.spring.boot.version>
-        <mybatis.version>3.5.6</mybatis.version>
-        <okhttp.version>3.14.7</okhttp.version>
-        <pagehelper.version>5.2.0</pagehelper.version>
-        <retrofit.version>2.8.1</retrofit.version>
-        <h2.version>1.4.200</h2.version>
 
         <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -64,10 +55,6 @@
         <sonar.organization>likly</sonar.organization>
         <sonar.projectKey>likly_final-frameworks</sonar.projectKey>
 
-        <!--CI-->
-        <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
-        <velocity.core.version>2.1</velocity.core.version>
-        <velocity.tool.version>3.0</velocity.tool.version>
     </properties>
 
     <url>https://github.com/final-projects/final-framework</url>
@@ -99,34 +86,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-            <dependency>
-                <artifactId>guava</artifactId>
-                <groupId>com.google.guava</groupId>
-                <version>${guava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>javapoet</artifactId>
-                <groupId>com.squareup</groupId>
-                <version>${squareup.javapoet.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>pagehelper</artifactId>
-                <groupId>com.github.pagehelper</groupId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
-                <scope>test</scope>
-            </dependency>
             <dependency>
                 <groupId>org.ifinalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
@@ -156,22 +115,12 @@
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
-                <artifactId>final-javapoets</artifactId>
-                <version>1.2.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-json</artifactId>
                 <version>1.2.4-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-dubbo</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.2.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-java</artifactId>
                 <groupId>org.ifinalframework</groupId>
                 <version>1.2.4-SNAPSHOT</version>
             </dependency>
@@ -204,27 +153,6 @@
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
             <!-- ==================================================================================================== -->
-
-            <dependency>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <version>${mybatis.spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>retrofit</artifactId>
-                <groupId>com.squareup.retrofit2</groupId>
-                <version>${retrofit.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>okhttp</artifactId>
-                <groupId>com.squareup.okhttp3</groupId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>converter-jackson</artifactId>
-                <groupId>com.squareup.retrofit2</groupId>
-                <version>${retrofit.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

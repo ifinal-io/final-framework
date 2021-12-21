@@ -40,6 +40,10 @@
             <groupId>org.apache.velocity.tools</groupId>
         </dependency>
         <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>javapoet</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>mybatis</artifactId>
             <groupId>org.mybatis</groupId>
             <optional>true</optional>
@@ -50,6 +54,16 @@
             <groupId>org.springframework</groupId>
             <optional>true</optional>
             <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy-agent -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
+        <dependency>
+            <groupId>org.benf</groupId>
+            <artifactId>cfr</artifactId>
         </dependency>
     </dependencies>
 
