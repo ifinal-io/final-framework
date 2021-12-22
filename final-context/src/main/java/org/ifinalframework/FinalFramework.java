@@ -48,10 +48,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @ComponentScan
-@ImportResource({
-        "classpath:spring-config-*.xml",
-        "classpath*:config/spring-config-*.xml",
-        "classpath*:spring/spring-config-*.xml"
-})
+//@ImportResource({
+//        "classpath:spring-config-*.xml",
+//        "classpath*:config/spring-config-*.xml",
+//        "classpath*:spring/spring-config-*.xml"
+//})
 public class FinalFramework {
 }

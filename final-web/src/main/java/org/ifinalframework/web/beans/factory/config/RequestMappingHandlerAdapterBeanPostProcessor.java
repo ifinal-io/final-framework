@@ -45,26 +45,27 @@ public class RequestMappingHandlerAdapterBeanPostProcessor implements BeanPostPr
     @Override
     public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName) throws BeansException {
 
-        if (bean instanceof RequestMappingHandlerAdapter) {
-
-            final RequestMappingHandlerAdapter adapter = (RequestMappingHandlerAdapter) bean;
-
-            // find build-in argument resolvers.
-            final List<HandlerMethodArgumentResolver> buildInArgumentResolvers
-                    = Optional.ofNullable(adapter.getArgumentResolvers()).orElse(Collections.emptyList());
-
-            final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>(buildInArgumentResolvers.size() + 1);
-
-            // add custom argument resolver first.
-            argumentResolvers.add(new RequestJsonParamHandlerMethodArgumentResolver());
-
-            // add build-in argument resolvers second.
-            argumentResolvers.addAll(buildInArgumentResolvers);
-
-            // set argument resolvers for adapter.
-            adapter.setArgumentResolvers(argumentResolvers);
-
+        if (!(bean instanceof RequestMappingHandlerAdapter)) {
+            return bean;
         }
+
+
+        final RequestMappingHandlerAdapter adapter = (RequestMappingHandlerAdapter) bean;
+
+        // find build-in argument resolvers.
+        final List<HandlerMethodArgumentResolver> buildInArgumentResolvers
+                = Optional.ofNullable(adapter.getArgumentResolvers()).orElse(Collections.emptyList());
+
+        final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>(buildInArgumentResolvers.size() + 1);
+
+        // add custom argument resolver first.
+        argumentResolvers.add(new RequestJsonParamHandlerMethodArgumentResolver());
+
+        // add build-in argument resolvers second.
+        argumentResolvers.addAll(buildInArgumentResolvers);
+
+        // set argument resolvers for adapter.
+        adapter.setArgumentResolvers(argumentResolvers);
 
 
         return bean;
