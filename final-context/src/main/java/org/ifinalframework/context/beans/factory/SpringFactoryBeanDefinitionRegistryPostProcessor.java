@@ -1,6 +1,5 @@
 /*
  * Copyright 2020-2021 the original author or authors.
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,8 +13,9 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.context.beans.factory.support;
+package org.ifinalframework.context.beans.factory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -28,8 +28,6 @@ import org.springframework.lang.NonNull;
 
 import java.util.HashSet;
 import java.util.List;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Registry {@link BeanDefinition} into {@link BeanDefinitionRegistry} from {@link SpringFactoriesLoader}.
