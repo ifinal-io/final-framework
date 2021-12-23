@@ -13,39 +13,40 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.beans.factory.config;
+package org.ifinalframework.web.mvc.config;
 
-import org.ifinalframework.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
+import org.ifinalframework.http.converter.JsonStringHttpMessageConverter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * RequestMappingHandlerAdapterBeanPostProcessorTest.
+ * JsonStringHttpMessageConverterWebMvcConfigurerTest.
  *
  * @author likly
- * @version 1.2.3
- * @since 1.2.3
+ * @version 1.2.4
+ * @since 1.2.4
  */
-@SpringBootTest
 @SpringBootApplication
-class RequestMappingHandlerAdapterBeanPostProcessorTest {
-
+@SpringBootTest
+class JsonStringHttpMessageConverterWebMvcConfigurerTest {
 
     @Resource
     private RequestMappingHandlerAdapter adapter;
 
     @Test
-    void postProcessAfterInitialization() {
-        final List<HandlerMethodArgumentResolver> resolvers = adapter.getArgumentResolvers();
-        Assertions.assertNotNull(resolvers);
-        final boolean match = resolvers.stream().anyMatch(it -> it instanceof RequestJsonParamHandlerMethodArgumentResolver);
-        Assertions.assertTrue(match);
+    void extendMessageConverters() {
+        final List<HttpMessageConverter<?>> converters = adapter.getMessageConverters();
+
+        final boolean present = converters.stream().anyMatch(it -> it instanceof JsonStringHttpMessageConverter);
+
+        Assertions.assertTrue(present);
+
     }
 }
