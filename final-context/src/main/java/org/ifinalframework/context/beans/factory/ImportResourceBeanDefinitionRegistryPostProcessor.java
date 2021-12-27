@@ -46,10 +46,15 @@ import java.util.Set;
  */
 @Slf4j
 @Component
-public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, EnvironmentAware {
+public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor,
+        ResourceLoaderAware, EnvironmentAware {
 
 
-    private static final String[] DEFAULT_RESOURCE_LOCATIONS = new String[]{"classpath:spring-config-*.xml", "classpath*:config/spring-config-*.xml", "classpath*:spring/spring-config-*.xml"};
+    private static final String[] DEFAULT_RESOURCE_LOCATIONS = new String[]{
+            "classpath:spring-config-*.xml",
+            "classpath*:config/spring-config-*.xml",
+            "classpath*:spring/spring-config-*.xml"
+    };
 
     @Setter
     private ResourceLoader resourceLoader;
@@ -63,13 +68,14 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDe
 
         final Set<String> importResources = new LinkedHashSet<>();
 
+        // load developer's import resource locations
         final String[] locations = environment.getProperty("spring.application.import-resource.locations", String[].class);
 
         if (Objects.nonNull(locations) && locations.length > 0) {
             importResources.addAll(Arrays.asList(locations));
         }
 
-
+        // load default import resource locations
         final Boolean useDefault = environment.getProperty("spring.application.import-resource.use-default", boolean.class, true);
         if (Boolean.TRUE.equals(useDefault)) {
             importResources.addAll(Arrays.asList(DEFAULT_RESOURCE_LOCATIONS));
@@ -83,12 +89,13 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDe
             logger.info("{} loaded bean definitions count {}.", resource, count);
         }
 
-
     }
 
     @Override
     public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-
+        if (beanFactory instanceof BeanDefinitionRegistry) {
+            postProcessBeanDefinitionRegistry((BeanDefinitionRegistry) beanFactory);
+        }
     }
 
 
