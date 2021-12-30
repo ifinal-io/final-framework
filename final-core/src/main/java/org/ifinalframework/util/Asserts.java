@@ -15,6 +15,7 @@
 
 package org.ifinalframework.util;
 
+import lombok.experimental.UtilityClass;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -35,25 +36,23 @@ import java.util.Objects;
  * @see org.springframework.util.CollectionUtils
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
+@UtilityClass
 public final class Asserts {
 
-    private Asserts() {
-    }
 
     /**
      * return {@code true} if the test object is null.
      *
      * @param obj test object.
      */
-    public static boolean isNull(final Object obj) {
+    public static boolean isNull(Object obj) {
         return Objects.isNull(obj);
     }
 
     /**
      * @see #requiredNonNull(Object, String, Object...)
      */
-    public static void requiredNull(final Object obj) {
+    public static void requiredNull(Object obj) {
         requiredNull(obj, "the value required must be null but found {}", obj);
     }
 
@@ -66,17 +65,17 @@ public final class Asserts {
      * @param args    the exception message format args.
      * @throws IllegalArgumentException if the object is not null.
      */
-    public static void requiredNull(final Object obj, final String message, final Object... args) {
+    public static void requiredNull(Object obj, String message, Object... args) {
         if (!isNull(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
-    public static boolean nonNull(final Object obj) {
+    public static boolean nonNull(Object obj) {
         return Objects.nonNull(obj);
     }
 
-    public static <T> T requiredNonNull(final T obj) {
+    public static <T> T requiredNonNull(T obj) {
         return Objects.requireNonNull(obj);
     }
 
@@ -89,7 +88,7 @@ public final class Asserts {
      * @param <T>     the object type.
      * @throws NullPointerException is the object is null.
      */
-    public static <T> T requiredNonNull(final T obj, final String message, final Object... args) {
+    public static <T> T requiredNonNull(T obj, String message, Object... args) {
         return Objects.requireNonNull(obj, formatMessage(message, args));
     }
 
@@ -98,11 +97,11 @@ public final class Asserts {
      *
      * @param bool the object to check.
      */
-    public static boolean isTrue(final Object bool) {
+    public static boolean isTrue(Object bool) {
         return Boolean.TRUE.equals(bool);
     }
 
-    public static boolean requiredTrue(final Object bool) {
+    public static boolean requiredTrue(Object bool) {
         return requiredTrue(bool, "required true value but found {}", bool);
     }
 
@@ -114,18 +113,18 @@ public final class Asserts {
      * @param args    the exception message format args.
      * @throws IllegalArgumentException if the object is not {@code true}.
      */
-    public static boolean requiredTrue(final Object bool, @NonNull final String message, final Object... args) {
+    public static boolean requiredTrue(Object bool, @NonNull String message, Object... args) {
         if (!isTrue(bool)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
         return true;
     }
 
-    public static boolean isFalse(final Boolean bool) {
+    public static boolean isFalse(Boolean bool) {
         return Boolean.FALSE.equals(bool);
     }
 
-    public static boolean requiredFalse(final Object bool) {
+    public static boolean requiredFalse(Object bool) {
         return requiredFalse(bool, "required false but found {}", bool);
     }
 
@@ -137,7 +136,7 @@ public final class Asserts {
      * @param args    the exception message format args.
      * @throws IllegalArgumentException if the object is not {@code false}.
      */
-    public static boolean requiredFalse(final Object bool, final String message, final Object... args) {
+    public static boolean requiredFalse(Object bool, String message, Object... args) {
         if (Boolean.FALSE.equals(bool)) {
             return false;
         }
@@ -148,7 +147,7 @@ public final class Asserts {
     /**
      * @see org.springframework.util.ObjectUtils#isEmpty(Object)
      */
-    public static boolean isEmpty(@Nullable final Object obj) {
+    public static boolean isEmpty(@Nullable Object obj) {
         return ObjectUtils.isEmpty(obj);
     }
 
@@ -161,13 +160,13 @@ public final class Asserts {
      * @throws IllegalArgumentException if the object is empty.
      * @see #isEmpty(Object)
      */
-    public static void isEmpty(final Object obj, final String message, final Object... args) {
+    public static void isEmpty(Object obj, String message, Object... args) {
         if (isEmpty(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
     }
 
-    public static boolean nonEmpty(final Object obj) {
+    public static boolean nonEmpty(Object obj) {
         if (obj == null) {
             return false;
         }
@@ -178,7 +177,7 @@ public final class Asserts {
             return ((Object[]) obj).length != 0;
         }
         if (obj instanceof Collection) {
-            return !((Collection) obj).isEmpty();
+            return !((Collection<?>) obj).isEmpty();
         }
         if (obj instanceof Map) {
             return !((Map<?, ?>) obj).isEmpty();
@@ -187,11 +186,11 @@ public final class Asserts {
         return true;
     }
 
-    public static <T> T requiredNonEmpty(final T obj) {
+    public static <T> T requiredNonEmpty(T obj) {
         return requiredNonEmpty(obj, "required not empty but found {}", obj);
     }
 
-    public static <T> T requiredNonEmpty(final T obj, final String message, final Object... args) {
+    public static <T> T requiredNonEmpty(T obj, String message, Object... args) {
 
         if (isEmpty(obj)) {
             throw new IllegalArgumentException(formatMessage(message, args));
@@ -200,19 +199,19 @@ public final class Asserts {
         return obj;
     }
 
-    public static boolean isBlank(final String text) {
+    public static boolean isBlank(String text) {
         return text == null || text.trim().isEmpty();
     }
 
-    public static boolean nonBlank(final String text) {
+    public static boolean nonBlank(String text) {
         return text != null && !text.trim().isEmpty();
     }
 
-    public static String requiredNonBlank(final String text) {
+    public static String requiredNonBlank(String text) {
         return requiredNonBlank(text, "required not blank but found {}", text);
     }
 
-    public static String requiredNonBlank(final String text, final String message, final Object... args) {
+    public static String requiredNonBlank(String text, String message, Object... args) {
         if (isBlank(text)) {
             throw new IllegalArgumentException(formatMessage(message, args));
         }
@@ -220,19 +219,19 @@ public final class Asserts {
         return text;
     }
 
-    public static boolean isEquals(final Object left, final Object right) {
+    public static boolean isEquals(Object left, Object right) {
         return Objects.equals(left, right);
     }
 
-    public static boolean nonEquals(final Object left, final Object right) {
+    public static boolean nonEquals(Object left, Object right) {
         return !Objects.equals(left, right);
     }
 
-    public static boolean matches(final @NonNull String text, final @NonNull String regex) {
+    public static boolean matches(@NonNull String text, @NonNull String regex) {
         return text.matches(regex);
     }
 
-    private static String formatMessage(final String message, final Object... args) {
+    private static String formatMessage(String message, Object... args) {
         return MessageFormatter.arrayFormat(message, args).getMessage();
     }
 
