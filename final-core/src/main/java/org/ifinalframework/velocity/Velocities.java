@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,19 +22,12 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.tools.Scope;
-import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -55,6 +48,8 @@ public final class Velocities {
 
     private static final ToolManager toolManager;
 
+    private static final ContextFactory contextFactory;
+
     static {
 
         setLoggerLevel("org.apache", Level.ERROR);
@@ -74,6 +69,8 @@ public final class Velocities {
         toolManager.setVelocityEngine(ve);
         toolManager.configure(ConfigurationUtils.getDefaultTools());
         toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION);
+
+        contextFactory = new ToolContextFactory(toolManager);
     }
 
     private Velocities() {
@@ -90,41 +87,10 @@ public final class Velocities {
     public static String getValue(final String express, final Object params) {
         Template template = ve.getTemplate(express, UTF_8);
         //反射param设置key，value
-        Context context = buildContext(params);
+        Context context = contextFactory.create(params);
         StringWriter writer = new StringWriter();
         template.merge(context, writer);
         return writer.toString();
-    }
-
-    /**
-     * 构建velocity参数map。key:占位符key，value:占位符值
-     *
-     * @param param param
-     * @return context
-     */
-    @SuppressWarnings("unchecked")
-    public static Context buildContext(final Object param) {
-
-        ToolContext context = toolManager.createContext();
-        if (param instanceof Map) {
-            context.putAll((Map<String, Object>) param);
-        } else if (Objects.nonNull(param)) {
-            try {
-                BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
-                for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-                    Method readMethod = propertyDescriptor.getReadMethod();
-
-                    if (Objects.isNull(readMethod)) {
-                        continue;
-                    }
-
-                    context.put(propertyDescriptor.getName(), readMethod.invoke(param));
-                }
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
-            }
-        }
-        return context;
     }
 
 }
