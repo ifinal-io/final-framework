@@ -16,11 +16,10 @@
 package org.ifinalframework.velocity;
 
 import ch.qos.logback.classic.Level;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.Template;
-import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
-import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.tools.Scope;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
@@ -28,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.StringWriter;
-import java.util.Properties;
 
 /**
  * A tool for {@code velocity} template language.
@@ -38,13 +36,9 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Slf4j
+@UtilityClass
 public final class Velocities {
 
-    private static final String UTF_8 = "UTF-8";
-
-    private static final VelocityEngine ve = new VelocityEngine();
-
-    private static final Properties p = new Properties();
 
     private static final ToolManager toolManager;
 
@@ -53,29 +47,16 @@ public final class Velocities {
     static {
 
         setLoggerLevel("org.apache", Level.ERROR);
-        setLoggerLevel(RuntimeConstants.DEFAULT_RUNTIME_LOG_NAME, Level.ERROR);
 
-        //加载器名称
-        p.setProperty("resource.loader", "template");
-        //配置加载器实现类
-        p.setProperty("template.resource.loader.class", StringTemplateResourceLoader.class.getCanonicalName());
-        p.setProperty("input.encoding", UTF_8);
-        p.setProperty("output.encoding", UTF_8);
-        p.setProperty("log4j.logger.org.apache", "ERROR");
-        p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogChute");
-        ve.init(p);
+        Velocity.init();
 
         toolManager = new ToolManager();
-        toolManager.setVelocityEngine(ve);
         toolManager.configure(ConfigurationUtils.getDefaultTools());
         toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION);
 
         contextFactory = new ToolContextFactory(toolManager);
     }
 
-    private Velocities() {
-        throw new IllegalAccessError("There is no instance for you!");
-    }
 
     private static void setLoggerLevel(String name, Level level) {
         Logger logger = LoggerFactory.getLogger(name);
@@ -85,12 +66,14 @@ public final class Velocities {
     }
 
     public static String getValue(final String express, final Object params) {
-        Template template = ve.getTemplate(express, UTF_8);
-        //反射param设置key，value
-        Context context = contextFactory.create(params);
-        StringWriter writer = new StringWriter();
-        template.merge(context, writer);
-        return writer.toString();
+        try {
+            Context context = contextFactory.create(params);
+            StringWriter writer = new StringWriter();
+            Velocity.evaluate(context, writer, "velocity", express);
+            return writer.toString();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
 }
