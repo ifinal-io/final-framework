@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,8 +36,20 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Load {@link org.springframework.beans.factory.config.BeanDefinition}s from resource like
- * {@link org.springframework.context.annotation.ImportResource}.
+ * Load {@link org.springframework.beans.factory.config.BeanDefinition}s from resource like {@link
+ * org.springframework.context.annotation.ImportResource}.
+ *
+ * <h4>Config Import Resource Locations</h4>
+ * <p>Config the locations of import resource with {@code spring.application.import-resource.locations}.</p>
+ *
+ * <h4>Enable Default Import Resource</h4>
+ * <p>Config use default import resource with {@code spring.application.import-resource.use-default}, default
+ * locations is:</p>
+ * <ul>
+ *     <li>classpath:spring-config-*.xml</li>
+ *     <li>classpath*:config/spring-config-*.xml</li>
+ *     <li>classpath*:spring/spring-config-*.xml</li>
+ * </ul>
  *
  * @author likly
  * @version 1.2.4

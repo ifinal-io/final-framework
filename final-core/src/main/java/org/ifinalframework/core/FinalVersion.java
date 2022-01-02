@@ -23,6 +23,8 @@ import org.ifinalframework.util.JarVersions;
  *
  * @author likly
  * @version 1.2.4
+ * @see org.springframework.core.SpringVersion
+ * @see org.springframework.boot.SpringBootVersion
  * @since 1.2.4
  */
 @UtilityClass
