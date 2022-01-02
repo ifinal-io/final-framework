@@ -20,9 +20,6 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
-import org.apache.velocity.tools.Scope;
-import org.apache.velocity.tools.ToolManager;
-import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,22 +36,12 @@ import java.io.StringWriter;
 @UtilityClass
 public final class Velocities {
 
-
-    private static final ToolManager toolManager;
-
     private static final ContextFactory contextFactory;
 
     static {
-
         setLoggerLevel("org.apache", Level.ERROR);
-
         Velocity.init();
-
-        toolManager = new ToolManager();
-        toolManager.configure(ConfigurationUtils.getDefaultTools());
-        toolManager.getToolboxFactory().createToolbox(Scope.APPLICATION);
-
-        contextFactory = new ToolContextFactory(toolManager);
+        contextFactory = new ToolContextFactory();
     }
 
 

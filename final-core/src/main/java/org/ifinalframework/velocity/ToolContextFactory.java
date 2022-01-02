@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
+import org.apache.velocity.tools.config.ConfigurationUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -40,6 +41,11 @@ import java.util.Objects;
 public class ToolContextFactory implements ContextFactory {
 
     private final ToolManager toolManager;
+
+    public ToolContextFactory() {
+        toolManager = new ToolManager();
+        toolManager.configure(ConfigurationUtils.getDefaultTools());
+    }
 
     @Override
     @NonNull
