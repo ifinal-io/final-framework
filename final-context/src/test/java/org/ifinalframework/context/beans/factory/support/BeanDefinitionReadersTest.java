@@ -54,6 +54,5 @@ class BeanDefinitionReadersTest {
     void instance() {
         final BeanDefinitionReader reader = BeanDefinitionReaders.instance("*.xml", registry, resourceLoader, environment);
         Assertions.assertNotNull(reader);
-        Assertions.assertEquals(resourceLoader, reader.getResourceLoader());
     }
 }
