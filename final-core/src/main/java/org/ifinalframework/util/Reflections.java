@@ -16,6 +16,11 @@
 
 package org.ifinalframework.util;
 
+import org.ifinalframework.reflect.DefaultMethodFinder;
+import org.ifinalframework.reflect.DefaultMethodInvoker;
+import org.ifinalframework.reflect.MethodFinder;
+import org.ifinalframework.reflect.MethodInvoker;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
@@ -40,8 +45,12 @@ import java.util.Objects;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class Reflections {
 
+    private static final MethodFinder METHOD_FINDER = new DefaultMethodFinder();
+    private static final MethodInvoker METHOD_INVOKER = new DefaultMethodInvoker();
+
     private Reflections() {
     }
+
 
     @Nullable
     public static Field findField(final @NonNull Class<?> clazz, final @NonNull String name) {
@@ -53,6 +62,12 @@ public final class Reflections {
         final Field field = findField(clazz, name);
         Objects.requireNonNull(field, String.format("can not find field of name '%s' on class '%s'", name, clazz));
         return field;
+    }
+
+    @Nullable
+    public static Method findMethod(@NonNull Class<?> clazz,@NonNull String methodName,
+                                    @Nullable Class<?>[] parameterTypes, @Nullable Object[] arguments){
+        return METHOD_FINDER.find(clazz, methodName, parameterTypes, arguments);
     }
 
     @Nullable
@@ -122,6 +137,16 @@ public final class Reflections {
         }
 
         throw new IllegalArgumentException("");
+    }
+
+    public static Object invokeMethod(@NonNull Object target,@NonNull String method,@Nullable Class<?>[] parameterTypes,@Nullable Object... args){
+        Method targetMethod = findMethod(AopUtils.getTargetClass(target), method, parameterTypes, args);
+        ReflectionUtils.makeAccessible(targetMethod);
+        return invokeMethod(targetMethod,target,args);
+    }
+
+    public static Object invokeMethod(@NonNull Method method,@NonNull Object target, @Nullable Object... args){
+        return METHOD_INVOKER.invoke(method, target, args);
     }
 
 }
