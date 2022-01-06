@@ -1,4 +1,4 @@
-package org.ifinalframework.reflect;
+package org.ifinalframework.util;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class DefaultMethodFinderTest {
 
-    private final MethodFinder methodFinder = new DefaultMethodFinder();
+    private final Reflections.MethodFinder methodFinder = new Reflections.DefaultMethodFinder();
 
     private void method1(){
 

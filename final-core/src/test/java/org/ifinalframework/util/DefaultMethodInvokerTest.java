@@ -1,6 +1,5 @@
-package org.ifinalframework.reflect;
+package org.ifinalframework.util;
 
-import org.ifinalframework.util.Reflections;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.ReflectionUtils;
 
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class DefaultMethodInvokerTest {
 
-    private MethodInvoker methodInvoker = new DefaultMethodInvoker();
+    private Reflections.MethodInvoker methodInvoker = new Reflections.DefaultMethodInvoker();
 
 
     private String method(int arg){
