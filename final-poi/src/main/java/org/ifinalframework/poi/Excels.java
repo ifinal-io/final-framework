@@ -33,21 +33,22 @@ public final class Excels {
     private Excels() {
     }
 
-    public static WorkbookWriter newWriter(final List<Excel.Cell>... headers) {
+    public static WorkbookWriter newWriter(final Excel.Cell... headers) {
         return newWriter(Arrays.asList(headers));
     }
 
-    public static WorkbookWriter newWriter(final List<List<Excel.Cell>> headers) {
+    public static WorkbookWriter newWriter(final List<Excel.Cell> headers) {
         return newWriter(Excel.Version.XLSX, null, headers);
     }
 
-    public static WorkbookWriter newWriter(final Excel.Version version, final String sheetName, List<List<Excel.Cell>> headers) {
+    public static WorkbookWriter newWriter(final Excel.Version version, final String sheetName, List<Excel.Cell> headers) {
 
         final Excel excel = new Excel();
         excel.setVersion(version);
 
         Excel.Sheet sheet = new Excel.Sheet();
         sheet.setName(sheetName);
+        sheet.setHeaders(Collections.singletonList(new Excel.Row(headers)));
 
         excel.setSheets(Collections.singletonList(sheet));
 
