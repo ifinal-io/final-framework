@@ -17,6 +17,7 @@ package org.ifinalframework.poi;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -28,13 +29,16 @@ import java.util.Date;
  * @since 1.0.0
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-class Person {
+public class Person {
 
     private String name;
 
     private Integer age;
 
     private Date birthday;
+
+    private Boolean bool;
 
 }

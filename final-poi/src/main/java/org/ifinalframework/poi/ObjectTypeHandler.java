@@ -70,4 +70,9 @@ public final class ObjectTypeHandler implements TypeHandler<Object> {
         }
     }
 
+    @Override
+    public Object getValue(Cell cell) {
+        throw new UnsupportedOperationException("");
+    }
+
 }

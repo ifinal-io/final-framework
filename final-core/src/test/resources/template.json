@@ -1,0 +1,32 @@
+{
+  "direction": 0,
+  "screen_block": [
+    {
+      "start_x": 0,
+      "start_y": 2,
+      "end_x": 110,
+      "end_y": 2,
+      "content_type": "CONTENT_TYPE_LINE",
+      "content_color": "BLACK",
+      "content_reverse": false
+    },
+    {
+      "start_x": 5,
+      "start_y": 5,
+      "end_x": 80,
+      "end_y": 30,
+      "font_type": "Zfull-GB Bold 16",
+      "font_size": 12,
+      "content_type": "CONTENT_TYPE_TEXT",
+      "content_title": "name",
+      "content_value": " 苹 果 ",
+      "content_color": "BLACK",
+      "content_alignment": "LEFT",
+      "number_script": "NONE",
+      "number_gap": "CONSECUTIVE",
+      "font_size_script": 12,
+      "content_reverse": false,
+      "origin_font_type": 0
+    }
+  ]
+}

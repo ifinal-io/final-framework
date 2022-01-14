@@ -30,4 +30,6 @@ public interface TypeHandler<T> {
 
     void setValue(@NonNull Cell cell, @Nullable T value);
 
+    T getValue(@NonNull Cell cell);
+
 }

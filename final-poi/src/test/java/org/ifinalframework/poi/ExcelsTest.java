@@ -38,8 +38,8 @@ class ExcelsTest {
 
     private List<Person> persons() {
         return Arrays.asList(
-                new Person("xiaoMing", 12, new Date()),
-                new Person("xiaoHong", 18, new Date())
+                new Person("xiaoMing", 12, new Date(),true),
+                new Person("xiaoHong", 18, new Date(),false)
         );
     }
 
@@ -72,7 +72,7 @@ class ExcelsTest {
 
             Excels.newWriter(excel).append(persons())
                     .append(persons())
-                    .write("test3.xlsx");
+                    .write("/test3.xlsx");
         });
 
     }

@@ -57,6 +57,10 @@
             <artifactId>final-json</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework</groupId>
+            <artifactId>final-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
