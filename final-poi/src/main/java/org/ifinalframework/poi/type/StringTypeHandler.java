@@ -21,6 +21,8 @@ public class StringTypeHandler implements TypeHandler<String> {
                 return cell.getStringCellValue();
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue());
+            case FORMULA:
+                return cell.getCellFormula();
         }
         return null;
     }
