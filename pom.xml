@@ -151,6 +151,11 @@
                 <groupId>org.ifinalframework</groupId>
                 <version>1.2.4-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-poi</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+            </dependency>
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
             <!-- ==================================================================================================== -->
