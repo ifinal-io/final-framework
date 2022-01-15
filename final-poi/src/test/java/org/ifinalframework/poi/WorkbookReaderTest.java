@@ -54,15 +54,11 @@ class WorkbookReaderTest {
     } @Test
     @SneakyThrows
     void testMap() {
-        ResultMap<Map> personResultMap = new ResultMap<>(Map.class, Arrays.asList());
 
         XSSFWorkbook workbook = new XSSFWorkbook(getClass().getResourceAsStream("/excel.xlsx"));
         WorkbookReader reader = new WorkbookReader(workbook);
 
-
-        List<Map> list = reader.map(new ResultMapBiFunction<Map>(personResultMap))
-                .collect(Collectors.toList());
-
+        List<Map> list = reader.map().collect(Collectors.toList());
 
         System.out.println(list);
 

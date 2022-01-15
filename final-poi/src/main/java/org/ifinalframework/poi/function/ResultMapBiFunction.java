@@ -24,25 +24,12 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class ResultMapBiFunction<T> implements BiFunction<Row, Headers, T> {
 
-    private final TypeHandler<Object> typeHandler = new ObjectTypeHandler();
     private final ResultMap<T> resultMap;
 
     @Override
     @SneakyThrows
     @SuppressWarnings("unchecked")
     public T apply(Row row, Headers headers) {
-
-        if (resultMap.isMap()) {
-            Map<String, Object> map = new LinkedHashMap<>();
-
-            headers.foreach((header, index) -> {
-                Cell cell = row.getCell(index);
-                Object value = Optional.ofNullable(cell).map(typeHandler::getValue).orElse(null);
-                map.put(header, value);
-            });
-
-            return (T) map;
-        }
 
         BeanWrapperImpl beanWrapper = new BeanWrapperImpl(resultMap.getJavaType());
 
@@ -56,7 +43,7 @@ public class ResultMapBiFunction<T> implements BiFunction<Row, Headers, T> {
 
             Cell cell = row.getCell(index);
 
-            if(Objects.isNull(cell)){
+            if (Objects.isNull(cell)) {
                 continue;
             }
 

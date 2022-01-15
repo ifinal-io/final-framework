@@ -3,7 +3,9 @@ package org.ifinalframework.poi;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.ifinalframework.poi.function.MapBiFunction;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -13,6 +15,9 @@ import java.util.stream.Stream;
  * @version 1.2.4
  **/
 public class WorkbookReader {
+
+    private static final MapBiFunction MAP_BI_FUNCTION = new MapBiFunction();
+
     private final Workbook workbook;
     private final int headerIndex;
 
@@ -23,6 +28,10 @@ public class WorkbookReader {
     public WorkbookReader(Workbook workbook, int headerIndex) {
         this.workbook = workbook;
         this.headerIndex = headerIndex;
+    }
+
+    public Stream<Map<String,Object>> map(){
+        return map(MAP_BI_FUNCTION);
     }
 
     public <T> Stream<T> map(BiFunction<Row, Headers, T> function) {
