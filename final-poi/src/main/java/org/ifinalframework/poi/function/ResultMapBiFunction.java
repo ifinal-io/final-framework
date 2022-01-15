@@ -18,8 +18,11 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
+ * Apply a {@link Row} to a {@link T} result with {@link ResultMap}.
+ *
  * @author likly
  * @version 1.2.4
+ * @see MapBiFunction
  **/
 @RequiredArgsConstructor
 public class ResultMapBiFunction<T> implements BiFunction<Row, Headers, T> {

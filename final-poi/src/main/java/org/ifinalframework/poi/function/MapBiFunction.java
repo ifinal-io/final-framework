@@ -12,8 +12,12 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
+ * Apply a {@link Row} to a {@link Map} result.
+ *
  * @author likly
  * @version 1.2.4
+ * @see ObjectTypeHandler
+ * @see ResultMapBiFunction
  **/
 public class MapBiFunction implements BiFunction<Row, Headers, Map<String, Object>> {
     private final TypeHandler<Object> typeHandler = new ObjectTypeHandler();
@@ -29,6 +33,6 @@ public class MapBiFunction implements BiFunction<Row, Headers, Map<String, Objec
             map.put(header, value);
         });
 
-        return  map;
+        return map;
     }
 }
