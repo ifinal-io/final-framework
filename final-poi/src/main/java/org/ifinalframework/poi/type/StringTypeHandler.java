@@ -16,7 +16,9 @@
 package org.ifinalframework.poi.type;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.util.format.LocalDateTimeFormatter;
 import org.springframework.lang.NonNull;
 
 /**
@@ -36,6 +38,11 @@ public class StringTypeHandler implements TypeHandler<String> {
                 return cell.getStringCellValue();
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue());
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(cell.getLocalDateTimeCellValue());
+                }
+                return String.valueOf(cell.getNumericCellValue());
             case FORMULA:
                 return cell.getCellFormula();
             case BLANK:
