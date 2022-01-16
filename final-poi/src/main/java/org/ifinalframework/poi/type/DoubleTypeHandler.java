@@ -36,8 +36,11 @@ public class DoubleTypeHandler implements TypeHandler<Double> {
                 return cell.getNumericCellValue();
             case STRING:
                 return Double.parseDouble(cell.getStringCellValue());
+            case BLANK:
+            case _NONE:
+                return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Double from " + cell.getCellType());
         }
     }
 }

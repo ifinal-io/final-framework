@@ -38,7 +38,11 @@ public class StringTypeHandler implements TypeHandler<String> {
                 return String.valueOf(cell.getBooleanCellValue());
             case FORMULA:
                 return cell.getCellFormula();
+            case BLANK:
+            case _NONE:
+                return null;
+            default:
+                throw new IllegalArgumentException("Can not mapping String from " + cell.getCellType());
         }
-        return null;
     }
 }

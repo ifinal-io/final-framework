@@ -36,8 +36,11 @@ public class FloatTypeHandler implements TypeHandler<Float> {
                 return (float) cell.getNumericCellValue();
             case STRING:
                 return Float.parseFloat(cell.getStringCellValue());
+            case _NONE:
+            case BLANK:
+                return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Float from " + cell.getCellType());
         }
     }
 }

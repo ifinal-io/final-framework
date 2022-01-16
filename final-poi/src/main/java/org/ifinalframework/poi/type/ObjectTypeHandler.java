@@ -46,8 +46,9 @@ public class ObjectTypeHandler implements TypeHandler<Object> {
                 return cell.getNumericCellValue();
             case FORMULA:
                 return cell.getCellFormula();
+            default:
+                return null;
 
         }
-        return null;
     }
 }

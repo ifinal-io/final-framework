@@ -40,8 +40,11 @@ public class BooleanTypeHandler implements TypeHandler<Boolean> {
                 return Boolean.valueOf(cell.getStringCellValue());
             case NUMERIC:
                 return Objects.equals(1, (int) cell.getNumericCellValue());
-            default:
+            case _NONE:
+            case BLANK:
                 return null;
+            default:
+                throw new IllegalArgumentException("Can not mapping Boolean from " + cell.getCellType());
         }
     }
 }

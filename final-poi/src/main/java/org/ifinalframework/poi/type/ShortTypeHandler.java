@@ -36,8 +36,11 @@ public class ShortTypeHandler implements TypeHandler<Short> {
                 return (short) cell.getNumericCellValue();
             case STRING:
                 return Short.parseShort(cell.getStringCellValue());
+            case BLANK:
+            case _NONE:
+                return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Short from " + cell.getCellType());
         }
     }
 }

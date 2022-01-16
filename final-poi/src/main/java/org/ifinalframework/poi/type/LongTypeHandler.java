@@ -36,8 +36,11 @@ public class LongTypeHandler implements TypeHandler<Long> {
                 return (long) cell.getNumericCellValue();
             case STRING:
                 return Long.parseLong(cell.getStringCellValue());
+            case _NONE:
+            case BLANK:
+                return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Long from " + cell.getCellType());
         }
     }
 }

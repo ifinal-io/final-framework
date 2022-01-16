@@ -42,15 +42,19 @@ public class DateTypeHandler implements TypeHandler<Date> {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     return cell.getDateCellValue();
                 }
-                break;
+                return null;
 
             case STRING:
                 String value = cell.getStringCellValue();
                 return DateFormatters.DEFAULT.parse(value);
+            case _NONE:
+            case BLANK:
+                return null;
+            default:
+                throw new IllegalArgumentException("Can not mapping Date from " + cell.getCellType());
 
 
         }
 
-        return null;
     }
 }

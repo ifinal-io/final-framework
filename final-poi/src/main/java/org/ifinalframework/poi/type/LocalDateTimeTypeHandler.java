@@ -47,6 +47,12 @@ public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
             case STRING:
                 String value = cell.getStringCellValue();
                 return LocalDateTimeFormatters.DEFAULT.parse(value);
+            case _NONE:
+            case BLANK:
+                return null;
+            default:
+                throw new IllegalArgumentException("Can not mapping LocalDateTime from " + cell.getCellType());
+
 
         }
 

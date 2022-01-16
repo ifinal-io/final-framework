@@ -36,6 +36,9 @@ public class IntegerTypeHandler implements TypeHandler<Integer> {
                 return (int) cell.getNumericCellValue();
             case STRING:
                 return Integer.parseInt(cell.getStringCellValue());
+            case BLANK:
+            case _NONE:
+                return null;
             default:
                 throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
         }
