@@ -72,7 +72,7 @@ class ExcelsTest {
 
             Excels.newWriter(excel).append(persons())
                     .append(persons())
-                    .write("/test3.xlsx");
+                    .write("/target/test3.xlsx");
         });
 
     }
