@@ -25,12 +25,12 @@ import org.springframework.lang.NonNull;
  **/
 public class IntegerTypeHandler implements TypeHandler<Integer> {
     @Override
-    public void setValue(@NonNull Cell cell, Integer value) {
+    public void serialize(@NonNull Cell cell, Integer value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Integer getValue(@NonNull Cell cell) {
+    public Integer deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return (int) cell.getNumericCellValue();

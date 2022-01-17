@@ -33,12 +33,12 @@ public class BooleanTypeHandler implements TypeHandler<Boolean> {
     private static final Set<String> TRUE_STRINGS = Stream.of("TRUE", "T", "YES", "Y").collect(Collectors.toSet());
 
     @Override
-    public void setValue(@NonNull Cell cell, Boolean value) {
+    public void serialize(@NonNull Cell cell, Boolean value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Boolean getValue(Cell cell) {
+    public Boolean deserialize(Cell cell) {
         switch (cell.getCellType()) {
             case BOOLEAN:
                 return cell.getBooleanCellValue();

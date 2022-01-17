@@ -25,12 +25,12 @@ import org.springframework.lang.NonNull;
  **/
 public class FloatTypeHandler implements TypeHandler<Float> {
     @Override
-    public void setValue(@NonNull Cell cell, Float value) {
+    public void serialize(@NonNull Cell cell, Float value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Float getValue(@NonNull Cell cell) {
+    public Float deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return (float) cell.getNumericCellValue();

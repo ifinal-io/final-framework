@@ -27,12 +27,12 @@ import org.springframework.lang.NonNull;
  **/
 public class StringTypeHandler implements TypeHandler<String> {
     @Override
-    public void setValue(@NonNull Cell cell, String value) {
+    public void serialize(@NonNull Cell cell, String value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public String getValue(@NonNull Cell cell) {
+    public String deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();

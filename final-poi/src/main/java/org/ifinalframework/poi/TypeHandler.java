@@ -15,10 +15,6 @@
 
 package org.ifinalframework.poi;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 /**
  * TypeHandler.
  *
@@ -26,10 +22,6 @@ import org.springframework.lang.Nullable;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface TypeHandler<T> {
-
-    void setValue(@NonNull Cell cell, @Nullable T value);
-
-    T getValue(@NonNull Cell cell);
+public interface TypeHandler<T> extends ExcelSerializer<T>, ExcelDeserializer<T> {
 
 }

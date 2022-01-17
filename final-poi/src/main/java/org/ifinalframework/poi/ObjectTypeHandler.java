@@ -43,7 +43,7 @@ public final class ObjectTypeHandler implements TypeHandler<Object> {
     private static final Set<Class<?>> BOOLEANS = new HashSet<>(Arrays.asList(boolean.class, Boolean.class));
 
     @Override
-    public void setValue(@NonNull final Cell cell, @Nullable final Object value) {
+    public void serialize(@NonNull final Cell cell, @Nullable final Object value) {
         if (Objects.isNull(value)) {
             return;
         }
@@ -71,7 +71,7 @@ public final class ObjectTypeHandler implements TypeHandler<Object> {
     }
 
     @Override
-    public Object getValue(Cell cell) {
+    public Object deserialize(Cell cell) {
         throw new UnsupportedOperationException("");
     }
 

@@ -179,7 +179,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
         TypeHandler<Object> typeHandler = new ObjectTypeHandler();
 
-        typeHandler.setValue(rowCell, value);
+        typeHandler.serialize(rowCell, value);
 
     }
 

@@ -25,12 +25,12 @@ import org.springframework.lang.NonNull;
  **/
 public class LongTypeHandler implements TypeHandler<Long> {
     @Override
-    public void setValue(@NonNull Cell cell, Long value) {
+    public void serialize(@NonNull Cell cell, Long value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Long getValue(@NonNull Cell cell) {
+    public Long deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return (long) cell.getNumericCellValue();

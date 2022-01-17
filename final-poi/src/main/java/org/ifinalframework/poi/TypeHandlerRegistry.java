@@ -56,6 +56,7 @@ public class TypeHandlerRegistry {
         typeHandlerMap.put(javaType, typeHandler);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> TypeHandler<T> getTypeHandler(Class<T> javaType) {
         return (TypeHandler<T>) typeHandlerMap.get(javaType);
     }

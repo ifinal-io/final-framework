@@ -25,12 +25,12 @@ import org.springframework.lang.NonNull;
  **/
 public class ShortTypeHandler implements TypeHandler<Short> {
     @Override
-    public void setValue(@NonNull Cell cell, Short value) {
+    public void serialize(@NonNull Cell cell, Short value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Short getValue(@NonNull Cell cell) {
+    public Short deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return (short) cell.getNumericCellValue();

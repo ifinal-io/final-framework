@@ -44,7 +44,7 @@ public class MapBiFunction implements BiFunction<Row, Headers, Map<String, Objec
 
         headers.foreach((header, index) -> {
             Cell cell = row.getCell(index);
-            Object value = Optional.ofNullable(cell).map(typeHandler::getValue).orElse(null);
+            Object value = Optional.ofNullable(cell).map(typeHandler::deserialize).orElse(null);
             map.put(header, value);
         });
 

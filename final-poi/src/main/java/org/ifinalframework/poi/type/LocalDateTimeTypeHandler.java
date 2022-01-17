@@ -30,12 +30,12 @@ import java.time.LocalDateTime;
 public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
 
     @Override
-    public void setValue(@NonNull Cell cell, LocalDateTime value) {
+    public void serialize(@NonNull Cell cell, LocalDateTime value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public LocalDateTime getValue(@NonNull Cell cell) {
+    public LocalDateTime deserialize(@NonNull Cell cell) {
 
         switch (cell.getCellType()) {
             case NUMERIC:

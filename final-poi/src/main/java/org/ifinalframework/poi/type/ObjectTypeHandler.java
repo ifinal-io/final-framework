@@ -26,12 +26,12 @@ import org.ifinalframework.poi.TypeHandler;
  **/
 public class ObjectTypeHandler implements TypeHandler<Object> {
     @Override
-    public void setValue(Cell cell, Object value) {
+    public void serialize(Cell cell, Object value) {
         cell.setCellValue(value.toString());
     }
 
     @Override
-    public Object getValue(Cell cell) {
+    public Object deserialize(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();

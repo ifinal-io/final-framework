@@ -25,12 +25,12 @@ import org.springframework.lang.NonNull;
  **/
 public class DoubleTypeHandler implements TypeHandler<Double> {
     @Override
-    public void setValue(@NonNull Cell cell, Double value) {
+    public void serialize(@NonNull Cell cell, Double value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Double getValue(@NonNull Cell cell) {
+    public Double deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return cell.getNumericCellValue();

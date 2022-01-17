@@ -62,7 +62,7 @@ public class ResultMapBiFunction<T> implements BiFunction<Row, Headers, T> {
             }
 
             TypeHandler<?> typeHandler = resultMapping.getTypeHandler();
-            Object value = typeHandler.getValue(cell);
+            Object value = typeHandler.deserialize(cell);
             beanWrapper.setPropertyValue(resultMapping.getProperty(), value);
 
         }

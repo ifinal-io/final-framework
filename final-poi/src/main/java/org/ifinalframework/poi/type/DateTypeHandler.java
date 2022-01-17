@@ -30,12 +30,12 @@ import java.util.Date;
 public class DateTypeHandler implements TypeHandler<Date> {
 
     @Override
-    public void setValue(@NonNull Cell cell, Date value) {
+    public void serialize(@NonNull Cell cell, Date value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Date getValue(@NonNull Cell cell) {
+    public Date deserialize(@NonNull Cell cell) {
 
         switch (cell.getCellType()) {
             case NUMERIC:
