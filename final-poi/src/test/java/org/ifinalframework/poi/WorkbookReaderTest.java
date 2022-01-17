@@ -17,7 +17,6 @@ package org.ifinalframework.poi;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ifinalframework.poi.function.ResultMapBiFunction;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
@@ -42,9 +41,9 @@ import java.util.stream.IntStream;
 class WorkbookReaderTest {
 
     @Test
-    void intStream(){
-        long count = IntStream.range(0, 5).peek(it -> logger.info("{}",it)).count();
-        Assertions.assertEquals(5,count);
+    void intStream() {
+        long count = IntStream.range(0, 5).peek(it -> logger.info("{}", it)).count();
+        Assertions.assertEquals(5, count);
     }
 
     @Test
@@ -57,8 +56,7 @@ class WorkbookReaderTest {
                 new ResultMapping("age", "年龄", new IntegerTypeHandler())
         ));
 
-        XSSFWorkbook workbook = new XSSFWorkbook(getClass().getResourceAsStream("/excel.xlsx"));
-        WorkbookReader reader = new WorkbookReader(workbook);
+        WorkbookReader reader = new WorkbookReader(getClass().getResourceAsStream("/excel.xlsx"));
 
 
         List<Person> list = reader.map(new ResultMapBiFunction<Person>(personResultMap))
@@ -67,12 +65,13 @@ class WorkbookReaderTest {
 
         System.out.println(list);
 
-    } @Test
+    }
+
+    @Test
     @SneakyThrows
     void testMap() {
 
-        XSSFWorkbook workbook = new XSSFWorkbook(getClass().getResourceAsStream("/excel.xlsx"));
-        WorkbookReader reader = new WorkbookReader(workbook);
+        WorkbookReader reader = new WorkbookReader(getClass().getResourceAsStream("/excel.xlsx"));
 
         List<Map> list = reader.map().collect(Collectors.toList());
 

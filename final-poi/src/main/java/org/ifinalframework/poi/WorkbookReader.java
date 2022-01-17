@@ -18,8 +18,11 @@ package org.ifinalframework.poi;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ifinalframework.poi.function.MapBiFunction;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.IntStream;
@@ -35,6 +38,14 @@ public class WorkbookReader {
 
     private final Workbook workbook;
     private final int headerIndex;
+
+    public WorkbookReader(InputStream in) throws IOException {
+        this(in, 0);
+    }
+
+    public WorkbookReader(InputStream in, int headerIndex) throws IOException {
+        this(new XSSFWorkbook(in), headerIndex);
+    }
 
     public WorkbookReader(Workbook workbook) {
         this(workbook, 0);
