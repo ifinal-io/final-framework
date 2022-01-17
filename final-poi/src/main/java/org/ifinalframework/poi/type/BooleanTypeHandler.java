@@ -39,7 +39,7 @@ public class BooleanTypeHandler implements TypeHandler<Boolean> {
             case STRING:
                 return Boolean.valueOf(cell.getStringCellValue());
             case NUMERIC:
-                return Objects.equals(1, (int) cell.getNumericCellValue());
+                return Objects.equals(cell.getNumericCellValue(),1.0);
             case _NONE:
             case BLANK:
                 return null;
