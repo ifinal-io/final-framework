@@ -20,12 +20,18 @@ import org.ifinalframework.poi.TypeHandler;
 import org.springframework.lang.NonNull;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author likly
  * @version 1.2.4
  **/
 public class BooleanTypeHandler implements TypeHandler<Boolean> {
+
+    private static final Set<String> TRUE_STRINGS = Stream.of("TRUE", "T", "YES", "Y").collect(Collectors.toSet());
+
     @Override
     public void setValue(@NonNull Cell cell, Boolean value) {
         cell.setCellValue(value);
@@ -37,9 +43,9 @@ public class BooleanTypeHandler implements TypeHandler<Boolean> {
             case BOOLEAN:
                 return cell.getBooleanCellValue();
             case STRING:
-                return Boolean.valueOf(cell.getStringCellValue());
+                return TRUE_STRINGS.contains(cell.getStringCellValue().toUpperCase());
             case NUMERIC:
-                return Objects.equals(cell.getNumericCellValue(),1.0);
+                return Objects.equals(cell.getNumericCellValue(), 1.0);
             case _NONE:
             case BLANK:
                 return null;

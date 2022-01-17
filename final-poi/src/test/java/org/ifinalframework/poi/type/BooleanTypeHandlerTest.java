@@ -5,11 +5,14 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -39,23 +42,42 @@ class BooleanTypeHandlerTest {
         assertEquals(value,captor.getValue());
     }
 
-    @Test
-    void getValue() {
-        // BOOLEAN
+    @ParameterizedTest
+    @ValueSource(booleans = {true,false})
+    void getBooleanString(Boolean value){
         when(cell.getCellType()).thenReturn(CellType.BOOLEAN);
-        when(cell.getBooleanCellValue()).thenReturn(true);
-        assertTrue(typeHandler.getValue(cell));
-
-        // STRING
-        when(cell.getCellType()).thenReturn(CellType.STRING);
-        when(cell.getStringCellValue()).thenReturn("TRUE");
-        assertTrue(typeHandler.getValue(cell));
-
-        // NUMBER
-        when(cell.getCellType()).thenReturn(CellType.NUMERIC);
-        when(cell.getNumericCellValue()).thenReturn(1.0);
-        assertTrue(typeHandler.getValue(cell));
-
-
+        when(cell.getBooleanCellValue()).thenReturn(value);
+        assertEquals(value,typeHandler.getValue(cell));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"YES","Y","TRUE","T","yes","y","true","t"})
+    void getStringValue(String value){
+        when(cell.getCellType()).thenReturn(CellType.STRING);
+        when(cell.getStringCellValue()).thenReturn(value);
+        assertTrue(typeHandler.getValue(cell));
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {1.0,1.00,1.000})
+    void getNumberValue(Double value){
+        when(cell.getCellType()).thenReturn(CellType.NUMERIC);
+        when(cell.getNumericCellValue()).thenReturn(value);
+        assertTrue(typeHandler.getValue(cell));
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = CellType.class,names = {"_NONE","BLANK"})
+    void getNullValue(CellType cellType){
+        when(cell.getCellType()).thenReturn(cellType);
+        assertNull(typeHandler.getValue(cell));
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = CellType.class,names = {"ERROR","FORMULA"})
+    void getException(CellType cellType){
+        when(cell.getCellType()).thenReturn(cellType);
+        assertThrows(IllegalArgumentException.class,() -> typeHandler.getValue(cell));
+    }
+
 }
