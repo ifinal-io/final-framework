@@ -1,6 +1,6 @@
 package org.ifinalframework.poi.annotaion;
 
-import org.ifinalframework.poi.ExcelSerializer;
+import org.ifinalframework.poi.databind.ExcelSerializer;
 import org.springframework.core.annotation.AliasFor;
 
 /**
