@@ -13,34 +13,48 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.type;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.TypeHandler;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.ifinalframework.poi.databind.TypeHandler;
+import org.ifinalframework.util.format.DateFormatters;
 import org.springframework.lang.NonNull;
+
+import java.util.Date;
 
 /**
  * @author likly
  * @version 1.2.4
  **/
-public class ShortTypeHandler implements TypeHandler<Short> {
+public class DateTypeHandler implements TypeHandler<Date> {
+
     @Override
-    public void serialize(@NonNull Cell cell, Short value) {
+    public void serialize(@NonNull Cell cell, Date value) {
         cell.setCellValue(value);
     }
 
     @Override
-    public Short deserialize(@NonNull Cell cell) {
+    public Date deserialize(@NonNull Cell cell) {
+
         switch (cell.getCellType()) {
             case NUMERIC:
-                return (short) cell.getNumericCellValue();
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue();
+                }
+                return null;
+
             case STRING:
-                return Short.parseShort(cell.getStringCellValue());
-            case BLANK:
+                String value = cell.getStringCellValue();
+                return DateFormatters.DEFAULT.parse(value);
             case _NONE:
+            case BLANK:
                 return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Short from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Date from " + cell.getCellType());
+
+
         }
+
     }
 }

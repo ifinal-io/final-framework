@@ -13,42 +13,33 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
-
+package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
+import org.springframework.lang.NonNull;
 
 /**
+ * IntegerExcelDeserializer.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class ObjectTypeHandler implements TypeHandler<Object> {
+ * @since 1.2.4
+ */
+public class IntegerExcelDeserializer implements ExcelDeserializer<Integer> {
     @Override
-    public void serialize(Cell cell, Object value) {
-        cell.setCellValue(value.toString());
-    }
-
-    @Override
-    public Object deserialize(Cell cell) {
+    public Integer deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
-            case STRING:
-                return cell.getStringCellValue();
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
             case NUMERIC:
-
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getLocalDateTimeCellValue();
-                }
-
-                return cell.getNumericCellValue();
+                return (int) cell.getNumericCellValue();
+            case STRING:
+                return Integer.parseInt(cell.getStringCellValue());
+            case BLANK:
+            case _NONE:
             case FORMULA:
-                return cell.getCellFormula();
-            default:
                 return null;
-
+            default:
+                throw new IllegalArgumentException("Can not mapping Integer from " + cell.getCellType());
         }
     }
 }

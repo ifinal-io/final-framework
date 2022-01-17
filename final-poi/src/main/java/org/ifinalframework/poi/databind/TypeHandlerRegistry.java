@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi;
+package org.ifinalframework.poi.databind;
 
-import org.ifinalframework.poi.type.ObjectTypeHandler;
-import org.ifinalframework.poi.type.*;
+import org.ifinalframework.poi.databind.type.*;
 
 import java.util.Date;
 import java.util.LinkedHashMap;

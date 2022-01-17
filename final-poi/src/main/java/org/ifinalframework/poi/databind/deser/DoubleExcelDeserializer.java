@@ -13,34 +13,32 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
+ * DoubleExcelDeserializer.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class LongTypeHandler implements TypeHandler<Long> {
+ * @since 1.2.4
+ */
+public class DoubleExcelDeserializer implements ExcelDeserializer<Double> {
     @Override
-    public void serialize(@NonNull Cell cell, Long value) {
-        cell.setCellValue(value);
-    }
-
-    @Override
-    public Long deserialize(@NonNull Cell cell) {
+    public Double deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
-                return (long) cell.getNumericCellValue();
+                return cell.getNumericCellValue();
             case STRING:
-                return Long.parseLong(cell.getStringCellValue());
-            case _NONE:
+                return Double.parseDouble(cell.getStringCellValue());
             case BLANK:
+            case _NONE:
                 return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Long from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Double from " + cell.getCellType());
         }
     }
 }

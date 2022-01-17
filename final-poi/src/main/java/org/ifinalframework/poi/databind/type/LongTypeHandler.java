@@ -13,18 +13,17 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi;
+package org.ifinalframework.poi.databind.type;
 
-import org.ifinalframework.poi.databind.ExcelDeserializer;
-import org.ifinalframework.poi.databind.ExcelSerializer;
+import org.ifinalframework.poi.databind.deser.LongExcelDeserializer;
+import org.ifinalframework.poi.databind.ser.LongExcelSerializer;
 
 /**
- * TypeHandler.
- *
  * @author likly
- * @version 1.0.0
- * @since 1.0.0
- */
-public interface TypeHandler<T> extends ExcelSerializer<T>, ExcelDeserializer<T> {
-
+ * @version 1.2.4
+ **/
+public class LongTypeHandler extends SimpleTypeHandler<Long> {
+    public LongTypeHandler() {
+        super(new LongExcelSerializer(), new LongExcelDeserializer());
+    }
 }

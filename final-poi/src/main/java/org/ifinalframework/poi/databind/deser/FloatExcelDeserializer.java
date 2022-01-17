@@ -13,34 +13,32 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
+ * FloatExcelDeserializer.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class DoubleTypeHandler implements TypeHandler<Double> {
+ * @since 1.2.4
+ */
+public class FloatExcelDeserializer implements ExcelDeserializer<Float> {
     @Override
-    public void serialize(@NonNull Cell cell, Double value) {
-        cell.setCellValue(value);
-    }
-
-    @Override
-    public Double deserialize(@NonNull Cell cell) {
+    public Float deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
-                return cell.getNumericCellValue();
+                return (float) cell.getNumericCellValue();
             case STRING:
-                return Double.parseDouble(cell.getStringCellValue());
-            case BLANK:
+                return Float.parseFloat(cell.getStringCellValue());
             case _NONE:
+            case BLANK:
                 return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Double from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Float from " + cell.getCellType());
         }
     }
 }

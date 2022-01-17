@@ -13,27 +13,17 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.mapping;
+package org.ifinalframework.poi.databind.type;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.ifinalframework.poi.databind.ExcelDeserializer;
-import org.ifinalframework.poi.databind.ExcelSerializer;
-import org.ifinalframework.poi.databind.TypeHandler;
+import org.ifinalframework.poi.databind.deser.ShortExcelDeserializer;
+import org.ifinalframework.poi.databind.ser.ShortExcelSerializer;
 
 /**
  * @author likly
  * @version 1.2.4
  **/
-@Setter
-@Getter
-@RequiredArgsConstructor
-public class ResultMapping {
-    private Integer index;
-    private final String property;
-    private final String column;
-    private final TypeHandler<?> typeHandler;
-    private ExcelSerializer serializer;
-    private ExcelDeserializer deserializer;
+public class ShortTypeHandler extends SimpleTypeHandler<Short> {
+    public ShortTypeHandler() {
+        super(new ShortExcelSerializer(), new ShortExcelDeserializer());
+    }
 }

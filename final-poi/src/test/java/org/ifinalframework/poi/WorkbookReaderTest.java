@@ -17,13 +17,13 @@ package org.ifinalframework.poi;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.poi.databind.type.BooleanTypeHandler;
+import org.ifinalframework.poi.databind.type.DateTypeHandler;
+import org.ifinalframework.poi.databind.type.IntegerTypeHandler;
+import org.ifinalframework.poi.databind.type.StringTypeHandler;
 import org.ifinalframework.poi.function.ResultMapBiFunction;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
-import org.ifinalframework.poi.type.BooleanTypeHandler;
-import org.ifinalframework.poi.type.DateTypeHandler;
-import org.ifinalframework.poi.type.IntegerTypeHandler;
-import org.ifinalframework.poi.type.StringTypeHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

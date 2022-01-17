@@ -13,34 +13,37 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.type;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
+import org.ifinalframework.poi.databind.ExcelSerializer;
+import org.ifinalframework.poi.databind.TypeHandler;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
+ * SimpleTypeHandler.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class FloatTypeHandler implements TypeHandler<Float> {
+ * @since 1.2.4
+ */
+@RequiredArgsConstructor
+public class SimpleTypeHandler<T> implements TypeHandler<T> {
+    private final ExcelSerializer<T> serializer;
+    private final ExcelDeserializer<T> deserializer;
+
+    @Nullable
     @Override
-    public void serialize(@NonNull Cell cell, Float value) {
-        cell.setCellValue(value);
+    public T deserialize(@NonNull Cell cell) {
+        return deserializer.deserialize(cell);
     }
 
     @Override
-    public Float deserialize(@NonNull Cell cell) {
-        switch (cell.getCellType()) {
-            case NUMERIC:
-                return (float) cell.getNumericCellValue();
-            case STRING:
-                return Float.parseFloat(cell.getStringCellValue());
-            case _NONE:
-            case BLANK:
-                return null;
-            default:
-                throw new IllegalArgumentException("Can not mapping Float from " + cell.getCellType());
-        }
+    public void serialize(@NonNull Cell cell, @Nullable T value) {
+        serializer.serialize(cell, value);
+
     }
 }

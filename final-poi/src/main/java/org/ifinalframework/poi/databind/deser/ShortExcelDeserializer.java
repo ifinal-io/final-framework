@@ -13,48 +13,32 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.ifinalframework.poi.TypeHandler;
-import org.ifinalframework.util.format.DateFormatters;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
-import java.util.Date;
-
 /**
+ * ShortExcelDeserializer.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class DateTypeHandler implements TypeHandler<Date> {
-
+ * @since 1.2.4
+ */
+public class ShortExcelDeserializer implements ExcelDeserializer<Short> {
     @Override
-    public void serialize(@NonNull Cell cell, Date value) {
-        cell.setCellValue(value);
-    }
-
-    @Override
-    public Date deserialize(@NonNull Cell cell) {
-
+    public Short deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue();
-                }
-                return null;
-
+                return (short) cell.getNumericCellValue();
             case STRING:
-                String value = cell.getStringCellValue();
-                return DateFormatters.DEFAULT.parse(value);
-            case _NONE:
+                return Short.parseShort(cell.getStringCellValue());
             case BLANK:
+            case _NONE:
                 return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Date from " + cell.getCellType());
-
-
+                throw new IllegalArgumentException("Can not mapping Short from " + cell.getCellType());
         }
-
     }
 }

@@ -13,43 +13,42 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.type;
+
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.ifinalframework.poi.TypeHandler;
-import org.ifinalframework.util.format.LocalDateTimeFormatter;
-import org.springframework.lang.NonNull;
+import org.ifinalframework.poi.databind.TypeHandler;
 
 /**
  * @author likly
  * @version 1.2.4
  **/
-public class StringTypeHandler implements TypeHandler<String> {
+public class ObjectTypeHandler implements TypeHandler<Object> {
     @Override
-    public void serialize(@NonNull Cell cell, String value) {
-        cell.setCellValue(value);
+    public void serialize(Cell cell, Object value) {
+        cell.setCellValue(value.toString());
     }
 
     @Override
-    public String deserialize(@NonNull Cell cell) {
+    public Object deserialize(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();
             case BOOLEAN:
-                return String.valueOf(cell.getBooleanCellValue());
+                return cell.getBooleanCellValue();
             case NUMERIC:
+
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    return LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(cell.getLocalDateTimeCellValue());
+                    return cell.getLocalDateTimeCellValue();
                 }
-                return String.valueOf(cell.getNumericCellValue());
+
+                return cell.getNumericCellValue();
             case FORMULA:
                 return cell.getCellFormula();
-            case BLANK:
-            case _NONE:
-                return null;
             default:
-                throw new IllegalArgumentException("Can not mapping String from " + cell.getCellType());
+                return null;
+
         }
     }
 }

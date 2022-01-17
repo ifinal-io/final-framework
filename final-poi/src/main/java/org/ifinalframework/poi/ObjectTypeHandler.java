@@ -16,6 +16,7 @@
 package org.ifinalframework.poi;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.ifinalframework.poi.databind.TypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

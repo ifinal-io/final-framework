@@ -20,7 +20,7 @@ import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.ifinalframework.poi.Headers;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.TypeHandler;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
 import org.springframework.beans.BeanWrapperImpl;

@@ -13,44 +13,34 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.type;
+package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
-
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.springframework.lang.Nullable;
 
 /**
+ * LongExcelDeserializer.
+ *
  * @author likly
  * @version 1.2.4
- **/
-public class BooleanTypeHandler implements TypeHandler<Boolean> {
-
-    private static final Set<String> TRUE_STRINGS = Stream.of("TRUE", "T", "YES", "Y").collect(Collectors.toSet());
-
+ * @since 1.2.4
+ */
+public class LongExcelDeserializer implements ExcelDeserializer<Long> {
+    @Nullable
     @Override
-    public void serialize(@NonNull Cell cell, Boolean value) {
-        cell.setCellValue(value);
-    }
-
-    @Override
-    public Boolean deserialize(Cell cell) {
+    public Long deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
-            case STRING:
-                return TRUE_STRINGS.contains(cell.getStringCellValue().toUpperCase());
             case NUMERIC:
-                return Objects.equals(cell.getNumericCellValue(), 1.0);
+                return (long) cell.getNumericCellValue();
+            case STRING:
+                return Long.parseLong(cell.getStringCellValue());
             case _NONE:
             case BLANK:
                 return null;
             default:
-                throw new IllegalArgumentException("Can not mapping Boolean from " + cell.getCellType());
+                throw new IllegalArgumentException("Can not mapping Long from " + cell.getCellType());
         }
     }
 }
