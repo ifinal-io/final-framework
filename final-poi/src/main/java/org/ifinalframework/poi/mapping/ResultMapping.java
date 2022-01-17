@@ -19,6 +19,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.ifinalframework.poi.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
+import org.ifinalframework.poi.databind.ExcelSerializer;
 
 /**
  * @author likly
@@ -32,4 +34,6 @@ public class ResultMapping {
     private final String property;
     private final String column;
     private final TypeHandler<?> typeHandler;
+    private ExcelSerializer serializer;
+    private ExcelDeserializer deserializer;
 }
