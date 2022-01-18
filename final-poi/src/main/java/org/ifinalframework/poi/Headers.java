@@ -49,4 +49,8 @@ public final class Headers {
     public void foreach(BiConsumer<String, Integer> action) {
         headerIndexMap.forEach(action);
     }
+
+    public boolean hasHeader(String header) {
+        return headerIndexMap.containsKey(header);
+    }
 }
