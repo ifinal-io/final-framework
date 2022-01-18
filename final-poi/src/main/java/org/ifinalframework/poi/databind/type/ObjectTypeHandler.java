@@ -28,7 +28,7 @@ import org.springframework.lang.Nullable;
  **/
 public class ObjectTypeHandler implements TypeHandler<Object> {
     @Override
-    public void serialize(Cell cell, Object value) {
+    public void serialize(@NonNull Cell cell, Object value) {
         cell.setCellValue(value.toString());
     }
 

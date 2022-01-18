@@ -20,10 +20,17 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
+ * Deserialize a {@link T} result from {@link Cell}.
+ *
  * @author likly
  * @version 1.2.4
+ * @see ExcelSerializer
  **/
+@FunctionalInterface
 public interface ExcelDeserializer<T> {
+    /**
+     * return the value of {@link T} from {@link Cell}.
+     */
     @Nullable
     T deserialize(@NonNull Cell cell);
 }
