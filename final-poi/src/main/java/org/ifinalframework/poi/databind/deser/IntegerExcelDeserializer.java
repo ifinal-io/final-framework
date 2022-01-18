@@ -18,6 +18,7 @@ package org.ifinalframework.poi.databind.deser;
 import org.apache.poi.ss.usermodel.Cell;
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * Deserialize a {@link Integer} result from {@link Cell}.
@@ -30,6 +31,7 @@ public class IntegerExcelDeserializer implements ExcelDeserializer<Integer> {
     private static final int ONE = 1;
     private static final int ZERO = 0;
 
+    @Nullable
     @Override
     public Integer deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {

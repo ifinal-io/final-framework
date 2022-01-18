@@ -37,7 +37,7 @@ public class ShortExcelDeserializer implements ExcelDeserializer<Short> {
             case NUMERIC:
                 return (short) cell.getNumericCellValue();
             case STRING:
-                return Short.parseShort(cell.getStringCellValue());
+                return Double.valueOf(cell.getStringCellValue()).shortValue();
             case BOOLEAN:
                 return cell.getBooleanCellValue() ? ONE : ZERO;
             case BLANK:

@@ -33,9 +33,9 @@ import static org.mockito.Mockito.when;
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)
-class IntegerExcelDeserializerTest {
+class LongExcelDeserializerTest {
 
-    private final IntegerExcelDeserializer deserializer = new IntegerExcelDeserializer();
+    private final LongExcelDeserializer deserializer = new LongExcelDeserializer();
 
     @Mock
     private Cell cell;
@@ -59,14 +59,10 @@ class IntegerExcelDeserializerTest {
     void getBooleanValue(Boolean value) {
         when(cell.getCellType()).thenReturn(CellType.BOOLEAN);
         when(cell.getBooleanCellValue()).thenReturn(value);
-        if (value) {
-            assertEquals(1, deserializer.deserialize(cell));
-        } else {
-            assertEquals(0, deserializer.deserialize(cell));
-        }
+        assertEquals(value ? 1 : 0, deserializer.deserialize(cell));
     }
 
-    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK", "FORMULA"})
+    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK"})
     @ParameterizedTest
     void getNullValue(CellType cellType) {
         when(cell.getCellType()).thenReturn(cellType);
@@ -79,6 +75,4 @@ class IntegerExcelDeserializerTest {
         when(cell.getCellType()).thenReturn(cellType);
         assertThrows(IllegalArgumentException.class, () -> deserializer.deserialize(cell));
     }
-
-
 }

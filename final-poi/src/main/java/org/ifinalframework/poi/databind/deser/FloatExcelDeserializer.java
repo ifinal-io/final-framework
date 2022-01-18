@@ -18,6 +18,7 @@ package org.ifinalframework.poi.databind.deser;
 import org.apache.poi.ss.usermodel.Cell;
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * Deserialize a {@link Float} result from {@link Cell}.
@@ -30,6 +31,7 @@ public class FloatExcelDeserializer implements ExcelDeserializer<Float> {
     private static final float ONE = 1;
     private static final float ZERO = 0;
 
+    @Nullable
     @Override
     public Float deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {

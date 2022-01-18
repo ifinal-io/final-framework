@@ -33,9 +33,9 @@ import static org.mockito.Mockito.when;
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)
-class IntegerExcelDeserializerTest {
+class ShortExcelDeserializerTest {
 
-    private final IntegerExcelDeserializer deserializer = new IntegerExcelDeserializer();
+    private final ShortExcelDeserializer deserializer = new ShortExcelDeserializer();
 
     @Mock
     private Cell cell;
@@ -43,15 +43,15 @@ class IntegerExcelDeserializerTest {
     @Test
     void getNumberValue() {
         when(cell.getCellType()).thenReturn(CellType.NUMERIC);
-        when(cell.getNumericCellValue()).thenReturn(1.0);
-        assertEquals(1, deserializer.deserialize(cell));
+        when(cell.getNumericCellValue()).thenReturn(1.1);
+        assertEquals((short) 1, deserializer.deserialize(cell));
     }
 
     @Test
     void getStringValue() {
         when(cell.getCellType()).thenReturn(CellType.STRING);
         when(cell.getStringCellValue()).thenReturn("1.1");
-        assertEquals(1, deserializer.deserialize(cell));
+        assertEquals((short) 1, deserializer.deserialize(cell));
     }
 
     @ValueSource(booleans = {true, false})
@@ -59,14 +59,10 @@ class IntegerExcelDeserializerTest {
     void getBooleanValue(Boolean value) {
         when(cell.getCellType()).thenReturn(CellType.BOOLEAN);
         when(cell.getBooleanCellValue()).thenReturn(value);
-        if (value) {
-            assertEquals(1, deserializer.deserialize(cell));
-        } else {
-            assertEquals(0, deserializer.deserialize(cell));
-        }
+        assertEquals(value ? (short) 1 : (short) 0, deserializer.deserialize(cell));
     }
 
-    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK", "FORMULA"})
+    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK"})
     @ParameterizedTest
     void getNullValue(CellType cellType) {
         when(cell.getCellType()).thenReturn(cellType);
@@ -79,6 +75,5 @@ class IntegerExcelDeserializerTest {
         when(cell.getCellType()).thenReturn(cellType);
         assertThrows(IllegalArgumentException.class, () -> deserializer.deserialize(cell));
     }
-
 
 }

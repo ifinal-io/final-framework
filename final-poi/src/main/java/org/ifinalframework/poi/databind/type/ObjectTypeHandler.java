@@ -19,6 +19,8 @@ package org.ifinalframework.poi.databind.type;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.ifinalframework.poi.databind.TypeHandler;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author likly
@@ -30,8 +32,9 @@ public class ObjectTypeHandler implements TypeHandler<Object> {
         cell.setCellValue(value.toString());
     }
 
+    @Nullable
     @Override
-    public Object deserialize(Cell cell) {
+    public Object deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();

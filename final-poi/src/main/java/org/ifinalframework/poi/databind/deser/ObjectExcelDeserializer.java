@@ -16,37 +16,35 @@
 package org.ifinalframework.poi.databind.deser;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * Deserialize a {@link Double} result from {@link Cell}.
- *
  * @author likly
  * @version 1.2.4
- * @since 1.2.4
- */
-public class DoubleExcelDeserializer implements ExcelDeserializer<Double> {
-
-    private static final double ONE = 1;
-    private static final double ZERO = 0;
-
+ **/
+public class ObjectExcelDeserializer implements ExcelDeserializer<Object> {
     @Nullable
     @Override
-    public Double deserialize(@NonNull Cell cell) {
+    public Object deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
-            case NUMERIC:
-                return cell.getNumericCellValue();
-            case STRING:
-                return Double.parseDouble(cell.getStringCellValue());
             case BOOLEAN:
-                return cell.getBooleanCellValue() ? ONE : ZERO;
-            case BLANK:
-            case _NONE:
-                return null;
+                return cell.getBooleanCellValue();
+            case FORMULA:
+                return cell.getCellFormula();
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getLocalDateTimeCellValue();
+                }
+                return cell.getNumericCellValue();
+            case ERROR:
+                throw new IllegalArgumentException("");
             default:
-                throw new IllegalArgumentException("Can not mapping Double from " + cell.getCellType());
+                return null;
         }
     }
 }

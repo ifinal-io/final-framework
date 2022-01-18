@@ -71,8 +71,9 @@ public final class ObjectTypeHandler implements TypeHandler<Object> {
         }
     }
 
+    @Nullable
     @Override
-    public Object deserialize(Cell cell) {
+    public Object deserialize(@NonNull Cell cell) {
         throw new UnsupportedOperationException("");
     }
 

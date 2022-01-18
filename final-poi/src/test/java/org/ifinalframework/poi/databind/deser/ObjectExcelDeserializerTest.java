@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
@@ -33,50 +34,54 @@ import static org.mockito.Mockito.when;
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)
-class IntegerExcelDeserializerTest {
+class ObjectExcelDeserializerTest {
 
-    private final IntegerExcelDeserializer deserializer = new IntegerExcelDeserializer();
+    private final ObjectExcelDeserializer deserializer = new ObjectExcelDeserializer();
 
     @Mock
     private Cell cell;
-
-    @Test
-    void getNumberValue() {
-        when(cell.getCellType()).thenReturn(CellType.NUMERIC);
-        when(cell.getNumericCellValue()).thenReturn(1.0);
-        assertEquals(1, deserializer.deserialize(cell));
-    }
-
-    @Test
-    void getStringValue() {
-        when(cell.getCellType()).thenReturn(CellType.STRING);
-        when(cell.getStringCellValue()).thenReturn("1.1");
-        assertEquals(1, deserializer.deserialize(cell));
-    }
 
     @ValueSource(booleans = {true, false})
     @ParameterizedTest
     void getBooleanValue(Boolean value) {
         when(cell.getCellType()).thenReturn(CellType.BOOLEAN);
         when(cell.getBooleanCellValue()).thenReturn(value);
-        if (value) {
-            assertEquals(1, deserializer.deserialize(cell));
-        } else {
-            assertEquals(0, deserializer.deserialize(cell));
-        }
+        assertEquals(value, deserializer.deserialize(cell));
     }
 
-    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK", "FORMULA"})
+    @EmptySource
+    @ValueSource(strings = {"haha"})
+    @ParameterizedTest
+    void getStringValue(String value) {
+        when(cell.getCellType()).thenReturn(CellType.STRING);
+        when(cell.getStringCellValue()).thenReturn(value);
+        assertEquals(value, deserializer.deserialize(cell));
+    }
+
+    @Test
+    void getNumberValue() {
+        when(cell.getCellType()).thenReturn(CellType.NUMERIC);
+        when(cell.getNumericCellValue()).thenReturn(1.0);
+        assertEquals(1.0, deserializer.deserialize(cell));
+    }
+
+    @Test
+    void getFormula() {
+        when(cell.getCellType()).thenReturn(CellType.FORMULA);
+        when(cell.getCellFormula()).thenReturn("=haha");
+        assertEquals("=haha", deserializer.deserialize(cell));
+    }
+
+    @EnumSource(value = CellType.class, names = {"_NONE", "BLANK"})
     @ParameterizedTest
     void getNullValue(CellType cellType) {
         when(cell.getCellType()).thenReturn(cellType);
         assertNull(deserializer.deserialize(cell));
     }
 
-    @EnumSource(value = CellType.class, names = {"ERROR"})
-    @ParameterizedTest
-    void exception(CellType cellType) {
-        when(cell.getCellType()).thenReturn(cellType);
+    @Test
+    void exception() {
+        when(cell.getCellType()).thenReturn(CellType.ERROR);
         assertThrows(IllegalArgumentException.class, () -> deserializer.deserialize(cell));
     }
 

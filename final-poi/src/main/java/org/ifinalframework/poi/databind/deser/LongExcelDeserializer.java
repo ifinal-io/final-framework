@@ -38,7 +38,7 @@ public class LongExcelDeserializer implements ExcelDeserializer<Long> {
             case NUMERIC:
                 return (long) cell.getNumericCellValue();
             case STRING:
-                return Long.parseLong(cell.getStringCellValue());
+                return Double.valueOf(cell.getStringCellValue()).longValue();
             case BOOLEAN:
                 return cell.getBooleanCellValue() ? ONE : ZERO;
             case _NONE:
