@@ -21,13 +21,16 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * LongExcelDeserializer.
+ * Deserialize a {@link Long} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4
  * @since 1.2.4
  */
 public class LongExcelDeserializer implements ExcelDeserializer<Long> {
+    private static final long ONE = 1;
+    private static final long ZERO = 0;
+
     @Nullable
     @Override
     public Long deserialize(@NonNull Cell cell) {
@@ -36,6 +39,8 @@ public class LongExcelDeserializer implements ExcelDeserializer<Long> {
                 return (long) cell.getNumericCellValue();
             case STRING:
                 return Long.parseLong(cell.getStringCellValue());
+            case BOOLEAN:
+                return cell.getBooleanCellValue() ? ONE : ZERO;
             case _NONE:
             case BLANK:
                 return null;

@@ -20,13 +20,17 @@ import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
- * DoubleExcelDeserializer.
+ * Deserialize a {@link Double} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4
  * @since 1.2.4
  */
 public class DoubleExcelDeserializer implements ExcelDeserializer<Double> {
+
+    private static final double ONE = 1;
+    private static final double ZERO = 0;
+
     @Override
     public Double deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
@@ -34,6 +38,8 @@ public class DoubleExcelDeserializer implements ExcelDeserializer<Double> {
                 return cell.getNumericCellValue();
             case STRING:
                 return Double.parseDouble(cell.getStringCellValue());
+            case BOOLEAN:
+                return cell.getBooleanCellValue() ? ONE : ZERO;
             case BLANK:
             case _NONE:
                 return null;

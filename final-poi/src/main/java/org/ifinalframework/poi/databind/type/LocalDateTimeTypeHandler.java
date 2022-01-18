@@ -15,11 +15,7 @@
 
 package org.ifinalframework.poi.databind.type;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.ifinalframework.poi.databind.TypeHandler;
-import org.ifinalframework.util.format.LocalDateTimeFormatters;
-import org.springframework.lang.NonNull;
+import org.ifinalframework.poi.databind.ser.LocalDateTimeExcelSerializer;
 
 import java.time.LocalDateTime;
 
@@ -27,35 +23,8 @@ import java.time.LocalDateTime;
  * @author likly
  * @version 1.2.4
  **/
-public class LocalDateTimeTypeHandler implements TypeHandler<LocalDateTime> {
-
-    @Override
-    public void serialize(@NonNull Cell cell, LocalDateTime value) {
-        cell.setCellValue(value);
-    }
-
-    @Override
-    public LocalDateTime deserialize(@NonNull Cell cell) {
-
-        switch (cell.getCellType()) {
-            case NUMERIC:
-                if (!DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getLocalDateTimeCellValue();
-                }
-                break;
-
-            case STRING:
-                String value = cell.getStringCellValue();
-                return LocalDateTimeFormatters.DEFAULT.parse(value);
-            case _NONE:
-            case BLANK:
-                return null;
-            default:
-                throw new IllegalArgumentException("Can not mapping LocalDateTime from " + cell.getCellType());
-
-
-        }
-
-        return null;
+public class LocalDateTimeTypeHandler extends SimpleTypeHandler<LocalDateTime> {
+    public LocalDateTimeTypeHandler() {
+        super(new LocalDateTimeExcelSerializer(), new LocalDateTimeTypeHandler());
     }
 }

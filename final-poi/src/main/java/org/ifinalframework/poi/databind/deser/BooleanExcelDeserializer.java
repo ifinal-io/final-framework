@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * Deserialize a {@link Boolean} result from {@link Cell}.
+ *
  * @author likly
  * @version 1.2.4
  **/

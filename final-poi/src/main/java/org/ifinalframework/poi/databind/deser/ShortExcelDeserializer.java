@@ -20,13 +20,17 @@ import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
- * ShortExcelDeserializer.
+ * Deserialize a {@link Short} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4
  * @since 1.2.4
  */
 public class ShortExcelDeserializer implements ExcelDeserializer<Short> {
+
+    private static final short ONE = 1;
+    private static final short ZERO = 0;
+
     @Override
     public Short deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
@@ -34,6 +38,8 @@ public class ShortExcelDeserializer implements ExcelDeserializer<Short> {
                 return (short) cell.getNumericCellValue();
             case STRING:
                 return Short.parseShort(cell.getStringCellValue());
+            case BOOLEAN:
+                return cell.getBooleanCellValue() ? ONE : ZERO;
             case BLANK:
             case _NONE:
                 return null;

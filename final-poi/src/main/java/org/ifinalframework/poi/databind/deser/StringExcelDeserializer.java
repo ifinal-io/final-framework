@@ -23,7 +23,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * StringExcelDeserializer.
+ * Deserialize a {@link String} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4

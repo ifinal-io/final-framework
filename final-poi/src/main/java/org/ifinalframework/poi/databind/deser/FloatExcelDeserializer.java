@@ -20,13 +20,16 @@ import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
- * FloatExcelDeserializer.
+ * Deserialize a {@link Float} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4
  * @since 1.2.4
  */
 public class FloatExcelDeserializer implements ExcelDeserializer<Float> {
+    private static final float ONE = 1;
+    private static final float ZERO = 0;
+
     @Override
     public Float deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
@@ -34,6 +37,8 @@ public class FloatExcelDeserializer implements ExcelDeserializer<Float> {
                 return (float) cell.getNumericCellValue();
             case STRING:
                 return Float.parseFloat(cell.getStringCellValue());
+            case BOOLEAN:
+                return cell.getBooleanCellValue() ? ONE : ZERO;
             case _NONE:
             case BLANK:
                 return null;

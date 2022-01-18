@@ -20,20 +20,25 @@ import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 
 /**
- * IntegerExcelDeserializer.
+ * Deserialize a {@link Integer} result from {@link Cell}.
  *
  * @author likly
  * @version 1.2.4
  * @since 1.2.4
  */
 public class IntegerExcelDeserializer implements ExcelDeserializer<Integer> {
+    private static final int ONE = 1;
+    private static final int ZERO = 0;
+
     @Override
     public Integer deserialize(@NonNull Cell cell) {
         switch (cell.getCellType()) {
             case NUMERIC:
                 return (int) cell.getNumericCellValue();
             case STRING:
-                return Integer.parseInt(cell.getStringCellValue());
+                return Double.valueOf(cell.getStringCellValue()).intValue();
+            case BOOLEAN:
+                return cell.getBooleanCellValue() ? ONE : ZERO;
             case BLANK:
             case _NONE:
             case FORMULA:
