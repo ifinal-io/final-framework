@@ -20,7 +20,7 @@ import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.ifinalframework.poi.Headers;
-import org.ifinalframework.poi.databind.TypeHandler;
+import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
 import org.springframework.beans.BeanWrapperImpl;
@@ -61,8 +61,8 @@ public class ResultMapBiFunction<T> implements BiFunction<Row, Headers, T> {
                 continue;
             }
 
-            TypeHandler<?> typeHandler = resultMapping.getTypeHandler();
-            Object value = typeHandler.deserialize(cell);
+            ExcelDeserializer deserializer = resultMapping.getDeserializer();
+            Object value = deserializer.deserialize(cell);
             beanWrapper.setPropertyValue(resultMapping.getProperty(), value);
 
         }
