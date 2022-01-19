@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ifinalframework.poi.Excel.Style;
 import org.ifinalframework.poi.databind.TypeHandler;
+import org.ifinalframework.poi.databind.type.ObjectTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

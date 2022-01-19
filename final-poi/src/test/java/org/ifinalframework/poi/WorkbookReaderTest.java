@@ -17,10 +17,10 @@ package org.ifinalframework.poi;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.poi.databind.type.BooleanTypeHandler;
-import org.ifinalframework.poi.databind.type.DateTypeHandler;
-import org.ifinalframework.poi.databind.type.IntegerTypeHandler;
-import org.ifinalframework.poi.databind.type.StringTypeHandler;
+import org.ifinalframework.poi.databind.deser.BooleanExcelDeserializer;
+import org.ifinalframework.poi.databind.deser.DateExcelDeserializer;
+import org.ifinalframework.poi.databind.deser.IntegerExcelDeserializer;
+import org.ifinalframework.poi.databind.deser.StringExcelDeserializer;
 import org.ifinalframework.poi.function.ResultMapBiFunction;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
@@ -50,10 +50,10 @@ class WorkbookReaderTest {
     @SneakyThrows
     void test() {
         ResultMap<Person> personResultMap = new ResultMap<>(Person.class, Arrays.asList(
-                new ResultMapping("name", "姓名", new StringTypeHandler()),
-                new ResultMapping("birthday", "生日", new DateTypeHandler()),
-                new ResultMapping("bool", "bool", new BooleanTypeHandler()),
-                new ResultMapping("age", "年龄", new IntegerTypeHandler())
+                ResultMapping.builder().property("name").column("姓名").deserializer(new StringExcelDeserializer()).build(),
+                ResultMapping.builder().property("birthday").column("生日").deserializer(new DateExcelDeserializer()).build(),
+                ResultMapping.builder().property("bool").column("bool").deserializer(new BooleanExcelDeserializer()).build(),
+                ResultMapping.builder().property("age").column("年龄").deserializer(new IntegerExcelDeserializer()).build()
         ));
 
         WorkbookReader reader = new WorkbookReader(getClass().getResourceAsStream("/excel.xlsx"));

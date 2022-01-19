@@ -15,12 +15,9 @@
 
 package org.ifinalframework.poi.mapping;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.ifinalframework.poi.databind.ExcelSerializer;
-import org.ifinalframework.poi.databind.TypeHandler;
 
 /**
  * @author likly
@@ -28,12 +25,13 @@ import org.ifinalframework.poi.databind.TypeHandler;
  **/
 @Setter
 @Getter
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResultMapping {
     private Integer index;
-    private final String property;
-    private final String column;
-    private final TypeHandler<?> typeHandler;
+    private String property;
+    private String column;
     private ExcelSerializer serializer;
     private ExcelDeserializer deserializer;
 }
