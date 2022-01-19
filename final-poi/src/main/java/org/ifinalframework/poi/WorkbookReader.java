@@ -66,12 +66,15 @@ public class WorkbookReader {
                 .flatMap(sheet -> new SheetReader(sheet, headerIndex).map(function));
     }
 
+    public <T> Stream<T> map(int sheet, BiFunction<Row, Headers, T> function) {
+        return new SheetReader(workbook.getSheetAt(sheet), headerIndex).map(function);
+    }
+
     private static class SheetReader {
         private final Sheet sheet;
 
         private final int headerIndex;
         private final Headers headers;
-
 
         SheetReader(Sheet sheet, int headerIndex) {
             this.sheet = sheet;
@@ -84,7 +87,6 @@ public class WorkbookReader {
                 headers.addHeader(i, row.getCell(i).getStringCellValue());
             }
         }
-
 
         <T> Stream<T> map(BiFunction<Row, Headers, T> function) {
             return IntStream.rangeClosed(headerIndex + 1, sheet.getLastRowNum())
