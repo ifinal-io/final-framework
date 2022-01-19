@@ -56,16 +56,36 @@ public class WorkbookReader {
         this.headerIndex = headerIndex;
     }
 
+    /**
+     * Apply all sheets to a {@link Map} result stream.
+     *
+     * @see MapBiFunction
+     */
     public Stream<Map<String, Object>> map() {
         return map(MAP_BI_FUNCTION);
     }
 
+    /**
+     * Apply all sheets to a {@link T} result stream.
+     *
+     * @param function apply function.
+     * @param <T>      apply result.
+     * @see SheetReader#map(BiFunction)
+     */
     public <T> Stream<T> map(BiFunction<Row, Headers, T> function) {
         return IntStream.range(0, workbook.getNumberOfSheets())
                 .mapToObj(workbook::getSheetAt)
                 .flatMap(sheet -> new SheetReader(sheet, headerIndex).map(function));
     }
 
+    /**
+     * Apply the sheet at {@link Workbook#getSheetAt(int)} to a {@link T} result stream.
+     *
+     * @param sheet    the sheet position.
+     * @param function apply function.
+     * @param <T>      apply result.
+     * @see SheetReader#map(BiFunction)
+     */
     public <T> Stream<T> map(int sheet, BiFunction<Row, Headers, T> function) {
         return new SheetReader(workbook.getSheetAt(sheet), headerIndex).map(function);
     }
