@@ -13,37 +13,14 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.ifinalframework.poi.annotaion.ExcelColumn;
-
-import java.util.Date;
+package org.ifinalframework.poi.mapping;
 
 /**
- * Person.
- *
  * @author likly
- * @version 1.0.0
- * @since 1.0.0
- */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Person {
+ * @version 1.2.4
+ **/
+@FunctionalInterface
+public interface ResultMapFactory {
 
-    @ExcelColumn(header = "姓名")
-    private String name;
-
-    @ExcelColumn(header = "年龄")
-    private Integer age;
-
-    @ExcelColumn(header = "生日")
-    private Date birthday;
-
-    @ExcelColumn(header = "bool")
-    private Boolean bool;
-
+    <T> ResultMap<T> create(Class<T> clazz);
 }

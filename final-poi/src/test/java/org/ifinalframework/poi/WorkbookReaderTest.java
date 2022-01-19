@@ -22,6 +22,7 @@ import org.ifinalframework.poi.databind.deser.DateExcelDeserializer;
 import org.ifinalframework.poi.databind.deser.IntegerExcelDeserializer;
 import org.ifinalframework.poi.databind.deser.StringExcelDeserializer;
 import org.ifinalframework.poi.function.ResultMapBiFunction;
+import org.ifinalframework.poi.mapping.DefaultResultMapFactory;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
 import org.junit.jupiter.api.Assertions;
@@ -66,6 +67,23 @@ class WorkbookReaderTest {
         System.out.println(list);
 
     }
+
+    @Test
+    @SneakyThrows
+    void test2() {
+        ResultMap<Person> personResultMap = new DefaultResultMapFactory().create(Person.class);
+
+        WorkbookReader reader = new WorkbookReader(getClass().getResourceAsStream("/excel.xlsx"));
+
+
+        List<Person> list = reader.map(new ResultMapBiFunction<Person>(personResultMap))
+                .collect(Collectors.toList());
+
+
+        System.out.println(list);
+
+    }
+
 
     @Test
     @SneakyThrows
