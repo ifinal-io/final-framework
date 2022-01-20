@@ -16,10 +16,7 @@
 package org.ifinalframework.context.beans.factory;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.annotation.Resource;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -27,15 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author likly
  * @version 1.2.4
  **/
-@SpringBootTest
-@SpringBootConfiguration
 class ImportResourceBeanDefinitionRegistryPostProcessorTest {
 
-    @Resource
-    private ImportResourceBean importResourceBean;
 
     @Test
     void postProcessBeanDefinitionRegistry() {
-        assertNotNull(importResourceBean);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(ImportResourceBeanDefinitionRegistryPostProcessor.class);
+        context.refresh();
+        ImportResourceBean bean = context.getBean(ImportResourceBean.class);
+        assertNotNull(bean);
     }
 }
