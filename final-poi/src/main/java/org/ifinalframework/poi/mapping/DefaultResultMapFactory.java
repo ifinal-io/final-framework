@@ -24,6 +24,7 @@ import org.ifinalframework.poi.databind.ExcelSerializer;
 import org.ifinalframework.poi.databind.TypeHandler;
 import org.ifinalframework.poi.databind.TypeHandlerRegistry;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 
 import java.beans.BeanInfo;
@@ -42,9 +43,11 @@ public class DefaultResultMapFactory implements ResultMapFactory {
     private final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry();
     private final Map<Class<?>, ResultMap<?>> cache = new LinkedHashMap<>();
 
+    @NonNull
     @Override
     @SuppressWarnings("unchecked")
-    public <T> ResultMap<T> create(Class<T> clazz) {
+    public <T> ResultMap<T> create(@NonNull Class<T> clazz) {
+        Objects.requireNonNull(clazz, "clazz can not be null.");
         return (ResultMap<T>) cache.computeIfAbsent(clazz, this::build);
     }
 

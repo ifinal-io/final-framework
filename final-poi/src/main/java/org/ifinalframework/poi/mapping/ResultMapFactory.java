@@ -15,6 +15,8 @@
 
 package org.ifinalframework.poi.mapping;
 
+import org.springframework.lang.NonNull;
+
 /**
  * @author likly
  * @version 1.2.4
@@ -22,5 +24,6 @@ package org.ifinalframework.poi.mapping;
 @FunctionalInterface
 public interface ResultMapFactory {
 
-    <T> ResultMap<T> create(Class<T> clazz);
+    @NonNull
+    <T> ResultMap<T> create(@NonNull Class<T> clazz);
 }

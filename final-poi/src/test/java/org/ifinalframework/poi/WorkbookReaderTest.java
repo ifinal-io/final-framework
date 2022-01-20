@@ -60,7 +60,7 @@ class WorkbookReaderTest {
         WorkbookReader reader = new WorkbookReader(getClass().getResourceAsStream("/excel.xlsx"));
 
 
-        List<Person> list = reader.map(new ResultMapBiFunction<Person>(personResultMap))
+        List<Person> list = reader.map(new ResultMapBiFunction<>(personResultMap))
                 .collect(Collectors.toList());
 
 
