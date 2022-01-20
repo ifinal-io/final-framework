@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package org.ifinalframework.web.beans.factory.config;
 
-import org.ifinalframework.web.resolver.RequestJsonParamHandlerMethodArgumentResolver;
+import org.ifinalframework.web.servlet.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.NonNull;
