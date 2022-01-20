@@ -19,12 +19,11 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.context.beans.factory.support.BeanDefinitionReaders;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.NonNull;
@@ -58,8 +57,8 @@ import java.util.Set;
  */
 @Slf4j
 @Component
-public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor,
-        ResourceLoaderAware, EnvironmentAware {
+public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanDefinitionRegistryPostProcessor
+        implements ResourceLoaderAware, EnvironmentAware {
 
 
     private static final String[] DEFAULT_RESOURCE_LOCATIONS = new String[]{
@@ -68,6 +67,7 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDe
             "classpath*:spring/spring-config-*.xml"
     };
 
+
     @Setter
     private ResourceLoader resourceLoader;
 
@@ -75,9 +75,7 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDe
     private Environment environment;
 
     @Override
-    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
-
-
+    protected void processBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
         final Set<String> importResources = new LinkedHashSet<>();
 
         // load developer's import resource locations
@@ -95,19 +93,16 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor implements BeanDe
 
         logger.info("start load import resources: {}", importResources);
 
+        logger.info("┏╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍");
+        logger.info("┃                                      @{}", ImportResource.class.getSimpleName());
+        logger.info("┠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌");
+
         for (String resource : importResources) {
             final BeanDefinitionReader reader = BeanDefinitionReaders.instance(resource, registry, resourceLoader, environment);
             final int count = reader.loadBeanDefinitions(resource);
-            logger.info("{} loaded bean definitions count {}.", resource, count);
+            logger.info("┃ {} loaded bean definitions count {}.", resource, count);
         }
-
-    }
-
-    @Override
-    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        if (beanFactory instanceof BeanDefinitionRegistry) {
-            postProcessBeanDefinitionRegistry((BeanDefinitionRegistry) beanFactory);
-        }
+        logger.info("┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍");
     }
 
 
