@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
+ * Excel sheet header info.
+ *
  * @author likly
  * @version 1.2.4
  **/
@@ -52,5 +54,9 @@ public final class Headers {
 
     public boolean hasHeader(String header) {
         return headerIndexMap.containsKey(header);
+    }
+
+    public int size() {
+        return headerIndexMap.size();
     }
 }
