@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.context.beans.factory;
+package org.ifinalframework.beans.factory.support;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.context.beans.factory.support.BeanDefinitionReaders;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -58,7 +57,7 @@ import java.util.Set;
 @Slf4j
 @Component
 public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanDefinitionRegistryPostProcessor
-        implements ResourceLoaderAware, EnvironmentAware {
+        implements EnvironmentAware, ResourceLoaderAware {
 
 
     private static final String[] DEFAULT_RESOURCE_LOCATIONS = new String[]{
@@ -67,15 +66,17 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanD
             "classpath*:spring/spring-config-*.xml"
     };
 
-
+    @Setter
+    private Environment environment;
     @Setter
     private ResourceLoader resourceLoader;
 
-    @Setter
-    private Environment environment;
-
     @Override
     protected void processBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
+
+        BeanDefinitionReaderFactory beanDefinitionReaderFactory = new BeanDefinitionReaderFactory(environment, resourceLoader, registry);
+
+
         final Set<String> importResources = new LinkedHashSet<>();
 
         // load developer's import resource locations
@@ -98,7 +99,7 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanD
         logger.info("┠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌");
 
         for (String resource : importResources) {
-            final BeanDefinitionReader reader = BeanDefinitionReaders.instance(resource, registry, resourceLoader, environment);
+            final BeanDefinitionReader reader = beanDefinitionReaderFactory.create(resource);
             final int count = reader.loadBeanDefinitions(resource);
             logger.info("┃ {} loaded bean definitions count {}.", resource, count);
         }

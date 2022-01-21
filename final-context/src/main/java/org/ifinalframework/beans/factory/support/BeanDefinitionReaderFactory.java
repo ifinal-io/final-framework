@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.context.beans.factory.support;
+package org.ifinalframework.beans.factory.support;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.groovy.GroovyBeanDefinitionReader;
 import org.springframework.beans.factory.support.AbstractBeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
@@ -23,31 +24,39 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.SpringProperties;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * BeanDefinitionReaders.
+ * Create {@link BeanDefinitionReader} instance from bean definition resource, such as {@code xml} or {@code groovy}.
  *
  * @author likly
  * @version 1.2.4
- * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources(Map)
- * @since 1.2.4
- */
-public final class BeanDefinitionReaders {
-    private static final Map<Class<? extends BeanDefinitionReader>, BeanDefinitionReader> instances = new LinkedHashMap<>();
+ * @see org.springframework.context.annotation.ConfigurationClassPostProcessor
+ **/
+@RequiredArgsConstructor
+class BeanDefinitionReaderFactory {
 
-    private static final boolean shouldIgnoreXml = SpringProperties.getFlag("spring.xml.ignore");
+    private final Map<Class<? extends BeanDefinitionReader>, BeanDefinitionReader> instances = new LinkedHashMap<>();
 
-    private BeanDefinitionReaders() {
+    private final boolean shouldIgnoreXml = SpringProperties.getFlag("spring.xml.ignore");
+
+    private final Environment environment;
+    private final ResourceLoader resourceLoader;
+    private final BeanDefinitionRegistry beanDefinitionRegistry;
+
+    @NonNull
+    public BeanDefinitionReader create(@NonNull String resource) {
+        return instance(reader(resource));
     }
 
     /**
      * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources
      */
-    public static Class<? extends BeanDefinitionReader> reader(String resource) {
+    private Class<? extends BeanDefinitionReader> reader(String resource) {
         if (StringUtils.endsWithIgnoreCase(resource, ".groovy")) {
             return GroovyBeanDefinitionReader.class;
         }
@@ -60,17 +69,12 @@ public final class BeanDefinitionReaders {
 
     }
 
-
-    public static BeanDefinitionReader instance(String resource, BeanDefinitionRegistry registry, ResourceLoader resourceLoader, Environment environment) {
-        return instance(reader(resource), registry, resourceLoader, environment);
-    }
-
-    public static BeanDefinitionReader instance(Class<? extends BeanDefinitionReader> clazz, BeanDefinitionRegistry registry, ResourceLoader resourceLoader, Environment environment) {
+    private BeanDefinitionReader instance(Class<? extends BeanDefinitionReader> clazz) {
 
         return instances.computeIfAbsent(clazz, readerClass -> {
             try {
                 // Instantiate the specified BeanDefinitionReader
-                BeanDefinitionReader reader = readerClass.getConstructor(BeanDefinitionRegistry.class).newInstance(registry);
+                BeanDefinitionReader reader = readerClass.getConstructor(BeanDefinitionRegistry.class).newInstance(beanDefinitionRegistry);
                 // Delegate the current ResourceLoader to it if possible
                 if (reader instanceof AbstractBeanDefinitionReader) {
                     AbstractBeanDefinitionReader abdr = ((AbstractBeanDefinitionReader) reader);
@@ -85,5 +89,4 @@ public final class BeanDefinitionReaders {
         });
 
     }
-
 }

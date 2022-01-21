@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.context.beans.factory;
+package org.ifinalframework.beans.factory.support;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
