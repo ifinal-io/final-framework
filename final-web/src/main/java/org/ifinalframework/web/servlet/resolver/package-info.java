@@ -14,15 +14,8 @@
  */
 
 /**
- * <h4>{@link org.springframework.web.method.support.HandlerMethodArgumentResolver}</h4>
- * <ul>
- *     <li>{@link org.springframework.web.bind.annotation.RequestParam} - {@link org.springframework.web.method.annotation.RequestParamMethodArgumentResolver}</li>
- *     <li>{@link org.springframework.web.bind.annotation.RequestPart} - {@link org.springframework.web.servlet.mvc.method.annotation.RequestPartMethodArgumentResolver}</li>
- *     <li>{@link org.springframework.web.bind.annotation.RequestHeader} - {@link org.springframework.web.method.annotation.RequestHeaderMethodArgumentResolver}</li>
- * </ul>
- *
  * @author likly
  * @version 1.2.4
+ * @see org.springframework.web.method.support.HandlerMethodArgumentResolver
  **/
-package org.ifinalframework.web.servlet;
-
+package org.ifinalframework.web.servlet.resolver;
