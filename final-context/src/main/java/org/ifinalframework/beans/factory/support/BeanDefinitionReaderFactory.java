@@ -32,6 +32,8 @@ import java.util.Map;
 
 /**
  * Create {@link BeanDefinitionReader} instance from bean definition resource, such as {@code xml} or {@code groovy}.
+ * <p>
+ * Create a {@link GroovyBeanDefinitionReader} when the resource end with {@code .groovy} or {@link XmlBeanDefinitionReader}.
  *
  * @author likly
  * @version 1.2.4
@@ -50,13 +52,15 @@ class BeanDefinitionReaderFactory {
 
     @NonNull
     public BeanDefinitionReader create(@NonNull String resource) {
-        return instance(reader(resource));
+        return instance(deduceBeanDefinitionReaderFromResource(resource));
     }
 
     /**
+     * Deduce the {@link BeanDefinitionReader} type from resource.
+     *
      * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources
      */
-    private Class<? extends BeanDefinitionReader> reader(String resource) {
+    private Class<? extends BeanDefinitionReader> deduceBeanDefinitionReaderFromResource(String resource) {
         if (StringUtils.endsWithIgnoreCase(resource, ".groovy")) {
             return GroovyBeanDefinitionReader.class;
         }
