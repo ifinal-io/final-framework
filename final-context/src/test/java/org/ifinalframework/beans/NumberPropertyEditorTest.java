@@ -13,10 +13,24 @@
  * limitations under the License.
  */
 
+package org.ifinalframework.beans;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.PropertyEditorRegistrySupport;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
+
 /**
  * @author likly
  * @version 1.2.4
- * @see org.springframework.web.method.support.HandlerMethodArgumentResolver
- * @see org.springframework.web.method.support.HandlerMethodArgumentResolverComposite
+ * @see PropertyEditorRegistrySupport
  **/
-package org.ifinalframework.web.servlet.resolver;
+public class NumberPropertyEditorTest {
+
+    @Test
+    void number() {
+        CustomNumberEditor editor = new CustomNumberEditor(Integer.class, false);
+        editor.setAsText("1");
+        Assertions.assertEquals(1, editor.getValue());
+    }
+}

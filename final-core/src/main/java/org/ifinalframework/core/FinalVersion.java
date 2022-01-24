@@ -28,7 +28,11 @@ import org.ifinalframework.util.JarVersions;
  * @since 1.2.4
  */
 @UtilityClass
-public class FinalVersion {
+public final class FinalVersion {
+
+    /**
+     * return the version of final framework.
+     */
     public static String getVersion() {
         return JarVersions.getVersion(FinalVersion.class);
     }

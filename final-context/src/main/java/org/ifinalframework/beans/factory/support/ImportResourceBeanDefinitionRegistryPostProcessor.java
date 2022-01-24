@@ -101,7 +101,7 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanD
         for (String resource : importResources) {
             final BeanDefinitionReader reader = beanDefinitionReaderFactory.create(resource);
             final int count = reader.loadBeanDefinitions(resource);
-            logger.info("┃ {} loaded bean definitions count {}.", resource, count);
+            logger.info("┃  loaded {} bean definitions from resource of {}.", count, resource);
         }
         logger.info("┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍");
     }
