@@ -53,6 +53,7 @@ import java.util.Set;
  * @version 1.2.4
  * @see org.springframework.context.annotation.ImportResource
  * @since 1.2.4
+ * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources
  */
 @Slf4j
 @Component
@@ -74,8 +75,7 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanD
     @Override
     protected void processBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
 
-        BeanDefinitionReaderFactory beanDefinitionReaderFactory = new BeanDefinitionReaderFactory(environment, resourceLoader, registry);
-
+        final BeanDefinitionReaderFactory beanDefinitionReaderFactory = new BeanDefinitionReaderFactory(environment, resourceLoader, registry);
 
         final Set<String> importResources = new LinkedHashSet<>();
 
