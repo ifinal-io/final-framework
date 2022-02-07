@@ -52,10 +52,9 @@ public class ToolContextFactory implements ContextFactory {
     @NonNull
     public Context create(@Nullable Object param) {
 
-        final ToolContext context = toolManager.createContext();
 
         if (Objects.isNull(param)) {
-            return context;
+            return toolManager.createContext();
         }
 
         // Process map

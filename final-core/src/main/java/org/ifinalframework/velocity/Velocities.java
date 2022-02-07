@@ -34,7 +34,7 @@ import java.io.Writer;
  * @author likly
  * @version 1.0.0
  * @see org.apache.velocity.tools.ToolContext
- * @see Velocity#evaluate(Context, Writer, String, String)
+ * @see Velocity
  * @since 1.0.0
  */
 @Slf4j
@@ -69,6 +69,14 @@ public final class Velocities {
         return eval(express, context);
     }
 
+    /**
+     * return the eval value from {@code express} with {@link Context}.
+     *
+     * @param express eval express.
+     * @param context eval params.
+     * @see Velocity#evaluate(Context, Writer, String, String)
+     * @since 1.2.4
+     */
     public static String eval(@NonNull String express, @NonNull Context context) {
         final StringWriter writer = new StringWriter();
         Velocity.evaluate(context, writer, "velocity", express);
