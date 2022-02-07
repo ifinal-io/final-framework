@@ -53,25 +53,31 @@ public class ToolContextFactory implements ContextFactory {
     public Context create(@Nullable Object param) {
 
         final ToolContext context = toolManager.createContext();
-        if (param instanceof Map) {
-            context.putAll((Map<String, Object>) param);
+
+        if (Objects.isNull(param)) {
+            return context;
         }
 
-        if (Objects.nonNull(param)) {
-            try {
-                BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
-                for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-                    Method readMethod = propertyDescriptor.getReadMethod();
+        // Process map
+        if (param instanceof Map) {
+            context.putAll((Map<String, Object>) param);
+            return context;
+        }
 
-                    if (Objects.isNull(readMethod)) {
-                        continue;
-                    }
+        // Process Bean
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
+            for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+                Method readMethod = propertyDescriptor.getReadMethod();
 
-                    context.put(propertyDescriptor.getName(), readMethod.invoke(param));
+                if (Objects.isNull(readMethod)) {
+                    continue;
                 }
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
+
+                context.put(propertyDescriptor.getName(), readMethod.invoke(param));
             }
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
         }
         return context;
     }

@@ -13,29 +13,23 @@
  * limitations under the License.
  */
 
-package org.springframework.boot;
+package org.springframework.boot.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.jupiter.api.Test;
+import org.springframework.core.io.support.SpringFactoriesLoader;
+
+import java.util.List;
 
 /**
- * SpringApplicationTest.
- *
- * @author likly
+ * @author zhimin.guo
  * @version 1.0.0
- * @since 1.0.0
- */
+ **/
 @Slf4j
-@SpringBootApplication
-class SpringApplicationTest {
-
-    public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(SpringApplicationTest.class);
-        Class<?> mainApplicationClass = application.getMainApplicationClass();
-        logger.info("mainApplicationClass={}", mainApplicationClass);
-        Assertions.assertEquals(SpringApplicationTest.class, mainApplicationClass);
-        application.run(args);
+class EnableAutoConfigurationTest {
+    @Test
+    void test() {
+        List<String> names = SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class, EnableAutoConfiguration.class.getClassLoader());
+        names.forEach(logger::info);
     }
-
 }
