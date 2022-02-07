@@ -15,11 +15,13 @@
 
 package org.ifinalframework.velocity;
 
+import org.apache.velocity.exception.VelocityException;
+
 /**
  * @author likly
  * @version 1.2.4
  **/
-public class VelocityContextException extends RuntimeException {
+public class VelocityContextException extends VelocityException {
     public VelocityContextException(Throwable cause) {
         super(cause);
     }
