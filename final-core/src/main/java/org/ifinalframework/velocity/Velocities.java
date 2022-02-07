@@ -22,14 +22,19 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * A tool for {@code velocity} template language.
  *
  * @author likly
  * @version 1.0.0
+ * @see org.apache.velocity.tools.ToolContext
+ * @see Velocity#evaluate(Context, Writer, String, String)
  * @since 1.0.0
  */
 @Slf4j
@@ -52,15 +57,27 @@ public final class Velocities {
         }
     }
 
+    /**
+     * return the eval value from {@code express} with {@code params}.
+     *
+     * @param express eval express.
+     * @param params  eval params.
+     * @since 1.2.4
+     */
+    public static String eval(@NonNull String express, @Nullable Object params) {
+        final Context context = contextFactory.create(params);
+        return eval(express, context);
+    }
+
+    public static String eval(@NonNull String express, @NonNull Context context) {
+        final StringWriter writer = new StringWriter();
+        Velocity.evaluate(context, writer, "velocity", express);
+        return writer.toString();
+    }
+
+    @Deprecated
     public static String getValue(final String express, final Object params) {
-        try {
-            Context context = contextFactory.create(params);
-            StringWriter writer = new StringWriter();
-            Velocity.evaluate(context, writer, "velocity", express);
-            return writer.toString();
-        } catch (Exception e) {
-            throw e;
-        }
+        return eval(express, params);
     }
 
 }

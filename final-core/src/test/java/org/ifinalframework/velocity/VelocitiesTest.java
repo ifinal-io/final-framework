@@ -41,22 +41,22 @@ class VelocitiesTest {
         Map<String, Object> context = new HashMap<>();
         context.put("name", "xiaoMing");
         context.put("age", 12);
-        assertEquals("xiaoMing", Velocities.getValue("${name}", context));
-        assertEquals("12", Velocities.getValue("${age}", context));
+        assertEquals("xiaoMing", Velocities.eval("${name}", context));
+        assertEquals("12", Velocities.eval("${age}", context));
     }
 
     @Test
     void getValueFromAnnotationAttribute() {
         AnnotationAttributes attributes = new AnnotationAttributes(Service.class);
         attributes.put("value", "haha");
-        assertEquals("haha", Velocities.getValue("${value}", attributes));
+        assertEquals("haha", Velocities.eval("${value}", attributes));
     }
 
     @Test
     void getValueFromObject() {
         Params params = new Params("xiaoMing", 12);
-        assertEquals("xiaoMing", Velocities.getValue("${name}", params));
-        assertEquals("12", Velocities.getValue("${age}", params));
+        assertEquals("xiaoMing", Velocities.eval("${name}", params));
+        assertEquals("12", Velocities.eval("${age}", params));
     }
 
     @Data
