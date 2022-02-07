@@ -1,3 +1,0 @@
-spring:
-  messages:
-    basename: messages,i18n/messages

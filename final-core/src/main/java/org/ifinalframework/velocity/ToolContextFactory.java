@@ -31,10 +31,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * ToolContextFactory.
+ * Velocity {@link ToolContext} factory.
  *
  * @author likly
  * @version 1.2.4
+ * @see ToolManager
  * @since 1.2.4
  */
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class ToolContextFactory implements ContextFactory {
     private final ToolManager toolManager;
 
     public ToolContextFactory() {
-        toolManager = new ToolManager();
+        this(new ToolManager());
         toolManager.configure(ConfigurationUtils.getDefaultTools());
     }
 
@@ -77,7 +78,7 @@ public class ToolContextFactory implements ContextFactory {
                 context.put(propertyDescriptor.getName(), readMethod.invoke(param));
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+            throw new VelocityContextException(e);
         }
         return context;
     }

@@ -15,26 +15,12 @@
 
 package org.ifinalframework.velocity;
 
-import org.apache.velocity.context.Context;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 /**
- * Velocity {@link Context} factory.
- *
  * @author likly
  * @version 1.2.4
- * @see Context
- * @since 1.2.4
- */
-@FunctionalInterface
-public interface ContextFactory {
-    /**
-     * Create a {@link Context} from {@code param}.
-     *
-     * @param param context param.
-     * @throws VelocityContextException velocity context exception.
-     */
-    @NonNull
-    Context create(@Nullable Object param) throws VelocityContextException;
+ **/
+public class VelocityContextException extends RuntimeException {
+    public VelocityContextException(Throwable cause) {
+        super(cause);
+    }
 }
