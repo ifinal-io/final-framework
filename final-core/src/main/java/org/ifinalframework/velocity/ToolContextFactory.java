@@ -50,7 +50,6 @@ public class ToolContextFactory implements ContextFactory {
 
     @Override
     @NonNull
-    @SuppressWarnings("unchecked")
     public Context create(@Nullable Object param) {
 
         final ToolContext context = toolManager.createContext();
@@ -61,13 +60,23 @@ public class ToolContextFactory implements ContextFactory {
 
         // Process map
         if (param instanceof Map) {
-            context.putAll((Map<String, Object>) param);
-            return context;
+            return fromMap((Map) param);
         }
 
         // Process Bean
+        return fromBean(param);
+    }
+
+    private Context fromMap(Map param) {
+        final ToolContext context = toolManager.createContext();
+        context.putAll(param);
+        return context;
+    }
+
+    private Context fromBean(Object bean) {
+        final ToolContext context = toolManager.createContext();
         try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(param.getClass());
+            BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
             for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
                 Method readMethod = propertyDescriptor.getReadMethod();
 
@@ -75,7 +84,7 @@ public class ToolContextFactory implements ContextFactory {
                     continue;
                 }
 
-                context.put(propertyDescriptor.getName(), readMethod.invoke(param));
+                context.put(propertyDescriptor.getName(), readMethod.invoke(bean));
             }
         } catch (Exception e) {
             throw new VelocityContextException(e);

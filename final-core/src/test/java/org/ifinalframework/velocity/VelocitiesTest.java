@@ -18,6 +18,8 @@ package org.ifinalframework.velocity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +43,13 @@ class VelocitiesTest {
         context.put("age", 12);
         assertEquals("xiaoMing", Velocities.getValue("${name}", context));
         assertEquals("12", Velocities.getValue("${age}", context));
+    }
+
+    @Test
+    void getValueFromAnnotationAttribute() {
+        AnnotationAttributes attributes = new AnnotationAttributes(Service.class);
+        attributes.put("value", "haha");
+        assertEquals("haha", Velocities.getValue("${value}", attributes));
     }
 
     @Test
