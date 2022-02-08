@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,6 +36,8 @@ import java.util.Objects;
  * @author likly
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)
+ * @see StringHttpMessageConverter
+ * @see Json#toJson(Object)
  * @since 1.0.0
  */
 public class JsonStringHttpMessageConverter implements HttpMessageConverter<Object> {
@@ -48,13 +50,14 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
 
     @Override
     public boolean canRead(final @NonNull Class<?> clazz, final MediaType mediaType) {
-
         return converter.canRead(clazz, mediaType);
     }
 
+    /**
+     * @see StringHttpMessageConverter#canWrite(Class, MediaType)
+     */
     @Override
     public boolean canWrite(final @NonNull Class<?> clazz, final MediaType mediaType) {
-
         return converter.canWrite(String.class, mediaType);
     }
 
@@ -68,14 +71,12 @@ public class JsonStringHttpMessageConverter implements HttpMessageConverter<Obje
     @Override
     public Object read(final @NonNull Class<?> clazz, final @NonNull HttpInputMessage inputMessage)
             throws IOException {
-
         return converter.read(String.class, inputMessage);
     }
 
     @Override
     public void write(final @NonNull Object o, final MediaType contentType,
                       final @NonNull HttpOutputMessage outputMessage) throws IOException {
-
         converter.write(Json.toJson(o), contentType, outputMessage);
     }
 

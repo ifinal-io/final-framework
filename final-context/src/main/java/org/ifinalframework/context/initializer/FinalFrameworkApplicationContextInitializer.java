@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,13 +15,11 @@
 
 package org.ifinalframework.context.initializer;
 
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
-
+import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.FinalFramework;
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
-
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Registration a {@link FinalFramework} class into {@link ConfigurableApplicationContext}.
@@ -33,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @SpringFactory(ApplicationContextInitializer.class)
-@SuppressWarnings("unused")
 public final class FinalFrameworkApplicationContextInitializer extends
     AbsFrameworkApplicationContextInitializer<ConfigurableApplicationContext> {
 
