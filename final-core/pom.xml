@@ -21,7 +21,7 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinalframework</groupId>
-        <version>1.2.4-SNAPSHOT</version>
+        <version>1.2.4</version>
     </parent>
 
     <artifactId>final-core</artifactId>
