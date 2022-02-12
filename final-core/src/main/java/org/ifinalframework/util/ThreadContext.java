@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,21 +15,21 @@
 
 package org.ifinalframework.util;
 
+import lombok.NonNull;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import lombok.NonNull;
 
 /**
  * @author likly
  * @version 1.0.0
  * @since 1.0.0
  */
-final class ThreadLocalCache {
+final class ThreadContext {
 
     private static final ThreadLocal<Map<String, Object>> cache = ThreadLocal.withInitial(LinkedHashMap::new);
 
-    private ThreadLocalCache() {
+    private ThreadContext() {
     }
 
     static void set(final @NonNull String key, final Object value) {

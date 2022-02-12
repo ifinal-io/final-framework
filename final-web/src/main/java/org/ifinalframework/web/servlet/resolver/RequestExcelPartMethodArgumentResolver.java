@@ -33,8 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author likly
  * @version 1.2.4
- * @see org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver
- * @see org.springframework.web.method.support.HandlerMethodArgumentResolver
  * @see org.springframework.web.servlet.mvc.method.annotation.RequestPartMethodArgumentResolver
  **/
 public class RequestExcelPartMethodArgumentResolver implements HandlerMethodArgumentResolver {
@@ -63,13 +61,12 @@ public class RequestExcelPartMethodArgumentResolver implements HandlerMethodArgu
         if (arg == null && isRequired) {
             if (!MultipartResolutionDelegate.isMultipartRequest(servletRequest)) {
                 throw new MultipartException("Current request is not a multipart request");
-            }
-            else {
+            } else {
                 throw new MissingServletRequestPartException(name);
             }
         }
 
-        if(arg instanceof MultipartFile){
+        if (arg instanceof MultipartFile) {
 
         }
 

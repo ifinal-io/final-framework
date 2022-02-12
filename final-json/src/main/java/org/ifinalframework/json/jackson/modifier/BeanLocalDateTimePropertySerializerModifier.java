@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,19 +15,19 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import org.ifinalframework.auto.service.annotation.AutoService;
-import org.ifinalframework.json.jackson.serializer.LocalDateTimeSerializer;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Collections;
-
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.ifinalframework.auto.service.annotation.AutoService;
+import org.ifinalframework.json.jackson.serializer.LocalDateTimeSerializer;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author likly
@@ -41,6 +40,7 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private static final LocalDateTimeSerializer SERIALIZER = new LocalDateTimeSerializer(FORMATTER);
+    private static final LocalDateTimeSerializer UTC_SERIALIZER = new LocalDateTimeSerializer(FORMATTER, ZoneOffset.UTC);
 
     @Override
     protected boolean support(final Class<?> clazz) {
@@ -50,15 +50,24 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
 
     @Override
     public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
-        final BeanDescription beanDesc,
-        final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+                                                           final BeanDescription beanDesc,
+                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
         //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,
-            writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-            SERIALIZER, writer.getTypeSerializer(), writer.getSerializationType(),
-            writer.willSuppressNulls(), null, property.findViews());
-        setNameValue(bpw, bpw.getName() + "Format");
-        return Collections.singleton(bpw);
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                SERIALIZER, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
+        String name = bpw.getName();
+
+        setNameValue(bpw, name + "Format");
+
+        final BeanPropertyWriter utcbpw = new BeanPropertyWriter(property,
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                UTC_SERIALIZER, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
+        setNameValue(utcbpw, name + "UTCFormat");
+
+        return Arrays.asList(bpw, utcbpw);
     }
 
 }

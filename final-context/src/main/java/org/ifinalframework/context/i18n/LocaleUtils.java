@@ -13,37 +13,35 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.util;
+package org.ifinalframework.context.i18n;
 
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Optional;
+import java.time.ZoneId;
+import java.util.TimeZone;
 
 /**
  * @author likly
- * @version 1.0.0
+ * @version 1.3.0
  * @see LocaleContextHolder
- * @since 1.0.0
- */
-public interface Dates {
+ **/
+public abstract class LocaleUtils {
 
-    @Nullable
-    static Date to(final @Nullable LocalDateTime localDateTime) {
-
-        return Optional.ofNullable(localDateTime)
-                .map(it -> Date.from(it.atZone(LocaleContextHolder.getTimeZone().toZoneId()).toInstant()))
-                .orElse(null);
+    public static TimeZone getTimeZone() {
+        return LocaleContextHolder.getTimeZone();
     }
 
-    @Nullable
-    static LocalDateTime from(final @Nullable Date date) {
+    public static ZoneId getZoneId() {
+        return getTimeZone().toZoneId();
+    }
 
-        return Optional.ofNullable(date)
-                .map(it -> it.toInstant().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toLocalDateTime())
-                .orElse(null);
+    public static LocalDateTime getZoneLocalDateTime(LocalDateTime localDateTime, ZoneId targetZoneId) {
+        return getZoneLocalDateTime(localDateTime, getZoneId(), targetZoneId);
+    }
+
+    public static LocalDateTime getZoneLocalDateTime(LocalDateTime localDateTime, ZoneId sourceZoneId, ZoneId targetZoneId) {
+        return localDateTime.atZone(sourceZoneId).withZoneSameInstant(targetZoneId).toLocalDateTime();
     }
 
 }
