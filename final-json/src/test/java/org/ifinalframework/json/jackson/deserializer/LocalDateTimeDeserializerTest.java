@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,20 +15,20 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 /**
  * LocalDateTimeDeserializerTest.
@@ -55,8 +54,6 @@ class LocalDateTimeDeserializerTest {
         when(jsonParser.isNaN()).thenReturn(false);
         Date now = new Date();
         when(jsonParser.getValueAsLong()).thenReturn(now.getTime());
-
-        when(context.getAttribute(ZoneId.class)).thenReturn(null);
 
         LocalDateTime localDateTime = deserializer.deserialize(jsonParser, context);
 
