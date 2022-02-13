@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,17 +15,21 @@
 
 package org.ifinalframework.json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Map;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Map;
+import java.util.TimeZone;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JsonTest.
@@ -40,18 +44,26 @@ class JsonTest {
     @Data
     private static class JsonBean {
 
-        private Date date = new Date();
+        private Date date = new Date(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli());
 
-        private LocalDateTime localDateTime = LocalDateTime.now();
+        private LocalDate localDate = LocalDate.now();
+        private LocalDateTime localDateTime = LocalDateTime.now().toLocalDate().atStartOfDay();
+
 
     }
 
     @Test
     void toJson() {
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC.normalized()));
+        LocaleContextHolder.setTimeZone(TimeZone.getTimeZone(ZoneOffset.of("+8")));
         String json = Json.toJson(new JsonBean());
         logger.info(json);
         assertTrue(json.contains("dateFormat"));
         assertTrue(json.contains("localDateTimeFormat"));
+
+        final JsonBean jsonBean = Json.toObject(json, JsonBean.class);
+        assertEquals(LocalDate.now().atStartOfDay(), jsonBean.localDateTime);
+
     }
 
     @Test

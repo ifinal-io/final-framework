@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,15 +15,15 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.ifinalframework.auto.service.annotation.AutoService;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
  * @author likly
@@ -55,7 +54,9 @@ public class DateSerializer extends JsonSerializer<Date> {
             return;
         }
         if (pattern != null) {
-            gen.writeString(new SimpleDateFormat(pattern).format(date));
+            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            simpleDateFormat.setTimeZone(LocaleContextHolder.getTimeZone());
+            gen.writeString(simpleDateFormat.format(date));
         } else {
             gen.writeNumber(date.getTime());
         }

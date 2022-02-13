@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,17 +15,15 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.ifinalframework.auto.service.annotation.AutoService;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 
 /**
  * @author likly
@@ -41,10 +38,8 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
         if (!p.isNaN()) {
             final long timestamp = p.getValueAsLong();
-            final ZoneId zone = (ZoneId) Optional.ofNullable(context.getAttribute(ZoneId.class))
-                .orElse(ZoneId.systemDefault());
             final Instant instant = Instant.ofEpochMilli(timestamp);
-            return LocalDateTime.ofInstant(instant, zone);
+            return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         }
 
         return null;
