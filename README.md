@@ -30,6 +30,4 @@
 
 ## 致谢
 
-*
-
-感谢<a href="https://www.jetbrains.com/">jetbrains</a>提供的免费授权。
+* 感谢<a href="https://www.jetbrains.com/">jetbrains</a>提供的免费授权。
