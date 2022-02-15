@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.beans.factory.config;
+package org.ifinalframework.web.servlet.beans.factory.config;
 
 import org.ifinalframework.web.servlet.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.junit.jupiter.api.Assertions;
