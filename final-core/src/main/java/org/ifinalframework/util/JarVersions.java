@@ -73,7 +73,8 @@ public final class JarVersions {
         }
     }
 
-    public static String getVersion(@NonNull JarFile jarFile) {
+    @Nullable
+    private static String getVersion(@NonNull JarFile jarFile) {
         try {
             return getImplementationVersion(jarFile);
         } catch (Exception e) {
