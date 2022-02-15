@@ -10,22 +10,26 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/final-projects/final-framework)
 ![GitHub top language](https://img.shields.io/github/languages/top/final-projects/final-framework)
 [![GitHub language count](https://img.shields.io/github/languages/count/final-projects/final-framework)](https://github.com/likly/final-framework)
-[![Sonar Quality Gate](https://img.shields.io/sonar/alert_status/final-projects_final-framework?server=https%3A%2F%2Fsonarcloud.io)](https://scrutinizer-ci.com/g/likly/final-framework/)
-![Sonar Coverage](https://img.shields.io/sonar/coverage/final-projects_final-framework?server=https%3A%2F%2Fsonarcloud.io)
 
-## What
+## 概述
 
 `final-framework`致力于提供简单、灵活且功能强大的`java`开发脚手架。
 
-## Contact
+## 特性
 
-欢迎有技术情怀的同学一起成长！
+### 资源导入
 
-* <a href="mailto:likly@ilikly.com?subject=Concat from github">MailTO:likly@ilikly.com</a>
+默认导入以下路径的资源：
+* classpath:spring-config-*.xml
+* classpath*:config/spring-config-*.xml
+* classpath*:spring/spring-config-*.xml
 
-## Thanks
+可以使用`spring.application.import-resource.use-default`来取消默认资源的导入；
+可以使用`spring.application.import-resource.locations`来指定自定义的导入资源。
+
+
+## 致谢
 
 *
 
-感谢<a href="https://www.jetbrains.com/"><img src="https://www.jetbrains.com/apple-touch-icon.png" width="64" height="64">
-jetbrains</a>提供的免费授权。
+感谢<a href="https://www.jetbrains.com/">jetbrains</a>提供的免费授权。
