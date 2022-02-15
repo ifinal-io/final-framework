@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,10 +15,6 @@
 
 package org.ifinalframework.json.jackson;
 
-import org.ifinalframework.auto.service.annotation.AutoService;
-
-import java.util.ServiceLoader;
-
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.Module;
@@ -29,6 +24,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.auto.service.annotation.AutoService;
+
+import java.util.ServiceLoader;
 
 /**
  * @author likly
@@ -45,16 +43,8 @@ public class FinalJacksonModule extends SimpleModule {
 
         ClassLoader classLoader = getClass().getClassLoader();
 
-        ServiceLoader.load(JsonSerializer.class, classLoader).forEach(it -> {
-            if (logger.isInfoEnabled()) {
-                logger.info("load jsonSerializer:{}", it.getClass());
-            }
-
-            this.addSerializer(it);
-
-        });
-        ServiceLoader.load(JsonDeserializer.class, classLoader)
-            .forEach(it -> addDeserializer(it.handledType(), it));
+        ServiceLoader.load(JsonSerializer.class, classLoader).forEach(this::addSerializer);
+        ServiceLoader.load(JsonDeserializer.class, classLoader).forEach(it -> addDeserializer(it.handledType(), it));
 
         ServiceLoader.load(Deserializers.class, classLoader).forEach(context::addDeserializers);
         ServiceLoader.load(Serializers.class, classLoader).forEach(context::addSerializers);
