@@ -29,8 +29,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
+ * Modify bean {@link LocalDateTime} property serializer append a new {@link BeanPropertyWriter} named {@code xxxFormat}.
+ *
  * @author likly
  * @version 1.0.0
+ * @see LocalDateTime
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
@@ -42,7 +45,6 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
 
     @Override
     protected boolean support(final Class<?> clazz) {
-
         return LocalDateTime.class.isAssignableFrom(clazz);
     }
 
