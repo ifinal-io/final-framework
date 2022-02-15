@@ -15,8 +15,10 @@
 
 package org.ifinalframework.util;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,13 +36,20 @@ import java.util.jar.JarFile;
  * @version 1.2.4
  * @see org.springframework.core.SpringVersion
  * @see SpringBootVersion
+ * @see Package#getImplementationVersion()
+ * @see Attributes.Name#IMPLEMENTATION_VERSION
  * @since 1.2.4
  */
+@UtilityClass
 public final class JarVersions {
-    private JarVersions() {
-    }
 
-
+    /**
+     * return the version of the clazz in jar.
+     *
+     * @param clazz the class
+     * @see Package#getImplementationVersion()
+     */
+    @Nullable
     public static String getVersion(@NonNull Class<?> clazz) {
         String implementationVersion = clazz.getPackage().getImplementationVersion();
         if (implementationVersion != null) {
