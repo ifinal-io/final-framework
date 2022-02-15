@@ -24,10 +24,9 @@ import org.ifinalframework.auto.service.annotation.AutoService;
 import org.ifinalframework.json.jackson.serializer.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author likly
@@ -40,7 +39,6 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private static final LocalDateTimeSerializer SERIALIZER = new LocalDateTimeSerializer(FORMATTER);
-    private static final LocalDateTimeSerializer UTC_SERIALIZER = new LocalDateTimeSerializer(FORMATTER, ZoneOffset.UTC);
 
     @Override
     protected boolean support(final Class<?> clazz) {
@@ -61,13 +59,8 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
 
         setNameValue(bpw, name + "Format");
 
-        final BeanPropertyWriter utcbpw = new BeanPropertyWriter(property,
-                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-                UTC_SERIALIZER, writer.getTypeSerializer(), writer.getSerializationType(),
-                writer.willSuppressNulls(), null, property.findViews());
-        setNameValue(utcbpw, name + "UTCFormat");
 
-        return Arrays.asList(bpw, utcbpw);
+        return Collections.singletonList(bpw);
     }
 
 }
