@@ -35,12 +35,14 @@ public class RestMethodParameterFilter implements Filter<MethodParameter> {
     @Override
     public boolean matches(final MethodParameter methodParameter) {
 
-        if (methodParameter.hasMethodAnnotation(ResponseIgnore.class) || methodParameter.getDeclaringClass()
+        Class<?> clazz = methodParameter.getDeclaringClass();
+
+        if (methodParameter.hasMethodAnnotation(ResponseIgnore.class) || clazz
                 .isAnnotationPresent(ResponseIgnore.class)) {
             return false;
         }
 
-        return methodParameter.hasMethodAnnotation(ResponseBody.class) || methodParameter.getDeclaringClass()
+        return methodParameter.hasMethodAnnotation(ResponseBody.class) || clazz
                 .isAnnotationPresent(RestController.class);
     }
 
