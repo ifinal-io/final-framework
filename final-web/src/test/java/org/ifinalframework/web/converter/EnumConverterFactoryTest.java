@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,13 +15,15 @@
 
 package org.ifinalframework.web.converter;
 
-import org.ifinalframework.core.IEnum;
-import org.ifinalframework.web.converter.EnumConverterFactory.EnumConverter;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.ifinalframework.core.IEnum;
+import org.ifinalframework.web.converter.EnumConverterFactory.EnumConverter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * EnumConverterFactoryTest.
@@ -42,9 +44,11 @@ class EnumConverterFactoryTest {
     @Test
     void enumConvert() {
         EnumConverter<YN> converter = new EnumConverter<>(YN.class);
-        Assertions.assertEquals(YN.YES, converter.convert(YN.YES.getCode().toString()));
-        Assertions.assertEquals(YN.NO, converter.convert(YN.NO.getCode().toString()));
-        Assertions.assertNull(converter.convert("-1"));
+        assertEquals(YN.class.getSimpleName() + "Converter", converter.toString());
+        assertEquals(YN.YES, converter.convert(YN.YES.getCode().toString()));
+        assertEquals(YN.NO, converter.convert(YN.NO.getCode().toString()));
+        assertNull(converter.convert("-1"));
+
     }
 
     @Getter

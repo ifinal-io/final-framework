@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,11 +15,20 @@
 
 package org.ifinalframework.web.converter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.lang.annotation.Annotation;
-
+import org.aspectj.lang.annotation.Aspect;
+import org.ifinalframework.context.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * String2ClassConverterTest.
@@ -32,15 +41,21 @@ class String2ClassConverterTest {
 
     private final String2ClassConverter converter = new String2ClassConverter();
 
-    @Test
-    void convert() {
+    @ParameterizedTest
+    @ValueSource(classes = {RestController.class, Controller.class,
+            Component.class, Service.class, Configuration.class,
+            EnableAutoConfiguration.class, Aspect.class})
+    void convert(Class clazz) {
 
-        for (final Class<? extends Annotation> ann : converter.getShortAnnotations().values()) {
-            assertEquals(ann, converter.convert(ann.getSimpleName()));
-        }
+        assertEquals(clazz, converter.convert(clazz.getSimpleName()));
 
         assertEquals(String2ClassConverterTest.class, converter.convert(String2ClassConverterTest.class.getName()));
 
+    }
+
+    @Test
+    void throwException() {
+        assertThrows(NotFoundException.class, () -> converter.convert("a"));
     }
 
 }
