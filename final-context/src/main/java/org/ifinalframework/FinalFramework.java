@@ -15,7 +15,6 @@
 
 package org.ifinalframework;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +35,6 @@ import org.springframework.stereotype.Component;
  * @see org.ifinalframework.context.initializer.FinalFrameworkApplicationContextInitializer
  * @since 1.0.0
  */
-@Slf4j
 @ComponentScan
 public class FinalFramework {
 }
