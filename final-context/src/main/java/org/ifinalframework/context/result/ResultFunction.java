@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,8 @@
 package org.ifinalframework.context.result;
 
 import org.ifinalframework.core.result.Result;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -29,11 +31,12 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ResultFunction extends Function<Object, Result<?>>, Predicate<Object> {
 
+    @NonNull
     @Override
-    Result<?> apply(Object body);
+    Result<?> apply(@Nullable Object body);
 
     @Override
-    default boolean test(Object body) {
+    default boolean test(@Nullable Object body) {
         return true;
     }
 }

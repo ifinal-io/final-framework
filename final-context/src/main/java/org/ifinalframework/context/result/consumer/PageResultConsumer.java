@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,6 +21,7 @@ import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.core.result.Pagination;
 import org.ifinalframework.core.result.Result;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -37,12 +38,13 @@ import java.util.Objects;
 public class PageResultConsumer implements ResultConsumer<Page<?>> {
 
     @Override
-    public void accept(Result<Page<?>> result) {
+    public void accept(@NonNull Result<Page<?>> result) {
         final Page<?> page = Objects.requireNonNull(result.getData());
         result.setPagination(buildPageInfo(page));
     }
 
-    private Pagination buildPageInfo(final Page<?> page) {
+    @NonNull
+    private Pagination buildPageInfo(@NonNull final Page<?> page) {
         final PageInfo<?> pageInfo = page.toPageInfo();
         final Pagination result = new Pagination();
         result.setPage(pageInfo.getPageNum());
@@ -55,7 +57,7 @@ public class PageResultConsumer implements ResultConsumer<Page<?>> {
     }
 
     @Override
-    public boolean test(Result<?> result) {
+    public boolean test(@NonNull Result<?> result) {
         return Objects.nonNull(result.getData()) && result.getData() instanceof Page;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,6 +19,7 @@ import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.core.result.Result;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommonResultConsumer implements ResultConsumer<Object> {
     @Override
-    public void accept(Result<Object> result) {
+    public void accept(@NonNull Result<Object> result) {
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone
@@ -44,7 +45,7 @@ public class CommonResultConsumer implements ResultConsumer<Object> {
     }
 
     @Override
-    public boolean test(Result<?> result) {
+    public boolean test(@NonNull Result<?> result) {
         return true;
     }
 }
