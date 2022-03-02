@@ -32,14 +32,14 @@ import java.sql.SQLException;
 public class SQLResultExceptionHandler implements ResultExceptionHandler<SQLException> {
 
     @Override
-    public boolean supports(final @NonNull Throwable throwable) {
+    public boolean supports(@NonNull Throwable throwable) {
 
         return throwable instanceof SQLException;
     }
 
     @Override
     @NonNull
-    public Result<?> handle(final @NonNull SQLException throwable) {
+    public Result<?> handle(@NonNull SQLException throwable) {
 
         return R.failure(500, throwable.getMessage(), throwable.getErrorCode() + "", throwable.getSQLState());
     }

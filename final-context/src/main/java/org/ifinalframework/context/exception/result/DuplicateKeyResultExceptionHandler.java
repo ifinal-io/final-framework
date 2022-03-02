@@ -37,13 +37,13 @@ import java.util.Optional;
 public class DuplicateKeyResultExceptionHandler implements ResultExceptionHandler<DuplicateKeyException> {
 
     @Override
-    public boolean supports(final @NonNull Throwable throwable) {
+    public boolean supports(@NonNull Throwable throwable) {
         return throwable instanceof DuplicateKeyException;
     }
 
     @Override
     @NonNull
-    public Result<?> handle(final @NonNull DuplicateKeyException throwable) {
+    public Result<?> handle(@NonNull DuplicateKeyException throwable) {
         return R.failure(500, "Duplicate Key", "500", Optional.ofNullable(throwable.getMessage()).orElse(""));
 
     }

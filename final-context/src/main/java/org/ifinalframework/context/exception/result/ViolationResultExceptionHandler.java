@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -67,14 +67,14 @@ import java.util.stream.Collectors;
 public class ViolationResultExceptionHandler implements ResultExceptionHandler<ConstraintViolationException> {
 
     @Override
-    public boolean supports(final @NonNull Throwable t) {
+    public boolean supports(@NonNull Throwable t) {
 
         return t instanceof ConstraintViolationException;
     }
 
     @NonNull
     @Override
-    public Result<?> handle(final @NonNull ConstraintViolationException e) {
+    public Result<?> handle(@NonNull ConstraintViolationException e) {
 
         return R.failure(
                 ResponseStatus.BAD_REQUEST.getCode(), e.getConstraintViolations()

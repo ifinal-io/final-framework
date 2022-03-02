@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,15 +15,14 @@
 
 package org.ifinalframework.context.exception.result;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.util.Asserts;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 /**
  * @author likly
@@ -38,13 +36,13 @@ public class UnCatchResultExceptionHandler implements ResultExceptionHandler<Thr
     private static final Logger logger = LoggerFactory.getLogger(UnCatchResultExceptionHandler.class);
 
     @Override
-    public boolean supports(final Throwable t) {
-
+    public boolean supports(@NonNull Throwable t) {
         return true;
     }
 
+    @NonNull
     @Override
-    public Result<?> handle(final Throwable throwable) {
+    public Result<?> handle(@NonNull Throwable throwable) {
 
         logger.error("UnCatchException:", throwable);
         return R.failure(500, Asserts.isEmpty(throwable.getMessage()) ? "UnCatchException" : throwable.getMessage());
