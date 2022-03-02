@@ -1,5 +1,3 @@
-![final-framework](src/images/final-framework@2x.png)
-
 # final-framework
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/final-projects/final-framework/CI)](https://github.com/final-projectes/final-framework/actions?query=workflow%3ACI)
@@ -11,6 +9,10 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/final-projects/final-framework)
 ![GitHub top language](https://img.shields.io/github/languages/top/final-projects/final-framework)
 [![GitHub language count](https://img.shields.io/github/languages/count/final-projects/final-framework)](https://github.com/likly/final-framework)
+
+
+![final-framework](src/images/final-framework@2x.png)
+
 
 ## 概述
 
