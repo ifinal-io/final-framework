@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,24 +15,20 @@
 
 package org.ifinalframework.context.expression;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.springframework.context.expression.MapAccessor;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
-
-import org.ifinalframework.json.Json;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.json.Json;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.context.expression.MapAccessor;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * SpelTest.
@@ -44,6 +39,14 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 @Slf4j
 class SpelTest {
+
+    @Test
+    void primary() {
+        assertEquals(1, Spel.getValue("#{1}"));
+        assertEquals(2, Spel.getValue("#{1+1}"));
+        assertEquals("11", Spel.getValue("#{1+'1'}"));
+    }
+
 
     @Test
     void stand() {
@@ -121,6 +124,25 @@ class SpelTest {
         Object value = Spel.getValue(expression, object);
 
         logger.info("{}={}", expression, value);
+
+    }
+
+    @Test
+    void equals() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("name", "xiaoMing");
+        map.put("age", 18);
+        Person person = new Person("xiaoMing", 18, null, null);
+
+        List<String> expressions = Arrays.asList("#{name}", "#{age}");
+
+        List<ExpressionItem> expressionItems = Spel.compare(map, person, expressions);
+        for (ExpressionItem item : expressionItems) {
+            logger.info("expression={},leftValue={},rightValue={},equals={}", item.getExpression(), item.getLeftValue(), item.getRightValue(), item.equals());
+        }
+
+        boolean equals = Spel.equals(map, person, expressions);
+        logger.info("equals={}", equals);
 
     }
 
