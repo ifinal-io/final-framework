@@ -83,8 +83,8 @@ class SpelTest {
 
         logger.info("ext.name={}", Spel.getValue("#{ext.name}", context));
         logger.info("date={}", Spel.getValue(
-            "#{ext.containsKey('date') ? new java.text.SimpleDateFormat('yyyy-MM-dd').format(ext.date) : ''}",
-            context));
+                "#{ext.containsKey('date') ? new java.text.SimpleDateFormat('yyyy-MM-dd').format(ext.date) : ''}",
+                context));
 
     }
 
@@ -114,7 +114,7 @@ class SpelTest {
 
     @ParameterizedTest
     @ValueSource(
-        strings = {"#{['data'][0]['shopCode']}"}
+            strings = {"#{['data'][0]['shopCode']}"}
     )
     void test2(String expression) {
         final String json = "{\"data\": [{\"id\": 20936066, \"yn\": 1, \"mart\": \"bjwm\", \"skuId\": 100929389, \"status\": 14, \"barCode\": \"6971460180066\", \"bizType\": 0, \"created\": 1590484875000, \"storeId\": 13558, \"baseUnit\": \"EA\", \"createId\": \"sap\", \"modified\": 1616489347000, \"shopCode\": \"8632\", \"shopName\": \"明光村店(筹备中)\", \"shopType\": \"S\", \"statusCn\": \"4\", \"updateId\": \"郑涛\", \"customize\": {\"consignForSale\": false, \"existOrderUnit\": true}, \"goodsCode\": \"926053\", \"goodsName\": \"微波鲜玉米\", \"orderUnit\": \"EA\", \"deliveryType\": 1, \"purchaseUnit\": \"EA\", \"supplierCode\": \"DC15\", \"supplierName\": \"大兴冷冻冷藏日配库\", \"categoryCode0\": \"P20\", \"categoryCode1\": \"UF2\", \"categoryCode2\": \"285-001\", \"outSupplierCode\": \"334310\", \"outSupplierName\": \"小丁家（北京）农业科技有限公司\"}], \"mart\": \"bjwm\", \"groupId\": 1142, \"venderId\": 1, \"timestamp\": 1619911098680, \"storeCreditCode\": \"\"}";
@@ -132,16 +132,16 @@ class SpelTest {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("name", "xiaoMing");
         map.put("age", 18);
-        Person person = new Person("xiaoMing", 18, null, null);
+        Person person = new Person("xiaoMing", 12, null, null);
 
         List<String> expressions = Arrays.asList("#{name}", "#{age}");
 
-        List<ExpressionItem> expressionItems = Spel.compare(map, person, expressions);
-        for (ExpressionItem item : expressionItems) {
-            logger.info("expression={},leftValue={},rightValue={},equals={}", item.getExpression(), item.getLeftValue(), item.getRightValue(), item.equals());
-        }
-
-        boolean equals = Spel.equals(map, person, expressions);
+        boolean equals = Spel.equals(map, person, expressions, new Spel.CompareListener() {
+            @Override
+            public void onCompare(String expression, Object leftValue, Object rightValue, boolean equals) {
+                logger.info("expression={},leftValue={},rightValue={},equals={}", expression, leftValue, rightValue, equals);
+            }
+        });
         logger.info("equals={}", equals);
 
     }
