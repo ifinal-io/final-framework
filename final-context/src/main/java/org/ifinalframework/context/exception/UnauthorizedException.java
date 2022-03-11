@@ -39,13 +39,11 @@ public class UnauthorizedException extends ServiceException {
     }
 
     public UnauthorizedException(final Integer code, final String message, final Object... args) {
-
         this(code.toString(), message, args);
     }
 
     public UnauthorizedException(final String code, final String message, final Object... args) {
-
-        super(ResponseStatus.UNAUTHORIZED.getCode(), ResponseStatus.UNAUTHORIZED.getDesc(), code, message, args);
+        super(ResponseStatus.UNAUTHORIZED, code, message, args);
     }
 
 }

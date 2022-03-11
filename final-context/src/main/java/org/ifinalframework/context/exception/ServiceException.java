@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,11 +15,11 @@
 
 package org.ifinalframework.context.exception;
 
-import org.springframework.lang.NonNull;
-
 import org.ifinalframework.context.util.Messages;
 import org.ifinalframework.core.IException;
+import org.ifinalframework.core.ResponseStatus;
 import org.ifinalframework.core.result.Responsible;
+import org.springframework.lang.NonNull;
 
 /**
  * 业务异常
@@ -56,7 +55,7 @@ public class ServiceException extends RuntimeException implements Responsible, I
     private final transient Object[] args;
 
     public ServiceException(final Integer status, final String description, final IException exception,
-        final Object... args) {
+                            final Object... args) {
 
         this(status, description, exception.getCode(), exception.getMessage(), args);
     }
@@ -66,8 +65,12 @@ public class ServiceException extends RuntimeException implements Responsible, I
         this(status, description, status.toString(), description);
     }
 
+    protected ServiceException(ResponseStatus responseStatus, String code, String message, Object... args) {
+        this(responseStatus.getCode(), responseStatus.getDesc(), code, message, args);
+    }
+
     public ServiceException(final Integer status, final String description, final String code, final String message,
-        final Object... args) {
+                            final Object... args) {
 
         super(description);
         this.status = status;

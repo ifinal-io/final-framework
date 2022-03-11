@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +31,7 @@ import org.ifinalframework.core.ResponseStatus;
 public class InternalServerException extends ServiceException {
 
     public static final InternalServerException DEFAULT = new InternalServerException(
-        ResponseStatus.INTERNAL_SERVER_ERROR.getDesc());
+            ResponseStatus.INTERNAL_SERVER_ERROR.getDesc());
 
     public InternalServerException(final String message, final Object... args) {
 
@@ -50,9 +49,8 @@ public class InternalServerException extends ServiceException {
     }
 
     public InternalServerException(final String code, final String message, final Object... args) {
-
-        super(ResponseStatus.INTERNAL_SERVER_ERROR.getCode(), ResponseStatus.INTERNAL_SERVER_ERROR.getDesc(), code,
-            message, args);
+        super(ResponseStatus.INTERNAL_SERVER_ERROR, code,
+                message, args);
     }
 
 }

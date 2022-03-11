@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,23 +28,19 @@ public class ForbiddenException extends ServiceException {
     public static final ForbiddenException DEFAULT = new ForbiddenException(ResponseStatus.FORBIDDEN.getDesc());
 
     public ForbiddenException(final String message, final Object... args) {
-
         this(ResponseStatus.FORBIDDEN.getCode(), message, args);
     }
 
     public ForbiddenException(final IException e, final Object... args) {
-
         this(e.getCode(), e.getMessage(), args);
     }
 
     public ForbiddenException(final Integer code, final String message, final Object... args) {
-
         this(code.toString(), message, args);
     }
 
     public ForbiddenException(final String code, final String message, final Object... args) {
-
-        super(ResponseStatus.FORBIDDEN.getCode(), ResponseStatus.FORBIDDEN.getDesc(), code, message, args);
+        super(ResponseStatus.FORBIDDEN, code, message, args);
     }
 
 }
