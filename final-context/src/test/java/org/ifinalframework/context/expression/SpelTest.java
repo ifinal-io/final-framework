@@ -25,10 +25,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * SpelTest.
@@ -144,6 +146,14 @@ class SpelTest {
         });
         logger.info("equals={}", equals);
 
+    }
+
+    @Test
+    void longTest() {
+        Long a = new Long(1001071088L);
+        Long b = 1001071088L;
+        assertEquals(a, b);
+        assertTrue(ObjectUtils.nullSafeEquals(a, b));
     }
 
     @Data
