@@ -15,7 +15,7 @@
  */
 
 /**
- * <h3>核心对象。</h3>
+ * <p>核心对象。</p>
  * <ul>
  *     <li>{@linkplain org.apache.dubbo.config.ApplicationConfig 应用}</li>
  *     <li>{@linkplain org.apache.dubbo.config.RegistryConfig 注册配置}</li>

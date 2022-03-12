@@ -8,17 +8,26 @@ import org.springframework.lang.Nullable;
  * @version 1.2.4
  **/
 public interface BeanMethodInvoker {
-
+    /**
+     * invoke method
+     */
     default Object invoke(@NonNull Object bean, @NonNull String methodName, @Nullable Object[] args) {
         return invoke(bean, methodName, null, args);
     }
-
+    /**
+     * invoke method
+     */
     @Nullable
     Object invoke(@NonNull String beanName,@NonNull String methodName,@Nullable Class<?>[] parameterTypes,@Nullable Object[] args);
 
+    /**
+     * invoke method
+     */
     @Nullable
     Object invoke(@NonNull Class<?> beanType,@NonNull String methodName,@Nullable Class<?>[] parameterTypes,@Nullable Object[] args);
-
+    /**
+     * invoke method
+     */
     @Nullable
     Object invoke(@NonNull Object bean, @NonNull String methodName, @Nullable Class<?>[] parameterTypes, @Nullable Object[] args);
 

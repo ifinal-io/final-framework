@@ -50,6 +50,9 @@ public class ServiceException extends RuntimeException implements Responsible, I
      */
     private final String code;
 
+    /**
+     * 异常消息
+     */
     private final String message;
 
     private final transient Object[] args;

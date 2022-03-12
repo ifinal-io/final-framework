@@ -34,21 +34,23 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
 /**
- * <h3>Feature:</h3>
+ * BeanEnumPropertySerializerModifier.
+ *
+ * <p>Feature:</p>
  * <ul>
  *     <li>the property serialize the value of {@link IEnum#getCode()}.</li>
  *     <li>add property name serialize the value of {@link Enum#name()}.</li>
  *     <li>add property desc serialize the value of {@link IEnum#getDesc()}.</li>
  * </ul>
  *
- * <h3>Java Entity Example:</h3>
+ * <p>Java Entity Example:</p>
  * <pre class="code">
  *     &#64;Data
  *     static class EnumBean {
  *          private YN yn = YN.YES;
  *     }
  * </pre>
- * <h3>Json Example:</h3>
+ * <p>Json Example:</p>
  * <pre class="code">
  *      {
  *          "yn": 1,

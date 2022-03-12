@@ -23,7 +23,7 @@
  * </ol>
  *
  *
- * <h4>{@link org.springframework.context.event.EventListener}</h4>
+ * <p>{@link org.springframework.context.event.EventListener}</p>
  * All methods of annotated with {@link org.springframework.context.event.EventListener} would be convent to a {@link org.springframework.context.event.ApplicationListenerMethodAdapter} by {@link org.springframework.context.event.DefaultEventListenerFactory}.
  *
  * @author likly

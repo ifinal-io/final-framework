@@ -78,13 +78,17 @@ public final class UserContextHolder {
         }
     }
 
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
-        setUserContext(localeContext, false);
+    /**
+     * set user context
+     */
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> userContext) {
+        setUserContext(userContext, false);
     }
 
-    public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {
-
-        UserContextHolder.defaultUser = user;
+    /**
+     * set default user
+     */
+    public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {UserContextHolder.defaultUser = user;
     }
 
     @Nullable

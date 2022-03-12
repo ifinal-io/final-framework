@@ -17,14 +17,14 @@
  * {@link org.springframework.context.ApplicationListener}
  *
  * <pre class="code">
- * public class MyApplicationEventListener implements ApplicationListener<ApplicationReadyEvent>{
+ * public class MyApplicationEventListener implements ApplicationListener&lg;ApplicationReadyEvent&gt;{
  *
  * }
  * </pre>
  *
- * <h3>Registration</h4>
+ * <p>Registration</p>
  *
- * <h4>Java API</h4>
+ * <p>Java API</p>
  * Use {@link org.springframework.boot.SpringApplication#addListeners(org.springframework.context.ApplicationListener[])} java api like this:
  * <pre class="code">
  * SpringApplication application = new SpringApplication();
@@ -32,7 +32,7 @@
  * application.run();
  * </pre>
  *
- * <h4>Spring SPI</h4>
+ * <p>Spring SPI</p>
  * Use <code>META-INF/spring.factories</code> Spring SPI.
  * <pre class="code">
  * # Application Listeners
@@ -46,9 +46,8 @@
  * org.springframework.boot.env.EnvironmentPostProcessorApplicationListener
  * </pre>
  *
- * <h4>@</h4>
  *
- * <h4>{@link org.springframework.boot.context.event.EventPublishingRunListener}</h4>
+ * <p>{@link org.springframework.boot.context.event.EventPublishingRunListener}</p>
  *
  * <ol>
  *     <li>{@link org.springframework.boot.context.event.ApplicationStartingEvent}</li>

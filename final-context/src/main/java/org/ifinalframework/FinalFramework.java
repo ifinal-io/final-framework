@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 /**
  * An {@link Configuration} class for {@code finalframework}.
  *
- * <h3>@ComponentScan</h3>
+ * <p>@ComponentScan</p>
  * <p>{@link FinalFramework} use default packages of {@code org.ifinalframework} to scan {@link Component}s.</p>
  *
  * @author likly

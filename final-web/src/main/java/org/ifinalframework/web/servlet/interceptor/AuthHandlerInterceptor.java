@@ -50,6 +50,9 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
     private final Map<Class<? extends Annotation>, AuthService> authServices = new HashMap<>();
 
+    /**
+     * init
+     */
     public AuthHandlerInterceptor(final ObjectProvider<AuthService<?, ?>> authServiceProvider) {
 
         for (AuthService<?, ?> authService : authServiceProvider) {

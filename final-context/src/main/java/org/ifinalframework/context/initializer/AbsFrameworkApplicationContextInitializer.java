@@ -41,6 +41,9 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
 
     private final Class<?> framework;
 
+    /**
+     * build an instance.
+     */
     protected AbsFrameworkApplicationContextInitializer(@NonNull final Class<?> framework) {
         this.framework = Objects.requireNonNull(framework);
     }

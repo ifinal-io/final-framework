@@ -37,10 +37,10 @@ import java.util.Set;
  * Load {@link org.springframework.beans.factory.config.BeanDefinition}s from resource like {@link
  * org.springframework.context.annotation.ImportResource}.
  *
- * <h4>Config Import Resource Locations</h4>
+ * <p>Config Import Resource Locations</p>
  * <p>Config the locations of import resource with {@code spring.application.import-resource.locations}.</p>
  *
- * <h4>Enable Default Import Resource</h4>
+ * <p>Enable Default Import Resource</p>
  * <p>Config use default import resource with {@code spring.application.import-resource.use-default}, default
  * locations is:</p>
  * <ul>
