@@ -81,10 +81,10 @@ public abstract class CachedExpressionEvaluator {
      * @param expression the expression to parse
      */
     protected Expression getExpression(Map<ExpressionKey, Expression> cache,
-        AnnotatedElementKey elementKey, String expression) {
+                                       AnnotatedElementKey elementKey, String expression) {
         ExpressionKey expressionKey = createKey(elementKey, expression);
         return cache.computeIfAbsent(expressionKey,
-            key -> getParser().parseExpression(expression, ParserContext.TEMPLATE_EXPRESSION));
+                key -> getParser().parseExpression(expression, ParserContext.TEMPLATE_EXPRESSION));
     }
 
     private ExpressionKey createKey(AnnotatedElementKey elementKey, String expression) {
@@ -117,7 +117,7 @@ public abstract class CachedExpressionEvaluator {
             }
             CachedExpressionEvaluator.ExpressionKey otherKey = (ExpressionKey) other;
             return this.element.equals(otherKey.element)
-                && ObjectUtils.nullSafeEquals(this.expression, otherKey.expression);
+                    && ObjectUtils.nullSafeEquals(this.expression, otherKey.expression);
         }
 
         @Override

@@ -204,32 +204,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <doclet>org.ifinalframework.javadoc.JsonDoclet</doclet>
-                    <docletArtifacts>
-                        <docletArtifact>
-                            <groupId>org.ifinalframework.javadoc</groupId>
-                            <artifactId>javadoc-doclet</artifactId>
-                            <version>0.0.1-alpha</version>
-                        </docletArtifact>
-                    </docletArtifacts>
-                    <show>private</show>
-                    <useStandardDocletOptions>false</useStandardDocletOptions>
-                    <outputDirectory>${project.basedir}/target/classes/META-INF/docs/json</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <phase>compile</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
                 <dependencies>

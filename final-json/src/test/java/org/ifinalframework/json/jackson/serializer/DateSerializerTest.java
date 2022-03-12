@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.*;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * DateSerializerTest.
@@ -68,7 +69,7 @@ class DateSerializerTest {
         String pattern = "yyyy-MM-dd";
         DateSerializer dateSerializer = new DateSerializer(pattern);
         Date date = new Date();
-        String format = new SimpleDateFormat(pattern).format(date);
+        String format = new SimpleDateFormat(pattern, LocaleContextHolder.getLocale()).format(date);
         dateSerializer.serialize(date, jsonGenerator, null);
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
         verify(jsonGenerator, times(1)).writeString(argumentCaptor.capture());
