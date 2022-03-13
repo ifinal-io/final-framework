@@ -15,8 +15,14 @@
 
 package org.ifinalframework.json;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.core.IView;
+import org.ifinalframework.json.jackson.ObjectMapperFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -28,8 +34,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JsonTest.
@@ -44,32 +49,72 @@ class JsonTest {
     @Data
     private static class JsonBean {
 
-        private Date date = new Date(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli());
+        @JsonView(Views.V1.class)
+        private Date date;
 
-        private LocalDate localDate = LocalDate.now();
-        private LocalDateTime localDateTime = LocalDateTime.now().toLocalDate().atStartOfDay();
+        @JsonView(Views.V2.class)
+        private LocalDate localDate;
+        @JsonView(Views.V2.class)
+        private LocalDateTime localDateTime;
+
+        public static class Views {
+            public interface V1{}
+            public interface V2{}
+        }
 
 
+    }
+
+    private JsonBean newJsonBean(){
+        JsonBean jsonBean = new JsonBean();
+        jsonBean.date = new Date(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli());
+        jsonBean.localDateTime = LocalDateTime.now().toLocalDate().atStartOfDay();
+        jsonBean.localDate = LocalDate.now();
+        return jsonBean;
     }
 
     @Test
     void toJson() {
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC.normalized()));
         LocaleContextHolder.setTimeZone(TimeZone.getTimeZone(ZoneOffset.of("+8")));
-        String json = Json.toJson(new JsonBean());
+        JsonBean jsonBean = newJsonBean();
+        String json = Json.toJson(jsonBean);
         logger.info(json);
         assertTrue(json.contains("dateFormat"));
         assertTrue(json.contains("localDateTimeFormat"));
 
-        final JsonBean jsonBean = Json.toObject(json, JsonBean.class);
+        jsonBean = Json.toObject(json, JsonBean.class);
         assertEquals(LocalDate.now().atStartOfDay(), jsonBean.localDateTime);
 
+    }
+
+    @Test
+    void toJsonWithView(){
+        JsonBean jsonBean = new JsonBean();
+        String json = Json.toJson(jsonBean, JsonBean.Views.V1.class);
+        assertTrue(json.contains("date"));
+        assertFalse(json.contains("localDate"));
     }
 
     @Test
     void toObject() {
         assertEquals(1, Json.toObject("1"));
         assertEquals(1, Json.toObject("1", Integer.class));
+    }
+
+    @Test
+    void toObjectOfString(){
+        assertEquals("haha",Json.toObject("haha",String.class));
+    }
+
+    @Test
+    @SneakyThrows
+    void toObjectWithView(){
+        JsonBean jsonBean = newJsonBean();
+        String json = Json.toJson(jsonBean);
+        JsonBean value = Json.toObject(json,JsonBean.class, JsonBean.Views.V2.class);
+        assertNull(value.date);
+        assertNotNull(value.localDateTime);
     }
 
     @Test

@@ -73,7 +73,7 @@ public class JacksonJsonService implements JsonService {
             if (Objects.isNull(view)) {
                 return objectMapper.readValue(json, classOfT);
             } else {
-                return objectMapper.readerWithView(view).readValue(json, classOfT);
+                return objectMapper.readerWithView(view).forType(classOfT).readValue(json);
             }
         } catch (Exception e) {
             throw new JsonException(e);
