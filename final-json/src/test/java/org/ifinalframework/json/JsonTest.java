@@ -16,13 +16,9 @@
 package org.ifinalframework.json;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.core.IView;
-import org.ifinalframework.json.jackson.ObjectMapperFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -90,7 +86,7 @@ class JsonTest {
 
     @Test
     void toJsonWithView(){
-        JsonBean jsonBean = new JsonBean();
+        JsonBean jsonBean = newJsonBean();
         String json = Json.toJson(jsonBean, JsonBean.Views.V1.class);
         assertTrue(json.contains("date"));
         assertFalse(json.contains("localDate"));
