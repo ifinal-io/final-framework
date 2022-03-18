@@ -46,11 +46,6 @@ class JvmDriverTest {
         logger.info(JvmDriver.jad(Jvm.class));
     }
 
-    @Test
-    void compile(){
-        byte[] bytes = JvmDriver.compile(Jvm.class, JvmDriver.jad(Jvm.class));
-        assertNotNull(bytes);
-    }
 
 //    @Test
     void redefine(){
