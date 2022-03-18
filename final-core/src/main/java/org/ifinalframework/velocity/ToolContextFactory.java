@@ -17,6 +17,7 @@ package org.ifinalframework.velocity;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
@@ -86,7 +87,7 @@ public class ToolContextFactory implements ContextFactory {
                 context.put(propertyDescriptor.getName(), readMethod.invoke(bean));
             }
         } catch (Exception e) {
-            throw new VelocityContextException(e);
+            throw new VelocityException(e);
         }
         return context;
     }

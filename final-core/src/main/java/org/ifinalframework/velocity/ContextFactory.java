@@ -16,6 +16,8 @@
 package org.ifinalframework.velocity;
 
 import org.apache.velocity.context.Context;
+import org.apache.velocity.exception.VelocityException;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -33,8 +35,8 @@ public interface ContextFactory {
      * Create a {@link Context} from {@code param}.
      *
      * @param param context param.
-     * @throws VelocityContextException velocity context exception.
+     * @throws VelocityException velocity context exception.
      */
     @NonNull
-    Context create(@Nullable Object param) throws VelocityContextException;
+    Context create(@Nullable Object param) throws VelocityException;
 }
