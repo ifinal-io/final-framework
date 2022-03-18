@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * PropertiesLoaderTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @since 1.2.1
  */

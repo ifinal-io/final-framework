@@ -25,7 +25,7 @@ import java.util.function.BiConsumer;
 /**
  * Excel sheet header info.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 @RequiredArgsConstructor

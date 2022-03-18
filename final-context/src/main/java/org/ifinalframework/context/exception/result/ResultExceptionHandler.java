@@ -22,7 +22,7 @@ import org.ifinalframework.exception.ExceptionHandler;
 /**
  * {@link Result}异常处理器，将异常所携带的异常消息封装成 {@link Result}对象返回给调用方。
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see IExceptionResultExceptionHandler
  * @see ViolationResultExceptionHandler

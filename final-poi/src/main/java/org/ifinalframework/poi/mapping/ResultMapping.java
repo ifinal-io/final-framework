@@ -20,7 +20,7 @@ import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.ifinalframework.poi.databind.ExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 @Setter

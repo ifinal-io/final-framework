@@ -21,7 +21,7 @@ import org.springframework.beans.PropertyEditorRegistrySupport;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see PropertyEditorRegistrySupport
  **/

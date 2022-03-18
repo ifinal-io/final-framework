@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 /**
  * <a href="https://square.github.io/retrofit/">A type-safe HTTP client for Android and Java.</a>
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -28,7 +28,7 @@ import java.io.Serializable;
 /**
  * ObjectResultFunction.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @since 1.2.1
  */

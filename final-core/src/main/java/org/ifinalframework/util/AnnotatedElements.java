@@ -24,7 +24,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see AnnotatedElementUtils
  * @since 1.0.0

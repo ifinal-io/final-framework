@@ -24,7 +24,7 @@ import java.lang.reflect.AnnotatedElement;
 /**
  * AnnotationAttributesProcessor.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see AnnotationAttributes
  * @since 1.0.0

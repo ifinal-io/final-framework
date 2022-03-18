@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 /**
  * Deserialize a {@link Boolean} result from {@link Cell}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class BooleanExcelDeserializer implements ExcelDeserializer<Boolean> {

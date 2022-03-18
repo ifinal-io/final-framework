@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class StringExcelSerializer implements ExcelSerializer<String> {

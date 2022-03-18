@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * General utility methods that asserts in validating arguments.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see MessageFormatter#arrayFormat(String, Object[])
  * @see Objects

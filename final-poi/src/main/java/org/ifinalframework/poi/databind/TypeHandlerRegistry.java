@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class TypeHandlerRegistry {

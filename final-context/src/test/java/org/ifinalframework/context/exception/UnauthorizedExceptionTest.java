@@ -24,7 +24,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.3.0
  **/
 class UnauthorizedExceptionTest {

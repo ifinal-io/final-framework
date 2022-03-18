@@ -24,7 +24,7 @@ import org.springframework.lang.NonNull;
 /**
  * 业务异常
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see NotFoundException
  * @see BadRequestException

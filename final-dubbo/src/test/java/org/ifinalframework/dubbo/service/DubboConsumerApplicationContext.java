@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * DubboProviderApplicationContext.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

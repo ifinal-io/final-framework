@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * ObjectResultFunctionTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @since 1.2.1
  */

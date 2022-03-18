@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Excel.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -90,7 +90,7 @@ public class Excel {
     /**
      * Style.
      *
-     * @author likly
+     * @author ilikly
      * @version 1.0.0
      * @since 1.0.0
      */
@@ -126,7 +126,7 @@ public class Excel {
     /**
      * Cell.
      *
-     * @author likly
+     * @author ilikly
      * @version 1.0.0
      * @since 1.0.0
      */

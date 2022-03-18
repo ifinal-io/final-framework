@@ -31,7 +31,7 @@ import org.springframework.web.multipart.support.MultipartResolutionDelegate;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.web.servlet.mvc.method.annotation.RequestPartMethodArgumentResolver
  **/

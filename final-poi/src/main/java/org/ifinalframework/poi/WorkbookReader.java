@@ -29,7 +29,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class WorkbookReader {

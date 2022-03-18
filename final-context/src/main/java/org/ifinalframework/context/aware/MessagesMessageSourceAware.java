@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 /**
  * An aware helper to receive {@link MessageSource} from {@link MessageSourceAware} and set to {@link Messages}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see MessageSource
  * @see Messages

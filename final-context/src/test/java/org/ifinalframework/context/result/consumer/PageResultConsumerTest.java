@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * PageResultConsumerTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.2
  * @since 1.2.2
  */

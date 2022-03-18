@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Warp the {@link StringHttpMessageConverter} with {@link JsonStringHttpMessageConverter}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see WebMvcConfigurer#configureMessageConverters(List)
  * @see WebMvcConfigurer#extendMessageConverters(List)

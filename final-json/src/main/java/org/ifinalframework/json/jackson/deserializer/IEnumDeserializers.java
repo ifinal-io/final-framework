@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 /**
  * IEnumSerializers.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -61,7 +61,7 @@ public class IEnumDeserializers extends SimpleDeserializers {
     /**
      * The {@link JsonDeserializer} for type of {@link Enum} which implementation the interface of {@link IEnum}.
      *
-     * @author likly
+     * @author ilikly
      * @version 1.0.0
      * @since 1.0.0
      */

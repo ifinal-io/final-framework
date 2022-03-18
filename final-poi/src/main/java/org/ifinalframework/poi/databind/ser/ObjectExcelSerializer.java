@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class ObjectExcelSerializer implements ExcelSerializer<Object> {

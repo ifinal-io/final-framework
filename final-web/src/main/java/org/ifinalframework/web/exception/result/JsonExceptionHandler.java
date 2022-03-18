@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 /**
  * Json 异常处理器，将业务层抛出的{@link JsonException}异常包装成 {@link Result}返回给前端。
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see JsonException
  * @since 1.0.0

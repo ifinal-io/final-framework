@@ -1,7 +1,7 @@
 package org.ifinalframework.xml;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 @FunctionalInterface

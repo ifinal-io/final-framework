@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Just only do parse token from the {@link HttpServletRequest} to {@link IUser} but don't check the user info.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

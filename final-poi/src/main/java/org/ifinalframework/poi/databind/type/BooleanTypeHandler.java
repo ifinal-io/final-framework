@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.BooleanExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.BooleanExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class BooleanTypeHandler extends SimpleTypeHandler<Boolean> {

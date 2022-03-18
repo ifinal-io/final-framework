@@ -33,7 +33,7 @@ import java.util.Objects;
 /**
  * Velocity {@link ToolContext} factory.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see ToolManager
  * @since 1.2.4

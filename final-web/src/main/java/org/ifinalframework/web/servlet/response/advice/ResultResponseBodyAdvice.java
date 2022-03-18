@@ -36,7 +36,7 @@ import java.time.Duration;
 /**
  * Wrap the {@link org.springframework.web.bind.annotation.ResponseBody} with {@link Result}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

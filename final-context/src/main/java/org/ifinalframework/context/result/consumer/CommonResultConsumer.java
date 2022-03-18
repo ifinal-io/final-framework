@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 /**
  * CommonResultConsumer.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see LocaleContextHolder#getLocale()
  * @see LocaleContextHolder#getTimeZone()

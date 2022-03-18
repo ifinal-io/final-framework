@@ -23,7 +23,7 @@ import org.springframework.lang.Nullable;
 /**
  * Deserialize a {@link Long} result from {@link Cell}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

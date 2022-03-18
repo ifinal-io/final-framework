@@ -26,7 +26,7 @@
  * <p>{@link org.springframework.context.event.EventListener}</p>
  * All methods of annotated with {@link org.springframework.context.event.EventListener} would be convent to a {@link org.springframework.context.event.ApplicationListenerMethodAdapter} by {@link org.springframework.context.event.DefaultEventListenerFactory}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.context.annotation.AnnotationConfigUtils#registerAnnotationConfigProcessors(org.springframework.beans.factory.support.BeanDefinitionRegistry)
  * @see org.springframework.context.event.EventListenerMethodProcessor

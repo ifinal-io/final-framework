@@ -33,7 +33,7 @@ import java.util.Objects;
  * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, 处理{@link HandlerMethod} 返回类型与声明类型不一致时，导致抛出
  * {@link ClassCastException}。
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)
  * @see StringHttpMessageConverter

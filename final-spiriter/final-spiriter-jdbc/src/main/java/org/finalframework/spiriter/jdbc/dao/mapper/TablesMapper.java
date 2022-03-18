@@ -22,7 +22,7 @@ import org.ifinalframework.spiriter.jdbc.entity.Tables;
 
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  *
  * @since 1.0.0

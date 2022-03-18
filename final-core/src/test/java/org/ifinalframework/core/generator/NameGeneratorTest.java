@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * NameGeneratorTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

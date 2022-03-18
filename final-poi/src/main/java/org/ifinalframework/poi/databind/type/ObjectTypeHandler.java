@@ -20,7 +20,7 @@ import org.ifinalframework.poi.databind.deser.ObjectExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.ObjectExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class ObjectTypeHandler extends SimpleTypeHandler<Object> {

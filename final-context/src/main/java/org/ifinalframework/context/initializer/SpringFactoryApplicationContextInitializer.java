@@ -23,7 +23,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see SpringFactory
  * @see ApplicationContextInitializer

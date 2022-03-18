@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  *
  * @since 1.0.0

@@ -31,7 +31,7 @@ import java.util.Collections;
 /**
  * Modify bean {@link LocalDateTime} property serializer append a new {@link BeanPropertyWriter} named {@code xxxFormat}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see LocalDateTime
  * @since 1.0.0

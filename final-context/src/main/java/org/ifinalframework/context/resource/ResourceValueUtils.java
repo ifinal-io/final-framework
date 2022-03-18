@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 /**
  * ResourceValueUtils.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

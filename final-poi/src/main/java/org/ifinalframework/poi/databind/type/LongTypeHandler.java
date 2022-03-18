@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.LongExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.LongExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LongTypeHandler extends SimpleTypeHandler<Long> {

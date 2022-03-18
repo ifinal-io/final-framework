@@ -10,7 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 class DomXmlParserTest {

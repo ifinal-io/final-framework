@@ -32,7 +32,7 @@ import java.util.ServiceLoader;
  * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link
  * WebMvcConfigurer#addFormatters(FormatterRegistry)}. Also support SPI from {@link ServiceLoader}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see ConverterFactory
  * @see FormatterRegistry

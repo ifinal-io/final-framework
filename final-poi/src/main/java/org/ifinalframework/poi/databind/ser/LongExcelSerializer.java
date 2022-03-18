@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import java.util.Optional;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LongExcelSerializer implements ExcelSerializer<Long> {

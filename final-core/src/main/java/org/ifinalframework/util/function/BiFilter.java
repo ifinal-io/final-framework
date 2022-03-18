@@ -20,7 +20,7 @@ import java.util.function.BiPredicate;
 /**
  * BiFilter.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see BiPredicate
  * @since 1.0.0

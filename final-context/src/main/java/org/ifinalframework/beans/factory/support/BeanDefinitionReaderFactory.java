@@ -35,7 +35,7 @@ import java.util.Map;
  * <p>
  * Create a {@link GroovyBeanDefinitionReader} when the resource end with {@code .groovy} or {@link XmlBeanDefinitionReader}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.context.annotation.ConfigurationClassPostProcessor
  **/

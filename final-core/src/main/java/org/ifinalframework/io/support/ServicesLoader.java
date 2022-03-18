@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * Services loader like {@link java.util.ServiceLoader}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see java.util.ServiceLoader
  * @see org.springframework.core.io.support.SpringFactoriesLoader

@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 /**
  * Regexs.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

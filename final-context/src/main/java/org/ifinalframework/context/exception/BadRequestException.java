@@ -21,7 +21,7 @@ import org.ifinalframework.core.ResponseStatus;
 /**
  * 错误的请求异常
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see ForbiddenException
  * @see NotFoundException

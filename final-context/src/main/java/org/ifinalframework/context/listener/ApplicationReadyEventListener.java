@@ -24,7 +24,7 @@ import org.ifinalframework.auto.spring.factory.annotation.SpringApplicationListe
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

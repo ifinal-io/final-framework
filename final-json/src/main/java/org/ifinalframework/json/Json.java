@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see JsonService
  * @see JsonRegistry

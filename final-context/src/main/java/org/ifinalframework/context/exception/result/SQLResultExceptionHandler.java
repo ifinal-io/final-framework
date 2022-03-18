@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see java.sql.SQLIntegrityConstraintViolationException
  * @since 1.0.0

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 /**
  * ResourceValueUtilsTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -19,7 +19,7 @@ package org.ifinalframework.context.user;
 import org.ifinalframework.core.IUser;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

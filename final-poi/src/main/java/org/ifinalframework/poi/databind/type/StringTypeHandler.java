@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.StringExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.StringExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class StringTypeHandler extends SimpleTypeHandler<String> {

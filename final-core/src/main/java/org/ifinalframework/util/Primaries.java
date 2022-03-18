@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 /**
  * 常见主要基础类型及其包装类型集
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

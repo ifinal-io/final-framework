@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Deserialize a {@link LocalDateTime} result from {@link Cell}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LocalDateTimeExcelDeserializer implements ExcelDeserializer<LocalDateTime> {

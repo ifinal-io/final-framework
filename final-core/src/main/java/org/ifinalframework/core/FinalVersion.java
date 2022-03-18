@@ -21,7 +21,7 @@ import org.ifinalframework.util.JarVersions;
 /**
  * FinalVersion.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.core.SpringVersion
  * @see org.springframework.boot.SpringBootVersion

@@ -24,7 +24,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 /**
  * Registration a {@link FinalFramework} class into {@link ConfigurableApplicationContext}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see FinalFramework
  * @since 1.0.0

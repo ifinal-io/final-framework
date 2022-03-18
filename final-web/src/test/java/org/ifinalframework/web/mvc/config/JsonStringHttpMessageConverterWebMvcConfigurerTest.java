@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * JsonStringHttpMessageConverterWebMvcConfigurerTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

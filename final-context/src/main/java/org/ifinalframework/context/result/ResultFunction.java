@@ -23,7 +23,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @see ResultConsumer
  * @since 1.2.1

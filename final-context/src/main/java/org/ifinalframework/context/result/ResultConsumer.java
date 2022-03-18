@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 /**
  * ResultCustomer.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @see ResultFunction
  * @since 1.2.1

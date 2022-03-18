@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Registry {@link BeanDefinition} into {@link BeanDefinitionRegistry} from {@link SpringFactoriesLoader}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see SpringFactoriesLoader
  * @since 1.0.0

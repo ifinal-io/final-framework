@@ -31,7 +31,7 @@ import java.io.Writer;
 /**
  * A tool for {@code velocity} template language.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see org.apache.velocity.tools.ToolContext
  * @see Velocity

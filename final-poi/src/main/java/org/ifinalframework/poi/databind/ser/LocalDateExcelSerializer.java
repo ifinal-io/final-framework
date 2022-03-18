@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LocalDateExcelSerializer implements ExcelSerializer<LocalDate> {

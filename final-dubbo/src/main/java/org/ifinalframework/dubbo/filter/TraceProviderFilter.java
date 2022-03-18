@@ -27,7 +27,7 @@ import java.util.UUID;
 /**
  * TraceFilter.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see TraceConsumerFilter
  * @since 1.0.0

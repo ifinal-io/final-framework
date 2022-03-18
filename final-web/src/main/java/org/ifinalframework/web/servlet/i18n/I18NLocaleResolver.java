@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see CookieLocaleResolver
  * @see org.springframework.web.server.i18n.AcceptHeaderLocaleContextResolver

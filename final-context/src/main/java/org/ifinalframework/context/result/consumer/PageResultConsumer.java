@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * Build a {@linkplain Pagination} from {@linkplain Page}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.1
  * @since 1.2.1
  */

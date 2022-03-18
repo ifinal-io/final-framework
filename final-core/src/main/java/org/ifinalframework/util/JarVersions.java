@@ -32,7 +32,7 @@ import java.util.jar.JarFile;
 /**
  * JarVersions.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.core.SpringVersion
  * @see SpringBootVersion

@@ -20,7 +20,7 @@ import org.ifinalframework.poi.databind.ser.LocalDateTimeExcelSerializer;
 import java.time.LocalDateTime;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LocalDateTimeTypeHandler extends SimpleTypeHandler<LocalDateTime> {

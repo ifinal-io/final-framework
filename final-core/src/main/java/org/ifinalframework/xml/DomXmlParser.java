@@ -5,7 +5,7 @@ import org.w3c.dom.*;
 import java.util.Optional;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class DomXmlParser implements XmlParser<Document> {

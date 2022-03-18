@@ -59,7 +59,7 @@
  *     <li>{@link org.springframework.boot.context.event.ApplicationFailedEvent}</li>
  * </ol>
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see org.springframework.context.event.EventListener
  * @see org.springframework.context.ApplicationListener

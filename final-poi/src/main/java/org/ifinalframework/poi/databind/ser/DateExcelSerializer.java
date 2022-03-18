@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class DateExcelSerializer implements ExcelSerializer<Date> {

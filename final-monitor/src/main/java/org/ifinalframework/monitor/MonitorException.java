@@ -22,7 +22,7 @@ import org.ifinalframework.core.IException;
 /**
  * Action异常
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

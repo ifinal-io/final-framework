@@ -21,7 +21,7 @@ import org.ifinalframework.poi.databind.ser.DateExcelSerializer;
 import java.util.Date;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class DateTypeHandler extends SimpleTypeHandler<Date> {

@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 /**
  * Customize the order for {@link HandlerInterceptor} from {@link Ordered#getOrder()} or {@link Order#value()}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.2
  * @see Ordered
  * @see Order

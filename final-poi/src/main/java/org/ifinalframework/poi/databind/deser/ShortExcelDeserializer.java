@@ -22,7 +22,7 @@ import org.springframework.lang.NonNull;
 /**
  * Deserialize a {@link Short} result from {@link Cell}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

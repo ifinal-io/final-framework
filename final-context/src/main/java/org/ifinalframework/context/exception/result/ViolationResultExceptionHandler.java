@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  *     <li>{@link javax.validation.constraints.Size}</li>
  * </ul>
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see ConstraintViolationException
  * @see javax.validation.Valid

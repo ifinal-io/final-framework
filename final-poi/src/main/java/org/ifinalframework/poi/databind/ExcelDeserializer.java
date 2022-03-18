@@ -22,7 +22,7 @@ import org.springframework.lang.Nullable;
 /**
  * Deserialize a {@link T} result from {@link Cell}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see ExcelSerializer
  **/

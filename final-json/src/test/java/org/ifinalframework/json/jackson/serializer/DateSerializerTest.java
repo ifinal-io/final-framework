@@ -34,7 +34,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 /**
  * DateSerializerTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

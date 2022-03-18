@@ -5,7 +5,7 @@ import org.dom4j.Document;
 import java.util.Optional;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class Dom4jXmlParser implements XmlParser<Document> {

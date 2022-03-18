@@ -49,7 +49,7 @@ import java.util.Set;
  *     <li>classpath*:spring/spring-config-*.xml</li>
  * </ul>
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see org.springframework.context.annotation.ImportResource
  * @since 1.2.4

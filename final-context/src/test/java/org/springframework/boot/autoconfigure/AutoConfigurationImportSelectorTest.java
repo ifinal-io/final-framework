@@ -24,7 +24,7 @@ import org.springframework.core.type.AnnotationMetadata;
 /**
  * AutoConfigurationImportSelectorTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see org.springframework.context.annotation.ImportSelector
  * @since 1.0.0

@@ -25,7 +25,7 @@ import org.ifinalframework.spiriter.jdbc.dao.mapper.TablesMapper;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  *
  * @since 1.0.0

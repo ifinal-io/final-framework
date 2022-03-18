@@ -46,7 +46,7 @@ import java.util.Optional;
  * A custom {@link HandlerMethodArgumentResolver} for {@link RequestJsonParam} annotation which supports the json format
  * request param like {@link RequestParam}, also supports {@link RequestBody}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see RequestJsonParam
  * @see RequestBody

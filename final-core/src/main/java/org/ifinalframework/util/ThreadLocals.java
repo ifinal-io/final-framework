@@ -18,7 +18,7 @@ package org.ifinalframework.util;
 import lombok.NonNull;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

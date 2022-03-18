@@ -19,7 +19,7 @@ package org.ifinalframework.aop;
 import org.aopalliance.aop.Advice;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

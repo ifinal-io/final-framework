@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 /**
  * ShortExcelSerializerTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

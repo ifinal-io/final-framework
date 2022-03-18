@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.ShortExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.ShortExcelSerializer;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class ShortTypeHandler extends SimpleTypeHandler<Short> {

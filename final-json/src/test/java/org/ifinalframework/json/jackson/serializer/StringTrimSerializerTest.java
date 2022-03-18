@@ -35,7 +35,7 @@ import org.mockito.junit.jupiter.*;
 /**
  * StringTrimSerializerTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */

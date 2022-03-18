@@ -48,7 +48,7 @@ import java.util.stream.Stream;
  *     <li>{@link Aspect}</li>
  * </ul>
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see ClassUtils#forName(String, ClassLoader)
  * @since 1.0.0

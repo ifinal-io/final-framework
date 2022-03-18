@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 /**
  * 数据过滤器，判断数据是否匹配，用于过滤数据集中不符合目标数据的数据。
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @see java.util.function.Predicate
  * @since 1.0.0

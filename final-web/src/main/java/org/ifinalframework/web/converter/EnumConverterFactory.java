@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * Create {@link EnumConverter} with {@link IEnum enum class} from {@link EnumConverterFactory}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -47,7 +47,7 @@ public class EnumConverterFactory implements ConverterFactory<String, IEnum> {
     /**
      * 枚举类型转换器，实现将 {@link String} 映射到 {@link Enum} 类型，该枚举类型需要实现 {@link IEnum}接口。
      *
-     * @author likly
+     * @author ilikly
      * @version 1.0.0
      * @since 1.0.0
      */

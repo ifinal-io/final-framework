@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 /**
  * Apply a {@link Row} to a {@link Map} result.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see ObjectTypeHandler
  * @see ResultMapBiFunction

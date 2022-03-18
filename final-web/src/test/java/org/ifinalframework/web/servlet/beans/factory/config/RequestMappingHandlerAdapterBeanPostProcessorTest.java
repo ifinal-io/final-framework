@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * RequestMappingHandlerAdapterBeanPostProcessorTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.3
  * @since 1.2.3
  */

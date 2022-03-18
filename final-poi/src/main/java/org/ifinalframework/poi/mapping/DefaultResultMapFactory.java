@@ -35,7 +35,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class DefaultResultMapFactory implements ResultMapFactory {

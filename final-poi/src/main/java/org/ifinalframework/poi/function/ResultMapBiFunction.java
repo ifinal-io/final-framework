@@ -31,7 +31,7 @@ import java.util.function.BiFunction;
 /**
  * Apply a {@link Row} to a {@link T} result with {@link ResultMap}.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @see MapBiFunction
  **/

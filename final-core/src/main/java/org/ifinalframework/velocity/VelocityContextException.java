@@ -18,7 +18,7 @@ package org.ifinalframework.velocity;
 import org.apache.velocity.exception.VelocityException;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class VelocityContextException extends VelocityException {

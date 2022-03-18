@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.3.0
  **/
 @ExtendWith(MockitoExtension.class)

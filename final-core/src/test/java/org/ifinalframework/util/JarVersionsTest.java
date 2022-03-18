@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * JarVersionsTest.
  *
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  * @since 1.2.4
  */

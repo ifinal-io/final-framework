@@ -24,7 +24,7 @@ import org.springframework.lang.Nullable;
 import java.time.LocalDate;
 
 /**
- * @author likly
+ * @author ilikly
  * @version 1.2.4
  **/
 public class LocalDateExcelDeserializer implements ExcelDeserializer<LocalDate> {
