@@ -36,7 +36,7 @@ public abstract class OnceBeanDefinitionRegistryPostProcessor implements BeanDef
     private final Set<Integer> factoriesPostProcessed = new HashSet<>();
 
     @Override
-    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
+    public final void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
         int registryId = System.identityHashCode(registry);
 
         if (this.registriesPostProcessed.contains(registryId)) {
@@ -53,7 +53,7 @@ public abstract class OnceBeanDefinitionRegistryPostProcessor implements BeanDef
     }
 
     @Override
-    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
+    public final void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
         int factoryId = System.identityHashCode(beanFactory);
 
         if (this.factoriesPostProcessed.contains(factoryId)) {
