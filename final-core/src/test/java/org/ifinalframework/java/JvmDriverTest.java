@@ -52,7 +52,7 @@ class JvmDriverTest {
         assertNotNull(bytes);
     }
 
-    @Test
+//    @Test
     void redefine(){
 
         Jvm jvm = new Jvm();
