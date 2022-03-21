@@ -43,7 +43,8 @@ class JvmDriverTest {
 
     @Test
     void jad(){
-        logger.info(JvmDriver.jad(Jvm.class));
+        String jad = JvmDriver.jad(Jvm.class);
+        logger.info(jad);
     }
 
 

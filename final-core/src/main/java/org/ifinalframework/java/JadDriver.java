@@ -15,26 +15,30 @@
 
 package org.ifinalframework.java;
 
-import java.util.HashMap;
+import java.util.*;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 
+import org.benf.cfr.reader.api.OutputSinkFactory;
+import org.benf.cfr.reader.api.SinkReturns;
 import org.benf.cfr.reader.apiunreleased.ClassFileSource2;
 import org.benf.cfr.reader.entities.ClassFile;
 import org.benf.cfr.reader.entities.Method;
 import org.benf.cfr.reader.mapping.MappingFactory;
 import org.benf.cfr.reader.mapping.ObfuscationMapping;
+import org.benf.cfr.reader.relationship.MemberNameResolver;
 import org.benf.cfr.reader.state.ClassFileSourceImpl;
 import org.benf.cfr.reader.state.DCCommonState;
+import org.benf.cfr.reader.state.TypeUsageCollectingDumper;
+import org.benf.cfr.reader.state.TypeUsageInformation;
+import org.benf.cfr.reader.util.CannotLoadClassException;
 import org.benf.cfr.reader.util.bytestream.BaseByteData;
+import org.benf.cfr.reader.util.collections.ListFactory;
 import org.benf.cfr.reader.util.getopt.Options;
 import org.benf.cfr.reader.util.getopt.OptionsImpl;
-import org.benf.cfr.reader.util.output.Dumper;
-import org.benf.cfr.reader.util.output.DumperFactory;
-import org.benf.cfr.reader.util.output.InternalDumperFactoryImpl;
-import org.benf.cfr.reader.util.output.ToStringDumper;
+import org.benf.cfr.reader.util.output.*;
 
 /**
  * JadDriver.
@@ -47,7 +51,6 @@ public class JadDriver {
 
     private Options options;
     private DCCommonState dcCommonState;
-    private DumperFactory dumperFactory;
 
     public JadDriver() {
         HashMap<String, String> options = new HashMap<>();
@@ -56,9 +59,6 @@ public class JadDriver {
         this.options = new OptionsImpl(options);
         ClassFileSource2 classFileSource = new ClassFileSourceImpl(this.options);
         dcCommonState = new DCCommonState(this.options, classFileSource);
-        ObfuscationMapping mapping = MappingFactory.get(this.options, dcCommonState);
-        dcCommonState = new DCCommonState(dcCommonState, mapping);
-        dumperFactory = new InternalDumperFactoryImpl(this.options);
     }
 
     public String jad(@NonNull Class<?> clazz) {
@@ -75,13 +75,86 @@ public class JadDriver {
     }
 
     public String jad(Class<?> clazz, byte[] bytes,String methodName){
-        return jad(new ClassFile(new BaseByteData(bytes),clazz.getName(),dcCommonState),methodName).replace(clazz.getName(),clazz.getSimpleName());
+        return jad(new ClassFile(new BaseByteData(bytes),clazz.getName(),dcCommonState),methodName);//.replace(clazz.getName(),clazz.getSimpleName());
     }
 
     private String jad(ClassFile c, String methodName) {
+        Options options = dcCommonState.getOptions();
+        ObfuscationMapping mapping = MappingFactory.get(options, dcCommonState);
+        dcCommonState = new DCCommonState(dcCommonState, mapping);
 
+        final StringBuilder sb = new StringBuilder(8192);
+
+        final NavigableMap<Integer, Integer> lineMapping = new TreeMap<Integer, Integer>();
+
+        OutputSinkFactory mySink = new OutputSinkFactory() {
+            @Override
+            public List<SinkClass> getSupportedSinks(SinkType sinkType, Collection<SinkClass> collection) {
+                return Arrays.asList(SinkClass.STRING, SinkClass.DECOMPILED, SinkClass.DECOMPILED_MULTIVER,
+                        SinkClass.EXCEPTION_MESSAGE, SinkClass.LINE_NUMBER_MAPPING);
+            }
+
+            @Override
+            public <T> Sink<T> getSink(final SinkType sinkType, final SinkClass sinkClass) {
+                return sinkable -> {
+                    // skip message like: Analysing type demo.MathGame
+                    if (sinkType == SinkType.PROGRESS) {
+                        return;
+                    }
+                    if (sinkType == SinkType.LINENUMBER) {
+                        SinkReturns.LineNumberMapping mapping1 = (SinkReturns.LineNumberMapping) sinkable;
+                        NavigableMap<Integer, Integer> classFileMappings = mapping1.getClassFileMappings();
+                        NavigableMap<Integer, Integer> mappings = mapping1.getMappings();
+                        if (classFileMappings != null && mappings != null) {
+                            for (Map.Entry<Integer, Integer> entry : mappings.entrySet()) {
+                                Integer srcLineNumber = classFileMappings.get(entry.getKey());
+                                lineMapping.put(entry.getValue(), srcLineNumber);
+                            }
+                        }
+                        return;
+                    }
+                    sb.append(sinkable);
+                };
+            }
+        };
+
+
+        DumperFactory dumperFactory = new SinkDumperFactory(mySink,options);
+
+        IllegalIdentifierDump illegalIdentifierDump = IllegalIdentifierDump.Factory.get(options);
         Dumper d = new ToStringDumper(); // sentinel dumper.
         try {
+            SummaryDumper summaryDumper = new NopSummaryDumper();
+
+            dcCommonState.configureWith(c);
+            dumperFactory.getProgressDumper().analysingType(c.getClassType());
+
+            // This may seem odd, but we want to make sure we're analysing the version
+            // from the cache, in case that's loaded and tweaked.
+            // ClassPathRelocator handles ensuring we don't reload the wrong file.
+            try {
+                c = dcCommonState.getClassFile(c.getClassType());
+            } catch (CannotLoadClassException ignore) {
+            }
+
+            if (options.getOption(OptionsImpl.DECOMPILE_INNER_CLASSES)) {
+                c.loadInnerClasses(dcCommonState);
+            }
+            if (options.getOption(OptionsImpl.RENAME_DUP_MEMBERS)) {
+                MemberNameResolver.resolveNames(dcCommonState, ListFactory.newList(dcCommonState.getClassCache().getLoadedTypes()));
+            }
+
+            TypeUsageCollectingDumper collectingDumper = new TypeUsageCollectingDumper(options, c);
+            c.analyseTop(dcCommonState, collectingDumper);
+
+            TypeUsageInformation typeUsageInformation = collectingDumper.getRealTypeUsageInformation();
+
+            d = dumperFactory.getNewTopLevelDumper(c.getClassType(), summaryDumper, typeUsageInformation, illegalIdentifierDump);
+            d = dcCommonState.getObfuscationMapping().wrap(d);
+            if (options.getOption(OptionsImpl.TRACK_BYTECODE_LOC)) {
+                d = dumperFactory.wrapLineNoDumper(d);
+            }
+
             if (methodName == null) {
                 c.dump(d);
             } else {
@@ -94,10 +167,14 @@ public class JadDriver {
                 }
             }
             d.print("");
-            return d.toString();
+
+        } catch (Exception e) {
+            throw e;
         } finally {
-            d.close();
+            if (d != null) d.close();
         }
+
+        return sb.toString();
     }
 
 }
