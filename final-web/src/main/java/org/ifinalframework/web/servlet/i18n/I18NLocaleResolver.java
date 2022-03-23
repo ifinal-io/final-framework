@@ -42,9 +42,9 @@ public class I18NLocaleResolver extends CookieLocaleResolver {
 
     private final List<Locale> supportedLocales = new ArrayList<>(4);
 
-    private String paramName;
+    private String paramName = "lang";
 
-    private String headerName;
+    private String headerName = "lang";
 
     @Override
     public Locale resolveLocale(final @NonNull HttpServletRequest request) {
