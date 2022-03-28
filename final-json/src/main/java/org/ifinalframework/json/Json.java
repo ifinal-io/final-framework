@@ -26,6 +26,14 @@ import java.util.function.Supplier;
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  *
+ * <p>Json Serialized</p>
+ * <pre class="code">
+ * // to json
+ * Json.toJson(object);
+ * // to json with view
+ * Json.toJson(object,view);
+ * </pre>
+ *
  * @author ilikly
  * @version 1.0.0
  * @see JsonService
@@ -44,6 +52,7 @@ public final class Json {
      * @param object the value
      * @return the json string
      * @throws JsonException json exception
+     * @see #toJson(Object, Class)
      */
     public static String toJson(final @Nullable Object object) {
 
