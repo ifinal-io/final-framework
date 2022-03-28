@@ -21,6 +21,7 @@ import org.ifinalframework.core.result.Result;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,11 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 1.2.4
  */
 class ResultFunctionConsumerCompositeTest {
-    private ObjectResultFunction objectResultFunction = new ObjectResultFunction();
-    private CommonResultConsumer commonResultConsumer = new CommonResultConsumer();
-    private ResultFunctionConsumerComposite resultFunctionConsumerComposite = new ResultFunctionConsumerComposite(
-            Arrays.asList(objectResultFunction),
-            Arrays.asList(commonResultConsumer)
+    private final ObjectResultFunction objectResultFunction = new ObjectResultFunction();
+    private final CommonResultConsumer commonResultConsumer = new CommonResultConsumer();
+    private final ResultFunctionConsumerComposite resultFunctionConsumerComposite = new ResultFunctionConsumerComposite(
+            Collections.singletonList(objectResultFunction),
+            Collections.singletonList(commonResultConsumer)
     );
 
     @Test

@@ -16,17 +16,21 @@
 package org.ifinalframework.context.result;
 
 import lombok.RequiredArgsConstructor;
+
 import org.ifinalframework.core.result.Result;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.function.Function;
 
 /**
- * ResultFunctionConsumerComposite.
+ * Manage {@link ResultFunction} and {@link ResultConsumer}.
  *
  * @author ilikly
  * @version 1.2.4
+ * @see ResultFunction
+ * @see ResultConsumer
  * @since 1.2.4
  */
 @Component
