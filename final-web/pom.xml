@@ -105,6 +105,11 @@
             <groupId>org.ifinalframework</groupId>
             <artifactId>final-aop</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

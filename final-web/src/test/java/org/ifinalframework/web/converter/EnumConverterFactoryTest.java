@@ -15,10 +15,11 @@
 
 package org.ifinalframework.web.converter;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.ifinalframework.core.IEnum;
+import org.springframework.core.convert.converter.Converter;
+
+import org.ifinalframework.data.annotation.YN;
 import org.ifinalframework.web.converter.EnumConverterFactory.EnumConverter;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,8 @@ class EnumConverterFactoryTest {
 
     @Test
     void enumConvert() {
-        EnumConverter<YN> converter = new EnumConverter<>(YN.class);
+
+        Converter<String, YN> converter = enumConverterFactory.getConverter(YN.class);
         assertEquals(YN.class.getSimpleName() + "Converter", converter.toString());
         assertEquals(YN.YES, converter.convert(YN.YES.getCode().toString()));
         assertEquals(YN.NO, converter.convert(YN.NO.getCode().toString()));
@@ -51,15 +53,5 @@ class EnumConverterFactoryTest {
 
     }
 
-    @Getter
-    @AllArgsConstructor
-    public enum YN implements IEnum<Integer> {
-        YES(1, "YES"),
-        NO(0, "YES");
-
-        private final Integer code;
-
-        private final String desc;
-    }
 
 }
