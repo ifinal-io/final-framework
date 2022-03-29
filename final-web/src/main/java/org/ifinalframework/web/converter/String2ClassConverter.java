@@ -16,10 +16,15 @@
 package org.ifinalframework.web.converter;
 
 import org.aspectj.lang.annotation.Aspect;
+
 import org.ifinalframework.context.exception.NotFoundException;
+
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -51,6 +56,7 @@ import java.util.stream.Stream;
  * @author ilikly
  * @version 1.0.0
  * @see ClassUtils#forName(String, ClassLoader)
+ * @see ApplicationConversionService#addBeans(FormatterRegistry, ListableBeanFactory)
  * @since 1.0.0
  */
 @Component
