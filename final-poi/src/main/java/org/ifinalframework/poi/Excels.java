@@ -16,10 +16,13 @@
 package org.ifinalframework.poi;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Excels.
@@ -31,6 +34,29 @@ import java.util.List;
 public final class Excels {
 
     private Excels() {
+    }
+
+    /**
+     * return a work book reader.
+     *
+     * @param is work boot input stream.
+     * @return a work book reader
+     * @throws IOException io exception.
+     * @since 1.3.0
+     */
+    public static WorkbookReader newReader(InputStream is) throws IOException {
+        return new WorkbookReader(is);
+    }
+
+    /**
+     * return a work book reader.
+     *
+     * @param workbook a work book.
+     * @return a work book reader.
+     * @since 1.3.0
+     */
+    public static WorkbookReader newReader(Workbook workbook) {
+        return new WorkbookReader(workbook);
     }
 
     public static WorkbookWriter newWriter(final Excel.Cell... headers) {
