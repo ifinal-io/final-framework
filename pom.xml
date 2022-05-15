@@ -20,11 +20,11 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-project</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.2</version>
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 
     <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
@@ -91,14 +91,14 @@
             <dependency>
                 <groupId>org.ifinalframework.annotation</groupId>
                 <artifactId>final-annotation</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.auto</groupId>
                 <artifactId>final-auto</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -108,58 +108,58 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-json</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
 
             <dependency>
                 <artifactId>final-dubbo</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <artifactId>final-retrofit</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <artifactId>final-web</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-security</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <artifactId>final-aop</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <artifactId>final-context</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <artifactId>final-monitor</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-poi</artifactId>
-                <version>1.3.1</version>
+                <version>1.3.2</version>
             </dependency>
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
