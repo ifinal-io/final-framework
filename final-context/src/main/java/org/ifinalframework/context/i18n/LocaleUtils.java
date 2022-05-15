@@ -23,7 +23,7 @@ import java.util.TimeZone;
 
 /**
  * @author ilikly
- * @version 1.3.0
+ * @version 1.3.1
  * @see LocaleContextHolder
  **/
 public abstract class LocaleUtils {

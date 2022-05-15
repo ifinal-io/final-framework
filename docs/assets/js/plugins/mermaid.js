@@ -77031,7 +77031,7 @@ THE SOFTWARE.
        *
        * @static
        * @memberOf _
-       * @since 1.3.0
+       * @since 1.3.1
        * @category Object
        * @param {Object} object The object to iterate over.
        * @param {Function} [iteratee=_.identity] The function invoked per iteration.

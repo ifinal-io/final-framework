@@ -88,7 +88,7 @@ public final class Spel {
 
     /**
      * @see #equals(Object, Object, Collection, CompareListener)
-     * @since 1.3.0
+     * @since 1.3.1
      */
     public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj, @NonNull Collection<String> expressions) throws EvaluationException {
         return equals(leftObj, rightObj, expressions, null);
@@ -103,7 +103,7 @@ public final class Spel {
      * @param listener    比较监听
      * @return 相等返回{@code true}，否则返回{@code false}。
      * @throws EvaluationException 解析表达式异常
-     * @since 1.3.0
+     * @since 1.3.1
      */
     public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj, @NonNull Collection<String> expressions, @Nullable CompareListener listener) throws EvaluationException {
         if (Objects.isNull(leftObj) && Objects.isNull(rightObj)) return true;

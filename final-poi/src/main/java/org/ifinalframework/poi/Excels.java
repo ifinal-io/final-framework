@@ -42,7 +42,7 @@ public final class Excels {
      * @param is work boot input stream.
      * @return a work book reader
      * @throws IOException io exception.
-     * @since 1.3.0
+     * @since 1.3.1
      */
     public static WorkbookReader newReader(InputStream is) throws IOException {
         return new WorkbookReader(is);
@@ -53,7 +53,7 @@ public final class Excels {
      *
      * @param workbook a work book.
      * @return a work book reader.
-     * @since 1.3.0
+     * @since 1.3.1
      */
     public static WorkbookReader newReader(Workbook workbook) {
         return new WorkbookReader(workbook);

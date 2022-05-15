@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * @author ilikly
- * @version 1.3.0
+ * @version 1.3.1
  **/
 @ExtendWith(MockitoExtension.class)
 class ResponsibleResponseBodyAdviceTest {
