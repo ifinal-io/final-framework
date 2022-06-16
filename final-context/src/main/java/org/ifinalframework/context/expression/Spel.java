@@ -16,6 +16,8 @@
 package org.ifinalframework.context.expression;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.expression.BeanFactoryAccessor;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.*;
 import org.springframework.expression.spel.SpelParserConfiguration;
@@ -61,6 +63,9 @@ public final class Spel {
 
         StandardEvaluationContext evaluationContext = new StandardEvaluationContext(context);
         evaluationContext.addPropertyAccessor(MAP_ACCESSOR);
+
+        evaluationContext.addPropertyAccessor(new BeanFactoryAccessor());
+
         return evaluationContext;
 
     }
