@@ -64,6 +64,10 @@
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
         <dependency>
             <groupId>org.benf</groupId>
