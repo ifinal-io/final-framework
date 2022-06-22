@@ -40,6 +40,7 @@
         <module>final-json</module>
         <module>final-poi</module>
         <module>final-security</module>
+        <module>final-antd</module>
     </modules>
 
     <properties>
@@ -159,6 +160,11 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-poi</artifactId>
+                <version>1.3.5-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-antd</artifactId>
                 <version>1.3.5-SNAPSHOT</version>
             </dependency>
             <!-- ==================================================================================================== -->
