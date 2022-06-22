@@ -18,6 +18,35 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      # 设置 Maven Settings
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          repositories: >
+            [
+              {
+                "id": "ossrh-releases",
+                "name": "ossrh releases",
+                "url": "https://s01.oss.sonatype.org/content/repositories/releases/",
+                "releases": {
+                  "enabled": "true"
+                },
+                "snapshots": {
+                  "enabled": "false"
+                }
+              },
+              {
+                "id": "ossrh-snapshots",
+                "name": "ossrh snapshots",
+                "url": "https://s01.oss.sonatype.org/content/repositories/snapshots/",
+                "releases": {
+                  "enabled": "false"
+                },
+                "snapshots": {
+                  "enabled": "true"
+                }
+              }
+            ]
       - name: Build with Maven
         run: mvn -B package -Pci --file pom.xml -U
       - name: Codecov
