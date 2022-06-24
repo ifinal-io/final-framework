@@ -15,22 +15,20 @@
 
 package org.ifinalframework.context.exception.result;
 
+import org.springframework.lang.NonNull;
+
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.util.Asserts;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.Order;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 /**
  * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
-@Order
-@Component
 public class UnCatchResultExceptionHandler implements ResultExceptionHandler<Throwable> {
 
     private static final Logger logger = LoggerFactory.getLogger(UnCatchResultExceptionHandler.class);

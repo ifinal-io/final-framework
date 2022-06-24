@@ -16,17 +16,16 @@
 
 package org.ifinalframework.context.exception.result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import org.ifinalframework.context.exception.UnCatchException;
 import org.ifinalframework.context.exception.handler.GlobalExceptionHandler;
 import org.ifinalframework.core.IException;
 import org.ifinalframework.core.result.Result;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +44,10 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
 
     private final List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
 
-    public ResultGlobalResultExceptionHandler(
-        final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
+    private final ResultExceptionHandler<Throwable> defaultResultExceptionHandler = new UnCatchResultExceptionHandler();
 
+    public ResultGlobalResultExceptionHandler(
+            final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
         this.resultExceptionHandlers.addAll(resultExceptionHandlerObjectProvider.getIfAvailable());
     }
 
@@ -71,7 +71,7 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
             }
         }
 
-        throw new UnCatchException(throwable);
+        return defaultResultExceptionHandler.handle(throwable);
 
     }
 
