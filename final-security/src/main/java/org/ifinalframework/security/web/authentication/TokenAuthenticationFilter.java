@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import org.ifinalframework.context.user.UserContextHolder;
+import org.ifinalframework.security.core.AuthenticationUserService;
 import org.ifinalframework.security.core.TokenAuthenticationService;
 
 /**
@@ -49,9 +52,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Resource
     private TokenAuthenticationService tokenAuthenticationService;
 
+    @Resource
+    private AuthenticationUserService authenticationUserService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        UserContextHolder.reset();
         String token = request.getHeader(HEADER);
 
         if (ObjectUtils.isEmpty(token)) {
@@ -77,10 +83,18 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             // 将 authentication 存入 ThreadLocal，方便后续获取用户信息
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            Optional.ofNullable(authenticationUserService.auth(authentication))
+                    .ifPresent(user -> {
+                        UserContextHolder.setUser(user, true);
+                        request.setAttribute("user", user);
+                    });
+
         }
 
         filterChain.doFilter(request, response);
     }
+
+
 }
 
 

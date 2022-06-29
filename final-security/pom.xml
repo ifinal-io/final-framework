@@ -67,6 +67,10 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework</groupId>
+            <artifactId>final-context</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

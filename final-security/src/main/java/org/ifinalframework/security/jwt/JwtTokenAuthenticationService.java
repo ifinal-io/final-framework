@@ -37,6 +37,7 @@ import io.jsonwebtoken.Claims;
  */
 @Component
 public class JwtTokenAuthenticationService implements TokenAuthenticationService {
+
     @Override
     public String token(Authentication authentication) {
         List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
@@ -45,14 +46,12 @@ public class JwtTokenAuthenticationService implements TokenAuthenticationService
 
     @Override
     public Authentication auth(String token) {
-
         Claims claims = JwtTokenUtil.checkJWT(token);
 
         String username = claims.get("username", String.class);
         List<String> roles = claims.get("roles", List.class);
 
         List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-
 
         return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
