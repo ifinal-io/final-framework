@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.security.jwt;
+package org.ifinalframework.security.core;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,9 +26,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import org.ifinalframework.security.core.TokenAuthenticationService;
-
-import io.jsonwebtoken.Claims;
+import org.ifinalframework.security.core.TokenUserAuthenticationService;
+import org.ifinalframework.security.core.SimpleTokenUser;
 
 /**
  * JwtTokenAuthenticationService.
@@ -36,25 +37,25 @@ import io.jsonwebtoken.Claims;
  * @since 1.3.3
  */
 @Component
-public class JwtTokenAuthenticationService implements TokenAuthenticationService {
+public class SimpleTokenUserAuthenticationService implements TokenUserAuthenticationService<SimpleTokenUser> {
 
     @Override
-    public String token(Authentication authentication) {
-        List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        return JwtTokenUtil.createToken(authentication.getPrincipal().toString(), roles);
+    public SimpleTokenUser token(Authentication authentication) {
+        SimpleTokenUser user = new SimpleTokenUser();
+        user.setUsername(authentication.getName());
+        user.setRoles(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        return user;
     }
 
     @Override
-    public Authentication auth(String token) {
-        Claims claims = JwtTokenUtil.checkJWT(token);
-
-        String username = claims.get("username", String.class);
-        List<String> roles = claims.get("roles", List.class);
-
+    public Authentication auth(SimpleTokenUser token) {
+        String username = token.getUsername();
+        List<String> roles = Optional.ofNullable(token.getRoles()).orElse(Collections.emptyList());
         List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-
         return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
+
+
 }
 
 

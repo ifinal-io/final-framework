@@ -15,7 +15,6 @@
 
 package org.ifinalframework.security.web.authentication;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -23,8 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Optional;
 
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.ResolvableType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,8 +34,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import org.ifinalframework.context.user.UserContextHolder;
-import org.ifinalframework.security.core.AuthenticationUserService;
-import org.ifinalframework.security.core.TokenAuthenticationService;
+import org.ifinalframework.json.Json;
+import org.ifinalframework.security.core.TokenUserAuthenticationService;
+import org.ifinalframework.security.jwt.JwtTokenUtil;
+import org.ifinalframework.security.core.TokenUser;
 
 /**
  * TokenAuthenticationFilter.
@@ -45,15 +47,20 @@ import org.ifinalframework.security.core.TokenAuthenticationService;
  * @since 1.3.3
  */
 @Component
-public class TokenAuthenticationFilter extends OncePerRequestFilter {
+public class TokenUserAuthenticationFilter<T extends TokenUser> extends OncePerRequestFilter {
 
     private static final String HEADER = "Authorization";
 
-    @Resource
-    private TokenAuthenticationService tokenAuthenticationService;
+    private final TokenUserAuthenticationService<T> tokenAuthenticationService;
+    private final Class<T> tokenUserClass;
 
-    @Resource
-    private AuthenticationUserService authenticationUserService;
+    @SuppressWarnings("unchecked")
+    public TokenUserAuthenticationFilter(TokenUserAuthenticationService<T> tokenAuthenticationService) {
+        this.tokenAuthenticationService = tokenAuthenticationService;
+        this.tokenUserClass = (Class<T>) ResolvableType.forClass(AopUtils.getTargetClass(tokenAuthenticationService)).as(TokenUserAuthenticationService.class)
+                .resolveGeneric(0);
+        logger.info("tokenUserClass=" + tokenUserClass);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -74,7 +81,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (!ObjectUtils.isEmpty(token)) {
             logger.info("token-->" + token);
 
-            Authentication authentication = tokenAuthenticationService.auth(token);
+            String payload = JwtTokenUtil.getPayload(token);
+            T tokenUser = Json.toObject(payload, tokenUserClass);
+
+            Authentication authentication = tokenAuthenticationService.auth(tokenUser);
 
             if (authentication instanceof AbstractAuthenticationToken) {
                 ((AbstractAuthenticationToken) authentication).setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -83,11 +93,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             // 将 authentication 存入 ThreadLocal，方便后续获取用户信息
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            Optional.ofNullable(authenticationUserService.auth(authentication))
-                    .ifPresent(user -> {
-                        UserContextHolder.setUser(user, true);
-                        request.setAttribute("user", user);
-                    });
+            UserContextHolder.setUser(tokenUser, true);
+            request.setAttribute("user", tokenUser);
 
         }
 

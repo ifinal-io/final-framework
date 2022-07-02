@@ -15,18 +15,21 @@
 
 package org.ifinalframework.security.core;
 
-import org.springframework.security.core.Authentication;
+import java.util.List;
 
 import org.ifinalframework.core.IUser;
 
 /**
- * AuthenticationUserService.
+ * TokenUser.
  *
  * @author ilikly
- * @version 1.3.5
- * @since 1.3.5
+ * @version 1.3.3
+ * @since 1.3.3
  */
-@FunctionalInterface
-public interface AuthenticationUserService {
-    IUser<?> auth(Authentication authentication);
+public interface TokenUser extends IUser<Long> {
+
+    String getUsername();
+
+    List<String> getRoles();
+
 }

@@ -13,16 +13,29 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.security.token;
+package org.ifinalframework.security.core;
 
-import org.ifinalframework.core.IUser;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * TokenUser.
+ * SimpleTokenUser.
  *
  * @author ilikly
- * @version 1.3.3
- * @since 1.3.3
+ * @version 1.3.5
+ * @since 1.3.5
  */
-public interface TokenUser extends IUser<Long> {
+@Setter
+@Getter
+public class SimpleTokenUser implements TokenUser {
+
+    private Long id;
+    private String name;
+    private String username;
+    private List<String> roles;
+
 }
+
+

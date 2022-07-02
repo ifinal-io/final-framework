@@ -20,12 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
-import org.springframework.beans.BeansException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -34,7 +29,11 @@ import org.springframework.stereotype.Component;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
-import org.ifinalframework.security.core.TokenAuthenticationService;
+import org.ifinalframework.security.core.TokenUserAuthenticationService;
+import org.ifinalframework.security.jwt.JwtTokenUtil;
+import org.ifinalframework.security.core.TokenUser;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * ResultAuthenticationSuccessHandler.
@@ -43,31 +42,34 @@ import org.ifinalframework.security.core.TokenAuthenticationService;
  * @version 1.3.3
  * @since 1.3.3
  */
+@Slf4j
 @Component
-public class ResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler, ApplicationContextAware {
+public class ResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private TokenAuthenticationService tokenAuthenticationService;
+    private final TokenUserAuthenticationService<? extends TokenUser> tokenAuthenticationService;
 
+    public ResultAuthenticationSuccessHandler(TokenUserAuthenticationService<? extends TokenUser> tokenAuthenticationService) {
+        this.tokenAuthenticationService = tokenAuthenticationService;
+
+
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        if (Objects.nonNull(tokenAuthenticationService)) {
-            String token = tokenAuthenticationService.token(authentication);
-            Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-        }
+        TokenUser tokenUser = tokenAuthenticationService.token(authentication);
 
-        Result<Object> result = R.success();
+        String token = JwtTokenUtil.createToken(Json.toJson(tokenUser));
+
+        Cookie cookie = new Cookie("token", token);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        Result<Object> result = R.success(tokenUser);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(Json.toJson(result));
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        tokenAuthenticationService = applicationContext.getBeanProvider(TokenAuthenticationService.class).getIfAvailable();
-    }
 }
 
 

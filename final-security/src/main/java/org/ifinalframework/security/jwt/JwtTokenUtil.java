@@ -47,19 +47,31 @@ public class JwtTokenUtil {
      * 生成Token
      */
     public static String createToken(String username, Collection<String> roles) {
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, roles);
 
         String token = Jwts
                 .builder()
                 .setSubject(username)
                 .setClaims(map)
-                .claim("username",username)
+                .claim("username", username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRITION))
                 .signWith(SignatureAlgorithm.HS256, SECRET).compact();
         return token;
     }
+
+    public static String createToken(String payload) {
+        return Jwts.builder()
+                .setPayload(payload)
+                .signWith(SignatureAlgorithm.HS256, SECRET).compact();
+
+    }
+
+    public static String getPayload(String token){
+        return Jwts.parser().setSigningKey(SECRET).parsePlaintextJws(token).getBody();
+    }
+
 
     /**
      * 校验Token
@@ -77,7 +89,7 @@ public class JwtTokenUtil {
     /**
      * 从Token中获取username
      */
-    public static String getUsername(String token){
+    public static String getUsername(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         return claims.get("username").toString();
     }
@@ -85,7 +97,7 @@ public class JwtTokenUtil {
     /**
      * 从Token中获取用户角色
      */
-    public static String getUserRole(String token){
+    public static String getUserRole(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         return claims.get("roles").toString();
     }
@@ -93,7 +105,7 @@ public class JwtTokenUtil {
     /**
      * 校验Token是否过期
      */
-    public static boolean isExpiration(String token){
+    public static boolean isExpiration(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         return claims.getExpiration().before(new Date());
     }

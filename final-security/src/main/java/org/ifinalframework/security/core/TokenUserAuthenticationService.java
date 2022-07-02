@@ -24,10 +24,10 @@ import org.springframework.security.core.Authentication;
  * @version 1.3.3
  * @since 1.3.3
  */
-public interface TokenAuthenticationService {
+public interface TokenUserAuthenticationService<T extends TokenUser> {
 
-    String token(Authentication authentication);
+    T token(Authentication authentication);
 
-    Authentication auth(String token);
+    Authentication auth(T token);
 
 }

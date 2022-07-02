@@ -28,14 +28,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import org.ifinalframework.security.web.authentication.ResultAuthenticationFailureHandler;
 import org.ifinalframework.security.web.authentication.ResultAuthenticationSuccessHandler;
-import org.ifinalframework.security.web.authentication.TokenAuthenticationFilter;
+import org.ifinalframework.security.web.authentication.TokenUserAuthenticationFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,7 +82,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.cors(Customizer.withDefaults());
 
 
-        applicationContext.getBeanProvider(TokenAuthenticationFilter.class)
+        applicationContext.getBeanProvider(TokenUserAuthenticationFilter.class)
                 .ifAvailable(filter -> {
                     logger.info("addFilterBefore UsernamePasswordAuthenticationFilter: {}", filter.getClass().getName());
                     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
