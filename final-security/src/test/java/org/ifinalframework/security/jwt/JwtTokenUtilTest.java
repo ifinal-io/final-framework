@@ -17,6 +17,9 @@ package org.ifinalframework.security.jwt;
 
 import java.util.Arrays;
 
+import org.ifinalframework.json.Json;
+import org.ifinalframework.security.core.SimpleTokenUser;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +39,16 @@ class JwtTokenUtilTest {
         Assertions.assertDoesNotThrow(() -> {
             JwtTokenUtil.createToken("root", Arrays.asList("root"));
         });
+    }
+
+    @Test
+    void token(){
+        SimpleTokenUser user = new SimpleTokenUser();
+        user.setUsername("username");
+        user.setRoles(Arrays.asList("ROLE_ROOT"));
+        String json = Json.toJson(user);
+        String token = JwtTokenUtil.createToken(json);
+        String payload = JwtTokenUtil.getPayload(token);
+        assertEquals(json,payload);
     }
 }

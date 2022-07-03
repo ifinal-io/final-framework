@@ -20,9 +20,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import org.ifinalframework.json.Json;
+
+import io.jsonwebtoken.*;
 
 /**
  * JwtTokenUtil.
@@ -69,7 +69,7 @@ public class JwtTokenUtil {
     }
 
     public static String getPayload(String token){
-        return Jwts.parser().setSigningKey(SECRET).parsePlaintextJws(token).getBody();
+        return Json.toJson(Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody());
     }
 
 

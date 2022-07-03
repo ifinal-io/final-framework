@@ -104,13 +104,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                             try {
                                 DaoAuthenticationConfigurer<AuthenticationManagerBuilder, UserDetailsService> daoAuthenticationConfigurer = auth.userDetailsService(userDetailsService);
                                 daoAuthenticationConfigurer.passwordEncoder(NoOpPasswordEncoder.getInstance());
-                                daoAuthenticationConfigurer.addObjectPostProcessor(new ObjectPostProcessor<DaoAuthenticationProvider>() {
-                                    @Override
-                                    public <O extends DaoAuthenticationProvider> O postProcess(O object) {
-                                        object.setForcePrincipalAsString(true);
-                                        return object;
-                                    }
-                                });
                                 daoAuthenticationConfigurer.configure(auth);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
