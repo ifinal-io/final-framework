@@ -17,9 +17,7 @@ package org.ifinalframework.security.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -100,17 +98,16 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         getApplicationContext().getBeanProvider(UserDetailsService.class)
-                        .ifAvailable(userDetailsService -> {
-                            try {
-                                DaoAuthenticationConfigurer<AuthenticationManagerBuilder, UserDetailsService> daoAuthenticationConfigurer = auth.userDetailsService(userDetailsService);
-                                daoAuthenticationConfigurer.passwordEncoder(NoOpPasswordEncoder.getInstance());
-                                daoAuthenticationConfigurer.configure(auth);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
+                .ifAvailable(userDetailsService -> {
+                    try {
+                        DaoAuthenticationConfigurer<AuthenticationManagerBuilder, UserDetailsService> daoAuthenticationConfigurer = auth.userDetailsService(userDetailsService);
+                        daoAuthenticationConfigurer.passwordEncoder(NoOpPasswordEncoder.getInstance());
+                        daoAuthenticationConfigurer.configure(auth);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
-                        });
-
+                });
 
 
     }
