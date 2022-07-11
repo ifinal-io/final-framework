@@ -174,43 +174,6 @@
     </dependencyManagement>
 
 
-    <profiles>
-        <profile>
-            <id>ci</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>ossrh</id>
-                    <name>ossrh-releases</name>
-                    <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>ossrh-snapshots</id>
-                    <name>ossrh-snapshots</name>
-                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-    <reporting>
-        <plugins>
-
-        </plugins>
-    </reporting>
     <build>
         <plugins>
             <plugin>
