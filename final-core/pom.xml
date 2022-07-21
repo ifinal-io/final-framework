@@ -31,6 +31,7 @@
             <artifactId>spring-boot-starter</artifactId>
             <groupId>org.springframework.boot</groupId>
         </dependency>
+        <!--Velocity-->
         <dependency>
             <artifactId>velocity-engine-core</artifactId>
             <groupId>org.apache.velocity</groupId>
@@ -39,6 +40,7 @@
             <artifactId>velocity-tools-generic</artifactId>
             <groupId>org.apache.velocity.tools</groupId>
         </dependency>
+        <!--Velocity-->
         <dependency>
             <groupId>org.ifinalframework</groupId>
             <artifactId>final-json</artifactId>

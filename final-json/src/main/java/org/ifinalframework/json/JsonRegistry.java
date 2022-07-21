@@ -15,9 +15,9 @@
 
 package org.ifinalframework.json;
 
-import org.ifinalframework.json.jackson.JacksonJsonService;
-
 import java.util.Objects;
+
+import org.ifinalframework.json.jackson.JacksonJsonService;
 
 /**
  * Json service register.

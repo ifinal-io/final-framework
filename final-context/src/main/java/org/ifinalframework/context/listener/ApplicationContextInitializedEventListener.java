@@ -35,7 +35,6 @@ public class ApplicationContextInitializedEventListener implements
 
     @Override
     public void onApplicationEvent(final ApplicationContextInitializedEvent event) {
-
         logger.info(event.getClass().getCanonicalName());
     }
 
