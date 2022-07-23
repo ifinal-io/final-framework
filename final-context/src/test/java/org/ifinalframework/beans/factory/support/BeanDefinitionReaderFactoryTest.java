@@ -15,16 +15,18 @@
 
 package org.ifinalframework.beans.factory.support;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.support.BeanDefinitionReader;
+import org.springframework.beans.factory.groovy.GroovyBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author ilikly
@@ -39,8 +41,17 @@ class BeanDefinitionReaderFactoryTest {
 
         BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(), new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
 
-        BeanDefinitionReader reader = factory.create("*.xml");
-        assertTrue(reader instanceof XmlBeanDefinitionReader);
+        assertInstanceOf(XmlBeanDefinitionReader.class, factory.create("*.xml"));
+        assertInstanceOf(GroovyBeanDefinitionReader.class, factory.create("*.groovy"));
+
+    }
+
+    @Test
+    void exception() {
+        System.setProperty("spring.xml.ignore", "true");
+        BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(), new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
+
+        assertThrows(UnsupportedOperationException.class, () -> factory.create("*.xml"));
 
     }
 }
