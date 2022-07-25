@@ -39,6 +39,8 @@ class ApplicationEventListenerTest {
     @Test
     void onApplicationEvent() {
         assertDoesNotThrow(() -> {
+
+            System.setProperty("spring.xml.ignore", "false");
             SpringApplication application = new SpringApplication(ContextApplicationContext.class);
 
             application.addListeners(
