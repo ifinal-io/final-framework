@@ -15,8 +15,9 @@
 
 package org.ifinalframework.core;
 
-import lombok.experimental.UtilityClass;
 import org.ifinalframework.util.JarVersions;
+
+import lombok.experimental.UtilityClass;
 
 /**
  * FinalVersion.
@@ -31,7 +32,7 @@ import org.ifinalframework.util.JarVersions;
 public final class FinalVersion {
 
     /**
-     * return the version of final framework.
+     * return the version of final-framework.
      */
     public static String getVersion() {
         return JarVersions.getVersion(FinalVersion.class);
