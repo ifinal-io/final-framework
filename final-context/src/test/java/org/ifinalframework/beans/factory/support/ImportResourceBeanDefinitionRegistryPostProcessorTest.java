@@ -29,6 +29,7 @@ class ImportResourceBeanDefinitionRegistryPostProcessorTest {
 
     @Test
     void processBeanDefinitionRegistry() {
+        System.setProperty("spring.xml.ignore", "false");
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(ImportResourceBeanDefinitionRegistryPostProcessor.class);
         context.refresh();

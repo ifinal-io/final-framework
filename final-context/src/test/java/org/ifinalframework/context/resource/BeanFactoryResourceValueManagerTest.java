@@ -16,16 +16,16 @@
 
 package org.ifinalframework.context.resource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Collection;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import org.ifinalframework.FinalFramework;
 
-import java.util.Collection;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * BeanFactoryResourceValueManagerTest.
@@ -38,8 +38,9 @@ class BeanFactoryResourceValueManagerTest {
 
     @Test
     void resourceValue() {
+        System.setProperty("spring.xml.ignore", "false");
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-            FinalFramework.class);
+                FinalFramework.class);
 
         ResourceValueManager manager = context.getBean(ResourceValueManager.class);
 
