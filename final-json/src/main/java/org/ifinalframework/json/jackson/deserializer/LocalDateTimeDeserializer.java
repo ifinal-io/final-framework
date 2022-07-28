@@ -15,24 +15,21 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.ifinalframework.auto.service.annotation.AutoService;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+
 /**
  * @author ilikly
  * @version 1.0.0
- * @since 1.0.0
  * @see com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
+ * @since 1.0.0
  */
-@AutoService(JsonDeserializer.class)
-public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+public class LocalDateTimeDeserializer extends com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer {
 
     @Override
     public LocalDateTime deserialize(final JsonParser p, final DeserializationContext context) throws IOException {
@@ -43,7 +40,7 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
             return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         }
 
-        return null;
+        return super.deserialize(p, context);
 
     }
 

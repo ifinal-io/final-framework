@@ -16,6 +16,9 @@
 
 package org.ifinalframework.json.jackson.initializer;
 
+import java.time.LocalDateTime;
+import java.util.ServiceLoader;
+
 import org.springframework.lang.NonNull;
 
 import org.ifinalframework.auto.service.annotation.AutoService;
@@ -23,9 +26,6 @@ import org.ifinalframework.json.jackson.FinalJacksonModule;
 import org.ifinalframework.json.jackson.ObjectMapperInitializer;
 import org.ifinalframework.json.jackson.deserializer.LocalDateTimeDeserializer;
 import org.ifinalframework.json.jackson.serializer.LocalDateTimeSerializer;
-
-import java.time.LocalDateTime;
-import java.util.ServiceLoader;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,14 +46,16 @@ public class ModuleObjectMapperInitializer implements ObjectMapperInitializer {
     public void initialize(@NonNull final ObjectMapper objectMapper) {
 
         objectMapper.registerModule(new Jdk8Module());
+        // java time module
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(new LocalDateTimeSerializer());
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         objectMapper.registerModule(javaTimeModule);
+
         objectMapper.registerModule(new FinalJacksonModule());
 
         ServiceLoader.load(Module.class, objectMapper.getClass().getClassLoader())
-            .forEach(objectMapper::registerModule);
+                .forEach(objectMapper::registerModule);
 
     }
 

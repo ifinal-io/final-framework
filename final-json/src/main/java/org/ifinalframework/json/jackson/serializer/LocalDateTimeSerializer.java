@@ -15,21 +15,24 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinalframework.auto.service.annotation.AutoService;
-import org.springframework.context.i18n.LocaleContextHolder;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 /**
  * @author ilikly
  * @version 1.0.0
  * @see LocaleContextHolder#getTimeZone()
+ * @see com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
  * @since 1.0.0
  */
 @AutoService(JsonSerializer.class)
@@ -46,13 +49,15 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
     @Override
     public void serialize(final LocalDateTime localDateTime, final JsonGenerator gen,
-        final SerializerProvider serializers) throws IOException {
+                          final SerializerProvider serializers) throws IOException {
 
 
         if (localDateTime == null) {
             gen.writeNull();
             return;
         }
+
+
 
         final ZoneId targetZoneId = LocaleContextHolder.getTimeZone().toZoneId();
         final LocalDateTime zoneLocalDateTime =
