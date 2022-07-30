@@ -15,8 +15,11 @@
 
 package org.ifinalframework.beans.factory.support;
 
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -28,10 +31,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Load {@link org.springframework.beans.factory.config.BeanDefinition}s from resource like {@link
@@ -52,8 +53,8 @@ import java.util.Set;
  * @author ilikly
  * @version 1.2.4
  * @see org.springframework.context.annotation.ImportResource
- * @since 1.2.4
  * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources
+ * @since 1.2.4
  */
 @Slf4j
 @Component
