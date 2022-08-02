@@ -22,6 +22,7 @@ import java.time.ZoneId;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 /**
  * @author ilikly
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
  * @see com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
  * @since 1.0.0
  */
-public class LocalDateTimeDeserializer extends com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer {
+public class LocalDateTimeExtDeserializer extends LocalDateTimeDeserializer {
 
     @Override
     public LocalDateTime deserialize(final JsonParser p, final DeserializationContext context) throws IOException {

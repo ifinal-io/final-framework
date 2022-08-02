@@ -40,7 +40,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class LocalDateTimeDeserializerTest {
 
-    private final LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer();
+    private final LocalDateTimeExtDeserializer deserializer = new LocalDateTimeExtDeserializer();
 
     @Mock
     private JsonParser jsonParser;
