@@ -18,19 +18,16 @@ package org.ifinalframework.json.jackson.modifier;
 import org.ifinalframework.core.IEnum;
 
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * BeanEnumPropertySerializerModifierTest.
@@ -49,17 +46,13 @@ class BeanEnumPropertySerializerModifierTest {
         SerializationConfig serializationConfig = new ObjectMapper().getSerializationConfig();
         JavaType javaType = SimpleType.constructUnsafe(EnumBean.class);
         JsonSerializer<?> jsonSerializer = modifier.modifyEnumSerializer(serializationConfig, javaType, mock(BeanDescription.class), null);
-        assertEquals(BeanEnumPropertySerializerModifier.EnumCodeSerializer.instance,jsonSerializer);
+        assertEquals(BeanEnumPropertySerializerModifier.EnumCodeSerializer.instance, jsonSerializer);
 
     }
 
     @Test
     void support() {
         assertTrue(modifier.support(EnumBean.class));
-    }
-
-    @Test
-    void changeProperties() {
     }
 
     @Getter
