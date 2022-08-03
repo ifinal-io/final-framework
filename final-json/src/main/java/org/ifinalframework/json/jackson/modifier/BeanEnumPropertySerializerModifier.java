@@ -16,19 +16,15 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import org.ifinalframework.auto.service.annotation.AutoService;
-import org.ifinalframework.core.IEnum;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.ifinalframework.auto.service.annotation.AutoService;
+import org.ifinalframework.core.IEnum;
+
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -75,7 +71,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     @Override
     public JsonSerializer<?> modifyEnumSerializer(final SerializationConfig config, final JavaType valueType,
-        final BeanDescription beanDesc, final JsonSerializer<?> serializer) {
+                                                  final BeanDescription beanDesc, final JsonSerializer<?> serializer) {
 
         if (IEnum.class.isAssignableFrom(valueType.getRawClass())) {
             return EnumCodeSerializer.instance;
@@ -90,8 +86,8 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
     @Override
     public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
-        final BeanDescription beanDesc,
-        final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+                                                           final BeanDescription beanDesc,
+                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
         final BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
         final BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
@@ -99,28 +95,28 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     }
 
     private BeanPropertyWriter buildEnumNamePropertyWriter(final BeanDescription beanDesc,
-        final BeanPropertyDefinition property,
-        final BeanPropertyWriter writer) {
+                                                           final BeanPropertyDefinition property,
+                                                           final BeanPropertyWriter writer) {
 
         final BeanPropertyWriter enumNamePropertyWriter = new BeanPropertyWriter(property,
-            writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-            EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
-            writer.willSuppressNulls(), null, property.findViews());
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
 
         setNameValue(enumNamePropertyWriter, enumNamePropertyWriter.getName() + ENUM_NAME_PROPERTY_SUFFIX);
         return enumNamePropertyWriter;
     }
 
     private BeanPropertyWriter buildEnumDescPropertyWriter(final BeanDescription beanDesc,
-        final BeanPropertyDefinition property,
-        final BeanPropertyWriter writer) {
+                                                           final BeanPropertyDefinition property,
+                                                           final BeanPropertyWriter writer) {
 
         final BeanPropertyWriter enumDescriptionPropertyWriter = new BeanPropertyWriter(property,
-            writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
-            EnumDescSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
-            writer.willSuppressNulls(), null, property.findViews());
+                writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
+                EnumDescSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
+                writer.willSuppressNulls(), null, property.findViews());
         setNameValue(enumDescriptionPropertyWriter,
-            enumDescriptionPropertyWriter.getName() + ENUM_DESC_PROPERTY_SUFFIX);
+                enumDescriptionPropertyWriter.getName() + ENUM_DESC_PROPERTY_SUFFIX);
         return enumDescriptionPropertyWriter;
     }
 
@@ -132,13 +128,13 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
      * @since 1.0.0
      */
     @SuppressWarnings("rawtypes")
-    private static class EnumCodeSerializer extends JsonSerializer<IEnum> {
+    static class EnumCodeSerializer extends JsonSerializer<IEnum> {
 
         public static final EnumCodeSerializer instance = new EnumCodeSerializer();
 
         @Override
         public void serialize(final IEnum value, final JsonGenerator gen, final SerializerProvider serializers)
-            throws IOException {
+                throws IOException {
 
             gen.writeObject(value.getCode());
         }
@@ -158,7 +154,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
         @Override
         public void serialize(final IEnum<?> value, final JsonGenerator gen, final SerializerProvider serializers)
-            throws IOException {
+                throws IOException {
             gen.writeString(value.getDesc());
         }
 
@@ -175,7 +171,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
 
         @Override
         public void serialize(final Enum<?> value, final JsonGenerator gen, final SerializerProvider serializers)
-            throws IOException {
+                throws IOException {
 
             gen.writeString(value.name());
         }
