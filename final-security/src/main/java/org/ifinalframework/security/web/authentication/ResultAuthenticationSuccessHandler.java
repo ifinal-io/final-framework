@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -29,9 +30,9 @@ import org.springframework.stereotype.Component;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
+import org.ifinalframework.security.core.TokenUser;
 import org.ifinalframework.security.core.TokenUserAuthenticationService;
 import org.ifinalframework.security.jwt.JwtTokenUtil;
-import org.ifinalframework.security.core.TokenUser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,8 +51,6 @@ public class ResultAuthenticationSuccessHandler implements AuthenticationSuccess
 
     public ResultAuthenticationSuccessHandler(TokenUserAuthenticationService<? extends TokenUser> tokenAuthenticationService) {
         this.tokenAuthenticationService = tokenAuthenticationService;
-
-
     }
 
     @Override
@@ -67,6 +66,7 @@ public class ResultAuthenticationSuccessHandler implements AuthenticationSuccess
 
         Result<Object> result = R.success(tokenUser);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(Json.toJson(result));
     }
 
