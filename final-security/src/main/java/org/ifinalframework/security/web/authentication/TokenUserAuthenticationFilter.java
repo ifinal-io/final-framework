@@ -35,9 +35,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.json.Json;
+import org.ifinalframework.security.core.TokenUser;
 import org.ifinalframework.security.core.TokenUserAuthenticationService;
 import org.ifinalframework.security.jwt.JwtTokenUtil;
-import org.ifinalframework.security.core.TokenUser;
 
 /**
  * TokenAuthenticationFilter.
@@ -80,6 +80,10 @@ public class TokenUserAuthenticationFilter<T extends TokenUser> extends OncePerR
 
         if (!ObjectUtils.isEmpty(token)) {
             logger.info("token-->" + token);
+
+            if (token.startsWith("Bearer ")) {
+                token = token.replace("Bearer ", "");
+            }
 
             String payload = JwtTokenUtil.getPayload(token);
             T tokenUser = Json.toObject(payload, tokenUserClass);
