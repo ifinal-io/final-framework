@@ -38,7 +38,7 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     @Override
-    public Class<?> findClass(final String name) throws ClassNotFoundException {
+    protected Class<?> findClass(final String name) throws ClassNotFoundException {
 
         BytesJavaFileObject byteCode = byteCodes.get(name);
         if (byteCode == null) {
