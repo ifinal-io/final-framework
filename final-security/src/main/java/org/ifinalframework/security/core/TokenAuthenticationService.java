@@ -18,16 +18,26 @@ package org.ifinalframework.security.core;
 import org.springframework.security.core.Authentication;
 
 /**
- * AuthenticationTokenService.
+ * TokenAuthenticationService.
  *
  * @author ilikly
- * @version 1.3.3
- * @since 1.3.3
+ * @version 1.4.0
+ * @since 1.4.0
  */
-public interface TokenUserAuthenticationService<T extends TokenUser> extends TokenAuthenticationService {
+public interface TokenAuthenticationService {
+    /**
+     * generate a {@code token} form of the {@link  Authentication}
+     *
+     * @param authentication authentication
+     * @return a token
+     */
+    String token(Authentication authentication);
 
-    T user(Authentication authentication);
-
-    Authentication authenticate(T token);
-
+    /**
+     * parse the {@link Authentication} from of the {@code token}.
+     *
+     * @param token token
+     * @return an {@link Authentication}
+     */
+    Authentication authenticate(String token);
 }

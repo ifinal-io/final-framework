@@ -13,21 +13,17 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.security.core;
+package org.ifinalframework.security.annotation;
 
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 /**
- * AuthenticationTokenService.
+ * CurrentUser.
  *
  * @author ilikly
- * @version 1.3.3
- * @since 1.3.3
+ * @version 1.4.0
+ * @since 1.4.0
  */
-public interface TokenUserAuthenticationService<T extends TokenUser> extends TokenAuthenticationService {
-
-    T user(Authentication authentication);
-
-    Authentication authenticate(T token);
-
+@AuthenticationPrincipal
+public @interface CurrentUser {
 }

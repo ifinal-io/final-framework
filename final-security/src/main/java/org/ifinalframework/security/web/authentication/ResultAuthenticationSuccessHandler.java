@@ -30,9 +30,7 @@ import org.springframework.stereotype.Component;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
-import org.ifinalframework.security.core.TokenUser;
-import org.ifinalframework.security.core.TokenUserAuthenticationService;
-import org.ifinalframework.security.jwt.JwtTokenUtil;
+import org.ifinalframework.security.core.TokenAuthenticationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,24 +45,22 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final TokenUserAuthenticationService<? extends TokenUser> tokenAuthenticationService;
+    private final TokenAuthenticationService tokenAuthenticationService;
 
-    public ResultAuthenticationSuccessHandler(TokenUserAuthenticationService<? extends TokenUser> tokenAuthenticationService) {
+    public ResultAuthenticationSuccessHandler(TokenAuthenticationService tokenAuthenticationService) {
         this.tokenAuthenticationService = tokenAuthenticationService;
     }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        TokenUser tokenUser = tokenAuthenticationService.token(authentication);
-
-        String token = JwtTokenUtil.createToken(Json.toJson(tokenUser));
+        final String token = tokenAuthenticationService.token(authentication);
 
         Cookie cookie = new Cookie("token", token);
         cookie.setPath("/");
         response.addCookie(cookie);
 
-        Result<Object> result = R.success(tokenUser);
+        Result<Object> result = R.success(token);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(Json.toJson(result));

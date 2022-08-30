@@ -26,9 +26,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import org.ifinalframework.security.core.TokenUserAuthenticationService;
-import org.ifinalframework.security.core.SimpleTokenUser;
-
 /**
  * JwtTokenAuthenticationService.
  *
@@ -37,10 +34,13 @@ import org.ifinalframework.security.core.SimpleTokenUser;
  * @since 1.3.3
  */
 @Component
-public class SimpleTokenUserAuthenticationService implements TokenUserAuthenticationService<SimpleTokenUser> {
+public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthenticationService<SimpleTokenUser> {
+    public SimpleTokenUserAuthenticationService() {
+        super(SimpleTokenUser.class);
+    }
 
     @Override
-    public SimpleTokenUser token(Authentication authentication) {
+    public SimpleTokenUser user(Authentication authentication) {
         SimpleTokenUser user = new SimpleTokenUser();
         user.setUsername(authentication.getName());
         user.setRoles(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
@@ -48,14 +48,11 @@ public class SimpleTokenUserAuthenticationService implements TokenUserAuthentica
     }
 
     @Override
-    public Authentication auth(SimpleTokenUser token) {
-        String username = token.getUsername();
+    public Authentication authenticate(SimpleTokenUser token) {
         List<String> roles = Optional.ofNullable(token.getRoles()).orElse(Collections.emptyList());
         List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        return new UsernamePasswordAuthenticationToken(username, null, authorities);
+        return new UsernamePasswordAuthenticationToken(token, null, authorities);
     }
-
-
 }
 
 
