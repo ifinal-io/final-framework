@@ -15,12 +15,13 @@
 
 package org.ifinalframework.web.servlet.resolver;
 
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.context.exception.BadRequestException;
-import org.ifinalframework.json.Json;
-import org.ifinalframework.util.Asserts;
-import org.ifinalframework.web.annotation.bind.RequestJsonParam;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -35,12 +36,13 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-import java.util.Optional;
+import org.ifinalframework.context.exception.BadRequestException;
+import org.ifinalframework.json.Json;
+import org.ifinalframework.util.Asserts;
+import org.ifinalframework.web.annotation.bind.RequestJsonParam;
+
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A custom {@link HandlerMethodArgumentResolver} for {@link RequestJsonParam} annotation which supports the json format
@@ -69,8 +71,8 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
      */
     @Override
     public boolean supportsParameter(@NonNull MethodParameter parameter) {
-        // only support the method parameter annotated by @RequestJsonParam
-        return parameter.hasParameterAnnotation(RequestJsonParam.class);
+        // support the method parameter annotated by @RequestJsonParam or @RequestBody
+        return parameter.hasParameterAnnotation(RequestBody.class) || parameter.hasParameterAnnotation(RequestJsonParam.class);
     }
 
     @Override
@@ -115,18 +117,17 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
     private String parseParameter(@NonNull MethodParameter parameter,
                                   @NonNull NativeWebRequest webRequest) {
         // find the @RequestJsonParam annotation
-        final RequestJsonParam requestJsonParam = Objects
-                .requireNonNull(parameter.getParameterAnnotation(RequestJsonParam.class),
-                        "requestJsonParam annotation is null");
+        final RequestJsonParam requestJsonParam = parameter.getParameterAnnotation(RequestJsonParam.class);
+        final boolean required = Optional.ofNullable(requestJsonParam).map(RequestJsonParam::required).orElse(true);
 
         final String parameterName = getParameterName(requestJsonParam, parameter);
         Objects.requireNonNull(parameterName);
         String value = webRequest.getParameter(parameterName);
-        if (Asserts.isBlank(value) && requestJsonParam.required()) {
+        if (Asserts.isBlank(value) && required) {
             throw new BadRequestException(String.format("parameter %s is required", parameterName));
         }
 
-        if (Asserts.isBlank(value) && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue())) {
+        if (Asserts.isBlank(value) && (requestJsonParam != null && !ValueConstants.DEFAULT_NONE.equals(requestJsonParam.defaultValue()))) {
             value = requestJsonParam.defaultValue();
         }
 
@@ -137,6 +138,7 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
         return value;
     }
 
+
     private Object parseJson(final String json, final MethodParameter parameter) {
         return Json.toObject(json, parameter.getGenericParameterType());
     }
@@ -145,6 +147,10 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
      * 获取指定的参数名，如果{@link RequestJsonParam#value()}未指定，则使用{@link MethodParameter#getParameterName()}。
      */
     private String getParameterName(final RequestJsonParam requestJsonParam, final MethodParameter parameter) {
+
+        if (Objects.isNull(requestJsonParam)) {
+            return "requestBody";
+        }
 
         return Asserts.isEmpty(requestJsonParam.value()) ? parameter.getParameterName()
                 : requestJsonParam.value().trim();

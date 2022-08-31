@@ -15,7 +15,6 @@
 
 package org.ifinalframework.security.web.authentication.www;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +25,7 @@ import java.util.Objects;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import org.ifinalframework.security.core.TokenAuthenticationService;
@@ -40,35 +40,39 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.4.0
  */
 @Slf4j
+@Component
 public class BearerAuthenticationFilter extends OncePerRequestFilter {
-
-    private TokenAuthenticationService tokenAuthenticationService;
-    private BearerAuthenticationConverter authenticationConverter;
+    private final BearerAuthenticationConverter authenticationConverter;
+    private final CookieAuthenticationConverter cookieAuthenticationConverter;
 
     public BearerAuthenticationFilter(TokenAuthenticationService tokenAuthenticationService) {
-        this.tokenAuthenticationService = tokenAuthenticationService;
         this.authenticationConverter = new BearerAuthenticationConverter(tokenAuthenticationService);
+        this.cookieAuthenticationConverter = new CookieAuthenticationConverter(tokenAuthenticationService);
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        try {
-            Authentication authentication = authenticationConverter.convert(request);
-            if (Objects.isNull(authentication)) {
-                chain.doFilter(request, response);
-                return;
-            }
-
-            String username = authentication.getName();
-            logger.trace("Found username {} in Bearer Authorization header", username);
-
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-            context.setAuthentication(authentication);
-            SecurityContextHolder.setContext(context);
-
-        } catch (AuthenticationException ex) {
-            SecurityContextHolder.clearContext();
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            chain.doFilter(request, response);
         }
+        Authentication authentication = authenticationConverter.convert(request);
+
+        if(Objects.isNull(authentication)){
+            authentication =  cookieAuthenticationConverter.convert(request);
+        }
+
+        if (Objects.isNull(authentication)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        String username = authentication.getName();
+        logger.trace("Found username {} in Bearer Authorization header", username);
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
         chain.doFilter(request, response);
     }
 }

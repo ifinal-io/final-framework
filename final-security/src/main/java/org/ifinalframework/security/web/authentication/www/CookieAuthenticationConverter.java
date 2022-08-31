@@ -69,7 +69,7 @@ public class CookieAuthenticationConverter implements AuthenticationConverter {
         }
 
         for (Cookie cookie : cookies) {
-            if (cookieName.equals(cookie.getName()) && cookiePath.equals(cookie.getPath())) {
+            if (cookieName.equals(cookie.getName())) {
                 return cookie;
             }
         }

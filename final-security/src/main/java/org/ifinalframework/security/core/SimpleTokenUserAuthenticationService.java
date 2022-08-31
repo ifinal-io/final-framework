@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Component;
  * @since 1.3.3
  */
 @Component
+@ConditionalOnMissingBean(TokenAuthenticationService.class)
 public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthenticationService<SimpleTokenUser> {
     public SimpleTokenUserAuthenticationService() {
         super(SimpleTokenUser.class);

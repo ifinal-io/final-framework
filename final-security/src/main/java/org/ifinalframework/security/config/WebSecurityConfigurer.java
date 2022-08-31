@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 
 import org.ifinalframework.security.web.authentication.ResultAuthenticationFailureHandler;
 import org.ifinalframework.security.web.authentication.ResultAuthenticationSuccessHandler;
-import org.ifinalframework.security.web.authentication.TokenUserAuthenticationFilter;
+import org.ifinalframework.security.web.authentication.www.BearerAuthenticationFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,7 +100,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.cors(Customizer.withDefaults());
 
 
-        applicationContext.getBeanProvider(TokenUserAuthenticationFilter.class)
+        applicationContext.getBeanProvider(BearerAuthenticationFilter.class)
                 .ifAvailable(filter -> {
                     logger.info("addFilterBefore UsernamePasswordAuthenticationFilter: {}", filter.getClass().getName());
                     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
