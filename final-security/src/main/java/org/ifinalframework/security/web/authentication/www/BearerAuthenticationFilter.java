@@ -38,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author ilikly
  * @version 1.4.0
  * @since 1.4.0
+ * @see org.springframework.security.web.authentication.www.BasicAuthenticationFilter
  */
 @Slf4j
 @Component
@@ -52,9 +53,9 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            chain.doFilter(request, response);
-        }
+//        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+//            chain.doFilter(request, response);
+//        }
         Authentication authentication = authenticationConverter.convert(request);
 
         if(Objects.isNull(authentication)){

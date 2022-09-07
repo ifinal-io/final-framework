@@ -21,11 +21,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 
 /**
  * JwtTokenAuthenticationService.
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component;
  * @version 1.3.3
  * @since 1.3.3
  */
-@Component
+@Configuration
 @ConditionalOnMissingBean(TokenAuthenticationService.class)
 public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthenticationService<SimpleTokenUser> {
     public SimpleTokenUserAuthenticationService() {
