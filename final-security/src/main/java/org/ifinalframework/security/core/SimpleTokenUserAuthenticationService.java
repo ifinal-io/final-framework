@@ -17,15 +17,26 @@ package org.ifinalframework.security.core;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import org.ifinalframework.context.user.UserContextHolder;
+import org.ifinalframework.core.IUser;
+
+import lombok.Setter;
 
 /**
  * JwtTokenAuthenticationService.
@@ -36,7 +47,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
  */
 @Configuration
 @ConditionalOnMissingBean(TokenAuthenticationService.class)
-public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthenticationService<SimpleTokenUser> {
+public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthenticationService<SimpleTokenUser> implements ApplicationContextAware, InitializingBean {
+
+    @Setter
+    private ApplicationContext applicationContext;
+    private UserDetailsService userDetailsService;
+
     public SimpleTokenUserAuthenticationService() {
         super(SimpleTokenUser.class);
     }
@@ -44,6 +60,12 @@ public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthentica
     @Override
     public SimpleTokenUser user(Authentication authentication) {
         SimpleTokenUser user = new SimpleTokenUser();
+        Object principal = authentication.getPrincipal();
+        if(principal instanceof IUser){
+            IUser<?> iUser = (IUser<?>) principal;
+            user.setName(iUser.getName());
+            user.setId((Long) iUser.getId());
+        }
         user.setUsername(authentication.getName());
         user.setRoles(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         return user;
@@ -53,7 +75,23 @@ public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthentica
     public Authentication authenticate(SimpleTokenUser token) {
         List<String> roles = Optional.ofNullable(token.getRoles()).orElse(Collections.emptyList());
         List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
+        if (Objects.nonNull(userDetailsService)) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(token.getUsername());
+            if (userDetails instanceof IUser) {
+                UserContextHolder.setUser((IUser<?>) userDetails);
+            } else {
+                UserContextHolder.setUser(token);
+            }
+            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        }
+        UserContextHolder.setUser(token);
         return new UsernamePasswordAuthenticationToken(token, null, authorities);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        applicationContext.getBeanProvider(UserDetailsService.class).ifAvailable(it -> this.userDetailsService = it);
     }
 }
 
