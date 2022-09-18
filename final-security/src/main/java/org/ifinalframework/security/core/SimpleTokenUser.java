@@ -17,6 +17,8 @@ package org.ifinalframework.security.core;
 
 import java.util.List;
 
+import org.ifinalframework.data.annotation.AbsUser;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,10 +31,8 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class SimpleTokenUser implements TokenUser {
+public class SimpleTokenUser extends AbsUser implements TokenUser {
 
-    private Long id;
-    private String name;
     private String username;
     private List<String> roles;
 

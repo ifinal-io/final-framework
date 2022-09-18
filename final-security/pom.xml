@@ -71,6 +71,10 @@
             <groupId>org.ifinalframework</groupId>
             <artifactId>final-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
