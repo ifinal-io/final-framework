@@ -27,6 +27,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ResolvableType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -70,6 +71,9 @@ class RequestJsonParamHandlerMethodArgumentResolverTest {
 
     @Test
     void supportsParameter() {
+        when(methodParameter.hasParameterAnnotation(RequestBody.class)).thenReturn(true);
+        assertTrue(resolver.supportsParameter(methodParameter));
+        when(methodParameter.hasParameterAnnotation(RequestBody.class)).thenReturn(false);
         when(methodParameter.hasParameterAnnotation(RequestJsonParam.class)).thenReturn(true);
         assertTrue(resolver.supportsParameter(methodParameter));
     }
