@@ -15,6 +15,7 @@
 
 package org.ifinalframework.security.user;
 
+import org.springframework.core.Ordered;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -29,11 +30,16 @@ import org.ifinalframework.core.IUser;
  * @since 1.4.1
  */
 @Component
-public class SecurityUserSupplier implements UserSupplier {
+public class SecurityUserSupplier implements UserSupplier, Ordered {
     @Override
     public IUser<?> get() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return (IUser<?>) principal;
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE + 100;
     }
 }
 
