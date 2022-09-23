@@ -73,7 +73,7 @@ public interface JavaPoets {
         }
 
         static String version() {
-            return version("1.0.0");
+            return version("1.4.1");
         }
 
         static String version(String version) {
