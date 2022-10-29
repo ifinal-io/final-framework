@@ -53,6 +53,7 @@ class IUserHandlerMethodArgumentResolverTest {
 
     @Test
     void supportsParameter() {
+        UserContextHolder.reset();
         Class clazz = AbsUser.class;
         Mockito.when(provider.orderedStream()).thenReturn(Stream.of(new DefaultUserSupplier()));
         IUserHandlerMethodArgumentResolver resolver = new IUserHandlerMethodArgumentResolver(provider);
@@ -68,6 +69,7 @@ class IUserHandlerMethodArgumentResolverTest {
     @Test
     @SneakyThrows
     void resolveArgument() {
+        UserContextHolder.reset();
         AbsUser user = new AbsUser();
         UserContextHolder.setUser(user);
         Mockito.when(provider.orderedStream()).thenReturn(Stream.of(new DefaultUserSupplier()));
