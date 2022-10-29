@@ -20,8 +20,27 @@ jobs:
           java-version: 11
       # 设置 Maven Settings
       - name: maven-settings-xml-action
-        uses: whelk-io/maven-settings-xml-action@v20
+        uses: whelk-io/maven-settings-xml-action@v21
         with:
+          profiles: >
+            [
+              {
+                "id": "ci",
+                "name": "ci",
+                "properties": {
+                  "altSnapshotDeploymentRepository": "${{ secrets.ALT_SNAPSHOT_DEPLOYMENT_REPOSITORY }}",
+                  "altReleaseDeploymentRepository": "${{ secrets.ALT_RELEASE_DEPLOYMENT_REPOSITORY }}"
+                }
+              }
+            ]
+          servers: >
+            [
+              {
+                "id": "ossrh",
+                "username": "${{ secrets.MVN_SERVER_USER }}",
+                "password": "${{ secrets.MVN_SERVER_PASSWORD }}"
+              }
+            ]
           repositories: >
             [
               {
@@ -47,8 +66,12 @@ jobs:
                 }
               }
             ]
+      - name: Cat Setting.xml
+        run : cat /home/runner/.m2/settings.xml
       - name: Build with Maven
-        run: mvn -B package -Pci --file pom.xml -U
+        run: mvn -B package -Pci --file pom.xml
+      - name: Deploy with Maven
+        run: mvn -B deploy -Pci --file pom.xml
       - name: Codecov
         uses: codecov/codecov-action@v1.2.2
       - name: Cache SonarCloud packages
@@ -67,6 +90,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify -Pci org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -U
+        run: mvn -B verify -Pci org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 
