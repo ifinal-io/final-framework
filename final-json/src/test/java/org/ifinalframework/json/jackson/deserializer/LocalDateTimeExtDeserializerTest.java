@@ -16,7 +16,9 @@
 package org.ifinalframework.json.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -38,7 +40,7 @@ import static org.mockito.Mockito.when;
  * @since 1.0.0
  */
 @ExtendWith(MockitoExtension.class)
-class LocalDateTimeDeserializerTest {
+class LocalDateTimeExtDeserializerTest {
 
     private final LocalDateTimeExtDeserializer deserializer = new LocalDateTimeExtDeserializer();
 
@@ -59,6 +61,17 @@ class LocalDateTimeDeserializerTest {
 
         assertEquals(localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(), now.getTime());
 
+    }
+
+    @Test
+    void deserializeSuper() throws IOException{
+        when(jsonParser.isNaN()).thenReturn(true);
+        when(jsonParser.hasTokenId(JsonTokenId.ID_STRING)).thenReturn(true);
+        LocalDateTime now = LocalDateTime.now();
+        when(jsonParser.getText()).thenReturn(now.toString());
+        LocalDateTime localDateTime = deserializer.deserialize(jsonParser, context);
+        Assertions.assertNotNull(localDateTime);
+        assertEquals(now,localDateTime);
     }
 
     @Test
