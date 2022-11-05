@@ -55,9 +55,8 @@
 
         <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>final-projects</sonar.organization>
-        <sonar.projectKey>final-projects_final-frameworks</sonar.projectKey>
+        <sonar.projectKey>final-projects_final-framework</sonar.projectKey>
     </properties>
 
     <url>https://github.com/final-projects/final-framework</url>
