@@ -73,7 +73,7 @@ jobs:
       - name: Deploy with Maven
         run: mvn -B deploy -Pci --file pom.xml
       - name: Codecov
-        uses: codecov/codecov-action@v1.2.2
+        uses: codecov/codecov-action@v3
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
