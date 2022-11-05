@@ -49,7 +49,8 @@ class EnumConverterFactoryTest {
         assertEquals(YN.class.getSimpleName() + "Converter", converter.toString());
         assertEquals(YN.YES, converter.convert(YN.YES.getCode().toString()));
         assertEquals(YN.NO, converter.convert(YN.NO.getCode().toString()));
-        assertNull(converter.convert("-1"));
+        assertEquals(YN.DELETED, converter.convert(YN.DELETED.getCode().toString()));
+        assertNull(converter.convert("-2"));
 
     }
 
