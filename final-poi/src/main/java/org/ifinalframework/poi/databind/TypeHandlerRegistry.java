@@ -15,11 +15,21 @@
 
 package org.ifinalframework.poi.databind;
 
-import org.ifinalframework.poi.databind.type.*;
-
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.ifinalframework.poi.databind.type.BooleanTypeHandler;
+import org.ifinalframework.poi.databind.type.DateTypeHandler;
+import org.ifinalframework.poi.databind.type.DoubleTypeHandler;
+import org.ifinalframework.poi.databind.type.FloatTypeHandler;
+import org.ifinalframework.poi.databind.type.IntegerTypeHandler;
+import org.ifinalframework.poi.databind.type.LocalDateTimeTypeHandler;
+import org.ifinalframework.poi.databind.type.LongTypeHandler;
+import org.ifinalframework.poi.databind.type.ObjectTypeHandler;
+import org.ifinalframework.poi.databind.type.ShortTypeHandler;
+import org.ifinalframework.poi.databind.type.StringTypeHandler;
 
 /**
  * @author ilikly
@@ -48,6 +58,8 @@ public class TypeHandlerRegistry {
         register(Double.class, new DoubleTypeHandler());
 
         register(Date.class, new DateTypeHandler());
+        register(LocalDateTime.class, new LocalDateTimeTypeHandler());
+
         register(Object.class, new ObjectTypeHandler());
     }
 

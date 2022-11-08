@@ -15,9 +15,10 @@
 
 package org.ifinalframework.poi.databind.type;
 
-import org.ifinalframework.poi.databind.ser.LocalDateTimeExcelSerializer;
-
 import java.time.LocalDateTime;
+
+import org.ifinalframework.poi.databind.deser.LocalDateTimeExcelDeserializer;
+import org.ifinalframework.poi.databind.ser.LocalDateTimeExcelSerializer;
 
 /**
  * @author ilikly
@@ -25,6 +26,6 @@ import java.time.LocalDateTime;
  **/
 public class LocalDateTimeTypeHandler extends SimpleTypeHandler<LocalDateTime> {
     public LocalDateTimeTypeHandler() {
-        super(new LocalDateTimeExcelSerializer(), new LocalDateTimeTypeHandler());
+        super(new LocalDateTimeExcelSerializer(), new LocalDateTimeExcelDeserializer());
     }
 }
