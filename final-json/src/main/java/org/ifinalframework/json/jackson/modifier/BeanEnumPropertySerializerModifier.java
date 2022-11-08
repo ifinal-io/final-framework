@@ -24,7 +24,11 @@ import org.ifinalframework.auto.service.annotation.AutoService;
 import org.ifinalframework.core.IEnum;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -88,7 +92,6 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
                                                            final BeanDescription beanDesc,
                                                            final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
-
         final BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
         final BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
         return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter);

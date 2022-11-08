@@ -88,6 +88,14 @@
             <groupId>org.ifinalframework.annotation</groupId>
             <artifactId>final-annotation-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework.annotation</groupId>
+            <artifactId>final-annotation-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ifinalframework</groupId>
+            <artifactId>final-util</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

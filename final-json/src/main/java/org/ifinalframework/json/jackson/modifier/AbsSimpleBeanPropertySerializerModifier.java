@@ -16,9 +16,8 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import org.springframework.lang.NonNull;
-
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 
 /**
  * @author ilikly
@@ -28,10 +27,10 @@ import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 public abstract class AbsSimpleBeanPropertySerializerModifier extends AbsBeanPropertySerializerModifier {
 
     @Override
-    public boolean support(final @NonNull BeanPropertyDefinition property) {
-
-        return support(property.getRawPrimaryType());
+    public boolean test(BeanPropertyDefinition beanPropertyDefinition, BeanPropertyWriter beanPropertyWriter) {
+        return support(beanPropertyDefinition.getRawPrimaryType());
     }
+
 
     protected abstract boolean support(Class<?> clazz);
 

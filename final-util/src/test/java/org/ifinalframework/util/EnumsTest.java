@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2022 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +15,10 @@
 
 package org.ifinalframework.util;
 
+import java.util.Arrays;
 import java.util.Locale;
+
+import org.ifinalframework.data.annotation.YN;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,13 +42,7 @@ class EnumsTest {
         private final Integer value;
 
         public static Yn valueOf(final Integer code) {
-            for (final Yn constant : Yn.class.getEnumConstants()) {
-                if (Asserts.isEquals(constant.getValue(), code)) {
-                    return constant;
-                }
-            }
-
-            return null;
+            return Arrays.stream(Yn.values()).filter(it -> it.getValue().equals(code)).findFirst().orElse(null);
         }
 
     }
@@ -57,10 +53,15 @@ class EnumsTest {
     }
 
     @Test
+    void findDesc() {
+        Assertions.assertEquals(YN.YES.getDesc(), Enums.findDesc(YN.YES, "desc"));
+    }
+
+    @Test
     void getEnumI18NCode() {
 
         Assertions.assertEquals(String.join(".", Yn.class.getCanonicalName(), Yn.YES.name().toLowerCase(Locale.ROOT)),
-            Enums.getEnumI18NCode(Yn.YES));
+                Enums.getEnumI18NCode(Yn.YES));
 
     }
 

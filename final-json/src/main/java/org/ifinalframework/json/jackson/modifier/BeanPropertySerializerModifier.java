@@ -16,10 +16,10 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
 import java.util.Collection;
+import java.util.function.BiPredicate;
+
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -31,12 +31,10 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface BeanPropertySerializerModifier {
-
-    boolean support(@NonNull BeanPropertyDefinition property);
+public interface BeanPropertySerializerModifier extends BiPredicate<BeanPropertyDefinition, BeanPropertyWriter> {
 
     @Nullable
     Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
-        BeanPropertyDefinition property, BeanPropertyWriter writer);
+                                                    BeanPropertyDefinition property, BeanPropertyWriter writer);
 
 }

@@ -41,6 +41,7 @@
         <module>final-poi</module>
         <module>final-security</module>
         <module>final-doc</module>
+        <module>final-util</module>
     </modules>
 
     <properties>
@@ -117,6 +118,11 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
+                <version>1.4.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-util</artifactId>
                 <version>1.4.2-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -16,9 +16,6 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ReflectionUtils;
-
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +23,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ReflectionUtils;
 
 import com.fasterxml.jackson.core.io.SerializedString;
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -40,14 +40,14 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
  * @since 1.0.0
  */
 public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerModifier implements
-    BeanPropertySerializerModifier {
+        BeanPropertySerializerModifier {
 
     /**
      * @see BeanPropertyWriter#getName()
      * @see SerializedString
      */
     private static final Field NAME_FIELD = Objects
-        .requireNonNull(ReflectionUtils.findField(BeanPropertyWriter.class, "_name"));
+            .requireNonNull(ReflectionUtils.findField(BeanPropertyWriter.class, "_name"));
 
     static {
         ReflectionUtils.makeAccessible(NAME_FIELD);
@@ -60,21 +60,21 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
 
     @Override
     public List<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
-        final List<BeanPropertyWriter> beanProperties) {
+                                                     final List<BeanPropertyWriter> beanProperties) {
 
         // 1. 将原有的属性映射成一个Map，key为属性名称
         final Map<String, BeanPropertyWriter> beanPropertyWriterMap = beanProperties.stream()
-            .collect(Collectors.toMap(BeanPropertyWriter::getName, Function.identity()));
+                .collect(Collectors.toMap(BeanPropertyWriter::getName, Function.identity()));
 
         // 2. 遍历，找出实现了 IEnum 接口的属性，为其增加一个名称 xxxName 的新属性到 JavaBean的
         final List<BeanPropertyDefinition> properties = beanDesc.findProperties();
         for (BeanPropertyDefinition property : properties) {
-            if (support(property)) {
-                final BeanPropertyWriter def = beanPropertyWriterMap.get(property.getName());
+            final BeanPropertyWriter beanPropertyWriter = beanPropertyWriterMap.get(property.getName());
+            if (test(property, beanPropertyWriter)) {
                 final Collection<BeanPropertyWriter> changeProperties
-                    = changeProperties(config, beanDesc, property, def);
+                        = changeProperties(config, beanDesc, property, beanPropertyWriter);
                 if (!CollectionUtils.isEmpty(changeProperties)) {
-                    final int index = beanProperties.indexOf(def);
+                    final int index = beanProperties.indexOf(beanPropertyWriter);
                     if (index != -1) {
                         beanProperties.addAll(index + 1, changeProperties);
                     } else {
