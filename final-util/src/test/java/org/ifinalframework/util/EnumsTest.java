@@ -54,7 +54,7 @@ class EnumsTest {
 
     @Test
     void findDesc() {
-        Assertions.assertEquals(YN.YES.getDesc(), Enums.findDesc(YN.YES, "desc"));
+        Assertions.assertEquals(YN.YES.getDesc(), Enums.findDesc(YN.YES, "getDesc"));
     }
 
     @Test
