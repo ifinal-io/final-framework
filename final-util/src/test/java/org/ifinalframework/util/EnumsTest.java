@@ -53,6 +53,13 @@ class EnumsTest {
     }
 
     @Test
+    void notFoundCreatorMethod(){
+        Assertions.assertThrows(IllegalArgumentException.class,() -> {
+            Enums.findEnum(Yn.class,"noMethod",Integer.class,1);
+        });
+    }
+
+    @Test
     void findDesc() {
         Assertions.assertEquals(YN.YES.getDesc(), Enums.findDesc(YN.YES, "getDesc"));
     }
