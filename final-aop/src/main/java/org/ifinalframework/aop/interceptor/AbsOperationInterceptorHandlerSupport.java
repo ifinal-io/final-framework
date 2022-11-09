@@ -33,7 +33,6 @@ public class AbsOperationInterceptorHandlerSupport implements OperationHandlerSu
     private final ExpressionEvaluator evaluator;
 
     public AbsOperationInterceptorHandlerSupport(final ExpressionEvaluator evaluator) {
-
         this.evaluator = evaluator;
     }
 

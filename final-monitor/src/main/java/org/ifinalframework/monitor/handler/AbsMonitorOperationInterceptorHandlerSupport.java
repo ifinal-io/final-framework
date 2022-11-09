@@ -43,7 +43,6 @@ public class AbsMonitorOperationInterceptorHandlerSupport extends AbsOperationIn
     }
 
     public AbsMonitorOperationInterceptorHandlerSupport(final MonitorExpressionEvaluator evaluator) {
-
         super(evaluator);
         this.evaluator = evaluator;
     }
