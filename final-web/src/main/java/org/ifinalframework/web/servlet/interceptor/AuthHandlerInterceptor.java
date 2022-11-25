@@ -76,7 +76,7 @@ public class AuthHandlerInterceptor implements AsyncHandlerInterceptor {
 
         if (auth != null) {
             IUser user = UserContextHolder.getUser();
-            Class<? extends Annotation> annotation = auth.value();
+            Class<? extends Annotation> annotation = auth.type();
             if (Auth.class.equals(annotation)) {
                 authAnnotation = findHandlerAuth(handler, annotation);
             }
