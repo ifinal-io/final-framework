@@ -65,9 +65,11 @@ public class DebugOrderedHiddenHttpMethodFilter extends OrderedHiddenHttpMethodF
                     requestToUse = new HttpMethodRequestWrapper(request, method);
                 }
             }
+            filterChain.doFilter(requestToUse, response);
+        }else {
+            super.doFilterInternal(request,response,filterChain);
         }
 
-        filterChain.doFilter(requestToUse, response);
     }
 
 
