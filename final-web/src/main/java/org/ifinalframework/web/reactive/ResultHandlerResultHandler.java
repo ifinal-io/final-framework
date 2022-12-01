@@ -15,11 +15,12 @@
 
 package org.ifinalframework.web.reactive;
 
-import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
-import org.ifinalframework.core.result.Result;
-import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
+import java.lang.reflect.Type;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
 import org.springframework.core.ReactiveAdapterRegistry;
@@ -33,10 +34,12 @@ import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.config.WebFluxConfigurationSupport;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
 
-import java.lang.reflect.Type;
-import java.util.Objects;
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
+import org.ifinalframework.core.result.Result;
+import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
+
+import reactor.core.publisher.Mono;
 
 /**
  * 将{@link HandlerMethod}的返回结果 {@link HandlerResult#getReturnValue()}进行统一的包装。
@@ -48,6 +51,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @Component
+@ConditionalOnClass(ResponseBodyResultHandler.class)
 @ConditionalOnReactiveWebApplication
 public class ResultHandlerResultHandler extends ResponseBodyResultHandler {
 
