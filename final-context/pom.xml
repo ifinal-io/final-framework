@@ -71,6 +71,10 @@
             <version>4.0.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.ifinalframework.annotation</groupId>
+            <artifactId>final-annotation-query</artifactId>
+        </dependency>
     </dependencies>
 
     <url>https://github.com/final-projects/final-framework</url>
