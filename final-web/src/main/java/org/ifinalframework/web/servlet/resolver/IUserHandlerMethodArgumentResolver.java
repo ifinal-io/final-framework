@@ -28,6 +28,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import org.ifinalframework.context.exception.UnauthorizedException;
 import org.ifinalframework.context.user.UserSupplier;
 import org.ifinalframework.core.IUser;
 
@@ -54,7 +55,7 @@ public class IUserHandlerMethodArgumentResolver implements HandlerMethodArgument
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return userSuppliers.stream().map(Supplier::get).findFirst().orElse(null);
+        return userSuppliers.stream().map(Supplier::get).findFirst().orElseThrow(() -> new UnauthorizedException("用户未登录"));
     }
 }
 

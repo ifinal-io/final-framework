@@ -28,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.security.core.TokenAuthenticationService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,8 +38,8 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author ilikly
  * @version 1.4.0
- * @since 1.4.0
  * @see org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+ * @since 1.4.0
  */
 @Slf4j
 @Component
@@ -56,25 +57,29 @@ public class BearerAuthenticationFilter extends OncePerRequestFilter {
 //        if (SecurityContextHolder.getContext().getAuthentication() != null) {
 //            chain.doFilter(request, response);
 //        }
-        Authentication authentication = authenticationConverter.convert(request);
+        try {
+            Authentication authentication = authenticationConverter.convert(request);
 
-        if(Objects.isNull(authentication)){
-            authentication =  cookieAuthenticationConverter.convert(request);
-        }
+            if (Objects.isNull(authentication)) {
+                authentication = cookieAuthenticationConverter.convert(request);
+            }
 
-        if (Objects.isNull(authentication)) {
+            if (Objects.isNull(authentication)) {
+                chain.doFilter(request, response);
+                return;
+            }
+
+            String username = authentication.getName();
+            logger.trace("Found username {} in Bearer Authorization header", username);
+
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+            SecurityContextHolder.setContext(context);
+
             chain.doFilter(request, response);
-            return;
+        } finally {
+            UserContextHolder.reset();
         }
-
-        String username = authentication.getName();
-        logger.trace("Found username {} in Bearer Authorization header", username);
-
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
-
-        chain.doFilter(request, response);
     }
 }
 
