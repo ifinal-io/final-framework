@@ -15,6 +15,8 @@
 
 package org.ifinalframework.context.user;
 
+import org.springframework.stereotype.Component;
+
 import org.ifinalframework.core.IUser;
 
 /**
@@ -24,6 +26,7 @@ import org.ifinalframework.core.IUser;
  * @version 1.4.1
  * @since 1.4.1
  */
+@Component
 public class DefaultUserSupplier implements UserSupplier {
     @Override
     public IUser<?> get() {
