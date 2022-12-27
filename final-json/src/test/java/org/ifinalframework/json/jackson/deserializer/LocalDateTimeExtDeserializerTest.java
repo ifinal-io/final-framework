@@ -15,22 +15,16 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonTokenId;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import org.ifinalframework.json.Json;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * LocalDateTimeDeserializerTest.
@@ -42,41 +36,19 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class LocalDateTimeExtDeserializerTest {
 
-    private final LocalDateTimeExtDeserializer deserializer = new LocalDateTimeExtDeserializer();
-
-    @Mock
-    private JsonParser jsonParser;
-
-    @Mock
-    private DeserializationContext context;
+    @Setter
+    @Getter
+    private static class LocalDateTimeBean {
+        private LocalDateTime localDateTime;
+        private LocalDateTime now;
+    }
 
     @Test
     void deserialize() throws IOException {
+        final String json = "{\"localDateTime\":\"2022-10-31 00:10:29\",\"now\": " + System.currentTimeMillis() + "}";
+        LocalDateTimeBean localDateTimeBean = Json.toObject(json, LocalDateTimeBean.class);
 
-        when(jsonParser.isNaN()).thenReturn(false);
-        Date now = new Date();
-        when(jsonParser.getValueAsLong()).thenReturn(now.getTime());
 
-        LocalDateTime localDateTime = deserializer.deserialize(jsonParser, context);
-
-        assertEquals(localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(), now.getTime());
-
-    }
-
-    @Test
-    void deserializeSuper() throws IOException{
-        when(jsonParser.isNaN()).thenReturn(true);
-        when(jsonParser.hasTokenId(JsonTokenId.ID_STRING)).thenReturn(true);
-        LocalDateTime now = LocalDateTime.now();
-        when(jsonParser.getText()).thenReturn(now.toString());
-        LocalDateTime localDateTime = deserializer.deserialize(jsonParser, context);
-        Assertions.assertNotNull(localDateTime);
-        assertEquals(now,localDateTime);
-    }
-
-    @Test
-    void handledType() {
-        assertEquals(LocalDateTime.class, deserializer.handledType());
     }
 
 }

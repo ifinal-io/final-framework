@@ -19,9 +19,12 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 /**
@@ -30,18 +33,29 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
  * @see com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
  * @since 1.0.0
  */
-public class LocalDateTimeExtDeserializer extends LocalDateTimeDeserializer {
+public class LocalDateTimeExtDeserializer extends JsonDeserializer<LocalDateTime> {
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public LocalDateTime deserialize(final JsonParser p, final DeserializationContext context) throws IOException {
 
-        if (!p.isNaN()) {
-            final long timestamp = p.getValueAsLong();
-            final Instant instant = Instant.ofEpochMilli(timestamp);
-            return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        JsonToken jsonToken = p.currentToken();
+        switch (jsonToken){
+            case VALUE_STRING:
+                return LocalDateTime.parse(p.getValueAsString(), dateTimeFormatter);
+            case VALUE_NUMBER_INT:
+                final long timestamp = p.getValueAsLong();
+                final Instant instant = Instant.ofEpochMilli(timestamp);
+                return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            default:
+
+                return null;
+
         }
 
-        return super.deserialize(p, context);
+
+
+
 
     }
 
