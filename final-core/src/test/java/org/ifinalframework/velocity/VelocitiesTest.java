@@ -41,8 +41,10 @@ class VelocitiesTest {
         Map<String, Object> context = new HashMap<>();
         context.put("name", "xiaoMing");
         context.put("age", 12);
+        context.put("xiaoshu",1);
         assertEquals("xiaoMing", Velocities.eval("${name}", context));
         assertEquals("12", Velocities.eval("${age}", context));
+
     }
 
     @Test
