@@ -20,7 +20,7 @@
     <parent>
         <artifactId>final-framework</artifactId>
         <groupId>org.ifinalframework</groupId>
-        <version>1.4.2</version>
+        <version>1.4.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>final-web</artifactId>
