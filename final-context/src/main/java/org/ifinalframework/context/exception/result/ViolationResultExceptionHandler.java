@@ -15,17 +15,16 @@
 
 package org.ifinalframework.context.exception.result;
 
-import org.ifinalframework.core.ResponseStatus;
-import org.ifinalframework.core.result.R;
-import org.ifinalframework.core.result.Result;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import java.util.stream.Collectors;
+import org.ifinalframework.core.ResponseStatus;
+import org.ifinalframework.core.result.R;
+import org.ifinalframework.core.result.Result;
 
 /**
  * The handler is to handle the exception throw by framework of {@link javax.validation.Validator}
@@ -77,10 +76,7 @@ public class ViolationResultExceptionHandler implements ResultExceptionHandler<C
     public Result<?> handle(@NonNull ConstraintViolationException e) {
 
         return R.failure(
-                ResponseStatus.BAD_REQUEST.getCode(), e.getConstraintViolations()
-                        .stream()
-                        .map(ConstraintViolation::getMessage)
-                        .collect(Collectors.joining(","))
+                ResponseStatus.BAD_REQUEST.getCode(), e.getMessage()
         );
     }
 
