@@ -16,6 +16,7 @@
 package org.ifinalframework.web.servlet.resolver;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,7 @@ public class IUserHandlerMethodArgumentResolver implements HandlerMethodArgument
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return userSuppliers.stream().map(Supplier::get).findFirst().orElseThrow(() -> new UnauthorizedException("用户未登录"));
+        return userSuppliers.stream().map(Supplier::get).filter(Objects::nonNull).findFirst().orElseThrow(() -> new UnauthorizedException("用户未登录"));
     }
 }
 
