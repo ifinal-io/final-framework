@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author ilikly
  * @version 1.4.2
+ * @see OrderedHiddenHttpMethodFilter
  * @since 1.4.2
  */
 @Slf4j
@@ -66,8 +67,8 @@ public class DebugOrderedHiddenHttpMethodFilter extends OrderedHiddenHttpMethodF
                 }
             }
             filterChain.doFilter(requestToUse, response);
-        }else {
-            super.doFilterInternal(request,response,filterChain);
+        } else {
+            super.doFilterInternal(request, response, filterChain);
         }
 
     }
