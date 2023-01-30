@@ -48,13 +48,10 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(value = "debug", havingValue = "true")
 public class DebugOrderedHiddenHttpMethodFilter extends OrderedHiddenHttpMethodFilter {
 
-    private static final List<String> ALLOWED_METHODS =
-            Collections.unmodifiableList(Arrays.asList(HttpMethod.PUT.name(), HttpMethod.POST.name(),
-                    HttpMethod.DELETE.name(), HttpMethod.PATCH.name()));
+    private static final List<String> ALLOWED_METHODS = Collections.unmodifiableList(Arrays.asList(HttpMethod.PUT.name(), HttpMethod.POST.name(), HttpMethod.DELETE.name(), HttpMethod.PATCH.name()));
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         HttpServletRequest requestToUse = request;
 
