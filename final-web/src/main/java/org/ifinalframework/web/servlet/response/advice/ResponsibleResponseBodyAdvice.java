@@ -15,7 +15,6 @@
 
 package org.ifinalframework.web.servlet.response.advice;
 
-import org.ifinalframework.core.result.Responsible;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -28,6 +27,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import org.ifinalframework.core.result.Responsible;
+
 /**
  * @author ilikly
  * @version 1.0.0
@@ -36,7 +37,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @Order
 @RestControllerAdvice
-@ConditionalOnProperty(prefix = "final.web.response.advice", name = "responsible", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "final.web.response.advice", name = "responsible", havingValue = "true")
 public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
 
 
