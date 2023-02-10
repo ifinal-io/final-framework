@@ -18,6 +18,7 @@ package org.ifinalframework.security.user;
 import java.util.Objects;
 
 import org.springframework.core.Ordered;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -38,15 +39,26 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityUserSupplier implements UserSupplier, Ordered {
     @Override
     public IUser<?> get() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (Objects.isNull(authentication)) {
+            return null;
+        }
+
+
+        Object principal = authentication.getPrincipal();
 
         if (Objects.isNull(principal)) {
             return null;
         }
 
+
         if (principal instanceof IUser) {
             return (IUser<?>) principal;
         }
+
 
         logger.info("principal is not instanceof IUser: {}", principal);
 

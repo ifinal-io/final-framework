@@ -84,6 +84,7 @@ class JsonTest {
 
     @Test
     void toJson() {
+        logger.info(Json.toJson(LocalDate.now()));
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC.normalized()));
         LocaleContextHolder.setTimeZone(TimeZone.getTimeZone(ZoneOffset.of("+8")));
         JsonBean jsonBean = newJsonBean();
@@ -108,6 +109,7 @@ class JsonTest {
 
     @Test
     void toObject() {
+        LocalDate localDate = Json.toObject("\"2023-02-01\"", LocalDate.class);
         assertEquals(1, Json.toObject("1"));
         assertEquals(1, Json.toObject("1", Integer.class));
     }

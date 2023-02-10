@@ -39,10 +39,11 @@ public class ObjectMapperFactory {
 
         this.objectMapper = objectMapper;
 
+
         ServiceLoader.load(ObjectMapperInitializer.class, getClass().getClassLoader())
             .forEach(it -> it.initialize(this.objectMapper));
 
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.setSerializationInclusion(Include.NON_NULL);

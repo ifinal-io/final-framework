@@ -99,6 +99,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
         http.cors(Customizer.withDefaults());
 
+        http.anonymous();
+
 
         applicationContext.getBeanProvider(BearerAuthenticationFilter.class)
                 .ifAvailable(filter -> {
