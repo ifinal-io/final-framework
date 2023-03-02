@@ -19,6 +19,8 @@ package org.ifinalframework.json;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import org.springframework.core.ResolvableType;
+
 /**
  * @author ilikly
  * @version 1.0.0
@@ -32,8 +34,7 @@ public abstract class TypeReference<T> {
 
     @SuppressWarnings("unchecked")
     protected TypeReference() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.type = genericSuperclass.getActualTypeArguments()[0];
+        this.type = ResolvableType.forClass(getClass()).as(TypeReference.class).getGeneric().getType();
         if (type instanceof ParameterizedType) {
             this.rawType = (Class<T>) ((ParameterizedType) type).getRawType();
         } else {
