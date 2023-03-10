@@ -43,7 +43,6 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
     }
 
     public LocalDateSerializer(final DateTimeFormatter formatter) {
-
         this.formatter = formatter;
     }
 

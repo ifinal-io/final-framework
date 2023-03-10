@@ -18,6 +18,7 @@ package org.ifinalframework.json.jackson.initializer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ServiceLoader;
 
@@ -35,6 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
 /**
  * ModuleObjectMapperInitializer.
@@ -56,6 +59,8 @@ public class ModuleObjectMapperInitializer implements ObjectMapperInitializer {
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeExtDeserializer());
         javaTimeModule.addSerializer(LocalDate.class,new LocalDateSerializer());
         javaTimeModule.addDeserializer(LocalDate.class,new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        javaTimeModule.addSerializer(LocalTime.class,new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
+        javaTimeModule.addDeserializer(LocalTime.class,new LocalTimeDeserializer(DateTimeFormatter.ISO_LOCAL_TIME));
         objectMapper.registerModule(javaTimeModule);
 
         objectMapper.registerModule(new FinalJacksonModule());

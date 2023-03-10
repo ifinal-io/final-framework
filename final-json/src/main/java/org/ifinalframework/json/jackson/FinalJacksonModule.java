@@ -16,6 +16,7 @@
 package org.ifinalframework.json.jackson;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ServiceLoader;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -48,6 +50,8 @@ public class FinalJacksonModule extends SimpleModule {
         ClassLoader classLoader = getClass().getClassLoader();
 
         addSerializer(LocalDate.class,new LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE));
+        addSerializer(LocalTime.class,new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
+
 
 
         ServiceLoader.load(JsonSerializer.class, classLoader).forEach(this::addSerializer);
