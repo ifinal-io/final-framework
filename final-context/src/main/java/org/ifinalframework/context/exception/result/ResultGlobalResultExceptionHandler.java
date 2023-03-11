@@ -16,8 +16,11 @@
 
 package org.ifinalframework.context.exception.result;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
@@ -52,7 +55,7 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
     }
 
     @Override
-    public Result<?> handle(final @NonNull Throwable throwable) {
+    public Result<?> handle(@NonNull Throwable throwable) {
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
@@ -61,7 +64,11 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
             logger.error("==> ", throwable);
         }
 
+        throwable = ExceptionUtils.getRootCause(throwable);
+
         for (ResultExceptionHandler<?> resultExceptionHandler : resultExceptionHandlers) {
+
+
             if (resultExceptionHandler.supports(throwable)) {
                 final Result<?> result = ((ResultExceptionHandler<Throwable>) resultExceptionHandler).handle(throwable);
                 result.setTrace(MDC.get("trace"));
