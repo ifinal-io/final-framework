@@ -20,6 +20,8 @@ import java.util.Set;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +40,7 @@ import org.ifinalframework.context.exception.ForbiddenException;
 public abstract class AbstractSpelHandlerMethodPreAuthenticate implements HandlerMethodPreAuthenticate {
 
     private final SpelExpressionParser spelExpressionParser = new SpelExpressionParser();
+    private final AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
 
     @Override
     public void authenticate(HandlerMethod handler, HttpMethod method, Set<String> requestPattern) {
@@ -51,6 +54,7 @@ public abstract class AbstractSpelHandlerMethodPreAuthenticate implements Handle
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         SecurityExpressionRoot securityExpressionRoot = new SecurityExpressionRoot(authentication) {
         };
+        securityExpressionRoot.setTrustResolver(authenticationTrustResolver);
 
         for (final String spelAuthroize : spelAuthroizes) {
             final Boolean value = spelExpressionParser.parseExpression(spelAuthroize).getValue(securityExpressionRoot, boolean.class);
