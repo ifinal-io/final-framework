@@ -17,13 +17,13 @@ package org.ifinalframework.validation.beanvalidation;
 
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
 
 import org.ifinalframework.validation.ValidationGroupsProvider;
@@ -59,18 +59,16 @@ public class FinalMethodValidationInterceptor extends MethodValidationIntercepto
     @NonNull
     protected Class<?>[] determineValidationGroups(@NonNull MethodInvocation invocation) {
 
-        final List<Class<?>> validationGroups = validationGroupsProvider.getValidationGroups(invocation.getMethod(), invocation.getThis(), invocation.getArguments());
-
-        if (CollectionUtils.isEmpty(validationGroups)) {
-            return super.determineValidationGroups(invocation);
-        }
-
         final Class<?>[] determineValidationGroups = super.determineValidationGroups(invocation);
-
-        if (!ObjectUtils.isEmpty(determineValidationGroups)) {
-            validationGroups.addAll(Arrays.asList(determineValidationGroups));
+        final List<Class<?>> validationGroups = validationGroupsProvider.getValidationGroups(invocation.getMethod(), invocation.getThis(), invocation.getArguments());
+        if (CollectionUtils.isEmpty(validationGroups)) {
+            return determineValidationGroups;
         }
 
-        return ClassUtils.toClassArray(validationGroups);
+        final List<Class<?>> groups = new ArrayList<>(determineValidationGroups.length + validationGroups.size());
+        groups.addAll(Arrays.asList(determineValidationGroups));
+        groups.addAll(validationGroups);
+
+        return ClassUtils.toClassArray(groups);
     }
 }
