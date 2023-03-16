@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.validation.beanvalidation.FilteredMethodValidationPostProcessor;
 import org.springframework.boot.validation.beanvalidation.MethodValidationExcludeFilter;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import org.ifinalframework.validation.ValidationGroupsProvider;
@@ -49,7 +50,8 @@ public class FinalFilteredMethodValidationPostProcessor extends FilteredMethodVa
     }
 
     @Override
+    @NonNull
     protected Advice createMethodValidationAdvice(@Nullable Validator validator) {
-        return new FinalMethodValidationInterceptor(validator, validationGroupsProvider);
+        return (validator != null ? new FinalMethodValidationInterceptor(validator, validationGroupsProvider) : new FinalMethodValidationInterceptor(validationGroupsProvider));
     }
 }
