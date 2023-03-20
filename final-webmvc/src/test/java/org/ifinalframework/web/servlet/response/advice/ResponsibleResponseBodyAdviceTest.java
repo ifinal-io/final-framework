@@ -13,10 +13,12 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.servlet.advice;
+package org.ifinalframework.web.servlet.response.advice;
 
 import lombok.SneakyThrows;
 import org.ifinalframework.core.result.Responsible;
+import org.ifinalframework.web.servlet.response.advice.ResponsibleResponseBodyAdvice;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

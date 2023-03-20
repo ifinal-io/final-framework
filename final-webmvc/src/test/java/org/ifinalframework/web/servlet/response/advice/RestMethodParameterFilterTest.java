@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.servlet.advice;
+package org.ifinalframework.web.servlet.response.advice;
 
 import lombok.SneakyThrows;
+
+import org.ifinalframework.web.servlet.response.advice.RestMethodParameterFilter;
 import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
