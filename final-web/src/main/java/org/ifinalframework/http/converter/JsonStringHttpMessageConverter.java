@@ -15,24 +15,20 @@
 
 package org.ifinalframework.http.converter;
 
-import org.ifinalframework.json.Json;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.lang.NonNull;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import org.ifinalframework.json.Json;
 
 /**
- * 包装 {@link StringHttpMessageConverter} 以解决使用 {@link ResponseBodyAdvice} 方式, 处理{@link HandlerMethod} 返回类型与声明类型不一致时，导致抛出
- * {@link ClassCastException}。
- *
  * @author ilikly
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)

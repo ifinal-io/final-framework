@@ -18,13 +18,20 @@ package org.ifinalframework.validation;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 /**
  * ValidationGroupsProvider.
  *
  * @author ilikly
  * @version 1.5.0
+ * @see org.aopalliance.intercept.MethodInterceptor
+ * @see org.springframework.validation.beanvalidation.MethodValidationInterceptor
  * @since 1.5.0
  */
 public interface ValidationGroupsProvider {
-    List<Class<?>> getValidationGroups(Method method, Object target, Object[] args);
+
+    @Nullable
+    List<Class<?>> getValidationGroups(@NonNull Method method, @NonNull Object target, @NonNull Object[] args);
 }

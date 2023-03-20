@@ -36,12 +36,14 @@
         <module>final-monitor</module>
         <module>final-retrofit</module>
         <module>final-aop</module>
-        <module>final-web</module>
         <module>final-json</module>
         <module>final-poi</module>
         <module>final-security</module>
         <module>final-doc</module>
         <module>final-util</module>
+        <module>final-web</module>
+        <module>final-webmvc</module>
+        <module>final-webflux</module>
     </modules>
 
     <properties>
@@ -148,6 +150,16 @@
             <dependency>
                 <artifactId>final-web</artifactId>
                 <groupId>org.ifinalframework</groupId>
+                <version>1.5.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-webmvc</artifactId>
+                <version>1.5.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-webflux</artifactId>
                 <version>1.5.0-SNAPSHOT</version>
             </dependency>
             <dependency>
