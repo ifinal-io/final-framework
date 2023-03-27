@@ -139,7 +139,12 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
         public void serialize(final IEnum value, final JsonGenerator gen, final SerializerProvider serializers)
                 throws IOException {
 
-            gen.writeObject(value.getCode());
+            final Object code = value.getCode();
+            if(code instanceof String){
+                gen.writeString((String) code);
+            }else {
+                gen.writeObject(code);
+            }
         }
 
     }
