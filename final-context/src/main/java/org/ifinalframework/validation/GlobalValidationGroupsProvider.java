@@ -28,6 +28,11 @@ import org.springframework.lang.NonNull;
  */
 @FunctionalInterface
 public interface GlobalValidationGroupsProvider {
+    /**
+     * return global validation groups.
+     *
+     * @return global validation groups.
+     */
     @NonNull
     List<Class<?>> getValidationGroups();
 }
