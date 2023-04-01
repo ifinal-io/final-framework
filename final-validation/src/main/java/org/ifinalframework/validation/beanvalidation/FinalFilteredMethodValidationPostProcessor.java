@@ -24,7 +24,7 @@ import org.springframework.boot.validation.beanvalidation.MethodValidationExclud
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import org.ifinalframework.validation.ValidationGroupsProvider;
+import org.ifinalframework.validation.MethodValidationGroupsProvider;
 
 import org.aopalliance.aop.Advice;
 
@@ -37,21 +37,21 @@ import org.aopalliance.aop.Advice;
  */
 public class FinalFilteredMethodValidationPostProcessor extends FilteredMethodValidationPostProcessor {
 
-    private final ValidationGroupsProvider validationGroupsProvider;
+    private final MethodValidationGroupsProvider methodVidationGroupsProvider;
 
-    public FinalFilteredMethodValidationPostProcessor(Stream<? extends MethodValidationExcludeFilter> excludeFilters, ValidationGroupsProvider validationGroupsProvider) {
+    public FinalFilteredMethodValidationPostProcessor(Stream<? extends MethodValidationExcludeFilter> excludeFilters, MethodValidationGroupsProvider methodVidationGroupsProvider) {
         super(excludeFilters);
-        this.validationGroupsProvider = validationGroupsProvider;
+        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
-    public FinalFilteredMethodValidationPostProcessor(Collection<? extends MethodValidationExcludeFilter> excludeFilters, ValidationGroupsProvider validationGroupsProvider) {
+    public FinalFilteredMethodValidationPostProcessor(Collection<? extends MethodValidationExcludeFilter> excludeFilters, MethodValidationGroupsProvider methodVidationGroupsProvider) {
         super(excludeFilters);
-        this.validationGroupsProvider = validationGroupsProvider;
+        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
     @Override
     @NonNull
     protected Advice createMethodValidationAdvice(@Nullable Validator validator) {
-        return (validator != null ? new FinalMethodValidationInterceptor(validator, validationGroupsProvider) : new FinalMethodValidationInterceptor(validationGroupsProvider));
+        return (validator != null ? new FinalMethodValidationInterceptor(validator, methodVidationGroupsProvider) : new FinalMethodValidationInterceptor(methodVidationGroupsProvider));
     }
 }

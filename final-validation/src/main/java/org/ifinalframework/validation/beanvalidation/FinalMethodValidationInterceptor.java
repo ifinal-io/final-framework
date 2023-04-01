@@ -26,7 +26,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
 
-import org.ifinalframework.validation.ValidationGroupsProvider;
+import org.ifinalframework.validation.MethodValidationGroupsProvider;
 
 import org.aopalliance.intercept.MethodInvocation;
 
@@ -38,21 +38,21 @@ import org.aopalliance.intercept.MethodInvocation;
  * @since 1.5.0
  */
 public class FinalMethodValidationInterceptor extends MethodValidationInterceptor {
-    private final ValidationGroupsProvider validationGroupsProvider;
+    private final MethodValidationGroupsProvider methodVidationGroupsProvider;
 
-    public FinalMethodValidationInterceptor(ValidationGroupsProvider validationGroupsProvider) {
+    public FinalMethodValidationInterceptor(MethodValidationGroupsProvider methodVidationGroupsProvider) {
         super();
-        this.validationGroupsProvider = validationGroupsProvider;
+        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
-    public FinalMethodValidationInterceptor(ValidatorFactory validatorFactory, ValidationGroupsProvider validationGroupsProvider) {
+    public FinalMethodValidationInterceptor(ValidatorFactory validatorFactory, MethodValidationGroupsProvider methodVidationGroupsProvider) {
         super(validatorFactory);
-        this.validationGroupsProvider = validationGroupsProvider;
+        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
-    public FinalMethodValidationInterceptor(Validator validator, ValidationGroupsProvider validationGroupsProvider) {
+    public FinalMethodValidationInterceptor(Validator validator, MethodValidationGroupsProvider methodVidationGroupsProvider) {
         super(validator);
-        this.validationGroupsProvider = validationGroupsProvider;
+        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FinalMethodValidationInterceptor extends MethodValidationIntercepto
     protected Class<?>[] determineValidationGroups(@NonNull MethodInvocation invocation) {
 
         final Class<?>[] determineValidationGroups = super.determineValidationGroups(invocation);
-        final List<Class<?>> validationGroups = validationGroupsProvider.getValidationGroups(invocation.getMethod(), invocation.getThis(), invocation.getArguments());
+        final List<Class<?>> validationGroups = methodVidationGroupsProvider.getValidationGroups(invocation.getMethod(), invocation.getThis(), invocation.getArguments());
         if (CollectionUtils.isEmpty(validationGroups)) {
             return determineValidationGroups;
         }

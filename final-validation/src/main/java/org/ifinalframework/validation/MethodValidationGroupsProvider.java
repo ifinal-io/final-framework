@@ -30,8 +30,15 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.validation.beanvalidation.MethodValidationInterceptor
  * @since 1.5.0
  */
-public interface ValidationGroupsProvider {
+public interface MethodValidationGroupsProvider {
 
+    /**
+     * @param method 方法
+     * @param target 目标对象
+     * @param args   参数列表
+     *
+     * @return 分组校验
+     */
     @Nullable
     List<Class<?>> getValidationGroups(@NonNull Method method, @NonNull Object target, @NonNull Object[] args);
 }
