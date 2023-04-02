@@ -15,6 +15,7 @@
 
 package org.ifinalframework.validation;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
@@ -22,17 +23,17 @@ import org.springframework.lang.NonNull;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
- * ValidationGroupsProvider.
+ * NoMethodValidationGroupsProvider.
  *
  * @author ilikly
  * @version 1.5.0
- * @see org.aopalliance.intercept.MethodInterceptor
- * @see org.springframework.validation.beanvalidation.MethodValidationInterceptor
  * @since 1.5.0
  */
-@FunctionalInterface
-public interface MethodValidationGroupsProvider {
+public class NoMethodValidationGroupsProvider implements MethodValidationGroupsProvider {
 
     @NonNull
-    List<Class<?>> getValidationGroups(@NonNull MethodInvocation invocation);
+    @Override
+    public List<Class<?>> getValidationGroups(@NonNull MethodInvocation invocation) {
+        return Collections.emptyList();
+    }
 }

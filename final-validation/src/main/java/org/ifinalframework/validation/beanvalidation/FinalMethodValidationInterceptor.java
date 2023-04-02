@@ -19,15 +19,23 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.lang.NonNull;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
 
+import org.ifinalframework.validation.GlobalValidationGroupsProvider;
 import org.ifinalframework.validation.MethodValidationGroupsProvider;
+import org.ifinalframework.validation.NoGlobalValidationGroupsProvider;
+import org.ifinalframework.validation.NoMethodValidationGroupsProvider;
 
+import lombok.Setter;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
@@ -38,21 +46,21 @@ import org.aopalliance.intercept.MethodInvocation;
  * @since 1.5.0
  */
 public class FinalMethodValidationInterceptor extends MethodValidationInterceptor {
-    private final MethodValidationGroupsProvider methodVidationGroupsProvider;
 
-    public FinalMethodValidationInterceptor(MethodValidationGroupsProvider methodVidationGroupsProvider) {
-        super();
-        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
+    @Setter
+    private GlobalValidationGroupsProvider globalValidationGroupsProvider = new NoGlobalValidationGroupsProvider();
+    @Setter
+    private MethodValidationGroupsProvider methodValidationGroupsProvider = new NoMethodValidationGroupsProvider();
+
+    public FinalMethodValidationInterceptor() {
     }
 
-    public FinalMethodValidationInterceptor(ValidatorFactory validatorFactory, MethodValidationGroupsProvider methodVidationGroupsProvider) {
+    public FinalMethodValidationInterceptor(ValidatorFactory validatorFactory) {
         super(validatorFactory);
-        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
-    public FinalMethodValidationInterceptor(Validator validator, MethodValidationGroupsProvider methodVidationGroupsProvider) {
+    public FinalMethodValidationInterceptor(Validator validator) {
         super(validator);
-        this.methodVidationGroupsProvider = methodVidationGroupsProvider;
     }
 
     @Override
@@ -60,15 +68,13 @@ public class FinalMethodValidationInterceptor extends MethodValidationIntercepto
     protected Class<?>[] determineValidationGroups(@NonNull MethodInvocation invocation) {
 
         final Class<?>[] determineValidationGroups = super.determineValidationGroups(invocation);
-        final List<Class<?>> validationGroups = methodVidationGroupsProvider.getValidationGroups(invocation.getMethod(), invocation.getThis(), invocation.getArguments());
-        if (CollectionUtils.isEmpty(validationGroups)) {
-            return determineValidationGroups;
-        }
 
-        final List<Class<?>> groups = new ArrayList<>(determineValidationGroups.length + validationGroups.size());
-        groups.addAll(Arrays.asList(determineValidationGroups));
-        groups.addAll(validationGroups);
+        final List<Class<?>> allValidationGroups = new LinkedList<>(Arrays.asList(determineValidationGroups));
 
-        return ClassUtils.toClassArray(groups);
+        allValidationGroups.addAll(globalValidationGroupsProvider.getValidationGroups());
+        allValidationGroups.addAll(methodValidationGroupsProvider.getValidationGroups(invocation));
+
+
+        return ClassUtils.toClassArray(allValidationGroups);
     }
 }
