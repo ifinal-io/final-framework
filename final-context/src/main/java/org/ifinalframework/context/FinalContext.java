@@ -27,12 +27,13 @@ import lombok.RequiredArgsConstructor;
  * @version 1.4.3
  * @since 1.4.3
  */
+@SuppressWarnings("unchcked")
 @RequiredArgsConstructor
 public enum FinalContext {
     TENANT("tenant", "租户"),
     SCOPE("scope", "作用域"),
     ;
-    private static final ThreadLocal<Map<String, String>> CONTEXT = ThreadLocal.withInitial(LinkedHashMap::new);
+    private static final ThreadLocal<Map<String, Object>> CONTEXT = ThreadLocal.withInitial(LinkedHashMap::new);
 
     private final String code;
     private final String desc;
@@ -42,11 +43,15 @@ public enum FinalContext {
         CONTEXT.get().clear();
     }
 
-    public String get() {
-        return CONTEXT.get().get(code);
+    public <T> T remove() {
+        return (T) CONTEXT.get().remove(code);
     }
 
-    public void set(String value) {
+    public <T> T get() {
+        return (T) CONTEXT.get().get(code);
+    }
+
+    public <T> void set(T value) {
         CONTEXT.get().put(code, value);
     }
 
