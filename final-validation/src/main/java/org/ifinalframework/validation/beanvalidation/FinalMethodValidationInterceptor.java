@@ -16,18 +16,12 @@
 package org.ifinalframework.validation.beanvalidation;
 
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.lang.NonNull;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
 
 import org.ifinalframework.validation.GlobalValidationGroupsProvider;
@@ -53,10 +47,6 @@ public class FinalMethodValidationInterceptor extends MethodValidationIntercepto
     private MethodValidationGroupsProvider methodValidationGroupsProvider = new NoMethodValidationGroupsProvider();
 
     public FinalMethodValidationInterceptor() {
-    }
-
-    public FinalMethodValidationInterceptor(ValidatorFactory validatorFactory) {
-        super(validatorFactory);
     }
 
     public FinalMethodValidationInterceptor(Validator validator) {

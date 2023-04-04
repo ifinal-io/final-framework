@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.ResolvableType;
@@ -57,6 +58,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Interceptor
+@ConditionalOnBean(HandlerMethodPreAuthenticate.class)
 public class HandlerMethodPreAuthenticateHandlerInterceptor implements HandlerInterceptor, ApplicationContextAware, SmartInitializingSingleton {
 
 
