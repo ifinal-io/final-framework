@@ -16,14 +16,14 @@
 
 package org.ifinalframework.context.user;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.ifinalframework.core.IUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * UserContextHolderTest.
@@ -39,12 +39,12 @@ class UserContextHolderTest {
 
         User user = new User(1L, "xiaoMing");
 
-        UserContextHolder.setUser(user, false);
+        UserContextHolder.setUser(user);
 
         new Thread(() -> assertNull(UserContextHolder.getUser())).start();
 
         UserContextHolder.reset();
-        UserContextHolder.setUser(user, true);
+        UserContextHolder.setUser(user);
 
         new Thread(() -> assertNotNull(UserContextHolder.getUser())).start();
 

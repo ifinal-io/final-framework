@@ -16,7 +16,6 @@
 
 package org.ifinalframework.context.user;
 
-import org.springframework.core.NamedInheritableThreadLocal;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.lang.Nullable;
 
@@ -41,13 +40,8 @@ public final class UserContextHolder {
      * the user context in thread local.
      */
     private static final ThreadLocal<UserContext<? extends IUser<?>>> USER_CONTEXT_HOLDER =
-        new NamedThreadLocal<>(USER_CONTEXT_NAME);
+            new NamedThreadLocal<>(USER_CONTEXT_NAME);
 
-    /**
-     * the user context in inheritable thread local
-     */
-    private static final ThreadLocal<UserContext<? extends IUser<?>>> INHERITABLE_USER_CONTEXT_HOLDER =
-        new NamedInheritableThreadLocal<>(USER_CONTEXT_NAME);
 
     /**
      * the default user
@@ -59,44 +53,27 @@ public final class UserContextHolder {
 
     public static void reset() {
         USER_CONTEXT_HOLDER.remove();
-        INHERITABLE_USER_CONTEXT_HOLDER.remove();
     }
 
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext,
-        final boolean inheritable) {
-
+    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> localeContext) {
         if (localeContext == null) {
             reset();
         } else {
-            if (inheritable) {
-                INHERITABLE_USER_CONTEXT_HOLDER.set(localeContext);
-                USER_CONTEXT_HOLDER.remove();
-            } else {
-                USER_CONTEXT_HOLDER.set(localeContext);
-                INHERITABLE_USER_CONTEXT_HOLDER.remove();
-            }
+            USER_CONTEXT_HOLDER.set(localeContext);
         }
     }
 
-    /**
-     * set user context
-     */
-    public static void setUserContext(final @Nullable UserContext<? extends IUser<?>> userContext) {
-        setUserContext(userContext, false);
-    }
 
     /**
      * set default user
      */
-    public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {UserContextHolder.defaultUser = user;
+    public static <T extends IUser<?>> void setDefaultUser(final @Nullable T user) {
+        UserContextHolder.defaultUser = user;
     }
 
     @Nullable
     public static <T extends IUser<?>> UserContext<T> getUserContext() {
         UserContext<? extends IUser<?>> userContext = USER_CONTEXT_HOLDER.get();
-        if (userContext == null) {
-            userContext = INHERITABLE_USER_CONTEXT_HOLDER.get();
-        }
         return (UserContext<T>) userContext;
     }
 
@@ -116,17 +93,13 @@ public final class UserContextHolder {
         return getUser(getUserContext());
     }
 
-    public static <T extends IUser<?>> void setUser(final @Nullable T user, final boolean inheritable) {
+    public static <T extends IUser<?>> void setUser(final @Nullable T user) {
 
         UserContext<?> userContext = getUserContext();
         if (userContext == null) {
             userContext = new SimpleUserContext<>(user);
         }
-        setUserContext(userContext, inheritable);
-    }
-
-    public static void setUser(final @Nullable IUser<?> user) {
-        setUser(user, false);
+        setUserContext(userContext);
     }
 
     /**
