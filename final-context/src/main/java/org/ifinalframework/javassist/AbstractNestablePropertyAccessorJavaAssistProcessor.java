@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author ilikly
  * @version 1.5.0
  * @see AbstractNestablePropertyAccessor
+ * @see org.ifinalframework.beans.BeanTypeDescriptorFactory
  * @since 1.5.0
  */
 @Slf4j
@@ -51,12 +52,13 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
 
         /**
          * @see AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)
+         * @see org.ifinalframework.beans.BeanTypeDescriptorFactory#create(Class, TypeDescriptor) 
          */
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
         newValue.insertBefore("        for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n" +
                 "            org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory = beanTypeDescriptorFactories.get(i);\n" +
-                "            if (beanTypeDescriptorFactory.support(type, desc)) {\n" +
-                "                return beanTypeDescriptorFactory.create(type, desc);\n" +
+                "            if (beanTypeDescriptorFactory.support($1, $2)) {\n" +
+                "                return beanTypeDescriptorFactory.create($1, $2);\n" +
                 "            }\n" +
                 "        }");
 
