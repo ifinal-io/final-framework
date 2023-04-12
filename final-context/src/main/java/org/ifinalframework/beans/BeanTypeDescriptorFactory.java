@@ -26,7 +26,7 @@ import org.springframework.core.convert.TypeDescriptor;
  */
 public interface BeanTypeDescriptorFactory<T> {
 
-    boolean support(TypeDescriptor typeDescriptor);
+    boolean support(Class<?> type, TypeDescriptor typeDescriptor);
 
     T create(Class<?> type, TypeDescriptor typeDescriptor);
 

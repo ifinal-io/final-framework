@@ -55,7 +55,7 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
         newValue.insertBefore("        for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n" +
                 "            org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory = beanTypeDescriptorFactories.get(i);\n" +
-                "            if (beanTypeDescriptorFactory.support(desc)) {\n" +
+                "            if (beanTypeDescriptorFactory.support(type, desc)) {\n" +
                 "                return beanTypeDescriptorFactory.create(type, desc);\n" +
                 "            }\n" +
                 "        }");
