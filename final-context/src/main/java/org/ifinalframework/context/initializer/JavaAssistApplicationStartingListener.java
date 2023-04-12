@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.listener;
+package org.ifinalframework.context.initializer;
 
 import java.util.ServiceLoader;
 
@@ -26,7 +26,7 @@ import org.ifinalframework.javassist.JavaAssistProcessor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * JavaAssistApplicationStartListener.
+ * JavaAssistApplicationStartingListener.
  *
  * @author ilikly
  * @version 1.5.0
