@@ -75,6 +75,12 @@
             <groupId>org.ifinalframework.annotation</groupId>
             <artifactId>final-annotation-query</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.29.2-GA</version>
+        </dependency>
     </dependencies>
 
     <url>https://github.com/final-projects/final-framework</url>
