@@ -56,6 +56,7 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
 
     @Override
     public Result<?> handle(@NonNull Throwable throwable) {
+        throwable = ExceptionUtils.getRootCause(throwable);
 
         if (throwable instanceof IException) {
             final IException e = (IException) throwable;
@@ -64,7 +65,6 @@ public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandle
             logger.error("==> ", throwable);
         }
 
-        throwable = ExceptionUtils.getRootCause(throwable);
 
         for (ResultExceptionHandler<?> resultExceptionHandler : resultExceptionHandlers) {
 
