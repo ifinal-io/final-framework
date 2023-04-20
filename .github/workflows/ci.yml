@@ -47,10 +47,12 @@ jobs:
                 "name": "ossrh releases",
                 "url": "https://s01.oss.sonatype.org/content/repositories/releases/",
                 "releases": {
-                  "enabled": "true"
+                  "enabled": "true",
+                  "updatePolicy": "always"
                 },
                 "snapshots": {
-                  "enabled": "false"
+                  "enabled": "false",
+                  "updatePolicy": "always"
                 }
               },
               {
@@ -58,10 +60,12 @@ jobs:
                 "name": "ossrh snapshots",
                 "url": "https://s01.oss.sonatype.org/content/repositories/snapshots/",
                 "releases": {
-                  "enabled": "false"
+                  "enabled": "false",
+                  "updatePolicy": "always"
                 },
                 "snapshots": {
-                  "enabled": "true"
+                  "enabled": "true",
+                  "updatePolicy": "always"
                 }
               }
             ]
