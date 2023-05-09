@@ -15,13 +15,13 @@
 
 package org.ifinalframework.context.result;
 
+import java.util.Collections;
+
 import org.ifinalframework.context.result.consumer.CommonResultConsumer;
 import org.ifinalframework.context.result.function.ObjectResultFunction;
 import org.ifinalframework.core.result.Result;
-import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class ResultFunctionConsumerCompositeTest {
     private final ObjectResultFunction objectResultFunction = new ObjectResultFunction();
-    private final CommonResultConsumer commonResultConsumer = new CommonResultConsumer();
+    private final CommonResultConsumer commonResultConsumer = new CommonResultConsumer(Collections.emptyList());
     private final ResultFunctionConsumerComposite resultFunctionConsumerComposite = new ResultFunctionConsumerComposite(
             Collections.singletonList(objectResultFunction),
             Collections.singletonList(commonResultConsumer)

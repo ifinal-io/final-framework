@@ -15,12 +15,19 @@
 
 package org.ifinalframework.context.result.consumer;
 
-import org.ifinalframework.context.result.ResultConsumer;
-import org.ifinalframework.context.user.UserContextHolder;
-import org.ifinalframework.core.result.Result;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.context.result.ResultConsumer;
+import org.ifinalframework.context.user.UserContextHolder;
+import org.ifinalframework.context.user.UserSupplier;
+import org.ifinalframework.core.result.Result;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * CommonResultConsumer.
@@ -33,15 +40,22 @@ import org.springframework.stereotype.Component;
  * @since 1.2.4
  */
 @Component
+@RequiredArgsConstructor
 public class CommonResultConsumer implements ResultConsumer<Object> {
+
+    private final List<UserSupplier> userSuppliers;
+
     @Override
     public void accept(@NonNull Result<Object> result) {
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone
         result.setTimeZone(LocaleContextHolder.getTimeZone());
-        // set operator
-        result.setOperator(UserContextHolder.getUser());
+
+        userSuppliers.stream().map(UserSupplier::get)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .ifPresent(result::setOperator);
     }
 
     @Override
