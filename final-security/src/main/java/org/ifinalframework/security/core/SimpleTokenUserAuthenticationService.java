@@ -83,10 +83,14 @@ public class SimpleTokenUserAuthenticationService extends AbsTokenUserAuthentica
             } else {
                 UserContextHolder.setUser(token);
             }
-            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authenticationToken.eraseCredentials();
+            return authenticationToken;
         }
         UserContextHolder.setUser(token);
-        return new UsernamePasswordAuthenticationToken(token, null, authorities);
+        final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(token, null, authorities);
+        authenticationToken.eraseCredentials();
+        return authenticationToken;
     }
 
     @Override
