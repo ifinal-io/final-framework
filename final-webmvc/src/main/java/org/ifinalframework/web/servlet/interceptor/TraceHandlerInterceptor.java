@@ -98,9 +98,10 @@ public class TraceHandlerInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(final @NonNull HttpServletRequest request, @NonNull final HttpServletResponse response,
                                 final @NonNull Object handler,
-                                @Nullable final Exception ex) throws Exception {
-
-        logger.info("remove trace from MDC context");
+                                @Nullable final Exception ex) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("remove trace from MDC context");
+        }
         MDC.remove(traceName);
     }
 
