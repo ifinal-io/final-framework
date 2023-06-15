@@ -15,28 +15,27 @@
 
 package org.ifinalframework.security.user;
 
-import java.util.Objects;
-
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.context.user.UserSupplier;
+import org.ifinalframework.core.IUser;
 import org.springframework.core.Ordered;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import org.ifinalframework.context.user.UserSupplier;
-import org.ifinalframework.core.IUser;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Objects;
 
 /**
- * SecurityUserSupplier.
+ * SecurityContextUserSupplier.
  *
  * @author ilikly
  * @version 1.4.1
+ * @see SecurityContextHolder
  * @since 1.4.1
  */
 @Slf4j
 @Component
-public class SecurityUserSupplier implements UserSupplier, Ordered {
+public class SecurityContextUserSupplier implements UserSupplier, Ordered {
     @Override
     public IUser<?> get() {
 
@@ -59,8 +58,9 @@ public class SecurityUserSupplier implements UserSupplier, Ordered {
             return (IUser<?>) principal;
         }
 
-
-        logger.info("principal is not instanceof IUser: {}", principal);
+        if (logger.isDebugEnabled()) {
+            logger.info("principal is not instanceof IUser: {}", principal);
+        }
 
         return null;
 

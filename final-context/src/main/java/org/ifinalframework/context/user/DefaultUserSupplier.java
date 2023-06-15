@@ -15,15 +15,15 @@
 
 package org.ifinalframework.context.user;
 
-import org.springframework.stereotype.Component;
-
 import org.ifinalframework.core.IUser;
+import org.springframework.stereotype.Component;
 
 /**
  * UserContextUserSupplier.
  *
  * @author ilikly
  * @version 1.4.1
+ * @see UserContextHolder
  * @since 1.4.1
  */
 @Component
