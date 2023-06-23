@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.ifinalframework</groupId>
         <artifactId>final-framework</artifactId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.5.1</version>
     </parent>
 
     <artifactId>final-webmvc</artifactId>
