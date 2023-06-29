@@ -15,15 +15,15 @@
 
 package org.ifinalframework.context.initializer;
 
-import java.util.ServiceLoader;
-
+import javassist.ClassPool;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
+import org.ifinalframework.javassist.JavaAssistProcessor;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ApplicationListener;
 
-import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
-import org.ifinalframework.javassist.JavaAssistProcessor;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.ServiceLoader;
 
 /**
  * JavaAssistApplicationStartingListener.
@@ -35,10 +35,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringFactory(ApplicationListener.class)
 public class JavaAssistApplicationStartingListener implements ApplicationListener<ApplicationStartingEvent> {
+    @SneakyThrows
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
+        final ClassPool classPool = ClassPool.getDefault();
         for (final JavaAssistProcessor javaAssistProcessor : ServiceLoader.load(JavaAssistProcessor.class)) {
             logger.info("start {}", javaAssistProcessor);
+            javaAssistProcessor.process(classPool);
         }
     }
 }
