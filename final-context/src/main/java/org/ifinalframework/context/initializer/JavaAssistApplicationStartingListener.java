@@ -35,13 +35,23 @@ import java.util.ServiceLoader;
 @Slf4j
 @SpringFactory(ApplicationListener.class)
 public class JavaAssistApplicationStartingListener implements ApplicationListener<ApplicationStartingEvent> {
+
+    private static boolean processed = false;
+
     @SneakyThrows
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
+
+        if(processed){
+            return;
+        }
+
         final ClassPool classPool = ClassPool.getDefault();
         for (final JavaAssistProcessor javaAssistProcessor : ServiceLoader.load(JavaAssistProcessor.class)) {
             logger.info("start {}", javaAssistProcessor);
             javaAssistProcessor.process(classPool);
         }
+
+        processed = true;
     }
 }
