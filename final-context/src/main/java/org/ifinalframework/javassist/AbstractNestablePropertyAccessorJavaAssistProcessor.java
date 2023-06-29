@@ -16,16 +16,15 @@
 package org.ifinalframework.javassist;
 
 
-import org.springframework.beans.AbstractNestablePropertyAccessor;
-import org.springframework.core.convert.TypeDescriptor;
-
-import org.ifinalframework.auto.service.annotation.AutoService;
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
 import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.auto.service.annotation.AutoService;
+import org.springframework.beans.AbstractNestablePropertyAccessor;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.core.convert.TypeDescriptor;
 
 /**
  * AbstractNestablePropertyAccessorJavaAssistProcessor.
@@ -46,13 +45,18 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
 
 
         final CtClass ctClass = classPool.get("org.springframework.beans.AbstractNestablePropertyAccessor");
+
+        if(ctClass.isFrozen()){
+            return;
+        }
+
         final CtField list = CtField.make("private java.util.List beanTypeDescriptorFactories = org.springframework.core.io.support.SpringFactoriesLoader.loadFactories(org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
         ctClass.addField(list);
 
 
         /**
          * @see AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)
-         * @see org.ifinalframework.beans.BeanTypeDescriptorFactory#create(Class, TypeDescriptor) 
+         * @see org.ifinalframework.beans.BeanTypeDescriptorFactory#create(Class, TypeDescriptor)
          */
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
         newValue.insertBefore("        for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n" +
@@ -62,7 +66,7 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
                 "            }\n" +
                 "        }");
 
-        final Class<?> aClass = ctClass.toClass();
+        final Class<?> aClass = ctClass.toClass(BeanWrapper.class);
 
         logger.info("process success org.springframework.beans.AbstractNestablePropertyAccessor");
     }
