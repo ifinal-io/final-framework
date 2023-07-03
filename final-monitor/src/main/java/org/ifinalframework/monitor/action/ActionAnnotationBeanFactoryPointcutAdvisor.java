@@ -25,7 +25,7 @@ import org.ifinalframework.monitor.annotation.OperationAction;
 import org.ifinalframework.monitor.handler.ActionInterceptorHandler;
 
 import java.util.Arrays;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author ilikly

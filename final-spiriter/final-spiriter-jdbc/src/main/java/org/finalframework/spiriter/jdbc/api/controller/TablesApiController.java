@@ -18,7 +18,7 @@ package org.ifinalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.ifinalframework.data.query.Query;

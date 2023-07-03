@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.ifinalframework.aop.simple.SimpleAnnotationBeanFactoryPointAdvisor;
 
 import java.util.Arrays;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author ilikly
