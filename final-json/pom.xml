@@ -25,8 +25,7 @@
     <artifactId>final-json</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+
     </properties>
     <url>https://github.com/final-projects/final-framework</url>
 
