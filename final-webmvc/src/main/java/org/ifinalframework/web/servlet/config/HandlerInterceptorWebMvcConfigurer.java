@@ -31,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.Servlet;
+import jakarta.servlet.Servlet;
 import java.util.List;
 import java.util.function.Predicate;
 

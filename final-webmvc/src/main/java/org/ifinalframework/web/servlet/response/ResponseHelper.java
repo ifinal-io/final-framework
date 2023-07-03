@@ -17,7 +17,7 @@ package org.ifinalframework.web.servlet.response;
 
 import org.ifinalframework.core.result.Column;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

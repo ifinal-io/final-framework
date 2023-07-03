@@ -15,16 +15,14 @@
 
 package org.ifinalframework.context.exception.result;
 
-import javax.validation.constraints.NotNull;
-import java.util.stream.Collectors;
-
+import org.ifinalframework.core.result.R;
+import org.ifinalframework.core.result.Result;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 
-import org.ifinalframework.core.result.R;
-import org.ifinalframework.core.result.Result;
+import java.util.stream.Collectors;
 
 /**
  * ValidationResultExceptionHandler.
@@ -45,7 +43,7 @@ public class ValidationResultExceptionHandler implements ResultExceptionHandler<
 
     @NonNull
     @Override
-    public Result<?> handle(@NotNull BindException e) {
+    public Result<?> handle(@NonNull BindException e) {
         String message = e.getAllErrors().stream()
                 .map(it -> {
                     if (it instanceof FieldError) {

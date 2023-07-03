@@ -49,7 +49,7 @@ import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.ifinalframework.web.annotation.bind.RequestJsonParam;
 

@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.multipart.support.MultipartResolutionDelegate;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author ilikly

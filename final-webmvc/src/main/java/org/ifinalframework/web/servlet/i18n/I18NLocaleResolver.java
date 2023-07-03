@@ -21,7 +21,7 @@ import org.ifinalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
