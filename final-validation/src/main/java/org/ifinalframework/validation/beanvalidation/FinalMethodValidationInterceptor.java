@@ -15,22 +15,20 @@
 
 package org.ifinalframework.validation.beanvalidation;
 
-import javax.validation.Validator;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.springframework.lang.NonNull;
-import org.springframework.util.ClassUtils;
-import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
-
+import jakarta.validation.Validator;
+import lombok.Setter;
+import org.aopalliance.intercept.MethodInvocation;
 import org.ifinalframework.validation.GlobalValidationGroupsProvider;
 import org.ifinalframework.validation.MethodValidationGroupsProvider;
 import org.ifinalframework.validation.NoGlobalValidationGroupsProvider;
 import org.ifinalframework.validation.NoMethodValidationGroupsProvider;
+import org.springframework.lang.NonNull;
+import org.springframework.util.ClassUtils;
+import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
 
-import lombok.Setter;
-import org.aopalliance.intercept.MethodInvocation;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * FinalMethodValidationInterceptor.

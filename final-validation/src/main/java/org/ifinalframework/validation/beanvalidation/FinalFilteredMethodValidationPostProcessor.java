@@ -15,22 +15,20 @@
 
 package org.ifinalframework.validation.beanvalidation;
 
-import javax.validation.Validator;
-import java.util.Collection;
-import java.util.stream.Stream;
-
-import org.springframework.boot.validation.beanvalidation.FilteredMethodValidationPostProcessor;
-import org.springframework.boot.validation.beanvalidation.MethodValidationExcludeFilter;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
+import jakarta.validation.Validator;
+import lombok.Setter;
+import org.aopalliance.aop.Advice;
 import org.ifinalframework.validation.GlobalValidationGroupsProvider;
 import org.ifinalframework.validation.MethodValidationGroupsProvider;
 import org.ifinalframework.validation.NoGlobalValidationGroupsProvider;
 import org.ifinalframework.validation.NoMethodValidationGroupsProvider;
+import org.springframework.boot.validation.beanvalidation.FilteredMethodValidationPostProcessor;
+import org.springframework.boot.validation.beanvalidation.MethodValidationExcludeFilter;
+import org.springframework.lang.NonNull;
 
-import lombok.Setter;
-import org.aopalliance.aop.Advice;
+import java.util.Collection;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * FinalFilteredMethodValidationPostProcessor.
@@ -56,8 +54,8 @@ public class FinalFilteredMethodValidationPostProcessor extends FilteredMethodVa
 
     @Override
     @NonNull
-    protected Advice createMethodValidationAdvice(@Nullable Validator validator) {
-        final FinalMethodValidationInterceptor finalMethodValidationInterceptor = validator != null ? new FinalMethodValidationInterceptor(validator) : new FinalMethodValidationInterceptor();
+    protected Advice createMethodValidationAdvice(Supplier<Validator> validator) {
+        final FinalMethodValidationInterceptor finalMethodValidationInterceptor = validator != null ? new FinalMethodValidationInterceptor(validator.get()) : new FinalMethodValidationInterceptor();
         finalMethodValidationInterceptor.setGlobalValidationGroupsProvider(globalValidationGroupsProvider);
         finalMethodValidationInterceptor.setMethodValidationGroupsProvider(methodValidationGroupsProvider);
         return finalMethodValidationInterceptor;

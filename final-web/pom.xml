@@ -67,11 +67,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <artifactId>auto-spring</artifactId>
             <groupId>org.ifinalframework.auto</groupId>
         </dependency>

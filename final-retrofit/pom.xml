@@ -69,8 +69,8 @@
             <groupId>com.squareup.retrofit2</groupId>
         </dependency>
         <dependency>
-            <artifactId>validation-api</artifactId>
-            <groupId>javax.validation</groupId>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
         </dependency>
         <dependency>
             <artifactId>spring-boot-starter</artifactId>
