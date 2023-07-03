@@ -19,19 +19,19 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-
 import org.ifinalframework.util.JarVersions;
 import org.ifinalframework.util.format.LocalDateTimeFormatter;
 import org.springframework.lang.NonNull;
 
-import javax.annotation.Generated;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import jakarta.annotation.Generated;
 
 /**
+ * Ò
  * <ul>
  *     <li>when you want a {@link Class} do with {@link TypeSpec#classBuilder(String)}</li>
  *     <li>when you want a {@linkplain Class interface} do with {@link TypeSpec#interfaceBuilder(String)}</li>
@@ -56,9 +56,9 @@ public interface JavaPoets {
 
     static AnnotationSpec generated(@NonNull Class<?> generator) {
         return AnnotationSpec.builder(Generated.class)
-            .addMember("value", "$S", generator.getCanonicalName())
-            .addMember("date", "$S", LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now()))
-            .build();
+                .addMember("value", "$S", generator.getCanonicalName())
+                .addMember("date", "$S", LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(LocalDateTime.now()))
+                .build();
     }
 
     /**
