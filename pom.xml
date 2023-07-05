@@ -70,11 +70,12 @@
 
     <developers>
         <developer>
-            <email>569553290@qq.com</email>
-            <id>likly</id>
-            <name>likly</name>
+            <email>ifinal.io@qq.com</email>
+            <id>mik</id>
+            <name>mik</name>
             <roles>
                 <role>Owner</role>
+                <role>Developer</role>
             </roles>
             <timezone>+8</timezone>
         </developer>
