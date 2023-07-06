@@ -60,7 +60,7 @@ public class EnumValueBeanPropertySerializerModifier extends AbsBeanPropertySeri
         return beanPropertyWriter.findAnnotation(EnumValue.class) != null;
     }
 
-    private class EnumValueJsonSerializer extends StdSerializer<Object> {
+    private static class EnumValueJsonSerializer extends StdSerializer<Object> {
         private final EnumValue enumValue;
 
         public EnumValueJsonSerializer(EnumValue enumValue) {

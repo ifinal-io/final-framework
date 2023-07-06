@@ -16,6 +16,14 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import org.ifinalframework.auto.service.annotation.AutoService;
 import org.ifinalframework.core.IEnum;
 
@@ -26,20 +34,12 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
-
 /**
  * IEnumSerializers.
  *
  * @author ilikly
  * @version 1.0.0
+ * @see org.ifinalframework.json.jackson.modifier.BeanEnumPropertySerializerModifier
  * @since 1.0.0
  */
 @AutoService(Deserializers.class)
@@ -48,8 +48,8 @@ public class IEnumDeserializers extends SimpleDeserializers {
     @Override
     @SuppressWarnings("unchecked")
     public JsonDeserializer<?> findEnumDeserializer(final Class<?> type, final DeserializationConfig config,
-        final BeanDescription beanDesc)
-        throws JsonMappingException {
+                                                    final BeanDescription beanDesc)
+            throws JsonMappingException {
 
         if (IEnum.class.isAssignableFrom(type)) {
             return new EnumDeserializer<>((Class<? extends IEnum<?>>) type);
@@ -74,7 +74,7 @@ public class IEnumDeserializers extends SimpleDeserializers {
         EnumDeserializer(final Class<T> enumType) {
             this.enumType = Objects.requireNonNull(enumType, "the enumType must be not null!");
             this.cache = Arrays.stream(enumType.getEnumConstants())
-                .collect(Collectors.toMap(it -> it.getCode().toString(), Function.identity()));
+                    .collect(Collectors.toMap(it -> it.getCode().toString(), Function.identity()));
         }
 
         @Override

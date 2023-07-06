@@ -16,13 +16,6 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.ifinalframework.auto.service.annotation.AutoService;
-import org.ifinalframework.core.IEnum;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JavaType;
@@ -32,6 +25,12 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.ifinalframework.auto.service.annotation.AutoService;
+import org.ifinalframework.core.IEnum;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * BeanEnumPropertySerializerModifier.
@@ -140,9 +139,9 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
                 throws IOException {
 
             final Object code = value.getCode();
-            if(code instanceof String){
-                gen.writeString((String) code);
-            }else {
+            if (code instanceof String codeString) {
+                gen.writeString(codeString);
+            } else {
                 gen.writeObject(code);
             }
         }
