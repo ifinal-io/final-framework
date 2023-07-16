@@ -15,9 +15,9 @@
 
 package org.ifinalframework.validation;
 
-import java.util.List;
-
 import org.springframework.lang.NonNull;
+
+import java.util.List;
 
 /**
  * GlobalValidationGroupsProvider.
@@ -34,5 +34,5 @@ public interface GlobalValidationGroupsProvider {
      * @return global validation groups.
      */
     @NonNull
-    List<Class<?>> getValidationGroups();
+    List<Class<?>> getValidationGroups(Class<?> view);
 }

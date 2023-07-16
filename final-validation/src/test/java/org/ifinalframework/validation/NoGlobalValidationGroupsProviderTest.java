@@ -32,7 +32,7 @@ class NoGlobalValidationGroupsProviderTest {
     @Test
     void getValidationGroups() {
         final NoGlobalValidationGroupsProvider provider = new NoGlobalValidationGroupsProvider();
-        Assertions.assertNotNull(provider.getValidationGroups());
-        Assertions.assertTrue(CollectionUtils.isEmpty(provider.getValidationGroups()));
+        Assertions.assertNotNull(provider.getValidationGroups(null));
+        Assertions.assertTrue(CollectionUtils.isEmpty(provider.getValidationGroups(null)));
     }
 }

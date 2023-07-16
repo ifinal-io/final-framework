@@ -107,7 +107,7 @@ class FinalMethodValidationInterceptorTest {
 
         // global
         finalMethodValidationInterceptor.setGlobalValidationGroupsProvider(globalValidationGroupsProvider);
-        when(globalValidationGroupsProvider.getValidationGroups()).thenReturn(Collections.singletonList(Class.class));
+        when(globalValidationGroupsProvider.getValidationGroups(null)).thenReturn(Collections.singletonList(Class.class));
         classes =finalMethodValidationInterceptor.determineValidationGroups(methodInvocation);
         assertEquals(2,classes.length);
         assertEquals(Class.class,classes[0]);
