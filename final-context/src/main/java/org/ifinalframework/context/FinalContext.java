@@ -51,8 +51,9 @@ public enum FinalContext implements AutoCloseable  {
         return (T) CONTEXT.get().get(code);
     }
 
-    public <T> void set(T value) {
+    public <T> FinalContext set(T value) {
         CONTEXT.get().put(code, value);
+        return this;
     }
 
 
