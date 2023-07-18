@@ -43,10 +43,10 @@ public class LocalDateTimeFormatters implements Formatters<LocalDateTime> {
 
     public LocalDateTimeFormatters() {
         this(Arrays.asList(
-            LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS,
-            LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS,
-            LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS,
-            LocalDateTimeFormatter.YYYYMMDDHHMMSS
+                LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS,
+                LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS,
+                LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS,
+                LocalDateTimeFormatter.YYYYMMDDHHMMSS
         ));
     }
 
@@ -65,8 +65,8 @@ public class LocalDateTimeFormatters implements Formatters<LocalDateTime> {
         try {
             final long timestamp = Long.parseLong(source);
             return Dates.from(new Date(timestamp));
-        } catch (Exception e) {
-            return null;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("参数无法转换为LocalDateTime：" + source);
         }
 
     }
