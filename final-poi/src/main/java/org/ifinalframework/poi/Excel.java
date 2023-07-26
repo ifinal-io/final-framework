@@ -110,6 +110,8 @@ public class Excel {
 
         private Font font;
 
+        private String dataFormat;
+
     }
 
     @Data

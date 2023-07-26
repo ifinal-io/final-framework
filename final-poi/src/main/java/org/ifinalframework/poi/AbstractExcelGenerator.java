@@ -15,9 +15,14 @@
 
 package org.ifinalframework.poi;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ifinalframework.poi.Excel.Style;
@@ -65,17 +70,22 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
         Optional.ofNullable(style.getVerticalAlignment()).ifPresent(cellStyle::setVerticalAlignment);
 
         if (cellStyle instanceof XSSFCellStyle) {
-            Optional.ofNullable(style.getForegroundColor()).ifPresent(color -> {
-                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-                ((XSSFCellStyle) cellStyle).setFillForegroundColor(new XSSFColor(Colors.decode(color)));
-            });
+            //            Optional.ofNullable(style.getForegroundColor()).ifPresent(color -> {
+            //                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            //                ((XSSFCellStyle) cellStyle).setFillForegroundColor(new XSSFColor(Colors.decode(color)));
+            //            });
         }
 
         if (Objects.nonNull(style.getFont())) {
             cellStyle.setFont(createFont(style.getFont()));
         }
 
+        if(Objects.nonNull(style.getDataFormat())){
+            cellStyle.setDataFormat(workbook.createDataFormat().getFormat(style.getDataFormat()));
+        }
+
         styles.put(Objects.requireNonNull(style.getTitle(), "style title can not be null."), cellStyle);
+
 
         return cellStyle;
     }
@@ -88,10 +98,9 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
         Optional.ofNullable(font.getSize()).ifPresent(workbookFont::setFontHeightInPoints);
 
         if (workbookFont instanceof XSSFFont) {
-            Optional.ofNullable(font.getColor()).ifPresent(color -> {
-                ((XSSFFont) workbookFont).setColor(new XSSFColor(Colors.decode(color)));
-
-            });
+            //            Optional.ofNullable(font.getColor()).ifPresent(color -> {
+            //                ((XSSFFont) workbookFont).setColor(new XSSFColor(Colors.decode(color)));
+            //            });
         }
 
         return workbookFont;

@@ -20,6 +20,7 @@ import org.ifinalframework.poi.databind.ExcelSerializer;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -34,7 +35,8 @@ public class ObjectExcelSerializer implements ExcelSerializer<Object> {
             int.class, Integer.class,
             long.class, Long.class,
             float.class, Float.class,
-            double.class, Double.class
+            double.class, Double.class,
+            BigDecimal.class
     ));
 
     private static final Set<Class<?>> BOOLEANS = new HashSet<>(Arrays.asList(boolean.class, Boolean.class));
