@@ -22,7 +22,10 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
+import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.ifinalframework.poi.Excel.Style;
@@ -51,6 +54,8 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     private final Workbook workbook;
 
+    private final IndexedColorMap indexedColorMap = new DefaultIndexedColorMap();
+
     public AbstractExcelGenerator() {
         this(new XSSFWorkbook());
     }
@@ -69,18 +74,17 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
         Optional.ofNullable(style.getHorizontalAlignment()).ifPresent(cellStyle::setAlignment);
         Optional.ofNullable(style.getVerticalAlignment()).ifPresent(cellStyle::setVerticalAlignment);
 
-        if (cellStyle instanceof XSSFCellStyle) {
-            //            Optional.ofNullable(style.getForegroundColor()).ifPresent(color -> {
-            //                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-            //                ((XSSFCellStyle) cellStyle).setFillForegroundColor(new XSSFColor(Colors.decode(color)));
-            //            });
+        if (cellStyle instanceof XSSFCellStyle xssfCellStyle) {
+            Optional.ofNullable(style.getForegroundColor()).ifPresent(color -> {
+                xssfCellStyle.setFillForegroundColor(new XSSFColor(Colors.decode(color), indexedColorMap));
+            });
         }
 
         if (Objects.nonNull(style.getFont())) {
             cellStyle.setFont(createFont(style.getFont()));
         }
 
-        if(Objects.nonNull(style.getDataFormat())){
+        if (Objects.nonNull(style.getDataFormat())) {
             cellStyle.setDataFormat(workbook.createDataFormat().getFormat(style.getDataFormat()));
         }
 
