@@ -15,14 +15,14 @@
 
 package org.ifinalframework.poi;
 
+import org.apache.poi.ss.usermodel.Workbook;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Excels.
@@ -83,7 +83,11 @@ public final class Excels {
     }
 
     public static WorkbookWriter newWriter(final Excel excel) {
-        return new SpelExcelWriter(excel);
+        return newWriter(excel, null);
+    }
+
+    public static WorkbookWriter newWriter(Excel excel, Object data) {
+        return new SpelExcelWriter(excel, data);
     }
 
     public static void write(final List<Excel.Cell> properties, final List<?> rows, final String filename) throws IOException {

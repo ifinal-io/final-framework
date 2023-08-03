@@ -24,8 +24,12 @@ package org.ifinalframework.poi;
  */
 public class SpelExcelWriter extends AbstractExcelWriter {
 
-    public SpelExcelWriter(final Excel excel) {
-        super(excel, new SpelExcelGenerator());
+    public SpelExcelWriter(Excel excel) {
+        this(excel, null);
+    }
+
+    public SpelExcelWriter(final Excel excel, Object data) {
+        super(excel, data, new SpelExcelGenerator());
     }
 
 }

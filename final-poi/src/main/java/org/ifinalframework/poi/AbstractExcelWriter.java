@@ -34,10 +34,13 @@ public class AbstractExcelWriter implements WorkbookWriter {
 
     private final Excel excel;
 
+    private final Object data;
+
     private final ExcelGenerator generator;
 
-    public AbstractExcelWriter(final Excel excel, final ExcelGenerator generator) {
+    public AbstractExcelWriter(final Excel excel, Object data, final ExcelGenerator generator) {
         this.excel = excel;
+        this.data = data;
         this.generator = generator;
 
         initStyles();
@@ -56,7 +59,7 @@ public class AbstractExcelWriter implements WorkbookWriter {
             List<Excel.Row> rows = Optional.ofNullable(sheet.getHeaders()).orElse(Collections.emptyList());
 
             for (final Excel.Row row : rows) {
-                generator.writeRow(excelSheet, row, null);
+                generator.writeRow(excelSheet, row, data);
             }
 
         }
