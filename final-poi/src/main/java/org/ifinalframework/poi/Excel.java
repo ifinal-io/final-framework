@@ -36,6 +36,8 @@ import java.util.List;
 @Getter
 public class Excel {
 
+    private String name;
+
     private Version version;
 
     private String password;
