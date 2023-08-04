@@ -23,6 +23,8 @@ import static org.mockito.Mockito.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import org.junit.jupiter.api.Test;
@@ -66,6 +68,8 @@ class DateSerializerTest {
 
     @Test
     void shouldWriteStringWhenPattern() throws IOException {
+        LocaleContextHolder.setLocale(Locale.getDefault());
+        LocaleContextHolder.setTimeZone(TimeZone.getDefault());
         String pattern = "yyyy-MM-dd";
         DateSerializer dateSerializer = new DateSerializer(pattern);
         Date date = new Date();
