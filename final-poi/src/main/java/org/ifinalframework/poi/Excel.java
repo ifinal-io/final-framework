@@ -65,6 +65,8 @@ public class Excel {
 
         private List<Row> footers;
 
+        private List<MergedRegion> mergedRegions;
+
     }
 
     @Setter
@@ -156,6 +158,15 @@ public class Excel {
             this.value = value;
         }
 
+    }
+
+    @Getter
+    @Setter
+    public static class MergedRegion {
+        private Integer row;
+        private Integer colum;
+        private Integer width;
+        private Integer height;
     }
 
     public enum Version {

@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
 import org.apache.poi.xssf.usermodel.IndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -33,9 +34,11 @@ import org.ifinalframework.poi.databind.TypeHandler;
 import org.ifinalframework.poi.databind.type.ObjectTypeHandler;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -195,6 +198,22 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
         TypeHandler<Object> typeHandler = new ObjectTypeHandler();
 
         typeHandler.serialize(rowCell, value);
+
+    }
+
+    @Override
+    public void addMergedRegions(int index, List<Excel.MergedRegion> mergedRegions) {
+        if (CollectionUtils.isEmpty(mergedRegions)) {
+            return;
+        }
+
+        final Sheet sheet = getWorkbook().getSheetAt(index);
+
+        mergedRegions.forEach(item -> sheet.addMergedRegion(new CellRangeAddress(
+                item.getRow(), item.getRow() + item.getHeight() - 1,
+                item.getColum(), item.getColum() + item.getWidth() - 1)
+        ));
+
 
     }
 

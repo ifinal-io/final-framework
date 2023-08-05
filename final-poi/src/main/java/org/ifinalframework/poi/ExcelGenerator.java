@@ -15,13 +15,18 @@
 
 package org.ifinalframework.poi;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * ExcelGenerator.
@@ -62,6 +67,13 @@ public interface ExcelGenerator {
     void writeRow(@NonNull Sheet sheet, @NonNull Excel.Row row, @Nullable Object data);
 
     void writeCell(@NonNull Cell rowCell, @NonNull Excel.Cell cell, @Nullable Object data);
+
+    default void addMergedRegions(List<Excel.MergedRegion> mergedRegions){
+        addMergedRegions(0,mergedRegions);
+    }
+
+    void addMergedRegions(int index, List<Excel.MergedRegion> mergedRegions);
+
 
     void write(@NonNull OutputStream os) throws IOException;
 

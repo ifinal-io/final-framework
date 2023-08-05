@@ -24,6 +24,19 @@
           "cells": [
             {
               "style": "标题",
+              "value": "合并1"
+            },
+            {
+              "index": 2,
+              "style": "标题",
+              "value": "合并1"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "style": "标题",
               "value": "姓名"
             },
             {
@@ -39,6 +52,20 @@
               "value": "生日/2"
             }
           ]
+        }
+      ],
+      "mergedRegions": [
+        {
+          "row": 0,
+          "colum": 0,
+          "width": 2,
+          "height": 1
+        },
+        {
+          "row": 0,
+          "colum": 2,
+          "width": 2,
+          "height": 1
         }
       ],
       "body": {
