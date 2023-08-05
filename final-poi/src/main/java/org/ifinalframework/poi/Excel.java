@@ -50,13 +50,10 @@ public class Excel {
     @Getter
     public static class Sheet {
 
-        @Nullable
         private String name;
 
-        @Nullable
         private Float defaultColumnWidth;
 
-        @Nullable
         private Float defaultRowHeight;
 
         private List<Row> headers;
@@ -73,13 +70,10 @@ public class Excel {
     @Getter
     public static class Row {
 
-        @NonNull
         private List<Cell> cells;
 
-        @Nullable
         private Float height;
 
-        @Nullable
         private String style;
 
         public Row() {
