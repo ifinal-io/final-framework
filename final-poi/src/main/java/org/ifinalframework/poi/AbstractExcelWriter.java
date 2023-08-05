@@ -88,7 +88,7 @@ public class AbstractExcelWriter implements WorkbookWriter {
                 generator.writeRow(excelSheet, row, null);
             }
 
-            generator.addMergedRegions(sheet.getMergedRegions());
+            generator.addMergedRegions(i, sheet.getMergedRegions());
 
 
         }
