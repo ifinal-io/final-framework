@@ -16,17 +16,16 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 /**
  * LocalDateTimeSerializerTest.
@@ -60,8 +59,7 @@ class LocalDateTimeSerializerTest {
     @Test
     void serializePattern() {
         assertDoesNotThrow(() -> {
-            LocalDateTimeSerializer serializer = new LocalDateTimeSerializer(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+            LocalDateTimeSerializer serializer = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
 
             assertEquals(LocalDateTime.class, serializer.handledType());
 

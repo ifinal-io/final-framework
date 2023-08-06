@@ -16,12 +16,13 @@
 
 package org.ifinalframework.json.jackson.initializer;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * ModuleObjectMapperInitializerTest.

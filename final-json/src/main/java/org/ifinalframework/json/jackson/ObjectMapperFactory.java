@@ -15,12 +15,12 @@
 
 package org.ifinalframework.json.jackson;
 
-import java.util.ServiceLoader;
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.util.ServiceLoader;
 
 /**
  * @author ilikly
@@ -41,9 +41,9 @@ public class ObjectMapperFactory {
 
 
         ServiceLoader.load(ObjectMapperInitializer.class, getClass().getClassLoader())
-            .forEach(it -> it.initialize(this.objectMapper));
+                .forEach(it -> it.initialize(this.objectMapper));
 
-//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        //        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.setSerializationInclusion(Include.NON_NULL);

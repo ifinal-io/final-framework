@@ -16,10 +16,10 @@
 
 package org.ifinalframework.json;
 
+import org.springframework.core.ResolvableType;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-
-import org.springframework.core.ResolvableType;
 
 /**
  * @author ilikly

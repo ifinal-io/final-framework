@@ -16,17 +16,18 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * StringTrimDeserializerTest.
@@ -45,8 +46,7 @@ class StringTrimDeserializerTest {
         JsonParser jsonParser = mock(JsonParser.class);
         when(jsonParser.hasToken(JsonToken.VALUE_STRING)).thenReturn(true);
         when(jsonParser.getText()).thenReturn(value);
-        assertEquals(value == null ? null : value.trim(),
-            deserializer.deserialize(jsonParser, mock(DeserializationContext.class)));
+        assertEquals(value == null ? null : value.trim(), deserializer.deserialize(jsonParser, mock(DeserializationContext.class)));
     }
 
 }

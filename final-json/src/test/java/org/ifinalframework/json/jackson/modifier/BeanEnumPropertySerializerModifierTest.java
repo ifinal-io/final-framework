@@ -15,19 +15,24 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.type.SimpleType;
+
 import org.ifinalframework.core.IEnum;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.type.SimpleType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * BeanEnumPropertySerializerModifierTest.
@@ -58,8 +63,7 @@ class BeanEnumPropertySerializerModifierTest {
     @Getter
     @RequiredArgsConstructor
     private enum EnumBean implements IEnum<Integer> {
-        V1(1, "V1"),
-        V2(2, "V2"),
+        V1(1, "V1"), V2(2, "V2"),
         ;
         private final Integer code;
         private final String desc;

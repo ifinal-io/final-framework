@@ -16,9 +16,9 @@
 
 package org.ifinalframework.json.jackson;
 
-import org.springframework.lang.NonNull;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.lang.NonNull;
 
 /**
  * ObjectMapperInitializer.

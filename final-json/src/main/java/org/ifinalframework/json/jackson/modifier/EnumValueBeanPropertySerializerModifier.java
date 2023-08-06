@@ -15,15 +15,6 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
-
-import org.ifinalframework.auto.service.annotation.AutoService;
-import org.ifinalframework.data.annotation.EnumValue;
-import org.ifinalframework.util.Enums;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -32,6 +23,15 @@ import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
+import org.ifinalframework.data.annotation.EnumValue;
+import org.ifinalframework.util.Enums;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
 
 /**
  * EnumValueBeanPropertySerializerModifier.
@@ -43,7 +43,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 @AutoService(BeanSerializerModifier.class)
 public class EnumValueBeanPropertySerializerModifier extends AbsBeanPropertySerializerModifier {
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, BeanPropertyDefinition property, BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
+                                                           BeanPropertyDefinition property, BeanPropertyWriter writer) {
         EnumValue enumValue = writer.findAnnotation(EnumValue.class);
 
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,

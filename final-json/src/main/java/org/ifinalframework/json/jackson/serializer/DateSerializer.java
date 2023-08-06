@@ -18,8 +18,10 @@ package org.ifinalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.ifinalframework.auto.service.annotation.AutoService;
+
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ public class DateSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(final Date date, final JsonGenerator gen, final SerializerProvider serializers)
-        throws IOException {
+            throws IOException {
 
         if (date == null) {
             gen.writeNull();

@@ -16,15 +16,15 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
-import java.util.Collection;
-import java.util.function.BiPredicate;
-
-import org.springframework.lang.Nullable;
-
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+
+import org.springframework.lang.Nullable;
+
+import java.util.Collection;
+import java.util.function.BiPredicate;
 
 /**
  * @author ilikly

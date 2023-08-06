@@ -15,16 +15,17 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
 import org.ifinalframework.json.Json;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * LocalDateTimeDeserializerTest.

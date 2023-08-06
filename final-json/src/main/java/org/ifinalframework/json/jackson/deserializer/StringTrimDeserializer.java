@@ -16,15 +16,15 @@
 
 package org.ifinalframework.json.jackson.deserializer;
 
-import org.ifinalframework.auto.service.annotation.AutoService;
-
-import java.io.IOException;
-import java.util.Objects;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
+
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * StringTrimDeserializer.

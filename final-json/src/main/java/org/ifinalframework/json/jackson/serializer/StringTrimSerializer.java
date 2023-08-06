@@ -16,14 +16,14 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 import org.ifinalframework.auto.service.annotation.AutoService;
 
 import java.io.IOException;
 import java.util.Objects;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
  * StringTrimSerializer.
@@ -37,7 +37,7 @@ public class StringTrimSerializer extends JsonSerializer<String> {
 
     @Override
     public void serialize(final String value, final JsonGenerator gen, final SerializerProvider serializers)
-        throws IOException {
+            throws IOException {
         if (Objects.isNull(value)) {
             gen.writeNull();
             return;

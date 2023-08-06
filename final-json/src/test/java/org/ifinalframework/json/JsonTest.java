@@ -15,6 +15,15 @@
 
 package org.ifinalframework.json;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import org.ifinalframework.core.IEnum;
+import org.ifinalframework.data.annotation.EnumValue;
+
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -24,18 +33,11 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-
-import org.ifinalframework.core.IEnum;
-import org.ifinalframework.data.annotation.EnumValue;
-
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 

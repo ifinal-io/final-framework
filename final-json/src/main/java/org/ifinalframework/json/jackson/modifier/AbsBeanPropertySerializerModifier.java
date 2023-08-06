@@ -16,6 +16,16 @@
 
 package org.ifinalframework.json.jackson.modifier;
 
+import com.fasterxml.jackson.core.io.SerializedString;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
@@ -23,16 +33,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ReflectionUtils;
-
-import com.fasterxml.jackson.core.io.SerializedString;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
-import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
 /**
  * @author ilikly

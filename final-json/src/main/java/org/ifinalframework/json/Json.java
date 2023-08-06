@@ -15,13 +15,13 @@
 
 package org.ifinalframework.json;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
@@ -110,8 +110,7 @@ public final class Json {
      * @throws JsonException json exception
      */
     @SuppressWarnings("unchecked")
-    public static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT,
-                                 final @Nullable Class<?> view) {
+    public static <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT, final @Nullable Class<?> view) {
         if (String.class.equals(classOfT)) {
             return (T) json;
         }
@@ -156,8 +155,7 @@ public final class Json {
      * @return json value
      * @throws JsonException json exception
      */
-    public static <T> T toObject(final @NonNull String json, final @NonNull TypeReference<T> typeOfT,
-                                 @Nullable Class<?> view) {
+    public static <T> T toObject(final @NonNull String json, final @NonNull TypeReference<T> typeOfT, @Nullable Class<?> view) {
 
         return toObject(json, typeOfT.getType(), view);
     }
@@ -206,10 +204,8 @@ public final class Json {
      * @return json list
      * @throws JsonException json exception
      */
-    public static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT,
-                                     final @Nullable Class<?> view) {
-        return wrap(() -> JsonRegistry
-                .getInstance().getJsonService().toList(json, classOfT, view));
+    public static <E> List<E> toList(final @Nullable String json, final @NonNull Class<E> classOfT, final @Nullable Class<?> view) {
+        return wrap(() -> JsonRegistry.getInstance().getJsonService().toList(json, classOfT, view));
     }
 
     /**
@@ -235,8 +231,7 @@ public final class Json {
      * @return json set
      * @throws JsonException json exception
      */
-    public static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT,
-                                   @Nullable Class<?> view) {
+    public static <E> Set<E> toSet(final @Nullable String json, final @NonNull Class<E> classOfT, @Nullable Class<?> view) {
         return wrap(() -> JsonRegistry.getInstance().getJsonService().toSet(json, classOfT, view));
     }
 

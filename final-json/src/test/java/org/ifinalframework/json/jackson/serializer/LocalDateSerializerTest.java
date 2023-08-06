@@ -16,11 +16,8 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Objects;
-
 import com.fasterxml.jackson.core.JsonGenerator;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
@@ -28,8 +25,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assumptions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 /**
  * LocalDateSerializerTest.
@@ -58,10 +64,8 @@ class LocalDateSerializerTest {
 
         serializer.serialize(localDate, jsonGenerator, null);
 
-        Assumptions
-            .assumingThat(Objects.isNull(localDate), () -> Mockito.verify(jsonGenerator, Mockito.times(1)).writeNull());
-        Assumptions.assumingThat(Objects.nonNull(localDate),
-            () -> Mockito.verify(jsonGenerator, Mockito.times(1)).writeString(Mockito.anyString()));
+        assumingThat(Objects.isNull(localDate), () -> verify(jsonGenerator, times(1)).writeNull());
+        assumingThat(Objects.nonNull(localDate), () -> verify(jsonGenerator, times(1)).writeString(anyString()));
 
     }
 

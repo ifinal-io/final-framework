@@ -16,9 +16,15 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,12 +32,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
-import org.springframework.context.i18n.LocaleContextHolder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * DateSerializerTest.

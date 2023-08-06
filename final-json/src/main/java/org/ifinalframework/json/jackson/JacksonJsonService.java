@@ -16,6 +16,8 @@
 
 package org.ifinalframework.json.jackson;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -26,7 +28,6 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
 
 /**
@@ -63,7 +64,7 @@ public class JacksonJsonService implements JsonService {
 
     @Override
     public <T> T toObject(final @Nullable String json, final @NonNull Class<T> classOfT,
-        final @Nullable Class<?> view) {
+                          final @Nullable Class<?> view) {
 
         try {
             if (Objects.isNull(json)) {
@@ -93,8 +94,8 @@ public class JacksonJsonService implements JsonService {
                 return objectMapper.readValue(json, objectMapper.getTypeFactory().constructType(typeOfT));
             } else {
                 return objectMapper.readerWithView(view)
-                    .forType(objectMapper.getTypeFactory().constructType(typeOfT))
-                    .readValue(json);
+                        .forType(objectMapper.getTypeFactory().constructType(typeOfT))
+                        .readValue(json);
             }
         } catch (Exception e) {
             throw new JsonException(e);
@@ -103,8 +104,8 @@ public class JacksonJsonService implements JsonService {
 
     @Override
     public <E, T extends Collection<E>> T toCollection(final @Nullable String json,
-        final @NonNull Class<T> collectionClass,
-        final @NonNull Class<E> elementClass, final @Nullable Class<?> view) {
+                                                       final @NonNull Class<T> collectionClass,
+                                                       final @NonNull Class<E> elementClass, final @Nullable Class<?> view) {
 
         try {
             if (Objects.isNull(json)) {
@@ -113,11 +114,11 @@ public class JacksonJsonService implements JsonService {
 
             if (Objects.isNull(view)) {
                 return objectMapper.readValue(json,
-                    objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass));
+                        objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass));
             } else {
                 return objectMapper.readerWithView(view)
-                    .forType(objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass))
-                    .readValue(json);
+                        .forType(objectMapper.getTypeFactory().constructCollectionType(collectionClass, elementClass))
+                        .readValue(json);
             }
         } catch (Exception e) {
             throw new JsonException(e);

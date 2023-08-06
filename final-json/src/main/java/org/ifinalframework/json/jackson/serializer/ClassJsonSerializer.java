@@ -16,13 +16,13 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import org.ifinalframework.auto.service.annotation.AutoService;
-
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
+
+import java.io.IOException;
 
 /**
  * @author ilikly
@@ -35,7 +35,7 @@ public final class ClassJsonSerializer extends JsonSerializer<Class> {
 
     @Override
     public void serialize(final Class value, final JsonGenerator gen, final SerializerProvider serializers)
-        throws IOException {
+            throws IOException {
 
         gen.writeString(value.getName());
     }

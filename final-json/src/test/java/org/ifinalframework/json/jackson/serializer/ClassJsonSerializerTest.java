@@ -16,14 +16,15 @@
 
 package org.ifinalframework.json.jackson.serializer;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 import com.fasterxml.jackson.core.JsonGenerator;
-import lombok.extern.slf4j.Slf4j;
+
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+
+import lombok.extern.slf4j.Slf4j;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * ClassJsonSerializerTest.
@@ -44,12 +45,12 @@ class ClassJsonSerializerTest {
             JsonGenerator jsonGenerator = mock(JsonGenerator.class);
 
             jsonSerializer.serialize(
-                ClassJsonSerializerTest.class,
-                jsonGenerator,
-                null);
+                    ClassJsonSerializerTest.class,
+                    jsonGenerator,
+                    null);
             ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
             verify(jsonGenerator).writeString(argumentCaptor.capture());
-//            verify(jsonGenerator).writeString(eq);
+            //            verify(jsonGenerator).writeString(eq);
             String capture = argumentCaptor.getValue();
             assertEquals(ClassJsonSerializerTest.class.getName(), capture);
             logger.info(capture);

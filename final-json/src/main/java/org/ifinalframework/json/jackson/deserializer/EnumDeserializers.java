@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
+
 import org.ifinalframework.auto.service.annotation.AutoService;
 import org.ifinalframework.core.IEnum;
 
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 @AutoService(Deserializers.class)
-public class IEnumDeserializers extends SimpleDeserializers {
+public class EnumDeserializers extends SimpleDeserializers {
 
     @Override
     @SuppressWarnings("unchecked")
