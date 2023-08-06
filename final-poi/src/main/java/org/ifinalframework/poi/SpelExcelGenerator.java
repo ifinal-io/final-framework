@@ -15,11 +15,12 @@
 
 package org.ifinalframework.poi;
 
+import org.springframework.context.expression.MapAccessor;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.context.expression.MapAccessor;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 /**
  * SpelExcelGenerator.
@@ -42,7 +43,8 @@ public class SpelExcelGenerator extends AbstractExcelGenerator {
     }
 
     @Override
-    protected Object calcCellValue(final Cell rowCell, final Excel.Cell cell, final Object data, final CellType type) {
+    protected Object calcCellValue(final Cell rowCell, final org.ifinalframework.poi.model.Cell cell,
+                                   final Object data, final CellType type) {
 
         StandardEvaluationContext context = new StandardEvaluationContext(data);
         context.addPropertyAccessor(new MapAccessor());

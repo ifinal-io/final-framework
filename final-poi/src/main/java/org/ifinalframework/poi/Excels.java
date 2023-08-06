@@ -15,6 +15,12 @@
 
 package org.ifinalframework.poi;
 
+import org.ifinalframework.poi.model.Cell;
+import org.ifinalframework.poi.model.Excel;
+import org.ifinalframework.poi.model.Row;
+import org.ifinalframework.poi.model.Sheet;
+import org.ifinalframework.poi.model.Version;
+
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.IOException;
@@ -59,22 +65,22 @@ public final class Excels {
         return new WorkbookReader(workbook);
     }
 
-    public static WorkbookWriter newWriter(final Excel.Cell... headers) {
+    public static WorkbookWriter newWriter(final Cell... headers) {
         return newWriter(Arrays.asList(headers));
     }
 
-    public static WorkbookWriter newWriter(final List<Excel.Cell> headers) {
-        return newWriter(Excel.Version.XLSX, null, headers);
+    public static WorkbookWriter newWriter(final List<Cell> headers) {
+        return newWriter(Version.XLSX, null, headers);
     }
 
-    public static WorkbookWriter newWriter(final Excel.Version version, final String sheetName, List<Excel.Cell> headers) {
+    public static WorkbookWriter newWriter(final Version version, final String sheetName, List<Cell> headers) {
 
         final Excel excel = new Excel();
         excel.setVersion(version);
 
-        Excel.Sheet sheet = new Excel.Sheet();
+        Sheet sheet = new Sheet();
         sheet.setName(sheetName);
-        sheet.setHeaders(Collections.singletonList(new Excel.Row(headers)));
+        sheet.setHeaders(Collections.singletonList(new Row(headers)));
 
         excel.setSheets(Collections.singletonList(sheet));
 
@@ -90,11 +96,11 @@ public final class Excels {
         return new SpelExcelWriter(excel, data);
     }
 
-    public static void write(final List<Excel.Cell> properties, final List<?> rows, final String filename) throws IOException {
+    public static void write(final List<Cell> properties, final List<?> rows, final String filename) throws IOException {
         newWriter(properties).append(rows).write(filename);
     }
 
-    public static void write(final List<Excel.Cell> properties, final List<?> rows, final OutputStream os) throws IOException {
+    public static void write(final List<Cell> properties, final List<?> rows, final OutputStream os) throws IOException {
         newWriter(properties).append(rows).write(os);
     }
 

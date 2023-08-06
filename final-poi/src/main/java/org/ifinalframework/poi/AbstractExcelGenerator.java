@@ -15,6 +15,15 @@
 
 package org.ifinalframework.poi;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
+
+import org.ifinalframework.poi.databind.TypeHandler;
+import org.ifinalframework.poi.databind.type.ObjectTypeHandler;
+import org.ifinalframework.poi.model.MergedRegion;
+import org.ifinalframework.poi.model.Style;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -29,12 +38,6 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.ifinalframework.poi.Excel.Style;
-import org.ifinalframework.poi.databind.TypeHandler;
-import org.ifinalframework.poi.databind.type.ObjectTypeHandler;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -99,7 +102,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     @NonNull
     @Override
-    public Font createFont(@NonNull final Excel.Font font) {
+    public Font createFont(@NonNull final org.ifinalframework.poi.model.Font font) {
         Font workbookFont = getWorkbook().createFont();
         Optional.ofNullable(font.getName()).ifPresent(workbookFont::setFontName);
         Optional.ofNullable(font.getSize()).ifPresent(workbookFont::setFontHeightInPoints);
@@ -115,7 +118,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     @NonNull
     @Override
-    public Sheet createSheet(@NonNull final Excel.Sheet sheet) {
+    public Sheet createSheet(@NonNull final org.ifinalframework.poi.model.Sheet sheet) {
         String sheetName = sheet.getName();
         final Sheet excelSheet = Objects.isNull(sheetName) ? workbook.createSheet() : workbook.createSheet(sheetName);
 
@@ -128,7 +131,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     @NonNull
     @Override
-    public Row createRow(@NonNull final Sheet sheet, @NonNull final Excel.Row row) {
+    public Row createRow(@NonNull final Sheet sheet, @NonNull final org.ifinalframework.poi.model.Row row) {
 
         final Row sheetRow = sheet.createRow(sheet.getLastRowNum() + 1);
 
@@ -140,7 +143,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     @NonNull
     @Override
-    public Cell createCell(@NonNull final Row row, @NonNull final Excel.Cell cell) {
+    public Cell createCell(@NonNull final Row row, @NonNull final org.ifinalframework.poi.model.Cell cell) {
 
         int columnIndex = Optional.ofNullable(cell.getIndex()).orElse((int) row.getLastCellNum());
         if (columnIndex < 0) {
@@ -177,21 +180,22 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
     }
 
     @Override
-    public void writeRow(final int index, @NonNull final Excel.Row row, @Nullable final Object data) {
+    public void writeRow(final int index, @NonNull final org.ifinalframework.poi.model.Row row, @Nullable final Object data) {
         writeRow(getWorkbook().getSheetAt(index), row, data);
     }
 
     @Override
-    public void writeRow(@NonNull final Sheet sheet, @NonNull final Excel.Row row, @Nullable final Object data) {
+    public void writeRow(@NonNull final Sheet sheet, @NonNull final org.ifinalframework.poi.model.Row row, @Nullable final Object data) {
         Row sheetRow = createRow(sheet, row);
-        for (final Excel.Cell cell : row.getCells()) {
+        for (final org.ifinalframework.poi.model.Cell cell : row.getCells()) {
             Cell rowCell = createCell(sheetRow, cell);
             writeCell(rowCell, cell, data);
         }
     }
 
     @Override
-    public void writeCell(@NonNull final Cell rowCell, @NonNull final Excel.Cell cell, @Nullable final Object data) {
+    public void writeCell(@NonNull final Cell rowCell, @NonNull final org.ifinalframework.poi.model.Cell cell,
+                          @Nullable final Object data) {
 
         Object value = calcCellValue(rowCell, cell, data, rowCell.getCellType());
 
@@ -202,7 +206,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
     }
 
     @Override
-    public void addMergedRegions(int index, List<Excel.MergedRegion> mergedRegions) {
+    public void addMergedRegions(int index, List<MergedRegion> mergedRegions) {
         if (CollectionUtils.isEmpty(mergedRegions)) {
             return;
         }
@@ -217,7 +221,7 @@ public abstract class AbstractExcelGenerator implements ExcelGenerator {
 
     }
 
-    protected abstract Object calcCellValue(Cell rowCell, Excel.Cell cell, Object data, CellType type);
+    protected abstract Object calcCellValue(Cell rowCell, org.ifinalframework.poi.model.Cell cell, Object data, CellType type);
 
     @Override
     public void write(@NonNull final OutputStream os) throws IOException {

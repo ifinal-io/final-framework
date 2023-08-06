@@ -15,6 +15,8 @@
 
 package org.ifinalframework.poi;
 
+import org.ifinalframework.poi.model.Excel;
+
 /**
  * SpelExcelWriter.
  *

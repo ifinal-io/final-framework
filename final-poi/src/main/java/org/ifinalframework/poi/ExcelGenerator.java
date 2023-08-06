@@ -15,13 +15,17 @@
 
 package org.ifinalframework.poi;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
+import org.ifinalframework.poi.model.MergedRegion;
+import org.ifinalframework.poi.model.Style;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,19 +42,19 @@ import java.util.List;
 public interface ExcelGenerator {
 
     @NonNull
-    CellStyle createCellStyle(@NonNull Excel.Style style);
+    CellStyle createCellStyle(@NonNull Style style);
 
     @NonNull
-    Font createFont(@NonNull Excel.Font font);
+    Font createFont(@NonNull org.ifinalframework.poi.model.Font font);
 
     @NonNull
-    Sheet createSheet(@NonNull Excel.Sheet sheet);
+    Sheet createSheet(@NonNull org.ifinalframework.poi.model.Sheet sheet);
 
     @NonNull
-    Row createRow(@NonNull Sheet sheet, @NonNull Excel.Row row);
+    Row createRow(@NonNull Sheet sheet, @NonNull org.ifinalframework.poi.model.Row row);
 
     @NonNull
-    Cell createCell(@NonNull Row row, @NonNull Excel.Cell cell);
+    Cell createCell(@NonNull Row row, @NonNull org.ifinalframework.poi.model.Cell cell);
 
     @Nullable
     CellStyle getCellStyle(@Nullable String style);
@@ -58,21 +62,21 @@ public interface ExcelGenerator {
     @NonNull
     Sheet getSheet(int index);
 
-    default void writeRow(@NonNull Excel.Row row, @Nullable Object data) {
+    default void writeRow(@NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data) {
         writeRow(0, row, data);
     }
 
-    void writeRow(int index, @NonNull Excel.Row row, @Nullable Object data);
+    void writeRow(int index, @NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data);
 
-    void writeRow(@NonNull Sheet sheet, @NonNull Excel.Row row, @Nullable Object data);
+    void writeRow(@NonNull Sheet sheet, @NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data);
 
-    void writeCell(@NonNull Cell rowCell, @NonNull Excel.Cell cell, @Nullable Object data);
+    void writeCell(@NonNull Cell rowCell, @NonNull org.ifinalframework.poi.model.Cell cell, @Nullable Object data);
 
-    default void addMergedRegions(List<Excel.MergedRegion> mergedRegions){
-        addMergedRegions(0,mergedRegions);
+    default void addMergedRegions(List<MergedRegion> mergedRegions) {
+        addMergedRegions(0, mergedRegions);
     }
 
-    void addMergedRegions(int index, List<Excel.MergedRegion> mergedRegions);
+    void addMergedRegions(int index, List<MergedRegion> mergedRegions);
 
 
     void write(@NonNull OutputStream os) throws IOException;

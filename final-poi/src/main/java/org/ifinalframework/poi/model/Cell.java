@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 the original author or authors.
+ * Copyright 2020-2023 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,38 +13,41 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi;
+package org.ifinalframework.poi.model;
 
-import org.ifinalframework.poi.annotaion.ExcelColumn;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
-import java.util.Date;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Person.
+ * Cell.
  *
  * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Person {
+@Setter
+@Getter
+public class Cell {
 
-    @ExcelColumn(header = "姓名")
-    private String name;
+    private Integer index;
 
-    @ExcelColumn(header = "年龄")
-    private Integer age;
+    @NonNull
+    private String value;
 
-    @ExcelColumn(header = "生日")
-    private Date birthday;
+    @Nullable
+    private Integer columnWidth;
 
-    @ExcelColumn(header = "bool")
-    private Boolean bool;
+    @Nullable
+    private String style;
+
+    public Cell() {
+    }
+
+    public Cell(@NonNull final String value) {
+        this.value = value;
+    }
 
 }

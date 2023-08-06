@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 the original author or authors.
+ * Copyright 2020-2023 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,25 +13,14 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.databind;
-
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-
-import org.apache.poi.ss.usermodel.Cell;
+package org.ifinalframework.poi.model;
 
 /**
- * Deserialize a {@link T} result from {@link Cell}.
+ * Version
  *
- * @author ilikly
- * @version 1.2.4
- * @see ExcelSerializer
+ * @author mik
+ * @since 1.5.2
  **/
-@FunctionalInterface
-public interface ExcelDeserializer<T> {
-    /**
-     * return the value of {@link T} from {@link Cell}.
-     */
-    @Nullable
-    T deserialize(@NonNull Cell cell);
+public enum Version {
+    XLS, XLSX
 }

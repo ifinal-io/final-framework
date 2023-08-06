@@ -15,9 +15,10 @@
 
 package org.ifinalframework.poi.databind;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * Serialize a value of {@link T} into {@link Cell}.

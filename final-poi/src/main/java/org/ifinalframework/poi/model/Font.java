@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 the original author or authors.
+ * Copyright 2020-2023 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,38 +13,23 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi;
+package org.ifinalframework.poi.model;
 
-import org.ifinalframework.poi.annotaion.ExcelColumn;
-
-import java.util.Date;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * Person.
+ * Font
  *
- * @author ilikly
- * @version 1.0.0
- * @since 1.0.0
- */
+ * @author mik
+ * @since 1.5.2
+ **/
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Person {
+public class Font {
 
-    @ExcelColumn(header = "姓名")
     private String name;
 
-    @ExcelColumn(header = "年龄")
-    private Integer age;
+    private Short size;
 
-    @ExcelColumn(header = "生日")
-    private Date birthday;
-
-    @ExcelColumn(header = "bool")
-    private Boolean bool;
+    private String color;
 
 }

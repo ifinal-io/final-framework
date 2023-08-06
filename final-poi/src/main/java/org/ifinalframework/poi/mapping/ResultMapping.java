@@ -15,9 +15,14 @@
 
 package org.ifinalframework.poi.mapping;
 
-import lombok.*;
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.ifinalframework.poi.databind.ExcelSerializer;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author ilikly

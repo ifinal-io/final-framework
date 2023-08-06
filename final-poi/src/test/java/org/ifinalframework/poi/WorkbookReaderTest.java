@@ -15,8 +15,7 @@
 
 package org.ifinalframework.poi;
 
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import org.ifinalframework.json.Json;
 import org.ifinalframework.poi.databind.deser.BooleanExcelDeserializer;
 import org.ifinalframework.poi.databind.deser.DateExcelDeserializer;
 import org.ifinalframework.poi.databind.deser.IntegerExcelDeserializer;
@@ -25,6 +24,7 @@ import org.ifinalframework.poi.function.ResultMapBiFunction;
 import org.ifinalframework.poi.mapping.DefaultResultMapFactory;
 import org.ifinalframework.poi.mapping.ResultMap;
 import org.ifinalframework.poi.mapping.ResultMapping;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +33,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author ilikly
@@ -63,8 +66,8 @@ class WorkbookReaderTest {
         List<Person> list = reader.map(new ResultMapBiFunction<>(personResultMap))
                 .collect(Collectors.toList());
 
+        logger.info("{}", Json.toJson(list));
 
-        System.out.println(list);
 
     }
 
@@ -79,8 +82,7 @@ class WorkbookReaderTest {
         List<Person> list = reader.map(new ResultMapBiFunction<Person>(personResultMap))
                 .collect(Collectors.toList());
 
-
-        System.out.println(list);
+        logger.info("{}", Json.toJson(list));
 
     }
 
@@ -93,7 +95,7 @@ class WorkbookReaderTest {
 
         List<Map> list = reader.map().collect(Collectors.toList());
 
-        System.out.println(list);
+        logger.info("{}", Json.toJson(list));
 
     }
 

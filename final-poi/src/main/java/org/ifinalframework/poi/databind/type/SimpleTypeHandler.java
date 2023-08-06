@@ -15,13 +15,16 @@
 
 package org.ifinalframework.poi.databind.type;
 
-import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.Cell;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.ifinalframework.poi.databind.ExcelSerializer;
 import org.ifinalframework.poi.databind.TypeHandler;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * SimpleTypeHandler.

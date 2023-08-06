@@ -15,6 +15,10 @@
 
 package org.ifinalframework.poi;
 
+import org.ifinalframework.poi.model.Excel;
+import org.ifinalframework.poi.model.Row;
+import org.ifinalframework.poi.model.Style;
+
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.IOException;
@@ -48,17 +52,17 @@ public class AbstractExcelWriter implements WorkbookWriter {
     }
 
     private void initStyles() {
-        List<Excel.Style> styles = Optional.ofNullable(excel.getStyles()).orElse(Collections.emptyList());
+        List<Style> styles = Optional.ofNullable(excel.getStyles()).orElse(Collections.emptyList());
         styles.forEach(generator::createCellStyle);
     }
 
     private void initSheets() {
-        for (final Excel.Sheet sheet : excel.getSheets()) {
+        for (final org.ifinalframework.poi.model.Sheet sheet : excel.getSheets()) {
             Sheet excelSheet = generator.createSheet(sheet);
 
-            List<Excel.Row> rows = Optional.ofNullable(sheet.getHeaders()).orElse(Collections.emptyList());
+            List<Row> rows = Optional.ofNullable(sheet.getHeaders()).orElse(Collections.emptyList());
 
-            for (final Excel.Row row : rows) {
+            for (final Row row : rows) {
                 generator.writeRow(excelSheet, row, data);
             }
 
@@ -80,11 +84,11 @@ public class AbstractExcelWriter implements WorkbookWriter {
 
         for (int i = 0; i < excel.getSheets().size(); i++) {
 
-            Excel.Sheet sheet = excel.getSheets().get(i);
+            org.ifinalframework.poi.model.Sheet sheet = excel.getSheets().get(i);
             Sheet excelSheet = generator.getSheet(i);
-            List<Excel.Row> rows = Optional.ofNullable(sheet.getFooters()).orElse(Collections.emptyList());
+            List<Row> rows = Optional.ofNullable(sheet.getFooters()).orElse(Collections.emptyList());
 
-            for (final Excel.Row row : rows) {
+            for (final Row row : rows) {
                 generator.writeRow(excelSheet, row, null);
             }
 

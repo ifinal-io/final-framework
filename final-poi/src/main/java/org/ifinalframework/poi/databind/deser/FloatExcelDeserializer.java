@@ -15,10 +15,12 @@
 
 package org.ifinalframework.poi.databind.deser;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.ifinalframework.poi.databind.ExcelDeserializer;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.ifinalframework.poi.databind.ExcelDeserializer;
+
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * Deserialize a {@link Float} result from {@link Cell}.

@@ -16,6 +16,10 @@
 package org.ifinalframework.poi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.ifinalframework.poi.model.Cell;
+import org.ifinalframework.poi.model.Excel;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -38,16 +42,16 @@ class ExcelsTest {
 
     private List<Person> persons() {
         return Arrays.asList(
-                new Person("xiaoMing", 12, new Date(),true),
-                new Person("xiaoHong", 18, new Date(),false)
+                new Person("xiaoMing", 12, new Date(), true),
+                new Person("xiaoHong", 18, new Date(), false)
         );
     }
 
-    private List<Excel.Cell> cells() {
-        List<Excel.Cell> cells = new ArrayList<>();
-//        cells.add(new Cell(0, "姓名", "name"));
-//        cells.add(new Cell(2, "生日", "new java.text.SimpleDateFormat('yyyy-MM-dd HH:mm:ss').format(birthday)"));
-//        cells.add(new Cell(1, "年龄", "age"));
+    private List<Cell> cells() {
+        List<Cell> cells = new ArrayList<>();
+        //        cells.add(new Cell(0, "姓名", "name"));
+        //        cells.add(new Cell(2, "生日", "new java.text.SimpleDateFormat('yyyy-MM-dd HH:mm:ss').format(birthday)"));
+        //        cells.add(new Cell(1, "年龄", "age"));
         return cells;
     }
 

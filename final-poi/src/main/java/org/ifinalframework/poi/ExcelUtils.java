@@ -15,6 +15,8 @@
 
 package org.ifinalframework.poi;
 
+import org.ifinalframework.poi.model.Style;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
@@ -63,9 +65,9 @@ public final class ExcelUtils {
         return columnLabel(columnIndex) + rowLabel(rowIndex);
     }
 
-    public static Excel.Style merge(Excel.Style... styles) {
+    public static Style merge(Style... styles) {
 
-        Excel.Style mergedStyle = new Excel.Style();
+        Style mergedStyle = new Style();
 
         Arrays.stream(styles)
                 .filter(Objects::nonNull)
