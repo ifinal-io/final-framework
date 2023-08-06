@@ -15,13 +15,13 @@
 
 package org.ifinalframework.web.converter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.ifinalframework.util.format.LocalDateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * LocalDateTimeConverterTest.

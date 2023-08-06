@@ -15,15 +15,16 @@
 
 package org.ifinalframework.util;
 
+import org.ifinalframework.data.annotation.YN;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Locale;
 
-import org.ifinalframework.data.annotation.YN;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * EnumsTest.
@@ -53,9 +54,9 @@ class EnumsTest {
     }
 
     @Test
-    void notFoundCreatorMethod(){
-        Assertions.assertThrows(IllegalArgumentException.class,() -> {
-            Enums.findEnum(Yn.class,"noMethod",Integer.class,1);
+    void notFoundCreatorMethod() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Enums.findEnum(Yn.class, "noMethod", Integer.class, 1);
         });
     }
 
@@ -65,10 +66,10 @@ class EnumsTest {
     }
 
     @Test
-    void getEnumI18NCode() {
+    void getEnumCodeOfI18N() {
 
         Assertions.assertEquals(String.join(".", Yn.class.getCanonicalName(), Yn.YES.name().toLowerCase(Locale.ROOT)),
-                Enums.getEnumI18NCode(Yn.YES));
+                Enums.getEnumCodeOfI18N(Yn.YES));
 
     }
 

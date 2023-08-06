@@ -15,11 +15,14 @@
 
 package org.springframework.boot.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.ContextApplicationContext;
-import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.type.AnnotationMetadata;
+
+import org.ifinalframework.ContextApplicationContext;
+
+import org.junit.jupiter.api.Test;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * AutoConfigurationImportSelectorTest.

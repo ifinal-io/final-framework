@@ -72,7 +72,7 @@ jobs:
       - name: Clean Maven Repository
         run: rm -rf /home/runner/.m2/repository
       - name: Cat Setting.xml
-        run : cat /home/runner/.m2/settings.xml
+        run: cat /home/runner/.m2/settings.xml
       - name: Build with Maven
         run: mvn -U -B package -Pgithub,ci --file pom.xml
       - name: Deploy with Maven

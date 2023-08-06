@@ -21,7 +21,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**

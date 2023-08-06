@@ -88,7 +88,7 @@ public final class ResourceValueUtils {
     }
 
     private static ResourceValueHolder processElement(final Object target, final AnnotatedElement element,
-        final ResourceValue resourceValue) {
+                                                      final ResourceValue resourceValue) {
         ResourceValue annotation = AnnotatedElementUtils.findMergedAnnotation(element, ResourceValue.class);
 
         if (Objects.isNull(annotation)) {
@@ -101,9 +101,9 @@ public final class ResourceValueUtils {
 
     private static String key(final ResourceValue... resourceValues) {
         return Arrays.stream(resourceValues)
-            .map(ResourceValue::value)
-            .filter(it -> !it.isEmpty())
-            .collect(Collectors.joining("."));
+                .map(ResourceValue::value)
+                .filter(it -> !it.isEmpty())
+                .collect(Collectors.joining("."));
     }
 
 }

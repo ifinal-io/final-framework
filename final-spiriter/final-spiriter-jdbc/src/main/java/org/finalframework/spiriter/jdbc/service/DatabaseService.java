@@ -20,13 +20,13 @@ package org.ifinalframework.spiriter.jdbc.service;
 import org.ifinalframework.spiriter.jdbc.model.Table;
 
 import javax.sql.DataSource;
+
 import java.sql.SQLException;
 import java.util.List;
 
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 public interface DatabaseService {

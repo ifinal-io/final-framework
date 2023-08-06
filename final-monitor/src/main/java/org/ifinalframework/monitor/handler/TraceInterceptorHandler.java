@@ -31,13 +31,13 @@ import org.ifinalframework.monitor.trace.Tracer;
  */
 @Component
 public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandlerSupport implements
-    InterceptorHandler<Tracer, AnnotationAttributes> {
+        InterceptorHandler<Tracer, AnnotationAttributes> {
 
     private static final String TRACE_CONTEXT = "traceContext";
 
     @Override
     public Object before(final Tracer executor, final InvocationContext context,
-        final AnnotationAttributes annotation) {
+                         final AnnotationAttributes annotation) {
 
         TraceContext traceContext = new TraceContext();
         traceContext.setTrace(annotation.getString("trace"));
@@ -48,8 +48,8 @@ public class TraceInterceptorHandler extends AbsMonitorOperationInterceptorHandl
 
     @Override
     public void after(final Tracer executor, final InvocationContext context, final AnnotationAttributes annotation,
-        final Object result,
-        final Throwable throwable) {
+                      final Object result,
+                      final Throwable throwable) {
 
         executor.stop(context.getAttribute(TRACE_CONTEXT));
     }

@@ -15,11 +15,6 @@
 
 package org.ifinalframework.beans.factory.support;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -30,6 +25,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +76,8 @@ public class ImportResourceBeanDefinitionRegistryPostProcessor extends OnceBeanD
     @Override
     protected void processBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
 
-        final BeanDefinitionReaderFactory beanDefinitionReaderFactory = new BeanDefinitionReaderFactory(environment, resourceLoader, registry);
+        final BeanDefinitionReaderFactory beanDefinitionReaderFactory
+                = new BeanDefinitionReaderFactory(environment, resourceLoader, registry);
 
         final Set<String> importResources = new LinkedHashSet<>();
 

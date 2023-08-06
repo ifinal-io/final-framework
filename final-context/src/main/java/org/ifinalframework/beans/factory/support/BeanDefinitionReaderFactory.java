@@ -15,9 +15,6 @@
 
 package org.ifinalframework.beans.factory.support;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.groovy.GroovyBeanDefinitionReader;
 import org.springframework.beans.factory.support.AbstractBeanDefinitionReader;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
@@ -29,12 +26,13 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 
 /**
  * Create {@link BeanDefinitionReader} instance from bean definition resource, such as {@code xml} or {@code groovy}.
- * <p>
- * Create a {@link GroovyBeanDefinitionReader} when the resource endsWith {@code .groovy} or {@link XmlBeanDefinitionReader}.
  *
  * @author ilikly
  * @version 1.2.4

@@ -18,17 +18,21 @@ package org.ifinalframework.spiriter.jdbc.api.controller;
 
 import java.util.List;
 import java.util.Optional;
+
 import jakarta.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+
 import org.ifinalframework.data.query.Query;
 import org.ifinalframework.spiriter.jdbc.dao.mapper.CommonMapper;
 import org.ifinalframework.spiriter.jdbc.dao.mapper.TablesMapper;
 import org.ifinalframework.spiriter.jdbc.dao.query.QTables;
 import org.ifinalframework.spiriter.jdbc.entity.Tables;
 import org.ifinalframework.spiriter.jdbc.query.TablesQuery;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +42,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @RestController

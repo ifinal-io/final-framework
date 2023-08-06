@@ -18,12 +18,12 @@ package org.ifinalframework.context.user;
 
 import org.ifinalframework.core.IUser;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * UserContextHolderTest.

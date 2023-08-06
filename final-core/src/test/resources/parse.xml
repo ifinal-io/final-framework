@@ -1,6 +1,7 @@
 <note>
     <to>George<from>John</from>1
-        23</to>
+        23
+    </to>
     <from>John</from>
     <heading>Reminder</heading>
     <body>Don't forget the meeting!</body>

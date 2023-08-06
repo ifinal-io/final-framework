@@ -15,15 +15,15 @@
 
 package org.ifinalframework.context.result;
 
-import java.util.Collections;
-
 import org.ifinalframework.context.result.consumer.CommonResultConsumer;
 import org.ifinalframework.context.result.function.ObjectResultFunction;
 import org.ifinalframework.core.result.Result;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * ResultFunctionConsumerCompositeTest.

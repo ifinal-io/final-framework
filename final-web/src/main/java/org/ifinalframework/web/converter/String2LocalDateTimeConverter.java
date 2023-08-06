@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
  * LocalDateTimeConverter.
  *
  * <p>Convert {@link String} to {@link LocalDateTime}.</p>
- *
  * Supports patterns:
  * <ul>
  *     <li>{@code yyyy-MM-dd HH:mm:ss}</li>

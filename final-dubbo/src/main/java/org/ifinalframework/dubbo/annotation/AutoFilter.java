@@ -15,8 +15,9 @@
 
 package org.ifinalframework.dubbo.annotation;
 
-import org.apache.dubbo.rpc.Filter;
 import org.ifinalframework.auto.service.annotation.AutoService;
+
+import org.apache.dubbo.rpc.Filter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

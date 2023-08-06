@@ -19,6 +19,7 @@ package org.ifinalframework.spiriter.jdbc.service;
 import org.springframework.lang.Nullable;
 
 import javax.sql.DataSource;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -26,7 +27,6 @@ import java.util.Optional;
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 public interface DataSourceService {

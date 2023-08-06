@@ -24,8 +24,9 @@ import org.ifinalframework.core.generator.UuidTraceGenerator;
 import org.ifinalframework.monitor.context.TraceContext;
 import org.ifinalframework.util.Asserts;
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author ilikly

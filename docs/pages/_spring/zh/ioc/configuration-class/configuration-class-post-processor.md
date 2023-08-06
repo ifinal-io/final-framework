@@ -9,7 +9,6 @@ version: 1.0
 formatter: "@formatter:on"
 ---
 
-
 # ConfigurationClassPostProcessor
 
 ## What
@@ -25,7 +24,8 @@ classDiagram
 
 ## How
 
-在`ConfigurableApplicationContext`的`refresh()`过程中，`postProcessBeanDefinitionRegistry()`和`postProcessBeanFactory()`方法被依次回调，触发`processConfigBeanDefinitions()`的执行，流程如下图所示：
+在`ConfigurableApplicationContext`的`refresh()`过程中，`postProcessBeanDefinitionRegistry()`和`postProcessBeanFactory()`
+方法被依次回调，触发`processConfigBeanDefinitions()`的执行，流程如下图所示：
 
 ```mermaid
 flowchart TD

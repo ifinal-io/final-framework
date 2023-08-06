@@ -15,11 +15,6 @@
 
 package org.ifinalframework.web.servlet.resolver;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -32,6 +27,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.ifinalframework.context.exception.UnauthorizedException;
 import org.ifinalframework.context.user.UserSupplier;
 import org.ifinalframework.core.IUser;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Resolved the argument of {@link IUser}.
@@ -55,8 +55,13 @@ public class IUserHandlerMethodArgumentResolver implements HandlerMethodArgument
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return userSuppliers.stream().map(Supplier::get).filter(Objects::nonNull).findFirst().orElseThrow(() -> new UnauthorizedException("用户未登录"));
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        return userSuppliers.stream()
+                .map(Supplier::get)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow(() -> new UnauthorizedException("用户未登录"));
     }
 }
 

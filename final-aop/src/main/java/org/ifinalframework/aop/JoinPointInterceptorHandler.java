@@ -42,7 +42,7 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
 
     @Override
     default void afterReturning(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation,
-        Object result) {
+                                Object result) {
 
         if (JoinPoint.AFTER_RETURNING == point(annotation)) {
             handle(executor, context, annotation, result, null);
@@ -51,7 +51,7 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
 
     @Override
     default void afterThrowing(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation,
-        @NonNull Throwable throwable) {
+                               @NonNull Throwable throwable) {
 
         if (JoinPoint.AFTER_THROWING == point(annotation)) {
             handle(executor, context, annotation, null, throwable);
@@ -60,7 +60,7 @@ public interface JoinPointInterceptorHandler<E, A> extends InterceptorHandler<E,
 
     @Override
     default void after(@NonNull E executor, @NonNull InvocationContext context, @NonNull A annotation, Object result,
-        Throwable throwable) {
+                       Throwable throwable) {
 
         if (JoinPoint.AFTER == point(annotation)) {
             handle(executor, context, annotation, result, throwable);

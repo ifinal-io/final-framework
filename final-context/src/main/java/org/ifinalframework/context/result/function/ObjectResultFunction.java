@@ -15,14 +15,14 @@
 
 package org.ifinalframework.context.result.function;
 
-import org.ifinalframework.context.result.ResultFunction;
-import org.ifinalframework.core.result.R;
-import org.ifinalframework.core.result.Result;
-
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.context.result.ResultFunction;
+import org.ifinalframework.core.result.R;
+import org.ifinalframework.core.result.Result;
 
 import java.io.Serializable;
 

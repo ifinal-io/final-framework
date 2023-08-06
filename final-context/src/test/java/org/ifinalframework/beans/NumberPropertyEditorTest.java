@@ -15,10 +15,11 @@
 
 package org.ifinalframework.beans;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.PropertyEditorRegistrySupport;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author ilikly

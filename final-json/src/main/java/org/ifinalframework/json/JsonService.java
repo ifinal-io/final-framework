@@ -181,7 +181,7 @@ public interface JsonService {
      * @throws JsonException json JsonException
      */
     default <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass,
-        @NonNull Class<E> elementClass) {
+                                                        @NonNull Class<E> elementClass) {
 
         return toCollection(json, collectionClass, elementClass, null);
     }
@@ -199,7 +199,7 @@ public interface JsonService {
      * @throws JsonException json JsonException
      */
     <E, T extends Collection<E>> T toCollection(@Nullable String json, @NonNull Class<T> collectionClass,
-        @NonNull Class<E> elementClass,
-        @Nullable Class<?> view);
+                                                @NonNull Class<E> elementClass,
+                                                @Nullable Class<?> view);
 
 }

@@ -15,12 +15,12 @@
 
 package org.ifinalframework.validation;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.lang.NonNull;
 
 import org.aopalliance.intercept.MethodInvocation;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * NoMethodValidationGroupsProvider.

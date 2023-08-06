@@ -11,8 +11,6 @@ formatter: "@formatter:on"
 
 # ImportResource
 
-
-
 ## What
 
 `ImportResource`用于指示导入一个或多个包含`BeanDefiniton`的资源。
@@ -69,7 +67,8 @@ if (importResource != null) {
 
 在`ConfigurationClassBeanDefinitionReader`类的`loadBeanDefinitionsFromImportedResources()`方法中实现资源的加载。
 
-首先，通过资源文件的类型来实例化`BeanDefinitionReader`，如以`.groovy`结尾的资源使用`GroovyBeanDefinitionReader`，其它资源使用`XmlBeanDefinitionReader`。
+首先，通过资源文件的类型来实例化`BeanDefinitionReader`，如以`.groovy`结尾的资源使用`GroovyBeanDefinitionReader`
+，其它资源使用`XmlBeanDefinitionReader`。
 
 然后调用`BeanDefinitionReader`的`loadBeanDefinitions`方法来加载`BeanDefinition`。
 

@@ -150,10 +150,13 @@ public class SpringApplication {
 }
 ```
 
-第15行代码的字面意思是从`classpath`推断`WebApplicationType`，跟进`deduceFromClasspath()`方法，发现Spring是通过判断特定的类是否存在来决定`WebApplicationType`的。
+第15行代码的字面意思是从`classpath`推断`WebApplicationType`，跟进`deduceFromClasspath()`
+方法，发现Spring是通过判断特定的类是否存在来决定`WebApplicationType`的。
 
-第17、19两行代码中，分别加载了Spring的SPI扩展`ApplicationContextInitializer`[^ApplicationContextInitializer]和`ApplicationListener`[^ApplicationListener]
-发现都调用了`getSpringFactoriesInstances`方法，跟进发现一个关键的一行代码`SpringFactoriesLoader.loadFactoryNames(type,classLoader)`， 该方法功能类似于JDK的SPI，用于加载Spring
+第17、19两行代码中，分别加载了Spring的SPI扩展`ApplicationContextInitializer`[^ApplicationContextInitializer]
+和`ApplicationListener`[^ApplicationListener]
+发现都调用了`getSpringFactoriesInstances`方法，跟进发现一个关键的一行代码`SpringFactoriesLoader.loadFactoryNames(type,classLoader)`，
+该方法功能类似于JDK的SPI，用于加载Spring
 SPI的类名：
 
 ```java
@@ -177,7 +180,8 @@ public class SpringApplication {
 }
 ```
 
-> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories` 配置文件中加载指定的SPI，详情请查看[SpringFactory](../ioc/spring-factory.md)。
+> `SpringFactoriesLoader`是Spring SPI的加载器，用于从`META-INF/spring.factories`
+> 配置文件中加载指定的SPI，详情请查看[SpringFactory](../ioc/spring-factory.md)。
 
 第21行`deduceMainApplicationClass()`方法通过分析堆栈信息`StackTraceElement`来推导主应用`Class`，代码如下：
 

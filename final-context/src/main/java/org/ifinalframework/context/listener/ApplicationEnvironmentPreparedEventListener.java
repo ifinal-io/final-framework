@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringApplicationListener
 public class ApplicationEnvironmentPreparedEventListener implements
-    ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+        ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     @Override
     public void onApplicationEvent(final ApplicationEnvironmentPreparedEvent event) {

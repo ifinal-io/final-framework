@@ -20,20 +20,22 @@ import org.ifinalframework.spiriter.jdbc.service.DataSourceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.ifinalframework.core.converter.Converter;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
+
 import javax.sql.DataSource;
 
 
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
- @Component
+@Component
 @Component
 public class String2DataSourceConverter implements Converter<String, DataSource> {
 

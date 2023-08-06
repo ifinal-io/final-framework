@@ -17,6 +17,7 @@ package org.ifinalframework.web.exception.result;
 
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.JsonException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

@@ -15,12 +15,11 @@
 
 package org.ifinalframework.util;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * CompositeProxiesTest.
@@ -33,13 +32,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompositeProxiesTest {
 
     @FunctionalInterface
-    interface Callback{
+    interface Callback {
         void say(String haha);
     }
 
 
     @Test
-    void composite(){
+    void composite() {
         final Callback composite = CompositeProxies.composite(Callback.class, Arrays.asList(
                 (key) -> {
                     logger.info("from one {}", key);

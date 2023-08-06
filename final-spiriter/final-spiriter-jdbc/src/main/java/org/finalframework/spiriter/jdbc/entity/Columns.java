@@ -18,6 +18,7 @@ package org.ifinalframework.spiriter.jdbc.entity;
 
 
 import lombok.Data;
+
 import org.ifinalframework.data.annotation.*;
 import org.ifinalframework.spiriter.jdbc.contants.SchemaConstants;
 

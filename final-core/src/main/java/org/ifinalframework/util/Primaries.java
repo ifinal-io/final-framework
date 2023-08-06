@@ -83,20 +83,20 @@ public final class Primaries implements Streamable<Class<?>>, Iterable<Class<?>>
      * Number.
      */
     public static final Primaries NUMBER = new Primaries(
-        byte.class, Byte.class, short.class, Short.class,
-        int.class, Integer.class, long.class, Long.class,
-        float.class, Float.class, double.class, Double.class
+            byte.class, Byte.class, short.class, Short.class,
+            int.class, Integer.class, long.class, Long.class,
+            float.class, Float.class, double.class, Double.class
     );
 
     /**
      * All.
      */
     public static final Primaries ALL = new Primaries(
-        byte.class, Byte.class, short.class, Short.class,
-        char.class, Character.class, boolean.class, Boolean.class,
-        int.class, Integer.class, long.class, Long.class,
-        float.class, Float.class, double.class, Double.class,
-        String.class, Class.class);
+            byte.class, Byte.class, short.class, Short.class,
+            char.class, Character.class, boolean.class, Boolean.class,
+            int.class, Integer.class, long.class, Long.class,
+            float.class, Float.class, double.class, Double.class,
+            String.class, Class.class);
 
     /**
      * types.

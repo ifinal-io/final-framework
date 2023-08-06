@@ -24,8 +24,9 @@ import org.ifinalframework.aop.single.SingleAnnotationBeanFactoryPointcutAdvisor
 import org.ifinalframework.monitor.annotation.OperationAction;
 import org.ifinalframework.monitor.handler.ActionInterceptorHandler;
 
-import java.util.Arrays;
 import jakarta.annotation.Resource;
+
+import java.util.Arrays;
 
 /**
  * @author ilikly
@@ -35,14 +36,14 @@ import jakarta.annotation.Resource;
 @Component
 @SuppressWarnings("serial")
 public class ActionAnnotationBeanFactoryPointcutAdvisor extends
-    SingleAnnotationBeanFactoryPointcutAdvisor<OperationAction, AnnotationAttributes, OperationActionHandler> {
+        SingleAnnotationBeanFactoryPointcutAdvisor<OperationAction, AnnotationAttributes, OperationActionHandler> {
 
     @Resource
     private OperationActionHandler operationActionHandler;
 
     public ActionAnnotationBeanFactoryPointcutAdvisor() {
         super(OperationAction.class, new AnnotationAttributesAnnotationBuilder<>(),
-            Arrays.asList(new ActionInterceptorHandler()));
+                Arrays.asList(new ActionInterceptorHandler()));
     }
 
     @Override

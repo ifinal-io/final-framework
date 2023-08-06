@@ -15,17 +15,19 @@
 
 package org.ifinalframework.web.servlet.filter;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletRequestWrapper;
-import jakarta.servlet.http.HttpServletResponse;
-import org.ifinalframework.util.Asserts;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
+
+import org.ifinalframework.util.Asserts;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -48,8 +50,8 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
     public static final String DEFAULT_METHOD_HEADER = "Hidden-Http-Method";
 
     private static final List<String> ALLOWED_METHODS =
-        Collections.unmodifiableList(Arrays.asList(HttpMethod.PUT.name(),
-            HttpMethod.DELETE.name(), HttpMethod.PATCH.name()));
+            Collections.unmodifiableList(Arrays.asList(HttpMethod.PUT.name(),
+                    HttpMethod.DELETE.name(), HttpMethod.PATCH.name()));
 
     private String methodHeader = DEFAULT_METHOD_HEADER;
 
@@ -68,7 +70,7 @@ public class HeaderHiddenHttpMethodFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
                                     final FilterChain filterChain)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         HttpServletRequest requestToUse = request;
 

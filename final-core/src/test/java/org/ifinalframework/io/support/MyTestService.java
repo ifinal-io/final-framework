@@ -22,5 +22,5 @@ package org.ifinalframework.io.support;
  * @version 1.3.1
  * @since 1.3.1
  */
-public class MyTestService implements TestService{
+public class MyTestService implements TestService {
 }

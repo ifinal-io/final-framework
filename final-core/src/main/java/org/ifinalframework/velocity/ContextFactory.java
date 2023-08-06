@@ -15,11 +15,11 @@
 
 package org.ifinalframework.velocity;
 
-import org.apache.velocity.context.Context;
-import org.apache.velocity.exception.VelocityException;
-
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.apache.velocity.context.Context;
+import org.apache.velocity.exception.VelocityException;
 
 /**
  * Velocity {@link Context} factory.

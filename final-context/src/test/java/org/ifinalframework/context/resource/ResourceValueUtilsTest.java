@@ -16,11 +16,11 @@
 
 package org.ifinalframework.context.resource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * ResourceValueUtilsTest.
@@ -35,7 +35,7 @@ class ResourceValueUtilsTest {
     void resourceValues() {
         ResourceValueEntity entity = new ResourceValueEntity();
         Collection<ResourceValueHolder> holders = ResourceValueUtils
-            .findAllResourceValueHolders(entity, ResourceValueEntity.class);
+                .findAllResourceValueHolders(entity, ResourceValueEntity.class);
 
         assertEquals(2, holders.size());
 

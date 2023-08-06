@@ -52,27 +52,27 @@ public class SingleAnnotationParser<A extends Annotation, E> implements Annotati
     public Collection<E> parseAnnotations(final Class<?> clazz) {
 
         return finder.findAnnotations(clazz)
-            .stream()
-            .map(annotation -> builder.build(clazz, annotation))
-            .collect(Collectors.toList());
+                .stream()
+                .map(annotation -> builder.build(clazz, annotation))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<E> parseAnnotations(final Method method) {
 
         return finder.findAnnotations(method)
-            .stream()
-            .map(annotation -> builder.build(method, annotation))
-            .collect(Collectors.toList());
+                .stream()
+                .map(annotation -> builder.build(method, annotation))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<E> parseAnnotations(final Parameter parameter, final Integer index) {
 
         return finder.findAnnotations(parameter)
-            .stream()
-            .map(annotation -> builder.build(parameter, index, annotation))
-            .collect(Collectors.toList());
+                .stream()
+                .map(annotation -> builder.build(parameter, index, annotation))
+                .collect(Collectors.toList());
     }
 
 }

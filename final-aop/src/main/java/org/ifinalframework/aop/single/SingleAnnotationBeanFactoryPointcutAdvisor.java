@@ -36,31 +36,31 @@ import java.util.List;
  * @since 1.0.0
  */
 public abstract class SingleAnnotationBeanFactoryPointcutAdvisor<A extends Annotation, E, T> extends
-    AbsGenericPointcutAdvisor {
+        AbsGenericPointcutAdvisor {
 
     private Pointcut pointcut;
 
     protected SingleAnnotationBeanFactoryPointcutAdvisor(final Class<A> annotationType,
-        final AnnotationBuilder<A, E> builder,
-        final List<InterceptorHandler<T, E>> handlers) {
+                                                         final AnnotationBuilder<A, E> builder,
+                                                         final List<InterceptorHandler<T, E>> handlers) {
 
         this(new SingleAnnotationSource<>(annotationType, builder), handlers);
     }
 
     protected SingleAnnotationBeanFactoryPointcutAdvisor(final AnnotationSource<Collection<E>> source,
-        final List<InterceptorHandler<T, E>> handlers) {
+                                                         final List<InterceptorHandler<T, E>> handlers) {
 
         this.pointcut = new AnnotationSourceMethodPoint(source);
         setAdvice(
-            new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
+                new DefaultAnnotationMethodInterceptor<>(source, new SingleMethodInvocationDispatcher<T, E>(handlers) {
 
-                @Override
-                @NonNull
-                protected T getExecutor(final E annotation) {
+                    @Override
+                    @NonNull
+                    protected T getExecutor(final E annotation) {
 
-                    return SingleAnnotationBeanFactoryPointcutAdvisor.this.getExecutor(annotation);
-                }
-            }));
+                        return SingleAnnotationBeanFactoryPointcutAdvisor.this.getExecutor(annotation);
+                    }
+                }));
     }
 
     @Override

@@ -15,15 +15,17 @@
 
 package org.ifinalframework.web.servlet.exception.result;
 
+import org.springframework.web.bind.MissingServletRequestParameterException;
+
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * @author ilikly
@@ -35,22 +37,22 @@ class MissingServletParameterResultExceptionHandlerTest {
     private final MissingServletParameterResultExceptionHandler handler = new MissingServletParameterResultExceptionHandler();
 
     @Mock
-    private MissingServletRequestParameterException e;
+    private MissingServletRequestParameterException exception;
     @Mock
     private RuntimeException runtimeException;
 
     @Test
     void supports() {
-        assertTrue(handler.supports(e));
+        assertTrue(handler.supports(exception));
         assertFalse(handler.supports(runtimeException));
 
     }
 
     @Test
     void handle() {
-        when(e.getMessage()).thenReturn("haha");
+        when(exception.getMessage()).thenReturn("haha");
 
-        Result<?> result = handler.handle(e);
+        Result<?> result = handler.handle(exception);
         assertFalse(result.isSuccess());
         assertEquals("haha", result.getMessage());
 

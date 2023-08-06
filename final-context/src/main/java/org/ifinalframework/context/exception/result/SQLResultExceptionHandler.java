@@ -15,10 +15,11 @@
 
 package org.ifinalframework.context.exception.result;
 
-import org.ifinalframework.core.result.R;
-import org.ifinalframework.core.result.Result;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.core.result.R;
+import org.ifinalframework.core.result.Result;
 
 import java.sql.SQLException;
 

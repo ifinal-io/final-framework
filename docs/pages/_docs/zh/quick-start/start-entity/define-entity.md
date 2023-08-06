@@ -109,8 +109,6 @@ public class Person implements IEntity<Long> {
 }
 ```
 
-
-
 ## See Also
 
 * [对象关系映射](../../user-manual/annotation/orm.md)

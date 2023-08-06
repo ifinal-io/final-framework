@@ -15,9 +15,11 @@
 
 package org.ifinalframework.web.servlet.response.advice;
 
-import lombok.SneakyThrows;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+
 import org.ifinalframework.core.result.Responsible;
-import org.ifinalframework.web.servlet.response.advice.ResponsibleResponseBodyAdvice;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,13 +27,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
 
 import java.net.URI;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import lombok.SneakyThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**

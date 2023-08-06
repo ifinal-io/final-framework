@@ -16,8 +16,10 @@
 package org.ifinalframework.context.result.consumer;
 
 import com.github.pagehelper.Page;
+
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

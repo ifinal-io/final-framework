@@ -15,7 +15,8 @@ formatter: "@formatter:on"
 
 **`BeanFactoryPostProcessor`是Spring提供的对`BeanFactory`的后置处理器扩展点。**
 
-Spring提供了`BeanFactoryPostProcessor`接口及基扩展接口`BeanDefinitionRegistryPostProcessor`，以便开发者能够分别对`ConfigurableListableBeanFactory`
+Spring提供了`BeanFactoryPostProcessor`接口及基扩展接口`BeanDefinitionRegistryPostProcessor`
+，以便开发者能够分别对`ConfigurableListableBeanFactory`
 和`BeanDefinitionRegistry`进行扩展处理。其类关系如图所示：
 
 ```mermaid
@@ -35,7 +36,8 @@ classDiagram
 
 ### Registration
 
-`BeanFactoryPostProcessor`可以由`ApplicationContext`容器**自动检测**并在`Bean`实例化之前应用；也可以通过编程接口`ConfigurableApplicationContext.addBeanFactoryPostProcessor(BeanFactoryPostProcessor postProcessor)`进行注册。
+`BeanFactoryPostProcessor`可以由`ApplicationContext`容器**自动检测**并在`Bean`
+实例化之前应用；也可以通过编程接口`ConfigurableApplicationContext.addBeanFactoryPostProcessor(BeanFactoryPostProcessor postProcessor)`进行注册。
 
 ### Ordering
 
@@ -76,13 +78,6 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 ## How
 
 ![BeanFactoryPostProcessor](http://assets.processon.com/chart_image/5f9a9292e401fd767b506ac4.png)
-
-
-
-
-
-
-
 
 ```java
 package org.springframework.context.support;
@@ -312,8 +307,6 @@ final class PostProcessorRegistrationDelegate {
 }
 
 ```
-
-
 
 ## Build-In
 

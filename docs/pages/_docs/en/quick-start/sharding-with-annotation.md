@@ -28,7 +28,8 @@ formatter: "@formatter:on"
 ### Inline Sharding Strategy——行表达式分片算法
 
 使用`@InlineShardingStrategy`注解声明行内（`INLINE`）分片（库）策略。使用 Groovy 的表达式，提供对 SQL 语句中的 `=` 和 `IN`
-的分片操作支持，只支持单分片键。 对于简单的分片算法，可以通过简单的配置使用，从而避免繁琐的 Java 代码开发，如: `t_user_$->{u_id % 8}` 表示 `t_user`
+的分片操作支持，只支持单分片键。 对于简单的分片算法，可以通过简单的配置使用，从而避免繁琐的 Java 代码开发，如: `t_user_$->{u_id % 8}`
+表示 `t_user`
 表根据 `u_id` 模 8，而分成 8 张表，表名称为 `t_user_0`
 到 `t_user_7`。
 

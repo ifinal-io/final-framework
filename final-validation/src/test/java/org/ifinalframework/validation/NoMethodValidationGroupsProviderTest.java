@@ -15,13 +15,13 @@
 
 package org.ifinalframework.validation;
 
-import java.util.List;
-
 import org.springframework.util.CollectionUtils;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

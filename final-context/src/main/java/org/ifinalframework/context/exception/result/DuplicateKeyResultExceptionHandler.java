@@ -15,13 +15,14 @@
 
 package org.ifinalframework.context.exception.result;
 
-import org.ifinalframework.core.result.R;
-import org.ifinalframework.core.result.Result;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.core.result.R;
+import org.ifinalframework.core.result.Result;
 
 import java.util.Optional;
 

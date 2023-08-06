@@ -15,11 +15,13 @@
 
 package org.ifinalframework.context.expression;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.expression.BeanFactoryAccessor;
 import org.springframework.context.expression.MapAccessor;
-import org.springframework.expression.*;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.EvaluationException;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.ParserContext;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -30,8 +32,11 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collection;
 import java.util.Objects;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * SpEL(Spring Expression Language)
+ *
  * @author ilikly
  * @version 1.0.0
  * @see SpelExpressionParser
@@ -95,7 +100,8 @@ public final class Spel {
      * @see #equals(Object, Object, Collection, CompareListener)
      * @since 1.3.1
      */
-    public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj, @NonNull Collection<String> expressions) throws EvaluationException {
+    public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj,
+                                 @NonNull Collection<String> expressions) throws EvaluationException {
         return equals(leftObj, rightObj, expressions, null);
     }
 
@@ -110,9 +116,15 @@ public final class Spel {
      * @throws EvaluationException 解析表达式异常
      * @since 1.3.1
      */
-    public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj, @NonNull Collection<String> expressions, @Nullable CompareListener listener) throws EvaluationException {
-        if (Objects.isNull(leftObj) && Objects.isNull(rightObj)) return true;
-        if (Objects.isNull(leftObj) || Objects.isNull(rightObj)) return false;
+    public static boolean equals(@Nullable Object leftObj, @Nullable Object rightObj,
+                                 @NonNull Collection<String> expressions, @Nullable CompareListener listener)
+            throws EvaluationException {
+        if (Objects.isNull(leftObj) && Objects.isNull(rightObj)) {
+            return true;
+        }
+        if (Objects.isNull(leftObj) || Objects.isNull(rightObj)) {
+            return false;
+        }
 
         EvaluationContext leftContext = Spel.wrapContext(leftObj);
         EvaluationContext rightContext = Spel.wrapContext(rightObj);

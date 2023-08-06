@@ -15,16 +15,18 @@
 
 package org.ifinalframework.web.servlet.interceptor;
 
-import org.ifinalframework.core.result.Column;
-import org.ifinalframework.web.annotation.response.ResponseColumn.ResponseColumns;
-import org.ifinalframework.web.annotation.servlet.Interceptor;
-import org.ifinalframework.web.servlet.response.ResponseHelper;
 import org.springframework.lang.NonNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import org.ifinalframework.core.result.Column;
+import org.ifinalframework.web.annotation.response.ResponseColumn.ResponseColumns;
+import org.ifinalframework.web.annotation.servlet.Interceptor;
+import org.ifinalframework.web.servlet.response.ResponseHelper;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -41,18 +43,18 @@ public class ResponseColumnHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NonNull final HttpServletRequest request,
-        @NonNull final HttpServletResponse response,
-        @NonNull final Object handler)
-        throws Exception {
+                             @NonNull final HttpServletResponse response,
+                             @NonNull final Object handler)
+            throws Exception {
 
         if (handler instanceof HandlerMethod && ((HandlerMethod) handler).hasMethodAnnotation(ResponseColumns.class)) {
             ResponseColumns responseColumns = Objects
-                .requireNonNull(((HandlerMethod) handler).getMethodAnnotation(ResponseColumns.class));
+                    .requireNonNull(((HandlerMethod) handler).getMethodAnnotation(ResponseColumns.class));
             ResponseHelper.setResponseColumn(request,
-                Arrays.stream(responseColumns
-                    .value())
-                    .map(it -> new Column(it.key(), it.name(), it.value()))
-                    .collect(Collectors.toList()));
+                    Arrays.stream(responseColumns
+                                    .value())
+                            .map(it -> new Column(it.key(), it.name(), it.value()))
+                            .collect(Collectors.toList()));
 
         }
 

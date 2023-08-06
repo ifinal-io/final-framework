@@ -17,13 +17,13 @@
 package org.ifinalframework.spiriter.jdbc.dao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import org.ifinalframework.mybatis.mapper.AbsMapper;
 import org.ifinalframework.spiriter.jdbc.entity.Columns;
 
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @Mapper

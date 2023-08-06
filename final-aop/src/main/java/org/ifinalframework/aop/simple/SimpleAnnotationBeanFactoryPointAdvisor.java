@@ -38,19 +38,19 @@ public abstract class SimpleAnnotationBeanFactoryPointAdvisor<T> extends AbsGene
     private final Pointcut pointcut;
 
     protected SimpleAnnotationBeanFactoryPointAdvisor(final Collection<Class<? extends Annotation>> annotationTypes,
-        final List<InterceptorHandler<T, Boolean>> handlers) {
+                                                      final List<InterceptorHandler<T, Boolean>> handlers) {
 
         final SimpleAnnotationSource source = new SimpleAnnotationSource(annotationTypes);
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(
-            new DefaultAnnotationMethodInterceptor<>(source, new SimpleMethodInvocationDispatcher<T>(handlers) {
+                new DefaultAnnotationMethodInterceptor<>(source, new SimpleMethodInvocationDispatcher<T>(handlers) {
 
-                @Override
-                protected T getExecutor() {
+                    @Override
+                    protected T getExecutor() {
 
-                    return null;
-                }
-            }));
+                        return null;
+                    }
+                }));
     }
 
     @Override

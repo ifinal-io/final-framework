@@ -15,13 +15,6 @@
 
 package org.ifinalframework.web.servlet.resolver;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -41,6 +34,14 @@ import org.ifinalframework.context.exception.BadRequestException;
 import org.ifinalframework.json.Json;
 import org.ifinalframework.util.Asserts;
 import org.ifinalframework.web.annotation.bind.RequestJsonParam;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.Optional;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -66,9 +67,6 @@ public final class RequestJsonParamHandlerMethodArgumentResolver implements Hand
      * return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam},
      * otherwise {@code false}.
      *
-     * @param parameter the method parameter
-     * @return {@code true} if the {@linkplain MethodParameter parameter} is annotated by {@link RequestJsonParam},
-     * otherwise {@code false}.
      */
     @Override
     public boolean supportsParameter(@NonNull MethodParameter parameter) {

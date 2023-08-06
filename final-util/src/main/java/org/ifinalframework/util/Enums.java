@@ -55,7 +55,7 @@ public final class Enums {
         return Objects.isNull(descValue) ? null : descValue.toString();
     }
 
-    public static String getEnumI18NCode(final Enum<?> value) {
+    public static String getEnumCodeOfI18N(final Enum<?> value) {
         return String.format("%s.%s", value.getClass().getCanonicalName(), value.name().toLowerCase(Locale.ENGLISH));
     }
 

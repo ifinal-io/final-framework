@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class DurationHandlerInterceptorTest {

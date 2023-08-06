@@ -1,50 +1,51 @@
 <nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg navbar-transparent bg-primary"
      color-on-scroll="100"
      id="sectionsNav">
-  <div class="container">
-    <div class="navbar-translate">
-      <a class="navbar-brand" href="{{ site.url }}">{{ site.title}}</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="navbar-toggler-icon"></span>
-        <span class="navbar-toggler-icon"></span>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{site.github}}" target="_blank" rel="noopener"><i class="material-icons">star</i> 点赞关注
-            <div class="ripple-container"></div>
-          </a>
-        </li>
-        <!--I18N-->
-        <li class="nav-item dropdown">
-          {% assign locales = page.path | replace: '_', '' | replace: '.md' : '' | split: '/'%}
-          <a class="nav-item nav-link dropdown-toggle mr-md-2" href="{{page.url}}#" id="bd-versions" data-toggle="dropdown"
-             aria-haspopup="true">
-            <i class="material-icons">translate </i>
-            {% for lang in site.data.langs %}
-            {% if lang.lang == locales[1] %}
-            {{ lang.label }}
-            {% endif %}
-            {% endfor %}
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="{{ site.url }}">{{ site.title}}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{site.github}}" target="_blank" rel="noopener"><i class="material-icons">star</i> 点赞关注
+                        <div class="ripple-container"></div>
+                    </a>
+                </li>
+                <!--I18N-->
+                <li class="nav-item dropdown">
+                    {% assign locales = page.path | replace: '_', '' | replace: '.md' : '' | split: '/'%}
+                    <a class="nav-item nav-link dropdown-toggle mr-md-2" href="{{page.url}}#" id="bd-versions" data-toggle="dropdown"
+                       aria-haspopup="true">
+                        <i class="material-icons">translate </i>
+                        {% for lang in site.data.langs %}
+                        {% if lang.lang == locales[1] %}
+                        {{ lang.label }}
+                        {% endif %}
+                        {% endfor %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
 
-            {% for lang in site.data.langs %}
-            {% if lang.lang == locales[1] %}
-            <a class="dropdown-item active  dropdown-flag-holder" href="{{page.url}}#">{{ lang.label }}</a>
-            {% else %}
-            <a class="dropdown-item  dropdown-flag-holder" href="{{page.url | replace: locales[1] , lang.lang  }}">{{ lang.label }}</a>
-            {% endif %}
-            {% endfor%}
-          </div>
-        </li>
-      </ul>
+                        {% for lang in site.data.langs %}
+                        {% if lang.lang == locales[1] %}
+                        <a class="dropdown-item active  dropdown-flag-holder" href="{{page.url}}#">{{ lang.label }}</a>
+                        {% else %}
+                        <a class="dropdown-item  dropdown-flag-holder" href="{{page.url | replace: locales[1] , lang.lang  }}">{{ lang.label
+                            }}</a>
+                        {% endif %}
+                        {% endfor%}
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 
-  {% include navbar/github-corner.html %}
+    {% include navbar/github-corner.html %}
 
 </nav>

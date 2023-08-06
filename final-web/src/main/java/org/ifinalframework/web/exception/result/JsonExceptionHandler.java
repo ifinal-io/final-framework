@@ -15,13 +15,14 @@
 
 package org.ifinalframework.web.exception.result;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+
 import org.ifinalframework.context.exception.result.ResultExceptionHandler;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.JsonException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 /**
  * Json 异常处理器，将业务层抛出的{@link JsonException}异常包装成 {@link Result}返回给前端。

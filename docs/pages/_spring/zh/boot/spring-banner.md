@@ -123,8 +123,6 @@ SpringApplication.setBannerMode(Mode.OFF);
 
 ### Properties
 
-
-
 ```yaml
 spring:
 	banner:
@@ -132,8 +130,6 @@ spring:
 		image:
 			location: classpath:banner.gif # ImageBanner 资源位置，默认为 classpath:banner.gif(jpg|png)
 ```
-
-
 
 ## When
 
@@ -171,9 +167,10 @@ public class SpringApplication {
 `SpringApplicationBannerPrinter`实现了Banner的加载和打印，核心流程如下：
 
 1. 获取Banner
-   1. `getImageBanner()`：获取`spring.banner.image.location`属性指定的资源，如果未指定，则顺序加载`resources`目录下的`banner.git`、`banner.jpg`、`banner.png`。
-   2. `getTextBanner()`：获取`spring.banner.location`属性指定的资源，默认为`banner.txt`。
-   3. `DEFAULT_BANNER`：由`SpringBootBanner`创建的默认资源。
+    1. `getImageBanner()`：获取`spring.banner.image.location`属性指定的资源，如果未指定，则顺序加载`resources`
+       目录下的`banner.git`、`banner.jpg`、`banner.png`。
+    2. `getTextBanner()`：获取`spring.banner.location`属性指定的资源，默认为`banner.txt`。
+    3. `DEFAULT_BANNER`：由`SpringBootBanner`创建的默认资源。
 2. 打印Banner
 
 ```java
@@ -265,8 +262,6 @@ class SpringApplicationBannerPrinter {
 }
 ```
 
-
-
 ### SpringBootBanner
 
 ```java
@@ -306,12 +301,8 @@ class SpringBootBanner implements Banner {
 }
 ```
 
-
-
 ## Summary
 
 本文叙述了Spring应用Banner的用法及原理，Banner可应用于描述应用的组织、功能或版本信息等。
-
-
 
 [^spring-banner]: Spring Banner 可在[网站](https://www.bootschool.net/ascii)在线生成。

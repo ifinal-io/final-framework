@@ -23,7 +23,7 @@ formatter: "@formatter:on"
 * Use Idea Spring Initializr
 
 1. new project with spring initializr
-   
+
    ![Idea Spring Initializer](../images/quick-start/idea-spring-initializr.png)
 
 2. config new project

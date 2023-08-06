@@ -20,7 +20,7 @@ import org.junit.platform.commons.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ilikly

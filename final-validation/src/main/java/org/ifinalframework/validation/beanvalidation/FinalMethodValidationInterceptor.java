@@ -15,21 +15,24 @@
 
 package org.ifinalframework.validation.beanvalidation;
 
-import lombok.Setter;
-import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.lang.NonNull;
+import org.springframework.util.ClassUtils;
+import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
+
 import org.ifinalframework.validation.GlobalValidationGroupsProvider;
 import org.ifinalframework.validation.MethodValidationGroupsProvider;
 import org.ifinalframework.validation.NoGlobalValidationGroupsProvider;
 import org.ifinalframework.validation.NoMethodValidationGroupsProvider;
-import org.springframework.lang.NonNull;
-import org.springframework.util.ClassUtils;
-import org.springframework.validation.beanvalidation.MethodValidationInterceptor;
+
+import org.aopalliance.intercept.MethodInvocation;
 
 import jakarta.validation.Validator;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import lombok.Setter;
 
 /**
  * FinalMethodValidationInterceptor.
@@ -60,7 +63,8 @@ public class FinalMethodValidationInterceptor extends MethodValidationIntercepto
 
         final List<Class<?>> allValidationGroups = new LinkedList<>(Arrays.asList(determineValidationGroups));
 
-        allValidationGroups.addAll(globalValidationGroupsProvider.getValidationGroups(determineValidationGroups.length > 0 ? determineValidationGroups[0] : null));
+        allValidationGroups.addAll(globalValidationGroupsProvider.getValidationGroups(
+                determineValidationGroups.length > 0 ? determineValidationGroups[0] : null));
         allValidationGroups.addAll(methodValidationGroupsProvider.getValidationGroups(invocation));
 
 

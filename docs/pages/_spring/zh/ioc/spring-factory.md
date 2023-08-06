@@ -11,8 +11,6 @@ formatter: "@formatter:on"
 
 # SpringFactory
 
-
-
 ## What
 
 **`SpringFactory` 是Spring框架内部使用的一种通用的工厂加载机制，用于加载`META-INF/spring.factories`文件内的SPI扩展。**
@@ -27,8 +25,6 @@ formatter: "@formatter:on"
 其中，`loadFactories()`的结果会根据`Ordered`接口及`@Order`和`@Priority`注解指定的`order`值进行排序。
 
 > `META-INF/spring.factories`本质是一个`properties`类型的文件，存储格式为`key=values`，多个value之间用英文‘`,`’分隔。
-
-
 
 ## Usage
 

@@ -15,25 +15,26 @@
 
 package org.ifinalframework.web.servlet.resolver;
 
-import java.util.stream.Stream;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.context.user.DefaultUserSupplier;
+import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.context.user.UserSupplier;
 import org.ifinalframework.data.annotation.AbsUser;
 
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.stream.Stream;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * IUserHandlerMethodArgumentResolverTest.

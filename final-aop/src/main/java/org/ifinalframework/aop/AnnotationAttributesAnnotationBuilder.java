@@ -30,7 +30,7 @@ import java.lang.reflect.Parameter;
  * @since 1.0.0
  */
 public class AnnotationAttributesAnnotationBuilder<A extends Annotation> implements
-    AnnotationBuilder<A, AnnotationAttributes> {
+        AnnotationBuilder<A, AnnotationAttributes> {
 
     @Override
     @NonNull
@@ -53,10 +53,10 @@ public class AnnotationAttributesAnnotationBuilder<A extends Annotation> impleme
     @Override
     @NonNull
     public AnnotationAttributes build(final @NonNull Parameter parameter, final @NonNull Integer index,
-        final @NonNull A annotation) {
+                                      final @NonNull A annotation) {
 
         final AnnotationAttributes annotationAttributes
-            = AnnotationUtils.getAnnotationAttributes(parameter, annotation);
+                = AnnotationUtils.getAnnotationAttributes(parameter, annotation);
         annotationAttributes.put("parameter", parameter);
         annotationAttributes.put("parameterIndex", index);
         return annotationAttributes;

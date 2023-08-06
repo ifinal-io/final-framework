@@ -30,7 +30,7 @@ import org.ifinalframework.core.IException;
 public class MonitorException extends ServiceException {
 
     public MonitorException(final Integer status, final String description, final IException exception,
-        final Object... args) {
+                            final Object... args) {
 
         super(status, description, exception, args);
     }
@@ -41,7 +41,7 @@ public class MonitorException extends ServiceException {
     }
 
     public MonitorException(final Integer status, final String description, final String code, final String message,
-        final Object... args) {
+                            final Object... args) {
 
         super(status, description, code, message, args);
     }

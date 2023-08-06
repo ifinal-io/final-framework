@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringApplicationListener
 public class ApplicationContextInitializedEventListener implements
-    ApplicationListener<ApplicationContextInitializedEvent> {
+        ApplicationListener<ApplicationContextInitializedEvent> {
 
     @Override
     public void onApplicationEvent(final ApplicationContextInitializedEvent event) {

@@ -34,14 +34,14 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class MultiAnnotationFinder implements
-    AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>>, Serializable {
+        AnnotationFinder<Map<Class<? extends Annotation>, Collection<? extends Annotation>>>, Serializable {
 
     private static final long serialVersionUID = -8088506337000616189L;
 
     private final Collection<Class<? extends Annotation>> annotationTypes;
 
     private final Map<Class<? extends Annotation>, SingleAnnotationFinder<? extends Annotation>> finders
-        = new LinkedHashMap<>();
+            = new LinkedHashMap<>();
 
     public MultiAnnotationFinder(final Collection<Class<? extends Annotation>> annotationTypes) {
 
@@ -50,13 +50,13 @@ public class MultiAnnotationFinder implements
 
     @Override
     public Map<Class<? extends Annotation>, Collection<? extends Annotation>> findAnnotations(
-        final @NonNull AnnotatedElement ae) {
+            final @NonNull AnnotatedElement ae) {
 
         final Map<Class<? extends Annotation>, Collection<? extends Annotation>> map = new LinkedHashMap<>();
 
         for (Class<? extends Annotation> annotationType : annotationTypes) {
             final Collection<? extends Annotation> annotations
-                = getAnnotationFinder(annotationType).findAnnotations(ae);
+                    = getAnnotationFinder(annotationType).findAnnotations(ae);
             if (annotations.isEmpty()) {
                 continue;
             }
@@ -68,7 +68,7 @@ public class MultiAnnotationFinder implements
     }
 
     private SingleAnnotationFinder<? extends Annotation> getAnnotationFinder(
-        final Class<? extends Annotation> annotationType) {
+            final Class<? extends Annotation> annotationType) {
 
         return finders.computeIfAbsent(annotationType, SingleAnnotationFinder::new);
     }

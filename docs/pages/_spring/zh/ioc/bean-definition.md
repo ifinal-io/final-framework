@@ -29,8 +29,6 @@ classDiagram
 
 ## 属性
 
-
-
 |     属性      |    类型    | xml  |   Annotation   | 备注 |
 | :-----------: | :--------: | :--: | :------------: | :--: |
 |  `lazyInit`   | `boolean`  |      |    `@Lazy`     |      |

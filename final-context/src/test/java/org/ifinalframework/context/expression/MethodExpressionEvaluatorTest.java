@@ -20,10 +20,10 @@ import org.springframework.expression.EvaluationContext;
 
 import org.ifinalframework.util.Reflections;
 
-import java.lang.reflect.Method;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Method;
 
 /**
  * MethodExpressionEvaluatorTest.
@@ -41,13 +41,13 @@ class MethodExpressionEvaluatorTest {
     @Test
     void test() {
         Method method = Reflections
-            .findRequiredMethod(MethodExpressionEvaluatorTest.class, "method", Long.class, String.class);
+                .findRequiredMethod(MethodExpressionEvaluatorTest.class, "method", Long.class, String.class);
         MethodExpressionEvaluator evaluator = new MethodExpressionEvaluator();
 
         EvaluationContext context = evaluator
-            .createEvaluationContext(method, new Object[]{1L, "name"}, this, MethodExpressionEvaluatorTest.class,
-                method,
-                MethodExpressionEvaluator.NO_RESULT, null);
+                .createEvaluationContext(method, new Object[]{1L, "name"}, this, MethodExpressionEvaluatorTest.class,
+                        method,
+                        MethodExpressionEvaluator.NO_RESULT, null);
 
         Object value = Spel.getValue("#{#id}", context);
 

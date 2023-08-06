@@ -18,11 +18,12 @@ package org.ifinalframework.dubbo.service;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import org.apache.dubbo.config.AbstractInterfaceConfig;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.AbstractInterfaceConfig;
 
 /**
  * DubboProviderApplicationContext.
@@ -36,12 +37,12 @@ public class DubboProviderApplicationContext {
 
     public static void main(String[] args) throws InterruptedException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            "classpath:spring-dubbo-provider.xml");
+                "classpath:spring-dubbo-provider.xml");
 
-//        HelloService helloService = context.getBean(HelloService.class);
+        //        HelloService helloService = context.getBean(HelloService.class);
 
         final ObjectProvider<AbstractInterfaceConfig> beanProvider = context
-            .getBeanProvider(AbstractInterfaceConfig.class);
+                .getBeanProvider(AbstractInterfaceConfig.class);
         final List<AbstractInterfaceConfig> serviceBeans = beanProvider.stream().collect(Collectors.toList());
 
         int i = 0;

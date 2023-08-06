@@ -17,11 +17,11 @@ package org.ifinalframework.context.exception;
 
 import org.ifinalframework.core.IException;
 import org.ifinalframework.core.ResponseStatus;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author ilikly

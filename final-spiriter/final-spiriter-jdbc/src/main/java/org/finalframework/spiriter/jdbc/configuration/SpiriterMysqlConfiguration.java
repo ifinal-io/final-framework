@@ -18,6 +18,7 @@ package org.ifinalframework.spiriter.jdbc.configuration;
 
 
 import org.apache.ibatis.session.Configuration;
+
 import org.ifinalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
 import org.ifinalframework.spiriter.jdbc.dao.mapper.CommonMapper;
 import org.ifinalframework.spiriter.jdbc.dao.mapper.TablesMapper;
@@ -27,10 +28,9 @@ import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
- @Component
+@Component
 public class SpiriterMysqlConfiguration implements ConfigurationCustomizer {
     @Override
     public void customize(Configuration configuration) {

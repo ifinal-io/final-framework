@@ -275,12 +275,12 @@
             <property name="caseIndent" value="4"/>
             <property name="throwsIndent" value="4"/>
             <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="4"/>
+            <property name="arrayInitIndent" value="8"/>
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="0"/>
-            <property name="allowedAbbreviations" value="XML,URL,O"/>
+            <property name="allowedAbbreviations" value="XML,URL,SQL,MDC,I,O"/>
             <property name="tokens"
                       value="CLASS_DEF,  ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF,
@@ -296,7 +296,7 @@
         <!--            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>-->
         <!--        </module>-->
         <module name="ImportOrder">
-            <property name="groups" value="*,org.springframework,org.ifinalframework,org,jakarta,javax,/^java./,lombok"/>
+            <property name="groups" value="*,org.springframework,org.ifinalframework,org,jakarta,javax,java.,lombok"/>
             <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
             <property name="option" value="bottom"/>

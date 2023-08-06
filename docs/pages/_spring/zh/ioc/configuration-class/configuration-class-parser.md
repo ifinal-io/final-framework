@@ -9,8 +9,7 @@ version: 1.0
 formatter: "@formatter:on"
 ---
 
-# ConfigurationParser 
-
+# ConfigurationParser
 
 Spring提供了专用于解析`ConfigurationClass`的工具类`ConfigurationClassParser`。
 

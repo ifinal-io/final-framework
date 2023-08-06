@@ -19,11 +19,11 @@
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @SpringFactory(value = Service.class, expand = true)
 package org.ifinalframework.spiriter.jdbc.service.impl;
 
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
+
 import org.springframework.stereotype.Service;

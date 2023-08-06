@@ -26,7 +26,7 @@ import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**

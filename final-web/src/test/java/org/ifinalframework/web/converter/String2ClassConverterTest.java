@@ -15,11 +15,6 @@
 
 package org.ifinalframework.web.converter;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.ifinalframework.context.exception.NotFoundException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -27,8 +22,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.ifinalframework.context.exception.NotFoundException;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * String2ClassConverterTest.
@@ -42,9 +43,12 @@ class String2ClassConverterTest {
     private final String2ClassConverter converter = new String2ClassConverter();
 
     @ParameterizedTest
-    @ValueSource(classes = {RestController.class, Controller.class,
-            Component.class, Service.class, Configuration.class,
-            EnableAutoConfiguration.class, Aspect.class})
+    @ValueSource(
+            classes = {
+                    RestController.class, Controller.class,
+                    Component.class, Service.class, Configuration.class,
+                    EnableAutoConfiguration.class, Aspect.class
+            })
     void convert(Class clazz) {
 
         assertEquals(clazz, converter.convert(clazz.getSimpleName()));

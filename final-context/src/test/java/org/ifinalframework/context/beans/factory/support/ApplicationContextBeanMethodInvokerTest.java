@@ -1,15 +1,15 @@
 package org.ifinalframework.context.beans.factory.support;
 
+import org.springframework.context.ApplicationContext;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author ilikly
@@ -39,7 +39,7 @@ class ApplicationContextBeanMethodInvokerTest {
         when(applicationContext.getBean(anyString())).thenReturn(bean);
         when(applicationContext.getBean(ApplicationContextBeanMethodInvokerTest.class)).thenReturn(bean);
 
-//        assertEquals(value, invoker.invoke(bean, methodName, null, null));
+        //        assertEquals(value, invoker.invoke(bean, methodName, null, null));
         assertEquals(value, invoker.invoke(bean, methodName, parameterTypes, args));
         assertEquals(value, invoker.invoke(bean, methodName, parameterTypes, args));
 

@@ -35,7 +35,7 @@ class ConfigurationClassUtilsTest {
     @Test
     void isConfigurationCandidate() {
         Assertions.assertTrue(
-            ConfigurationClassUtils.isConfigurationCandidate(AnnotationMetadata.introspect(FinalFramework.class)));
+                ConfigurationClassUtils.isConfigurationCandidate(AnnotationMetadata.introspect(FinalFramework.class)));
     }
 
 }

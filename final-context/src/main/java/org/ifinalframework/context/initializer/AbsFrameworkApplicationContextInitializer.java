@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class AbsFrameworkApplicationContextInitializer<C extends ConfigurableApplicationContext> implements
-    ApplicationContextInitializer<C> {
+        ApplicationContextInitializer<C> {
 
     private final Class<?> framework;
 
@@ -51,7 +51,7 @@ public abstract class AbsFrameworkApplicationContextInitializer<C extends Config
     @Override
     public void initialize(final @NonNull C context) {
         BeanDefinitionReaderUtils.registerWithGeneratedName(new AnnotatedGenericBeanDefinition(framework),
-            getBeanDefinitionRegistry(context));
+                getBeanDefinitionRegistry(context));
     }
 
     /**

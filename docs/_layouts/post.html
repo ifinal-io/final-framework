@@ -10,193 +10,194 @@
 
 <!-- Extra details for Live View on GitHub Pages -->
 <div class="wrapper" id="post">
-  <div class="main-panel blog-posts">
-    {% include sidebar/sidebar.html %}
-    <!-- Navbar -->
-    {% include navbar/navbar.html %}
-    <!-- End Navbar -->
+    <div class="main-panel blog-posts">
+        {% include sidebar/sidebar.html %}
+        <!-- Navbar -->
+        {% include navbar/navbar.html %}
+        <!-- End Navbar -->
 
 
-    <div class="page-header header-filter header-small card-background" data-parallax="true"
-         style="background-image: url('{{ page.banner }}');transform: translate3d(0px, 0px, 0px);min-height: 400px;max-height: 600px">
-      <div class="container" style="height: auto">
-        <div class="row">
-          <div class="col-md-8 ml-auto mr-auto text-center">
-            <h1 class="title text-white" style="font-family: Metropolis,sans-serif">{{page.title}}</h1>
-            <h4>{{page.summary | markdownify }}</h4>
-            <div>共<span class="badge badge-info">{{ page.content | number_of_words }}</span>字，用时约<span class="badge badge-success">{{page.content | number_of_words | divided_by: 100}}</span>分。
-            </div>
-            <br>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="main main-raised">
-
-      <div class="card">
-
-        <div class="card-header card-header-success">
-
-          <div class="container-fluid">
-
-            <div class="row">
-              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
-              </div>
-              <div class="col-xl-8 col-lg-12  ">
-                <div class="card-stats">
-                  <div class="author">
-                    <a href="#pablo">
-                      <img
-                          src="{{site.data.authors[page.author].avatar}}"
-                          alt="..." class="avatar img-raised">
-                      <span>{{ page.author }}</span>
-                    </a>
-                  </div>
-                  <div class="stats ml-auto">
-                    <i class="material-icons">article</i> {{ page.content | number_of_words }} &#xB7;
-                    <i class="material-icons">pending_actions</i> {{page.content | number_of_words | divided_by: 100}}
-                  </div>
+        <div class="page-header header-filter header-small card-background" data-parallax="true"
+             style="background-image: url('{{ page.banner }}');transform: translate3d(0px, 0px, 0px);min-height: 400px;max-height: 600px">
+            <div class="container" style="height: auto">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto text-center">
+                        <h1 class="title text-white" style="font-family: Metropolis,sans-serif">{{page.title}}</h1>
+                        <h4>{{page.summary | markdownify }}</h4>
+                        <div>共<span class="badge badge-info">{{ page.content | number_of_words }}</span>字，用时约<span
+                                class="badge badge-success">{{page.content | number_of_words | divided_by: 100}}</span>分。
+                        </div>
+                        <br>
+                    </div>
                 </div>
-              </div>
             </div>
-
-          </div>
-
-
         </div>
+        <div class="main main-raised">
 
-        <div class="card-body">
-          <div class="container-fluid">
-            <div class="row flex-md-nowrap markdown" style="padding: 1em;padding-top: 30px;min-height: 50vh">
-              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
-              </div>
-              <article class="col-xl-8 col-lg-12  ">
-                {{ content }}
-              </article>
-              <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2" style="top: 100px;padding-top: 2em;">
-                <div style="border-left: 1px #9c27b0  solid;padding-left: 1em">
-                  <div class="toc" id="toc">
-                  </div>
+            <div class="card">
+
+                <div class="card-header card-header-success">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+                            </div>
+                            <div class="col-xl-8 col-lg-12  ">
+                                <div class="card-stats">
+                                    <div class="author">
+                                        <a href="#pablo">
+                                            <img
+                                                    src="{{site.data.authors[page.author].avatar}}"
+                                                    alt="..." class="avatar img-raised">
+                                            <span>{{ page.author }}</span>
+                                        </a>
+                                    </div>
+                                    <div class="stats ml-auto">
+                                        <i class="material-icons">article</i> {{ page.content | number_of_words }} &#xB7;
+                                        <i class="material-icons">pending_actions</i> {{page.content | number_of_words | divided_by: 100}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
 
-              </div>
-            </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row flex-md-nowrap markdown" style="padding: 1em;padding-top: 30px;min-height: 50vh">
+                            <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2">
+                            </div>
+                            <article class="col-xl-8 col-lg-12  ">
+                                {{ content }}
+                            </article>
+                            <div class="d-none d-xl-block col-lg-2 sticky-top flex-order-2" style="top: 100px;padding-top: 2em;">
+                                <div style="border-left: 1px #9c27b0  solid;padding-left: 1em">
+                                    <div class="toc" id="toc">
+                                    </div>
+                                </div>
 
-          </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-      </div>
+        {% include footer.html %}
     </div>
-
-    {% include footer.html %}
-  </div>
 </div>
 <div id="snowbox"/>
 {% include plugins/fixed.html %}
 <script>
 
-  $(document).ready(function () {
-        mermaid.initialize({
-          theme: 'forest',
-          sequence: {
-            showSequenceNumbers: true
-          },
-          er: {
-            fontSize: 18
-          }
-        });
-        mermaid.init({}, ".language-mermaid, .language-sequence");
+    $(document).ready(function () {
+            mermaid.initialize({
+                theme: 'forest',
+                sequence: {
+                    showSequenceNumbers: true
+                },
+                er: {
+                    fontSize: 18
+                }
+            });
+            mermaid.init({}, ".language-mermaid, .language-sequence");
 
-        $sidebar = $('.sidebar');
+            $sidebar = $('.sidebar');
 
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
+            $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-        $full_page = $('.full-page');
+            $full_page = $('.full-page');
 
-        $sidebar_responsive = $('body > .navbar-collapse');
+            $sidebar_responsive = $('body > .navbar-collapse');
 
-        window_width = $(window).width();
+            window_width = $(window).width();
 
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-            $('.fixed-plugin .dropdown').addClass('open');
-          }
+            if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                    $('.fixed-plugin .dropdown').addClass('open');
+                }
+
+            }
+
+            $('.fixed-plugin a').click(function (event) {
+                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                if ($(this).hasClass('switch-trigger')) {
+                    if (event.stopPropagation) {
+                        event.stopPropagation();
+                    } else if (window.event) {
+                        window.event.cancelBubble = true;
+                    }
+                }
+            });
+            // $('.fixed-plugin .background-color .badge').click(function () {
+            //     $(this).siblings().removeClass('active');
+            //     $(this).addClass('active');
+            //
+            //     var new_color = $(this).data('background-color');
+            //
+            //     if ($sidebar.length != 0) {
+            //         $sidebar.attr('data-background-color', new_color);
+            //     }
+            // });
+
+            $('.switch-sidebar-image input').change(function () {
+                $full_page_background = $('.full-page-background');
+                $input = $(this);
+
+                if ($input.is(':checked')) {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar_img_container.fadeIn('fast');
+                        $sidebar.attr('data-image', '#');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                        $full_page_background.fadeIn('fast');
+                        $full_page.attr('data-image', '#');
+                    }
+
+                    background_image = true;
+                } else {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar.removeAttr('data-image');
+                        $sidebar_img_container.fadeOut('fast');
+                    }
+
+                    if ($full_page_background.length != 0) {
+                        $full_page.removeAttr('data-image', '#');
+                        $full_page_background.fadeOut('fast');
+                    }
+
+                    background_image = false;
+                }
+            });
 
         }
-
-        $('.fixed-plugin a').click(function (event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-        // $('.fixed-plugin .background-color .badge').click(function () {
-        //     $(this).siblings().removeClass('active');
-        //     $(this).addClass('active');
-        //
-        //     var new_color = $(this).data('background-color');
-        //
-        //     if ($sidebar.length != 0) {
-        //         $sidebar.attr('data-background-color', new_color);
-        //     }
-        // });
-
-        $('.switch-sidebar-image input').change(function () {
-          $full_page_background = $('.full-page-background');
-          $input = $(this);
-
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
-
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
-
-            background_image = false;
-          }
-        });
-
-      }
-  );
+    );
 </script>
 <!-- 飘雪花 -->
 <script type="text/javascript">
-  $(function () {
-    // $.fn.snow({
-    //   minSize: 3, /* 定义雪花最小尺寸 */
-    //   maxSize: 66,/* 定义雪花最大尺寸 */
-    //   newOn: 666  /* 定义密集程度，数字越小越密集 */
-    // });
+    $(function () {
+        // $.fn.snow({
+        //   minSize: 3, /* 定义雪花最小尺寸 */
+        //   maxSize: 66,/* 定义雪花最大尺寸 */
+        //   newOn: 666  /* 定义密集程度，数字越小越密集 */
+        // });
 
-    // 每张图片居中处理
-    // $("img[loading='lazy']").parent("p").css("text-align","center");
-    $("#topics p img").wrap("<div style='text-align:center;'></div>");
-  });
-  var getRandomColor = function () {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }
+        // 每张图片居中处理
+        // $("img[loading='lazy']").parent("p").css("text-align","center");
+        $("#topics p img").wrap("<div style='text-align:center;'></div>");
+    });
+    var getRandomColor = function () {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
 </script>
 </body>
 {% include plugins/toc.html container="#toc" %}

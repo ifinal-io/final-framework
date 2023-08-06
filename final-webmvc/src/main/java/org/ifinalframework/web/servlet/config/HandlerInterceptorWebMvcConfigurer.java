@@ -15,8 +15,6 @@
 
 package org.ifinalframework.web.servlet.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.web.annotation.servlet.Interceptor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -31,9 +29,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import org.ifinalframework.web.annotation.servlet.Interceptor;
+
 import jakarta.servlet.Servlet;
+
 import java.util.List;
 import java.util.function.Predicate;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A {@link WebMvcConfigurer} could auto-detects {@link HandlerInterceptor}s witch annotated by {@link Component}.

@@ -49,13 +49,13 @@ public final class Maps {
         for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
             if (result.isEmpty()) {
                 entry.getValue()
-                    .stream()
-                    .map(it -> {
-                        final Map<K, V> item = new LinkedHashMap<>();
-                        item.put(entry.getKey(), it);
-                        return item;
-                    })
-                    .forEach(result::add);
+                        .stream()
+                        .map(it -> {
+                            final Map<K, V> item = new LinkedHashMap<>();
+                            item.put(entry.getKey(), it);
+                            return item;
+                        })
+                        .forEach(result::add);
             } else {
                 final Collection<Map<K, V>> list = new LinkedList<>();
                 for (Map<K, V> loop : result) {

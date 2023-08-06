@@ -34,7 +34,6 @@ public class HelloController {
 
 访问上述定义的接口 `http://localhost:8080/hello?word=final!` 将得到以下结果：
 
-
 ```json
 {
   "status": 0,

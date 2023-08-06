@@ -39,14 +39,14 @@ public class MultiAnnotationSource<E> implements AnnotationSource<Map<Class<? ex
     private final Map<Class<? extends Annotation>, AnnotationSource<Collection<E>>> sourceMap = new LinkedHashMap<>();
 
     public void addAnnotationSource(final Class<? extends Annotation> annotationType,
-        final AnnotationSource<Collection<E>> source) {
+                                    final AnnotationSource<Collection<E>> source) {
 
         sourceMap.put(annotationType, source);
     }
 
     @Override
     public Map<Class<? extends Annotation>, Collection<E>> getAnnotations(final Method method,
-        final Class<?> targetClass) {
+                                                                          final Class<?> targetClass) {
 
         final Object cacheKey = getCacheKey(method, targetClass);
 

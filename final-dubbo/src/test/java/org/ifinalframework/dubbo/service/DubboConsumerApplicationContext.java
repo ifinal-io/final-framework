@@ -31,7 +31,7 @@ public class DubboConsumerApplicationContext {
 
     public static void main(String[] args) throws InterruptedException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            "classpath:spring-dubbo-consumer.xml");
+                "classpath:spring-dubbo-consumer.xml");
 
         HelloService helloService = context.getBean(HelloService.class);
         while (true) {

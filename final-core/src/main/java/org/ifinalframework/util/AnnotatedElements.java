@@ -43,7 +43,7 @@ public final class AnnotatedElements {
      * @return Annotations
      */
     public static <A extends Annotation> Collection<A> findAllAnnotations(final @NonNull AnnotatedElement ae,
-        final @NonNull Class<A> annType) {
+                                                                          final @NonNull Class<A> annType) {
 
         return AnnotatedElementUtils.findAllMergedAnnotations(ae, annType);
     }
@@ -57,7 +57,7 @@ public final class AnnotatedElements {
      * @return Annotations
      */
     public static <A extends Annotation> Collection<A> getAllLocalAnnotations(final @NonNull AnnotatedElement ae,
-        final @NonNull Class<A> annType) {
+                                                                              final @NonNull Class<A> annType) {
 
         return AnnotatedElementUtils.getAllMergedAnnotations(ae, annType);
     }

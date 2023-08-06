@@ -15,9 +15,6 @@
 
 package org.ifinalframework.context.result.consumer;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -26,6 +23,9 @@ import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.context.user.UserContextHolder;
 import org.ifinalframework.context.user.UserSupplier;
 import org.ifinalframework.core.result.Result;
+
+import java.util.List;
+import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 

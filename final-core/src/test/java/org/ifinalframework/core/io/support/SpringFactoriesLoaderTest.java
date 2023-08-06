@@ -16,10 +16,10 @@
 
 package org.ifinalframework.core.io.support;
 
-import org.junit.jupiter.api.Test;
-
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.support.SpringFactoriesLoader;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
  */
 @SuppressWarnings("unchcked")
 @RequiredArgsConstructor
-public enum FinalContext implements AutoCloseable  {
+public enum FinalContext implements AutoCloseable {
     TENANT("tenant", "租户"),
     SCOPE("scope", "作用域"),
     ;

@@ -44,8 +44,6 @@ Spring将符合以下规则的`BeanDefinition`称为**配置类(`ConfigurationCl
     * Import
     * ImportResource
 
-
-
 ## Target
 
 从本节开始，将通过源码分析的方式解决以下问题：

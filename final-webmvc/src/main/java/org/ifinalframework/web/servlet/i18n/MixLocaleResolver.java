@@ -15,17 +15,20 @@
 
 package org.ifinalframework.web.servlet.i18n;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.ifinalframework.util.Asserts;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
+import org.ifinalframework.util.Asserts;
+
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author ilikly
@@ -36,7 +39,7 @@ import java.util.Locale;
  */
 @Setter
 @Getter
-public class I18NLocaleResolver extends CookieLocaleResolver {
+public class MixLocaleResolver extends CookieLocaleResolver {
 
     private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 

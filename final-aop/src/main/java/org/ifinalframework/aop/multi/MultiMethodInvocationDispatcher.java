@@ -35,19 +35,19 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public abstract class MultiMethodInvocationDispatcher<E, A> implements
-    MethodInvocationDispatcher<Map<Class<? extends Annotation>, Collection<A>>> {
+        MethodInvocationDispatcher<Map<Class<? extends Annotation>, Collection<A>>> {
 
     private final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers;
 
     public MultiMethodInvocationDispatcher(
-        final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers) {
+            final MultiValueMap<Class<? extends Annotation>, InterceptorHandler<E, A>> handlers) {
 
         this.handlers = handlers;
     }
 
     @Override
     public Object before(final @NonNull InvocationContext context,
-        final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations) {
+                         final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
@@ -74,8 +74,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
 
     @Override
     public void afterReturning(final @NonNull InvocationContext context,
-        final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations,
-        final Object result) {
+                               final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations,
+                               final Object result) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
@@ -96,8 +96,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
 
     @Override
     public void afterThrowing(final @NonNull InvocationContext context,
-        final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations,
-        final @NonNull Throwable throwable) {
+                              final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations,
+                              final @NonNull Throwable throwable) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();
@@ -118,8 +118,8 @@ public abstract class MultiMethodInvocationDispatcher<E, A> implements
 
     @Override
     public void after(final @NonNull InvocationContext context,
-        final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, final Object result,
-        final Throwable throwable) {
+                      final @NonNull Map<Class<? extends Annotation>, Collection<A>> annotations, final Object result,
+                      final Throwable throwable) {
 
         for (Map.Entry<Class<? extends Annotation>, List<InterceptorHandler<E, A>>> entry : handlers.entrySet()) {
             final List<InterceptorHandler<E, A>> annotationHandlers = entry.getValue();

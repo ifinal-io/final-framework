@@ -15,8 +15,6 @@ formatter: "@formatter:on"
 
 SpringBoot极大的简化了Spring程序的配置，遵循**约定大于配置**的规约，为Java开发者提供了大量**开箱即用**的组件。
 
-
-
 ## Contents
 
 * [Hello World](hello-world.md)

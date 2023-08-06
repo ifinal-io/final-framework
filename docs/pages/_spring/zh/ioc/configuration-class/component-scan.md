@@ -143,8 +143,6 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
 ### doScan
 
-
-
 ## Options
 
 | option               | 类型      | 说明           | 默认         |

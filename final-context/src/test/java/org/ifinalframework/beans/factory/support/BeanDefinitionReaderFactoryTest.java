@@ -25,8 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ilikly
@@ -39,7 +38,8 @@ class BeanDefinitionReaderFactoryTest {
     @Test
     void create() {
 
-        BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(), new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
+        BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(),
+                new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
 
         assertInstanceOf(XmlBeanDefinitionReader.class, factory.create("*.xml"));
         assertInstanceOf(GroovyBeanDefinitionReader.class, factory.create("*.groovy"));
@@ -49,7 +49,8 @@ class BeanDefinitionReaderFactoryTest {
     @Test
     void exception() {
         System.setProperty("spring.xml.ignore", "true");
-        BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(), new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
+        BeanDefinitionReaderFactory factory = new BeanDefinitionReaderFactory(new StandardEnvironment(),
+                new PathMatchingResourcePatternResolver(), new AnnotationConfigApplicationContext());
 
         assertThrows(UnsupportedOperationException.class, () -> factory.create("*.xml"));
 

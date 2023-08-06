@@ -15,11 +15,11 @@
 
 package org.ifinalframework.util;
 
-import org.slf4j.helpers.MessageFormatter;
-
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
+
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.Collection;
 import java.util.Map;

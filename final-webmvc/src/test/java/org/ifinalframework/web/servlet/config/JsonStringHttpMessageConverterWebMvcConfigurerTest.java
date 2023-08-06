@@ -15,9 +15,6 @@
 
 package org.ifinalframework.web.servlet.config;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 
@@ -25,7 +22,10 @@ import org.ifinalframework.http.converter.JsonStringHttpMessageConverter;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JsonStringHttpMessageConverterWebMvcConfigurerTest.

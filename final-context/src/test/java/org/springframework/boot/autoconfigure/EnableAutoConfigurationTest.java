@@ -15,11 +15,13 @@
 
 package org.springframework.boot.autoconfigure;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zhimin.guo
@@ -29,7 +31,8 @@ import java.util.List;
 class EnableAutoConfigurationTest {
     @Test
     void test() {
-        List<String> names = SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class, EnableAutoConfiguration.class.getClassLoader());
+        List<String> names = SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class,
+                EnableAutoConfiguration.class.getClassLoader());
         names.forEach(logger::info);
     }
 }

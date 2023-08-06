@@ -46,7 +46,8 @@ public interface TypeFilter {
 
 ### ClassPathBeanDefinitionScanner
 
-在`ClassPathBeanDefinitionScanner`构造方法中，当参数`useDefaultFilters`为`true`时，会调用`registerDefaultFilters()`方法，在`ClassPathBeanDefinitionScanner
+在`ClassPathBeanDefinitionScanner`构造方法中，当参数`useDefaultFilters`为`true`时，会调用`registerDefaultFilters()`
+方法，在`ClassPathBeanDefinitionScanner
 (BeanDefinitionRegistry registry)`构造方法中，`useDefaultFilters`也默认为`true`。
 
 ```java
@@ -88,7 +89,8 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 
 #### registerDefaultFilters()
 
-在父类的`registerDefaultFilters()`方法中，注册了几个基于注释的过滤器`AnnotationTypeFilter`。 除了Spring的`@Component`注释，与其同时，还尝试注册JSR-250的`@ManagedBean`和JSR-330
+在父类的`registerDefaultFilters()`方法中，注册了几个基于注释的过滤器`AnnotationTypeFilter`。 除了Spring的`@Component`
+注释，与其同时，还尝试注册JSR-250的`@ManagedBean`和JSR-330
 的`@Named`。
 
 ```java

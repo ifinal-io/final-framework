@@ -17,26 +17,29 @@
 package org.ifinalframework.spiriter.jdbc.api.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+
 import org.ifinalframework.data.query.Query;
 import org.ifinalframework.spiriter.jdbc.dao.mapper.ColumnsMapper;
 import org.ifinalframework.spiriter.jdbc.dao.query.QColumns;
 import org.ifinalframework.spiriter.jdbc.entity.Columns;
 import org.ifinalframework.spiriter.jdbc.query.ColumnsQuery;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.Resource;
+
 import java.util.List;
 
 
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @RestController

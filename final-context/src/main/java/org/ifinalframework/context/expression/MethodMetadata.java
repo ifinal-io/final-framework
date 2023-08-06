@@ -53,7 +53,7 @@ public class MethodMetadata {
         this.genericReturnType = method.getGenericReturnType();
         this.targetClass = targetClass;
         this.targetMethod = !Proxy.isProxyClass(targetClass)
-            ? AopUtils.getMostSpecificMethod(method, targetClass) : this.method;
+                ? AopUtils.getMostSpecificMethod(method, targetClass) : this.method;
         this.methodKey = new AnnotatedElementKey(this.targetMethod, targetClass);
     }
 

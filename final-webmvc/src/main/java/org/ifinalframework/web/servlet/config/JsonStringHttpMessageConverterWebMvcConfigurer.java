@@ -15,15 +15,17 @@
 
 package org.ifinalframework.web.servlet.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.http.converter.JsonStringHttpMessageConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import org.ifinalframework.http.converter.JsonStringHttpMessageConverter;
+
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Warp the {@link StringHttpMessageConverter} with {@link JsonStringHttpMessageConverter}.

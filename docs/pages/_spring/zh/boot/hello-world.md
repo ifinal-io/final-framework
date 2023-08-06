@@ -79,7 +79,8 @@ public @interface SpringBootApplication {
 ```
 
 `@ComponentScan`实现了在 `Spring MVC` 时代的 Spring XML 配置文件 `<context:component-scan>` 节点的Java代码支持，再加上 `@AliasFor` 注解，暂且可以断定
-`@SpringBootApplication` 启到了相同的作用，实现了组件扫描的功能。那么剩下的`SpringApplication.run(FinalApplication.class);`应该就是启动 Spring 容器 并初始化 WEB 环境了。
+`@SpringBootApplication` 启到了相同的作用，实现了组件扫描的功能。那么剩下的`SpringApplication.run(FinalApplication.class);`应该就是启动 Spring
+容器 并初始化 WEB 环境了。
 
 > 事实上也确实如此。
 

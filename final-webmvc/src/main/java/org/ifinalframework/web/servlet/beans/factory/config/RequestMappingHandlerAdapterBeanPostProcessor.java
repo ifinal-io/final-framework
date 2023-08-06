@@ -15,7 +15,6 @@
 
 package org.ifinalframework.web.servlet.beans.factory.config;
 
-import org.ifinalframework.web.servlet.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.NonNull;
@@ -23,6 +22,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+
+import org.ifinalframework.web.servlet.resolver.RequestJsonParamHandlerMethodArgumentResolver;
 
 import java.util.ArrayList;
 import java.util.Collections;

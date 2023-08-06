@@ -17,13 +17,13 @@ package org.ifinalframework.velocity;
 
 import ch.qos.logback.classic.Level;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.io.StringWriter;
 import java.io.Writer;

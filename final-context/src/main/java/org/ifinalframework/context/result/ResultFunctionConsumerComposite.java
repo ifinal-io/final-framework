@@ -15,9 +15,9 @@
 
 package org.ifinalframework.context.result;
 
-import org.ifinalframework.core.result.Result;
-
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.core.result.Result;
 
 import java.util.List;
 import java.util.function.Function;

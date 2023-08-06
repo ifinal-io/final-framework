@@ -15,22 +15,29 @@
 
 package org.ifinalframework.context.expression;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.json.Json;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.ObjectUtils;
 
-import java.util.*;
+import org.ifinalframework.json.Json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * SpelTest.
@@ -84,9 +91,8 @@ class SpelTest {
         Spel.setValue("ext.name", context, "aaaa");
 
         logger.info("ext.name={}", Spel.getValue("#{ext.name}", context));
-        logger.info("date={}", Spel.getValue(
-                "#{ext.containsKey('date') ? new java.text.SimpleDateFormat('yyyy-MM-dd').format(ext.date) : ''}",
-                context));
+        final String expression = "#{ext.containsKey('date') ? new java.text.SimpleDateFormat('yyyy-MM-dd').format(ext.date) : ''}";
+        logger.info("date={}", Spel.getValue(expression, context));
 
     }
 
@@ -94,7 +100,7 @@ class SpelTest {
     void getValueFromMap() {
         Map<String, Object> params = new HashMap<>();
         params.put("name", "xiaoMing");
-//        params.put("age", 12);
+        //        params.put("age", 12);
         assertEquals(params.get("name"), Spel.getValue("#{name}", params));
         assertEquals(params.get("age"), Spel.getValue("#{age}", params));
 
@@ -115,11 +121,54 @@ class SpelTest {
     }
 
     @ParameterizedTest
-    @ValueSource(
-            strings = {"#{['data'][0]['shopCode']}"}
-    )
+    @ValueSource(strings = {"#{['data'][0]['shopCode']}"})
     void test2(String expression) {
-        final String json = "{\"data\": [{\"id\": 20936066, \"yn\": 1, \"mart\": \"bjwm\", \"skuId\": 100929389, \"status\": 14, \"barCode\": \"6971460180066\", \"bizType\": 0, \"created\": 1590484875000, \"storeId\": 13558, \"baseUnit\": \"EA\", \"createId\": \"sap\", \"modified\": 1616489347000, \"shopCode\": \"8632\", \"shopName\": \"明光村店(筹备中)\", \"shopType\": \"S\", \"statusCn\": \"4\", \"updateId\": \"郑涛\", \"customize\": {\"consignForSale\": false, \"existOrderUnit\": true}, \"goodsCode\": \"926053\", \"goodsName\": \"微波鲜玉米\", \"orderUnit\": \"EA\", \"deliveryType\": 1, \"purchaseUnit\": \"EA\", \"supplierCode\": \"DC15\", \"supplierName\": \"大兴冷冻冷藏日配库\", \"categoryCode0\": \"P20\", \"categoryCode1\": \"UF2\", \"categoryCode2\": \"285-001\", \"outSupplierCode\": \"334310\", \"outSupplierName\": \"小丁家（北京）农业科技有限公司\"}], \"mart\": \"bjwm\", \"groupId\": 1142, \"venderId\": 1, \"timestamp\": 1619911098680, \"storeCreditCode\": \"\"}";
+        final String json = """
+                {
+                    "data":[
+                        {
+                            "id":20936066,
+                            "yn":1,
+                            "mart":"bjwm",
+                            "skuId":100929389,
+                            "status":14,
+                            "barCode":"6971460180066",
+                            "bizType":0,
+                            "created":1590484875000,
+                            "storeId":13558,
+                            "baseUnit":"EA",
+                            "createId":"sap",
+                            "modified":1616489347000,
+                            "shopCode":"8632",
+                            "shopName":"明光村店(筹备中)",
+                            "shopType":"S",
+                            "statusCn":"4",
+                            "updateId":"郑涛",
+                            "customize":{
+                                "consignForSale":false,
+                                "existOrderUnit":true
+                            },
+                            "goodsCode":"926053",
+                            "goodsName":"微波鲜玉米",
+                            "orderUnit":"EA",
+                            "deliveryType":1,
+                            "purchaseUnit":"EA",
+                            "supplierCode":"DC15",
+                            "supplierName":"大兴冷冻冷藏日配库",
+                            "categoryCode0":"P20",
+                            "categoryCode1":"UF2",
+                            "categoryCode2":"285-001",
+                            "outSupplierCode":"334310",
+                            "outSupplierName":"小丁家（北京）农业科技有限公司"
+                        }
+                    ],
+                    "mart":"bjwm",
+                    "groupId":1142,
+                    "venderId":1,
+                    "timestamp":1619911098680,
+                    "storeCreditCode":""
+                }
+                """;
 
         Object object = Json.toObject(json);
 

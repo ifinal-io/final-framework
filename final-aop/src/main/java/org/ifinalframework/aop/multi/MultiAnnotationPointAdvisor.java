@@ -46,19 +46,19 @@ public abstract class MultiAnnotationPointAdvisor<A, E> extends AbsGenericPointc
     public MultiAnnotationPointAdvisor() {
         this.pointcut = new AnnotationSourceMethodPoint(source);
         this.setAdvice(
-            new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
-                @Override
-                @NonNull
-                protected E getExecutor(final A annotation) {
+                new DefaultAnnotationMethodInterceptor<>(source, new MultiMethodInvocationDispatcher<E, A>(handlers) {
+                    @Override
+                    @NonNull
+                    protected E getExecutor(final A annotation) {
 
-                    return MultiAnnotationPointAdvisor.this.getExecutor(annotation);
-                }
-            }));
+                        return MultiAnnotationPointAdvisor.this.getExecutor(annotation);
+                    }
+                }));
     }
 
     public <T extends Annotation> void addAnnotation(final Class<T> annotationType,
-        final AnnotationBuilder<T, A> builder,
-        final InterceptorHandler<E, A> handler) {
+                                                     final AnnotationBuilder<T, A> builder,
+                                                     final InterceptorHandler<E, A> handler) {
 
         this.source.addAnnotationSource(annotationType, new SingleAnnotationSource<>(annotationType, builder));
         this.handlers.add(annotationType, handler);

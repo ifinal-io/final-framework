@@ -13,14 +13,16 @@ formatter: "@formatter:on"
 
 ## 概述
 
-在[Spring 应用启动流程](../../boot/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`或扩展文件`spring.factories`
+在[Spring 应用启动流程](../../boot/spring-application.md)一文中，了解到Spring应用在启动时，可通过高级启动模式中的`addListeners`
+或扩展文件`spring.factories`
 来注册应用监听器（`ApplicationListener`）。
 
 那么，什么是应用监听器呢？
 
 ## 监听器
 
-**应用监听器（`ApplicationListener`） 是 Spring 提供的 `SPI` 扩展点之一，用于监听容器内发生的事件（`ApplicationEvent`），定义了一个处理应用事件的回调方法`onApplicationEvent(Event)`。**
+**应用监听器（`ApplicationListener`） 是 Spring 提供的 `SPI` 扩展点之一，用于监听容器内发生的事件（`ApplicationEvent`
+），定义了一个处理应用事件的回调方法`onApplicationEvent(Event)`。**
 
 基定义如下：
 

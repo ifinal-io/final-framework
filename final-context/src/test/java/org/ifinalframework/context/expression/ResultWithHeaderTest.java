@@ -22,6 +22,8 @@ import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,7 +35,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 /**
  * ResultWithHeaderTest.
@@ -48,26 +49,26 @@ class ResultWithHeaderTest {
     @Test
     void test() {
         List<Column> header = Arrays.asList(
-            new Column("name", "姓名", "#{name}"),
-            new Column("age", "年龄", "<span class=\"badge badge-danger\">#{age}岁</span>")
+                new Column("name", "姓名", "#{name}"),
+                new Column("age", "年龄", "<span class=\"badge badge-danger\">#{age}岁</span>")
         );
 
         List<Person> list = Arrays.asList(
-            new Person("xiaoMing", 12),
-            new Person("xiaoHong", 18)
+                new Person("xiaoMing", 12),
+                new Person("xiaoHong", 18)
         );
 
         List<Map<String, Object>> data = list.stream()
-            .map(it -> {
-                Map<String, Object> item = new HashMap<>();
-                StandardEvaluationContext context = new StandardEvaluationContext(it);
+                .map(it -> {
+                    Map<String, Object> item = new HashMap<>();
+                    StandardEvaluationContext context = new StandardEvaluationContext(it);
 
-                for (final Column column : header) {
-                    item.put(column.getKey(), Spel.getValue(column.getValue(), context));
-                }
+                    for (final Column column : header) {
+                        item.put(column.getKey(), Spel.getValue(column.getValue(), context));
+                    }
 
-                return item;
-            }).collect(Collectors.toList());
+                    return item;
+                }).collect(Collectors.toList());
 
         Result<List<Map<String, Object>>> result = R.success(data);
         result.setHeader(header);

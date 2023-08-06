@@ -10,9 +10,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/final-projects/final-framework)
 [![GitHub language count](https://img.shields.io/github/languages/count/final-projects/final-framework)](https://github.com/likly/final-framework)
 
-
 ![final-framework](src/images/final-framework@2x.png)
-
 
 ## 概述
 
@@ -23,13 +21,13 @@
 ### 资源导入
 
 默认导入以下路径的资源：
+
 * classpath:spring-config-*.xml
 * classpath*:config/spring-config-*.xml
 * classpath*:spring/spring-config-*.xml
 
 可以使用`spring.application.import-resource.use-default`来取消默认资源的导入；
 可以使用`spring.application.import-resource.locations`来指定自定义的导入资源。
-
 
 ## 致谢
 

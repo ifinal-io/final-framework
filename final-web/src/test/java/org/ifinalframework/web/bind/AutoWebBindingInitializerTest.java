@@ -15,17 +15,18 @@
 
 package org.ifinalframework.web.bind;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.web.bind.WebDataBinder;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.web.bind.WebDataBinder;
 
 import java.beans.PropertyEditor;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**

@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.ifinalframework.aop.simple.SimpleAnnotationBeanFactoryPointAdvisor;
 
-import java.util.Arrays;
 import jakarta.annotation.Resource;
+
+import java.util.Arrays;
 
 /**
  * @author ilikly

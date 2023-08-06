@@ -15,11 +15,6 @@
 
 package org.ifinalframework.validation.beanvalidation;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.springframework.validation.annotation.Validated;
 
 import org.ifinalframework.validation.GlobalValidationGroupsProvider;
@@ -30,13 +25,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * FinalMethodValidationInterceptorTest.
@@ -100,18 +98,18 @@ class FinalMethodValidationInterceptorTest {
 
         finalMethodValidationInterceptor.setMethodValidationGroupsProvider(methodValidationGroupsProvider);
         when(methodValidationGroupsProvider.getValidationGroups(methodInvocation)).thenReturn(Arrays.asList(Object.class));
-        classes =finalMethodValidationInterceptor.determineValidationGroups(methodInvocation);
+        classes = finalMethodValidationInterceptor.determineValidationGroups(methodInvocation);
 
-        assertEquals(1,classes.length);
-        assertEquals(Object.class,classes[0]);
+        assertEquals(1, classes.length);
+        assertEquals(Object.class, classes[0]);
 
         // global
         finalMethodValidationInterceptor.setGlobalValidationGroupsProvider(globalValidationGroupsProvider);
         when(globalValidationGroupsProvider.getValidationGroups(null)).thenReturn(Collections.singletonList(Class.class));
-        classes =finalMethodValidationInterceptor.determineValidationGroups(methodInvocation);
-        assertEquals(2,classes.length);
-        assertEquals(Class.class,classes[0]);
-        assertEquals(Object.class,classes[1]);
+        classes = finalMethodValidationInterceptor.determineValidationGroups(methodInvocation);
+        assertEquals(2, classes.length);
+        assertEquals(Class.class, classes[0]);
+        assertEquals(Object.class, classes[1]);
 
     }
 }

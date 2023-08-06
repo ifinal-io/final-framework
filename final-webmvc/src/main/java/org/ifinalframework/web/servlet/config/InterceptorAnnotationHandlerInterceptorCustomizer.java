@@ -15,13 +15,14 @@
 
 package org.ifinalframework.web.servlet.config;
 
-import org.ifinalframework.web.annotation.servlet.Interceptor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+
+import org.ifinalframework.web.annotation.servlet.Interceptor;
 
 /**
  * Parse {@link Interceptor} annotation in {@link HandlerInterceptor}.

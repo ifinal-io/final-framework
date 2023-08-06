@@ -15,12 +15,12 @@
 
 package org.ifinalframework.util;
 
+import org.springframework.util.CollectionUtils;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.List;
-
-import org.springframework.util.CollectionUtils;
 
 import lombok.RequiredArgsConstructor;
 

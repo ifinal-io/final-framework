@@ -17,8 +17,6 @@ formatter: "@formatter:on"
 
 ## Usage
 
-
-
 ## How
 
 ### Retrieve Bean Method

@@ -16,12 +16,12 @@
 
 package org.ifinalframework.context.aware;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 import org.springframework.context.MessageSource;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * MessagesMessageSourceAwareTest.

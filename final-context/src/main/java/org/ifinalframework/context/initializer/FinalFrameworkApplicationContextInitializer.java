@@ -15,13 +15,13 @@
 
 package org.ifinalframework.context.initializer;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import org.ifinalframework.FinalFramework;
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
 
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Registration a {@link FinalFramework} class into {@link ConfigurableApplicationContext}.

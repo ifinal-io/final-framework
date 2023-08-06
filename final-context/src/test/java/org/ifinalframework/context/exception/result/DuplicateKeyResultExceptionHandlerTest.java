@@ -15,11 +15,13 @@
 
 package org.ifinalframework.context.exception.result;
 
+import org.springframework.dao.DuplicateKeyException;
+
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DuplicateKeyException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

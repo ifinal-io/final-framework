@@ -15,13 +15,13 @@
 
 package org.ifinalframework.web.servlet.config;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 

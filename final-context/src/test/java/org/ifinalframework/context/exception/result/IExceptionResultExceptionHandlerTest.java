@@ -17,6 +17,7 @@ package org.ifinalframework.context.exception.result;
 
 import org.ifinalframework.context.exception.BadRequestException;
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

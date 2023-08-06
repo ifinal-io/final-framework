@@ -98,7 +98,8 @@ public abstract class AnnotationConfigUtils {
 
 ### DefaultEventListenerFactory
 
-`DefaultEventListenerFactory`是`EventListenerFactory`的默认实现，`EventListenerFactory`接口定义了将`@EventListener`转化为`ApplicationListener`的策略方法。
+`DefaultEventListenerFactory`是`EventListenerFactory`的默认实现，`EventListenerFactory`接口定义了将`@EventListener`
+转化为`ApplicationListener`的策略方法。
 
 * EventListenerFactory
 
@@ -191,7 +192,8 @@ public class EventListenerMethodProcessor
 
 #### `afterSingletonsInstantiated()`
 
-在`afterSingletonsInstantiated()`回调中，主要通过以下几个步骤，将一个标记有`@EventListener`的方法转化为`ApplicationListener`并注册到`ConfigurableApplicationContext`中。
+在`afterSingletonsInstantiated()`回调中，主要通过以下几个步骤，将一个标记有`@EventListener`的方法转化为`ApplicationListener`
+并注册到`ConfigurableApplicationContext`中。
 
 * 遍历容器中所有的bean：
 
@@ -222,9 +224,11 @@ context.addApplicationListener(applicationListener);
 
 ## 小结
 
-本文通过分析`EventListenerMethodProcessor`和`DefaultEventListenerFactory`的核心源码，了解了被`@EventListener`注解标记的方法是如何被解析成`ApplicationListener
+本文通过分析`EventListenerMethodProcessor`和`DefaultEventListenerFactory`的核心源码，了解了被`@EventListener`
+注解标记的方法是如何被解析成`ApplicationListener
 `并注册到`ConfigurableApplicationContext`，以实现处理`ApplicationEvent`的原理：
 
 1. 在`BeanFactoryPostProcessor`后置处理器的`postProcessBeanFactory()`回调方法中，获取到所有`EventListenerFactory`实例
 2. 在`SmartInitializingSingleton`的`afterSingletonsInstantiated()
-   `回调方法中，遍历所有bean，找出标记有`@EventListener`方法通过`EventListenerFactory`转化为`ApplicationListener`，然后添加到`ConfigurableApplicationContext`中。
+   `回调方法中，遍历所有bean，找出标记有`@EventListener`方法通过`EventListenerFactory`转化为`ApplicationListener`
+   ，然后添加到`ConfigurableApplicationContext`中。

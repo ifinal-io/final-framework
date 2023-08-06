@@ -50,14 +50,14 @@ public final class Beans {
     public static Map<String, Object> toMap(final Object bean) {
         final BeanInfo beanInfo = from(bean.getClass());
         return Arrays.stream(beanInfo.getPropertyDescriptors())
-            //.filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
-            .collect(Collectors.toMap(PropertyDescriptor::getName, property -> {
-                try {
-                    return property.getReadMethod().invoke(bean);
-                } catch (Exception e) {
-                    throw new IllegalArgumentException(e);
-                }
-            }));
+                //.filter(propertyDescriptor -> propertyDescriptor.getName().equals("schema"))
+                .collect(Collectors.toMap(PropertyDescriptor::getName, property -> {
+                    try {
+                        return property.getReadMethod().invoke(bean);
+                    } catch (Exception e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                }));
     }
 
 }

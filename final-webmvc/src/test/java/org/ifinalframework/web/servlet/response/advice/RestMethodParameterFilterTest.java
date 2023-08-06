@@ -15,23 +15,22 @@
 
 package org.ifinalframework.web.servlet.response.advice;
 
-import lombok.SneakyThrows;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.ifinalframework.web.servlet.response.advice.RestMethodParameterFilter;
 import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.core.MethodParameter;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import lombok.SneakyThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author ilikly
@@ -51,7 +50,7 @@ class RestMethodParameterFilterTest {
         assertFalse(RestMethodParameterFilter.INSTANCE.matches(methodParameter));
 
         when(methodParameter.hasMethodAnnotation(ResponseIgnore.class)).thenReturn(false);
-//        when(methodParameter.getDeclaringClass()).thenReturn(getClass());
+        //        when(methodParameter.getDeclaringClass()).thenReturn(getClass());
         when(methodParameter.hasMethodAnnotation(ResponseBody.class)).thenReturn(true);
         assertTrue(RestMethodParameterFilter.INSTANCE.matches(methodParameter));
     }

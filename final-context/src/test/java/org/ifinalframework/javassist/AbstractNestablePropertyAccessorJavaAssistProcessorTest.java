@@ -15,11 +15,7 @@
 
 package org.ifinalframework.javassist;
 
-import javassist.ClassPool;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * AbstractNestablePropertyAccessorJavaAssistProcessorTest.
@@ -32,8 +28,8 @@ class AbstractNestablePropertyAccessorJavaAssistProcessorTest {
 
     @Test
     void process() {
-//        Assertions.assertDoesNotThrow(() -> {
-//            new AbstractNestablePropertyAccessorJavaAssistProcessor().process(ClassPool.getDefault());
-//        });
+        //        Assertions.assertDoesNotThrow(() -> {
+        //            new AbstractNestablePropertyAccessorJavaAssistProcessor().process(ClassPool.getDefault());
+        //        });
     }
 }

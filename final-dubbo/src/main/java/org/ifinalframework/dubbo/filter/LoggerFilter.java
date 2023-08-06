@@ -17,13 +17,20 @@ package org.ifinalframework.dubbo.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+
+import org.springframework.util.ReflectionUtils;
+
+import org.ifinalframework.dubbo.annotation.AutoFilter;
+
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
-import org.apache.dubbo.rpc.*;
-import org.ifinalframework.dubbo.annotation.AutoFilter;
+import org.apache.dubbo.rpc.Filter;
+import org.apache.dubbo.rpc.Invocation;
+import org.apache.dubbo.rpc.Invoker;
+import org.apache.dubbo.rpc.Result;
+import org.apache.dubbo.rpc.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -62,11 +69,13 @@ public class LoggerFilter implements Filter {
                     args.put(parameters[i].getName(), invocation.getArguments()[i]);
                 }
 
-                logger.info("{}#{}, args={}", service, methodName, JSON.toJSONString(args, SerializerFeature.WriteNonStringKeyAsString));
+                logger.info("{}#{}, args={}", service, methodName,
+                        JSON.toJSONString(args, SerializerFeature.WriteNonStringKeyAsString));
             }
             final Result result = invoker.invoke(invocation);
             if (logger.isInfoEnabled()) {
-                logger.info("{}#{}, result={}", service, methodName, JSON.toJSONString(result.getValue(), SerializerFeature.WriteNonStringKeyAsString));
+                logger.info("{}#{}, result={}", service, methodName,
+                        JSON.toJSONString(result.getValue(), SerializerFeature.WriteNonStringKeyAsString));
             }
             return result;
 

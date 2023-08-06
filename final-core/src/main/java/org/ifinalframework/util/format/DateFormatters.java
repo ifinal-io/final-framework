@@ -41,10 +41,10 @@ public class DateFormatters implements Formatters<Date> {
 
     public DateFormatters() {
         this(Arrays.asList(
-            DateFormatter.YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD,
-            DateFormatter.YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD,
-            DateFormatter.YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD,
-            DateFormatter.YYYYMMDDHHMMSS
+                DateFormatter.YYYY_MM_DD_HH_MM_SS, DateFormatter.YYYY_MM_DD,
+                DateFormatter.YYYY__MM__DD_HH_MM_SS, DateFormatter.YYYY__MM__DD,
+                DateFormatter.YYYYMMDD_HH_MM_SS, DateFormatter.YYYYMMDD,
+                DateFormatter.YYYYMMDDHHMMSS
         ));
     }
 

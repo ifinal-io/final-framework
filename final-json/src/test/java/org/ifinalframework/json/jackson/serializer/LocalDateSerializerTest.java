@@ -19,14 +19,12 @@ package org.ifinalframework.json.jackson.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
@@ -34,7 +32,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assumptions.*;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**

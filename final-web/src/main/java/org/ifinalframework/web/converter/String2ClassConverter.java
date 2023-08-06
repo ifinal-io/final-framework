@@ -15,10 +15,6 @@
 
 package org.ifinalframework.web.converter;
 
-import org.aspectj.lang.annotation.Aspect;
-
-import org.ifinalframework.context.exception.NotFoundException;
-
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.convert.ApplicationConversionService;
@@ -32,6 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.ifinalframework.context.exception.NotFoundException;
+
+import org.aspectj.lang.annotation.Aspect;
+
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.function.Function;
@@ -40,8 +40,8 @@ import java.util.stream.Stream;
 
 /**
  * Convert a string to {@link Class}.
- * <p>
- * Supports some class with {@linkplain Class#getSimpleName() simple name}.:
+ *
+ * <h4>Supports some class with {@linkplain Class#getSimpleName() simple name}.:</h4>
  *
  * <ul>
  *     <li>{@link RestController}</li>

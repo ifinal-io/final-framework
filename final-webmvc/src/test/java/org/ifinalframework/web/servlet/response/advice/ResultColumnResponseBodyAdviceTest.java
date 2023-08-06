@@ -15,18 +15,17 @@
 
 package org.ifinalframework.web.servlet.response.advice;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.http.server.ServletServerHttpRequest;
+
 import org.ifinalframework.core.result.Column;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.server.ServletServerHttpRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -34,8 +33,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.when;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import static org.mockito.Mockito.*;
 
 /**
  * ResultColumnResponseBodyAdviceTest.

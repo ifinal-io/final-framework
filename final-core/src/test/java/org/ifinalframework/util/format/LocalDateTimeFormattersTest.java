@@ -33,15 +33,15 @@ class LocalDateTimeFormattersTest {
 
         String datetime = "2019-02-14 12:13:14";
         Assertions
-            .assertEquals(datetime, LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+                .assertEquals(datetime, LocalDateTimeFormatter.YYYY_MM_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
 
         datetime = "2019/02/14 12:13:14";
         Assertions.assertEquals(datetime,
-            LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+                LocalDateTimeFormatter.YYYY2_MM2_DD_HH_MM_SS.format(dateFormatters.parse(datetime)));
 
         datetime = "20190214 12:13:14";
         Assertions
-            .assertEquals(datetime, LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(datetime)));
+                .assertEquals(datetime, LocalDateTimeFormatter.YYYYMMDD_HH_MM_SS.format(dateFormatters.parse(datetime)));
 
         datetime = "20190214121314";
         Assertions.assertEquals(datetime, LocalDateTimeFormatter.YYYYMMDDHHMMSS.format(dateFormatters.parse(datetime)));

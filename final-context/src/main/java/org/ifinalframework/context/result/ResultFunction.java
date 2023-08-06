@@ -15,10 +15,10 @@
 
 package org.ifinalframework.context.result;
 
-import org.ifinalframework.core.result.Result;
-
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import org.ifinalframework.core.result.Result;
 
 import java.util.function.Function;
 import java.util.function.Predicate;

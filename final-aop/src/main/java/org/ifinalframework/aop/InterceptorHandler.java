@@ -27,31 +27,31 @@ import org.springframework.lang.Nullable;
 public interface InterceptorHandler<E, A> {
 
     default Object before(final @NonNull E executor, final @NonNull InvocationContext context,
-        final @NonNull A annotation) {
+                          final @NonNull A annotation) {
 
         handle(executor, context, annotation, null, null);
         return null;
     }
 
     default void afterReturning(final @NonNull E executor, final @NonNull InvocationContext context,
-        final @NonNull A annotation, final @Nullable Object result) {
+                                final @NonNull A annotation, final @Nullable Object result) {
 
         handle(executor, context, annotation, result, null);
     }
 
     default void handle(final @NonNull E executor, final @NonNull InvocationContext context,
-        final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
+                        final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
 
     }
 
     default void afterThrowing(final @NonNull E executor, final @NonNull InvocationContext context,
-        final @NonNull A annotation, final @NonNull Throwable throwable) {
+                               final @NonNull A annotation, final @NonNull Throwable throwable) {
 
         handle(executor, context, annotation, null, throwable);
     }
 
     default void after(final @NonNull E executor, final @NonNull InvocationContext context,
-        final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
+                       final @NonNull A annotation, final @Nullable Object result, final @Nullable Throwable throwable) {
 
         handle(executor, context, annotation, result, throwable);
     }

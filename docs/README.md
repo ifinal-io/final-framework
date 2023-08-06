@@ -36,13 +36,13 @@
 * [通用的CURD](docs/crud.md)：定义通用的CURD方法，统一数据的持久化。
 * [简明的查询](docs/query.md)：基于注解的声明式查询，使查询简单明了。
 * [强大的WEB](docs/web.md)
-  * [统一的结果集](docs/web.md#统一的结果集): 对`@RestController`的结果进行统一拦截封装
-  * [全局异常处理](docs/web.md#全局异常处理)：对系统中抛出的`Exception`进行全局的拦截处理，转化为统一的结果集。
-  * [TokenAuth认证机制](docs/auth.md)：简化的权限认证机制。
+    * [统一的结果集](docs/web.md#统一的结果集): 对`@RestController`的结果进行统一拦截封装
+    * [全局异常处理](docs/web.md#全局异常处理)：对系统中抛出的`Exception`进行全局的拦截处理，转化为统一的结果集。
+    * [TokenAuth认证机制](docs/auth.md)：简化的权限认证机制。
 * [极简的监控](docs/monitor.md)
-  * [简单的操作日志](docs/monitor.md#简化的操作日志)
+    * [简单的操作日志](docs/monitor.md#简化的操作日志)
 * Devops
-  * [热更新](docs/hotswap.md)
+    * [热更新](docs/hotswap.md)
 
 ## Modules
 
@@ -61,42 +61,42 @@
 
 ### Core
 
-|                          Dependency                          |       Description        |                           Version                            |
-| :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
-|       [Lombok](https://github.com/rzwitserloot/lombok)       |     简化对象封装工具     | ![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok?label=1.8.16) |
-|    [Spring Boot](https://spring.io/projects/spring-boot)     |   Spring容器及MVC框架    | [![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=2.3.3-RELEASE)](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot) |
-|    [Mybatis](https://mybatis.org/mybatis-3/zh/index.html)    |         ORM框架          | ![Maven Central](https://img.shields.io/maven-central/v/org.mybatis/mybatis?label=3.5.6) |
-|           [Dubbo](http://dubbo.apache.org/zh-cn/)            |      分布式RPC调用       | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.dubbo/dubbo-spring-boot-starter?label=2.7.8) |
-| [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |       分库分表组件       | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.shardingsphere/shardingsphere-jdbc-core?label=5.0.0-alpha) |
-|                          Zookeeper                           | 分布式注册中心、配置中心 |                                                              |
-|                                                              |                          |                                                              |
+|                                    Dependency                                     |  Description   |                                                                                                   Version                                                                                                   |
+|:---------------------------------------------------------------------------------:|:--------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                 [Lombok](https://github.com/rzwitserloot/lombok)                  |    简化对象封装工具    |                                                       ![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok?label=1.8.16)                                                        |
+|               [Spring Boot](https://spring.io/projects/spring-boot)               | Spring容器及MVC框架 | [![Maven Central](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-starter-parent?label=2.3.3-RELEASE)](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot) |
+|              [Mybatis](https://mybatis.org/mybatis-3/zh/index.html)               |     ORM框架      |                                                          ![Maven Central](https://img.shields.io/maven-central/v/org.mybatis/mybatis?label=3.5.6)                                                           |
+|                      [Dubbo](http://dubbo.apache.org/zh-cn/)                      |    分布式RPC调用    |                                               ![Maven Central](https://img.shields.io/maven-central/v/org.apache.dubbo/dubbo-spring-boot-starter?label=2.7.8)                                               |
+| [ShardingSphere](https://shardingsphere.apache.org/document/current/cn/overview/) |     分库分表组件     |                                        ![Maven Central](https://img.shields.io/maven-central/v/org.apache.shardingsphere/shardingsphere-jdbc-core?label=5.0.0-alpha)                                        |
+|                                     Zookeeper                                     |  分布式注册中心、配置中心  |                                                                                                                                                                                                             |
+|                                                                                   |                |                                                                                                                                                                                                             |
 
 ### Plugins
 
-|                          Dependency                          |       Description        |                           Version                            |
-| :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
-| [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) |     Mybatis分页插件      | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pagehelper/pagehelper?label=5.2.0) |
-|        [javapoet](https://github.com/square/javapoet)        |      Java源代码生成      | ![Maven Central](https://img.shields.io/maven-central/v/com.squareup/javapoet?label=1.13.0) |
-|                        Velocity-Core                         |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity/velocity-engine-core?label=2.1) |
-|                        Velocity-Tools                        |                          | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity.tools/velocity-tools-generic?label=3.0) |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
+|                           Dependency                           | Description |                                                       Version                                                       |
+|:--------------------------------------------------------------:|:-----------:|:-------------------------------------------------------------------------------------------------------------------:|
+| [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper) | Mybatis分页插件 |        ![Maven Central](https://img.shields.io/maven-central/v/com.github.pagehelper/pagehelper?label=5.2.0)        |
+|         [javapoet](https://github.com/square/javapoet)         |  Java源代码生成  |             ![Maven Central](https://img.shields.io/maven-central/v/com.squareup/javapoet?label=1.13.0)             |
+|                         Velocity-Core                          |             |     ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity/velocity-engine-core?label=2.1)     |
+|                         Velocity-Tools                         |             | ![Maven Central](https://img.shields.io/maven-central/v/org.apache.velocity.tools/velocity-tools-generic?label=3.0) |
+|                                                                |             |                                                                                                                     |
+|                                                                |             |                                                                                                                     |
+|                                                                |             |                                                                                                                     |
+|                                                                |             |                                                                                                                     |
+|                                                                |             |                                                                                                                     |
+|                                                                |             |                                                                                                                     |
 
 ### Test
 
-|                          Dependency                          |       Description        |                           Version                            |
-| :----------------------------------------------------------: | :----------------------: | :----------------------------------------------------------: |
-|                          H2Database                          |        内存数据库        | ![Maven Central](https://img.shields.io/maven-central/v/com.h2database/h2?label=1.4.200) |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
-|                                                              |                          |                                                              |
+| Dependency | Description |                                         Version                                          |
+|:----------:|:-----------:|:----------------------------------------------------------------------------------------:|
+| H2Database |    内存数据库    | ![Maven Central](https://img.shields.io/maven-central/v/com.h2database/h2?label=1.4.200) |
+|            |             |                                                                                          |
+|            |             |                                                                                          |
+|            |             |                                                                                          |
+|            |             |                                                                                          |
+|            |             |                                                                                          |
+|            |             |                                                                                          |
 
 ## Contact
 

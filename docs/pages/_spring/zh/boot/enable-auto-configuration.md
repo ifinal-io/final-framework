@@ -14,7 +14,6 @@ formatter: "@formatter:on"
 <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:100%; height:500px;" src="https://www.processon.
 com/embed/603c79915653bb36bbe62596"></iframe>
 
-
 ## What
 
 ```java
@@ -47,7 +46,6 @@ public @interface EnableAutoConfiguration {
 }
 ```
 
-
 ```mermaid
 classDiagram
     ImportSelector <|-- DeferredImportSelector
@@ -57,7 +55,5 @@ classDiagram
         + String[] selectImports(importingClassMetadata)
     }
 ```
-
-
 
 ![@EnableAutoConfiguration](http://assets.processon.com/chart_image/603c79915653bb36bbe62599.png)

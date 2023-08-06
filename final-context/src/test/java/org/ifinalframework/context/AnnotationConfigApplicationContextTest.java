@@ -20,9 +20,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * AnnotationConfigApplicationContextTest.

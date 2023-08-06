@@ -15,14 +15,14 @@
 
 package org.ifinalframework.context.aware;
 
-import lombok.extern.slf4j.Slf4j;
-
-import org.ifinalframework.context.util.Messages;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import org.ifinalframework.context.util.Messages;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * An aware helper to receive {@link MessageSource} from {@link MessageSourceAware} and set to {@link Messages}.

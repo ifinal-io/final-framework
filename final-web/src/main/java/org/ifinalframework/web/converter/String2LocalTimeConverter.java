@@ -15,12 +15,12 @@
 
 package org.ifinalframework.web.converter;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * String2LocalTimeConverter.
@@ -33,7 +33,7 @@ public class String2LocalTimeConverter implements Converter<String, LocalTime> {
     @Nullable
     @Override
     public LocalTime convert(String source) {
-        if(!StringUtils.hasText(source)){
+        if (!StringUtils.hasText(source)) {
             return null;
         }
 

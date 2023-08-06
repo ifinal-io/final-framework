@@ -15,10 +15,10 @@
 
 package org.ifinalframework.velocity;
 
-import org.junit.jupiter.api.Test;
-
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Service;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;

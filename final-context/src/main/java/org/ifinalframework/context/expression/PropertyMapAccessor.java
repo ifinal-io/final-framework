@@ -35,13 +35,13 @@ public class PropertyMapAccessor extends MapAccessor {
 
     @Override
     public boolean canRead(final EvaluationContext context, @Nullable final Object target, final String name)
-        throws AccessException {
+            throws AccessException {
         return target instanceof Map;
     }
 
     @Override
     public TypedValue read(final EvaluationContext context, @Nullable final Object target, final String name)
-        throws AccessException {
+            throws AccessException {
 
         if (target == null) {
             return TypedValue.NULL;

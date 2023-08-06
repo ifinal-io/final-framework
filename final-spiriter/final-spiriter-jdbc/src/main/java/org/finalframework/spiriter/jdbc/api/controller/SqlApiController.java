@@ -18,15 +18,19 @@ package org.ifinalframework.spiriter.jdbc.api.controller;
 
 import org.ifinalframework.spiriter.jdbc.model.ResultSets;
 import org.ifinalframework.spiriter.jdbc.service.DataSourceService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.Resource;
+
 import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +42,6 @@ import java.util.List;
 /**
  * @author ilikly
  * @version 1.0.0
- *
  * @since 1.0.0
  */
 @RestController
@@ -59,10 +62,10 @@ public class SqlApiController {
         final DataSource dataSource = dataSourceService.getDataSource(datasource);
         try (final Connection connection = dataSource.getConnection()) {
             final Statement statement = connection.createStatement();
-//        statement.addBatch(sql);
-//        statement.addBatch("show  tables");
-//        statement.addBatch("select * from person");
-//        final int[] ints = statement.executeBatch();
+            //        statement.addBatch(sql);
+            //        statement.addBatch("show  tables");
+            //        statement.addBatch("select * from person");
+            //        final int[] ints = statement.executeBatch();
             statement.execute(sql);
             List<ResultSets> result = new ArrayList<>();
             do {

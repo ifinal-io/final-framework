@@ -16,9 +16,9 @@
 
 package org.ifinalframework.retrofit;
 
-import org.springframework.beans.factory.FactoryBean;
-
 import retrofit2.Retrofit;
+
+import org.springframework.beans.factory.FactoryBean;
 
 /**
  * @author ilikly

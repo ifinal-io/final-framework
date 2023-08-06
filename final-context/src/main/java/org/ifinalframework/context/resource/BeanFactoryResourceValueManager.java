@@ -44,15 +44,15 @@ public class BeanFactoryResourceValueManager implements ResourceValueManager, Ap
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) {
         Arrays.stream(applicationContext.getBeanNamesForAnnotation(ResourceValue.class))
-            .map(applicationContext::getBean)
-            .forEach(bean -> {
-                Class<?> targetClass = AopUtils.getTargetClass(bean);
+                .map(applicationContext::getBean)
+                .forEach(bean -> {
+                    Class<?> targetClass = AopUtils.getTargetClass(bean);
 
-                for (final ResourceValueHolder holder : ResourceValueUtils.findAllResourceValueHolders(bean, targetClass)) {
-                    addResourceValueHolder(holder.getKey(), holder);
-                }
+                    for (final ResourceValueHolder holder : ResourceValueUtils.findAllResourceValueHolders(bean, targetClass)) {
+                        addResourceValueHolder(holder.getKey(), holder);
+                    }
 
-            });
+                });
     }
 
     @Override

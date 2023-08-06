@@ -16,6 +16,7 @@
 package org.ifinalframework.context.result.function;
 
 import org.ifinalframework.core.result.Result;
+
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
