@@ -30,7 +30,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +61,7 @@ public final class ServicesLoader {
     }
 
     public static List<String> load(@NonNull Class<?> service) {
-        return load(service,null);
+        return load(service, null);
     }
 
     public static List<String> load(@NonNull Class<?> service, @Nullable ClassLoader classLoader) {
@@ -82,7 +86,7 @@ public final class ServicesLoader {
     }
 
     public static List<Class<?>> loadClasses(@NonNull Class<?> service) {
-        return loadClasses(service,null);
+        return loadClasses(service, null);
     }
 
     public static List<Class<?>> loadClasses(@NonNull Class<?> service, @Nullable ClassLoader classLoader) {

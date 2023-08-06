@@ -139,7 +139,8 @@ public final class Reflections {
         throw new IllegalArgumentException("");
     }
 
-    public static Object invokeMethod(@NonNull Object target, @NonNull String method, @Nullable Class<?>[] parameterTypes, @Nullable Object... args) {
+    public static Object invokeMethod(@NonNull Object target, @NonNull String method,
+                                      @Nullable Class<?>[] parameterTypes, @Nullable Object... args) {
         Method targetMethod = findMethod(AopUtils.getTargetClass(target), method, parameterTypes, args);
         ReflectionUtils.makeAccessible(targetMethod);
         return invokeMethod(targetMethod, target, args);
@@ -179,7 +180,8 @@ public final class Reflections {
                            @Nullable Class<?>[] parameterTypes, @Nullable Object[] arguments) {
 
             if (Objects.nonNull(parameterTypes) && Objects.nonNull(arguments) && !Objects.equals(parameterTypes.length, arguments.length)) {
-                throw new IllegalArgumentException(String.format("%s.%s parameterTypes and arguments length not matched.", targetClass.getCanonicalName(), methodName));
+                throw new IllegalArgumentException(String.format("%s.%s parameterTypes and arguments length not matched.",
+                        targetClass.getCanonicalName(), methodName));
             }
 
             return methodFinders.stream()
@@ -245,7 +247,8 @@ public final class Reflections {
                 }
 
                 if (matchingMethods.size() > 1) {
-                    throw new IllegalStateException("Found not only one method of " + methodName + " in class " + targetClass.getCanonicalName());
+                    throw new IllegalStateException("Found not only one method of " + methodName + " in class "
+                            + targetClass.getCanonicalName());
                 }
 
                 return null;
@@ -303,7 +306,8 @@ public final class Reflections {
             }
 
             if (matchingMethods.size() > 1) {
-                throw new IllegalStateException("Found not only one method of " + methodName + " in class " + targetClass.getCanonicalName());
+                throw new IllegalStateException("Found not only one method of " + methodName + " in class "
+                        + targetClass.getCanonicalName());
             }
 
             return null;

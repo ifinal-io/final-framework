@@ -15,13 +15,12 @@
 
 package org.ifinalframework.velocity;
 
-import java.util.Collections;
-
 import org.apache.velocity.tools.ToolContext;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * ToolContextFactoryTest.
@@ -35,8 +34,8 @@ class ToolContextFactoryTest {
     @Test
     void create() {
         ToolContextFactory factory = new ToolContextFactory();
-        assertInstanceOf(ToolContext.class,factory.create(new Object()));
-        assertInstanceOf(ToolContext.class,factory.create(Collections.emptyMap()));
+        assertInstanceOf(ToolContext.class, factory.create(new Object()));
+        assertInstanceOf(ToolContext.class, factory.create(Collections.emptyMap()));
 
     }
 }

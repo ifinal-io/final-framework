@@ -15,12 +15,6 @@
 
 package org.ifinalframework.java;
 
-import java.util.*;
-
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-import org.springframework.util.ClassUtils;
-
 import org.benf.cfr.reader.api.OutputSinkFactory;
 import org.benf.cfr.reader.api.SinkReturns;
 import org.benf.cfr.reader.apiunreleased.ClassFileSource2;
@@ -38,7 +32,24 @@ import org.benf.cfr.reader.util.bytestream.BaseByteData;
 import org.benf.cfr.reader.util.collections.ListFactory;
 import org.benf.cfr.reader.util.getopt.Options;
 import org.benf.cfr.reader.util.getopt.OptionsImpl;
-import org.benf.cfr.reader.util.output.*;
+import org.benf.cfr.reader.util.output.Dumper;
+import org.benf.cfr.reader.util.output.DumperFactory;
+import org.benf.cfr.reader.util.output.IllegalIdentifierDump;
+import org.benf.cfr.reader.util.output.NopSummaryDumper;
+import org.benf.cfr.reader.util.output.SinkDumperFactory;
+import org.benf.cfr.reader.util.output.SummaryDumper;
+import org.benf.cfr.reader.util.output.ToStringDumper;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+import org.springframework.util.ClassUtils;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 /**
  * JadDriver.
@@ -71,11 +82,11 @@ public class JadDriver {
     }
 
     public String jad(String clazz, byte[] bytes, String methodName) throws ClassNotFoundException {
-        return jad(ClassUtils.forName(clazz,getClass().getClassLoader()),bytes,methodName);
+        return jad(ClassUtils.forName(clazz, getClass().getClassLoader()), bytes, methodName);
     }
 
-    public String jad(Class<?> clazz, byte[] bytes,String methodName){
-        return jad(new ClassFile(new BaseByteData(bytes),clazz.getName(),dcCommonState),methodName);//.replace(clazz.getName(),clazz.getSimpleName());
+    public String jad(Class<?> clazz, byte[] bytes, String methodName) {
+        return jad(new ClassFile(new BaseByteData(bytes), clazz.getName(), dcCommonState), methodName);//.replace(clazz.getName(),clazz.getSimpleName());
     }
 
     private String jad(ClassFile c, String methodName) {
@@ -119,7 +130,7 @@ public class JadDriver {
         };
 
 
-        DumperFactory dumperFactory = new SinkDumperFactory(mySink,options);
+        DumperFactory dumperFactory = new SinkDumperFactory(mySink, options);
 
         IllegalIdentifierDump illegalIdentifierDump = IllegalIdentifierDump.Factory.get(options);
         Dumper d = new ToStringDumper(); // sentinel dumper.
@@ -171,7 +182,9 @@ public class JadDriver {
         } catch (Exception e) {
             throw e;
         } finally {
-            if (d != null) d.close();
+            if (d != null) {
+                d.close();
+            }
         }
 
         return sb.toString();

@@ -16,14 +16,15 @@
 
 package org.ifinalframework.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.StringReader;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import java.io.ByteArrayOutputStream;
+import java.io.StringReader;
 
 /**
  * XmlFormatter.

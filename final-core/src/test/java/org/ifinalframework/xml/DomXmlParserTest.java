@@ -1,13 +1,14 @@
 package org.ifinalframework.xml;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
+
+import lombok.SneakyThrows;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author ilikly

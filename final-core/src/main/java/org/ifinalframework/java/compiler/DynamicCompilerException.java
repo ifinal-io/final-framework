@@ -17,7 +17,12 @@ package org.ifinalframework.java.compiler;
 
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * DynamicCompilerException.
@@ -31,14 +36,14 @@ public class DynamicCompilerException extends RuntimeException {
     private final List<Diagnostic<? extends JavaFileObject>> diagnostics;
 
     public DynamicCompilerException(final String message,
-        final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+                                    final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
 
         super(message);
         this.diagnostics = diagnostics;
     }
 
     public DynamicCompilerException(final Throwable cause,
-        final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+                                    final List<Diagnostic<? extends JavaFileObject>> diagnostics) {
 
         super(cause);
         this.diagnostics = diagnostics;

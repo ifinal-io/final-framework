@@ -23,15 +23,17 @@ import org.ifinalframework.util.JarVersions;
 import org.ifinalframework.util.format.LocalDateTimeFormatter;
 import org.springframework.lang.NonNull;
 
+import jakarta.annotation.Generated;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import jakarta.annotation.Generated;
 
 /**
- * Ò
+ * JavaPoets.
+ *
  * <ul>
  *     <li>when you want a {@link Class} do with {@link TypeSpec#classBuilder(String)}</li>
  *     <li>when you want a {@linkplain Class interface} do with {@link TypeSpec#interfaceBuilder(String)}</li>

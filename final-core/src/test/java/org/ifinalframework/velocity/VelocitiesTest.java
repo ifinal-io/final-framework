@@ -15,9 +15,11 @@
 
 package org.ifinalframework.velocity;
 
+import org.junit.jupiter.api.Test;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Test;
+
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +43,7 @@ class VelocitiesTest {
         Map<String, Object> context = new HashMap<>();
         context.put("name", "xiaoMing");
         context.put("age", 12);
-        context.put("xiaoshu",1);
+        context.put("xiaoshu", 1);
         assertEquals("xiaoMing", Velocities.eval("${name}", context));
         assertEquals("12", Velocities.eval("${age}", context));
 

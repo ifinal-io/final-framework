@@ -44,6 +44,9 @@ public interface NameGenerator {
         return prefix + capitalize(name);
     }
 
+    /**
+     * Returns a String which decapitalize the first letter of the string with {@code prefix}.
+     */
     static String decapitalize(final String name) {
 
         if (name == null || name.length() == 0) {

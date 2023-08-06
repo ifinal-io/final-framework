@@ -16,12 +16,17 @@
 package org.ifinalframework.java.compiler;
 
 import javax.tools.JavaFileObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
 import java.util.jar.JarEntry;
 
 /**
@@ -73,7 +78,7 @@ public class PackageInternalsFinder {
         List<JavaFileObject> result = new ArrayList<>();
         try {
             String jarUri = packageFolderURL.toExternalForm()
-                .substring(0, packageFolderURL.toExternalForm().lastIndexOf("!/"));
+                    .substring(0, packageFolderURL.toExternalForm().lastIndexOf("!/"));
 
             JarURLConnection jarConn = (JarURLConnection) packageFolderURL.openConnection();
             String rootEntryName = jarConn.getEntryName();
@@ -84,7 +89,7 @@ public class PackageInternalsFinder {
                 JarEntry jarEntry = entryEnum.nextElement();
                 String name = jarEntry.getName();
                 if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1
-                    && name.endsWith(CLASS_FILE_EXTENSION)) {
+                        && name.endsWith(CLASS_FILE_EXTENSION)) {
                     URI uri = URI.create(jarUri + "!/" + name);
                     String binaryName = name.replace("/", ".");
                     binaryName = binaryName.replace(CLASS_FILE_EXTENSION + "$", "");

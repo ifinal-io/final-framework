@@ -15,11 +15,11 @@
 
 package org.ifinalframework.io.support;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * ServicesLoaderTest.
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServicesLoaderTest {
 
     @Test
-    void test(){
+    void test() {
         List<String> strings = ServicesLoader.load(TestService.class);
         assertTrue(strings.contains(MyTestService.class.getCanonicalName()));
 

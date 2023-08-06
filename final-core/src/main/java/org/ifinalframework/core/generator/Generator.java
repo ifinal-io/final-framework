@@ -17,7 +17,7 @@
 package org.ifinalframework.core.generator;
 
 /**
- * 生成器
+ * 生成器.
  *
  * @author ilikly
  * @version 1.0.0

@@ -15,9 +15,9 @@
 
 package org.ifinalframework.web.reactive;
 
-import java.lang.reflect.Type;
-import java.util.Objects;
-
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
+import org.ifinalframework.core.result.Result;
+import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -34,12 +34,10 @@ import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.config.WebFluxConfigurationSupport;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
-
-import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
-import org.ifinalframework.core.result.Result;
-import org.ifinalframework.web.annotation.condition.ConditionalOnReactiveWebApplication;
-
 import reactor.core.publisher.Mono;
+
+import java.lang.reflect.Type;
+import java.util.Objects;
 
 /**
  * 将{@link HandlerMethod}的返回结果 {@link HandlerResult#getReturnValue()}进行统一的包装。
@@ -107,9 +105,15 @@ public class ResultHandlerResultHandler extends ResponseBodyResultHandler {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
             ReturnValueMethodParameter that = (ReturnValueMethodParameter) o;
             return Objects.equals(returnValue, that.returnValue);
         }

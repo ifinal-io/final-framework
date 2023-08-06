@@ -18,7 +18,6 @@ package org.ifinalframework.java;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -31,38 +30,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 class JvmDriverTest {
 
-    String say(){
+    String say() {
         return "hello";
     }
 
     @Test
-    void dump(){
+    void dump() {
         byte[] dump = JvmDriver.dump(Jvm.class);
         assertNotNull(dump);
     }
 
     @Test
-    void jad(){
+    void jad() {
         String jad = JvmDriver.jad(Jvm.class);
         logger.info(jad);
     }
 
-
-//    @Test
-    void redefine(){
-
-        Jvm jvm = new Jvm();
-
-        try {
-            assertEquals("hello",jvm.say());
-            Class<Jvm> clazz = Jvm.class;
-            String source = JvmDriver.jad(clazz);
-            String replace = source.replace("hello", "word");
-            JvmDriver.redefine(Jvm.class, replace);
-            assertEquals("word",jvm.say());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 }

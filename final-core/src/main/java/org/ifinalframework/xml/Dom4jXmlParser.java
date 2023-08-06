@@ -20,9 +20,9 @@ public class Dom4jXmlParser implements XmlParser<Document> {
 
         element.attributes().forEach(it -> e.addAttribute(it.getName(), it.getValue()));
 
-        if(element.isTextOnly()){
+        if (element.isTextOnly()) {
             e.setValue(element.getTextTrim());
-        }else {
+        } else {
             element.elements().forEach(it -> parse(e, it));
         }
 

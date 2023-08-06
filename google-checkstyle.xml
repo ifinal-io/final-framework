@@ -57,7 +57,7 @@
 
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="120"/>
+        <property name="max" value="140"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
@@ -277,11 +277,18 @@
         <module name="NoWhitespaceBeforeCaseDefaultColon"/>
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
-        <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
-            <property name="separateLineBetweenGroups" value="true"/>
-            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
-            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
+<!--        <module name="CustomImportOrder">-->
+<!--            <property name="sortImportsInGroupAlphabetically" value="true"/>-->
+<!--            <property name="separateLineBetweenGroups" value="true"/>-->
+<!--            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE###STATIC"/>-->
+<!--            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>-->
+<!--        </module>-->
+        <module name="ImportOrder">
+            <property name="groups" value="lombok,org.springframework,org.ifinalframework,/^org\.//^java\./,javax,"/>
+            <property name="ordered" value="true"/>
+            <property name="separated" value="true"/>
+            <property name="option" value="above"/>
+            <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
         <module name="MethodParamPad">
             <property name="tokens"

@@ -28,7 +28,7 @@ import java.util.Set;
  */
 public class DumpDriver {
 
-    public static byte[] dump(Class<?> clazz){
+    public static byte[] dump(Class<?> clazz) {
         Instrumentation instrumentation = Instrumentations.get();
         Set<Class<?>> classes = Collections.singleton(clazz);
         ClassDumpTransformer transformer = new ClassDumpTransformer(classes);

@@ -44,7 +44,7 @@ public final class Classes {
     }
 
     /**
-     * return the class of name
+     * return the class of name.
      *
      * @param name        class name
      * @param classLoader class loader

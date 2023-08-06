@@ -18,7 +18,12 @@ package org.ifinalframework.java.compiler;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.tools.JavaFileObject;
-import java.io.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.URI;
 
 /**
@@ -87,8 +92,8 @@ public class CustomJavaFileObject implements JavaFileObject {
 
         String baseName = simpleName + kind.extension;
         return kind.equals(getKind())
-            && (baseName.equals(getName())
-            || getName().endsWith("/" + baseName));
+                && (baseName.equals(getName())
+                || getName().endsWith("/" + baseName));
     }
 
     public NestingKind getNestingKind() {

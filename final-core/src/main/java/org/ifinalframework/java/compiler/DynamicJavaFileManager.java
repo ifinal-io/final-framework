@@ -17,7 +17,11 @@ package org.ifinalframework.java.compiler;
 
 import org.springframework.lang.NonNull;
 
-import javax.tools.*;
+import javax.tools.FileObject;
+import javax.tools.ForwardingJavaFileManager;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +35,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
 
     private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
-        "SYSTEM_MODULES"};
+            "SYSTEM_MODULES"};
 
     private final PackageInternalsFinder finder;
 
@@ -49,7 +53,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
     @Override
     public JavaFileObject getJavaFileForOutput(final Location location, final String className,
-        final JavaFileObject.Kind kind, final FileObject sibling) {
+                                               final JavaFileObject.Kind kind, final FileObject sibling) {
 
         for (BytesJavaFileObject byteCode : byteCodes) {
             if (byteCode.getClassName().equals(className)) {
@@ -82,8 +86,8 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
 
     @Override
     public Iterable<JavaFileObject> list(final Location location, final String packageName,
-        final Set<JavaFileObject.Kind> kinds,
-        final boolean recurse) throws IOException {
+                                         final Set<JavaFileObject.Kind> kinds,
+                                         final boolean recurse) throws IOException {
 
         if (location instanceof StandardLocation) {
             String locationName = ((StandardLocation) location).name();
@@ -97,7 +101,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
         // merge JavaFileObjects from specified ClassLoader
         if (location == StandardLocation.CLASS_PATH && kinds.contains(JavaFileObject.Kind.CLASS)) {
             return new IterableJoin<>(super.list(location, packageName, kinds, recurse),
-                finder.find(packageName));
+                    finder.find(packageName));
         }
 
         return super.list(location, packageName, kinds, recurse);

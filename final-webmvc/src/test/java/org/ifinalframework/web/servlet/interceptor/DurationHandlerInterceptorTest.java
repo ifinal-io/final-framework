@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class DurationHandlerInterceptorTest {
@@ -24,7 +24,7 @@ class DurationHandlerInterceptorTest {
 
 
     @Test
-    void preHandle(){
+    void preHandle() {
 
         Mockito.when(request.getRequestURI()).thenReturn("/helllo");
         boolean handle = interceptor.preHandle(request, response, null);
@@ -33,9 +33,9 @@ class DurationHandlerInterceptorTest {
     }
 
     @Test
-    void postHandle(){
+    void postHandle() {
         Mockito.when(request.getRequestURI()).thenReturn("/hello");
         Mockito.when(request.getAttribute(DurationHandlerInterceptor.DURATION_START_ATTRIBUTE)).thenReturn(System.currentTimeMillis());
-        interceptor.postHandle(request,response,null,null);
+        interceptor.postHandle(request, response, null, null);
     }
 }

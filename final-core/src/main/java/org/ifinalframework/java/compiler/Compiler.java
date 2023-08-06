@@ -15,8 +15,19 @@
 
 package org.ifinalframework.java.compiler;
 
-import javax.tools.*;
-import java.util.*;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author ilikly
@@ -43,8 +54,8 @@ public class Compiler {
 
         if (javaCompiler == null) {
             throw new IllegalStateException(
-                "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
-                    + " please confirm the application running in JDK not JRE.");
+                    "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
+                            + " please confirm the application running in JDK not JRE.");
         }
         standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
 
@@ -70,7 +81,7 @@ public class Compiler {
 
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
-            compilationUnits);
+                compilationUnits);
 
         try {
 
@@ -127,7 +138,7 @@ public class Compiler {
 
         for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
             diagnosticMessages.add(
-                "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
+                    "line: " + diagnostic.getLineNumber() + ", message: " + diagnostic.getMessage(Locale.US));
         }
 
         return diagnosticMessages;

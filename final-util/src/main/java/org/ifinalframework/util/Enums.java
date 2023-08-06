@@ -15,13 +15,13 @@
 
 package org.ifinalframework.util;
 
-import java.lang.reflect.Method;
-import java.util.Locale;
-import java.util.Objects;
-
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Method;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author ilikly
@@ -50,7 +50,7 @@ public final class Enums {
     }
 
     public static String findDesc(Enum<?> value, String desc) {
-        Method method = ReflectionUtils.findMethod(value.getClass(), desc);
+        Method method = Objects.requireNonNull(ReflectionUtils.findMethod(value.getClass(), desc), "can not found method named " + desc);
         Object descValue = ReflectionUtils.invokeMethod(method, value);
         return Objects.isNull(descValue) ? null : descValue.toString();
     }

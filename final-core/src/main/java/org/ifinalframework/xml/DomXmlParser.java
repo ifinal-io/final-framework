@@ -1,6 +1,10 @@
 package org.ifinalframework.xml;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.util.Optional;
 
@@ -12,23 +16,23 @@ public class DomXmlParser implements XmlParser<Document> {
 
     @Override
     public Element parse(Document document) {
-        return parseElement(null,document.getDocumentElement());
+        return parseElement(null, document.getDocumentElement());
     }
 
-    private Element parseElement(Element parent, org.w3c.dom.Element element){
+    private Element parseElement(Element parent, org.w3c.dom.Element element) {
         Element e = new Element(element.getTagName());
 
         NamedNodeMap attributes = element.getAttributes();
         for (int i = 0; i < attributes.getLength(); i++) {
             Attr attr = (Attr) attributes.item(i);
-            e.addAttribute(attr.getName(),attr.getValue());
+            e.addAttribute(attr.getName(), attr.getValue());
         }
         NodeList childNodes = element.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
-            if(item instanceof org.w3c.dom.Element){
+            if (item instanceof org.w3c.dom.Element) {
                 parseElement(e, (org.w3c.dom.Element) item);
-            }else if(item instanceof org.w3c.dom.Text){
+            } else if (item instanceof org.w3c.dom.Text) {
                 e.setValue(item.getNodeValue());
             }
         }

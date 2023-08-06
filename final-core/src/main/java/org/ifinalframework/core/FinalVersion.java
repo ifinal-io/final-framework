@@ -15,9 +15,9 @@
 
 package org.ifinalframework.core;
 
-import org.ifinalframework.util.JarVersions;
-
 import lombok.experimental.UtilityClass;
+
+import org.ifinalframework.util.JarVersions;
 
 /**
  * FinalVersion.

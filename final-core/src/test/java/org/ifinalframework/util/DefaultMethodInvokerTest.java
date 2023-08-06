@@ -31,30 +31,29 @@ class DefaultMethodInvokerTest {
     private Reflections.MethodInvoker methodInvoker = new Reflections.DefaultMethodInvoker();
 
 
-    private String method(int arg){
+    private String method(int arg) {
         return String.valueOf(arg);
     }
-
 
 
     @Test
     void invoke() {
 
-        final Method method = Reflections.findMethod(DefaultMethodInvokerTest.class,"method",null,null);
+        final Method method = Reflections.findMethod(DefaultMethodInvokerTest.class, "method", null, null);
 
         ReflectionUtils.makeAccessible(method);
 
-        assertEquals("1",methodInvoker.invoke(method,this,1));
-        assertEquals("1",methodInvoker.invoke(method,this,"1"));
-        assertEquals("1",methodInvoker.invoke(method,this,new Object[]{1}));
-        assertEquals("1",methodInvoker.invoke(method,this,new Object[]{"1"}));
+        assertEquals("1", methodInvoker.invoke(method, this, 1));
+        assertEquals("1", methodInvoker.invoke(method, this, "1"));
+        assertEquals("1", methodInvoker.invoke(method, this, new Object[]{1}));
+        assertEquals("1", methodInvoker.invoke(method, this, new Object[]{"1"}));
 
 
     }
 
     @Test
-    void reflect(){
-        assertEquals("1",Reflections.invokeMethod(this,"method",null,1));
+    void reflect() {
+        assertEquals("1", Reflections.invokeMethod(this, "method", null, 1));
         assertEquals("1", Reflections.invokeMethod(this, "method", null, "1"));
         assertEquals("1", Reflections.invokeMethod(this, "method", null, new Object[]{1}));
     }

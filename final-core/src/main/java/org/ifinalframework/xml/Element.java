@@ -4,7 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author ilikly
@@ -15,16 +19,16 @@ import java.util.*;
 @RequiredArgsConstructor
 public class Element {
     private final String name;
-    private final Map<String,String> attributes = new LinkedHashMap<>();
+    private final Map<String, String> attributes = new LinkedHashMap<>();
     private final List<Element> elements = new LinkedList<>();
 
     private String value;
 
-    public void addElement(Element element){
+    public void addElement(Element element) {
         elements.add(element);
     }
 
-    public void addAttribute(String name,String value){
+    public void addAttribute(String name, String value) {
         attributes.put(name, value);
     }
 
@@ -41,7 +45,7 @@ public class Element {
 
         builder.append(">");
 
-        if(Objects.nonNull(value)){
+        if (Objects.nonNull(value)) {
             builder.append(value);
         }
 
