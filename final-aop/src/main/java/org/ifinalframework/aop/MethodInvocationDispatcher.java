@@ -37,12 +37,12 @@ public interface MethodInvocationDispatcher<A> {
     }
 
     default void afterThrowing(@NonNull InvocationContext context, @NonNull A annotations,
-        @NonNull Throwable throwable) {
+                               @NonNull Throwable throwable) {
 
     }
 
     default void after(@NonNull InvocationContext context, @NonNull A annotations, @Nullable Object result,
-        @Nullable Throwable throwable) {
+                       @Nullable Throwable throwable) {
 
     }
 

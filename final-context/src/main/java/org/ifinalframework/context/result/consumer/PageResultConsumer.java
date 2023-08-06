@@ -17,9 +17,11 @@ package org.ifinalframework.context.result.consumer;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+
 import org.ifinalframework.context.result.ResultConsumer;
 import org.ifinalframework.core.result.Pagination;
 import org.ifinalframework.core.result.Result;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

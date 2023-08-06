@@ -15,9 +15,9 @@
 
 package org.ifinalframework.context.user;
 
-import java.util.function.Supplier;
-
 import org.ifinalframework.core.IUser;
+
+import java.util.function.Supplier;
 
 /**
  * UserSupplier.

@@ -16,6 +16,7 @@
 package org.ifinalframework.context.result;
 
 import org.ifinalframework.core.result.Result;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

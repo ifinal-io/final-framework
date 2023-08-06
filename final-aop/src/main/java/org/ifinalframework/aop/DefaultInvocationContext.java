@@ -16,6 +16,8 @@
 
 package org.ifinalframework.aop;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -24,8 +26,6 @@ import org.ifinalframework.context.expression.MethodMetadata;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * @author ilikly
@@ -110,10 +110,8 @@ public class DefaultInvocationContext implements InvocationContext {
         }
         final Class<?>[] classes = jsonView.value();
         if (classes.length != 1) {
-            throw new IllegalArgumentException(
-                "@JsonView only supported for cache advice with exactly 1 class argument: " + method.getDeclaringClass()
-                    .getCanonicalName() + "#" + method
-                    .getName());
+            throw new IllegalArgumentException("@JsonView only supported for cache advice with exactly 1 class argument: "
+                    + method.getDeclaringClass().getCanonicalName() + "#" + method.getName());
         }
         return classes[0];
     }

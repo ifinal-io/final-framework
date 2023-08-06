@@ -16,8 +16,10 @@
 package org.ifinalframework.context.initializer;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.ifinalframework.FinalFramework;
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
+
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -32,7 +34,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 @SpringFactory(ApplicationContextInitializer.class)
 public final class FinalFrameworkApplicationContextInitializer extends
-    AbsFrameworkApplicationContextInitializer<ConfigurableApplicationContext> {
+        AbsFrameworkApplicationContextInitializer<ConfigurableApplicationContext> {
 
     public FinalFrameworkApplicationContextInitializer() {
         super(FinalFramework.class);

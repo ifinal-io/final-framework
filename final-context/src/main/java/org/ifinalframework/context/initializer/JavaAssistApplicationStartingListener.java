@@ -16,10 +16,13 @@
 package org.ifinalframework.context.initializer;
 
 import javassist.ClassPool;
+
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
 import org.ifinalframework.javassist.JavaAssistProcessor;
+
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ApplicationListener;
 
@@ -42,7 +45,7 @@ public class JavaAssistApplicationStartingListener implements ApplicationListene
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
 
-        if(processed){
+        if (processed) {
             return;
         }
 

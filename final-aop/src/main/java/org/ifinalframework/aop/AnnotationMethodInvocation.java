@@ -18,9 +18,9 @@ package org.ifinalframework.aop;
 
 import org.springframework.core.annotation.AnnotationAttributes;
 
-import java.util.Collection;
-
 import org.aopalliance.intercept.MethodInvocation;
+
+import java.util.Collection;
 
 /**
  * @author ilikly

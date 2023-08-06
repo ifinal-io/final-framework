@@ -15,14 +15,14 @@
 
 package org.ifinalframework.context.result;
 
-import lombok.RequiredArgsConstructor;
-
 import org.ifinalframework.core.result.Result;
 
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.function.Function;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Manage {@link ResultFunction} and {@link ResultConsumer}.

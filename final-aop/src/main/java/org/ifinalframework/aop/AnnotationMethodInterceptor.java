@@ -18,10 +18,10 @@ package org.ifinalframework.aop;
 
 import org.ifinalframework.util.Asserts;
 
-import java.lang.reflect.Method;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+
+import java.lang.reflect.Method;
 
 /**
  * @author ilikly

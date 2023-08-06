@@ -21,12 +21,12 @@ import org.springframework.context.expression.AnnotatedElementKey;
 
 import org.ifinalframework.context.expression.MethodMetadata;
 
+import org.aopalliance.intercept.MethodInvocation;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * @author ilikly
@@ -42,7 +42,7 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
     private final MethodInvocationDispatcher<A> dispatcher;
 
     public DefaultAnnotationMethodInterceptor(final AnnotationSource<A> source,
-        final MethodInvocationDispatcher<A> dispatcher) {
+                                              final MethodInvocationDispatcher<A> dispatcher) {
 
         this.source = source;
         this.dispatcher = dispatcher;
@@ -61,7 +61,7 @@ public class DefaultAnnotationMethodInterceptor<A> implements AnnotationMethodIn
         final MethodMetadata metadata = getOperationMetadata(invocation.getMethod(), targetClass);
 
         final InvocationContext context = new DefaultInvocationContext(metadata, invocation.getThis(),
-            invocation.getArguments());
+                invocation.getArguments());
 
         final Object operationValue = dispatcher.before(context, annotations);
         if (Objects.nonNull(operationValue)) {

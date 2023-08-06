@@ -25,7 +25,7 @@
  * <p>Registration</p>
  *
  * <p>Java API</p>
- * Use {@link org.springframework.boot.SpringApplication#addListeners(org.springframework.context.ApplicationListener[])} java api like this:
+ * Use {@link org.springframework.boot.SpringApplication#addListeners(org.springframework.context.ApplicationListener[])} api like this:
  * <pre class="code">
  * SpringApplication application = new SpringApplication();
  * application.addListeners(new MyApplicationEventListener());

@@ -15,16 +15,18 @@
 
 package org.ifinalframework.javassist;
 
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
-import lombok.extern.slf4j.Slf4j;
-import org.ifinalframework.auto.service.annotation.AutoService;
+
 import org.springframework.beans.AbstractNestablePropertyAccessor;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.core.convert.TypeDescriptor;
+
+import org.ifinalframework.auto.service.annotation.AutoService;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * AbstractNestablePropertyAccessorJavaAssistProcessor.
@@ -46,11 +48,13 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
 
         final CtClass ctClass = classPool.get("org.springframework.beans.AbstractNestablePropertyAccessor");
 
-        if(ctClass.isFrozen()){
+        if (ctClass.isFrozen()) {
             return;
         }
 
-        final CtField list = CtField.make("private java.util.List beanTypeDescriptorFactories = org.springframework.core.io.support.SpringFactoriesLoader.loadFactories(org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
+        final CtField list = CtField.make("private java.util.List beanTypeDescriptorFactories "
+                + "= org.springframework.core.io.support.SpringFactoriesLoader.loadFactories("
+                + "org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
         ctClass.addField(list);
 
 
@@ -59,12 +63,14 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
          * @see org.ifinalframework.beans.BeanTypeDescriptorFactory#create(Class, TypeDescriptor)
          */
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
-        newValue.insertBefore("        for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n" +
-                "            org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory = beanTypeDescriptorFactories.get(i);\n" +
-                "            if (beanTypeDescriptorFactory.support($1, $2)) {\n" +
-                "                return beanTypeDescriptorFactory.create($1, $2);\n" +
-                "            }\n" +
-                "        }");
+        newValue.insertBefore(
+                "for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n"
+                        + "    org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory "
+                        + "         = beanTypeDescriptorFactories.get(i);\n"
+                        + "    if (beanTypeDescriptorFactory.support($1, $2)) {\n"
+                        + "        return beanTypeDescriptorFactory.create($1, $2);\n"
+                        + "    }\n"
+                        + "}");
 
         final Class<?> aClass = ctClass.toClass(BeanWrapper.class);
 
