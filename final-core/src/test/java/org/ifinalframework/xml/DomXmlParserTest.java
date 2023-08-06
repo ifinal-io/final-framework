@@ -3,12 +3,12 @@ package org.ifinalframework.xml;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
-import lombok.SneakyThrows;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import lombok.SneakyThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ilikly

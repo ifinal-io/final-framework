@@ -17,16 +17,16 @@ package org.ifinalframework.velocity;
 
 import org.junit.jupiter.api.Test;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * VelocitiesTest.
@@ -68,7 +68,6 @@ class VelocitiesTest {
     private static class Params {
 
         private String name;
-
         private Integer age;
 
     }

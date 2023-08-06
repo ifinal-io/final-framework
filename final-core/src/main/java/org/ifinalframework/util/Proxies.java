@@ -104,6 +104,9 @@ public final class Proxies {
         return target;
     }
 
+    /**
+     * Returns target class of proxy.
+     */
     public static Class<?> targetClass(final Object proxy) {
 
         final Object target = target(proxy);

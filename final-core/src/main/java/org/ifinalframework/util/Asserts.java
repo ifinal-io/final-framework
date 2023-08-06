@@ -15,8 +15,8 @@
 
 package org.ifinalframework.util;
 
-import lombok.experimental.UtilityClass;
 import org.slf4j.helpers.MessageFormatter;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
@@ -24,6 +24,8 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+
+import lombok.experimental.UtilityClass;
 
 /**
  * General utility methods that asserts in validating arguments.

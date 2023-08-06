@@ -15,12 +15,14 @@
 
 package org.ifinalframework.io.support;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * PropertiesLoaderTest.
@@ -34,9 +36,7 @@ class PropertiesLoaderTest {
 
     @Test
     void test() {
-        final List<String> values = PropertiesLoader
-            .loadPropertyValues("key",
-                "META-INF/final.properties");
+        final List<String> values = PropertiesLoader.loadPropertyValues("key", "META-INF/final.properties");
         assertTrue(values.contains("val"));
     }
 

@@ -15,10 +15,10 @@
 
 package org.ifinalframework.util;
 
-import lombok.NonNull;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import lombok.NonNull;
 
 /**
  * @author ilikly

@@ -15,16 +15,18 @@
 
 package org.ifinalframework.java;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
+
 import org.ifinalframework.java.compiler.Compiler;
 import org.ifinalframework.java.compiler.DynamicClassLoader;
-import org.springframework.lang.NonNull;
 
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author ilikly

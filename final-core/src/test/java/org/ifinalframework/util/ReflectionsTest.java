@@ -16,14 +16,15 @@
 
 package org.ifinalframework.util;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.AnnotationAttributes;
 
 import java.lang.reflect.Method;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author ilikly

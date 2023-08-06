@@ -15,11 +15,12 @@
 
 package org.ifinalframework.util.function;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * ConsumerTest.
@@ -33,11 +34,11 @@ class ConsumerTest {
     @Test
     void andThen() {
         Consumer<StringBuilder> consumer = ((Consumer<StringBuilder>) sb -> sb.append("a"))
-            .andThen(it -> it.append("b"))
-            .andThen(it -> it.append("c"));
+                .andThen(it -> it.append("b"))
+                .andThen(it -> it.append("c"));
         StringBuilder stringBuilder = new StringBuilder();
         Optional.of(stringBuilder)
-            .ifPresent(consumer);
+                .ifPresent(consumer);
 
         Assertions.assertEquals("abc", stringBuilder.toString());
     }

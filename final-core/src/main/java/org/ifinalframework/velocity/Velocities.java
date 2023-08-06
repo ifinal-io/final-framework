@@ -16,17 +16,20 @@
 package org.ifinalframework.velocity;
 
 import ch.qos.logback.classic.Level;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.io.StringWriter;
 import java.io.Writer;
+
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A tool for {@code velocity} template language.

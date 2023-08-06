@@ -16,13 +16,14 @@
 
 package org.ifinalframework.core.io.support;
 
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 /**
  * SpringFactoriesLoaderTest.

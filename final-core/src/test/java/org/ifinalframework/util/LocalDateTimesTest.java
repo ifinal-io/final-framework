@@ -26,22 +26,25 @@ import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author ilikly
  * @version 1.3.1
  **/
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 class LocalDateTimesTest {
 
     @Test
     void localDateTime() {
-        System.out.println(LocalDateTime.now(ZoneOffset.UTC.normalized()));
-        System.out.println(LocalDateTimes.localDateTime(LocalDateTime.now(), ZoneId.systemDefault(), ZoneOffset.UTC.normalized()));
+        logger.info("{}", LocalDateTime.now(ZoneOffset.UTC.normalized()));
+        logger.info("{}", LocalDateTimes.localDateTime(LocalDateTime.now(), ZoneId.systemDefault(), ZoneOffset.UTC.normalized()));
     }
 
     @Test
     void test() {
-        System.out.println(new Date(2022 - 1900, Calendar.FEBRUARY, 12, 8, 0, 0).getTime());
-        System.out.println(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
+        logger.info("{}", new Date(2022 - 1900, Calendar.FEBRUARY, 12, 8, 0, 0).getTime());
+        logger.info("{}", LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant().toEpochMilli());
     }
 }

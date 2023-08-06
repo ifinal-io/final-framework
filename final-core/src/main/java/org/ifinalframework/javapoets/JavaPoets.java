@@ -19,9 +19,11 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+
+import org.springframework.lang.NonNull;
+
 import org.ifinalframework.util.JarVersions;
 import org.ifinalframework.util.format.LocalDateTimeFormatter;
-import org.springframework.lang.NonNull;
 
 import jakarta.annotation.Generated;
 

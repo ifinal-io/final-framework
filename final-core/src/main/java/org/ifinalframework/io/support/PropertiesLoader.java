@@ -26,7 +26,11 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author ilikly
@@ -42,21 +46,21 @@ public final class PropertiesLoader {
     }
 
     public static List<String> loadPropertyValues(final @NonNull String propertyKey,
-        final @NonNull String propertiesResourceLocation) {
+                                                  final @NonNull String propertiesResourceLocation) {
 
         return loadPropertyValues(propertyKey, null, propertiesResourceLocation);
     }
 
     public static List<String> loadPropertyValues(final @NonNull String propertyKey,
-        final @Nullable ClassLoader classLoader,
-        final @NonNull String propertiesResourceLocation) {
+                                                  final @Nullable ClassLoader classLoader,
+                                                  final @NonNull String propertiesResourceLocation) {
 
         return loadPropertyValues(classLoader, propertiesResourceLocation)
-            .getOrDefault(propertyKey, Collections.emptyList());
+                .getOrDefault(propertyKey, Collections.emptyList());
     }
 
     private static Map<String, List<String>> loadPropertyValues(final @Nullable ClassLoader classLoader,
-        final String propertiesResourceLocation) {
+                                                                final String propertiesResourceLocation) {
 
         MultiValueMap<String, String> result = cache.get(classLoader);
         if (result != null) {
@@ -65,8 +69,8 @@ public final class PropertiesLoader {
 
         try {
             final Enumeration<URL> urls = classLoader != null
-                ? classLoader.getResources(propertiesResourceLocation)
-                : ClassLoader.getSystemResources(propertiesResourceLocation);
+                    ? classLoader.getResources(propertiesResourceLocation)
+                    : ClassLoader.getSystemResources(propertiesResourceLocation);
             result = new LinkedMultiValueMap<>();
             while (urls.hasMoreElements()) {
                 final URL url = urls.nextElement();
@@ -83,7 +87,7 @@ public final class PropertiesLoader {
             return result;
         } catch (IOException ex) {
             throw new IllegalArgumentException(
-                "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
+                    "Unable to load factories from location [" + propertiesResourceLocation + "]", ex);
         }
     }
 

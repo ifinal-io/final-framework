@@ -22,6 +22,7 @@ import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,8 +35,9 @@ import java.util.Set;
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
 
 
-    private static final String[] superLocationNames = {StandardLocation.PLATFORM_CLASS_PATH.name(),
-            "SYSTEM_MODULES"};
+    private static final String[] superLocationNames = {
+            StandardLocation.PLATFORM_CLASS_PATH.name(), "SYSTEM_MODULES"
+    };
 
     private final PackageInternalsFinder finder;
 

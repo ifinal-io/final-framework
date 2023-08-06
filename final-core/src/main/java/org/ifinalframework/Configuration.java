@@ -17,11 +17,12 @@ package org.ifinalframework;
 
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.InputStream;
-import java.util.Properties;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,7 +81,7 @@ public final class Configuration {
 
         try {
             final FileObject resource = processingEnv.getFiler()
-                .getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
+                    .getResource(StandardLocation.CLASS_OUTPUT, "", PROPERTIES_PATH);
             try (InputStream is = resource.openInputStream()) {
                 properties.load(is);
             }

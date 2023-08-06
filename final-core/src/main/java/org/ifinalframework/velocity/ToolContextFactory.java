@@ -15,12 +15,12 @@
 
 package org.ifinalframework.velocity;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.tools.ToolContext;
 import org.apache.velocity.tools.ToolManager;
 import org.apache.velocity.tools.config.ConfigurationUtils;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -30,6 +30,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Velocity {@link ToolContext} factory.

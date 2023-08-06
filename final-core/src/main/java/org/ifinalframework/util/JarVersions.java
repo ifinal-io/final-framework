@@ -15,7 +15,6 @@
 
 package org.ifinalframework.util;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -28,6 +27,8 @@ import java.net.URLConnection;
 import java.security.CodeSource;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+
+import lombok.experimental.UtilityClass;
 
 /**
  * JarVersions.

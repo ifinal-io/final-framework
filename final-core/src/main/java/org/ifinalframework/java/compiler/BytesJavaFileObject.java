@@ -16,6 +16,7 @@
 package org.ifinalframework.java.compiler;
 
 import javax.tools.SimpleJavaFileObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.net.URI;
@@ -37,7 +38,7 @@ public class BytesJavaFileObject extends SimpleJavaFileObject {
     public BytesJavaFileObject(final String className) {
 
         super(URI.create("byte:///" + className.replace(PKG_SEPARATOR, DIR_SEPARATOR)
-            + Kind.CLASS.extension), Kind.CLASS);
+                + Kind.CLASS.extension), Kind.CLASS);
     }
 
     public BytesJavaFileObject(final String className, final ByteArrayOutputStream byteArrayOutputStream) {

@@ -23,7 +23,7 @@ package org.ifinalframework.java;
  * @since 1.3.1
  */
 class Jvm {
-    String say(){
+    String say() {
         return "hello";
     }
 }

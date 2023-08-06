@@ -39,6 +39,7 @@ import org.benf.cfr.reader.util.output.NopSummaryDumper;
 import org.benf.cfr.reader.util.output.SinkDumperFactory;
 import org.benf.cfr.reader.util.output.SummaryDumper;
 import org.benf.cfr.reader.util.output.ToStringDumper;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
@@ -86,7 +87,7 @@ public class JadDriver {
     }
 
     public String jad(Class<?> clazz, byte[] bytes, String methodName) {
-        return jad(new ClassFile(new BaseByteData(bytes), clazz.getName(), dcCommonState), methodName);//.replace(clazz.getName(),clazz.getSimpleName());
+        return jad(new ClassFile(new BaseByteData(bytes), clazz.getName(), dcCommonState), methodName);
     }
 
     private String jad(ClassFile c, String methodName) {
@@ -135,7 +136,6 @@ public class JadDriver {
         IllegalIdentifierDump illegalIdentifierDump = IllegalIdentifierDump.Factory.get(options);
         Dumper d = new ToStringDumper(); // sentinel dumper.
         try {
-            SummaryDumper summaryDumper = new NopSummaryDumper();
 
             dcCommonState.configureWith(c);
             dumperFactory.getProgressDumper().analysingType(c.getClassType());
@@ -146,6 +146,7 @@ public class JadDriver {
             try {
                 c = dcCommonState.getClassFile(c.getClassType());
             } catch (CannotLoadClassException ignore) {
+                // ignore
             }
 
             if (options.getOption(OptionsImpl.DECOMPILE_INNER_CLASSES)) {
@@ -160,6 +161,7 @@ public class JadDriver {
 
             TypeUsageInformation typeUsageInformation = collectingDumper.getRealTypeUsageInformation();
 
+            SummaryDumper summaryDumper = new NopSummaryDumper();
             d = dumperFactory.getNewTopLevelDumper(c.getClassType(), summaryDumper, typeUsageInformation, illegalIdentifierDump);
             d = dcCommonState.getObfuscationMapping().wrap(d);
             if (options.getOption(OptionsImpl.TRACK_BYTECODE_LOC)) {

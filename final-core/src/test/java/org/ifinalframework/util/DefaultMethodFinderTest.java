@@ -25,7 +25,8 @@ class DefaultMethodFinderTest {
 
     @Test
     void methodFinder() {
-        assertThrows(IllegalArgumentException.class, () -> methodFinder.find(DefaultMethodFinderTest.class, "method1", new Class[]{}, new Object[]{1}));
+        assertThrows(IllegalArgumentException.class,
+                () -> methodFinder.find(DefaultMethodFinderTest.class, "method1", new Class[]{}, new Object[]{1}));
         assertNotNull(methodFinder.find(DefaultMethodFinderTest.class, "method1", null, null));
         assertNotNull(methodFinder.find(DefaultMethodFinderTest.class, "method1", new Class[]{}, null));
         assertNotNull(methodFinder.find(DefaultMethodFinderTest.class, "method2", null, null));
