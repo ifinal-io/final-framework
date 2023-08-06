@@ -16,6 +16,7 @@
 
 package org.ifinalframework.context.exception.result;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.ifinalframework.context.exception.handler.GlobalExceptionHandler;
 import org.ifinalframework.core.IException;
@@ -23,11 +24,10 @@ import org.ifinalframework.core.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,41 +36,36 @@ import java.util.List;
  * @since 1.0.0
  */
 @Component
-//@ConditionalOnMissingBean(GlobalExceptionHandler.class)
+@RequiredArgsConstructor
 public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandler<Result<?>> {
 
     private static final Logger logger = LoggerFactory.getLogger(ResultGlobalResultExceptionHandler.class);
 
-    private final List<ResultExceptionHandler<?>> resultExceptionHandlers = new ArrayList<>();
+    private final List<ResultExceptionHandler<Throwable>> resultExceptionHandlers;
 
     private final ResultExceptionHandler<Throwable> defaultResultExceptionHandler = new UnCatchResultExceptionHandler();
-
-    public ResultGlobalResultExceptionHandler(
-            final ObjectProvider<List<ResultExceptionHandler<?>>> resultExceptionHandlerObjectProvider) {
-        this.resultExceptionHandlers.addAll(resultExceptionHandlerObjectProvider.getIfAvailable());
-    }
 
     @Override
     public Result<?> handle(@NonNull Throwable throwable) {
         throwable = ExceptionUtils.getRootCause(throwable);
 
-        for (ResultExceptionHandler<?> resultExceptionHandler : resultExceptionHandlers) {
-            if (resultExceptionHandler.supports(throwable)) {
+        if (!CollectionUtils.isEmpty(resultExceptionHandlers)) {
+            for (ResultExceptionHandler<Throwable> resultExceptionHandler : resultExceptionHandlers) {
+                if (resultExceptionHandler.supports(throwable)) {
 
-                if (throwable instanceof IException) {
-                    final IException e = (IException) throwable;
-                    logger.warn("==> exception: code={},message={}", e.getCode(), e.getMessage());
-                } else {
-                    logger.warn("==> exception: ", throwable);
+                    if (throwable instanceof IException e) {
+                        logger.warn("==> exception: code={},message={}", e.getCode(), e.getMessage());
+                    } else {
+                        logger.warn("==> exception: ", throwable);
+                    }
+                    final Result<?> result = resultExceptionHandler.handle(throwable);
+                    result.setTrace(MDC.get("trace"));
+                    result.setTimestamp(System.currentTimeMillis());
+                    result.setException(throwable.getClass());
+                    return result;
                 }
-                final Result<?> result = ((ResultExceptionHandler<Throwable>) resultExceptionHandler).handle(throwable);
-                result.setTrace(MDC.get("trace"));
-                result.setTimestamp(System.currentTimeMillis());
-                result.setException(throwable.getClass());
-                return result;
             }
         }
-
 
         logger.error("==> ", throwable);
 
