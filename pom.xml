@@ -48,7 +48,7 @@
     </modules>
 
     <properties>
-        <final.version>1.5.2</final.version>
+        <final.version>1.5.3-SNAPSHOT</final.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
