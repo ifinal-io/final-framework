@@ -16,6 +16,7 @@
 
 package org.ifinalframework.context.exception.result;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -31,37 +32,37 @@ import org.slf4j.MDC;
 
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 /**
  * @author ilikly
  * @version 1.0.0
  * @since 1.0.0
  */
 @Component
-@RequiredArgsConstructor
 public class ResultGlobalResultExceptionHandler implements GlobalExceptionHandler<Result<?>> {
 
     private static final Logger logger = LoggerFactory.getLogger(ResultGlobalResultExceptionHandler.class);
 
-    private final List<ResultExceptionHandler<Throwable>> resultExceptionHandlers;
+    private final List<ResultExceptionHandler<?>> resultExceptionHandlers;
 
     private final ResultExceptionHandler<Throwable> defaultResultExceptionHandler = new UnCatchResultExceptionHandler();
+
+    public ResultGlobalResultExceptionHandler(ObjectProvider<ResultExceptionHandler<?>> resultExceptionHandlers) {
+        this.resultExceptionHandlers =  resultExceptionHandlers.stream().toList();
+    }
 
     @Override
     public Result<?> handle(@NonNull Throwable throwable) {
         throwable = ExceptionUtils.getRootCause(throwable);
 
         if (!CollectionUtils.isEmpty(resultExceptionHandlers)) {
-            for (ResultExceptionHandler<Throwable> resultExceptionHandler : resultExceptionHandlers) {
+            for (ResultExceptionHandler resultExceptionHandler : resultExceptionHandlers) {
                 if (resultExceptionHandler.supports(throwable)) {
-
                     if (throwable instanceof IException e) {
                         logger.warn("==> exception: code={},message={}", e.getCode(), e.getMessage());
                     } else {
                         logger.warn("==> exception: ", throwable);
                     }
-                    final Result<?> result = resultExceptionHandler.handle(throwable);
+                    final Result<?> result = (Result<?>) resultExceptionHandler.handle(throwable);
                     result.setTrace(MDC.get("trace"));
                     result.setTimestamp(System.currentTimeMillis());
                     result.setException(throwable.getClass());
