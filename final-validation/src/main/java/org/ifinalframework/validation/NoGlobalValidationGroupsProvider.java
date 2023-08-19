@@ -15,9 +15,8 @@
 
 package org.ifinalframework.validation;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,8 +28,7 @@ import java.util.List;
  * @version 1.5.0
  * @since 1.5.0
  */
-@Configuration
-@ConditionalOnMissingBean(GlobalValidationGroupsProvider.class)
+@Component
 public class NoGlobalValidationGroupsProvider implements GlobalValidationGroupsProvider {
     @NonNull
     @Override
