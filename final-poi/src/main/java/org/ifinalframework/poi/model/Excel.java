@@ -15,6 +15,8 @@
 
 package org.ifinalframework.poi.model;
 
+import org.ifinalframework.core.lang.SpEL;
+
 import java.util.List;
 
 import lombok.Getter;
@@ -31,6 +33,10 @@ import lombok.Setter;
 @Getter
 public class Excel {
 
+    /**
+     * Excel file name which supports {@link SpEL}.
+     */
+    @SpEL
     private String name;
 
     private Version version;
