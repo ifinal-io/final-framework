@@ -40,12 +40,8 @@ class CompositeProxiesTest {
     @Test
     void composite() {
         final Callback composite = CompositeProxies.composite(Callback.class, Arrays.asList(
-                (key) -> {
-                    logger.info("from one {}", key);
-                },
-                (key) -> {
-                    logger.info("from two {}", key);
-                }
+                (key) -> logger.info("from one {}", key),
+                (key) -> logger.info("from two {}", key)
         ));
 
         composite.say("haha!");

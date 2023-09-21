@@ -39,10 +39,7 @@ public class CompositeProxies {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ProxyInvocationHandler<>(list));
     }
 
-    @RequiredArgsConstructor
-    private static final class ProxyInvocationHandler<T> implements InvocationHandler {
-        private final List<T> targets;
-
+    private record ProxyInvocationHandler<T>(List<T> targets) implements InvocationHandler {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             if (CollectionUtils.isEmpty(targets)) {
