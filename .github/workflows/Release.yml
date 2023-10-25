@@ -84,6 +84,7 @@ jobs:
         run : |
           command="s/<final.version>.*<\/final.version>/<final.version>$GITHUB_REF_NAME<\/final.version>/g"
           sed -i "${command}" "pom.xml"
+          mvn versions:update-parent
           mvn versions:set -DnewVersion=$GITHUB_REF_NAME
       - name: 发布
         run: mvn -B deploy -Pci,ossrh --file pom.xml
