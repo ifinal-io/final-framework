@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-dependencies</artifactId>
-        <version>1.5.5</version>
+        <version>1.5.5-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinalframework</groupId>
