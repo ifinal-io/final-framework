@@ -62,6 +62,7 @@ public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> 
         if (result == null) {
             return null;
         }
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         // set address
         result.setAddress(request.getLocalAddress().getAddress().getHostName());
         result.setIp(String.format("%s:%d", request.getLocalAddress().getAddress().getHostAddress(),
