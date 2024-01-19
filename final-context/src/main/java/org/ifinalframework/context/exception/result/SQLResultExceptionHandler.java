@@ -24,7 +24,7 @@ import org.ifinalframework.core.result.Result;
 import java.sql.SQLException;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see java.sql.SQLIntegrityConstraintViolationException
  * @since 1.0.0

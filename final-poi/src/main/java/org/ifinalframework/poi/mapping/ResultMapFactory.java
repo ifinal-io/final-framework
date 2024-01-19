@@ -18,7 +18,7 @@ package org.ifinalframework.poi.mapping;
 import org.springframework.lang.NonNull;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @FunctionalInterface

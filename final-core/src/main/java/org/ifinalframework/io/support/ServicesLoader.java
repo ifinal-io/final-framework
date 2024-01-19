@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Services loader like {@link java.util.ServiceLoader}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see java.util.ServiceLoader
  * @see org.springframework.core.io.support.SpringFactoriesLoader

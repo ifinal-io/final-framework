@@ -18,7 +18,7 @@
  *     <li>{@link org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver}</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 package org.ifinalframework.web.reactive;

@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
  *     <li>{@code yyyyMMddHHmmss}</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * VersionResultConsumer
  *
- * @author mik
+ * @author iimik
  * @since 1.5.6
  **/
 @Slf4j

@@ -34,7 +34,7 @@ import lombok.SneakyThrows;
 /**
  * Apply a {@link Row} to a {@link T} result with {@link ResultMap}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see MapBiFunction
  **/

@@ -23,7 +23,7 @@ import lombok.Setter;
 /**
  * Sheet
  *
- * @author mik
+ * @author iimik
  * @since 1.5.2
  **/
 @Setter

@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * String2LocalDateConverter.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.5.0
  * @since 1.5.0
  */

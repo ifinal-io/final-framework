@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Auto detect {@link HandlerMethodArgumentResolver} from spring context.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.1
  * @since 1.4.1
  */

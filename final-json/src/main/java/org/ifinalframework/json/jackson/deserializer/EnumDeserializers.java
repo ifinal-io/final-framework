@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 /**
  * IEnumSerializers.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see org.ifinalframework.json.jackson.modifier.BeanEnumPropertySerializerModifier
  * @since 1.0.0
@@ -62,7 +62,7 @@ public class EnumDeserializers extends SimpleDeserializers {
     /**
      * The {@link JsonDeserializer} for type of {@link Enum} which implementation the interface of {@link IEnum}.
      *
-     * @author ilikly
+     * @author iimik
      * @version 1.0.0
      * @since 1.0.0
      */

@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * CommonResultConsumer.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see LocaleContextHolder#getLocale()
  * @see LocaleContextHolder#getTimeZone()

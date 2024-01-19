@@ -19,7 +19,7 @@ package org.ifinalframework.core.generator;
 /**
  * 生成器.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

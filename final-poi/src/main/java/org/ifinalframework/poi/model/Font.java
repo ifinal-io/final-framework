@@ -20,7 +20,7 @@ import lombok.Data;
 /**
  * Font
  *
- * @author mik
+ * @author iimik
  * @since 1.5.2
  **/
 @Data

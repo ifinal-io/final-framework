@@ -23,7 +23,7 @@
  *     <li>{@linkplain org.apache.dubbo.config.ReferenceConfig 引用}</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

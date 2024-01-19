@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.ServiceLoader;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

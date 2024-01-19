@@ -27,7 +27,7 @@ import java.lang.reflect.Parameter;
 /**
  * 查找声明在注解元素{@link AnnotatedElement}上的{@link Annotation}, 期中注解元素包含{@link Class}、{@link Method}和{@link Parameter}。
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see AnnotatedElementUtils#findMergedRepeatableAnnotations(AnnotatedElement, Class)
  * @see AnnotatedElementUtils#findAllMergedAnnotations(AnnotatedElement, Class)

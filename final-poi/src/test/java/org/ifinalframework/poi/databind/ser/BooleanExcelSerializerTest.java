@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Objects;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)

@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Deserialize a {@link Date} result from {@link Cell}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class DateExcelDeserializer implements ExcelDeserializer<Date> {

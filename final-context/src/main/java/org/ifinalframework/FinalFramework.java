@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  * <p>@ComponentScan</p>
  * <p>{@link FinalFramework} use default packages of {@code org.ifinalframework} to scan {@link Component}s.</p>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ComponentScan
  * @see ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(BeanDefinitionRegistry)

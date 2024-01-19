@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.TimeZone;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.3.1
  * @see LocaleContextHolder
  **/

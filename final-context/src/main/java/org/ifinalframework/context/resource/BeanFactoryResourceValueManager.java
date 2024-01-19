@@ -32,7 +32,7 @@ import java.util.Collection;
 /**
  * BeanFactoryResourceValueManager.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

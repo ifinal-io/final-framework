@@ -53,7 +53,7 @@ import java.util.stream.Stream;
  *     <li>{@link Aspect}</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ClassUtils#forName(String, ClassLoader)
  * @see ApplicationConversionService#addBeans(FormatterRegistry, ListableBeanFactory)

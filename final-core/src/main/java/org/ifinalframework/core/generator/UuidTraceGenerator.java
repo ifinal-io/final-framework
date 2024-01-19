@@ -20,7 +20,7 @@ import java.util.UUID;
 /**
  * UuidTraceGenerator.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

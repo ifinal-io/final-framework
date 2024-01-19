@@ -21,7 +21,7 @@ import java.time.ZoneId;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.3.1
  **/
 @UtilityClass

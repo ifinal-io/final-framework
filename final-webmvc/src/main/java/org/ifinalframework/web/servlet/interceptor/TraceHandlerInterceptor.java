@@ -36,7 +36,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see TraceGenerator
  * @see UuidTraceGenerator

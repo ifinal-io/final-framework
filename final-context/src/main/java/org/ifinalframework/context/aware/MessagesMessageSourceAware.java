@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * An aware helper to receive {@link MessageSource} from {@link MessageSourceAware} and set to {@link Messages}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see MessageSource
  * @see Messages

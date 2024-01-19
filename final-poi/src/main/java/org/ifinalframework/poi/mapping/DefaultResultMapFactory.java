@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 import lombok.SneakyThrows;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class DefaultResultMapFactory implements ResultMapFactory {

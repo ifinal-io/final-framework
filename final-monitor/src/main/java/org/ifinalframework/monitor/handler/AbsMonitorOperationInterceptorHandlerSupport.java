@@ -29,7 +29,7 @@ import org.ifinalframework.monitor.interceptor.DefaultMonitorExpressionEvaluator
 import org.ifinalframework.util.Asserts;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

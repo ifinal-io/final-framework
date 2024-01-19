@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 /**
  * Auto generate config file in {@code META-INF/dubbo/{service}}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

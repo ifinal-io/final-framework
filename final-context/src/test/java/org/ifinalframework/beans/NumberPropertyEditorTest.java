@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see PropertyEditorRegistrySupport
  **/

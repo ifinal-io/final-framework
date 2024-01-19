@@ -29,7 +29,7 @@ import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.3.1
  **/
 @Slf4j

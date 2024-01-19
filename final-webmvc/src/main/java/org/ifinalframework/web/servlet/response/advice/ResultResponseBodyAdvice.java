@@ -38,7 +38,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Wrap the {@link org.springframework.web.bind.annotation.ResponseBody} with {@link Result}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

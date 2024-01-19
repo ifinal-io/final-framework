@@ -8,7 +8,7 @@ import org.ifinalframework.poi.databind.ExcelSerializer;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class StringExcelSerializer implements ExcelSerializer<String> {

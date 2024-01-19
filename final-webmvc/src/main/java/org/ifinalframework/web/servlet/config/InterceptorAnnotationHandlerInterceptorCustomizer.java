@@ -27,7 +27,7 @@ import org.ifinalframework.web.annotation.servlet.Interceptor;
 /**
  * Parse {@link Interceptor} annotation in {@link HandlerInterceptor}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.2
  * @see Interceptor
  * @since 1.2.2

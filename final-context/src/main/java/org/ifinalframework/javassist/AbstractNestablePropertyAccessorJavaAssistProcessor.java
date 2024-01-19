@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * AbstractNestablePropertyAccessorJavaAssistProcessor.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.5.0
  * @see AbstractNestablePropertyAccessor
  * @see org.ifinalframework.beans.BeanTypeDescriptorFactory

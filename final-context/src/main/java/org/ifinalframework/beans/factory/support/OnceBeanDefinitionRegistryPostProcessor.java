@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see org.springframework.context.annotation.ConfigurationClassPostProcessor
  **/

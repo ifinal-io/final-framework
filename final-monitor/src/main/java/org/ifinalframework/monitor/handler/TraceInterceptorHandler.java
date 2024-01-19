@@ -25,7 +25,7 @@ import org.ifinalframework.monitor.context.TraceContext;
 import org.ifinalframework.monitor.trace.Tracer;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

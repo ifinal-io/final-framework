@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 import org.springframework.beans.factory.FactoryBean;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

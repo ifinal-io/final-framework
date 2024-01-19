@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @Target({ElementType.FIELD, ElementType.METHOD})

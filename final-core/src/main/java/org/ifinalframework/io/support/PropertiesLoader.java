@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see org.springframework.core.io.support.SpringFactoriesLoader
  * @since 1.0.0

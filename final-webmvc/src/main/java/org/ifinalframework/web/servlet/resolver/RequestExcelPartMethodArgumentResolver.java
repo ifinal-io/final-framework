@@ -32,7 +32,7 @@ import org.ifinalframework.web.annotation.bind.RequestExcelPart;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see org.springframework.web.servlet.mvc.method.annotation.RequestPartMethodArgumentResolver
  **/

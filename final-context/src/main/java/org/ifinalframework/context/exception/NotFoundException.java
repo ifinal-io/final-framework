@@ -21,7 +21,7 @@ import org.ifinalframework.core.ResponseStatus;
 /**
  * 未找到异常，一般为要访问的数据或页面不存在。
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ResponseStatus#BAD_REQUEST
  * @since 1.0.0

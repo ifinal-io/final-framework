@@ -59,7 +59,7 @@ import java.util.Collection;
  *      }
  * </pre>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see EnumCodeSerializer
  * @see EnumNameSerializer
@@ -126,7 +126,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     /**
      * 枚举{@link IEnum}码序列化器，将枚举序列化为其{@link IEnum#getCode()}所描述的值。
      *
-     * @author ilikly
+     * @author iimik
      * @version 1.0.0
      * @since 1.0.0
      */
@@ -152,7 +152,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     /**
      * 枚举{@link IEnum}码序列化器，将枚举序列化为其{@link IEnum#getDesc()}所描述的值。
      *
-     * @author ilikly
+     * @author iimik
      * @version 1.0.0
      * @since 1.0.0
      */
@@ -169,7 +169,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     }
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.0.0
      * @since 1.0.0
      */

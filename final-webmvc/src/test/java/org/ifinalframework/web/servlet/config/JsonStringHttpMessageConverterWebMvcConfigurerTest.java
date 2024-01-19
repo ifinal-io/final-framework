@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * JsonStringHttpMessageConverterWebMvcConfigurerTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.0
  * @since 1.4.0
  */

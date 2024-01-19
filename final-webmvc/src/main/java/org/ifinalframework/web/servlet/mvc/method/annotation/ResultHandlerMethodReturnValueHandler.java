@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * ResultHandlerMethodReturnValueHandler.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @since 1.0.0

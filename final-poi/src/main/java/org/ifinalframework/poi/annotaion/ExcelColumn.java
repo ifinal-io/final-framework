@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 /**
  * Annotated the element of {@link java.lang.reflect.Field}/{@link java.lang.reflect.Method} is a column of excel.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @Target({ElementType.FIELD, ElementType.METHOD})

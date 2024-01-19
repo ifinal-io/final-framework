@@ -23,7 +23,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @Setter

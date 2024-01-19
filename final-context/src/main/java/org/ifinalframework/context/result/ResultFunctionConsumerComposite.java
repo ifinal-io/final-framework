@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Manage {@link ResultFunction} and {@link ResultConsumer}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see ResultFunction
  * @see ResultConsumer

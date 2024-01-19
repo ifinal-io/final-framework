@@ -31,7 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see CookieLocaleResolver
  * @see org.springframework.web.server.i18n.AcceptHeaderLocaleContextResolver

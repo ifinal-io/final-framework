@@ -24,7 +24,7 @@ import org.ifinalframework.context.exception.UnCatchException;
 import org.ifinalframework.context.exception.handler.GlobalExceptionHandler;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

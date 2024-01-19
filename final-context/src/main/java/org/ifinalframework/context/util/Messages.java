@@ -27,7 +27,7 @@ import java.util.Objects;
 import lombok.Setter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see MessageFormatter
  * @see MessageSource

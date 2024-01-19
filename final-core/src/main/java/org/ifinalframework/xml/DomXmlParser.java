@@ -9,7 +9,7 @@ import org.w3c.dom.NodeList;
 import java.util.Optional;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class DomXmlParser implements XmlParser<Document> {

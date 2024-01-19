@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -27,7 +27,7 @@ import org.ifinalframework.json.JsonException;
 /**
  * Json 异常处理器，将业务层抛出的{@link JsonException}异常包装成 {@link Result}返回给前端。
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see JsonException
  * @since 1.0.0

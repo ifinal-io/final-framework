@@ -43,7 +43,7 @@ import static org.mockito.Mockito.*;
 /**
  * RequestJsonParamHandlerMethodArgumentResolverTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

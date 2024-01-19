@@ -31,7 +31,7 @@ import java.util.Objects;
 /**
  * Build a {@linkplain Pagination} from {@linkplain Page}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.1
  * @since 1.2.1
  */

@@ -33,7 +33,7 @@ import lombok.experimental.UtilityClass;
 /**
  * JarVersions.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see org.springframework.core.SpringVersion
  * @see SpringBootVersion

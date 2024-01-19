@@ -19,7 +19,7 @@ package org.ifinalframework.context.exception;
 /**
  * 未捕获的异常
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

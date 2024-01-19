@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * {@link Date}格式化器，可使用 {@link #format(Date)} 格式化{@link Date}或 使用{@link #parse(String)}奖{@link String}解析成{@link Date}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

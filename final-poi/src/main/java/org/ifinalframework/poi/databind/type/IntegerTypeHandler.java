@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.IntegerExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.IntegerExcelSerializer;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class IntegerTypeHandler extends SimpleTypeHandler<Integer> {

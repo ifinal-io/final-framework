@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * Deserialize a {@link LocalDateTime} result from {@link Cell}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class LocalDateTimeExcelDeserializer implements ExcelDeserializer<LocalDateTime> {

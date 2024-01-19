@@ -24,7 +24,7 @@ import org.springframework.web.bind.support.WebBindingInitializer;
 /**
  * AutoWebBindingInitializer.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

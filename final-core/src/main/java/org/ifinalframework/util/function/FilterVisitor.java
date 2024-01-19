@@ -16,7 +16,7 @@
 package org.ifinalframework.util.function;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see BiFilter
  * @since 1.0.0

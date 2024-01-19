@@ -25,7 +25,7 @@ import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
 /**
  * Rest {@link MethodParameter} 方法过滤器。
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

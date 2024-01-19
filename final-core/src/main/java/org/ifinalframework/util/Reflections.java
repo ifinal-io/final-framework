@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Reflections.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -152,7 +152,7 @@ public final class Reflections {
     }
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.2.4
      **/
     @FunctionalInterface
@@ -163,7 +163,7 @@ public final class Reflections {
     }
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.2.4
      **/
     public static class MethodFinders implements MethodFinder {
@@ -197,7 +197,7 @@ public final class Reflections {
     }
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.2.4
      **/
     static class DefaultMethodFinder extends MethodFinders {
@@ -317,7 +317,7 @@ public final class Reflections {
 
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.2.4
      **/
     static class DefaultMethodInvoker implements MethodInvoker {
@@ -345,7 +345,7 @@ public final class Reflections {
     }
 
     /**
-     * @author ilikly
+     * @author iimik
      * @version 1.2.4
      **/
     @FunctionalInterface

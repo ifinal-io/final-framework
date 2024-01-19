@@ -18,7 +18,7 @@ package org.ifinalframework.util.function;
 /**
  * BiFilterTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see java.util.function.Consumer
  * @since 1.0.0

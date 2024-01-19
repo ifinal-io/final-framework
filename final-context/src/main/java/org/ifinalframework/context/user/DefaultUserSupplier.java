@@ -22,7 +22,7 @@ import org.ifinalframework.core.IUser;
 /**
  * UserContextUserSupplier.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.1
  * @see UserContextHolder
  * @since 1.4.1

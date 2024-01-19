@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * StringTrimDeserializer.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

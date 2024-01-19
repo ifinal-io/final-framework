@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see OperationAction
  * @since 1.0.0

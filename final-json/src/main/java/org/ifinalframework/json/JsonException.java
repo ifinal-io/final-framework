@@ -19,7 +19,7 @@ package org.ifinalframework.json;
 /**
  * warp the {@link Throwable} throw by {@link JsonService} on the {@link Json}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see Json
  * @see JsonService

@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
  * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link
  * WebMvcConfigurer#addFormatters(FormatterRegistry)}. Also support SPI from {@link ServiceLoader}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ConverterFactory
  * @see FormatterRegistry

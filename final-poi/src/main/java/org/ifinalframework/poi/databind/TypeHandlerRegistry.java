@@ -32,7 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class TypeHandlerRegistry {

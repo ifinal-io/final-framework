@@ -24,7 +24,7 @@ import org.ifinalframework.core.IUser;
 /**
  * The context holder of {@link UserContext} with {@link ThreadLocal}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Create {@link BeanDefinitionReader} instance from bean definition resource, such as {@code xml} or {@code groovy}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see org.springframework.context.annotation.ConfigurationClassPostProcessor
  **/

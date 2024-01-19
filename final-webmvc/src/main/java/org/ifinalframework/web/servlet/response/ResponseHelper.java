@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * ResponseHelper.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
  *     <li>classpath*:spring/spring-config-*.xml</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see org.springframework.context.annotation.ImportResource
  * @see org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsFromImportedResources

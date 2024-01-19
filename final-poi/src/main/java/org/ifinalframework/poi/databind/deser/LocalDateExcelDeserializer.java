@@ -26,7 +26,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import java.time.LocalDate;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class LocalDateExcelDeserializer implements ExcelDeserializer<LocalDate> {

@@ -25,7 +25,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * SpelExcelGenerator.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

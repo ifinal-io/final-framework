@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 /**
  * Customize {@link HandlerInterceptor} with {@link InterceptorRegistration}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.2
  * @see OrderHandlerInterceptorCustomizer
  * @see InterceptorAnnotationHandlerInterceptorCustomizer

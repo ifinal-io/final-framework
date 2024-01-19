@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * <p>Warn: Don't use {@link org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport}</p>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see Interceptor
  * @see HandlerInterceptor

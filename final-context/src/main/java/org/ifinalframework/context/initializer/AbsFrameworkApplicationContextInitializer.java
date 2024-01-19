@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Registration a {@code framework} class into {@link ConfigurableApplicationContext}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see FinalFrameworkApplicationContextInitializer
  * @since 1.0.0

@@ -30,7 +30,7 @@ import jakarta.validation.ConstraintViolationException;
 /**
  * The handler is to handle the exception throw by framework of {@link javax.validation.Validator}
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ConstraintViolationException
  * @since 1.0.0

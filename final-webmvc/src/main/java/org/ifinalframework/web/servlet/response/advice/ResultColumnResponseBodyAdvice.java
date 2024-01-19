@@ -44,7 +44,7 @@ import java.util.Objects;
 /**
  * ResultColumnResponseBodyAdvice.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see ResponseHelper
  * @see org.ifinalframework.web.servlet.interceptor.ResponseColumnHandlerInterceptor

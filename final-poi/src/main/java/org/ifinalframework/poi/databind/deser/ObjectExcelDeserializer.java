@@ -24,7 +24,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class ObjectExcelDeserializer implements ExcelDeserializer<Object> {

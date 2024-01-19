@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)

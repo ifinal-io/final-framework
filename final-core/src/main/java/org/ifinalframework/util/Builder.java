@@ -19,7 +19,7 @@ package org.ifinalframework.util;
 /**
  * 构建者模式接口
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

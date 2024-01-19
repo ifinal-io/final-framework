@@ -25,7 +25,7 @@ import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -25,7 +25,7 @@ import org.apache.poi.ss.usermodel.Cell;
 /**
  * Deserialize a {@link Integer} result from {@link Cell}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @since 1.2.4
  */

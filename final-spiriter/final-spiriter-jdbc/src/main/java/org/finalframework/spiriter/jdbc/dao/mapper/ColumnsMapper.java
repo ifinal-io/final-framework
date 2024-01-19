@@ -22,7 +22,7 @@ import org.ifinalframework.mybatis.mapper.AbsMapper;
 import org.ifinalframework.spiriter.jdbc.entity.Columns;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

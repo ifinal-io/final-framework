@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Json 序列化与反序列化服务接口
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

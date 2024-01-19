@@ -21,7 +21,7 @@ import lombok.Setter;
 /**
  * MergedRegion
  *
- * @author mik
+ * @author iimik
  * @since 1.5.2
  **/
 @Getter

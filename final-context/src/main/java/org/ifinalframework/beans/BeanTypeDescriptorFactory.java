@@ -20,7 +20,7 @@ import org.springframework.core.convert.TypeDescriptor;
 /**
  * BeanTypeDescriptorFactory.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.5.0
  * @since 1.5.0
  */

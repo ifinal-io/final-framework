@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * IUserHandlerMethodArgumentResolverTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.1
  * @since 1.4.1
  */

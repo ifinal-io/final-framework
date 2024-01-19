@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 /**
  * ConsumerTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

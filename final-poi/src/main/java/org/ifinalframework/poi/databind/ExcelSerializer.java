@@ -23,7 +23,7 @@ import org.apache.poi.ss.usermodel.Cell;
 /**
  * Serialize a value of {@link T} into {@link Cell}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see ExcelDeserializer
  **/

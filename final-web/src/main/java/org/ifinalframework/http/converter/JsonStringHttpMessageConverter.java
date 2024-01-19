@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)
  * @see StringHttpMessageConverter

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @ExtendWith(MockitoExtension.class)

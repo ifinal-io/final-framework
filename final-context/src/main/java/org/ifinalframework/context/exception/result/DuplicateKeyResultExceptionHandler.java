@@ -27,7 +27,7 @@ import org.ifinalframework.core.result.Result;
 import java.util.Optional;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see DuplicateKeyException
  * @since 1.0.0

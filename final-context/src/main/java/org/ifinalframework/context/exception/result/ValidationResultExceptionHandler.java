@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * ValidationResultExceptionHandler.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.3.5
  * @see BindException
  * @see org.springframework.validation.ObjectError

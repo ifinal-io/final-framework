@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Excel sheet header info.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 @RequiredArgsConstructor

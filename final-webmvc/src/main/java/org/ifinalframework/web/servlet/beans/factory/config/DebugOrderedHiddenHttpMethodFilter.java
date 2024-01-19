@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * DebugOrderedHiddenHttpMethodFilter.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.2
  * @see OrderedHiddenHttpMethodFilter
  * @since 1.4.2

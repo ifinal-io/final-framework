@@ -19,7 +19,7 @@ import org.ifinalframework.poi.databind.deser.FloatExcelDeserializer;
 import org.ifinalframework.poi.databind.ser.FloatExcelSerializer;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class FloatTypeHandler extends SimpleTypeHandler<Float> {

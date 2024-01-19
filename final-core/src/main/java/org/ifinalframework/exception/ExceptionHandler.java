@@ -22,7 +22,7 @@ import org.springframework.lang.NonNull;
  * 异常处理器
  *
  * @param <R> 返回的结果
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

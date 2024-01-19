@@ -23,7 +23,7 @@ import org.ifinalframework.spiriter.jdbc.entity.Tables;
 
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

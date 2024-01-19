@@ -25,7 +25,7 @@ import org.ifinalframework.spiriter.jdbc.contants.SchemaConstants;
 import java.util.Date;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

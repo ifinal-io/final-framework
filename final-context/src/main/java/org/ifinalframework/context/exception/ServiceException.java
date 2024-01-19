@@ -25,7 +25,7 @@ import org.ifinalframework.core.result.Responsible;
 /**
  * 业务异常
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see NotFoundException
  * @see BadRequestException

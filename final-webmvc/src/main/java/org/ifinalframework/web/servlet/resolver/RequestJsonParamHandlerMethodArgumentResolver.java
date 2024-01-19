@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
  * A custom {@link HandlerMethodArgumentResolver} for {@link RequestJsonParam} annotation which supports the json format
  * request param like {@link RequestParam}, also supports {@link RequestBody}.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see RequestJsonParam
  * @see RequestBody

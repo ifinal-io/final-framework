@@ -23,7 +23,7 @@ import org.springframework.lang.NonNull;
 import java.lang.reflect.Method;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

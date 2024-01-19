@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Velocity {@link ToolContext} factory.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  * @see ToolManager
  * @since 1.2.4

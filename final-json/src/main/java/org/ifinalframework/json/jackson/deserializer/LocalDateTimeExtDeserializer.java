@@ -27,7 +27,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
  * @since 1.0.0

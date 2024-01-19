@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * RequestRewriteFilter
  *
- * @author mik
+ * @author iimik
  * @since 1.5.6
  **/
 @Slf4j

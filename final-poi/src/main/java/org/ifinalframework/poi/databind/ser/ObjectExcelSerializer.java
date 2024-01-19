@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.2.4
  **/
 public class ObjectExcelSerializer implements ExcelSerializer<Object> {

@@ -29,7 +29,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see LocaleContextHolder#getTimeZone()
  * @see com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer

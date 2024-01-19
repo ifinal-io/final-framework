@@ -30,7 +30,7 @@ import org.ifinalframework.monitor.executor.Alerter;
 import org.slf4j.MDC;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */

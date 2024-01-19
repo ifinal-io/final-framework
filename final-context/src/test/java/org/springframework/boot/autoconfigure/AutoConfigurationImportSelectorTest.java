@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * AutoConfigurationImportSelectorTest.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see org.springframework.context.annotation.ImportSelector
  * @since 1.0.0

@@ -34,7 +34,7 @@ import java.util.function.Supplier;
  * Json.toJson(object,view);
  * </pre>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see JsonService
  * @see JsonRegistry

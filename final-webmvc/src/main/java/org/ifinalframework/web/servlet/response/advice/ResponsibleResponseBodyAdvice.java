@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.ifinalframework.core.result.Responsible;
 
 /**
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see Responsible
  * @since 1.0.0

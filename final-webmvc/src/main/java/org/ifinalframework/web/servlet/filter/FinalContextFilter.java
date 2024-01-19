@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * FinalContextFilter.
  *
- * @author ilikly
+ * @author iimik
  * @version 1.4.3
  * @since 1.4.3
  */

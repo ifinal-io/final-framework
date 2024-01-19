@@ -46,7 +46,7 @@ import java.time.LocalDateTime;
  *     <li>when you want a {@link Method} do with {@link MethodSpec#methodBuilder(String)} ()}</li>
  * </ul>
  *
- * @author ilikly
+ * @author iimik
  * @version 1.0.0
  * @see TypeSpec
  * @see AnnotationSpec

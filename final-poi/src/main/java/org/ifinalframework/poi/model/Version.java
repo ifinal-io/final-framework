@@ -18,7 +18,7 @@ package org.ifinalframework.poi.model;
 /**
  * Version
  *
- * @author mik
+ * @author iimik
  * @since 1.5.2
  **/
 public enum Version {
