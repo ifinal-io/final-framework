@@ -15,8 +15,6 @@
 
 package org.ifinalframework.context.expression;
 
-import org.springframework.context.expression.BeanFactoryAccessor;
-import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.EvaluationException;
 import org.springframework.expression.Expression;
@@ -24,7 +22,6 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
@@ -48,31 +45,18 @@ public final class Spel {
     private static final ExpressionParser PARSER = new SpelExpressionParser(new SpelParserConfiguration(true, true));
 
     /**
-     * {@link MapAccessor}支持使用对象表达式{@code a.b}替代取值表达式{@code a['b']}。
-     */
-    private static final MapAccessor MAP_ACCESSOR = new PropertyMapAccessor();
-
-    /**
      * 以{@code #{}}包裹的才算表达式。
      */
     private static final ParserContext PARSER_CONTEXT = ParserContext.TEMPLATE_EXPRESSION;
+
+    private static EvaluationContextFactory evaluationContextFactory = new DefaultEvaluationContextFactory();
 
     private Spel() {
         throw new IllegalAccessError("Spel is not support new instance for you!");
     }
 
     static EvaluationContext wrapContext(Object context) {
-        if (context instanceof EvaluationContext) {
-            return (EvaluationContext) context;
-        }
-
-        StandardEvaluationContext evaluationContext = new StandardEvaluationContext(context);
-        evaluationContext.addPropertyAccessor(MAP_ACCESSOR);
-
-        evaluationContext.addPropertyAccessor(new BeanFactoryAccessor());
-
-        return evaluationContext;
-
+        return evaluationContextFactory.create(context);
     }
 
     public static Object getValue(final String expression) {
