@@ -45,6 +45,7 @@
         <module>final-webmvc</module>
         <module>final-webflux</module>
         <module>final-validation</module>
+        <module>final-feign</module>
     </modules>
 
     <properties>
@@ -189,6 +190,11 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-validation</artifactId>
+                <version>1.5.6-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.console.sso</groupId>
+                <artifactId>final-feign</artifactId>
                 <version>1.5.6-SNAPSHOT</version>
             </dependency>
             <!-- ==================================================================================================== -->
