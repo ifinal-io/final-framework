@@ -16,6 +16,8 @@
 package org.ifinalframework.context.expression;
 
 import org.springframework.expression.EvaluationContext;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * 把一个给定的对象{@code object}转换为{@link EvaluationContext}，这用对象可能本身就是{@link EvaluationContext}。
@@ -31,5 +33,6 @@ public interface EvaluationContextFactory {
      * @param object 给定的对象
      * @return evaluation context。
      */
-    EvaluationContext create(Object object);
+    @NonNull
+    EvaluationContext create(@Nullable Object object);
 }

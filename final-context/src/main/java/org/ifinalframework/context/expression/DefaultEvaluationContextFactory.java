@@ -20,6 +20,8 @@ import org.springframework.context.expression.BeanFactoryAccessor;
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * DefaultEvaluationContextFactory
@@ -34,8 +36,9 @@ public class DefaultEvaluationContextFactory implements EvaluationContextFactory
      */
     private static final MapAccessor MAP_ACCESSOR = new PropertyMapAccessor();
 
+    @NonNull
     @Override
-    public EvaluationContext create(Object object) {
+    public EvaluationContext create(@Nullable Object object) {
         if (object instanceof EvaluationContext context) {
             return context;
         }
