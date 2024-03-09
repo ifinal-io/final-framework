@@ -193,7 +193,7 @@
                 <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinalframework.console.sso</groupId>
+                <groupId>org.ifinalframework</groupId>
                 <artifactId>final-feign</artifactId>
                 <version>1.6.0-SNAPSHOT</version>
             </dependency>

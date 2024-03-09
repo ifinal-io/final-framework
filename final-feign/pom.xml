@@ -24,7 +24,6 @@
         <version>1.6.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.ifinalframework.console.sso</groupId>
     <artifactId>final-feign</artifactId>
 
     <properties>
