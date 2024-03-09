@@ -20,12 +20,12 @@
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-dependencies</artifactId>
-        <version>1.5.6-SNAPSHOT</version>
+        <version>1.6.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinalframework</groupId>
     <artifactId>final-framework</artifactId>
-    <version>1.5.6-SNAPSHOT</version>
+    <version>1.6.0-SNAPSHOT</version>
 
     <name>final-framework</name>
     <description>Final framework with Spring Boot</description>
@@ -49,7 +49,7 @@
     </modules>
 
     <properties>
-        <final.version>1.5.6-SNAPSHOT</final.version>
+        <final.version>1.6.0-SNAPSHOT</final.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -73,8 +73,8 @@
     <developers>
         <developer>
             <email>iimik@qq.com</email>
-            <id>mik</id>
-            <name>mik</name>
+            <id>iimik</id>
+            <name>iimik</name>
             <roles>
                 <role>Owner</role>
                 <role>Developer</role>
@@ -120,82 +120,82 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-util</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-core</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-json</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-dubbo</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-retrofit</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-web</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-webmvc</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-webflux</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-aop</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-context</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>final-monitor</artifactId>
                 <groupId>org.ifinalframework</groupId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-poi</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-doc</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-validation</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.console.sso</groupId>
                 <artifactId>final-feign</artifactId>
-                <version>1.5.6-SNAPSHOT</version>
+                <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <!-- ==================================================================================================== -->
             <!-- ========================================= final-framework ========================================== -->
