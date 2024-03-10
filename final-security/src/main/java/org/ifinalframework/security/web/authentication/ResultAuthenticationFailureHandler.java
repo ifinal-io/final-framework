@@ -21,10 +21,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -40,9 +42,14 @@ import java.nio.charset.StandardCharsets;
  */
 @Component
 public class ResultAuthenticationFailureHandler implements AuthenticationFailureHandler {
+
+    @Resource
+    private ResultFunctionConsumerComposite resultFunctionConsumerComposite;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         Result<?> result = R.failure(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+        resultFunctionConsumerComposite.apply(result);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(Json.toJson(result));
