@@ -20,10 +20,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.R;
 import org.ifinalframework.core.result.Result;
 import org.ifinalframework.json.Json;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +36,7 @@ import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ResultAuthenticationSuccessHandler.
+ * 统一认证接口返回.
  *
  * @author iimik
  * @version 1.3.3
@@ -44,11 +46,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    @Resource
+    private ResultFunctionConsumerComposite resultFunctionConsumerComposite;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        Result<Object> result = R.success();
+        Result<?> result = R.success();
+
+        resultFunctionConsumerComposite.apply(result);
+
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(Json.toJson(result));
