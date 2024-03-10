@@ -15,6 +15,7 @@
 
 package org.ifinalframework.context.result.consumer;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -45,12 +46,17 @@ public class CommonResultConsumer implements ResultConsumer<Object> {
 
     private final List<UserSupplier> userSuppliers;
 
+    @Value("${spring.application.name:''}")
+    private String application;
+
     @Override
     public void accept(@NonNull Result<Object> result) {
         // set locale
         result.setLocale(LocaleContextHolder.getLocale());
         // set timeZone
         result.setTimeZone(LocaleContextHolder.getTimeZone());
+        // set application
+        result.setApplication(application);
 
         userSuppliers.stream().map(UserSupplier::get)
                 .filter(Objects::nonNull)
