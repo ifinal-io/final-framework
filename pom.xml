@@ -46,6 +46,7 @@
         <module>final-webflux</module>
         <module>final-validation</module>
         <module>final-feign</module>
+        <module>final-security</module>
     </modules>
 
     <properties>
@@ -195,6 +196,11 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-feign</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-security</artifactId>
                 <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <!-- ==================================================================================================== -->
