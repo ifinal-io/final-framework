@@ -33,12 +33,15 @@ import lombok.extern.slf4j.Slf4j;
  * FeignClientBean
  *
  * @author iimik
- * @since 1.6.0
  * @see org.springframework.cloud.openfeign.FeignClientsRegistrar
+ * @since 1.6.0
  **/
 @Slf4j
 @Component
 public class FeignClientBeanDefinitionPostProcessor implements BeanDefinitionRegistryPostProcessor {
+
+    private static final String DEFAULT_GATEWAY_URL = "${spring.cloud.openfeign.gateway.url:http://localhost:8080}";
+
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         for (String beanDefinitionName : registry.getBeanDefinitionNames()) {
@@ -49,13 +52,20 @@ public class FeignClientBeanDefinitionPostProcessor implements BeanDefinitionReg
                 final MutablePropertyValues propertyValues = beanDefinition.getPropertyValues();
 
                 final PropertyValue contextId = propertyValues.getPropertyValue("contextId");
+                final PropertyValue name = propertyValues.getPropertyValue("name");
+                final PropertyValue url = propertyValues.getPropertyValue("url");
+
+                if (Objects.isNull(url) && Objects.isNull(name)) {
+                    // 没有配置 name 和 url，使用默认的 url
+                    propertyValues.add("url", DEFAULT_GATEWAY_URL);
+                }
+
                 if (Objects.nonNull(contextId) && "".equals(contextId.getValue())) {
                     propertyValues.removePropertyValue(contextId);
                     propertyValues.add("contextId", beanDefinitionName);
                     logger.info("set FeignClientFactoryBean contextId={}", beanDefinitionName);
                 }
 
-                final PropertyValue name = propertyValues.getPropertyValue("name");
                 if (Objects.nonNull(name) && "".equals(name.getValue())) {
                     propertyValues.removePropertyValue(name);
                     propertyValues.add("name", beanDefinitionName);

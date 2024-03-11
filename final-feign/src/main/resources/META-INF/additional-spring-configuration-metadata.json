@@ -1,0 +1,15 @@
+{
+  "groups": [
+
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.openfeign.gateway.url",
+      "type": "java.lang.String",
+      "description": "Spring Cloud openfeign 微服务网关地址.",
+      "sourceType": "org.ifinalframework.feign.bean.factory.FeignClientBeanDefinitionPostProcessor",
+      "defaultValue": "http://localhost:8080"
+    }
+  ]
+
+}
