@@ -13,23 +13,25 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.security.sso.client;
+package org.ifinalframework.feign.javassist;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import javassist.ClassPool;
 
-import org.ifinalframework.core.result.Result;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * AuthenticationClient
+ * FeignClientsRegistrarJavaAssistProcessorTest
  *
  * @author iimik
- * @since 1.5.6
+ * @since 1.6.0
  **/
-@FeignClient(name = "authentication-client",url = "${feign.client.url:http://localhost:8080}")
-public interface AuthenticationClient {
+class FeignClientsRegistrarJavaAssistProcessorTest {
 
-    @GetMapping("/api/sso/authentication")
-    Result<String> authentication();
-
+    @Test
+    void process() throws Throwable {
+        final ClassPool pool = ClassPool.getDefault();
+        new FeignClientsRegistrarJavaAssistProcessor().process(pool);
+    }
 }

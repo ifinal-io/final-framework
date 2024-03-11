@@ -34,6 +34,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ifinalframework</groupId>
+            <artifactId>final-context</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>4.1.0</version>
