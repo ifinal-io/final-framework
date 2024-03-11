@@ -15,8 +15,13 @@
 
 package org.ifinalframework.security.web.authentication;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -44,23 +49,37 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-public class ResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class ResultAuthenticationHandler implements AuthenticationSuccessHandler, AuthenticationFailureHandler, AccessDeniedHandler {
 
     @Resource
     private ResultFunctionConsumerComposite resultFunctionConsumerComposite;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
         Result<?> result = R.success();
+        doResult(response, result);
+    }
 
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+        Result<?> result = R.failure(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+        doResult(response, result);
+    }
+
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+        final Result<?> result = R.failure(403, "您没有权限访问：" + request.getMethod() + " " + request.getRequestURI());
+        doResult(response,result);
+    }
+
+
+    private void doResult(HttpServletResponse response, Result<?> result) throws IOException {
         resultFunctionConsumerComposite.apply(result);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(Json.toJson(result));
     }
-
 }
 
 
