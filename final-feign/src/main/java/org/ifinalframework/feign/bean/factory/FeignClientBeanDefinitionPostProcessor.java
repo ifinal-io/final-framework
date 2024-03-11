@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class FeignClientBeanDefinitionPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
-    private static final String DEFAULT_GATEWAY_URL = "${spring.cloud.openfeign.gateway.url:http://localhost:8080}";
+    private static final String DEFAULT_GATEWAY_URL = "${spring.cloud.openfeign.gateway.url}";
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
