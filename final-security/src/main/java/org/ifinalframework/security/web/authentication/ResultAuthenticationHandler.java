@@ -69,7 +69,7 @@ public class ResultAuthenticationHandler implements AuthenticationSuccessHandler
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         final Result<?> result = R.failure(403, "您没有权限访问：" + request.getMethod() + " " + request.getRequestURI());
-        doResult(response,result);
+        doResult(response, result);
     }
 
 
