@@ -37,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author iimik
  * @see org.springframework.cloud.openfeign.FeignClientsRegistrar
+ * @see org.ifinalframework.feign.bean.factory.FeignClientBeanDefinitionPostProcessor
  * @since 1.6.0
  **/
 @Slf4j
@@ -64,7 +65,9 @@ public class FeignClientsRegistrarJavaAssistProcessor implements JavaAssistProce
      *          name = className;
      *      }
      * </pre>
+     *
      * @param ctClass
+     * @see org.ifinalframework.feign.bean.factory.FeignClientBeanDefinitionPostProcessor
      */
     private void processRegisterClientConfigurationMethod(CtClass ctClass) throws CannotCompileException, NotFoundException {
         final CtMethod registerClientConfiguration = ctClass.getDeclaredMethod("registerClientConfiguration");

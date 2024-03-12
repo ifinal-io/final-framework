@@ -35,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author iimik
  * @see org.springframework.cloud.openfeign.FeignClientsRegistrar
  * @since 1.6.0
+ * @see org.ifinalframework.feign.javassist.FeignClientsRegistrarJavaAssistProcessor
  **/
 @Slf4j
 @Component
@@ -47,7 +48,8 @@ public class FeignClientBeanDefinitionPostProcessor implements BeanDefinitionReg
         for (String beanDefinitionName : registry.getBeanDefinitionNames()) {
             final BeanDefinition beanDefinition = registry.getBeanDefinition(beanDefinitionName);
 
-            if (FeignClientFactoryBean.class.getCanonicalName().equals(beanDefinition.getBeanClassName())) {
+            final String beanClassName = beanDefinition.getBeanClassName();
+            if (FeignClientFactoryBean.class.getCanonicalName().equals(beanClassName)) {
 
                 final MutablePropertyValues propertyValues = beanDefinition.getPropertyValues();
 
@@ -55,26 +57,31 @@ public class FeignClientBeanDefinitionPostProcessor implements BeanDefinitionReg
                 final PropertyValue name = propertyValues.getPropertyValue("name");
                 final PropertyValue url = propertyValues.getPropertyValue("url");
 
-                if (Objects.isNull(url) && Objects.isNull(name)) {
+                if (!hasPropertyValue(url) && !hasPropertyValue(name)) {
                     // 没有配置 name 和 url，使用默认的 url
-                    propertyValues.add("url", DEFAULT_GATEWAY_URL);
+                    removeAndReplacePropertyValue(propertyValues,url,"url",DEFAULT_GATEWAY_URL);
                 }
 
-                if (Objects.nonNull(contextId) && "".equals(contextId.getValue())) {
-                    propertyValues.removePropertyValue(contextId);
-                    propertyValues.add("contextId", beanDefinitionName);
-                    logger.info("set FeignClientFactoryBean contextId={}", beanDefinitionName);
-                }
-
-                if (Objects.nonNull(name) && "".equals(name.getValue())) {
-                    propertyValues.removePropertyValue(name);
-                    propertyValues.add("name", beanDefinitionName);
-                    logger.info("set FeignClientFactoryBean name={}", beanDefinitionName);
-                }
+                removeAndReplacePropertyValue(propertyValues,contextId,"contextId",beanClassName);
+                removeAndReplacePropertyValue(propertyValues,name,"name",beanClassName);
 
             }
 
 
         }
+    }
+
+    private void removeAndReplacePropertyValue(MutablePropertyValues propertyValues,PropertyValue propertyValue, String name,String value ) {
+        if (!hasPropertyValue(propertyValue)) {
+            if(Objects.nonNull(propertyValue)) {
+                propertyValues.removePropertyValue(propertyValue);
+                propertyValues.add(name, value);
+            }
+            logger.info("==> set FeignClientFactoryBean {}={}", name,value);
+        }
+    }
+
+    private boolean hasPropertyValue(PropertyValue propertyValue){
+        return Objects.nonNull(propertyValue) && !"".equals(propertyValue.getValue());
     }
 }
