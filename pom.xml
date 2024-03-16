@@ -38,6 +38,7 @@
         <module>final-retrofit</module>
         <module>final-aop</module>
         <module>final-json</module>
+        <module>final-velocity</module>
         <module>final-poi</module>
         <module>final-doc</module>
         <module>final-util</module>
@@ -176,6 +177,11 @@
             <dependency>
                 <artifactId>final-monitor</artifactId>
                 <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-velocity</artifactId>
                 <version>1.6.0-SNAPSHOT</version>
             </dependency>
             <dependency>

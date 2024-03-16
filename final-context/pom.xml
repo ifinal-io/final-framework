@@ -77,6 +77,10 @@
             <artifactId>javassist</artifactId>
             <version>3.29.2-GA</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
     </dependencies>
 
     <url>https://github.com/final-projects/final-framework</url>

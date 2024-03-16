@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 the original author or authors.
+ * Copyright 2020-2024 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,9 +16,6 @@
 package org.ifinalframework.velocity;
 
 import ch.qos.logback.classic.Level;
-
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
@@ -67,7 +64,7 @@ public final class Velocities {
      * @param params  eval params.
      * @since 1.2.4
      */
-    public static String eval(@NonNull String express, @Nullable Object params) {
+    public static String eval(String express, Object params) {
         final Context context = contextFactory.create(params);
         return eval(express, context);
     }
@@ -80,7 +77,7 @@ public final class Velocities {
      * @see Velocity#evaluate(Context, Writer, String, String)
      * @since 1.2.4
      */
-    public static String eval(@NonNull String express, @NonNull Context context) {
+    public static String eval(String express, Context context) {
         final StringWriter writer = new StringWriter();
         Velocity.evaluate(context, writer, "velocity", express);
         return writer.toString();
