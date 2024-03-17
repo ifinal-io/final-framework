@@ -51,7 +51,6 @@ public class ToolContextFactory implements ContextFactory {
     @Override
     public Context create(Object param) {
 
-
         if (Objects.isNull(param)) {
             return toolManager.createContext();
         }
