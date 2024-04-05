@@ -27,6 +27,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.core.convert.TypeDescriptor;
 
 import org.ifinalframework.auto.service.annotation.AutoService;
+import org.ifinalframework.beans.BeanTypeDescriptorFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author iimik
  * @version 1.5.0
  * @see AbstractNestablePropertyAccessor
- * @see org.ifinalframework.beans.BeanTypeDescriptorFactory
+ * @see BeanTypeDescriptorFactory
  * @since 1.5.0
  */
 @Slf4j
@@ -54,13 +55,8 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
             return;
         }
 
-        final CtField list = CtField.make("private java.util.List beanTypeDescriptorFactories "
-                + "= org.springframework.core.io.support.SpringFactoriesLoader.loadFactories("
-                + "org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
-        ctClass.addField(list);
-
-
-        insertBeforeNewValue(ctClass);
+        addBeanTypeDescriptorFactories(ctClass);
+        processNewValue(ctClass);
 
         final Class<?> aClass = ctClass.toClass(BeanWrapper.class);
 
@@ -68,10 +64,30 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
     }
 
     /**
-     * @see AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)
-     * @see org.ifinalframework.beans.BeanTypeDescriptorFactory#create(Class, TypeDescriptor)
+     *
+     * 插入一个{@link BeanTypeDescriptorFactory}集合字段，通过Spring Spi扩展点自动加载。
+     * <pre class="code">
+     *  private List&lt;BeanTypeDescriptorFactory&gt; beanTypeDescriptorFactories = SpringFactoriesLoader.loadFactories(BeanTypeDescriptorFactory.class, getClass().getClassLoader());
+     * </pre>
+     * @param ctClass
+     * @throws Throwable
      */
-    private static void insertBeforeNewValue(CtClass ctClass) throws NotFoundException, CannotCompileException {
+    private void addBeanTypeDescriptorFactories(CtClass ctClass) throws Throwable {
+        final CtField beanTypeDescriptorFactories = CtField.make("private java.util.List beanTypeDescriptorFactories "
+                + "= org.springframework.core.io.support.SpringFactoriesLoader.loadFactories("
+                + "org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
+        ctClass.addField(beanTypeDescriptorFactories);
+    }
+
+
+    /**
+     * 修改{@link AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)}方法体之前，插入一段代码，
+     * 优先遍历调用{@link BeanTypeDescriptorFactory#create(Class, TypeDescriptor)}方法
+     * @see #addBeanTypeDescriptorFactories(CtClass)
+     * @see AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)
+     * @see BeanTypeDescriptorFactory#create(Class, TypeDescriptor)
+     */
+    private void processNewValue(CtClass ctClass) throws NotFoundException, CannotCompileException {
 
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
         newValue.insertBefore("for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n"
