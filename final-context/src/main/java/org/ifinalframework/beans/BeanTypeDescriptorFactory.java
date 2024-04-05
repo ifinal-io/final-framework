@@ -18,16 +18,30 @@ package org.ifinalframework.beans;
 import org.springframework.core.convert.TypeDescriptor;
 
 /**
+ * 增强{@link org.springframework.beans.AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)}方法，以支持自家义实例化过程。
  * BeanTypeDescriptorFactory.
  *
  * @author iimik
  * @version 1.5.0
  * @since 1.5.0
+ * @see org.springframework.beans.AbstractNestablePropertyAccessor
  */
 public interface BeanTypeDescriptorFactory<T> {
 
+    /**
+     * 返回是否支持目标类的实例化。
+     * @param type 目标类
+     * @param typeDescriptor 目标类描述
+     * @return
+     */
     boolean support(Class<?> type, TypeDescriptor typeDescriptor);
 
+    /**
+     * 实例化目标类
+     * @param type 目标类
+     * @param typeDescriptor 目标类描述
+     * @return
+     */
     T create(Class<?> type, TypeDescriptor typeDescriptor);
 
 }
