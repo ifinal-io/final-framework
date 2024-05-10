@@ -19,12 +19,22 @@ package org.ifinalframework.javassist;
 import javassist.ClassPool;
 
 /**
- * JavaAssistProcessor.
+ * 字节码修改器.
+ * <p>
+ * 在Spring 容器{@link  org.springframework.boot.context.event.ApplicationStartingEvent 启动事件}触发调用。
  *
  * @author iimik
  * @version 1.5.0
+ * @see org.springframework.boot.context.event.ApplicationStartingEvent
  * @since 1.5.0
  */
+@FunctionalInterface
 public interface JavaAssistProcessor {
+    /**
+     * 字节码修改器
+     *
+     * @param classPool
+     * @throws Throwable
+     */
     void process(ClassPool classPool) throws Throwable;
 }
