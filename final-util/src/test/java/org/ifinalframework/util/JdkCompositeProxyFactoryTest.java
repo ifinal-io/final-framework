@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.5.0
  */
 @Slf4j
-class CompositeProxiesTest {
+class JdkCompositeProxyFactoryTest {
 
     @FunctionalInterface
     interface Callback {
@@ -39,7 +39,8 @@ class CompositeProxiesTest {
 
     @Test
     void composite() {
-        final Callback composite = CompositeProxies.composite(Callback.class, Arrays.asList(
+        final JdkCompositeProxyFactory factory = new JdkCompositeProxyFactory();
+        final Callback composite = factory.create(Callback.class, Arrays.asList(
                 (key) -> logger.info("from one {}", key),
                 (key) -> logger.info("from two {}", key)
         ));

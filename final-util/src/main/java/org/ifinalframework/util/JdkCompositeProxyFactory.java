@@ -25,17 +25,16 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 /**
- * CompositeProxies.
+ * 通过JDK代理，生产某个类（一般为接口）的复合代码对象。
  *
  * @author iimik
- * @version 1.5.0
- * @since 1.5.0
+ * @version 1.6.0
+ * @since 1.6.0
  */
-@RequiredArgsConstructor
-public class CompositeProxies {
+public class JdkCompositeProxyFactory implements Proxies.CompositeProxyFactory {
 
-    @SuppressWarnings("unchecked")
-    public static <T> T composite(Class<T> clazz, List<T> list) {
+    @Override
+    public <T> T create(Class<T> clazz, List<T> list) {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ProxyInvocationHandler<>(list));
     }
 

@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 the original author or authors.
- *
+ * Copyright 2020-2024 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +15,7 @@
 
 package org.ifinalframework.util;
 
+
 import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
@@ -23,19 +23,22 @@ import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
+import java.util.List;
 import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Proxies.
+ * 代理工具类
  *
  * @author iimik
- * @version 1.0.0
- * @since 1.0.0
- */
+ * @since 1.6.0
+ **/
 @Slf4j
-public final class Proxies {
+public class Proxies {
+
+    private static final CompositeProxyFactory compositeProxyFactory = new JdkCompositeProxyFactory();
+
 
     /**
      * mapper proxy.
@@ -62,7 +65,6 @@ public final class Proxies {
      * @see AopUtils#isAopProxy(Object)
      */
     public static boolean isProxy(final Object target) {
-
         return Proxy.isProxyClass(target.getClass()) || AopUtils.isAopProxy(target);
     }
 
@@ -124,5 +126,35 @@ public final class Proxies {
         return targetClass;
     }
 
-}
 
+    /**
+     * 创建给定类和实例集合的复合代理对象
+     *
+     * @param clazz 给定类
+     * @param list  实例集合
+     * @param <T>   类类型
+     * @return 复合代理对象
+     * @since 1.6.0
+     */
+    public static <T> T composite(Class<T> clazz, List<T> list) {
+        return compositeProxyFactory.create(clazz, list);
+    }
+
+    /**
+     * 复合代理工厂
+     *
+     * @since 1.6.0
+     */
+    @FunctionalInterface
+    public interface CompositeProxyFactory {
+        /**
+         * 根据给定的{@link Class 类}和实例集合创建复合代理对象。
+         *
+         * @param clazz 给定的类
+         * @param list  实例集合
+         * @param <T>   类类型
+         * @return 复合代理对象
+         */
+        <T> T create(Class<T> clazz, List<T> list);
+    }
+}
