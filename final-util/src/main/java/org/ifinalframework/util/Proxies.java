@@ -26,6 +26,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.6.0
  **/
 @Slf4j
+@UtilityClass
 public class Proxies {
 
     private static final CompositeProxyFactory compositeProxyFactory = new JdkCompositeProxyFactory();
@@ -52,9 +54,6 @@ public class Proxies {
      */
     public static final String JDK_DYNAMIC_AOP_PROXY = "org.springframework.aop.framework.JdkDynamicAopProxy";
 
-    private Proxies() {
-
-    }
 
     /**
      * 判断目标 {@code target} 是否为代理.
