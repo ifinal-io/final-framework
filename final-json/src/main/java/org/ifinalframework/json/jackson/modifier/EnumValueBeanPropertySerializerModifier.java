@@ -52,7 +52,7 @@ public class EnumValueBeanPropertySerializerModifier extends AbsBeanPropertySeri
                 new EnumValueJsonSerializer(enumValue), writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
 
-        setNameValue(bpw, bpw.getName() + "Name");
+        BeanSerializerModifierHelper.setPropertyName(bpw, bpw.getName() + "Name");
         return Collections.singleton(bpw);
     }
 

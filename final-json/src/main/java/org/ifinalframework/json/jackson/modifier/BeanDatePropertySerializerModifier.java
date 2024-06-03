@@ -30,8 +30,13 @@ import java.util.Collections;
 import java.util.Date;
 
 /**
+ * Bean对象{@link Date}类型属性序列化修改器。
+ *
+ * 序列化化时增加一个{@code xxxFormat}的属性，格式为{@code yyyy-MM-dd HH:mm:ss}。
+ *
  * @author iimik
  * @version 1.0.0
+ * @see BeanLocalDateTimePropertySerializerModifier
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
@@ -54,7 +59,7 @@ public class BeanDatePropertySerializerModifier extends AbsSimpleBeanPropertySer
                 dateSerializer, writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
 
-        setNameValue(bpw, bpw.getName() + "Format");
+        BeanSerializerModifierHelper.setPropertyName(bpw, bpw.getName() + "Format");
         return Collections.singleton(bpw);
     }
 

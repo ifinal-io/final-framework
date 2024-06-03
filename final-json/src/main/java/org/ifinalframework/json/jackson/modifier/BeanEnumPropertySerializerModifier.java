@@ -34,7 +34,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * BeanEnumPropertySerializerModifier.
+ * Bean对象枚举属性序列化修改器.
  *
  * <p>Feature:</p>
  * <ul>
@@ -64,6 +64,7 @@ import java.util.Collection;
  * @see EnumCodeSerializer
  * @see EnumNameSerializer
  * @see EnumDescSerializer
+ * @see IEnum
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
@@ -106,7 +107,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
                 EnumNameSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
 
-        setNameValue(enumNamePropertyWriter, enumNamePropertyWriter.getName() + ENUM_NAME_PROPERTY_SUFFIX);
+        BeanSerializerModifierHelper.setPropertyName(enumNamePropertyWriter, enumNamePropertyWriter.getName() + ENUM_NAME_PROPERTY_SUFFIX);
         return enumNamePropertyWriter;
     }
 
@@ -118,7 +119,7 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
                 EnumDescSerializer.instance, writer.getTypeSerializer(), writer.getSerializationType(),
                 writer.willSuppressNulls(), null, property.findViews());
-        setNameValue(enumDescriptionPropertyWriter,
+        BeanSerializerModifierHelper.setPropertyName(enumDescriptionPropertyWriter,
                 enumDescriptionPropertyWriter.getName() + ENUM_DESC_PROPERTY_SUFFIX);
         return enumDescriptionPropertyWriter;
     }

@@ -60,7 +60,7 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
                 writer.willSuppressNulls(), null, property.findViews());
         String name = bpw.getName();
 
-        setNameValue(bpw, name + "Format");
+        BeanSerializerModifierHelper.setPropertyName(bpw, name + "Format");
 
 
         return Collections.singletonList(bpw);
