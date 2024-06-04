@@ -42,6 +42,7 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
     public List<BeanPropertyWriter> changeProperties(final SerializationConfig config, final BeanDescription beanDesc,
                                                      final List<BeanPropertyWriter> beanProperties) {
 
+
         // 1. 将原有的属性映射成一个Map，key为属性名称
         final Map<String, BeanPropertyWriter> beanPropertyWriterMap = beanProperties.stream()
                 .collect(Collectors.toMap(BeanPropertyWriter::getName, Function.identity()));
@@ -49,6 +50,7 @@ public abstract class AbsBeanPropertySerializerModifier extends BeanSerializerMo
         // 2. 遍历，找出实现了 IEnum 接口的属性，为其增加一个名称 xxxName 的新属性到 JavaBean的
         final List<BeanPropertyDefinition> properties = beanDesc.findProperties();
         for (BeanPropertyDefinition property : properties) {
+
             final BeanPropertyWriter beanPropertyWriter = beanPropertyWriterMap.get(property.getName());
             if (test(property, beanPropertyWriter)) {
                 final Collection<BeanPropertyWriter> changeProperties

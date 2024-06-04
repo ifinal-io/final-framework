@@ -35,6 +35,7 @@ import java.util.Collections;
  * @author iimik
  * @version 1.0.0
  * @see LocalDateTime
+ * @see BeanDatePropertySerializerModifier
  * @since 1.0.0
  */
 @AutoService(BeanSerializerModifier.class)
