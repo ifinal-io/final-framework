@@ -23,16 +23,26 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Objects;
 
+import lombok.experimental.UtilityClass;
+
 /**
+ * 枚举工具类
+ *
  * @author iimik
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class Enums {
+@UtilityClass
+public class Enums {
 
-    private Enums() {
-    }
-
+    /**
+     * @param clazz     枚举类
+     * @param creator   枚举创建者方法
+     * @param valueType 值类型
+     * @param value     值
+     * @param <E>
+     * @return
+     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <E extends Enum<E>> E findEnum(final @NonNull Class<? extends Enum> clazz,
                                                  final @NonNull String creator,
