@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.ifinalframework.util.function.Filter;
 import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
 
+import java.util.function.Predicate;
+
 /**
  * Rest {@link MethodParameter} 方法过滤器。
  *
@@ -29,12 +31,12 @@ import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class RestMethodParameterFilter implements Filter<MethodParameter> {
+public class RestMethodParameterFilter implements Predicate<MethodParameter> {
 
     public static final RestMethodParameterFilter INSTANCE = new RestMethodParameterFilter();
 
     @Override
-    public boolean matches(final MethodParameter methodParameter) {
+    public boolean test(final MethodParameter methodParameter) {
 
         Class<?> clazz = methodParameter.getDeclaringClass();
 

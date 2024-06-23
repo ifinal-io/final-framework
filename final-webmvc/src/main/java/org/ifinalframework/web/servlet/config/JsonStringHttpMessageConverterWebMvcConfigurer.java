@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import org.ifinalframework.http.converter.JsonStringHttpMessageConverter;
@@ -28,7 +29,10 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Warp the {@link StringHttpMessageConverter} with {@link JsonStringHttpMessageConverter}.
+ * 使用{@link JsonStringHttpMessageConverter}替换{@link StringHttpMessageConverter}。
+ *
+ * <h6>注意：</h6>
+ * <p>原生的{@link StringHttpMessageConverter}消息转换器，如果{@link ResponseBody}标记的方法的返回值是{@link  String}类型，会抛出{@link ClassCastException}。</p>
  *
  * @author iimik
  * @version 1.0.0

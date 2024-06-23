@@ -47,11 +47,11 @@ class RestMethodParameterFilterTest {
         MethodParameter methodParameter = spy(new MethodParameter(method, -1));
 
         when(methodParameter.hasMethodAnnotation(ResponseIgnore.class)).thenReturn(true);
-        assertFalse(RestMethodParameterFilter.INSTANCE.matches(methodParameter));
+        assertFalse(RestMethodParameterFilter.INSTANCE.test(methodParameter));
 
         when(methodParameter.hasMethodAnnotation(ResponseIgnore.class)).thenReturn(false);
         //        when(methodParameter.getDeclaringClass()).thenReturn(getClass());
         when(methodParameter.hasMethodAnnotation(ResponseBody.class)).thenReturn(true);
-        assertTrue(RestMethodParameterFilter.INSTANCE.matches(methodParameter));
+        assertTrue(RestMethodParameterFilter.INSTANCE.test(methodParameter));
     }
 }

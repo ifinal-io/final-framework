@@ -35,7 +35,7 @@ public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
     @Override
     default boolean supports(final @NonNull MethodParameter methodParameter,
                              final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return RestMethodParameterFilter.INSTANCE.matches(methodParameter);
+        return RestMethodParameterFilter.INSTANCE.test(methodParameter);
     }
 
     @Nullable

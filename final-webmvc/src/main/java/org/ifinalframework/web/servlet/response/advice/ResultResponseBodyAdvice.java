@@ -24,6 +24,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
@@ -36,10 +37,12 @@ import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Wrap the {@link org.springframework.web.bind.annotation.ResponseBody} with {@link Result}.
+ * 将{@link ResponseBody}标记的返回结果包装成{@link Result}。
  *
  * @author iimik
  * @version 1.0.0
+ * @see org.ifinalframework.http.converter.JsonStringHttpMessageConverter
+ * @see org.ifinalframework.web.servlet.config.JsonStringHttpMessageConverterWebMvcConfigurer
  * @since 1.0.0
  */
 @Order(1000)

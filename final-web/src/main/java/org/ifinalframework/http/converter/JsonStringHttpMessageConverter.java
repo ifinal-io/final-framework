@@ -29,6 +29,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Json格式的字符串{@link HttpMessageConverter}。
+ *
+ * <p>将任意对象的转换成Json格式的字符串。</p>
+ *
  * @author iimik
  * @version 1.0.0
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#extendMessageConverters(List)
