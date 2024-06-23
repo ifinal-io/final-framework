@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 the original author or authors.
+ * Copyright 2020-2024 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,25 +15,23 @@
 
 package org.ifinalframework.web.servlet.response.advice;
 
+
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.ifinalframework.util.function.Filter;
 import org.ifinalframework.web.servlet.response.annotation.ResponseIgnore;
 
-import java.util.function.Predicate;
-
 /**
- * Rest {@link MethodParameter} 方法过滤器。
+ * 被{@link ResponseBody}（直接标记或间接）标记的{@link MethodParameter}就是{@code REST}方法。
  *
  * @author iimik
- * @version 1.0.0
- * @since 1.0.0
- */
-public class RestMethodParameterFilter implements Predicate<MethodParameter> {
+ * @see ResponseIgnore
+ * @since 1.6.0
+ **/
+public class DefaultResponseBodyMethodParameterPredicate implements ResponseBodyMethodParameterPredicate {
 
-    public static final RestMethodParameterFilter INSTANCE = new RestMethodParameterFilter();
+    public static final DefaultResponseBodyMethodParameterPredicate INSTANCE = new DefaultResponseBodyMethodParameterPredicate();
 
     @Override
     public boolean test(final MethodParameter methodParameter) {
@@ -48,5 +46,4 @@ public class RestMethodParameterFilter implements Predicate<MethodParameter> {
         return methodParameter.hasMethodAnnotation(ResponseBody.class) || clazz
                 .isAnnotationPresent(RestController.class);
     }
-
 }

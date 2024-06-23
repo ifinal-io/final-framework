@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author iimik
  * @version 1.0.0
  * @see ResultResponseBodyAdvice
+ * @see org.springframework.web.bind.annotation.ResponseBody
  * @since 1.0.0
  */
 public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
@@ -35,7 +36,7 @@ public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
     @Override
     default boolean supports(final @NonNull MethodParameter methodParameter,
                              final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return RestMethodParameterFilter.INSTANCE.test(methodParameter);
+        return DefaultResponseBodyMethodParameterPredicate.INSTANCE.test(methodParameter);
     }
 
     @Nullable

@@ -37,21 +37,23 @@ import static org.mockito.Mockito.*;
  * @version 1.3.1
  **/
 @ExtendWith(MockitoExtension.class)
-class RestMethodParameterFilterTest {
+class DefaultResponseBodyMethodParameterPredicateTest {
 
     @Test
     @SneakyThrows
     void matches() {
 
+        DefaultResponseBodyMethodParameterPredicate filter = new DefaultResponseBodyMethodParameterPredicate();
+
         Method method = ReflectionUtils.getRequiredMethod(getClass(), "matches");
         MethodParameter methodParameter = spy(new MethodParameter(method, -1));
 
         when(methodParameter.hasMethodAnnotation(ResponseIgnore.class)).thenReturn(true);
-        assertFalse(RestMethodParameterFilter.INSTANCE.test(methodParameter));
+        assertFalse(filter.test(methodParameter));
 
         when(methodParameter.hasMethodAnnotation(ResponseIgnore.class)).thenReturn(false);
         //        when(methodParameter.getDeclaringClass()).thenReturn(getClass());
         when(methodParameter.hasMethodAnnotation(ResponseBody.class)).thenReturn(true);
-        assertTrue(RestMethodParameterFilter.INSTANCE.test(methodParameter));
+        assertTrue(filter.test(methodParameter));
     }
 }

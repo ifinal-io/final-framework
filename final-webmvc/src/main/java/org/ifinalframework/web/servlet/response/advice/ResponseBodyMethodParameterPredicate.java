@@ -13,21 +13,21 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.web.servlet.response.annotation;
+package org.ifinalframework.web.servlet.response.advice;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.springframework.core.MethodParameter;
+
+import java.util.function.Predicate;
 
 /**
+ * Rest {@link MethodParameter} 方法过滤器。
+ *
  * @author iimik
  * @version 1.0.0
  * @see org.springframework.web.bind.annotation.ResponseBody
  * @since 1.0.0
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ResponseIgnore {
+@FunctionalInterface
+public interface ResponseBodyMethodParameterPredicate extends Predicate<MethodParameter> {
 
 }
