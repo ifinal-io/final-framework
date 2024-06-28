@@ -24,6 +24,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
+ * {@link Result}转换器。
+ *
  * @author iimik
  * @version 1.2.1
  * @see ResultConsumer
@@ -32,10 +34,16 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface ResultFunction extends Function<Object, Result<?>>, Predicate<Object> {
 
+    /**
+     * 将给定的{@code body}对象转换为{@link Result}。
+     */
     @NonNull
     @Override
     Result<?> apply(@Nullable Object body);
 
+    /**
+     * 测试当前实现是否支持给定的{@code body}对象
+     */
     @Override
     default boolean test(@Nullable Object body) {
         return true;

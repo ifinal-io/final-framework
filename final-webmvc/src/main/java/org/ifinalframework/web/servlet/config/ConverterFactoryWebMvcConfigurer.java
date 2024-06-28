@@ -31,8 +31,9 @@ import java.util.ServiceLoader;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * An {@link WebMvcConfigurer} auto-detects {@link ConverterFactory} beans to {@link
- * WebMvcConfigurer#addFormatters(FormatterRegistry)}. Also support SPI from {@link ServiceLoader}.
+ *
+ * {@link ConverterFactory}配置器。
+ * <p>自动发现{@code Spring}容器中的{@link ConverterFactory}实例并注册。同时支持{@code JDK SPI}。</p>
  *
  * @author iimik
  * @version 1.0.0
