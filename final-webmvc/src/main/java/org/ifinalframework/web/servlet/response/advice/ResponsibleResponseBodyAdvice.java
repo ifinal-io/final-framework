@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.ifinalframework.core.result.Responsible;
 
 /**
+ * 将{@link Responsible#getStatus()}的值设置到{@link ServerHttpResponse#setStatusCode(HttpStatusCode)}。
+ *
  * @author iimik
  * @version 1.0.0
  * @see Responsible
