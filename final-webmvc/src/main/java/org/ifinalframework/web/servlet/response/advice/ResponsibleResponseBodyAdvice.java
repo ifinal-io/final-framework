@@ -41,7 +41,7 @@ import org.ifinalframework.core.result.Responsible;
 @Order
 @RestControllerAdvice
 @ConditionalOnProperty(prefix = "final.web.response.advice", name = "responsible", havingValue = "true")
-public class ResponsibleResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
+public class ResponsibleResponseBodyAdvice implements AbsResultResponseBodyAdvice<Object> {
 
 
     @Override

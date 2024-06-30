@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * @author iimik
  * @version 1.0.0
- * @see ResultResponseBodyAdvice
+ * @see DefaultResultResponseBodyAdvice
  * @see org.springframework.web.bind.annotation.ResponseBody
  * @since 1.0.0
  */
-public interface RestResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
+public interface AbsResultResponseBodyAdvice<T> extends ResponseBodyAdvice<T> {
 
     @Override
     default boolean supports(final @NonNull MethodParameter methodParameter,

@@ -24,8 +24,10 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.Result;
@@ -33,6 +35,7 @@ import org.ifinalframework.web.servlet.interceptor.DurationHandlerInterceptor;
 import org.ifinalframework.web.servlet.interceptor.TraceHandlerInterceptor;
 
 import java.time.Duration;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,16 +53,31 @@ import lombok.RequiredArgsConstructor;
 @RestControllerAdvice
 @ConditionalOnBean(ResultFunctionConsumerComposite.class)
 @ConditionalOnProperty(prefix = "final.web.response.advice", name = "result", havingValue = "true", matchIfMissing = true)
-public class ResultResponseBodyAdvice implements RestResponseBodyAdvice<Object> {
+public class DefaultResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 
     private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
+    private final List<ResponseBodyAdviceExcludePredicate> responseBodyAdviceExcludePredicates;
 
     @Override
-    public Object doBeforeBodyWrite(final Object body, final MethodParameter returnType,
+    public boolean supports(final @NonNull MethodParameter methodParameter,
+                             final @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+        return DefaultResponseBodyMethodParameterPredicate.INSTANCE.test(methodParameter);
+    }
+
+    @Override
+    public Object beforeBodyWrite(final Object body, final MethodParameter returnType,
                                     final MediaType selectedContentType,
                                     final Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                     final ServerHttpRequest request, final ServerHttpResponse response) {
+
+        // 被排除的切面，直接返回 body
+        for (ResponseBodyAdviceExcludePredicate predicate : responseBodyAdviceExcludePredicates) {
+            if(predicate.test(body, returnType, selectedContentType, selectedConverterType, request, response)){
+                return body;
+            }
+        }
+
 
         final Result<?> result = resultFunctionConsumerComposite.apply(body);
         if (result == null) {

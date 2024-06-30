@@ -26,6 +26,7 @@ import java.util.function.Predicate;
  * @version 1.0.0
  * @see org.springframework.web.bind.annotation.ResponseBody
  * @since 1.0.0
+ * @see org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice#supports(MethodParameter, Class)
  */
 @FunctionalInterface
 public interface ResponseBodyMethodParameterPredicate extends Predicate<MethodParameter> {

@@ -51,7 +51,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 @RestControllerAdvice
-public class ResultColumnResponseBodyAdvice implements RestResponseBodyAdvice<Result<List<?>>> {
+public class ResultColumnResponseBodyAdvice implements AbsResultResponseBodyAdvice<Result<List<?>>> {
 
     public static final MapAccessor ACCESSOR = new MapAccessor();
 
