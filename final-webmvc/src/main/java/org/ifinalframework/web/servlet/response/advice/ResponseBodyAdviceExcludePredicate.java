@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  *
  * @author iimik
  * @see ResponseBodyAdvice
- * @since 1.6.0
+ * @since 1.6.0.
  **/
 @FunctionalInterface
 public interface ResponseBodyAdviceExcludePredicate<T> {
