@@ -34,6 +34,22 @@ import java.util.function.Supplier;
  * Json.toJson(object,view);
  * </pre>
  *
+ * <h5>特性</h5>
+ * <ul>
+ *     <li>
+ *         <h6>时间</h6>
+ *         <p>对于时间类型的属性，在序列化时，自动追加{@code xxxFormat}的格式化属性，以增加更加直观化的可阅读性，支持的时间类型如下：</p>
+ *         <ul>
+ *             <li>{@link java.util.Date}</li>
+ *             <li>{@link java.time.LocalDateTime}</li>
+ *         </ul>
+ *     </li>
+ *     <li>
+ *         <h6>枚举</h6>
+ *         <p>对于{@link Enum}类型，在序列化时，自动追加{@code xxxName}的格式化属性，如果枚举实现了{@link org.ifinalframework.core.IEnum}接口，则还会自动追加{@code xxxDesc}属性。</p>
+ *     </li>
+ * </ul>
+ *
  * @author iimik
  * @version 1.0.0
  * @see JsonService
