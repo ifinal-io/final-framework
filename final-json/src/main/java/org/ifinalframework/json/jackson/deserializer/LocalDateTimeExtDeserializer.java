@@ -27,6 +27,14 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * {@link LocalDateTime}反序列化器。
+ *
+ * <p>支持将以下格式的数据转换成{@link  LocalDateTime}</p>
+ * <ul>
+ *     <li>{@code yyyy-MM-dd HH:mm:ss}格式的字符串。</li>
+ *     <li>时间戳</li>
+ * </ul>
+ *
  * @author iimik
  * @version 1.0.0
  * @see com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
