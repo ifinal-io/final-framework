@@ -27,10 +27,13 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * StringTrimDeserializer.
+ * {@link String}类型反序列化器。
+ * <p>
+ * 该反序列化器在执行时，会将字符串两端的空格去掉
  *
  * @author iimik
  * @version 1.0.0
+ * @see StringDeserializer
  * @since 1.0.0
  */
 @AutoService(JsonDeserializer.class)
