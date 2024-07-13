@@ -26,6 +26,34 @@ import java.util.function.Supplier;
 /**
  * 统一的Json调用入口 为常用的Json序列化与反序列化提供统一的入口。
  *
+ * <h4>使用</h4>
+ * <table>
+ *     <thead>
+ *         <tr>
+ *             <td>场景</td>
+ *             <td>方法</td>
+ *             <td>示例</td>
+ *         </tr>
+ *     </thead>
+ *     <tbody>
+ *         <tr>
+ *             <td>序列化</td>
+ *             <td>{@link  #toJson(Object)}</td>
+ *             <td>{@code Json.toJson(value) }</td>
+ *         </tr>
+ *         <tr>
+ *             <td>视图序列化</td>
+ *             <td>{@link #toJson(Object, Class)}</td>
+ *             <td>{@code Json.toJson(value, view) }</td>
+ *         </tr>
+ *         <tr>
+ *             <td>反序列化为{@code Object}</td>
+ *             <td>{@link #toObject(String)}</td>
+ *             <td>{@code Json.toObject(json)}</td>
+ *         </tr>
+ *     </tbody>
+ * </table>
+ *
  * <p>Json Serialized</p>
  * <pre class="code">
  * // to json

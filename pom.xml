@@ -69,14 +69,15 @@
     <scm>
         <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
         <developerConnection>scm:git:ssh://github.com:final-projects/final-framework.git</developerConnection>
-        <url>https://github.com/final-projects/final-framework/tree/master</url>
+        <url>https://github.com/final-projects/final-framework/tree/main</url>
     </scm>
 
     <developers>
         <developer>
-            <email>iimik@qq.com</email>
             <id>iimik</id>
-            <name>iimik</name>
+            <email>iimik@qq.com</email>
+            <name>米克(iimik)</name>
+            <url>https://github.com/iimik</url>
             <roles>
                 <role>Owner</role>
                 <role>Developer</role>
