@@ -20,23 +20,19 @@ import org.ifinalframework.core.IUser;
 import java.util.List;
 
 /**
- * Authentication
+ * IAuthentication
  *
  * @author iimik
- * @since 1.5.6
+ * @since 1.6.0
  **/
-public interface Authentication<U extends IUser<?>> {
+public interface IAuthentication<U extends IUser> {
     /**
      * 用户信息
-     *
-     * @return 用户信息
      */
     U getUser();
 
     /**
      * 权限列表
-     *
-     * @return 权限列表
      */
     List<String> getAuthorities();
 }

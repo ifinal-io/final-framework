@@ -16,6 +16,8 @@
 package org.ifinalframework.security.sso.authentication;
 
 
+import org.springframework.security.core.Authentication;
+
 import org.ifinalframework.core.IUser;
 
 /**

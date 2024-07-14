@@ -34,5 +34,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @FunctionalInterface
 public interface RemoteAuthenticationService {
 
+    /**
+     * 从远程加载认证信息
+     */
     Authentication load(HttpServletRequest request);
 }

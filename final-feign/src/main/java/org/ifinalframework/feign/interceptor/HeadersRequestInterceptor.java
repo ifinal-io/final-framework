@@ -20,6 +20,7 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,6 +33,7 @@ import java.util.List;
  * @author iimik
  * @since 1.5.6
  **/
+@Component
 public class HeadersRequestInterceptor implements RequestInterceptor {
 
     private static final List<String> DEFAULT_HEADERS = List.of(HttpHeaders.COOKIE, HttpHeaders.AUTHORIZATION);

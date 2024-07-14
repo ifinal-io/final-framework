@@ -15,14 +15,23 @@
 
 package org.ifinalframework.security.sso.authentication;
 
+import org.springframework.security.core.Authentication;
+
 /**
  * AuthenticationDecoder
  *
  * @author iimik
+ * @see AuthenticationEncoder
  * @since 1.5.6
  **/
 @FunctionalInterface
-public interface AuthenticationDecoder {
-    Authentication decode(String authentication);
+public interface AuthenticationDecoder<S extends IAuthentication<?>> {
+    /**
+     * 从认证源解密{@link Authentication}
+     *
+     * @param source 认证源
+     * @return
+     */
+    Authentication decode(S source);
 }
 
