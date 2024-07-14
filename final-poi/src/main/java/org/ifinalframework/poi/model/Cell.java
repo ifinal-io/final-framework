@@ -18,7 +18,10 @@ package org.ifinalframework.poi.model;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import org.ifinalframework.core.lang.SpEL;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -30,21 +33,29 @@ import lombok.Setter;
  */
 @Setter
 @Getter
+@NoArgsConstructor
 public class Cell {
 
     private Integer index;
 
+    /**
+     * 值
+     */
     @NonNull
+    @SpEL
     private String value;
 
+    /**
+     * 列宽
+     */
     @Nullable
     private Integer columnWidth;
 
+    /**
+     * 样式
+     */
     @Nullable
     private String style;
-
-    public Cell() {
-    }
 
     public Cell(@NonNull final String value) {
         this.value = value;

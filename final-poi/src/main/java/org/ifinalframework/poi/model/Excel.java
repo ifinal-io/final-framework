@@ -34,17 +34,29 @@ import lombok.Setter;
 public class Excel {
 
     /**
-     * Excel file name which supports {@link SpEL}.
+     * 生成的Excel文件名
      */
     @SpEL
     private String name;
 
+    /**
+     * Excel 版本
+     */
     private Version version;
 
+    /**
+     * 生成的Excel文件访问密码
+     */
     private String password;
 
+    /**
+     * Excel Sheet列表
+     */
     private List<Sheet> sheets;
 
+    /**
+     * 风格列表
+     */
     private List<Style> styles;
 
 }

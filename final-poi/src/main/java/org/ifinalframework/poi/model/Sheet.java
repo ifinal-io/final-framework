@@ -30,18 +30,39 @@ import lombok.Setter;
 @Getter
 public class Sheet {
 
+    /**
+     * sheet 名称
+     */
     private String name;
 
+    /**
+     * 默认列宽
+     */
     private Float defaultColumnWidth;
 
+    /**
+     * 默认列高
+     */
     private Float defaultRowHeight;
 
+    /**
+     * 表头配置
+     */
     private List<Row> headers;
 
+    /**
+     * 内容配置
+     */
     private Row body;
 
+    /**
+     * 表脚配置
+     */
     private List<Row> footers;
 
+    /**
+     * 合并单元格
+     */
     private List<MergedRegion> mergedRegions;
 
 }

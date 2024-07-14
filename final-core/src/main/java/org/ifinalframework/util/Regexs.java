@@ -42,7 +42,7 @@ public final class Regexs {
     }
 
     /**
-     * @see #matches(String, CharSequence) 
+     * @see #matches(String, CharSequence)
      * @param pattern
      * @param input
      * @return

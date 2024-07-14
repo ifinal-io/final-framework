@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 the original author or authors.
+ * Copyright 2020-2024 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,42 +13,19 @@
  * limitations under the License.
  */
 
-package org.ifinalframework.poi.model;
+package org.ifinalframework.poi;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
- * Row
+ * Poi接口
  *
  * @author iimik
- * @since 1.5.2
+ * @since 1.6.0
  **/
-@Setter
-@Getter
-@NoArgsConstructor
-public class Row {
+public interface IPoi {
 
-    /**
-     * 单元格
-     */
-    private List<Cell> cells;
-
-    /**
-     * 行高
-     */
-    private Float height;
-
-    /**
-     * 样式
-     */
-    private String style;
-
-    public Row(final List<Cell> cells) {
-        this.cells = cells;
-    }
 
 }
