@@ -1,7 +1,6 @@
 # final-framework
 
 ![CI](https://github.com/final-projects/final-framework/actions/workflows/ci.yml/badge.svg)
-
 ![codecov](https://codecov.io/gh/final-projects/final-framework/branch/main/graph/badge.svg)
 [![GitHub](https://img.shields.io/github/license/final-projects/final-framework)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinalframework/final-framework?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)

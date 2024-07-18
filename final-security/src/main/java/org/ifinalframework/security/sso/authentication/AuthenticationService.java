@@ -21,7 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.ifinalframework.core.IUser;
 
 /**
- * AuthenticationService
+ * 认证服务接口，通过给定的服务的用户信息，返回该用户在调用服务所拥有的权限。
  *
  * @author iimik
  * @since 1.5.6
@@ -30,9 +30,9 @@ import org.ifinalframework.core.IUser;
 public interface AuthenticationService<U extends IUser> {
     /**
      * 加载用户认证信息
-     * @param service
-     * @param user
-     * @return
+     * @param service 调用的服务
+     * @param user 用户信息
+     * @return 该用户的调用服务所拥有的权限
      */
     Authentication lode(String service, U user);
 }
