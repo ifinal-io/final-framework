@@ -51,9 +51,9 @@ public class BeanLocalDateTimePropertySerializerModifier extends AbsSimpleBeanPr
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
-                                                           final BeanDescription beanDesc,
-                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> buildExtProperties(final SerializationConfig config,
+                                                             final BeanDescription beanDesc,
+                                                             final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
         //创建一个新的属性来描述增加的"xxxName"，并使用 EnumNameSerializer 来序列化该属性
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),

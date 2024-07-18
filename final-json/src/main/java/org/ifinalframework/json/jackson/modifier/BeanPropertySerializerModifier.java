@@ -33,8 +33,11 @@ import java.util.function.BiPredicate;
  */
 public interface BeanPropertySerializerModifier extends BiPredicate<BeanPropertyDefinition, BeanPropertyWriter> {
 
+    /**
+     * 返回某个属性的搞懂属性，可以返回{@code null}，表示该属性没有扩展属性。
+     */
     @Nullable
-    Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
-                                                    BeanPropertyDefinition property, BeanPropertyWriter writer);
+    Collection<BeanPropertyWriter> buildExtProperties(SerializationConfig config, BeanDescription beanDesc,
+                                                      BeanPropertyDefinition property, BeanPropertyWriter writer);
 
 }

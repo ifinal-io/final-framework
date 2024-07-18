@@ -43,8 +43,8 @@ import java.util.Objects;
 @AutoService(BeanSerializerModifier.class)
 public class EnumValueBeanPropertySerializerModifier extends AbsBeanPropertySerializerModifier {
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
-                                                           BeanPropertyDefinition property, BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> buildExtProperties(SerializationConfig config, BeanDescription beanDesc,
+                                                             BeanPropertyDefinition property, BeanPropertyWriter writer) {
         EnumValue enumValue = writer.findAnnotation(EnumValue.class);
 
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,

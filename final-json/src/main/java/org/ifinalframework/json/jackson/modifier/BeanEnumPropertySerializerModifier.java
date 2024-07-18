@@ -90,9 +90,9 @@ public class BeanEnumPropertySerializerModifier extends AbsSimpleBeanPropertySer
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
-                                                           final BeanDescription beanDesc,
-                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> buildExtProperties(final SerializationConfig config,
+                                                             final BeanDescription beanDesc,
+                                                             final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
         final BeanPropertyWriter enumNamePropertyWriter = buildEnumNamePropertyWriter(beanDesc, property, writer);
         final BeanPropertyWriter enumDescPropertyWriter = buildEnumDescPropertyWriter(beanDesc, property, writer);
         return Arrays.asList(enumNamePropertyWriter, enumDescPropertyWriter);

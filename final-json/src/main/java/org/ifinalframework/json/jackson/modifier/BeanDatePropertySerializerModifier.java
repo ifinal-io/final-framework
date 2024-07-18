@@ -50,9 +50,9 @@ public class BeanDatePropertySerializerModifier extends AbsSimpleBeanPropertySer
     }
 
     @Override
-    public Collection<BeanPropertyWriter> changeProperties(final SerializationConfig config,
-                                                           final BeanDescription beanDesc,
-                                                           final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
+    public Collection<BeanPropertyWriter> buildExtProperties(final SerializationConfig config,
+                                                             final BeanDescription beanDesc,
+                                                             final BeanPropertyDefinition property, final BeanPropertyWriter writer) {
 
         final BeanPropertyWriter bpw = new BeanPropertyWriter(property,
                 writer.getMember(), beanDesc.getClassAnnotations(), property.getPrimaryType(),
