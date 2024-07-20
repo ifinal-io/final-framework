@@ -53,7 +53,7 @@ import lombok.RequiredArgsConstructor;
 @RestControllerAdvice
 @ConditionalOnBean(ResultFunctionConsumerComposite.class)
 @ConditionalOnProperty(prefix = "final.web.response.advice", name = "result", havingValue = "true", matchIfMissing = true)
-public class DefaultResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class DefaultResultResponseBodyAdvice extends SmartResponseBodyAdvice<Object,Result<?>> {
 
 
     private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
@@ -66,19 +66,17 @@ public class DefaultResultResponseBodyAdvice implements ResponseBodyAdvice<Objec
     }
 
     @Override
-    public Object beforeBodyWrite(final Object body, final MethodParameter returnType,
-                                    final MediaType selectedContentType,
-                                    final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                    final ServerHttpRequest request, final ServerHttpResponse response) {
-
-        // 被排除的切面，直接返回 body
+    protected boolean exclude(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         for (ResponseBodyAdviceExcludePredicate predicate : responseBodyAdviceExcludePredicates) {
             if(predicate.test(body, returnType, selectedContentType, selectedConverterType, request, response)){
-                return body;
+                return true;
             }
         }
+        return false;
+    }
 
-
+    @Override
+    protected Result<?> doBeforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         final Result<?> result = resultFunctionConsumerComposite.apply(body);
         if (result == null) {
             return null;

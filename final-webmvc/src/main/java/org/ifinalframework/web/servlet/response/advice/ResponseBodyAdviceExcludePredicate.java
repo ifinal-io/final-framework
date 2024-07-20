@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  *
  * @author iimik
  * @see ResponseBodyAdvice
+ * @see DefaultResultResponseBodyAdvice
  * @since 1.6.0.
  **/
 @FunctionalInterface
