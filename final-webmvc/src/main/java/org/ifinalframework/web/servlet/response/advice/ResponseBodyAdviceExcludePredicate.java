@@ -24,10 +24,15 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * ResponseBodyAdviceExcludePredicate
+ * {@link ResponseBodyAdvice}排除器。
+ * <h4>功能</h4>
+ * 对{@link ResponseBodyAdvice#supports(MethodParameter, Class)}的补充，解决原生方法不支持动态判断是否支持{@code @ResponseBody}标记的方法的改写，如{@code Swagger}内置的URI是不应该被改写的。
+ * <h4>用法</h4>
+ * 该排除器应该在{@code beforeBodyWrite} 方法执行的最前面调用，用于动态判断该{@code ResponseBodyAdvice}是否支持对{@code @ResponseBody}的改写。
  *
  * @author iimik
  * @see ResponseBodyAdvice
+ * @see SmartResponseBodyAdvice
  * @see DefaultResultResponseBodyAdvice
  * @since 1.6.0.
  **/
@@ -38,7 +43,7 @@ public interface ResponseBodyAdviceExcludePredicate<T> {
      *
      * @see ResponseBodyAdvice#beforeBodyWrite(Object, MethodParameter, MediaType, Class, ServerHttpRequest, ServerHttpResponse)
      */
-    boolean test(@Nullable T body, MethodParameter returnType, MediaType selectedContentType,
-                 Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                 ServerHttpRequest request, ServerHttpResponse response);
+    boolean exclude(@Nullable T body, MethodParameter returnType, MediaType selectedContentType,
+                    Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                    ServerHttpRequest request, ServerHttpResponse response);
 }

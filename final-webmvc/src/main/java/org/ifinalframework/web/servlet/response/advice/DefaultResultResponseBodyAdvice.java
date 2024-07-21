@@ -27,7 +27,6 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import org.ifinalframework.context.result.ResultFunctionConsumerComposite;
 import org.ifinalframework.core.result.Result;
@@ -55,8 +54,13 @@ import lombok.RequiredArgsConstructor;
 @ConditionalOnProperty(prefix = "final.web.response.advice", name = "result", havingValue = "true", matchIfMissing = true)
 public class DefaultResultResponseBodyAdvice extends SmartResponseBodyAdvice<Object,Result<?>> {
 
-
+    /**
+     * 结果包装
+     */
     private final ResultFunctionConsumerComposite resultFunctionConsumerComposite;
+    /**
+     * 切面排除器
+     */
     private final List<ResponseBodyAdviceExcludePredicate> responseBodyAdviceExcludePredicates;
 
     @Override
@@ -68,7 +72,7 @@ public class DefaultResultResponseBodyAdvice extends SmartResponseBodyAdvice<Obj
     @Override
     protected boolean exclude(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         for (ResponseBodyAdviceExcludePredicate predicate : responseBodyAdviceExcludePredicates) {
-            if(predicate.test(body, returnType, selectedContentType, selectedConverterType, request, response)){
+            if(predicate.exclude(body, returnType, selectedContentType, selectedConverterType, request, response)){
                 return true;
             }
         }

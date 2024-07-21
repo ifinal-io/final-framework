@@ -16,7 +16,6 @@
 package org.ifinalframework.web.servlet.response.advice;
 
 import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * SwaggerResponseBodyAdviceExcludePredicateTest
@@ -47,7 +44,7 @@ class SwaggerResponseBodyAdviceExcludePredicateTest {
         Mockito.when(serverHttpRequest.getURI()).thenReturn(new URI("/swagger/12"));
 
         SwaggerResponseBodyAdviceExcludePredicate predicate = new SwaggerResponseBodyAdviceExcludePredicate();
-        Assertions.assertTrue(predicate.test(null,null,null,null,serverHttpRequest,null));
+        Assertions.assertTrue(predicate.exclude(null,null,null,null,serverHttpRequest,null));
 
     }
 }

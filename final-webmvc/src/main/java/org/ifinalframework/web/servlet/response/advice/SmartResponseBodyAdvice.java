@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * 智能{@link org.springframework.web.bind.annotation.ResponseBody}切面。
  *
  * @author iimik
+ * @see ResponseBodyAdviceExcludePredicate
  * @since 1.6.0
  **/
 public abstract class SmartResponseBodyAdvice<S, T> implements ResponseBodyAdvice<Object> {
@@ -42,10 +43,10 @@ public abstract class SmartResponseBodyAdvice<S, T> implements ResponseBodyAdvic
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if(exclude(body, returnType, selectedContentType, selectedConverterType, request, response)){
+        if (exclude(body, returnType, selectedContentType, selectedConverterType, request, response)) {
             return body;
         }
-        return doBeforeBodyWrite((S) body,returnType,selectedContentType,selectedConverterType,request,response);
+        return doBeforeBodyWrite((S) body, returnType, selectedContentType, selectedConverterType, request, response);
     }
 
     protected abstract T doBeforeBodyWrite(S body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response);

@@ -35,7 +35,7 @@ public class SwaggerResponseBodyAdviceExcludePredicate implements ResponseBodyAd
     private static final String SWAGGER_URI_PATH = "swagger";
 
     @Override
-    public boolean test(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public boolean exclude(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         return request.getURI().getPath().contains(SWAGGER_URI_PATH);
     }
 }
