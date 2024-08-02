@@ -19,6 +19,7 @@ import javassist.ClassPool;
 
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.util.StopWatch;
 
 import org.ifinalframework.auto.spring.factory.annotation.SpringFactory;
 import org.ifinalframework.javassist.JavaAssistProcessor;
@@ -29,7 +30,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * JavaAssistApplicationStartingListener.
+ * 在Spring容器的{@linkplain ApplicationStartingEvent 启动}事件中，调用{@link JavaAssistProcessor}处理器对{@link Class}进行修改。
  *
  * @author iimik
  * @version 1.5.0
@@ -39,7 +40,10 @@ import lombok.extern.slf4j.Slf4j;
 @SpringFactory(ApplicationListener.class)
 public class JavaAssistApplicationStartingListener implements ApplicationListener<ApplicationStartingEvent> {
 
-    private static boolean processed = false;
+    /**
+     * 是否已经处理过标记
+     */
+    private boolean processed = false;
 
     @SneakyThrows
     @Override
@@ -49,12 +53,20 @@ public class JavaAssistApplicationStartingListener implements ApplicationListene
             return;
         }
 
-        final ClassPool classPool = ClassPool.getDefault();
-        for (final JavaAssistProcessor javaAssistProcessor : ServiceLoader.load(JavaAssistProcessor.class)) {
-            logger.info("start {}", javaAssistProcessor);
-            javaAssistProcessor.process(classPool);
-        }
-
         processed = true;
+
+        final ClassPool classPool = ClassPool.getDefault();
+        final ServiceLoader<JavaAssistProcessor> javaAssistProcessors = ServiceLoader.load(JavaAssistProcessor.class);
+
+        StopWatch watch = new StopWatch("JavaAssistProcessor");
+
+        for (final JavaAssistProcessor javaAssistProcessor : javaAssistProcessors) {
+            final String taskName = javaAssistProcessor.getClass().getName();
+            watch.start(taskName);
+            javaAssistProcessor.process(classPool);
+            watch.stop();
+        }
+        logger.info(watch.prettyPrint());
+
     }
 }
