@@ -23,16 +23,37 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Excel sheet header info.
+ * {@code Excel}表头
  *
  * @author iimik
  * @version 1.2.4
  **/
 @RequiredArgsConstructor
 public final class Headers {
+    /**
+     * 标题行索引
+     */
     @Getter
     private final int row;
+    /**
+     * 表头下标标题索引
+     * <ul>
+     *     <li>key: 标题</li>
+     *     <li>value: 索引</li>
+     * </ul>
+     *
+     * @see #indexHeaderMap
+     */
     private final Map<String, Integer> headerIndexMap = new LinkedHashMap<>();
+    /**
+     * 表头下标标题索引
+     * <ul>
+     *     <li>key: 下标</li>
+     *     <li>value：标题</li>
+     * </ul>
+     *
+     * @see #headerIndexMap
+     */
     private final Map<Integer, String> indexHeaderMap = new LinkedHashMap<>();
 
     public void addHeader(Integer index, String header) {
