@@ -33,7 +33,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
- * ExcelGenerator.
+ * {@code Excel}生成器。
  *
  * @author iimik
  * @version 1.0.0
@@ -41,18 +41,50 @@ import java.util.List;
  */
 public interface ExcelGenerator {
 
+    /**
+     * 创建单元格样式
+     *
+     * @param style 样式
+     * @return 单元格样式
+     */
     @NonNull
     CellStyle createCellStyle(@NonNull Style style);
 
+    /**
+     * 创建字体
+     *
+     * @param font 字体
+     * @return 字体
+     */
     @NonNull
     Font createFont(@NonNull org.ifinalframework.poi.model.Font font);
 
+    /**
+     * 创建{@code sheet}
+     *
+     * @param sheet sheet
+     * @return sheet
+     */
     @NonNull
     Sheet createSheet(@NonNull org.ifinalframework.poi.model.Sheet sheet);
 
+    /**
+     * 创建行{@code row}
+     *
+     * @param sheet 表
+     * @param row   行
+     * @return 行
+     */
     @NonNull
     Row createRow(@NonNull Sheet sheet, @NonNull org.ifinalframework.poi.model.Row row);
 
+    /**
+     * 创建单元格
+     *
+     * @param row  行
+     * @param cell 单元格
+     * @return 单元格
+     */
     @NonNull
     Cell createCell(@NonNull Row row, @NonNull org.ifinalframework.poi.model.Cell cell);
 
@@ -62,25 +94,64 @@ public interface ExcelGenerator {
     @NonNull
     Sheet getSheet(int index);
 
+    /**
+     * 向第一个{@code sheet}写一行数据
+     *
+     * @param row  行
+     * @param data 数据
+     * @see #writeRow(int, org.ifinalframework.poi.model.Row, Object)
+     */
     default void writeRow(@NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data) {
         writeRow(0, row, data);
     }
 
+    /**
+     * 向第{@code index}个{@code sheet}写一行数据
+     *
+     * @param index sheet索引
+     * @param row   行
+     * @param data  数据
+     */
     void writeRow(int index, @NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data);
 
+    /**
+     * 向{@code sheet}中写一行数据
+     *
+     * @param sheet sheet
+     * @param row   行
+     * @param data  数据
+     */
     void writeRow(@NonNull Sheet sheet, @NonNull org.ifinalframework.poi.model.Row row, @Nullable Object data);
 
     void writeCell(@NonNull Cell rowCell, @NonNull org.ifinalframework.poi.model.Cell cell, @Nullable Object data);
 
+    /**
+     * 向第1个{@code sheet}添加一个合并单元格
+     * @param mergedRegions 合并单元格
+     */
     default void addMergedRegions(List<MergedRegion> mergedRegions) {
         addMergedRegions(0, mergedRegions);
     }
 
+    /**
+     * 向第{@code index}个{@code sheet}添加一个合并单元格
+     * @param index sheet索引
+     * @param mergedRegions 合并单元格
+     */
     void addMergedRegions(int index, List<MergedRegion> mergedRegions);
 
-
+    /**
+     * 写到输出流
+     * @param os 输出流
+     * @throws IOException IO异常
+     */
     void write(@NonNull OutputStream os) throws IOException;
 
+    /**
+     * 写到文件
+     * @param filename 文件名
+     * @throws IOException IO异常
+     */
     default void write(@NonNull String filename) throws IOException {
         write(new FileOutputStream(filename));
     }
