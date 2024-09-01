@@ -1,7 +1,7 @@
 # final-framework
 
 ![CI](https://github.com/final-projects/final-framework/actions/workflows/ci.yml/badge.svg)
-![codecov](https://codecov.io/gh/final-projects/final-framework/branch/main/graph/badge.svg)
+[![codecov](https://codecov.io/github/ifinal-io/final-framework/graph/badge.svg?token=31vxLbJ33g)](https://codecov.io/github/ifinal-io/final-framework)
 [![GitHub](https://img.shields.io/github/license/final-projects/final-framework)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://img.shields.io/maven-central/v/org.ifinalframework/final-framework?label=maven&color=success)](https://mvnrepository.com/search?q=org.ifinal.finalframework)
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/org.ifinalframework/final-framework?server=https://s01.oss.sonatype.org)

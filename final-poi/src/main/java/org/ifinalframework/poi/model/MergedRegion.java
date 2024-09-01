@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * MergedRegion
+ * 合并单元格
  *
  * @author iimik
  * @since 1.5.2
@@ -27,8 +27,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MergedRegion {
+    /**
+     * 行
+     */
     private Integer row;
+    /**
+     * 列
+     */
     private Integer colum;
+    /**
+     * 宽
+     */
     private Integer width;
+    /**
+     * 高
+     */
     private Integer height;
 }

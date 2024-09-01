@@ -128,6 +128,7 @@ public interface ExcelGenerator {
     /**
      * 向第1个{@code sheet}添加一个合并单元格
      * @param mergedRegions 合并单元格
+     * @see #addMergedRegions(int, List) 
      */
     default void addMergedRegions(List<MergedRegion> mergedRegions) {
         addMergedRegions(0, mergedRegions);
@@ -137,6 +138,7 @@ public interface ExcelGenerator {
      * 向第{@code index}个{@code sheet}添加一个合并单元格
      * @param index sheet索引
      * @param mergedRegions 合并单元格
+     * @see #addMergedRegions(List) 
      */
     void addMergedRegions(int index, List<MergedRegion> mergedRegions);
 
