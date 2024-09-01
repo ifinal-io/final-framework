@@ -59,17 +59,17 @@
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
         <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.organization>final-projects</sonar.organization>
-        <sonar.projectKey>final-projects_final-framework</sonar.projectKey>
+        <sonar.organization>ifinal-io</sonar.organization>
+        <sonar.projectKey>ifinal-io_final-framework</sonar.projectKey>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
     </properties>
 
     <url>https://github.com/final-projects/final-framework</url>
 
     <scm>
-        <connection>scm:git:git://github.com/final-projects/final-framework.git</connection>
-        <developerConnection>scm:git:ssh://github.com:final-projects/final-framework.git</developerConnection>
-        <url>https://github.com/final-projects/final-framework/tree/main</url>
+        <connection>scm:git:git://github.com/ifinal-io/final-framework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:ifinal-io/final-framework.git</developerConnection>
+        <url>https://github.com/ifinal-io/final-framework/tree/main</url>
     </scm>
 
     <developers>
