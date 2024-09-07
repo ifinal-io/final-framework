@@ -48,7 +48,6 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
 
         logger.info("start process org.springframework.beans.AbstractNestablePropertyAccessor");
 
-
         final CtClass ctClass = classPool.get("org.springframework.beans.AbstractNestablePropertyAccessor");
 
         if (ctClass.isFrozen()) {
@@ -58,7 +57,7 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
         addBeanTypeDescriptorFactories(ctClass);
         processNewValue(ctClass);
 
-        final Class<?> aClass = ctClass.toClass(BeanWrapper.class);
+        ctClass.toClass(BeanWrapper.class);
 
         logger.info("process success org.springframework.beans.AbstractNestablePropertyAccessor");
     }
@@ -69,32 +68,32 @@ public class AbstractNestablePropertyAccessorJavaAssistProcessor implements Java
      * <pre class="code">
      *  private List&lt;BeanTypeDescriptorFactory&gt; beanTypeDescriptorFactories = SpringFactoriesLoader.loadFactories(BeanTypeDescriptorFactory.class, getClass().getClassLoader());
      * </pre>
-     * @param ctClass
-     * @throws Throwable
      */
     private void addBeanTypeDescriptorFactories(CtClass ctClass) throws Throwable {
-        final CtField beanTypeDescriptorFactories = CtField.make("private java.util.List beanTypeDescriptorFactories "
-                + "= org.springframework.core.io.support.SpringFactoriesLoader.loadFactories("
-                + "org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());", ctClass);
+        final CtField beanTypeDescriptorFactories = CtField.make("""
+                private java.util.List beanTypeDescriptorFactories = org.springframework.core.io.support.SpringFactoriesLoader.loadFactories(
+                    org.ifinalframework.beans.BeanTypeDescriptorFactory.class,getClass().getClassLoader());
+                """, ctClass);
         ctClass.addField(beanTypeDescriptorFactories);
     }
 
 
     /**
-     * 修改{@link AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)}方法体之前，插入一段代码，
+     * 修改{@code newValue(Class, TypeDescriptor, String)}方法体之前，插入一段代码，
      * 优先遍历调用{@link BeanTypeDescriptorFactory#create(Class, TypeDescriptor)}方法
      * @see #addBeanTypeDescriptorFactories(CtClass)
-     * @see AbstractNestablePropertyAccessor#newValue(Class, TypeDescriptor, String)
      * @see BeanTypeDescriptorFactory#create(Class, TypeDescriptor)
      */
     private void processNewValue(CtClass ctClass) throws NotFoundException, CannotCompileException {
 
         final CtMethod newValue = ctClass.getDeclaredMethod("newValue");
-        newValue.insertBefore("for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {\n"
-                + "    org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory "
-                + "         = beanTypeDescriptorFactories.get(i);\n"
-                + "    if (beanTypeDescriptorFactory.support($1, $2)) {\n"
-                + "        return beanTypeDescriptorFactory.create($1, $2);\n"
-                + "    }\n" + "}");
+        newValue.insertBefore("""
+                for (int i = 0; i < beanTypeDescriptorFactories.size(); i++) {
+                    org.ifinalframework.beans.BeanTypeDescriptorFactory beanTypeDescriptorFactory = beanTypeDescriptorFactories.get(i);
+                    if (beanTypeDescriptorFactory.support($1, $2)) {
+                        return beanTypeDescriptorFactory.create($1, $2);
+                    }
+                }
+                """);
     }
 }
