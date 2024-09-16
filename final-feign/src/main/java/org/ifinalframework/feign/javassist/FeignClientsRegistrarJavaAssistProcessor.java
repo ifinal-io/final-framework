@@ -79,7 +79,8 @@ public class FeignClientsRegistrarJavaAssistProcessor implements JavaAssistProce
     }
 
     /**
-     * 修改{@link org.springframework.cloud.openfeign.FeignClientsRegistrar#getClientName(Map)} 方法，使其不再抛出异常
+     * {@link FeignClient}注解如果不配置{@code name}和{@code value}时，将会抛出{@linkplain  IllegalStateException 异常}，
+     * 这里修改{@link org.springframework.cloud.openfeign.FeignClientsRegistrar#getClientName(Map)} 方法，使其不再抛出异常。
      *
      * @param ctClass
      * @throws NotFoundException

@@ -17,7 +17,15 @@ package org.ifinalframework.feign.javassist;
 
 import javassist.ClassPool;
 
+import org.springframework.util.ReflectionUtils;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +39,21 @@ class FeignClientsRegistrarJavaAssistProcessorTest {
 
     @Test
     void process() throws Throwable {
+
         final ClassPool pool = ClassPool.getDefault();
         new FeignClientsRegistrarJavaAssistProcessor().process(pool);
+
+        Class clazz = Class.forName("org.springframework.cloud.openfeign.FeignClientsRegistrar");
+        final Method getClientName = ReflectionUtils.findMethod(clazz, "getClientName", Map.class);
+        getClientName.setAccessible(true);
+        final Constructor constructor = ReflectionUtils.accessibleConstructor(clazz);
+        constructor.setAccessible(true);
+        final Object instance = constructor.newInstance();
+
+        Assertions.assertDoesNotThrow( () -> getClientName.invoke(instance, new HashMap<>()));
+
+
+        final Object clientName = getClientName.invoke(instance, new HashMap<>());
+
     }
 }
