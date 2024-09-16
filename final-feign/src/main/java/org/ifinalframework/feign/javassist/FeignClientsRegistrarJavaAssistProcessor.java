@@ -34,6 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * FeignClientsRegistrarJavaAssistProcessor
+ * 修改{@code FeignClientsRegistrar}字节码，以使其能满足{@code FeignClient}客户端的自动配置。
+ * <ul>
+ *     <li>当{@code name/value}未配置时，使用其类名进行配置</li>。
+ * </ul>
  *
  * @author iimik
  * @see org.springframework.cloud.openfeign.FeignClientsRegistrar
