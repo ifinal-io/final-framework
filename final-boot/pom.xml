@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2020-2022 the original author or authors.
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.ifinalframework</groupId>
+        <artifactId>final-root</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+    <groupId>org.ifinalframework.boot</groupId>
+    <artifactId>final-boot-parent</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
+    <name>final-boot-parent</name>
+    <description>Final Boot</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>final-boot</module>
+        <module>final-boot-autoconfigure</module>
+        <!--Starters-->
+        <module>final-boot-starters/final-boot-starter</module>
+        <module>final-boot-starters/final-boot-starter-entity</module>
+        <module>final-boot-starters/final-boot-starter-mybatis</module>
+        <module>final-boot-starters/final-boot-starter-service</module>
+        <module>final-boot-starters/final-boot-starter-redis</module>
+        <module>final-boot-starters/final-boot-starter-cache</module>
+        <module>final-boot-starters/final-boot-starter-sharding</module>
+        <module>final-boot-starters/final-boot-starter-json</module>
+        <module>final-boot-starters/final-boot-starter-logging</module>
+        <module>final-boot-starters/final-boot-starter-monitor</module>
+        <module>final-boot-starters/final-boot-starter-web</module>
+        <module>final-boot-starters/final-boot-starter-security</module>
+        <module>final-boot-starters/final-boot-starter-doc</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <final.version>1.6.0-SNAPSHOT</final.version>
+
+        <sonar.projectKey>final-projects_final-boot</sonar.projectKey>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+        <sonar.organization>final-projects</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!--Final Auto-->
+            <dependency>
+                <groupId>org.ifinalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${final.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--Final Annotation-->
+            <dependency>
+                <groupId>org.ifinalframework.annotation</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>${final.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--Final Framework-->
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${final.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--Final Framework-->
+            <!--Final Data-->
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data</artifactId>
+                <version>${final.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--  Final Boot -->
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-autoconfigure</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-cache</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-redis</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-entity</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-json</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-logging</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-monitor</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-mybatis</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-service</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-sharding</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-web</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-security</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.boot</groupId>
+                <artifactId>final-boot-starter-doc</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

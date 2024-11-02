@@ -13,74 +13,134 @@
   ~ limitations under the License.
   -->
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
+
     <parent>
-        <groupId>org.ifinalframework.project</groupId>
-        <artifactId>final-dependencies</artifactId>
-        <version>1.6.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>org.ifinalframework</groupId>
-    <artifactId>final-framework</artifactId>
+    <artifactId>final-root</artifactId>
     <version>1.6.0-SNAPSHOT</version>
-
-    <name>final-framework</name>
-    <description>Final framework with Spring Boot</description>
-
-    <modules>
-        <module>final-context</module>
-        <module>final-core</module>
-        <module>final-dubbo</module>
-        <module>final-monitor</module>
-        <module>final-retrofit</module>
-        <module>final-aop</module>
-        <module>final-json</module>
-        <module>final-velocity</module>
-        <module>final-poi</module>
-        <module>final-doc</module>
-        <module>final-util</module>
-        <module>final-web</module>
-        <module>final-webmvc</module>
-        <module>final-webflux</module>
-        <module>final-validation</module>
-        <module>final-feign</module>
-        <module>final-security</module>
-    </modules>
+    <name>final-root</name>
+    <description>Final Dependencies</description>
+    <packaging>pom</packaging>
 
     <properties>
+        <java.version>17</java.version>
         <final.version>1.6.0-SNAPSHOT</final.version>
         <dubbo.boot.version>2.7.8</dubbo.boot.version>
         <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <java.version>17</java.version>
-        <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
         <!--Sonar-->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>ifinal-io</sonar.organization>
         <sonar.projectKey>final-projects_final-framework</sonar.projectKey>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+        <!--mybatis-->
+        <mybatis.version>3.5.14</mybatis.version>
+        <mybatis.spring.boot.version>3.0.3</mybatis.spring.boot.version>
+        <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
+        <pagehelper.version>5.3.1</pagehelper.version>
+        <druid.spring.boot.version>1.2.8</druid.spring.boot.version>
+        <!--sharding-->
+        <sharding.version>5.1.2</sharding.version>
+        <!--plugins-->
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <guava.version>30.0-jre</guava.version>
+        <!--spring doc-->
+        <springdoc.version>1.6.9</springdoc.version>
+        <!--maven plugin-->
+        <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+        <maven.jacoco.version>0.8.7</maven.jacoco.version>
+
+        <h2.version>2.1.212</h2.version>
+        <cfr.version>0.152</cfr.version>
+        <dom4j.version>2.1.3</dom4j.version>
+        <poi.version>5.1.0</poi.version>
+        <okhttp.version>4.10.0</okhttp.version>
+        <retrofit.version>2.9.0</retrofit.version>
+        <!--CI-->
+        <squareup.javapoet.version>1.13.0</squareup.javapoet.version>
+        <velocity.core.version>2.3</velocity.core.version>
+        <velocity.tool.version>3.1</velocity.tool.version>
     </properties>
 
-    <url>https://github.com/final-projects/final-framework</url>
+    <modules>
+        <module>final-annotation</module>
+        <module>final-framework</module>
+        <module>final-data</module>
+        <module>final-boot</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>ossrh</id>
+            <build>
+                <plugins>
+                    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <configuration>
+                            <attach>true</attach>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <groupId>org.apache.maven.plugins</groupId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <url>https://github.com/final-projects/final-dependencies</url>
 
     <scm>
-        <connection>scm:git:git://github.com/ifinal-io/final-framework.git</connection>
-        <developerConnection>scm:git:ssh://github.com:ifinal-io/final-framework.git</developerConnection>
-        <url>https://github.com/ifinal-io/final-framework/tree/main</url>
+        <connection>scm:git:git://github.com/final-projects/final-dependencies.git</connection>
+        <developerConnection>scm:git:ssh://github.com:final-projects/final-dependencies.git</developerConnection>
+        <url>https://github.com/final-projects/final-dependencies/tree/main</url>
     </scm>
 
     <developers>
         <developer>
-            <id>iimik</id>
             <email>iimik@qq.com</email>
-            <name>米克(iimik)</name>
-            <url>https://github.com/iimik</url>
+            <id>iimik</id>
+            <name>iimik</name>
             <roles>
                 <role>Owner</role>
-                <role>Developer</role>
             </roles>
             <timezone>+8</timezone>
         </developer>
@@ -95,135 +155,238 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
             <dependency>
-                <groupId>org.ifinalframework.annotation</groupId>
-                <artifactId>final-annotation</artifactId>
-                <version>${final.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+            <!--Velocity-->
+            <dependency>
+                <artifactId>velocity-engine-core</artifactId>
+                <groupId>org.apache.velocity</groupId>
+                <version>${velocity.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinalframework.auto</groupId>
-                <artifactId>final-auto</artifactId>
-                <version>${final.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- ==================================================================================================== -->
-            <!-- ========================================= final-framework ========================================== -->
-            <!-- ==================================================================================================== -->
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-framework</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <artifactId>velocity-tools-generic</artifactId>
+                <groupId>org.apache.velocity.tools</groupId>
+                <version>${velocity.tool.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-util</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <artifactId>javapoet</artifactId>
+                <groupId>com.squareup</groupId>
+                <version>${squareup.javapoet.version}</version>
+            </dependency>
+            <!--Mybatis-->
+            <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-core</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis.plus.version}</version>
+                <optional>true</optional>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis-spring</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-json</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <artifactId>pagehelper</artifactId>
+                <groupId>com.github.pagehelper</groupId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <!--分库分表一-->
+            <dependency>
+                <artifactId>shardingsphere-jdbc-core</artifactId>
+                <groupId>org.apache.shardingsphere</groupId>
+                <version>${sharding.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>retrofit</artifactId>
+                <groupId>com.squareup.retrofit2</groupId>
+                <version>${retrofit.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-dubbo</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
+                <artifactId>okhttp</artifactId>
+                <groupId>com.squareup.okhttp3</groupId>
+                <version>${okhttp.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-retrofit</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
+                <artifactId>converter-jackson</artifactId>
+                <groupId>com.squareup.retrofit2</groupId>
+                <version>${retrofit.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+            <dependency>
+                <artifactId>guava</artifactId>
+                <groupId>com.google.guava</groupId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
+            <dependency>
+                <groupId>org.benf</groupId>
+                <artifactId>cfr</artifactId>
+                <version>${cfr.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.spring.boot.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
-                <artifactId>final-web</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
+            <!--            Spring Doc-->
+            <!--             https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
             <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-webmvc</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui -->
             <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-webflux</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-javadoc -->
             <dependency>
-                <artifactId>final-aop</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-javadoc</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
-            <dependency>
-                <artifactId>final-context</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <artifactId>final-monitor</artifactId>
-                <groupId>org.ifinalframework</groupId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-velocity</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-poi</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-doc</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-validation</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-feign</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ifinalframework</groupId>
-                <artifactId>final-security</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
-            </dependency>
-            <!-- ==================================================================================================== -->
-            <!-- ========================================= final-framework ========================================== -->
-            <!-- ==================================================================================================== -->
         </dependencies>
     </dependencyManagement>
 
-
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <!--单元测试覆盖率-->
+                    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${maven.jacoco.version}</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.16.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
-                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
                     <configLocation>google-checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -243,13 +406,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*Entity.java</exclude>
-                        <exclude>**/*Entity.class</exclude>
-                        <exclude>**/*Exception.java</exclude>
-                    </excludes>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -267,5 +423,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

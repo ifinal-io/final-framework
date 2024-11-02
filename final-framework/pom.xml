@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright 2020-2024 the original author or authors.
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.ifinalframework</groupId>
+        <artifactId>final-root</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+    <groupId>org.ifinalframework</groupId>
+    <artifactId>final-framework</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
+
+    <name>final-framework</name>
+    <description>Final framework with Spring Boot</description>
+
+    <modules>
+        <module>final-context</module>
+        <module>final-core</module>
+        <module>final-dubbo</module>
+        <module>final-monitor</module>
+        <module>final-retrofit</module>
+        <module>final-aop</module>
+        <module>final-json</module>
+        <module>final-velocity</module>
+        <module>final-poi</module>
+        <module>final-doc</module>
+        <module>final-util</module>
+        <module>final-web</module>
+        <module>final-webmvc</module>
+        <module>final-webflux</module>
+        <module>final-validation</module>
+        <module>final-feign</module>
+        <module>final-security</module>
+    </modules>
+
+    <properties>
+        <final.version>1.6.0-SNAPSHOT</final.version>
+        <dubbo.boot.version>2.7.8</dubbo.boot.version>
+        <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
+        <java.version>17</java.version>
+        <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+        <!--Sonar-->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>ifinal-io</sonar.organization>
+        <sonar.projectKey>final-projects_final-framework</sonar.projectKey>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+    </properties>
+
+    <url>https://github.com/final-projects/final-framework</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/ifinal-io/final-framework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:ifinal-io/final-framework.git</developerConnection>
+        <url>https://github.com/ifinal-io/final-framework/tree/main</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>iimik</id>
+            <email>iimik@qq.com</email>
+            <name>米克(iimik)</name>
+            <url>https://github.com/iimik</url>
+            <roles>
+                <role>Owner</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.ifinalframework.annotation</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-util</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-core</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-json</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-dubbo</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-retrofit</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-web</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-webmvc</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-webflux</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-aop</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-context</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <artifactId>final-monitor</artifactId>
+                <groupId>org.ifinalframework</groupId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-velocity</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-poi</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-doc</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-validation</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-feign</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-security</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <!-- ==================================================================================================== -->
+            <!-- ========================================= final-framework ========================================== -->
+            <!-- ==================================================================================================== -->
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>google-checkstyle.xml</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*Entity.java</exclude>
+                        <exclude>**/*Entity.class</exclude>
+                        <exclude>**/*Exception.java</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

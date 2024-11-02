@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: "application.yml"
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath*:db/schema.sql
+    url: jdbc:h2:mem:test
+    username: sa
+    password: sa
+    druid:
+      validation-query: SELECT 1
+      max-active: 4
+      initial-size: 4
+      min-idle: 1

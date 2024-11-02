@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2020-2022 the original author or authors.
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.ifinalframework</groupId>
+        <artifactId>final-root</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.ifinalframework.data</groupId>
+    <artifactId>final-data</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
+    <name>final-data</name>
+    <description>Demo project for Spring Boot</description>
+
+
+    <modules>
+        <module>final-data-core</module>
+        <module>final-data-mybatis</module>
+        <module>final-data-sharding</module>
+        <module>final-data-redis</module>
+        <module>final-data-cache</module>
+        <module>final-data-auto</module>
+        <module>final-data-auto-processor</module>
+        <module>final-data-jdbc</module>
+        <module>final-data-auto-generator</module>
+        <module>final-data-web</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <final.version>1.6.0-SNAPSHOT</final.version>
+        <sonar.projectKey>final-projects_final-data</sonar.projectKey>
+        <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+        <sonar.organization>final-projects</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
+
+    <url>https://github.com/final-projects/final-data</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/final-projects/final-data.git</connection>
+        <developerConnection>scm:git:ssh://github.com:final-projects/final-data.git</developerConnection>
+        <url>https://github.com/final-projects/final-data/tree/main</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>iimik</id>
+            <url>https://github.com/iimik</url>
+            <email>iimik@qq.com</email>
+            <name>iimik</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.ifinalframework.annotation</groupId>
+                <artifactId>final-annotation</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.auto</groupId>
+                <artifactId>final-auto</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework</groupId>
+                <artifactId>final-framework</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.security</groupId>
+                <artifactId>final-security</artifactId>
+                <version>${final.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--final data modules-->
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-core</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-jdbc</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-mybatis</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-redis</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-cache</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-sharding</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-web</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-auto</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-auto-generator</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.data</groupId>
+                <artifactId>final-data-auto-processor</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=mysql
+    username: sa
+    password: sa
+  sql:
+    init:
+      schema-locations: classpath*:db/schema.sql
+  h2:
+    console:
+      enabled: true
+final:
+  security:
+    user-class: org.ifinalframework.data.mybatis.entity.User
+logging:
+  level:
+    org.ifinal.finalframework.mybatis: debug

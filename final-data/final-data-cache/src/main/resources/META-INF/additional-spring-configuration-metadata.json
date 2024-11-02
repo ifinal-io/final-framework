@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "final.cache",
+      "type": "org.ifinalframework.data.cache.CacheAnnotationPointAdvisor"
+    }
+  ],
+  "properties": [
+    {
+      "name": "final.cache.enable",
+      "type": "java.lang.Boolean",
+      "description": "启用 final cache.",
+      "sourceType": "org.ifinalframework.data.cache.CacheAnnotationPointAdvisor",
+      "defaultValue": "true"
+    }
+  ]
+}

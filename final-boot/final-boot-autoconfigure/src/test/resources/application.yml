@@ -1,0 +1,4 @@
+spring:
+  datasource:
+    druid:
+      validation-query: SELECT 1

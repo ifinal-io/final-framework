@@ -1,0 +1,65 @@
+{
+  "groups": [
+    {
+      "name": "logging",
+      "type": "org.ifinalframework.boot.logging.LoggingExtApplicationListener"
+    },
+    {
+      "name": "spring.application.import-resource",
+      "type": "org.ifinalframework.context.beans.factory.ImportResourceBeanDefinitionRegistryPostProcessor"
+    }
+  ],
+  "properties": [
+    {
+      "name": "logging.file.path",
+      "type": "java.lang.String",
+      "description": "file path.",
+      "sourceType": "org.ifinalframework.boot.logging.LoggingExtApplicationListener",
+      "defaultValue": "logs"
+    },
+    {
+      "name": "logging.pattern.rolling-file-suffix",
+      "type": "java.lang.String",
+      "description": "rolling file suffix.",
+      "sourceType": "org.ifinalframework.boot.logging.LoggingExtApplicationListener",
+      "defaultValue": ".%d{yyyy-MM-dd}.%i.gz"
+    },
+    {
+      "name": "logging.logger",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "logger file name.",
+      "sourceType": "org.ifinalframework.boot.logging.LoggingExtApplicationListener"
+    },
+    {
+      "name": "spring.application.import-resource.locations",
+      "type": "java.lang.String[]",
+      "sourceType": "org.ifinalframework.context.beans.factory.ImportResourceBeanDefinitionRegistryPostProcessor",
+      "defaultValue": "classpath:spring-config-*.xml,classpath*:config/spring-config-*.xml,classpath*:spring/spring-config-*.xml"
+    },
+    {
+      "name": "spring.application.import-resource.use-default",
+      "type": "java.lang.Boolean",
+      "sourceType": "org.ifinalframework.context.beans.factory.ImportResourceBeanDefinitionRegistryPostProcessor",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.cloud.openfeign.gateway.url",
+      "type": "java.lang.String",
+      "description": "Spring Cloud openfeign 微服务网关地址.",
+      "sourceType": "org.ifinalframework.feign.bean.factory.FeignClientBeanDefinitionPostProcessor"
+    }
+  ],
+  "hints": [
+    {
+      "name": "final.security.user-class",
+      "providers": [
+        {
+          "name": "class-reference",
+          "parameters": {
+            "target": "org.ifinalframework.core.IUser"
+          }
+        }
+      ]
+    }
+  ]
+}
