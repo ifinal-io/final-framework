@@ -31,19 +31,19 @@
         <module>final-boot</module>
         <module>final-boot-autoconfigure</module>
         <!--Starters-->
-        <module>final-boot-starters/final-boot-starter</module>
-        <module>final-boot-starters/final-boot-starter-entity</module>
-        <module>final-boot-starters/final-boot-starter-mybatis</module>
-        <module>final-boot-starters/final-boot-starter-service</module>
-        <module>final-boot-starters/final-boot-starter-redis</module>
-        <module>final-boot-starters/final-boot-starter-cache</module>
-        <module>final-boot-starters/final-boot-starter-sharding</module>
-        <module>final-boot-starters/final-boot-starter-json</module>
-        <module>final-boot-starters/final-boot-starter-logging</module>
-        <module>final-boot-starters/final-boot-starter-monitor</module>
-        <module>final-boot-starters/final-boot-starter-web</module>
-        <module>final-boot-starters/final-boot-starter-security</module>
-        <module>final-boot-starters/final-boot-starter-doc</module>
+        <module>final-boot-starter</module>
+        <module>final-boot-starter-entity</module>
+        <module>final-boot-starter-mybatis</module>
+        <module>final-boot-starter-service</module>
+        <module>final-boot-starter-redis</module>
+        <module>final-boot-starter-cache</module>
+        <module>final-boot-starter-sharding</module>
+        <module>final-boot-starter-json</module>
+        <module>final-boot-starter-logging</module>
+        <module>final-boot-starter-monitor</module>
+        <module>final-boot-starter-web</module>
+        <module>final-boot-starter-security</module>
+        <module>final-boot-starter-doc</module>
     </modules>
 
     <properties>
